@@ -2,7 +2,7 @@
 
 ## A Cordpro file parser and editor in SwiftUI 2.0.
 
-There are many "chorpo" parsers in this world, however, none are nativwe to the Apple world.
+There are many "chorpo" parsers in this world, however, none are native to the Apple world.
 
 This is it. For Mac and iOS. Native.
 
