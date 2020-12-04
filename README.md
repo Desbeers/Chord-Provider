@@ -6,4 +6,4 @@ There are may "chorpo" parsers in this world, however, none are nativwe to the A
 
 This is it. For Mac and iOS.
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/blob/main/Shared/Assets.xcassets/AppIcon.appiconset/Icon-556.png)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/blob/main/Shared/Assets.xcassets/AppIcon.appiconset/Icon-256.png)
