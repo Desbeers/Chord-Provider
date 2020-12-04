@@ -1,0 +1,105 @@
+:root {
+    supported-color-schemes: light dark;
+}
+body {
+font: -apple-system-body;
+font-size: 1em;
+margin: 0
+padding: 0;
+}
+
+#container {
+    text-align: center;
+    margin: 0 auto;
+}
+
+h1.title {
+ font: -apple-system-headline;
+}
+
+h2.artist {
+ font: -apple-system-subheadline
+ }
+
+#header {
+    background-color: var(--highlightColor);
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 1em;
+      row-gap: 1em;
+  }
+    
+.section {
+
+    text-align: right;
+    padding-right: 1em;
+    padding-left: 2em;
+    justify-self: end;
+    font: -apple-system-headline;
+}
+.section.chorus {
+    border-right: 1px solid var(--accentColor);
+    background-color: var(--highlightColor);
+    padding-top: 1em;
+}
+.section.empty {
+    border-top: 1px solid var(--accentColor);
+    border-right: none;
+    grid-column-end: span 2;
+    text-align: center;
+    padding: 0.5em;
+    justify-self: center;
+    width: 20em;
+    
+}
+.lines {
+    text-align: left;
+    padding-bottom: 1em;
+    justify-self: start;
+
+
+}
+.lines .plain {
+    font-style: italic;
+}
+.chord {
+    text-align: left;
+    color: var(--accentColor);
+
+}
+.line {
+    display: flex;
+}
+
+.tablature {
+  font-family: monospace;
+  overflow: visible;
+  white-space: nowrap;
+  text-align: left;
+}
+.measures {
+
+  display: flex;
+
+  max-width: 25em; }
+.measure {
+  width: 5em;
+  display: flex;
+  border-left: 2px solid;
+
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin-left: -2px;
+  margin-bottom: 1.4em; }
+  .measure .chord {
+      padding-right: 0.2em
+  }
+
+.comment {
+    font: -apple-system-subheadline
+}

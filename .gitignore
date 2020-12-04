@@ -1,0 +1,13 @@
+## My stuff
+*.DS_Store
+.Ulysses-Group.plist
+Icon?
+*.psd
+*.pxm
+export/
+archive/
+08-calibre/
+
+## Xcode
+# User settings
+xcuserdata/
