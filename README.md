@@ -4,7 +4,7 @@
 
 There are many "chordpo" parsers in this world, however, none are *really* native in the Apple world. I mean, the macOS world, it is afterthought... Not for me.
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/blob/main/Shared/Assets.xcassets/AppIcon.appiconset/IconiOS-76@2x.png)
+![Chord Provider](SCREENSHOT.png)
 
 This is for macOS and iOS. Written in Swift 2.0, so Big Sur or iOS 14.
 
