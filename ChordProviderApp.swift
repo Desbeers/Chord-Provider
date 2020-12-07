@@ -10,11 +10,8 @@ import SwiftUI
 @main
 struct ChordProviderApp: App {
     var body: some Scene {
-        DocumentGroup(newDocument: ChordProviderDocument()) { file in
+        DocumentGroup(newDocument: ChordProDocument()) { file in
             MainView(document: file.$document)
-        
         }
-        
-
     }
 }

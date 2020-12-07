@@ -11,6 +11,9 @@ import Foundation
 public struct ChordPro {
     static let sectionRegex = try! NSRegularExpression(pattern: "#\\s*([^$]*)")
     static let attributeRegex = try! NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
+    
+    static let defineRegex = try! NSRegularExpression(pattern: "([a-z0-9#b/]+)(.*)", options: .caseInsensitive)
+    
     static let attributeEmptyRegex = try! NSRegularExpression(pattern: "\\{(\\w*)\\}")
     static let customAttributeRegex = try! NSRegularExpression(pattern: "!(\\w*)=([^%]*)")
     static let chordsAndLyricsRegex = try! NSRegularExpression(pattern: "(\\[[\\w#b/]+])?([^\\[]*)", options: .caseInsensitive)
@@ -21,7 +24,6 @@ public struct ChordPro {
 
     public static func parse(_ lines: String) -> Song {
         var song = Song()
-        //var currentSection: Section?
         
         var currentSection = Section()
         song.sections.append(currentSection)
@@ -79,6 +81,8 @@ public struct ChordPro {
                     processSection(text: value!, type: "chorus", song: &song, currentSection: &currentSection)
                     currentSection = Section()
                     song.sections.append(currentSection)
+                //case "define":
+                //    processDefine(text: value!, song: &song)
                 case "key":
                     song.key = value!
                 case "tempo":
@@ -131,12 +135,63 @@ public struct ChordPro {
         }
         //return section;
     }
+
+    fileprivate static func processDefine(text: String, song: inout Song) {
+        var key = ""
+        var value = ""
+        if let match = defineRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
+            if let keyRange = Range(match.range(at: 1), in: text) {
+                key = text[keyRange].trimmingCharacters(in: .newlines)
+            }
+
+            if let valueRange = Range(match.range(at: 2), in: text) {
+                value = text[valueRange].trimmingCharacters(in: .newlines)
+            }
+        }
+        song.chords.updateValue(value, forKey: key)
+    }
     
     fileprivate static func processComments(text: String, song: inout Song, currentSection: inout Section) {
         let line = Line()
         line.comment = text.trimmingCharacters(in: .newlines)
         
         currentSection.lines.append(line)
+    }
+
+    fileprivate static func processChord(chord: String, song: Song) {
+        
+        let chordRegex = try! NSRegularExpression(pattern: "([CDEFGAB/]+)(.*)")
+
+        var key = ""
+        var value = ""
+        if let match = chordRegex.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
+            if let keyRange = Range(match.range(at: 1), in: chord) {
+                key = chord[keyRange].trimmingCharacters(in: .newlines)
+            }
+
+            if let valueRange = Range(match.range(at: 2), in: chord) {
+                switch chord[valueRange] {
+                    case "m":
+                        value = "minor"
+                    case "#":
+                        value = "sharp"
+                    case "b":
+                        value = "flat"
+                    case "sus2":
+                        value = "sus2"
+                    case "sus4":
+                        value = "sus4"
+                    case "/E":
+                        value = "/E"
+                    default:
+                        value = "mayor"
+                }
+                //value = chord[valueRange].trimmingCharacters(in: .newlines)
+            }
+        }
+        
+        
+        song.chords.updateValue(value, forKey: key)
     }
     
     fileprivate static func processLyricsAndChords(text: String, song: inout Song, currentSection: inout Section) {
@@ -198,12 +253,20 @@ public struct ChordPro {
                             .replacingOccurrences(of: "]", with: "")
                     if ((currentSection.type) == nil) {
                         currentSection.type = "verse"
-                        currentSection.name = "Verse"
                     }
                     /// Use the first chord as key for the song if not set.
                     if ((song.key) == nil) {
                         song.key = part.chord
                     }
+                    /// Save in the chord list
+                    
+                    let chordExists = song.chords[part.chord!] != nil
+                     
+                    if !chordExists{
+                        //processChord(chord: part.chord!, song: song)
+                        song.chords.updateValue("", forKey: part.chord!)
+                    }
+                    
                 } else {
                     part.chord = ""
                 }

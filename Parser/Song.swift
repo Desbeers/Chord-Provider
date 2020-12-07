@@ -20,4 +20,5 @@ public class Song: Identifiable {
     public var tuning: String?
     public var custom = [String: String]()
     public var sections = [Section]()
+    public var chords = [String: String]()
 }

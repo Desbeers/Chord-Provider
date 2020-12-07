@@ -55,35 +55,3 @@ extension NSColor {
         return String(format: "#%06x", rgb)
     }
 }
-
-extension NSColor {
-    var hexString3: String{
-        #if os(iOS)
-        let rgbColor = self // lolz no color conversion on iOS, but on iOS it'll respond to getRed(...) anyhow
-        #elseif os(macOS)
-        let rgbColor = usingColorSpace(.extendedSRGB) ?? NSColor(red: 1, green: 1, blue: 1, alpha: 1) // will return 'self' if already RGB
-        #endif
-
-        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
-        rgbColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
-        print(green)
-        return String(format:"%02X", Int(red)) + String(format:"%02X", Int(green)) + String(format:"%02X", Int(blue))
-    }
-}
-
-extension NSColor {
-
-    var hexString2: String {
-        guard let rgbColor = usingColorSpace(.deviceRGB) else {
-            return "FFFFFF"
-        }
-        let red = Int(round(rgbColor.redComponent * 0xFF))
-        let green = Int(round(rgbColor.greenComponent * 0xFF))
-        let blue = Int(round(rgbColor.blueComponent * 0xFF))
-        let hexString = NSString(format: "#%02X%02X%02X", red, green, blue)
-        return hexString as String
-    }
-
-}
-

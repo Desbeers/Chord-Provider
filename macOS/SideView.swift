@@ -41,27 +41,13 @@ struct SideView: View {
                     }
                 }
                 //if song.tempo != nil {
-                    //Text("Metronome").font(.headline)
-                    //Button(action: {
-                    //    playMetronome.toggle()
-                    //} ) {
-                    //    Text(playMetronome ? "Start metronome" : "Stop metronome")
-                    //}
-                    
+                    Text("Metronome").font(.headline)
+
+                    MetronomeView().frame(minHeight: 200)
                 //}
             }
         }
-        //.frame(minWidth: 240)
         .listStyle(SidebarListStyle())
-        .toolbar {
-            ToolbarItem() {
-                Button(action: {
-                    NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-                } ) {
-                    Image(systemName: "sidebar.left").foregroundColor(.accentColor)
-                }
-            }
-        }
     }
 }
 

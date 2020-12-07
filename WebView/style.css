@@ -4,7 +4,7 @@
 body {
 font: -apple-system-body;
 font-size: 1em;
-margin: 0
+margin: 0;
 padding: 0;
 }
 
@@ -25,6 +25,16 @@ h2.artist {
     background-color: var(--highlightColor);
     padding: 0.5em;
     margin-bottom: 1em;
+}
+#chords {
+    float: right;
+    font: -apple-system-headline;
+    margin-left: 1em;
+
+}
+#chords div {
+    font: -apple-system-subheadline;
+    padding: 0.5em;
 }
 
 #grid {
@@ -70,6 +80,7 @@ h2.artist {
 .chord {
     text-align: left;
     color: var(--accentColor);
+    padding-right: 0.5em;
 
 }
 .line {
