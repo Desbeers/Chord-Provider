@@ -42,8 +42,12 @@ func GetHighlightColor() -> String {
     return NSColor.controlAccentColor.hexString + "33"
 }
 
-func AAGetHighlightColor() -> String {
-    return NSColor.selectedControlColor.hexString
+func GetTextColor() -> String {
+    return NSColor.labelColor.hexString
+}
+
+func GetSystemBackground() -> String {
+    return NSColor.textBackgroundColor.hexString
 }
 
 extension NSColor {

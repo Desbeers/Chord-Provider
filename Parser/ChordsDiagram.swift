@@ -8,15 +8,21 @@
 import Foundation
 
 
-func processChord(chord: String) -> [ChordPosition] {
+func processChord(chord: String, baseFret: String) -> [ChordPosition] {
     
-    let chordRegex = try! NSRegularExpression(pattern: "([CDEFGAB#]+)(.*)")
-
+    let base:Int = Int(baseFret.prefix(1)) ?? 1
+    
+    let chordRegex = try! NSRegularExpression(pattern: "([CDEFGABb#]+)(.*)")
+    
     var key = ""
     var suffix = ""
     if let match = chordRegex.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
         if let keyRange = Range(match.range(at: 1), in: chord) {
             key = chord[keyRange].trimmingCharacters(in: .newlines)
+            /// Dirty, some chords in the database are only in the flat version....
+            if key == "G#" {
+                key = "Ab"
+            }
         }
 
         if let valueRange = Range(match.range(at: 2), in: chord) {
@@ -32,7 +38,7 @@ func processChord(chord: String) -> [ChordPosition] {
             }
         }
     }
-    return GetChord(key: key, suffix: suffix)
+    return GetChord(key: key, suffix: suffix, base: base)
 }
 
 public struct ChordPosition: Codable {
@@ -63,21 +69,23 @@ public struct GuitarChords {
     }
 }
 
-func GetChord(key: String, suffix: String) -> [ChordPosition] {
+func GetChord(key: String, suffix: String, base: Int) -> [ChordPosition] {
 
-    let match = GuitarChords.all.filter { $0.key == key }.filter { $0.suffix == suffix }
+    let match = GuitarChords.all.filter { $0.key == key }.filter { $0.suffix == suffix }.filter { $0.baseFret == base }
         if !match.isEmpty {
             return match
         }
         else {
+            print(key + " not found")
             return[]
         }
 }
 
 func cleanChord(_ chord: ChordPosition) -> (frets: String, fingers: String) {
+    
     var frets = ""
     for item in chord.frets {
-        frets += (item == -1 ? "x" : String(item))
+        frets += (item == -1 ? "x" : String(item + chord.baseFret - 1))
     }
     var fingers = ""
     for item in chord.fingers {

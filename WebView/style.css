@@ -18,7 +18,7 @@ h1.title {
 }
 
 h2.artist {
- font: -apple-system-subheadline
+ font: -apple-system-subheadline;
  }
 
 #header {
@@ -26,6 +26,20 @@ h2.artist {
     padding: 0.5em;
     margin-bottom: 1em;
 }
+
+#songinfo {
+    margin: 0.2em;
+    padding: 0em;
+    text-align: left;
+    position: absolute;
+}
+
+#songinfo h3 {
+    font: -apple-system-subheadline;
+    margin: 0;
+    padding: 0;
+}
+
 #chords {
     float: right;
     font: -apple-system-headline;
@@ -112,5 +126,17 @@ h2.artist {
   }
 
 .comment {
-    font: -apple-system-subheadline
+    font: -apple-system-subheadline;
+}
+
+.warning {
+    text-align: left
+    border: 1px solid var(--accentColor);
+    background-color: var(--highlightColor);
+    padding: 1em;
+    margin-right: 3em;
+}
+.warningkey {
+    color: var(--accentColor);
+    font: -apple-system-headline;
 }

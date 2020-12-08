@@ -78,7 +78,7 @@ struct BeatView: View {
      var body: some View {
         HStack() {
             ForEach(0...(totalBeats - 1), id: \.self) { beat in
-                Circle().foregroundColor(beat == self.currentBeat ? .pink : .green)
+                Circle().foregroundColor(beat == self.currentBeat ? .accentColor : .secondary)
              }
          }
      }

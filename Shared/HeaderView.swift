@@ -18,7 +18,7 @@ struct HeaderView: View {
                 Text(song.title!).font(.headline)
             }
             if song.artist != nil {
-                Text(" |   " + song.artist!).font(.headline)
+                Text(song.artist!).font(.subheadline)
             }
 
                 if song.key != nil {
@@ -30,7 +30,7 @@ struct HeaderView: View {
                 if song.tempo != nil {
                     Label(song.tempo!, systemImage: "metronome").padding(.leading)
                 }
-            }.padding(.top)
+            }.padding()
 
     }
 }

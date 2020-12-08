@@ -15,15 +15,16 @@ struct MainView: View {
     var body: some View {
         let song = ChordPro.parse(document.text)
         #if os(iOS)
-        HStack (alignment: .top, spacing: 0) {
-            VStack {
-                if showMetronome {
-                    MetronomeView().frame(height: 200)
-                }
-                SongView(song: song)
+        VStack() {
+            if showMetronome {
+                MetronomeView().frame(height: 100).background(Color.blue.opacity(0.3))
             }
-            if showEditor {
-                EditorView(text: $document.text)
+            HeaderView(song: song).background(Color.blue.opacity(0.3))
+            HStack {
+                SongView(song: song)
+                if showEditor {
+                    EditorView(text: $document.text)
+                }
             }
         }
         #endif
@@ -33,8 +34,8 @@ struct MainView: View {
             HSplitView() {
                 HStack(alignment: .top,spacing: 0) {
                     VStack() {
+                        HeaderView(song: song).background(Color.accentColor.opacity(0.3)).padding(.bottom)
                         SongView(song: song).frame(minWidth: 400)
-                        Spacer()
                     }
                 }.frame(minWidth: 400)
                 if showEditor {

@@ -355,7 +355,7 @@ var ChordJS = (function(){
                     var finger = _fingers[i];
                     if (finger != NO_FINGER) {
                         var charSize = _graphics.MeasureString(finger.toString(), font);
-                        _graphics.DrawString(finger.toString(), font, _backgroundBrush, xpos - (.4 * charSize.Width) + _dotWidth/2, ypos - (0.65 * charSize.Height) + _dotWidth/2);
+                        _graphics.DrawString(finger.toString(), font, highlightColor, xpos - (.4 * charSize.Width) + _dotWidth/2, ypos - (0.74 * charSize.Height) + _dotWidth/2);
                     }
                 } else if (absolutePos == OPEN) {
                     var pen = Pen(chordColor, _lineWidth);
@@ -368,7 +368,7 @@ var ChordJS = (function(){
                     var finger = _fingers[i];
                     if (finger != NO_FINGER) {
                         var charSize = _graphics.MeasureString(finger.toString(), font);
-                        _graphics.DrawString(finger.toString(), font, _backgroundBrush, xpos - (0.5 * charSize.Width) + _dotWidth/2, ypos - (0.5 * charSize.Height) + _dotWidth/2);
+                        _graphics.DrawString(finger.toString(), font, highlightColor, xpos - (0.5 * charSize.Width) + _dotWidth/2, ypos - (0.5 * charSize.Height) + _dotWidth/2);
                     }
                 } else if (absolutePos == MUTED) {
                     var pen = Pen(chordColor, _lineWidth * 1.5);
@@ -397,7 +397,7 @@ var ChordJS = (function(){
                 var finger = _fingers[f];
                 if (finger != NO_FINGER) {
                     var charSize = _graphics.MeasureString(finger.toString(), font);
-                    _graphics.DrawString(finger.toString(), font, highlightColor, xpos - (0.5 * charSize.Width), ypos - (0.5 * charSize.Height) + _dotWidth/2);
+                    _graphics.DrawString(finger.toString(), font, accentColor, xpos - (0.5 * charSize.Width), ypos - (0.5 * charSize.Height) + _dotWidth/2);
                 }
                 xpos += (_fretWidth + _lineWidth);
             }
@@ -436,7 +436,7 @@ var ChordJS = (function(){
             if (stringSize.Width < _boxWidth) {
                 xTextStart = _xstart + ((_boxWidth - stringSize.Width) / 2);
             }
-            _graphics.DrawString(name, nameFont, accentColor, xTextStart, 0.2 * _superScriptFontSize);
+            _graphics.DrawString(name, nameFont, accentColor, xTextStart, 0.1 * _superScriptFontSize);
             if (supers != "") {
                 _graphics.DrawString(supers, superFont, chordColor, xTextStart + 0.8 * stringSize.Width, 0);
             }

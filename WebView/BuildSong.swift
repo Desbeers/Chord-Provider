@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-func BuildSong(song: Song) -> String {
+func BuildSong(song: Song, chords: Bool) -> String {
+    
     var html = """
                <!DOCTYPE html>
                <html lang="en">
@@ -46,19 +47,12 @@ func BuildSong(song: Song) -> String {
             </head>
             <body>
             <div id="container">
-            <div id="header">
             """
-    /// Title of the song
-    if song.title != nil {
-        html += "<h1 class=\"title\">" + song.title! + "</h1>"
-    }
-    /// Song artist
-    if song.artist != nil {
-        html += "<h2 class=\"artist\">" + song.artist! + "</h2>"
-    }
-    html += "</div>"
+
     /// List of chords
-    html += ChordsList(song)
+    if chords {
+        html += ChordsList(song)
+    }
     html += "<div id=\"grid\">"
     song.sections.forEach { section in
         html += SectionView(section)
@@ -144,18 +138,34 @@ func PlainView(_ line: Line) -> String {
 }
 
 func ChordsList(_ song: Song) -> String {
+
+    let sortedChords = song.chords.sorted(by: { $0.0 < $1.0 })
     
     var html = "<div id=\"chords\">"
-    song.chords.forEach { (chord) in
-        let match = processChord(chord: chord.key)
+    
+    if !song.chords.isEmpty {
+    
+    sortedChords.forEach { (chord) in
+        let match = processChord(chord: chord.key, baseFret: chord.value)
         if !match.isEmpty {
             let result = cleanChord(match.first!)
-            print(result)
-            /// Colors: AccentColor
             html += "<div>"
-            html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetHighlightColor())\" chordColor=\"\(GetAccentColor())\" name=\"\(chord.key)\" positions=\"\(result.frets)\" fingers=\"\(result.fingers)\" size=\"4\" ></chord>"
+            html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(result.frets)\" fingers=\"\(result.fingers)\" size=\"3\" ></chord>"
             html += "</div>"
         }
+        else {
+            html += "<div class=\"warning\"><div class=\"warningkey\">\(chord.key)</div>"
+            if !chord.value.isEmpty {
+                html += "base fret \(chord.value.prefix(1))</br>"
+            }
+            html += "is unknown."
+            html += "</div>"
+        }
+    }
+    }
+    else {
+        html += "No chords"
+        print("No chords")
     }
     html += "</div>"
     

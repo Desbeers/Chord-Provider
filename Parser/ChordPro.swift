@@ -63,6 +63,8 @@ public struct ChordPro {
                     song.artist = value!
                 case "subtitle":
                     song.artist = value!
+                case "artist":
+                    song.artist = value!
                 case "capo":
                     song.capo = value!
                 case "c":
@@ -81,8 +83,8 @@ public struct ChordPro {
                     processSection(text: value!, type: "chorus", song: &song, currentSection: &currentSection)
                     currentSection = Section()
                     song.sections.append(currentSection)
-                //case "define":
-                //    processDefine(text: value!, song: &song)
+                case "define":
+                    processDefine(text: value!, song: &song)
                 case "key":
                     song.key = value!
                 case "tempo":
@@ -106,9 +108,9 @@ public struct ChordPro {
                 case "soc":
                     processSection(text: "Chorus", type: "chorus", song: &song, currentSection: &currentSection)
                 case "sot":
-                    processSection(text: "Tab", type: "tab", song: &song, currentSection: &currentSection)
+                    processSection(text: "", type: "tab", song: &song, currentSection: &currentSection)
                 case "sog":
-                    processSection(text: "Grid", type: "grid", song: &song, currentSection: &currentSection)
+                    processSection(text: "", type: "grid", song: &song, currentSection: &currentSection)
                 case "sov":
                     processSection(text: "Verse", type: "verse", song: &song, currentSection: &currentSection)
                 case "chorus":
@@ -145,7 +147,7 @@ public struct ChordPro {
             }
 
             if let valueRange = Range(match.range(at: 2), in: text) {
-                value = text[valueRange].trimmingCharacters(in: .newlines)
+                value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
         song.chords.updateValue(value, forKey: key)
@@ -206,7 +208,7 @@ public struct ChordPro {
         let line = Line()
         
         
-        if text.starts(with: "|-") {
+        if text.starts(with: "|-") || currentSection.type == "tab" {
             if ((currentSection.type) == nil) {
                 currentSection.type = "tab"
             }

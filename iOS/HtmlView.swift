@@ -37,6 +37,10 @@ func GetHighlightColor() -> String {
     return UIColor.systemBlue.hexString + "33"
 }
 
+func GetTextColor() -> String {
+    return UIColor.label.hexString
+}
+
 func GetSystemBackground() -> String {
     return UIColor.systemBackground.hexString
 }
