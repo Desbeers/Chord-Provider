@@ -18,11 +18,13 @@ It makes an iCloud folder; that's where your songs are stored.
 
 ### Thanks
 
-Stole code (and ideadies) from:
+Stole code (and ideas) from:
 
 [songpro-swift](https://github.com/SongProOrg/songpro-swift)
 
 [ChordsJS](https://github.com/AlexSchwabauer/ChordJS)
+
+[Metronome](https://github.com/Nirma/Metronome)
 
 ### Bugs
 	- The WebView doesn't align on first view in macOS
