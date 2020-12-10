@@ -1,10 +1,3 @@
-//
-//  HeaderView.swift
-//  Chord Provider
-//
-//  Created by Nick Berendsen on 02/12/2020.
-//
-
 import SwiftUI
 
 struct HeaderView: View {

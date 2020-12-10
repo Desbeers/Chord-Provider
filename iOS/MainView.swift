@@ -1,27 +1,14 @@
-//
-//  ContentView.swift
-//  Shared
-//
-//  Created by Nick Berendsen on 28/11/2020.
-//
-
 import SwiftUI
 
 struct MainView: View {
     @Binding var document: ChordProDocument
     @Binding var diagrams: [Diagram]
     @State var song = Song()
-    @StateObject var metro = Metronome()
     @AppStorage("showEditor") var showEditor: Bool = false
-    @AppStorage("showMetronome") var showMetronome: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
 
     var body: some View {
-
         VStack() {
-            if showMetronome {
-                MetronomeView().frame(height: 100).background(Color.blue.opacity(0.3))
-            }
             HeaderView(song: $song).background(Color.blue.opacity(0.3))
             HStack {
                 SongView(song: $song)
@@ -58,17 +45,6 @@ struct MainView: View {
                 } ) {
                     Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
 
-                }
-            }
-            ToolbarItem() {
-                Button(action: {
-                    withAnimation {
-                        showMetronome.toggle()
-                        self.metro.resetTimer()
-                        metro.beep = false
-                }
-                } ) {
-                    Image(systemName: showMetronome ? "metronome.fill" : "metronome")
                 }
             }
         }

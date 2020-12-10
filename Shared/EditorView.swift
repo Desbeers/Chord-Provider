@@ -1,10 +1,3 @@
-//
-//  EditorView.swift
-//  Chord Provider
-//
-//  Created by Nick Berendsen on 03/12/2020.
-//
-
 import SwiftUI
 
 struct EditorView: View {

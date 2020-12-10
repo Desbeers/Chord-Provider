@@ -1,24 +1,24 @@
 import SwiftUI
 
 func GetAccentColor() -> String {
-    return NSColor.controlAccentColor.hexString
+    return UIColor.systemBlue.hexString
 }
 
 func GetHighlightColor() -> String {
-    return NSColor.controlAccentColor.hexString + "33"
+    return UIColor.systemBlue.hexString + "33"
 }
 
 func GetTextColor() -> String {
-    return NSColor.labelColor.hexString
+    return UIColor.label.hexString
 }
 
 func GetSystemBackground() -> String {
-    return NSColor.textBackgroundColor.hexString
+    return UIColor.systemBackground.hexString
 }
 
-extension NSColor {
+extension UIColor {
     var hexString: String{
-        let rgbColor = usingColorSpace(.extendedSRGB) ?? NSColor(red: 1, green: 1, blue: 1, alpha: 1)
+        let rgbColor = self
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         rgbColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         let rgb:Int = (Int)(red*255)<<16 | (Int)(green*255)<<8 | (Int)(blue*255)<<0

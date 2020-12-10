@@ -1,10 +1,3 @@
-//
-//  BuildHtml.swift
-//  Chord Provider
-//
-//  Created by Nick Berendsen on 03/12/2020.
-//
-
 import SwiftUI
 
 func BuildSong(song: Song, chords: Bool) -> String {
@@ -21,7 +14,7 @@ func BuildSong(song: Song, chords: Bool) -> String {
                :root {
                  supported-color-schemes: light dark;
                """
-    /// Add system cpoulors to the css
+    /// Add system colors to the css
     html += "--accentColor: " + GetAccentColor() + ";"
     html += "--highlightColor: " + GetHighlightColor() + ";"
     html += "}"
@@ -148,15 +141,16 @@ func ChordsList(_ song: Song) -> String {
     if !song.chords.isEmpty {
     
     sortedChords.forEach { (chord) in
+        /// Find the chord diagram
         let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
-        //let match = processChord(chord: chord.key, baseFret: chord.value)
         if !match.frets.isEmpty {
-            //let result = cleanChord(match.first!)
+            /// We have a diagram
             html += "<div>"
             html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
             html += "</div>"
         }
         else {
+            /// No diagram found
             html += "<div class=\"warning\"><div class=\"warningkey\">\(chord.key)</div>"
             if !chord.value.isEmpty {
                 html += "base fret \(chord.value.prefix(1))</br>"

@@ -1,10 +1,3 @@
-//
-//  Make_chordsDocument.swift
-//  Shared
-//
-//  Created by Nick Berendsen on 28/11/2020.
-//
-
 import SwiftUI
 import UniformTypeIdentifiers
 

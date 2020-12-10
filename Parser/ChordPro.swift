@@ -1,11 +1,3 @@
-//
-//  SongPro.swift
-//  SongPro Editor
-//
-//  Created by Brian Kelly on 6/29/20.
-//  Copyright © 2020 SongPro. All rights reserved.
-//
-
 import Foundation
 
 public class ChordPro {
@@ -171,42 +163,6 @@ public class ChordPro {
         
         currentSection.lines.append(line)
     }
-
-    fileprivate static func processChord(chord: String, song: Song) {
-        
-        let chordRegex = try! NSRegularExpression(pattern: "([CDEFGAB/]+)(.*)")
-
-        var key = ""
-        var value = ""
-        if let match = chordRegex.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
-            if let keyRange = Range(match.range(at: 1), in: chord) {
-                key = chord[keyRange].trimmingCharacters(in: .newlines)
-            }
-
-            if let valueRange = Range(match.range(at: 2), in: chord) {
-                switch chord[valueRange] {
-                    case "m":
-                        value = "minor"
-                    case "#":
-                        value = "sharp"
-                    case "b":
-                        value = "flat"
-                    case "sus2":
-                        value = "sus2"
-                    case "sus4":
-                        value = "sus4"
-                    case "/E":
-                        value = "/E"
-                    default:
-                        value = "mayor"
-                }
-                //value = chord[valueRange].trimmingCharacters(in: .newlines)
-            }
-        }
-        
-        
-        song.chords.updateValue(value, forKey: key)
-    }
     
     fileprivate static func processLyricsAndChords(text: String, song: inout Song, currentSection: inout Section) {
         if text.isEmpty {
@@ -277,7 +233,6 @@ public class ChordPro {
                     let chordExists = song.chords[part.chord!] != nil
                      
                     if !chordExists{
-                        //processChord(chord: part.chord!, song: song)
                         song.chords.updateValue("", forKey: part.chord!)
                     }
                     

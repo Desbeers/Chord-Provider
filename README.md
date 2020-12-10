@@ -24,8 +24,6 @@ Stole code (and ideas) from:
 
 [ChordsJS](https://github.com/AlexSchwabauer/ChordJS)
 
-[Metronome](https://github.com/Nirma/Metronome)
-
 ### Bugs
 	- The WebView doesn't align on first view in macOS
 	- Many more :-)
