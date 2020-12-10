@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct HeaderView: View {
-    //var name: String
-    var song = Song()
+    @StateObject var song: Song
     
     var body: some View {
   

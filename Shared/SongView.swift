@@ -8,17 +8,15 @@
 import SwiftUI
 
 struct SongView: View {
-    var song = Song()
-    
+    @StateObject var song: Song
     @StateObject var metro = Metronome()
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showMetronome") var showMetronome: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
     
     var body: some View {
-        let html = BuildSong(song: song, chords: showChords)
         VStack {
-            HtmlView(html: html)
+            HtmlView(html: (song.html ?? ""))
         }
         .toolbar {
             ToolbarItem() {
@@ -29,7 +27,6 @@ struct SongView: View {
                 }
                 } ) {
                     HStack {
-                        //Image(systemName: "pencil").foregroundColor(.accentColor)
                         Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle").foregroundColor(.accentColor)
                         Text(showEditor ? "Hide editor" : "Edit song")
                         
@@ -57,6 +54,8 @@ struct SongView: View {
                 Button(action: {
                     withAnimation {
                         showChords.toggle()
+                        /// Rebuild the HTML view with or without chord diagrams
+                        song.html = BuildSong(song: song, chords: showChords)
                 }
                 } ) {
                     HStack {

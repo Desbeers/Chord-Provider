@@ -9,19 +9,20 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var document: ChordProDocument
+    @State var chordpro: Song
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showMetronome") var showMetronome: Bool = false
 
     var body: some View {
-        let song = ChordPro.parse(document.text)
+        //var song = ChordPro.parse(document)
         #if os(iOS)
         VStack() {
             if showMetronome {
                 MetronomeView().frame(height: 100).background(Color.blue.opacity(0.3))
             }
-            HeaderView(song: song).background(Color.blue.opacity(0.3))
+            HeaderView(song: chordpro).background(Color.blue.opacity(0.3))
             HStack {
-                SongView(song: song)
+                SongView(song: chordpro)
                 if showEditor {
                     EditorView(text: $document.text)
                 }
@@ -30,12 +31,12 @@ struct MainView: View {
         #endif
         #if os(macOS)
         NavigationView {
-            SideView(song: song).frame(minWidth: 200)
+            SideView(song: chordpro).frame(minWidth: 200)
             HSplitView() {
                 HStack(alignment: .top,spacing: 0) {
                     VStack() {
-                        HeaderView(song: song).background(Color.accentColor.opacity(0.3)).padding(.bottom)
-                        SongView(song: song).frame(minWidth: 400)
+                        HeaderView(song: chordpro).background(Color.accentColor.opacity(0.3)).padding(.bottom)
+                        SongView(song: chordpro).frame(minWidth: 400)
                     }
                 }.frame(minWidth: 400)
                 if showEditor {

@@ -55,6 +55,7 @@ public struct ChordPosition: Codable {
 public struct GuitarChords {
     
     public static var all: [ChordPosition] {
+        print("Parsing chords database")
         guard let data = ChordsData.data else {
             print("there is no chord data")
             return []
@@ -70,8 +71,9 @@ public struct GuitarChords {
 }
 
 func GetChord(key: String, suffix: String, base: Int) -> [ChordPosition] {
+    print("Get chord diagram for " + key)
 
-    let match = GuitarChords.all.filter { $0.key == key }.filter { $0.suffix == suffix }.filter { $0.baseFret == base }
+    let match = GuitarChords.all.filter { $0.key == key && $0.suffix == suffix && $0.baseFret == base }
         if !match.isEmpty {
             return match
         }

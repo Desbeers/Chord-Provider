@@ -28,4 +28,4 @@ Stole code (and ideas) from:
 
 ### Bugs
 	- The WebView doesn't align on first view in macOS
-	- Slow parsing; very slow ;-)
+	- Many more :-)

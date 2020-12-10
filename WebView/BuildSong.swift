@@ -9,6 +9,8 @@ import SwiftUI
 
 func BuildSong(song: Song, chords: Bool) -> String {
     
+    print("BuildSong: " + (song.title ?? "no title"))
+    
     var html = """
                <!DOCTYPE html>
                <html lang="en">

@@ -11,7 +11,7 @@ import SwiftUI
 struct ChordProviderApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            MainView(document: file.$document)
+            MainView(document: file.$document, chordpro: ChordPro.parse(file.document))
         }
     }
 }

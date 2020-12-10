@@ -153,10 +153,10 @@
 			isa = PBXGroup;
 			children = (
 				D7F68D292578BC8500B119BA /* HtmlView.swift */,
+				D7EEFB5D257609E1008CECA4 /* SideView.swift */,
 				D7CF846B257849BD002A5C09 /* SharedFunctions.swift */,
 				D75929462572280C006DDF24 /* Info.plist */,
 				D75929472572280C006DDF24 /* macOS.entitlements */,
-				D7EEFB5D257609E1008CECA4 /* SideView.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";

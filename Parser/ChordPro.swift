@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct ChordPro {
+public class ChordPro {
     static let sectionRegex = try! NSRegularExpression(pattern: "#\\s*([^$]*)")
     static let attributeRegex = try! NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
     
@@ -22,13 +22,13 @@ public struct ChordPro {
     static let chordsRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
     static let commentRegex = try! NSRegularExpression(pattern: ">\\s*([^$]*)")
 
-    public static func parse(_ lines: String) -> Song {
+    static func parse(_ lines: ChordProDocument) -> Song {
         var song = Song()
         
         var currentSection = Section()
         song.sections.append(currentSection)
         
-        for text in lines.components(separatedBy: "\n") {
+        for text in lines.text.components(separatedBy: "\n") {
             if (text.starts(with: "{")) {
                 processAttribute(text: text, song: &song, currentSection: &currentSection)
             } else {
@@ -39,6 +39,8 @@ public struct ChordPro {
             /// Remove this section
             song.sections.removeLast()
         }
+        print("ChordPro: " + (song.title ?? "no title"))
+        song.html = BuildSong(song: song, chords: UserDefaults.standard.bool(forKey: "showChords"))
         return song
     }
     
@@ -52,7 +54,7 @@ public struct ChordPro {
             }
 
             if let valueRange = Range(match.range(at: 2), in: text) {
-                value = text[valueRange].trimmingCharacters(in: .newlines)
+                value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
             }
             switch key {
                 case "t":

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SideView: View {
-    var song = Song()
+    @StateObject var song: Song
     
     @AppStorage("playMetronome") var playMetronome: Bool = false
     
@@ -48,12 +48,6 @@ struct SideView: View {
             }
         }
         .listStyle(SidebarListStyle())
-    }
-}
-
-struct SideView_Previews: PreviewProvider {
-    static var previews: some View {
-        SideView()
     }
 }
 
