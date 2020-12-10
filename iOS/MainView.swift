@@ -36,7 +36,20 @@ struct MainView: View {
                 print("MainView: ready")
             }
         )
+        /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anayway :-)
         .toolbar {
+            ToolbarItem() {
+                Button(action: {
+                    withAnimation {
+                        showChords.toggle()
+                        /// Rebuild the HTML view with or without chord diagrams
+                        song.html = BuildSong(song: song, chords: showChords)
+                }
+                } ) {
+                    Image(systemName: showChords ? "number.square.fill" : "number.square")
+
+                }
+            }
             ToolbarItem() {
                 Button(action: {
                     withAnimation {
@@ -56,18 +69,6 @@ struct MainView: View {
                 }
                 } ) {
                     Image(systemName: showMetronome ? "metronome.fill" : "metronome")
-                }
-            }
-            ToolbarItem() {
-                Button(action: {
-                    withAnimation {
-                        showChords.toggle()
-                        /// Rebuild the HTML view with or without chord diagrams
-                        song.html = BuildSong(song: song, chords: showChords)
-                }
-                } ) {
-                    Image(systemName: showChords ? "number.square.fill" : "number.square")
-
                 }
             }
         }

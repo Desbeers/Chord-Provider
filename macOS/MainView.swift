@@ -44,37 +44,6 @@ struct MainView: View {
             ToolbarItem() {
                 Button(action: {
                     withAnimation {
-                        showEditor.toggle()
-                        
-                }
-                } ) {
-                    HStack {
-                        Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle").foregroundColor(.accentColor)
-                        Text(showEditor ? "Hide editor" : "Edit song")
-                        
-                    }
-                }
-            }
-            #if os(iOS)
-            ToolbarItem() {
-                Button(action: {
-                    withAnimation {
-                        showMetronome.toggle()
-                        self.metro.resetTimer()
-                        metro.beep = false
-                }
-                } ) {
-                    HStack {
-                        Image(systemName: showMetronome ? "metronome.fill" : "metronome").foregroundColor(.accentColor)
-                        Text(showMetronome ? "Hide metronome" : "Show metronome")
-                        
-                    }
-                }
-            }
-            #endif
-            ToolbarItem() {
-                Button(action: {
-                    withAnimation {
                         showChords.toggle()
                         /// Rebuild the HTML view with or without chord diagrams
                         song.html = BuildSong(song: song, chords: showChords)
@@ -87,7 +56,20 @@ struct MainView: View {
                     }
                 }
             }
-            #if os(macOS)
+            ToolbarItem() {
+                Button(action: {
+                    withAnimation {
+                        showEditor.toggle()
+                        
+                }
+                } ) {
+                    HStack {
+                        Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle").foregroundColor(.accentColor)
+                        Text(showEditor ? "Hide editor" : "Edit song")
+                        
+                    }
+                }
+            }
             ToolbarItem(placement: .navigation) {
                 Button(action: {
                     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
@@ -95,7 +77,6 @@ struct MainView: View {
                     Image(systemName: "sidebar.left").foregroundColor(.accentColor)
                 }
             }
-            #endif
         }
     }
 }
