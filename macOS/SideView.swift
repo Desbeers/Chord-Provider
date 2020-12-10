@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SideView: View {
-    @StateObject var song: Song
+    @Binding var song: Song
     
     @AppStorage("playMetronome") var playMetronome: Bool = false
     

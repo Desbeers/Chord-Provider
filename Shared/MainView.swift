@@ -9,44 +9,56 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var document: ChordProDocument
-    @State var chordpro: Song
+    @Binding var diagrams: [Diagram]
+    @State var song = Song()
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showMetronome") var showMetronome: Bool = false
 
     var body: some View {
-        //var song = ChordPro.parse(document)
         #if os(iOS)
         VStack() {
             if showMetronome {
                 MetronomeView().frame(height: 100).background(Color.blue.opacity(0.3))
             }
-            HeaderView(song: chordpro).background(Color.blue.opacity(0.3))
+            HeaderView(song: $song).background(Color.blue.opacity(0.3))
             HStack {
-                SongView(song: chordpro)
+                SongView(song: $song)
                 if showEditor {
-                    EditorView(text: $document.text)
+                    EditorView(document: $document, diagrams: $diagrams, song: $song)
                 }
             }
         }
+        .onAppear(
+            perform: {
+                song = ChordPro.parse(document: document, diagrams: diagrams)
+                print("MainView: ready")
+            }
+        )
         #endif
         #if os(macOS)
         NavigationView {
-            SideView(song: chordpro).frame(minWidth: 200)
+            SideView(song: $song).frame(minWidth: 200)
             HSplitView() {
                 HStack(alignment: .top,spacing: 0) {
                     VStack() {
-                        HeaderView(song: chordpro).background(Color.accentColor.opacity(0.3)).padding(.bottom)
-                        SongView(song: chordpro).frame(minWidth: 400)
+                        HeaderView(song: $song).background(Color.accentColor.opacity(0.3)).padding(.bottom)
+                        SongView(song: $song).frame(minWidth: 400)
                     }
                 }.frame(minWidth: 400)
                 if showEditor {
-                    EditorView(text: $document.text)
+                    EditorView(document: $document, diagrams: $diagrams, song: $song)
                         .font(.custom("HelveticaNeue", size: 14))
                         .frame(minWidth: 400)
                         .transition(.slide)
                 }
             }
         }
+        .onAppear(
+            perform: {
+                song = ChordPro.parse(document: document, diagrams: diagrams)
+                print("MainView: ready")
+            }
+        )
         #endif
     }
 }

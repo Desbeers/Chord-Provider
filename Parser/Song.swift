@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Song: Identifiable, ObservableObject {
+public class Song: Identifiable {
     public var id = UUID()
     public var title: String?
     public var artist: String?
@@ -19,7 +19,11 @@ public class Song: Identifiable, ObservableObject {
     public var album: String?
     public var tuning: String?
     public var html: String?
+    public var diagram = [Diagram]()
     public var custom = [String: String]()
     public var sections = [Section]()
     public var chords = [String: String]()
+    //init(diagram: Diagram) {
+    //    self.diagram = Diagram.all
+    //}
 }

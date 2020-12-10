@@ -22,13 +22,16 @@ public class ChordPro {
     static let chordsRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
     static let commentRegex = try! NSRegularExpression(pattern: ">\\s*([^$]*)")
 
-    static func parse(_ lines: ChordProDocument) -> Song {
+    static func parse(document: ChordProDocument, diagrams: [Diagram]) -> Song {
+        /// Start with a fresh song
         var song = Song()
+        /// Add the diagrams
+        song.diagram = diagrams
         
         var currentSection = Section()
         song.sections.append(currentSection)
         
-        for text in lines.text.components(separatedBy: "\n") {
+        for text in document.text.components(separatedBy: "\n") {
             if (text.starts(with: "{")) {
                 processAttribute(text: text, song: &song, currentSection: &currentSection)
             } else {
@@ -40,8 +43,15 @@ public class ChordPro {
             song.sections.removeLast()
         }
         print("ChordPro: " + (song.title ?? "no title"))
-        song.html = BuildSong(song: song, chords: UserDefaults.standard.bool(forKey: "showChords"))
+
+        
+        processHtml(song: &song)
+        
         return song
+    }
+    
+    fileprivate static func processHtml(song: inout Song) {
+        song.html = BuildSong(song: song, chords: UserDefaults.standard.bool(forKey: "showChords"))
     }
     
     fileprivate static func processAttribute(text: String, song: inout Song, currentSection: inout Section) {

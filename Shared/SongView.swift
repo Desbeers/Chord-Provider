@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SongView: View {
-    @StateObject var song: Song
+    @Binding var song: Song
+    
     @StateObject var metro = Metronome()
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showMetronome") var showMetronome: Bool = false

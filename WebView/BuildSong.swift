@@ -148,11 +148,12 @@ func ChordsList(_ song: Song) -> String {
     if !song.chords.isEmpty {
     
     sortedChords.forEach { (chord) in
-        let match = processChord(chord: chord.key, baseFret: chord.value)
-        if !match.isEmpty {
-            let result = cleanChord(match.first!)
+        let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
+        //let match = processChord(chord: chord.key, baseFret: chord.value)
+        if !match.frets.isEmpty {
+            //let result = cleanChord(match.first!)
             html += "<div>"
-            html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(result.frets)\" fingers=\"\(result.fingers)\" size=\"3\" ></chord>"
+            html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
             html += "</div>"
         }
         else {

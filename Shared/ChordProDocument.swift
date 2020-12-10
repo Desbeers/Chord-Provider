@@ -15,6 +15,7 @@ extension UTType {
 }
 
 struct ChordProDocument: FileDocument {
+    
     var text: String
     
     @AppStorage("showEditor") var showEditor: Bool = false
