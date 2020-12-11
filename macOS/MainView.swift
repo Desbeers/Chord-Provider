@@ -10,16 +10,20 @@ struct MainView: View {
     var body: some View {
         HSplitView() {
             HStack(alignment: .top,spacing: 0) {
-                VStack() {
-                    HeaderView(song: $song).background(Color.accentColor.opacity(0.3)).padding(.bottom)
-                    SongView(song: $song).frame(minWidth: 400)
+                ZStack{
+                    FancyBackground()
+                    VStack() {
+                        HeaderView(song: $song).background(Color.accentColor.opacity(0.3)).padding(.bottom)
+                        SongView(song: $song).frame(minWidth: 400)
+                    }.frame(minWidth: 400)
                 }
-            }.frame(minWidth: 400)
+            }
             if showEditor {
                 EditorView(document: $document, diagrams: $diagrams, song: $song)
                     .font(.custom("HelveticaNeue", size: 14))
                     .frame(minWidth: 400)
                     .transition(.slide)
+                    .background(Color(NSColor.textBackgroundColor))
             }
         }
         .onAppear(
@@ -38,9 +42,8 @@ struct MainView: View {
                 }
                 } ) {
                     HStack {
-                        Image(systemName: showChords ? "number.square.fill" : "number.square").foregroundColor(.accentColor)
+                        Image(systemName: showChords ? "number.square.fill" : "number.square")
                         Text(showChords ? "Hide chords" : "Show chords")
-                        
                     }
                 }
             }
@@ -48,11 +51,10 @@ struct MainView: View {
                 Button(action: {
                     withAnimation {
                         showEditor.toggle()
-                        
                 }
                 } ) {
                     HStack {
-                        Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle").foregroundColor(.accentColor)
+                        Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
                         Text(showEditor ? "Hide editor" : "Edit song")
                         
                     }

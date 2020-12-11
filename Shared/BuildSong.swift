@@ -139,30 +139,25 @@ func ChordsList(_ song: Song) -> String {
     var html = "<div id=\"chords\">"
     
     if !song.chords.isEmpty {
-    
-    sortedChords.forEach { (chord) in
-        /// Find the chord diagram
-        let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
-        if !match.frets.isEmpty {
-            /// We have a diagram
-            html += "<div>"
-            html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
-            html += "</div>"
-        }
-        else {
-            /// No diagram found
-            html += "<div class=\"warning\"><div class=\"warningkey\">\(chord.key)</div>"
-            if !chord.value.isEmpty {
-                html += "base fret \(chord.value.prefix(1))</br>"
+        sortedChords.forEach { (chord) in
+            /// Find the chord diagram
+            let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
+            if !match.frets.isEmpty {
+                /// We have a diagram
+                html += "<div>"
+                html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
+                html += "</div>"
             }
-            html += "is unknown."
-            html += "</div>"
+            else {
+                /// No diagram found
+                html += "<div class=\"warning\"><div class=\"warningkey\">\(chord.key)</div>"
+                if !chord.value.isEmpty {
+                    html += "base fret \(chord.value.prefix(1))</br>"
+                }
+                html += "is unknown."
+                html += "</div>"
+            }
         }
-    }
-    }
-    else {
-        html += "No chords"
-        print("No chords")
     }
     html += "</div>"
     
