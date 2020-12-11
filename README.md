@@ -6,7 +6,7 @@ There are many "chordpo" parsers in this world, however, none are *really* nativ
 
 ![Chord Provider](SCREENSHOT.png)
 
-This is for macOS and iOS. Written in Swift 2.0, so Big Sur or iOS 14.
+This is for macOS and iOS. Written in SwiftUI 2.0, so Big Sur or iOS 14.
 
 - System colors
 - System fonts
@@ -23,7 +23,3 @@ Stole code (and ideas) from:
 [songpro-swift](https://github.com/SongProOrg/songpro-swift)
 
 [ChordsJS](https://github.com/AlexSchwabauer/ChordJS)
-
-### Bugs
-	- The WebView doesn't align on first view in macOS
-	- Many more :-)
