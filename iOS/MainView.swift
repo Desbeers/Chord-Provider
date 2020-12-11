@@ -29,8 +29,6 @@ struct MainView: View {
                 Button(action: {
                     withAnimation {
                         showChords.toggle()
-                        /// Rebuild the HTML view with or without chord diagrams
-                        song.html = BuildSong(song: song, chords: showChords)
                 }
                 } ) {
                     Image(systemName: showChords ? "number.square.fill" : "number.square")

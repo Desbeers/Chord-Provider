@@ -11,11 +11,9 @@ public class Song: Identifiable {
     public var album: String?
     public var tuning: String?
     public var html: String?
+    public var htmlchords: String?
     public var diagram = [Diagram]()
     public var custom = [String: String]()
     public var sections = [Section]()
     public var chords = [String: String]()
-    //init(diagram: Diagram) {
-    //    self.diagram = Diagram.all
-    //}
 }

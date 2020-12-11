@@ -43,7 +43,8 @@ public class ChordPro {
     }
     
     fileprivate static func processHtml(song: inout Song) {
-        song.html = BuildSong(song: song, chords: UserDefaults.standard.bool(forKey: "showChords"))
+        song.html = BuildSong(song: song, chords: false)
+        song.htmlchords = BuildSong(song: song, chords: true)
     }
     
     fileprivate static func processAttribute(text: String, song: inout Song, currentSection: inout Section) {

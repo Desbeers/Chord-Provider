@@ -27,15 +27,20 @@ func BuildSong(song: Song, chords: Bool) -> String {
             print(error)
         }
     }
-    html += "</style><script>"
+    html += "</style>"
+    
     /// Add Chords javascript
-    if let jspath = Bundle.main.path(forResource: "chords", ofType: "js") {
-        do {
-            let contents = try String(contentsOfFile: jspath)
-            html += contents
-        } catch {
-            print(error)
+    if chords == true {
+        html += "<script>"
+        if let jspath = Bundle.main.path(forResource: "chords", ofType: "js") {
+            do {
+                let contents = try String(contentsOfFile: jspath)
+                html += contents
+            } catch {
+                print(error)
+            }
         }
+        html += "</script>"
     }
     html += """
             </script>
@@ -44,35 +49,39 @@ func BuildSong(song: Song, chords: Bool) -> String {
             <div id="container">
             """
 
-    /// List of chords
-    if chords {
+    if chords == false {
+        html += "<div id=\"grid\">"
+        song.sections.forEach { section in
+            html += SectionView(section)
+            if !section.lines.isEmpty {
+                html += "<div class=\"lines\">"
+                section.lines.forEach { (line) in
+                    if !line.measures.isEmpty {
+                        html += MeasuresView(line)
+                    } else if line.tablature != nil {
+                        html += "<div class=\"tablature\">" +  line.tablature! + "</div>"
+                    } else if line.comment != nil {
+                        html += "<div class=\"comment\">" +  line.comment! + "</div>"
+                    } else if (section.type == nil) {
+                        html += "<div class=\"plain\">"
+                        html += PlainView(line)
+                        html += "</div>"
+                    } else {
+                        html += PartsView(line)
+                    }
+                }
+                html += "</div>"
+            }
+        }
+        html += "</div>"
+    }
+    if chords == true {
         html += ChordsList(song)
     }
-    html += "<div id=\"grid\">"
-    song.sections.forEach { section in
-        html += SectionView(section)
-        if !section.lines.isEmpty {
-            html += "<div class=\"lines\">"
-            section.lines.forEach { (line) in
-                if !line.measures.isEmpty {
-                    html += MeasuresView(line)
-                } else if line.tablature != nil {
-                    html += "<div class=\"tablature\">" +  line.tablature! + "</div>"
-                } else if line.comment != nil {
-                    html += "<div class=\"comment\">" +  line.comment! + "</div>"
-                } else if (section.type == nil) {
-                    html += "<div class=\"plain\">"
-                    html += PlainView(line)
-                    html += "</div>"
-                } else {
-                    html += PartsView(line)
-                }
-            }
-            html += "</div>"
-        }
-    }
     html += "</div>"
-    html += "<script>chords.replace()</script>"
+    if chords == true {
+        html += "<script>chords.replace()</script>"
+    }
     html += "</body></html>"
 
     return html
@@ -140,21 +149,22 @@ func ChordsList(_ song: Song) -> String {
     
     if !song.chords.isEmpty {
         sortedChords.forEach { (chord) in
+            html += "<h1>\(chord.key)</h1>"
             /// Find the chord diagram
             let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
             if !match.frets.isEmpty {
                 /// We have a diagram
-                html += "<div>"
+                //html += "<div>"
                 html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
-                html += "</div>"
+                //html += "</div>"
             }
             else {
                 /// No diagram found
-                html += "<div class=\"warning\"><div class=\"warningkey\">\(chord.key)</div>"
+                html += "<div class=\"not-found\">This chord "
                 if !chord.value.isEmpty {
-                    html += "base fret \(chord.value.prefix(1))</br>"
+                    html += "with base fret \(chord.value.prefix(1)) "
                 }
-                html += "is unknown."
+                html += "is unknown"
                 html += "</div>"
             }
         }

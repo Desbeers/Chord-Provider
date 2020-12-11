@@ -9,7 +9,7 @@ struct MainView: View {
 
     var body: some View {
         HSplitView() {
-            HStack(alignment: .top,spacing: 0) {
+            //HStack(alignment: .top,spacing: 0) {
                 ZStack{
                     FancyBackground()
                     VStack() {
@@ -17,15 +17,15 @@ struct MainView: View {
                         SongView(song: $song).frame(minWidth: 400)
                     }.frame(minWidth: 400)
                 }
-            }
+            //}
             if showEditor {
                 EditorView(document: $document, diagrams: $diagrams, song: $song)
                     .font(.custom("HelveticaNeue", size: 14))
                     .frame(minWidth: 400)
-                    .transition(.slide)
+                    
                     .background(Color(NSColor.textBackgroundColor))
             }
-        }
+        }.transition(.opacity)
         .onAppear(
             perform: {
                 song = ChordPro.parse(document: document, diagrams: diagrams)
@@ -37,8 +37,6 @@ struct MainView: View {
                 Button(action: {
                     withAnimation {
                         showChords.toggle()
-                        /// Rebuild the HTML view with or without chord diagrams
-                        song.html = BuildSong(song: song, chords: showChords)
                 }
                 } ) {
                     HStack {
