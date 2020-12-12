@@ -38,8 +38,8 @@ body {
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 1em;
-      row-gap: 1em;
-  }
+    row-gap: 1.5em;
+}
     
 .section {
     text-align: right;
@@ -66,7 +66,7 @@ body {
 
 .lines {
     text-align: left;
-    padding-bottom: 1em;
+    padding-bottom: 0em;
     justify-self: start;
 }
 
@@ -77,6 +77,10 @@ body {
     text-align: left;
     color: var(--accentColor);
     padding-right: 0.5em;
+}
+
+.lyric {
+  white-space: nowrap;
 }
 
 .line {
@@ -102,7 +106,7 @@ body {
     padding-left: 0.5em;
     padding-right: 0.5em;
     margin-left: -2px;
-    margin-bottom: 1.4em;
+    margin-bottom: 0.5em;
 }
 
 .measure .chord {

@@ -9,6 +9,7 @@ struct MainView: View {
 
     var body: some View {
         HSplitView() {
+            
             //HStack(alignment: .top,spacing: 0) {
                 ZStack{
                     FancyBackground()
@@ -24,7 +25,7 @@ struct MainView: View {
                     .frame(minWidth: 400)
                     .background(Color(NSColor.textBackgroundColor))
             }
-        }.transition(.opacity)
+        }
         .onAppear(
             perform: {
                 song = ChordPro.parse(document: document, diagrams: diagrams)

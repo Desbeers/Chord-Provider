@@ -237,13 +237,13 @@ var ChordJS = (function(){
                     DrawChordBox();
                     DrawBars();
                     DrawChordPositionsAndFingers();
-                    //DrawChordName();
+                    DrawChordName();
                     DrawStringNames();
                 } else if (layout === '2') {
                     DrawChordBox();
                     DrawChordPositions();
                     DrawBars();
-                    //DrawChordName();
+                    DrawChordName();
                     DrawFingers();
                 }
             }

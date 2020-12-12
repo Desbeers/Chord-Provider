@@ -10,8 +10,6 @@ extension UTType {
 struct ChordProDocument: FileDocument {
     
     var text: String
-    
-    @AppStorage("showEditor") var showEditor: Bool = false
 
     init(text: String = "{t: A new song}") {
         self.text = text

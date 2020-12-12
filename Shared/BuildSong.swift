@@ -149,7 +149,7 @@ func ChordsList(_ song: Song) -> String {
     
     if !song.chords.isEmpty {
         sortedChords.forEach { (chord) in
-            html += "<h1>\(chord.key)</h1>"
+            //html += "<h1>\(chord.key)</h1>"
             /// Find the chord diagram
             let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
             if !match.frets.isEmpty {
@@ -160,7 +160,7 @@ func ChordsList(_ song: Song) -> String {
             }
             else {
                 /// No diagram found
-                html += "<div class=\"not-found\">This chord "
+                html += "<div class=\"not-found\"><h1>\(chord.key)</h1>This chord "
                 if !chord.value.isEmpty {
                     html += "with base fret \(chord.value.prefix(1)) "
                 }

@@ -9,7 +9,7 @@ struct MainView: View {
 
     var body: some View {
         VStack() {
-            HeaderView(song: $song).background(Color.blue.opacity(0.3))
+            HeaderView(song: $song).background(Color.blue.opacity(0.3)).padding(.bottom)
             HStack {
                 SongView(song: $song)
                 if showEditor {
@@ -17,6 +17,7 @@ struct MainView: View {
                 }
             }
         }
+        .statusBar(hidden: true)
         .onAppear(
             perform: {
                 song = ChordPro.parse(document: document, diagrams: diagrams)
@@ -27,7 +28,7 @@ struct MainView: View {
             song = ChordPro.parse(document: document, diagrams: diagrams)
             print("MainView: Text is changed")
         }
-        /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anayway :-)
+        /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
         .toolbar {
             ToolbarItem() {
                 Button(action: {
