@@ -22,7 +22,6 @@ struct MainView: View {
                 EditorView(document: $document, diagrams: $diagrams, song: $song)
                     .font(.custom("HelveticaNeue", size: 14))
                     .frame(minWidth: 400)
-                    
                     .background(Color(NSColor.textBackgroundColor))
             }
         }.transition(.opacity)
@@ -32,6 +31,10 @@ struct MainView: View {
                 print("MainView: ready")
             }
         )
+        .onChange(of: document.text) { newValue in
+            song = ChordPro.parse(document: document, diagrams: diagrams)
+            print("MainView: Text is changed")
+        }
         .toolbar {
             ToolbarItem() {
                 Button(action: {

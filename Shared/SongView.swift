@@ -12,7 +12,7 @@ struct SongView: View {
         GeometryReader { g in
             ScrollView {
                 HStack {
-                HtmlView(html: (song.html ?? "")).frame(height: g.size.height)
+                    HtmlView(html: (song.html ?? "")).frame(height: g.size.height)
                     if showChords {
                         HtmlView(html: (song.htmlchords ?? "leeg")).frame(width: 140,height: g.size.height)
                     }
