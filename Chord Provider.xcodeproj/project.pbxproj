@@ -34,6 +34,7 @@
 		D759296C25723025006DDF24 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D759296025723025006DDF24 /* Line.swift */; };
 		D7B701002577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
+		D7BA2B312584FD5E006C272E /* FileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA2B302584FD5E006C272E /* FileBrowser.swift */; };
 		D7CF846D257849BD002A5C09 /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CF846B257849BD002A5C09 /* SharedFunctions.swift */; };
 		D7F68D262578BC7800B119BA /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D252578BC7800B119BA /* HtmlView.swift */; };
 		D7F68D2A2578BC8500B119BA /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D292578BC8500B119BA /* HtmlView.swift */; };
@@ -54,6 +55,7 @@
 		D7009BFE258277950029D54D /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainView.swift; path = iOS/MainView.swift; sourceTree = SOURCE_ROOT; };
 		D7009C0E25828C130029D54D /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7158FDD2573B44B00876B80 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
+		D754B6DB25867274001AE6DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D75929342572280B006DDF24 /* ChordProviderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderApp.swift; sourceTree = "<group>"; };
 		D75929352572280B006DDF24 /* ChordProDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProDocument.swift; sourceTree = "<group>"; };
 		D75929362572280B006DDF24 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,8 @@
 		D759295F25723025006DDF24 /* Part.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Part.swift; sourceTree = "<group>"; };
 		D759296025723025006DDF24 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		D7BA2B302584FD5E006C272E /* FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
+		D7BA2B372585696D006C272E /* Chord Provider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Chord Provider.entitlements"; sourceTree = "<group>"; };
 		D7CF846B257849BD002A5C09 /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7F68D252578BC7800B119BA /* HtmlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		D7F68D292578BC8500B119BA /* HtmlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
@@ -101,7 +105,9 @@
 		D759292E2572280B006DDF24 = {
 			isa = PBXGroup;
 			children = (
+				D7BA2B372585696D006C272E /* Chord Provider.entitlements */,
 				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
+				D754B6DB25867274001AE6DD /* README.md */,
 				D7F68D3D2579191400B119BA /* WebView */,
 				D759295A25722FC3006DDF24 /* Parser */,
 				D75929332572280B006DDF24 /* Shared */,
@@ -151,6 +157,7 @@
 				D75929362572280B006DDF24 /* MainView.swift */,
 				D7F68D292578BC8500B119BA /* HtmlView.swift */,
 				D7CF846B257849BD002A5C09 /* SharedFunctions.swift */,
+				D7BA2B302584FD5E006C272E /* FileBrowser.swift */,
 				D75929462572280C006DDF24 /* Info.plist */,
 				D75929472572280C006DDF24 /* macOS.entitlements */,
 			);
@@ -309,6 +316,7 @@
 				D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */,
 				D759296625723025006DDF24 /* Measure.swift in Sources */,
 				D7F68D2A2578BC8500B119BA /* HtmlView.swift in Sources */,
+				D7BA2B312584FD5E006C272E /* FileBrowser.swift in Sources */,
 				D759296825723025006DDF24 /* Section.swift in Sources */,
 				D759296A25723025006DDF24 /* Part.swift in Sources */,
 				D759296425723025006DDF24 /* ChordPro.swift in Sources */,
@@ -444,6 +452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
@@ -466,6 +475,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
