@@ -60,9 +60,8 @@ func SelectSongsFolder(_ mySongs: MySongs) {
             UserDefaults.standard.set(result!.path, forKey: "pathSongsString")
             /// Create a persistent bookmark for the folder the user just selected
             _ = SetPersistentFileURL(result!)
-            
             /// Refresh the list of books
-            mySongs.songList = GetSongs()
+            mySongs.songList = SongsList.GetMySongs()
         }
     }
 }
