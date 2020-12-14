@@ -16,6 +16,13 @@ struct FileBrowser: View {
 
     var body: some View {
         VStack {
+            Button(action: {
+                SelectSongsFolder(mySongs)
+            } ) {
+                Label("My songs", systemImage: "folder").truncationMode(.head).font(.title2)
+            }
+            .buttonStyle(PlainButtonStyle())
+            .help("The folder with your songs")
             List {
                 ForEach(mySongs.songList.artist) { artist in
                     Text(artist.artist!).font(.headline)
