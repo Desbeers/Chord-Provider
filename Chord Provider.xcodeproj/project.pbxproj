@@ -13,6 +13,7 @@
 		D7009C0F25828C130029D54D /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7009C0E25828C130029D54D /* SharedFunctions.swift */; };
 		D7158FDE2573B44B00876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
 		D7158FE12573CC2700876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
+		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
 		D75929482572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D759294A2572280C006DDF24 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929352572280B006DDF24 /* ChordProDocument.swift */; };
@@ -56,6 +57,7 @@
 		D7009C0E25828C130029D54D /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7158FDD2573B44B00876B80 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
 		D754B6DB25867274001AE6DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D755C4B22589332600208BCC /* ChordProviderHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ChordProviderHelp.help; sourceTree = "<group>"; };
 		D75929342572280B006DDF24 /* ChordProviderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderApp.swift; sourceTree = "<group>"; };
 		D75929352572280B006DDF24 /* ChordProDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProDocument.swift; sourceTree = "<group>"; };
 		D75929362572280B006DDF24 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				D7BA2B372585696D006C272E /* Chord Provider.entitlements */,
+				D755C4B22589332600208BCC /* ChordProviderHelp.help */,
 				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
 				D754B6DB25867274001AE6DD /* README.md */,
 				D7F68D3D2579191400B119BA /* WebView */,
@@ -276,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7FAE65F257E49CF009BBDA8 /* chords.js in Resources */,
+				D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */,
 				D759294F2572280C006DDF24 /* Assets.xcassets in Resources */,
 				D7F68D402579197100B119BA /* style.css in Resources */,
 			);
