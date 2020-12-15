@@ -7,15 +7,17 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>ChordPro files</string>
+			<string>ChordPro file</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>nl.desbeers.Chord-Provider</string>
+				<string>nl.desbeers.Chord-Provider.pro</string>
 			</array>
 			<key>NSUbiquitousDocumentUserActivityType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).pro</string>
@@ -47,11 +49,14 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>ChordPro files</string>
+			<string>ChordPro file</string>
 			<key>UTTypeIcons</key>
-			<dict/>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>ChordPro</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>nl.desbeers.Chord-Provider</string>
+			<string>nl.desbeers.Chord-Provider.pro</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -77,7 +82,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>nl.desbeers.Chord-Provider</string>
+			<string>nl.desbeers.Chord-Provider.pro</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

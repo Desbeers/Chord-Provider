@@ -2,9 +2,8 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 extension UTType {
-    static var exampleText: UTType {
-        UTType(importedAs: "nl.desbeers.pro")
-    }
+    static let chordProDocument =
+        UTType(importedAs: "nl.desbeers.Chord-Provider.pro")
 }
 
 struct ChordProDocument: FileDocument {
@@ -16,7 +15,7 @@ struct ChordProDocument: FileDocument {
         //showEditor = true
     }
 
-    static var readableContentTypes: [UTType] { [.plainText] }
+    static var readableContentTypes: [UTType] { [.chordProDocument] }
 
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents,
