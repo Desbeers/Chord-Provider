@@ -12,6 +12,7 @@ public class Song: Identifiable {
     public var tuning: String?
     public var html: String?
     public var htmlchords: String?
+    public var musicpath: String?
     public var diagram = [Diagram]()
     public var custom = [String: String]()
     public var sections = [Section]()

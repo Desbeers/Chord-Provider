@@ -100,6 +100,8 @@ public class ChordPro {
                     song.album = value!
                 case "tuning":
                     song.tuning = value!
+                case "musicpath":
+                    song.musicpath = value!
                 default:
                     break
             }
