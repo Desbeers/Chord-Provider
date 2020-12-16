@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleHelpBookFolder</key>
-    <string>ChordProviderHelp.help</string>
-    <key>CFBundleHelpBookName</key>
-    <string>Chord Provider Help</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDocumentTypes</key>
@@ -29,6 +25,10 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleHelpBookFolder</key>
+	<string>ChordProviderHelp.help</string>
+	<key>CFBundleHelpBookName</key>
+	<string>Chord Provider Help</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -42,11 +42,11 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>head</string>
-    <key>NSHumanReadableCopyright</key>
-    <string>https://github.com/Desbeers/Chord-Provider</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2020 Nick Berendsen</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

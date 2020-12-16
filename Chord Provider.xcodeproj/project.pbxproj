@@ -13,6 +13,7 @@
 		D7009C0F25828C130029D54D /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7009C0E25828C130029D54D /* SharedFunctions.swift */; };
 		D7158FDE2573B44B00876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
 		D7158FE12573CC2700876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
+		D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D71DE9FE258A6E88007B513D /* Credits.rtf */; };
 		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
 		D75929482572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
@@ -56,6 +57,7 @@
 		D7009BFE258277950029D54D /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainView.swift; path = iOS/MainView.swift; sourceTree = SOURCE_ROOT; };
 		D7009C0E25828C130029D54D /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7158FDD2573B44B00876B80 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
+		D71DE9FE258A6E88007B513D /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		D754B6DB25867274001AE6DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D755C4B22589332600208BCC /* ChordProviderHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ChordProviderHelp.help; sourceTree = "<group>"; };
 		D75929342572280B006DDF24 /* ChordProviderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderApp.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 		D75929452572280C006DDF24 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				D71DE9FE258A6E88007B513D /* Credits.rtf */,
 				D75929362572280B006DDF24 /* MainView.swift */,
 				D7F68D292578BC8500B119BA /* HtmlView.swift */,
 				D7CF846B257849BD002A5C09 /* SharedFunctions.swift */,
@@ -278,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */,
 				D7FAE65F257E49CF009BBDA8 /* chords.js in Resources */,
 				D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */,
 				D759294F2572280C006DDF24 /* Assets.xcassets in Resources */,
@@ -458,6 +462,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "github: main";
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -481,6 +486,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "github: main";
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
@@ -507,6 +513,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = "github: main";
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -532,6 +539,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = "github: main";
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
