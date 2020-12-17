@@ -130,31 +130,31 @@ public class SongsList {
         }
         return mySongsList
     }
-}
+    // ParseSongName(filename)
+    // -------------------
+    // Gets filename
+    // Returns artist and song (if any)
+    //
+    // For now, the parser doesn't look into the file; that's expensive.
+    // It looks for  string - string so up to you how to name it.
+    static func ParseSongName(_ name: String) -> (artist: String, song: String) {
+        /// Name is used when the regex doesn't work
+        var artist:String = "Unknown artist"
+        var song:String = name
+        
+        let songRegex = try! NSRegularExpression(pattern: "(.*)-(.*)\\.", options: .caseInsensitive)
+        
+        if let match = songRegex.firstMatch(in: name, options: [], range: NSRange(location: 0, length: name.utf16.count)) {
+            if let keyRange = Range(match.range(at: 1), in: name) {
+                artist = name[keyRange].trimmingCharacters(in: .whitespacesAndNewlines)
+            }
 
-// ParseSongName(filename)
-// -------------------
-// Gets filename
-// Returns artist and song (if any)
-//
-// For now, the parser doesn't look into the file; that's expensive.
-// It looks for  string - string so up to you how to name it.
-
-func ParseSongName(_ name: String) -> (artist: String, song: String) {
-    /// Name is used when the regex doesn't work
-    var artist:String = "Unknown artist"
-    var song:String = name
-    
-    let songRegex = try! NSRegularExpression(pattern: "(.*)-(.*)\\.", options: .caseInsensitive)
-    
-    if let match = songRegex.firstMatch(in: name, options: [], range: NSRange(location: 0, length: name.utf16.count)) {
-        if let keyRange = Range(match.range(at: 1), in: name) {
-            artist = name[keyRange].trimmingCharacters(in: .whitespacesAndNewlines)
+            if let valueRange = Range(match.range(at: 2), in: name) {
+                song = name[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
+            }
         }
-
-        if let valueRange = Range(match.range(at: 2), in: name) {
-            song = name[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
-        }
+        return (artist,song)
     }
-    return (artist,song)
 }
+
+
