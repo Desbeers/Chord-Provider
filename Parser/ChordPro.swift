@@ -34,7 +34,7 @@ public class ChordPro {
             /// Remove this section
             song.sections.removeLast()
         }
-        print("ChordPro: " + (song.title ?? "no title"))
+        print("Parsing '" + (song.title ?? "no title") + "'")
 
         
         processHtml(song: &song)
@@ -43,6 +43,7 @@ public class ChordPro {
     }
     
     fileprivate static func processHtml(song: inout Song) {
+        print("Convert '" + (song.title ?? "no title") + "' into HTML")
         song.html = BuildSong(song: song, chords: false)
         song.htmlchords = BuildSong(song: song, chords: true)
     }

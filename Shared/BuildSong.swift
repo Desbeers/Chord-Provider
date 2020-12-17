@@ -1,9 +1,6 @@
 import SwiftUI
 
-
 func BuildSong(song: Song, chords: Bool) -> String {
-    
-    print("Build" + (chords ? "Song: " : "Chords: ") + (song.title ?? "no title"))
     
     var html = """
                <!DOCTYPE html>

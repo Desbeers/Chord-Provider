@@ -4,7 +4,6 @@
 //  A sidebar view with a list of somgs from a user selected directory
 
 import SwiftUI
-import os
 
 // MARK: - Views
 
@@ -88,7 +87,7 @@ public class SongsList {
     // Gets nothing
     // Returns list of songs
     static func GetMySongs() -> MySongsList {
-        os_log("GetSongs: reading folder")
+        print("Reading folder with songs")
         var songFiles = [String: [[String: String]]]()
         
         if let persistentURL = GetPersistentFileURL() {

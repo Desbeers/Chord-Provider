@@ -21,12 +21,11 @@ struct MainView: View {
         .onAppear(
             perform: {
                 song = ChordPro.parse(document: document, diagrams: diagrams)
-                print("MainView: ready")
+                print("'" + (song.title ?? "no title") + "' is ready")
             }
         )
         .onChange(of: document.text) { newValue in
             song = ChordPro.parse(document: document, diagrams: diagrams)
-            print("MainView: Text is changed")
         }
         /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
         .toolbar {

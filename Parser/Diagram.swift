@@ -11,7 +11,7 @@ public class Diagram: Codable {
     public var  suffix: String
 
     public static var all: [Diagram] {
-        print("Diagram.all: loading diagrams")
+        print("Loading chord diagrams")
         guard let data = ChordsData.data else {
             return []
         }
