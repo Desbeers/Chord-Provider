@@ -2,12 +2,46 @@ import SwiftUI
 
 @main
 struct ChordProviderApp: App {
+    
     /// Get the list of chord diagrams so we don't have to parse it all the time.
-    @State var diagrams = Diagram.all
+    let diagrams = Diagram.all
+
+    var body: some Scene {
+        #if os(macOS)
+        macOSApp(diagrams: diagrams)
+        #endif
+        #if os(iOS)
+        iOSApp(diagrams: diagrams)
+        #endif
+    }
+}
+
+#if os(macOS)
+struct macOSApp: Scene {
+
+    let diagrams: [Diagram]
+    @StateObject var mySongs = MySongs()
     
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            MainView(document: file.$document, diagrams: $diagrams)
+            NavigationView {
+                FileBrowser(mySongs: mySongs)
+                MainView(document: file.$document, diagrams: diagrams)
+            }
         }
     }
 }
+#endif
+
+#if os(iOS)
+struct iOSApp: Scene {
+    
+    let diagrams: [Diagram]
+    
+    var body: some Scene {
+        DocumentGroup(newDocument: ChordProDocument()) { file in
+            MainView(document: file.$document, diagrams: diagrams)
+        }
+    }
+}
+#endif

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var document: ChordProDocument
-    @Binding var diagrams: [Diagram]
+    let diagrams: [Diagram]
     @State var song = Song()
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
@@ -13,7 +13,7 @@ struct MainView: View {
             HStack {
                 SongView(song: $song)
                 if showEditor {
-                    EditorView(document: $document, diagrams: $diagrams, song: $song)
+                    EditorView(document: $document)
                 }
             }
         }

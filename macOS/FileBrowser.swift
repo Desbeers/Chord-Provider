@@ -8,15 +8,14 @@ import SwiftUI
 // MARK: - Views
 
 struct FileBrowser: View {
-    /// This is the path to the directory with songs
-    /// There is also a 'pathSong' and that one is the sandboxed bookmark version
-    @AppStorage("pathSongsString") var pathSongsString:String = GetDocumentsDirectory()
+    
     @StateObject var mySongs = MySongs()
 
     var body: some View {
         VStack {
             Button(action: {
                 SelectSongsFolder(mySongs)
+                //mySongs.songList = SongsList.GetMySongs()
             } ) {
                 Label("My songs", systemImage: "folder").truncationMode(.head).font(.title2)
             }
@@ -61,7 +60,7 @@ struct FileBrowser: View {
 // MARK: - classes, structs and functions
 
 class MySongs: ObservableObject {
-    var songList = SongsList.GetMySongs()
+    @Published var songList = SongsList.GetMySongs()
 }
 
 public class MySongsList: Identifiable {
@@ -82,7 +81,7 @@ public class MyArtistSongsList: Identifiable {
 }
 
 public class SongsList {
-    // GetSongs()
+    // GetMySongs()
     // -------------------
     // Gets nothing
     // Returns list of songs

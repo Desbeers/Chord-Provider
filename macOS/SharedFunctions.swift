@@ -57,6 +57,8 @@ func SelectSongsFolder(_ mySongs: MySongs) {
     dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
         if result == NSApplication.ModalResponse.OK {
             let result = dialog.url
+            /// Save the url so next time this dialog is opened it will go to this folder.
+            /// Sandbox stuff seems to be ok with that....
             UserDefaults.standard.set(result!.path, forKey: "pathSongsString")
             /// Create a persistent bookmark for the folder the user just selected
             _ = SetPersistentFileURL(result!)
