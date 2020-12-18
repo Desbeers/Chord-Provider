@@ -30,7 +30,7 @@ struct HeaderView: View {
                 if song.musicpath != nil {
                     Button(action: {
                         /// Sandbox stuff: get path for selected folder
-                        if var persistentURL = GetPersistentFileURL() {
+                        if var persistentURL = GetPersistentFileURL("pathSongs") {
                             _ = persistentURL.startAccessingSecurityScopedResource()
                             persistentURL = persistentURL.appendingPathComponent(song.musicpath!, isDirectory: false)
                             // TODO: move check to song loading

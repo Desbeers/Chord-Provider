@@ -1,103 +1,110 @@
 //  FileBrowser.swift
 //  Chord Provider (macOS)
 //
-//  A sidebar view with a list of somgs from a user selected directory
+//  A sidebar view with a list of songs from a user selected directory
 
 import SwiftUI
 
-// MARK: - Views
+// MARK: Views
 
 struct FileBrowser: View {
-    
-    @StateObject var mySongs = MySongs()
 
+    @StateObject var mySongs = MySongs()
+    
     var body: some View {
         VStack {
             Button(action: {
                 SelectSongsFolder(mySongs)
-                //mySongs.songList = SongsList.GetMySongs()
             } ) {
                 Label("My songs", systemImage: "folder").truncationMode(.head).font(.title2)
             }
-            .buttonStyle(PlainButtonStyle())
             .help("The folder with your songs")
+            .buttonStyle(PlainButtonStyle())
             List {
-                ForEach(mySongs.songList.artist) { artist in
-                    Text(artist.artist!).font(.headline)
-                    ForEach(artist.songs) { songs in
-                        //Text(songs.song!).font(.subheadline)
-                        Button(action: {
-                            /// Sandbox stuff: get path for selected folder
-                            if var persistentURL = GetPersistentFileURL() {
-                                _ = persistentURL.startAccessingSecurityScopedResource()
-                                persistentURL = persistentURL.appendingPathComponent(songs.path!, isDirectory: false)
-                                let configuration = NSWorkspace.OpenConfiguration()
-                                let bundleIdentifier =  Bundle.main.bundleIdentifier
-                                guard let chordpro = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier!) else { return }
-                                NSWorkspace.shared.open([persistentURL],withApplicationAt: chordpro,configuration: configuration)
-                                persistentURL.stopAccessingSecurityScopedResource()
-                            }
-                        } ) {
-                            Label(songs.song!, systemImage: "music.note")
-                        }.buttonStyle(PlainButtonStyle())
+                ForEach(mySongs.songList.artists) { artist in
+                    Text(artist.name).font(.headline)
+                    ForEach(artist.songs) { song in
+                        FileBrowserRow(song: song)
                     }
                 }
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
-                Button(action: {
-                    NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-                } ) {
-                    Image(systemName: "sidebar.left")
-                }
-            }
-        }
-        
     }
 }
 
-// MARK: - classes, structs and functions
+struct FileBrowserRow: View {
+    let song: ArtistSongs
+
+    var body: some View {
+        Button(action: {
+            /// Sandbox stuff: get path for selected folder
+            if var persistentURL = GetPersistentFileURL("pathSongs") {
+                _ = persistentURL.startAccessingSecurityScopedResource()
+                persistentURL = persistentURL.appendingPathComponent(song.path, isDirectory: false)
+                let configuration = NSWorkspace.OpenConfiguration()
+                let bundleIdentifier =  Bundle.main.bundleIdentifier
+                guard let chordpro = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier!) else { return }
+                NSWorkspace.shared.open([persistentURL],withApplicationAt: chordpro,configuration: configuration)
+                persistentURL.stopAccessingSecurityScopedResource()
+            }
+        } ) {
+            Label(song.title, systemImage: (song.musicpath.isEmpty ? "music.note" : "music.note.list"))
+        }.buttonStyle(PlainButtonStyle())
+    }
+}
+
+// MARK: Class and Structs
 
 class MySongs: ObservableObject {
-    @Published var songList = SongsList.GetMySongs()
+    @Published var songList = GetSongsList()
 }
 
-public class MySongsList: Identifiable {
-    public var id = UUID()
-    public var artist = [MyArtistList]()
+struct ArtistSongs: Identifiable {
+    var id = UUID()
+    var artist: String = "Unknown artist"
+    var title: String = ""
+    var path: String = ""
+    var musicpath: String = ""
 }
 
-public class MyArtistList: Identifiable {
-    public var id = UUID()
-    public var artist: String?
-    public var songs = [MyArtistSongsList]()
+struct ArtistList: Identifiable {
+    let id = UUID()
+    let name: String
+    let songs: [ArtistSongs]
 }
 
-public class MyArtistSongsList: Identifiable {
-    public var id = UUID()
-    public var song: String?
-    public var path: String?
-}
-
-public class SongsList {
-    // GetMySongs()
-    // -------------------
-    // Gets nothing
-    // Returns list of songs
-    static func GetMySongs() -> MySongsList {
-        print("Reading folder with songs")
-        var songFiles = [String: [[String: String]]]()
+struct GetSongsList {
+    let artists: [ArtistList]
+    /// Fill the list.
+    init() {
+        print("Getting songs from selected folder")
+        /// Get the songs in the selected directory
+        let songs = GetSongsList.GetFiles()
+        /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
+        let grouped = Dictionary(grouping: songs) { (occurrence: ArtistSongs) -> String in
+            occurrence.artist
+        }
+        /// We now map over the dictionary and create our artist objects.
+        /// Then we want to sort them so that they are in the correct order.
+        self.artists = grouped.map { artist -> ArtistList in
+            ArtistList(name: artist.key, songs: artist.value)
+        }.sorted { $0.name < $1.name }
+    }
+    /// This is a helper function to get the files.
+    static func GetFiles() -> [ArtistSongs] {
+        var songs = [ArtistSongs]()
+        /// Get a list of all files
         
-        if let persistentURL = GetPersistentFileURL() {
+        if let persistentURL = GetPersistentFileURL("pathSongs") {
             do {
                 /// Sandbox stuff...
                 _ = persistentURL.startAccessingSecurityScopedResource()
                 let items = try FileManager.default.contentsOfDirectory(atPath: persistentURL.path)
                 for item in items {
                     if item.hasSuffix(".pro") {
-                        let parse = ParseSongName(item)
-                        songFiles[parse.artist, default: []].append([parse.song: item])
+                        var song = ArtistSongs()
+                        ParseSongFile(persistentURL.appendingPathComponent(item, isDirectory: false), item, &song)
+                        songs.append(song)
                     }
                 }
                 persistentURL.stopAccessingSecurityScopedResource()
@@ -106,55 +113,136 @@ public class SongsList {
                 print(error)
             }
         }
-        
-        let sortedSongFiles = songFiles.sorted {
-            return $0.key < $1.key
-        }
-        /// Move the dictionary into an array
-        let mySongsList = MySongsList()
-        for (key, value) in sortedSongFiles {
-            
-            let myArtistList = MyArtistList()
-            mySongsList.artist.append(myArtistList)
-            
-            myArtistList.artist = key
-            
-            let sortedSongs = value.sorted( by: { $0.first!.0 < $1.first!.0 })
-            
-            sortedSongs.forEach { (song) in
-                let myArtistSongsList = MyArtistSongsList()
-                myArtistList.songs.append(myArtistSongsList)
-                myArtistSongsList.song = song.first?.key
-                myArtistSongsList.path = song.first?.value
-            }
-        }
-        return mySongsList
+
+        return songs.sorted { $0.title < $1.title }
     }
-    // ParseSongName(filename)
-    // -------------------
-    // Gets filename
-    // Returns artist and song (if any)
-    //
-    // For now, the parser doesn't look into the file; that's expensive.
-    // It looks for  string - string so up to you how to name it.
-    static func ParseSongName(_ name: String) -> (artist: String, song: String) {
-        /// Name is used when the regex doesn't work
-        var artist:String = "Unknown artist"
-        var song:String = name
+    /// This is a helper function to parse the song for metadata
+    static func ParseSongFile(_ file: URL, _ name: String, _ song: inout ArtistSongs) {
+        /// Name is used parsing gives no result
+        //song.artist = "Unknown artist"
+        song.title = name
+        song.path = name
         
-        let songRegex = try! NSRegularExpression(pattern: "(.*)-(.*)\\.", options: .caseInsensitive)
+        do {
+            let data = try String(contentsOf: file, encoding: .utf8)
+            
+            for text in data.components(separatedBy: .newlines) {
+                if (text.starts(with: "{")) {
+                    ParseFileLine(text: text, song: &song)
+                }
+            }
+        } catch {
+            print(error)
+        }
+    }
+    /// This is a helper function to parse the actual metadata
+    static func ParseFileLine(text: String, song: inout ArtistSongs) {
+        let attributeRegex = try! NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
         
-        if let match = songRegex.firstMatch(in: name, options: [], range: NSRange(location: 0, length: name.utf16.count)) {
-            if let keyRange = Range(match.range(at: 1), in: name) {
-                artist = name[keyRange].trimmingCharacters(in: .whitespacesAndNewlines)
+        var key: String?
+        var value: String?
+        if let match = attributeRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
+            if let keyRange = Range(match.range(at: 1), in: text) {
+                key = text[keyRange].trimmingCharacters(in: .newlines)
             }
 
-            if let valueRange = Range(match.range(at: 2), in: name) {
-                song = name[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
+            if let valueRange = Range(match.range(at: 2), in: text) {
+                value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            switch key {
+                case "t":
+                    song.title = value!
+                case "title":
+                    song.title = value!
+                case "st":
+                    song.artist = value!
+                case "subtitle":
+                    song.artist = value!
+                case "artist":
+                    song.artist = value!
+                case "musicpath":
+                    song.musicpath = value!
+                default:
+                    break
             }
         }
-        return (artist,song)
     }
 }
 
+// MARK: Functions
+
+// Folder selector
+// ---------------
+
+func SelectSongsFolder(_ mySongs: MySongs) {
+    let base = UserDefaults.standard.object(forKey: "pathSongsString") as? String ?? GetDocumentsDirectory()
+    let dialog = NSOpenPanel();
+    dialog.showsResizeIndicator = true;
+    dialog.showsHiddenFiles = false;
+    dialog.canChooseFiles = false;
+    dialog.canChooseDirectories = true;
+    dialog.directoryURL = URL(fileURLWithPath: base)
+    dialog.message = "Select the folder with your songs"
+    dialog.prompt = "Select"
+    dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
+        if result == NSApplication.ModalResponse.OK {
+            let result = dialog.url
+            /// Save the url so next time this dialog is opened it will go to this folder.
+            /// Sandbox stuff seems to be ok with that....
+            UserDefaults.standard.set(result!.path, forKey: "pathSongsString")
+            //UserDefaults.standard.set(result!.path, forKey: "pathSongs")
+            /// Create a persistent bookmark for the folder the user just selected
+            _ = SetPersistentFileURL("pathSongs", result!)
+            /// Refresh the list of songs
+            mySongs.songList = GetSongsList()
+        }
+    }
+}
+
+// GetDocumentsDirectory()
+// -----------------------
+// Returns the users Documents directory.
+// Used when no folders are selected by the user.
+
+func GetDocumentsDirectory() -> String {
+    return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+}
+
+// Get and Set sandbox bookmarks
+// -----------------------------
+// Many thanks to https://www.appcoda.com/mac-apps-user-intent/
+
+func SetPersistentFileURL(_ key: String, _ selectedURL: URL) -> Bool {
+    do {
+        let bookmarkData = try selectedURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+        UserDefaults.standard.set(bookmarkData, forKey: key)
+        return true
+    } catch let error {
+        print("Could not create a bookmark because: ", error)
+        return false
+    }
+}
+
+func GetPersistentFileURL(_ key: String) -> URL? {
+    if let bookmarkData = UserDefaults.standard.data(forKey: "pathSongs") {
+         do {
+            var bookmarkDataIsStale = false
+            let urlForBookmark = try URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &bookmarkDataIsStale)
+            if bookmarkDataIsStale {
+                print("The bookmark is outdated and needs to be regenerated.")
+                _ = SetPersistentFileURL(key, urlForBookmark)
+                return nil
+ 
+            } else {
+                return urlForBookmark
+            }
+        } catch {
+            print("Error resolving bookmark:", error)
+            return nil
+        }
+    } else {
+        print("Error retrieving persistent bookmark data.")
+        return nil
+    }
+}
 
