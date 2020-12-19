@@ -85,7 +85,7 @@ func BuildSong(song: Song, chords: Bool) -> String {
     return html
 }
 
-func SectionView(_ section: Section) -> String {
+func SectionView(_ section: Sections) -> String {
     var html = ""
 
     html += "<div class=\"section "

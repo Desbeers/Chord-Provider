@@ -15,6 +15,6 @@ public class Song: Identifiable {
     public var musicpath: String?
     public var diagram = [Diagram]()
     public var custom = [String: String]()
-    public var sections = [Section]()
+    public var sections = [Sections]()
     public var chords = [String: String]()
 }

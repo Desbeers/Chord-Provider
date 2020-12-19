@@ -22,9 +22,10 @@ struct FileBrowser: View {
             .buttonStyle(PlainButtonStyle())
             List {
                 ForEach(mySongs.songList.artists) { artist in
-                    Text(artist.name).font(.headline)
-                    ForEach(artist.songs) { song in
-                        FileBrowserRow(song: song)
+                    Section(header: Text(artist.name).font(.headline).foregroundColor(.primary)) {
+                        ForEach(artist.songs) { song in
+                            FileBrowserRow(song: song)
+                        }
                     }
                 }
             }

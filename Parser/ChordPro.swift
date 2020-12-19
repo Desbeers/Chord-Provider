@@ -20,7 +20,7 @@ public class ChordPro {
         /// Add the diagrams
         song.diagram = diagrams
         
-        var currentSection = Section()
+        var currentSection = Sections()
         song.sections.append(currentSection)
         
         for text in document.text.components(separatedBy: "\n") {
@@ -48,7 +48,7 @@ public class ChordPro {
         song.htmlchords = BuildSong(song: song, chords: true)
     }
     
-    fileprivate static func processAttribute(text: String, song: inout Song, currentSection: inout Section) {
+    fileprivate static func processAttribute(text: String, song: inout Song, currentSection: inout Sections) {
         var key: String?
         var value: String?
         // First, stuff with a value
@@ -87,7 +87,7 @@ public class ChordPro {
                     processSection(text: value!, type: "grid", song: &song, currentSection: &currentSection)
                 case "chorus":
                     processSection(text: value!, type: "chorus", song: &song, currentSection: &currentSection)
-                    currentSection = Section()
+                    currentSection = Sections()
                     song.sections.append(currentSection)
                 case "define":
                     processDefine(text: value!, song: &song)
@@ -123,7 +123,7 @@ public class ChordPro {
                     processSection(text: "Verse", type: "verse", song: &song, currentSection: &currentSection)
                 case "chorus":
                     processSection(text: "Repeat chorus", type: "chorus", song: &song, currentSection: &currentSection)
-                    currentSection = Section()
+                    currentSection = Sections()
                     song.sections.append(currentSection)
                 default:
                     break
@@ -131,14 +131,14 @@ public class ChordPro {
         }
     }
 
-    fileprivate static func processSection(text: String, type: String, song: inout Song, currentSection: inout Section) {
+    fileprivate static func processSection(text: String, type: String, song: inout Song, currentSection: inout Sections) {
         if currentSection.lines.isEmpty {
             /// There is already an empty section
             currentSection.type = type
             currentSection.name = text
         } else {
             /// Make a new section
-            currentSection = Section()
+            currentSection = Sections()
             currentSection.type = type
             currentSection.name = text
             song.sections.append(currentSection)
@@ -161,17 +161,17 @@ public class ChordPro {
         song.chords.updateValue(value, forKey: key)
     }
     
-    fileprivate static func processComments(text: String, song: inout Song, currentSection: inout Section) {
+    fileprivate static func processComments(text: String, song: inout Song, currentSection: inout Sections) {
         let line = Line()
         line.comment = text.trimmingCharacters(in: .newlines)
         
         currentSection.lines.append(line)
     }
     
-    fileprivate static func processLyricsAndChords(text: String, song: inout Song, currentSection: inout Section) {
+    fileprivate static func processLyricsAndChords(text: String, song: inout Song, currentSection: inout Sections) {
         if text.isEmpty {
             if !currentSection.lines.isEmpty {
-                currentSection = Section()
+                currentSection = Sections()
                 song.sections.append(currentSection)
             }
             return
