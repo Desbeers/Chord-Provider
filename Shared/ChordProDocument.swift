@@ -8,11 +8,13 @@ extension UTType {
 
 struct ChordProDocument: FileDocument {
     
+    @AppStorage("showEditor") var showEditor: Bool = false
+    
     var text: String
 
     init(text: String = "{t: A new song}") {
         self.text = text
-        //showEditor = true
+        showEditor = true
     }
 
     static var readableContentTypes: [UTType] { [.chordProDocument] }
@@ -24,9 +26,11 @@ struct ChordProDocument: FileDocument {
             throw CocoaError(.fileReadCorruptFile)
         }
         text = string
+        showEditor = false
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        print("Saving file")
         let data = text.data(using: .utf8)!
         return .init(regularFileWithContents: data)
     }
