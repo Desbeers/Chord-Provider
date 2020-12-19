@@ -9,8 +9,9 @@ import SwiftUI
 
 struct FileBrowser: View {
 
+    @Binding var document: ChordProDocument
     @StateObject var mySongs = MySongs()
-    
+
     var body: some View {
         VStack {
             Button(action: {
@@ -29,6 +30,10 @@ struct FileBrowser: View {
                     }
                 }
             }
+        }
+        .onChange(of: document.refreshList) { newValue in
+            self.mySongs.songList = GetSongsList()
+            print("Sidebar said hello!")
         }
     }
 }
@@ -58,6 +63,9 @@ struct FileBrowserRow: View {
 
 class MySongs: ObservableObject {
     @Published var songList = GetSongsList()
+    func updateView(){
+        self.objectWillChange.send()
+    }
 }
 
 struct ArtistSongs: Identifiable {

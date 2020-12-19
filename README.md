@@ -27,7 +27,6 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 
 This is still work in progress...
 
-- The sidebar doesn't refresh on any changes.
 - It only lists files with the '.pro' extension.
 
 #### iOS

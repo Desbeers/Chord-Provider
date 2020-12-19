@@ -20,12 +20,11 @@ struct ChordProviderApp: App {
 struct macOSApp: Scene {
 
     let diagrams: [Diagram]
-    @StateObject var mySongs = MySongs()
     
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             NavigationView {
-                FileBrowser(mySongs: mySongs)
+                FileBrowser(document: file.$document)
                 MainView(document: file.$document, diagrams: diagrams)
             }
         }
