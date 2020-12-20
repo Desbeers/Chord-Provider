@@ -50,6 +50,13 @@ struct MainView: View {
                     }
                 }
             }
+            ToolbarItem(placement: .navigation) {
+                Button(action: {
+                    NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+                } ) {
+                    Image(systemName: "sidebar.left")
+                }
+            }
         }
         .onAppear(
             perform: {
