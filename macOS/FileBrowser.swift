@@ -10,27 +10,39 @@ import SwiftUI
 struct FileBrowser: View {
 
     @Binding var document: ChordProDocument
+    let file: FileDocumentConfiguration<ChordProDocument>
     @StateObject var mySongs = MySongs()
+    @AppStorage("pathSongsString") var pathSongsString: String = GetDocumentsDirectory()
 
     var body: some View {
         VStack {
-            Button(action: {
-                SelectSongsFolder(mySongs)
-            } ) {
-                Label("My songs", systemImage: "folder").truncationMode(.head).font(.title2)
-            }
-            .help("The folder with your songs")
-            .buttonStyle(PlainButtonStyle())
-            List {
-                ForEach(mySongs.songList.artists) { artist in
-                    Section(header: Text(artist.name).font(.headline).foregroundColor(.primary)) {
-                        ForEach(artist.songs) { song in
-                            FileBrowserRow(song: song)
+            ScrollViewReader { proxy in
+                List() {
+                    Button(action: {
+                        SelectSongsFolder(mySongs)
+                    } ) {
+                        Label((URL(fileURLWithPath: pathSongsString).lastPathComponent), systemImage: "folder").truncationMode(.head).font(.title2)
+                    }
+                    .help("The folder with your songs")
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    
+                    ForEach(mySongs.songList.artists) { artist in
+                        Section(header: Text(artist.name).font(.headline).foregroundColor(.primary)) {
+                            ForEach(artist.songs) { song in
+                                FileBrowserRow(song: song, selection: (file.fileURL?.lastPathComponent ?? "New"))
+                            }
                         }
                     }
                 }
+                .onAppear(
+                    perform: {
+                        proxy.scrollTo((file.fileURL?.lastPathComponent), anchor: .bottom)
+                    }
+                )
             }
         }
+        .frame(minWidth: 200)
         .onChange(of: document.refreshList) { newValue in
             self.mySongs.songList = GetSongsList()
             print("Sidebar said hello!")
@@ -40,6 +52,7 @@ struct FileBrowser: View {
 
 struct FileBrowserRow: View {
     let song: ArtistSongs
+    let selection: String
 
     var body: some View {
         Button(action: {
@@ -54,8 +67,17 @@ struct FileBrowserRow: View {
                 persistentURL.stopAccessingSecurityScopedResource()
             }
         } ) {
-            Label(song.title, systemImage: (song.musicpath.isEmpty ? "music.note" : "music.note.list"))
-        }.buttonStyle(PlainButtonStyle())
+            if (selection == song.path) {
+                ZStack() {
+                    Color.accentColor.cornerRadius(5)
+                    Text(song.title).foregroundColor(Color(NSColor.textBackgroundColor))
+                }
+            } else {
+                Label(song.title, systemImage: (song.musicpath.isEmpty ? "music.note" : "music.note.list"))
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+        .id(song.path)
     }
 }
 

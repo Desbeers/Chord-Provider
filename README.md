@@ -28,6 +28,7 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 This is still work in progress...
 
 - It only lists files with the '.pro' extension.
+- It doesn't remember its scrolled position when you open a song in a new window or tab; the selected song will be more or less on the top. I don't know (yet?) how to keep its scroll-position fixed; it's not easy in a SwiftUI DocumentGroup...
 
 #### iOS
 

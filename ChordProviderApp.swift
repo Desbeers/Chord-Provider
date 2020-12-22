@@ -24,7 +24,7 @@ struct macOSApp: Scene {
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             NavigationView {
-                FileBrowser(document: file.$document)
+                FileBrowser(document: file.$document, file: file)
                 MainView(document: file.$document, diagrams: diagrams)
             }
         }
