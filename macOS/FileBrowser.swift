@@ -21,12 +21,10 @@ struct FileBrowser: View {
                     Button(action: {
                         SelectSongsFolder(mySongs)
                     } ) {
-                        Label((URL(fileURLWithPath: pathSongsString).lastPathComponent), systemImage: "folder").truncationMode(.head).font(.title2)
+                        Label((URL(fileURLWithPath: pathSongsString).lastPathComponent), systemImage: "folder").truncationMode(.head)
                     }
                     .help("The folder with your songs")
                     .buttonStyle(PlainButtonStyle())
-                    
-                    
                     ForEach(mySongs.songList.artists) { artist in
                         Section(header: Text(artist.name).font(.headline).foregroundColor(.primary)) {
                             ForEach(artist.songs) { song in
@@ -69,11 +67,19 @@ struct FileBrowserRow: View {
         } ) {
             if (selection == song.path) {
                 ZStack() {
-                    Color.accentColor.cornerRadius(5)
-                    Text(song.title).foregroundColor(Color(NSColor.textBackgroundColor))
+                    Color.accentColor.cornerRadius(5).opacity(0.3)
+                    HStack {
+                        Text(song.title).padding(.leading)
+                        Spacer()
+                    }
                 }
             } else {
-                Label(song.title, systemImage: (song.musicpath.isEmpty ? "music.note" : "music.note.list"))
+                if (song.musicpath.isEmpty) {
+                    Text(song.title).foregroundColor(.secondary).padding(.leading)
+                }
+                else {
+                    Label(song.title, systemImage: "music.note.list").foregroundColor(.secondary)
+                }
             }
         }
         .buttonStyle(PlainButtonStyle())

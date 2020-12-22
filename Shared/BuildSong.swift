@@ -92,6 +92,9 @@ func SectionView(_ section: Sections) -> String {
     if section.lines.isEmpty {
         html += "empty "
     }
+    if section.name == nil {
+        html += "no-name "
+    }
     html += (section.type != nil ? section.type! : "")
     html += "\">"
     html += (section.name != nil ? section.name! : "&nbsp;")

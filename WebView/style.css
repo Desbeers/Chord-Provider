@@ -12,6 +12,12 @@ body {
 #container {
     text-align: center;
     margin: 0 auto;
+    padding-bottom: 2em;
+}
+
+#grid {
+    text-align: center;
+    margin: 0 auto;
 }
 
 #chords {
@@ -34,28 +40,68 @@ body {
     font: -apple-system-subheadline;
 }
 
+.section {
+    text-align: center;
+}
+
+.section {
+    border-right: none;
+    font: -apple-system-headline;
+    text-align: center;
+    padding: 0.5em;
+    width: 20em;
+    justify-self: center;
+}
+
+.section.empty {
+    
+    background-color: green;
+}
+
+.section.no-name {
+    display: none;
+}
+
+.section.chorus {
+    background-color: var(--highlightColor);
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: auto;
+    column-gap: 1em;
+    row-gap: 1.5em;
+}
+
+.lines {
+    text-align: left;
+    padding-bottom: 0em;
+    justify-self: center;
+}
+
+@media (min-width: 800px) {
+
 #grid {
     display: grid;
     grid-template-columns: auto auto;
     column-gap: 1em;
     row-gap: 1.5em;
 }
-    
+
 .section {
     text-align: right;
     padding-right: 1em;
+    padding-top: 1.5em;
     padding-left: 2em;
     justify-self: end;
-    font: -apple-system-headline;
+    width: auto;
 }
 
-.section.chorus {
-    border-right: 1px solid var(--accentColor);
-    background-color: var(--highlightColor);
-    padding-top: 1em;
+.section.no-name {
+    display: block;
 }
+
 .section.empty {
-    border-top: 1px solid var(--accentColor);
     border-right: none;
     grid-column-end: span 2;
     text-align: center;
@@ -70,6 +116,7 @@ body {
     justify-self: start;
 }
 
+}
 .lines .plain {
     font-style: italic;
 }

@@ -11,6 +11,7 @@ struct HeaderView: View {
     
     var body: some View {
             HStack(alignment: .center) {
+                Spacer()
                 if song.artist != nil {
                     Text(song.artist!).font(.headline)
                 }
@@ -61,8 +62,9 @@ struct HeaderView: View {
                     }.disabled(!isPlaying)
                 }
                 #endif
+                Spacer()
             }
-            .padding()
+            .padding(4)
             .alert(isPresented: $showingAlert) {
                         Alert(title: Text("Ooops..."), message: Text("The audio file was not found."), dismissButton: .default(Text("OK")))
                     }

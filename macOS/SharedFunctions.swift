@@ -5,7 +5,7 @@ func GetAccentColor() -> String {
 }
 
 func GetHighlightColor() -> String {
-    return NSColor.controlAccentColor.hexString + "33"
+    return NSColor.controlAccentColor.hexString + "53"
 }
 
 func GetTextColor() -> String {

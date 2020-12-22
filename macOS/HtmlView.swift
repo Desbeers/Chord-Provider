@@ -10,6 +10,7 @@ struct HtmlView: NSViewRepresentable {
         webView.autoresizingMask = [.width, .height]
         webView.setValue(false, forKey: "drawsBackground")
         webView.setValue(true, forKey: "allowsMagnification")
+        webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
         webView.loadHTMLString(html, baseURL: nil)
         return webView
     }
