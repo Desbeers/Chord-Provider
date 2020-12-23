@@ -15,13 +15,18 @@ struct FileBrowser: View {
     @AppStorage("pathSongsString") var pathSongsString: String = GetDocumentsDirectory()
 
     var body: some View {
-        VStack {
+        VStack() {
             ScrollViewReader { proxy in
                 List() {
                     Button(action: {
                         SelectSongsFolder(mySongs)
                     } ) {
-                        Label((URL(fileURLWithPath: pathSongsString).lastPathComponent), systemImage: "folder").truncationMode(.head)
+                        Label {
+                            Text((URL(fileURLWithPath: pathSongsString).lastPathComponent))
+                                .foregroundColor(.secondary)
+                        } icon: {
+                            Image(systemName: "folder")
+                        }.font(.headline)
                     }
                     .help("The folder with your songs")
                     .buttonStyle(PlainButtonStyle())
@@ -69,16 +74,21 @@ struct FileBrowserRow: View {
                 ZStack() {
                     Color.accentColor.cornerRadius(5).opacity(0.3)
                     HStack {
-                        Text(song.title).padding(.leading)
+                        Text(song.title).padding(.leading, 4)
                         Spacer()
                     }
                 }
             } else {
                 if (song.musicpath.isEmpty) {
-                    Text(song.title).foregroundColor(.secondary).padding(.leading)
+                    Text(song.title).foregroundColor(.secondary).padding(.leading, 4)
                 }
                 else {
-                    Label(song.title, systemImage: "music.note.list").foregroundColor(.secondary)
+                    Label {
+                        Text(song.title)
+                            .foregroundColor(.secondary)
+                    } icon: {
+                        Image(systemName: "music.note.list")
+                    }
                 }
             }
         }
