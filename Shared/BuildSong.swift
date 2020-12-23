@@ -52,7 +52,7 @@ func BuildSong(song: Song, chords: Bool) -> String {
         song.sections.forEach { section in
             html += SectionView(section)
             if !section.lines.isEmpty {
-                html += "<div class=\"lines\">"
+                html += "<div class=\"lines " + (section.type ?? "") + "\">"
                 section.lines.forEach { (line) in
                     if !line.measures.isEmpty {
                         html += MeasuresView(line)

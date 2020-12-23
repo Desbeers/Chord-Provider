@@ -1,3 +1,27 @@
+/*
+ 
+ Styling of the song:
+ 
+ Structure:
+ 
+ - container
+ -- grid
+ --- section
+ --- lines, depending on content has the following:
+ ---- measures
+ ------ measure
+ -------- chord
+ ---- tablature
+ ---- line: a line in a song
+ ----- part
+ ------- chord
+ ------- lyric
+ 
+ */
+
+
+/* General stuff */
+
 :root {
     supported-color-schemes: light dark;
 }
@@ -16,9 +40,152 @@ body {
 }
 
 #grid {
-    text-align: center;
-    margin: 0 auto;
+    display: inline-block;
 }
+
+.section {
+    font: -apple-system-headline;
+    text-align: left;
+    clear: left;
+}
+
+.section.chorus {
+    background-color: var(--highlightColor);
+}
+
+/*
+ Lines
+ */
+
+.lines {
+    float: left;
+    clear: left;
+}
+
+/* A line with tablature */
+.lines .tablature {
+    font-family: monospace;
+    overflow: visible;
+    white-space: nowrap;
+    text-align: left;
+}
+
+/* A line with a comment */
+.lines .comment {
+    font: -apple-system-subheadline;
+    text-align: left;
+}
+
+.lines .measures {
+    display: flex;
+    max-width: 25em;
+}
+
+.lines .measure {
+    width: 5em;
+    border-left: 2px solid;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    
+    margin-bottom: 0.5em;
+}
+
+.lines .measure .chord {
+    padding-right: 0.2em;
+    float: left;
+    color: var(--accentColor);
+}
+
+/* A line without any type; I use it as 'intro' text for a song */
+.lines .plain {
+    font-style: italic;
+    text-align: left;
+}
+
+/* A line with a song part */
+.lines .line {
+    clear: both;
+}
+
+/*
+ Parts
+ */
+
+.part {
+    float: left;
+}
+
+.part .chord {
+    text-align: left;
+    color: var(--accentColor);
+    padding-right: 0.5em;
+}
+
+.part .lyric {
+    white-space: nowrap;
+}
+
+/* Big screen layout, it's in a grid */
+
+@media (min-width: 800px) {
+
+    #grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        column-gap: 1em;
+        row-gap: 0.5em;
+    }
+
+    .section {
+        text-align: right;
+        justify-self: end;
+        width: auto;
+    }
+
+    .section.chorus {
+        padding: 0.5em;
+    }
+    
+    /* An empty section, {chorus} for example spans two colums */
+    .section.empty {
+        grid-column-end: span 2;
+        text-align: center;
+        padding: 0.5em;
+        justify-self: center;
+        width: 20em;
+    }
+}
+
+/* Small screen layout */
+
+@media (max-width: 799px) {
+
+    .section {
+        padding: 0.5em;
+        margin-bottom: 1em;
+    }
+    .section.chorus {
+        margin-bottom: 0;
+    }
+    .section.no-name {
+        display: none;
+    }
+    .section.empty {
+        margin-bottom: 0.5em;
+    }
+    .lines {
+        margin-bottom: 1em;
+    }
+    .lines.chorus {
+        border-left: 1px solid var(--highlightColor);
+        padding-left: 1em;
+    }
+    .lines.chorus .line:first-child {
+        margin-top: 0.5em;
+    }
+}
+
+/* CSS for the Chords View */
 
 #chords {
     font: -apple-system-headline;
@@ -37,129 +204,5 @@ body {
     border-left: 1px solid;
     padding-left: 0.5em;
     margin: 1em 1.5em 1em 1em;
-    font: -apple-system-subheadline;
-}
-
-.section {
-    text-align: center;
-}
-
-.section {
-    border-right: none;
-    font: -apple-system-headline;
-    text-align: center;
-    padding: 0.5em;
-    width: 20em;
-    justify-self: center;
-}
-
-.section.empty {
-    
-    background-color: green;
-}
-
-.section.no-name {
-    display: none;
-}
-
-.section.chorus {
-    background-color: var(--highlightColor);
-}
-
-#grid {
-    display: grid;
-    grid-template-columns: auto;
-    column-gap: 1em;
-    row-gap: 1.5em;
-}
-
-.lines {
-    text-align: left;
-    padding-bottom: 0em;
-    justify-self: center;
-}
-
-@media (min-width: 800px) {
-
-#grid {
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 1em;
-    row-gap: 1.5em;
-}
-
-.section {
-    text-align: right;
-    padding-right: 1em;
-    padding-top: 1.5em;
-    padding-left: 2em;
-    justify-self: end;
-    width: auto;
-}
-
-.section.no-name {
-    display: block;
-}
-
-.section.empty {
-    border-right: none;
-    grid-column-end: span 2;
-    text-align: center;
-    padding: 0.5em;
-    justify-self: center;
-    width: 20em;
-}
-
-.lines {
-    text-align: left;
-    padding-bottom: 0em;
-    justify-self: start;
-}
-
-}
-.lines .plain {
-    font-style: italic;
-}
-.chord {
-    text-align: left;
-    color: var(--accentColor);
-    padding-right: 0.5em;
-}
-
-.lyric {
-  white-space: nowrap;
-}
-
-.line {
-    display: flex;
-}
-
-.tablature {
-    font-family: monospace;
-    overflow: visible;
-    white-space: nowrap;
-    text-align: left;
-}
-
-.measures {
-    display: flex;
-    max-width: 25em;
-}
-
-.measure {
-    width: 5em;
-    display: flex;
-    border-left: 2px solid;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    margin-left: -2px;
-    margin-bottom: 0.5em;
-}
-
-.measure .chord {
-    padding-right: 0.2em
-}
-
-.comment {
     font: -apple-system-subheadline;
 }
