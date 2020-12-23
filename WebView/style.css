@@ -36,7 +36,7 @@ body {
 #container {
     text-align: center;
     margin: 0 auto;
-    padding-bottom: 2em;
+    padding: 0 1em 2em;
 }
 
 #grid {
@@ -44,7 +44,7 @@ body {
 }
 
 .section {
-    font: -apple-system-headline;
+    font: -apple-system-subheadline;
     text-align: left;
     clear: left;
 }
@@ -60,6 +60,7 @@ body {
 .lines {
     float: left;
     clear: left;
+    padding: 1em 0;
 }
 
 /* A line with tablature */
@@ -86,7 +87,6 @@ body {
     border-left: 2px solid;
     padding-left: 0.5em;
     padding-right: 0.5em;
-    
     margin-bottom: 0.5em;
 }
 
@@ -175,6 +175,7 @@ body {
     }
     .lines {
         margin-bottom: 1em;
+        text-align: left;
     }
     .lines.chorus {
         border-left: 1px solid var(--highlightColor);
