@@ -20,7 +20,6 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 
 #### macOS
 
-- The app is sandboxed and only works well when living in the Applications folder. If you build it in Xcode and run it from the build folder, the sidebar doesn't work.
 - If you change color-scheme; the chord diagrams are not updated. They will be correct again after a restart of the app.
 
 ##### The sidebar

@@ -64,9 +64,9 @@ struct FileBrowserRow: View {
                 _ = persistentURL.startAccessingSecurityScopedResource()
                 persistentURL = persistentURL.appendingPathComponent(song.path, isDirectory: false)
                 let configuration = NSWorkspace.OpenConfiguration()
-                let bundleIdentifier =  Bundle.main.bundleIdentifier
-                guard let chordpro = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleIdentifier!) else { return }
-                NSWorkspace.shared.open([persistentURL],withApplicationAt: chordpro,configuration: configuration)
+                /// Find the location of the application:
+                let chordpro = Bundle.main.resourceURL?.baseURL
+                NSWorkspace.shared.open([persistentURL],withApplicationAt: chordpro!,configuration: configuration)
                 persistentURL.stopAccessingSecurityScopedResource()
             }
         } ) {
