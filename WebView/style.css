@@ -60,7 +60,6 @@ body {
 .lines {
     float: left;
     clear: left;
-    padding: 1em 0;
 }
 
 /* A line with tablature */
@@ -133,15 +132,21 @@ body {
         display: grid;
         grid-template-columns: auto auto;
         column-gap: 1em;
-        row-gap: 0.5em;
+        row-gap: 1.5em;
     }
 
     .section {
         text-align: right;
         justify-self: end;
         width: auto;
+        border-right: 1px solid var(--highlightColor);
+        padding-right: 0.5em;
     }
 
+    .section.no-name {
+        border: none;
+    }
+    
     .section.chorus {
         padding: 0.5em;
     }
@@ -163,24 +168,33 @@ body {
     .section {
         padding: 0.5em;
         margin-bottom: 1em;
+        border-bottom: 1px solid var(--highlightColor);
     }
+
     .section.chorus {
         margin-bottom: 0;
     }
+
     .section.no-name {
         display: none;
     }
+
     .section.empty {
         margin-bottom: 0.5em;
+        width: 20em;
+        text-align: center;
     }
+
     .lines {
         margin-bottom: 1em;
         text-align: left;
     }
+
     .lines.chorus {
         border-left: 1px solid var(--highlightColor);
-        padding-left: 1em;
+        padding-left: 0.5em;
     }
+
     .lines.chorus .line:first-child {
         margin-top: 0.5em;
     }
