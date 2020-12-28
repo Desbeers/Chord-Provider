@@ -31,13 +31,13 @@ struct FileBrowser: View {
                     .help("The folder with your songs")
                     .buttonStyle(PlainButtonStyle())
                     ForEach(mySongs.songList.artists) { artist in
-                        Section(header: Text(artist.name).font(.headline).foregroundColor(.primary)) {
-                            ForEach(artist.songs) { song in
-                                FileBrowserRow(song: song, selection: (file.fileURL?.lastPathComponent ?? "New"))
-                            }
+                        Text(artist.name).font(.caption).foregroundColor(.secondary).padding(.leading, 6)
+                        ForEach(artist.songs) { song in
+                            FileBrowserRow(song: song, selection: (file.fileURL?.lastPathComponent ?? "New"))
                         }
                     }
                 }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .onAppear(
                     perform: {
                         proxy.scrollTo((file.fileURL?.lastPathComponent), anchor: .bottom)
@@ -70,26 +70,19 @@ struct FileBrowserRow: View {
                 persistentURL.stopAccessingSecurityScopedResource()
             }
         } ) {
-            if (selection == song.path) {
-                ZStack() {
-                    Color.accentColor.cornerRadius(5).opacity(0.3)
-                    HStack {
-                        Text(song.title).padding(.leading, 4)
-                        Spacer()
-                    }
+            let rowImage = (song.musicpath.isEmpty ? "music.note" : "music.note.list")
+            ZStack() {
+                if (selection == song.path) {
+                    Color.secondary.cornerRadius(5).opacity(0.2)
                 }
-            } else {
-                if (song.musicpath.isEmpty) {
-                    Text(song.title).foregroundColor(.secondary).padding(.leading, 4)
-                }
-                else {
-                    Label {
+                HStack() {
+                    Label() {
                         Text(song.title)
-                            .foregroundColor(.secondary)
                     } icon: {
-                        Image(systemName: "music.note.list")
+                        Image(systemName: rowImage)
                     }
-                }
+                    Spacer()
+                }.padding(.all,4)
             }
         }
         .buttonStyle(PlainButtonStyle())
