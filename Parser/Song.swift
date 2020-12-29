@@ -7,6 +7,7 @@ public class Song: Identifiable {
     public var capo: String?
     public var key: String?
     public var tempo: String?
+    public var time: String?
     public var year: String?
     public var album: String?
     public var tuning: String?

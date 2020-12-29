@@ -27,6 +27,9 @@ struct HeaderView: View {
                 if song.tempo != nil {
                     Label(song.tempo!, systemImage: "metronome").padding(.leading)
                 }
+                if song.time != nil {
+                    Label(song.time!, systemImage: "repeat").padding(.leading)
+                }
                 #if os(macOS)
                 if song.musicpath != nil {
                     Button(action: {

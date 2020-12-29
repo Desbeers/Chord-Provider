@@ -73,6 +73,8 @@ public class ChordPro {
                     song.artist = value!
                 case "capo":
                     song.capo = value!
+                case "time":
+                    song.time = value!
                 case "c":
                     processComments(text: value!, song: &song, currentSection: &currentSection)
                 case "comment":
