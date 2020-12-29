@@ -7,14 +7,15 @@ struct MainView: View {
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
     @AppStorage("pathSongs") var pathSongs: String = GetDocumentsDirectory()
+    @AppStorage("appTheme") var appTheme: String = "Light"
 
     var body: some View {
         HSplitView() {
             ZStack{
                 //FancyBackground()
                 VStack() {
-                    HeaderView(song: $song).background(Color.accentColor.opacity(0.3)).padding(.bottom)
-                    SongView(song: $song).frame(minWidth: 400)
+                    HeaderView(song: song).background(Color.accentColor.opacity(0.3)).padding(.bottom)
+                    SongView(song: song).frame(minWidth: 400)
                 }.frame(minWidth: 400)
             }
             if showEditor {
@@ -24,6 +25,8 @@ struct MainView: View {
                     .background(Color(NSColor.textBackgroundColor))
             }
         }
+        /// Hard-coded the foregroundColor because SwiftUI is buggy when switching appearance.
+        /// Not great; the buttons don't dim when the application is in the background.
         .toolbar {
             ToolbarItem() {
                 Button(action: {
@@ -35,6 +38,7 @@ struct MainView: View {
                         Image(systemName: showChords ? "number.square.fill" : "number.square")
                         Text(showChords ? "Hide chords" : "Show chords")
                     }
+                    .foregroundColor(.secondary)
                 }
             }
             ToolbarItem() {
@@ -48,13 +52,14 @@ struct MainView: View {
                         Text(showEditor ? "Hide editor" : "Edit song")
                         
                     }
+                    .foregroundColor(.secondary)
                 }
             }
             ToolbarItem(placement: .navigation) {
                 Button(action: {
                     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
                 } ) {
-                    Image(systemName: "sidebar.left")
+                    Image(systemName: "sidebar.left").foregroundColor(.secondary)
                 }
             }
         }
@@ -66,6 +71,11 @@ struct MainView: View {
         )
         .onChange(of: document.text) { newValue in
             song = ChordPro.parse(document: document, diagrams: diagrams)
+        }
+        .onChange(of: appTheme) { newValue in
+            /// Get the correct colors
+            song = ChordPro.parse(document: document, diagrams: diagrams)
+            print("Change of theme")
         }
     }
 }

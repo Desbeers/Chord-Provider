@@ -2,6 +2,12 @@ import SwiftUI
 
 @main
 struct ChordProviderApp: App {
+    #if os(macOS)
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    #endif
+    init() {
+        print("starting!!")
+    }
     
     /// Get the list of chord diagrams so we don't have to parse it all the time.
     let diagrams = Diagram.all
@@ -34,7 +40,7 @@ struct macOSApp: Scene {
 
 #if os(iOS)
 struct iOSApp: Scene {
-    
+
     let diagrams: [Diagram]
     
     var body: some Scene {

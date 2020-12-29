@@ -20,8 +20,6 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 
 #### macOS
 
-- If you change color-scheme; the chord diagrams are not updated. They will be correct again after a restart of the app.
-
 ##### The sidebar
 
 This is still work in progress...

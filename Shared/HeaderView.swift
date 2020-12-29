@@ -4,7 +4,7 @@ import AVKit
 var audioPlayer: AVAudioPlayer!
 
 struct HeaderView: View {
-    @Binding var song: Song
+    var song: Song
     //@State var audioPlayer: AVAudioPlayer!
     @State var isPlaying:Bool = false
     @State private var showingAlert = false

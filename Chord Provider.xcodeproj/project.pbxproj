@@ -471,7 +471,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.ios.Chord-Provider";
 				PRODUCT_NAME = "Chord Provider";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -495,7 +495,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider";
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.ios.Chord-Provider";
 				PRODUCT_NAME = "Chord Provider";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;

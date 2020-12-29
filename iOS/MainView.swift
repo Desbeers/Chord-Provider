@@ -9,9 +9,9 @@ struct MainView: View {
 
     var body: some View {
         VStack() {
-            HeaderView(song: $song).background(Color.blue.opacity(0.3)).padding(.bottom)
+            HeaderView(song: song).background(Color.blue.opacity(0.3)).padding(.bottom)
             HStack {
-                SongView(song: $song)
+                SongView(song: song)
                 if showEditor {
                     EditorView(document: $document)
                 }
