@@ -13,10 +13,10 @@
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>$(PRODUCT_BUNDLE_IDENTIFIER).pro</string>
+				<string>nl.desbeers.Chord-Provider.pro</string>
 			</array>
 			<key>NSUbiquitousDocumentUserActivityType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).pro</string>
+			<string>nl.desbeers.Chord-Provider.editing</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -82,7 +82,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).pro</string>
+			<string>nl.desbeers.Chord-Provider.pro</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -108,7 +108,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).pro</string>
+			<string>nl.desbeers.Chord-Provider.pro</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

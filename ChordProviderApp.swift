@@ -53,7 +53,7 @@ struct macOSApp: Scene {
                     /// Text(appTheme == "Light" ? "Dark view" : "Light view")
                     Text("Toggle Appearance")
                 }
-                .keyboardShortcut("w")
+                .keyboardShortcut("t")
             }
 
         }
