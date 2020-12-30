@@ -7,7 +7,6 @@ struct HtmlView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let webView = WKWebView()
         webView.isOpaque = false
-        webView.loadHTMLString(html, baseURL: nil)
         return webView
     }
 
