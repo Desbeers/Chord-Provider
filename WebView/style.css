@@ -74,6 +74,12 @@ body {
 .lines .comment {
     font: -apple-system-subheadline;
     text-align: left;
+    background-color:  var(--highlightColor);
+    float: left;
+    padding: 0.5em 1em;
+    border-radius: 0.5em;
+    margin: 0 0.5em 0.5em 0;
+    opacity: 0.6;
 }
 
 .lines .measures {
@@ -140,7 +146,7 @@ body {
         justify-self: end;
         width: auto;
         border-right: 1px solid var(--highlightColor);
-        padding-right: 0.5em;
+        padding: 0.2em 1em 0 0;
     }
 
     .section.no-name {

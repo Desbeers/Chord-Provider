@@ -13,26 +13,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         var isLight: Bool { NSApp.effectiveAppearance.name == NSAppearance.Name.aqua }
         /// And save it; its for the html colors
         UserDefaults.standard.set(isLight ? "Light" : "Dark", forKey: "appTheme")
-        /// Switch to dark mode when going full screen
-        NotificationCenter.default.addObserver(
-            forName: NSWindow.willEnterFullScreenNotification,
-            object: nil,
-            queue: OperationQueue.main,
-            using: { note in
-                NSApp.appearance = NSAppearance(named: .darkAqua)
-                UserDefaults.standard.set("Dark", forKey: "appTheme")
-                print("Entered Fullscreen")
-        })
-        /// Go back to default when exiting full screen
-        NotificationCenter.default.addObserver(
-            forName: NSWindow.willExitFullScreenNotification,
-            object: nil,
-            queue: OperationQueue.main,
-            using: { note in
-                NSApp.appearance = nil
-                UserDefaults.standard.set(isLight ? "Light" : "Dark", forKey: "appTheme")
-                print("Exited Fullscreen")
-        })
         /// Act on change of appearance, again for the html colors
         DistributedNotificationCenter.default().addObserver(
             self,
