@@ -146,7 +146,8 @@ body {
         justify-self: end;
         width: auto;
         border-right: 1px solid var(--highlightColor);
-        padding: 0.2em 1em 0 0;
+        padding: 0.2em 1em 0.5em 0.5em;
+        border-radius: 0.5em 0 0 0.5em;
     }
 
     .section.no-name {
@@ -175,6 +176,7 @@ body {
         padding: 0.5em;
         margin-bottom: 1em;
         border-bottom: 1px solid var(--highlightColor);
+        border-radius: 0.5em 0.5em 0.5em 0;
     }
 
     .section.chorus {
