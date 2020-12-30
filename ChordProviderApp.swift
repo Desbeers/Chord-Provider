@@ -24,6 +24,8 @@ struct ChordProviderApp: App {
 
 #if os(macOS)
 struct macOSApp: Scene {
+    
+    @AppStorage("appTheme") var appTheme: String = ""
 
     let diagrams: [Diagram]
     
@@ -34,6 +36,28 @@ struct macOSApp: Scene {
                 MainView(document: file.$document, diagrams: diagrams)
             }
         }
+        .commands {
+            /// Show or hide the sidebar
+            SidebarCommands()
+            CommandGroup(before: .sidebar)  {
+                Button(action: {
+                    if (appTheme == "Light") {
+                        NSApp.appearance = NSAppearance(named: .darkAqua)
+                        UserDefaults.standard.set("Dark", forKey: "appTheme")
+                    } else {
+                        NSApp.appearance = NSAppearance(named: .aqua)
+                        UserDefaults.standard.set("Light", forKey: "appTheme")
+                    }
+                }) {
+                    /// Looks like dynamic labels are not working.
+                    /// Text(appTheme == "Light" ? "Dark view" : "Light view")
+                    Text("Toggle Appearance")
+                }
+                .keyboardShortcut("w")
+            }
+
+        }
+
     }
 }
 #endif
