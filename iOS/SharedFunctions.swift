@@ -1,11 +1,11 @@
 import SwiftUI
 
 func GetAccentColor() -> String {
-    return UIColor.systemBlue.hexString
+    return UIColor.systemRed.hexString
 }
 
 func GetHighlightColor() -> String {
-    return UIColor.systemBlue.hexString + "53"
+    return UIColor.systemRed.hexString + "53"
 }
 
 func GetTextColor() -> String {
