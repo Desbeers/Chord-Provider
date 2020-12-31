@@ -9,7 +9,8 @@ func GetHighlightColor() -> String {
 }
 
 func GetTextColor() -> String {
-    return UIColor.label.hexString
+    let theme = UserDefaults.standard.object(forKey: "appTheme") as? String ?? "Light"
+    return (theme == "Light" ? "#000000" : "#ffffff")
 }
 
 func GetSystemBackground() -> String {

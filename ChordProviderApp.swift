@@ -64,6 +64,8 @@ struct macOSApp: Scene {
 
 #if os(iOS)
 struct iOSApp: Scene {
+    
+    @AppStorage("appTheme") var appTheme: String = ""
 
     let diagrams: [Diagram]
     
