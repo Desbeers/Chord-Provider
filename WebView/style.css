@@ -19,12 +19,7 @@
  
  */
 
-
 /* General stuff */
-
-:root {
-    supported-color-schemes: light dark;
-}
 
 body {
     font: -apple-system-body;
@@ -49,8 +44,18 @@ body {
     clear: left;
 }
 
-.section.chorus {
-    background-color: var(--highlightColor);
+.section.single {
+    border: none;
+    border-radius: 0.5em;
+}
+
+.section .name {
+    font-weight: bold;
+    opacity: 0.6;
+}
+
+.section.single .name {
+    padding: 0 1em;
 }
 
 /*
@@ -72,14 +77,13 @@ body {
 
 /* A line with a comment */
 .lines .comment {
-    font: -apple-system-subheadline;
+    font: -apple-system-caption1;
     text-align: left;
-    background-color:  var(--highlightColor);
+    background-color:  var(--commentBackground);
     float: left;
-    padding: 0.5em 1em;
+    padding: 0.25em 0.5em;
     border-radius: 0.5em;
     margin: 0 0.5em 0.5em 0;
-    opacity: 0.6;
 }
 
 .lines .measures {
@@ -156,15 +160,11 @@ body {
     
     .section.chorus {
         padding: 0.5em;
+        background-color: var(--highlightColor);
     }
     
-    /* An empty section, {chorus} for example spans two colums */
-    .section.empty {
-        grid-column-end: span 2;
-        text-align: center;
-        padding: 0.5em;
-        justify-self: center;
-        width: 20em;
+    .section.single {
+        justify-self: left;
     }
 }
 
@@ -173,24 +173,40 @@ body {
 @media (max-width: 799px) {
 
     .section {
-        padding: 0.5em;
+        
         margin-bottom: 1em;
-        border-bottom: 1px solid var(--highlightColor);
+        
         border-radius: 0.5em 0.5em 0.5em 0;
+    }
+    
+    .section .name {
+        padding: 0.5em 0;
+        display: inline-block;
+        border-bottom: 1px solid var(--highlightColor);
     }
 
     .section.chorus {
         margin-bottom: 0;
+        border: none;
     }
 
+    .section.chorus .name {
+        background-color: var(--highlightColor);
+        display: inline-block;
+        padding: 0.5em 1em;
+        border-radius: 0.5em 0.5em 0.5em 0;
+    }
+    
+    .section.chorus.single .name {
+        border-radius: 0.5em;
+    }
+    
     .section.no-name {
         display: none;
     }
-
-    .section.empty {
-        margin-bottom: 0.5em;
-        width: 20em;
-        text-align: center;
+    
+    .section.single {
+        margin-bottom: 1em;
     }
 
     .lines {

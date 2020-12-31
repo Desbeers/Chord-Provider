@@ -118,7 +118,7 @@ public class ChordPro {
                 case "soc":
                     processSection(text: "Chorus", type: "chorus", song: &song, currentSection: &currentSection)
                 case "sot":
-                    processSection(text: "", type: "tab", song: &song, currentSection: &currentSection)
+                    processSection(text: "Tab", type: "tab", song: &song, currentSection: &currentSection)
                 case "sog":
                     processSection(text: "", type: "grid", song: &song, currentSection: &currentSection)
                 case "sov":

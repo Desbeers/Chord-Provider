@@ -10,12 +10,13 @@ func BuildSong(song: Song, chords: Bool) -> String {
                  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
                <style>
                :root {
-                 supported-color-schemes: light dark;
+                 supported-color-schemes: light dark;\n
                """
     /// Add system colors to the css
-    html += "--accentColor: " + GetAccentColor() + ";"
-    html += "--highlightColor: " + GetHighlightColor() + ";"
-    html += "}"
+    html += "--accentColor: " + GetAccentColor() + ";\n"
+    html += "--highlightColor: " + GetHighlightColor() + ";\n"
+    html += "--commentBackground: " + GetCommentBackground() + ";\n"
+    html += "}\n"
     /// Add the main CSS
     if let filepath = Bundle.main.path(forResource: "style", ofType: "css") {
         do {
@@ -90,14 +91,14 @@ func SectionView(_ section: Sections) -> String {
 
     html += "<div class=\"section "
     if section.lines.isEmpty {
-        html += "empty "
+        html += "no-name\">&nbsp;</div><div class=\"section single "
     }
     if section.name == nil {
         html += "no-name "
     }
     html += (section.type != nil ? section.type! : "")
     html += "\">"
-    html += (section.name != nil ? section.name! : "&nbsp;")
+    html += (section.name != nil ? "<div class=\"name\">" + section.name! + "</div>" : "&nbsp;")
     html += "</div>"
     
     return html

@@ -51,6 +51,10 @@ func GetSystemBackground() -> String {
     return NSColor.textBackgroundColor.hexString
 }
 
+func GetCommentBackground() -> String {
+    return NSColor.systemGray.hexString + "26"
+}
+
 extension NSColor {
     var hexString: String{
         let rgbColor = usingColorSpace(.extendedSRGB) ?? NSColor(red: 1, green: 1, blue: 1, alpha: 1)
