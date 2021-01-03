@@ -1,13 +1,11 @@
-import SwiftUI
-import AVKit
+//  MARK: - View: Header View for macOS and iOS
 
-var audioPlayer: AVAudioPlayer!
+/// Song information and optional audo player for macOS
+
+import SwiftUI
 
 struct HeaderView: View {
     var song: Song
-
-    @State var isPlaying:Bool = false
-    @State private var showingAlert = false
 
     var body: some View {
             HStack(alignment: .center) {
@@ -32,44 +30,11 @@ struct HeaderView: View {
                 }
                 #if os(macOS)
                 if song.musicpath != nil {
-                    Button(action: {
-                        /// Sandbox stuff: get path for selected folder
-                        if var persistentURL = GetPersistentFileURL("pathSongs") {
-                            _ = persistentURL.startAccessingSecurityScopedResource()
-                            persistentURL = persistentURL.appendingPathComponent(song.musicpath!, isDirectory: false)
-                            // TODO: move check to song loading
-                            //let isReachable = try! persistentURL.checkResourceIsReachable()
-                            do {
-                                audioPlayer = try AVAudioPlayer(contentsOf: persistentURL)
-                                audioPlayer.play()
-                                /// For the button state
-                                isPlaying = true
-                                } catch let error {
-                                    print(error)
-                                    showingAlert = true
-                                }
-                            persistentURL.stopAccessingSecurityScopedResource()
-                        }
-                    }) {
-                        Image(systemName: "play.circle.fill").foregroundColor(.secondary)
-                    }.padding(.leading)
-                    Button(action: {
-                        if (audioPlayer.isPlaying == true) {
-                            audioPlayer.pause()
-                        }
-                        else {
-                            audioPlayer.play()
-                        }
-                    }) {
-                        Image(systemName: "pause.circle.fill").foregroundColor(.secondary)
-                    }.disabled(!isPlaying)
+                    AudioPlayer(song: song)
                 }
                 #endif
                 Spacer()
             }
             .padding(4)
-            .alert(isPresented: $showingAlert) {
-                        Alert(title: Text("Ooops..."), message: Text("The audio file was not found."), dismissButton: .default(Text("OK")))
-                    }
     }
 }
