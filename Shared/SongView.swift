@@ -5,9 +5,8 @@
 import SwiftUI
 
 struct SongView: View {
-    var song: Song
-    
-    @AppStorage("showEditor") var showEditor: Bool = false
+    @ObservedObject var song: Song
+
     @AppStorage("showChords") var showChords: Bool = true
     
     var body: some View {
@@ -48,7 +47,8 @@ struct SongViewModifier: ViewModifier {
                 song = ChordPro.parse(document: document, diagrams: diagrams)
             }
             .onChange(of: colorScheme) {color in
-                song = ChordPro.parse(document: document, diagrams: diagrams)
+                /// Reload the chords with the new colors.
+                song.htmlchords = BuildSong(song: song, chords: true)
             }
     }
 }
