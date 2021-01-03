@@ -1,39 +1,5 @@
 import SwiftUI
 
-// App AppDelegate for macOS
-
-class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    private let kAppleInterfaceThemeChangedNotification = "AppleInterfaceThemeChangedNotification"
-    private let kAppleInterfaceStyle = "AppleInterfaceStyle"
-    private let kAppleInterfaceStyleSwitchesAutomatically = "AppleInterfaceStyleSwitchesAutomatically"
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        /// Get the appearance of the application
-        var isLight: Bool { NSApp.effectiveAppearance.name == NSAppearance.Name.aqua }
-        /// And save it; its for the html colors
-        UserDefaults.standard.set(isLight ? "Light" : "Dark", forKey: "appTheme")
-        /// Act on change of appearance, again for the html colors
-        DistributedNotificationCenter.default().addObserver(
-            self,
-            selector: #selector(self.appleInterfaceThemeChangedNotification(notification:)),
-            name: NSNotification.Name(rawValue: kAppleInterfaceThemeChangedNotification),
-            object: nil
-        )
-    }
-    /// Set the change of appearance
-    @objc func appleInterfaceThemeChangedNotification(notification: Notification) {
-        if let appleInterfaceStyle = UserDefaults.standard.object(forKey: self.kAppleInterfaceStyle) as? String {
-            UserDefaults.standard.set(appleInterfaceStyle, forKey: "appTheme")
-        } else {
-            UserDefaults.standard.set("Light", forKey: "appTheme")
-        }
-    }
-}
-
-
-
-
 func GetAccentColor() -> String {
     return NSColor.controlAccentColor.hexString
 }
@@ -43,8 +9,8 @@ func GetHighlightColor() -> String {
 }
 
 func GetTextColor() -> String {
-    let theme = UserDefaults.standard.object(forKey: "appTheme") as? String ?? "Light"
-    return (theme == "Light" ? "#000000" : "#ffffff")
+    let theme = AppAppearance.GetCurrentColorMode()
+    return (theme == .light ? "#000000" : "#ffffff")
 }
 
 func GetSystemBackground() -> String {

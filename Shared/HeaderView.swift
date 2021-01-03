@@ -5,10 +5,10 @@ var audioPlayer: AVAudioPlayer!
 
 struct HeaderView: View {
     var song: Song
-    //@State var audioPlayer: AVAudioPlayer!
+
     @State var isPlaying:Bool = false
     @State private var showingAlert = false
-    
+
     var body: some View {
             HStack(alignment: .center) {
                 Spacer()
@@ -51,7 +51,7 @@ struct HeaderView: View {
                             persistentURL.stopAccessingSecurityScopedResource()
                         }
                     }) {
-                        Image(systemName: "play.circle.fill")
+                        Image(systemName: "play.circle.fill").foregroundColor(.secondary)
                     }.padding(.leading)
                     Button(action: {
                         if (audioPlayer.isPlaying == true) {
@@ -61,7 +61,7 @@ struct HeaderView: View {
                             audioPlayer.play()
                         }
                     }) {
-                        Image(systemName: "pause.circle.fill")
+                        Image(systemName: "pause.circle.fill").foregroundColor(.secondary)
                     }.disabled(!isPlaying)
                 }
                 #endif

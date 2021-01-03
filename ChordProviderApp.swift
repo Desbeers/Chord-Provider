@@ -2,13 +2,6 @@ import SwiftUI
 
 @main
 struct ChordProviderApp: App {
-    #if os(macOS)
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    #endif
-    init() {
-        print("starting!!")
-    }
-    
     /// Get the list of chord diagrams so we don't have to parse it all the time.
     let diagrams = Diagram.all
 
@@ -24,8 +17,9 @@ struct ChordProviderApp: App {
 
 #if os(macOS)
 struct macOSApp: Scene {
-    
-    @AppStorage("appTheme") var appTheme: String = ""
+    /// Below are used for the "Toggle Appearance" menu command.
+    @AppStorage("appColor") var appColor: AppAppearance.displayMode = .system
+    @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
 
     let diagrams: [Diagram]
     
@@ -41,31 +35,23 @@ struct macOSApp: Scene {
             SidebarCommands()
             CommandGroup(before: .sidebar)  {
                 Button(action: {
-                    if (appTheme == "Light") {
-                        NSApp.appearance = NSAppearance(named: .darkAqua)
-                        UserDefaults.standard.set("Dark", forKey: "appTheme")
+                    if (appColor == .light) {
+                        appAppearance = .dark
                     } else {
-                        NSApp.appearance = NSAppearance(named: .aqua)
-                        UserDefaults.standard.set("Light", forKey: "appTheme")
+                        appAppearance = .light
                     }
                 }) {
-                    /// Looks like dynamic labels are not working.
-                    /// Text(appTheme == "Light" ? "Dark view" : "Light view")
                     Text("Toggle Appearance")
                 }
                 .keyboardShortcut("t")
             }
-
         }
-
     }
 }
 #endif
 
 #if os(iOS)
 struct iOSApp: Scene {
-    
-    @AppStorage("appTheme") var appTheme: String = ""
 
     let diagrams: [Diagram]
     

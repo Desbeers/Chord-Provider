@@ -6,8 +6,7 @@ struct MainView: View {
     @State var song = Song()
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
-    @AppStorage("pathSongs") var pathSongs: String = GetDocumentsDirectory()
-    @AppStorage("appTheme") var appTheme: String = "Light"
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HSplitView() {
@@ -50,10 +49,12 @@ struct MainView: View {
                     HStack {
                         Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
                         Text(showEditor ? "Hide editor" : "Edit song")
-                        
                     }
                     .foregroundColor(.secondary)
                 }
+            }
+            ToolbarItem() {
+                AppAppearanceSwitch()
             }
             ToolbarItem(placement: .navigation) {
                 Button(action: {
@@ -63,19 +64,17 @@ struct MainView: View {
                 }
             }
         }
+        .modifier(AppAppearanceModifier())
         .onAppear(
             perform: {
                 song = ChordPro.parse(document: document, diagrams: diagrams)
-                print("'" + (song.title ?? "no title") + "' is ready")
             }
         )
         .onChange(of: document.text) { newValue in
             song = ChordPro.parse(document: document, diagrams: diagrams)
         }
-        .onChange(of: appTheme) { newValue in
-            /// Get the correct colors
+        .onChange(of: colorScheme) {color in
             song = ChordPro.parse(document: document, diagrams: diagrams)
-            print("Change of theme")
         }
     }
 }
