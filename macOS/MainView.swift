@@ -1,3 +1,7 @@
+//  MARK: - View: Main View for macOS
+
+/// The main view; on the right of the sidebar.
+
 import SwiftUI
 
 struct MainView: View {
@@ -28,6 +32,9 @@ struct MainView: View {
         /// Not great; the buttons don't dim when the application is in the background.
         .toolbar {
             ToolbarItem() {
+                AppAppearanceSwitch()
+            }
+            ToolbarItem() {
                 Button(action: {
                     withAnimation {
                         showChords.toggle()
@@ -53,9 +60,6 @@ struct MainView: View {
                     .foregroundColor(.secondary)
                 }
             }
-            ToolbarItem() {
-                AppAppearanceSwitch()
-            }
             ToolbarItem(placement: .navigation) {
                 Button(action: {
                     NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
@@ -65,16 +69,6 @@ struct MainView: View {
             }
         }
         .modifier(AppAppearanceModifier())
-        .onAppear(
-            perform: {
-                song = ChordPro.parse(document: document, diagrams: diagrams)
-            }
-        )
-        .onChange(of: document.text) { newValue in
-            song = ChordPro.parse(document: document, diagrams: diagrams)
-        }
-        .onChange(of: colorScheme) {color in
-            song = ChordPro.parse(document: document, diagrams: diagrams)
-        }
+        .modifier(SongViewModifier(document: $document, song: $song, diagrams: diagrams))
     }
 }

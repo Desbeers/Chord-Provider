@@ -84,11 +84,11 @@ public class AppAppearance {
     }
 }
 
-public struct AppAppearanceModifier: ViewModifier {
+struct AppAppearanceModifier: ViewModifier {
     
     @Environment(\.colorScheme) var colorScheme
 
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         content
             .onAppear(
                 perform: {

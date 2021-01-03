@@ -1,3 +1,7 @@
+//  MARK: - View: Main View for iOS
+
+/// The content of the whole application.
+
 import SwiftUI
 
 struct MainView: View {
@@ -20,20 +24,12 @@ struct MainView: View {
         }
         .statusBar(hidden: true)
         .modifier(AppAppearanceModifier())
-        .onAppear(
-            perform: {
-                song = ChordPro.parse(document: document, diagrams: diagrams)
-            }
-        )
-        .onChange(of: colorScheme) {color in
-            /// Get the correct colors
-            song = ChordPro.parse(document: document, diagrams: diagrams)
-        }
-        .onChange(of: document.text) { newValue in
-            song = ChordPro.parse(document: document, diagrams: diagrams)
-        }
+        .modifier(SongViewModifier(document: $document, song: $song, diagrams: diagrams))
         /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
         .toolbar {
+            ToolbarItem() {
+                AppAppearanceSwitch()
+            }
             ToolbarItem() {
                 Button(action: {
                     withAnimation {
@@ -53,9 +49,6 @@ struct MainView: View {
                     Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
 
                 }
-            }
-            ToolbarItem() {
-                AppAppearanceSwitch()
             }
         }
     }
