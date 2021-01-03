@@ -1,3 +1,5 @@
+//  MARK: - NSViewRepresentable: HTML view for macOS
+
 import SwiftUI
 import WebKit
 

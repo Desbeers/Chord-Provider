@@ -1,3 +1,5 @@
+//  MARK: - class: a part of a line of the song
+
 import Foundation
 
 public class Part: Identifiable {

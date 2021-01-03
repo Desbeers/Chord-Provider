@@ -1,3 +1,5 @@
+//  MARK: - class: sections of the song
+
 import Foundation
 
 public class Sections: Identifiable {

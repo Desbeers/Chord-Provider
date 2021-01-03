@@ -1,9 +1,6 @@
-//
-//  AppAppearance.swift
-//  Chord Provider
-//
-//  Created by Nick Berendsen on 02/01/2021.
-//
+//  MARK: - class: App Appearance for macOS and iOS
+
+/// This optional overrules the appearance of the application
 
 import SwiftUI
 
@@ -84,6 +81,8 @@ public class AppAppearance {
     }
 }
 
+//  MARK: - ViewModifier: observe the apperance selector
+
 struct AppAppearanceModifier: ViewModifier {
     
     @Environment(\.colorScheme) var colorScheme
@@ -101,6 +100,8 @@ struct AppAppearanceModifier: ViewModifier {
             }
     }
 }
+
+//  MARK: - View: The picker
 
 struct AppAppearanceSwitch: View {
     

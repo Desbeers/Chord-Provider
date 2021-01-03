@@ -1,7 +1,6 @@
-//  FileBrowser.swift
-//  Chord Provider (macOS)
-//
-//  A sidebar view with a list of songs from a user selected directory
+//  MARK: Sidebar for macOS
+
+/// A sidebar view with a list of songs from a user selected directory
 
 import SwiftUI
 
@@ -177,11 +176,11 @@ struct GetSongsList {
     }
     /// This is a helper function to parse the actual metadata
     static func ParseFileLine(text: String, song: inout ArtistSongs) {
-        let attributeRegex = try! NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
+        let directiveRegex = try! NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
         
         var key: String?
         var value: String?
-        if let match = attributeRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
+        if let match = directiveRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
             if let keyRange = Range(match.range(at: 1), in: text) {
                 key = text[keyRange].trimmingCharacters(in: .newlines)
             }

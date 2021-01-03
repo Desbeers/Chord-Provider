@@ -87,8 +87,8 @@ func BuildSong(song: Song, chords: Bool) -> String {
 }
 
 func SectionView(_ section: Sections) -> String {
-    var html = ""
 
+    var html = ""
     html += "<div class=\"section "
     if section.lines.isEmpty {
         html += "no-name\">&nbsp;</div><div class=\"section single "
@@ -156,9 +156,7 @@ func ChordsList(_ song: Song) -> String {
             let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
             if !match.frets.isEmpty {
                 /// We have a diagram
-                //html += "<div>"
                 html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
-                //html += "</div>"
             }
             else {
                 /// No diagram found

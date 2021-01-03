@@ -1,3 +1,7 @@
+//  MARK: - class: Diagram
+
+/// All the chord diagrams.
+
 import Foundation
 
 public class Diagram: Codable {
@@ -24,6 +28,10 @@ public class Diagram: Codable {
         return []
     }
 }
+
+//  MARK: - func: GetChordDiagram
+
+/// Get the diagram for the chord.
 
 func GetChordDiagram(song: Song, chord: String, baseFret: String) -> (frets: String, fingers: String) {
     let base:Int = Int(baseFret.prefix(1)) ?? 1

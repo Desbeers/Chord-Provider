@@ -1,3 +1,5 @@
+//  MARK: - FileDocument: the chordpro file
+
 import SwiftUI
 import UniformTypeIdentifiers
 

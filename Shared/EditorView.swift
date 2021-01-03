@@ -1,3 +1,7 @@
+//  MARK: - View: Editor View for macOS and iOS
+
+/// The text editor. SwiftUI does not give too many options for it.
+
 import SwiftUI
 
 struct EditorView: View {

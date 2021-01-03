@@ -1,3 +1,7 @@
+//  MARK: - App: the scenes for the application
+
+/// macOS and iOS have their own scenes because they are too different
+
 import SwiftUI
 
 @main
@@ -14,6 +18,8 @@ struct ChordProviderApp: App {
         #endif
     }
 }
+
+//  MARK: - Scene: macOS
 
 #if os(macOS)
 struct macOSApp: Scene {
@@ -49,6 +55,8 @@ struct macOSApp: Scene {
     }
 }
 #endif
+
+//  MARK: - Scene: iOS
 
 #if os(iOS)
 struct iOSApp: Scene {
