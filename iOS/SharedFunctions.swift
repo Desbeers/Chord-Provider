@@ -1,23 +1,22 @@
+//  MARK: - functions that are specific for iOS
+
 import SwiftUI
 
-func GetAccentColor() -> String {
-    return UIColor.systemPurple.hexString
-}
-
-func GetHighlightColor() -> String {
-    return UIColor.systemPurple.hexString + "53"
-}
-
-func GetTextColor() -> String {
-    let theme = AppAppearance.GetCurrentColorMode()
-    return (theme == .light ? "#000000" : "#ffffff")
-}
-
-func GetSystemBackground() -> String {
-    return UIColor.systemBackground.hexString
-}
-func GetCommentBackground() -> String {
-    return UIColor.systemGray.hexString + "26"
+extension Color {
+    var hexString: String {
+        let uiColor: UIColor
+        
+        if self.description.contains("NamedColor") {
+            let lowerBound = self.description.range(of: "name: \"")!.upperBound
+            let upperBound = self.description.range(of: "\", bundle")!.lowerBound
+            let assetsName = String(self.description[lowerBound..<upperBound])
+            
+            uiColor = UIColor(named: assetsName)!
+        } else {
+            uiColor = UIColor(self)
+        }
+        return uiColor.hexString
+    }
 }
 
 extension UIColor {

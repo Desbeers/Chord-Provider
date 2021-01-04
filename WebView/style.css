@@ -51,7 +51,7 @@ body {
 
 .section .name {
     font-weight: bold;
-    opacity: 0.6;
+    color: var(--sectionColor);
 }
 
 .section.single .name {
@@ -93,7 +93,7 @@ body {
 
 .lines .measure {
     width: 5em;
-    border-left: 2px solid;
+    border-left: 1px solid var(--sectionColor);
     padding-left: 0.5em;
     padding-right: 0.5em;
     margin-bottom: 0.5em;
@@ -173,9 +173,7 @@ body {
 @media (max-width: 799px) {
 
     .section {
-        
         margin-bottom: 1em;
-        
         border-radius: 0.5em 0.5em 0.5em 0;
     }
     

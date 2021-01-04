@@ -120,3 +120,37 @@ struct AppAppearanceSwitch: View {
         }
     }
 }
+
+//  MARK: - functions to get system colors for the html view
+
+func GetCommentBackground() -> String {
+    return Color("htmlCommentColor").hexString
+}
+
+func GetAccentColor() -> String {
+    /// macOS has variable accent colors; iOS does not; the appliciation decide.
+    /// However; if you change the accent color in macOS; the view is not updated.
+    /// There is no sane way to detect changes of that setting...
+    #if os(macOS)
+    return Color.accentColor.hexString
+    #endif
+    #if os(iOS)
+    return Color("AccentColor").hexString
+    #endif
+}
+
+func GetChordColor() -> String {
+    return Color("htmlChordColor").hexString
+}
+
+func GetHighlightColor() -> String {
+    return GetAccentColor() + "53"
+}
+
+func GetSectionColor() -> String {
+    return Color("htmlSectionColor").hexString
+}
+
+func GetSystemBackground() -> String {
+    return Color("htmlBackgroundColor").hexString
+}

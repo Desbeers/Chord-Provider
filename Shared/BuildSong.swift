@@ -15,6 +15,7 @@ func BuildSong(song: Song, chords: Bool) -> String {
     /// Add system colors to the css
     html += "--accentColor: " + GetAccentColor() + ";\n"
     html += "--highlightColor: " + GetHighlightColor() + ";\n"
+    html += "--sectionColor: " + GetSectionColor() + ";\n"
     html += "--commentBackground: " + GetCommentBackground() + ";\n"
     html += "}\n"
     /// Add the main CSS
@@ -156,7 +157,7 @@ func ChordsList(_ song: Song) -> String {
             let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
             if !match.frets.isEmpty {
                 /// We have a diagram
-                html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetTextColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
+                html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetChordColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
             }
             else {
                 /// No diagram found

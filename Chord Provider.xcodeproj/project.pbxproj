@@ -154,9 +154,9 @@
 		D759293E2572280C006DDF24 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D7009C0E25828C130029D54D /* SharedFunctions.swift */,
 				D7009BFE258277950029D54D /* MainView.swift */,
 				D7F68D252578BC7800B119BA /* HtmlView.swift */,
-				D7009C0E25828C130029D54D /* SharedFunctions.swift */,
 				D759293F2572280C006DDF24 /* Info.plist */,
 			);
 			path = iOS;

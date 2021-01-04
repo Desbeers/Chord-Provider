@@ -6,11 +6,10 @@ import SwiftUI
 
 struct SongView: View {
     @ObservedObject var song: Song
-
     @AppStorage("showChords") var showChords: Bool = true
     
     var body: some View {
-        /// Stupid hack to ge the view using full height
+        /// Stupid hack to get the view using full height
         GeometryReader { g in
             ScrollView {
                 HStack {
@@ -47,7 +46,8 @@ struct SongViewModifier: ViewModifier {
                 song = ChordPro.parse(document: document, diagrams: diagrams)
             }
             .onChange(of: colorScheme) {color in
-                /// Reload the chords with the new colors.
+                /// Reload the html views with the new colors.
+                song.html = BuildSong(song: song, chords: false)
                 song.htmlchords = BuildSong(song: song, chords: true)
             }
     }
