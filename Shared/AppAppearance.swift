@@ -103,21 +103,45 @@ struct AppAppearanceModifier: ViewModifier {
 
 //  MARK: - View: The picker
 
+/// Different pickers for macOS and iOS.
+/// I like the mac style the most but its buggy on iOS.
+
 struct AppAppearanceSwitch: View {
     
     @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
 
     var body: some View {
-
-        Picker(selection: $appAppearance, label: Text("Color")) {
-            Text("Light").tag(AppAppearance.displayMode.light)
-            Text("Dark").tag(AppAppearance.displayMode.dark)
-            Text("System").tag(AppAppearance.displayMode.system)
+        #if os(macOS)
+        Picker(selection: $appAppearance, label: Text("Appearance")) {
+            HStack {
+                Image(systemName: "tv")
+                Text("Light")
+            }.tag(AppAppearance.displayMode.light)
+            HStack {
+                Image(systemName: "tv.fill")
+                Text("Dark")
+            }.tag(AppAppearance.displayMode.dark)
+            HStack {
+                Image(systemName: "photo.tv")
+                Text("System")
+            }.tag(AppAppearance.displayMode.system)
+        }
+        .pickerStyle(MenuPickerStyle())
+        .onChange(of: appAppearance) { newValue in
+            AppAppearance.OverrideAppearance()
+        }
+        #endif
+        #if os(iOS)
+        Picker(selection: $appAppearance, label: Text("Appearance")) {
+            Image(systemName: "circle.lefthalf.fill").tag(AppAppearance.displayMode.system)
+            Image(systemName: "sun.max").tag(AppAppearance.displayMode.light)
+            Image(systemName: "moon").tag(AppAppearance.displayMode.dark)
         }
         .pickerStyle(SegmentedPickerStyle())
         .onChange(of: appAppearance) { newValue in
             AppAppearance.OverrideAppearance()
         }
+        #endif
     }
 }
 
