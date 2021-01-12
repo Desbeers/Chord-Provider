@@ -4,18 +4,7 @@ import SwiftUI
 
 extension Color {
     var hexString: String {
-        let uiColor: UIColor
-        
-        if self.description.contains("NamedColor") {
-            let lowerBound = self.description.range(of: "name: \"")!.upperBound
-            let upperBound = self.description.range(of: "\", bundle")!.lowerBound
-            let assetsName = String(self.description[lowerBound..<upperBound])
-            
-            uiColor = UIColor(named: assetsName)!
-        } else {
-            uiColor = UIColor(self)
-        }
-        return uiColor.hexString
+        return UIColor(self).hexString
     }
 }
 

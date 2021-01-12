@@ -4,60 +4,34 @@
 
 import SwiftUI
 
-public class AppAppearance {
+//  MARK: - ViewModifier: observe the appearance selector
 
-    static func GetCurrentDisplayMode() -> displayMode {
-        let value = UserDefaults.standard.object(forKey: "appAppearance") as? Int ?? 0
-        return displayMode(rawValue: value) ?? .system
-    }
-
-    static func GetCurrentColorMode() -> displayMode {
-        let value = UserDefaults.standard.object(forKey: "appColor") as? Int ?? 0
-        return displayMode(rawValue: value) ?? .light
-    }
+struct AppAppearanceModifier: ViewModifier {
     
-    enum displayMode: Int {
-        case system = 0
-        case dark = 1
-        case light = 2
-    }
+    @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
+    @AppStorage("appColor") var appColor: AppAppearance.displayMode = .light
+    @Environment(\.colorScheme) var colorScheme
+    
+    @State var preferredColorScheme: ColorScheme? = nil
 
-    static func SetAppearance() {
-        var appearance: displayMode = .light
-        #if os(macOS)
-            let isLight: String = UserDefaults.standard.object(forKey: "AppleInterfaceStyle") as? String ?? "Light"
-            appearance = (isLight == "Light" ? .light : .dark)
-        #endif
-        #if os(iOS)
-            let appleInterfaceStyle = UITraitCollection.current.userInterfaceStyle
-            switch appleInterfaceStyle.rawValue {
-                case 1:
-                    appearance = .light
-                case 2:
-                    appearance = .dark
-                default:
-                    print("Unknown")
+    func body(content: Content) -> some View {
+        content
+        .onAppear(
+            perform: {
+                OverrideAppearance()
+                GetColorMode()
             }
-        #endif
-        UserDefaults.standard.set((appearance.rawValue), forKey: "systemAppearance")
-        
-        switch GetCurrentDisplayMode() {
-        case .system:
-            UserDefaults.standard.set((appearance.rawValue), forKey: "appColor")
-        case .dark:
-            UserDefaults.standard.set(displayMode.dark.rawValue, forKey: "appColor")
-        case .light:
-            UserDefaults.standard.set(displayMode.light.rawValue, forKey: "appColor")
+        )
+        .onChange(of: appAppearance) { appearance in
+            OverrideAppearance()
+        }
+        .onChange(of: colorScheme) {color in
+            GetColorMode()
         }
     }
-
-    static func OverrideAppearance() {
-        /// This function is smart; it will only change the appearance.
-        /// Then, in MainView a change of @Environment(\.colorScheme) will be triggered
-        /// and calls the SetAppearance() fuction.
-        let displayMode = GetCurrentDisplayMode()
+    func OverrideAppearance() {
         #if os(macOS)
-        switch displayMode {
+        switch appAppearance {
             case .dark:
                 NSApp.appearance = NSAppearance(named: .darkAqua)
             case .light:
@@ -68,7 +42,7 @@ public class AppAppearance {
         #endif
         #if os(iOS)
         var userInterfaceStyle: UIUserInterfaceStyle
-        switch displayMode {
+        switch appAppearance {
             case .dark:
                 userInterfaceStyle = .dark
             case .light:
@@ -79,25 +53,29 @@ public class AppAppearance {
         UIApplication.shared.windows.first?.overrideUserInterfaceStyle = userInterfaceStyle
         #endif
     }
-}
-
-//  MARK: - ViewModifier: observe the apperance selector
-
-struct AppAppearanceModifier: ViewModifier {
-    
-    @Environment(\.colorScheme) var colorScheme
-
-    func body(content: Content) -> some View {
-        content
-            .onAppear(
-                perform: {
-                    AppAppearance.OverrideAppearance()
-                }
-            )
-            .onChange(of: colorScheme) {color in
-                print("New colorscheme!")
-                AppAppearance.SetAppearance()
+    func GetColorMode() {
+        if appAppearance == .system {
+        #if os(macOS)
+            let isLight: String = UserDefaults.standard.object(forKey: "AppleInterfaceStyle") as? String ?? "Light"
+            appColor = (isLight == "Light" ? .light : .dark)
+        #endif
+        #if os(iOS)
+            let appleInterfaceStyle = UITraitCollection.current.userInterfaceStyle
+            switch appleInterfaceStyle.rawValue {
+                case 1:
+                    appColor = .light
+                case 2:
+                    appColor = .dark
+                default:
+                    print("Unknown")
             }
+        #endif
+        }
+        else {
+            appColor = appAppearance
+        }
+        //UserDefaults.standard.set(appColor.rawValue, forKey: "appColor")
+        print(appColor)
     }
 }
 
@@ -111,44 +89,37 @@ struct AppAppearanceSwitch: View {
     @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
 
     var body: some View {
-        #if os(macOS)
-        Picker(selection: $appAppearance, label: Text("Appearance")) {
-            HStack {
-                Image(systemName: "tv")
-                Text("Light")
-            }.tag(AppAppearance.displayMode.light)
-            HStack {
-                Image(systemName: "tv.fill")
-                Text("Dark")
-            }.tag(AppAppearance.displayMode.dark)
-            HStack {
-                Image(systemName: "photo.tv")
-                Text("System")
-            }.tag(AppAppearance.displayMode.system)
-        }
-        .pickerStyle(MenuPickerStyle())
-        .onChange(of: appAppearance) { newValue in
-            AppAppearance.OverrideAppearance()
-        }
-        #endif
-        #if os(iOS)
         Picker(selection: $appAppearance, label: Text("Appearance")) {
             Image(systemName: "circle.lefthalf.fill").tag(AppAppearance.displayMode.system)
             Image(systemName: "sun.max").tag(AppAppearance.displayMode.light)
             Image(systemName: "moon").tag(AppAppearance.displayMode.dark)
         }
         .pickerStyle(SegmentedPickerStyle())
-        .onChange(of: appAppearance) { newValue in
-            AppAppearance.OverrideAppearance()
-        }
-        #endif
+        .labelsHidden()
     }
 }
+
+//  MARK: - class: App Appearance
+
+public class AppAppearance {
+    enum displayMode: Int {
+        case system = 0
+        case dark = 1
+        case light = 2
+    }
+    static func GetCurrentColorMode() -> displayMode {
+        let value = UserDefaults.standard.object(forKey: "appColor") as? Int ?? 0
+        return displayMode(rawValue: value) ?? .light
+    }
+}
+
+
 
 //  MARK: - functions to get system colors for the html view
 
 func GetCommentBackground() -> String {
-    return Color("htmlCommentColor").hexString
+    let theme = AppAppearance.GetCurrentColorMode()
+    return (theme == .light ? "#DDDDDD" : "#666666")
 }
 
 func GetAccentColor() -> String {
@@ -164,7 +135,8 @@ func GetAccentColor() -> String {
 }
 
 func GetChordColor() -> String {
-    return Color("htmlChordColor").hexString
+    let theme = AppAppearance.GetCurrentColorMode()
+    return (theme == .light ? "#000000" : "#ffffff")
 }
 
 func GetHighlightColor() -> String {
@@ -172,9 +144,11 @@ func GetHighlightColor() -> String {
 }
 
 func GetSectionColor() -> String {
-    return Color("htmlSectionColor").hexString
+    let theme = AppAppearance.GetCurrentColorMode()
+    return (theme == .light ? "#666666" : "#AAAAAA")
 }
 
 func GetSystemBackground() -> String {
-    return Color("htmlBackgroundColor").hexString
+    let theme = AppAppearance.GetCurrentColorMode()
+    return (theme == .light ? "#FFFFFF" : "#000000")
 }

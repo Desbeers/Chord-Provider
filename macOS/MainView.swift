@@ -32,9 +32,6 @@ struct MainView: View {
         /// Not great; the buttons don't dim when the application is in the background.
         .toolbar {
             ToolbarItem() {
-                AppAppearanceSwitch()
-            }
-            ToolbarItem() {
                 Button(action: {
                     withAnimation {
                         showChords.toggle()

@@ -4,18 +4,7 @@ import SwiftUI
 
 extension Color {
     var hexString: String {
-        let nsColor: NSColor
-        
-        if self.description.contains("NamedColor") {
-            let lowerBound = self.description.range(of: "name: \"")!.upperBound
-            let upperBound = self.description.range(of: "\", bundle")!.lowerBound
-            let assetsName = String(self.description[lowerBound..<upperBound])
-            
-            nsColor = NSColor(named: assetsName)!
-        } else {
-            nsColor = NSColor(self)
-        }
-        return nsColor.hexString
+        return NSColor(self).hexString
     }
 }
 
