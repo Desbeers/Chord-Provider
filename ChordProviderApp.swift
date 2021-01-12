@@ -9,6 +9,15 @@ struct ChordProviderApp: App {
     /// Get the list of chord diagrams so we don't have to parse it all the time.
     let diagrams = Diagram.all
 
+    @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
+
+    #if os(iOS)
+    /// DocumentGroup on iOS does not like to start in a 'non-system' color.
+    init() {
+        appAppearance = .system
+    }
+    #endif
+    
     var body: some Scene {
         #if os(macOS)
         macOSApp(diagrams: diagrams)

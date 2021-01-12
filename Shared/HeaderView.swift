@@ -20,6 +20,7 @@ struct HeaderView: View {
                     AudioPlayer(song: song)
                 }
                 Spacer()
+                AppAppearanceSwitch().frame(width: 100)
             }
             .padding(4)
         #endif
