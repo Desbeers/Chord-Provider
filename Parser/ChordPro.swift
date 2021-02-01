@@ -64,23 +64,15 @@ public class ChordPro {
                 value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
             }
             switch key {
-                case "t":
+                case "t", "title":
                     song.title = value!
-                case "title":
-                    song.title = value!
-                case "st":
-                    song.artist = value!
-                case "subtitle":
-                    song.artist = value!
-                case "artist":
+                case "st", "subtitle", "artist":
                     song.artist = value!
                 case "capo":
                     song.capo = value!
                 case "time":
                     song.time = value!
-                case "c":
-                    processComments(text: value!, song: &song, currentSection: &currentSection)
-                case "comment":
+                case "c", "comment":
                     processComments(text: value!, song: &song, currentSection: &currentSection)
                 case "soc":
                     processSection(text: value!, type: "chorus", song: &song, currentSection: &currentSection)

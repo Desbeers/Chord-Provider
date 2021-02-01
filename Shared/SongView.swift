@@ -16,6 +16,7 @@ struct SongView: View {
                     HtmlView(html: (song.html ?? "")).frame(height: g.size.height)
                     if showChords {
                         HtmlView(html: (song.htmlchords ?? "leeg")).frame(width: 140,height: g.size.height)
+                            .transition(.scale)
                     }
                 }
             }.frame(height: g.size.height)

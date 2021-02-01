@@ -12,34 +12,44 @@ struct FileBrowser: View {
     let file: FileDocumentConfiguration<ChordProDocument>
     @StateObject var mySongs = MySongs()
     @AppStorage("pathSongsString") var pathSongsString: String = GetDocumentsDirectory()
+    @State var search: String = ""
 
     var body: some View {
         VStack() {
             ScrollViewReader { proxy in
-                List() {
-                    Button(action: {
-                        SelectSongsFolder(mySongs)
-                    } ) {
-                        Label {
-                            Text((URL(fileURLWithPath: pathSongsString).lastPathComponent))
-                                .foregroundColor(.secondary)
-                        } icon: {
-                            Image(systemName: "folder")
-                        }.font(.headline)
-                    }
-                    .help("The folder with your songs")
-                    .buttonStyle(PlainButtonStyle())
-                    ForEach(mySongs.songList.artists) { artist in
-                        Text(artist.name).font(.caption).foregroundColor(.secondary).padding(.leading, 6)
-                        ForEach(artist.songs) { song in
-                            FileBrowserRow(song: song, selection: (file.fileURL?.lastPathComponent ?? "New"))
+                Button(action: {
+                    SelectSongsFolder(mySongs)
+                } ) {
+                    Label {
+                        Text((URL(fileURLWithPath: pathSongsString).lastPathComponent))
+                            .foregroundColor(.secondary)
+                    } icon: {
+                        Image(systemName: "folder").foregroundColor(.accentColor)
+                    }.font(.title2)
+                }
+                .help("The folder with your songs")
+                .buttonStyle(PlainButtonStyle())
+                SearchField(text: $search).padding(.horizontal, 20)
+                ScrollView() {
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: 300))],
+                        alignment: .center,
+                        spacing: 4,
+                        pinnedViews: [.sectionHeaders, .sectionFooters]
+                    ) {
+                        ForEach(mySongs.songList.artists) { artist in
+                            Section(header: search.isEmpty ? ArtistHeader(artist: artist) : nil) {
+                                ForEach(artist.songs.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)})) { song in
+                                    FileBrowserRow(song: song, selection: (file.fileURL?.lastPathComponent ?? "New"))
+                                }
+                            }
                         }
                     }
                 }
-                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .animation(.default)
                 .onAppear(
                     perform: {
-                        proxy.scrollTo((file.fileURL?.lastPathComponent), anchor: .bottom)
+                        proxy.scrollTo((file.fileURL?.lastPathComponent), anchor: .center)
                     }
                 )
             }
@@ -48,6 +58,24 @@ struct FileBrowser: View {
         .onChange(of: document.refreshList) { newValue in
             self.mySongs.songList = GetSongsList()
             print("Sidebar said hello!")
+        }
+    }
+}
+
+struct ArtistHeader: View {
+    let artist: ArtistList
+
+    var body: some View {
+        ZStack() {
+            FancyBackground().opacity(0.9)
+            VStack() {
+                Divider()
+                HStack {
+                    Text(artist.name).fontWeight(.bold)
+                    Spacer()
+                }
+                Divider()
+            }.padding(.horizontal, 10)
         }
     }
 }
@@ -78,7 +106,7 @@ struct FileBrowserRow: View {
                     Label() {
                         Text(song.title)
                     } icon: {
-                        Image(systemName: rowImage)
+                        Image(systemName: rowImage).foregroundColor(.accentColor)
                     }
                     Spacer()
                 }.padding(.all,4)
@@ -86,6 +114,37 @@ struct FileBrowserRow: View {
         }
         .buttonStyle(PlainButtonStyle())
         .id(song.path)
+        .padding(.horizontal, 10)
+    }
+}
+
+struct SearchField: NSViewRepresentable {
+    @Binding var text: String
+    /// Get the books with all options
+    @StateObject var mySongs = MySongs()
+    func makeNSView(context: Context) -> NSSearchField {
+        let searchField = NSSearchField()
+        searchField.delegate = context.coordinator
+        searchField.placeholderString = "Artist or song"
+        return searchField
+    }
+    func updateNSView(_ nsView: NSSearchField, context: Context) {
+        nsView.stringValue = text
+    }
+    func makeCoordinator() -> SearchField.Coordinator {
+        Coordinator(parent: self)
+    }
+    class Coordinator: NSObject, NSSearchFieldDelegate  {
+        let parent: SearchField
+        init(parent: SearchField) {
+            self.parent = parent
+        }
+        func controlTextDidChange(_ obj: Notification) {
+            let searchField = obj.object as! NSSearchField
+            parent.text = searchField.stringValue
+            /// Clear the selected book (if any)
+            //parent.books.bookSelected = nil
+        }
     }
 }
 
@@ -102,6 +161,7 @@ struct ArtistSongs: Identifiable {
     var id = UUID()
     var artist: String = "Unknown artist"
     var title: String = ""
+    var search: String = ""
     var path: String = ""
     var musicpath: String = ""
 }
@@ -170,6 +230,7 @@ struct GetSongsList {
                     ParseFileLine(text: text, song: &song)
                 }
             }
+            song.search = song.artist + song.title
         } catch {
             print(error)
         }
