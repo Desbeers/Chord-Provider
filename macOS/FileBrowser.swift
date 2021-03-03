@@ -17,19 +17,8 @@ struct FileBrowser: View {
     var body: some View {
         VStack() {
             ScrollViewReader { proxy in
-                Button(action: {
-                    SelectSongsFolder(mySongs)
-                } ) {
-                    Label {
-                        Text((URL(fileURLWithPath: pathSongsString).lastPathComponent))
-                            .foregroundColor(.secondary)
-                    } icon: {
-                        Image(systemName: "folder").foregroundColor(.accentColor)
-                    }.font(.title2)
-                }
-                .help("The folder with your songs")
-                .buttonStyle(PlainButtonStyle())
-                SearchField(text: $search).padding(.horizontal, 20)
+                SearchField(text: $search)
+                    .padding(.horizontal, 10)
                 ScrollView() {
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 300))],
@@ -46,12 +35,29 @@ struct FileBrowser: View {
                         }
                     }
                 }
-                .animation(.default)
                 .onAppear(
                     perform: {
                         proxy.scrollTo((file.fileURL?.lastPathComponent), anchor: .center)
                     }
                 )
+                .toolbar() {
+                    ToolbarItemGroup() {
+                        Button(action: {
+                            NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
+                        } ) {
+                            Image(systemName: "sidebar.left")
+                                .foregroundColor(.secondary)
+                        }
+                        .help("Hide or show the sidebar")
+                        Button(action: {
+                            SelectSongsFolder(mySongs)
+                        } ) {
+                            Image(systemName: "folder")
+                                .foregroundColor(.secondary)
+                        }
+                        .help("The folder with your songs")
+                    }
+                }
             }
         }
         .frame(minWidth: 200)
@@ -67,11 +73,14 @@ struct ArtistHeader: View {
 
     var body: some View {
         ZStack() {
-            FancyBackground().opacity(0.9)
-            VStack() {
-                Divider()
+            FancyBackground()
+                .opacity(0.9)
+            VStack(spacing: 0) {
                 HStack {
-                    Text(artist.name).fontWeight(.bold)
+                    Text(artist.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(.secondary)
+                        .padding(.vertical,4)
                     Spacer()
                 }
                 Divider()
@@ -104,7 +113,7 @@ struct FileBrowserRow: View {
                 }
                 HStack() {
                     Label() {
-                        Text(song.title)
+                        Text(song.title).lineLimit(1)
                     } icon: {
                         Image(systemName: rowImage).foregroundColor(.accentColor)
                     }
@@ -120,8 +129,6 @@ struct FileBrowserRow: View {
 
 struct SearchField: NSViewRepresentable {
     @Binding var text: String
-    /// Get the books with all options
-    @StateObject var mySongs = MySongs()
     func makeNSView(context: Context) -> NSSearchField {
         let searchField = NSSearchField()
         searchField.delegate = context.coordinator
@@ -142,8 +149,6 @@ struct SearchField: NSViewRepresentable {
         func controlTextDidChange(_ obj: Notification) {
             let searchField = obj.object as! NSSearchField
             parent.text = searchField.stringValue
-            /// Clear the selected book (if any)
-            //parent.books.bookSelected = nil
         }
     }
 }
@@ -290,7 +295,6 @@ func SelectSongsFolder(_ mySongs: MySongs) {
             /// Save the url so next time this dialog is opened it will go to this folder.
             /// Sandbox stuff seems to be ok with that....
             UserDefaults.standard.set(result!.path, forKey: "pathSongsString")
-            //UserDefaults.standard.set(result!.path, forKey: "pathSongs")
             /// Create a persistent bookmark for the folder the user just selected
             _ = SetPersistentFileURL("pathSongs", result!)
             /// Refresh the list of songs

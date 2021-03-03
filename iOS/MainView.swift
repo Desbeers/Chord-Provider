@@ -31,7 +31,7 @@ struct MainView: View {
             ToolbarItem(placement: (sizeClass == .compact ? .bottomBar : .automatic)) {
                 AppAppearanceSwitch()
             }
-            ToolbarItem() {
+            ToolbarItemGroup() {
                 Button(action: {
                     withAnimation {
                         showChords.toggle()
@@ -40,8 +40,6 @@ struct MainView: View {
                     Image(systemName: showChords ? "number.square.fill" : "number.square")
 
                 }
-            }
-            ToolbarItem() {
                 Button(action: {
                     withAnimation {
                         showEditor.toggle()
