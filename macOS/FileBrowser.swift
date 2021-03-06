@@ -166,7 +166,9 @@ struct ArtistSongs: Identifiable {
     var id = UUID()
     var artist: String = "Unknown artist"
     var title: String = ""
-    var search: String = ""
+    var search: String {
+        return "\(title) \(artist)"
+    }
     var path: String = ""
     var musicpath: String = ""
 }
@@ -235,7 +237,6 @@ struct GetSongsList {
                     ParseFileLine(text: text, song: &song)
                 }
             }
-            song.search = song.artist + song.title
         } catch {
             print(error)
         }
