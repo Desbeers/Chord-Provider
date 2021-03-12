@@ -3,17 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D7009BE2258228460029D54D /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7009BE1258228460029D54D /* Diagram.swift */; };
-		D7009BE3258228460029D54D /* Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7009BE1258228460029D54D /* Diagram.swift */; };
 		D7009BFF258277950029D54D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7009BFE258277950029D54D /* MainView.swift */; };
 		D7009C0F25828C130029D54D /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7009C0E25828C130029D54D /* SharedFunctions.swift */; };
 		D7158FDE2573B44B00876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
 		D7158FE12573CC2700876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
 		D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D71DE9FE258A6E88007B513D /* Credits.rtf */; };
+		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
+		D734A0B125F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
+		D734A0B625F932BD007AB36A /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = D734A0B525F932BD007AB36A /* GuitarChords */; };
+		D734A0BE25F9590D007AB36A /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0BD25F9590D007AB36A /* AppAppearance.swift */; };
+		D734A0BF25F9590D007AB36A /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0BD25F9590D007AB36A /* AppAppearance.swift */; };
+		D734A0C825FA3E7D007AB36A /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = D734A0C725FA3E7D007AB36A /* GuitarChords */; };
 		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
 		D75929482572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
@@ -37,6 +41,8 @@
 		D7B701002577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7BA2B312584FD5E006C272E /* FileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA2B302584FD5E006C272E /* FileBrowser.swift */; };
+		D7CC570E25FBAFC700AD96CA /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC570D25FBAFC700AD96CA /* Chord.swift */; };
+		D7CC570F25FBAFC700AD96CA /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC570D25FBAFC700AD96CA /* Chord.swift */; };
 		D7CF846D257849BD002A5C09 /* SharedFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CF846B257849BD002A5C09 /* SharedFunctions.swift */; };
 		D7E79C6F25A212CC00169D0F /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79C6E25A212CC00169D0F /* AudioPlayer.swift */; };
 		D7F68D262578BC7800B119BA /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D252578BC7800B119BA /* HtmlView.swift */; };
@@ -47,20 +53,17 @@
 		D7F68D362578DA8400B119BA /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D342578DA8400B119BA /* EditorView.swift */; };
 		D7F68D3F2579197100B119BA /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = D7F68D3E2579197100B119BA /* style.css */; };
 		D7F68D402579197100B119BA /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = D7F68D3E2579197100B119BA /* style.css */; };
-		D7FAA16325A0F65800041B1A /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FAA16225A0F65800041B1A /* AppAppearance.swift */; };
-		D7FAA16425A0F65800041B1A /* AppAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FAA16225A0F65800041B1A /* AppAppearance.swift */; };
 		D7FAE616257D830C009BBDA8 /* ChordsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FAE60F257D830C009BBDA8 /* ChordsData.swift */; };
 		D7FAE64F257E189A009BBDA8 /* ChordsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FAE60F257D830C009BBDA8 /* ChordsData.swift */; };
-		D7FAE65E257E49CF009BBDA8 /* chords.js in Resources */ = {isa = PBXBuildFile; fileRef = D7FAE65D257E49CF009BBDA8 /* chords.js */; };
-		D7FAE65F257E49CF009BBDA8 /* chords.js in Resources */ = {isa = PBXBuildFile; fileRef = D7FAE65D257E49CF009BBDA8 /* chords.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D7009BE1258228460029D54D /* Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagram.swift; sourceTree = "<group>"; };
 		D7009BFE258277950029D54D /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainView.swift; path = iOS/MainView.swift; sourceTree = SOURCE_ROOT; };
 		D7009C0E25828C130029D54D /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7158FDD2573B44B00876B80 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
 		D71DE9FE258A6E88007B513D /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		D734A0AF25F93208007AB36A /* ChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsView.swift; sourceTree = "<group>"; };
+		D734A0BD25F9590D007AB36A /* AppAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 		D754B6DB25867274001AE6DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D755C4B22589332600208BCC /* ChordProviderHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ChordProviderHelp.help; sourceTree = "<group>"; };
 		D75929342572280B006DDF24 /* ChordProviderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderApp.swift; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D7BA2B302584FD5E006C272E /* FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
 		D7BA2B372585696D006C272E /* Chord Provider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Chord Provider.entitlements"; sourceTree = "<group>"; };
+		D7CC570D25FBAFC700AD96CA /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		D7CF846B257849BD002A5C09 /* SharedFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedFunctions.swift; sourceTree = "<group>"; };
 		D7E79C6E25A212CC00169D0F /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		D7F68D252578BC7800B119BA /* HtmlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
@@ -88,9 +92,7 @@
 		D7F68D2F2578D83100B119BA /* BuildSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSong.swift; sourceTree = "<group>"; };
 		D7F68D342578DA8400B119BA /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		D7F68D3E2579197100B119BA /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
-		D7FAA16225A0F65800041B1A /* AppAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAppearance.swift; sourceTree = "<group>"; };
 		D7FAE60F257D830C009BBDA8 /* ChordsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordsData.swift; sourceTree = "<group>"; };
-		D7FAE65D257E49CF009BBDA8 /* chords.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chords.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D734A0C825FA3E7D007AB36A /* GuitarChords in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,12 +108,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D734A0B625F932BD007AB36A /* GuitarChords in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D734A0C625FA3E7D007AB36A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D759292E2572280B006DDF24 = {
 			isa = PBXGroup;
 			children = (
@@ -124,19 +135,21 @@
 				D759293E2572280C006DDF24 /* iOS */,
 				D75929452572280C006DDF24 /* macOS */,
 				D759293D2572280C006DDF24 /* Products */,
+				D734A0C625FA3E7D007AB36A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		D75929332572280B006DDF24 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D734A0BD25F9590D007AB36A /* AppAppearance.swift */,
 				D75929352572280B006DDF24 /* ChordProDocument.swift */,
 				D7FAE60F257D830C009BBDA8 /* ChordsData.swift */,
 				D7F68D2F2578D83100B119BA /* BuildSong.swift */,
 				D7158FDD2573B44B00876B80 /* SongView.swift */,
+				D734A0AF25F93208007AB36A /* ChordsView.swift */,
 				D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */,
 				D7F68D342578DA8400B119BA /* EditorView.swift */,
-				D7FAA16225A0F65800041B1A /* AppAppearance.swift */,
 				D75929372572280C006DDF24 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -185,7 +198,7 @@
 				D759296025723025006DDF24 /* Line.swift */,
 				D759295F25723025006DDF24 /* Part.swift */,
 				D759295D25723025006DDF24 /* Measure.swift */,
-				D7009BE1258228460029D54D /* Diagram.swift */,
+				D7CC570D25FBAFC700AD96CA /* Chord.swift */,
 				D759295C25723025006DDF24 /* ChordPro.swift */,
 			);
 			path = Parser;
@@ -194,7 +207,6 @@
 		D7F68D3D2579191400B119BA /* WebView */ = {
 			isa = PBXGroup;
 			children = (
-				D7FAE65D257E49CF009BBDA8 /* chords.js */,
 				D7F68D3E2579197100B119BA /* style.css */,
 			);
 			path = WebView;
@@ -216,6 +228,9 @@
 			dependencies = (
 			);
 			name = "Chord Provider (iOS)";
+			packageProductDependencies = (
+				D734A0C725FA3E7D007AB36A /* GuitarChords */,
+			);
 			productName = "Make chords (iOS)";
 			productReference = D759293C2572280C006DDF24 /* Chord Provider.app */;
 			productType = "com.apple.product-type.application";
@@ -233,6 +248,9 @@
 			dependencies = (
 			);
 			name = "Chord Provider (macOS)";
+			packageProductDependencies = (
+				D734A0B525F932BD007AB36A /* GuitarChords */,
+			);
 			productName = "Make chords (macOS)";
 			productReference = D75929442572280C006DDF24 /* Chord Provider.app */;
 			productType = "com.apple.product-type.application";
@@ -263,6 +281,9 @@
 				Base,
 			);
 			mainGroup = D759292E2572280B006DDF24;
+			packageReferences = (
+				D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */,
+			);
 			productRefGroup = D759293D2572280C006DDF24 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -278,7 +299,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7FAE65E257E49CF009BBDA8 /* chords.js in Resources */,
 				D759294E2572280C006DDF24 /* Assets.xcassets in Resources */,
 				D7F68D3F2579197100B119BA /* style.css in Resources */,
 			);
@@ -289,7 +309,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */,
-				D7FAE65F257E49CF009BBDA8 /* chords.js in Resources */,
 				D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */,
 				D759294F2572280C006DDF24 /* Assets.xcassets in Resources */,
 				D7F68D402579197100B119BA /* style.css in Resources */,
@@ -303,10 +322,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7CC570E25FBAFC700AD96CA /* Chord.swift in Sources */,
 				D759296125723025006DDF24 /* Song.swift in Sources */,
+				D734A0BE25F9590D007AB36A /* AppAppearance.swift in Sources */,
 				D7009BFF258277950029D54D /* MainView.swift in Sources */,
 				D75929482572280C006DDF24 /* ChordProviderApp.swift in Sources */,
-				D7FAA16325A0F65800041B1A /* AppAppearance.swift in Sources */,
 				D759296525723025006DDF24 /* Measure.swift in Sources */,
 				D759296725723025006DDF24 /* Section.swift in Sources */,
 				D759296925723025006DDF24 /* Part.swift in Sources */,
@@ -319,8 +339,8 @@
 				D7FAE616257D830C009BBDA8 /* ChordsData.swift in Sources */,
 				D759296B25723025006DDF24 /* Line.swift in Sources */,
 				D7F68D262578BC7800B119BA /* HtmlView.swift in Sources */,
+				D734A0B025F93208007AB36A /* ChordsView.swift in Sources */,
 				D759294A2572280C006DDF24 /* ChordProDocument.swift in Sources */,
-				D7009BE2258228460029D54D /* Diagram.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,20 +349,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				D759296225723025006DDF24 /* Song.swift in Sources */,
-				D7FAA16425A0F65800041B1A /* AppAppearance.swift in Sources */,
 				D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */,
 				D759296625723025006DDF24 /* Measure.swift in Sources */,
 				D7F68D2A2578BC8500B119BA /* HtmlView.swift in Sources */,
 				D7BA2B312584FD5E006C272E /* FileBrowser.swift in Sources */,
 				D759296825723025006DDF24 /* Section.swift in Sources */,
+				D7CC570F25FBAFC700AD96CA /* Chord.swift in Sources */,
+				D734A0B125F93208007AB36A /* ChordsView.swift in Sources */,
 				D7E79C6F25A212CC00169D0F /* AudioPlayer.swift in Sources */,
 				D759296A25723025006DDF24 /* Part.swift in Sources */,
 				D759296425723025006DDF24 /* ChordPro.swift in Sources */,
 				D7CF846D257849BD002A5C09 /* SharedFunctions.swift in Sources */,
 				D7FAE64F257E189A009BBDA8 /* ChordsData.swift in Sources */,
+				D734A0BF25F9590D007AB36A /* AppAppearance.swift in Sources */,
 				D7158FDE2573B44B00876B80 /* SongView.swift in Sources */,
 				D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */,
-				D7009BE3258228460029D54D /* Diagram.swift in Sources */,
 				D759296C25723025006DDF24 /* Line.swift in Sources */,
 				D7F68D312578D83100B119BA /* BuildSong.swift in Sources */,
 				D7F68D362578DA8400B119BA /* EditorView.swift in Sources */,
@@ -601,6 +622,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BeauNouvelle/SwiftyGuitarChords";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D734A0B525F932BD007AB36A /* GuitarChords */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
+			productName = GuitarChords;
+		};
+		D734A0C725FA3E7D007AB36A /* GuitarChords */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
+			productName = GuitarChords;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D759292F2572280B006DDF24 /* Project object */;
 }

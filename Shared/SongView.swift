@@ -1,12 +1,13 @@
 //  MARK: - View: Song View for macOS and iOS
 
-/// HTML views for the song and the chords.
+/// HTML views for the song
 
 import SwiftUI
 
 struct SongView: View {
     @ObservedObject var song: Song
     @AppStorage("showChords") var showChords: Bool = true
+    @AppStorage("showEditor") var showEditor: Bool = false
     
     var body: some View {
         /// Stupid hack to get the view using full height
@@ -14,8 +15,8 @@ struct SongView: View {
             ScrollView {
                 HStack {
                     HtmlView(html: (song.html ?? "")).frame(height: g.size.height)
-                    if showChords {
-                        HtmlView(html: (song.htmlchords ?? "leeg")).frame(width: 140,height: g.size.height)
+                    if showChords && !showEditor {
+                        ChordsView(song: song).frame(width: 140,height: g.size.height)
                             .transition(.scale)
                     }
                 }
@@ -29,27 +30,20 @@ struct SongView: View {
 /// This will update the Song View when the document is changed.
 
 struct SongViewModifier: ViewModifier {
-    
-    @Environment(\.colorScheme) var colorScheme
 
     @Binding var document: ChordProDocument
     @Binding var song: Song
-    let diagrams: [Diagram]
-    
+
     func body(content: Content) -> some View {
         content
             .onAppear(
                 perform: {
-                    song = ChordPro.parse(document: document, diagrams: diagrams)
+                    song = ChordPro.parse(document: document)
                 }
             )
             .onChange(of: document.text) { newValue in
-                song = ChordPro.parse(document: document, diagrams: diagrams)
-            }
-            .onChange(of: colorScheme) {color in
-                /// Reload the html views with the new colors.
-                song.html = BuildSong(song: song, chords: false)
-                song.htmlchords = BuildSong(song: song, chords: true)
+                song = ChordPro.parse(document: document)
             }
     }
 }
+

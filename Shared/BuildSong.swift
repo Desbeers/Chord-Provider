@@ -1,6 +1,6 @@
 import SwiftUI
 
-func BuildSong(song: Song, chords: Bool) -> String {
+func BuildSong(song: Song) -> String {
     
     var html = """
                <!DOCTYPE html>
@@ -12,11 +12,11 @@ func BuildSong(song: Song, chords: Bool) -> String {
                :root {
                  supported-color-schemes: light dark;\n
                """
-    /// Add system colors to the css
-    html += "--accentColor: " + GetAccentColor() + ";\n"
-    html += "--highlightColor: " + GetHighlightColor() + ";\n"
-    html += "--sectionColor: " + GetSectionColor() + ";\n"
-    html += "--commentBackground: " + GetCommentBackground() + ";\n"
+    /// Add  colors from the assets catalog  to the css
+    html += "--accentColor: \(Color.accentHtmlColor);\n"
+    html += "--highlightColor: \(Color.highlightHtmlColor);\n"
+    html += "--sectionColor: \(Color.sectionHtmlColor);\n"
+    html += "--commentBackground: \(Color.commentHtmlBackground);\n"
     html += "}\n"
     /// Add the main CSS
     if let filepath = Bundle.main.path(forResource: "style", ofType: "css") {
@@ -27,61 +27,38 @@ func BuildSong(song: Song, chords: Bool) -> String {
             print(error)
         }
     }
-    html += "</style>"
-    
-    /// Add Chords javascript
-    if chords == true {
-        html += "<script>"
-        if let jspath = Bundle.main.path(forResource: "chords", ofType: "js") {
-            do {
-                let contents = try String(contentsOfFile: jspath)
-                html += contents
-            } catch {
-                print(error)
-            }
-        }
-        html += "</script>"
-    }
     html += """
+            </style>
             </script>
             </head>
             <body>
             <div id="container">
+            <div id="grid">
             """
-
-    if chords == false {
-        html += "<div id=\"grid\">"
-        song.sections.forEach { section in
-            html += SectionView(section)
-            if !section.lines.isEmpty {
-                html += "<div class=\"lines " + (section.type ?? "") + "\">"
-                section.lines.forEach { (line) in
-                    if !line.measures.isEmpty {
-                        html += MeasuresView(line)
-                    } else if line.tablature != nil {
-                        html += "<div class=\"tablature\">" +  line.tablature! + "</div>"
-                    } else if line.comment != nil {
-                        html += "<div class=\"comment\">" +  line.comment! + "</div>"
-                    } else if (section.type == nil) {
-                        html += "<div class=\"plain\">"
-                        html += PlainView(line)
-                        html += "</div>"
-                    } else {
-                        html += PartsView(line)
-                    }
+    song.sections.forEach { section in
+        html += SectionView(section)
+        if !section.lines.isEmpty {
+            html += "<div class=\"lines " + (section.type ?? "") + "\">"
+            section.lines.forEach { (line) in
+                if !line.measures.isEmpty {
+                    html += MeasuresView(line)
+                } else if line.tablature != nil {
+                    html += "<div class=\"tablature\">" +  line.tablature! + "</div>"
+                } else if line.comment != nil {
+                    html += "<div class=\"comment\">" +  line.comment! + "</div>"
+                } else if (section.type == nil) {
+                    html += "<div class=\"plain\">"
+                    html += PlainView(line)
+                    html += "</div>"
+                } else {
+                    html += PartsView(line)
                 }
-                html += "</div>"
             }
+            html += "</div>"
         }
-        html += "</div>"
-    }
-    if chords == true {
-        html += ChordsList(song)
     }
     html += "</div>"
-    if chords == true {
-        html += "<script>chords.replace()</script>"
-    }
+    html += "</div>"
     html += "</body></html>"
 
     return html
@@ -138,37 +115,6 @@ func PlainView(_ line: Line) -> String {
     var html = "<div class=\"line\">"
     line.parts.forEach { (part) in
         html += "<div class=\"plain\">\(part.lyric!)</div>"
-    }
-    html += "</div>"
-    
-    return html
-}
-
-func ChordsList(_ song: Song) -> String {
-
-    let sortedChords = song.chords.sorted(by: { $0.0 < $1.0 })
-    
-    var html = "<div id=\"chords\">"
-    
-    if !song.chords.isEmpty {
-        sortedChords.forEach { (chord) in
-            //html += "<h1>\(chord.key)</h1>"
-            /// Find the chord diagram
-            let match = GetChordDiagram(song: song, chord: chord.key, baseFret: chord.value)
-            if !match.frets.isEmpty {
-                /// We have a diagram
-                html += "<chord accentColor=\"\(GetAccentColor())\" highlightColor=\"\(GetSystemBackground())\" chordColor=\"\(GetChordColor())\" name=\"\(chord.key)\" positions=\"\(match.frets)\" fingers=\"\(match.fingers)\" size=\"3\" ></chord>"
-            }
-            else {
-                /// No diagram found
-                html += "<div class=\"not-found\"><h1>\(chord.key)</h1>This chord "
-                if !chord.value.isEmpty {
-                    html += "with base fret \(chord.value.prefix(1)) "
-                }
-                html += "is unknown"
-                html += "</div>"
-            }
-        }
     }
     html += "</div>"
     

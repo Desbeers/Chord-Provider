@@ -4,7 +4,8 @@
 /// Very modified version of the "songpro-swift" parser:
 /// https://github.com/SongProOrg/songpro-swift
 
-import Foundation
+import SwiftUI
+import GuitarChords
 
 public class ChordPro {
 
@@ -23,11 +24,9 @@ public class ChordPro {
     static let chordsRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
 
     // MARK: - func: parse; called to parse a whole song
-    static func parse(document: ChordProDocument, diagrams: [Diagram]) -> Song {
+    static func parse(document: ChordProDocument) -> Song {
         /// Start with a fresh song
         var song = Song()
-        /// Add the diagrams
-        song.diagram = diagrams
         /// And add the first section
         var currentSection = Sections()
         song.sections.append(currentSection)
@@ -156,7 +155,10 @@ public class ChordPro {
                 value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
-        song.chords.updateValue(value, forKey: key)
+        let process = processChord(chord: key)
+        if let index = song.chords.firstIndex(where: { $0.name == process.key.rawValue }) {
+            song.chords[index].define = value
+        }
     }
     
     // MARK: - func: processComments
@@ -226,9 +228,10 @@ public class ChordPro {
                         song.key = part.chord
                     }
                     /// Save in the chord list
-                    let chordExists = song.chords[part.chord!] != nil
-                    if !chordExists{
-                        song.chords.updateValue("", forKey: part.chord!)
+                    if !song.chords.contains(where: { $0.name == part.chord! }) {
+                        let process = processChord(chord: part.chord!)
+                        let chord = Chord(name: part.chord!, key: process.key, suffix: process.suffix, define: "")
+                        song.chords.append(chord)
                     }
                 } else {
                     part.chord = ""
@@ -251,7 +254,45 @@ public class ChordPro {
     // MARK: - func: processHtml; turn the song into HTML
     private static func processHtml(song: inout Song) {
         print("Convert '" + (song.title ?? "no title") + "' into HTML")
-        song.html = BuildSong(song: song, chords: false)
-        song.htmlchords = BuildSong(song: song, chords: true)
+        song.html = BuildSong(song: song)
     }
+
+    // MARK: - func: processChord; find key and suffix
+    private static func processChord(chord: String) -> (key: GuitarChords.Key, suffix: GuitarChords.Suffix) {
+
+            
+            var key: GuitarChords.Key = .c
+            var suffix: GuitarChords.Suffix = .major
+            
+            print("Parsing chords")
+            
+            let chordRegex = try! NSRegularExpression(pattern: "([CDEFGABb#]+)(.*)")
+            if let match = chordRegex.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
+                if let keyRange = Range(match.range(at: 1), in: chord) {
+                    var valueKey = chord[keyRange].trimmingCharacters(in: .newlines)
+                    /// Dirty, some chords in the database are only in the flat version....
+                    if valueKey == "G#" {
+                        valueKey = "Ab"
+                    }
+                    key = GuitarChords.Key(rawValue: valueKey)!
+                }
+                if let valueRange = Range(match.range(at: 2), in: chord) {
+                    /// ChordPro suffix are not always the suffixes in the database...
+                    var suffixString = "major"
+                    switch chord[valueRange] {
+                    case "m":
+                        suffixString = "minor"
+                    default:
+                        suffixString = String(chord[valueRange])
+                    }
+                    suffix = GuitarChords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? GuitarChords.Suffix.major
+                }
+                else {
+                    suffix = GuitarChords.Suffix.major
+                }
+            }
+            return (key, suffix)
+        }
+
 }
+

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "GuitarChords",
+        "repositoryURL": "https://github.com/BeauNouvelle/SwiftyGuitarChords",
+        "state": {
+          "branch": "main",
+          "revision": "00a6af3e27c395e70b9fa7380d64ef35c8077334",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

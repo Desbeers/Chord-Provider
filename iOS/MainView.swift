@@ -6,11 +6,9 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var document: ChordProDocument
-    let diagrams: [Diagram]
     @State var song = Song()
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.horizontalSizeClass) var sizeClass
 
     var body: some View {
@@ -24,13 +22,9 @@ struct MainView: View {
             }
         }
         .statusBar(hidden: true)
-        .modifier(AppAppearanceModifier())
-        .modifier(SongViewModifier(document: $document, song: $song, diagrams: diagrams))
+        .modifier(SongViewModifier(document: $document, song: $song))
         /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
         .toolbar {
-            ToolbarItem(placement: (sizeClass == .compact ? .bottomBar : .automatic)) {
-                AppAppearanceSwitch()
-            }
             ToolbarItemGroup() {
                 Button(action: {
                     withAnimation {

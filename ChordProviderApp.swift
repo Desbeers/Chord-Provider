@@ -6,24 +6,12 @@ import SwiftUI
 
 @main
 struct ChordProviderApp: App {
-    /// Get the list of chord diagrams so we don't have to parse it all the time.
-    let diagrams = Diagram.all
-
-    @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
-
-    #if os(iOS)
-    /// DocumentGroup on iOS does not like to start in a 'non-system' color.
-    init() {
-        appAppearance = .system
-    }
-    #endif
-    
     var body: some Scene {
         #if os(macOS)
-        macOSApp(diagrams: diagrams)
+        macOSApp()
         #endif
         #if os(iOS)
-        iOSApp(diagrams: diagrams)
+        iOSApp()
         #endif
     }
 }
@@ -32,34 +20,16 @@ struct ChordProviderApp: App {
 
 #if os(macOS)
 struct macOSApp: Scene {
-    /// Below are used for the "Toggle Appearance" menu command.
-    @AppStorage("appColor") var appColor: AppAppearance.displayMode = .system
-    @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
-
-    let diagrams: [Diagram]
-    
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             NavigationView {
                 FileBrowser(document: file.$document, file: file)
-                MainView(document: file.$document, diagrams: diagrams)
+                MainView(document: file.$document)
             }
         }
         .commands {
             /// Show or hide the sidebar
             SidebarCommands()
-            CommandGroup(before: .sidebar)  {
-                Button(action: {
-                    if (appColor == .light) {
-                        appAppearance = .dark
-                    } else {
-                        appAppearance = .light
-                    }
-                }) {
-                    Text("Toggle Appearance")
-                }
-                .keyboardShortcut("t")
-            }
         }
     }
 }
@@ -69,12 +39,9 @@ struct macOSApp: Scene {
 
 #if os(iOS)
 struct iOSApp: Scene {
-
-    let diagrams: [Diagram]
-    
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            MainView(document: file.$document, diagrams: diagrams)
+            MainView(document: file.$document)
         }
     }
 }

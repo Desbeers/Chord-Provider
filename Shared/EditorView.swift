@@ -10,7 +10,8 @@ struct EditorView: View {
     
     var body: some View {
         TextEditor(text: $document.text)
-            .font(.custom("HelveticaNeue", size: 14))
+            .font(.custom("HelveticaNeue", size: 18))
+            .lineSpacing(5)
             .padding()
     }
 }

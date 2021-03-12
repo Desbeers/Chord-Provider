@@ -20,30 +20,17 @@ struct HeaderView: View {
                     AudioPlayer(song: song)
                 }
                 Spacer()
-                AppAppearanceSwitch().frame(width: 100)
             }
             .padding(4)
         #endif
         #if os(iOS)
-        if sizeClass == .compact {
-            VStack {
-                HStack {
-                    Spacer()
-                    HeaderViewGeneral(song: song).padding(4)
-                    Spacer()
-                }
-                HeaderViewDetails(song: song)
-            }
-            .padding(4)
-        } else {
-            HStack(alignment: .center) {
-                Spacer()
-                HeaderViewGeneral(song: song)
-                HeaderViewDetails(song: song)
-                Spacer()
-            }
-            .padding(4)
+        /// No need to show the artist and song on iOS because thats already shown because its a document scene
+        HStack(alignment: .center) {
+            Spacer()
+            HeaderViewDetails(song: song)
+            Spacer()
         }
+        .padding(4)
         #endif
     }
 }

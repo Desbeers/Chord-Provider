@@ -221,25 +221,3 @@ body {
         margin-top: 0.5em;
     }
 }
-
-/* CSS for the Chords View */
-
-#chords {
-    font: -apple-system-headline;
-}
-
-#chords h1 {
-    font: -apple-system-body;
-    text-align: left;
-    color: var(--accentColor);
-    margin: 0;
-    padding: 0;
-}
-
-#chords .not-found {
-    text-align: left;
-    border-left: 1px solid;
-    padding-left: 0.5em;
-    margin: 1em 1.5em 1em 1em;
-    font: -apple-system-subheadline;
-}

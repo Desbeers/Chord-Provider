@@ -18,18 +18,9 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 
 ### Known issues
 
-#### macOS
-
-##### The sidebar
-
-This is still work in progress...
-
 - It only lists files with the '.pro' extension.
-- It doesn't remember its scrolled position when you open a song in a new window or tab; the selected song will be more or less on the top. I don't know (yet?) how to keep its scroll-position fixed; it's not easy in a SwiftUI DocumentGroup...
-
-#### iOS
-
 - Hand-off is not working. It tries to 'hand-off' to macOS, however, if you click on the icon, a new song is opened.
+- When you switch from light to dark mode and visa-versa; the colors and chord diagrams are not correct.
 
 ### Thanks
 
@@ -37,6 +28,4 @@ Stole code (and ideas) from:
 
 [songpro-swift](https://github.com/SongProOrg/songpro-swift)
 
-[ChordsJS](https://github.com/AlexSchwabauer/ChordJS)
-
-The database with the chords came from [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
+The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)

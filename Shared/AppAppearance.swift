@@ -1,154 +1,50 @@
 //  MARK: - class: App Appearance for macOS and iOS
 
-/// This optional overrules the appearance of the application
+/// Color related stuff.
 
 import SwiftUI
 
-//  MARK: - ViewModifier: observe the appearance selector
+//  MARK: - typealias: Get the correct function for macOS and iOS
 
-struct AppAppearanceModifier: ViewModifier {
-    
-    @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
-    @AppStorage("appColor") var appColor: AppAppearance.displayMode = .light
-    @Environment(\.colorScheme) var colorScheme
-    
-    @State var preferredColorScheme: ColorScheme? = nil
+#if os(macOS)
+    typealias SWIFTColor = NSColor
+#endif
+#if os(iOS)
+    typealias SWIFTColor = UIColor
+#endif
 
-    func body(content: Content) -> some View {
-        content
-        .onAppear(
-            perform: {
-                OverrideAppearance()
-                GetColorMode()
-            }
-        )
-        .onChange(of: appAppearance) { appearance in
-            OverrideAppearance()
-        }
-        .onChange(of: colorScheme) {color in
-            GetColorMode()
-        }
+//  MARK: - extensions to get system colors for the html view
+
+extension Color {
+    var hexString: String {
+        return SWIFTColor(self).hexString
     }
-    func OverrideAppearance() {
-        #if os(macOS)
-        switch appAppearance {
-            case .dark:
-                NSApp.appearance = NSAppearance(named: .darkAqua)
-            case .light:
-                NSApp.appearance = NSAppearance(named: .aqua)
-            case .system:
-                NSApp.appearance = nil
-        }
-        #endif
-        #if os(iOS)
-        var userInterfaceStyle: UIUserInterfaceStyle
-        switch appAppearance {
-            case .dark:
-                userInterfaceStyle = .dark
-            case .light:
-                userInterfaceStyle = .light
-            case .system:
-                userInterfaceStyle = .unspecified
-        }
-        UIApplication.shared.windows.first?.overrideUserInterfaceStyle = userInterfaceStyle
-        #endif
-    }
-    func GetColorMode() {
-        if appAppearance == .system {
-        #if os(macOS)
-            let isLight: String = UserDefaults.standard.object(forKey: "AppleInterfaceStyle") as? String ?? "Light"
-            appColor = (isLight == "Light" ? .light : .dark)
-        #endif
-        #if os(iOS)
-            let appleInterfaceStyle = UITraitCollection.current.userInterfaceStyle
-            switch appleInterfaceStyle.rawValue {
-                case 1:
-                    appColor = .light
-                case 2:
-                    appColor = .dark
-                default:
-                    print("Unknown")
-            }
-        #endif
-        }
-        else {
-            appColor = appAppearance
-        }
-        //UserDefaults.standard.set(appColor.rawValue, forKey: "appColor")
-        print(appColor)
-    }
-}
-
-//  MARK: - View: The picker
-
-/// Different pickers for macOS and iOS.
-/// I like the mac style the most but its buggy on iOS.
-
-struct AppAppearanceSwitch: View {
-    
-    @AppStorage("appAppearance") var appAppearance: AppAppearance.displayMode = .system
-
-    var body: some View {
-        Picker(selection: $appAppearance, label: Text("Appearance")) {
-            Image(systemName: "circle.lefthalf.fill").tag(AppAppearance.displayMode.system)
-            Image(systemName: "sun.max").tag(AppAppearance.displayMode.light)
-            Image(systemName: "moon").tag(AppAppearance.displayMode.dark)
-        }
-        .pickerStyle(SegmentedPickerStyle())
-        .labelsHidden()
-    }
-}
-
-//  MARK: - class: App Appearance
-
-public class AppAppearance {
-    enum displayMode: Int {
-        case system = 0
-        case dark = 1
-        case light = 2
-    }
-    static func GetCurrentColorMode() -> displayMode {
-        let value = UserDefaults.standard.object(forKey: "appColor") as? Int ?? 0
-        return displayMode(rawValue: value) ?? .light
-    }
-}
-
-
-
-//  MARK: - functions to get system colors for the html view
-
-func GetCommentBackground() -> String {
-    let theme = AppAppearance.GetCurrentColorMode()
-    return (theme == .light ? "#DDDDDD" : "#666666")
-}
-
-func GetAccentColor() -> String {
-    /// macOS has variable accent colors; iOS does not; the appliciation decide.
-    /// However; if you change the accent color in macOS; the view is not updated.
-    /// There is no sane way to detect changes of that setting...
+    static let sectionHtmlColor = Color("SectionColor").hexString
+    /// macOS has variable accent colors; iOS does not
     #if os(macOS)
-    return Color.accentColor.hexString
+        static let accentHtmlColor = Color.accentColor.hexString
     #endif
     #if os(iOS)
-    return Color("AccentColor").hexString
+        static let accentHtmlColor = Color("AccentColor").hexString
     #endif
+    /// Highlight color is the accent color with transparancy
+    /// It mimics the Higlight color in the macOS settings
+    static let highlightHtmlColor = Color.accentHtmlColor + "53"
+    static let commentHtmlBackground = Color("CommentBackground").hexString
 }
 
-func GetChordColor() -> String {
-    let theme = AppAppearance.GetCurrentColorMode()
-    return (theme == .light ? "#000000" : "#ffffff")
-}
-
-func GetHighlightColor() -> String {
-    return GetAccentColor() + "53"
-}
-
-func GetSectionColor() -> String {
-    let theme = AppAppearance.GetCurrentColorMode()
-    return (theme == .light ? "#666666" : "#AAAAAA")
-}
-
-func GetSystemBackground() -> String {
-    let theme = AppAppearance.GetCurrentColorMode()
-    return (theme == .light ? "#FFFFFF" : "#000000")
+/// SWIFTColor is the type alias for NSColor or UIColor, depending on os
+extension SWIFTColor {
+    var hexString: String{
+        #if os(macOS)
+        let rgbColor = usingColorSpace(.extendedSRGB) ?? SWIFTColor(red: 1, green: 1, blue: 1, alpha: 1)
+        #endif
+        #if os(iOS)
+        let rgbColor = self
+        #endif
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        rgbColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        let rgb:Int = (Int)(red*255)<<16 | (Int)(green*255)<<8 | (Int)(blue*255)<<0
+        return String(format: "#%06x", rgb)
+    }
 }
