@@ -94,18 +94,7 @@ struct FileBrowserRow: View {
     let selection: String
 
     var body: some View {
-        Button(action: {
-            /// Sandbox stuff: get path for selected folder
-            if var persistentURL = GetPersistentFileURL("pathSongs") {
-                _ = persistentURL.startAccessingSecurityScopedResource()
-                persistentURL = persistentURL.appendingPathComponent(song.path, isDirectory: false)
-                let configuration = NSWorkspace.OpenConfiguration()
-                /// Find the location of the application:
-                let chordpro = Bundle.main.resourceURL?.baseURL
-                NSWorkspace.shared.open([persistentURL],withApplicationAt: chordpro!,configuration: configuration)
-                persistentURL.stopAccessingSecurityScopedResource()
-            }
-        } ) {
+        VStack() {
             let rowImage = (song.musicpath.isEmpty ? "music.note" : "music.note.list")
             ZStack() {
                 if (selection == song.path) {
@@ -118,12 +107,28 @@ struct FileBrowserRow: View {
                         Image(systemName: rowImage).foregroundColor(.accentColor)
                     }
                     Spacer()
-                }.padding(.all,4)
+                }
+                .padding(.all,4)
             }
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(.horizontal,10)
+        .onTapGesture{
+            OpenSong(song: song)
+        }
         .id(song.path)
-        .padding(.horizontal, 10)
+    }
+    
+    func OpenSong(song: ArtistSongs) {
+        /// Sandbox stuff: get path for selected folder
+        if var persistentURL = GetPersistentFileURL("pathSongs") {
+            _ = persistentURL.startAccessingSecurityScopedResource()
+            persistentURL = persistentURL.appendingPathComponent(song.path, isDirectory: false)
+            let configuration = NSWorkspace.OpenConfiguration()
+            /// Find the location of the application:
+            let chordpro = Bundle.main.resourceURL?.baseURL
+            NSWorkspace.shared.open([persistentURL],withApplicationAt: chordpro!,configuration: configuration)
+            persistentURL.stopAccessingSecurityScopedResource()
+        }
     }
 }
 

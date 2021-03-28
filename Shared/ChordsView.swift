@@ -21,14 +21,14 @@ struct ChordsView: View {
                     Group() {
                         Text(chord.name).foregroundColor(.accentColor).font(.title2)
                         if let chordPosition = ChordsView.chordsDatabase.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
-                            let layer = chordPosition.first!.layer(rect: frame, showFingers: true, showChordName: false, forScreen: true)
-                            let image = layer.image()
+                            let layer = chordPosition.first?.layer(rect: frame, showFingers: true, showChordName: false, forScreen: true)
+                            let image = layer?.image()
                             #if os(macOS)
-                            Image(nsImage: image!)
+                            Image(nsImage: (image ?? NSImage(named: "AppIcon"))!)
                                 .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
                             #endif
                             #if os(iOS)
-                            Image(uiImage: image!)
+                            Image(uiImage: (image ?? UIImage(named: "AppIcon"))!)
                             #endif
                         }
                     }
