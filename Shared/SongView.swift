@@ -6,6 +6,7 @@ import SwiftUI
 
 struct SongView: View {
     @ObservedObject var song: Song
+    let file: URL?
     @AppStorage("showChords") var showChords: Bool = true
     @AppStorage("showEditor") var showEditor: Bool = false
     
@@ -33,16 +34,17 @@ struct SongViewModifier: ViewModifier {
 
     @Binding var document: ChordProDocument
     @Binding var song: Song
+    let file: URL?
 
     func body(content: Content) -> some View {
         content
             .onAppear(
                 perform: {
-                    song = ChordPro.parse(document: document)
+                    song = ChordPro.parse(document: document, file: file ?? nil)
                 }
             )
             .onChange(of: document.text) { newValue in
-                song = ChordPro.parse(document: document)
+                song = ChordPro.parse(document: document, file: file ?? nil)
             }
     }
 }

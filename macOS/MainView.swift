@@ -6,6 +6,7 @@ import SwiftUI
 
 struct MainView: View {
     @Binding var document: ChordProDocument
+    let file: URL?
     @State var song = Song()
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
@@ -15,7 +16,7 @@ struct MainView: View {
             HeaderView(song: song).background(Color.accentColor.opacity(0.3))
             HSplitView() {
                 
-                SongView(song: song).frame(minWidth: 400).padding(.top)
+                SongView(song: song, file: file).frame(minWidth: 400).padding(.top)
                 if showEditor {
                     EditorView(document: $document)
                         .frame(minWidth: 400)
@@ -52,7 +53,7 @@ struct MainView: View {
                 }
             }
         }
-        .modifier(SongViewModifier(document: $document, song: $song))
+        .modifier(SongViewModifier(document: $document, song: $song, file: file))
     }
 }
 

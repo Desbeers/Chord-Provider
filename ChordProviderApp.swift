@@ -23,8 +23,8 @@ struct macOSApp: Scene {
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             NavigationView {
-                FileBrowser(document: file.$document, file: file)
-                MainView(document: file.$document)
+                FileBrowser(document: file.$document, file: file.fileURL ?? nil)
+                MainView(document: file.$document, file: file.fileURL ?? nil)
             }
         }
         .commands {
@@ -41,7 +41,7 @@ struct macOSApp: Scene {
 struct iOSApp: Scene {
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            MainView(document: file.$document)
+            MainView(document: file.$document, file: file.fileURL ?? nil)
         }
     }
 }

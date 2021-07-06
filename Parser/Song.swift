@@ -14,7 +14,8 @@ public class Song: Identifiable, ObservableObject {
     public var album: String?
     public var tuning: String?
     public var html: String?
-    public var musicpath: String?
+    public var path: URL?
+    public var musicpath: URL?
     public var sections = [Sections]()
     public var chords = [Chord]()
 }

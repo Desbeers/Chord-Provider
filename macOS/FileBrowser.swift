@@ -9,7 +9,7 @@ import SwiftUI
 struct FileBrowser: View {
 
     @Binding var document: ChordProDocument
-    let file: FileDocumentConfiguration<ChordProDocument>
+    let file: URL?
     @StateObject var mySongs = MySongs()
     @AppStorage("pathSongsString") var pathSongsString: String = GetDocumentsDirectory()
     @State var search: String = ""
@@ -29,7 +29,7 @@ struct FileBrowser: View {
                         ForEach(mySongs.songList.artists) { artist in
                             Section(header: search.isEmpty ? ArtistHeader(artist: artist) : nil) {
                                 ForEach(artist.songs.filter({search.isEmpty ? true : $0.search.localizedCaseInsensitiveContains(search)})) { song in
-                                    FileBrowserRow(song: song, selection: (file.fileURL?.lastPathComponent ?? "New"))
+                                    FileBrowserRow(song: song, selection: (file?.lastPathComponent ?? "New"))
                                 }
                             }
                         }
@@ -37,7 +37,7 @@ struct FileBrowser: View {
                 }
                 .onAppear(
                     perform: {
-                        proxy.scrollTo((file.fileURL?.lastPathComponent), anchor: .center)
+                        proxy.scrollTo((file), anchor: .center)
                     }
                 )
                 .toolbar() {
@@ -97,7 +97,7 @@ struct FileBrowserRow: View {
         VStack() {
             let rowImage = (song.musicpath.isEmpty ? "music.note" : "music.note.list")
             ZStack() {
-                if (selection == song.path) {
+                if (selection == song.path.lastPathComponent) {
                     Color.secondary.cornerRadius(5).opacity(0.2)
                 }
                 HStack() {
@@ -122,7 +122,8 @@ struct FileBrowserRow: View {
         /// Sandbox stuff: get path for selected folder
         if var persistentURL = GetPersistentFileURL("pathSongs") {
             _ = persistentURL.startAccessingSecurityScopedResource()
-            persistentURL = persistentURL.appendingPathComponent(song.path, isDirectory: false)
+            persistentURL = song.path
+            //persistentURL = persistentURL.appendingPathComponent(song.path, isDirectory: false)
             let configuration = NSWorkspace.OpenConfiguration()
             /// Find the location of the application:
             let chordpro = Bundle.main.resourceURL?.baseURL
@@ -174,8 +175,10 @@ struct ArtistSongs: Identifiable {
     var search: String {
         return "\(title) \(artist)"
     }
-    var path: String = ""
+    //var path: String = ""
+
     var musicpath: String = ""
+    var path: URL
 }
 
 struct ArtistList: Identifiable {
@@ -207,32 +210,24 @@ struct GetSongsList {
         /// Get a list of all files
         
         if let persistentURL = GetPersistentFileURL("pathSongs") {
-            do {
-                /// Sandbox stuff...
-                _ = persistentURL.startAccessingSecurityScopedResource()
-                let items = try FileManager.default.contentsOfDirectory(atPath: persistentURL.path)
-                for item in items {
-                    if item.hasSuffix(".pro") {
-                        var song = ArtistSongs()
-                        ParseSongFile(persistentURL.appendingPathComponent(item, isDirectory: false), item, &song)
+            /// Sandbox stuff...
+            _ = persistentURL.startAccessingSecurityScopedResource()
+            if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
+                while let item = items.nextObject() as? URL {
+                    if item.lastPathComponent.hasSuffix(".pro") {
+                        var song = ArtistSongs(path: item)
+                        ParseSongFile(item, &song)
                         songs.append(song)
                     }
                 }
-                persistentURL.stopAccessingSecurityScopedResource()
-            } catch {
-                /// failed to read directory
-                print(error)
             }
+            persistentURL.stopAccessingSecurityScopedResource()
         }
-
         return songs.sorted { $0.title < $1.title }
     }
     /// This is a helper function to parse the song for metadata
-    static func ParseSongFile(_ file: URL, _ name: String, _ song: inout ArtistSongs) {
-        /// Name is used parsing gives no result
-        //song.artist = "Unknown artist"
-        song.title = name
-        song.path = name
+    static func ParseSongFile(_ file: URL, _ song: inout ArtistSongs) {
+        song.title = file.lastPathComponent
         
         do {
             let data = try String(contentsOf: file, encoding: .utf8)

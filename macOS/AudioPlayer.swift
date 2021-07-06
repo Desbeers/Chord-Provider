@@ -17,13 +17,12 @@ struct AudioPlayer: View {
         HStack {
             Button(action: {
                 /// Sandbox stuff: get path for selected folder
-                if var persistentURL = GetPersistentFileURL("pathSongs") {
+                if let persistentURL = GetPersistentFileURL("pathSongs") {
                     _ = persistentURL.startAccessingSecurityScopedResource()
-                    persistentURL = persistentURL.appendingPathComponent(song.musicpath!, isDirectory: false)
                     // TODO: move check to song loading
                     //let isReachable = try! persistentURL.checkResourceIsReachable()
                     do {
-                        audioPlayer = try AVAudioPlayer(contentsOf: persistentURL)
+                        audioPlayer = try AVAudioPlayer(contentsOf: song.musicpath!)
                         audioPlayer.play()
                         /// For the button state
                         isPlaying = true

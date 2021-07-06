@@ -24,9 +24,12 @@ public class ChordPro {
     static let chordsRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
 
     // MARK: - func: parse; called to parse a whole song
-    static func parse(document: ChordProDocument) -> Song {
+    static func parse(document: ChordProDocument, file: URL?) -> Song {
         /// Start with a fresh song
         var song = Song()
+        /// Add the path
+        song.path = file
+        //song.path = FileDocumentConfiguration<ChordProDocument>
         /// And add the first section
         var currentSection = Sections()
         song.sections.append(currentSection)
@@ -98,7 +101,11 @@ public class ChordPro {
                 case "tuning":
                     song.tuning = value!
                 case "musicpath":
-                    song.musicpath = value!
+                    if let path = song.path {
+                        var musicpath = path.deletingLastPathComponent()
+                        musicpath.appendPathComponent(value!)
+                        song.musicpath = musicpath
+                    }
                 default:
                     break
             }

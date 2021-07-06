@@ -7,6 +7,7 @@ import SwiftUI
 struct MainView: View {
     @Binding var document: ChordProDocument
     @State var song = Song()
+    let file: URL?
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
     @Environment(\.horizontalSizeClass) var sizeClass
@@ -15,14 +16,14 @@ struct MainView: View {
         VStack() {
             HeaderView(song: song).background(Color.purple.opacity(0.3)).padding(.bottom)
             HStack {
-                SongView(song: song)
+                SongView(song: song, file: file)
                 if showEditor {
                     EditorView(document: $document)
                 }
             }
         }
         .statusBar(hidden: true)
-        .modifier(SongViewModifier(document: $document, song: $song))
+        .modifier(SongViewModifier(document: $document, song: $song, file: file))
         /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
         .toolbar {
             ToolbarItemGroup() {
