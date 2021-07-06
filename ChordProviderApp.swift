@@ -1,4 +1,4 @@
-//  MARK: - App: the scenes for the application
+// MARK: - App: the scenes for the application
 
 /// macOS and iOS have their own scenes because they are too different
 
@@ -8,18 +8,18 @@ import SwiftUI
 struct ChordProviderApp: App {
     var body: some Scene {
         #if os(macOS)
-        macOSApp()
+        SceneMAC()
         #endif
         #if os(iOS)
-        iOSApp()
+        SceneIOS()
         #endif
     }
 }
 
-//  MARK: - Scene: macOS
+// MARK: - Scene: macOS
 
 #if os(macOS)
-struct macOSApp: Scene {
+struct SceneMAC: Scene {
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             NavigationView {
@@ -35,10 +35,10 @@ struct macOSApp: Scene {
 }
 #endif
 
-//  MARK: - Scene: iOS
+// MARK: - Scene: iOS
 
 #if os(iOS)
-struct iOSApp: Scene {
+struct SceneIOS: Scene {
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             MainView(document: file.$document, file: file.fileURL ?? nil)

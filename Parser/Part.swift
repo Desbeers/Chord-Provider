@@ -1,4 +1,4 @@
-//  MARK: - class: a part of a line of the song
+// MARK: - class: a part of a line of the song
 
 import Foundation
 
@@ -7,9 +7,7 @@ public class Part: Identifiable {
     public var chord: String?
     public var lyric: String?
     
-    public var isEmpty: Bool {
-        get {
-            return chord == "" && lyric == ""
-        }
+    public var empty: Bool {
+        return (chord ?? "").isEmpty && (lyric ?? "").isEmpty
     }
 }

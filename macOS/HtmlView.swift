@@ -1,4 +1,4 @@
-//  MARK: - NSViewRepresentable: HTML view for macOS
+// MARK: - NSViewRepresentable: HTML view for macOS
 
 import SwiftUI
 import WebKit
@@ -24,5 +24,3 @@ struct HtmlView: NSViewRepresentable {
         Coordinator()
     }
 }
-
-

@@ -1,4 +1,4 @@
-//  MARK: - class: one line of the song
+// MARK: - class: one line of the song
 
 import Foundation
 

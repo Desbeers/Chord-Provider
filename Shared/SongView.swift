@@ -1,4 +1,4 @@
-//  MARK: - View: Song View for macOS and iOS
+// MARK: - View: Song View for macOS and iOS
 
 /// HTML views for the song
 
@@ -12,21 +12,21 @@ struct SongView: View {
     
     var body: some View {
         /// Stupid hack to get the view using full height
-        GeometryReader { g in
+        GeometryReader { geometry in
             ScrollView {
                 HStack {
-                    HtmlView(html: (song.html ?? "")).frame(height: g.size.height)
+                    HtmlView(html: (song.html ?? "")).frame(height: geometry.size.height)
                     if showChords && !showEditor {
-                        ChordsView(song: song).frame(width: 140,height: g.size.height)
+                        ChordsView(song: song).frame(width: 140, height: geometry.size.height)
                             .transition(.scale)
                     }
                 }
-            }.frame(height: g.size.height)
+            }.frame(height: geometry.size.height)
         }
     }
 }
 
-//  MARK: - ViewModifier: Modify song view
+// MARK: - ViewModifier: Modify song view
 
 /// This will update the Song View when the document is changed.
 
@@ -43,9 +43,8 @@ struct SongViewModifier: ViewModifier {
                     song = ChordPro.parse(document: document, file: file ?? nil)
                 }
             )
-            .onChange(of: document.text) { newValue in
+            .onChange(of: document.text) { _ in
                 song = ChordPro.parse(document: document, file: file ?? nil)
             }
     }
 }
-

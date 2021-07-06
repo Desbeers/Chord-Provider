@@ -1,4 +1,4 @@
-//  MARK: - functions that are specific for macOS
+// MARK: - functions that are specific for macOS
 
 import SwiftUI
 

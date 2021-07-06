@@ -1,4 +1,4 @@
-//  MARK: - View: Chords View for macOS and iOS
+// MARK: - View: Chords View for macOS and iOS
 
 /// Show chord diagrams
 
@@ -15,10 +15,10 @@ struct ChordsView: View {
     @State var selectedChord: Chord?
     
     var body: some View {
-        ScrollView() {
-            VStack() {
+        ScrollView {
+            VStack {
                 ForEach(song.chords.sorted { $0.name < $1.name }) { chord in
-                    Group() {
+                    Group {
                         Text(chord.name).foregroundColor(.accentColor).font(.title2)
                         if let chordPosition = ChordsView.chordsDatabase.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
                             let layer = chordPosition.first?.layer(rect: frame, showFingers: true, showChordName: false, forScreen: true)
@@ -32,7 +32,7 @@ struct ChordsView: View {
                             #endif
                         }
                     }
-                    .onTapGesture{
+                    .onTapGesture {
                         selectedChord = chord
                         showChordSheet = true
                     }
@@ -51,10 +51,10 @@ struct ChordsSheet: View {
     @Binding var chord: Chord?
     var body: some View {
         let chordPosition = GuitarChords.all.matching(key: chord!.key).matching(suffix: chord!.suffix)
-        VStack() {
+        VStack {
             Text("Chord: \(chord!.key.rawValue)\(chord!.suffix.rawValue)")
                 .font(.title)
-            ScrollView() {
+            ScrollView {
                 LazyVGrid(
                     columns: [GridItem(.adaptive(minimum: 110))],
                     alignment: .center,
@@ -75,10 +75,10 @@ struct ChordsSheet: View {
                     }
                 }
             }
-            Button(
-                action: {
-                    presentationMode.wrappedValue.dismiss()
-                }) {
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            }
+            label: {
                 Text("Close")
             }
         }

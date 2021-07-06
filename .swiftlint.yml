@@ -1,0 +1,25 @@
+disabled_rules:
+ - nesting # I like to nest JSON structs
+ - unused_setter_value # Don't know how to fix
+ - weak_delegate # Gives fake warning (in my humble opinion)
+ - orphaned_doc_comment
+ - trailing_whitespace
+ - cyclomatic_complexity
+ - line_length
+ - file_length
+ - type_body_length
+ - function_body_length
+opt_in_rules:
+- empty_count
+- empty_string
+- unused_declaration
+- operator_usage_whitespace
+- conditional_returns_on_newline
+- unneeded_parentheses_in_closure_argument
+- multiline_parameters_brackets
+- multiline_parameters
+- switch_case_on_newline
+identifier_name:
+    min_length: 2 # Default is 3, so 'id' gives warning but is often used in structs
+reporter: "xcode"
+

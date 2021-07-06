@@ -1,4 +1,4 @@
-//  MARK: Sidebar for macOS
+// MARK: Sidebar for macOS
 
 /// A sidebar view with a list of songs from a user selected directory
 
@@ -11,15 +11,15 @@ struct FileBrowser: View {
     @Binding var document: ChordProDocument
     let file: URL?
     @StateObject var mySongs = MySongs()
-    @AppStorage("pathSongsString") var pathSongsString: String = GetDocumentsDirectory()
+    @AppStorage("pathSongsString") var pathSongsString: String = getDocumentsDirectory()
     @State var search: String = ""
 
     var body: some View {
-        VStack() {
+        VStack {
             ScrollViewReader { proxy in
                 SearchField(text: $search)
                     .padding(.horizontal, 10)
-                ScrollView() {
+                ScrollView {
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 300))],
                         alignment: .center,
@@ -40,18 +40,20 @@ struct FileBrowser: View {
                         proxy.scrollTo((file), anchor: .center)
                     }
                 )
-                .toolbar() {
-                    ToolbarItemGroup() {
-                        Button(action: {
+                .toolbar {
+                    ToolbarItemGroup {
+                        Button {
                             NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
-                        } ) {
+                        }
+                        label: {
                             Image(systemName: "sidebar.left")
                                 .foregroundColor(.secondary)
                         }
                         .help("Hide or show the sidebar")
-                        Button(action: {
-                            SelectSongsFolder(mySongs)
-                        } ) {
+                        Button {
+                            selectSongsFolder(mySongs)
+                        }
+                        label: {
                             Image(systemName: "folder")
                                 .foregroundColor(.secondary)
                         }
@@ -61,7 +63,7 @@ struct FileBrowser: View {
             }
         }
         .frame(minWidth: 200)
-        .onChange(of: document.refreshList) { newValue in
+        .onChange(of: document.refreshList) { _ in
             self.mySongs.songList = GetSongsList()
             print("Sidebar said hello!")
         }
@@ -72,7 +74,7 @@ struct ArtistHeader: View {
     let artist: ArtistList
 
     var body: some View {
-        ZStack() {
+        ZStack {
             FancyBackground()
                 .opacity(0.9)
             VStack(spacing: 0) {
@@ -80,7 +82,7 @@ struct ArtistHeader: View {
                     Text(artist.name)
                         .fontWeight(.bold)
                         .foregroundColor(.secondary)
-                        .padding(.vertical,4)
+                        .padding(.vertical, 4)
                     Spacer()
                 }
                 Divider()
@@ -94,13 +96,13 @@ struct FileBrowserRow: View {
     let selection: String
 
     var body: some View {
-        VStack() {
+        VStack {
             let rowImage = (song.musicpath.isEmpty ? "music.note" : "music.note.list")
-            ZStack() {
-                if (selection == song.path.lastPathComponent) {
+            ZStack {
+                if selection == song.path.lastPathComponent {
                     Color.secondary.cornerRadius(5).opacity(0.2)
                 }
-                HStack() {
+                HStack {
                     Label() {
                         Text(song.title).lineLimit(1)
                     } icon: {
@@ -108,26 +110,26 @@ struct FileBrowserRow: View {
                     }
                     Spacer()
                 }
-                .padding(.all,4)
+                .padding(.all, 4)
             }
         }
-        .padding(.horizontal,10)
-        .onTapGesture{
-            OpenSong(song: song)
+        .padding(.horizontal, 10)
+        .onTapGesture {
+            openSong(song: song)
         }
         .id(song.path)
     }
     
-    func OpenSong(song: ArtistSongs) {
+    func openSong(song: ArtistSongs) {
         /// Sandbox stuff: get path for selected folder
-        if var persistentURL = GetPersistentFileURL("pathSongs") {
+        if var persistentURL = getPersistentFileURL("pathSongs") {
             _ = persistentURL.startAccessingSecurityScopedResource()
             persistentURL = song.path
-            //persistentURL = persistentURL.appendingPathComponent(song.path, isDirectory: false)
             let configuration = NSWorkspace.OpenConfiguration()
             /// Find the location of the application:
-            let chordpro = Bundle.main.resourceURL?.baseURL
-            NSWorkspace.shared.open([persistentURL],withApplicationAt: chordpro!,configuration: configuration)
+            if let chordpro = Bundle.main.resourceURL?.baseURL {
+                NSWorkspace.shared.open([persistentURL], withApplicationAt: chordpro, configuration: configuration)
+            }
             persistentURL.stopAccessingSecurityScopedResource()
         }
     }
@@ -147,13 +149,15 @@ struct SearchField: NSViewRepresentable {
     func makeCoordinator() -> SearchField.Coordinator {
         Coordinator(parent: self)
     }
-    class Coordinator: NSObject, NSSearchFieldDelegate  {
+    class Coordinator: NSObject, NSSearchFieldDelegate {
         let parent: SearchField
         init(parent: SearchField) {
             self.parent = parent
         }
-        func controlTextDidChange(_ obj: Notification) {
-            let searchField = obj.object as! NSSearchField
+        func controlTextDidChange(_ notification: Notification) {
+            guard let searchField = notification.object as? NSSearchField else {
+                return
+            }
             parent.text = searchField.stringValue
         }
     }
@@ -163,7 +167,7 @@ struct SearchField: NSViewRepresentable {
 
 class MySongs: ObservableObject {
     @Published var songList = GetSongsList()
-    func updateView(){
+    func updateView() {
         self.objectWillChange.send()
     }
 }
@@ -175,8 +179,6 @@ struct ArtistSongs: Identifiable {
     var search: String {
         return "\(title) \(artist)"
     }
-    //var path: String = ""
-
     var musicpath: String = ""
     var path: URL
 }
@@ -193,7 +195,7 @@ struct GetSongsList {
     init() {
         print("Getting songs from selected folder")
         /// Get the songs in the selected directory
-        let songs = GetSongsList.GetFiles()
+        let songs = GetSongsList.getFiles()
         /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
         let grouped = Dictionary(grouping: songs) { (occurrence: ArtistSongs) -> String in
             occurrence.artist
@@ -205,18 +207,18 @@ struct GetSongsList {
         }.sorted { $0.name < $1.name }
     }
     /// This is a helper function to get the files.
-    static func GetFiles() -> [ArtistSongs] {
+    static func getFiles() -> [ArtistSongs] {
         var songs = [ArtistSongs]()
         /// Get a list of all files
         
-        if let persistentURL = GetPersistentFileURL("pathSongs") {
+        if let persistentURL = getPersistentFileURL("pathSongs") {
             /// Sandbox stuff...
             _ = persistentURL.startAccessingSecurityScopedResource()
             if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                 while let item = items.nextObject() as? URL {
                     if item.lastPathComponent.hasSuffix(".pro") {
                         var song = ArtistSongs(path: item)
-                        ParseSongFile(item, &song)
+                        parseSongFile(item, &song)
                         songs.append(song)
                     }
                 }
@@ -226,7 +228,7 @@ struct GetSongsList {
         return songs.sorted { $0.title < $1.title }
     }
     /// This is a helper function to parse the song for metadata
-    static func ParseSongFile(_ file: URL, _ song: inout ArtistSongs) {
+    static func parseSongFile(_ file: URL, _ song: inout ArtistSongs) {
         song.title = file.lastPathComponent
         
         do {
@@ -234,7 +236,7 @@ struct GetSongsList {
             
             for text in data.components(separatedBy: .newlines) {
                 if (text.starts(with: "{")) {
-                    ParseFileLine(text: text, song: &song)
+                    parseFileLine(text: text, song: &song)
                 }
             }
         } catch {
@@ -242,12 +244,12 @@ struct GetSongsList {
         }
     }
     /// This is a helper function to parse the actual metadata
-    static func ParseFileLine(text: String, song: inout ArtistSongs) {
-        let directiveRegex = try! NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
+    static func parseFileLine(text: String, song: inout ArtistSongs) {
+        let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
         
         var key: String?
         var value: String?
-        if let match = directiveRegex.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
+        if let match = directiveRegex?.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
             if let keyRange = Range(match.range(at: 1), in: text) {
                 key = text[keyRange].trimmingCharacters(in: .newlines)
             }
@@ -256,20 +258,20 @@ struct GetSongsList {
                 value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
             }
             switch key {
-                case "t":
-                    song.title = value!
-                case "title":
-                    song.title = value!
-                case "st":
-                    song.artist = value!
-                case "subtitle":
-                    song.artist = value!
-                case "artist":
-                    song.artist = value!
-                case "musicpath":
-                    song.musicpath = value!
-                default:
-                    break
+            case "t":
+                song.title = value!
+            case "title":
+                song.title = value!
+            case "st":
+                song.artist = value!
+            case "subtitle":
+                song.artist = value!
+            case "artist":
+                song.artist = value!
+            case "musicpath":
+                song.musicpath = value!
+            default:
+                break
             }
         }
     }
@@ -280,24 +282,24 @@ struct GetSongsList {
 // Folder selector
 // ---------------
 
-func SelectSongsFolder(_ mySongs: MySongs) {
-    let base = UserDefaults.standard.object(forKey: "pathSongsString") as? String ?? GetDocumentsDirectory()
-    let dialog = NSOpenPanel();
-    dialog.showsResizeIndicator = true;
-    dialog.showsHiddenFiles = false;
-    dialog.canChooseFiles = false;
-    dialog.canChooseDirectories = true;
+func selectSongsFolder(_ mySongs: MySongs) {
+    let base = UserDefaults.standard.object(forKey: "pathSongsString") as? String ?? getDocumentsDirectory()
+    let dialog = NSOpenPanel()
+    dialog.showsResizeIndicator = true
+    dialog.showsHiddenFiles = false
+    dialog.canChooseFiles = false
+    dialog.canChooseDirectories = true
     dialog.directoryURL = URL(fileURLWithPath: base)
     dialog.message = "Select the folder with your songs"
     dialog.prompt = "Select"
-    dialog.beginSheetModal(for: NSApp.keyWindow!) { (result) in
+    dialog.beginSheetModal(for: NSApp.keyWindow!) { result in
         if result == NSApplication.ModalResponse.OK {
             let result = dialog.url
             /// Save the url so next time this dialog is opened it will go to this folder.
             /// Sandbox stuff seems to be ok with that....
             UserDefaults.standard.set(result!.path, forKey: "pathSongsString")
             /// Create a persistent bookmark for the folder the user just selected
-            _ = SetPersistentFileURL("pathSongs", result!)
+            _ = setPersistentFileURL("pathSongs", result!)
             /// Refresh the list of songs
             mySongs.songList = GetSongsList()
         }
@@ -309,7 +311,7 @@ func SelectSongsFolder(_ mySongs: MySongs) {
 // Returns the users Documents directory.
 // Used when no folders are selected by the user.
 
-func GetDocumentsDirectory() -> String {
+func getDocumentsDirectory() -> String {
     return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
 }
 
@@ -317,7 +319,7 @@ func GetDocumentsDirectory() -> String {
 // -----------------------------
 // Many thanks to https://www.appcoda.com/mac-apps-user-intent/
 
-func SetPersistentFileURL(_ key: String, _ selectedURL: URL) -> Bool {
+func setPersistentFileURL(_ key: String, _ selectedURL: URL) -> Bool {
     do {
         let bookmarkData = try selectedURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
         UserDefaults.standard.set(bookmarkData, forKey: key)
@@ -328,14 +330,14 @@ func SetPersistentFileURL(_ key: String, _ selectedURL: URL) -> Bool {
     }
 }
 
-func GetPersistentFileURL(_ key: String) -> URL? {
+func getPersistentFileURL(_ key: String) -> URL? {
     if let bookmarkData = UserDefaults.standard.data(forKey: "pathSongs") {
          do {
             var bookmarkDataIsStale = false
             let urlForBookmark = try URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &bookmarkDataIsStale)
             if bookmarkDataIsStale {
                 print("The bookmark is outdated and needs to be regenerated.")
-                _ = SetPersistentFileURL(key, urlForBookmark)
+                _ = setPersistentFileURL(key, urlForBookmark)
                 return nil
  
             } else {
@@ -350,4 +352,3 @@ func GetPersistentFileURL(_ key: String) -> URL? {
         return nil
     }
 }
-

@@ -1,4 +1,4 @@
-//  MARK: - class: a measure in the song
+// MARK: - class: a measure in the song
 
 import Foundation
 

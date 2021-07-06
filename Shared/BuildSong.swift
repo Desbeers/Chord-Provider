@@ -1,6 +1,6 @@
 import SwiftUI
 
-func BuildSong(song: Song) -> String {
+func buildSong(song: Song) -> String {
     
     var html = """
                <!DOCTYPE html>
@@ -36,22 +36,22 @@ func BuildSong(song: Song) -> String {
             <div id="grid">
             """
     song.sections.forEach { section in
-        html += SectionView(section)
+        html += sectionView(section)
         if !section.lines.isEmpty {
             html += "<div class=\"lines " + (section.type ?? "") + "\">"
-            section.lines.forEach { (line) in
+            section.lines.forEach { line in
                 if !line.measures.isEmpty {
-                    html += MeasuresView(line)
+                    html += measuresView(line)
                 } else if line.tablature != nil {
                     html += "<div class=\"tablature\">" +  line.tablature! + "</div>"
                 } else if line.comment != nil {
                     html += "<div class=\"comment\">" +  line.comment! + "</div>"
-                } else if (section.type == nil) {
+                } else if section.type == nil {
                     html += "<div class=\"plain\">"
-                    html += PlainView(line)
+                    html += plainView(line)
                     html += "</div>"
                 } else {
-                    html += PartsView(line)
+                    html += partsView(line)
                 }
             }
             html += "</div>"
@@ -64,7 +64,7 @@ func BuildSong(song: Song) -> String {
     return html
 }
 
-func SectionView(_ section: Sections) -> String {
+func sectionView(_ section: Sections) -> String {
 
     var html = ""
     html += "<div class=\"section "
@@ -82,12 +82,12 @@ func SectionView(_ section: Sections) -> String {
     return html
 }
 
-func MeasuresView(_ line: Line) -> String {
+func measuresView(_ line: Line) -> String {
 
     var html = "<div class=\"measures\">"
-    line.measures.forEach { (measure) in
+    line.measures.forEach { measure in
         html += "<div class=\"measure\">"
-        measure.chords.forEach { (chord) in
+        measure.chords.forEach { chord in
             html += "<div class=\"chord\">" + chord + "</div>"
         }
         html += "</div>"
@@ -97,12 +97,12 @@ func MeasuresView(_ line: Line) -> String {
     return html
 }
 
-func PartsView(_ line: Line) -> String {
+func partsView(_ line: Line) -> String {
     
     var html = "<div class=\"line\">"
-    line.parts.forEach { (part) in
+    line.parts.forEach { part in
         html += "<div class=\"part\"><div class=\"chord\">"
-        html += (part.chord != "" ? part.chord!: "&nbsp;")
+        html += (part.chord ?? "").isEmpty ? "&nbsp;" : part.chord!
         html += "</div><div class=\"lyric\">\(part.lyric!)</div></div>"
     }
     html += "</div>"
@@ -110,10 +110,10 @@ func PartsView(_ line: Line) -> String {
     return html
 }
 
-func PlainView(_ line: Line) -> String {
+func plainView(_ line: Line) -> String {
     
     var html = "<div class=\"line\">"
-    line.parts.forEach { (part) in
+    line.parts.forEach { part in
         html += "<div class=\"plain\">\(part.lyric!)</div>"
     }
     html += "</div>"

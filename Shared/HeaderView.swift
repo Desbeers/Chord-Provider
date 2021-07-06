@@ -1,4 +1,4 @@
-//  MARK: - View: Header View for macOS and iOS
+// MARK: - View: Header View for macOS and iOS
 
 /// Song information and optional audo player for macOS
 

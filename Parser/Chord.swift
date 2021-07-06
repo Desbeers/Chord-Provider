@@ -1,4 +1,4 @@
-//  MARK: - struct: the chords in the song
+// MARK: - struct: the chords in the song
 
 import Foundation
 import GuitarChords

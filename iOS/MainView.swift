@@ -1,4 +1,4 @@
-//  MARK: - View: Main View for iOS
+// MARK: - View: Main View for iOS
 
 /// The content of the whole application.
 
@@ -13,7 +13,7 @@ struct MainView: View {
     @Environment(\.horizontalSizeClass) var sizeClass
 
     var body: some View {
-        VStack() {
+        VStack {
             HeaderView(song: song).background(Color.purple.opacity(0.3)).padding(.bottom)
             HStack {
                 SongView(song: song, file: file)
@@ -26,22 +26,24 @@ struct MainView: View {
         .modifier(SongViewModifier(document: $document, song: $song, file: file))
         /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
         .toolbar {
-            ToolbarItemGroup() {
-                Button(action: {
+            ToolbarItemGroup {
+                Button {
                     withAnimation {
                         showChords.toggle()
+                    }
                 }
-                } ) {
-                    Image(systemName: showChords ? "number.square.fill" : "number.square")
-
+                label: {
+                    HStack {
+                        Image(systemName: showChords ? "number.square.fill" : "number.square")
+                    }
                 }
-                Button(action: {
+                Button {
                     withAnimation {
                         showEditor.toggle()
+                    }
                 }
-                } ) {
+                label: {
                     Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
-
                 }
             }
         }

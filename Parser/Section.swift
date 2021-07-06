@@ -1,4 +1,4 @@
-//  MARK: - class: sections of the song
+// MARK: - class: sections of the song
 
 import Foundation
 

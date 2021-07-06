@@ -1,4 +1,4 @@
-//  MARK: - UIViewRepresentable: HTML view  for iOS
+// MARK: - UIViewRepresentable: HTML view  for iOS
 
 import SwiftUI
 import WebKit

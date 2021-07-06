@@ -1,10 +1,10 @@
-//  MARK: - class: App Appearance for macOS and iOS
+// MARK: - class: App Appearance for macOS and iOS
 
 /// Color related stuff.
 
 import SwiftUI
 
-//  MARK: - typealias: Get the correct function for macOS and iOS
+// MARK: - typealias: Get the correct function for macOS and iOS
 
 #if os(macOS)
     typealias SWIFTColor = NSColor
@@ -13,7 +13,7 @@ import SwiftUI
     typealias SWIFTColor = UIColor
 #endif
 
-//  MARK: - extensions to get system colors for the html view
+// MARK: - extensions to get system colors for the html view
 
 extension Color {
     var hexString: String {
@@ -35,7 +35,7 @@ extension Color {
 
 /// SWIFTColor is the type alias for NSColor or UIColor, depending on os
 extension SWIFTColor {
-    var hexString: String{
+    var hexString: String {
         #if os(macOS)
         let rgbColor = usingColorSpace(.extendedSRGB) ?? SWIFTColor(red: 1, green: 1, blue: 1, alpha: 1)
         #endif
@@ -44,7 +44,7 @@ extension SWIFTColor {
         #endif
         var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
         rgbColor.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        let rgb:Int = (Int)(red*255)<<16 | (Int)(green*255)<<8 | (Int)(blue*255)<<0
+        let rgb: Int = (Int)(red * 255) << 16 | (Int)(green * 255) << 8 | (Int)(blue * 255) << 0
         return String(format: "#%06x", rgb)
     }
 }
