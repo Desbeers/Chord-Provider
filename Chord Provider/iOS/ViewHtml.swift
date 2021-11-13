@@ -3,7 +3,7 @@
 import SwiftUI
 import WebKit
 
-struct HtmlView: UIViewRepresentable {
+struct ViewHtml: UIViewRepresentable {
     var html: String
 
     func makeUIView(context: Context) -> WKWebView {

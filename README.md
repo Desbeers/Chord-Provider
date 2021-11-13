@@ -4,7 +4,7 @@
 
 There are many "chordpo" parsers in this world, however, none are *really* native in the Apple world. I mean, the macOS world, it is afterthought... Not for me.
 
-![Chord Provider](Screenshots/screenshots.png)
+![Chord Provider](screenshot.png)
 
 This is for macOS and iOS. Written in SwiftUI 2.0, so Big Sur or iOS 14 only.
 

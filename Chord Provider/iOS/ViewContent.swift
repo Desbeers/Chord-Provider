@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct ViewContent: View {
     @Binding var document: ChordProDocument
     @State var song = Song()
     let file: URL?
@@ -14,16 +14,16 @@ struct MainView: View {
 
     var body: some View {
         VStack {
-            HeaderView(song: song).background(Color.purple.opacity(0.3)).padding(.bottom)
+            ViewHeader(song: song).background(Color.purple.opacity(0.3)).padding(.bottom)
             HStack {
-                SongView(song: song, file: file)
+                ViewSong(song: song, file: file)
                 if showEditor {
-                    EditorView(document: $document)
+                    ViewEditor(document: $document)
                 }
             }
         }
         .statusBar(hidden: true)
-        .modifier(SongViewModifier(document: $document, song: $song, file: file))
+        .modifier(ViewSongModifier(document: $document, song: $song, file: file))
         /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
         .toolbar {
             ToolbarItemGroup {

@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct EditorView: View {
+struct ViewEditor: View {
     
     @Binding var document: ChordProDocument
     

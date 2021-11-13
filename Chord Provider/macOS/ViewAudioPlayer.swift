@@ -7,7 +7,7 @@ import AVKit
 
 var audioPlayer: AVAudioPlayer!
 
-struct AudioPlayer: View {
+struct ViewAudioPlayer: View {
     var song: Song
     
     @State var isPlaying: Bool = false

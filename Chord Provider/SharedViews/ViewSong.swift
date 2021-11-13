@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct SongView: View {
+struct ViewSong: View {
     @ObservedObject var song: Song
     let file: URL?
     @AppStorage("showChords") var showChords: Bool = true
@@ -15,9 +15,9 @@ struct SongView: View {
         GeometryReader { geometry in
             ScrollView {
                 HStack {
-                    HtmlView(html: (song.html ?? "")).frame(height: geometry.size.height)
+                    ViewHtml(html: (song.html ?? "")).frame(height: geometry.size.height)
                     if showChords && !showEditor {
-                        ChordsView(song: song).frame(width: 140, height: geometry.size.height)
+                        ViewChords(song: song).frame(width: 140, height: geometry.size.height)
                             .transition(.scale)
                     }
                 }
@@ -30,7 +30,7 @@ struct SongView: View {
 
 /// This will update the Song View when the document is changed.
 
-struct SongViewModifier: ViewModifier {
+struct ViewSongModifier: ViewModifier {
 
     @Binding var document: ChordProDocument
     @Binding var song: Song

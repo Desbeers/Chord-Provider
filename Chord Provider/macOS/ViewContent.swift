@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct MainView: View {
+struct ViewContent: View {
     @Binding var document: ChordProDocument
     let file: URL?
     @State var song = Song()
@@ -13,11 +13,11 @@ struct MainView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HeaderView(song: song).background(Color.accentColor.opacity(0.3))
+            ViewHeader(song: song).background(Color.accentColor.opacity(0.3))
             HSplitView {
-                SongView(song: song, file: file).frame(minWidth: 400).padding(.top)
+                ViewSong(song: song, file: file).frame(minWidth: 400).padding(.top)
                 if showEditor {
-                    EditorView(document: $document)
+                    ViewEditor(document: $document)
                         .frame(minWidth: 400)
                         .background(Color(NSColor.textBackgroundColor))
                         .transition(.scale)
@@ -52,6 +52,6 @@ struct MainView: View {
                 .foregroundColor(.secondary)
             }
         }
-        .modifier(SongViewModifier(document: $document, song: $song, file: file))
+        .modifier(ViewSongModifier(document: $document, song: $song, file: file))
     }
 }

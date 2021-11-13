@@ -6,7 +6,7 @@ import SwiftUI
 
 // MARK: Views
 
-struct FileBrowser: View {
+struct ViewSidebar: View {
 
     @Binding var document: ChordProDocument
     let file: URL?

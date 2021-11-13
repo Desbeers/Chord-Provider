@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct HeaderView: View {
+struct ViewHeader: View {
     var song: Song
     #if os(iOS)
     @Environment(\.horizontalSizeClass) var sizeClass
@@ -14,10 +14,10 @@ struct HeaderView: View {
         #if os(macOS)
             HStack(alignment: .center) {
                 Spacer()
-                HeaderViewGeneral(song: song)
-                HeaderViewDetails(song: song)
+                ViewHeaderGeneral(song: song)
+                ViewHeaderDetails(song: song)
                 if song.musicpath != nil {
-                    AudioPlayer(song: song)
+                    ViewAudioPlayer(song: song)
                 }
                 Spacer()
             }
@@ -27,7 +27,7 @@ struct HeaderView: View {
         /// No need to show the artist and song on iOS because thats already shown because its a document scene
         HStack(alignment: .center) {
             Spacer()
-            HeaderViewDetails(song: song)
+            ViewHeaderDetails(song: song)
             Spacer()
         }
         .padding(4)
@@ -35,7 +35,7 @@ struct HeaderView: View {
     }
 }
 
-struct HeaderViewGeneral: View {
+struct ViewHeaderGeneral: View {
     var song: Song
 
     var body: some View {
@@ -50,7 +50,7 @@ struct HeaderViewGeneral: View {
     }
 }
 
-struct HeaderViewDetails: View {
+struct ViewHeaderDetails: View {
     var song: Song
 
     var body: some View {
