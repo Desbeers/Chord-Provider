@@ -24,7 +24,6 @@ struct ViewSidebar: View {
                                 ForEach(artist.songs) { song in
                                     FileBrowserRow(song: song, selection: (file?.lastPathComponent ?? "New"))
                                 }
-                                .listRowInsets(EdgeInsets())
                             }
                         }
                     } else {
@@ -32,13 +31,11 @@ struct ViewSidebar: View {
                             ForEach(artist.songs.filter({ $0.search.localizedCaseInsensitiveContains(search)})) { song in
                                 FileBrowserRow(song: song, selection: (file?.lastPathComponent ?? "New"))
                             }
-                            .listRowInsets(EdgeInsets())
                         }
                     }
                 }
-                .id(UUID())
                 .sidebarButtons()
-                .searchable(text: $search)
+                .searchable(text: $search, placement: .sidebar)
                 .onAppear(
                     perform: {
                         proxy.scrollTo((file), anchor: .center)
@@ -101,7 +98,6 @@ struct FileBrowserRow: View {
             let configuration = NSWorkspace.OpenConfiguration()
             /// Find the location of the application:
             if let chordpro = Bundle.main.resourceURL?.baseURL {
-                print(chordpro)
                 NSWorkspace.shared.open([persistentURL], withApplicationAt: chordpro, configuration: configuration)
             }
             persistentURL.stopAccessingSecurityScopedResource()
