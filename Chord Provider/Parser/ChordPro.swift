@@ -282,7 +282,7 @@ public class ChordPro {
                 if valueKey == "G#" {
                     valueKey = "Ab"
                 }
-                key = GuitarChords.Key(rawValue: valueKey)!
+                key = GuitarChords.Key(rawValue: valueKey) ?? GuitarChords.Key.c
             }
             if let valueRange = Range(match.range(at: 2), in: chord) {
                 /// ChordPro suffix are not always the suffixes in the database...
