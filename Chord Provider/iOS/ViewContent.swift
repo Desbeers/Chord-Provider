@@ -14,7 +14,9 @@ struct ViewContent: View {
 
     var body: some View {
         VStack {
-            ViewHeader(song: song).background(Color.purple.opacity(0.3)).padding(.bottom)
+            ViewHeader(song: song)
+                .background(Color.accentColor.opacity(0.1))
+                .padding(.bottom)
             HStack {
                 ViewSong(song: song, file: file)
                 if showEditor {

@@ -21,12 +21,12 @@ extension Color {
     }
     static let sectionHtmlColor = Color("SectionColor").hexString
     /// macOS has variable accent colors; iOS does not
-    #if os(macOS)
+//    #if os(macOS)
         static let accentHtmlColor = Color.accentColor.hexString
-    #endif
-    #if os(iOS)
-        static let accentHtmlColor = Color("AccentColor").hexString
-    #endif
+//    #endif
+//    #if os(iOS)
+//        static let accentHtmlColor = Color("AccentColor").hexString
+//    #endif
     /// Highlight color is the accent color with transparancy
     /// It mimics the Higlight color in the macOS settings
     static let highlightHtmlColor = Color.accentHtmlColor + "53"

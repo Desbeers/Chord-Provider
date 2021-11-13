@@ -1,10 +1,6 @@
 {
   "colors" : [
     {
-      "color" : {
-        "platform" : "ios",
-        "reference" : "systemPurpleColor"
-      },
       "idiom" : "iphone"
     },
     {
@@ -14,17 +10,9 @@
           "value" : "dark"
         }
       ],
-      "color" : {
-        "platform" : "ios",
-        "reference" : "systemPurpleColor"
-      },
       "idiom" : "iphone"
     },
     {
-      "color" : {
-        "platform" : "ios",
-        "reference" : "systemPurpleColor"
-      },
       "idiom" : "ipad"
     },
     {
@@ -34,17 +22,9 @@
           "value" : "dark"
         }
       ],
-      "color" : {
-        "platform" : "ios",
-        "reference" : "systemPurpleColor"
-      },
       "idiom" : "ipad"
     },
     {
-      "color" : {
-        "platform" : "osx",
-        "reference" : "systemPurpleColor"
-      },
       "idiom" : "mac"
     },
     {
@@ -54,10 +34,6 @@
           "value" : "dark"
         }
       ],
-      "color" : {
-        "platform" : "osx",
-        "reference" : "systemPurpleColor"
-      },
       "idiom" : "mac"
     }
   ],

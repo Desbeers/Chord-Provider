@@ -13,7 +13,7 @@ struct ViewContent: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ViewHeader(song: song).background(Color.accentColor.opacity(0.3))
+            ViewHeader(song: song).background(Color.accentColor.opacity(0.1))
             HSplitView {
                 ViewSong(song: song, file: file).frame(minWidth: 400).padding(.top)
                 if showEditor {
