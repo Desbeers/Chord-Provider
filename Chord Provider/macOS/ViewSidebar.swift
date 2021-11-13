@@ -71,22 +71,20 @@ struct ViewSidebar: View {
 
 struct ArtistHeader: View {
     let artist: ArtistList
-
+    
     var body: some View {
-        ZStack {
-            FancyBackground()
-                .opacity(0.9)
-            VStack(spacing: 0) {
-                HStack {
-                    Text(artist.name)
-                        .fontWeight(.bold)
-                        .foregroundColor(.secondary)
-                        .padding(.vertical, 4)
-                    Spacer()
-                }
-                Divider()
-            }.padding(.horizontal, 10)
+        VStack(spacing: 0) {
+            HStack {
+                Text(artist.name)
+                    .fontWeight(.bold)
+                    .foregroundColor(.secondary)
+                    .padding(.vertical, 4)
+                Spacer()
+            }
+            Divider()
         }
+        .padding(.horizontal, 10)
+        .background(.thinMaterial)
     }
 }
 
