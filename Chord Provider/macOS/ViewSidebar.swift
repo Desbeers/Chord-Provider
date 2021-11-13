@@ -17,8 +17,6 @@ struct ViewSidebar: View {
     var body: some View {
         VStack {
             ScrollViewReader { proxy in
-                SearchField(text: $search)
-                    .padding(.horizontal, 10)
                 ScrollView {
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 300))],
@@ -35,6 +33,7 @@ struct ViewSidebar: View {
                         }
                     }
                 }
+                .searchable(text: $search)
                 .onAppear(
                     perform: {
                         proxy.scrollTo((file), anchor: .center)
@@ -131,34 +130,6 @@ struct FileBrowserRow: View {
                 NSWorkspace.shared.open([persistentURL], withApplicationAt: chordpro, configuration: configuration)
             }
             persistentURL.stopAccessingSecurityScopedResource()
-        }
-    }
-}
-
-struct SearchField: NSViewRepresentable {
-    @Binding var text: String
-    func makeNSView(context: Context) -> NSSearchField {
-        let searchField = NSSearchField()
-        searchField.delegate = context.coordinator
-        searchField.placeholderString = "Artist or song"
-        return searchField
-    }
-    func updateNSView(_ nsView: NSSearchField, context: Context) {
-        nsView.stringValue = text
-    }
-    func makeCoordinator() -> SearchField.Coordinator {
-        Coordinator(parent: self)
-    }
-    class Coordinator: NSObject, NSSearchFieldDelegate {
-        let parent: SearchField
-        init(parent: SearchField) {
-            self.parent = parent
-        }
-        func controlTextDidChange(_ notification: Notification) {
-            guard let searchField = notification.object as? NSSearchField else {
-                return
-            }
-            parent.text = searchField.stringValue
         }
     }
 }
