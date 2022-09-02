@@ -125,7 +125,6 @@ private extension ButtonStyleBrowser {
         /// The view
         var body: some View {
             return configuration.label
-                .padding(6)
                 .opacity(isEnabled ? 1 : 0.6)
                 .brightness(configuration.isPressed ? 0.2 : 0)
                 .background(alignment: .trailing, content: {

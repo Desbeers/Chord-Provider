@@ -41,6 +41,14 @@ struct SceneMAC: Scene {
         /// Make it sizable by the View frame
         .windowResizability(.contentSize)
         .defaultPosition(.topLeading)
+        
+        /// Add Cord Provider to the Menu Bar
+        MenuBarExtra("Chord Provider", systemImage: "guitars") {
+            MenuBarExtraView()
+                .environmentObject(mySongs)
+        }
+        .menuBarExtraStyle(.window)
+        
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ViewContent(document: file.$document, file: file.fileURL)
                 .environmentObject(mySongs)
