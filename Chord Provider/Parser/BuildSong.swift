@@ -43,9 +43,9 @@ func buildSong(song: Song) -> String {
                 if !line.measures.isEmpty {
                     html += measuresView(line)
                 } else if line.tablature != nil {
-                    html += "<div class=\"tablature\">" +  line.tablature! + "</div>"
+                    html += "<div class=\"tablature\">" + line.tablature! + "</div>"
                 } else if line.comment != nil {
-                    html += "<div class=\"comment\">" +  line.comment! + "</div>"
+                    html += "<div class=\"comment\">" + line.comment! + "</div>"
                 } else if section.type == nil {
                     html += "<div class=\"plain\">"
                     html += plainView(line)

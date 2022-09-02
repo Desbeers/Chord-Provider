@@ -16,7 +16,7 @@ struct ChordProDocument: FileDocument {
 
     var text: String
 
-    init(text: String = "{t: A new song}") {
+    init(text: String = "{title: A new song}\n{subtitle: A new artist}") {
         self.text = text
         showEditor = true
     }

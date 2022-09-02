@@ -10,14 +10,17 @@ import SwiftUI
 // MARK: Class and Structs
 
 class MySongs: ObservableObject {
-    @Published var songList = GetSongsList()
-    func updateView() {
-        self.objectWillChange.send()
-    }
+    @Published var songList: [SongItem] = []
+    
+    @Published var artistList: [ArtistItem] = []
+    
+    @Published var openFiles: [URL] = []
 }
 
-struct ArtistSongs: Identifiable {
-    var id = UUID()
+struct SongItem: Identifiable {
+    var id: String {
+        path.description
+    }
     var artist: String = "Unknown artist"
     var title: String = ""
     var search: String {
@@ -27,32 +30,17 @@ struct ArtistSongs: Identifiable {
     var path: URL
 }
 
-struct ArtistList: Identifiable {
+struct ArtistItem: Identifiable {
     let id = UUID()
     let name: String
-    let songs: [ArtistSongs]
+    let songs: [SongItem]
 }
 
-struct GetSongsList {
-    let artists: [ArtistList]
-    /// Fill the list.
-    init() {
-        print("Getting songs from selected folder")
-        /// Get the songs in the selected directory
-        let songs = GetSongsList.getFiles()
-        /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
-        let grouped = Dictionary(grouping: songs) { (occurrence: ArtistSongs) -> String in
-            occurrence.artist
-        }
-        /// We now map over the dictionary and create our artist objects.
-        /// Then we want to sort them so that they are in the correct order.
-        self.artists = grouped.map { artist -> ArtistList in
-            ArtistList(name: artist.key, songs: artist.value)
-        }.sorted { $0.name < $1.name }
-    }
+extension MySongs {
     /// This is a helper function to get the files.
-    static func getFiles() -> [ArtistSongs] {
-        var songs = [ArtistSongs]()
+    func getFiles() {
+        print("GET FILES")
+        var songs = [SongItem]()
         /// Get a list of all files
         
         if let persistentURL = getPersistentFileURL("pathSongs") {
@@ -61,7 +49,7 @@ struct GetSongsList {
             if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                 while let item = items.nextObject() as? URL {
                     if item.lastPathComponent.hasSuffix(".pro") {
-                        var song = ArtistSongs(path: item)
+                        var song = SongItem(path: item)
                         parseSongFile(item, &song)
                         songs.append(song)
                     }
@@ -69,26 +57,34 @@ struct GetSongsList {
             }
             persistentURL.stopAccessingSecurityScopedResource()
         }
-        return songs.sorted { $0.title < $1.title }
+        
+        /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
+        let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
+            occurrence.artist
+        }
+        /// We now map over the dictionary and create our artist objects.
+        /// Then we want to sort them so that they are in the correct order.
+        artistList = grouped.map { artist -> ArtistItem in
+            ArtistItem(name: artist.key, songs: artist.value)
+        }.sorted { $0.name < $1.name }
+        songList = songs.sorted { $0.title < $1.title }
     }
     /// This is a helper function to parse the song for metadata
-    static func parseSongFile(_ file: URL, _ song: inout ArtistSongs) {
+    func parseSongFile(_ file: URL, _ song: inout SongItem) {
         song.title = file.lastPathComponent
         
         do {
             let data = try String(contentsOf: file, encoding: .utf8)
             
-            for text in data.components(separatedBy: .newlines) {
-                if (text.starts(with: "{")) {
+            for text in data.components(separatedBy: .newlines) where text.starts(with: "{") {
                     parseFileLine(text: text, song: &song)
-                }
             }
         } catch {
             print(error)
         }
     }
     /// This is a helper function to parse the actual metadata
-    static func parseFileLine(text: String, song: inout ArtistSongs) {
+    func parseFileLine(text: String, song: inout SongItem) {
         let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
         
         var key: String?
@@ -145,7 +141,7 @@ func selectSongsFolder(_ mySongs: MySongs) {
             /// Create a persistent bookmark for the folder the user just selected
             _ = setPersistentFileURL("pathSongs", result!)
             /// Refresh the list of songs
-            mySongs.songList = GetSongsList()
+            mySongs.getFiles()
         }
     }
 }

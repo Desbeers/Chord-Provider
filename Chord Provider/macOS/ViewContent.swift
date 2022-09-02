@@ -11,6 +11,8 @@ struct ViewContent: View {
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
     
+    @EnvironmentObject var mySongs: MySongs
+    
     var body: some View {
         VStack(spacing: 0) {
             ViewHeader(song: song).background(Color.accentColor.opacity(0.1))
@@ -21,6 +23,19 @@ struct ViewContent: View {
                         .frame(minWidth: 400)
                         .background(Color(NSColor.textBackgroundColor))
                         .transition(.scale)
+                }
+            }
+        }
+        .task {
+            if let file = file {
+                mySongs.openFiles.append(file)
+            }
+        }
+        .onDisappear {
+            Task { @MainActor in
+                if let index = mySongs.openFiles.firstIndex(where: {$0 == file}) {
+                    /// Mark window as closed
+                    mySongs.openFiles.remove(at: index)
                 }
             }
         }
