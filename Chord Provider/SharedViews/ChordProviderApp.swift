@@ -55,6 +55,10 @@ struct SceneMAC: Scene {
         }
         .defaultPosition(.center)
         .defaultSize(width: 800, height: 800)
+        .commands {
+            /// Toolbar commands
+            ToolbarCommands()
+        }
     }
 }
 

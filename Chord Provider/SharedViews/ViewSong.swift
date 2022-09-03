@@ -21,7 +21,8 @@ struct ViewSong: View {
                             .transition(.scale)
                     }
                 }
-            }.frame(height: geometry.size.height)
+            }
+            .frame(height: geometry.size.height)
         }
     }
 }

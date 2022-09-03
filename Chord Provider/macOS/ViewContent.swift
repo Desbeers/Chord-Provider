@@ -16,17 +16,18 @@ struct ViewContent: View {
     var body: some View {
         VStack(spacing: 0) {
             ViewHeader(song: song).background(Color.accentColor.opacity(0.1))
-            HSplitView {
+            HStack {
                 ViewSong(song: song, file: file).frame(minWidth: 400).padding(.top)
                 if showEditor {
                     ViewEditor(document: $document)
                         .frame(minWidth: 400)
-                        .background(Color(NSColor.textBackgroundColor))
+                        //.shadow(radius: 5)
+                        //.background(Color(NSColor.textBackgroundColor))
                         .transition(.scale)
                 }
             }
         }
-        .animation(.default, value: showEditor)
+        .background(Color(nsColor: .textBackgroundColor))
         .task {
             if let file = file {
                 mySongs.openFiles.append(file)
@@ -41,28 +42,22 @@ struct ViewContent: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup {
-                Button {
-                    withAnimation {
-                        showChords.toggle()
-                    }
+            Button {
+                withAnimation {
+                    showChords.toggle()
                 }
-                label: {
-                    HStack {
-                        Image(systemName: showChords ? "number.square.fill" : "number.square")
-                        Text(showChords ? "Hide chords" : "Show chords")
-                    }
-                }
-                Button {
-                    withAnimation {
-                        showEditor.toggle()
-                    }
-                }
-                label: {
-                    Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
-                    Text(showEditor ? "Hide editor" : "Edit song")
-                }
+            } label: {
+                Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
             }
+            .labelStyle(.titleAndIcon)
+            Button {
+                withAnimation {
+                    showEditor.toggle()
+                }
+            } label: {
+                Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
+            }
+            .labelStyle(.titleAndIcon)
         }
         .modifier(ViewSongModifier(document: $document, song: $song, file: file))
     }

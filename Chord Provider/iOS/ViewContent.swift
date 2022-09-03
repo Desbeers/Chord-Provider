@@ -9,6 +9,7 @@ struct ViewContent: View {
     @State var song = Song()
     let file: URL?
     @AppStorage("showEditor") var showEditor: Bool = false
+    @AppStorage("showChords") var showChords: Bool = true
 
     var body: some View {
         VStack {
@@ -19,10 +20,13 @@ struct ViewContent: View {
                 ViewSong(song: song, file: file)
                 if showEditor {
                     ViewEditor(document: $document)
+                        .transition(.scale)
                         .shadow(radius: 5)
                 }
             }
         }
+        .animation(.default, value: showEditor)
+        .animation(.default, value: showChords)
         .modifier(ViewSongModifier(document: $document, song: $song, file: file))
     }
 }

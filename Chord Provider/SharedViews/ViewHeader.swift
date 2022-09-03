@@ -26,7 +26,6 @@ struct ViewHeader: View {
             .padding(4)
         #endif
         #if os(iOS)
-        /// No need to show the artist and song on iOS because thats already shown because its a document scene
         HStack(alignment: .center) {
             Button(action: {
                 goBack()
@@ -41,18 +40,14 @@ struct ViewHeader: View {
                 withAnimation {
                     showChords.toggle()
                 }
-            }
-            label: {
-                HStack {
-                    Image(systemName: showChords ? "number.square.fill" : "number.square")
-                }
+            } label: {
+                Image(systemName: showChords ? "number.square.fill" : "number.square")
             }
             Button {
                 withAnimation {
                     showEditor.toggle()
                 }
-            }
-            label: {
+            } label: {
                 Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
         }
