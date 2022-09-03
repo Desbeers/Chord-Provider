@@ -36,13 +36,21 @@ struct FileBrowserView: View {
         .listStyle(.sidebar)
         .labelStyle(LabelStyleBrowser())
         .buttonStyle(ButtonStyleBrowser())
+        /// - Note: Below is needed or else the serach filed will be hidden behind the toolbar
+        .padding(.top, 1)
+        .frame(width: 320)
+        .background(Color(NSColor.windowBackgroundColor))
+        .navigationTitle("Chord Provider")
+        .navigationSubtitle("\(mySongs.songList.count) songs")
+        .task {
+            mySongs.getFiles()
+        }
         .searchable(text: $search, placement: .sidebar)
         .toolbar {
             Button {
                 selectSongsFolder(mySongs)
             } label: {
                 Image(systemName: "folder")
-                    .foregroundColor(.secondary)
             }
             .help("The folder with your songs")
         }
@@ -53,7 +61,6 @@ struct FileBrowserView: View {
                 try await Task.sleep(nanoseconds: 1_000_000_000)
                 mySongs.getFiles()
             }
-            print("Sidebar said hello!")
         }
     }
 }
