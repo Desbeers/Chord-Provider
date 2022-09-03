@@ -8,6 +8,8 @@ struct ViewHeader: View {
     var song: Song
     #if os(iOS)
     @Environment(\.horizontalSizeClass) var sizeClass
+    @AppStorage("showEditor") var showEditor: Bool = false
+    @AppStorage("showChords") var showChords: Bool = true
     #endif
 
     var body: some View {
@@ -26,11 +28,36 @@ struct ViewHeader: View {
         #if os(iOS)
         /// No need to show the artist and song on iOS because thats already shown because its a document scene
         HStack(alignment: .center) {
+            Button(action: {
+                goBack()
+            }, label: {
+                Image(systemName: "chevron.backward")
+            })
             Spacer()
+            ViewHeaderGeneral(song: song)
             ViewHeaderDetails(song: song)
             Spacer()
+            Button {
+                withAnimation {
+                    showChords.toggle()
+                }
+            }
+            label: {
+                HStack {
+                    Image(systemName: showChords ? "number.square.fill" : "number.square")
+                }
+            }
+            Button {
+                withAnimation {
+                    showEditor.toggle()
+                }
+            }
+            label: {
+                Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
+            }
         }
-        .padding(4)
+        .font(.title)
+        .padding()
         #endif
     }
 }
@@ -39,12 +66,14 @@ struct ViewHeaderGeneral: View {
     var song: Song
 
     var body: some View {
-        HStack(alignment: .center) {
+        VStack(alignment: .leading) {
             if song.artist != nil {
-                Text(song.artist!).font(.headline)
+                Text(song.artist!)
+                    .font(.headline)
             }
             if song.title != nil {
                 Text(song.title!)
+                    .font(.subheadline)
             }
         }
     }
@@ -68,5 +97,6 @@ struct ViewHeaderDetails: View {
                 Label(song.time!, systemImage: "repeat").padding(.leading)
             }
         }
+        .font(.none)
     }
 }

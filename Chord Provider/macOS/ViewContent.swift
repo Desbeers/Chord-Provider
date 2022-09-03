@@ -26,6 +26,7 @@ struct ViewContent: View {
                 }
             }
         }
+        .animation(.default, value: showEditor)
         .task {
             if let file = file {
                 mySongs.openFiles.append(file)
@@ -39,8 +40,6 @@ struct ViewContent: View {
                 }
             }
         }
-        /// Hard-coded the foregroundColor because SwiftUI is buggy when switching appearance.
-        /// Not great; the buttons don't dim when the application is in the background.
         .toolbar {
             ToolbarItemGroup {
                 Button {
@@ -53,7 +52,6 @@ struct ViewContent: View {
                         Image(systemName: showChords ? "number.square.fill" : "number.square")
                         Text(showChords ? "Hide chords" : "Show chords")
                     }
-                    .foregroundColor(.secondary)
                 }
                 Button {
                     withAnimation {
@@ -64,7 +62,6 @@ struct ViewContent: View {
                     Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
                     Text(showEditor ? "Hide editor" : "Edit song")
                 }
-                .foregroundColor(.secondary)
             }
         }
         .modifier(ViewSongModifier(document: $document, song: $song, file: file))

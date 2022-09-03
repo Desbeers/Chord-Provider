@@ -9,8 +9,6 @@ struct ViewContent: View {
     @State var song = Song()
     let file: URL?
     @AppStorage("showEditor") var showEditor: Bool = false
-    @AppStorage("showChords") var showChords: Bool = true
-    @Environment(\.horizontalSizeClass) var sizeClass
 
     var body: some View {
         VStack {
@@ -21,33 +19,10 @@ struct ViewContent: View {
                 ViewSong(song: song, file: file)
                 if showEditor {
                     ViewEditor(document: $document)
+                        .shadow(radius: 5)
                 }
             }
         }
-        .statusBar(hidden: true)
         .modifier(ViewSongModifier(document: $document, song: $song, file: file))
-        /// iPhone shows only one ToolbarItem; that's ok because I only like the first item for iPhone anyway :-)
-        .toolbar {
-            ToolbarItemGroup {
-                Button {
-                    withAnimation {
-                        showChords.toggle()
-                    }
-                }
-                label: {
-                    HStack {
-                        Image(systemName: showChords ? "number.square.fill" : "number.square")
-                    }
-                }
-                Button {
-                    withAnimation {
-                        showEditor.toggle()
-                    }
-                }
-                label: {
-                    Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
-                }
-            }
-        }
     }
 }
