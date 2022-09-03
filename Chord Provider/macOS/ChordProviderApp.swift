@@ -29,7 +29,7 @@ import SwiftUI
         
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            ViewContent(document: file.$document, file: file.fileURL)
+            ContentView(document: file.$document, file: file.fileURL)
                 .environmentObject(mySongs)
         }
         .defaultPosition(.center)

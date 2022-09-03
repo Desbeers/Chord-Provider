@@ -1,10 +1,14 @@
-// MARK: - View: Main View for macOS
-
-/// The main view; on the right of the sidebar.
+//
+//  ContentView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
 
-struct ViewContent: View {
+/// The Main View
+struct ContentView: View {
     @Binding var document: ChordProDocument
     let file: URL?
     @State var song = Song()
@@ -17,12 +21,12 @@ struct ViewContent: View {
         VStack(spacing: 0) {
             ViewHeader(song: song).background(Color.accentColor.opacity(0.1))
             HStack {
-                ViewSong(song: song, file: file).frame(minWidth: 400).padding(.top)
+                SongView(song: song, file: file)
+                    .frame(minWidth: 400)
+                    .padding(.top)
                 if showEditor {
                     ViewEditor(document: $document)
                         .frame(minWidth: 400)
-                        //.shadow(radius: 5)
-                        //.background(Color(NSColor.textBackgroundColor))
                         .transition(.scale)
                 }
             }
@@ -59,6 +63,6 @@ struct ViewContent: View {
             }
             .labelStyle(.titleAndIcon)
         }
-        .modifier(ViewSongModifier(document: $document, song: $song, file: file))
+        .modifier(SongViewModifier(document: $document, song: $song, file: file))
     }
 }

@@ -1,21 +1,43 @@
-// MARK: - class: the song
+//
+//  Song.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
+import SwiftUI
 
-import Foundation
+/// The struct of a song
+struct Song {
+    var title: String?
+    var artist: String?
+    var capo: String?
+    var key: String?
+    var tempo: String?
+    var time: String?
+    var year: String?
+    var album: String?
+    var tuning: String?
+    var html: String?
+    var path: URL?
+    var musicpath: URL?
+    var sections = [Sections]()
+    var chords = [Chord]()
+}
 
-public class Song: Identifiable, ObservableObject {
-    public var id = UUID()
-    public var title: String?
-    public var artist: String?
-    public var capo: String?
-    public var key: String?
-    public var tempo: String?
-    public var time: String?
-    public var year: String?
-    public var album: String?
-    public var tuning: String?
-    public var html: String?
-    public var path: URL?
-    public var musicpath: URL?
-    public var sections = [Sections]()
-    public var chords = [Chord]()
+/// Update the song item
+struct SongViewModifier: ViewModifier {
+
+    @Binding var document: ChordProDocument
+    @Binding var song: Song
+    let file: URL?
+
+    func body(content: Content) -> some View {
+        content
+            .task {
+                song = ChordPro.parse(document: document, file: file ?? nil)
+            }
+            .onChange(of: document.text) { _ in
+                song = ChordPro.parse(document: document, file: file ?? nil)
+            }
+    }
 }

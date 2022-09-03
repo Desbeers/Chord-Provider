@@ -1,10 +1,14 @@
-// MARK: - View: Main View for iOS
-
-/// The content of the whole application.
+//
+//  ContentView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
 
-struct ViewContent: View {
+/// The Main View
+struct ContentView: View {
     @Binding var document: ChordProDocument
     @State var song = Song()
     let file: URL?
@@ -17,7 +21,7 @@ struct ViewContent: View {
                 .background(Color.accentColor.opacity(0.1))
                 .padding(.bottom)
             HStack {
-                ViewSong(song: song, file: file)
+                SongView(song: song, file: file)
                 if showEditor {
                     ViewEditor(document: $document)
                         .transition(.scale)
@@ -27,6 +31,6 @@ struct ViewContent: View {
         }
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)
-        .modifier(ViewSongModifier(document: $document, song: $song, file: file))
+        .modifier(SongViewModifier(document: $document, song: $song, file: file))
     }
 }

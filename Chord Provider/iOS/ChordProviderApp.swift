@@ -11,12 +11,11 @@ import SwiftUI
 @main struct ChordProviderApp: App {
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            ViewContent(document: file.$document, file: file.fileURL ?? nil)
+            ContentView(document: file.$document, file: file.fileURL ?? nil)
                 .navigationBarHidden(true)
         }
     }
 }
-
 
 /// Close the scene and go back to the file selector
 ///

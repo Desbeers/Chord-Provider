@@ -6,7 +6,7 @@ import SwiftUI
 import GuitarChords
 
 struct ViewChords: View {
-    @ObservedObject var song: Song
+    let song: Song
     let frame = CGRect(x: 0, y: 0, width: 100, height: 150)
     /// Get all chord diagrams
     static let chordsDatabase = GuitarChords.all
