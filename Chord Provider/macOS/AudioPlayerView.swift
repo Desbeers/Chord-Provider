@@ -8,15 +8,12 @@
 import SwiftUI
 import AVKit
 
-var audioPlayer: AVAudioPlayer!
-
 /// A very simple audio player that is part of the Header View
 struct AudioPlayerView: View {
     var song: Song
-    
+    @State var audioPlayer: AVAudioPlayer!
     @State var isPlaying: Bool = false
     @State private var showingAlert = false
-    
     var body: some View {
         HStack {
             Button {
@@ -26,6 +23,10 @@ struct AudioPlayerView: View {
                     // todo: move check to song loading
                     // let isReachable = try! persistentURL.checkResourceIsReachable()
                     do {
+                        if isPlaying {
+                            audioPlayer.stop()
+                            audioPlayer = AVAudioPlayer.init()
+                        }
                         audioPlayer = try AVAudioPlayer(contentsOf: song.musicpath!)
                         audioPlayer.play()
                         /// For the button state
