@@ -1,10 +1,18 @@
-// MARK: - class: sections of the song
+//
+//  Section.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import Foundation
 
-public class Sections: Identifiable {
-    public var id = UUID()
-    public var name: String?
-    public var type: String?
-    public var lines = [Line]()
+extension Song {
+    
+    /// A section of the ``Song``
+    struct Section {
+        var name: String?
+        var type: String?
+        var lines = [Line]()
+    }
 }

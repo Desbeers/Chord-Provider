@@ -4,6 +4,7 @@
 //
 //  © 2022 Nick Berendsen
 //
+
 import SwiftUI
 
 /// The struct of a song
@@ -20,7 +21,7 @@ struct Song {
     var html: String?
     var path: URL?
     var musicpath: URL?
-    var sections = [Sections]()
+    var sections = [Song.Section]()
     var chords = [Chord]()
 }
 

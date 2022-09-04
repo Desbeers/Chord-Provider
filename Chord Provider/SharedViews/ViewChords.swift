@@ -12,7 +12,7 @@ struct ViewChords: View {
     static let chordsDatabase = GuitarChords.all
     /// Sheet with chords
     @State var showChordSheet = false
-    @State var selectedChord: Chord?
+    @State var selectedChord: Song.Chord?
     
     var body: some View {
         ScrollView {
@@ -48,7 +48,7 @@ struct ViewChords: View {
 
 struct ChordsSheet: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var chord: Chord?
+    @Binding var chord: Song.Chord?
     var body: some View {
         let chordPosition = GuitarChords.all.matching(key: chord!.key).matching(suffix: chord!.suffix)
         VStack {

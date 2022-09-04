@@ -1,12 +1,20 @@
-// MARK: - class: one line of the song
+//
+//  Line.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import Foundation
 
-public class Line: Identifiable {
-    public var id = UUID()
-    public var parts = [Part]()
-    public var measures = [Measure]()
-    public var tablature: String?
-    public var comment: String?
-    public var plain: String?
+extension Song.Section {
+    
+    /// A line in the ``Song``
+    struct Line {
+        var parts = [Part]()
+        var measures = [Measure]()
+        var tablature: String?
+        var comment: String?
+        var plain: String?
+    }
 }

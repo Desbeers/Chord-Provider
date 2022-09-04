@@ -1,3 +1,10 @@
+//
+//  BuildSong.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
+
 import SwiftUI
 
 func buildSong(song: Song) -> String {
@@ -64,7 +71,7 @@ func buildSong(song: Song) -> String {
     return html
 }
 
-func sectionView(_ section: Sections) -> String {
+func sectionView(_ section: Song.Section) -> String {
 
     var html = ""
     html += "<div class=\"section "
@@ -82,7 +89,7 @@ func sectionView(_ section: Sections) -> String {
     return html
 }
 
-func measuresView(_ line: Line) -> String {
+func measuresView(_ line: Song.Section.Line) -> String {
 
     var html = "<div class=\"measures\">"
     line.measures.forEach { measure in
@@ -97,7 +104,7 @@ func measuresView(_ line: Line) -> String {
     return html
 }
 
-func partsView(_ line: Line) -> String {
+func partsView(_ line: Song.Section.Line) -> String {
     
     var html = "<div class=\"line\">"
     line.parts.forEach { part in
@@ -110,7 +117,7 @@ func partsView(_ line: Line) -> String {
     return html
 }
 
-func plainView(_ line: Line) -> String {
+func plainView(_ line: Song.Section.Line) -> String {
     
     var html = "<div class=\"line\">"
     line.parts.forEach { part in
