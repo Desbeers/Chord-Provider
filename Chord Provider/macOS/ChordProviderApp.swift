@@ -9,13 +9,13 @@ import SwiftUI
 
 /// The scene for the application
 @main struct ChordProviderApp: App {
-    @StateObject var mySongs = MySongs()
+    @StateObject var fileBrowser = FileBrowser()
     @Environment(\.newDocument) private var newDocument
     var body: some Scene {
         /// The 'Song List' window
         WindowGroup("Song List") {
             FileBrowserView()
-                .environmentObject(mySongs)
+                .environmentObject(fileBrowser)
                 .withHostingWindow({ window in
                     if let window = window?.windowController?.window {
                         window.level = .modalPanel
@@ -30,7 +30,7 @@ import SwiftUI
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
-                .environmentObject(mySongs)
+                .environmentObject(fileBrowser)
         }
         .defaultPosition(.center)
         .defaultSize(width: 800, height: 800)
@@ -41,8 +41,8 @@ import SwiftUI
         
         /// Add Chord Provider to the Menu Bar
         MenuBarExtra("Chord Provider", systemImage: "guitars") {
-            MenuBarExtraView()
-                .environmentObject(mySongs)
+            FileBrowserView()
+                .environmentObject(fileBrowser)
         }
         .menuBarExtraStyle(.window)
     }

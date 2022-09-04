@@ -8,10 +8,11 @@
 import SwiftUI
 import GuitarChords
 
-/// The chordpro format parser.
+/// The chordpro format parser
 /// 
 /// Very modified version of the "songpro-swift" parser:
-/// https://github.com/SongProOrg/songpro-swift
+///
+/// [https://github.com/SongProOrg/songpro-swift](https://github.com/SongProOrg/songpro-swift)
 struct ChordPro {
     
     // MARK: - Regex definitions

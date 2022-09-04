@@ -7,25 +7,25 @@
 
 import SwiftUI
 
-/// A  View with a list of songs from a user selected directory
+/// The  View with a list of songs from a user selected directory
 struct FileBrowserView: View {
-    @EnvironmentObject var mySongs: MySongs
-    @AppStorage("pathSongsString") var pathSongsString: String = getDocumentsDirectory()
+    @EnvironmentObject var fileBrowser: FileBrowser
+    @AppStorage("pathSongsString") var pathSongsString: String = FileBrowser.getDocumentsDirectory()
     @AppStorage("refreshList") var refreshList: Bool = false
     @State var search: String = ""
     var body: some View {
         List {
             if search.isEmpty {
-                ForEach(mySongs.artistList) { artist in
+                ForEach(fileBrowser.artistList) { artist in
                     Section(header: Text(artist.name).font(.headline)) {
-                        ForEach(mySongs.songList.filter({$0.artist == artist.name})) { song in
+                        ForEach(fileBrowser.songList.filter({$0.artist == artist.name})) { song in
                             Row(song: song)
                         }
                     }
                 }
                 
             } else {
-                ForEach(mySongs.songList.filter({ $0.search.localizedCaseInsensitiveContains(search)})) { song in
+                ForEach(fileBrowser.songList.filter({ $0.search.localizedCaseInsensitiveContains(search)})) { song in
                     Row(song: song)
                 }
             }
@@ -39,14 +39,14 @@ struct FileBrowserView: View {
         .frame(width: 320)
         .background(Color(NSColor.windowBackgroundColor))
         .navigationTitle("Chord Provider")
-        .navigationSubtitle("\(mySongs.songList.count) songs")
+        .navigationSubtitle("\(fileBrowser.songList.count) songs")
         .task {
-            mySongs.getFiles()
+            fileBrowser.getFiles()
         }
         .searchable(text: $search, placement: .sidebar)
         .toolbar {
             Button {
-                selectSongsFolder(mySongs)
+                fileBrowser.selectSongsFolder(fileBrowser)
             } label: {
                 Image(systemName: "folder")
             }
@@ -57,7 +57,7 @@ struct FileBrowserView: View {
             Task { @MainActor in
                 /// Give it a moment to save the file
                 try await Task.sleep(nanoseconds: 1_000_000_000)
-                mySongs.getFiles()
+                fileBrowser.getFiles()
             }
         }
     }
@@ -67,9 +67,9 @@ extension FileBrowserView {
     
     /// A row in the browser list
     struct Row: View {
-        let song: SongItem
+        let song: FileBrowser.SongItem
         
-        @EnvironmentObject var mySongs: MySongs
+        @EnvironmentObject var fileBrowser: FileBrowser
         
         @Environment(\.openDocument) private var openDocument
         
@@ -79,7 +79,7 @@ extension FileBrowserView {
                 action: {
                     Task {
                         do {
-                            if var persistentURL = getPersistentFileURL("pathSongs") {
+                            if var persistentURL = FileBrowser.getPersistentFileURL("pathSongs") {
                                 _ = persistentURL.startAccessingSecurityScopedResource()
                                 persistentURL = song.path
                                 try await openDocument(at: song.path)
@@ -94,33 +94,28 @@ extension FileBrowserView {
                     Label(song.title, systemImage: rowImage)            }
             )
             /// openDocument is very buggy; don't try to open a document when it is already open
-            .disabled(mySongs.openFiles.contains(song.path))
+            .disabled(fileBrowser.openFiles.contains(song.path))
         }
     }
-}
-
-// MARK: Style for an item in the browser
-
-/// Label style for a browser item
-struct BrowserLabelStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            configuration.icon.foregroundColor(.accentColor).frame(width: 10)
-            configuration.title
-            Spacer()
+    
+    /// Label style for a browser item
+    struct BrowserLabelStyle: LabelStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            HStack {
+                configuration.icon.foregroundColor(.accentColor).frame(width: 10)
+                configuration.title
+                Spacer()
+            }
         }
     }
-}
-
-/// Button style for a Browser item
-struct BrowserButtonStyle: ButtonStyle {
-    /// The style
-    func makeBody(configuration: Self.Configuration) -> some View {
-        BrowserButtonStyleView(configuration: configuration)
+    
+    /// Button style for a browser item
+    struct BrowserButtonStyle: ButtonStyle {
+        /// The style
+        func makeBody(configuration: Self.Configuration) -> some View {
+            BrowserButtonStyleView(configuration: configuration)
+        }
     }
-}
-
-private extension BrowserButtonStyle {
     
     /// The view for the button style
     struct BrowserButtonStyleView: View {

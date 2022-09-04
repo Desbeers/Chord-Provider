@@ -15,7 +15,7 @@ struct ContentView: View {
     @AppStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
     
-    @EnvironmentObject var mySongs: MySongs
+    @EnvironmentObject var fileBrowser: FileBrowser
     
     var body: some View {
         VStack(spacing: 0) {
@@ -34,14 +34,14 @@ struct ContentView: View {
         .background(Color(nsColor: .textBackgroundColor))
         .task {
             if let file = file {
-                mySongs.openFiles.append(file)
+                fileBrowser.openFiles.append(file)
             }
         }
         .onDisappear {
             Task { @MainActor in
-                if let index = mySongs.openFiles.firstIndex(where: {$0 == file}) {
+                if let index = fileBrowser.openFiles.firstIndex(where: {$0 == file}) {
                     /// Mark window as closed
-                    mySongs.openFiles.remove(at: index)
+                    fileBrowser.openFiles.remove(at: index)
                 }
             }
         }

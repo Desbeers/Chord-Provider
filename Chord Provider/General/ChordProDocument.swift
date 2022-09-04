@@ -8,10 +8,11 @@ extension UTType {
         UTType(importedAs: "nl.desbeers.Chord-Provider.pro")
 }
 
+/// The ChordProDocument for Chord Provider
 struct ChordProDocument: FileDocument {
     
     @AppStorage("showEditor") var showEditor: Bool = false
-    /// Sidebar songlist
+    /// The filebrowser 'refresh' toggle
     @AppStorage("refreshList") var refreshList: Bool = false
 
     var text: String

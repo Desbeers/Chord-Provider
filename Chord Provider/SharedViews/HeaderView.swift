@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A View with Song information and optional audo player for macOS
+/// The View with song information and optional audio player for macOS
 struct HeaderView: View {
     var song: Song
     #if os(iOS)
@@ -20,8 +20,8 @@ struct HeaderView: View {
         #if os(macOS)
             HStack(alignment: .center) {
                 Spacer()
-                ViewHeaderGeneral(song: song)
-                ViewHeaderDetails(song: song)
+                General(song: song)
+                Details(song: song)
                 if song.musicpath != nil {
                     AudioPlayerView(song: song)
                 }
@@ -37,8 +37,8 @@ struct HeaderView: View {
                 Image(systemName: "chevron.backward")
             })
             Spacer()
-            ViewHeaderGeneral(song: song)
-            ViewHeaderDetails(song: song)
+            General(song: song)
+            Details(song: song)
             Spacer()
             Button {
                 withAnimation {
@@ -61,41 +61,44 @@ struct HeaderView: View {
     }
 }
 
-struct ViewHeaderGeneral: View {
-    var song: Song
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            if song.artist != nil {
-                Text(song.artist!)
-                    .font(.headline)
-            }
-            if song.title != nil {
-                Text(song.title!)
-                    .font(.subheadline)
+extension HeaderView {
+    
+    /// The View with general information
+    struct General: View {
+        let song: Song
+        var body: some View {
+            VStack(alignment: .leading) {
+                if song.artist != nil {
+                    Text(song.artist!)
+                        .font(.headline)
+                }
+                if song.title != nil {
+                    Text(song.title!)
+                        .font(.subheadline)
+                }
             }
         }
     }
-}
-
-struct ViewHeaderDetails: View {
-    var song: Song
-
-    var body: some View {
-        HStack(alignment: .center) {
-            if song.key != nil {
-                Label(song.key!, systemImage: "key").padding(.leading)
+    
+    /// The View with details
+    struct Details: View {
+        let song: Song
+        var body: some View {
+            HStack(alignment: .center) {
+                if song.key != nil {
+                    Label(song.key!, systemImage: "key").padding(.leading)
+                }
+                if song.capo != nil {
+                    Label(song.capo!, systemImage: "paperclip").padding(.leading)
+                }
+                if song.tempo != nil {
+                    Label(song.tempo!, systemImage: "metronome").padding(.leading)
+                }
+                if song.time != nil {
+                    Label(song.time!, systemImage: "repeat").padding(.leading)
+                }
             }
-            if song.capo != nil {
-                Label(song.capo!, systemImage: "paperclip").padding(.leading)
-            }
-            if song.tempo != nil {
-                Label(song.tempo!, systemImage: "metronome").padding(.leading)
-            }
-            if song.time != nil {
-                Label(song.time!, systemImage: "repeat").padding(.leading)
-            }
+            .font(.none)
         }
-        .font(.none)
     }
 }

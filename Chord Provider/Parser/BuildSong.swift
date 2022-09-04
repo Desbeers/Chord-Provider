@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Build an HTML presentation of the song
 func buildSong(song: Song) -> String {
     
     var html = """
@@ -71,7 +72,7 @@ func buildSong(song: Song) -> String {
     return html
 }
 
-func sectionView(_ section: Song.Section) -> String {
+private func sectionView(_ section: Song.Section) -> String {
 
     var html = ""
     html += "<div class=\"section "
@@ -89,7 +90,7 @@ func sectionView(_ section: Song.Section) -> String {
     return html
 }
 
-func measuresView(_ line: Song.Section.Line) -> String {
+private func measuresView(_ line: Song.Section.Line) -> String {
 
     var html = "<div class=\"measures\">"
     line.measures.forEach { measure in
@@ -104,7 +105,7 @@ func measuresView(_ line: Song.Section.Line) -> String {
     return html
 }
 
-func partsView(_ line: Song.Section.Line) -> String {
+private func partsView(_ line: Song.Section.Line) -> String {
     
     var html = "<div class=\"line\">"
     line.parts.forEach { part in
@@ -117,7 +118,7 @@ func partsView(_ line: Song.Section.Line) -> String {
     return html
 }
 
-func plainView(_ line: Song.Section.Line) -> String {
+private func plainView(_ line: Song.Section.Line) -> String {
     
     var html = "<div class=\"line\">"
     line.parts.forEach { part in

@@ -1,49 +1,52 @@
 //
 //  FileBrowser.swift
-//  Chord Provider (iOS)
+//  Chord Provider
 //
-//  Created by Nick Berendsen on 13/11/2021.
+//  © 2022 Nick Berendsen
 //
 
 import SwiftUI
 
 // MARK: Class and Structs
 
-class MySongs: ObservableObject {
+/// The observable FileBrowser model
+class FileBrowser: ObservableObject {
+    /// The list of songs
     @Published var songList: [SongItem] = []
-    
+    /// The list of artists
     @Published var artistList: [ArtistItem] = []
-    
+    /// The list of open windows
     @Published var openFiles: [URL] = []
 }
 
-struct SongItem: Identifiable {
-    var id: String {
-        path.description
+extension FileBrowser {
+    
+    /// The struct for a song item in the browser
+    struct SongItem: Identifiable {
+        var id: String {
+            path.description
+        }
+        var artist: String = "Unknown artist"
+        var title: String = ""
+        var search: String {
+            return "\(title) \(artist)"
+        }
+        var musicpath: String = ""
+        var path: URL
     }
-    var artist: String = "Unknown artist"
-    var title: String = ""
-    var search: String {
-        return "\(title) \(artist)"
+    
+    /// The struct for a artist item in the browser
+    struct ArtistItem: Identifiable {
+        let id = UUID()
+        let name: String
+        let songs: [SongItem]
     }
-    var musicpath: String = ""
-    var path: URL
-}
-
-struct ArtistItem: Identifiable {
-    let id = UUID()
-    let name: String
-    let songs: [SongItem]
-}
-
-extension MySongs {
-    /// This is a helper function to get the files.
+    
+    /// Get the song files from the user selected folder
     func getFiles() {
-        print("GET FILES")
         var songs = [SongItem]()
         /// Get a list of all files
-        
-        if let persistentURL = getPersistentFileURL("pathSongs") {
+        if let persistentURL = FileBrowser.getPersistentFileURL("pathSongs") {
             /// Sandbox stuff...
             _ = persistentURL.startAccessingSecurityScopedResource()
             if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
@@ -57,7 +60,6 @@ extension MySongs {
             }
             persistentURL.stopAccessingSecurityScopedResource()
         }
-        
         /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
         let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
             occurrence.artist
@@ -69,22 +71,24 @@ extension MySongs {
         }.sorted { $0.name < $1.name }
         songList = songs.sorted { $0.title < $1.title }
     }
-    /// This is a helper function to parse the song for metadata
-    func parseSongFile(_ file: URL, _ song: inout SongItem) {
+    
+    /// Parse the song file for metadata
+    private func parseSongFile(_ file: URL, _ song: inout SongItem) {
         song.title = file.lastPathComponent
         
         do {
             let data = try String(contentsOf: file, encoding: .utf8)
             
             for text in data.components(separatedBy: .newlines) where text.starts(with: "{") {
-                    parseFileLine(text: text, song: &song)
+                parseFileLine(text: text, song: &song)
             }
         } catch {
             print(error)
         }
     }
-    /// This is a helper function to parse the actual metadata
-    func parseFileLine(text: String, song: inout SongItem) {
+    
+    /// Parse the actual metadata
+    private func parseFileLine(text: String, song: inout SongItem) {
         let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
         
         var key: String?
@@ -115,80 +119,81 @@ extension MySongs {
             }
         }
     }
-}
 
-// MARK: Functions
-
-// Folder selector
-// ---------------
-
-func selectSongsFolder(_ mySongs: MySongs) {
-    let base = UserDefaults.standard.object(forKey: "pathSongsString") as? String ?? getDocumentsDirectory()
-    let dialog = NSOpenPanel()
-    dialog.showsResizeIndicator = true
-    dialog.showsHiddenFiles = false
-    dialog.canChooseFiles = false
-    dialog.canChooseDirectories = true
-    dialog.directoryURL = URL(fileURLWithPath: base)
-    dialog.message = "Select the folder with your songs"
-    dialog.prompt = "Select"
-    dialog.beginSheetModal(for: NSApp.keyWindow!) { result in
-        if result == NSApplication.ModalResponse.OK {
-            let result = dialog.url
-            /// Save the url so next time this dialog is opened it will go to this folder.
-            /// Sandbox stuff seems to be ok with that....
-            UserDefaults.standard.set(result!.path, forKey: "pathSongsString")
-            /// Create a persistent bookmark for the folder the user just selected
-            _ = setPersistentFileURL("pathSongs", result!)
-            /// Refresh the list of songs
-            mySongs.getFiles()
+    /// The folder selector
+    func selectSongsFolder(_ fileBrowser: FileBrowser) {
+        let base = UserDefaults.standard.object(forKey: "pathSongsString") as? String ?? FileBrowser.getDocumentsDirectory()
+        let dialog = NSOpenPanel()
+        dialog.showsResizeIndicator = true
+        dialog.showsHiddenFiles = false
+        dialog.canChooseFiles = false
+        dialog.canChooseDirectories = true
+        dialog.directoryURL = URL(fileURLWithPath: base)
+        dialog.message = "Select the folder with your songs"
+        dialog.prompt = "Select"
+        dialog.beginSheetModal(for: NSApp.keyWindow!) { result in
+            if result == NSApplication.ModalResponse.OK {
+                let result = dialog.url
+                /// Save the url so next time this dialog is opened it will go to this folder.
+                /// Sandbox stuff seems to be ok with that....
+                UserDefaults.standard.set(result!.path, forKey: "pathSongsString")
+                /// Create a persistent bookmark for the folder the user just selected
+                _ = FileBrowser.setPersistentFileURL("pathSongs", result!)
+                /// Refresh the list of songs
+                fileBrowser.getFiles()
+            }
         }
     }
-}
-
-// GetDocumentsDirectory()
-// -----------------------
-// Returns the users Documents directory.
-// Used when no folders are selected by the user.
-
-func getDocumentsDirectory() -> String {
-    return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-}
-
-// Get and Set sandbox bookmarks
-// -----------------------------
-// Many thanks to https://www.appcoda.com/mac-apps-user-intent/
-
-func setPersistentFileURL(_ key: String, _ selectedURL: URL) -> Bool {
-    do {
-        let bookmarkData = try selectedURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
-        UserDefaults.standard.set(bookmarkData, forKey: key)
-        return true
-    } catch let error {
-        print("Could not create a bookmark because: ", error)
-        return false
+    
+    /// Get the Documents directory
+    /// - Returns: The users Documents directory
+    ///
+    /// Used when no folders are selected by the user.
+    static func getDocumentsDirectory() -> String {
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
     }
-}
-
-func getPersistentFileURL(_ key: String) -> URL? {
-    if let bookmarkData = UserDefaults.standard.data(forKey: "pathSongs") {
+    
+    /// Set the sandbox bookmark
+    /// - Parameters:
+    ///   - key: The name of the bookmark
+    ///   - selectedURL: The URL of the bookmark
+    /// - Returns: True or false if the bookmark is set
+    ///
+    /// Many thanks to [https://www.appcoda.com/mac-apps-user-intent/](https://www.appcoda.com/mac-apps-user-intent/)
+    static func setPersistentFileURL(_ key: String, _ selectedURL: URL) -> Bool {
         do {
-            var bookmarkDataIsStale = false
-            let urlForBookmark = try URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &bookmarkDataIsStale)
-            if bookmarkDataIsStale {
-                print("The bookmark is outdated and needs to be regenerated.")
-                _ = setPersistentFileURL(key, urlForBookmark)
+            let bookmarkData = try selectedURL.bookmarkData(options: .withSecurityScope, includingResourceValuesForKeys: nil, relativeTo: nil)
+            UserDefaults.standard.set(bookmarkData, forKey: key)
+            return true
+        } catch let error {
+            print("Could not create a bookmark because: ", error)
+            return false
+        }
+    }
+    
+    /// Get the sandbox bookmark
+    /// - Parameter key: The name of the bookmark
+    /// - Returns: The URL of the bookmark
+    static func getPersistentFileURL(_ key: String) -> URL? {
+        if let bookmarkData = UserDefaults.standard.data(forKey: "pathSongs") {
+            do {
+                var bookmarkDataIsStale = false
+                let urlForBookmark = try URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &bookmarkDataIsStale)
+                if bookmarkDataIsStale {
+                    print("The bookmark is outdated and needs to be regenerated.")
+                    _ = FileBrowser.setPersistentFileURL(key, urlForBookmark)
+                    return nil
+                    
+                } else {
+                    return urlForBookmark
+                }
+            } catch {
+                print("Error resolving bookmark:", error)
                 return nil
-                
-            } else {
-                return urlForBookmark
             }
-        } catch {
-            print("Error resolving bookmark:", error)
+        } else {
+            print("Error retrieving persistent bookmark data.")
             return nil
         }
-    } else {
-        print("Error retrieving persistent bookmark data.")
-        return nil
     }
 }
