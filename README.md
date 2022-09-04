@@ -1,16 +1,16 @@
 # Chord Provider
 
-## A Cordpro file parser and editor in SwiftUI 3
+## A Cordpro file parser and editor in SwiftUI 4
 
-There are many "chordpo" parsers in this world, however, none are *really* native in the Apple world. I mean, the macOS world, it is afterthought... Not for me.
+There are many "chordpo" parsers in this world, however, none are *really* native in the Apple world.
+
+I mean, in the macOS world, it is often an afterthought... Not for me.
 
 ![Chord Provider](screenshot.png)
 
-This is for macOS and iOS. Written in SwiftUI 3, so macOS Monterey or iOS 15 only.
+This is for macOS and iOS. Written in SwiftUI 4, so macOS Ventura or iOS 16 only.
 
-- System colors
-- System fonts
-- Dark screen support
+The branch 'SwiftUI-3' has an older version for macOS Monterey or iOS 15, however, I don't update that version anymore.
 
 ### iCloud
 
@@ -18,9 +18,10 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 
 ### Known issues
 
-- It only lists files with the '.pro' extension.
+- It only handles files with the '.pro' extension.
 - Hand-off is not working. It tries to 'hand-off' to macOS, however, if you click on the icon, a new song is opened.
 - When you switch from light to dark mode and visa-versa; the colors and chord diagrams are not correct.
+- 'DocumentGroup', used to show the songs, is very buggy and limited.
 
 ### Thanks
 
