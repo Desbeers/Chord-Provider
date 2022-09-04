@@ -19,13 +19,13 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ViewHeader(song: song).background(Color.accentColor.opacity(0.1))
+            HeaderView(song: song).background(Color.accentColor.opacity(0.1))
             HStack {
                 SongView(song: song, file: file)
                     .frame(minWidth: 400)
                     .padding(.top)
                 if showEditor {
-                    ViewEditor(document: $document)
+                    EditorView(document: $document)
                         .frame(minWidth: 400)
                         .transition(.scale)
                 }

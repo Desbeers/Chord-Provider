@@ -1,13 +1,17 @@
-// MARK: - View: Editor View for macOS and iOS
-
-/// The text editor. SwiftUI does not give too many options for it.
+//
+//  EditorView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
 
-struct ViewEditor: View {
-    
+/// The View with the text editor
+///
+/// SwiftUI does not give too many options for it.
+struct EditorView: View {
     @Binding var document: ChordProDocument
-    
     var body: some View {
         TextEditor(text: $document.text)
             .font(.custom("HelveticaNeue", size: 18))

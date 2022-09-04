@@ -1,13 +1,17 @@
-// MARK: - View: Audio Player for macOS
-
-/// A very simple audio player that is part of the Header View
+//
+//  AudioPlayerView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
 import AVKit
 
 var audioPlayer: AVAudioPlayer!
 
-struct ViewAudioPlayer: View {
+/// A very simple audio player that is part of the Header View
+struct AudioPlayerView: View {
     var song: Song
     
     @State var isPlaying: Bool = false

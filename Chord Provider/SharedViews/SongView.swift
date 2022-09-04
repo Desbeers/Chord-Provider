@@ -18,9 +18,9 @@ struct SongView: View {
         GeometryReader { geometry in
             ScrollView {
                 HStack {
-                    ViewHtml(html: (song.html ?? "")).frame(height: geometry.size.height)
+                    HtmlView(html: (song.html ?? "")).frame(height: geometry.size.height)
                     if showChords && !showEditor {
-                        ViewChords(song: song).frame(width: 140, height: geometry.size.height)
+                        ChordsView(song: song).frame(width: 140, height: geometry.size.height)
                             .transition(.scale)
                     }
                 }

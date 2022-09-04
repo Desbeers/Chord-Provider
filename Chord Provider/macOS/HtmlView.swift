@@ -1,9 +1,15 @@
-// MARK: - NSViewRepresentable: HTML view for macOS
+//
+//  HtmlView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
 import WebKit
 
-struct ViewHtml: NSViewRepresentable {
+/// The HTML View
+struct HtmlView: NSViewRepresentable {
     
     var html: String
 

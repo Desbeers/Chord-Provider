@@ -1,10 +1,14 @@
-// MARK: - View: Header View for macOS and iOS
-
-/// Song information and optional audo player for macOS
+//
+//  HeaderView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
 
-struct ViewHeader: View {
+/// A View with Song information and optional audo player for macOS
+struct HeaderView: View {
     var song: Song
     #if os(iOS)
     @Environment(\.horizontalSizeClass) var sizeClass
@@ -19,7 +23,7 @@ struct ViewHeader: View {
                 ViewHeaderGeneral(song: song)
                 ViewHeaderDetails(song: song)
                 if song.musicpath != nil {
-                    ViewAudioPlayer(song: song)
+                    AudioPlayerView(song: song)
                 }
                 Spacer()
             }

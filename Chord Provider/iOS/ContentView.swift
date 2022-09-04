@@ -17,13 +17,13 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            ViewHeader(song: song)
+            HeaderView(song: song)
                 .background(Color.accentColor.opacity(0.1))
                 .padding(.bottom)
             HStack {
                 SongView(song: song, file: file)
                 if showEditor {
-                    ViewEditor(document: $document)
+                    EditorView(document: $document)
                         .transition(.scale)
                         .shadow(radius: 5)
                 }

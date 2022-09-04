@@ -1,9 +1,15 @@
-// MARK: - UIViewRepresentable: HTML view  for iOS
+//
+//  HtmlView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
 import WebKit
 
-struct ViewHtml: UIViewRepresentable {
+/// The HTML View
+struct HtmlView: UIViewRepresentable {
     var html: String
 
     func makeUIView(context: Context) -> WKWebView {

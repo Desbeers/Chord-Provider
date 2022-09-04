@@ -1,41 +1,39 @@
-// MARK: Sidebar for macOS
-
-/// A sidebar view with a list of songs from a user selected directory
+//
+//  FileBrowserView.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import SwiftUI
-
-// MARK: Views
 
 /// A  View with a list of songs from a user selected directory
 struct FileBrowserView: View {
     @EnvironmentObject var mySongs: MySongs
     @AppStorage("pathSongsString") var pathSongsString: String = getDocumentsDirectory()
-    @State var search: String = ""
-    
     @AppStorage("refreshList") var refreshList: Bool = false
-    
+    @State var search: String = ""
     var body: some View {
-        
         List {
             if search.isEmpty {
                 ForEach(mySongs.artistList) { artist in
                     Section(header: Text(artist.name).font(.headline)) {
                         ForEach(mySongs.songList.filter({$0.artist == artist.name})) { song in
-                            FileBrowserRow(song: song)
+                            Row(song: song)
                         }
                     }
                 }
                 
             } else {
                 ForEach(mySongs.songList.filter({ $0.search.localizedCaseInsensitiveContains(search)})) { song in
-                    FileBrowserRow(song: song)
+                    Row(song: song)
                 }
             }
         }
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
-        .labelStyle(LabelStyleBrowser())
-        .buttonStyle(ButtonStyleBrowser())
+        .labelStyle(BrowserLabelStyle())
+        .buttonStyle(BrowserButtonStyle())
         /// - Note: Below is needed or else the serach filed will be hidden behind the toolbar
         .padding(.top, 1)
         .frame(width: 320)
@@ -65,44 +63,46 @@ struct FileBrowserView: View {
     }
 }
 
-struct FileBrowserRow: View {
-    let song: SongItem
-
-    @EnvironmentObject var mySongs: MySongs
+extension FileBrowserView {
     
-    @Environment(\.openDocument) private var openDocument
-    
-    var body: some View {
-        let rowImage = (song.musicpath.isEmpty ? "music.note" : "music.note.list")
-        Button(
-            action: {
-                Task {
-                    do {
-                        if var persistentURL = getPersistentFileURL("pathSongs") {
-                            _ = persistentURL.startAccessingSecurityScopedResource()
-                            persistentURL = song.path
-                            try await openDocument(at: song.path)
-                            persistentURL.stopAccessingSecurityScopedResource()
+    /// A row in the browser list
+    struct Row: View {
+        let song: SongItem
+        
+        @EnvironmentObject var mySongs: MySongs
+        
+        @Environment(\.openDocument) private var openDocument
+        
+        var body: some View {
+            let rowImage = (song.musicpath.isEmpty ? "music.note" : "music.note.list")
+            Button(
+                action: {
+                    Task {
+                        do {
+                            if var persistentURL = getPersistentFileURL("pathSongs") {
+                                _ = persistentURL.startAccessingSecurityScopedResource()
+                                persistentURL = song.path
+                                try await openDocument(at: song.path)
+                                persistentURL.stopAccessingSecurityScopedResource()
+                            }
+                        } catch {
+                            print(error)
                         }
-                    } catch {
-                        print(error)
                     }
-                }
-            },
-            label: {
-                Label(song.title, systemImage: rowImage)            }
-        )
-        /// openDocument is very buggy; don't try to open a document when it is already open
-        .disabled(mySongs.openFiles.contains(song.path))
+                },
+                label: {
+                    Label(song.title, systemImage: rowImage)            }
+            )
+            /// openDocument is very buggy; don't try to open a document when it is already open
+            .disabled(mySongs.openFiles.contains(song.path))
+        }
     }
 }
 
-// MARK: - Style for an item in the sidebar
+// MARK: Style for an item in the browser
 
-/// - Note: - This is a combination of Label and Button
-
-/// Label style for a sidebar item
-struct LabelStyleBrowser: LabelStyle {
+/// Label style for a browser item
+struct BrowserLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             configuration.icon.foregroundColor(.accentColor).frame(width: 10)
@@ -113,22 +113,21 @@ struct LabelStyleBrowser: LabelStyle {
 }
 
 /// Button style for a Browser item
-struct ButtonStyleBrowser: ButtonStyle {
+struct BrowserButtonStyle: ButtonStyle {
     /// The style
     func makeBody(configuration: Self.Configuration) -> some View {
-        ViewButtonStyleSidebar(configuration: configuration)
+        BrowserButtonStyleView(configuration: configuration)
     }
 }
 
-private extension ButtonStyleBrowser {
+private extension BrowserButtonStyle {
     
-    /// The view for the button style in a list
-    /// - Note: private extension becasue it is part of the 'ButtenStyleSidebar' ButtonStyle
-    struct ViewButtonStyleSidebar: View {
+    /// The view for the button style
+    struct BrowserButtonStyleView: View {
         /// Tracks if the button is enabled or not
         @Environment(\.isEnabled) var isEnabled
         /// Tracks the pressed state
-        let configuration: ButtonStyleBrowser.Configuration
+        let configuration: BrowserButtonStyle.Configuration
         /// The view
         var body: some View {
             return configuration.label
