@@ -23,9 +23,9 @@ struct ContentView: View {
             HStack {
                 SongView(song: song, file: file)
                 if showEditor {
+                    Divider()
                     EditorView(document: $document)
                         .transition(.scale)
-                        .shadow(radius: 5)
                 }
             }
         }

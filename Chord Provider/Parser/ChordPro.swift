@@ -270,9 +270,7 @@ struct ChordPro {
         
         var key: GuitarChords.Key = .c
         var suffix: GuitarChords.Suffix = .major
-        
-        print("Parsing chords")
-        
+
         let chordRegex = try? NSRegularExpression(pattern: "([CDEFGABb#]+)(.*)")
         if let match = chordRegex?.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
             if let keyRange = Range(match.range(at: 1), in: chord) {

@@ -25,13 +25,14 @@ struct Song {
     var chords = [Chord]()
 }
 
+//let buildSongDebouncer = Debouncer(duration: 1)
 /// Update the song item
 struct SongViewModifier: ViewModifier {
 
     @Binding var document: ChordProDocument
     @Binding var song: Song
     let file: URL?
-    
+
     @SceneStorage("showEditor") var showEditor: Bool = false
 
     func body(content: Content) -> some View {
@@ -44,7 +45,13 @@ struct SongViewModifier: ViewModifier {
                 song = ChordPro.parse(document: document, file: file ?? nil)
             }
             .onChange(of: document.text) { _ in
-                song = ChordPro.parse(document: document, file: file ?? nil)
+                Task {
+                    await document.buildSongDebouncer.submit {
+                        song = ChordPro.parse(document: document, file: file ?? nil)
+                    }
+                }
+                
+                //song = ChordPro.parse(document: document, file: file ?? nil)
             }
     }
 }

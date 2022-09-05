@@ -13,6 +13,7 @@ struct ChordProDocument: FileDocument {
     /// The filebrowser 'refresh' toggle
     @AppStorage("refreshList") var refreshList: Bool = false
     static let newText: String = "{title: A new song}\n{subtitle: A new artist}"
+    let buildSongDebouncer = Debouncer(duration: 1)
     var text: String
 
     init(text: String = newText) {
