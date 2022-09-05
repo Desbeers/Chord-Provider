@@ -1,13 +1,20 @@
-// MARK: - class: a part of a line of the song
+//
+//  Part.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import Foundation
 
-public class Part: Identifiable {
-    public var id = UUID()
-    public var chord: String?
-    public var lyric: String?
+extension Song.Section.Line {
     
-    public var empty: Bool {
-        return (chord ?? "").isEmpty && (lyric ?? "").isEmpty
+    /// A part of a line in the ``Song``
+    struct Part {
+        var chord: String?
+        var lyric: String?
+        var empty: Bool {
+            return (chord ?? "").isEmpty && (lyric ?? "").isEmpty
+        }
     }
 }

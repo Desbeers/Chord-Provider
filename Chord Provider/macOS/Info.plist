@@ -19,8 +19,6 @@
 			<array>
 				<string>nl.desbeers.Chord-Provider.pro</string>
 			</array>
-			<key>NSUbiquitousDocumentUserActivityType</key>
-			<string>nl.desbeers.Chord-Provider.editing</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -46,7 +44,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2020 Nick Berendsen</string>
+	<string>Copyright © 2022 Nick Berendsen</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

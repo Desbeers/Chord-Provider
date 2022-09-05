@@ -1,5 +1,13 @@
+//
+//  BuildSong.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
+
 import SwiftUI
 
+/// Build an HTML presentation of the song
 func buildSong(song: Song) -> String {
     
     var html = """
@@ -43,9 +51,9 @@ func buildSong(song: Song) -> String {
                 if !line.measures.isEmpty {
                     html += measuresView(line)
                 } else if line.tablature != nil {
-                    html += "<div class=\"tablature\">" +  line.tablature! + "</div>"
+                    html += "<div class=\"tablature\">" + line.tablature! + "</div>"
                 } else if line.comment != nil {
-                    html += "<div class=\"comment\">" +  line.comment! + "</div>"
+                    html += "<div class=\"comment\">" + line.comment! + "</div>"
                 } else if section.type == nil {
                     html += "<div class=\"plain\">"
                     html += plainView(line)
@@ -64,7 +72,7 @@ func buildSong(song: Song) -> String {
     return html
 }
 
-func sectionView(_ section: Sections) -> String {
+private func sectionView(_ section: Song.Section) -> String {
 
     var html = ""
     html += "<div class=\"section "
@@ -82,7 +90,7 @@ func sectionView(_ section: Sections) -> String {
     return html
 }
 
-func measuresView(_ line: Line) -> String {
+private func measuresView(_ line: Song.Section.Line) -> String {
 
     var html = "<div class=\"measures\">"
     line.measures.forEach { measure in
@@ -97,7 +105,7 @@ func measuresView(_ line: Line) -> String {
     return html
 }
 
-func partsView(_ line: Line) -> String {
+private func partsView(_ line: Song.Section.Line) -> String {
     
     var html = "<div class=\"line\">"
     line.parts.forEach { part in
@@ -110,7 +118,7 @@ func partsView(_ line: Line) -> String {
     return html
 }
 
-func plainView(_ line: Line) -> String {
+private func plainView(_ line: Song.Section.Line) -> String {
     
     var html = "<div class=\"line\">"
     line.parts.forEach { part in

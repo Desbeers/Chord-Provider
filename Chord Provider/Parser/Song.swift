@@ -1,21 +1,57 @@
-// MARK: - class: the song
+//
+//  Song.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
-import Foundation
+import SwiftUI
 
-public class Song: Identifiable, ObservableObject {
-    public var id = UUID()
-    public var title: String?
-    public var artist: String?
-    public var capo: String?
-    public var key: String?
-    public var tempo: String?
-    public var time: String?
-    public var year: String?
-    public var album: String?
-    public var tuning: String?
-    public var html: String?
-    public var path: URL?
-    public var musicpath: URL?
-    public var sections = [Sections]()
-    public var chords = [Chord]()
+/// The struct of a song
+struct Song {
+    var title: String?
+    var artist: String?
+    var capo: String?
+    var key: String?
+    var tempo: String?
+    var time: String?
+    var year: String?
+    var album: String?
+    var tuning: String?
+    var html: String?
+    var path: URL?
+    var musicpath: URL?
+    var sections = [Song.Section]()
+    var chords = [Chord]()
+}
+
+//let buildSongDebouncer = Debouncer(duration: 1)
+/// Update the song item
+struct SongViewModifier: ViewModifier {
+
+    @Binding var document: ChordProDocument
+    @Binding var song: Song
+    let file: URL?
+
+    @SceneStorage("showEditor") var showEditor: Bool = false
+
+    func body(content: Content) -> some View {
+        content
+            .task {
+                /// Always open the editor for a new file
+                if document.text == ChordProDocument.newText {
+                    showEditor = true
+                }
+                song = ChordPro.parse(document: document, file: file ?? nil)
+            }
+            .onChange(of: document.text) { _ in
+                Task {
+                    await document.buildSongDebouncer.submit {
+                        song = ChordPro.parse(document: document, file: file ?? nil)
+                    }
+                }
+                
+                //song = ChordPro.parse(document: document, file: file ?? nil)
+            }
+    }
 }

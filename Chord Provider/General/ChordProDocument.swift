@@ -8,17 +8,16 @@ extension UTType {
         UTType(importedAs: "nl.desbeers.Chord-Provider.pro")
 }
 
+/// The ChordProDocument for Chord Provider
 struct ChordProDocument: FileDocument {
-    
-    @AppStorage("showEditor") var showEditor: Bool = false
-    /// Sidebar songlist
+    /// The filebrowser 'refresh' toggle
     @AppStorage("refreshList") var refreshList: Bool = false
-
+    static let newText: String = "{title: A new song}\n{subtitle: A new artist}"
+    let buildSongDebouncer = Debouncer(duration: 1)
     var text: String
 
-    init(text: String = "{t: A new song}") {
+    init(text: String = newText) {
         self.text = text
-        showEditor = true
     }
 
     static var readableContentTypes: [UTType] { [.chordProDocument] }
@@ -30,13 +29,9 @@ struct ChordProDocument: FileDocument {
             throw CocoaError(.fileReadCorruptFile)
         }
         text = string
-        showEditor = false
-        /// Update the sidebar
-        refreshList.toggle()
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        print("Saving file")
         /// Update the sidebar
         refreshList.toggle()
         let data = text.data(using: .utf8)!

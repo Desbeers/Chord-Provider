@@ -1,15 +1,24 @@
-// MARK: - struct: the chords in the song
+//
+//  Chords.swift
+//  Chord Provider
+//
+//  © 2022 Nick Berendsen
+//
 
 import Foundation
 import GuitarChords
 
-public struct Chord: Identifiable {
-    public var id = UUID()
-    public var name: String
-    public var key: GuitarChords.Key
-    public var suffix: GuitarChords.Suffix
-    public var define: String
-    public var basefret: Int {
-        return Int(define.prefix(1)) ?? 1
+extension Song {
+    
+    /// The chords of the ``Song``
+    struct Chord: Identifiable {
+        var id = UUID()
+        var name: String
+        var key: GuitarChords.Key
+        var suffix: GuitarChords.Suffix
+        var define: String
+        var basefret: Int {
+            return Int(define.prefix(1)) ?? 1
+        }
     }
 }

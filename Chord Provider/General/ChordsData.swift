@@ -1,5 +1,6 @@
 import Foundation
 
+/// All the chords data
 struct ChordsData {
     static let data: Data? = """
         [{
