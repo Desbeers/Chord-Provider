@@ -19,7 +19,6 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 ### Known issues
 
 - It only handles files with the '.pro' extension.
-- Hand-off is not working. It tries to 'hand-off' to macOS, however, if you click on the icon, a new song is opened.
 - When you switch from light to dark mode and visa-versa; the colors and chord diagrams are not correct.
 - 'DocumentGroup', used to show the songs, is very buggy and limited.
 
