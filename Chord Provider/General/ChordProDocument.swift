@@ -14,10 +14,10 @@ struct ChordProDocument: FileDocument {
     @AppStorage("showEditor") var showEditor: Bool = false
     /// The filebrowser 'refresh' toggle
     @AppStorage("refreshList") var refreshList: Bool = false
-
+    static let newText: String = "{title: A new song}\n{subtitle: A new artist}"
     var text: String
 
-    init(text: String = "{title: A new song}\n{subtitle: A new artist}") {
+    init(text: String = newText) {
         self.text = text
         showEditor = true
     }
@@ -32,8 +32,6 @@ struct ChordProDocument: FileDocument {
         }
         text = string
         showEditor = false
-        /// Update the sidebar
-        refreshList.toggle()
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {

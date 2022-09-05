@@ -25,6 +25,7 @@ struct ContentView: View {
                     .frame(minWidth: 400)
                     .padding(.top)
                 if showEditor {
+                    Divider()
                     EditorView(document: $document)
                         .frame(minWidth: 400)
                         .transition(.scale)

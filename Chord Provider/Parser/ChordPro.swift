@@ -45,12 +45,6 @@ struct ChordPro {
                 processLyrics(text: text, song: &song, currentSection: &currentSection)
             }
         }
-        /// A new section will always be added when and empty new-line is found,
-        /// however, if that's just at the end of a file it will leave us with this empty section.
-        if currentSection.lines.isEmpty {
-            /// Remove this section
-            song.sections.removeLast()
-        }
         /// Turn the song into a HTML page
         processHtml(song: &song)
         /// All done!
