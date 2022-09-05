@@ -12,7 +12,7 @@ struct ContentView: View {
     @Binding var document: ChordProDocument
     @State var song = Song()
     let file: URL?
-    @AppStorage("showEditor") var showEditor: Bool = false
+    @SceneStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
 
     var body: some View {

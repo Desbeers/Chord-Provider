@@ -12,7 +12,7 @@ struct HeaderView: View {
     var song: Song
     #if os(iOS)
     @Environment(\.horizontalSizeClass) var sizeClass
-    @AppStorage("showEditor") var showEditor: Bool = false
+    @SceneStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
     #endif
 

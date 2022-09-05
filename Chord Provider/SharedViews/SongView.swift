@@ -12,7 +12,7 @@ struct SongView: View {
     let song: Song
     let file: URL?
     @AppStorage("showChords") var showChords: Bool = true
-    @AppStorage("showEditor") var showEditor: Bool = false
+    @SceneStorage("showEditor") var showEditor: Bool = false
     var body: some View {
         /// Stupid hack to get the view using full height
         GeometryReader { geometry in
