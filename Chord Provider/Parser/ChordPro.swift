@@ -114,13 +114,13 @@ struct ChordPro {
                 key = text[keyRange].trimmingCharacters(in: .newlines)
             }
             switch key {
-            case "soc":
+            case "soc", "start_of_chorus":
                 processSection(text: "Chorus", type: "chorus", song: &song, currentSection: &currentSection)
             case "sot":
                 processSection(text: "Tab", type: "tab", song: &song, currentSection: &currentSection)
             case "sog":
                 processSection(text: "", type: "grid", song: &song, currentSection: &currentSection)
-            case "sov":
+            case "sov", "start_of_verse":
                 processSection(text: "Verse", type: "verse", song: &song, currentSection: &currentSection)
             case "chorus":
                 processSection(text: "Repeat chorus", type: "chorus", song: &song, currentSection: &currentSection)
