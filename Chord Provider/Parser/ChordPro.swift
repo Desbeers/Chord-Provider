@@ -17,7 +17,7 @@ struct ChordPro {
     
     // MARK: - Regex definitions
     /// The regex for directives with a value, {title: lalala} for example.
-    static let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
+    static let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([[^}]]*)\\}")
     /// The regex for directives without a value, {soc} for example.
     static let directiveEmptyRegex = try? NSRegularExpression(pattern: "\\{(\\w*)\\}")
     /// The regex for chord defines:
@@ -30,7 +30,7 @@ struct ChordPro {
     static let chordsRegex = try? NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
     
     // MARK: - func: parse; called to parse a whole song
-    static func parse(document: ChordProDocument, file: URL?) -> Song {
+    static func parse(document: ChordProDocument, file: URL?) async -> Song {
         /// Start with a fresh song
         var song = Song()
         /// Add the path

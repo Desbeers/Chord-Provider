@@ -26,6 +26,13 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 
 Stole code (and ideas) from:
 
-[songpro-swift](https://github.com/SongProOrg/songpro-swift)
+- [SongPro for Swift](https://github.com/SongProOrg/songpro-swift)
+- [Conscriptor](https://github.com/dbarsamian/conscriptor)
+
+### Used packages
 
 The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
+
+The macOS editor is my fork of [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
+
+> I use a custom font for the editor because my poor eyes are too old :-)

@@ -16,7 +16,7 @@ struct SongView: View {
     var body: some View {
         HStack {
             HtmlView(html: (song.html ?? ""))
-            if showChords && !showEditor {
+            if showChords {
                 ChordsView(song: song)
                     .transition(.opacity)
             }
