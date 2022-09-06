@@ -11,8 +11,8 @@ import Foundation
 struct ChordProFormatter {
     /// Enumeration of supported syntax that can be formatted by the ChordProFormatter.
     enum Formatting: String, CaseIterable {
-        case chorus = "{soc}\n"
-        case verse = "{sov}\n"
+        case chorus = "{start_of_chorus}\n"
+        case verse = "{start_of_verse}\n"
         case comment = "{comment: "
         /// The start of the format
         var start: String {
@@ -22,9 +22,9 @@ struct ChordProFormatter {
         var end: String {
             switch self {
             case .chorus:
-                return "\n{eoc}\n"
+                return "\n{end_of_chorus}\n"
             case .verse:
-                return "\n{eov}\n"
+                return "\n{end_of_verse}\n"
             case .comment:
                 return "}"
             }
