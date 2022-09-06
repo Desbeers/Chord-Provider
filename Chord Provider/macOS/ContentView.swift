@@ -28,7 +28,6 @@ struct ContentView: View {
                     Divider()
                     EditorView(document: $document)
                         .frame(minWidth: 400)
-                        .transition(.scale)
                 }
             }
         }

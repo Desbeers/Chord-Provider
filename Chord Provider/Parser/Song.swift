@@ -42,16 +42,14 @@ struct SongViewModifier: ViewModifier {
                 if document.text == ChordProDocument.newText {
                     showEditor = true
                 }
-                song = ChordPro.parse(document: document, file: file ?? nil)
+                song = await ChordPro.parse(document: document, file: file ?? nil)
             }
             .onChange(of: document.text) { _ in
                 Task {
                     await document.buildSongDebouncer.submit {
-                        song = ChordPro.parse(document: document, file: file ?? nil)
+                        song = await ChordPro.parse(document: document, file: file ?? nil)
                     }
                 }
-                
-                //song = ChordPro.parse(document: document, file: file ?? nil)
             }
     }
 }
