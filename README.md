@@ -18,7 +18,6 @@ The iOS app makes an iCloud folder named "Chord Provider"; that's where your son
 
 ### Known issues
 
-- It only handles files with the '.pro' extension.
 - When you switch from light to dark mode and visa-versa; the colors and chord diagrams are not correct.
 - 'DocumentGroup', used to show the songs, is very buggy and limited.
 

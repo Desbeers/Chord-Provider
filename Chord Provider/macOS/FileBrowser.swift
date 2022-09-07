@@ -51,7 +51,7 @@ extension FileBrowser {
             _ = persistentURL.startAccessingSecurityScopedResource()
             if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                 while let item = items.nextObject() as? URL {
-                    if item.lastPathComponent.hasSuffix(".pro") {
+                    if ChordProDocument.fileExtension.contains(item.pathExtension) {
                         var song = SongItem(path: item)
                         parseSongFile(item, &song)
                         songs.append(song)

@@ -14,10 +14,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>nl.desbeers.Chord-Provider.pro</string>
+				<string>nl.desbeers.Chord-Provider.chordpro</string>
 			</array>
 		</dict>
 	</array>
@@ -60,12 +60,17 @@
 				<string>ChordPro</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>nl.desbeers.Chord-Provider.pro</string>
+			<string>nl.desbeers.Chord-Provider.chordpro</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
+					<string>crd</string>
 					<string>pro</string>
+					<string>chopro</string>
+					<string>cpm</string>
+					<string>chordpro</string>
+					<string>txt</string>
 				</array>
 				<key>public.mime-type</key>
 				<array>
@@ -82,17 +87,21 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>ChordPro files</string>
+			<string>ChordPro file</string>
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>nl.desbeers.Chord-Provider.pro</string>
+			<string>nl.desbeers.Chord-Provider.chordpro</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>pro</string>
 					<string>crd</string>
+					<string>pro</string>
+					<string>chopro</string>
+					<string>cpm</string>
+					<string>chordpro</string>
+					<string>txt</string>
 				</array>
 			</dict>
 		</dict>

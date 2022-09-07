@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 
 extension UTType {
     static let chordProDocument =
-        UTType(importedAs: "nl.desbeers.Chord-Provider.pro")
+        UTType(importedAs: "nl.desbeers.Chord-Provider.chordpro")
 }
 
 /// The ChordProDocument for Chord Provider
@@ -14,6 +14,7 @@ struct ChordProDocument: FileDocument {
     @AppStorage("refreshList") var refreshList: Bool = false
     static let newText: String = "{title: A new song}\n{subtitle: A new artist}"
     let buildSongDebouncer = Debouncer(duration: 1)
+    static let fileExtension: [String] = ["crd", "pro", "chopro", "cpm", "chordpro", "txt"]
     var text: String
 
     init(text: String = newText) {
