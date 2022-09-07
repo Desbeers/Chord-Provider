@@ -16,20 +16,27 @@ import GuitarChords
 struct ChordPro {
     
     // MARK: - Regex definitions
-    /// The regex for directives with a value, {title: lalala} for example.
+    
+    /// The regex for directives with a value, {title: lalala} for example
     static let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([[^}]]*)\\}")
-    /// The regex for directives without a value, {soc} for example.
+    /// The regex for directives without a value, {soc} for example
     static let directiveEmptyRegex = try? NSRegularExpression(pattern: "\\{(\\w*)\\}")
-    /// The regex for chord defines:
+    /// The regex for chord define
     static let defineRegex = try? NSRegularExpression(pattern: "([a-z0-9#b/]+)(.*)", options: .caseInsensitive)
-    /// The regex for a 'normal' lyrics line:
+    /// The regex for a 'normal' lyrics line
     static let lyricsRegex = try? NSRegularExpression(pattern: "(\\[[\\w#b/]+])?([^\\[]*)", options: .caseInsensitive)
-    /// The regex for a line with measures:
+    /// The regex for a line with measures
     static let measuresRegex = try? NSRegularExpression(pattern: "([\\[[\\w#b\\/]+\\]\\s]+)[|]*", options: .caseInsensitive)
-    /// The regex for a chord:
+    /// The regex for a chord
     static let chordsRegex = try? NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
     
-    // MARK: - func: parse; called to parse a whole song
+    // MARK: - func: parse
+
+    /// Parse a ChordPro file
+    /// - Parameters:
+    ///   - text: The text of the file
+    ///   - file: The `URL` of the file
+    /// - Returns: A ``Song`` item
     static func parse(text: String, file: URL?) -> Song {
         /// Start with a fresh song
         var song = Song()
@@ -52,6 +59,7 @@ struct ChordPro {
     }
     
     // MARK: - func: processDirective
+
     fileprivate static func processDirective(text: String, song: inout Song, currentSection: inout Song.Section) {
         var key: String?
         var value: String?
@@ -133,6 +141,7 @@ struct ChordPro {
     }
     
     // MARK: - func: processSection
+    
     fileprivate static func processSection(text: String, type: String, song: inout Song, currentSection: inout Song.Section) {
         if currentSection.lines.isEmpty {
             /// There is already an empty section
@@ -166,6 +175,7 @@ struct ChordPro {
     }
     
     // MARK: - func: processComments
+    
     fileprivate static func processComments(text: String, song: inout Song, currentSection: inout Song.Section) {
         var line = Song.Section.Line()
         line.comment = text.trimmingCharacters(in: .newlines)
@@ -174,6 +184,7 @@ struct ChordPro {
     }
     
     // MARK: - func: processLyrics
+    
     fileprivate static func processLyrics(text: String, song: inout Song, currentSection: inout Song.Section) {
         if text.isEmpty {
             if !currentSection.lines.isEmpty {
@@ -259,12 +270,14 @@ struct ChordPro {
     }
     
     // MARK: - func: processHtml; turn the song into HTML
+    
     private static func processHtml(song: inout Song) {
         print("Convert '" + (song.title ?? "no title") + "' into HTML")
         song.html = buildSong(song: song)
     }
     
     // MARK: - func: processChord; find key and suffix
+    
     private static func processChord(chord: String) -> (key: GuitarChords.Key, suffix: GuitarChords.Suffix) {
         
         var key: GuitarChords.Key = .c
@@ -296,5 +309,4 @@ struct ChordPro {
         }
         return (key, suffix)
     }
-    
 }
