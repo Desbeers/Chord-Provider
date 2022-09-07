@@ -10,7 +10,7 @@
 			<key>CFBundleTypeName</key>
 			<string>ChordPro file</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>nl.desbeers.Chord-Provider.pro</string>

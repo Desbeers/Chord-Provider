@@ -52,7 +52,7 @@
 		D7C773B128C87D7900336E76 /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D7C773B028C87D7900336E76 /* HighlightedTextEditor */; };
 		D7CC242628C8816400316A15 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CC242528C8816400316A15 /* Quartz.framework */; };
 		D7CC242B28C8816400316A15 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC242A28C8816400316A15 /* PreviewProvider.swift */; };
-		D7CC243328C8816400316A15 /* QLExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7CC242328C8816400316A15 /* QLExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D7CC243328C8816400316A15 /* QLExtension (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7CC242328C8816400316A15 /* QLExtension (macOS).appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D7CC243928C8866200316A15 /* ChordPro.swift in Sources */ = {isa = PBXBuildFile; fileRef = D759295C25723025006DDF24 /* ChordPro.swift */; };
 		D7CC243A28C8866E00316A15 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = D759295B25723025006DDF24 /* Song.swift */; };
 		D7CC243B28C8867100316A15 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D759295E25723025006DDF24 /* Section.swift */; };
@@ -61,8 +61,6 @@
 		D7CC243E28C8867D00316A15 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = D759295D25723025006DDF24 /* Measure.swift */; };
 		D7CC243F28C8868000316A15 /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC570D25FBAFC700AD96CA /* Chord.swift */; };
 		D7CC244028C8868600316A15 /* BuildSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D2F2578D83100B119BA /* BuildSong.swift */; };
-		D7CC244128C8875F00316A15 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929352572280B006DDF24 /* ChordProDocument.swift */; };
-		D7CC244228C8876500316A15 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D719B28C6055F00AF0022 /* Debouncer.swift */; };
 		D7CC244328C8895E00316A15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D75929372572280C006DDF24 /* Assets.xcassets */; };
 		D7CC244428C8896300316A15 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0BD25F9590D007AB36A /* Color.swift */; };
 		D7CC244628C8899A00316A15 /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = D7CC244528C8899A00316A15 /* GuitarChords */; };
@@ -91,13 +89,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D7ABE7FA28C8947200BF709C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D7CC243428C8816400316A15 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D7CC243328C8816400316A15 /* QLExtension.appex in Embed Foundation Extensions */,
+				D7CC243328C8816400316A15 /* QLExtension (macOS).appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,9 +143,10 @@
 		D7667D8B273FB7BF002E7DF9 /* Chord Provider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chord Provider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7667D8C273FCFD3002E7DF9 /* FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
 		D789832928C3A0140044BDD1 /* ChordProviderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderApp.swift; sourceTree = "<group>"; };
+		D7ABE7E928C8947200BF709C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D7BA2B302584FD5E006C272E /* FileBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserView.swift; sourceTree = "<group>"; };
-		D7CC242328C8816400316A15 /* QLExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QLExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7CC242328C8816400316A15 /* QLExtension (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLExtension (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7CC242528C8816400316A15 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		D7CC242A28C8816400316A15 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		D7CC242F28C8816400316A15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,8 +208,7 @@
 				D754B6DB25867274001AE6DD /* README.md */,
 				D7667D86273FB0EC002E7DF9 /* Chord Provider.app */,
 				D7667D8B273FB7BF002E7DF9 /* Chord Provider.app */,
-				D7CC242328C8816400316A15 /* QLExtension.appex */,
-				D7CC242728C8816400316A15 /* QLExtension */,
+				D7CC242328C8816400316A15 /* QLExtension (macOS).appex */,
 				D7CC242428C8816400316A15 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -230,6 +238,7 @@
 		D75929452572280C006DDF24 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				D7CC242728C8816400316A15 /* QLExtension */,
 				D70D71B228C76C0C00AF0022 /* Editor */,
 				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
 				D75929362572280B006DDF24 /* ContentView.swift */,
@@ -297,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				D7CC242528C8816400316A15 /* Quartz.framework */,
+				D7ABE7E928C8947200BF709C /* QuickLook.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -330,6 +340,7 @@
 				D75929392572280C006DDF24 /* Frameworks */,
 				D759293A2572280C006DDF24 /* Resources */,
 				D731FD4C2694914400558E02 /* ShellScript */,
+				D7ABE7FA28C8947200BF709C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -367,9 +378,9 @@
 			productReference = D7667D86273FB0EC002E7DF9 /* Chord Provider.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D7CC242228C8816400316A15 /* QLExtension */ = {
+		D7CC242228C8816400316A15 /* QLExtension (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D7CC243728C8816400316A15 /* Build configuration list for PBXNativeTarget "QLExtension" */;
+			buildConfigurationList = D7CC243728C8816400316A15 /* Build configuration list for PBXNativeTarget "QLExtension (macOS)" */;
 			buildPhases = (
 				D7CC241F28C8816400316A15 /* Sources */,
 				D7CC242028C8816400316A15 /* Frameworks */,
@@ -379,12 +390,12 @@
 			);
 			dependencies = (
 			);
-			name = QLExtension;
+			name = "QLExtension (macOS)";
 			packageProductDependencies = (
 				D7CC244528C8899A00316A15 /* GuitarChords */,
 			);
 			productName = QLExtension;
-			productReference = D7CC242328C8816400316A15 /* QLExtension.appex */;
+			productReference = D7CC242328C8816400316A15 /* QLExtension (macOS).appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -424,9 +435,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D759293B2572280C006DDF24 /* Chord Provider (iOS) */,
 				D75929432572280C006DDF24 /* Chord Provider (macOS) */,
-				D7CC242228C8816400316A15 /* QLExtension */,
+				D759293B2572280C006DDF24 /* Chord Provider (iOS) */,
+				D7CC242228C8816400316A15 /* QLExtension (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -572,8 +583,6 @@
 				D7CC244028C8868600316A15 /* BuildSong.swift in Sources */,
 				D7CC244428C8896300316A15 /* Color.swift in Sources */,
 				D7CC243D28C8867800316A15 /* Part.swift in Sources */,
-				D7CC244228C8876500316A15 /* Debouncer.swift in Sources */,
-				D7CC244128C8875F00316A15 /* ChordProDocument.swift in Sources */,
 				D7CC243928C8866200316A15 /* ChordPro.swift in Sources */,
 				D7CC243C28C8867500316A15 /* Line.swift in Sources */,
 				D7CC243F28C8868000316A15 /* Chord.swift in Sources */,
@@ -586,7 +595,7 @@
 /* Begin PBXTargetDependency section */
 		D7CC243228C8816400316A15 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D7CC242228C8816400316A15 /* QLExtension */;
+			target = D7CC242228C8816400316A15 /* QLExtension (macOS) */;
 			targetProxy = D7CC243128C8816400316A15 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -708,6 +717,7 @@
 		D75929532572280C006DDF24 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -726,6 +736,9 @@
 				PRODUCT_NAME = "Chord Provider";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -734,6 +747,7 @@
 		D75929542572280C006DDF24 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -752,6 +766,9 @@
 				PRODUCT_NAME = "Chord Provider";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -820,14 +837,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = QLExtension/QLExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = QLExtension/Info.plist;
+				INFOPLIST_FILE = "Chord Provider/macOS/QLExtension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = QLExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -850,14 +867,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = QLExtension/QLExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = QLExtension/Info.plist;
+				INFOPLIST_FILE = "Chord Provider/macOS/QLExtension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = QLExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -906,7 +923,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D7CC243728C8816400316A15 /* Build configuration list for PBXNativeTarget "QLExtension" */ = {
+		D7CC243728C8816400316A15 /* Build configuration list for PBXNativeTarget "QLExtension (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D7CC243528C8816400316A15 /* Debug */,
