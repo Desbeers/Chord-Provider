@@ -21,6 +21,10 @@
 
 /* General stuff */
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 body {
     font: -apple-system-body;
     font-size: 1em;

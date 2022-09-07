@@ -160,8 +160,7 @@ struct ChordPro {
                 value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
-        let process = processChord(chord: key)
-        if let index = song.chords.firstIndex(where: { $0.name == process.key.rawValue }) {
+        if let index = song.chords.firstIndex(where: { $0.name == key }) {
             song.chords[index].define = value
         }
     }

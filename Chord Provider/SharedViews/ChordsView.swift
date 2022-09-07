@@ -26,14 +26,22 @@ struct ChordsView: View {
                         Text(chord.name).foregroundColor(.accentColor).font(.title2)
                         if let chordPosition = ChordsView.chordsDatabase.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
                             let layer = chordPosition.first?.layer(rect: frame, showFingers: true, showChordName: false, forScreen: true)
-                            let image = layer?.image()
-                            #if os(macOS)
-                            Image(nsImage: (image ?? NSImage(named: "AppIcon"))!)
-                                .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
-                            #endif
-                            #if os(iOS)
-                            Image(uiImage: (image ?? UIImage(named: "AppIcon"))!)
-                            #endif
+                            if let image = layer?.image() {
+#if os(macOS)
+                                Image(nsImage: image)
+                                    .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
+#endif
+#if os(iOS)
+                                Image(uiImage: image)
+#endif
+                            } else {
+                                VStack {
+                                    Image(systemName: "music.note")
+                                    Text("Unknown chord")
+                                }
+                                .frame(width: 100, alignment: .center)
+                                .padding(.vertical)
+                            }
                         }
                     }
                     .onTapGesture {
