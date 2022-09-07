@@ -33,6 +33,4 @@ Stole code (and ideas) from:
 
 The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
 
-The macOS editor is my fork of [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
-
-> I use a custom font for the editor because my poor eyes are too old :-)
+The macOS editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)

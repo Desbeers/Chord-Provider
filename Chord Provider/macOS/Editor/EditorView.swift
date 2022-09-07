@@ -24,6 +24,9 @@ struct EditorView: View {
         ]),
         HighlightRule(pattern: ChordPro.directiveEmptyRegex!, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: NSColor.controlAccentColor)
+        ]),
+        HighlightRule(pattern: NSRegularExpression.all, formattingRules: [
+            TextFormattingRule(key: .font, value: NSFont(name: "Andale Mono", size: 16)!)
         ])
     ]
     /// The View
