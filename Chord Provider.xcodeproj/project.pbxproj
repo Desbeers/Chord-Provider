@@ -97,7 +97,6 @@
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D7BA2B302584FD5E006C272E /* FileBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserView.swift; sourceTree = "<group>"; };
 		D7CC570D25FBAFC700AD96CA /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
-		D7E080CE28C78610003A64A7 /* HighlightedTextEditor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HighlightedTextEditor; path = ../HighlightedTextEditor; sourceTree = "<group>"; };
 		D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		D7F68D292578BC8500B119BA /* HtmlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		D7F68D2F2578D83100B119BA /* BuildSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildSong.swift; sourceTree = "<group>"; };
@@ -140,7 +139,6 @@
 		D759292E2572280B006DDF24 = {
 			isa = PBXGroup;
 			children = (
-				D7E080CE28C78610003A64A7 /* HighlightedTextEditor */,
 				D7667D85273FAFB9002E7DF9 /* Chord Provider */,
 				D731FD4E2694938B00558E02 /* .swiftlint.yml */,
 				D754B6DB25867274001AE6DD /* README.md */,

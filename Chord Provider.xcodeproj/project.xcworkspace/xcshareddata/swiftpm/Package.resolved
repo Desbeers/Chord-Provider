@@ -1,16 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "GuitarChords",
-        "repositoryURL": "https://github.com/BeauNouvelle/SwiftyGuitarChords",
-        "state": {
-          "branch": "main",
-          "revision": "00a6af3e27c395e70b9fa7380d64ef35c8077334",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "highlightedtexteditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/HighlightedTextEditor",
+      "state" : {
+        "branch" : "main",
+        "revision" : "080e4883a8b5131fc5944ed78db8ab2b894327e9"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swiftyguitarchords",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords",
+      "state" : {
+        "branch" : "main",
+        "revision" : "00a6af3e27c395e70b9fa7380d64ef35c8077334"
+      }
+    }
+  ],
+  "version" : 2
 }
