@@ -30,15 +30,15 @@ struct ChordPro {
     static let chordsRegex = try? NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
     
     // MARK: - func: parse; called to parse a whole song
-    static func parse(document: ChordProDocument, file: URL?) async -> Song {
+    static func parse(text: String, file: URL?) -> Song {
         /// Start with a fresh song
         var song = Song()
         /// Add the path
         song.path = file
         /// And add the first section
         var currentSection = Song.Section()
-        /// Parse each line of the document:
-        for text in document.text.components(separatedBy: "\n") {
+        /// Parse each line of the text:
+        for text in text.components(separatedBy: "\n") {
             if (text.starts(with: "{")) {
                 processDirective(text: text, song: &song, currentSection: &currentSection)
             } else {
