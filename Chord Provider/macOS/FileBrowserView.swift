@@ -33,7 +33,7 @@ struct FileBrowserView: View {
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
         .labelStyle(BrowserLabelStyle())
-        .buttonStyle(BrowserButtonStyle())
+        .buttonStyle(.plain)
         /// - Note: Below is needed or else the serach filed will be hidden behind the toolbar
         .padding(.top, 1)
         .frame(width: 320)
@@ -73,28 +73,39 @@ extension FileBrowserView {
         
         @Environment(\.openDocument) private var openDocument
         
+        var window: FileBrowser.WindowItem? {
+            fileBrowser.openWindows.first(where: {$0.songURL == song.path})
+        }
+        
         var body: some View {
-            let rowImage = (song.musicpath.isEmpty ? "music.note" : "music.note.list")
             Button(
                 action: {
-                    Task {
-                        do {
-                            if var persistentURL = FileBrowser.getPersistentFileURL("pathSongs") {
-                                _ = persistentURL.startAccessingSecurityScopedResource()
-                                persistentURL = song.path
-                                try await openDocument(at: song.path)
-                                persistentURL.stopAccessingSecurityScopedResource()
+                    /// openDocument is very buggy; don't try to open a document when it is already open
+                    if let window = window {
+                        print("The window is already open")
+                        NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
+                    } else {
+                        Task {
+                            do {
+                                if var persistentURL = FileBrowser.getPersistentFileURL("pathSongs") {
+                                    _ = persistentURL.startAccessingSecurityScopedResource()
+                                    persistentURL = song.path
+                                    try await openDocument(at: song.path)
+                                    persistentURL.stopAccessingSecurityScopedResource()
+                                }
+                            } catch {
+                                print(error)
                             }
-                        } catch {
-                            print(error)
                         }
                     }
                 },
                 label: {
-                    Label(song.title, systemImage: rowImage)            }
+                    Label(song.title, systemImage: song.musicpath.isEmpty ? "music.note" : "music.note.list")            }
             )
-            /// openDocument is very buggy; don't try to open a document when it is already open
-            .disabled(fileBrowser.openFiles.contains(song.path))
+            .background(alignment: .trailing, content: {
+                Image(systemName: "macwindow")
+                    .opacity(window == nil ? 0 : 1)
+            })
         }
     }
     
@@ -109,30 +120,30 @@ extension FileBrowserView {
         }
     }
     
-    /// Button style for a browser item
-    struct BrowserButtonStyle: ButtonStyle {
-        /// The style
-        func makeBody(configuration: Self.Configuration) -> some View {
-            BrowserButtonStyleView(configuration: configuration)
-        }
-    }
-    
-    /// The view for the button style
-    struct BrowserButtonStyleView: View {
-        /// Tracks if the button is enabled or not
-        @Environment(\.isEnabled) var isEnabled
-        /// Tracks the pressed state
-        let configuration: BrowserButtonStyle.Configuration
-        /// The view
-        var body: some View {
-            return configuration.label
-                .opacity(isEnabled ? 1 : 0.6)
-                .brightness(configuration.isPressed ? 0.2 : 0)
-                .background(alignment: .trailing, content: {
-                    Image(systemName: "macwindow")
-                        .opacity(isEnabled ? 0 : 1)
-                })
-                .cornerRadius(6)
-        }
-    }
+//    /// Button style for a browser item
+//    struct BrowserButtonStyle: ButtonStyle {
+//        /// The style
+//        func makeBody(configuration: Self.Configuration) -> some View {
+//            BrowserButtonStyleView(configuration: configuration)
+//        }
+//    }
+//
+//    /// The view for the button style
+//    struct BrowserButtonStyleView: View {
+//        /// Tracks if the button is enabled or not
+//        @Environment(\.isEnabled) var isEnabled
+//        /// Tracks the pressed state
+//        let configuration: BrowserButtonStyle.Configuration
+//        /// The view
+//        var body: some View {
+//            return configuration.label
+//                .opacity(isEnabled ? 1 : 0.6)
+//                .brightness(configuration.isPressed ? 0.2 : 0)
+//                .background(alignment: .trailing, content: {
+//                    Image(systemName: "macwindow")
+//                        .opacity(isEnabled ? 0 : 1)
+//                })
+//                .cornerRadius(6)
+//        }
+//    }
 }

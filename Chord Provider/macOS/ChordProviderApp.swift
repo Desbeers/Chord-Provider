@@ -31,6 +31,12 @@ import SwiftUI
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
                 .environmentObject(fileBrowser)
+                .withHostingWindow({ window in
+                    if let window = window?.windowController?.window {
+                        fileBrowser.openWindows.append(FileBrowser.WindowItem(windowID: window.windowNumber, songURL: file.fileURL))
+                    }
+                })
+            
         }
         .defaultPosition(.center)
         .defaultSize(width: 800, height: 800)
@@ -58,8 +64,6 @@ extension View {
 
 /// Find the NSWindow of the scene
 private struct HostingWindowFinder: NSViewRepresentable {
-    typealias NSViewType = NSView
-    
     var callback: (NSWindow?) -> Void
     
     func makeNSView(context: Context) -> NSView {
@@ -71,4 +75,7 @@ private struct HostingWindowFinder: NSViewRepresentable {
     }
     
     func updateNSView(_ nsView: NSView, context: Context) { }
+}
+
+class WindowDelegate: NSObject, NSWindowDelegate {
 }

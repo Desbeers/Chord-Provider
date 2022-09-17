@@ -16,7 +16,7 @@ class FileBrowser: ObservableObject {
     /// The list of artists
     @Published var artistList: [ArtistItem] = []
     /// The list of open windows
-    @Published var openFiles: [URL] = []
+    @Published var openWindows: [WindowItem] = []
 }
 
 extension FileBrowser {
@@ -40,6 +40,12 @@ extension FileBrowser {
         let id = UUID()
         let name: String
         let songs: [SongItem]
+    }
+    
+    /// The struct for an open window
+    struct WindowItem {
+        let windowID: Int
+        let songURL: URL?
     }
     
     /// Get the song files from the user selected folder

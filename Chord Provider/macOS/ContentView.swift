@@ -32,16 +32,11 @@ struct ContentView: View {
             }
         }
         .background(Color(nsColor: .textBackgroundColor))
-        .task {
-            if let file = file {
-                fileBrowser.openFiles.append(file)
-            }
-        }
         .onDisappear {
             Task { @MainActor in
-                if let index = fileBrowser.openFiles.firstIndex(where: {$0 == file}) {
+                if let index = fileBrowser.openWindows.firstIndex(where: {$0.songURL == file}) {
                     /// Mark window as closed
-                    fileBrowser.openFiles.remove(at: index)
+                    fileBrowser.openWindows.remove(at: index)
                 }
             }
         }
