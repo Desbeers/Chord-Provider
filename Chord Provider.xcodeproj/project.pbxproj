@@ -49,6 +49,7 @@
 		D7B701002577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7BA2B312584FD5E006C272E /* FileBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA2B302584FD5E006C272E /* FileBrowserView.swift */; };
+		D7C670D028D72ED000D5EBDE /* WindowManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */; };
 		D7C773B128C87D7900336E76 /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D7C773B028C87D7900336E76 /* HighlightedTextEditor */; };
 		D7CC242628C8816400316A15 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CC242528C8816400316A15 /* Quartz.framework */; };
 		D7CC242B28C8816400316A15 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC242A28C8816400316A15 /* PreviewProvider.swift */; };
@@ -144,6 +145,7 @@
 		D7ABE7E928C8947200BF709C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D7BA2B302584FD5E006C272E /* FileBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserView.swift; sourceTree = "<group>"; };
+		D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManagement.swift; sourceTree = "<group>"; };
 		D7CC242328C8816400316A15 /* QLExtension (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLExtension (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7CC242528C8816400316A15 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		D7CC242A28C8816400316A15 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 				D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */,
 				D7BA2B302584FD5E006C272E /* FileBrowserView.swift */,
 				D7667D8C273FCFD3002E7DF9 /* FileBrowser.swift */,
+				D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */,
 				D71DE9FE258A6E88007B513D /* Credits.rtf */,
 				D75929462572280C006DDF24 /* Info.plist */,
 				D75929472572280C006DDF24 /* macOS.entitlements */,
@@ -561,6 +564,7 @@
 				D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */,
 				D759296C25723025006DDF24 /* Line.swift in Sources */,
 				D7F68D312578D83100B119BA /* BuildSong.swift in Sources */,
+				D7C670D028D72ED000D5EBDE /* WindowManagement.swift in Sources */,
 				D7F68D362578DA8400B119BA /* EditorView.swift in Sources */,
 				D759294B2572280C006DDF24 /* ChordProDocument.swift in Sources */,
 				D759294D2572280C006DDF24 /* ContentView.swift in Sources */,

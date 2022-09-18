@@ -17,6 +17,9 @@ class FileBrowser: ObservableObject {
     @Published var artistList: [ArtistItem] = []
     /// The list of open windows
     @Published var openWindows: [WindowItem] = []
+    /// The MenuBarExtra window
+    /// - Note: Needed to close the MenuBarExtra when selecting a song
+    var menuBarExtraWindow: NSWindow?
 }
 
 extension FileBrowser {

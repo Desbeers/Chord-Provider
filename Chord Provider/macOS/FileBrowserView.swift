@@ -67,26 +67,27 @@ extension FileBrowserView {
     
     /// A row in the browser list
     struct Row: View {
+        /// The song item
         let song: FileBrowser.SongItem
-        
+        /// The ``FileBrowser`` model
         @EnvironmentObject var fileBrowser: FileBrowser
-        
+        /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
-        
+        /// Information about the `NSWindow`
         var window: FileBrowser.WindowItem? {
             fileBrowser.openWindows.first(where: {$0.songURL == song.path})
         }
-        
+        /// The View
         var body: some View {
             Button(
                 action: {
                     /// openDocument is very buggy; don't try to open a document when it is already open
                     if let window = window {
-                        print("The window is already open")
                         NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
                     } else {
                         Task {
                             do {
+                                /// Sandbox stuff
                                 if var persistentURL = FileBrowser.getPersistentFileURL("pathSongs") {
                                     _ = persistentURL.startAccessingSecurityScopedResource()
                                     persistentURL = song.path
@@ -98,14 +99,17 @@ extension FileBrowserView {
                             }
                         }
                     }
+                    /// If the browser is shown in a MenuBarExtra, close it
+                    fileBrowser.menuBarExtraWindow?.close()
                 },
                 label: {
                     Label(song.title, systemImage: song.musicpath.isEmpty ? "music.note" : "music.note.list")            }
             )
-            .background(alignment: .trailing, content: {
+            /// Show an image when the song is open
+            .background(alignment: .trailing) {
                 Image(systemName: "macwindow")
                     .opacity(window == nil ? 0 : 1)
-            })
+            }
         }
     }
     
@@ -119,31 +123,4 @@ extension FileBrowserView {
             }
         }
     }
-    
-//    /// Button style for a browser item
-//    struct BrowserButtonStyle: ButtonStyle {
-//        /// The style
-//        func makeBody(configuration: Self.Configuration) -> some View {
-//            BrowserButtonStyleView(configuration: configuration)
-//        }
-//    }
-//
-//    /// The view for the button style
-//    struct BrowserButtonStyleView: View {
-//        /// Tracks if the button is enabled or not
-//        @Environment(\.isEnabled) var isEnabled
-//        /// Tracks the pressed state
-//        let configuration: BrowserButtonStyle.Configuration
-//        /// The view
-//        var body: some View {
-//            return configuration.label
-//                .opacity(isEnabled ? 1 : 0.6)
-//                .brightness(configuration.isPressed ? 0.2 : 0)
-//                .background(alignment: .trailing, content: {
-//                    Image(systemName: "macwindow")
-//                        .opacity(isEnabled ? 0 : 1)
-//                })
-//                .cornerRadius(6)
-//        }
-//    }
 }
