@@ -30,33 +30,7 @@ struct HeaderView: View {
             .padding(4)
         #endif
         #if os(iOS)
-        HStack(alignment: .center) {
-            Button(action: {
-                goBack()
-            }, label: {
-                Image(systemName: "chevron.backward")
-            })
-            Spacer()
-            General(song: song)
-            Details(song: song)
-            Spacer()
-            Button {
-                withAnimation {
-                    showChords.toggle()
-                }
-            } label: {
-                Image(systemName: showChords ? "number.square.fill" : "number.square")
-            }
-            Button {
-                withAnimation {
-                    showEditor.toggle()
-                }
-            } label: {
-                Image(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
-            }
-        }
-        .font(.title)
-        .padding()
+        Text("Not in use")
         #endif
     }
 }
