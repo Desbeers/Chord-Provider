@@ -36,6 +36,7 @@ import SwiftUI
                         fileBrowser.openWindows.append(FileBrowser.WindowItem(windowID: window.windowNumber, songURL: file.fileURL))                        
                         let padding = CGFloat(fileBrowser.openWindows.count * 40)
                         window.setPosition(vertical: .top, horizontal: .center, padding: padding)
+                        window.orderFrontRegardless()
                     }
                 }
         }

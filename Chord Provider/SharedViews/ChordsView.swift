@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
-import GuitarChords
+import SwiftyChords
 
 /// The View with chord diagrams
 struct ChordsView: View {
     let song: Song
     let frame = CGRect(x: 0, y: 0, width: 100, height: 150)
     /// Get all chord diagrams
-    static let chordsDatabase = GuitarChords.all
+    static let chordsDatabase = SwiftyChords.Chords.guitar
     /// Sheet with chords
     @State var showChordSheet = false
     @State var selectedChord: Song.Chord?
@@ -25,11 +25,10 @@ struct ChordsView: View {
                     Group {
                         Text(chord.name).foregroundColor(.accentColor).font(.title2)
                         if let chordPosition = ChordsView.chordsDatabase.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
-                            let layer = chordPosition.first?.layer(rect: frame, showFingers: true, showChordName: false, forScreen: true)
+                            let layer = chordPosition.first?.shapeLayer(rect: frame, showFingers: true, showChordName: false)
                             if let image = layer?.image() {
 #if os(macOS)
                                 Image(nsImage: image)
-                                    .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
 #endif
 #if os(iOS)
                                 Image(uiImage: image)
@@ -65,7 +64,7 @@ extension ChordsView {
         @Environment(\.presentationMode) var presentationMode
         @Binding var chord: Song.Chord?
         var body: some View {
-            let chordPosition = GuitarChords.all.matching(key: chord!.key).matching(suffix: chord!.suffix)
+            let chordPosition = SwiftyChords.Chords.guitar.matching(key: chord!.key).matching(suffix: chord!.suffix)
             VStack {
                 Text("Chord: \(chord!.key.rawValue)\(chord!.suffix.rawValue)")
                     .font(.title)
@@ -78,11 +77,10 @@ extension ChordsView {
                     ) {
                         ForEach(chordPosition) { chord in
                             let frame = CGRect(x: 0, y: 0, width: 120, height: 180) // I find these sizes to be good.
-                            let layer = chord.layer(rect: frame, showFingers: true, showChordName: false, forScreen: true)
+                            let layer = chord.shapeLayer(rect: frame, showFingers: true, showChordName: false)
                             let image = layer.image() // might be exepensive. Use CALayer when possible.
 #if os(macOS)
                             Image(nsImage: image!)
-                                .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
 #endif
 #if os(iOS)
                             Image(uiImage: image!)

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GuitarChords
+import SwiftyChords
 
 /// The chordpro format parser
 /// 
@@ -278,10 +278,10 @@ struct ChordPro {
     
     // MARK: - func: processChord; find key and suffix
     
-    private static func processChord(chord: String) -> (key: GuitarChords.Key, suffix: GuitarChords.Suffix) {
+    private static func processChord(chord: String) -> (key: SwiftyChords.Chords.Key, suffix: SwiftyChords.Chords.Suffix) {
         
-        var key: GuitarChords.Key = .c
-        var suffix: GuitarChords.Suffix = .major
+        var key: SwiftyChords.Chords.Key = .c
+        var suffix: SwiftyChords.Chords.Suffix = .major
 
         let chordRegex = try? NSRegularExpression(pattern: "([CDEFGABb#]+)(.*)")
         if let match = chordRegex?.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
@@ -291,7 +291,7 @@ struct ChordPro {
                 if valueKey == "G#" {
                     valueKey = "Ab"
                 }
-                key = GuitarChords.Key(rawValue: valueKey) ?? GuitarChords.Key.c
+                key = SwiftyChords.Chords.Key(rawValue: valueKey) ?? SwiftyChords.Chords.Key.c
             }
             if let valueRange = Range(match.range(at: 2), in: chord) {
                 /// ChordPro suffix are not always the suffixes in the database...
@@ -302,9 +302,9 @@ struct ChordPro {
                 default:
                     suffixString = String(chord[valueRange])
                 }
-                suffix = GuitarChords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? GuitarChords.Suffix.major
+                suffix = SwiftyChords.Chords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? SwiftyChords.Chords.Suffix.major
             } else {
-                suffix = GuitarChords.Suffix.major
+                suffix = SwiftyChords.Chords.Suffix.major
             }
         }
         return (key, suffix)

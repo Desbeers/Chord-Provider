@@ -19,6 +19,8 @@
 			<array>
 				<string>nl.desbeers.Chord-Provider.chordpro</string>
 			</array>
+			<key>NSDocumentClass</key>
+			<string>NSDocument</string>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -38,7 +40,7 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>4.0</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSMinimumSystemVersion</key>
@@ -89,7 +91,10 @@
 			<key>UTTypeDescription</key>
 			<string>ChordPro file</string>
 			<key>UTTypeIcons</key>
-			<dict/>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>ChordPro</string>
+			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>nl.desbeers.Chord-Provider.chordpro</string>
 			<key>UTTypeTagSpecification</key>
@@ -102,6 +107,10 @@
 					<string>cpm</string>
 					<string>chordpro</string>
 					<string>txt</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text-plain</string>
 				</array>
 			</dict>
 		</dict>

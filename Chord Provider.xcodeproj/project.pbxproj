@@ -20,10 +20,8 @@
 		D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D71DE9FE258A6E88007B513D /* Credits.rtf */; };
 		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
 		D734A0B125F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
-		D734A0B625F932BD007AB36A /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = D734A0B525F932BD007AB36A /* GuitarChords */; };
 		D734A0BE25F9590D007AB36A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0BD25F9590D007AB36A /* Color.swift */; };
 		D734A0BF25F9590D007AB36A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0BD25F9590D007AB36A /* Color.swift */; };
-		D734A0C825FA3E7D007AB36A /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = D734A0C725FA3E7D007AB36A /* GuitarChords */; };
 		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
 		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D759294A2572280C006DDF24 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929352572280B006DDF24 /* ChordProDocument.swift */; };
@@ -64,10 +62,12 @@
 		D7CC244028C8868600316A15 /* BuildSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D2F2578D83100B119BA /* BuildSong.swift */; };
 		D7CC244328C8895E00316A15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D75929372572280C006DDF24 /* Assets.xcassets */; };
 		D7CC244428C8896300316A15 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0BD25F9590D007AB36A /* Color.swift */; };
-		D7CC244628C8899A00316A15 /* GuitarChords in Frameworks */ = {isa = PBXBuildFile; productRef = D7CC244528C8899A00316A15 /* GuitarChords */; };
 		D7CC244728C889CB00316A15 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = D7F68D3E2579197100B119BA /* style.css */; };
 		D7CC570E25FBAFC700AD96CA /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC570D25FBAFC700AD96CA /* Chord.swift */; };
 		D7CC570F25FBAFC700AD96CA /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC570D25FBAFC700AD96CA /* Chord.swift */; };
+		D7D6440C28EECE0800A03407 /* SwiftyChords in Frameworks */ = {isa = PBXBuildFile; productRef = D7D6440B28EECE0800A03407 /* SwiftyChords */; };
+		D7D6440E28EECE1100A03407 /* SwiftyChords in Frameworks */ = {isa = PBXBuildFile; productRef = D7D6440D28EECE1100A03407 /* SwiftyChords */; };
+		D7D6441028EECE1900A03407 /* SwiftyChords in Frameworks */ = {isa = PBXBuildFile; productRef = D7D6440F28EECE1900A03407 /* SwiftyChords */; };
 		D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */; };
 		D7F68D2A2578BC8500B119BA /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D292578BC8500B119BA /* HtmlView.swift */; };
 		D7F68D302578D83100B119BA /* BuildSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D2F2578D83100B119BA /* BuildSong.swift */; };
@@ -164,7 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D734A0C825FA3E7D007AB36A /* GuitarChords in Frameworks */,
+				D7D6441028EECE1900A03407 /* SwiftyChords in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,7 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7C773B128C87D7900336E76 /* HighlightedTextEditor in Frameworks */,
-				D734A0B625F932BD007AB36A /* GuitarChords in Frameworks */,
+				D7D6440C28EECE0800A03407 /* SwiftyChords in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7CC242628C8816400316A15 /* Quartz.framework in Frameworks */,
-				D7CC244628C8899A00316A15 /* GuitarChords in Frameworks */,
+				D7D6440E28EECE1100A03407 /* SwiftyChords in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,7 +347,7 @@
 			);
 			name = "Chord Provider (iOS)";
 			packageProductDependencies = (
-				D734A0C725FA3E7D007AB36A /* GuitarChords */,
+				D7D6440F28EECE1900A03407 /* SwiftyChords */,
 			);
 			productName = "Make chords (iOS)";
 			productReference = D7667D8B273FB7BF002E7DF9 /* Chord Provider.app */;
@@ -370,8 +370,8 @@
 			);
 			name = "Chord Provider (macOS)";
 			packageProductDependencies = (
-				D734A0B525F932BD007AB36A /* GuitarChords */,
 				D7C773B028C87D7900336E76 /* HighlightedTextEditor */,
+				D7D6440B28EECE0800A03407 /* SwiftyChords */,
 			);
 			productName = "Make chords (macOS)";
 			productReference = D7667D86273FB0EC002E7DF9 /* Chord Provider.app */;
@@ -391,7 +391,7 @@
 			);
 			name = "QLExtension (macOS)";
 			packageProductDependencies = (
-				D7CC244528C8899A00316A15 /* GuitarChords */,
+				D7D6440D28EECE1100A03407 /* SwiftyChords */,
 			);
 			productName = QLExtension;
 			productReference = D7CC242328C8816400316A15 /* QLExtension (macOS).appex */;
@@ -795,6 +795,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.macos";
 				PRODUCT_NAME = "Chord Provider";
 				SDKROOT = macosx;
@@ -824,6 +825,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.macos";
 				PRODUCT_NAME = "Chord Provider";
 				SDKROOT = macosx;
@@ -838,7 +840,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "github: main";
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -851,7 +853,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.macos.QLExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -868,7 +870,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = "github: main";
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -881,7 +883,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.macos.QLExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -952,25 +954,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D734A0B525F932BD007AB36A /* GuitarChords */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
-			productName = GuitarChords;
-		};
-		D734A0C725FA3E7D007AB36A /* GuitarChords */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
-			productName = GuitarChords;
-		};
 		D7C773B028C87D7900336E76 /* HighlightedTextEditor */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D7C773AF28C87D7900336E76 /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */;
 			productName = HighlightedTextEditor;
 		};
-		D7CC244528C8899A00316A15 /* GuitarChords */ = {
+		D7D6440B28EECE0800A03407 /* SwiftyChords */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
-			productName = GuitarChords;
+			productName = SwiftyChords;
+		};
+		D7D6440D28EECE1100A03407 /* SwiftyChords */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
+			productName = SwiftyChords;
+		};
+		D7D6440F28EECE1900A03407 /* SwiftyChords */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D734A0B425F932BD007AB36A /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
+			productName = SwiftyChords;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
