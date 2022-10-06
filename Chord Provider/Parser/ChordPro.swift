@@ -231,24 +231,26 @@ struct ChordPro {
                 
                 for match in matches {
                     var part = Song.Section.Line.Part()
-                    
+
                     if let keyRange = Range(match.range(at: 1), in: text) {
-                        part.chord = text[keyRange]
+                        let chord = text[keyRange]
                             .trimmingCharacters(in: .newlines)
                             .replacingOccurrences(of: "[", with: "")
                             .replacingOccurrences(of: "]", with: "")
-                        if currentSection.type == nil {
-                            currentSection.type = "verse"
+                        let process = processChord(chord: chord)
+                        
+                        if (song.chords.first(where: { $0.display == process.display }) == nil) {
+                            song.chords.append(process)
                         }
+                        part.chord = process.display
+
                         /// Use the first chord as key for the song if not set.
                         if song.key == nil {
                             song.key = part.chord
                         }
-                        /// Save in the chord list
-                        if !song.chords.contains(where: { $0.name == part.chord! }) {
-                            let process = processChord(chord: part.chord!)
-                            let chord = Song.Chord(name: part.chord!, key: process.key, suffix: process.suffix, define: "")
-                            song.chords.append(chord)
+                        
+                        if currentSection.type == nil {
+                            currentSection.type = "verse"
                         }
                     } else {
                         part.chord = ""
@@ -278,7 +280,7 @@ struct ChordPro {
     
     // MARK: - func: processChord; find key and suffix
     
-    private static func processChord(chord: String) -> (key: SwiftyChords.Chords.Key, suffix: SwiftyChords.Chords.Suffix) {
+    private static func processChord(chord: String) -> Song.Chord {
         
         var key: SwiftyChords.Chords.Key = .c
         var suffix: SwiftyChords.Chords.Suffix = .major
@@ -307,6 +309,6 @@ struct ChordPro {
                 suffix = SwiftyChords.Chords.Suffix.major
             }
         }
-        return (key, suffix)
+        return Song.Chord(name: chord, key: key, suffix: suffix, define: "")
     }
 }

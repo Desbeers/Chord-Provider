@@ -23,7 +23,7 @@ struct ChordsView: View {
             VStack {
                 ForEach(song.chords.sorted { $0.name < $1.name }) { chord in
                     Group {
-                        Text(chord.name).foregroundColor(.accentColor).font(.title2)
+                        Text("\(chord.display)").foregroundColor(.accentColor).font(.title2)
                         if let chordPosition = ChordsView.chordsDatabase.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
                             let layer = chordPosition.first?.shapeLayer(rect: frame, showFingers: true, showChordName: false)
                             if let image = layer?.image() {
@@ -66,7 +66,7 @@ extension ChordsView {
         var body: some View {
             let chordPosition = SwiftyChords.Chords.guitar.matching(key: chord!.key).matching(suffix: chord!.suffix)
             VStack {
-                Text("Chord: \(chord!.key.rawValue)\(chord!.suffix.rawValue)")
+                Text("Chord: \(chord!.display)")
                     .font(.title)
                 ScrollView {
                     LazyVGrid(
