@@ -12,8 +12,6 @@ import SwiftyChords
 struct ChordsView: View {
     let song: Song
     let frame = CGRect(x: 0, y: 0, width: 100, height: 150)
-    /// Get all chord diagrams
-    static let chordsDatabase = SwiftyChords.Chords.guitar
     /// Sheet with chords
     @State var showChordSheet = false
     @State var selectedChord: Song.Chord?
@@ -24,7 +22,7 @@ struct ChordsView: View {
                 ForEach(song.chords.sorted { $0.name < $1.name }) { chord in
                     Group {
                         Text("\(chord.display)").foregroundColor(.accentColor).font(.title2)
-                        if let chordPosition = ChordsView.chordsDatabase.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
+                        if let chordPosition = Chords.guitar.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
                             let layer = chordPosition.first?.shapeLayer(rect: frame, showFingers: true, showChordName: false)
                             if let image = layer?.image() {
 #if os(macOS)
@@ -76,9 +74,9 @@ extension ChordsView {
                         pinnedViews: [.sectionHeaders, .sectionFooters]
                     ) {
                         ForEach(chordPosition) { chord in
-                            let frame = CGRect(x: 0, y: 0, width: 120, height: 180) // I find these sizes to be good.
+                            let frame = CGRect(x: 0, y: 0, width: 120, height: 180)
                             let layer = chord.shapeLayer(rect: frame, showFingers: true, showChordName: false)
-                            let image = layer.image() // might be exepensive. Use CALayer when possible.
+                            let image = layer.image()
 #if os(macOS)
                             Image(nsImage: image!)
 #endif

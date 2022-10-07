@@ -9,12 +9,8 @@ import SwiftUI
 import SwiftyChords
 
 /// The chordpro format parser
-/// 
-/// Very modified version of the "songpro-swift" parser:
-///
-/// [https://github.com/SongProOrg/songpro-swift](https://github.com/SongProOrg/songpro-swift)
 struct ChordPro {
-    
+
     // MARK: - Regex definitions
     
     /// The regex for directives with a value, {title: lalala} for example
@@ -31,7 +27,7 @@ struct ChordPro {
     static let chordsRegex = try? NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
     
     // MARK: - func: parse
-
+    
     /// Parse a ChordPro file
     /// - Parameters:
     ///   - text: The text of the file
@@ -46,10 +42,28 @@ struct ChordPro {
         var currentSection = Song.Section()
         /// Parse each line of the text:
         for text in text.components(separatedBy: "\n") {
-            if (text.starts(with: "{")) {
+            switch text.prefix(1) {
+            case "{":
+                /// Directive
                 processDirective(text: text, song: &song, currentSection: &currentSection)
-            } else {
-                processLyrics(text: text, song: &song, currentSection: &currentSection)
+            case "|":
+                /// Tab or Grid
+                if text.starts(with: "|-") || currentSection.type == "tab" {
+                    /// Tab
+                    processTab(text: text, song: &song, currentSection: &currentSection)
+                } else {
+                    /// Grid
+                    processGrid(text: text, song: &song, currentSection: &currentSection)
+                }
+            case "":
+                /// Empty line; close the section of not empty
+                if !currentSection.lines.isEmpty {
+                    song.sections.append(currentSection)
+                    currentSection = Song.Section()
+                }
+            default:
+                /// Anything else
+                processLine(text: text, song: &song, currentSection: &currentSection)
             }
         }
         /// Turn the song into a HTML page
@@ -81,7 +95,7 @@ struct ChordPro {
             case "time":
                 song.time = value!
             case "c", "comment":
-                processComments(text: value!, song: &song, currentSection: &currentSection)
+                processComment(text: value!, song: &song, currentSection: &currentSection)
             case "soc":
                 processSection(text: value!, type: "chorus", song: &song, currentSection: &currentSection)
             case "sot":
@@ -174,97 +188,91 @@ struct ChordPro {
         }
     }
     
-    // MARK: - func: processComments
+    // MARK: - func: processComment
     
-    fileprivate static func processComments(text: String, song: inout Song, currentSection: inout Song.Section) {
+    fileprivate static func processComment(text: String, song: inout Song, currentSection: inout Song.Section) {
         var line = Song.Section.Line()
         line.comment = text.trimmingCharacters(in: .newlines)
         /// Add the comment as a new line.
         currentSection.lines.append(line)
     }
     
-    // MARK: - func: processLyrics
+    // MARK: - func: processTab
     
-    fileprivate static func processLyrics(text: String, song: inout Song, currentSection: inout Song.Section) {
-        if text.isEmpty {
-            if !currentSection.lines.isEmpty {
-                song.sections.append(currentSection)
-                currentSection = Song.Section()
-            }
-            return
+    fileprivate static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
+        /// Start with a fresh line
+        var line = Song.Section.Line()
+        line.tablature = text
+        currentSection.lines.append(line)
+        /// Mark the section as Tab if not set
+        if currentSection.type == nil {
+            currentSection.type = "tab"
         }
+    }
+    
+    // MARK: - func: processGrid
+    
+    fileprivate static func processGrid(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
         var line = Song.Section.Line()
-        if text.starts(with: "|-") || currentSection.type == "tab" {
-            if currentSection.type == nil {
-                currentSection.type = "tab"
-            }
-            line.tablature = text
-        } else if text.starts(with: "| ") {
-            if currentSection.type == nil {
-                currentSection.type = "grid"
-            }
-            if let measureMatches = measuresRegex?.matches(in: text, range: NSRange(location: 0, length: text.utf16.count)) {
-                
-                var measures = [Song.Section.Line.Measure]()
-                
-                for match in measureMatches {
-                    if let measureRange = Range(match.range(at: 1), in: text) {
-                        let measureText = text[measureRange].trimmingCharacters(in: .newlines)
-                        if let chordsMatches = chordsRegex?.matches(in: measureText, range: NSRange(location: 0, length: measureText.utf16.count)) {
-                            
-                            var measure = Song.Section.Line.Measure()
-                            measure.chords = chordsMatches.map {
-                                if let chordsRange = Range($0.range(at: 1), in: measureText) {
-                                    return String(measureText[chordsRange].trimmingCharacters(in: .newlines))
-                                }
-                                return ""
+        if let measureMatches = measuresRegex?.matches(in: text, range: NSRange(location: 0, length: text.utf16.count)) {
+            var measures = [Song.Section.Line.Measure]()
+            for match in measureMatches {
+                if let measureRange = Range(match.range(at: 1), in: text) {
+                    let measureText = text[measureRange].trimmingCharacters(in: .newlines)
+                    if let chordsMatches = chordsRegex?.matches(in: measureText, range: NSRange(location: 0, length: measureText.utf16.count)) {
+                        var measure = Song.Section.Line.Measure()
+                        measure.chords = chordsMatches.map {
+                            if let chordsRange = Range($0.range(at: 1), in: measureText) {
+                                return processChord(chord: String(measureText[chordsRange].trimmingCharacters(in: .newlines)), song: &song)
                             }
-                            measures.append(measure)
+                            return ""
                         }
+                        measures.append(measure)
                     }
                 }
-                line.measures = measures
             }
-        } else {
-            if let matches = lyricsRegex?.matches(in: text, range: NSRange(location: 0, length: text.utf16.count)) {
+            line.measures = measures
+        }
+        currentSection.lines.append(line)
+        /// Mark the section as Grid if not set
+        if currentSection.type == nil {
+            currentSection.type = "grid"
+        }
+    }
+    
+    // MARK: - func: processLine
+    
+    fileprivate static func processLine(text: String, song: inout Song, currentSection: inout Song.Section) {
+        /// Start with a fresh line:
+        var line = Song.Section.Line()
+        if let matches = lyricsRegex?.matches(in: text, range: NSRange(location: 0, length: text.utf16.count)) {
+            
+            for match in matches {
+                var part = Song.Section.Line.Part()
                 
-                for match in matches {
-                    var part = Song.Section.Line.Part()
-
-                    if let keyRange = Range(match.range(at: 1), in: text) {
-                        let chord = text[keyRange]
-                            .trimmingCharacters(in: .newlines)
-                            .replacingOccurrences(of: "[", with: "")
-                            .replacingOccurrences(of: "]", with: "")
-                        let process = processChord(chord: chord)
-                        
-                        if (song.chords.first(where: { $0.display == process.display }) == nil) {
-                            song.chords.append(process)
-                        }
-                        part.chord = process.display
-
-                        /// Use the first chord as key for the song if not set.
-                        if song.key == nil {
-                            song.key = part.chord
-                        }
-                        
-                        if currentSection.type == nil {
-                            currentSection.type = "verse"
-                        }
-                    } else {
-                        part.chord = ""
+                if let keyRange = Range(match.range(at: 1), in: text) {
+                    let chord = text[keyRange]
+                        .trimmingCharacters(in: .newlines)
+                        .replacingOccurrences(of: "[", with: "")
+                        .replacingOccurrences(of: "]", with: "")
+                    part.chord = processChord(chord: chord, song: &song)
+                    
+                    if currentSection.type == nil {
+                        currentSection.type = "verse"
                     }
-                    if let valueRange = Range(match.range(at: 2), in: text) {
-                        /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
-                        /// for the funny stuff added to the string...
-                        part.lyric = String(text[valueRange] + "\u{200c}")
-                    } else {
-                        part.lyric = ""
-                    }
-                    if !(part.empty) {
-                        line.parts.append(part)
-                    }
+                } else {
+                    part.chord = ""
+                }
+                if let valueRange = Range(match.range(at: 2), in: text) {
+                    /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
+                    /// for the funny stuff added to the string...
+                    part.lyric = String(text[valueRange] + "\u{200c}")
+                } else {
+                    part.lyric = ""
+                }
+                if !(part.empty) {
+                    line.parts.append(part)
                 }
             }
         }
@@ -280,11 +288,12 @@ struct ChordPro {
     
     // MARK: - func: processChord; find key and suffix
     
-    private static func processChord(chord: String) -> Song.Chord {
-        
-        var key: SwiftyChords.Chords.Key = .c
-        var suffix: SwiftyChords.Chords.Suffix = .major
-
+    private static func processChord(chord: String, song: inout Song) -> String {
+        /// Check if this chord is aready parsed
+        if  let match = song.chords.first(where: { $0.name == chord }) {
+            return match.display
+        }
+        var result = Song.Chord(name: chord, key: .c, suffix: .major, define: "")
         let chordRegex = try? NSRegularExpression(pattern: "([CDEFGABb#]+)(.*)")
         if let match = chordRegex?.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
             if let keyRange = Range(match.range(at: 1), in: chord) {
@@ -293,7 +302,7 @@ struct ChordPro {
                 if valueKey == "G#" {
                     valueKey = "Ab"
                 }
-                key = SwiftyChords.Chords.Key(rawValue: valueKey) ?? SwiftyChords.Chords.Key.c
+                result.key = SwiftyChords.Chords.Key(rawValue: valueKey) ?? SwiftyChords.Chords.Key.c
             }
             if let valueRange = Range(match.range(at: 2), in: chord) {
                 /// ChordPro suffix are not always the suffixes in the database...
@@ -304,11 +313,18 @@ struct ChordPro {
                 default:
                     suffixString = String(chord[valueRange])
                 }
-                suffix = SwiftyChords.Chords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? SwiftyChords.Chords.Suffix.major
+                result.suffix = SwiftyChords.Chords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? SwiftyChords.Chords.Suffix.major
             } else {
-                suffix = SwiftyChords.Chords.Suffix.major
+                result.suffix = SwiftyChords.Chords.Suffix.major
             }
         }
-        return Song.Chord(name: chord, key: key, suffix: suffix, define: "")
+        /// Add the chord to the chord list
+        song.chords.append(result)
+        /// Use the first chord as key for the song if not set.
+        if song.key == nil {
+            song.key = result.display
+        }
+        /// Return the parsed chord
+        return result.display
     }
 }
