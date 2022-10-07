@@ -97,7 +97,7 @@ body {
 }
 
 .lines .measure {
-    width: 5em;
+    width: 8em;
     border-left: 1px solid var(--sectionColor);
     padding-left: 0.5em;
     padding-right: 0.5em;
