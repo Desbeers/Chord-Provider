@@ -10,11 +10,12 @@ import Foundation
 extension Song.Section.Line {
     
     /// A part of a line in the ``Song``
-    struct Part {
+    struct Part: Identifiable {
+        var id: Int
         var chord: String?
-        var lyric: String?
+        var text: String = ""
         var empty: Bool {
-            return (chord ?? "").isEmpty && (lyric ?? "").isEmpty
+            return chord == nil && text.isEmpty
         }
     }
 }

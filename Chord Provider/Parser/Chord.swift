@@ -1,5 +1,5 @@
 //
-//  Chords.swift
+//  Chord.swift
 //  Chord Provider
 //
 //  © 2022 Nick Berendsen

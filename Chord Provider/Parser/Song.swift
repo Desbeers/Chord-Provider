@@ -18,7 +18,6 @@ struct Song {
     var year: String?
     var album: String?
     var tuning: String?
-    var html: String?
     var path: URL?
     var musicpath: URL?
     var sections = [Song.Section]()

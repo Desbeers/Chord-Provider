@@ -10,11 +10,10 @@ import Foundation
 extension Song.Section {
     
     /// A line in the ``Song``
-    struct Line {
+    struct Line: Identifiable {
+        var id: Int
         var parts = [Part]()
-        var measures = [Measure]()
-        var tablature: String?
-        var comment: String?
-        var plain: String?
+        var grid = [Grid]()
+        var tab: String = ""
     }
 }

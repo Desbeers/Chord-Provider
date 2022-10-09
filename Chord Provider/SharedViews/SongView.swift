@@ -13,9 +13,26 @@ struct SongView: View {
     let file: URL?
     @AppStorage("showChords") var showChords: Bool = true
     @SceneStorage("showEditor") var showEditor: Bool = false
+    @SceneStorage("scale") var scale: Double = 1.2
+    @SceneStorage("previousScale") var previousScale: Double = 1.2
+    /// Pinch to zoom
+    var magnificationGesture: some Gesture {
+        MagnificationGesture()
+            .onChanged { value in
+                scale = previousScale * value
+            }
+            .onEnded { value in
+                previousScale *= value
+            }
+    }
+    /// The body of the View
     var body: some View {
-        HStack {
-            HtmlView(html: (song.html ?? ""))
+        HStack(spacing: 0) {
+            ScrollView {
+                SongRenderView(song: song, scale: scale)
+                    .gesture(magnificationGesture)
+                    .padding()
+            }
             if showChords {
                 ChordsView(song: song)
                     .transition(.opacity)

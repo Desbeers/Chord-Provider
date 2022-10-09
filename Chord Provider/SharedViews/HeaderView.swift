@@ -10,28 +10,39 @@ import SwiftUI
 /// The View with song information and optional audio player for macOS
 struct HeaderView: View {
     var song: Song
-    #if os(iOS)
-    @Environment(\.horizontalSizeClass) var sizeClass
-    @SceneStorage("showEditor") var showEditor: Bool = false
-    @AppStorage("showChords") var showChords: Bool = true
-    #endif
-
+    @SceneStorage("scale") var scale: Double = 1.2
+    @SceneStorage("previousScale") var previousScale: Double = 1.2
+    /// The body of the View
     var body: some View {
-        #if os(macOS)
-            HStack(alignment: .center) {
-                Spacer()
-                General(song: song)
-                Details(song: song)
-                if song.musicpath != nil {
-                    AudioPlayerView(song: song)
-                }
-                Spacer()
+#if os(macOS)
+        HStack(alignment: .center) {
+            Spacer()
+            General(song: song)
+            Details(song: song)
+            if song.musicpath != nil {
+                AudioPlayerView(song: song)
             }
-            .padding(4)
-        #endif
-        #if os(iOS)
+            Spacer()
+            Stepper(label: {
+                Label("Zoom", systemImage: "magnifyingglass")
+            }, onIncrement: {
+                withAnimation {
+                    scale += 0.1
+                    previousScale += 0.1
+                }
+            }, onDecrement: {
+                withAnimation {
+                    scale -= 0.1
+                    previousScale -= 0.1
+                }
+            })
+        }
+
+        .padding(4)
+#endif
+#if os(iOS)
         Text("Not in use")
-        #endif
+#endif
     }
 }
 
