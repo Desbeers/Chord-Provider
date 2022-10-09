@@ -10,9 +10,19 @@ import Foundation
 extension Song {
     
     /// A section of the ``Song``
-    struct Section {
+    struct Section: Identifiable {
+        var id: Int
         var name: String?
-        var type: String?
+        var type: SectionType?
         var lines = [Line]()
+        /// The type of the section
+        enum SectionType: String {
+            case chorus
+            case repeatChorus
+            case verse
+            case comment
+            case tab
+            case grid
+        }
     }
 }

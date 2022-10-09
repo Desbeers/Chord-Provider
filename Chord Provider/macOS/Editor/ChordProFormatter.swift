@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Format the content of a `ChordProDocument`
 struct ChordProFormatter {
     /// Enumeration of supported syntax that can be formatted by the ChordProFormatter.
     enum Formatting: String, CaseIterable {

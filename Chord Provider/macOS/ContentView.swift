@@ -22,8 +22,7 @@ struct ContentView: View {
             HeaderView(song: song).background(Color.accentColor.opacity(0.1))
             HStack {
                 SongView(song: song, file: file)
-                    .frame(minWidth: 400)
-                    .padding(.top)
+                    .frame(minWidth: 400, maxWidth: .infinity)
                 if showEditor {
                     Divider()
                     EditorView(document: $document)
@@ -41,6 +40,8 @@ struct ContentView: View {
             }
         }
         .toolbar {
+            ExportButtonView(song: song)
+                .labelStyle(.iconOnly)
             Button {
                 withAnimation {
                     showChords.toggle()
