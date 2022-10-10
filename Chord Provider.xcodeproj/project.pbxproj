@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		D70D719C28C6055F00AF0022 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D719B28C6055F00AF0022 /* Debouncer.swift */; };
 		D70D719D28C6055F00AF0022 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D719B28C6055F00AF0022 /* Debouncer.swift */; };
-		D70D71AC28C75B7100AF0022 /* EditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71AB28C75B7100AF0022 /* EditorController.swift */; };
-		D70D71AE28C75C3600AF0022 /* ChordProFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71AD28C75C3600AF0022 /* ChordProFormatter.swift */; };
+		D70D71AC28C75B7100AF0022 /* Editor+format.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71AB28C75B7100AF0022 /* Editor+format.swift */; };
+		D70D71AE28C75C3600AF0022 /* Editor+Directive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71AD28C75C3600AF0022 /* Editor+Directive.swift */; };
 		D70D71B428C76C2C00AF0022 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71B328C76C2C00AF0022 /* EditorView.swift */; };
 		D7158FDE2573B44B00876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
 		D7158FE12573CC2700876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
@@ -43,6 +43,7 @@
 		D771675528F2DBF000F5DEB2 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771675228F2DBF000F5DEB2 /* Grid.swift */; };
 		D771675628F35F3700F5DEB2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71AF28C760C300AF0022 /* String.swift */; };
 		D771675728F35F3800F5DEB2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71AF28C760C300AF0022 /* String.swift */; };
+		D771675928F46D4200F5DEB2 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771675828F46D4200F5DEB2 /* Editor.swift */; };
 		D789832A28C3A0150044BDD1 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D789832928C3A0140044BDD1 /* ChordProviderApp.swift */; };
 		D7B701002577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
@@ -107,8 +108,8 @@
 
 /* Begin PBXFileReference section */
 		D70D719B28C6055F00AF0022 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
-		D70D71AB28C75B7100AF0022 /* EditorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorController.swift; sourceTree = "<group>"; };
-		D70D71AD28C75C3600AF0022 /* ChordProFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProFormatter.swift; sourceTree = "<group>"; };
+		D70D71AB28C75B7100AF0022 /* Editor+format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Editor+format.swift"; sourceTree = "<group>"; };
+		D70D71AD28C75C3600AF0022 /* Editor+Directive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Editor+Directive.swift"; sourceTree = "<group>"; };
 		D70D71AF28C760C300AF0022 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D70D71B328C76C2C00AF0022 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		D7158FDD2573B44B00876B80 /* SongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		D7667D8B273FB7BF002E7DF9 /* Chord Provider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chord Provider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7667D8C273FCFD3002E7DF9 /* FileBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
 		D771675228F2DBF000F5DEB2 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		D771675828F46D4200F5DEB2 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		D789832928C3A0140044BDD1 /* ChordProviderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderApp.swift; sourceTree = "<group>"; };
 		D7ABE7E928C8947200BF709C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
@@ -184,9 +186,9 @@
 		D70D71B228C76C0C00AF0022 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				D7F68D342578DA8400B119BA /* EditorView.swift */,
-				D70D71AB28C75B7100AF0022 /* EditorController.swift */,
-				D70D71AD28C75C3600AF0022 /* ChordProFormatter.swift */,
+				D771675828F46D4200F5DEB2 /* Editor.swift */,
+				D70D71AD28C75C3600AF0022 /* Editor+Directive.swift */,
+				D70D71AB28C75B7100AF0022 /* Editor+format.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -233,9 +235,10 @@
 				D70D71B228C76C0C00AF0022 /* Editor */,
 				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
 				D75929362572280B006DDF24 /* ContentView.swift */,
-				D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */,
+				D7F68D342578DA8400B119BA /* EditorView.swift */,
 				D7BA2B302584FD5E006C272E /* FileBrowserView.swift */,
 				D7667D8C273FCFD3002E7DF9 /* FileBrowser.swift */,
+				D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */,
 				D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */,
 				D72FD53228F19FD200496010 /* Export.swift */,
 				D71DE9FE258A6E88007B513D /* Credits.rtf */,
@@ -522,8 +525,9 @@
 			files = (
 				D759296225723025006DDF24 /* Song.swift in Sources */,
 				D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */,
-				D70D71AC28C75B7100AF0022 /* EditorController.swift in Sources */,
+				D70D71AC28C75B7100AF0022 /* Editor+format.swift in Sources */,
 				D7BA2B312584FD5E006C272E /* FileBrowserView.swift in Sources */,
+				D771675928F46D4200F5DEB2 /* Editor.swift in Sources */,
 				D759296825723025006DDF24 /* Section.swift in Sources */,
 				D7CC570F25FBAFC700AD96CA /* Chord.swift in Sources */,
 				D7667D8E273FD042002E7DF9 /* FileBrowser.swift in Sources */,
@@ -534,7 +538,7 @@
 				D759296A25723025006DDF24 /* Part.swift in Sources */,
 				D759296425723025006DDF24 /* ChordPro.swift in Sources */,
 				D7158FDE2573B44B00876B80 /* SongView.swift in Sources */,
-				D70D71AE28C75C3600AF0022 /* ChordProFormatter.swift in Sources */,
+				D70D71AE28C75C3600AF0022 /* Editor+Directive.swift in Sources */,
 				D771675328F2DBF000F5DEB2 /* Grid.swift in Sources */,
 				D771675628F35F3700F5DEB2 /* String.swift in Sources */,
 				D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */,
