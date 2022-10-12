@@ -16,11 +16,11 @@ struct ContentView: View {
     @AppStorage("showChords") var showChords: Bool = true
     
     @EnvironmentObject var fileBrowser: FileBrowser
-    
+
     var body: some View {
         VStack(spacing: 0) {
             HeaderView(song: song).background(Color.accentColor.opacity(0.1))
-            HStack {
+            HStack(spacing: 0) {
                 SongView(song: song, file: file)
                     .frame(minWidth: 400, maxWidth: .infinity)
                 if showEditor {
@@ -42,12 +42,14 @@ struct ContentView: View {
         .toolbar {
             ExportButtonView(song: song)
                 .labelStyle(.iconOnly)
+                .help("Export your song")
             Button {
                 withAnimation {
                     showChords.toggle()
                 }
             } label: {
                 Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
+                    .frame(minWidth: 110, alignment: .leading)
             }
             .labelStyle(.titleAndIcon)
             Button {
@@ -56,6 +58,7 @@ struct ContentView: View {
                 }
             } label: {
                 Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
+                    .frame(minWidth: 110, alignment: .leading)
             }
             .labelStyle(.titleAndIcon)
         }

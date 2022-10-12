@@ -68,6 +68,7 @@ struct EditorView: View {
             }, label: {
                 Label("Verse", systemImage: "music.mic")
             })
+            Spacer()
             Menu(
                 content: {
                     Button(action: {
@@ -76,12 +77,40 @@ struct EditorView: View {
                         Label("Add a comment...", systemImage: "cloud")
                     })
             }, label: {
-                Label("Add metadata", systemImage: "gear")
+                Label("More...", systemImage: "gear")
             })
-
+            .menuStyle(.borderlessButton)
+            .frame(width: 100)
         }
+        .buttonStyle(EditorButton())
         .labelStyle(.titleAndIcon)
-        .padding()
+        .padding(10)
         .background(Color(nsColor: .windowBackgroundColor))
+        .background(Color.primary.opacity(0.1))
+        .cornerRadius(5)
+        .padding(5)
+    }
+}
+
+extension EditorView {
+    
+    /// The style for an editor button
+    struct EditorButton: ButtonStyle {
+        @State private var hovered = false
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .padding(4)
+                .background(hovered ? Color.primary.opacity(0.1) : Color.clear)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 4)
+                            .stroke(Color.primary.opacity(0.1), lineWidth: 1)
+                    )
+                .onHover { isHovered in
+                    self.hovered = isHovered
+                }
+                .scaleEffect(configuration.isPressed ? 1.2 : 1)
+                .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+                .animation(.easeInOut(duration: 0.2), value: hovered)
+        }
     }
 }

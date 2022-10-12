@@ -47,6 +47,7 @@ struct ChordsView: View {
                     }
                 }
             }
+            .padding(.top)
             .padding(.trailing)
         }
         .sheet(isPresented: $showChordSheet) {
