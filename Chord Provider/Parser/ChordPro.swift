@@ -186,8 +186,11 @@ struct ChordPro {
                 value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
-        if let index = song.chords.firstIndex(where: { $0.name == key }) {
-            song.chords[index].define = value
+        do {
+            let chord = Song.Chord(name: key, chordPosition: try ChordPosition(from: value), isCustom: true)
+            song.chords.append(chord)
+        } catch {
+            print("Unexpected error: \(error).")
         }
     }
 
@@ -289,7 +292,11 @@ struct ChordPro {
         if  let match = song.chords.first(where: { $0.name == chord }) {
             return match.display
         }
-        var result = Song.Chord(name: chord, key: .c, suffix: .major, define: "")
+        
+        // try to find the chord in SwiftyChords and append to the used chord list from this song
+        var key: SwiftyChords.Chords.Key?
+        var suffix: SwiftyChords.Chords.Suffix = .major
+        
         let chordRegex = try? NSRegularExpression(pattern: "([CDEFGABb#]+)(.*)")
         if let match = chordRegex?.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
             if let keyRange = Range(match.range(at: 1), in: chord) {
@@ -298,29 +305,28 @@ struct ChordPro {
                 if valueKey == "G#" {
                     valueKey = "Ab"
                 }
-                result.key = SwiftyChords.Chords.Key(rawValue: valueKey) ?? SwiftyChords.Chords.Key.c
+                key = SwiftyChords.Chords.Key(rawValue: valueKey)
             }
             if let valueRange = Range(match.range(at: 2), in: chord) {
                 /// ChordPro suffix are not always the suffixes in the database...
-                var suffixString = "major"
+                var suffixString: String
                 switch chord[valueRange] {
                 case "m":
                     suffixString = "minor"
                 default:
                     suffixString = String(chord[valueRange])
                 }
-                result.suffix = SwiftyChords.Chords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? SwiftyChords.Chords.Suffix.major
-            } else {
-                result.suffix = SwiftyChords.Chords.Suffix.major
+                suffix = SwiftyChords.Chords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? SwiftyChords.Chords.Suffix.major
+            }
+            if key != nil {
+                if let baseChord = Chords.guitar.filter({ $0.key == key && $0.suffix == suffix}).first {
+                    let songChord = Song.Chord(name: chord, chordPosition: baseChord, isCustom: false)
+                    song.chords.append(songChord)
+                    return songChord.display
+                }
             }
         }
-        /// Add the chord to the chord list
-        song.chords.append(result)
-        /// Use the first chord as key for the song if not set.
-        if song.key == nil {
-            song.key = result.display
-        }
-        /// Return the parsed chord
-        return result.display
+        /// Return the key because it is possible to have a custom defined chard after the usage of that chord.
+        return chord
     }
 }
