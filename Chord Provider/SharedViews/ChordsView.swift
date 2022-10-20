@@ -22,7 +22,8 @@ struct ChordsView: View {
                 ForEach(song.chords.sorted { $0.name < $1.name }) { chord in
                     Group {
                         Text("\(chord.display)").foregroundColor(.accentColor).font(.title2)
-                        let layer = chord.chordPosition.shapeLayer(rect: frame, showFingers: true, showChordName: false)
+                        let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
+                        let layer = chord.chordPosition.shapeLayer(rect: frame, showFingers: showFingers, showChordName: false)
                         if let image = layer.image() {
 #if os(macOS)
                             Image(nsImage: image)
