@@ -21,7 +21,14 @@ struct ChordsView: View {
             VStack {
                 ForEach(song.chords.sorted { $0.name < $1.name }) { chord in
                     Group {
-                        Text("\(chord.display)").foregroundColor(.accentColor).font(.title2)
+                        HStack(alignment: .top, spacing: 0) {
+                            Text("\(chord.display)")
+                                .foregroundColor(.accentColor)
+                                .font(.title2)
+                            if chord.isCustom {
+                                Text("*")
+                            }
+                        }
                         let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
                         let layer = chord.chordPosition.shapeLayer(rect: frame, showFingers: showFingers, showChordName: false)
                         if let image = layer.image() {
@@ -41,8 +48,11 @@ struct ChordsView: View {
                         }
                     }
                     .onTapGesture {
-                        selectedChord = chord
-                        showChordSheet = true
+                        /// Only show a sheet if the chord is not custom defined
+                        if !chord.isCustom {
+                            selectedChord = chord
+                            showChordSheet = true
+                        }
                     }
                 }
             }
