@@ -22,23 +22,22 @@ struct ChordsView: View {
                 ForEach(song.chords.sorted { $0.name < $1.name }) { chord in
                     Group {
                         Text("\(chord.display)").foregroundColor(.accentColor).font(.title2)
-                        if let chordPosition = Chords.guitar.filter { $0.key == chord.key && $0.suffix == chord.suffix && $0.baseFret == chord.basefret} {
-                            let layer = chordPosition.first?.shapeLayer(rect: frame, showFingers: true, showChordName: false)
-                            if let image = layer?.image() {
+                        let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
+                        let layer = chord.chordPosition.shapeLayer(rect: frame, showFingers: showFingers, showChordName: false)
+                        if let image = layer.image() {
 #if os(macOS)
-                                Image(nsImage: image)
+                            Image(nsImage: image)
 #endif
 #if os(iOS)
-                                Image(uiImage: image)
+                            Image(uiImage: image)
 #endif
-                            } else {
-                                VStack {
-                                    Image(systemName: "music.note")
-                                    Text("Unknown chord")
-                                }
-                                .frame(width: 100, alignment: .center)
-                                .padding(.vertical)
+                        } else {
+                            VStack {
+                                Image(systemName: "music.note")
+                                Text("Unknown chord")
                             }
+                            .frame(width: 100, alignment: .center)
+                            .padding(.vertical)
                         }
                     }
                     .onTapGesture {
@@ -63,7 +62,7 @@ extension ChordsView {
         @Environment(\.presentationMode) var presentationMode
         @Binding var chord: Song.Chord?
         var body: some View {
-            let chordPosition = SwiftyChords.Chords.guitar.matching(key: chord!.key).matching(suffix: chord!.suffix)
+            let chordPosition = SwiftyChords.Chords.guitar.matching(key: chord!.chordPosition.key).matching(suffix: chord!.chordPosition.suffix)
             VStack {
                 Text("Chord: \(chord!.display)")
                     .font(.title)

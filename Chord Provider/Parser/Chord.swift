@@ -14,22 +14,23 @@ extension Song {
     struct Chord: Identifiable {
         var id = UUID()
         var name: String
-        var key: SwiftyChords.Chords.Key
-        var suffix: SwiftyChords.Chords.Suffix
-        var define: String
-        var basefret: Int {
-            return Int(define.prefix(1)) ?? 1
-        }
+        var chordPosition: ChordPosition
+        var isCustom: Bool
+        
         /// Display name for the chord
         var display: String {
-            var text = key.display.symbol
-            switch self.suffix {
-            case .major:
-                break
-            default:
-                text += suffix.display.symbolized
+            if isCustom {
+                return name
+            } else {
+                var text = chordPosition.key.display.symbol
+                switch chordPosition.suffix {
+                case .major:
+                    break
+                default:
+                    text += chordPosition.suffix.display.symbolized
+                }
+                return text
             }
-            return text
         }
     }
 }
