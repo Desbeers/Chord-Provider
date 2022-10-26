@@ -76,6 +76,11 @@ struct EditorView: View {
                     }, label: {
                         Label("Add a comment...", systemImage: "cloud")
                     })
+                    Button(action: {
+                        Editor.format(&document, directive: .chordDefine, selection: selection, in: textView)
+                    }, label: {
+                        Label("Define a chord...", systemImage: "music.note.list")
+                    })
             }, label: {
                 Label("More...", systemImage: "gear")
             })

@@ -14,6 +14,7 @@ extension Editor {
         case chorus
         case verse
         case comment
+        case chordDefine
         /// The start and end of the directive
         var format: (start: String, end: String) {
             switch self {
@@ -23,6 +24,8 @@ extension Editor {
                 return ("{start_of_verse}\n", "\n{end_of_verse}\n")
             case .comment:
                 return ("{comment: ", "}")
+            case .chordDefine:
+                return ("{define: [chord] base-fret [offset] frets [pos] fingers [pos]", "}")
             }
         }
         /// The kind of directive (block or inline)
@@ -30,7 +33,7 @@ extension Editor {
         /// - Note: This is used to move the cursor in the editor when you apply a directive to selected text in the editor
         var kind: Kind {
             switch self {
-            case .chorus, .verse:
+            case .chorus, .verse, .chordDefine:
                 return .block
             default:
                 return .inline
