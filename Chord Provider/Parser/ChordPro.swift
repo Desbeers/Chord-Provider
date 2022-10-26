@@ -59,6 +59,9 @@ struct ChordPro {
                     song.sections.append(currentSection)
                     currentSection = Song.Section(id: song.sections.count + 1)
                 }
+            case "#":
+                /// A remark; just ignore it
+                break
             default:
                 switch currentSection.type {
                 case .tab:
