@@ -72,7 +72,7 @@ extension ChordsView {
         @Environment(\.presentationMode) var presentationMode
         @Binding var chord: Song.Chord?
         var body: some View {
-            let chordPosition = SwiftyChords.Chords.guitar.matching(key: chord!.chordPosition.key).matching(suffix: chord!.chordPosition.suffix)
+            let chordPosition = chord!.getChordPostions()
             VStack {
                 Text("Chord: \(chord!.display)")
                     .font(.title)

@@ -190,6 +190,9 @@ struct ChordPro {
             }
         }
         do {
+            // remove standard chords with the same key if there is one in the chords list
+            song.chords = song.chords.filter { !($0.name == key && $0.isCustom == false) }
+
             let chord = Song.Chord(name: key, chordPosition: try ChordPosition(from: value), isCustom: true)
             song.chords.append(chord)
         } catch {
