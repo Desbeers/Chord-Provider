@@ -32,5 +32,17 @@ extension Song {
                 return text
             }
         }
+        
+        /// The chord postions are different if this is a custom chord. So return the custom chord or the default standard chord positions.
+        /// - Returns: all chord postions for this chord
+        func getChordPostions() -> [ChordPosition] {
+            var chordPositions = [ChordPosition]()
+            if isCustom {
+                chordPositions.append(chordPosition)
+            } else {
+                chordPositions = SwiftyChords.Chords.guitar.matching(key: chordPosition.key).matching(suffix: chordPosition.suffix)
+            }
+            return chordPositions
+        }
     }
 }

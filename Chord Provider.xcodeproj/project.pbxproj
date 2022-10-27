@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B5142AC28FEB9BA00C61C4E /* ChordPostion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPostion.swift */; };
-		2B5142AD28FEB9BA00C61C4E /* ChordPostion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPostion.swift */; };
+		2B5142AC28FEB9BA00C61C4E /* ChordPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPosition.swift */; };
+		2B5142AD28FEB9BA00C61C4E /* ChordPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPosition.swift */; };
 		D70D719C28C6055F00AF0022 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D719B28C6055F00AF0022 /* Debouncer.swift */; };
 		D70D719D28C6055F00AF0022 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D719B28C6055F00AF0022 /* Debouncer.swift */; };
 		D70D71AC28C75B7100AF0022 /* Editor+format.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D71AB28C75B7100AF0022 /* Editor+format.swift */; };
@@ -20,9 +20,8 @@
 		D72FD53328F19FD200496010 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* Export.swift */; };
 		D72FD53428F1A91700496010 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* Export.swift */; };
 		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
-		D734A0B125F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
-		D751B826290922650002AAFF /* ChordPostion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPostion.swift */; };
 		D751B82929093AB90002AAFF /* AllChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751B82829093AB90002AAFF /* AllChordsView.swift */; };
+		D751B826290922650002AAFF /* ChordPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPosition.swift */; };
 		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
 		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D759294A2572280C006DDF24 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929352572280B006DDF24 /* ChordProDocument.swift */; };
@@ -111,7 +110,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2B5142AB28FEB9BA00C61C4E /* ChordPostion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPostion.swift; sourceTree = "<group>"; };
+		2B5142AB28FEB9BA00C61C4E /* ChordPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPosition.swift; sourceTree = "<group>"; };
 		D70D719B28C6055F00AF0022 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		D70D71AB28C75B7100AF0022 /* Editor+format.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Editor+format.swift"; sourceTree = "<group>"; };
 		D70D71AD28C75C3600AF0022 /* Editor+Directive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Editor+Directive.swift"; sourceTree = "<group>"; };
@@ -299,7 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				D70D71AF28C760C300AF0022 /* String.swift */,
-				2B5142AB28FEB9BA00C61C4E /* ChordPostion.swift */,
+				2B5142AB28FEB9BA00C61C4E /* ChordPosition.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -524,7 +523,7 @@
 				D771675728F35F3800F5DEB2 /* String.swift in Sources */,
 				D7B701002577A8E3005AEBF6 /* HeaderView.swift in Sources */,
 				D759296B25723025006DDF24 /* Line.swift in Sources */,
-				2B5142AD28FEB9BA00C61C4E /* ChordPostion.swift in Sources */,
+				2B5142AD28FEB9BA00C61C4E /* ChordPosition.swift in Sources */,
 				D734A0B025F93208007AB36A /* ChordsView.swift in Sources */,
 				D759294A2572280C006DDF24 /* ChordProDocument.swift in Sources */,
 			);
@@ -539,7 +538,7 @@
 				D70D71AC28C75B7100AF0022 /* Editor+format.swift in Sources */,
 				D7BA2B312584FD5E006C272E /* FileBrowserView.swift in Sources */,
 				D771675928F46D4200F5DEB2 /* Editor.swift in Sources */,
-				2B5142AC28FEB9BA00C61C4E /* ChordPostion.swift in Sources */,
+				2B5142AC28FEB9BA00C61C4E /* ChordPosition.swift in Sources */,
 				D759296825723025006DDF24 /* Section.swift in Sources */,
 				D7CC570F25FBAFC700AD96CA /* Chord.swift in Sources */,
 				D7667D8E273FD042002E7DF9 /* FileBrowser.swift in Sources */,
@@ -578,7 +577,7 @@
 				D7CC243F28C8868000316A15 /* Chord.swift in Sources */,
 				D7CC242B28C8816400316A15 /* PreviewProvider.swift in Sources */,
 				D7D6441628F17D1600A03407 /* SongRenderView.swift in Sources */,
-				D751B826290922650002AAFF /* ChordPostion.swift in Sources */,
+				D751B826290922650002AAFF /* ChordPosition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
