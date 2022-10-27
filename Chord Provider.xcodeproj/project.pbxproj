@@ -20,7 +20,7 @@
 		D72FD53328F19FD200496010 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* Export.swift */; };
 		D72FD53428F1A91700496010 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* Export.swift */; };
 		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
-		D734A0B125F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
+		D751B82929093AB90002AAFF /* AllChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751B82829093AB90002AAFF /* AllChordsView.swift */; };
 		D751B826290922650002AAFF /* ChordPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPosition.swift */; };
 		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
 		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
@@ -121,6 +121,8 @@
 		D72FD53228F19FD200496010 /* Export.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Export.swift; sourceTree = "<group>"; };
 		D731FD4E2694938B00558E02 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D734A0AF25F93208007AB36A /* ChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsView.swift; sourceTree = "<group>"; };
+		D751B82729092DA40002AAFF /* SwiftyGuitarChords */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyGuitarChords; path = ../SwiftyGuitarChords; sourceTree = "<group>"; };
+		D751B82829093AB90002AAFF /* AllChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllChordsView.swift; sourceTree = "<group>"; };
 		D754B6DB25867274001AE6DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D755C4B22589332600208BCC /* ChordProviderHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ChordProviderHelp.help; sourceTree = "<group>"; };
 		D75929342572280B006DDF24 /* ChordProviderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderApp.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 		D759292E2572280B006DDF24 = {
 			isa = PBXGroup;
 			children = (
+				D751B82729092DA40002AAFF /* SwiftyGuitarChords */,
 				D7667D85273FAFB9002E7DF9 /* Chord Provider */,
 				D731FD4E2694938B00558E02 /* .swiftlint.yml */,
 				D754B6DB25867274001AE6DD /* README.md */,
@@ -245,6 +248,7 @@
 				D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */,
 				D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */,
 				D72FD53228F19FD200496010 /* Export.swift */,
+				D751B82829093AB90002AAFF /* AllChordsView.swift */,
 				D71DE9FE258A6E88007B513D /* Credits.rtf */,
 				D75929462572280C006DDF24 /* Info.plist */,
 				D75929472572280C006DDF24 /* macOS.entitlements */,
@@ -544,6 +548,7 @@
 				D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */,
 				D759296A25723025006DDF24 /* Part.swift in Sources */,
 				D759296425723025006DDF24 /* ChordPro.swift in Sources */,
+				D751B82929093AB90002AAFF /* AllChordsView.swift in Sources */,
 				D7158FDE2573B44B00876B80 /* SongView.swift in Sources */,
 				D70D71AE28C75C3600AF0022 /* Editor+Directive.swift in Sources */,
 				D771675328F2DBF000F5DEB2 /* Grid.swift in Sources */,

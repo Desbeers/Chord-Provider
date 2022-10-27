@@ -46,6 +46,16 @@ import SwiftUI
             ToolbarCommands()
         }
         
+        /// Open 'All Chords'' Windows
+        WindowGroup("All Chords", for: Window.self) { _ in
+            AllChordsView()
+            .withHostingWindow { window in
+                if let window = window?.windowController?.window {
+                    window.setPosition(vertical: .center, horizontal: .center, padding: 0)
+                }
+            }
+        }
+        
         /// Add Chord Provider to the Menu Bar
         MenuBarExtra("Chord Provider", systemImage: "guitars") {
             FileBrowserView()
@@ -55,5 +65,13 @@ import SwiftUI
                 }
         }
         .menuBarExtraStyle(.window)
+    }
+}
+
+extension ChordProviderApp {
+    
+    /// The kind of Windows Chord Provider can open
+    enum Window: String, Codable {
+        case allChords = "All Chords"
     }
 }
