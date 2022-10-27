@@ -30,7 +30,7 @@ struct ChordsView: View {
                             }
                         }
                         let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
-                        let layer = chord.chordPosition.shapeLayer(rect: frame, showFingers: showFingers, showChordName: false)
+                        let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: showFingers)
                         if let image = layer.image() {
 #if os(macOS)
                             Image(nsImage: image)
@@ -85,7 +85,7 @@ extension ChordsView {
                     ) {
                         ForEach(chordPosition) { chord in
                             let frame = CGRect(x: 0, y: 0, width: 120, height: 180)
-                            let layer = chord.shapeLayer(rect: frame, showFingers: true, showChordName: false)
+                            let layer = chord.chordLayer(rect: frame, showFingers: true)
                             let image = layer.image()
 #if os(macOS)
                             Image(nsImage: image!)
