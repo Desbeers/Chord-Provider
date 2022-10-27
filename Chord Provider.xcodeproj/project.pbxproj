@@ -20,8 +20,9 @@
 		D72FD53328F19FD200496010 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* Export.swift */; };
 		D72FD53428F1A91700496010 /* Export.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* Export.swift */; };
 		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
-		D751B82929093AB90002AAFF /* AllChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751B82829093AB90002AAFF /* AllChordsView.swift */; };
 		D751B826290922650002AAFF /* ChordPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5142AB28FEB9BA00C61C4E /* ChordPosition.swift */; };
+		D751B82929093AB90002AAFF /* AllChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751B82829093AB90002AAFF /* AllChordsView.swift */; };
+		D751B82A290A7B1C0002AAFF /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
 		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
 		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D759294A2572280C006DDF24 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929352572280B006DDF24 /* ChordProDocument.swift */; };
@@ -534,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D759296225723025006DDF24 /* Song.swift in Sources */,
+				D751B82A290A7B1C0002AAFF /* ChordsView.swift in Sources */,
 				D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */,
 				D70D71AC28C75B7100AF0022 /* Editor+format.swift in Sources */,
 				D7BA2B312584FD5E006C272E /* FileBrowserView.swift in Sources */,
@@ -543,7 +545,6 @@
 				D7CC570F25FBAFC700AD96CA /* Chord.swift in Sources */,
 				D7667D8E273FD042002E7DF9 /* FileBrowser.swift in Sources */,
 				D7D6441428F02F9200A03407 /* SongRenderView.swift in Sources */,
-				D734A0B125F93208007AB36A /* ChordsView.swift in Sources */,
 				D70D719D28C6055F00AF0022 /* Debouncer.swift in Sources */,
 				D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */,
 				D759296A25723025006DDF24 /* Part.swift in Sources */,
