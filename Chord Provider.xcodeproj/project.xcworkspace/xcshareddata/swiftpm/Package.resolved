@@ -1,16 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "HighlightedTextEditor",
-        "repositoryURL": "https://github.com/kyle-n/HighlightedTextEditor",
-        "state": {
-          "branch": "main",
-          "revision": "7069ede002afc6bde867aef7035f45ff72dc839c",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "highlightedtexteditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kyle-n/HighlightedTextEditor",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7069ede002afc6bde867aef7035f45ff72dc839c"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swiftyguitarchords",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8b05a0880e85f7395ff9966e20030e51f0832717"
+      }
+    }
+  ],
+  "version" : 2
 }
