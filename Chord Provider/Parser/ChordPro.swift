@@ -54,10 +54,16 @@ struct ChordPro {
                     processGrid(text: text, song: &song, currentSection: &currentSection)
                 }
             case "":
-                /// Empty line; close the section of not empty
+                /// Empty line; close the section if it has an 'automatic type' or else clone the section
                 if !currentSection.lines.isEmpty {
-                    song.sections.append(currentSection)
-                    currentSection = Song.Section(id: song.sections.count + 1)
+                    if currentSection.autoType {
+                        song.sections.append(currentSection)
+                        currentSection = Song.Section(id: song.sections.count + 1)
+                    } else {
+                        song.sections.append(currentSection)
+                        currentSection = Song.Section(id: song.sections.count + 1, name: currentSection.name, type: currentSection.type)
+                    }
+                    
                 }
             case "#":
                 /// A remark; just ignore it
@@ -102,13 +108,15 @@ struct ChordPro {
                 processSection(text: value!, type: .comment, song: &song, currentSection: &currentSection)
                 song.sections.append(currentSection)
                 currentSection = Song.Section(id: song.sections.count + 1)
-            case "soc":
+            case "soc", "start_of_chorus":
                 processSection(text: value!, type: .chorus, song: &song, currentSection: &currentSection)
-            case "sot":
+            case "sob", "start_of_bridge":
+                processSection(text: value!, type: .bridge, song: &song, currentSection: &currentSection)
+            case "sot", "start_of_tab":
                 processSection(text: value!, type: .tab, song: &song, currentSection: &currentSection)
-            case "sov":
+            case "sov", "start_of_verse":
                 processSection(text: value!, type: .verse, song: &song, currentSection: &currentSection)
-            case "sog":
+            case "sog", "start_of_grid":
                 processSection(text: value!, type: .grid, song: &song, currentSection: &currentSection)
             case "chorus":
                 processSection(text: value!, type: .repeatChorus, song: &song, currentSection: &currentSection)
@@ -144,12 +152,39 @@ struct ChordPro {
             switch key {
             case "soc", "start_of_chorus":
                 processSection(text: "Chorus", type: .chorus, song: &song, currentSection: &currentSection)
-            case "sot":
+            case "eoc", "end_of_chorus":
+                if !currentSection.lines.isEmpty {
+                    song.sections.append(currentSection)
+                }
+                currentSection = Song.Section(id: song.sections.count + 1)
+            case "sot", "start_of_tab":
                 processSection(text: "Tab", type: .tab, song: &song, currentSection: &currentSection)
-            case "sog":
+            case "eot", "end_of_tab":
+                if !currentSection.lines.isEmpty {
+                    song.sections.append(currentSection)
+                }
+                currentSection = Song.Section(id: song.sections.count + 1)
+            case "sog", "start_of_grid":
                 processSection(text: "", type: .grid, song: &song, currentSection: &currentSection)
+            case "eog", "end_of_grid":
+                if !currentSection.lines.isEmpty {
+                    song.sections.append(currentSection)
+                }
+                currentSection = Song.Section(id: song.sections.count + 1)
             case "sov", "start_of_verse":
                 processSection(text: "Verse", type: .verse, song: &song, currentSection: &currentSection)
+            case "eov", "end_of_verse":
+                if !currentSection.lines.isEmpty {
+                    song.sections.append(currentSection)
+                }
+                currentSection = Song.Section(id: song.sections.count + 1)
+            case "sob", "start_of_bridge":
+                processSection(text: "Bridge", type: .bridge, song: &song, currentSection: &currentSection)
+            case "eob", "end_of_bridge":
+                if !currentSection.lines.isEmpty {
+                    song.sections.append(currentSection)
+                }
+                currentSection = Song.Section(id: song.sections.count + 1)
             case "chorus":
                 processSection(text: "Repeat chorus", type: .repeatChorus, song: &song, currentSection: &currentSection)
                 song.sections.append(currentSection)
@@ -161,7 +196,7 @@ struct ChordPro {
     }
     
     // MARK: - func: processSection
-    
+
     fileprivate static func processSection(text: String, type: Song.Section.SectionType, song: inout Song, currentSection: inout Song.Section) {
         if currentSection.lines.isEmpty {
             /// There is already an empty section
@@ -210,6 +245,7 @@ struct ChordPro {
         /// Mark the section as Tab if not set
         if currentSection.type == nil {
             currentSection.type = .tab
+            currentSection.autoType = true
         }
     }
     
@@ -254,6 +290,7 @@ struct ChordPro {
         /// Mark the section as Grid if not set
         if currentSection.type == nil {
             currentSection.type = .grid
+            currentSection.autoType = true
         }
     }
     
@@ -275,6 +312,7 @@ struct ChordPro {
                     
                     if currentSection.type == nil {
                         currentSection.type = .verse
+                        currentSection.autoType = true
                     }
                 }
                 if let valueRange = Range(match.range(at: 2), in: text) {

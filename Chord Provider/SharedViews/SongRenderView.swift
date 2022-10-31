@@ -20,6 +20,8 @@ struct SongRenderView: View {
                     VerseView(section: section, scale: scale)
                 case .chorus:
                     ChorusView(section: section, scale: scale)
+                case .bridge:
+                    VerseView(section: section, scale: scale)
                 case .repeatChorus:
                     RepeatChorusView(section: section, scale: scale)
                 case .tab:
