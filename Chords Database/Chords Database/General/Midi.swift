@@ -15,6 +15,7 @@ struct MidiNote: Identifiable {
 }
 
 enum MidiNotes: Int {
+    // swiftlint:disable identifier_name
     case e
     case f
     case fSharp
@@ -27,6 +28,7 @@ enum MidiNotes: Int {
     case cSharp
     case d
     case dSharp
+    // swiftlint:enable identifier_name
 }
 
 extension MidiNotes {
@@ -151,7 +153,6 @@ extension MidiNotes {
         if let midiNote = MidiNotes(rawValue: ((note - 40) % 12)) {
             let number = (note - 40) / 12 + 2
             return midiNote.display.symbol + number.description
-            //return String(describing: midiNote).capitalized(with: .current)
         }
         
         return "?"

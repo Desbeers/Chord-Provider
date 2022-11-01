@@ -45,17 +45,11 @@ class ChordsDatabaseModel: ObservableObject {
             print("error")
         }
     }
-    
-//    init() {
-//        allChords = ChordsDatabaseModel.getChords()
-//    }
-    
     static func getChords() -> [ChordPosition] {
         SwiftyChords.Chords.guitar
             .sorted { $0.key == $1.key ? $0.suffix < $1.suffix : $0.key < $1.key }
     }
     @ViewBuilder func diagram(chord: ChordPosition, frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 150)) -> some View {
-        //let frame = CGRect(x: 0, y: 0, width: 100, height: 150)
         let layer = chord.chordLayer(rect: frame, showFingers: true)
         if let image = layer.image() {
 #if os(macOS)

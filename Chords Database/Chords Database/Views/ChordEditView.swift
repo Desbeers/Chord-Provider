@@ -32,7 +32,6 @@ struct ChordEditView: View {
                                             baseFret: chord.baseFret,
                                             barres: chord.barres.first ?? 0,
                                             capo: chord.capo,
-                                            //midi: chord.midi,
                                             key: chord.key,
                                             suffix: chord.suffix)
         )
@@ -85,8 +84,6 @@ struct ChordEditView: View {
                     HStack {
                         Divider()
                             .frame(height: 20)
-                        
-                        //calculateMidi(values: result)
                         ForEach(values.midi, id: \.self) { midi in
                             VStack {
                                 Text(midi.description)
@@ -173,7 +170,7 @@ struct ChordEditView: View {
                 }, label: {
                     Text(status.rawValue)
                 })
-                //.disabled(chord.define()  == result.define())
+                .disabled(chord.define() == result.define())
                 Button(action: {
                     dismiss()
                 }, label: {

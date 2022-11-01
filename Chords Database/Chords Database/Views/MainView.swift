@@ -22,7 +22,6 @@ struct MainView: View {
                 .navigationSplitViewColumnWidth(200)
         }, detail: {
             DatabaseView()
-                //.id(model.selectedKey)
         })
         .animation(.default, value: midiFilter)
         .toolbar {
@@ -32,8 +31,8 @@ struct MainView: View {
             Button(action: {
                 do {
                 let newChord = try ChordPosition(id: UUID(),
-                                             frets: [0,0,0,0,0,0],
-                                             fingers: [0,0,0,0,0,0],
+                                             frets: [0, 0, 0, 0, 0, 0],
+                                             fingers: [0, 0, 0, 0, 0, 0],
                                              baseFret: 1,
                                              barres: [],
                                              midi: [48, 52, 55, 60, 64],

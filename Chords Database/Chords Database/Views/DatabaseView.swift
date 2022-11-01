@@ -19,7 +19,6 @@ struct DatabaseView: View {
         Table(chords) {
             TableColumn("Diagram") { chord in
                 model.diagram(chord: chord)
-                    //.frame(height: 180)
             }
             TableColumn("Chord") { chord in
                 Text(chord.key.display.symbol + chord.suffix.display.symbolized)
@@ -59,12 +58,9 @@ struct DatabaseView: View {
     }
     
     func filterChords() {
-        
         var allChords = model.allChords.filter({$0.key == model.selectedKey})
-        
         if let suffix = model.selectedSuffix {
             allChords = allChords.filter({$0.suffix == suffix})
-            //allChords = allChords.filter({$0.suffix == suffix}).sorted {$0.baseFret < $1.baseFret}
         }
         
         if midiFilter {
@@ -74,7 +70,6 @@ struct DatabaseView: View {
         chords = allChords
     }
 
-    
     func editButton(chord: ChordPosition) -> some View {
         Button(action: {
             model.editChord = chord

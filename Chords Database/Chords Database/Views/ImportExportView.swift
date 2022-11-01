@@ -47,9 +47,12 @@ struct ImportButtonView: View {
             allowsMultipleSelection: false
         ) { result in
             do {
-                guard let selectedFile: URL = try result.get().first else { return }
-                guard let database = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
-
+                guard let selectedFile: URL = try result.get().first else {
+                    return
+                }
+                guard let database = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else {
+                    return
+                }
                 model.importDB(database: database)
             } catch {
                 // Handle failure.
