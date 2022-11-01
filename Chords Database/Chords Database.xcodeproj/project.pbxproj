@@ -1,0 +1,440 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D72286B8290AC78400937256 /* SwiftyChords in Frameworks */ = {isa = PBXBuildFile; productRef = D72286B7290AC78400937256 /* SwiftyChords */; };
+		D72286BA290AC94700937256 /* DatabaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286B9290AC94700937256 /* DatabaseView.swift */; };
+		D72286BC290AC95A00937256 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286BB290AC95A00937256 /* SidebarView.swift */; };
+		D72286BE290ACA3500937256 /* ChordsDatabaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286BD290ACA3500937256 /* ChordsDatabaseModel.swift */; };
+		D72286C0290ACC8600937256 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286BF290ACC8600937256 /* Extensions.swift */; };
+		D72286C4290AD28B00937256 /* ImportExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286C3290AD28B00937256 /* ImportExportView.swift */; };
+		D72286C6290ADCA600937256 /* KeyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286C5290ADCA600937256 /* KeyDetailsView.swift */; };
+		D72286CA290BC24100937256 /* ChordEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286C9290BC24100937256 /* ChordEditView.swift */; };
+		D72286CC290C0DAD00937256 /* Midi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286CB290C0DAD00937256 /* Midi.swift */; };
+		D72286CE290E9B8F00937256 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72286CD290E9B8F00937256 /* ContentView.swift */; };
+		D751B839290AC40A0002AAFF /* ChordsDatabaseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751B838290AC40A0002AAFF /* ChordsDatabaseApp.swift */; };
+		D751B83B290AC40A0002AAFF /* ChordsDatabaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751B83A290AC40A0002AAFF /* ChordsDatabaseDocument.swift */; };
+		D751B83D290AC40A0002AAFF /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751B83C290AC40A0002AAFF /* MainView.swift */; };
+		D751B83F290AC40A0002AAFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D751B83E290AC40A0002AAFF /* Assets.xcassets */; };
+		D751B842290AC40A0002AAFF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D751B841290AC40A0002AAFF /* Preview Assets.xcassets */; };
+		D7A95EB4290EB56C00DC41F8 /* Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A95EB3290EB56C00DC41F8 /* Chord.swift */; };
+		D7A95EB6290EB57B00DC41F8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A95EB5290EB57B00DC41F8 /* Strings.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D72286B9290AC94700937256 /* DatabaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseView.swift; sourceTree = "<group>"; };
+		D72286BB290AC95A00937256 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		D72286BD290ACA3500937256 /* ChordsDatabaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsDatabaseModel.swift; sourceTree = "<group>"; };
+		D72286BF290ACC8600937256 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D72286C3290AD28B00937256 /* ImportExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportExportView.swift; sourceTree = "<group>"; };
+		D72286C5290ADCA600937256 /* KeyDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyDetailsView.swift; sourceTree = "<group>"; };
+		D72286C7290AF50900937256 /* SwiftyGuitarChords */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyGuitarChords; path = ../../SwiftyGuitarChords; sourceTree = "<group>"; };
+		D72286C8290B03FE00937256 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D72286C9290BC24100937256 /* ChordEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordEditView.swift; sourceTree = "<group>"; };
+		D72286CB290C0DAD00937256 /* Midi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Midi.swift; sourceTree = "<group>"; };
+		D72286CD290E9B8F00937256 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D751B835290AC40A0002AAFF /* Chords Database.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chords Database.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D751B838290AC40A0002AAFF /* ChordsDatabaseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsDatabaseApp.swift; sourceTree = "<group>"; };
+		D751B83A290AC40A0002AAFF /* ChordsDatabaseDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsDatabaseDocument.swift; sourceTree = "<group>"; };
+		D751B83C290AC40A0002AAFF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D751B83E290AC40A0002AAFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D751B841290AC40A0002AAFF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D751B843290AC40A0002AAFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D751B844290AC40A0002AAFF /* ChordsDatabase.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChordsDatabase.entitlements; sourceTree = "<group>"; };
+		D7A95EB3290EB56C00DC41F8 /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
+		D7A95EB5290EB57B00DC41F8 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D751B832290AC40A0002AAFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D72286B8290AC78400937256 /* SwiftyChords in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D72286C1290ACC9200937256 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				D751B83A290AC40A0002AAFF /* ChordsDatabaseDocument.swift */,
+				D72286BD290ACA3500937256 /* ChordsDatabaseModel.swift */,
+				D72286BF290ACC8600937256 /* Extensions.swift */,
+				D72286CB290C0DAD00937256 /* Midi.swift */,
+				D7A95EB3290EB56C00DC41F8 /* Chord.swift */,
+				D7A95EB5290EB57B00DC41F8 /* Strings.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		D72286C2290ACCA300937256 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D72286CD290E9B8F00937256 /* ContentView.swift */,
+				D751B83C290AC40A0002AAFF /* MainView.swift */,
+				D72286BB290AC95A00937256 /* SidebarView.swift */,
+				D72286C5290ADCA600937256 /* KeyDetailsView.swift */,
+				D72286B9290AC94700937256 /* DatabaseView.swift */,
+				D72286C9290BC24100937256 /* ChordEditView.swift */,
+				D72286C3290AD28B00937256 /* ImportExportView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D751B82C290AC40A0002AAFF = {
+			isa = PBXGroup;
+			children = (
+				D72286C8290B03FE00937256 /* README.md */,
+				D72286C7290AF50900937256 /* SwiftyGuitarChords */,
+				D751B837290AC40A0002AAFF /* Chords Database */,
+				D751B836290AC40A0002AAFF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D751B836290AC40A0002AAFF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D751B835290AC40A0002AAFF /* Chords Database.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D751B837290AC40A0002AAFF /* Chords Database */ = {
+			isa = PBXGroup;
+			children = (
+				D72286C1290ACC9200937256 /* General */,
+				D72286C2290ACCA300937256 /* Views */,
+				D751B838290AC40A0002AAFF /* ChordsDatabaseApp.swift */,
+				D751B83E290AC40A0002AAFF /* Assets.xcassets */,
+				D751B843290AC40A0002AAFF /* Info.plist */,
+				D751B844290AC40A0002AAFF /* ChordsDatabase.entitlements */,
+				D751B840290AC40A0002AAFF /* Preview Content */,
+			);
+			path = "Chords Database";
+			sourceTree = "<group>";
+		};
+		D751B840290AC40A0002AAFF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D751B841290AC40A0002AAFF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D751B834290AC40A0002AAFF /* Chords Database */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D751B847290AC40A0002AAFF /* Build configuration list for PBXNativeTarget "Chords Database" */;
+			buildPhases = (
+				D751B831290AC40A0002AAFF /* Sources */,
+				D751B832290AC40A0002AAFF /* Frameworks */,
+				D751B833290AC40A0002AAFF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Chords Database";
+			packageProductDependencies = (
+				D72286B7290AC78400937256 /* SwiftyChords */,
+			);
+			productName = DocApp;
+			productReference = D751B835290AC40A0002AAFF /* Chords Database.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D751B82D290AC40A0002AAFF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1410;
+				TargetAttributes = {
+					D751B834290AC40A0002AAFF = {
+						CreatedOnToolsVersion = 14.1;
+					};
+				};
+			};
+			buildConfigurationList = D751B830290AC40A0002AAFF /* Build configuration list for PBXProject "Chords Database" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D751B82C290AC40A0002AAFF;
+			packageReferences = (
+				D72286B6290AC78400937256 /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */,
+			);
+			productRefGroup = D751B836290AC40A0002AAFF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D751B834290AC40A0002AAFF /* Chords Database */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D751B833290AC40A0002AAFF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D751B842290AC40A0002AAFF /* Preview Assets.xcassets in Resources */,
+				D751B83F290AC40A0002AAFF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D751B831290AC40A0002AAFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D72286CC290C0DAD00937256 /* Midi.swift in Sources */,
+				D72286C4290AD28B00937256 /* ImportExportView.swift in Sources */,
+				D72286CE290E9B8F00937256 /* ContentView.swift in Sources */,
+				D751B839290AC40A0002AAFF /* ChordsDatabaseApp.swift in Sources */,
+				D72286BE290ACA3500937256 /* ChordsDatabaseModel.swift in Sources */,
+				D72286C6290ADCA600937256 /* KeyDetailsView.swift in Sources */,
+				D7A95EB6290EB57B00DC41F8 /* Strings.swift in Sources */,
+				D72286BA290AC94700937256 /* DatabaseView.swift in Sources */,
+				D72286BC290AC95A00937256 /* SidebarView.swift in Sources */,
+				D751B83B290AC40A0002AAFF /* ChordsDatabaseDocument.swift in Sources */,
+				D72286CA290BC24100937256 /* ChordEditView.swift in Sources */,
+				D751B83D290AC40A0002AAFF /* MainView.swift in Sources */,
+				D72286C0290ACC8600937256 /* Extensions.swift in Sources */,
+				D7A95EB4290EB56C00DC41F8 /* Chord.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D751B845290AC40A0002AAFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D751B846290AC40A0002AAFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		D751B848290AC40A0002AAFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Chords Database/ChordsDatabase.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Chords Database/Preview Content\"";
+				DEVELOPMENT_TEAM = FHPCJ7396C;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Chords Database/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.ChordsDatabase;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D751B849290AC40A0002AAFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Chords Database/ChordsDatabase.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Chords Database/Preview Content\"";
+				DEVELOPMENT_TEAM = FHPCJ7396C;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Chords Database/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.ChordsDatabase;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D751B830290AC40A0002AAFF /* Build configuration list for PBXProject "Chords Database" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D751B845290AC40A0002AAFF /* Debug */,
+				D751B846290AC40A0002AAFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D751B847290AC40A0002AAFF /* Build configuration list for PBXNativeTarget "Chords Database" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D751B848290AC40A0002AAFF /* Debug */,
+				D751B849290AC40A0002AAFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D72286B6290AC78400937256 /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BeauNouvelle/SwiftyGuitarChords";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D72286B7290AC78400937256 /* SwiftyChords */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D72286B6290AC78400937256 /* XCRemoteSwiftPackageReference "SwiftyGuitarChords" */;
+			productName = SwiftyChords;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D751B82D290AC40A0002AAFF /* Project object */;
+}
