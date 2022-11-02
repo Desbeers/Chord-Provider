@@ -82,7 +82,7 @@ extension FileBrowserView {
             Button(
                 action: {
                     /// openDocument is very buggy; don't try to open a document when it is already open
-                    if let window = window {
+                    if let window {
                         NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
                     } else {
                         Task {

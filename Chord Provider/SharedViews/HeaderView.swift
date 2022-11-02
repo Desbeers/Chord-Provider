@@ -50,17 +50,33 @@ extension HeaderView {
     
     /// The View with general information
     struct General: View {
+        
         let song: Song
+        private let metaData: [String]
+        
+        init(song: Song, metaData: [String] = []) {
+            self.song = song
+            var meta: [String] = []
+            if let artist = song.artist {
+                meta.append(artist)
+            }
+            if let album = song.album {
+                meta.append(album)
+            }
+            if let year = song.year {
+                meta.append(year)
+            }
+            self.metaData = meta
+        }
+        
         var body: some View {
             VStack(alignment: .leading) {
-                if song.artist != nil {
-                    Text(song.artist!)
+                if let title = song.title {
+                    Text(title)
                         .font(.headline)
                 }
-                if song.title != nil {
-                    Text(song.title!)
-                        .font(.subheadline)
-                }
+                Text(metaData.joined(separator: "∙"))
+                    .font(.subheadline)
             }
         }
     }

@@ -98,31 +98,20 @@ extension FileBrowser {
     
     /// Parse the actual metadata
     private func parseFileLine(text: String, song: inout SongItem) {
-        let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([^%]*)\\}")
-        
-        var key: String?
-        var value: String?
-        if let match = directiveRegex?.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
-            if let keyRange = Range(match.range(at: 1), in: text) {
-                key = text[keyRange].trimmingCharacters(in: .newlines)
-            }
+        if let match = text.wholeMatch(of: ChordPro.directiveRegex) {
             
-            if let valueRange = Range(match.range(at: 2), in: text) {
-                value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-            switch key {
-            case "t":
-                song.title = value!
-            case "title":
-                song.title = value!
-            case "st":
-                song.artist = value!
-            case "subtitle":
-                song.artist = value!
-            case "artist":
-                song.artist = value!
-            case "musicpath":
-                song.musicpath = value!
+            let directive = match.1
+            let label = match.2
+            
+            switch directive {
+            case .t, .title:
+                song.title = label ?? "Unknown Title"
+            case .st, .subtitle, .artist:
+                song.artist = label ?? "Unknown Artist"
+            case .musicpath:
+                if let label {
+                    song.musicpath = label
+                }
             default:
                 break
             }

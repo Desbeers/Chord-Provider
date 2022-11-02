@@ -8,22 +8,9 @@
 import SwiftUI
 import SwiftyChords
 
-/// The chordpro format parser
+/// The ChordPro format parser
 struct ChordPro {
 
-    // MARK: - Regex definitions
-    
-    /// The regex for directives with a value, {title: lalala} for example
-    static let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([[^}]]*)\\}")
-    /// The regex for directives without a value, {soc} for example
-    static let directiveEmptyRegex = try? NSRegularExpression(pattern: "\\{(\\w*)\\}")
-    /// The regex for chord define
-    static let defineRegex = try? NSRegularExpression(pattern: "([a-z0-9#b/]+)(.*)", options: .caseInsensitive)
-    /// The regex for a 'normal'  line
-    static let lineRegex = try? NSRegularExpression(pattern: "(\\[[\\w#b/]+])?([^\\[]*)", options: .caseInsensitive)
-    /// The regex for a chord (used in the text editor for macOS)
-    static let chordsRegex = try? NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]?", options: .caseInsensitive)
-    
     // MARK: - func: parse
     
     /// Parse a ChordPro file
@@ -39,7 +26,7 @@ struct ChordPro {
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text:
-        for text in text.components(separatedBy: "\n") {
+        for text in text.components(separatedBy: .newlines) {
             switch text.prefix(1) {
             case "{":
                 /// Directive
@@ -54,16 +41,15 @@ struct ChordPro {
                     processGrid(text: text, song: &song, currentSection: &currentSection)
                 }
             case "":
-                /// Empty line; close the section if it has an 'automatic type' or else clone the section
+                /// Empty line; close the section if it has an 'automatic type' or else close the section
                 if !currentSection.lines.isEmpty {
                     if currentSection.autoType {
                         song.sections.append(currentSection)
                         currentSection = Song.Section(id: song.sections.count + 1)
                     } else {
                         song.sections.append(currentSection)
-                        currentSection = Song.Section(id: song.sections.count + 1, name: currentSection.name, type: currentSection.type)
+                        currentSection = Song.Section(id: song.sections.count + 1, label: currentSection.label, type: currentSection.type)
                     }
-                    
                 }
             case "#":
                 /// A remark; just ignore it
@@ -85,153 +71,123 @@ struct ChordPro {
     // MARK: - func: processDirective
 
     fileprivate static func processDirective(text: String, song: inout Song, currentSection: inout Song.Section) {
-        var key: String?
-        var value: String?
-        /// First, stuff with a value
-        if let match = directiveRegex?.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
-            if let keyRange = Range(match.range(at: 1), in: text) {
-                key = text[keyRange].trimmingCharacters(in: .newlines)
-            }
-            if let valueRange = Range(match.range(at: 2), in: text) {
-                value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-            switch key {
-            case "t", "title":
-                song.title = value!
-            case "st", "subtitle", "artist":
-                song.artist = value!
-            case "capo":
-                song.capo = value!
-            case "time":
-                song.time = value!
-            case "c", "comment":
-                processSection(text: value!, type: .comment, song: &song, currentSection: &currentSection)
+        
+        if let match = text.wholeMatch(of: directiveRegex) {
+            
+            let directive = match.1
+            let label = match.2
+ 
+            switch directive {
+                
+                // MARK: Meta-data directives
+                
+            case .t, .title:
+                song.title = label
+            case .st, .subtitle, .artist:
+                song.artist = label
+            case .capo:
+                song.capo = label
+            case .time:
+                song.time = label
+            case .key:
+                if let label {
+                    song.key = processChord(chord: label, song: &song)
+                }
+            case .tempo:
+                song.tempo = label
+            case .year:
+                song.year = label
+            case .album:
+                song.album = label
+                
+                // MARK: Formatting directives
+                
+            case .comment:
+                if let label {
+                    processSection(label: label, type: Environment.comment, song: &song, currentSection: &currentSection)
+                    song.sections.append(currentSection)
+                    currentSection = Song.Section(id: song.sections.count + 1)
+                }
+                
+                // MARK: Environment directives
+                
+                /// ## Start of Chorus
+            case .soc, .startOfChorus:
+                processSection(label: label ?? Environment.chorus.rawValue, type: .chorus, song: &song, currentSection: &currentSection)
+                
+                /// ## Repeat Chorus
+            case .chorus:
+                processSection(label: label ?? Environment.repeatChorus.rawValue, type: .repeatChorus, song: &song, currentSection: &currentSection)
                 song.sections.append(currentSection)
                 currentSection = Song.Section(id: song.sections.count + 1)
-            case "soc", "start_of_chorus":
-                processSection(text: value!, type: .chorus, song: &song, currentSection: &currentSection)
-            case "sob", "start_of_bridge":
-                processSection(text: value!, type: .bridge, song: &song, currentSection: &currentSection)
-            case "sot", "start_of_tab":
-                processSection(text: value!, type: .tab, song: &song, currentSection: &currentSection)
-            case "sov", "start_of_verse":
-                processSection(text: value!, type: .verse, song: &song, currentSection: &currentSection)
-            case "sog", "start_of_grid":
-                processSection(text: value!, type: .grid, song: &song, currentSection: &currentSection)
-            case "chorus":
-                processSection(text: value!, type: .repeatChorus, song: &song, currentSection: &currentSection)
-                song.sections.append(currentSection)
-                currentSection = Song.Section(id: song.sections.count + 1)
-            case "define":
-                processDefine(text: value!, song: &song)
-            case "key":
-                song.key = value!
-            case "tempo":
-                song.tempo = value!
-            case "year":
-                song.year = value!
-            case "album":
-                song.album = value!
-            case "tuning":
-                song.tuning = value!
-            case "musicpath":
-                if let path = song.path {
+                
+                /// ## Start of Verse
+            case .sov, .startOfVerse:
+                processSection(label: label ?? Environment.verse.rawValue, type: .verse, song: &song, currentSection: &currentSection)
+
+                /// ## Start of Bridge
+            case .sob, .startOfBridge:
+                processSection(label: label ?? Environment.bridge.rawValue, type: .bridge, song: &song, currentSection: &currentSection)
+
+                /// ## Start of Tab
+            case .sot, .startOfTab:
+                processSection(label: label ?? Environment.tab.rawValue, type: .tab, song: &song, currentSection: &currentSection)
+
+                /// ## Start of Grid
+            case .sog, .startOfGrid:
+                processSection(label: label ?? Environment.grid.rawValue, type: .grid, song: &song, currentSection: &currentSection)
+                
+                /// # End of environment
+            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid:
+                processSection(label: Environment.none.rawValue, type: .none, song: &song, currentSection: &currentSection)
+                
+                // MARK: Chord diagrams
+            case .define:
+                if let label {
+                    processDefine(text: label, song: &song)
+                }
+                
+                // MARK: Custom directives
+            case .musicpath:
+                if let path = song.path, let label {
                     var musicpath = path.deletingLastPathComponent()
-                    musicpath.appendPathComponent(value!)
+                    musicpath.appendPathComponent(label)
                     song.musicpath = musicpath
                 }
-            default:
-                break
-            }
-        }
-        /// Second, stuff without a value
-        if let match = directiveEmptyRegex?.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
-            if let keyRange = Range(match.range(at: 1), in: text) {
-                key = text[keyRange].trimmingCharacters(in: .newlines)
-            }
-            switch key {
-            case "soc", "start_of_chorus":
-                processSection(text: "Chorus", type: .chorus, song: &song, currentSection: &currentSection)
-            case "eoc", "end_of_chorus":
-                if !currentSection.lines.isEmpty {
-                    song.sections.append(currentSection)
-                }
-                currentSection = Song.Section(id: song.sections.count + 1)
-            case "sot", "start_of_tab":
-                processSection(text: "Tab", type: .tab, song: &song, currentSection: &currentSection)
-            case "eot", "end_of_tab":
-                if !currentSection.lines.isEmpty {
-                    song.sections.append(currentSection)
-                }
-                currentSection = Song.Section(id: song.sections.count + 1)
-            case "sog", "start_of_grid":
-                processSection(text: "", type: .grid, song: &song, currentSection: &currentSection)
-            case "eog", "end_of_grid":
-                if !currentSection.lines.isEmpty {
-                    song.sections.append(currentSection)
-                }
-                currentSection = Song.Section(id: song.sections.count + 1)
-            case "sov", "start_of_verse":
-                processSection(text: "Verse", type: .verse, song: &song, currentSection: &currentSection)
-            case "eov", "end_of_verse":
-                if !currentSection.lines.isEmpty {
-                    song.sections.append(currentSection)
-                }
-                currentSection = Song.Section(id: song.sections.count + 1)
-            case "sob", "start_of_bridge":
-                processSection(text: "Bridge", type: .bridge, song: &song, currentSection: &currentSection)
-            case "eob", "end_of_bridge":
-                if !currentSection.lines.isEmpty {
-                    song.sections.append(currentSection)
-                }
-                currentSection = Song.Section(id: song.sections.count + 1)
-            case "chorus":
-                processSection(text: "Repeat chorus", type: .repeatChorus, song: &song, currentSection: &currentSection)
-                song.sections.append(currentSection)
-                currentSection = Song.Section(id: song.sections.count + 1)
-            default:
-                break
             }
         }
     }
     
     // MARK: - func: processSection
 
-    fileprivate static func processSection(text: String, type: Song.Section.SectionType, song: inout Song, currentSection: inout Song.Section) {
+    fileprivate static func processSection(label: String, type: Environment, song: inout Song, currentSection: inout Song.Section) {
         if currentSection.lines.isEmpty {
             /// There is already an empty section
             currentSection.type = type
-            currentSection.name = text
+            currentSection.label = label
         } else {
             /// Make a new section
             song.sections.append(currentSection)
             currentSection = Song.Section(id: song.sections.count + 1)
             currentSection.type = type
-            currentSection.name = text
+            currentSection.label = label
         }
     }
     
     // MARK: - func: processDefine; chord definitions
+    
     fileprivate static func processDefine(text: String, song: inout Song) {
-        var key = ""
-        var value = ""
-        if let match = defineRegex?.firstMatch(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count)) {
-            if let keyRange = Range(match.range(at: 1), in: text) {
-                key = text[keyRange].trimmingCharacters(in: .newlines)
+        if let match = text.wholeMatch(of: defineRegex) {
+            let key = match.1
+            let value = match.2
+            do {
+                /// Remove standard chords with the same key if there is one in the chords list
+                song.chords = song.chords.filter { !($0.name == key && $0.isCustom == false) }
+                let chord = Song.Chord(name: key, chordPosition: try ChordPosition(from: value), isCustom: true)
+                song.chords.append(chord)
+            } catch {
+                print("Unexpected error: \(error).")
             }
-            
-            if let valueRange = Range(match.range(at: 2), in: text) {
-                value = text[valueRange].trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-        }
-        do {
-            // remove standard chords with the same key if there is one in the chords list
-            song.chords = song.chords.filter { !($0.name == key && $0.isCustom == false) }
-
-            let chord = Song.Chord(name: key, chordPosition: try ChordPosition(from: value), isCustom: true)
-            song.chords.append(chord)
-        } catch {
-            print("Unexpected error: \(error).")
         }
     }
 
@@ -243,8 +199,9 @@ struct ChordPro {
         line.tab = text.trimmingCharacters(in: .whitespacesAndNewlines)
         currentSection.lines.append(line)
         /// Mark the section as Tab if not set
-        if currentSection.type == nil {
+        if currentSection.type == .none {
             currentSection.type = .tab
+            currentSection.label = Environment.tab.rawValue
             currentSection.autoType = true
         }
     }
@@ -261,26 +218,22 @@ struct ChordPro {
         for text in grids where !text.isEmpty {
             var grid = Song.Section.Line.Grid(id: partID)
             /// Process like a 'normal' line'
-            if let matches = lineRegex?.matches(in: String(text), range: NSRange(location: 0, length: text.utf16.count)) {
-                for match in matches {
-                    if let keyRange = Range(match.range(at: 1), in: text) {
-                        let chord = text[keyRange]
-                            .trimmingCharacters(in: .newlines)
-                            .replacingOccurrences(of: "[", with: "")
-                            .replacingOccurrences(of: "]", with: "")
-                        let result = processChord(chord: chord, song: &song)
-                        
-                        /// Add it as chord
-                        grid.parts.append(Song.Section.Line.Part(id: partID, chord: result))
+            var matches = text.matches(of: lineRegex)
+            matches = matches.dropLast()
+            for match in matches {
+                let (_, chord, spacer) = match.output
+                if let chord {
+                    let result = processChord(chord: String(chord), song: &song)
+                    /// Add it as chord
+                    grid.parts.append(Song.Section.Line.Part(id: partID, chord: result))
+                    partID += 1
+                }
+
+                if let spacer {
+                    /// Add it as spacer
+                    for _ in spacer {
+                        grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: "."))
                         partID += 1
-                    }
-                    if let valueRange = Range(match.range(at: 2), in: text) {
-                        let result = String(text[valueRange])
-                        /// Add it as spacer
-                        for _ in result {
-                            grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: "."))
-                            partID += 1
-                        }
                     }
                 }
             }
@@ -288,8 +241,9 @@ struct ChordPro {
         }
         currentSection.lines.append(line)
         /// Mark the section as Grid if not set
-        if currentSection.type == nil {
+        if currentSection.type == .none {
             currentSection.type = .grid
+            currentSection.label = Environment.grid.rawValue
             currentSection.autoType = true
         }
     }
@@ -300,30 +254,30 @@ struct ChordPro {
         /// Start with a fresh line:
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
         var partID: Int = 1
-        if let matches = lineRegex?.matches(in: text, range: NSRange(location: 0, length: text.utf16.count)) {
-            for match in matches {
-                var part = Song.Section.Line.Part(id: partID)
-                if let keyRange = Range(match.range(at: 1), in: text) {
-                    let chord = text[keyRange]
-                        .trimmingCharacters(in: .newlines)
-                        .replacingOccurrences(of: "[", with: "")
-                        .replacingOccurrences(of: "]", with: "")
-                    part.chord = processChord(chord: chord, song: &song)
-                    
-                    if currentSection.type == nil {
-                        currentSection.type = .verse
-                        currentSection.autoType = true
-                    }
+        
+        var matches = text.matches(of: lineRegex)
+        matches = matches.dropLast()
+        for match in matches {
+            let (_, chord, lyric) = match.output
+            var part = Song.Section.Line.Part(id: partID)
+            if let chord {
+                part.chord = processChord(chord: String(chord), song: &song)
+                part.text = " "
+                /// Because it has a chord; it should be at least a verse
+                if currentSection.type == .none {
+                    currentSection.type = .verse
+                    currentSection.label = Environment.verse.rawValue
+                    currentSection.autoType = true
                 }
-                if let valueRange = Range(match.range(at: 2), in: text) {
-                    /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
-                    /// for the funny stuff added to the string...
-                    part.text = String(text[valueRange] + "\u{200c}")
-                }
-                if !(part.empty) {
-                    partID += 1
-                    line.parts.append(part)
-                }
+            }
+            if let lyric {
+                /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
+                /// for the funny stuff added to the string...
+                part.text = String(lyric + "\u{200c}")
+            }
+            if !(part.empty) {
+                partID += 1
+                line.parts.append(part)
             }
         }
         currentSection.lines.append(line)
@@ -336,31 +290,27 @@ struct ChordPro {
         if  let match = song.chords.first(where: { $0.name == chord }) {
             return match.display
         }
-        
-        // try to find the chord in SwiftyChords and append to the used chord list from this song
+        /// try to find the chord in SwiftyChords and append to the used chord list from this song
         var key: SwiftyChords.Chords.Key?
         var suffix: SwiftyChords.Chords.Suffix = .major
-        
-        let chordRegex = try? NSRegularExpression(pattern: "([CDEFGABb#]+)(.*)")
-        if let match = chordRegex?.firstMatch(in: chord, options: [], range: NSRange(location: 0, length: chord.utf16.count)) {
-            if let keyRange = Range(match.range(at: 1), in: chord) {
-                var valueKey = chord[keyRange].trimmingCharacters(in: .newlines)
-                /// Dirty, some chords in the database are only in the flat version....
-                if valueKey == "G#" {
-                    valueKey = "Ab"
-                }
-                key = SwiftyChords.Chords.Key(rawValue: valueKey)
+        if let match = chord.wholeMatch(of: chordRegex) {
+            var chordKey = String(match.1)
+            /// Dirty, some chords in the database are only in the flat version....
+            if chordKey == "G#" {
+                chordKey = "Ab"
             }
-            if let valueRange = Range(match.range(at: 2), in: chord) {
+            key = SwiftyChords.Chords.Key(rawValue: chordKey)
+            if let matchSuffix = match.2 {
+                var chordSuffix = String(matchSuffix)
                 /// ChordPro suffix are not always the suffixes in the database...
-                var suffixString: String
-                switch chord[valueRange] {
+                switch chordSuffix {
                 case "m":
-                    suffixString = "minor"
+                    chordSuffix = "minor"
                 default:
-                    suffixString = String(chord[valueRange])
+                    break
                 }
-                suffix = SwiftyChords.Chords.Suffix(rawValue: suffixString.trimmingCharacters(in: .newlines)) ?? SwiftyChords.Chords.Suffix.major
+                suffix = SwiftyChords.Chords.Suffix(rawValue: chordSuffix) ?? SwiftyChords.Chords.Suffix.major
+
             }
             if key != nil {
                 if let baseChord = Chords.guitar.filter({ $0.key == key && $0.suffix == suffix}).first {
@@ -370,7 +320,7 @@ struct ChordPro {
                 }
             }
         }
-        /// Return the key because it is possible to have a custom defined chard after the usage of that chord.
+        /// Return the chord because it is possible to have a custom defined chard after the usage of that chord.
         return chord
     }
 }

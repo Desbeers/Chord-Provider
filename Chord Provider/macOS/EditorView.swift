@@ -18,13 +18,13 @@ struct EditorView: View {
     @State var selection = NSRange()
     /// The highlight rules
     private let rules: [HighlightRule] = [
-        HighlightRule(pattern: ChordPro.chordsRegex!, formattingRules: [
+        HighlightRule(pattern: Editor.chordsRegex!, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: NSColor.red)
         ]),
-        HighlightRule(pattern: ChordPro.directiveRegex!, formattingRules: [
+        HighlightRule(pattern: Editor.directiveRegex!, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: NSColor.controlAccentColor)
         ]),
-        HighlightRule(pattern: ChordPro.directiveEmptyRegex!, formattingRules: [
+        HighlightRule(pattern: Editor.directiveEmptyRegex!, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: NSColor.controlAccentColor)
         ]),
         HighlightRule(pattern: NSRegularExpression.all, formattingRules: [

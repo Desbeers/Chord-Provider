@@ -51,7 +51,7 @@ extension SongRenderView {
         var prominent: Bool = false
         func body(content: Content) -> some View {
             GridRow {
-                if let label = label {
+                if let label {
                     Text(label)
                         .padding(.all, prominent ? 10 : 0)
                         .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
@@ -84,7 +84,7 @@ extension SongRenderView {
                     }
                 }
             }
-            .modifier(SectionView(section: section, scale: scale, label: section.name))
+            .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
     
@@ -111,7 +111,7 @@ extension SongRenderView {
                     }
                 }
             }
-            .modifier(SectionView(section: section, scale: scale, label: section.name))
+            .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
     
@@ -124,7 +124,7 @@ extension SongRenderView {
                     PartsView(parts: line.parts)
                 }
             }
-            .modifier(SectionView(section: section, scale: scale, label: section.name))
+            .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
     
@@ -137,7 +137,7 @@ extension SongRenderView {
                     PartsView(parts: line.parts)
                 }
             }
-            .modifier(SectionView(section: section, scale: scale, label: section.name ?? "Chorus", prominent: true))
+            .modifier(SectionView(section: section, scale: scale, label: section.label ?? "Chorus", prominent: true))
         }
     }
     
@@ -145,7 +145,7 @@ extension SongRenderView {
         let section: Song.Section
         let scale: Double
         var body: some View {
-            Label(section.name ?? "Repeat Chorus", systemImage: "arrow.triangle.2.circlepath")
+            Label(section.label ?? "Repeat Chorus", systemImage: "arrow.triangle.2.circlepath")
                 .padding(.trailing)
                 .padding(4 * scale)
                 .background(Color.accentColor.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
@@ -166,7 +166,7 @@ extension SongRenderView {
             .lineLimit(1)
             .minimumScaleFactor(0.1)
             .monospaced()
-            .modifier(SectionView(section: section, scale: scale, label: section.name))
+            .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
     
@@ -174,7 +174,7 @@ extension SongRenderView {
         let section: Song.Section
         let scale: Double
         var body: some View {
-            Label(section.name ?? "", systemImage: "bubble.right")
+            Label(section.label ?? "", systemImage: "bubble.right")
                 .padding(4 * scale)
                 .background(Color.primary.opacity(0.1), in: RoundedRectangle(cornerRadius: 6))
                 .font(.system(size: 10 * scale))
