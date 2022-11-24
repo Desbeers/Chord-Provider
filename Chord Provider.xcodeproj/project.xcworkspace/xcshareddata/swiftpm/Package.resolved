@@ -12,10 +12,10 @@
     {
       "identity" : "swiftyguitarchords",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords",
+      "location" : "https://github.com/Desbeers/SwiftyGuitarChords",
       "state" : {
-        "branch" : "main",
-        "revision" : "2757b09739e228792e84c6962268253c9762b4dc"
+        "branch" : "clean-database-1",
+        "revision" : "fccde9e1c65bd991efaf7e5f81fceeb28c39d20b"
       }
     }
   ],

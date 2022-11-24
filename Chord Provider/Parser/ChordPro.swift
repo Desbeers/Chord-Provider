@@ -291,10 +291,6 @@ struct ChordPro {
         var suffix: SwiftyChords.Chords.Suffix = .major
         if let match = chord.wholeMatch(of: chordRegex) {
             var chordKey = String(match.1)
-            /// Dirty, some chords in the database are only in the flat version....
-            if chordKey == "G#" {
-                chordKey = "Ab"
-            }
             key = SwiftyChords.Chords.Key(rawValue: chordKey)
             if let matchSuffix = match.2 {
                 var chordSuffix = String(matchSuffix)
