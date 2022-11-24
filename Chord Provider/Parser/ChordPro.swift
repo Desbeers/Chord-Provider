@@ -180,14 +180,10 @@ struct ChordPro {
         if let match = text.wholeMatch(of: defineRegex) {
             let key = match.1
             let value = match.2
-            do {
-                /// Remove standard chords with the same key if there is one in the chords list
-                song.chords = song.chords.filter { !($0.name == key && $0.isCustom == false) }
-                let chord = Song.Chord(name: key, chordPosition: try ChordPosition(from: value), isCustom: true)
-                song.chords.append(chord)
-            } catch {
-                print("Unexpected error: \(error).")
-            }
+            /// Remove standard chords with the same key if there is one in the chords list
+            song.chords = song.chords.filter { !($0.name == key && $0.isCustom == false) }
+            let chord = Song.Chord(name: key, chordPosition: define(from: value), isCustom: true)
+            song.chords.append(chord)
         }
     }
 

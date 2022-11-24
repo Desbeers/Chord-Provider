@@ -19,7 +19,7 @@ struct ChordsView: View {
     var body: some View {
         ScrollView {
             VStack {
-                ForEach(song.chords.sorted { $0.name < $1.name }) { chord in
+                ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                     Group {
                         HStack(alignment: .top, spacing: 0) {
                             Text("\(chord.display)")
