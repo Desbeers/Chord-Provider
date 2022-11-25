@@ -33,7 +33,7 @@ The branch 'SwiftUI-3' has an older version for macOS Monterey or iOS 15, howeve
 
 Well, Chord Provider a simple application. There are a lot better 'chord' applications and I wrote this just for fun. It serves me well but I know it's not that great. It might serve you well, as a 'chord' programm or as a sample for a 'document based SwiftUI' application. SwiftUI is fun and great, however, also limited and challenging; especialy on macOS. There are many 'workarounds' in the code; especialy for 'window handling'.
 
-Not all chords in the database are correct; especialy the more complicated chords.
+Not all chords in the database are correct; especialy the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS Ventura to view and alter the database with all known chords.
 
 ### iCloud
 
