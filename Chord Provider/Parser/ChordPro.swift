@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftyChords
+import SwiftlyChordUtilities
 
 /// The ChordPro format parser
 struct ChordPro {
@@ -18,11 +19,13 @@ struct ChordPro {
     ///   - text: The text of the file
     ///   - file: The `URL` of the file
     /// - Returns: A ``Song`` item
-    static func parse(text: String, file: URL?) -> Song {
+    static func parse(text: String, transponse: Int, file: URL?) -> Song {
         /// Start with a fresh song
         var song = Song()
         /// Add the path
         song.path = file
+        /// Add the optional transponse
+        song.transpose = transponse
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text:
@@ -90,8 +93,15 @@ struct ChordPro {
             case .time:
                 song.time = label
             case .key:
-                if let label {
-                    song.key = processChord(chord: label, song: &song)
+                if let label, let key = Chords.Key(rawValue: label) {
+                    /// Transpose the chord if needed
+                    if song.transpose != 0 {
+                        var chord = getChordInfo(root: key, quality: .major )
+                        chord.transpose(transpose: song.transpose, scale: key)
+                        song.key = chord.root
+                    } else {
+                        song.key = key
+                    }
                 }
             case .tempo:
                 song.tempo = label
@@ -179,11 +189,12 @@ struct ChordPro {
     fileprivate static func processDefine(text: String, song: inout Song) {
         if let match = text.wholeMatch(of: defineRegex) {
             let key = match.1
-            let value = match.2
             /// Remove standard chords with the same key if there is one in the chords list
             song.chords = song.chords.filter { !($0.name == key && $0.isCustom == false) }
-            let chord = Song.Chord(name: key, chordPosition: define(from: value), isCustom: true)
-            song.chords.append(chord)
+            /// Parse the define
+            if let chord = define(from: text) {
+                song.chords.append(Song.Chord(name: key, chordPosition: chord, isCustom: true))
+            }
         }
     }
 
@@ -286,30 +297,21 @@ struct ChordPro {
         if  let match = song.chords.first(where: { $0.name == chord }) {
             return match.display
         }
-        /// try to find the chord in SwiftyChords and append to the used chord list from this song
-        var key: SwiftyChords.Chords.Key?
-        var suffix: SwiftyChords.Chords.Suffix = .major
-        if let match = chord.wholeMatch(of: chordRegex) {
-            var chordKey = String(match.1)
-            key = SwiftyChords.Chords.Key(rawValue: chordKey)
-            if let matchSuffix = match.2 {
-                var chordSuffix = String(matchSuffix)
-                /// ChordPro suffix are not always the suffixes in the database...
-                switch chordSuffix {
-                case "m":
-                    chordSuffix = "minor"
-                default:
-                    break
-                }
-                suffix = SwiftyChords.Chords.Suffix(rawValue: chordSuffix) ?? SwiftyChords.Chords.Suffix.major
-
+        /// Try to find the chord in SwiftyChords and append to the used chord list from this song
+        let result = findRootAndQuality(chord: chord)
+        
+        if let root = result.root, let quality = result.quality {
+            var rootValue = root
+            /// Transpose the chord if needed
+            if song.transpose != 0 {
+                var chord = getChordInfo(root: rootValue, quality: quality )
+                chord.transpose(transpose: song.transpose, scale: song.key ?? .c)
+                rootValue = chord.root
             }
-            if key != nil {
-                if let baseChord = Chords.guitar.filter({ $0.key == key && $0.suffix == suffix}).first {
-                    let songChord = Song.Chord(name: chord, chordPosition: baseChord, isCustom: false)
-                    song.chords.append(songChord)
-                    return songChord.display
-                }
+            if let baseChord = Chords.guitar.filter({ $0.key == rootValue && $0.suffix == quality}).first {
+                let songChord = Song.Chord(name: chord, chordPosition: baseChord, isCustom: false)
+                song.chords.append(songChord)
+                return songChord.display
             }
         }
         /// Return the chord because it is possible to have a custom defined chard after the usage of that chord.

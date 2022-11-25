@@ -10,12 +10,21 @@
       }
     },
     {
+      "identity" : "swiftlychordutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f8f3024b2c95f86974e1119b2a7ea4a262f8b91d"
+      }
+    },
+    {
       "identity" : "swiftyguitarchords",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/SwiftyGuitarChords",
+      "location" : "https://github.com/Desbeers/SwiftyGuitarChords.git",
       "state" : {
         "branch" : "clean-database-1",
-        "revision" : "fccde9e1c65bd991efaf7e5f81fceeb28c39d20b"
+        "revision" : "d6a97a115a8543ba82e583eaef0faae787be778e"
       }
     }
   ],

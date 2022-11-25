@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
 
 /// The Main View
 struct ContentView: View {
@@ -40,9 +41,24 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            ExportButtonView(song: song)
-                .labelStyle(.iconOnly)
-                .help("Export your song")
+            
+            Button(action: {
+                song.transpose -= 1
+            }, label: {
+                Label("♭", systemImage: "arrow.down")
+                    .font(.title2)
+                    .foregroundColor(song.transpose < 0 ? .accentColor : .primary)
+            })
+            .labelStyle(.titleAndIcon)
+            Button(action: {
+                song.transpose += 1
+            }, label: {
+                Label("♯", systemImage: "arrow.up")
+                    .font(.title2)
+                    .foregroundColor(song.transpose > 0 ? .accentColor : .primary)
+            })
+            .labelStyle(.titleAndIcon)
+
             Button {
                 withAnimation {
                     showChords.toggle()
@@ -61,6 +77,9 @@ struct ContentView: View {
                     .frame(minWidth: 110, alignment: .leading)
             }
             .labelStyle(.titleAndIcon)
+            ExportButtonView(song: song)
+                .labelStyle(.iconOnly)
+                .help("Export your song")
         }
         .modifier(SongViewModifier(document: $document, song: $song, file: file))
     }

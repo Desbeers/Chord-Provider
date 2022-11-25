@@ -16,7 +16,6 @@ struct ChordProDocument: FileDocument {
     let buildSongDebouncer = Debouncer(duration: 1)
     static let fileExtension: [String] = ["crd", "pro", "chopro", "cpm", "chordpro", "txt"]
     var text: String
-
     init(text: String = newText) {
         self.text = text
     }

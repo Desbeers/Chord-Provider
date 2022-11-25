@@ -86,8 +86,8 @@ extension HeaderView {
         let song: Song
         var body: some View {
             HStack(alignment: .center) {
-                if song.key != nil {
-                    Label(song.key!, systemImage: "key").padding(.leading)
+                if let key = song.key {
+                    Label(key.display.symbol, systemImage: "key").padding(.leading)
                 }
                 if song.capo != nil {
                     Label(song.capo!, systemImage: "paperclip").padding(.leading)

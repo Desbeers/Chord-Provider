@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftyChords
+import SwiftlyChordUtilities
 
 /// The View with chord diagrams
 struct ChordsView: View {
@@ -25,26 +26,37 @@ struct ChordsView: View {
                             Text("\(chord.display)")
                                 .foregroundColor(.accentColor)
                                 .font(.title2)
-                            if chord.isCustom {
-                                Text("*")
-                            }
                         }
-                        let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
-                        let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: showFingers, chordName: .init(show: false))
-                        if let image = layer.image() {
-#if os(macOS)
-                            Image(nsImage: image)
-#endif
-#if os(iOS)
-                            Image(uiImage: image)
-#endif
-                        } else {
+                        
+                        if chord.isCustom && song.transpose != 0 {
                             VStack {
                                 Image(systemName: "music.note")
-                                Text("Unknown chord")
+                                Text("Custom chords cannot transpose to its new shape")
+                                    .font(.caption)
                             }
-                            .frame(width: 100, alignment: .center)
-                            .padding(.vertical)
+                            .padding(4)
+                            .frame(width: 100, height: 120, alignment: .center)
+                            .border(.primary)
+                        } else {
+                            
+                            let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
+                            let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: showFingers, chordName: .init(show: false))
+                            if let image = layer.image() {
+#if os(macOS)
+                                Image(nsImage: image)
+#endif
+#if os(iOS)
+                                Image(uiImage: image)
+#endif
+                            } else {
+                                VStack {
+                                    Image(systemName: "music.note")
+                                    Text("Unknown chord")
+                                }
+                                .frame(width: 100, alignment: .center)
+                                .padding(4)
+                                .border(.primary)
+                            }
                         }
                     }
                     .onTapGesture {
@@ -76,6 +88,9 @@ extension ChordsView {
             VStack {
                 Text("Chord: \(chord!.display)")
                     .font(.title)
+#if os(macOS)
+                MidiPlayer.InstrumentPicker()
+#endif
                 ScrollView {
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 110))],
@@ -88,7 +103,10 @@ extension ChordsView {
                             let layer = chord.chordLayer(rect: frame, showFingers: true)
                             let image = layer.image()
 #if os(macOS)
-                            Image(nsImage: image!)
+                            VStack {
+                                Image(nsImage: image!)
+                                MidiPlayer.PlayButton(chord: chord)
+                            }
 #endif
 #if os(iOS)
                             Image(uiImage: image!)
@@ -107,7 +125,7 @@ extension ChordsView {
                 .keyboardShortcut(.defaultAction)
             }
             .padding()
-            .frame(minWidth: 400, idealWidth: 400, minHeight: 400, idealHeight: 400)
+            .frame(minWidth: 400, idealWidth: 600, minHeight: 400, idealHeight: 600)
         }
     }
 }

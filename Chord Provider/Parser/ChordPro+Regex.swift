@@ -70,33 +70,7 @@ extension ChordPro {
             $0.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
-    
-    /// The regex for a `chord`
-    ///
-    /// It will parse the chord to find the `kay` and optional `suffix`
-    ///
-    ///     /// ## Examples
-    ///
-    ///     Am -> key: Am, suffix: nil
-    ///     Dsus4 -> key: D, suffix: sus4
-    ///
-    static let chordRegex = Regex {
-        /// The Key
-        Capture {
-            OneOrMore {
-                CharacterClass(
-                    .anyOf("CDEFGABb#")
-                )
-            }
-        }
-        /// The optional Suffix
-        Optionally {
-            Capture {
-                OneOrMore(.any)
-            }
-        }
-    }
-    
+
     /// The regex for a *normal*  line with optional`chords` and/or `lyrics`
     ///
     ///     /// ## Example

@@ -57,12 +57,19 @@ struct SongViewModifier: ViewModifier {
                 if document.text == ChordProDocument.newText {
                     showEditor = true
                 }
-                song = ChordPro.parse(text: document.text, file: file ?? nil)
+                song = ChordPro.parse(text: document.text, transponse: song.transpose, file: file ?? nil)
             }
             .onChange(of: document.text) { _ in
                 Task {
                     await document.buildSongDebouncer.submit {
-                        song = ChordPro.parse(text: document.text, file: file ?? nil)
+                        song = ChordPro.parse(text: document.text, transponse: song.transpose, file: file ?? nil)
+                    }
+                }
+            }
+            .onChange(of: song.transpose) { _ in
+                Task {
+                    await document.buildSongDebouncer.submit {
+                        song = ChordPro.parse(text: document.text, transponse: song.transpose, file: file ?? nil)
                     }
                 }
             }

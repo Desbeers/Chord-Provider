@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyChords
+import SwiftlyChordUtilities
 
 extension Song {
     
@@ -20,7 +21,12 @@ extension Song {
         /// Display name for the chord
         var display: String {
             if isCustom {
-                return name
+                /// Try to find it in the SwiftyChords database
+                let chord = findRootAndQuality(chord: name)
+                if let root = chord.root, let quality = chord.quality {
+                    return "\(root.display.symbol)\(quality.display.symbolized)*"
+                }
+                return "\(name)*"
             } else {
                 var text = chordPosition.key.display.symbol
                 switch chordPosition.suffix {
