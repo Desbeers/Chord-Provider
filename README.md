@@ -12,17 +12,28 @@ Written in SwiftUI 4, so macOS Ventura or iPadOS 16 only.
 
 The branch 'SwiftUI-3' has an older version for macOS Monterey or iOS 15, however, I don't update that version anymore.
 
+### General
+
+- It wil view and/or edit 'ChordPro' files.
+- It recognise most of the 'ChordPro' derectives, but not all. 
+- It can transpose a song; however, only in the View. The document will not be changed and that's on purpose.
+- You can 'define' a Capo but that will not change any notes; again on purpose.
+- You can click on a chord diagram and it will open s Sheet with all known versions.
+
+
 ### macOS
 
 - It has a 'browser' for your songs if you select a folder.
+- It has a 'highlighted TextEditor'.'
 - It can export your songs to PNG images. Can't get PDF done yet; work in progess.
-- It can play chords with MIDI.
-- It can transpose a song
-- It has a 'quick view' plugin for ChordPro files.
+- It can play chords with MIDI on the 'Chord Sheet'
+- It has a 'quick view' plugin for 'ChordPro' files.
 
 ### Limitations
 
-Well, Chord Provider a simple application. There are a lot better 'chord' applications and I wrote this just for fun. It serves me well but I know it's not that great. It might serve you well, as a 'chord' programm or as a sample for a 'document based SwiftUI' application. SwiftUI is fun and great, however, also limited and challenging; especialy on macOS. There are many 'workarounds' in the code; especialy for 'window handling'.'
+Well, Chord Provider a simple application. There are a lot better 'chord' applications and I wrote this just for fun. It serves me well but I know it's not that great. It might serve you well, as a 'chord' programm or as a sample for a 'document based SwiftUI' application. SwiftUI is fun and great, however, also limited and challenging; especialy on macOS. There are many 'workarounds' in the code; especialy for 'window handling'.
+
+Not all chords in the database are correct; especialy the more complicated chords.
 
 ### iCloud
 

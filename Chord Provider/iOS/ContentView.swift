@@ -32,12 +32,29 @@ struct ContentView: View {
                     .labelStyle(.titleAndIcon)
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
+                Button(action: {
+                    song.transpose -= 1
+                }, label: {
+                    Label("♭", systemImage: "arrow.down")
+                        //.font(.title2)
+                        .foregroundColor(song.transpose < 0 ? .accentColor : .primary)
+                })
+                .labelStyle(.titleAndIcon)
+                Button(action: {
+                    song.transpose += 1
+                }, label: {
+                    Label("♯", systemImage: "arrow.up")
+                        //.font(.title2)
+                        .foregroundColor(song.transpose > 0 ? .accentColor : .primary)
+                })
+                .labelStyle(.titleAndIcon)
                 Button {
                     withAnimation {
                         showChords.toggle()
                     }
                 } label: {
                     Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
+                        .frame(minWidth: 140, alignment: .leading)
                 }
                 .labelStyle(.titleAndIcon)
                 Button {
@@ -46,6 +63,7 @@ struct ContentView: View {
                     }
                 } label: {
                     Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
+                        .frame(minWidth: 140, alignment: .leading)
                 }
                 .labelStyle(.titleAndIcon)
             }
