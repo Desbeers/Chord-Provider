@@ -164,7 +164,6 @@
 		D7CC570D25FBAFC700AD96CA /* Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chord.swift; sourceTree = "<group>"; };
 		D7D6441328F02F9200A03407 /* SongRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRenderView.swift; sourceTree = "<group>"; };
 		D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
-		D7E7CBFC293169E1001DA86F /* SwiftlyChordUtilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftlyChordUtilities; path = ../SwiftlyChordUtilities; sourceTree = "<group>"; };
 		D7F68D342578DA8400B119BA /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -212,7 +211,6 @@
 		D759292E2572280B006DDF24 = {
 			isa = PBXGroup;
 			children = (
-				D7E7CBFC293169E1001DA86F /* SwiftlyChordUtilities */,
 				D7667D85273FAFB9002E7DF9 /* Chord Provider */,
 				D731FD4E2694938B00558E02 /* .swiftlint.yml */,
 				D754B6DB25867274001AE6DD /* README.md */,

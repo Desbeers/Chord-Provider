@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "swiftlychordutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "23bb0de531ec0cba83ac1dd637f12f7f6b148c0c"
+      }
+    },
+    {
       "identity" : "swiftyguitarchords",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Desbeers/SwiftyGuitarChords.git",
