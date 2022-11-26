@@ -25,7 +25,7 @@ The branch 'SwiftUI-3' has an older version for macOS Monterey or iOS 15, howeve
 
 - It has a 'browser' for your songs if you select a folder.
 - It has a 'highlighted TextEditor'.'
-- It can export your songs to PNG images. Can't get PDF done yet; work in progess.
+- It can export your song to a PDF document.
 - It can play chords with MIDI on the 'Chord Sheet'
 - It has a 'quick view' plugin for 'ChordPro' files.
 
@@ -56,7 +56,7 @@ Stole code (and ideas) from:
 
 ### Used packages
 
-The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
+The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords). It is currently using my fork of 'Swifty Guitar Chords', awaiting the hopefully merge of my PR's. The only difference is the database of chords.
 
 The macOS editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
 

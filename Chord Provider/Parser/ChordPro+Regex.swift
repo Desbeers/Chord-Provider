@@ -43,34 +43,6 @@ extension ChordPro {
         "}"
     }
 
-    /// The regex for a `define` directive
-    ///
-    ///     /// ## Example
-    ///
-    ///     {define: Bes base-fret 1 frets 1 1 3 3 3 1 fingers 1 1 2 3 4 1}
-    ///
-    ///     Key: Bes
-    ///     Definition: base-fret 1 frets 1 1 3 3 3 1 fingers 1 1 2 3 4 1
-    ///
-    static let defineRegex = Regex {
-        TryCapture {
-            OneOrMore {
-                CharacterClass(
-                    .anyOf("#b"),
-                    (.word),
-                    (.digit)
-                )
-            }
-        } transform: {
-            $0.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        TryCapture {
-            OneOrMore(.any)
-        } transform: {
-            $0.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-    }
-
     /// The regex for a *normal*  line with optional`chords` and/or `lyrics`
     ///
     ///     /// ## Example

@@ -10,9 +10,9 @@ import Quartz
 import SwiftUI
 
 class PreviewProvider: QLPreviewProvider, QLPreviewingController {
-    
+
     @MainActor func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {
-        let contentType = UTType.png
+        let contentType = UTType.pdf
         let reply = QLPreviewReply.init(
             dataOfContentType: contentType,
             contentSize: CGSize.init(width: 800, height: 800)
@@ -21,16 +21,12 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             let song = ChordPro.parse(text: fileContents, transponse: 0, file: request.fileURL)
             let renderer = ImageRenderer(content: SongExportView(song: song))
             renderer.scale = 3.0
-            guard let tiffRepresentation = renderer.nsImage?.tiffRepresentation else {
-                fatalError()
-            }
-            let imageRep = NSBitmapImageRep(data: tiffRepresentation)
-            guard let data = imageRep?.representation(using: .png, properties: [:]) else {
+            guard let image = createPDF(image: renderer, paged: false) else {
                 fatalError()
             }
             replyToUpdate.title = "\(song.artist ?? "Artist") - \(song.title ?? "Title")"
             replyToUpdate.stringEncoding = .utf8
-            return data
+            return image as Data
         }
         return reply
     }

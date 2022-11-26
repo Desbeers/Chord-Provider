@@ -36,7 +36,6 @@ struct ContentView: View {
                     song.transpose -= 1
                 }, label: {
                     Label("♭", systemImage: "arrow.down")
-                        //.font(.title2)
                         .foregroundColor(song.transpose < 0 ? .accentColor : .primary)
                 })
                 .labelStyle(.titleAndIcon)
@@ -44,7 +43,6 @@ struct ContentView: View {
                     song.transpose += 1
                 }, label: {
                     Label("♯", systemImage: "arrow.up")
-                        //.font(.title2)
                         .foregroundColor(song.transpose > 0 ? .accentColor : .primary)
                 })
                 .labelStyle(.titleAndIcon)

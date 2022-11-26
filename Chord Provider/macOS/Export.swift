@@ -12,7 +12,7 @@ import UniformTypeIdentifiers
 struct ExportButtonView: View {
     let song: Song
     @State private var exportFile = false
-    @State private var image: NSImage?
+    @State private var image: NSData?
     var body: some View {
         Button(action: {
             renderSong()
@@ -21,7 +21,7 @@ struct ExportButtonView: View {
         })
         .fileExporter(isPresented: $exportFile,
                       document: ImageDocument(image: image),
-                      contentType: .png, defaultFilename: "\(song.artist ?? "Artist") - \(song.title ?? "Title")",
+                      contentType: .pdf, defaultFilename: "\(song.artist ?? "Artist") - \(song.title ?? "Title")",
                       onCompletion: { result in
             if case .success = result {
                 print("Success")
@@ -33,8 +33,85 @@ struct ExportButtonView: View {
     @MainActor private func renderSong() {
         let renderer = ImageRenderer(content: SongExportView(song: song))
         renderer.scale = 3.0
-        image = renderer.nsImage
+        image = createPDF(image: renderer, paged: true)
         exportFile = true
+    }
+}
+
+@MainActor func createPDF<T: View>(image: ImageRenderer<T>, paged: Bool = true) -> NSData? {
+    
+    // MARK: one long page solution
+    var singlePage: NSData? {
+        if let nsImage = image.nsImage, let cgImage = image.cgImage {
+            let pdfData = NSMutableData()
+            let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
+            var mediaBox = NSRect.init(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
+            let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)!
+            pdfContext.beginPage(mediaBox: &mediaBox)
+            pdfContext.draw(cgImage, in: mediaBox)
+            pdfContext.endPage()
+            return pdfData
+        }
+        return nil
+    }
+    
+    // MARK: multy page solution
+    var multiPage: NSData? {
+        
+        if let nsImage = image.nsImage, let cgImage = image.cgImage {
+            /// The margins for the individual page
+            let margin = NSSize(width: 10, height: 14.14)
+            /// The PDF pages
+            var pages: [CGImage] = []
+            /// The content size for PDF page, in A4 ratio
+            let contentSize = NSSize(width: nsImage.size.width, height: nsImage.size.width * 1.414)
+            /// The box dimensions of the PDF
+            var mediaBox = NSRect(x: 0, y: 0, width: contentSize.width + (margin.width * 2), height: contentSize.height + (margin.height * 2))
+            /// The box dimensions of the content
+            let contentBox = NSRect(x: margin.width, y: margin.height, width: contentSize.width, height: contentSize.height)
+            /// Calculate the total amount of pages
+            let totalPages = Int(ceil(nsImage.size.height / (nsImage.size.width * 1.414)))
+            /// Cut the image in 'page pieces'
+            for page in 0..<totalPages {
+                /// Calculate the cropBox
+                let cropBox = CGRect(x: 0,
+                                     y: contentSize.height * CGFloat(page) * image.scale,
+                                     width: contentSize.width * image.scale,
+                                     height: contentSize.height * image.scale
+                )
+                /// Cropping is optional
+                if let part = cgImage.cropping(to: cropBox) {
+                    pages.append(part)
+                }
+            }
+            /// Create the PDF
+            let pdfData = NSMutableData()
+            let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
+            let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)!
+            /// Add all the pages````
+            for page in pages {
+                pdfContext.beginPage(mediaBox: &mediaBox)
+                /// The last page might be too small
+                if page.height < Int(contentSize.height * image.scale) {
+                    let newHeight = (Double(page.height) / image.scale)
+                    let newContentBox = NSRect(x: margin.width, y: mediaBox.height - newHeight - margin.height, width: contentSize.width, height: newHeight)
+                    pdfContext.draw(page, in: newContentBox)
+                } else {
+                    pdfContext.draw(page, in: contentBox)
+                }
+                pdfContext.endPage()
+            }
+            return pdfData
+        }
+        return nil
+    }
+    
+    switch paged {
+        
+    case true:
+        return multiPage
+    case false:
+        return singlePage
     }
 }
 
@@ -50,7 +127,7 @@ struct SongExportView: View {
             SongRenderView(song: song, scale: 1)
         }
         .padding()
-        .frame(width: 1200, alignment: .center)
+        .frame(width: 800, alignment: .center)
         .preferredColorScheme(.light)
         .background(.white)
     }
@@ -59,26 +136,22 @@ struct SongExportView: View {
 /// Define the exported  'ImageDocument'
 struct ImageDocument: FileDocument {
     /// The type of image to export
-    static var readableContentTypes: [UTType] { [.png] }
+    static var readableContentTypes: [UTType] { [.pdf] }
     /// The image to export
-    var image: NSImage
+    var image: NSData
     /// Init the struct
-    init(image: NSImage?) {
-        self.image = image ?? NSImage()
+    init(image: NSData?) {
+        self.image = image ?? NSData()
     }
     /// Black magic
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let image = NSImage(data: data)
-        else {
+        guard let data = configuration.file.regularFileContents else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        self.image = image
+        self.image = NSData(data: data)
     }
     /// Save the exported image
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let imageRep = NSBitmapImageRep(data: (image.tiffRepresentation!))
-        let pngData = imageRep?.representation(using: .png, properties: [:])
-        return FileWrapper(regularFileWithContents: pngData!)
+        return FileWrapper(regularFileWithContents: image as Data)
     }
 }
