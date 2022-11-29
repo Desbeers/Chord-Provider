@@ -56,8 +56,7 @@ Stole code (and ideas) from:
 
 ### Used packages
 
-The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords). It is currently using my fork of 'Swifty Guitar Chords', awaiting the hopefully merge of my PR's. The only difference is the database of chords.
-
+The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords).
 The macOS editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
 
 I use my [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities) package for chord handling.

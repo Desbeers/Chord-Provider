@@ -15,16 +15,16 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "23bb0de531ec0cba83ac1dd637f12f7f6b148c0c"
+        "revision" : "cfd2772b96a82d6011f0ffa49374dee961b9349a"
       }
     },
     {
       "identity" : "swiftyguitarchords",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/SwiftyGuitarChords.git",
+      "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords.git",
       "state" : {
-        "branch" : "clean-database-1",
-        "revision" : "d6a97a115a8543ba82e583eaef0faae787be778e"
+        "branch" : "main",
+        "revision" : "7a93570cb9f24c3b2fc2400456e3b5ae58505a25"
       }
     }
   ],
