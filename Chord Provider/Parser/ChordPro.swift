@@ -13,7 +13,7 @@ import SwiftlyChordUtilities
 struct ChordPro {
 
     // MARK: - func: parse
-    
+
     /// Parse a ChordPro file
     /// - Parameters:
     ///   - text: The text of the file
@@ -70,20 +70,20 @@ struct ChordPro {
         /// All done!
         return song
     }
-    
+
     // MARK: - func: processDirective
 
     fileprivate static func processDirective(text: String, song: inout Song, currentSection: inout Song.Section) {
-        
+
         if let match = text.wholeMatch(of: directiveRegex) {
-            
+
             let directive = match.1
             let label = match.2
- 
+
             switch directive {
-                
+
                 // MARK: Meta-data directives
-                
+
             case .t, .title:
                 song.title = label
             case .st, .subtitle, .artist:
@@ -109,28 +109,28 @@ struct ChordPro {
                 song.year = label
             case .album:
                 song.album = label
-                
+
                 // MARK: Formatting directives
-                
+
             case .comment:
                 if let label {
                     processSection(label: label, type: Environment.comment, song: &song, currentSection: &currentSection)
                     song.sections.append(currentSection)
                     currentSection = Song.Section(id: song.sections.count + 1)
                 }
-                
+
                 // MARK: Environment directives
-                
+
                 /// ## Start of Chorus
             case .soc, .startOfChorus:
                 processSection(label: label ?? Environment.chorus.rawValue, type: .chorus, song: &song, currentSection: &currentSection)
-                
+
                 /// ## Repeat Chorus
             case .chorus:
                 processSection(label: label ?? Environment.repeatChorus.rawValue, type: .repeatChorus, song: &song, currentSection: &currentSection)
                 song.sections.append(currentSection)
                 currentSection = Song.Section(id: song.sections.count + 1)
-                
+
                 /// ## Start of Verse
             case .sov, .startOfVerse:
                 processSection(label: label ?? Environment.verse.rawValue, type: .verse, song: &song, currentSection: &currentSection)
@@ -146,17 +146,17 @@ struct ChordPro {
                 /// ## Start of Grid
             case .sog, .startOfGrid:
                 processSection(label: label ?? Environment.grid.rawValue, type: .grid, song: &song, currentSection: &currentSection)
-                
+
                 /// # End of environment
             case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid:
                 processSection(label: Environment.none.rawValue, type: .none, song: &song, currentSection: &currentSection)
-                
+
                 // MARK: Chord diagrams
             case .define:
                 if let label {
                     processDefine(text: label, song: &song)
                 }
-                
+
                 // MARK: Custom directives
             case .musicpath:
                 if let path = song.path, let label {
@@ -167,7 +167,7 @@ struct ChordPro {
             }
         }
     }
-    
+
     // MARK: - func: processSection
 
     fileprivate static func processSection(label: String, type: Environment, song: inout Song, currentSection: inout Song.Section) {
@@ -183,9 +183,9 @@ struct ChordPro {
             currentSection.label = label
         }
     }
-    
+
     // MARK: - func: processDefine; chord definitions
-    
+
     fileprivate static func processDefine(text: String, song: inout Song) {
         if let match = text.wholeMatch(of: defineRegex) {
             let key = match.1
@@ -199,7 +199,7 @@ struct ChordPro {
     }
 
     // MARK: - func: processTab
-    
+
     fileprivate static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
@@ -212,9 +212,9 @@ struct ChordPro {
             currentSection.autoType = true
         }
     }
-    
+
     // MARK: - func: processGrid
-    
+
     fileprivate static func processGrid(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
@@ -254,14 +254,14 @@ struct ChordPro {
             currentSection.autoType = true
         }
     }
-    
+
     // MARK: - func: processLine
-    
+
     fileprivate static func processLine(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
         var partID: Int = 1
-        
+
         var matches = text.matches(of: lineRegex)
         matches = matches.dropLast()
         for match in matches {
@@ -291,7 +291,7 @@ struct ChordPro {
     }
 
     // MARK: - func: processChord; find key and suffix
-    
+
     private static func processChord(chord: String, song: inout Song) -> String {
         /// Check if this chord is aready parsed
         if  let match = song.chords.first(where: { $0.name == chord }) {
@@ -299,7 +299,7 @@ struct ChordPro {
         }
         /// Try to find the chord in SwiftyChords and append to the used chord list from this song
         let result = findRootAndQuality(chord: chord)
-        
+
         if let root = result.root, let quality = result.quality {
             var rootValue = root
             /// Transpose the chord if needed

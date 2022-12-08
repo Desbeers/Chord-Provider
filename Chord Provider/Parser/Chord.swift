@@ -10,14 +10,14 @@ import SwiftyChords
 import SwiftlyChordUtilities
 
 extension Song {
-    
+
     /// The chords of the ``Song``
     struct Chord: Identifiable {
         var id = UUID()
         var name: String
         var chordPosition: ChordPosition
         var isCustom: Bool
-        
+
         /// Display name for the chord
         var display: String {
             if isCustom {
@@ -38,7 +38,7 @@ extension Song {
                 return text
             }
         }
-        
+
         /// The chord postions are different if this is a custom chord. So return the custom chord or the default standard chord positions.
         /// - Returns: all chord postions for this chord
         func getChordPostions() -> [ChordPosition] {

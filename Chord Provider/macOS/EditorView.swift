@@ -98,7 +98,7 @@ struct EditorView: View {
 }
 
 extension EditorView {
-    
+
     /// The style for an editor button
     struct EditorButton: ButtonStyle {
         @State private var hovered = false

@@ -8,9 +8,9 @@
 import Foundation
 
 extension ChordPro {
-    
+
     // MARK: Section environments
-    
+
     /// The environment of a section of the song
     enum Environment: String {
         case none = "None"
@@ -22,5 +22,5 @@ extension ChordPro {
         case tab = "Tab"
         case grid = "Grid"
     }
-    
+
 }

@@ -16,7 +16,7 @@ struct ChordsView: View {
     /// Sheet with chords
     @State var showChordSheet = false
     @State var selectedChord: Song.Chord?
-    
+
     var body: some View {
         ScrollView {
             VStack {
@@ -27,7 +27,7 @@ struct ChordsView: View {
                                 .foregroundColor(.accentColor)
                                 .font(.title2)
                         }
-                        
+
                         if chord.isCustom && song.transpose != 0 {
                             VStack {
                                 Image(systemName: "music.note")
@@ -38,7 +38,7 @@ struct ChordsView: View {
                             .frame(width: 100, height: 120, alignment: .center)
                             .border(.primary)
                         } else {
-                            
+
                             let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
                             let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: showFingers, chordName: .init(show: false))
                             if let image = layer.image() {
@@ -78,7 +78,7 @@ struct ChordsView: View {
 }
 
 extension ChordsView {
-    
+
     /// View all chords of a certain key in a sheet
     struct Sheet: View {
         @Environment(\.presentationMode) var presentationMode

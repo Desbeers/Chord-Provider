@@ -23,7 +23,7 @@ struct FileBrowserView: View {
                         }
                     }
                 }
-                
+
             } else {
                 ForEach(fileBrowser.songList.filter({ $0.search.localizedCaseInsensitiveContains(search)})) { song in
                     Row(song: song)
@@ -64,7 +64,7 @@ struct FileBrowserView: View {
 }
 
 extension FileBrowserView {
-    
+
     /// A row in the browser list
     struct Row: View {
         /// The song item
@@ -112,7 +112,7 @@ extension FileBrowserView {
             }
         }
     }
-    
+
     /// Label style for a browser item
     struct BrowserLabelStyle: LabelStyle {
         func makeBody(configuration: Configuration) -> some View {

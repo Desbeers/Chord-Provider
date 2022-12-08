@@ -9,7 +9,7 @@ import Foundation
 import AppKit
 
 extension Editor {
-    
+
     /// Apply  a `directive` to the (optional) selected range in the `NSTextView`
     /// - Parameters:
     ///     - document: The `ChordProDocument` to update
@@ -40,7 +40,7 @@ extension Editor {
             }
         }
     }
-    
+
     /// Returns a string that has been reformatted based on the given ChordPro format.
     /// - Parameter string: The string to format.
     /// - Parameter directive: The ``Directive`` to apply

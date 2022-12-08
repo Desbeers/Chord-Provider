@@ -8,7 +8,7 @@
 import Foundation
 
 extension Editor {
-    
+
     /// ChordPro directives
     enum Directive {
         case chorus

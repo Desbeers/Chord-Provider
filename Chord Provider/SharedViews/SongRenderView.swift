@@ -42,7 +42,7 @@ struct SongRenderView: View {
 }
 
 extension SongRenderView {
-    
+
     /// Wrapper around a section
     struct SectionView: ViewModifier {
         let section: Song.Section
@@ -72,7 +72,7 @@ extension SongRenderView {
             }
         }
     }
-    
+
     struct PlainView: View {
         let section: Song.Section
         let scale: Double
@@ -87,7 +87,7 @@ extension SongRenderView {
             .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
-    
+
     struct GridView: View {
         let section: Song.Section
         let scale: Double
@@ -114,7 +114,7 @@ extension SongRenderView {
             .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
-    
+
     struct VerseView: View {
         let section: Song.Section
         let scale: Double
@@ -127,7 +127,7 @@ extension SongRenderView {
             .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
-    
+
     struct ChorusView: View {
         let section: Song.Section
         let scale: Double
@@ -140,7 +140,7 @@ extension SongRenderView {
             .modifier(SectionView(section: section, scale: scale, label: section.label ?? "Chorus", prominent: true))
         }
     }
-    
+
     struct RepeatChorusView: View {
         let section: Song.Section
         let scale: Double
@@ -153,7 +153,7 @@ extension SongRenderView {
                 .modifier(SectionView(section: section, scale: scale))
         }
     }
-    
+
     struct TabView: View {
         let section: Song.Section
         let scale: Double
@@ -169,7 +169,7 @@ extension SongRenderView {
             .modifier(SectionView(section: section, scale: scale, label: section.label))
         }
     }
-    
+
     struct CommentView: View {
         let section: Song.Section
         let scale: Double
@@ -182,7 +182,7 @@ extension SongRenderView {
                 .modifier(SectionView(section: section, scale: scale))
         }
     }
-    
+
     struct PartsView: View {
         let parts: [Song.Section.Line.Part]
         var body: some View {

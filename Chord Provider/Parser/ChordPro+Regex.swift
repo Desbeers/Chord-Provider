@@ -9,7 +9,7 @@ import Foundation
 import RegexBuilder
 
 extension ChordPro {
-    
+
     // MARK: Regex definitions
 
     /// The regex for a `directive` with an optional `label`

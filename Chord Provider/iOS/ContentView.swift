@@ -14,7 +14,7 @@ struct ContentView: View {
     let file: URL?
     @SceneStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
-    
+
     var body: some View {
         HStack {
             SongView(song: song, file: file)

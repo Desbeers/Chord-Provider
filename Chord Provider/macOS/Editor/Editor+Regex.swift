@@ -8,7 +8,7 @@
 import Foundation
 
 extension Editor {
-    
+
     /// The regex for directives with a value, {title: lalala} for example
     static let directiveRegex = try? NSRegularExpression(pattern: "\\{(\\w*):([[^}]]*)\\}")
     /// The regex for directives without a value, {soc} for example

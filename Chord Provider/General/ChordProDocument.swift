@@ -30,7 +30,7 @@ struct ChordProDocument: FileDocument {
         }
         text = string
     }
-    
+
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         /// Update the sidebar
         refreshList.toggle()

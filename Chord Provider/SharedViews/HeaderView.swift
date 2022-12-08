@@ -47,13 +47,13 @@ struct HeaderView: View {
 }
 
 extension HeaderView {
-    
+
     /// The View with general information
     struct General: View {
-        
+
         let song: Song
         private let metaData: [String]
-        
+
         init(song: Song, metaData: [String] = []) {
             self.song = song
             var meta: [String] = []
@@ -68,7 +68,7 @@ extension HeaderView {
             }
             self.metaData = meta
         }
-        
+
         var body: some View {
             VStack(alignment: .leading) {
                 if let title = song.title {
@@ -80,7 +80,7 @@ extension HeaderView {
             }
         }
     }
-    
+
     /// The View with details
     struct Details: View {
         let song: Song

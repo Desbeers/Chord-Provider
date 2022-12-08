@@ -15,7 +15,7 @@ struct ContentView: View {
     @State var song = Song()
     @SceneStorage("showEditor") var showEditor: Bool = false
     @AppStorage("showChords") var showChords: Bool = true
-    
+
     @EnvironmentObject var fileBrowser: FileBrowser
 
     var body: some View {
@@ -41,7 +41,7 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            
+
             Button(action: {
                 song.transpose -= 1
             }, label: {

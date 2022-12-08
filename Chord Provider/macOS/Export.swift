@@ -39,7 +39,7 @@ struct ExportButtonView: View {
 }
 
 @MainActor func createPDF<T: View>(image: ImageRenderer<T>, paged: Bool = true) -> NSData? {
-    
+
     // MARK: one long page solution
     var singlePage: NSData? {
         if let nsImage = image.nsImage, let cgImage = image.cgImage {
@@ -54,10 +54,10 @@ struct ExportButtonView: View {
         }
         return nil
     }
-    
+
     // MARK: multy page solution
     var multiPage: NSData? {
-        
+
         if let nsImage = image.nsImage, let cgImage = image.cgImage {
             /// The margins for the individual page
             let margin = NSSize(width: 10, height: 14.14)
@@ -105,9 +105,9 @@ struct ExportButtonView: View {
         }
         return nil
     }
-    
+
     switch paged {
-        
+
     case true:
         return multiPage
     case false:

@@ -23,7 +23,7 @@ class FileBrowser: ObservableObject {
 }
 
 extension FileBrowser {
-    
+
     /// The struct for a song item in the browser
     struct SongItem: Identifiable {
         var id: String {
@@ -37,20 +37,20 @@ extension FileBrowser {
         var musicpath: String = ""
         var path: URL
     }
-    
+
     /// The struct for a artist item in the browser
     struct ArtistItem: Identifiable {
         let id = UUID()
         let name: String
         let songs: [SongItem]
     }
-    
+
     /// The struct for an open window
     struct WindowItem {
         let windowID: Int
         let songURL: URL?
     }
-    
+
     /// Get the song files from the user selected folder
     func getFiles() {
         var songs = [SongItem]()
@@ -80,14 +80,14 @@ extension FileBrowser {
         }.sorted { $0.name < $1.name }
         songList = songs.sorted { $0.title < $1.title }
     }
-    
+
     /// Parse the song file for metadata
     private func parseSongFile(_ file: URL, _ song: inout SongItem) {
         song.title = file.lastPathComponent
-        
+
         do {
             let data = try String(contentsOf: file, encoding: .utf8)
-            
+
             for text in data.components(separatedBy: .newlines) where text.starts(with: "{") {
                 parseFileLine(text: text, song: &song)
             }
@@ -95,14 +95,14 @@ extension FileBrowser {
             print(error)
         }
     }
-    
+
     /// Parse the actual metadata
     private func parseFileLine(text: String, song: inout SongItem) {
         if let match = text.wholeMatch(of: ChordPro.directiveRegex) {
-            
+
             let directive = match.1
             let label = match.2
-            
+
             switch directive {
             case .t, .title:
                 song.title = label ?? "Unknown Title"
@@ -142,7 +142,7 @@ extension FileBrowser {
             }
         }
     }
-    
+
     /// Get the Documents directory
     /// - Returns: The users Documents directory
     ///
@@ -150,7 +150,7 @@ extension FileBrowser {
     static func getDocumentsDirectory() -> String {
         return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
     }
-    
+
     /// Set the sandbox bookmark
     /// - Parameters:
     ///   - key: The name of the bookmark
@@ -168,7 +168,7 @@ extension FileBrowser {
             return false
         }
     }
-    
+
     /// Get the sandbox bookmark
     /// - Parameter key: The name of the bookmark
     /// - Returns: The URL of the bookmark
@@ -176,12 +176,17 @@ extension FileBrowser {
         if let bookmarkData = UserDefaults.standard.data(forKey: "pathSongs") {
             do {
                 var bookmarkDataIsStale = false
-                let urlForBookmark = try URL(resolvingBookmarkData: bookmarkData, options: .withSecurityScope, relativeTo: nil, bookmarkDataIsStale: &bookmarkDataIsStale)
+                let urlForBookmark = try URL(
+                    resolvingBookmarkData: bookmarkData,
+                    options: .withSecurityScope,
+                    relativeTo: nil,
+                    bookmarkDataIsStale: &bookmarkDataIsStale
+                )
                 if bookmarkDataIsStale {
                     print("The bookmark is outdated and needs to be regenerated.")
                     _ = FileBrowser.setPersistentFileURL(key, urlForBookmark)
                     return nil
-                    
+
                 } else {
                     return urlForBookmark
                 }

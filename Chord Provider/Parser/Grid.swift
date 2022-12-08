@@ -8,7 +8,7 @@
 import Foundation
 
 extension Song.Section.Line {
-    
+
     /// A grid in the ``Song``
     struct Grid: Identifiable {
         var id: Int
