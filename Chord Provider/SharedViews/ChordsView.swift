@@ -9,14 +9,17 @@ import SwiftUI
 import SwiftyChords
 import SwiftlyChordUtilities
 
-/// The View with chord diagrams
+/// SwiftUI `View` with chord diagrams
 struct ChordsView: View {
+    /// The ``Song``
     let song: Song
+    /// Size of the chord diagram
     let frame = CGRect(x: 0, y: 0, width: 100, height: 150)
     /// Sheet with chords
     @State var showChordSheet = false
+    /// The optional selected chord to show in the `Sheet`
     @State var selectedChord: Song.Chord?
-
+    /// The body of the `View`
     var body: some View {
         ScrollView {
             VStack {
@@ -81,8 +84,11 @@ extension ChordsView {
 
     /// View all chords of a certain key in a sheet
     struct Sheet: View {
+        /// The presentation mode of the `Sheet`
         @Environment(\.presentationMode) var presentationMode
+        /// The selected chord
         @Binding var chord: Song.Chord?
+        /// The body of the `View`
         var body: some View {
             let chordPosition = chord!.getChordPostions()
             VStack {

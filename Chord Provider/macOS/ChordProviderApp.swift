@@ -7,10 +7,13 @@
 
 import SwiftUI
 
-/// The scene for the application
+/// SwiftUI `Scene` for Chord Provider
 @main struct ChordProviderApp: App {
-    @StateObject var fileBrowser = FileBrowser()
+    /// The ``FileBrowser``
+    @StateObject var fileBrowser = FileBrowserModel()
+    /// Environment to open a new document
     @Environment(\.newDocument) private var newDocument
+    /// The body of the `Scene`
     var body: some Scene {
         /// The 'Song List' window
         WindowGroup("Song List") {
@@ -33,7 +36,7 @@ import SwiftUI
                 .environmentObject(fileBrowser)
                 .withHostingWindow { window in
                     if let window = window?.windowController?.window {
-                        fileBrowser.openWindows.append(FileBrowser.WindowItem(windowID: window.windowNumber, songURL: file.fileURL))
+                        fileBrowser.openWindows.append(FileBrowserModel.WindowItem(windowID: window.windowNumber, songURL: file.fileURL))
                         let padding = CGFloat(fileBrowser.openWindows.count * 40)
                         window.setPosition(vertical: .top, horizontal: .center, padding: padding)
                         window.orderFrontRegardless()

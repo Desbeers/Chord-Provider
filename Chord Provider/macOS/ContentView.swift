@@ -8,16 +8,21 @@
 import SwiftUI
 import SwiftlyChordUtilities
 
-/// The Main View
+/// SwiftUI `View` for the main content
 struct ContentView: View {
+    /// Then ChordPro document
     @Binding var document: ChordProDocument
+    /// The optional file location
     let file: URL?
+    /// The ``Song``
     @State var song = Song()
+    /// Bool to show the editor or not
     @SceneStorage("showEditor") var showEditor: Bool = false
+    /// Bool to show the chords or not
     @AppStorage("showChords") var showChords: Bool = true
-
-    @EnvironmentObject var fileBrowser: FileBrowser
-
+    /// The FileBrowser model
+    @EnvironmentObject var fileBrowser: FileBrowserModel
+    /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
             HeaderView(song: song).background(Color.accentColor.opacity(0.1))

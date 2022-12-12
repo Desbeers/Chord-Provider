@@ -8,17 +8,22 @@
 import SwiftUI
 import AVKit
 
-/// A very simple audio player that is part of the Header View
+/// SwiftUI `View` for a very simple audio player
 struct AudioPlayerView: View {
+    /// The ``Song``
     var song: Song
+    /// The `AVAudioPlayer`
     @State var audioPlayer: AVAudioPlayer!
+    /// Bool if the player is playing or not
     @State var isPlaying: Bool = false
+    /// Show an `Alert` if the music file is not found
     @State private var showingAlert = false
+    /// The body of the `View`
     var body: some View {
         HStack {
             Button {
                 /// Sandbox stuff: get path for selected folder
-                if let persistentURL = FileBrowser.getPersistentFileURL("pathSongs") {
+                if let persistentURL = FileBrowserModel.getPersistentFileURL("pathSongs") {
                     _ = persistentURL.startAccessingSecurityScopedResource()
                     // todo: move check to song loading
                     // let isReachable = try! persistentURL.checkResourceIsReachable()

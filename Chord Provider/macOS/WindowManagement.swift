@@ -10,13 +10,22 @@ import SwiftUI
 
 extension NSWindow {
 
+    /// Struct to position a new `Window`
     struct Position {
-        static let defaultPadding: CGFloat = 16
+        /// The padding for new windows
+        static let defaultPadding: Double = 16
+        /// The vertical position
         var vertical: Vertical
+        /// The horizontal position
         var horizontal: Horizontal
+        /// The padding
         var padding = Self.defaultPadding
     }
 
+    /// Set the position of a `Window`
+    /// - Parameters:
+    ///   - position: The `Position`
+    ///   - screen: The `Screen`
     func setPosition(position: Position, in screen: NSScreen?) {
         guard let visibleFrame = (screen ?? self.screen)?.visibleFrame else {
             return
@@ -25,7 +34,13 @@ extension NSWindow {
         setFrameOrigin(origin)
     }
 
-    func setPosition(vertical: Position.Vertical, horizontal: Position.Horizontal, padding: CGFloat = Position.defaultPadding, screen: NSScreen? = nil) {
+    /// Set the position of a `Window`
+    /// - Parameters:
+    ///   - vertical: The vertical position
+    ///   - horizontal: The horizontal position
+    ///   - padding: The padding
+    ///   - screen: The screen
+    func setPosition(vertical: Position.Vertical, horizontal: Position.Horizontal, padding: Double = Position.defaultPadding, screen: NSScreen? = nil) {
         setPosition(
             position: Position(
                 vertical: vertical,
@@ -38,14 +53,31 @@ extension NSWindow {
 
 extension NSWindow.Position {
 
+    /// Hoizontal positions
     enum Horizontal {
-        case left, center, right
+        /// Left
+        case left
+        /// Center
+        case center
+        /// Right
+        case right
     }
 
+    /// Vertical positions
     enum Vertical {
-        case top, center, bottom
+        /// Top
+        case top
+        /// Center
+        case center
+        /// Bottom
+        case bottom
     }
 
+    /// Calculate position
+    /// - Parameters:
+    ///   - windowRect: The `CGRect`for the window
+    ///   - screenRect: The `CGRect`for the screen
+    /// - Returns: A `CGPoint`
     func value(forWindow windowRect: CGRect, inScreen screenRect: CGRect) -> CGPoint {
         let xPosition = horizontal.valueFor(
             screenRange: screenRect.minX..<screenRect.maxX,
@@ -63,7 +95,13 @@ extension NSWindow.Position {
 
 extension NSWindow.Position.Vertical {
 
-    func valueFor(screenRange: Range<CGFloat>, height: CGFloat, padding: CGFloat) -> CGFloat {
+    /// Calculate height
+    /// - Parameters:
+    ///   - screenRange: The `Range`
+    ///   - height: The height
+    ///   - padding: The padding
+    /// - Returns: Height as `CGFloat`
+    func valueFor(screenRange: Range<Double>, height: Double, padding: Double) -> Double {
         switch self {
         case .top:
             return screenRange.upperBound - height - padding
@@ -77,7 +115,13 @@ extension NSWindow.Position.Vertical {
 
 extension NSWindow.Position.Horizontal {
 
-    func valueFor(screenRange: Range<CGFloat>, width: CGFloat, padding: CGFloat) -> CGFloat {
+    /// Calculate width
+    /// - Parameters:
+    ///   - screenRange: The `Range`
+    ///   - height: The height
+    ///   - padding: The padding
+    /// - Returns: Width as `CGFloat`
+    func valueFor(screenRange: Range<Double>, width: Double, padding: Double) -> Double {
         switch self {
         case .left:
             return screenRange.upperBound - width - padding
@@ -92,6 +136,8 @@ extension NSWindow.Position.Horizontal {
 extension View {
 
     /// Find the NSWindow of the scene
+    /// - Parameter callback: The `callback`
+    /// - Returns: A `View`
     func withHostingWindow(_ callback: @escaping (NSWindow?) -> Void) -> some View {
         self.background(HostingWindowFinder(callback: callback))
     }
@@ -99,8 +145,8 @@ extension View {
 
 /// Find the NSWindow of the scene
 private struct HostingWindowFinder: NSViewRepresentable {
+    /// The callback
     var callback: (NSWindow?) -> Void
-
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
         Task { @MainActor in
@@ -108,6 +154,5 @@ private struct HostingWindowFinder: NSViewRepresentable {
         }
         return view
     }
-
     func updateNSView(_ nsView: NSView, context: Context) { }
 }

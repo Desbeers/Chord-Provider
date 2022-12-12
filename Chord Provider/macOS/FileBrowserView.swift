@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-/// The  View with a list of songs from a user selected directory
+/// SwiftUI `View` with a list of songs from a user selected directory
 struct FileBrowserView: View {
-    @EnvironmentObject var fileBrowser: FileBrowser
-    @AppStorage("pathSongsString") var pathSongsString: String = FileBrowser.getDocumentsDirectory()
+    /// The FileBrowser model
+    @EnvironmentObject var fileBrowser: FileBrowserModel
+    /// The location of the ChordPro songs
+    @AppStorage("pathSongsString") var pathSongsString: String = FileBrowserModel.getDocumentsDirectory()
+    /// Bool to trigger a refresh of the list
     @AppStorage("refreshList") var refreshList: Bool = false
+    /// The search query
     @State var search: String = ""
+    /// The body of the `View`
     var body: some View {
         List {
             if search.isEmpty {
@@ -65,19 +70,19 @@ struct FileBrowserView: View {
 
 extension FileBrowserView {
 
-    /// A row in the browser list
+    /// SwiftUI `View` for a row in the browser list
     struct Row: View {
         /// The song item
-        let song: FileBrowser.SongItem
+        let song: FileBrowserModel.SongItem
         /// The ``FileBrowser`` model
-        @EnvironmentObject var fileBrowser: FileBrowser
+        @EnvironmentObject var fileBrowser: FileBrowserModel
         /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
         /// Information about the `NSWindow`
-        var window: FileBrowser.WindowItem? {
+        var window: FileBrowserModel.WindowItem? {
             fileBrowser.openWindows.first(where: {$0.songURL == song.path})
         }
-        /// The View
+        /// The body of the `View`
         var body: some View {
             Button(
                 action: {
@@ -88,7 +93,7 @@ extension FileBrowserView {
                         Task {
                             do {
                                 /// Sandbox stuff
-                                if var persistentURL = FileBrowser.getPersistentFileURL("pathSongs") {
+                                if var persistentURL = FileBrowserModel.getPersistentFileURL("pathSongs") {
                                     _ = persistentURL.startAccessingSecurityScopedResource()
                                     persistentURL = song.path
                                     try await openDocument(at: song.path)
@@ -113,8 +118,12 @@ extension FileBrowserView {
         }
     }
 
-    /// Label style for a browser item
+    /// SwiftUI `LabelStyle` for a browser item
     struct BrowserLabelStyle: LabelStyle {
+
+        /// Style the label
+        /// - Parameter configuration: The configuration of the label
+        /// - Returns: A `View` with the label
         func makeBody(configuration: Configuration) -> some View {
             HStack {
                 configuration.icon.foregroundColor(.accentColor).frame(width: 10)

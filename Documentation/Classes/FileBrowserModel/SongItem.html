@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SongItem Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+    <script src="../../js/lunr.min.js" defer></script>
+    <script src="../../js/typeahead.jquery.js" defer></script>
+    <script src="../../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/SongItem" class="dashAnchor"></a>
+    <a title="SongItem Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">Chord Provider</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">Chord_Provider Reference</a>
+        <img id="carat" src="../../img/carat.png" alt=""/>
+        SongItem Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../ChordPro.html">ChordPro</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/ChordPro.html">ChordPro</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ChordPro/Directive.html">– Directive</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ChordPro/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Song.html">Song</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Song/Chord.html">– Chord</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Song/Section.html">– Section</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Observable%20Classes.html">Observable Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/FileBrowserModel.html">FileBrowserModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/FileBrowserModel/SongItem.html">– SongItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/FileBrowserModel/ArtistItem.html">– ArtistItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/FileBrowserModel/WindowItem.html">– WindowItem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../File%20Documents.html">File Documents</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/UTType.html">UTType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ChordProDocument.html">ChordProDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ImageDocument.html">ImageDocument</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../SwiftUI.html">SwiftUI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/ChordProviderApp.html">ChordProviderApp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ContentView.html">ContentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/HeaderView.html">HeaderView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/HeaderView/General.html">– General</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/HeaderView/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongView.html">SongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongViewModifier.html">SongViewModifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongExportView.html">SongExportView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView.html">SongRenderView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/SectionView.html">– SectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/PlainView.html">– PlainView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/GridView.html">– GridView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/VerseView.html">– VerseView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/ChorusView.html">– ChorusView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/RepeatChorusView.html">– RepeatChorusView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/TabView.html">– TabView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/CommentView.html">– CommentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SongRenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ChordsView.html">ChordsView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ChordsView/Sheet.html">– Sheet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/AudioPlayerView.html">AudioPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/EditorView.html">EditorView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/EditorView/Directive.html">– Directive</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/EditorView/EditorButton.html">– EditorButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/FileBrowserView.html">FileBrowserView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/FileBrowserView/Row.html">– Row</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/FileBrowserView/BrowserLabelStyle.html">– BrowserLabelStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/ExportButtonView.html">ExportButtonView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Actors.html">Other Actors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Actors/Debouncer.html">Debouncer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/NSWindow.html">NSWindow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/NSWindow/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/View.html">View</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Other%20Functions.html#/s:14Chord_Provider9createPDF5image5pagedSo6NSDataCSg7SwiftUI13ImageRendererCyxG_SbtAH4ViewRzlF">createPDF(image:paged:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/HostingWindowFinder.html">HostingWindowFinder</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SongItem</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">SongItem</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
+
+                </div>
+              </div>
+            <p>The struct for a song item in the browser</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV2idSSvp"></a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV2idSSvp">id</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The unique ID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV6artistSSvp"></a>
+                    <a name="//apple_ref/swift/Property/artist" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV6artistSSvp">artist</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Name of the artist</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">artist</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV5titleSSvp"></a>
+                    <a name="//apple_ref/swift/Property/title" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV5titleSSvp">title</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Title of the song</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV6searchSSvp"></a>
+                    <a name="//apple_ref/swift/Property/search" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV6searchSSvp">search</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The searchable string</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">search</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV9musicpathSSvp"></a>
+                    <a name="//apple_ref/swift/Property/musicpath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV9musicpathSSvp">musicpath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Path to the optional audio file</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">musicpath</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV4path10Foundation3URLVvp"></a>
+                    <a name="//apple_ref/swift/Property/path" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV4path10Foundation3URLVvp">path</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Path to the ChordPro document</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-12)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

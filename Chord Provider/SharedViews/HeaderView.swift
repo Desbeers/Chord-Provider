@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-/// The View with song information and optional audio player for macOS
+/// SwiftUI `View` with song information and optional audio player for macOS
 struct HeaderView: View {
+    /// The ``Song``
     var song: Song
+    /// Current scaling of the `View`
     @SceneStorage("scale") var scale: Double = 1.2
+    /// Previous scaling of the `View`
     @SceneStorage("previousScale") var previousScale: Double = 1.2
-    /// The body of the View
+    /// The body of the `View`
     var body: some View {
 #if os(macOS)
         HStack(alignment: .center) {
@@ -48,12 +51,13 @@ struct HeaderView: View {
 
 extension HeaderView {
 
-    /// The View with general information
+    /// SwiftUI `View` with general information
     struct General: View {
-
+        /// The ``Song``
         let song: Song
+        /// The metadata of the ``Song``
         private let metaData: [String]
-
+        /// Init the `View` with the metadata
         init(song: Song, metaData: [String] = []) {
             self.song = song
             var meta: [String] = []
@@ -68,7 +72,7 @@ extension HeaderView {
             }
             self.metaData = meta
         }
-
+        /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 if let title = song.title {
@@ -81,9 +85,11 @@ extension HeaderView {
         }
     }
 
-    /// The View with details
+    /// SwiftUI `View` with details
     struct Details: View {
+        /// The ``Song``
         let song: Song
+        /// The body of the `View`
         var body: some View {
             HStack(alignment: .center) {
                 if let key = song.key {

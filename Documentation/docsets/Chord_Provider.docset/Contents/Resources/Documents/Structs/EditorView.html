@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EditorView Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/EditorView" class="dashAnchor"></a>
+    <a title="EditorView Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Chord Provider</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Chord_Provider Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        EditorView Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../ChordPro.html">ChordPro</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChordPro.html">ChordPro</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordPro/Directive.html">– Directive</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordPro/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Song.html">Song</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Song/Chord.html">– Chord</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Song/Section.html">– Section</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Observable%20Classes.html">Observable Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/FileBrowserModel.html">FileBrowserModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FileBrowserModel/SongItem.html">– SongItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FileBrowserModel/ArtistItem.html">– ArtistItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FileBrowserModel/WindowItem.html">– WindowItem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../File%20Documents.html">File Documents</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/UTType.html">UTType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordProDocument.html">ChordProDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ImageDocument.html">ImageDocument</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../SwiftUI.html">SwiftUI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChordProviderApp.html">ChordProviderApp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContentView.html">ContentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HeaderView.html">HeaderView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HeaderView/General.html">– General</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HeaderView/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongView.html">SongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongViewModifier.html">SongViewModifier</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongExportView.html">SongExportView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView.html">SongRenderView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/SectionView.html">– SectionView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/PlainView.html">– PlainView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/GridView.html">– GridView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/VerseView.html">– VerseView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/ChorusView.html">– ChorusView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/RepeatChorusView.html">– RepeatChorusView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/TabView.html">– TabView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/CommentView.html">– CommentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongRenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordsView.html">ChordsView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordsView/Sheet.html">– Sheet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AudioPlayerView.html">AudioPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorView.html">EditorView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorView/Directive.html">– Directive</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorView/EditorButton.html">– EditorButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileBrowserView.html">FileBrowserView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileBrowserView/Row.html">– Row</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileBrowserView/BrowserLabelStyle.html">– BrowserLabelStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ExportButtonView.html">ExportButtonView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Actors.html">Other Actors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Actors/Debouncer.html">Debouncer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSWindow.html">NSWindow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSWindow/Position.html">– Position</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/View.html">View</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Functions.html#/s:14Chord_Provider9createPDF5image5pagedSo6NSDataCSg7SwiftUI13ImageRendererCyxG_SbtAH4ViewRzlF">createPDF(image:paged:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/HostingWindowFinder.html">HostingWindowFinder</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>EditorView</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">EditorView</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                </div>
+              </div>
+            <p>SwiftUI <code>View</code> with the <code>HighlightedTextEditor</code></p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV8documentAA0A11ProDocumentVvp"></a>
+                    <a name="//apple_ref/swift/Property/document" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV8documentAA0A11ProDocumentVvp">document</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The CordPro document</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@Binding</span>
+<span class="k">var</span> <span class="nv">document</span><span class="p">:</span> <span class="kt"><a href="../Structs/ChordProDocument.html">ChordProDocument</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV04textD033_CFAF74A4F7ED5FC6801515F9808FAE46LLSo06NSTextD0CSgvp"></a>
+                    <a name="//apple_ref/swift/Property/textView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV04textD033_CFAF74A4F7ED5FC6801515F9808FAE46LLSo06NSTextD0CSgvp">textView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The actuals NSTextView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@State</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">textView</span><span class="p">:</span> <span class="kt">NSTextView</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV9selectionSo8_NSRangeVvp"></a>
+                    <a name="//apple_ref/swift/Property/selection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV9selectionSo8_NSRangeVvp">selection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The selected text in the editor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@State</span>
+<span class="k">var</span> <span class="nv">selection</span><span class="p">:</span> <span class="kt">NSRange</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV5rules33_CFAF74A4F7ED5FC6801515F9808FAE46LLSay015HighlightedTextC013HighlightRuleVGvp"></a>
+                    <a name="//apple_ref/swift/Property/rules" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV5rules33_CFAF74A4F7ED5FC6801515F9808FAE46LLSay015HighlightedTextC013HighlightRuleVGvp">rules</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The highlight rules</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">rules</span><span class="p">:</span> <span class="p">[</span><span class="kt">HighlightRule</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV4bodyQrvp"></a>
+                    <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV4bodyQrvp">body</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The body of the <code>View</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV6editorQrvp"></a>
+                    <a name="//apple_ref/swift/Property/editor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV6editorQrvp">editor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The editor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">editor</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV7toolbarQrvp"></a>
+                    <a name="//apple_ref/swift/Property/toolbar" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV7toolbarQrvp">toolbar</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Toolbar</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">toolbar</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV9DirectiveO"></a>
+                    <a name="//apple_ref/swift/Enum/Directive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV9DirectiveO">Directive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>ChordPro directives</p>
+
+                        <a href="../Structs/EditorView/Directive.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Directive</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV14directiveRegexSo19NSRegularExpressionCSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/directiveRegex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14directiveRegexSo19NSRegularExpressionCSgvpZ">directiveRegex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The regex for directives with a value, {title: lalala} for example</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">directiveRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV19directiveEmptyRegexSo19NSRegularExpressionCSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/directiveEmptyRegex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV19directiveEmptyRegexSo19NSRegularExpressionCSgvpZ">directiveEmptyRegex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The regex for directives without a value, {soc} for example</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">directiveEmptyRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV11defineRegexSo19NSRegularExpressionCSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defineRegex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV11defineRegexSo19NSRegularExpressionCSgvpZ">defineRegex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The regex for chord define</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">defineRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV9lineRegexSo19NSRegularExpressionCSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/lineRegex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV9lineRegexSo19NSRegularExpressionCSgvpZ">lineRegex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The regex for a &lsquo;normal&rsquo;  line</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">lineRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV11chordsRegexSo19NSRegularExpressionCSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/chordsRegex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV11chordsRegexSo19NSRegularExpressionCSgvpZ">chordsRegex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The regex for a chord (used in the text editor for macOS)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">chordsRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV6format_9directive9selection2inyAA0A11ProDocumentVz_AC9DirectiveOSo8_NSRangeVSo06NSTextD0CSgtFZ"></a>
+                    <a name="//apple_ref/swift/Method/format(_:directive:selection:in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV6format_9directive9selection2inyAA0A11ProDocumentVz_AC9DirectiveOSo8_NSRangeVSo06NSTextD0CSgtFZ">format(_:<wbr>directive:<wbr>selection:<wbr>in:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Apply  a <code>directive</code> to the (optional) selected range in the <code>NSTextView</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">format</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">document</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/ChordProDocument.html">ChordProDocument</a></span><span class="p">,</span>
+    <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../Structs/EditorView/Directive.html">Directive</a></span><span class="p">,</span>
+    <span class="nv">selection</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">,</span>
+    <span class="k">in</span> <span class="nv">textView</span><span class="p">:</span> <span class="kt">NSTextView</span><span class="p">?</span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>document</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/ChordProDocument.html">ChordProDocument</a></code> to update</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directive</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/EditorView/Directive.html">Directive</a></code> to apply</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>textView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>NSTextView</code> to update</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV6format33_1D4F119FFA31C74A03B0169F13B1C6F6LL_9directiveS2S_AC9DirectiveOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/format(_:directive:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV6format33_1D4F119FFA31C74A03B0169F13B1C6F6LL_9directiveS2S_AC9DirectiveOtFZ">format(_:<wbr>directive:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a string that has been reformatted based on the given ChordPro format.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">format</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../Structs/EditorView/Directive.html">Directive</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The string to format.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directive</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Structs/EditorView/Directive.html">Directive</a></code> to apply</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV0C6ButtonV"></a>
+                    <a name="//apple_ref/swift/Struct/EditorButton" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C6ButtonV">EditorButton</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The style for an editor button</p>
+
+                        <a href="../Structs/EditorView/EditorButton.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">EditorButton</span> <span class="p">:</span> <span class="kt">ButtonStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-12)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

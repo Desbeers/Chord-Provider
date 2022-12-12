@@ -1,0 +1,47 @@
+module: Chord_Provider
+title: Chord Provider
+author: Nick Berendsen
+author_url: https://desbeers.nl
+github_url: https://github.com/desbeers/Chord-Provider/
+build_tool_arguments:
+ - -scheme
+ - Chord Provider (macOS)
+min_acl: private
+output: Documentation
+clean: true
+theme: apple
+
+custom_categories:
+
+  - name: ChordPro
+    children:
+    - ChordPro
+    - Song
+    
+  - name: Observable Classes
+    children:
+    - FileBrowserModel
+
+  - name: File Documents
+    children:
+    - UTType
+    - ChordProDocument
+    - ImageDocument
+
+  - name: SwiftUI
+    children:
+    - ChordProviderApp
+    - ContentView
+    - HeaderView
+    - SongView
+    - SongViewModifier
+    - SongExportView
+    - SongRenderView
+    - ChordsView
+    - AudioPlayerView
+    - EditorView
+    - FileBrowserView
+    - ExportButtonView
+
+# Command line for doc generation:
+# jazzy

@@ -9,10 +9,10 @@ import SwiftUI
 import SwiftyChords
 import SwiftlyChordUtilities
 
-/// The ChordPro format parser
+/// The `ChordPro` file parser
 struct ChordPro {
 
-    // MARK: - func: parse
+    // MARK: Parse a 'ChordPro' file
 
     /// Parse a ChordPro file
     /// - Parameters:
@@ -71,8 +71,13 @@ struct ChordPro {
         return song
     }
 
-    // MARK: - func: processDirective
+    // MARK: Process a directive
 
+    /// Process a directive
+    /// - Parameters:
+    ///   - text: The text to process
+    ///   - song: The `Song`
+    ///   - currentSection: The current `section` of the `song`
     fileprivate static func processDirective(text: String, song: inout Song, currentSection: inout Song.Section) {
 
         if let match = text.wholeMatch(of: directiveRegex) {
@@ -168,8 +173,14 @@ struct ChordPro {
         }
     }
 
-    // MARK: - func: processSection
+    // MARK: Process a section
 
+    /// Process a section
+    /// - Parameters:
+    ///   - label: The label of the `section`
+    ///   - type: The type of `section`
+    ///   - song: The `song`
+    ///   - currentSection: The current `section` of the `song`
     fileprivate static func processSection(label: String, type: Environment, song: inout Song, currentSection: inout Song.Section) {
         if currentSection.lines.isEmpty {
             /// There is already an empty section
@@ -184,8 +195,12 @@ struct ChordPro {
         }
     }
 
-    // MARK: - func: processDefine; chord definitions
+    // MARK: Process a chord definition
 
+    /// Process a chord definition
+    /// - Parameters:
+    ///   - text: The chord definition
+    ///   - song: The `song`
     fileprivate static func processDefine(text: String, song: inout Song) {
         if let match = text.wholeMatch(of: defineRegex) {
             let key = match.1
@@ -198,8 +213,13 @@ struct ChordPro {
         }
     }
 
-    // MARK: - func: processTab
+    // MARK: Process a tab environment
 
+    /// Process a tab environment
+    /// - Parameters:
+    ///   - text: The text to process
+    ///   - song: The `Song`
+    ///   - currentSection: The current `section` of the `song`
     fileprivate static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
@@ -213,8 +233,13 @@ struct ChordPro {
         }
     }
 
-    // MARK: - func: processGrid
+    // MARK: Process a grid environment
 
+    /// Process a grid environment
+    /// - Parameters:
+    ///   - text: The text to process
+    ///   - song: The `Song`
+    ///   - currentSection: The current `section` of the `song`
     fileprivate static func processGrid(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
@@ -255,8 +280,13 @@ struct ChordPro {
         }
     }
 
-    // MARK: - func: processLine
+    // MARK: Process a line
 
+    /// Process a line
+    /// - Parameters:
+    ///   - text: The text to process
+    ///   - song: The `Song`
+    ///   - currentSection: The current `section` of the `song`
     fileprivate static func processLine(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
@@ -290,8 +320,13 @@ struct ChordPro {
         currentSection.lines.append(line)
     }
 
-    // MARK: - func: processChord; find key and suffix
+    // MARK: Process a chord
 
+    /// Process a chord
+    /// - Parameters:
+    ///   - chord: The `chord` as String
+    ///   - song: The `Song`
+    /// - Returns: The processed `chord` as String
     private static func processChord(chord: String, song: inout Song) -> String {
         /// Check if this chord is aready parsed
         if  let match = song.chords.first(where: { $0.name == chord }) {

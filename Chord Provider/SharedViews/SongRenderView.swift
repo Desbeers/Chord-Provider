@@ -9,9 +9,11 @@ import SwiftUI
 
 /// Convert a ``Song`` Struct into a SwiftUI View
 struct SongRenderView: View {
+    /// The ``Song``
     let song: Song
+    /// The scale factor of the `View`
     let scale: CGFloat
-    /// The body of the View
+    /// The body of the `View`
     var body: some View {
         Grid(alignment: .topTrailing, verticalSpacing: 20 * scale) {
             ForEach(song.sections) { section in
@@ -45,10 +47,18 @@ extension SongRenderView {
 
     /// Wrapper around a section
     struct SectionView: ViewModifier {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The optional label
         var label: String?
+        /// Bool if the section is prominent (chorus for example)
         var prominent: Bool = false
+
+        /// The body of the `ViewModifier`
+        /// - Parameter content: The content of the section
+        /// - Returns: A `View` with the wrapped section
         func body(content: Content) -> some View {
             GridRow {
                 if let label {
@@ -73,9 +83,13 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for plain text
     struct PlainView: View {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
@@ -88,9 +102,13 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for a grid
     struct GridView: View {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 Grid(alignment: .leading) {
@@ -115,9 +133,13 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for a verse
     struct VerseView: View {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
@@ -128,9 +150,13 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for a chorus
     struct ChorusView: View {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
@@ -141,9 +167,13 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for a chorus repeat
     struct RepeatChorusView: View {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The body of the `View`
         var body: some View {
             Label(section.label ?? "Repeat Chorus", systemImage: "arrow.triangle.2.circlepath")
                 .padding(.trailing)
@@ -154,9 +184,13 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for a tab
     struct TabView: View {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
@@ -170,9 +204,13 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for a comment
     struct CommentView: View {
+        /// The `section` of the song
         let section: Song.Section
+        /// The scale factor of the `View`
         let scale: Double
+        /// The body of the `View`
         var body: some View {
             Label(section.label ?? "", systemImage: "bubble.right")
                 .padding(4 * scale)
@@ -183,8 +221,11 @@ extension SongRenderView {
         }
     }
 
+    /// SwiftUI `View` for parts of a line
     struct PartsView: View {
+        /// The `parts` of a `linew`
         let parts: [Song.Section.Line.Part]
+        /// The body of the `View`
         var body: some View {
             HStack(spacing: 0) {
                 ForEach(parts) { part in

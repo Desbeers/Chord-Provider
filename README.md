@@ -6,7 +6,7 @@ There are many "ChordPro" parsers in this world, however, none are *really* nati
 
 I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainly a mac user; the iPad version is my afterthought...
 
-![Chord Provider](screenshot.png)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/screenshot.png)
 
 Written in SwiftUI 4, so macOS Ventura or iPadOS 16 only.
 

@@ -8,11 +8,15 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// The SwiftUI 'export' button
+/// SwiftUI `Button` to export a song
 struct ExportButtonView: View {
+    /// The ``Song``
     let song: Song
+    /// Present an export dialog
     @State private var exportFile = false
+    /// The song as image
     @State private var image: NSData?
+    /// The body of the `View`
     var body: some View {
         Button(action: {
             renderSong()
@@ -30,6 +34,8 @@ struct ExportButtonView: View {
             }
         })
     }
+
+    /// Render the song as a PDF
     @MainActor private func renderSong() {
         let renderer = ImageRenderer(content: SongExportView(song: song))
         renderer.scale = 3.0
@@ -38,9 +44,14 @@ struct ExportButtonView: View {
     }
 }
 
+/// Create a PDF from an image
+/// - Parameters:
+///   - image: Result of the SwiftUI `ImageRenderer`
+///   - paged: Bool if the PDF should be multi-page or not
+/// - Returns: The PDF as `NSData`
 @MainActor func createPDF<T: View>(image: ImageRenderer<T>, paged: Bool = true) -> NSData? {
 
-    // MARK: one long page solution
+    /// one long page render
     var singlePage: NSData? {
         if let nsImage = image.nsImage, let cgImage = image.cgImage {
             let pdfData = NSMutableData()
@@ -55,7 +66,7 @@ struct ExportButtonView: View {
         return nil
     }
 
-    // MARK: multy page solution
+    /// multy page render
     var multiPage: NSData? {
 
         if let nsImage = image.nsImage, let cgImage = image.cgImage {
@@ -115,9 +126,11 @@ struct ExportButtonView: View {
     }
 }
 
-/// The 'Song View' rendered by the SwiftUI `ImageRenderer`
+/// SwiftUI `View` of the song rendered by the SwiftUI `ImageRenderer`
 struct SongExportView: View {
+    /// The ``Song``
     let song: Song
+    /// The body of the `View`
     var body: some View {
         VStack {
             Text(song.title ?? "Title")

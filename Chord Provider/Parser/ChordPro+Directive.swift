@@ -9,7 +9,7 @@ import Foundation
 
 extension ChordPro {
 
-    // MARK: Directives
+    // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports
     enum Directive: String {
