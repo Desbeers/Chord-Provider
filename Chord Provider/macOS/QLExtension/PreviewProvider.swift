@@ -21,7 +21,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             let song = ChordPro.parse(text: fileContents, transponse: 0, file: request.fileURL)
             let renderer = ImageRenderer(content: SongExportView(song: song))
             renderer.scale = 3.0
-            guard let image = createPDF(image: renderer, paged: false) else {
+            guard let image = self.createPDF(image: renderer) else {
                 fatalError()
             }
             replyToUpdate.title = "\(song.artist ?? "Artist") - \(song.title ?? "Title")"
@@ -29,5 +29,43 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             return image as Data
         }
         return reply
+    }
+
+    /// SwiftUI `View` of the song rendered by the SwiftUI `ImageRenderer`
+    struct SongExportView: View {
+        /// The ``Song``
+        let song: Song
+        /// The body of the `View`
+        var body: some View {
+            VStack {
+                Text(song.title ?? "Title")
+                    .font(.title)
+                Text(song.artist ?? "Artist")
+                    .font(.title2)
+                SongRenderView(song: song, scale: 1)
+            }
+            .padding()
+            .frame(width: 800, alignment: .center)
+            .preferredColorScheme(.light)
+            .background(.white)
+        }
+    }
+
+    /// Create a PDF from an image
+    /// - Parameters:
+    ///   - image: Result of the SwiftUI `ImageRenderer`
+    /// - Returns: The PDF as `NSData`
+    @MainActor func createPDF<T: View>(image: ImageRenderer<T>) -> NSData? {
+        if let nsImage = image.nsImage, let cgImage = image.cgImage {
+            let pdfData = NSMutableData()
+            let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
+            var mediaBox = NSRect.init(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
+            let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)!
+            pdfContext.beginPage(mediaBox: &mediaBox)
+            pdfContext.draw(cgImage, in: mediaBox)
+            pdfContext.endPage()
+            return pdfData
+        }
+        return nil
     }
 }

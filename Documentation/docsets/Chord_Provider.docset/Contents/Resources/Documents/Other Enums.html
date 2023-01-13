@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Other Functions  Reference</title>
+    <title>Other Enumerations  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Section/Other Functions" class="dashAnchor"></a>
-    <a title="Other Functions  Reference"></a>
+    <a name="//apple_ref/swift/Section/Other Enumerations" class="dashAnchor"></a>
+    <a title="Other Enumerations  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">Chord Provider</a> (100% documented)</p>
@@ -30,7 +30,7 @@
       <p id="breadcrumbs">
         <a href="index.html">Chord_Provider Reference</a>
         <img id="carat" src="img/carat.png" alt=""/>
-        Other Functions  Reference
+        Other Enumerations  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -86,7 +86,7 @@
                 <a href="Structs/ChordProDocument.html">ChordProDocument</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/ImageDocument.html">ImageDocument</a>
+                <a href="Structs/ChordProviderDocument.html">ChordProviderDocument</a>
               </li>
             </ul>
           </li>
@@ -113,9 +113,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/SongViewModifier.html">SongViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/SongExportView.html">SongExportView</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/SongRenderView.html">SongRenderView</a>
@@ -175,7 +172,7 @@
                 <a href="Structs/FileBrowserView/BrowserLabelStyle.html">– BrowserLabelStyle</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/ExportButtonView.html">ExportButtonView</a>
+                <a href="Structs/ExportSongView.html">ExportSongView</a>
               </li>
             </ul>
           </li>
@@ -184,6 +181,14 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Actors/Debouncer.html">Debouncer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/ExportSong.html">ExportSong</a>
               </li>
             </ul>
           </li>
@@ -202,14 +207,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Other%20Functions.html">Other Functions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Other%20Functions.html#/s:14Chord_Provider9createPDF5image5pagedSo6NSDataCSg7SwiftUI13ImageRendererCyxG_SbtAH4ViewRzlF">createPDF(image:paged:)</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -222,8 +219,8 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Other Functions</h1>
-            <p>The following functions are available globally.</p>
+            <h1>Other Enumerations</h1>
+            <p>The following enumerations are available globally.</p>
 
           </section>
           <section class="section task-group-section">
@@ -232,9 +229,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider9createPDF5image5pagedSo6NSDataCSg7SwiftUI13ImageRendererCyxG_SbtAH4ViewRzlF"></a>
-                    <a name="//apple_ref/swift/Function/createPDF(image:paged:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider9createPDF5image5pagedSo6NSDataCSg7SwiftUI13ImageRendererCyxG_SbtAH4ViewRzlF">createPDF(image:<wbr>paged:<wbr>)</a>
+                    <a name="/s:14Chord_Provider10ExportSongO"></a>
+                    <a name="//apple_ref/swift/Enum/ExportSong" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10ExportSongO">ExportSong</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -242,52 +239,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Create a PDF from an image</p>
+                        <p>Functions to export a song to PDF</p>
 
+                        <a href="Enums/ExportSong.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
-<span class="kd">func</span> <span class="n">createPDF</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">image</span><span class="p">:</span> <span class="kt">ImageRenderer</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="nv">paged</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSData</span><span class="p">?</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">ExportSong</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>image</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Result of the SwiftUI <code>ImageRenderer</code></p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>paged</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>Bool if the PDF should be multi-page or not</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The PDF as <code>NSData</code></p>
                       </div>
                     </section>
                   </div>
@@ -297,7 +259,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-12)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

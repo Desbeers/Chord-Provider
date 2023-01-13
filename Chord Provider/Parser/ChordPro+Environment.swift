@@ -14,7 +14,7 @@ extension ChordPro {
     /// The environment of a section of the song
     enum Environment: String {
         /// No environment
-        case none = "None"
+        case none = ""
         /// Chorus environment
         case chorus = "Chorus"
         /// Repeat chorus environment

@@ -44,7 +44,7 @@ extension FileBrowserModel {
         var path: URL
     }
 
-    /// The struct for a artist item in the browser
+    /// The struct for an artist item in the browser
     struct ArtistItem: Identifiable {
         /// The unique ID
         let id = UUID()

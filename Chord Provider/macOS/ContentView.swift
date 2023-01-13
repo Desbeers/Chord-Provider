@@ -82,7 +82,7 @@ struct ContentView: View {
                     .frame(minWidth: 110, alignment: .leading)
             }
             .labelStyle(.titleAndIcon)
-            ExportButtonView(song: song)
+            ExportSongView(song: song)
                 .labelStyle(.iconOnly)
                 .help("Export your song")
         }

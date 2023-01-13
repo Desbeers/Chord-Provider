@@ -26,7 +26,7 @@ custom_categories:
     children:
     - UTType
     - ChordProDocument
-    - ImageDocument
+    - ChordProviderDocument
 
   - name: SwiftUI
     children:
@@ -35,13 +35,12 @@ custom_categories:
     - HeaderView
     - SongView
     - SongViewModifier
-    - SongExportView
     - SongRenderView
     - ChordsView
     - AudioPlayerView
     - EditorView
     - FileBrowserView
-    - ExportButtonView
+    - ExportSongView
 
 # Command line for doc generation:
 # jazzy

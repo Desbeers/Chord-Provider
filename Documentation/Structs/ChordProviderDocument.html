@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SongExportView Structure Reference</title>
+    <title>ChordProviderDocument Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/SongExportView" class="dashAnchor"></a>
-    <a title="SongExportView Structure Reference"></a>
+    <a name="//apple_ref/swift/Struct/ChordProviderDocument" class="dashAnchor"></a>
+    <a title="ChordProviderDocument Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">Chord Provider</a> (100% documented)</p>
@@ -30,7 +30,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">Chord_Provider Reference</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        SongExportView Structure Reference
+        ChordProviderDocument Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -86,7 +86,7 @@
                 <a href="../Structs/ChordProDocument.html">ChordProDocument</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ImageDocument.html">ImageDocument</a>
+                <a href="../Structs/ChordProviderDocument.html">ChordProviderDocument</a>
               </li>
             </ul>
           </li>
@@ -113,9 +113,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SongViewModifier.html">SongViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/SongExportView.html">SongExportView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/SongRenderView.html">SongRenderView</a>
@@ -175,7 +172,7 @@
                 <a href="../Structs/FileBrowserView/BrowserLabelStyle.html">– BrowserLabelStyle</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/ExportButtonView.html">ExportButtonView</a>
+                <a href="../Structs/ExportSongView.html">ExportSongView</a>
               </li>
             </ul>
           </li>
@@ -184,6 +181,14 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Actors/Debouncer.html">Debouncer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/ExportSong.html">ExportSong</a>
               </li>
             </ul>
           </li>
@@ -202,14 +207,6 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Other%20Functions.html">Other Functions</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other%20Functions.html#/s:14Chord_Provider9createPDF5image5pagedSo6NSDataCSg7SwiftUI13ImageRendererCyxG_SbtAH4ViewRzlF">createPDF(image:paged:)</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -222,15 +219,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>SongExportView</h1>
+            <h1>ChordProviderDocument</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">SongExportView</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">ChordProviderDocument</span> <span class="p">:</span> <span class="kt">FileDocument</span></code></pre>
 
                 </div>
               </div>
-            <p>SwiftUI <code>View</code> of the song rendered by the SwiftUI <code>ImageRenderer</code></p>
+            <p>Define the exported  &lsquo;ChordProviderDocument&rsquo;</p>
 
           </section>
           <section class="section task-group-section">
@@ -239,9 +236,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider14SongExportViewV4songAA0C0Vvp"></a>
-                    <a name="//apple_ref/swift/Property/song" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider14SongExportViewV4songAA0C0Vvp">song</a>
+                    <a name="/s:14Chord_Provider0aB8DocumentV20readableContentTypesSay22UniformTypeIdentifiers6UTTypeVGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/readableContentTypes" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0aB8DocumentV20readableContentTypesSay22UniformTypeIdentifiers6UTTypeVGvpZ">readableContentTypes</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -249,14 +246,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code><a href="../Structs/Song.html">Song</a></code></p>
+                        <p>The type of image to export</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">song</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">readableContentTypes</span><span class="p">:</span> <span class="p">[</span><span class="kt">UTType</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -266,9 +263,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider14SongExportViewV4bodyQrvp"></a>
-                    <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider14SongExportViewV4bodyQrvp">body</a>
+                    <a name="/s:14Chord_Provider0aB8DocumentV5imageSo6NSDataCvp"></a>
+                    <a name="//apple_ref/swift/Property/image" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0aB8DocumentV5imageSo6NSDataCvp">image</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -276,14 +273,95 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The body of the <code>View</code></p>
+                        <p>The image to export</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">image</span><span class="p">:</span> <span class="kt">NSData</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0aB8DocumentV5imageACSo6NSDataCSg_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(image:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0aB8DocumentV5imageACSo6NSDataCSg_tcfc">init(image:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init the struct</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">image</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0aB8DocumentV13configurationAC7SwiftUI04FileC17ReadConfigurationV_tKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(configuration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0aB8DocumentV13configurationAC7SwiftUI04FileC17ReadConfigurationV_tKcfc">init(configuration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Black magic</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">ReadConfiguration</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0aB8DocumentV11fileWrapper13configurationSo06NSFileE0C7SwiftUI04FileC18WriteConfigurationV_tKF"></a>
+                    <a name="//apple_ref/swift/Method/fileWrapper(configuration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0aB8DocumentV11fileWrapper13configurationSo06NSFileE0C7SwiftUI04FileC18WriteConfigurationV_tKF">fileWrapper(configuration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Save the exported image</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">fileWrapper</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">WriteConfiguration</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">FileWrapper</span></code></pre>
 
                         </div>
                       </div>
@@ -295,7 +373,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2022-12-12)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-01-13)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
