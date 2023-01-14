@@ -60,6 +60,7 @@ struct ContentView: View {
                         .frame(minWidth: 140, alignment: .leading)
                 }
                 .labelStyle(.titleAndIcon)
+                .disabled(showEditor)
                 Button {
                     withAnimation {
                         showEditor.toggle()

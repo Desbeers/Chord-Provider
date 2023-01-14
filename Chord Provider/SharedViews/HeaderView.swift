@@ -26,6 +26,8 @@ struct HeaderView: View {
                 AudioPlayerView(song: song)
             }
             Spacer()
+        }
+        .overlay(alignment: .trailing) {
             Stepper(label: {
                 Label("Zoom", systemImage: "magnifyingglass")
             }, onIncrement: {
@@ -40,7 +42,6 @@ struct HeaderView: View {
                 }
             })
         }
-
         .padding(4)
 #endif
 #if os(iOS)

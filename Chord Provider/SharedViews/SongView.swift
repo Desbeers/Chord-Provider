@@ -39,7 +39,7 @@ struct SongView: View {
                     .gesture(magnificationGesture)
                     .padding()
             }
-            if showChords {
+            if showChords && !showEditor {
                 ChordsView(song: song)
                     .transition(.opacity)
             }

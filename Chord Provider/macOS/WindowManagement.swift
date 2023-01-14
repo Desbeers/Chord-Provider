@@ -139,11 +139,11 @@ extension NSWindow.Position.Horizontal {
     func valueFor(screenRange: Range<CGFloat>, width: CGFloat, padding: CGFloat) -> CGFloat {
         switch self {
         case .left:
-            return screenRange.upperBound - width - padding
+            return screenRange.lowerBound + padding
         case .center:
             return ((screenRange.upperBound + screenRange.lowerBound - width) / 2) + padding
         case .right:
-            return screenRange.lowerBound + padding
+            return screenRange.upperBound - width - padding
         }
     }
 }

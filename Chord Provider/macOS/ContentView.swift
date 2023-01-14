@@ -28,11 +28,10 @@ struct ContentView: View {
             HeaderView(song: song).background(Color.accentColor.opacity(0.1))
             HStack(spacing: 0) {
                 SongView(song: song, file: file)
-                    .frame(minWidth: 400, maxWidth: .infinity)
                 if showEditor {
                     Divider()
                     EditorView(document: $document)
-                        .frame(minWidth: 400)
+                        .frame(minWidth: 300)
                 }
             }
         }
@@ -46,7 +45,6 @@ struct ContentView: View {
             }
         }
         .toolbar {
-
             Button(action: {
                 song.transpose -= 1
             }, label: {
@@ -73,6 +71,7 @@ struct ContentView: View {
                     .frame(minWidth: 110, alignment: .leading)
             }
             .labelStyle(.titleAndIcon)
+            .disabled(showEditor)
             Button {
                 withAnimation {
                     showEditor.toggle()

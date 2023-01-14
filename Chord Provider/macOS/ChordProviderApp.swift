@@ -19,12 +19,6 @@ import SwiftUI
         WindowGroup("Song List") {
             FileBrowserView()
                 .environmentObject(fileBrowser)
-                .withHostingWindow { window in
-                    if let window = window?.windowController?.window {
-                        window.level = .modalPanel
-                        window.hidesOnDeactivate = true
-                    }
-                }
         }
         /// Make it sizable by the View frame
         .windowResizability(.contentSize)
@@ -37,13 +31,12 @@ import SwiftUI
                 .withHostingWindow { window in
                     if let window = window?.windowController?.window {
                         fileBrowser.openWindows.append(FileBrowserModel.WindowItem(windowID: window.windowNumber, songURL: file.fileURL))
-                        let padding = CGFloat(fileBrowser.openWindows.count * 40)
-                        window.setPosition(vertical: .top, horizontal: .center, padding: padding)
                         window.orderFrontRegardless()
                     }
                 }
         }
         .defaultSize(width: 800, height: 800)
+        .defaultPosition(.center)
         .commands {
             /// Toolbar commands
             ToolbarCommands()
