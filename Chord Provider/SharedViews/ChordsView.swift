@@ -41,7 +41,6 @@ struct ChordsView: View {
                             .frame(width: 100, height: 120, alignment: .center)
                             .border(.primary)
                         } else {
-
                             let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
                             let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: showFingers, chordName: .init(show: false))
                             if let image = layer.image() {

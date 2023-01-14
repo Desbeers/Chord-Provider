@@ -16,7 +16,6 @@
 		D7158FE12573CC2700876B80 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7158FDD2573B44B00876B80 /* SongView.swift */; };
 		D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D71DE9FE258A6E88007B513D /* Credits.rtf */; };
 		D72FD53328F19FD200496010 /* ExportSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* ExportSongView.swift */; };
-		D72FD53428F1A91700496010 /* ExportSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* ExportSongView.swift */; };
 		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
 		D751B82A290A7B1C0002AAFF /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
 		D7527C572910E73B00C5C42E /* EditorView+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7527C562910E73B00C5C42E /* EditorView+Regex.swift */; };
@@ -52,7 +51,6 @@
 		D771675428F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771675228F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift */; };
 		D771675528F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771675228F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift */; };
 		D77B136D29704E5900ECE2F9 /* ExportSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B136C29704E5900ECE2F9 /* ExportSong.swift */; };
-		D77B136F2971B3B300ECE2F9 /* ExportSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B136C29704E5900ECE2F9 /* ExportSong.swift */; };
 		D789832A28C3A0150044BDD1 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D789832928C3A0140044BDD1 /* ChordProviderApp.swift */; };
 		D7925A5B292FA03300EA54B0 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7925A5A292FA03300EA54B0 /* SwiftlyChordUtilities */; };
 		D7925A5D292FA03F00EA54B0 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7925A5C292FA03F00EA54B0 /* SwiftlyChordUtilities */; };
@@ -575,11 +573,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D77B136F2971B3B300ECE2F9 /* ExportSong.swift in Sources */,
 				D7CC243B28C8867100316A15 /* Song+Section.swift in Sources */,
 				D7CC243A28C8866E00316A15 /* Song.swift in Sources */,
 				D758E3D92912501E007359C3 /* ChordPro+Environment.swift in Sources */,
-				D72FD53428F1A91700496010 /* ExportSongView.swift in Sources */,
 				D7CC243D28C8867800316A15 /* Song+Section+Line+Part.swift in Sources */,
 				D771675528F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */,
 				D758E3D12912392D007359C3 /* ChordPro+Directive.swift in Sources */,

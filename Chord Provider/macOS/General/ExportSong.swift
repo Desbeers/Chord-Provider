@@ -11,12 +11,21 @@ import UniformTypeIdentifiers
 /// Functions to export a song to PDF
 enum ExportSong {
 
+    /// The width of the SwiftUI Views
+    static let pageWidth: Double = 800
+    /// The render scale for the `ImageRenderer`
+    static let rendererScale: Double = 2.0
+
     /// Create a PDF file of the song
     /// - Parameter song: The song
     /// - Returns: The song as NSData
     @MainActor static func createPDF(song: Song) -> NSData? {
         if let header = renderHeader(song: song) {
-            let parts = renderParts(song: song)
+            var parts: [CGImage] = []
+            if let chords = renderChords(song: song) {
+                parts.append(chords)
+            }
+            parts += renderParts(song: song)
             let pages = mergeParts(header: header, parts: parts)
             return pages2pdf(pages: pages)
         }
@@ -31,16 +40,57 @@ enum ExportSong {
             content:
                 VStack {
                     Text(song.title ?? "Title")
-                        .font(.title)
+                        .font(.largeTitle)
                     Text(song.artist ?? "Artist")
                         .font(.title2)
+                        .foregroundColor(.secondary)
+                        .padding(.bottom)
+                    HeaderView.Details(song: song)
                 }
-                .padding()
-                .frame(width: 800, alignment: .center)
+                .frame(width: pageWidth, alignment: .center)
                 .preferredColorScheme(.light)
                 .background(.white)
         )
-        renderer.scale = 3.0
+        renderer.scale = rendererScale
+        return renderer.cgImage
+    }
+
+    /// Render the chords of the song
+    /// - Parameter song: The song
+    /// - Returns: The header as CGImage
+    @MainActor private static func renderChords(song: Song) -> CGImage? {
+        /// Size of the chord diagram
+        var frame: CGRect {
+            var width = Int((pageWidth * 2.0) / Double(song.chords.count))
+            width = width > Int(pageWidth / 4.0) ? Int(pageWidth / 4.0) : width
+            let height = Int(Double(width) * 1.5)
+            return CGRect(x: 0, y: 0, width: width, height: height)
+        }
+        /// Render the chords
+        let renderer = ImageRenderer(
+            content:
+                HStack {
+                    ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
+                        VStack {
+                            Text(chord.display)
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                            let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: false, chordName: .init(show: false))
+                            if let image = layer.image() {
+                                Image(nsImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: frame.width / 3)
+                            }
+                        }
+                    }
+                }
+                .padding()
+                .frame(width: pageWidth, alignment: .center)
+                .preferredColorScheme(.light)
+                .background(.white)
+        )
+        renderer.scale = rendererScale
         return renderer.cgImage
     }
 
@@ -87,11 +137,11 @@ enum ExportSong {
                         }
                         .padding()
                     }
-                    .frame(width: 800, alignment: .leading)
+                    .frame(width: pageWidth, alignment: .leading)
                     .background(.white)
                     .font(.system(size: 14))
             )
-            renderer.scale = 3.0
+            renderer.scale = rendererScale
             return renderer.cgImage
         }
     }
@@ -106,7 +156,7 @@ enum ExportSong {
         var page = CIImage(cgImage: header)
 
         /// A4 aspect ratio for a page
-        let pageSize = NSSize(width: page.extent.width / 3, height: (page.extent.width * 1.414) / 3)
+        let pageSize = NSSize(width: page.extent.width / rendererScale, height: (page.extent.width * 1.414) / rendererScale)
 
         var pageHeight: Double = page.extent.size.height
 
@@ -119,7 +169,7 @@ enum ExportSong {
 
             let partHeight = append.extent.size.height
 
-            if pageHeight + partHeight > (pageSize.height * 3) {
+            if pageHeight + partHeight > (pageSize.height * rendererScale) {
                 closePage()
                 page = append
                 pageHeight = append.extent.height
@@ -143,9 +193,9 @@ enum ExportSong {
         /// Helper function to close a page
         func closePage() {
             let rectToDrawIn = CGRect(x: 0,
-                                      y: pageSize.height - (page.extent.height / 3),
-                                      width: page.extent.width / 3,
-                                      height: page.extent.height / 3
+                                      y: pageSize.height - (page.extent.height / rendererScale),
+                                      width: page.extent.width / rendererScale,
+                                      height: page.extent.height / rendererScale
             )
             let rep = NSCIImageRep(ciImage: page)
 
