@@ -13,10 +13,12 @@ import SwiftUI
     @StateObject var fileBrowser = FileBrowserModel()
     /// Environment to open a new document
     @Environment(\.newDocument) private var newDocument
+    /// Open new windows
+    @Environment(\.openWindow) private var openWindow
     /// The body of the `Scene`
     var body: some Scene {
         /// The 'Song List' window
-        WindowGroup("Song List") {
+        Window("Song List", id: "Main") {
             FileBrowserView()
                 .environmentObject(fileBrowser)
         }
@@ -30,7 +32,9 @@ import SwiftUI
                 .environmentObject(fileBrowser)
                 .withHostingWindow { window in
                     if let window = window?.windowController?.window {
-                        fileBrowser.openWindows.append(FileBrowserModel.WindowItem(windowID: window.windowNumber, songURL: file.fileURL))
+                        fileBrowser.openWindows.append(
+                            FileBrowserModel.WindowItem(windowID: window.windowNumber, songURL: file.fileURL)
+                        )
                         window.orderFrontRegardless()
                     }
                 }
@@ -40,6 +44,14 @@ import SwiftUI
         .commands {
             /// Toolbar commands
             ToolbarCommands()
+            CommandGroup(replacing: .newItem) {
+                Button("New Song") {
+                    newDocument(ChordProDocument())
+                }
+                Button("New Song List") {
+                    openWindow(id: "Main")
+                }
+            }
         }
 
         /// Add Chord Provider to the Menu Bar
