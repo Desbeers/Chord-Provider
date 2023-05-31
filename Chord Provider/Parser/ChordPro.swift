@@ -343,7 +343,8 @@ struct ChordPro {
                 chord.transpose(transpose: song.transpose, scale: song.key ?? .c)
                 rootValue = chord.root
             }
-            if let baseChord = Chords.guitar.filter({ $0.key == rootValue && $0.suffix == quality}).first {
+            let chords = Chords.guitar.filter({ $0.key == rootValue && $0.suffix == quality}).sorted {$0.baseFret < $1.baseFret}
+            if let baseChord = chords.first {
                 let songChord = Song.Chord(name: chord, chordPosition: baseChord, isCustom: false)
                 song.chords.append(songChord)
                 return songChord.display
