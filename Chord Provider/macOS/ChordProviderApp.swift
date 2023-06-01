@@ -13,6 +13,8 @@ import SwiftUI
     @StateObject var fileBrowser = FileBrowserModel()
     /// Environment to open a new document
     @Environment(\.newDocument) private var newDocument
+    /// Environment to open an existing document
+    @Environment(\.openDocument) private var openDocument
     /// Open new windows
     @Environment(\.openWindow) private var openWindow
     /// The body of the `Scene`
@@ -48,9 +50,15 @@ import SwiftUI
                 Button("New Song") {
                     newDocument(ChordProDocument())
                 }
+                .keyboardShortcut(KeyboardShortcut("N"))
+                Button("Open Song") {
+                    open()
+                }
+                .keyboardShortcut(KeyboardShortcut("O"))
                 Button("New Song List") {
                     openWindow(id: "Main")
                 }
+                .keyboardShortcut(KeyboardShortcut("L"))
             }
         }
 
@@ -63,5 +71,22 @@ import SwiftUI
                 }
         }
         .menuBarExtraStyle(.window)
+    }
+    private func open() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.chordProDocument]
+        panel.allowsMultipleSelection = false
+        panel.canChooseDirectories = false
+        panel.runModal()
+        if let url = panel.url {
+            /// openDocument is very buggy; don't try to open a document when it is already open
+            if let window = fileBrowser.openWindows.first(where: {$0.songURL == url}) {
+                NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
+            } else {
+                Task {
+                    try? await openDocument(at: url)
+                }
+            }
+        }
     }
 }
