@@ -61,19 +61,11 @@ extension SongRenderView {
         /// - Returns: A `View` with the wrapped section
         func body(content: Content) -> some View {
             GridRow {
-                Group {
-                    if let label {
-                        Text(label)
-                            .padding(.all, prominent ? 10 : 0)
-                            .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
-                            .gridColumnAlignment(.trailing)
-                            .layoutPriority(1)
-                    } else {
-                        Color.clear
-                            .gridCellUnsizedAxes([.horizontal, .vertical])
-                    }
-                }
-                .frame(minWidth: 100, alignment: .trailing)
+                Text(label ?? " ")
+                    .padding(.all, prominent ? 10 : 0)
+                    .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
+                    .frame(minWidth: 100, alignment: .trailing)
+                    .gridColumnAlignment(.trailing)
                 content
                     .padding(.leading)
                     .overlay(
@@ -81,7 +73,6 @@ extension SongRenderView {
                             .frame(width: 1, height: nil, alignment: .leading)
                             .foregroundColor(prominent || label != nil ? Color.secondary.opacity(0.3) : Color.clear), alignment: .leading)
                     .gridColumnAlignment(.leading)
-                    .layoutPriority(1)
             }
         }
     }
