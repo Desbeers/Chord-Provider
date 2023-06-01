@@ -38,6 +38,11 @@ struct SongRenderView: View {
             }
         }
         .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 6 * scale, style: .continuous)
+                .fill(.ultraThinMaterial)
+                .shadow(radius: 2)
+        }
         .frame(maxWidth: .infinity, alignment: .center)
         .font(.system(size: 14 * scale))
     }
