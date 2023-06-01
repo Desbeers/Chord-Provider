@@ -72,8 +72,6 @@ struct ContentView: View {
                 .labelStyle(.titleAndIcon)
             }
         }
-        .toolbarBackground(Color.accentColor.opacity(0.1), for: .automatic)
-        .toolbarRole(.automatic)
         .toolbarBackground(.visible, for: .automatic)
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)

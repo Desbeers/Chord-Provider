@@ -43,7 +43,7 @@ enum ExportSong {
                         .font(.largeTitle)
                     Text(song.artist ?? "Artist")
                         .font(.title2)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(Color("AccentColor"))
                         .padding(.bottom)
                     HeaderView.Details(song: song)
                 }
@@ -73,7 +73,7 @@ enum ExportSong {
                     ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                         VStack {
                             Text(chord.display)
-                                .foregroundColor(.secondary)
+                                .foregroundColor(Color("AccentColor"))
                                 .font(.caption)
                             let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: false, chordName: .init(show: false))
                             if let image = layer.image() {
@@ -138,6 +138,7 @@ enum ExportSong {
                         .padding()
                     }
                     .frame(width: pageWidth, alignment: .leading)
+                    .accentColor(Color("AccentColor"))
                     .background(.white)
                     .font(.system(size: 14))
             )
