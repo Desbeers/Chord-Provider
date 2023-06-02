@@ -117,7 +117,7 @@ struct ChordPro {
 
                 // MARK: Formatting directives
 
-            case .comment:
+            case .c, .comment:
                 if let label {
                     processSection(label: label, type: Environment.comment, song: &song, currentSection: &currentSection)
                     song.sections.append(currentSection)

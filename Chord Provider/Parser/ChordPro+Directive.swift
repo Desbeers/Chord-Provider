@@ -41,7 +41,7 @@ extension ChordPro {
         /// # Formatting directives
 
         /// This directive introduce a comment line
-        case comment
+        case c, comment
 
         /// # Environment directives
 
