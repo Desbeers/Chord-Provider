@@ -11,12 +11,8 @@ import SwiftUI
 @main struct ChordProviderApp: App {
     /// The ``FileBrowser``
     @StateObject var fileBrowser = FileBrowserModel()
-    /// Environment to open a new document
-    @Environment(\.newDocument) private var newDocument
-    /// Environment to open an existing document
-    @Environment(\.openDocument) private var openDocument
-    /// Open new windows
-    @Environment(\.openWindow) private var openWindow
+    /// AppKit app delegate
+    @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     /// The body of the `Scene`
     var body: some Scene {
         /// The 'Song List' window
@@ -33,7 +29,8 @@ import SwiftUI
             ContentView(document: file.$document, file: file.fileURL)
                 .environmentObject(fileBrowser)
                 .withHostingWindow { window in
-                    if let window = window?.windowController?.window {
+                    /// Register the window unless we are browsing Versions
+                    if !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false), let window = window?.windowController?.window {
                         fileBrowser.openWindows.append(
                             FileBrowserModel.WindowItem(windowID: window.windowNumber, songURL: file.fileURL)
                         )
@@ -43,24 +40,6 @@ import SwiftUI
         }
         .defaultSize(width: 800, height: 800)
         .defaultPosition(.center)
-        .commands {
-            /// Toolbar commands
-            ToolbarCommands()
-            CommandGroup(replacing: .newItem) {
-                Button("New Song") {
-                    newDocument(ChordProDocument())
-                }
-                .keyboardShortcut(KeyboardShortcut("N"))
-                Button("Open Song") {
-                    open()
-                }
-                .keyboardShortcut(KeyboardShortcut("O"))
-                Button("New Song List") {
-                    openWindow(id: "Main")
-                }
-                .keyboardShortcut(KeyboardShortcut("L"))
-            }
-        }
 
         /// Add Chord Provider to the Menu Bar
         MenuBarExtra("Chord Provider", systemImage: "guitars") {
@@ -72,21 +51,12 @@ import SwiftUI
         }
         .menuBarExtraStyle(.window)
     }
-    private func open() {
-        let panel = NSOpenPanel()
-        panel.allowedContentTypes = [.chordProDocument]
-        panel.allowsMultipleSelection = false
-        panel.canChooseDirectories = false
-        panel.runModal()
-        if let url = panel.url {
-            /// openDocument is very buggy; don't try to open a document when it is already open
-            if let window = fileBrowser.openWindows.first(where: {$0.songURL == url}) {
-                NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
-            } else {
-                Task {
-                    try? await openDocument(at: url)
-                }
-            }
-        }
+}
+
+/// AppDelegate for Chord Provider
+class AppDelegate: NSObject, NSApplicationDelegate {
+    /// Don't terminate when the last Chord Provider window is closed
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return false
     }
 }
