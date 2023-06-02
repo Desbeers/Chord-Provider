@@ -37,7 +37,13 @@ struct SongView: View {
             ScrollView {
                 SongRenderView(song: song, scale: scale)
                     .gesture(magnificationGesture)
+                    .background {
+                        RoundedRectangle(cornerRadius: 6 * scale, style: .continuous)
+                            .fill(.ultraThinMaterial)
+                            .shadow(radius: 2)
+                    }
                     .padding()
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
             if showChords && !showEditor {
                 ChordsView(song: song)
