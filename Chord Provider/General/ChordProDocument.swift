@@ -10,8 +10,6 @@ import UniformTypeIdentifiers
 
 /// The ChordProDocument for Chord Provider
 struct ChordProDocument: FileDocument {
-    /// The filebrowser 'refresh' toggle
-    @AppStorage("refreshList") var refreshList: Bool = false
     /// The text for a new song
     static let newText: String = "{title: A new song}\n{subtitle: A new artist}"
     /// Build a song max one time per second
@@ -40,8 +38,6 @@ struct ChordProDocument: FileDocument {
     /// - Parameter configuration: The document configuration
     /// - Returns: A file in the file system
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        /// Update the sidebar
-        refreshList.toggle()
         let data = text.data(using: .utf8)!
         return .init(regularFileWithContents: data)
     }

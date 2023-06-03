@@ -18,6 +18,16 @@ class FileBrowserModel: ObservableObject {
     /// The MenuBarExtra window
     /// - Note: Needed to close the MenuBarExtra when selecting a song
     var menuBarExtraWindow: NSWindow?
+    /// The Class to monitor the songs folder
+    let folderMonitor = FolderMonitor()
+    /// Init the FileBrowserModel
+    init() {
+        folderMonitor.folderDidChange = {
+            Task {
+                await self.getFiles()
+            }
+        }
+    }
 }
 
 extension FileBrowserModel {
@@ -59,7 +69,7 @@ extension FileBrowserModel {
         /// The ID of the `Window`
         let windowID: Int
         /// The URL of the ChordPro document
-        let songURL: URL?
+        var songURL: URL?
     }
 }
 
@@ -68,13 +78,14 @@ extension FileBrowserModel {
     // MARK: Functions
 
     /// Get the song files from the user selected folder
-    func getFiles() {
+    @MainActor func getFiles() {
         /// The found songs
         var songs = [SongItem]()
         /// Get a list of all files
         if let persistentURL = FileBrowserModel.getPersistentFileURL("pathSongs") {
             /// Sandbox stuff...
             _ = persistentURL.startAccessingSecurityScopedResource()
+            folderMonitor.addRecursiveURL(persistentURL)
             if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                 while let item = items.nextObject() as? URL {
                     if ChordProDocument.fileExtension.contains(item.pathExtension) {
@@ -155,7 +166,9 @@ extension FileBrowserModel {
                 /// Create a persistent bookmark for the folder the user just selected
                 _ = FileBrowserModel.setPersistentFileURL("pathSongs", result!)
                 /// Refresh the list of songs
-                fileBrowser.getFiles()
+                Task { @MainActor in
+                    fileBrowser.getFiles()
+                }
             }
         }
     }

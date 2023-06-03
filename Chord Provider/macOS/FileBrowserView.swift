@@ -13,8 +13,6 @@ struct FileBrowserView: View {
     @EnvironmentObject var fileBrowser: FileBrowserModel
     /// The location of the ChordPro songs
     @AppStorage("pathSongsString") var pathSongsString: String = FileBrowserModel.getDocumentsDirectory()
-    /// Bool to trigger a refresh of the list
-    @AppStorage("refreshList") var refreshList: Bool = false
     /// The search query
     @State var search: String = ""
     /// The body of the `View`
@@ -28,7 +26,6 @@ struct FileBrowserView: View {
                         }
                     }
                 }
-
             } else {
                 ForEach(fileBrowser.songList.filter({ $0.search.localizedCaseInsensitiveContains(search)})) { song in
                     Row(song: song)
@@ -39,8 +36,6 @@ struct FileBrowserView: View {
         .listStyle(.sidebar)
         .labelStyle(BrowserLabelStyle())
         .buttonStyle(.plain)
-        /// - Note: Below is needed or else the serach filed will be hidden behind the toolbar
-        .padding(.top, 1)
         .frame(width: 320)
         .background(Color(NSColor.windowBackgroundColor))
         .navigationTitle("Chord Provider")
@@ -56,14 +51,6 @@ struct FileBrowserView: View {
                 Image(systemName: "folder")
             }
             .help("The folder with your songs")
-        }
-        /// A dirty trick to refresh the list; when you save a document, this will be toggled
-        .onChange(of: refreshList) { _ in
-            Task { @MainActor in
-                /// Give it a moment to save the file
-                try await Task.sleep(nanoseconds: 1_000_000_000)
-                fileBrowser.getFiles()
-            }
         }
     }
 }
@@ -108,8 +95,10 @@ extension FileBrowserView {
                     fileBrowser.menuBarExtraWindow?.close()
                 },
                 label: {
-                    Label(song.title, systemImage: song.musicpath.isEmpty ? "music.note" : "music.note.list")            }
-            )
+                    VStack {
+                        Label(song.title, systemImage: song.musicpath.isEmpty ? "music.note" : "music.note.list")
+                    }
+                })
             /// Show an image when the song is open
             .background(alignment: .trailing) {
                 Image(systemName: "macwindow")

@@ -23,6 +23,7 @@ import SwiftUI
         /// Make it sizable by the View frame
         .windowResizability(.contentSize)
         .defaultPosition(.topLeading)
+        .windowToolbarStyle(.unifiedCompact)
 
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
@@ -35,6 +36,11 @@ import SwiftUI
                             FileBrowserModel.WindowItem(windowID: window.windowNumber, songURL: file.fileURL)
                         )
                         window.orderFrontRegardless()
+                    }
+                }
+                .onChange(of: file.fileURL) { [file] newURL in
+                    if let index = fileBrowser.openWindows.firstIndex(where: {$0.songURL == file.fileURL}) {
+                        fileBrowser.openWindows[index].songURL = newURL
                     }
                 }
         }
