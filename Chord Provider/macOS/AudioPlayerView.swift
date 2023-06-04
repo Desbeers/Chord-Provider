@@ -23,7 +23,7 @@ struct AudioPlayerView: View {
         HStack {
             Button {
                 /// Sandbox stuff: get path for selected folder
-                if let persistentURL = FileBrowserModel.getPersistentFileURL("pathSongs") {
+                if let persistentURL = FolderBookmark.getPersistentFileURL("pathSongs") {
                     _ = persistentURL.startAccessingSecurityScopedResource()
                     // todo: move check to song loading
                     // let isReachable = try! persistentURL.checkResourceIsReachable()

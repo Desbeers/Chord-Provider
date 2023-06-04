@@ -11,8 +11,6 @@ import SwiftUI
 struct FileBrowserView: View {
     /// The FileBrowser model
     @EnvironmentObject var fileBrowser: FileBrowserModel
-    /// The location of the ChordPro songs
-    @AppStorage("pathSongsString") var pathSongsString: String = FileBrowserModel.getDocumentsDirectory()
     /// The search query
     @State var search: String = ""
     /// The body of the `View`
@@ -37,7 +35,6 @@ struct FileBrowserView: View {
         .labelStyle(BrowserLabelStyle())
         .buttonStyle(.plain)
         .frame(width: 320)
-        .background(Color(NSColor.windowBackgroundColor))
         .navigationTitle("Chord Provider")
         .navigationSubtitle("\(fileBrowser.songList.count) songs")
         .task {
@@ -46,7 +43,7 @@ struct FileBrowserView: View {
         .searchable(text: $search, placement: .sidebar)
         .toolbar {
             Button {
-                fileBrowser.selectSongsFolder(fileBrowser)
+                fileBrowser.selectSongsFolder()
             } label: {
                 Image(systemName: "folder")
             }
@@ -80,7 +77,8 @@ extension FileBrowserView {
                         Task {
                             do {
                                 /// Sandbox stuff
-                                if var persistentURL = FileBrowserModel.getPersistentFileURL("pathSongs") {
+                                if var persistentURL = FolderBookmark.getPersistentFileURL("pathSongs") {
+                                    dump(persistentURL)
                                     _ = persistentURL.startAccessingSecurityScopedResource()
                                     persistentURL = song.path
                                     try await openDocument(at: song.path)
@@ -98,7 +96,15 @@ extension FileBrowserView {
                     VStack {
                         Label(song.title, systemImage: song.musicpath.isEmpty ? "music.note" : "music.note.list")
                     }
-                })
+                }
+            )
+            .contextMenu {
+                Button {
+                    FolderBookmark.openInFinder(url: song.path)
+                } label: {
+                    Text("Open song in Finder")
+                }
+            }
             /// Show an image when the song is open
             .background(alignment: .trailing) {
                 Image(systemName: "macwindow")
@@ -117,8 +123,8 @@ extension FileBrowserView {
             HStack {
                 configuration.icon.foregroundColor(.accentColor).frame(width: 10)
                 configuration.title
-                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }

@@ -9,39 +9,49 @@ import Foundation
 
 /// A Class to monitor folders  for changes
 public class FolderMonitor {
-    private let kqueueId: Int32
+    /// The method when a folder did change
+    public var folderDidChange: (() -> Void)?
+    /// The kernel event queue ID
+    private let kqueueID: Int32
     private var watchedPaths = [URL: Int32]()
     private var keepWatcherThreadRunning = false
     private let folderChangeDebouncer = DebounceTask(duration: 2)
-    /// The method when a folder did change
-    public var folderDidChange: (() -> Void)?
-
     public init() {
-        kqueueId = kqueue()
+        /// Create a kernel event queue using the system call `kqueue`. This returns a file descriptor.
+        kqueueID = kqueue()
+        if kqueueID == -1 {
+            print("Error creating kqueue")
+            preconditionFailure()
+        }
     }
 
     deinit {
         keepWatcherThreadRunning = false
         removeAllURLs()
-        close(kqueueId)
+        close(kqueueID)
     }
 
-    /// Add a folder and all its subfolders
+    /// Add a folder and all its subfolders to observe for changes
     /// - Parameter url: URL of the folder
     public func addRecursiveURL(_ url: URL) {
-        removeAllURLs()
-        addURL(url)
-        if let items = FileManager.default.enumerator(at: url, includingPropertiesForKeys: nil) {
-            while let item = items.nextObject() as? URL {
-                if item.hasDirectoryPath {
-                    addURL(item)
+        if url.hasDirectoryPath {
+            let options: FileManager.DirectoryEnumerationOptions = [.skipsHiddenFiles, .skipsPackageDescendants]
+            removeAllURLs()
+            addURL(url)
+            if let items = FileManager.default.enumerator(at: url, includingPropertiesForKeys: nil, options: options) {
+                while let item = items.nextObject() as? URL {
+                    if item.hasDirectoryPath {
+                        addURL(item)
+                    }
                 }
             }
         }
     }
 
     public func addURL(_ url: URL) {
+        /// Check if the file descriptor for the URL is already known
         var fileDescriptor: Int32! = watchedPaths[url]
+        /// If not, create a file descriptor
         if fileDescriptor == nil {
             fileDescriptor = open(FileManager.default.fileSystemRepresentation(withPath: url.path), O_EVTONLY)
             guard fileDescriptor >= 0 else {
@@ -49,16 +59,25 @@ public class FolderMonitor {
             }
             watchedPaths[url] = fileDescriptor
         }
-
+        /// Create the kevent structure that sets up our kqueue to listen for notifications
         var edit = kevent(
+            /// Identifier for this event
             ident: UInt(fileDescriptor),
+            /// Filter for event
             filter: Int16(EVFILT_VNODE),
+            /// General flags
             flags: UInt16(EV_ADD | EV_CLEAR),
+            /// Filter-specific flags
             fflags: UInt32(NOTE_WRITE),
+            /// Filter-specific data
             data: 0,
+            /// Opaque user data identifier
             udata: nil
         )
-        kevent(kqueueId, &edit, 1, nil, 0, nil)
+        /// This is where the kqueue is register with our
+        /// interest for the notifications described by
+        /// our kevent structure `edit`
+        kevent(kqueueID, &edit, 1, nil, 0, nil)
 
         if !keepWatcherThreadRunning {
             keepWatcherThreadRunning = true
@@ -72,17 +91,12 @@ public class FolderMonitor {
         var event = kevent()
         var timeout = timespec(tv_sec: 1, tv_nsec: 0)
         while keepWatcherThreadRunning {
-            if kevent(kqueueId, nil, 0, &event, 1, &timeout) > 0 && event.filter == EVFILT_VNODE && event.fflags > 0 {
-                if watchedPaths.first(where: { $1 == event.ident }) != nil {
-                    Task {
-                        await folderChangeDebouncer.submit {
-                            self.folderDidChange?()
-                        }
+            if kevent(kqueueID, nil, 0, &event, 1, &timeout) > 0 && event.filter == EVFILT_VNODE && event.fflags > 0 {
+                Task {
+                    await folderChangeDebouncer.submit {
+                        self.folderDidChange?()
                     }
-                } else {
-                    continue
                 }
-
             }
         }
     }
