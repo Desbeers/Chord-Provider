@@ -78,7 +78,6 @@ extension FileBrowserView {
                             do {
                                 /// Sandbox stuff
                                 if var persistentURL = FolderBookmark.getPersistentFileURL("pathSongs") {
-                                    dump(persistentURL)
                                     _ = persistentURL.startAccessingSecurityScopedResource()
                                     persistentURL = song.path
                                     try await openDocument(at: song.path)
