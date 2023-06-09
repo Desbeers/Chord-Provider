@@ -148,7 +148,11 @@ extension FileBrowserModel {
 
     /// The folder selector
     @MainActor func selectSongsFolder() {
-        FolderBookmark.select(promt: "Select", message: "Select the folder with your songs", key: "pathSongs") {
+        FolderBookmark.select(
+            promt: "Select",
+            message: "Select the folder with your songs",
+            bookmark: "pathSongs"
+        ) {
             self.getFiles()
         }
     }
