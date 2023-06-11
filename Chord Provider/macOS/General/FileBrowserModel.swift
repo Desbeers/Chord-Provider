@@ -14,7 +14,7 @@ class FileBrowserModel: ObservableObject {
     /// The list of artists
     @Published var artistList: [ArtistItem] = []
     /// The list of open windows
-    @Published var openWindows: [WindowItem] = []
+    @Published var openWindows: [NSWindow.WindowItem] = []
     /// The MenuBarExtra window
     /// - Note: Needed to close the MenuBarExtra when selecting a song
     var menuBarExtraWindow: NSWindow?
@@ -38,7 +38,7 @@ extension FileBrowserModel {
     struct SongItem: Identifiable {
         /// The unique ID
         var id: String {
-            path.description
+            fileURL.description
         }
         /// Name of the artist
         var artist: String = "Unknown artist"
@@ -48,10 +48,10 @@ extension FileBrowserModel {
         var search: String {
             return "\(title) \(artist)"
         }
-        /// Path to the optional audio file
-        var musicpath: String = ""
-        /// Path to the ChordPro document
-        var path: URL
+        /// Path of the optional audio file
+        var musicPath: String = ""
+        /// URL of the ChordPro document
+        var fileURL: URL
     }
 
     /// The struct for an artist item in the browser
@@ -63,14 +63,6 @@ extension FileBrowserModel {
         /// Songs of the artist
         let songs: [SongItem]
     }
-
-    /// The struct for an open window
-    struct WindowItem {
-        /// The ID of the `Window`
-        let windowID: Int
-        /// The URL of the ChordPro document
-        var songURL: URL?
-    }
 }
 
 extension FileBrowserModel {
@@ -78,24 +70,21 @@ extension FileBrowserModel {
     // MARK: Functions
 
     /// Get the song files from the user selected folder
-    @MainActor func getFiles() {
+    @MainActor func getFiles() async {
         /// The found songs
         var songs = [SongItem]()
         /// Get a list of all files
-        if let persistentURL = FolderBookmark.getPersistentFileURL("pathSongs") {
-            /// Sandbox stuff...
-            _ = persistentURL.startAccessingSecurityScopedResource()
+        await FolderBookmark.action(bookmark: "SongsFolder") { persistentURL in
             folderMonitor.addRecursiveURL(persistentURL)
             if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                 while let item = items.nextObject() as? URL {
                     if ChordProDocument.fileExtension.contains(item.pathExtension) {
-                        var song = SongItem(path: item)
+                        var song = SongItem(fileURL: item)
                         parseSongFile(item, &song)
                         songs.append(song)
                     }
                 }
             }
-            persistentURL.stopAccessingSecurityScopedResource()
         }
         /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
         let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
@@ -136,9 +125,9 @@ extension FileBrowserModel {
                 song.title = label ?? "Unknown Title"
             case .st, .subtitle, .artist:
                 song.artist = label ?? "Unknown Artist"
-            case .musicpath:
+            case .musicPath:
                 if let label {
-                    song.musicpath = label
+                    song.musicPath = label
                 }
             default:
                 break
@@ -151,9 +140,11 @@ extension FileBrowserModel {
         FolderBookmark.select(
             promt: "Select",
             message: "Select the folder with your songs",
-            bookmark: "pathSongs"
+            bookmark: "SongsFolder"
         ) {
-            self.getFiles()
+            Task {
+                await self.getFiles()
+            }
         }
     }
 }

@@ -110,7 +110,7 @@ extension ChordPro {
         /// # Custom directives
 
         /// This directive has the path to the music file
-        case musicpath
+        case musicPath = "musicpath"
 
         // swiftlint:enable identifier_name
     }

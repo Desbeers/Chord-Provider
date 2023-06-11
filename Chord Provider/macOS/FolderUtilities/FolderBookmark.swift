@@ -4,10 +4,11 @@
 //
 //  Created by Nick Berendsen on 04/06/2023.
 //
-// Many thanks to [https://www.appcoda.com/mac-apps-user-intent/](https://www.appcoda.com/mac-apps-user-intent/)
+// Many thanks to https://www.appcoda.com/mac-apps-user-intent/
 
 import SwiftUI
 
+/// Functions to work with persistent selected folders
 enum FolderBookmark {
     // Just a placeholder
 }
@@ -32,19 +33,50 @@ extension FolderBookmark {
         dialog.prompt = promt
         dialog.canCreateDirectories = true
         dialog.beginSheetModal(for: NSApp.keyWindow!) { result in
-            if result == NSApplication.ModalResponse.OK, let url = dialog.url {
-                /// Create a persistent bookmark for the folder the user just selected
-                _ = setPersistentFileURL(bookmark, url)
-                /// Do the closure action
-                action()
-            } else {
-                print("Selection chanceled")
+            guard  result == .OK, let url = dialog.url else {
+                return
             }
+            /// Create a persistent bookmark for the folder the user just selected
+            _ = setPersistentFileURL(bookmark, url)
+            /// Do the closure action
+            action()
         }
     }
 }
 
 extension FolderBookmark {
+
+    /// Perform an action with a bookmark folder
+    /// - Parameters:
+    ///   - bookmark: The name of the bookmark
+    ///   - action: The action for the bookmark folder
+    static func action(bookmark: String, action: (_ url: URL) async -> Void) async {
+        guard let persistentURL = FolderBookmark.getPersistentFileURL(bookmark) else {
+            return
+        }
+        /// Make sure the security-scoped resource is released when finished
+        defer {
+            persistentURL.stopAccessingSecurityScopedResource()
+        }
+        /// Start accessing a security-scoped resource
+        _ = persistentURL.startAccessingSecurityScopedResource()
+        await action(persistentURL)
+    }
+}
+
+extension FolderBookmark {
+
+    /// Open an URL in the Finder
+    /// - Parameter url: The URL to open
+    static func openInFinder(url: URL?) {
+        guard let url = url else {
+            return
+        }
+        NSWorkspace.shared.activateFileViewerSelecting([url])
+    }
+}
+
+private extension FolderBookmark {
 
     /// Set the sandbox bookmark
     /// - Parameters:
@@ -63,58 +95,41 @@ extension FolderBookmark {
     }
 }
 
-extension FolderBookmark {
+private extension FolderBookmark {
 
     /// Get the sandbox bookmark
     /// - Parameter bookmark: The name of the bookmark
     /// - Returns: The URL of the bookmark
     static func getPersistentFileURL(_ bookmark: String) -> URL? {
-        if let bookmarkData = UserDefaults.standard.data(forKey: bookmark) {
-            do {
-                var bookmarkDataIsStale = false
-                let urlForBookmark = try URL(
-                    resolvingBookmarkData: bookmarkData,
-                    options: .withSecurityScope,
-                    relativeTo: nil,
-                    bookmarkDataIsStale: &bookmarkDataIsStale
-                )
-                if bookmarkDataIsStale {
-                    print("The bookmark is outdated and needs to be regenerated.")
-                    _ = setPersistentFileURL(bookmark, urlForBookmark)
-                    return nil
-
-                } else {
-                    return urlForBookmark
-                }
-            } catch {
-                print("Error resolving bookmark:", error)
-                return nil
-            }
-        } else {
+        guard let bookmarkData = UserDefaults.standard.data(forKey: bookmark) else {
             print("Error retrieving persistent bookmark data.")
+            return nil
+        }
+        do {
+            var bookmarkDataIsStale = false
+            let urlForBookmark = try URL(
+                resolvingBookmarkData: bookmarkData,
+                options: .withSecurityScope,
+                relativeTo: nil,
+                bookmarkDataIsStale: &bookmarkDataIsStale
+            )
+            if bookmarkDataIsStale {
+                print("The bookmark is outdated and needs to be regenerated.")
+                _ = setPersistentFileURL(bookmark, urlForBookmark)
+            }
+            return urlForBookmark
+        } catch {
+            print("Error resolving bookmark:", error)
             return nil
         }
     }
 }
 
-extension FolderBookmark {
+private extension FolderBookmark {
 
     /// Get the Documents directory
     /// - Returns: The users Documents directory
     static func getDocumentsDirectory() -> URL {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    }
-}
-
-extension FolderBookmark {
-
-    /// Open an URL in the Finder
-    /// - Parameter url: The URL to open
-    static func openInFinder(url: URL?) {
-        guard let url = url else {
-            print("Not a valid URL")
-            return
-        }
-        NSWorkspace.shared.activateFileViewerSelecting([url])
     }
 }

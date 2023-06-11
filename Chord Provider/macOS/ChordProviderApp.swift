@@ -9,7 +9,7 @@ import SwiftUI
 
 /// SwiftUI `Scene` for Chord Provider
 @main struct ChordProviderApp: App {
-    /// The ``FileBrowser``
+    /// The ``FileBrowserModel``
     @StateObject var fileBrowser = FileBrowserModel()
     /// AppKit app delegate
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
@@ -33,14 +33,17 @@ import SwiftUI
                     /// Register the window unless we are browsing Versions
                     if !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false), let window = window?.windowController?.window {
                         fileBrowser.openWindows.append(
-                            FileBrowserModel.WindowItem(windowID: window.windowNumber, songURL: file.fileURL)
+                            NSWindow.WindowItem(
+                                windowID: window.windowNumber,
+                                fileURL: file.fileURL
+                            )
                         )
                         window.orderFrontRegardless()
                     }
                 }
                 .onChange(of: file.fileURL) { [file] newURL in
-                    if let index = fileBrowser.openWindows.firstIndex(where: {$0.songURL == file.fileURL}) {
-                        fileBrowser.openWindows[index].songURL = newURL
+                    if let index = fileBrowser.openWindows.firstIndex(where: {$0.fileURL == file.fileURL}) {
+                        fileBrowser.openWindows[index].fileURL = newURL
                     }
                 }
         }

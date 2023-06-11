@@ -22,8 +22,8 @@ struct HeaderView: View {
             Spacer()
             General(song: song)
             Details(song: song)
-            if song.musicpath != nil {
-                AudioPlayerView(song: song)
+            if let musicURL = song.musicURL {
+                AudioPlayerView(musicURL: musicURL)
             }
             Spacer()
         }

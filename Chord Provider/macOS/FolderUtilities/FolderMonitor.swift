@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A Class to monitor folders  for changes
+/// A class to monitor folders  for changes
 public class FolderMonitor {
     /// The method when a folder did change
     public var folderDidChange: (() -> Void)?

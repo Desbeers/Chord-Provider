@@ -38,7 +38,7 @@ struct ContentView: View {
         .background(Color(nsColor: .textBackgroundColor))
         .onDisappear {
             Task { @MainActor in
-                if let index = fileBrowser.openWindows.firstIndex(where: {$0.songURL == file}) {
+                if let index = fileBrowser.openWindows.firstIndex(where: {$0.fileURL == file}) {
                     /// Mark window as closed
                     fileBrowser.openWindows.remove(at: index)
                 }

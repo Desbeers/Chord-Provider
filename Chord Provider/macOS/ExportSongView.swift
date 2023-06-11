@@ -22,16 +22,19 @@ struct ExportSongView: View {
         }, label: {
             Label("Export song", systemImage: "square.and.arrow.up")
         })
-        .fileExporter(isPresented: $exportFile,
-                      document: ChordProviderDocument(image: image),
-                      contentType: .pdf, defaultFilename: "\(song.artist ?? "Artist") - \(song.title ?? "Title")",
-                      onCompletion: { result in
-            if case .success = result {
-                print("Success")
-            } else {
-                print("Failure")
+        .fileExporter(
+            isPresented: $exportFile,
+            document: ChordProviderDocument(image: image),
+            contentType: .pdf,
+            defaultFilename: "\(song.artist ?? "Artist") - \(song.title ?? "Title")",
+            onCompletion: { result in
+                if case .success = result {
+                    print("Success")
+                } else {
+                    print("Failure")
+                }
             }
-        })
+        )
     }
 
     /// Render the song as a PDF

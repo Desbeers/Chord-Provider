@@ -22,8 +22,8 @@ struct ChordPro {
     static func parse(text: String, transponse: Int, file: URL?) -> Song {
         /// Start with a fresh song
         var song = Song()
-        /// Add the path
-        song.path = file
+        /// Add the url
+        song.fileURL = file
         /// Add the optional transponse
         song.transpose = transponse
         /// And add the first section
@@ -163,11 +163,11 @@ struct ChordPro {
                 }
 
                 // MARK: Custom directives
-            case .musicpath:
-                if let path = song.path, let label {
-                    var musicpath = path.deletingLastPathComponent()
-                    musicpath.appendPathComponent(label)
-                    song.musicpath = musicpath
+            case .musicPath:
+                if let url = song.fileURL, let label {
+                    var musicURL = url.deletingLastPathComponent()
+                    musicURL.appendPathComponent(label)
+                    song.musicURL = musicURL
                 }
             }
         }
