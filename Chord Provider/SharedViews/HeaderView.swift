@@ -10,7 +10,9 @@ import SwiftUI
 /// SwiftUI `View` with song information and optional audio player for macOS
 struct HeaderView: View {
     /// The ``Song``
-    var song: Song
+    let song: Song
+    /// The optional file location
+    let file: URL?
     /// Current scaling of the `View`
     @SceneStorage("scale") var scale: Double = 1.2
     /// Previous scaling of the `View`
@@ -22,7 +24,7 @@ struct HeaderView: View {
             Spacer()
             General(song: song)
             Details(song: song)
-            if let musicURL = song.musicURL {
+            if let musicURL = getMusicURL(musicPath: song.musicPath) {
                 AudioPlayerView(musicURL: musicURL)
             }
             Spacer()
@@ -47,6 +49,18 @@ struct HeaderView: View {
 #if os(iOS)
         Text("Not in use")
 #endif
+    }
+
+    /// Get the URL for the music file
+    /// - Parameter musicPath: Te path of the file
+    /// - Returns: A full URL to the file, if found
+    func getMusicURL(musicPath: String?) -> URL? {
+        guard let file, let path = song.musicPath else {
+            return nil
+        }
+        var musicURL = file.deletingLastPathComponent()
+        musicURL.appendPathComponent(path)
+        return musicURL
     }
 }
 

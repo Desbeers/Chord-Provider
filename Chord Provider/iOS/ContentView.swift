@@ -22,7 +22,7 @@ struct ContentView: View {
     /// The body of the `View`
     var body: some View {
         HStack {
-            SongView(song: song, file: file)
+            SongView(song: song)
                 .padding(.top)
             if showEditor {
                 Divider()
@@ -37,44 +37,23 @@ struct ContentView: View {
                     .labelStyle(.titleAndIcon)
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
-                Button(action: {
-                    song.transpose -= 1
-                }, label: {
-                    Label("♭", systemImage: "arrow.down")
-                        .foregroundColor(song.transpose < 0 ? .accentColor : .primary)
-                })
-                .labelStyle(.titleAndIcon)
-                Button(action: {
-                    song.transpose += 1
-                }, label: {
-                    Label("♯", systemImage: "arrow.up")
-                        .foregroundColor(song.transpose > 0 ? .accentColor : .primary)
-                })
-                .labelStyle(.titleAndIcon)
-                Button {
-                    withAnimation {
-                        showChords.toggle()
-                    }
-                } label: {
-                    Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
-                        .frame(minWidth: 140, alignment: .leading)
-                }
-                .labelStyle(.titleAndIcon)
-                .disabled(showEditor)
-                Button {
-                    withAnimation {
-                        showEditor.toggle()
-                    }
-                } label: {
-                    Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
-                        .frame(minWidth: 140, alignment: .leading)
-                }
-                .labelStyle(.titleAndIcon)
+                ToolbarView(song: $song)
             }
         }
         .toolbarBackground(.visible, for: .automatic)
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)
-        .modifier(SongViewModifier(document: $document, song: $song, file: file))
+        .task(id: document.text) {
+            /// Always open the editor for a new file
+            if document.text == ChordProDocument.newText {
+                showEditor = true
+            }
+            await document.buildSongDebouncer.submit {
+                song = ChordPro.parse(text: document.text, transpose: song.transpose)
+            }
+        }
+        .task(id: song.transpose) {
+            song = ChordPro.parse(text: document.text, transpose: song.transpose)
+        }
     }
 }

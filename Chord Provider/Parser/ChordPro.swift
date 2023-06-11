@@ -17,15 +17,13 @@ struct ChordPro {
     /// Parse a ChordPro file
     /// - Parameters:
     ///   - text: The text of the file
-    ///   - file: The `URL` of the file
+    ///   - transponse: The optional transpose of the song
     /// - Returns: A ``Song`` item
-    static func parse(text: String, transponse: Int, file: URL?) -> Song {
+    static func parse(text: String, transpose: Int) -> Song {
         /// Start with a fresh song
         var song = Song()
-        /// Add the url
-        song.fileURL = file
-        /// Add the optional transponse
-        song.transpose = transponse
+        /// Add the optional transpose
+        song.transpose = transpose
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text:
@@ -164,10 +162,8 @@ struct ChordPro {
 
                 // MARK: Custom directives
             case .musicPath:
-                if let url = song.fileURL, let label {
-                    var musicURL = url.deletingLastPathComponent()
-                    musicURL.appendPathComponent(label)
-                    song.musicURL = musicURL
+                if let label {
+                    song.musicPath = label
                 }
             }
         }

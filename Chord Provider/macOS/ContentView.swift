@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the main content
 struct ContentView: View {
-    /// Then ChordPro document
+    /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The optional file location
     let file: URL?
@@ -25,9 +24,10 @@ struct ContentView: View {
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
-            HeaderView(song: song).background(Color.accentColor.opacity(0.1))
+            HeaderView(song: song, file: file)
+                .background(Color.accentColor.opacity(0.1))
             HStack(spacing: 0) {
-                SongView(song: song, file: file)
+                SongView(song: song)
                 if showEditor {
                     Divider()
                     EditorView(document: $document)
@@ -45,46 +45,20 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            Button(action: {
-                song.transpose -= 1
-            }, label: {
-                Label("♭", systemImage: "arrow.down")
-                    .font(.title2)
-                    .foregroundColor(song.transpose < 0 ? .accentColor : .primary)
-            })
-            .labelStyle(.titleAndIcon)
-            Button(action: {
-                song.transpose += 1
-            }, label: {
-                Label("♯", systemImage: "arrow.up")
-                    .font(.title2)
-                    .foregroundColor(song.transpose > 0 ? .accentColor : .primary)
-            })
-            .labelStyle(.titleAndIcon)
-
-            Button {
-                withAnimation {
-                    showChords.toggle()
-                }
-            } label: {
-                Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
-                    .frame(minWidth: 110, alignment: .leading)
-            }
-            .labelStyle(.titleAndIcon)
-            .disabled(showEditor)
-            Button {
-                withAnimation {
-                    showEditor.toggle()
-                }
-            } label: {
-                Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
-                    .frame(minWidth: 110, alignment: .leading)
-            }
-            .labelStyle(.titleAndIcon)
+            ToolbarView(song: $song)
             ExportSongView(song: song)
-                .labelStyle(.iconOnly)
-                .help("Export your song")
         }
-        .modifier(SongViewModifier(document: $document, song: $song, file: file))
+        .task(id: document.text) {
+            /// Always open the editor for a new file
+            if document.text == ChordProDocument.newText {
+                showEditor = true
+            }
+            await document.buildSongDebouncer.submit {
+                song = ChordPro.parse(text: document.text, transpose: song.transpose)
+            }
+        }
+        .task(id: song.transpose) {
+            song = ChordPro.parse(text: document.text, transpose: song.transpose)
+        }
     }
 }

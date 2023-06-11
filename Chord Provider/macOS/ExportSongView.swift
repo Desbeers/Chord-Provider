@@ -22,6 +22,8 @@ struct ExportSongView: View {
         }, label: {
             Label("Export song", systemImage: "square.and.arrow.up")
         })
+        .labelStyle(.iconOnly)
+        .help("Export your song")
         .fileExporter(
             isPresented: $exportFile,
             document: ChordProviderDocument(image: image),

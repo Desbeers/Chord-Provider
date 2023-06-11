@@ -15,15 +15,21 @@ import SwiftUI
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     /// The body of the `Scene`
     var body: some Scene {
+
+        // MARK: 'Song List' single window
+
         /// The 'Song List' window
         Window("Song List", id: "Main") {
             FileBrowserView()
                 .environmentObject(fileBrowser)
         }
+        .keyboardShortcut("l")
         /// Make it sizable by the View frame
         .windowResizability(.contentSize)
         .defaultPosition(.topLeading)
         .windowToolbarStyle(.unifiedCompact)
+
+        // MARK: 'Song' document window
 
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
@@ -38,7 +44,6 @@ import SwiftUI
                                 fileURL: file.fileURL
                             )
                         )
-                        window.orderFrontRegardless()
                     }
                 }
                 .onChange(of: file.fileURL) { [file] newURL in
@@ -47,8 +52,10 @@ import SwiftUI
                     }
                 }
         }
-        .defaultSize(width: 800, height: 800)
+        .defaultSize(width: 1000, height: 800)
         .defaultPosition(.center)
+
+        // MARK: 'Song List' menu bar extra
 
         /// Add Chord Provider to the Menu Bar
         MenuBarExtra("Chord Provider", systemImage: "guitars") {

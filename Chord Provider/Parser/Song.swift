@@ -31,10 +31,8 @@ struct Song {
     var album: String?
     /// The optional tuning
     var tuning: String?
-    /// The optional URL of the ChordPro file
-    var fileURL: URL?
-    /// The optional URL to the audio file
-    var musicURL: URL?
+    /// The optional path to the audio file
+    var musicPath: String?
     /// The optional transpose
     var transpose: Int = 0
 

@@ -18,7 +18,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             contentSize: CGSize.init(width: 800, height: 800)
         ) { (replyToUpdate: QLPreviewReply) in
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-            let song = ChordPro.parse(text: fileContents, transponse: 0, file: request.fileURL)
+            let song = ChordPro.parse(text: fileContents, transpose: 0)
             let renderer = ImageRenderer(content: SongExportView(song: song))
             renderer.scale = 3.0
             guard let image = self.createPDF(image: renderer) else {
