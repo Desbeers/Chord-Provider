@@ -11,8 +11,6 @@ import SwiftlyChordUtilities
 
 extension Song {
 
-    // MARK: The structure of a chord in the song
-
     /// A chord in the ``Song``
     struct Chord: Identifiable {
         /// The unique ID of the chord

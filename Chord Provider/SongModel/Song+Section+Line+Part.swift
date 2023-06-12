@@ -9,7 +9,7 @@ import Foundation
 
 extension Song.Section.Line {
 
-    /// A part of a line in the ``Song/Section/Line``
+    /// A part in the ``Song/Section/Line``
     struct Part: Identifiable {
         /// The unique ID
         var id: Int

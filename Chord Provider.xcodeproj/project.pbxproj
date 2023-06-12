@@ -271,18 +271,25 @@
 		D759295A25722FC3006DDF24 /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				D759295B25723025006DDF24 /* Song.swift */,
-				D7CC570D25FBAFC700AD96CA /* Song+Chord.swift */,
-				D759295E25723025006DDF24 /* Song+Section.swift */,
-				D759296025723025006DDF24 /* Song+Section+Line.swift */,
-				D771675228F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift */,
-				D759295F25723025006DDF24 /* Song+Section+Line+Part.swift */,
 				D759295C25723025006DDF24 /* ChordPro.swift */,
 				D758E3CE2912392D007359C3 /* ChordPro+Directive.swift */,
 				D758E3D229123DC7007359C3 /* ChordPro+Regex.swift */,
 				D758E3D62912501E007359C3 /* ChordPro+Environment.swift */,
 			);
 			path = Parser;
+			sourceTree = "<group>";
+		};
+		D75F8AE62A36B4E400125AEF /* SongModel */ = {
+			isa = PBXGroup;
+			children = (
+				D759295B25723025006DDF24 /* Song.swift */,
+				D7CC570D25FBAFC700AD96CA /* Song+Chord.swift */,
+				D759295E25723025006DDF24 /* Song+Section.swift */,
+				D759296025723025006DDF24 /* Song+Section+Line.swift */,
+				D771675228F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift */,
+				D759295F25723025006DDF24 /* Song+Section+Line+Part.swift */,
+			);
+			path = SongModel;
 			sourceTree = "<group>";
 		};
 		D76138D62946226600365BFD /* General */ = {
@@ -298,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				D7667D87273FB1CF002E7DF9 /* General */,
+				D75F8AE62A36B4E400125AEF /* SongModel */,
 				D759295A25722FC3006DDF24 /* Parser */,
 				D75929332572280B006DDF24 /* SharedViews */,
 				D75929452572280C006DDF24 /* macOS */,
