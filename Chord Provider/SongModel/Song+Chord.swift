@@ -31,14 +31,7 @@ extension Song {
                 }
                 return "\(name)*"
             } else {
-                var text = chordPosition.key.display.symbol
-                switch chordPosition.suffix {
-                case .major:
-                    break
-                default:
-                    text += chordPosition.suffix.display.symbolized
-                }
-                return text
+                return chordPosition.key.display.symbol + chordPosition.suffix.display.symbolized
             }
         }
 

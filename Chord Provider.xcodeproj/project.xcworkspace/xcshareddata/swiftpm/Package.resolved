@@ -15,7 +15,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "61347d9ad336daa9eb897becaf4d69b708683c22"
+        "revision" : "92476d37d01a7884ace7299fc7e9f9851697ca2c"
       }
     },
     {
@@ -24,7 +24,7 @@
       "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords.git",
       "state" : {
         "branch" : "main",
-        "revision" : "7ba1d485c92dbc704d7c9bad011f68466e6a3cd9"
+        "revision" : "78ba7ab8c3e758bf4985f913a6eebca1750df34e"
       }
     }
   ],
