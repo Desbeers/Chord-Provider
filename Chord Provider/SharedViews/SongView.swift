@@ -17,16 +17,14 @@ struct SongView: View {
     @SceneStorage("showEditor") var showEditor: Bool = false
     /// The scale factor of the `View`
     @SceneStorage("scale") var scale: Double = 1.2
-    /// The previous scale factor of the `View`
-    @SceneStorage("previousScale") var previousScale: Double = 1.2
     /// Pinch to zoom
     var magnificationGesture: some Gesture {
         MagnificationGesture()
             .onChanged { value in
-                scale = previousScale * value
-            }
-            .onEnded { value in
-                previousScale *= value
+                let newScale = scale * value
+                if 0.8...2.0 ~= newScale {
+                    scale = newScale
+                }
             }
     }
     /// The body of the `View`

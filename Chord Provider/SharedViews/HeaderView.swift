@@ -15,10 +15,6 @@ struct HeaderView: View {
     let file: URL?
     /// Current scaling of the `View`
     @SceneStorage("scale") var scale: Double = 1.2
-    /// Previous scaling of the `View`
-    @SceneStorage("previousScale") var previousScale: Double = 1.2
-
-    @State private var slider: Double = 12
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
@@ -32,18 +28,11 @@ struct HeaderView: View {
             Spacer()
         }
         .overlay(alignment: .trailing) {
-            Slider(value: $slider, in: 8...20) {
+            Slider(value: $scale, in: 0.8...2.0, step: 0.1) {
                 Label("Zoom", systemImage: "magnifyingglass")
             }
             .frame(width: 140)
             .padding(.trailing)
-            .task(id: slider) {
-                scale = slider / 10
-                previousScale = slider / 10
-            }
-            .task(id: scale) {
-                slider = scale * 10
-            }
         }
         .padding(4)
 #endif
