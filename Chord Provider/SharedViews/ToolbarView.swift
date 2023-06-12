@@ -35,7 +35,6 @@ struct ToolbarView: View {
                 Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
                     .frame(minWidth: 110, alignment: .leading)
             }
-            .disabled(showEditor)
             Button {
                 showEditor.toggle()
             } label: {

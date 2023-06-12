@@ -219,7 +219,7 @@ extension Song.Render {
 
     /// SwiftUI `View` for parts of a line
     struct PartsView: View {
-        /// The `parts` of a `linew`
+        /// The `parts` of a `line`
         let parts: [Song.Section.Line.Part]
         /// The body of the `View`
         var body: some View {
@@ -235,6 +235,7 @@ extension Song.Render {
                             Text(" ")
                         }
                         Text(part.text)
+                            .multilineTextAlignment(.trailing)
                     }
                 }
             }
