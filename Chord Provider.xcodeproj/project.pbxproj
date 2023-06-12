@@ -17,6 +17,8 @@
 		D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D71DE9FE258A6E88007B513D /* Credits.rtf */; };
 		D72FD53328F19FD200496010 /* ExportSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* ExportSongView.swift */; };
 		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
+		D74187142A376C6600041DFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74187132A376C6600041DFE /* MainView.swift */; };
+		D74187152A376C6600041DFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74187132A376C6600041DFE /* MainView.swift */; };
 		D751B82A290A7B1C0002AAFF /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
 		D7527C572910E73B00C5C42E /* EditorView+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7527C562910E73B00C5C42E /* EditorView+Highlight.swift */; };
 		D755C4B32589332600208BCC /* ChordProviderHelp.help in Resources */ = {isa = PBXBuildFile; fileRef = D755C4B22589332600208BCC /* ChordProviderHelp.help */; };
@@ -127,6 +129,7 @@
 		D72FD53228F19FD200496010 /* ExportSongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSongView.swift; sourceTree = "<group>"; };
 		D731FD4E2694938B00558E02 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D734A0AF25F93208007AB36A /* ChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsView.swift; sourceTree = "<group>"; };
+		D74187132A376C6600041DFE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D7527C562910E73B00C5C42E /* EditorView+Highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+Highlight.swift"; sourceTree = "<group>"; };
 		D754B6DB25867274001AE6DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D755C4B22589332600208BCC /* ChordProviderHelp.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ChordProviderHelp.help; sourceTree = "<group>"; };
@@ -227,6 +230,7 @@
 		D75929332572280B006DDF24 /* SharedViews */ = {
 			isa = PBXGroup;
 			children = (
+				D74187132A376C6600041DFE /* MainView.swift */,
 				D7158FDD2573B44B00876B80 /* SongView.swift */,
 				D734A0AF25F93208007AB36A /* ChordsView.swift */,
 				D75F8AE32A3638FC00125AEF /* ToolbarView.swift */,
@@ -540,6 +544,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7CC570E25FBAFC700AD96CA /* Song+Chord.swift in Sources */,
+				D74187152A376C6600041DFE /* MainView.swift in Sources */,
 				D759296125723025006DDF24 /* Song.swift in Sources */,
 				D758E3D82912501E007359C3 /* ChordPro+Environment.swift in Sources */,
 				D758E3D429123DC7007359C3 /* ChordPro+Regex.swift in Sources */,
@@ -575,6 +580,7 @@
 				D7CC570F25FBAFC700AD96CA /* Song+Chord.swift in Sources */,
 				D7667D8E273FD042002E7DF9 /* FileBrowserModel.swift in Sources */,
 				D7D6441428F02F9200A03407 /* SongRenderView.swift in Sources */,
+				D74187142A376C6600041DFE /* MainView.swift in Sources */,
 				D70D719D28C6055F00AF0022 /* Debouncer.swift in Sources */,
 				D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */,
 				D7E147572A2B93D900557C26 /* FolderMonitor.swift in Sources */,

@@ -32,7 +32,6 @@ struct ToolbarView: View {
                 .foregroundColor(song.transpose > 0 ? .accentColor : .primary)
         })
         .labelStyle(.titleAndIcon)
-
         Button {
             withAnimation {
                 showChords.toggle()
