@@ -25,7 +25,7 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             HeaderView(song: song, file: file)
-                .background(Color.accentColor.opacity(0.1))
+                .background(Color.accentColor.gradient.opacity(0.3))
             HStack(spacing: 0) {
                 SongView(song: song)
                 if showEditor {

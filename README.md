@@ -43,7 +43,7 @@ The iOS app will make an iCloud folder named "Chord Provider"; that's where your
 
 - When you switch from light to dark mode and visa-versa; the chord diagrams are not updated.
 - SwiftUI 'DocumentGroup', used to show the songs, is very buggy and limited.
-- 'Pinch to zoom' is buggy on macOS. Sometimes it just stops working. There is a 'zoon' toggle in the toolbar.
+- 'Pinch to zoom' is buggy on macOS. Sometimes it just stops working. There is a 'zoom' slider in the toolbar.
 - The 'song' is rendered in a SwiftUI View, so, a bit sluggish... But fancy!
 
 ### Thanks
