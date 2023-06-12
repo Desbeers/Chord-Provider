@@ -34,7 +34,6 @@ struct SongView: View {
                         .shadow(radius: 2)
                 }
                 .padding()
-                .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 }

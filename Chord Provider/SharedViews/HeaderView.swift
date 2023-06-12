@@ -27,7 +27,7 @@ struct HeaderView: View {
         }
         .frame(maxWidth: .infinity)
         .overlay(alignment: .trailing) {
-            Slider(value: $scale, in: 0.8...2.0, step: 0.1) {
+            Slider(value: $scale, in: 0.8...2.0) {
                 Label("Zoom", systemImage: "magnifyingglass")
             }
             .frame(width: 140)
