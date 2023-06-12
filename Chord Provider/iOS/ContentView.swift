@@ -23,7 +23,6 @@ struct ContentView: View {
     var body: some View {
         HStack {
             SongView(song: song)
-                .padding(.top)
             if showEditor {
                 Divider()
                 EditorView(document: $document)
@@ -32,14 +31,14 @@ struct ContentView: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarLeading) {
-                HeaderView.General(song: song)
-                HeaderView.Details(song: song)
+                HeaderView(song: song, file: file)
                     .labelStyle(.titleAndIcon)
             }
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 ToolbarView(song: $song)
             }
         }
+        .toolbarBackground(Color("AccentColor").gradient.opacity(0.3), for: .automatic)
         .toolbarBackground(.visible, for: .automatic)
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)

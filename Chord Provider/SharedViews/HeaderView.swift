@@ -19,14 +19,13 @@ struct HeaderView: View {
     var body: some View {
 #if os(macOS)
         HStack(alignment: .center) {
-            Spacer()
             General(song: song)
             Details(song: song)
-            if let musicURL = getMusicURL(musicPath: song.musicPath) {
+            if let musicURL = getMusicURL() {
                 AudioPlayerView(musicURL: musicURL)
             }
-            Spacer()
         }
+        .frame(maxWidth: .infinity)
         .overlay(alignment: .trailing) {
             Slider(value: $scale, in: 0.8...2.0, step: 0.1) {
                 Label("Zoom", systemImage: "magnifyingglass")
@@ -37,14 +36,15 @@ struct HeaderView: View {
         .padding(4)
 #endif
 #if os(iOS)
-        Text("Not in use")
+        General(song: song)
+        Details(song: song)
 #endif
     }
 
     /// Get the URL for the music file
     /// - Parameter musicPath: Te path of the file
     /// - Returns: A full URL to the file, if found
-    func getMusicURL(musicPath: String?) -> URL? {
+    func getMusicURL() -> URL? {
         guard let file, let path = song.musicPath else {
             return nil
         }
@@ -61,10 +61,7 @@ extension HeaderView {
         /// The ``Song``
         let song: Song
         /// The metadata of the ``Song``
-        private let metaData: [String]
-        /// Init the `View` with the metadata
-        init(song: Song, metaData: [String] = []) {
-            self.song = song
+        private var metaData: [String] {
             var meta: [String] = []
             if let artist = song.artist {
                 meta.append(artist)
@@ -75,7 +72,7 @@ extension HeaderView {
             if let year = song.year {
                 meta.append(year)
             }
-            self.metaData = meta
+            return meta
         }
         /// The body of the `View`
         var body: some View {
@@ -100,17 +97,16 @@ extension HeaderView {
                 if let key = song.key {
                     Label(key.display.symbol, systemImage: "key").padding(.leading)
                 }
-                if song.capo != nil {
-                    Label(song.capo!, systemImage: "paperclip").padding(.leading)
+                if let capo = song.capo {
+                    Label(capo, systemImage: "paperclip").padding(.leading)
                 }
-                if song.tempo != nil {
-                    Label(song.tempo!, systemImage: "metronome").padding(.leading)
+                if let tempo = song.tempo {
+                    Label(tempo, systemImage: "metronome").padding(.leading)
                 }
-                if song.time != nil {
-                    Label(song.time!, systemImage: "repeat").padding(.leading)
+                if let time = song.time {
+                    Label(time, systemImage: "repeat").padding(.leading)
                 }
             }
-            .font(.none)
         }
     }
 }
