@@ -26,7 +26,7 @@ struct SongView: View {
     /// The body of the `View`
     var body: some View {
         ScrollView {
-            SongRenderView(song: song, scale: scale)
+            Song.Render(song: song, scale: scale)
                 .gesture(magnificationGesture)
                 .background {
                     RoundedRectangle(cornerRadius: 6 * scale, style: .continuous)

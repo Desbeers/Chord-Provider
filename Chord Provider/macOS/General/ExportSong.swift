@@ -103,21 +103,21 @@ enum ExportSong {
         for section in song.sections {
             switch section.type {
             case .verse:
-                part = renderPart(view: SongRenderView.VerseView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.VerseView(section: section, scale: 1))
             case .chorus:
-                part = renderPart(view: SongRenderView.ChorusView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.ChorusView(section: section, scale: 1))
             case .bridge:
-                part = renderPart(view: SongRenderView.VerseView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.VerseView(section: section, scale: 1))
             case .repeatChorus:
-                part = renderPart(view: SongRenderView.RepeatChorusView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.RepeatChorusView(section: section, scale: 1))
             case .tab:
-                part = renderPart(view: SongRenderView.TabView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.TabView(section: section, scale: 1))
             case .grid:
-                part = renderPart(view: SongRenderView.GridView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.GridView(section: section, scale: 1))
             case .comment:
-                part = renderPart(view: SongRenderView.CommentView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.CommentView(section: section, scale: 1))
             default:
-                part = renderPart(view: SongRenderView.PlainView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.PlainView(section: section, scale: 1))
             }
             if let part {
                 parts.append(part)

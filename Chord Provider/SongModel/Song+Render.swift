@@ -1,5 +1,5 @@
 //
-//  SongRenderView.swift
+//  Song+Render.swift
 //  Chord Provider
 //
 //  © 2022 Nick Berendsen
@@ -7,42 +7,45 @@
 
 import SwiftUI
 
-/// Convert a ``Song`` Struct into a SwiftUI View
-struct SongRenderView: View {
-    /// The ``Song``
-    let song: Song
-    /// The scale factor of the `View`
-    let scale: CGFloat
-    /// The body of the `View`
-    var body: some View {
-        Grid(alignment: .topTrailing, verticalSpacing: 20 * scale) {
-            ForEach(song.sections) { section in
-                switch section.type {
-                case .verse:
-                    VerseView(section: section, scale: scale)
-                case .chorus:
-                    ChorusView(section: section, scale: scale)
-                case .bridge:
-                    VerseView(section: section, scale: scale)
-                case .repeatChorus:
-                    RepeatChorusView(section: section, scale: scale)
-                case .tab:
-                    TabView(section: section, scale: scale)
-                case .grid:
-                    GridView(section: section, scale: scale)
-                case .comment:
-                    CommentView(section: section, scale: scale)
-                default:
-                    PlainView(section: section, scale: scale)
+extension Song {
+
+    /// Render a ``Song`` struct into a SwiftUI View
+    struct Render: View {
+        /// The ``Song``
+        let song: Song
+        /// The scale factor of the `View`
+        let scale: CGFloat
+        /// The body of the `View`
+        var body: some View {
+            Grid(alignment: .topTrailing, verticalSpacing: 20 * scale) {
+                ForEach(song.sections) { section in
+                    switch section.type {
+                    case .verse:
+                        VerseView(section: section, scale: scale)
+                    case .chorus:
+                        ChorusView(section: section, scale: scale)
+                    case .bridge:
+                        VerseView(section: section, scale: scale)
+                    case .repeatChorus:
+                        RepeatChorusView(section: section, scale: scale)
+                    case .tab:
+                        TabView(section: section, scale: scale)
+                    case .grid:
+                        GridView(section: section, scale: scale)
+                    case .comment:
+                        CommentView(section: section, scale: scale)
+                    default:
+                        PlainView(section: section, scale: scale)
+                    }
                 }
             }
+            .padding()
+            .font(.system(size: 14 * scale))
         }
-        .padding()
-        .font(.system(size: 14 * scale))
     }
 }
 
-extension SongRenderView {
+extension Song.Render {
 
     /// Wrapper around a section
     struct SectionView: ViewModifier {

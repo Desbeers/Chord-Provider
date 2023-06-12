@@ -42,7 +42,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
                     .font(.title)
                 Text(song.artist ?? "Artist")
                     .font(.title2)
-                SongRenderView(song: song, scale: 1)
+                Song.Render(song: song, scale: 1)
             }
             .padding()
             .frame(width: 800, alignment: .center)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    /// Then ChordPro document
+    /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The ``Song``
     @Binding var song: Song
@@ -45,5 +45,7 @@ struct MainView: View {
         }
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)
+        .animation(.default, value: song.text)
+        .animation(.default, value: song.chords.map({$0.chordPosition.name}))
     }
 }
