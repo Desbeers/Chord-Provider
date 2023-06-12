@@ -2,7 +2,7 @@
 //  EditorView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
@@ -16,21 +16,6 @@ struct EditorView: View {
     @State private var textView: NSTextView?
     /// The selected text in the editor
     @State var selection = NSRange()
-    /// The highlight rules
-    private let rules: [HighlightRule] = [
-        HighlightRule(pattern: EditorView.chordsRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: NSColor.red)
-        ]),
-        HighlightRule(pattern: EditorView.directiveRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: NSColor.controlAccentColor)
-        ]),
-        HighlightRule(pattern: EditorView.directiveEmptyRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: NSColor.controlAccentColor)
-        ]),
-        HighlightRule(pattern: NSRegularExpression.all, formattingRules: [
-            TextFormattingRule(key: .font, value: NSFont(name: "Andale Mono", size: 16)!)
-        ])
-    ]
     /// The body of the `View`
     var body: some View {
         VStack {
@@ -40,7 +25,7 @@ struct EditorView: View {
     }
     /// The editor
     var editor: some View {
-        HighlightedTextEditor(text: $document.text, highlightRules: rules)
+        HighlightedTextEditor(text: $document.text, highlightRules: EditorView.rules)
         /// Below selector prevents the cursor from jumping while the SongView is updated
         /// It will also be passed to 'format' buttons
             .onSelectionChange { (range: NSRange) in
