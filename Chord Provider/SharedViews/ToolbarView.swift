@@ -16,39 +16,32 @@ struct ToolbarView: View {
     @AppStorage("showChords") var showChords: Bool = true
     /// The body of the `View`
     var body: some View {
-        Button(action: {
-            song.transpose -= 1
-        }, label: {
-            Label("♭", systemImage: "arrow.down")
-                .font(.title2)
-                .foregroundColor(song.transpose < 0 ? .accentColor : .primary)
-        })
-        .labelStyle(.titleAndIcon)
-        Button(action: {
-            song.transpose += 1
-        }, label: {
-            Label("♯", systemImage: "arrow.up")
-                .font(.title2)
-                .foregroundColor(song.transpose > 0 ? .accentColor : .primary)
-        })
-        .labelStyle(.titleAndIcon)
-        Button {
-            withAnimation {
+        Group {
+            Button(action: {
+                song.transpose -= 1
+            }, label: {
+                Label("♭", systemImage: "arrow.down")
+                    .foregroundColor(song.transpose < 0 ? .primary : .accentColor)
+            })
+            Button(action: {
+                song.transpose += 1
+            }, label: {
+                Label("♯", systemImage: "arrow.up")
+                    .foregroundColor(song.transpose > 0 ? .primary : .accentColor)
+            })
+            Button {
                 showChords.toggle()
+            } label: {
+                Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
+                    .frame(minWidth: 110, alignment: .leading)
             }
-        } label: {
-            Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
-                .frame(minWidth: 110, alignment: .leading)
-        }
-        .labelStyle(.titleAndIcon)
-        .disabled(showEditor)
-        Button {
-            withAnimation {
+            .disabled(showEditor)
+            Button {
                 showEditor.toggle()
+            } label: {
+                Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
+                    .frame(minWidth: 110, alignment: .leading)
             }
-        } label: {
-            Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
-                .frame(minWidth: 110, alignment: .leading)
         }
         .labelStyle(.titleAndIcon)
     }
