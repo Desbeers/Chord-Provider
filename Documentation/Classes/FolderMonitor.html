@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FolderMonitor Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/FolderMonitor" class="dashAnchor"></a>
+    <a title="FolderMonitor Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Chord Provider</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Chord_Provider Reference</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        FolderMonitor Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../SwiftUI.html">SwiftUI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChordProviderApp.html">ChordProviderApp</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ContentView.html">ContentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MainView.html">MainView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ToolbarView.html">ToolbarView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HeaderView.html">HeaderView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HeaderView/General.html">– General</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HeaderView/Details.html">– Details</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SongView.html">SongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordsView.html">ChordsView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordsView/Sheet.html">– Sheet</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AudioPlayerView.html">AudioPlayerView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorView.html">EditorView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorView/Directive.html">– Directive</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/EditorView/EditorButton.html">– EditorButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileBrowserView.html">FileBrowserView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileBrowserView/Row.html">– Row</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/FileBrowserView/BrowserLabelStyle.html">– BrowserLabelStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ExportSongView.html">ExportSongView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../ChordPro.html">ChordPro</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/ChordPro.html">ChordPro</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordPro/Directive.html">– Directive</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordPro/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Song.html">Song</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Song/Chord.html">– Chord</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Song/Render.html">– Render</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Song/Section.html">– Section</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Observable%20Classes.html">Observable Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/FileBrowserModel.html">FileBrowserModel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FileBrowserModel/SongItem.html">– SongItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FileBrowserModel/ArtistItem.html">– ArtistItem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../File%20Documents.html">File Documents</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/UTType.html">UTType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordProDocument.html">ChordProDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ChordProviderDocument.html">ChordProviderDocument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ExportSong.html">ExportSong</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Utilities.html">Utilities</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AppDelegate.html">AppDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Actors/Debouncer.html">Debouncer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/FolderBookmark.html">FolderBookmark</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FolderMonitor.html">FolderMonitor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/FolderMonitor/DebounceTask.html">– DebounceTask</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/View.html">View</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSWindow.html">NSWindow</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSWindow/HostingWindowFinder.html">– HostingWindowFinder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSWindow/WindowItem.html">– WindowItem</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>FolderMonitor</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">FolderMonitor</span></code></pre>
+
+                </div>
+              </div>
+            <p>A class to monitor folders  for changes</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC15folderDidChangeyycSgvp"></a>
+                    <a name="//apple_ref/swift/Property/folderDidChange" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC15folderDidChangeyycSgvp">folderDidChange</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The method when a folder did change</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">folderDidChange</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC8kqueueID33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLs5Int32Vvp"></a>
+                    <a name="//apple_ref/swift/Property/kqueueID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC8kqueueID33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLs5Int32Vvp">kqueueID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The kernel event queue ID</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">kqueueID</span><span class="p">:</span> <span class="kt">Int32</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC12watchedPaths33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLSDy10Foundation3URLVs5Int32VGvp"></a>
+                    <a name="//apple_ref/swift/Property/watchedPaths" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC12watchedPaths33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLSDy10Foundation3URLVs5Int32VGvp">watchedPaths</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Te paths to watch</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">watchedPaths</span><span class="p">:</span> <span class="p">[</span><span class="kt">URL</span> <span class="p">:</span> <span class="kt">Int32</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC24keepWatcherThreadRunning33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLSbvp"></a>
+                    <a name="//apple_ref/swift/Property/keepWatcherThreadRunning" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC24keepWatcherThreadRunning33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLSbvp">keepWatcherThreadRunning</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Bool to keep the thread runnning</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">keepWatcherThreadRunning</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC21folderChangeDebouncer33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLAC12DebounceTaskAELLCvp"></a>
+                    <a name="//apple_ref/swift/Property/folderChangeDebouncer" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC21folderChangeDebouncer33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLAC12DebounceTaskAELLCvp">folderChangeDebouncer</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The folder debounce task</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">folderChangeDebouncer</span><span class="p">:</span> <span class="kt">FolderMonitor</span><span class="o">.</span><span class="kt"><a href="../Classes/FolderMonitor/DebounceTask.html">DebounceTask</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorCACycfc">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Init of the class</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorCfd"></a>
+                    <a name="//apple_ref/swift/Method/deinit" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorCfd">deinit</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deinit of the class</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">deinit</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC15addRecursiveURLyy10Foundation0G0VF"></a>
+                    <a name="//apple_ref/swift/Method/addRecursiveURL(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC15addRecursiveURLyy10Foundation0G0VF">addRecursiveURL(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add a folder and all its subfolders to observe for changes</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addRecursiveURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>URL of the folder</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC6addURLyy10Foundation0F0VF"></a>
+                    <a name="//apple_ref/swift/Method/addURL(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC6addURLyy10Foundation0F0VF">addURL(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add a folder to observe for changes</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>URL of the folder</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC13watcherThread33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/watcherThread()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC13watcherThread33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLyyF">watcherThread()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Watch the thread for events</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">watcherThread</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC9removeURL33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLyy10Foundation0F0VF"></a>
+                    <a name="//apple_ref/swift/Method/removeURL(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC9removeURL33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLyy10Foundation0F0VF">removeURL(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove a folder from the watch list</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">removeURL</span><span class="p">(</span><span class="n">_</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>url</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>URL of the folder</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC13removeAllURLs33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLyyF"></a>
+                    <a name="//apple_ref/swift/Method/removeAllURLs()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC13removeAllURLs33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLyyF">removeAllURLs()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove all folders from the watch list</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">removeAllURLs</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider13FolderMonitorC12DebounceTask33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLC"></a>
+                    <a name="//apple_ref/swift/Actor/DebounceTask" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider13FolderMonitorC12DebounceTask33_DEF12DF1AE1BFAEE0677FA2F3C344EBCLLC">DebounceTask</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Debounce a task</p>
+
+                        <a href="../Classes/FolderMonitor/DebounceTask.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">actor</span> <span class="kt">DebounceTask</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-14)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>

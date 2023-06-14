@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Swiftui `View` for the main content
 struct MainView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument

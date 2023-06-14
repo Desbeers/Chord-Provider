@@ -13,6 +13,20 @@ theme: apple
 
 custom_categories:
 
+  - name: SwiftUI
+    children:
+    - ChordProviderApp
+    - ContentView
+    - MainView
+    - ToolbarView
+    - HeaderView
+    - SongView
+    - ChordsView
+    - AudioPlayerView
+    - EditorView
+    - FileBrowserView
+    - ExportSongView
+
   - name: ChordPro
     children:
     - ChordPro
@@ -27,20 +41,19 @@ custom_categories:
     - UTType
     - ChordProDocument
     - ChordProviderDocument
+    - ExportSong
 
-  - name: SwiftUI
+  - name: Utilities
     children:
-    - ChordProviderApp
-    - ContentView
-    - HeaderView
-    - SongView
-    - SongViewModifier
-    - SongRenderView
-    - ChordsView
-    - AudioPlayerView
-    - EditorView
-    - FileBrowserView
-    - ExportSongView
+    - AppDelegate
+    - Debouncer
+    - FolderBookmark
+    - FolderMonitor
+
+  - name: Extensions
+    children:
+    - View
+    - NSWindow
 
 # Command line for doc generation:
 # jazzy

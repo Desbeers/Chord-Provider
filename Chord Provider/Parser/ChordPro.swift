@@ -2,7 +2,7 @@
 //  ChordPro.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
@@ -78,7 +78,7 @@ struct ChordPro {
     ///   - text: The text to process
     ///   - song: The `Song`
     ///   - currentSection: The current `section` of the `song`
-    fileprivate static func processDirective(text: String, song: inout Song, currentSection: inout Song.Section) {
+    private static func processDirective(text: String, song: inout Song, currentSection: inout Song.Section) {
 
         if let match = text.wholeMatch(of: directiveRegex) {
 
@@ -179,7 +179,7 @@ struct ChordPro {
     ///   - type: The type of `section`
     ///   - song: The `song`
     ///   - currentSection: The current `section` of the `song`
-    fileprivate static func processSection(label: String, type: Environment, song: inout Song, currentSection: inout Song.Section) {
+    private static func processSection(label: String, type: Environment, song: inout Song, currentSection: inout Song.Section) {
         if currentSection.lines.isEmpty {
             /// There is already an empty section
             currentSection.type = type
@@ -199,7 +199,7 @@ struct ChordPro {
     /// - Parameters:
     ///   - text: The chord definition
     ///   - song: The `song`
-    fileprivate static func processDefine(text: String, song: inout Song) {
+    private static func processDefine(text: String, song: inout Song) {
         if let match = text.wholeMatch(of: defineRegex) {
             let key = match.1
             /// Remove standard chords with the same key if there is one in the chords list
@@ -218,7 +218,7 @@ struct ChordPro {
     ///   - text: The text to process
     ///   - song: The `Song`
     ///   - currentSection: The current `section` of the `song`
-    fileprivate static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
+    private static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
         line.tab = text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -238,7 +238,7 @@ struct ChordPro {
     ///   - text: The text to process
     ///   - song: The `Song`
     ///   - currentSection: The current `section` of the `song`
-    fileprivate static func processGrid(text: String, song: inout Song, currentSection: inout Song.Section) {
+    private static func processGrid(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
         /// Give the structs an ID
@@ -285,7 +285,7 @@ struct ChordPro {
     ///   - text: The text to process
     ///   - song: The `Song`
     ///   - currentSection: The current `section` of the `song`
-    fileprivate static func processLine(text: String, song: inout Song, currentSection: inout Song.Section) {
+    private static func processLine(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
         var partID: Int = 1

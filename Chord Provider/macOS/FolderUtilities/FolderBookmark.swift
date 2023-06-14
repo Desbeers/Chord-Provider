@@ -1,14 +1,13 @@
 //
 //  FolderBookmark.swift
-//  Chord Provider (macOS)
+//  Chord Provider
 //
-//  Created by Nick Berendsen on 04/06/2023.
+//  © 2023 Nick Berendsen
 //
-// Many thanks to https://www.appcoda.com/mac-apps-user-intent/
 
 import SwiftUI
 
-/// Functions to work with persistent selected folders
+/// Persistent folder utilities
 enum FolderBookmark {
     // Just a placeholder
 }
@@ -17,11 +16,11 @@ extension FolderBookmark {
 
     /// Open a sheet to select a folder
     /// - Parameters:
-    ///   - promt: The text for the default button
+    ///   - prompt: The text for the default button
     ///   - message: The message in the dialog
     ///   - bookmark: The name of the bookmark
     ///   - action: The action after the folder is selected
-    static func select(promt: String, message: String, bookmark: String, action: @escaping () -> Void) {
+    static func select(prompt: String, message: String, bookmark: String, action: @escaping () -> Void) {
         let selection = getPersistentFileURL(bookmark) ?? getDocumentsDirectory()
         let dialog = NSOpenPanel()
         dialog.showsResizeIndicator = true
@@ -30,7 +29,7 @@ extension FolderBookmark {
         dialog.canChooseDirectories = true
         dialog.directoryURL = selection
         dialog.message = message
-        dialog.prompt = promt
+        dialog.prompt = prompt
         dialog.canCreateDirectories = true
         dialog.beginSheetModal(for: NSApp.keyWindow!) { result in
             guard  result == .OK, let url = dialog.url else {
@@ -73,6 +72,19 @@ extension FolderBookmark {
             return
         }
         NSWorkspace.shared.activateFileViewerSelecting([url])
+    }
+}
+
+extension FolderBookmark {
+
+    /// Get the URL of a bookmark
+    /// - Parameter bookmark: The name of the bookmark
+    /// - Returns: The URL of the bookmark
+    static func getURL(bookmark: String) -> URL {
+        guard let persistentURL = FolderBookmark.getPersistentFileURL(bookmark) else {
+            return FolderBookmark.getDocumentsDirectory()
+        }
+        return persistentURL
     }
 }
 

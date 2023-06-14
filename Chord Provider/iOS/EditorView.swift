@@ -2,12 +2,12 @@
 //  EditorView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 
-/// SwiftUI `View` with the editor
+/// SwiftUI `View` for the editor
 struct EditorView: View {
     /// The CordPro document
     @Binding var document: ChordProDocument

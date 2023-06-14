@@ -2,12 +2,12 @@
 //  ContentView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 
-/// SwiftUI `View` for the main content
+/// SwiftUI `View` for the content
 struct ContentView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument

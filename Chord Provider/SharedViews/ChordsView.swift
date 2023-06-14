@@ -2,14 +2,14 @@
 //  ChordsView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 import SwiftyChords
 import SwiftlyChordUtilities
 
-/// SwiftUI `View` with chord diagrams
+/// SwiftUI `View` for the chord diagrams
 struct ChordsView: View {
     /// The ``Song``
     let song: Song

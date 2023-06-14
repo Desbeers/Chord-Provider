@@ -2,12 +2,12 @@
 //  ExportSongView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 
-/// SwiftUI `Button` to export a song
+/// SwiftUI `View` for the song export button
 struct ExportSongView: View {
     /// The ``Song``
     let song: Song

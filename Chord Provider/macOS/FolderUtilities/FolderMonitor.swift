@@ -2,7 +2,7 @@
 //  FolderMonitor.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
@@ -13,9 +13,13 @@ public class FolderMonitor {
     public var folderDidChange: (() -> Void)?
     /// The kernel event queue ID
     private let kqueueID: Int32
+    /// Te paths to watch
     private var watchedPaths = [URL: Int32]()
+    /// Bool to keep the thread runnning
     private var keepWatcherThreadRunning = false
+    /// The folder debounce task
     private let folderChangeDebouncer = DebounceTask(duration: 2)
+    /// Init of the class
     public init() {
         /// Create a kernel event queue using the system call `kqueue`. This returns a file descriptor.
         kqueueID = kqueue()
@@ -24,7 +28,7 @@ public class FolderMonitor {
             preconditionFailure()
         }
     }
-
+    /// Deinit of the class
     deinit {
         keepWatcherThreadRunning = false
         removeAllURLs()
@@ -48,6 +52,8 @@ public class FolderMonitor {
         }
     }
 
+    /// Add a folder to observe for changes
+    /// - Parameter url: URL of the folder
     public func addURL(_ url: URL) {
         /// Check if the file descriptor for the URL is already known
         var fileDescriptor: Int32! = watchedPaths[url]
@@ -87,6 +93,7 @@ public class FolderMonitor {
         }
     }
 
+    /// Watch the thread for events
     private func watcherThread() {
         var event = kevent()
         var timeout = timespec(tv_sec: 1, tv_nsec: 0)
@@ -101,29 +108,17 @@ public class FolderMonitor {
         }
     }
 
-    public func isURLWatched(_ url: URL) -> Bool {
-        return watchedPaths[url] != nil
-    }
-
-    public func removeURL(_ url: URL) {
+    /// Remove a folder from the watch list
+    /// - Parameter url: URL of the folder
+    private func removeURL(_ url: URL) {
         if let fileDescriptor = watchedPaths.removeValue(forKey: url) {
             close(fileDescriptor)
         }
     }
 
-    public func removeAllURLs() {
+    /// Remove all folders from the watch list
+    private func removeAllURLs() {
         watchedPaths.keys.forEach(removeURL)
-    }
-
-    public func numberOfWatchedPaths() -> Int {
-        return watchedPaths.count
-    }
-
-    public func fileDescriptorForURL(_ url: URL) -> Int32 {
-        if let fileDescriptor = watchedPaths[url] {
-            return fcntl(fileDescriptor, F_DUPFD)
-        }
-        return -1
     }
 }
 

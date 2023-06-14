@@ -2,12 +2,12 @@
 //  SongView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 
-/// The Song View
+/// Swiftui `View` for the song
 struct SongView: View {
     /// The ``Song``
     let song: Song

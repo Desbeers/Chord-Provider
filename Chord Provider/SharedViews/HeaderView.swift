@@ -2,12 +2,12 @@
 //  HeaderView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 
-/// SwiftUI `View` with song information and optional audio player for macOS
+/// SwiftUI `View` for the header
 struct HeaderView: View {
     /// The ``Song``
     let song: Song

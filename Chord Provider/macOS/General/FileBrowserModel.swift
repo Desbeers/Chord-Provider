@@ -2,7 +2,7 @@
 //  FileBrowserModel.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
@@ -138,7 +138,7 @@ extension FileBrowserModel {
     /// The folder selector
     @MainActor func selectSongsFolder() {
         FolderBookmark.select(
-            promt: "Select",
+            prompt: "Select",
             message: "Select the folder with your songs",
             bookmark: "SongsFolder"
         ) {

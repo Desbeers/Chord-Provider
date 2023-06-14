@@ -2,12 +2,12 @@
 //  FileBrowserView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 
-/// SwiftUI `View` with a list of songs from a user selected directory
+/// SwiftUI `View` for the file browser
 struct FileBrowserView: View {
     /// The FileBrowser model
     @EnvironmentObject var fileBrowser: FileBrowserModel

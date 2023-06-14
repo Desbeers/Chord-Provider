@@ -7,8 +7,9 @@
 
 import SwiftUI
 
+/// Swiftui `View` for the toolbar
 struct ToolbarView: View {
-    /// The song
+    /// The ``song``
     @Binding var song: Song
     /// Bool to show the editor or not
     @SceneStorage("showEditor") var showEditor: Bool = false

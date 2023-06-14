@@ -2,13 +2,13 @@
 //  AudioPlayerView.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 import AVKit
 
-/// SwiftUI `View` for a very simple audio player
+/// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {
     /// The music URL
     let musicURL: URL

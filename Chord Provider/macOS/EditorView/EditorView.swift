@@ -8,7 +8,7 @@
 import SwiftUI
 import HighlightedTextEditor
 
-/// SwiftUI `View` with the `HighlightedTextEditor`
+/// SwiftUI `View` for the `HighlightedTextEditor`
 struct EditorView: View {
     /// The CordPro document
     @Binding var document: ChordProDocument
