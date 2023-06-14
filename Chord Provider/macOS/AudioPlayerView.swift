@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVKit
+import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {

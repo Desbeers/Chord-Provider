@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for the file browser
 struct FileBrowserView: View {

@@ -54,6 +54,7 @@
 		D771675328F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771675228F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift */; };
 		D771675428F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771675228F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift */; };
 		D771675528F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D771675228F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift */; };
+		D776A7832A3A2AB200C1630C /* SwiftlyFolderUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D776A7822A3A2AB200C1630C /* SwiftlyFolderUtilities */; };
 		D77B136D29704E5900ECE2F9 /* ExportSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B136C29704E5900ECE2F9 /* ExportSong.swift */; };
 		D789832A28C3A0150044BDD1 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D789832928C3A0140044BDD1 /* ChordProviderApp.swift */; };
 		D7925A5B292FA03300EA54B0 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7925A5A292FA03300EA54B0 /* SwiftlyChordUtilities */; };
@@ -79,8 +80,6 @@
 		D7D6441428F02F9200A03407 /* Song+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D6441328F02F9200A03407 /* Song+Render.swift */; };
 		D7D6441528F02F9200A03407 /* Song+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D6441328F02F9200A03407 /* Song+Render.swift */; };
 		D7D6441628F17D1600A03407 /* Song+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D6441328F02F9200A03407 /* Song+Render.swift */; };
-		D7E147572A2B93D900557C26 /* FolderMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E147562A2B93D900557C26 /* FolderMonitor.swift */; };
-		D7E1475A2A2CC10400557C26 /* FolderBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E147592A2CC10400557C26 /* FolderBookmark.swift */; };
 		D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */; };
 		D7F68D362578DA8400B119BA /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D342578DA8400B119BA /* EditorView.swift */; };
 /* End PBXBuildFile section */
@@ -167,8 +166,6 @@
 		D7CC243028C8816400316A15 /* QLExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QLExtension.entitlements; sourceTree = "<group>"; };
 		D7CC570D25FBAFC700AD96CA /* Song+Chord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Chord.swift"; sourceTree = "<group>"; };
 		D7D6441328F02F9200A03407 /* Song+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Render.swift"; sourceTree = "<group>"; };
-		D7E147562A2B93D900557C26 /* FolderMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderMonitor.swift; sourceTree = "<group>"; };
-		D7E147592A2CC10400557C26 /* FolderBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderBookmark.swift; sourceTree = "<group>"; };
 		D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		D7F68D342578DA8400B119BA /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +185,7 @@
 			files = (
 				D7C773B128C87D7900336E76 /* HighlightedTextEditor in Frameworks */,
 				D7925A5B292FA03300EA54B0 /* SwiftlyChordUtilities in Frameworks */,
+				D776A7832A3A2AB200C1630C /* SwiftlyFolderUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +252,6 @@
 			isa = PBXGroup;
 			children = (
 				D76138D62946226600365BFD /* General */,
-				D7E147582A2CC0D400557C26 /* FolderUtilities */,
 				D7CC242728C8816400316A15 /* QLExtension */,
 				D70D71B228C76C0C00AF0022 /* EditorView */,
 				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
@@ -347,15 +344,6 @@
 			path = QLExtension;
 			sourceTree = "<group>";
 		};
-		D7E147582A2CC0D400557C26 /* FolderUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				D7E147562A2B93D900557C26 /* FolderMonitor.swift */,
-				D7E147592A2CC10400557C26 /* FolderBookmark.swift */,
-			);
-			path = FolderUtilities;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -400,6 +388,7 @@
 			packageProductDependencies = (
 				D7C773B028C87D7900336E76 /* HighlightedTextEditor */,
 				D7925A5A292FA03300EA54B0 /* SwiftlyChordUtilities */,
+				D776A7822A3A2AB200C1630C /* SwiftlyFolderUtilities */,
 			);
 			productName = "Make chords (macOS)";
 			productReference = D7667D86273FB0EC002E7DF9 /* Chord Provider.app */;
@@ -458,6 +447,7 @@
 			packageReferences = (
 				D7C773AF28C87D7900336E76 /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
 				D7925A59292FA03300EA54B0 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */,
+				D776A7812A3A2AB200C1630C /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */,
 			);
 			productRefGroup = D759292E2572280B006DDF24;
 			projectDirPath = "";
@@ -583,7 +573,6 @@
 				D74187142A376C6600041DFE /* MainView.swift in Sources */,
 				D70D719D28C6055F00AF0022 /* Debouncer.swift in Sources */,
 				D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */,
-				D7E147572A2B93D900557C26 /* FolderMonitor.swift in Sources */,
 				D758E3CF2912392D007359C3 /* ChordPro+Directive.swift in Sources */,
 				D759296A25723025006DDF24 /* Song+Section+Line+Part.swift in Sources */,
 				D759296425723025006DDF24 /* ChordPro.swift in Sources */,
@@ -591,7 +580,6 @@
 				D70D71AE28C75C3600AF0022 /* EditorView+Directive.swift in Sources */,
 				D771675328F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */,
 				D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */,
-				D7E1475A2A2CC10400557C26 /* FolderBookmark.swift in Sources */,
 				D759296C25723025006DDF24 /* Song+Section+Line.swift in Sources */,
 				D7C670D028D72ED000D5EBDE /* WindowManagement.swift in Sources */,
 				D7F68D362578DA8400B119BA /* EditorView.swift in Sources */,
@@ -972,6 +960,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D776A7812A3A2AB200C1630C /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Desbeers/SwiftlyFolderUtilities";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D7925A59292FA03300EA54B0 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Desbeers/SwiftlyChordUtilities";
@@ -991,6 +987,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D776A7822A3A2AB200C1630C /* SwiftlyFolderUtilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D776A7812A3A2AB200C1630C /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */;
+			productName = SwiftlyFolderUtilities;
+		};
 		D7925A5A292FA03300EA54B0 /* SwiftlyChordUtilities */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D7925A59292FA03300EA54B0 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */;

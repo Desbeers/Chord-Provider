@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyFolderUtilities
 
 /// The observable FileBrowser model
 class FileBrowserModel: ObservableObject {

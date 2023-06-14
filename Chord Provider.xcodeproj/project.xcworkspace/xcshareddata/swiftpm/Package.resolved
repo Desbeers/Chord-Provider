@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "swiftlyfolderutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "0c369c00563de26e54759f1aade7bd97321abe2b"
+      }
+    },
+    {
       "identity" : "swiftyguitarchords",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords.git",

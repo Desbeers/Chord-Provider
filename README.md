@@ -60,8 +60,12 @@ The macOS editor is [HighlightedTextEditor](https://github.com/kyle-n/Highlighte
 
 I use my [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities) package for chord handling.
 
+For the macOS target, I use my [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities) package to handle folder selection and monitoring.
+
 ## How to compile
 
 1. Clone the project.
 2. Change the signing certificate to your own.
 2. Build and run!
+
+SwiftlyFolderUtilities
