@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HighlightedTextEditor
 
 /// SwiftUI `View` for the editor
 struct EditorView: View {
@@ -13,9 +14,6 @@ struct EditorView: View {
     @Binding var document: ChordProDocument
     /// The body of the `View`
     var body: some View {
-        TextEditor(text: $document.text)
-            .font(.custom("Andale Mono", size: 18))
-            .lineSpacing(5)
-            .padding()
+        HighlightedTextEditor(text: $document.text, highlightRules: EditorView.rules)
     }
 }

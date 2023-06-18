@@ -18,7 +18,7 @@ struct EditorView: View {
     @State var selection = NSRange()
     /// The body of the `View`
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             toolbar
             editor
         }
@@ -38,6 +38,7 @@ struct EditorView: View {
                         self.textView = editor.textView
                     }
                 }
+                editor.textView.textContainerInset = NSSize(width: 10, height: 10)
             })
     }
     /// The Toolbar
@@ -78,7 +79,8 @@ struct EditorView: View {
         .background(Color(nsColor: .windowBackgroundColor))
         .background(Color.primary.opacity(0.1))
         .cornerRadius(5)
-        .padding(5)
+        .padding(.top, 5)
+        .padding(.horizontal, 5)
     }
 }
 
