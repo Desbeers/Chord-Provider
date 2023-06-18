@@ -12,7 +12,7 @@ extension ChordPro {
     // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports
-    enum Directive: String {
+    enum Directive: String, CaseIterable {
 
         // swiftlint:disable identifier_name
 

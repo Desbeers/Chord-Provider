@@ -24,6 +24,8 @@ struct ChordPro {
         var song = Song()
         /// Add the optional transpose
         song.transpose = transpose
+        /// Add a new line at the end of the text
+        let text = "\(text)\n"
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text:

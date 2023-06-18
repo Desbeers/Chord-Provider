@@ -57,7 +57,7 @@ extension ChordPro {
                 Capture {
                     OneOrMore {
                         CharacterClass(
-                            .anyOf("[]").inverted
+                            .anyOf("[] ").inverted
                         )
                     }
                 }

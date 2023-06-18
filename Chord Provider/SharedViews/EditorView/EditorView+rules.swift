@@ -22,18 +22,27 @@ extension EditorView {
 
     /// The highlight rules
     static let rules: [HighlightRule] = [
-        HighlightRule(pattern: EditorView.chordRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.red)
-        ]),
-        HighlightRule(pattern: EditorView.directiveRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue)
-        ]),
-        HighlightRule(pattern: EditorView.emptyDirectiveRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue)
-        ]),
+        /// The rue for all lines
         HighlightRule(pattern: NSRegularExpression.all, formattingRules: [
-            TextFormattingRule(key: .font, value: SWIFTFont.monospacedSystemFont(ofSize: 14, weight: .light)),
+            TextFormattingRule(key: .font, value: font(weight: .light)),
             TextFormattingRule(key: .paragraphStyle, value: nsParagraphStyle)
+        ]),
+        /// The rule for a chord
+        HighlightRule(pattern: EditorView.chordRegex!, formattingRules: [
+            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemRed)
+        ]),
+        /// The rule for a directive
+        HighlightRule(pattern: EditorView.directiveRegex!, formattingRules: [
+            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemTeal),
+            TextFormattingRule(key: .font, value: font(weight: .medium))
+        ]),
+        /// The rule for the value of a directive
+        HighlightRule(pattern: EditorView.directiveValueRegex!, formattingRules: [
+            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue),
+        ]),
+        /// The rule for the end of directive
+        HighlightRule(pattern: EditorView.directiveEndRegex!, formattingRules: [
+            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue),
         ])
     ]
 
@@ -41,6 +50,14 @@ extension EditorView {
     static let nsParagraphStyle: NSParagraphStyle = {
         let style = NSMutableParagraphStyle()
         style.lineHeightMultiple = 1.2
+        style.headIndent = 10
         return style
     }()
+
+    /// The font for a line in the editor
+    /// - Parameter weight: The weight of a font
+    /// - Returns: A font declaration
+    static func font(weight: SWIFTFont.Weight) -> SWIFTFont {
+        return SWIFTFont.monospacedSystemFont(ofSize: 14, weight: weight)
+    }
 }
