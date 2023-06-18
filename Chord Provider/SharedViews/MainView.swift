@@ -32,21 +32,24 @@ struct MainView: View {
                     .frame(minWidth: 300)
             }
         }
-        .task(id: document.text) {
+        .task {
+            song = ChordPro.parse(text: document.text, transpose: song.transpose)
             /// Always open the editor for a new file
             if document.text == ChordProDocument.newText {
                 showEditor = true
             }
-            await document.buildSongDebouncer.submit {
-                song = ChordPro.parse(text: document.text, transpose: song.transpose)
+        }
+        .onChange(of: document.text) { _ in
+            Task { @MainActor in
+                await document.buildSongDebouncer.submit {
+                    song = ChordPro.parse(text: document.text, transpose: song.transpose)
+                }
             }
         }
-        .task(id: song.transpose) {
+        .onChange(of: song.transpose) { _ in
             song = ChordPro.parse(text: document.text, transpose: song.transpose)
         }
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)
-        .animation(.default, value: song.text)
-        .animation(.default, value: song.chords.map({$0.chordPosition.name}))
     }
 }

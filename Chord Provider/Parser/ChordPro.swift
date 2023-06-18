@@ -22,8 +22,6 @@ struct ChordPro {
     static func parse(text: String, transpose: Int) -> Song {
         /// Start with a fresh song
         var song = Song()
-        /// Add the text
-        song.text = text
         /// Add the optional transpose
         song.transpose = transpose
         /// And add the first section

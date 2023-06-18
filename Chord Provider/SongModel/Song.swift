@@ -45,9 +45,4 @@ struct Song {
 
     /// The chords of the song
     var chords = [Chord]()
-
-    // MARK: The plain text of the song
-
-    /// The plain text of the song
-    var text: String = ""
 }
