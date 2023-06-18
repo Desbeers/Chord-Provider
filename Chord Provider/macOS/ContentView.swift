@@ -21,7 +21,7 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             HeaderView(song: song, file: file)
-                .background(Color.accentColor.saturation(0.6))
+                .background(Color.accentColor)
                 .foregroundColor(.white)
             MainView(document: $document, song: $song, file: file)
         }

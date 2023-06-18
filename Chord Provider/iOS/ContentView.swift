@@ -27,7 +27,8 @@ struct ContentView: View {
                 ToolbarView(song: $song)
             }
         }
-        .toolbarBackground(Color("AccentColor").gradient.opacity(0.3), for: .automatic)
+        .toolbarBackground(Color("AccentColor"), for: .automatic)
         .toolbarBackground(.visible, for: .automatic)
+        .toolbarColorScheme(.dark, for: .automatic)
     }
 }

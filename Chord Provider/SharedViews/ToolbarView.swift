@@ -22,13 +22,13 @@ struct ToolbarView: View {
                 song.transpose -= 1
             }, label: {
                 Label("♭", systemImage: "arrow.down")
-                    .foregroundColor(song.transpose < 0 ? .primary : .accentColor)
+                    .foregroundColor(song.transpose < 0 ? .primary : .secondary)
             })
             Button(action: {
                 song.transpose += 1
             }, label: {
                 Label("♯", systemImage: "arrow.up")
-                    .foregroundColor(song.transpose > 0 ? .primary : .accentColor)
+                    .foregroundColor(song.transpose > 0 ? .primary : .secondary)
             })
             Button {
                 showChords.toggle()
