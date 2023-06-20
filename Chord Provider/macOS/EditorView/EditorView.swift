@@ -96,7 +96,7 @@ extension EditorView {
                     Label(label, systemImage: directive.label.icon)
                 }
             )
-            .disabled(document == nil && scene == nil)
+            .disabled(document == nil || scene == nil)
         }
     }
 }
