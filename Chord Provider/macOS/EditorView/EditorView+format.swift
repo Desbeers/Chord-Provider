@@ -15,9 +15,9 @@ extension EditorView {
     ///     - document: The `ChordProDocument` to update
     ///     - directive: The ``Directive`` to apply
     ///     - textView: The `NSTextView` to update
-    static func format(
+    @MainActor static func format(
         _ document: inout ChordProDocument,
-        directive: Directive,
+        directive: ChordPro.Directive,
         selection: NSRange,
         in textView: NSTextView?
     ) {
@@ -26,27 +26,36 @@ extension EditorView {
             return
         }
         let selectedText = document.text[range]
+
         let replacementText = format(String(selectedText), directive: directive)
         document.text.replaceSubrange(range, with: replacementText)
         /// Move the cursor
-        if selectedText.isEmpty {
-            textView.setSelectedRange(NSRange(location: selection.location + directive.format.start.count, length: 0))
-        } else {
-            switch directive.kind {
-            case .block:
-                textView.setSelectedRange(NSRange(location: selection.location + replacementText.count, length: 0))
-            case .inline:
-                textView.setSelectedRange(NSRange(location: selection.location + replacementText.count + 1, length: 0))
-            }
+        var location = selection.location
+        switch directive.kind {
+        case .block:
+            location += selectedText.isEmpty ? directive.format.start.count : replacementText.count
+        case .inline:
+            location += selectedText.isEmpty ? directive.format.start.count : replacementText.count
+        case .optionalLabel:
+            location = selection.location + replacementText.count
         }
+        textView.setSelectedRange(NSRange(location: location, length: 0))
     }
 
     /// Returns a string that has been reformatted based on the given ChordPro format.
     /// - Parameter string: The string to format.
     /// - Parameter directive: The ``Directive`` to apply
-    private static func format(_ string: String, directive: Directive) -> String {
+    private static func format(_ string: String, directive: ChordPro.Directive) -> String {
+
         var formattedString = string
-        formattedString.insert(contentsOf: directive.format.start, at: formattedString.startIndex)
+
+        var startOfFormat = directive.format.start
+
+        if directive.kind == .optionalLabel && !string.isEmpty {
+            startOfFormat += ": "
+        }
+
+        formattedString.insert(contentsOf: startOfFormat, at: formattedString.startIndex)
         formattedString.append(directive.format.end)
         return formattedString
     }

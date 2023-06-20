@@ -15,8 +15,6 @@ struct ContentView: View {
     let file: URL?
     /// The ``Song``
     @State var song = Song()
-    /// The FileBrowser model
-    @EnvironmentObject var fileBrowser: FileBrowserModel
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -26,14 +24,6 @@ struct ContentView: View {
             MainView(document: $document, song: $song, file: file)
         }
         .background(Color(nsColor: .textBackgroundColor))
-        .onDisappear {
-            Task { @MainActor in
-                if let index = fileBrowser.openWindows.firstIndex(where: {$0.fileURL == file}) {
-                    /// Mark window as closed
-                    fileBrowser.openWindows.remove(at: index)
-                }
-            }
-        }
         .toolbar {
             ToolbarView(song: $song)
             ExportSongView(song: song)

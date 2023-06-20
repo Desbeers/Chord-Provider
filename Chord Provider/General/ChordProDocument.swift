@@ -11,7 +11,7 @@ import UniformTypeIdentifiers
 /// The ChordProDocument for Chord Provider
 struct ChordProDocument: FileDocument {
     /// The text for a new song
-    static let newText: String = "{title: A new song}\n{subtitle: A new artist}"
+    static let newText: String = "{title: A new song}\n{subtitle: A new artist}\n\n"
     /// Build a song max one time per second
     let buildSongDebouncer = Debouncer(duration: 1)
     /// The file extensions Chord Provider can open

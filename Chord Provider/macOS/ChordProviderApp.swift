@@ -34,7 +34,16 @@ import SwiftUI
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
-                .environmentObject(fileBrowser)
+            /// Give the scene access to the document.
+                .focusedSceneValue(\.document, file.$document)
+                .onDisappear {
+                    Task { @MainActor in
+                        if let index = fileBrowser.openWindows.firstIndex(where: {$0.fileURL == file.fileURL}) {
+                            /// Mark window as closed
+                            fileBrowser.openWindows.remove(at: index)
+                        }
+                    }
+                }
                 .withHostingWindow { window in
                     /// Register the window unless we are browsing Versions
                     if !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false), let window = window?.windowController?.window {
@@ -51,6 +60,9 @@ import SwiftUI
                         fileBrowser.openWindows[index].fileURL = newURL
                     }
                 }
+        }
+        .commands {
+            MarkupCommands()
         }
         .defaultSize(width: 1000, height: 800)
         .defaultPosition(.center)

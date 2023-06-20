@@ -22,7 +22,7 @@ extension EditorView {
 
     /// The highlight rules
     static let rules: [HighlightRule] = [
-        /// The rue for all lines
+        /// The rule for all lines
         HighlightRule(pattern: NSRegularExpression.all, formattingRules: [
             TextFormattingRule(key: .font, value: font(weight: .light)),
             TextFormattingRule(key: .paragraphStyle, value: nsParagraphStyle)
@@ -38,11 +38,11 @@ extension EditorView {
         ]),
         /// The rule for the value of a directive
         HighlightRule(pattern: EditorView.directiveValueRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue),
+            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue)
         ]),
         /// The rule for the end of directive
         HighlightRule(pattern: EditorView.directiveEndRegex!, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue),
+            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue)
         ])
     ]
 

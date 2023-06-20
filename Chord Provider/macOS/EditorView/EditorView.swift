@@ -12,16 +12,15 @@ import HighlightedTextEditor
 struct EditorView: View {
     /// The CordPro document
     @Binding var document: ChordProDocument
-    /// The actuals NSTextView
-    @State private var textView: NSTextView?
-    /// The selected text in the editor
-    @State var selection = NSRange()
+    /// The state of the scene
+    @StateObject private var sceneState = SceneState()
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
             toolbar
             editor
         }
+        .animation(.default, value: sceneState.selection)
     }
     /// The editor
     var editor: some View {
@@ -29,51 +28,36 @@ struct EditorView: View {
         /// Below selector prevents the cursor from jumping while the SongView is updated
         /// It will also be passed to 'format' buttons
             .onSelectionChange { (range: NSRange) in
-                selection = range
+                sceneState.selection = range
             }
         /// Below is needed to interact with the NSTextView
             .introspect(callback: { editor in
-                if self.textView == nil {
-                    Task { @MainActor in
-                        self.textView = editor.textView
-                    }
+                /// Setup the TextView
+                if sceneState.textView == nil {
+                    editor.textView.textContainerInset = NSSize(width: 10, height: 10)
+                    sceneState.textView = editor.textView
                 }
-                editor.textView.textContainerInset = NSSize(width: 10, height: 10)
             })
+            .focusedSceneObject(sceneState)
     }
     /// The Toolbar
     var toolbar: some View {
         HStack {
-            Button(action: {
-                EditorView.format(&document, directive: .chorus, selection: selection, in: textView)
-            }, label: {
-                Label("Chorus", systemImage: "music.note.list")
-            })
-            Button(action: {
-                EditorView.format(&document, directive: .verse, selection: selection, in: textView)
-            }, label: {
-                Label("Verse", systemImage: "music.mic")
-            })
+            EditorButton(directive: .startOfVerse)
+            EditorButton(directive: .startOfChorus)
+            EditorButton(directive: .startOfBridge)
             Spacer()
             Menu(
                 content: {
-                    Button(action: {
-                        EditorView.format(&document, directive: .comment, selection: selection, in: textView)
-                    }, label: {
-                        Label("Add a comment...", systemImage: "cloud")
-                    })
-                    Button(action: {
-                        EditorView.format(&document, directive: .chordDefine, selection: selection, in: textView)
-                    }, label: {
-                        Label("Define a chord...", systemImage: "music.note.list")
-                    })
+                    EditorButton(directive: .comment)
+                    EditorButton(directive: .define)
             }, label: {
                 Label("More...", systemImage: "gear")
             })
             .menuStyle(.borderlessButton)
             .frame(width: 100)
         }
-        .buttonStyle(EditorButton())
+        .buttonStyle(EditorButtonStyle())
         .labelStyle(.titleAndIcon)
         .padding(10)
         .background(Color(nsColor: .windowBackgroundColor))
@@ -86,8 +70,41 @@ struct EditorView: View {
 
 extension EditorView {
 
+    /// A button for the text editor
+    struct EditorButton: View {
+        /// The directive
+        let directive: ChordPro.Directive
+        /// The document
+        @FocusedBinding(\.document) private var document: ChordProDocument?
+        /// The scene
+        @FocusedObject private var scene: SceneState?
+
+        private var label: String {
+            var label = directive.label.text
+            if scene?.selection.length ?? 0 > 0 {
+                label += "..."
+            }
+            return label
+        }
+
+        /// Body of the `view`
+        var body: some View {
+            Button(
+                action: {
+                    EditorView.format(&document!, directive: directive, selection: scene!.selection, in: scene!.textView)
+                }, label: {
+                    Label(label, systemImage: directive.label.icon)
+                }
+            )
+            .disabled(document == nil && scene == nil)
+        }
+    }
+}
+
+extension EditorView {
+
     /// The style for an editor button
-    struct EditorButton: ButtonStyle {
+    struct EditorButtonStyle: ButtonStyle {
         /// Hover state of the button
         @State private var hovered = false
         func makeBody(configuration: Configuration) -> some View {
