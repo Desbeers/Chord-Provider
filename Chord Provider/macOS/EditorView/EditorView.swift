@@ -82,7 +82,7 @@ extension EditorView {
         private var label: String {
             var label = directive.label.text
             if scene?.selection.length ?? 0 > 0 {
-                label += "..."
+                label += "…"
             }
             return label
         }

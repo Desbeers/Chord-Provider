@@ -9,8 +9,12 @@ import SwiftUI
 
 /// SwiftUI `View` for the song export button
 struct ExportSongView: View {
+    /// The document
+    @FocusedBinding(\.document) private var document: ChordProDocument?
     /// The ``Song``
-    let song: Song
+    var song: Song {
+        ChordPro.parse(text: document?.text ?? "", transpose: 0)
+    }
     /// Present an export dialog
     @State private var exportFile = false
     /// The song as image
@@ -20,9 +24,8 @@ struct ExportSongView: View {
         Button(action: {
             renderSong()
         }, label: {
-            Label("Export song", systemImage: "square.and.arrow.up")
+            Label("Export song…", systemImage: "square.and.arrow.up")
         })
-        .labelStyle(.iconOnly)
         .help("Export your song")
         .fileExporter(
             isPresented: $exportFile,

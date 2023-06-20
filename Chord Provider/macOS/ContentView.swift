@@ -26,7 +26,8 @@ struct ContentView: View {
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
             ToolbarView(song: $song)
-            ExportSongView(song: song)
+            ExportSongView()
+                .labelStyle(.iconOnly)
         }
     }
 }

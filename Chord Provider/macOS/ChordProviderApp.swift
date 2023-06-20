@@ -63,6 +63,9 @@ import SwiftUI
         }
         .commands {
             MarkupCommands()
+            CommandGroup(after: CommandGroupPlacement.importExport) {
+                ExportSongView()
+            }
         }
         .defaultSize(width: 1000, height: 800)
         .defaultPosition(.center)
