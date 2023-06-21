@@ -26,14 +26,19 @@ custom_categories:
     - EditorView
     - FileBrowserView
     - ExportSongView
+    - MarkupCommands
 
   - name: ChordPro
     children:
     - ChordPro
     - Song
     
-  - name: Observable Classes
+  - name: Observable Items
     children:
+    - SceneState
+    - DocumentFocusedValueKey
+    - SceneFocusedValueKey
+    - FocusedValues
     - FileBrowserModel
 
   - name: File Documents

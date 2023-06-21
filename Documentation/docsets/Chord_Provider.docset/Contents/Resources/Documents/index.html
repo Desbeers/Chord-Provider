@@ -75,10 +75,10 @@
                 <a href="Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/EditorView/Directive.html">– Directive</a>
+                <a href="Structs/EditorView/EditorButton.html">– EditorButton</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/EditorView/EditorButton.html">– EditorButton</a>
+                <a href="Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/FileBrowserView.html">FileBrowserView</a>
@@ -91,6 +91,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ExportSongView.html">ExportSongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -121,8 +124,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Observable%20Classes.html">Observable Classes</a>
+            <a href="Observable%20Items.html">Observable Items</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/SceneState.html">SceneState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/DocumentFocusedValueKey.html">DocumentFocusedValueKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SceneFocusedValueKey.html">SceneFocusedValueKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/FocusedValues.html">FocusedValues</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Classes/FileBrowserModel.html">FileBrowserModel</a>
               </li>
@@ -160,15 +175,6 @@
               <li class="nav-group-task">
                 <a href="Actors/Debouncer.html">Debouncer</a>
               </li>
-              <li class="nav-group-task">
-                <a href="Enums/FolderBookmark.html">FolderBookmark</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/FolderMonitor.html">FolderMonitor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/FolderMonitor/DebounceTask.html">– DebounceTask</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -185,6 +191,23 @@
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/NSWindow/WindowItem.html">– WindowItem</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/SWIFTColor">SWIFTColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:14Chord_Provider10SWIFTColora">SWIFTColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/SWIFTFont">SWIFTFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Typealiases.html#/s:14Chord_Provider9SWIFTFonta">SWIFTFont</a>
               </li>
             </ul>
           </li>
@@ -211,6 +234,7 @@
 <ul>
 <li>It wil view and/or edit &lsquo;ChordPro&rsquo; files.</li>
 <li>It recognise most of the &lsquo;ChordPro&rsquo; directives, but not all.</li>
+<li>It has a &lsquo;highlighted TextEditor&rsquo;.</li>
 <li>It can transpose a song; however, only in the View. The document will not be changed and that&rsquo;s on purpose.</li>
 <li>You can &lsquo;define&rsquo; a Capo but that will not change any notes; again on purpose.</li>
 <li>You can click on a chord diagram and it will open s Sheet with all known versions.</li>
@@ -219,9 +243,8 @@
 
 <ul>
 <li>It has a &lsquo;browser&rsquo; for your songs if you select a folder.</li>
-<li>It has a &lsquo;highlighted TextEditor&rsquo;.&lsquo;</li>
 <li>It can export your song to a PDF document.</li>
-<li>It can play chords with MIDI on the &#39;Chord Sheet&rsquo;</li>
+<li>It can play chords with MIDI on the &lsquo;Chord Sheet&rsquo;</li>
 <li>It has a &lsquo;quick view&rsquo; plugin for &lsquo;ChordPro&rsquo; files.</li>
 </ul>
 <h3 id='limitations' class='heading'>Limitations</h3>
@@ -251,9 +274,11 @@
 <h3 id='used-packages' class='heading'>Used packages</h3>
 
 <p>The chord diagrams are made with <a href="https://github.com/BeauNouvelle/SwiftyGuitarChords">Swifty Guitar Chords</a>.
-The macOS editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">HighlightedTextEditor</a></p>
+The editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">HighlightedTextEditor</a></p>
 
 <p>I use my <a href="https://github.com/Desbeers/SwiftlyChordUtilities">SwiftlyChordUtilities</a> package for chord handling.</p>
+
+<p>For the macOS target, I use my <a href="https://github.com/Desbeers/SwiftlyFolderUtilities">SwiftlyFolderUtilities</a> package to handle folder selection and monitoring.</p>
 <h2 id='how-to-compile' class='heading'>How to compile</h2>
 
 <ol>
@@ -265,7 +290,7 @@ The macOS editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">Hi
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-14)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

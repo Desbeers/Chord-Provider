@@ -31,7 +31,7 @@ extension ChordPro.Directive {
         default:
             return ("{NOT IMPLEMENTED", "}\n")
         }
-
+        /// The formatted label of the directive
         func label(_ directive: ChordPro.Directive) -> String {
             directive.rawValue
         }

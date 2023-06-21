@@ -78,7 +78,7 @@ extension EditorView {
         @FocusedBinding(\.document) private var document: ChordProDocument?
         /// The scene
         @FocusedObject private var scene: SceneState?
-
+        /// The label for the button
         private var label: String {
             var label = directive.label.text
             if scene?.selection.length ?? 0 > 0 {
@@ -86,7 +86,6 @@ extension EditorView {
             }
             return label
         }
-
         /// Body of the `view`
         var body: some View {
             Button(

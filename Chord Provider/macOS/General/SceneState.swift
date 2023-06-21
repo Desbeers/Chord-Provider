@@ -7,16 +7,22 @@
 
 import SwiftUI
 
+/// The scene state for Chord Provider
 final class SceneState: ObservableObject {
+    /// The selection in the editor
     @Published var selection: NSRange = .init(location: 0, length: 0)
+    /// The `NSTextView` of the editor
     var textView: NSTextView?
 }
 
+/// The `FocusedValueKey` for the scene state
 struct SceneFocusedValueKey: FocusedValueKey {
+    /// The `typealias` for the key
     typealias Value = Binding<SceneState>
 }
 
 extension FocusedValues {
+    /// The value of the scene state key
     var scene: SceneFocusedValueKey.Value? {
         get {
             self[SceneFocusedValueKey.self]
@@ -27,11 +33,14 @@ extension FocusedValues {
     }
 }
 
+/// The `FocusedValueKey` for the current document
 struct DocumentFocusedValueKey: FocusedValueKey {
+    /// The `typealias` for the key
     typealias Value = Binding<ChordProDocument>
 }
 
 extension FocusedValues {
+    /// The value of the document key
     var document: DocumentFocusedValueKey.Value? {
         get {
             self[DocumentFocusedValueKey.self]
@@ -42,7 +51,9 @@ extension FocusedValues {
     }
 }
 
+/// SwiftUI `Commands` for editing the document
 struct MarkupCommands: Commands {
+    /// The Body of the `Commands`
     var body: some Commands {
         CommandMenu("Markup") {
             Menu(

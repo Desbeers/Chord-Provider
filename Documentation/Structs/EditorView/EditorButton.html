@@ -76,10 +76,10 @@
                 <a href="../../Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Structs/EditorView/Directive.html">– Directive</a>
+                <a href="../../Structs/EditorView/EditorButton.html">– EditorButton</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Structs/EditorView/EditorButton.html">– EditorButton</a>
+                <a href="../../Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/FileBrowserView.html">FileBrowserView</a>
@@ -92,6 +92,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/ExportSongView.html">ExportSongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -122,8 +125,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../../Observable%20Classes.html">Observable Classes</a>
+            <a href="../../Observable%20Items.html">Observable Items</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/SceneState.html">SceneState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/DocumentFocusedValueKey.html">DocumentFocusedValueKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/SceneFocusedValueKey.html">SceneFocusedValueKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/FocusedValues.html">FocusedValues</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../../Classes/FileBrowserModel.html">FileBrowserModel</a>
               </li>
@@ -161,15 +176,6 @@
               <li class="nav-group-task">
                 <a href="../../Actors/Debouncer.html">Debouncer</a>
               </li>
-              <li class="nav-group-task">
-                <a href="../../Enums/FolderBookmark.html">FolderBookmark</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes/FolderMonitor.html">FolderMonitor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes/FolderMonitor/DebounceTask.html">– DebounceTask</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -189,6 +195,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Other%20Typealiases.html#/SWIFTColor">SWIFTColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Other%20Typealiases.html#/s:14Chord_Provider10SWIFTColora">SWIFTColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Other%20Typealiases.html#/SWIFTFont">SWIFTFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Other%20Typealiases.html#/s:14Chord_Provider9SWIFTFonta">SWIFTFont</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -198,11 +221,11 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">EditorButton</span> <span class="p">:</span> <span class="kt">ButtonStyle</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">EditorButton</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                 </div>
               </div>
-            <p>The style for an editor button</p>
+            <p>A button for the text editor</p>
 
           </section>
           <section class="section task-group-section">
@@ -211,9 +234,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10EditorViewV0C6ButtonV7hovered33_CFAF74A4F7ED5FC6801515F9808FAE46LLSbvp"></a>
-                    <a name="//apple_ref/swift/Property/hovered" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C6ButtonV7hovered33_CFAF74A4F7ED5FC6801515F9808FAE46LLSbvp">hovered</a>
+                    <a name="/s:14Chord_Provider10EditorViewV0C6ButtonV9directiveAA0A3ProV9DirectiveOvp"></a>
+                    <a name="//apple_ref/swift/Property/directive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C6ButtonV9directiveAA0A3ProV9DirectiveOvp">directive</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -221,15 +244,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Hover state of the button</p>
+                        <p>The directive</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@State</span>
-<span class="kd">private</span> <span class="k">var</span> <span class="nv">hovered</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../../Structs/ChordPro.html">ChordPro</a></span><span class="o">.</span><span class="kt">Directive</span></code></pre>
 
                         </div>
                       </div>
@@ -239,9 +261,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7SwiftUI11ButtonStyleP8makeBody13configuration0F0QzAA0cD13ConfigurationV_tF"></a>
-                    <a name="//apple_ref/swift/Method/makeBody(configuration:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7SwiftUI11ButtonStyleP8makeBody13configuration0F0QzAA0cD13ConfigurationV_tF">makeBody(configuration:<wbr>)</a>
+                    <a name="/s:14Chord_Provider10EditorViewV0C6ButtonV8document33_CFAF74A4F7ED5FC6801515F9808FAE46LLAA0A11ProDocumentVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/document" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C6ButtonV8document33_CFAF74A4F7ED5FC6801515F9808FAE46LLAA0A11ProDocumentVSgvp">document</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -249,13 +271,97 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The document</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">makeBody</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">Configuration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@FocusedBinding</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">document</span><span class="p">:</span> <span class="kt"><a href="../../Structs/ChordProDocument.html">ChordProDocument</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV0C6ButtonV5scene33_CFAF74A4F7ED5FC6801515F9808FAE46LLAA10SceneStateCSgvp"></a>
+                    <a name="//apple_ref/swift/Property/scene" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C6ButtonV5scene33_CFAF74A4F7ED5FC6801515F9808FAE46LLAA10SceneStateCSgvp">scene</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The scene</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@FocusedObject</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">scene</span><span class="p">:</span> <span class="kt"><a href="../../Classes/SceneState.html">SceneState</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV0C6ButtonV5label33_CFAF74A4F7ED5FC6801515F9808FAE46LLSSvp"></a>
+                    <a name="//apple_ref/swift/Property/label" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C6ButtonV5label33_CFAF74A4F7ED5FC6801515F9808FAE46LLSSvp">label</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The label for the button</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">label</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV0C6ButtonV4bodyQrvp"></a>
+                    <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C6ButtonV4bodyQrvp">body</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Body of the <code>view</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -267,7 +373,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-14)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

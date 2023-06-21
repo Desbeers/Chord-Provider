@@ -76,10 +76,10 @@
                 <a href="../Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/EditorView/Directive.html">– Directive</a>
+                <a href="../Structs/EditorView/EditorButton.html">– EditorButton</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/EditorView/EditorButton.html">– EditorButton</a>
+                <a href="../Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FileBrowserView.html">FileBrowserView</a>
@@ -92,6 +92,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ExportSongView.html">ExportSongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -122,8 +125,20 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Observable%20Classes.html">Observable Classes</a>
+            <a href="../Observable%20Items.html">Observable Items</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/SceneState.html">SceneState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DocumentFocusedValueKey.html">DocumentFocusedValueKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/SceneFocusedValueKey.html">SceneFocusedValueKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/FocusedValues.html">FocusedValues</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Classes/FileBrowserModel.html">FileBrowserModel</a>
               </li>
@@ -161,15 +176,6 @@
               <li class="nav-group-task">
                 <a href="../Actors/Debouncer.html">Debouncer</a>
               </li>
-              <li class="nav-group-task">
-                <a href="../Enums/FolderBookmark.html">FolderBookmark</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/FolderMonitor.html">FolderMonitor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/FolderMonitor/DebounceTask.html">– DebounceTask</a>
-              </li>
             </ul>
           </li>
           <li class="nav-group-name">
@@ -189,6 +195,23 @@
               </li>
             </ul>
           </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Typealiases.html">Other Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/SWIFTColor">SWIFTColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:14Chord_Provider10SWIFTColora">SWIFTColor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/SWIFTFont">SWIFTFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Typealiases.html#/s:14Chord_Provider9SWIFTFonta">SWIFTFont</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </nav>
       <article class="main-content">
@@ -202,7 +225,7 @@
 
                 </div>
               </div>
-            <p>SwiftUI <code>View</code> with the <code>HighlightedTextEditor</code></p>
+            <p>SwiftUI <code>View</code> for the <code>HighlightedTextEditor</code></p>
 
           </section>
           <section class="section task-group-section">
@@ -239,9 +262,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10EditorViewV04textD033_CFAF74A4F7ED5FC6801515F9808FAE46LLSo06NSTextD0CSgvp"></a>
-                    <a name="//apple_ref/swift/Property/textView" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10EditorViewV04textD033_CFAF74A4F7ED5FC6801515F9808FAE46LLSo06NSTextD0CSgvp">textView</a>
+                    <a name="/s:14Chord_Provider10EditorViewV10sceneState33_CFAF74A4F7ED5FC6801515F9808FAE46LLAA05SceneF0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/sceneState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV10sceneState33_CFAF74A4F7ED5FC6801515F9808FAE46LLAA05SceneF0Cvp">sceneState</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -249,43 +272,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The actuals NSTextView</p>
+                        <p>The state of the scene</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@State</span>
-<span class="kd">private</span> <span class="k">var</span> <span class="nv">textView</span><span class="p">:</span> <span class="kt">NSTextView</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10EditorViewV9selectionSo8_NSRangeVvp"></a>
-                    <a name="//apple_ref/swift/Property/selection" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10EditorViewV9selectionSo8_NSRangeVvp">selection</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The selected text in the editor</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@State</span>
-<span class="k">var</span> <span class="nv">selection</span><span class="p">:</span> <span class="kt">NSRange</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@StateObject</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">sceneState</span><span class="p">:</span> <span class="kt"><a href="../Classes/SceneState.html">SceneState</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -376,9 +371,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10EditorViewV9DirectiveO"></a>
-                    <a name="//apple_ref/swift/Enum/Directive" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10EditorViewV9DirectiveO">Directive</a>
+                    <a name="/s:14Chord_Provider10EditorViewV10directivesSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/directives" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV10directivesSSvpZ">directives</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -386,15 +381,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>ChordPro directives</p>
+                        <p>All the directives we know about</p>
 
-                        <a href="../Structs/EditorView/Directive.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Directive</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">directives</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -441,7 +435,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The regex for directives with a value, {title: lalala} for example</p>
+                        <p>The regex for directives</p>
 
                       </div>
                       <div class="declaration">
@@ -458,9 +452,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10EditorViewV19emptyDirectiveRegexSo19NSRegularExpressionCSgvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/emptyDirectiveRegex" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10EditorViewV19emptyDirectiveRegexSo19NSRegularExpressionCSgvpZ">emptyDirectiveRegex</a>
+                    <a name="/s:14Chord_Provider10EditorViewV19directiveValueRegexSo19NSRegularExpressionCSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/directiveValueRegex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV19directiveValueRegexSo19NSRegularExpressionCSgvpZ">directiveValueRegex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -468,14 +462,41 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The regex for directives without a value, {soc} for example</p>
+                        <p>The regex for a directive value we know about</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">emptyDirectiveRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">directiveValueRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV17directiveEndRegexSo19NSRegularExpressionCSgvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/directiveEndRegex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV17directiveEndRegexSo19NSRegularExpressionCSgvpZ">directiveEndRegex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The regex for the end of a directive</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">directiveEndRegex</span><span class="p">:</span> <span class="kt">NSRegularExpression</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -512,9 +533,86 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10EditorViewV6format_9directive9selection2inyAA0A11ProDocumentVz_AC9DirectiveOSo8_NSRangeVSo06NSTextD0CSgtFZ"></a>
+                    <a name="/s:14Chord_Provider10EditorViewV16nsParagraphStyleSo011NSParagraphG0CvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/nsParagraphStyle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV16nsParagraphStyleSo011NSParagraphG0CvpZ">nsParagraphStyle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The style of a paragraph in the editor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">nsParagraphStyle</span><span class="p">:</span> <span class="kt">NSParagraphStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV4font6weightSo6NSFontCSo0G6Weighta_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/font(weight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV4font6weightSo6NSFontCSo0G6Weighta_tFZ">font(weight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The font for a line in the editor</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">font</span><span class="p">(</span><span class="nv">weight</span><span class="p">:</span> <span class="kt"><a href="../Other%20Typealiases.html#/s:14Chord_Provider9SWIFTFonta">SWIFTFont</a></span><span class="o">.</span><span class="kt">Weight</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Other%20Typealiases.html#/s:14Chord_Provider9SWIFTFonta">SWIFTFont</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>weight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The weight of a font</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A font declaration</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV6format_9directive9selection2inyAA0A11ProDocumentVz_AA0aI0V9DirectiveOSo8_NSRangeVSo06NSTextD0CSgtFZ"></a>
                     <a name="//apple_ref/swift/Method/format(_:directive:selection:in:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10EditorViewV6format_9directive9selection2inyAA0A11ProDocumentVz_AC9DirectiveOSo8_NSRangeVSo06NSTextD0CSgtFZ">format(_:<wbr>directive:<wbr>selection:<wbr>in:<wbr>)</a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV6format_9directive9selection2inyAA0A11ProDocumentVz_AA0aI0V9DirectiveOSo8_NSRangeVSo06NSTextD0CSgtFZ">format(_:<wbr>directive:<wbr>selection:<wbr>in:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -529,9 +627,10 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">format</span><span class="p">(</span>
+                          <pre class="highlight swift"><code><span class="kd">@MainActor</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">format</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">document</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/ChordProDocument.html">ChordProDocument</a></span><span class="p">,</span>
-    <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../Structs/EditorView/Directive.html">Directive</a></span><span class="p">,</span>
+    <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../Structs/ChordPro.html">ChordPro</a></span><span class="o">.</span><span class="kt">Directive</span><span class="p">,</span>
     <span class="nv">selection</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">,</span>
     <span class="k">in</span> <span class="nv">textView</span><span class="p">:</span> <span class="kt">NSTextView</span><span class="p">?</span>
 <span class="p">)</span></code></pre>
@@ -562,7 +661,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The <code><a href="../Structs/EditorView/Directive.html">Directive</a></code> to apply</p>
+                                  <p>The <code>Directive</code> to apply</p>
                                 </div>
                               </td>
                             </tr>
@@ -587,9 +686,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10EditorViewV6format33_1D4F119FFA31C74A03B0169F13B1C6F6LL_9directiveS2S_AC9DirectiveOtFZ"></a>
+                    <a name="/s:14Chord_Provider10EditorViewV6format33_1D4F119FFA31C74A03B0169F13B1C6F6LL_9directiveS2S_AA0A3ProV9DirectiveOtFZ"></a>
                     <a name="//apple_ref/swift/Method/format(_:directive:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10EditorViewV6format33_1D4F119FFA31C74A03B0169F13B1C6F6LL_9directiveS2S_AC9DirectiveOtFZ">format(_:<wbr>directive:<wbr>)</a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV6format33_1D4F119FFA31C74A03B0169F13B1C6F6LL_9directiveS2S_AA0A3ProV9DirectiveOtFZ">format(_:<wbr>directive:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -604,7 +703,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">format</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../Structs/EditorView/Directive.html">Directive</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">format</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../Structs/ChordPro.html">ChordPro</a></span><span class="o">.</span><span class="kt">Directive</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -632,7 +731,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The <code><a href="../Structs/EditorView/Directive.html">Directive</a></code> to apply</p>
+                                  <p>The <code>Directive</code> to apply</p>
                                 </div>
                               </td>
                             </tr>
@@ -655,7 +754,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The style for an editor button</p>
+                        <p>A button for the text editor</p>
 
                         <a href="../Structs/EditorView/EditorButton.html" class="slightly-smaller">See more</a>
                       </div>
@@ -663,7 +762,35 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">EditorButton</span> <span class="p">:</span> <span class="kt">ButtonStyle</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">EditorButton</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV0C11ButtonStyleV"></a>
+                    <a name="//apple_ref/swift/Struct/EditorButtonStyle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV0C11ButtonStyleV">EditorButtonStyle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The style for an editor button</p>
+
+                        <a href="../Structs/EditorView/EditorButtonStyle.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">EditorButtonStyle</span> <span class="p">:</span> <span class="kt">ButtonStyle</span></code></pre>
 
                         </div>
                       </div>
@@ -675,7 +802,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-14)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
