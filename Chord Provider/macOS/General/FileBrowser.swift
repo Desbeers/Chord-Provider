@@ -1,5 +1,5 @@
 //
-//  FileBrowserModel.swift
+//  FileBrowser.swift
 //  Chord Provider
 //
 //  © 2023 Nick Berendsen
@@ -8,8 +8,8 @@
 import SwiftUI
 import SwiftlyFolderUtilities
 
-/// The observable FileBrowser model
-class FileBrowserModel: ObservableObject {
+/// The observable FileBrowser for Chord Provider
+class FileBrowser: ObservableObject {
     /// The list of songs
     @Published var songList: [SongItem] = []
     /// The list of artists
@@ -25,7 +25,7 @@ class FileBrowserModel: ObservableObject {
     var menuBarExtraWindow: NSWindow?
     /// The Class to monitor the songs folder
     let folderMonitor = FolderMonitor()
-    /// Init the FileBrowserModel
+    /// Init the FileBrowser
     init() {
         folderMonitor.folderDidChange = {
             Task {
@@ -35,7 +35,7 @@ class FileBrowserModel: ObservableObject {
     }
 }
 
-extension FileBrowserModel {
+extension FileBrowser {
 
     // MARK: Structures
 
@@ -70,7 +70,7 @@ extension FileBrowserModel {
     }
 }
 
-extension FileBrowserModel {
+extension FileBrowser {
 
     // MARK: Functions
 
@@ -80,7 +80,7 @@ extension FileBrowserModel {
             /// The found songs
             var songs = [SongItem]()
             /// Get a list of all files
-            try await FolderBookmark.action(bookmark: FileBrowserModel.bookmark) { persistentURL in
+            try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { persistentURL in
                 folderMonitor.addRecursiveURL(persistentURL)
                 if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                     while let item = items.nextObject() as? URL {
@@ -153,7 +153,7 @@ extension FileBrowserModel {
             _ = try await FolderBookmark.select(
                 prompt: "Select",
                 message: "Select the folder with your songs",
-                bookmark: FileBrowserModel.bookmark
+                bookmark: FileBrowser.bookmark
             )
             await self.getFiles()
         } catch {

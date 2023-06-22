@@ -25,7 +25,7 @@ struct AudioPlayerView: View {
             Button(
                 action: {
                     Task {
-                        try? await FolderBookmark.action(bookmark: FileBrowserModel.bookmark) { _ in
+                        try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
                             do {
                                 if isPlaying {
                                     audioPlayer.stop()

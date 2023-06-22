@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SongItem Structure Reference</title>
+    <title>ArtistItem Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/SongItem" class="dashAnchor"></a>
-    <a title="SongItem Structure Reference"></a>
+    <a name="//apple_ref/swift/Struct/ArtistItem" class="dashAnchor"></a>
+    <a title="ArtistItem Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">Chord Provider</a> (100% documented)</p>
@@ -30,7 +30,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">Chord_Provider Reference</a>
         <img id="carat" src="../../img/carat.png" alt=""/>
-        SongItem Structure Reference
+        ArtistItem Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -140,13 +140,13 @@
                 <a href="../../Extensions/FocusedValues.html">FocusedValues</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/FileBrowserModel.html">FileBrowserModel</a>
+                <a href="../../Classes/FileBrowser.html">FileBrowser</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/FileBrowserModel/SongItem.html">– SongItem</a>
+                <a href="../../Classes/FileBrowser/SongItem.html">– SongItem</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/FileBrowserModel/ArtistItem.html">– ArtistItem</a>
+                <a href="../../Classes/FileBrowser/ArtistItem.html">– ArtistItem</a>
               </li>
             </ul>
           </li>
@@ -217,15 +217,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>SongItem</h1>
+            <h1>ArtistItem</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">SongItem</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">ArtistItem</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
 
                 </div>
               </div>
-            <p>The struct for a song item in the browser</p>
+            <p>The struct for an artist item in the browser</p>
 
           </section>
           <section class="section task-group-section">
@@ -234,9 +234,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV2idSSvp"></a>
+                    <a name="/s:14Chord_Provider11FileBrowserC10ArtistItemV2id10Foundation4UUIDVvp"></a>
                     <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV2idSSvp">id</a>
+                    <a class="token" href="#/s:14Chord_Provider11FileBrowserC10ArtistItemV2id10Foundation4UUIDVvp">id</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -251,7 +251,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span></code></pre>
 
                         </div>
                       </div>
@@ -261,9 +261,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV6artistSSvp"></a>
-                    <a name="//apple_ref/swift/Property/artist" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV6artistSSvp">artist</a>
+                    <a name="/s:14Chord_Provider11FileBrowserC10ArtistItemV4nameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider11FileBrowserC10ArtistItemV4nameSSvp">name</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -278,7 +278,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">artist</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -288,9 +288,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV5titleSSvp"></a>
-                    <a name="//apple_ref/swift/Property/title" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV5titleSSvp">title</a>
+                    <a name="/s:14Chord_Provider11FileBrowserC10ArtistItemV5songsSayAC04SongF0VGvp"></a>
+                    <a name="//apple_ref/swift/Property/songs" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider11FileBrowserC10ArtistItemV5songsSayAC04SongF0VGvp">songs</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -298,95 +298,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Title of the song</p>
+                        <p>Songs of the artist</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">title</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV6searchSSvp"></a>
-                    <a name="//apple_ref/swift/Property/search" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV6searchSSvp">search</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The searchable string</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">search</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV9musicPathSSvp"></a>
-                    <a name="//apple_ref/swift/Property/musicPath" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV9musicPathSSvp">musicPath</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Path of the optional audio file</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">musicPath</span><span class="p">:</span> <span class="kt">String</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider16FileBrowserModelC8SongItemV7fileURL10Foundation0I0Vvp"></a>
-                    <a name="//apple_ref/swift/Property/fileURL" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider16FileBrowserModelC8SongItemV7fileURL10Foundation0I0Vvp">fileURL</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>URL of the ChordPro document</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">fileURL</span><span class="p">:</span> <span class="kt">URL</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">songs</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../Classes/FileBrowser/SongItem.html">SongItem</a></span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -398,7 +317,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-21)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-06-22)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

@@ -13,7 +13,7 @@ extension EditorView {
     /// Apply  a `directive` to the (optional) selected range in the `NSTextView`
     /// - Parameters:
     ///     - document: The `ChordProDocument` to update
-    ///     - directive: The ``Directive`` to apply
+    ///     - directive: The `Directive` to apply
     ///     - textView: The `NSTextView` to update
     @MainActor static func format(
         _ document: inout ChordProDocument,

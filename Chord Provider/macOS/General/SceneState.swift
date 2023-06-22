@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// The scene state for Chord Provider
+/// The observable scene state for Chord Provider
 final class SceneState: ObservableObject {
     /// The selection in the editor
     @Published var selection: NSRange = .init(location: 0, length: 0)

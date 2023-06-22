@@ -9,8 +9,8 @@ import SwiftUI
 
 /// SwiftUI `Scene` for Chord Provider
 @main struct ChordProviderApp: App {
-    /// The ``FileBrowserModel``
-    @StateObject var fileBrowser = FileBrowserModel()
+    /// The ``FileBrowser``
+    @StateObject var fileBrowser = FileBrowser()
     /// AppKit app delegate
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     /// The body of the `Scene`

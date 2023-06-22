@@ -11,7 +11,7 @@ import SwiftlyFolderUtilities
 /// SwiftUI `View` for the file browser
 struct FileBrowserView: View {
     /// The FileBrowser model
-    @EnvironmentObject var fileBrowser: FileBrowserModel
+    @EnvironmentObject var fileBrowser: FileBrowser
     /// The search query
     @State var search: String = ""
     /// The body of the `View`
@@ -77,9 +77,9 @@ extension FileBrowserView {
     /// SwiftUI `View` for a row in the browser list
     struct Row: View {
         /// The song item
-        let song: FileBrowserModel.SongItem
-        /// The ``FileBrowserModel`` model
-        @EnvironmentObject var fileBrowser: FileBrowserModel
+        let song: FileBrowser.SongItem
+        /// The ``FileBrowser`` model
+        @EnvironmentObject var fileBrowser: FileBrowser
         /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
         /// Information about the `NSWindow`
@@ -121,7 +121,7 @@ extension FileBrowserView {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
             } else {
                 Task {
-                    try? await FolderBookmark.action(bookmark: FileBrowserModel.bookmark) { _ in
+                    try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
                         try? await openDocument(at: song.fileURL)
                     }
                 }

@@ -39,7 +39,7 @@ custom_categories:
     - DocumentFocusedValueKey
     - SceneFocusedValueKey
     - FocusedValues
-    - FileBrowserModel
+    - FileBrowser
 
   - name: File Documents
     children:
@@ -52,8 +52,6 @@ custom_categories:
     children:
     - AppDelegate
     - Debouncer
-    - FolderBookmark
-    - FolderMonitor
 
   - name: Extensions
     children:
