@@ -40,6 +40,12 @@ struct FileBrowserView: View {
         .labelStyle(BrowserLabelStyle())
         .buttonStyle(.plain)
         .frame(width: 320)
+        .overlay(alignment: .center) {
+            if !fileBrowser.folder {
+                folderButton
+                    .buttonStyle(.bordered)
+            }
+        }
         .navigationTitle("Chord Provider")
         .navigationSubtitle("\(fileBrowser.songList.count) songs")
         .task {
@@ -47,16 +53,22 @@ struct FileBrowserView: View {
         }
         .searchable(text: $search, placement: .sidebar)
         .toolbar {
-            Button(
-                action: {
-                    fileBrowser.selectSongsFolder()
-                },
-                label: {
-                    Image(systemName: "folder")
-                }
-            )
-            .help("Select the folder with your songs")
+            folderButton
         }
+    }
+    /// Folder selection button
+    var folderButton: some View {
+        Button(
+            action: {
+                Task {
+                    await fileBrowser.selectSongsFolder()
+                }
+            },
+            label: {
+                Label("Select a folder with your songs", systemImage: "folder")
+            }
+        )
+        .help("Select the folder with your songs")
     }
 }
 
@@ -109,7 +121,7 @@ extension FileBrowserView {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
             } else {
                 Task {
-                    await FolderBookmark.action(bookmark: "SongsFolder") { _ in
+                    try? await FolderBookmark.action(bookmark: FileBrowserModel.bookmark) { _ in
                         try? await openDocument(at: song.fileURL)
                     }
                 }

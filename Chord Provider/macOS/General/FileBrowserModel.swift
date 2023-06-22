@@ -14,6 +14,10 @@ class FileBrowserModel: ObservableObject {
     @Published var songList: [SongItem] = []
     /// The list of artists
     @Published var artistList: [ArtistItem] = []
+    /// Bool if a folder is selected
+    @Published var folder: Bool = true
+    /// The name of the folder bookmark
+    static let bookmark: String = "SongsFolder"
     /// The list of open windows
     @Published var openWindows: [NSWindow.WindowItem] = []
     /// The MenuBarExtra window
@@ -72,31 +76,38 @@ extension FileBrowserModel {
 
     /// Get the song files from the user selected folder
     @MainActor func getFiles() async {
-        /// The found songs
-        var songs = [SongItem]()
-        /// Get a list of all files
-        await FolderBookmark.action(bookmark: "SongsFolder") { persistentURL in
-            folderMonitor.addRecursiveURL(persistentURL)
-            if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
-                while let item = items.nextObject() as? URL {
-                    if ChordProDocument.fileExtension.contains(item.pathExtension) {
-                        var song = SongItem(fileURL: item)
-                        parseSongFile(item, &song)
-                        songs.append(song)
+        do {
+            /// The found songs
+            var songs = [SongItem]()
+            /// Get a list of all files
+            try await FolderBookmark.action(bookmark: FileBrowserModel.bookmark) { persistentURL in
+                folderMonitor.addRecursiveURL(persistentURL)
+                if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
+                    while let item = items.nextObject() as? URL {
+                        if ChordProDocument.fileExtension.contains(item.pathExtension) {
+                            var song = SongItem(fileURL: item)
+                            parseSongFile(item, &song)
+                            songs.append(song)
+                        }
                     }
                 }
             }
+            /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
+            let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
+                occurrence.artist
+            }
+            /// We now map over the dictionary and create our artist objects.
+            /// Then we want to sort them so that they are in the correct order.
+            artistList = grouped.map { artist -> ArtistItem in
+                ArtistItem(name: artist.key, songs: artist.value)
+            }.sorted { $0.name < $1.name }
+            songList = songs.sorted { $0.title < $1.title }
+            folder = true
+        } catch {
+            /// There is no folder selected
+            folder = false
+            print(error.localizedDescription)
         }
-        /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
-        let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
-            occurrence.artist
-        }
-        /// We now map over the dictionary and create our artist objects.
-        /// Then we want to sort them so that they are in the correct order.
-        artistList = grouped.map { artist -> ArtistItem in
-            ArtistItem(name: artist.key, songs: artist.value)
-        }.sorted { $0.name < $1.name }
-        songList = songs.sorted { $0.title < $1.title }
     }
 
     /// Parse the song file for metadata
@@ -137,15 +148,16 @@ extension FileBrowserModel {
     }
 
     /// The folder selector
-    @MainActor func selectSongsFolder() {
-        FolderBookmark.select(
-            prompt: "Select",
-            message: "Select the folder with your songs",
-            bookmark: "SongsFolder"
-        ) {
-            Task {
-                await self.getFiles()
-            }
+    func selectSongsFolder() async {
+        do {
+            _ = try await FolderBookmark.select(
+                prompt: "Select",
+                message: "Select the folder with your songs",
+                bookmark: FileBrowserModel.bookmark
+            )
+            await self.getFiles()
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }
