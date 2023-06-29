@@ -14,9 +14,10 @@ struct ContentView: View {
     /// The optional file location
     let file: URL?
     /// The ``Song``
-    @State var song = Song()
+    @State private var song = Song()
     /// The body of the `View`
     var body: some View {
+#if os(macOS)
         VStack(spacing: 0) {
             HeaderView(song: song, file: file)
                 .background(Color.accentColor)
@@ -29,5 +30,22 @@ struct ContentView: View {
             ExportSongView()
                 .labelStyle(.iconOnly)
         }
+#endif
+
+#if os(iOS)
+        MainView(document: $document, song: $song, file: file)
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    HeaderView(song: song, file: file)
+                        .labelStyle(.titleAndIcon)
+                }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    ToolbarView(song: $song)
+                }
+            }
+            .toolbarBackground(Color("AccentColor"), for: .automatic)
+            .toolbarBackground(.visible, for: .automatic)
+            .toolbarColorScheme(.dark, for: .automatic)
+#endif
     }
 }
