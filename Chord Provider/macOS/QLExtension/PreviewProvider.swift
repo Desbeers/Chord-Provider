@@ -11,7 +11,8 @@ import SwiftUI
 
 class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
-    @MainActor func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {
+    @MainActor
+    func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {
         let contentType = UTType.pdf
         let reply = QLPreviewReply.init(
             dataOfContentType: contentType,
@@ -56,7 +57,8 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
     /// - Parameters:
     ///   - image: Result of the SwiftUI `ImageRenderer`
     /// - Returns: The PDF as `NSData`
-    @MainActor func createPDF<T: View>(image: ImageRenderer<T>) -> NSData? {
+    @MainActor
+    func createPDF<T: View>(image: ImageRenderer<T>) -> NSData? {
         if let nsImage = image.nsImage, let cgImage = image.cgImage {
             let pdfData = NSMutableData()
             var mediaBox = NSRect.init(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)

@@ -86,7 +86,8 @@ extension ChordsView {
     /// View all chords of a certain key in a sheet
     struct Sheet: View {
         /// The presentation mode of the `Sheet`
-        @Environment(\.presentationMode) var presentationMode
+        @Environment(\.presentationMode)
+        var presentationMode
         /// The selected chord
         @Binding var chord: Song.Chord?
         /// The body of the `View`

@@ -10,7 +10,8 @@ import SwiftUI
 /// SwiftUI `View` for the song export button
 struct ExportSongView: View {
     /// The document
-    @FocusedBinding(\.document) private var document: ChordProDocument?
+    @FocusedBinding(\.document)
+    private var document: ChordProDocument?
     /// The ``Song``
     var song: Song {
         ChordPro.parse(text: document?.text ?? "", transpose: 0)
@@ -53,14 +54,16 @@ struct ExportSongView: View {
     }
 #if os(macOS)
     /// Render the song as a PDF
-    @MainActor private func renderSong() {
+    @MainActor
+    private func renderSong() {
         if let pdf = ExportSong.createPDF(song: song) {
             image = pdf
             exportFile = true
         }
     }
 #else
-    @MainActor private func renderSong() {
+    @MainActor
+    private func renderSong() {
         dump(document?.text)
         exportFile = true
     }

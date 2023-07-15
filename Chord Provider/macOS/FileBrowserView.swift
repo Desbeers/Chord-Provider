@@ -81,7 +81,8 @@ extension FileBrowserView {
         /// The ``FileBrowser`` model
         @EnvironmentObject var fileBrowser: FileBrowser
         /// Open documents in the environment
-        @Environment(\.openDocument) private var openDocument
+        @Environment(\.openDocument)
+        private var openDocument
         /// Information about the `NSWindow`
         var window: NSWindow.WindowItem? {
             fileBrowser.openWindows.first { $0.fileURL == song.fileURL }

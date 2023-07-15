@@ -14,7 +14,8 @@ extension EditorView {
         /// The directive
         let directive: ChordPro.Directive
         /// The document
-        @FocusedBinding(\.document) private var document: ChordProDocument?
+        @FocusedBinding(\.document)
+        private var document: ChordProDocument?
         /// The scene
         @FocusedObject private var scene: SceneState?
         /// The label for the button

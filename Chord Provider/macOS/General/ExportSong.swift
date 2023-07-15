@@ -19,7 +19,8 @@ enum ExportSong {
     /// Create a PDF file of the song
     /// - Parameter song: The song
     /// - Returns: The song as NSData
-    @MainActor static func createPDF(song: Song) -> NSData? {
+    @MainActor
+    static func createPDF(song: Song) -> NSData? {
         if let header = renderHeader(song: song) {
             var parts: [CGImage] = []
             if let chords = renderChords(song: song) {
@@ -35,7 +36,8 @@ enum ExportSong {
     /// Render the header of the song
     /// - Parameter song: The song
     /// - Returns: The header as CGImage
-    @MainActor private static func renderHeader(song: Song) -> CGImage? {
+    @MainActor
+    private static func renderHeader(song: Song) -> CGImage? {
         let renderer = ImageRenderer(
             content:
                 VStack {
@@ -58,7 +60,8 @@ enum ExportSong {
     /// Render the chords of the song
     /// - Parameter song: The song
     /// - Returns: The header as CGImage
-    @MainActor private static func renderChords(song: Song) -> CGImage? {
+    @MainActor
+    private static func renderChords(song: Song) -> CGImage? {
         /// Size of the chord diagram
         var frame: CGRect {
             var width = Int((pageWidth * 2.0) / Double(song.chords.count))
@@ -101,7 +104,8 @@ enum ExportSong {
     /// Render all the parts of the song
     /// - Parameter song: The song
     /// - Returns: An array of `CGImage`
-    @MainActor private static func renderParts(song: Song) -> [CGImage] {
+    @MainActor
+    private static func renderParts(song: Song) -> [CGImage] {
         var parts: [CGImage] = []
         var part: CGImage?
         for section in song.sections {
@@ -167,7 +171,11 @@ enum ExportSong {
 
         var pages: [NSImage] = []
 
-        let filter = CIFilter(name: "CIAdditionCompositing")!
+        guard
+            let filter = CIFilter(name: "CIAdditionCompositing")
+        else {
+            return []
+        }
 
         for part in parts {
             let append = CIImage(cgImage: part)
@@ -185,7 +193,7 @@ enum ExportSong {
                 filter.setValue(page, forKey: "inputImage")
                 filter.setValue(append, forKey: "inputBackgroundImage")
 
-                page = filter.outputImage!
+                page = filter.outputImage ?? page
 
                 pageHeight += partHeight
             }
@@ -197,10 +205,11 @@ enum ExportSong {
 
         /// Helper function to close a page
         func closePage() {
-            let rectToDrawIn = CGRect(x: 0,
-                                      y: pageSize.height - (page.extent.height / rendererScale),
-                                      width: page.extent.width / rendererScale,
-                                      height: page.extent.height / rendererScale
+            let rectToDrawIn = CGRect(
+                x: 0,
+                y: pageSize.height - (page.extent.height / rendererScale),
+                width: page.extent.width / rendererScale,
+                height: page.extent.height / rendererScale
             )
             let rep = NSCIImageRep(ciImage: page)
 
@@ -230,13 +239,21 @@ enum ExportSong {
 
         /// Create the PDF
         let pdfData = NSMutableData()
-        let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
-        let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)!
+        guard
+            let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData),
+            let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)
+        else {
+            return nil
+        }
         /// Add all the pages````
         for page in pages {
             /// Convert NSImage to CGImage
             var rect = NSRect(origin: CGPoint(x: 0, y: 0), size: page.size)
-            let cgPage = page.cgImage(forProposedRect: &rect, context: NSGraphicsContext.current, hints: nil)!
+            guard
+                let cgPage = page.cgImage(forProposedRect: &rect, context: NSGraphicsContext.current, hints: nil)
+            else {
+                return nil
+            }
             /// Add the page
             pdfContext.beginPage(mediaBox: &mediaBox)
             pdfContext.draw(cgPage, in: contentBox)

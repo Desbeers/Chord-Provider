@@ -14,7 +14,8 @@ struct HeaderView: View {
     /// The optional file location
     let file: URL?
     /// Current scaling of the `View`
-    @SceneStorage("scale") var scale: Double = 1.2
+    @SceneStorage("scale")
+    var scale: Double = 1.2
     /// The body of the `View`
     var body: some View {
 #if os(macOS)

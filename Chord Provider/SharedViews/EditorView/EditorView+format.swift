@@ -19,7 +19,8 @@ extension EditorView {
     ///     - document: The `ChordProDocument` to update
     ///     - directive: The `Directive` to apply
     ///     - textView: The `NSTextView` to update
-    @MainActor static func format(
+    @MainActor
+    static func format(
         _ document: inout ChordProDocument,
         directive: ChordPro.Directive,
         selection: NSRange,

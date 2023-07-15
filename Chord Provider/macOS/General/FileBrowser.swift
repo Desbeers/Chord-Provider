@@ -75,7 +75,8 @@ extension FileBrowser {
     // MARK: Functions
 
     /// Get the song files from the user selected folder
-    @MainActor func getFiles() async {
+    @MainActor
+    func getFiles() async {
         do {
             /// The found songs
             var songs = [SongItem]()

@@ -12,7 +12,8 @@ struct SongView: View {
     /// The ``Song``
     let song: Song
     /// The scale factor of the `View`
-    @SceneStorage("scale") var scale: Double = 1.2
+    @SceneStorage("scale")
+    var scale: Double = 1.2
     /// Pinch to zoom gesture
     var magnificationGesture: some Gesture {
         MagnificationGesture()

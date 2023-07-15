@@ -16,9 +16,11 @@ struct MainView: View {
     /// The optional file location
     let file: URL?
     /// Bool to show the editor or not
-    @SceneStorage("showEditor") var showEditor: Bool = false
+    @SceneStorage("showEditor")
+    var showEditor: Bool = false
     /// Bool to show the chords or not
-    @AppStorage("showChords") var showChords: Bool = true
+    @AppStorage("showChords")
+    var showChords: Bool = true
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
