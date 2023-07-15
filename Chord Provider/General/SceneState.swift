@@ -12,7 +12,7 @@ final class SceneState: ObservableObject {
     /// The selection in the editor
     @Published var selection: NSRange = .init(location: 0, length: 0)
     /// The `NSTextView` of the editor
-    var textView: NSTextView?
+    var textView: SWIFTTextView?
 }
 
 /// The `FocusedValueKey` for the scene state

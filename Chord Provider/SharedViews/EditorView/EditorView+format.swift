@@ -6,7 +6,11 @@
 //
 
 import Foundation
+#if canImport(AppKit)
 import AppKit
+#else
+import UIKit
+#endif
 
 extension EditorView {
 
@@ -19,7 +23,7 @@ extension EditorView {
         _ document: inout ChordProDocument,
         directive: ChordPro.Directive,
         selection: NSRange,
-        in textView: NSTextView?
+        in textView: SWIFTTextView?
     ) {
         /// Make sure we have a NSTextView and the selection can be converted to a Swift Range
         guard let textView = textView, let range = Range(selection, in: document.text) else {
@@ -39,7 +43,11 @@ extension EditorView {
         case .optionalLabel:
             location = selection.location + replacementText.count
         }
+#if os(macOS)
         textView.setSelectedRange(NSRange(location: location, length: 0))
+#else
+        textView.selectedRange = NSRange(location: location, length: 0)
+#endif
     }
 
     /// Returns a string that has been reformatted based on the given ChordPro format.

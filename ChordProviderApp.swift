@@ -9,6 +9,11 @@ import SwiftUI
 
 /// SwiftUI `Scene` for Chord Provider
 @main struct ChordProviderApp: App {
+
+#if os(macOS)
+
+    // MARK: macOS
+
     /// The ``FileBrowser``
     @StateObject var fileBrowser = FileBrowser()
     /// AppKit app delegate
@@ -82,8 +87,25 @@ import SwiftUI
         }
         .menuBarExtraStyle(.window)
     }
+#endif
+
+#if os(iOS)
+
+    // MARK: iPadOS
+
+    var body: some Scene {
+        DocumentGroup(newDocument: ChordProDocument()) { file in
+            ContentView(document: file.$document, file: file.fileURL ?? nil)
+            /// Give the scene access to the document.
+                .focusedSceneValue(\.document, file.$document)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("")
+        }
+    }
+#endif
 }
 
+#if os(macOS)
 /// AppDelegate for Chord Provider
 class AppDelegate: NSObject, NSApplicationDelegate {
     /// Don't terminate when the last Chord Provider window is closed
@@ -91,3 +113,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 }
+#endif
