@@ -91,13 +91,15 @@ enum ExportSong {
             )
 #if os(macOS)
             let rep = NSCIImageRep(ciImage: page)
-
             let finalA4 = SWIFTImage(size: pageSize)
             finalA4.lockFocus()
-
             rep.draw(in: rectToDrawIn)
             finalA4.unlockFocus()
-
+            pages.append(finalA4)
+#else
+            let finalA4: UIImage = UIGraphicsImageRenderer(size: pageSize).image { _ in
+                UIImage(ciImage: page).draw(in: .init(origin: .zero, size: .init(width: rectToDrawIn.width, height: rectToDrawIn.height)))
+            }
             pages.append(finalA4)
 #endif
         }
@@ -135,13 +137,17 @@ enum ExportSong {
             else {
                 return nil
             }
+#else
+            guard
+                let cgPage = page.cgImage
+            else {
+                return nil
+            }
+#endif
             /// Add the page
             pdfContext.beginPage(mediaBox: &mediaBox)
             pdfContext.draw(cgPage, in: contentBox)
             pdfContext.endPage()
-#else
-            return nil
-#endif
         }
         return pdfData
     }

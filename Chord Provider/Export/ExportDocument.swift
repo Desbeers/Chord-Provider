@@ -13,17 +13,17 @@ struct ExportDocument: FileDocument {
     /// The type of image to export
     static var readableContentTypes: [UTType] { [.pdf] }
     /// The image to export
-    var image: NSData
+    var image: Data
     /// Init the struct
-    init(image: NSData?) {
-        self.image = image ?? NSData()
+    init(image: Data?) {
+        self.image = image ?? Data()
     }
     /// Black magic
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        self.image = NSData(data: data)
+        self.image = data
     }
     /// Save the exported image
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {

@@ -19,16 +19,20 @@ struct ExportSongView: View {
     /// Present an export dialog
     @State private var exportFile = false
     /// The song as image
-    @State private var image: NSData?
+    @State private var image: Data?
+
     /// The body of the `View`
     var body: some View {
-        Button(action: {
-            renderSong()
-        }, label: {
-            Label("Export song…", systemImage: "square.and.arrow.up")
-        })
+        // swiftlint:disable:next trailing_closure
+        Button(
+            action: {
+                renderSong()
+            },
+            label: {
+                Label("Export song…", systemImage: "square.and.arrow.up")
+            }
+        )
         .help("Export your song")
-#if os(macOS)
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(image: image),
@@ -42,30 +46,13 @@ struct ExportSongView: View {
                 }
             }
         )
-#else
-        .sheet(isPresented: $exportFile) {
-            VStack {
-                Text("EXPORT")
-                Text(song.title ?? "No Song")
-            }
-            .foregroundColor(.primary)
-        }
-#endif
     }
-#if os(macOS)
     /// Render the song as a PDF
     @MainActor
     private func renderSong() {
         if let pdf = ExportSong.createPDF(song: song) {
-            image = pdf
+            image = Data(referencing: pdf)
             exportFile = true
         }
     }
-#else
-    @MainActor
-    private func renderSong() {
-        dump(document?.text)
-        exportFile = true
-    }
-#endif
 }

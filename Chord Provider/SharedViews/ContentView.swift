@@ -42,6 +42,10 @@ struct ContentView: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     ToolbarView(song: $song)
                 }
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    ExportSongView()
+                        .labelStyle(.iconOnly)
+                }
             }
             .toolbarBackground(Color("AccentColor"), for: .automatic)
             .toolbarBackground(.visible, for: .automatic)

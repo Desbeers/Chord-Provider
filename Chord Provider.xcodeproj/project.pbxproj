@@ -307,8 +307,6 @@
 			isa = PBXGroup;
 			children = (
 				D7667D8C273FCFD3002E7DF9 /* FileBrowser.swift */,
-				D77B136C29704E5900ECE2F9 /* ExportSong.swift */,
-				D79C386D2A633A69009D94F3 /* ExportSong+render.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -320,6 +318,7 @@
 				D75F8AE62A36B4E400125AEF /* SongModel */,
 				D759295A25722FC3006DDF24 /* Parser */,
 				D75929332572280B006DDF24 /* SharedViews */,
+				D79C38702A6348B1009D94F3 /* Export */,
 				D75929452572280C006DDF24 /* macOS */,
 				D759293E2572280C006DDF24 /* iOS */,
 				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
@@ -332,7 +331,6 @@
 			children = (
 				D74D97AD2A40AD52008DAAE8 /* SceneState.swift */,
 				D75929352572280B006DDF24 /* ChordProDocument.swift */,
-				D743573A2A63069F00A2E09D /* ExportDocument.swift */,
 				D70D719B28C6055F00AF0022 /* Debouncer.swift */,
 				D743573E2A630AE200A2E09D /* Aliasses.swift */,
 				D75929372572280C006DDF24 /* Assets.xcassets */,
@@ -351,6 +349,16 @@
 				D70D71AD28C75C3600AF0022 /* ChordPro+Directive+extension.swift */,
 			);
 			path = EditorView;
+			sourceTree = "<group>";
+		};
+		D79C38702A6348B1009D94F3 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				D77B136C29704E5900ECE2F9 /* ExportSong.swift */,
+				D79C386D2A633A69009D94F3 /* ExportSong+render.swift */,
+				D743573A2A63069F00A2E09D /* ExportDocument.swift */,
+			);
+			path = Export;
 			sourceTree = "<group>";
 		};
 		D7CC242428C8816400316A15 /* Frameworks */ = {
@@ -813,7 +821,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 228;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -844,7 +852,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 228;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -878,7 +886,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 228;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -909,7 +917,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 228;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -937,7 +945,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 228;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -967,7 +975,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 226;
+				CURRENT_PROJECT_VERSION = 228;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
