@@ -74,6 +74,9 @@
 		D7925A5D292FA03F00EA54B0 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7925A5C292FA03F00EA54B0 /* SwiftlyChordUtilities */; };
 		D7925A5F292FA04900EA54B0 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7925A5E292FA04900EA54B0 /* SwiftlyChordUtilities */; };
 		D79C386B2A632CFE009D94F3 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
+		D79C386C2A6337C8009D94F3 /* ExportSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77B136C29704E5900ECE2F9 /* ExportSong.swift */; };
+		D79C386E2A633A69009D94F3 /* ExportSong+render.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C386D2A633A69009D94F3 /* ExportSong+render.swift */; };
+		D79C386F2A633A69009D94F3 /* ExportSong+render.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79C386D2A633A69009D94F3 /* ExportSong+render.swift */; };
 		D7B701002577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7B701012577A8E3005AEBF6 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */; };
 		D7BA23082A4DE1FA00624D0D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929362572280B006DDF24 /* ContentView.swift */; };
@@ -173,6 +176,7 @@
 		D77B136C29704E5900ECE2F9 /* ExportSong.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSong.swift; sourceTree = "<group>"; };
 		D78980052A3F104300586F68 /* EditorView+rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+rules.swift"; sourceTree = "<group>"; };
 		D78980082A3F138900586F68 /* EditorView+regex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+regex.swift"; sourceTree = "<group>"; };
+		D79C386D2A633A69009D94F3 /* ExportSong+render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExportSong+render.swift"; sourceTree = "<group>"; };
 		D7ABE7E928C8947200BF709C /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D7BA2B302584FD5E006C272E /* FileBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserView.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 			children = (
 				D7667D8C273FCFD3002E7DF9 /* FileBrowser.swift */,
 				D77B136C29704E5900ECE2F9 /* ExportSong.swift */,
+				D79C386D2A633A69009D94F3 /* ExportSong+render.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 				D759296125723025006DDF24 /* Song.swift in Sources */,
 				D758E3D82912501E007359C3 /* ChordPro+Environment.swift in Sources */,
 				D78980062A3F104300586F68 /* EditorView+rules.swift in Sources */,
+				D79C386C2A6337C8009D94F3 /* ExportSong.swift in Sources */,
 				D758E3D429123DC7007359C3 /* ChordPro+Regex.swift in Sources */,
 				D789800A2A3F138900586F68 /* EditorView+regex.swift in Sources */,
 				D74357412A630BB100A2E09D /* EditorView.swift in Sources */,
@@ -600,6 +606,7 @@
 				D759296925723025006DDF24 /* Song+Section+Line+Part.swift in Sources */,
 				D759296325723025006DDF24 /* ChordPro.swift in Sources */,
 				D7158FE12573CC2700876B80 /* SongView.swift in Sources */,
+				D79C386F2A633A69009D94F3 /* ExportSong+render.swift in Sources */,
 				D743573C2A63069F00A2E09D /* ExportDocument.swift in Sources */,
 				D7B701002577A8E3005AEBF6 /* HeaderView.swift in Sources */,
 				D759296B25723025006DDF24 /* Song+Section+Line.swift in Sources */,
@@ -634,6 +641,7 @@
 				D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */,
 				D758E3CF2912392D007359C3 /* ChordPro+Directive.swift in Sources */,
 				D759296A25723025006DDF24 /* Song+Section+Line+Part.swift in Sources */,
+				D79C386E2A633A69009D94F3 /* ExportSong+render.swift in Sources */,
 				D759296425723025006DDF24 /* ChordPro.swift in Sources */,
 				D7158FDE2573B44B00876B80 /* SongView.swift in Sources */,
 				D70D71AE28C75C3600AF0022 /* ChordPro+Directive+extension.swift in Sources */,
