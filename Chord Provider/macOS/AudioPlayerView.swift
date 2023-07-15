@@ -13,9 +13,10 @@ import SwiftlyFolderUtilities
 struct AudioPlayerView: View {
     /// The music URL
     let musicURL: URL
+    // swiftlint:disable implicitly_unwrapped_optional
     /// The `AVAudioPlayer`
-    // swiftlint:disable:next implicitly_unwrapped_optional
     @State private var audioPlayer: AVAudioPlayer!
+    // swiftlint:enable implicitly_unwrapped_optional
     /// Bool if the player is playing or not
     @State private var isPlaying: Bool = false
     /// Show an `Alert` if the music file is not found

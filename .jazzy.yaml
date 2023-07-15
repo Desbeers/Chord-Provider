@@ -45,7 +45,7 @@ custom_categories:
     children:
     - UTType
     - ChordProDocument
-    - ChordProviderDocument
+    - ExportDocument
     - ExportSong
 
   - name: Utilities
@@ -55,6 +55,7 @@ custom_categories:
 
   - name: Extensions
     children:
+    - Image
     - View
     - NSWindow
 
