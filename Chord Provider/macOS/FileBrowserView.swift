@@ -20,13 +20,13 @@ struct FileBrowserView: View {
             if search.isEmpty {
                 ForEach(fileBrowser.artistList) { artist in
                     Section(header: Text(artist.name).font(.headline)) {
-                        ForEach(fileBrowser.songList.filter({$0.artist == artist.name})) { song in
+                        ForEach(fileBrowser.songList.filter { $0.artist == artist.name }) { song in
                             Row(song: song)
                         }
                     }
                 }
             } else {
-                ForEach(fileBrowser.songList.filter({ $0.search.localizedCaseInsensitiveContains(search)})) { song in
+                ForEach(fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
                     VStack(alignment: .leading) {
                         Row(song: song)
                         Text(song.artist)
@@ -84,7 +84,7 @@ extension FileBrowserView {
         @Environment(\.openDocument) private var openDocument
         /// Information about the `NSWindow`
         var window: NSWindow.WindowItem? {
-            fileBrowser.openWindows.first(where: {$0.fileURL == song.fileURL})
+            fileBrowser.openWindows.first { $0.fileURL == song.fileURL }
         }
         /// The body of the `View`
         var body: some View {

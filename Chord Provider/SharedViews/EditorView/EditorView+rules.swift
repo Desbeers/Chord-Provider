@@ -32,20 +32,20 @@ extension EditorView {
             TextFormattingRule(key: .paragraphStyle, value: nsParagraphStyle)
         ]),
         /// The rule for a chord
-        HighlightRule(pattern: EditorView.chordRegex!, formattingRules: [
+        HighlightRule(pattern: EditorView.chordRegex, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemRed)
         ]),
         /// The rule for a directive
-        HighlightRule(pattern: EditorView.directiveRegex!, formattingRules: [
+        HighlightRule(pattern: EditorView.directiveRegex, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemTeal),
             TextFormattingRule(key: .font, value: font(weight: .medium))
         ]),
         /// The rule for the value of a directive
-        HighlightRule(pattern: EditorView.directiveValueRegex!, formattingRules: [
+        HighlightRule(pattern: EditorView.directiveValueRegex, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue)
         ]),
         /// The rule for the end of directive
-        HighlightRule(pattern: EditorView.directiveEndRegex!, formattingRules: [
+        HighlightRule(pattern: EditorView.directiveEndRegex, formattingRules: [
             TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemBlue)
         ])
     ]

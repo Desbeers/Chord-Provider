@@ -30,5 +30,4 @@ extension ChordPro {
         /// Grid environment
         case grid = "Grid"
     }
-
 }

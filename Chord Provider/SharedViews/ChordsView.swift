@@ -41,15 +41,17 @@ struct ChordsView: View {
                             .frame(width: 100, height: 120, alignment: .center)
                             .border(.primary)
                         } else {
-                            let showFingers = !chord.chordPosition.fingers.dropFirst().allSatisfy({ $0 == chord.chordPosition.fingers.first })
-                            let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: showFingers, chordName: .init(show: false))
+                            let showFingers = !chord.chordPosition
+                                .fingers
+                                .dropFirst()
+                                .allSatisfy { $0 == chord.chordPosition.fingers.first }
+                            let layer = chord.chordPosition.chordLayer(
+                                rect: frame,
+                                showFingers: showFingers,
+                                chordName: .init(show: false)
+                            )
                             if let image = layer.image() {
-#if os(macOS)
-                                Image(nsImage: image)
-#endif
-#if os(iOS)
-                                Image(uiImage: image)
-#endif
+                                Image(swiftImage: image)
                             } else {
                                 VStack {
                                     Image(systemName: "music.note")
@@ -89,48 +91,47 @@ extension ChordsView {
         @Binding var chord: Song.Chord?
         /// The body of the `View`
         var body: some View {
-            let chordPosition = chord!.getChordPostions()
-            VStack {
-                Text("Chord: \(chord!.display)")
-                    .font(.title)
+            if let chord {
+                VStack {
+                    Text("Chord: \(chord.display)")
+                        .font(.title)
 #if os(macOS)
-                MidiPlayer.InstrumentPicker()
+                    MidiPlayer.InstrumentPicker()
 #endif
-                ScrollView {
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 110))],
-                        alignment: .center,
-                        spacing: 4,
-                        pinnedViews: [.sectionHeaders, .sectionFooters]
-                    ) {
-                        ForEach(chordPosition) { chord in
-                            let frame = CGRect(x: 0, y: 0, width: 120, height: 180)
-                            let layer = chord.chordLayer(rect: frame, showFingers: true)
-                            let image = layer.image()
+                    ScrollView {
+                        LazyVGrid(
+                            columns: [GridItem(.adaptive(minimum: 110))],
+                            alignment: .center,
+                            spacing: 4,
+                            pinnedViews: [.sectionHeaders, .sectionFooters]
+                        ) {
+                            ForEach(chord.getChordPostions()) { chord in
+                                let frame = CGRect(x: 0, y: 0, width: 120, height: 180)
+                                let layer = chord.chordLayer(rect: frame, showFingers: true)
+                                if let image = layer.image() {
+                                    VStack {
+                                        Image(swiftImage: image)
 #if os(macOS)
-                            VStack {
-                                Image(nsImage: image!)
-                                MidiPlayer.PlayButton(chord: chord)
+                                        MidiPlayer.PlayButton(chord: chord)
+#endif
+                                    }
+                                }
                             }
-#endif
-#if os(iOS)
-                            Image(uiImage: image!)
-#endif
                         }
                     }
+                    Button(
+                        action: {
+                            presentationMode.wrappedValue.dismiss()
+                        },
+                        label: {
+                            Text("Close")
+                        }
+                    )
+                    .keyboardShortcut(.defaultAction)
                 }
-                Button(
-                    action: {
-                        presentationMode.wrappedValue.dismiss()
-                    },
-                    label: {
-                        Text("Close")
-                    }
-                )
-                .keyboardShortcut(.defaultAction)
+                .padding()
+                .frame(minWidth: 400, idealWidth: 600, minHeight: 400, idealHeight: 600)
             }
-            .padding()
-            .frame(minWidth: 400, idealWidth: 600, minHeight: 400, idealHeight: 600)
         }
     }
 }

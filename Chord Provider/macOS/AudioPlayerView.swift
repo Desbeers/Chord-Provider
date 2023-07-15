@@ -14,6 +14,7 @@ struct AudioPlayerView: View {
     /// The music URL
     let musicURL: URL
     /// The `AVAudioPlayer`
+    // swiftlint:disable:next implicitly_unwrapped_optional
     @State private var audioPlayer: AVAudioPlayer!
     /// Bool if the player is playing or not
     @State private var isPlaying: Bool = false

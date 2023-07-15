@@ -10,7 +10,7 @@ import SwiftyChords
 import SwiftlyChordUtilities
 
 /// The `ChordPro` file parser
-struct ChordPro {
+enum ChordPro {
 
     // MARK: Parse a 'ChordPro' file
 
@@ -51,7 +51,11 @@ struct ChordPro {
                         currentSection = Song.Section(id: song.sections.count + 1)
                     } else {
                         song.sections.append(currentSection)
-                        currentSection = Song.Section(id: song.sections.count + 1, label: currentSection.label, type: currentSection.type)
+                        currentSection = Song.Section(
+                            id: song.sections.count + 1,
+                            label: currentSection.label,
+                            type: currentSection.type
+                        )
                     }
                 }
             case "#":
@@ -78,7 +82,11 @@ struct ChordPro {
     ///   - text: The text to process
     ///   - song: The `Song`
     ///   - currentSection: The current `section` of the `song`
-    private static func processDirective(text: String, song: inout Song, currentSection: inout Song.Section) {
+    private static func processDirective(
+        text: String,
+        song: inout Song,
+        currentSection: inout Song.Section
+    ) {
 
         if let match = text.wholeMatch(of: directiveRegex) {
 
@@ -119,7 +127,12 @@ struct ChordPro {
 
             case .c, .comment:
                 if let label {
-                    processSection(label: label, type: Environment.comment, song: &song, currentSection: &currentSection)
+                    processSection(
+                        label: label,
+                        type: Environment.comment,
+                        song: &song,
+                        currentSection: &currentSection
+                    )
                     song.sections.append(currentSection)
                     currentSection = Song.Section(id: song.sections.count + 1)
                 }
@@ -128,33 +141,68 @@ struct ChordPro {
 
                 /// ## Start of Chorus
             case .soc, .startOfChorus:
-                processSection(label: label ?? Environment.chorus.rawValue, type: .chorus, song: &song, currentSection: &currentSection)
+                processSection(
+                    label: label ?? Environment.chorus.rawValue,
+                    type: .chorus,
+                    song: &song,
+                    currentSection: &currentSection
+                )
 
                 /// ## Repeat Chorus
             case .chorus:
-                processSection(label: label ?? Environment.repeatChorus.rawValue, type: .repeatChorus, song: &song, currentSection: &currentSection)
+                processSection(
+                    label: label ?? Environment.repeatChorus.rawValue,
+                    type: .repeatChorus,
+                    song: &song,
+                    currentSection: &currentSection
+                )
                 song.sections.append(currentSection)
                 currentSection = Song.Section(id: song.sections.count + 1)
 
                 /// ## Start of Verse
             case .sov, .startOfVerse:
-                processSection(label: label ?? Environment.verse.rawValue, type: .verse, song: &song, currentSection: &currentSection)
+                processSection(
+                    label: label ?? Environment.verse.rawValue,
+                    type: .verse,
+                    song: &song,
+                    currentSection: &currentSection
+                )
 
                 /// ## Start of Bridge
             case .sob, .startOfBridge:
-                processSection(label: label ?? Environment.bridge.rawValue, type: .bridge, song: &song, currentSection: &currentSection)
+                processSection(
+                    label: label ?? Environment.bridge.rawValue,
+                    type: .bridge,
+                    song: &song,
+                    currentSection: &currentSection
+                )
 
                 /// ## Start of Tab
             case .sot, .startOfTab:
-                processSection(label: label ?? Environment.tab.rawValue, type: .tab, song: &song, currentSection: &currentSection)
+                processSection(
+                    label: label ?? Environment.tab.rawValue,
+                    type: .tab,
+                    song: &song,
+                    currentSection: &currentSection
+                )
 
                 /// ## Start of Grid
             case .sog, .startOfGrid:
-                processSection(label: label ?? Environment.grid.rawValue, type: .grid, song: &song, currentSection: &currentSection)
+                processSection(
+                    label: label ?? Environment.grid.rawValue,
+                    type: .grid,
+                    song: &song,
+                    currentSection: &currentSection
+                )
 
                 /// # End of environment
             case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid:
-                processSection(label: Environment.none.rawValue, type: .none, song: &song, currentSection: &currentSection)
+                processSection(
+                    label: Environment.none.rawValue,
+                    type: .none,
+                    song: &song,
+                    currentSection: &currentSection
+                )
 
                 // MARK: Chord diagrams
             case .define:
@@ -341,7 +389,9 @@ struct ChordPro {
                 chord.transpose(transpose: song.transpose, scale: song.key ?? .c)
                 rootValue = chord.root
             }
-            let chords = Chords.guitar.filter({ $0.key == rootValue && $0.suffix == quality}).sorted {$0.baseFret < $1.baseFret}
+            let chords = Chords.guitar
+                .filter { $0.key == rootValue && $0.suffix == quality }
+                .sorted { $0.baseFret < $1.baseFret }
             if let baseChord = chords.first {
                 let songChord = Song.Chord(name: chord, chordPosition: baseChord, isCustom: false)
                 song.chords.append(songChord)

@@ -75,9 +75,13 @@ enum ExportSong {
                             Text(chord.display)
                                 .foregroundColor(Color("AccentColor"))
                                 .font(.caption)
-                            let layer = chord.chordPosition.chordLayer(rect: frame, showFingers: false, chordName: .init(show: false))
+                            let layer = chord.chordPosition.chordLayer(
+                                rect: frame,
+                                showFingers: false,
+                                chordName: .init(show: false)
+                            )
                             if let image = layer.image() {
-                                Image(nsImage: image)
+                                Image(swiftImage: image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: frame.width / 3)

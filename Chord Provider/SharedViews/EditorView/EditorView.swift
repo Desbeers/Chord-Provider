@@ -32,7 +32,7 @@ struct EditorView: View {
                 sceneState.selection = range
             }
         /// Below is needed to interact with the NSTextView
-            .introspect(callback: { editor in
+            .introspect { editor in
                 /// Setup the TextView
                 if sceneState.textView == nil {
                     #if os(macOS)
@@ -40,7 +40,7 @@ struct EditorView: View {
                     #endif
                     sceneState.textView = editor.textView
                 }
-            })
+            }
             .focusedSceneObject(sceneState)
     }
     /// The Toolbar
@@ -54,9 +54,10 @@ struct EditorView: View {
                 content: {
                     EditorButton(directive: .comment)
                     EditorButton(directive: .define)
-            }, label: {
-                Label("More...", systemImage: "gear")
-            })
+                },
+                label: {
+                    Label("More...", systemImage: "gear")
+                })
             .menuStyle(.borderlessButton)
             .frame(width: 100)
         }

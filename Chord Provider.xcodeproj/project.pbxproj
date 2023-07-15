@@ -42,7 +42,6 @@
 		D758E3D72912501E007359C3 /* ChordPro+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D758E3D62912501E007359C3 /* ChordPro+Environment.swift */; };
 		D758E3D82912501E007359C3 /* ChordPro+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D758E3D62912501E007359C3 /* ChordPro+Environment.swift */; };
 		D758E3D92912501E007359C3 /* ChordPro+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D758E3D62912501E007359C3 /* ChordPro+Environment.swift */; };
-		D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929342572280B006DDF24 /* ChordProviderApp.swift */; };
 		D759294A2572280C006DDF24 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929352572280B006DDF24 /* ChordProDocument.swift */; };
 		D759294B2572280C006DDF24 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929352572280B006DDF24 /* ChordProDocument.swift */; };
 		D759294D2572280C006DDF24 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929362572280B006DDF24 /* ContentView.swift */; };
@@ -221,18 +220,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D70D71B228C76C0C00AF0022 /* EditorView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = EditorView;
-			sourceTree = "<group>";
-		};
 		D759292E2572280B006DDF24 = {
 			isa = PBXGroup;
 			children = (
 				D7667D85273FAFB9002E7DF9 /* Chord Provider */,
-				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
 				D731FD4E2694938B00558E02 /* .swiftlint.yml */,
 				D754B6DB25867274001AE6DD /* README.md */,
 				D7667D86273FB0EC002E7DF9 /* Chord Provider.app */,
@@ -271,7 +262,6 @@
 			children = (
 				D76138D62946226600365BFD /* General */,
 				D7CC242728C8816400316A15 /* QLExtension */,
-				D70D71B228C76C0C00AF0022 /* EditorView */,
 				D7BA2B302584FD5E006C272E /* FileBrowserView.swift */,
 				D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */,
 				D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */,
@@ -326,6 +316,7 @@
 				D75929332572280B006DDF24 /* SharedViews */,
 				D75929452572280C006DDF24 /* macOS */,
 				D759293E2572280C006DDF24 /* iOS */,
+				D75929342572280B006DDF24 /* ChordProviderApp.swift */,
 			);
 			path = "Chord Provider";
 			sourceTree = "<group>";
@@ -408,8 +399,9 @@
 				D75929402572280C006DDF24 /* Sources */,
 				D75929412572280C006DDF24 /* Frameworks */,
 				D75929422572280C006DDF24 /* Resources */,
-				D731FD4D2694915100558E02 /* ShellScript */,
+				D731FD4D2694915100558E02 /* Run SwiftLint */,
 				D7CC243428C8816400316A15 /* Embed Foundation Extensions */,
+				D74357442A63201100A2E09D /* Set Build Number */,
 			);
 			buildRules = (
 			);
@@ -541,7 +533,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if which /opt/homebrew/bin/swiftlint >/dev/null; then\n  # swiftlint --enable-all-rules\n  # swiftlint autocorrect\n  /opt/homebrew/bin/swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		D731FD4D2694915100558E02 /* ShellScript */ = {
+		D731FD4D2694915100558E02 /* Run SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -551,6 +543,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run SwiftLint";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -558,6 +551,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which /opt/homebrew/bin/swiftlint >/dev/null; then\n  # swiftlint --enable-all-rules\n  # swiftlint autocorrect\n  /opt/homebrew/bin/swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		D74357442A63201100A2E09D /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\ngit=$(sh /etc/profile; which git)\nnumber_of_commits=$(\"$git\" rev-list HEAD --count)\ngit_release_version=$(\"$git\" describe --tags --always --abbrev=0)\n\ncd \"${PROJECT_DIR}\" ; agvtool new-version ${number_of_commits}\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -606,7 +618,6 @@
 				D74D97AE2A40AD52008DAAE8 /* SceneState.swift in Sources */,
 				D759296225723025006DDF24 /* Song.swift in Sources */,
 				D751B82A290A7B1C0002AAFF /* ChordsView.swift in Sources */,
-				D75929492572280C006DDF24 /* ChordProviderApp.swift in Sources */,
 				D789800E2A3F22E600586F68 /* EditorView+rules.swift in Sources */,
 				D70D71AC28C75B7100AF0022 /* EditorView+format.swift in Sources */,
 				D743573B2A63069F00A2E09D /* ExportDocument.swift in Sources */,
@@ -792,7 +803,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "github: main";
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -802,6 +813,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.ios";
 				PRODUCT_NAME = "Chord Provider";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -822,7 +834,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "github: main";
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -832,6 +844,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.ios";
 				PRODUCT_NAME = "Chord Provider";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -855,7 +868,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "github: main";
+				CURRENT_PROJECT_VERSION = 223;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -886,7 +899,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = "github: main";
+				CURRENT_PROJECT_VERSION = 223;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -914,7 +927,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "github: main";
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -944,7 +957,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = "github: main";
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;

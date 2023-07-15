@@ -43,7 +43,7 @@ import SwiftUI
                 .focusedSceneValue(\.document, file.$document)
                 .onDisappear {
                     Task { @MainActor in
-                        if let index = fileBrowser.openWindows.firstIndex(where: {$0.fileURL == file.fileURL}) {
+                        if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == file.fileURL }) {
                             /// Mark window as closed
                             fileBrowser.openWindows.remove(at: index)
                         }
@@ -51,7 +51,8 @@ import SwiftUI
                 }
                 .withHostingWindow { window in
                     /// Register the window unless we are browsing Versions
-                    if !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false), let window = window?.windowController?.window {
+                    if !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false),
+                        let window = window?.windowController?.window {
                         fileBrowser.openWindows.append(
                             NSWindow.WindowItem(
                                 windowID: window.windowNumber,
@@ -61,7 +62,7 @@ import SwiftUI
                     }
                 }
                 .onChange(of: file.fileURL) { [file] newURL in
-                    if let index = fileBrowser.openWindows.firstIndex(where: {$0.fileURL == file.fileURL}) {
+                    if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == file.fileURL }) {
                         fileBrowser.openWindows[index].fileURL = newURL
                     }
                 }
@@ -95,7 +96,7 @@ import SwiftUI
 
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            ContentView(document: file.$document, file: file.fileURL ?? nil)
+            ContentView(document: file.$document, file: file.fileURL)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
                 .navigationBarTitleDisplayMode(.inline)

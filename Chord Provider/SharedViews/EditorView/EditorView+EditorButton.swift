@@ -29,6 +29,7 @@ extension EditorView {
         var body: some View {
             Button(
                 action: {
+                    // swiftlint:disable:next force_unwrapping
                     EditorView.format(&document!, directive: directive, selection: scene!.selection, in: scene!.textView)
                 }, label: {
                     Label(label, systemImage: directive.label.icon)
@@ -50,9 +51,9 @@ extension EditorView {
                 .padding(4)
                 .background(hovered ? Color.primary.opacity(0.1) : Color.clear)
                 .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.primary.opacity(0.1), lineWidth: 1)
-                    )
+                    RoundedRectangle(cornerRadius: 4)
+                        .stroke(Color.primary.opacity(0.1), lineWidth: 1)
+                )
                 .onHover { isHovered in
                     self.hovered = isHovered
                 }

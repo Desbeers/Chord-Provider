@@ -22,7 +22,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             let renderer = ImageRenderer(content: SongExportView(song: song))
             renderer.scale = 3.0
             guard let image = self.createPDF(image: renderer) else {
-                fatalError()
+                fatalError("Ooops...")
             }
             replyToUpdate.title = "\(song.artist ?? "Artist") - \(song.title ?? "Title")"
             replyToUpdate.stringEncoding = .utf8
@@ -59,9 +59,12 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
     @MainActor func createPDF<T: View>(image: ImageRenderer<T>) -> NSData? {
         if let nsImage = image.nsImage, let cgImage = image.cgImage {
             let pdfData = NSMutableData()
-            let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
             var mediaBox = NSRect.init(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
-            let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)!
+            guard
+                let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData),
+                let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil) else {
+                return nil
+            }
             pdfContext.beginPage(mediaBox: &mediaBox)
             pdfContext.draw(cgImage, in: mediaBox)
             pdfContext.endPage()

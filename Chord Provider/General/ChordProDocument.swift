@@ -26,8 +26,7 @@ struct ChordProDocument: FileDocument {
     }
     /// Init the configuration
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents,
-              let string = String(data: data, encoding: .utf8)
+        guard let data = configuration.file.regularFileContents, let string = String(data: data, encoding: .utf8)
         else {
             throw CocoaError(.fileReadCorruptFile)
         }
@@ -38,6 +37,7 @@ struct ChordProDocument: FileDocument {
     /// - Parameter configuration: The document configuration
     /// - Returns: A file in the file system
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        // swiftlint:disable:next force_unwrapping
         let data = text.data(using: .utf8)!
         return .init(regularFileWithContents: data)
     }
@@ -49,5 +49,5 @@ extension UTType {
 
     /// The `UTType` for a ChordPro document
     static let chordProDocument =
-        UTType(importedAs: "nl.desbeers.Chord-Provider.chordpro")
+    UTType(importedAs: "nl.desbeers.Chord-Provider.chordpro")
 }

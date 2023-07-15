@@ -17,12 +17,17 @@ extension EditorView {
         }
         return directives.joined(separator: "|")
     }
+
+    // swiftlint:disable force_try
+
     /// The regex for a chord, [Am] for example
-    static let chordRegex = try? NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]", options: .caseInsensitive)
+    static let chordRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]", options: .caseInsensitive)
     /// The regex for directives
-    static let directiveRegex = try? NSRegularExpression(pattern: "\\{.*\\}")
+    static let directiveRegex = try! NSRegularExpression(pattern: "\\{.*\\}")
     /// The regex for a directive value we know about
-    static let directiveValueRegex = try? NSRegularExpression(pattern: "(?:" + directives + ")\\b", options: [])
+    static let directiveValueRegex = try! NSRegularExpression(pattern: "(?:" + directives + ")\\b", options: [])
     /// The regex for the end of a directive
-    static let directiveEndRegex = try? NSRegularExpression(pattern: "\\}")
+    static let directiveEndRegex = try! NSRegularExpression(pattern: "\\}")
+
+    // swiftlint:enable force_try
 }

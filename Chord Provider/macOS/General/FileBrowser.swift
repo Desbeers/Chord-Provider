@@ -100,7 +100,8 @@ extension FileBrowser {
             /// Then we want to sort them so that they are in the correct order.
             artistList = grouped.map { artist -> ArtistItem in
                 ArtistItem(name: artist.key, songs: artist.value)
-            }.sorted { $0.name < $1.name }
+            }
+            .sorted { $0.name < $1.name }
             songList = songs.sorted { $0.title < $1.title }
             folder = true
         } catch {
