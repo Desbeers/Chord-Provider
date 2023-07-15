@@ -20,6 +20,7 @@ struct EditorView: View {
             toolbar
             editor
         }
+        /// The buttons on the editor toolbar change on selection
         .animation(.default, value: sceneState.selection)
     }
     /// The editor

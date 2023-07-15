@@ -87,6 +87,7 @@
 		D7D6441628F17D1600A03407 /* Song+Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D6441328F02F9200A03407 /* Song+Render.swift */; };
 		D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */; };
 		D7F68D362578DA8400B119BA /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F68D342578DA8400B119BA /* EditorView.swift */; };
+		D7FB40C72A62A23A00C61356 /* LaunchScreen (iPadOS).storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7FB40C62A62A23A00C61356 /* LaunchScreen (iPadOS).storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +175,7 @@
 		D7D6441328F02F9200A03407 /* Song+Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Render.swift"; sourceTree = "<group>"; };
 		D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		D7F68D342578DA8400B119BA /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		D7FB40C62A62A23A00C61356 /* LaunchScreen (iPadOS).storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen (iPadOS).storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +253,7 @@
 				D789832928C3A0140044BDD1 /* ChordProviderApp.swift */,
 				D70D71B328C76C2C00AF0022 /* EditorView.swift */,
 				D759293F2572280C006DDF24 /* Info.plist */,
+				D7FB40C62A62A23A00C61356 /* LaunchScreen (iPadOS).storyboard */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -482,6 +485,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7FB40C72A62A23A00C61356 /* LaunchScreen (iPadOS).storyboard in Resources */,
 				D759294E2572280C006DDF24 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -844,6 +848,7 @@
 				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.macos";
 				PRODUCT_NAME = "Chord Provider";
+				RUN_DOCUMENTATION_COMPILER = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
@@ -874,6 +879,7 @@
 				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.desbeers.Chord-Provider.macos";
 				PRODUCT_NAME = "Chord Provider";
+				RUN_DOCUMENTATION_COMPILER = YES;
 				SDKROOT = macosx;
 				SWIFT_VERSION = 5.0;
 			};
