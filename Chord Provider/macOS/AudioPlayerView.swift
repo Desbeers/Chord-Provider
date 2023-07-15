@@ -13,10 +13,8 @@ import SwiftlyFolderUtilities
 struct AudioPlayerView: View {
     /// The music URL
     let musicURL: URL
-    // swiftlint:disable implicitly_unwrapped_optional
     /// The `AVAudioPlayer`
-    @State private var audioPlayer: AVAudioPlayer!
-    // swiftlint:enable implicitly_unwrapped_optional
+    @State private var audioPlayer: AVAudioPlayer?
     /// Bool if the player is playing or not
     @State private var isPlaying: Bool = false
     /// Show an `Alert` if the music file is not found
@@ -30,11 +28,11 @@ struct AudioPlayerView: View {
                         try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
                             do {
                                 if isPlaying {
-                                    audioPlayer.stop()
+                                    audioPlayer?.stop()
                                     audioPlayer = AVAudioPlayer.init()
                                 }
                                 audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
-                                audioPlayer.play()
+                                audioPlayer?.play()
                                 /// For the button state
                                 isPlaying = true
                             } catch let error {
@@ -51,10 +49,10 @@ struct AudioPlayerView: View {
             .padding(.leading)
             Button(
                 action: {
-                    if audioPlayer.isPlaying == true {
-                        audioPlayer.pause()
+                    if audioPlayer?.isPlaying == true {
+                        audioPlayer?.pause()
                     } else {
-                        audioPlayer.play()
+                        audioPlayer?.play()
                     }
                 },
                 label: {
