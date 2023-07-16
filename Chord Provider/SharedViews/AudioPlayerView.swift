@@ -7,7 +7,9 @@
 
 import SwiftUI
 import AVKit
+#if os(macOS)
 import SwiftlyFolderUtilities
+#endif
 
 /// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {
@@ -24,23 +26,17 @@ struct AudioPlayerView: View {
         HStack {
             Button(
                 action: {
+#if os(macOS)
+                    /// For macOS we need the bookmark to access the file
                     Task {
                         try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
-                            do {
-                                if isPlaying {
-                                    audioPlayer?.stop()
-                                    audioPlayer = AVAudioPlayer.init()
-                                }
-                                audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
-                                audioPlayer?.play()
-                                /// For the button state
-                                isPlaying = true
-                            } catch let error {
-                                print(error)
-                                showAlert = true
-                            }
+                            playSong()
                         }
                     }
+#else
+                    /// iOS can just play it...
+                    playSong()
+#endif
                 },
                 label: {
                     Image(systemName: "play.circle.fill").foregroundColor(.secondary)
@@ -67,6 +63,22 @@ struct AudioPlayerView: View {
                 message: Text("The audio file was not found."),
                 dismissButton: .default(Text("OK"))
             )
+        }
+    }
+    /// Play the song file
+    private func playSong() {
+        do {
+            if isPlaying {
+                audioPlayer?.stop()
+                audioPlayer = AVAudioPlayer.init()
+            }
+            audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
+            audioPlayer?.play()
+            /// For the button state
+            isPlaying = true
+        } catch let error {
+            print(error)
+            showAlert = true
         }
     }
 }

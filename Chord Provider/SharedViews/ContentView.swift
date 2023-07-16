@@ -15,40 +15,37 @@ struct ContentView: View {
     let file: URL?
     /// The state of the scene
     @StateObject private var sceneState = SceneState()
-    /// The ``Song``
-    @State private var song = Song()
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
         VStack(spacing: 0) {
-            HeaderView(song: song, file: file)
+            HeaderView(song: sceneState.song, file: file)
                 .background(Color.accentColor)
                 .foregroundColor(.white)
-            MainView(document: $document, song: $song, file: file)
+            MainView(document: $document, song: $sceneState.song, file: file)
         }
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
-            ToolbarView(song: $song)
+            ToolbarView(song: $sceneState.song)
         }
-        .focusedSceneObject(sceneState)
         .onChange(of: sceneState.showPrintDialog) { dialog in
             if dialog {
-                PrintSongView.printDialog(song: song)
+                PrintSongView.printDialog(song: sceneState.song)
                 sceneState.showPrintDialog.toggle()
             }
         }
-
+        .focusedSceneObject(sceneState)
 #endif
 
 #if os(iOS)
-        MainView(document: $document, song: $song, file: file)
+        MainView(document: $document, song: $sceneState.song, file: file)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {
-                    HeaderView(song: song, file: file)
+                    HeaderView(song: sceneState.song, file: file)
                         .labelStyle(.titleAndIcon)
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    ToolbarView(song: $song)
+                    ToolbarView(song: $sceneState.song)
                 }
             }
             .toolbarBackground(Color("AccentColor"), for: .automatic)

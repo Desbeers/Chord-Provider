@@ -44,8 +44,7 @@ struct ToolbarView: View {
                 Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
                     .frame(minWidth: 110, alignment: .leading)
             }
-            ShareLink(item: song.exportURL)
-                .labelStyle(.iconOnly)
+            ShareSongView()
         }
         .labelStyle(.titleAndIcon)
     }

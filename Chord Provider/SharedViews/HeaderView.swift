@@ -39,6 +39,9 @@ struct HeaderView: View {
 #if os(iOS)
         General(song: song)
         Details(song: song)
+        if let musicURL = getMusicURL() {
+            AudioPlayerView(musicURL: musicURL)
+        }
 #endif
     }
 

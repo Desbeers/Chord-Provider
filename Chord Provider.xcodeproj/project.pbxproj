@@ -84,6 +84,9 @@
 		D7BA23082A4DE1FA00624D0D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75929362572280B006DDF24 /* ContentView.swift */; };
 		D7BA2B312584FD5E006C272E /* FileBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BA2B302584FD5E006C272E /* FileBrowserView.swift */; };
 		D7C670D028D72ED000D5EBDE /* WindowManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */; };
+		D7C697EB2A6423A600A3C7D5 /* ShareSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C697EA2A6423A600A3C7D5 /* ShareSongView.swift */; };
+		D7C697EC2A6423A600A3C7D5 /* ShareSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C697EA2A6423A600A3C7D5 /* ShareSongView.swift */; };
+		D7C697ED2A642F5700A3C7D5 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */; };
 		D7C773B128C87D7900336E76 /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D7C773B028C87D7900336E76 /* HighlightedTextEditor */; };
 		D7CC242628C8816400316A15 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7CC242528C8816400316A15 /* Quartz.framework */; };
 		D7CC242B28C8816400316A15 /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CC242A28C8816400316A15 /* PreviewProvider.swift */; };
@@ -184,6 +187,7 @@
 		D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		D7BA2B302584FD5E006C272E /* FileBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileBrowserView.swift; sourceTree = "<group>"; };
 		D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManagement.swift; sourceTree = "<group>"; };
+		D7C697EA2A6423A600A3C7D5 /* ShareSongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSongView.swift; sourceTree = "<group>"; };
 		D7CC242328C8816400316A15 /* QLExtension (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLExtension (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7CC242528C8816400316A15 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		D7CC242A28C8816400316A15 /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
@@ -251,8 +255,10 @@
 				D734A0AF25F93208007AB36A /* ChordsView.swift */,
 				D75F8AE32A3638FC00125AEF /* ToolbarView.swift */,
 				D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */,
+				D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */,
 				D72FD53228F19FD200496010 /* ExportSongView.swift */,
 				D73B328C2A63E33C00D2E385 /* PrintSongView.swift */,
+				D7C697EA2A6423A600A3C7D5 /* ShareSongView.swift */,
 			);
 			path = SharedViews;
 			sourceTree = "<group>";
@@ -272,7 +278,6 @@
 				D76138D62946226600365BFD /* General */,
 				D7CC242728C8816400316A15 /* QLExtension */,
 				D7BA2B302584FD5E006C272E /* FileBrowserView.swift */,
-				D7E79C6E25A212CC00169D0F /* AudioPlayerView.swift */,
 				D7C670CF28D72ED000D5EBDE /* WindowManagement.swift */,
 				D71DE9FE258A6E88007B513D /* Credits.rtf */,
 				D75929462572280C006DDF24 /* Info.plist */,
@@ -609,6 +614,8 @@
 				D74357412A630BB100A2E09D /* EditorView.swift in Sources */,
 				D70D719C28C6055F00AF0022 /* Debouncer.swift in Sources */,
 				D75F8AE52A3638FC00125AEF /* ToolbarView.swift in Sources */,
+				D7C697EC2A6423A600A3C7D5 /* ShareSongView.swift in Sources */,
+				D7C697ED2A642F5700A3C7D5 /* AudioPlayerView.swift in Sources */,
 				D74357432A630F5000A2E09D /* ChordProviderApp.swift in Sources */,
 				D74357402A630AE200A2E09D /* Aliasses.swift in Sources */,
 				D771675428F2DBF000F5DEB2 /* Song+Section+Line+Grid.swift in Sources */,
@@ -651,6 +658,7 @@
 				D7D6441428F02F9200A03407 /* Song+Render.swift in Sources */,
 				D74187142A376C6600041DFE /* MainView.swift in Sources */,
 				D70D719D28C6055F00AF0022 /* Debouncer.swift in Sources */,
+				D7C697EB2A6423A600A3C7D5 /* ShareSongView.swift in Sources */,
 				D7E79C6F25A212CC00169D0F /* AudioPlayerView.swift in Sources */,
 				D758E3CF2912392D007359C3 /* ChordPro+Directive.swift in Sources */,
 				D759296A25723025006DDF24 /* Song+Section+Line+Part.swift in Sources */,
@@ -827,7 +835,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230;
+				CURRENT_PROJECT_VERSION = 231;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -858,7 +866,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230;
+				CURRENT_PROJECT_VERSION = 231;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -892,7 +900,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 230;
+				CURRENT_PROJECT_VERSION = 231;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -923,7 +931,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 230;
+				CURRENT_PROJECT_VERSION = 231;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -951,7 +959,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230;
+				CURRENT_PROJECT_VERSION = 231;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -981,7 +989,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 230;
+				CURRENT_PROJECT_VERSION = 231;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;

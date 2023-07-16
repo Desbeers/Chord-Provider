@@ -7,17 +7,10 @@
 
 import SwiftUI
 
-/// SwiftUI `View` for the song export button
+/// SwiftUI `View for the Export Button`
 struct ExportSongView: View {
-    /// The document
-    @FocusedBinding(\.document)
-    private var document: ChordProDocument?
     /// The scene
     @FocusedObject private var scene: SceneState?
-    /// The ``Song``
-    var song: Song {
-        ChordPro.parse(text: document?.text ?? "", transpose: 0)
-    }
     /// Present an export dialog
     @State private var exportFile = false
     /// The song as PDF
@@ -27,19 +20,22 @@ struct ExportSongView: View {
         // swiftlint:disable:next trailing_closure
         Button(
             action: {
-                exportFile = true
+                if let scene {
+                    pdf = try? Data(contentsOf: scene.song.exportURL)
+                    exportFile = true
+                }
             },
             label: {
                 Label("Export as PDF…", systemImage: "square.and.arrow.up")
             }
         )
         .help("Export your song as PDF")
-        .disabled(document == nil || scene == nil)
+        .disabled(scene == nil)
         .fileExporter(
             isPresented: $exportFile,
-            document: ExportDocument(pdf: scene?.pdf),
+            document: ExportDocument(pdf: pdf),
             contentType: .pdf,
-            defaultFilename: song.exportName,
+            defaultFilename: scene?.song.exportName,
             onCompletion: { result in
                 if case .success = result {
                     print("Success")

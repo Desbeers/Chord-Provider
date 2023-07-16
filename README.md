@@ -19,8 +19,9 @@ The branch 'SwiftUI-3' has an older version for macOS Monterey or iOS 15, howeve
 - It has a 'highlighted TextEditor'.
 - It can transpose a song; however, only in the View. The document will not be changed and that's on purpose.
 - You can 'define' a Capo but that will not change any notes; again on purpose.
-- You can click on a chord diagram and it will open s Sheet with all known versions.
+- You can click on a chord diagram and it will open a Sheet with all known versions.
 - It can export your song to a PDF document.
+- It can play songs when stored next to the ChordPro file.
 
 
 ### macOS

@@ -9,11 +9,21 @@ import SwiftUI
 
 /// The observable scene state for Chord Provider
 final class SceneState: ObservableObject {
+    /// The current ``Song``
+    @Published var song = Song()
+    /// The Song rendered as PDF
+    var pdf: Data = Data()
+
+    var exportURL: URL? {
+        get {
+            print("Getter")
+            return nil
+        }
+    }
+
+
     /// The selection in the editor
     @Published var selection: NSRange = .init(location: 0, length: 0)
-
-    @Published var pdf: Data = Data()
-
     /// The `NSTextView` of the editor
     var textView: SWIFTTextView?
     /// Bool to show the `print` Dialog
