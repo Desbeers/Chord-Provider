@@ -13,15 +13,6 @@ final class SceneState: ObservableObject {
     @Published var song = Song()
     /// The Song rendered as PDF
     var pdf: Data = Data()
-
-    var exportURL: URL? {
-        get {
-            print("Getter")
-            return nil
-        }
-    }
-
-
     /// The selection in the editor
     @Published var selection: NSRange = .init(location: 0, length: 0)
     /// The `NSTextView` of the editor

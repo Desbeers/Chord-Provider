@@ -43,7 +43,6 @@ struct EditorView: View {
                     sceneState?.textView = editor.textView
                 }
             }
-            //.focusedSceneObject(sceneState)
     }
     /// The Toolbar
     var toolbar: some View {
