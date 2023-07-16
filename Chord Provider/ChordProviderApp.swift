@@ -75,6 +75,12 @@ import SwiftUI
             CommandGroup(after: CommandGroupPlacement.importExport) {
                 PrintSongView()
             }
+            CommandGroup(replacing: .help) {
+                // swiftlint:disable:next force_unwrapping
+                Link(destination: URL(string: "https://github.com/Desbeers/Chord-Provider")!) {
+                    Text("Chord Provider on GitHub")
+                }
+            }
         }
         .defaultSize(width: 1000, height: 800)
         .defaultPosition(.center)

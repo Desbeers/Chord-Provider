@@ -25,10 +25,6 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>CFBundleHelpBookFolder</key>
-	<string>ChordProviderHelp.help</string>
-	<key>CFBundleHelpBookName</key>
-	<string>Chord Provider Help</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -46,7 +42,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2022 Nick Berendsen</string>
+	<string>Copyright © 2023 Nick Berendsen</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
