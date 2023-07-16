@@ -72,6 +72,9 @@ import SwiftUI
             CommandGroup(after: CommandGroupPlacement.importExport) {
                 ExportSongView()
             }
+            CommandGroup(after: CommandGroupPlacement.importExport) {
+                PrintSongView()
+            }
         }
         .defaultSize(width: 1000, height: 800)
         .defaultPosition(.center)

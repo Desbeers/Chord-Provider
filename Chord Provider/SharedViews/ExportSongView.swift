@@ -12,6 +12,8 @@ struct ExportSongView: View {
     /// The document
     @FocusedBinding(\.document)
     private var document: ChordProDocument?
+    /// The scene
+    @FocusedObject private var scene: SceneState?
     /// The ``Song``
     var song: Song {
         ChordPro.parse(text: document?.text ?? "", transpose: 0)
@@ -25,17 +27,17 @@ struct ExportSongView: View {
         // swiftlint:disable:next trailing_closure
         Button(
             action: {
-                pdf = try? Data(contentsOf: song.exportURL)
                 exportFile = true
             },
             label: {
-                Label("Export song…", systemImage: "square.and.arrow.up")
+                Label("Export as PDF…", systemImage: "square.and.arrow.up")
             }
         )
-        .help("Export your song")
+        .help("Export your song as PDF")
+        .disabled(document == nil || scene == nil)
         .fileExporter(
             isPresented: $exportFile,
-            document: ExportDocument(pdf: pdf),
+            document: ExportDocument(pdf: scene?.pdf),
             contentType: .pdf,
             defaultFilename: song.exportName,
             onCompletion: { result in

@@ -12,8 +12,10 @@ import HighlightedTextEditor
 struct EditorView: View {
     /// The CordPro document
     @Binding var document: ChordProDocument
-    /// The state of the scene
-    @StateObject private var sceneState = SceneState()
+//    /// The state of the scene
+//    @StateObject private var sceneState = SceneState()
+    /// The scene
+    @FocusedObject private var sceneState: SceneState?
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -21,7 +23,7 @@ struct EditorView: View {
             editor
         }
         /// The buttons on the editor toolbar change on selection
-        .animation(.default, value: sceneState.selection)
+        .animation(.default, value: sceneState?.selection)
     }
     /// The editor
     var editor: some View {
@@ -29,19 +31,19 @@ struct EditorView: View {
         /// Below selector prevents the cursor from jumping while the SongView is updated
         /// It will also be passed to 'format' buttons
             .onSelectionChange { (range: NSRange) in
-                sceneState.selection = range
+                sceneState?.selection = range
             }
         /// Below is needed to interact with the NSTextView
             .introspect { editor in
                 /// Setup the TextView
-                if sceneState.textView == nil {
+                if sceneState?.textView == nil {
                     #if os(macOS)
                     editor.textView.textContainerInset = NSSize(width: 10, height: 10)
                     #endif
-                    sceneState.textView = editor.textView
+                    sceneState?.textView = editor.textView
                 }
             }
-            .focusedSceneObject(sceneState)
+            //.focusedSceneObject(sceneState)
     }
     /// The Toolbar
     var toolbar: some View {

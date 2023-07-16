@@ -13,6 +13,8 @@ struct ContentView: View {
     @Binding var document: ChordProDocument
     /// The optional file location
     let file: URL?
+    /// The state of the scene
+    @StateObject private var sceneState = SceneState()
     /// The ``Song``
     @State private var song = Song()
     /// The body of the `View`
@@ -28,6 +30,14 @@ struct ContentView: View {
         .toolbar {
             ToolbarView(song: $song)
         }
+        .focusedSceneObject(sceneState)
+        .onChange(of: sceneState.showPrintDialog) { dialog in
+            if dialog {
+                PrintSongView.printDialog(song: song)
+                sceneState.showPrintDialog.toggle()
+            }
+        }
+
 #endif
 
 #if os(iOS)
@@ -44,6 +54,7 @@ struct ContentView: View {
             .toolbarBackground(Color("AccentColor"), for: .automatic)
             .toolbarBackground(.visible, for: .automatic)
             .toolbarColorScheme(.dark, for: .automatic)
+            .focusedSceneObject(sceneState)
 #endif
     }
 }

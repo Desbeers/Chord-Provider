@@ -11,8 +11,13 @@ import SwiftUI
 final class SceneState: ObservableObject {
     /// The selection in the editor
     @Published var selection: NSRange = .init(location: 0, length: 0)
+
+    @Published var pdf: Data = Data()
+
     /// The `NSTextView` of the editor
     var textView: SWIFTTextView?
+    /// Bool to show the `print` Dialog
+    @Published var showPrintDialog: Bool = false
 }
 
 /// The `FocusedValueKey` for the scene state

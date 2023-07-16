@@ -37,8 +37,13 @@ enum ExportSong {
     /// - Parameter song: The song
     @MainActor
     static func savePDF(song: Song) {
+
+        /// The scene
+        @FocusedObject var scene: SceneState?
+
         print("Save Song")
         if let pdf = ExportSong.createPDF(song: song) {
+            scene?.pdf = pdf as Data
             try? pdf.write(to: song.exportURL)
         }
     }

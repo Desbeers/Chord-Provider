@@ -16,6 +16,8 @@
 		D71DE9FF258A6E88007B513D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D71DE9FE258A6E88007B513D /* Credits.rtf */; };
 		D72FD53328F19FD200496010 /* ExportSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72FD53228F19FD200496010 /* ExportSongView.swift */; };
 		D734A0B025F93208007AB36A /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D734A0AF25F93208007AB36A /* ChordsView.swift */; };
+		D73B328D2A63E33C00D2E385 /* PrintSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B328C2A63E33C00D2E385 /* PrintSongView.swift */; };
+		D73B328E2A63E33C00D2E385 /* PrintSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B328C2A63E33C00D2E385 /* PrintSongView.swift */; };
 		D74187142A376C6600041DFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74187132A376C6600041DFE /* MainView.swift */; };
 		D74187152A376C6600041DFE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74187132A376C6600041DFE /* MainView.swift */; };
 		D74357352A63051300A2E09D /* SceneState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74D97AD2A40AD52008DAAE8 /* SceneState.swift */; };
@@ -146,6 +148,7 @@
 		D72FD53228F19FD200496010 /* ExportSongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSongView.swift; sourceTree = "<group>"; };
 		D731FD4E2694938B00558E02 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		D734A0AF25F93208007AB36A /* ChordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsView.swift; sourceTree = "<group>"; };
+		D73B328C2A63E33C00D2E385 /* PrintSongView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintSongView.swift; sourceTree = "<group>"; };
 		D74187132A376C6600041DFE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		D74357362A63057200A2E09D /* EditorView+EditorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+EditorButton.swift"; sourceTree = "<group>"; };
 		D743573A2A63069F00A2E09D /* ExportDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
@@ -249,6 +252,7 @@
 				D75F8AE32A3638FC00125AEF /* ToolbarView.swift */,
 				D7B700FF2577A8E3005AEBF6 /* HeaderView.swift */,
 				D72FD53228F19FD200496010 /* ExportSongView.swift */,
+				D73B328C2A63E33C00D2E385 /* PrintSongView.swift */,
 			);
 			path = SharedViews;
 			sourceTree = "<group>";
@@ -592,6 +596,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D73B328E2A63E33C00D2E385 /* PrintSongView.swift in Sources */,
 				D7CC570E25FBAFC700AD96CA /* Song+Chord.swift in Sources */,
 				D74187152A376C6600041DFE /* MainView.swift in Sources */,
 				D7BA23082A4DE1FA00624D0D /* ContentView.swift in Sources */,
@@ -663,6 +668,7 @@
 				D758E3D329123DC7007359C3 /* ChordPro+Regex.swift in Sources */,
 				D75F8AE42A3638FC00125AEF /* ToolbarView.swift in Sources */,
 				D759294B2572280C006DDF24 /* ChordProDocument.swift in Sources */,
+				D73B328D2A63E33C00D2E385 /* PrintSongView.swift in Sources */,
 				D758E3D72912501E007359C3 /* ChordPro+Environment.swift in Sources */,
 				D759294D2572280C006DDF24 /* ContentView.swift in Sources */,
 				D77B136D29704E5900ECE2F9 /* ExportSong.swift in Sources */,
@@ -821,7 +827,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -852,7 +858,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Chord Provider/iOS/Info.plist";
@@ -886,7 +892,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -917,7 +923,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -945,7 +951,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -975,7 +981,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
