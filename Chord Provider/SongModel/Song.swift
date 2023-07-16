@@ -36,6 +36,20 @@ struct Song {
     /// The optional transpose
     var transpose: Int = 0
 
+    // MARK: Song export
+
+    /// The location for the PDF export
+    var exportURL: URL {
+        return FileManager.default.temporaryDirectory
+            .appendingPathComponent(exportName)
+            .appendingPathExtension("pdf")
+    }
+
+    /// The default name for the export
+    var exportName: String {
+        "\(artist ?? "Artist") - \(title ?? "Title")"
+    }
+
     // MARK: All the sections in the song
 
     /// The sections of the song

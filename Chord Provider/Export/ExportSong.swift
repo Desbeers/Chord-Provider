@@ -33,6 +33,16 @@ enum ExportSong {
         return nil
     }
 
+    /// Write the PDF to disk
+    /// - Parameter song: The song
+    @MainActor
+    static func savePDF(song: Song) {
+        print("Save Song")
+        if let pdf = ExportSong.createPDF(song: song) {
+            try? pdf.write(to: song.exportURL)
+        }
+    }
+
     /// Merge all the parts into pages
     /// - Parameters:
     ///   - header: The header of the song

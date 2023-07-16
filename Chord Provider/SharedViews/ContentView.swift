@@ -27,8 +27,6 @@ struct ContentView: View {
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
             ToolbarView(song: $song)
-            ExportSongView()
-                .labelStyle(.iconOnly)
         }
 #endif
 
@@ -41,10 +39,6 @@ struct ContentView: View {
                 }
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     ToolbarView(song: $song)
-                }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    ExportSongView()
-                        .labelStyle(.iconOnly)
                 }
             }
             .toolbarBackground(Color("AccentColor"), for: .automatic)

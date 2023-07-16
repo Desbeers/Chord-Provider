@@ -36,6 +36,7 @@ struct MainView: View {
         }
         .task {
             song = ChordPro.parse(text: document.text, transpose: song.transpose)
+            ExportSong.savePDF(song: song)
             /// Always open the editor for a new file
             if document.text == ChordProDocument.newText {
                 showEditor = true
@@ -45,6 +46,7 @@ struct MainView: View {
             Task { @MainActor in
                 await document.buildSongDebouncer.submit {
                     song = ChordPro.parse(text: document.text, transpose: song.transpose)
+                    ExportSong.savePDF(song: song)
                 }
             }
         }

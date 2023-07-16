@@ -18,15 +18,15 @@ struct ExportSongView: View {
     }
     /// Present an export dialog
     @State private var exportFile = false
-    /// The song as image
-    @State private var image: Data?
-
+    /// The song as PDF
+    @State private var pdf: Data?
     /// The body of the `View`
     var body: some View {
         // swiftlint:disable:next trailing_closure
         Button(
             action: {
-                renderSong()
+                pdf = try? Data(contentsOf: song.exportURL)
+                exportFile = true
             },
             label: {
                 Label("Export song…", systemImage: "square.and.arrow.up")
@@ -35,9 +35,9 @@ struct ExportSongView: View {
         .help("Export your song")
         .fileExporter(
             isPresented: $exportFile,
-            document: ExportDocument(image: image),
+            document: ExportDocument(pdf: pdf),
             contentType: .pdf,
-            defaultFilename: "\(song.artist ?? "Artist") - \(song.title ?? "Title")",
+            defaultFilename: song.exportName,
             onCompletion: { result in
                 if case .success = result {
                     print("Success")
@@ -46,13 +46,5 @@ struct ExportSongView: View {
                 }
             }
         )
-    }
-    /// Render the song as a PDF
-    @MainActor
-    private func renderSong() {
-        if let pdf = ExportSong.createPDF(song: song) {
-            image = Data(referencing: pdf)
-            exportFile = true
-        }
     }
 }

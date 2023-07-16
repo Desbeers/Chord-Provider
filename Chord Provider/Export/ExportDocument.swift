@@ -12,21 +12,21 @@ import UniformTypeIdentifiers
 struct ExportDocument: FileDocument {
     /// The type of image to export
     static var readableContentTypes: [UTType] { [.pdf] }
-    /// The image to export
-    var image: Data
+    /// The PDF to export
+    var pdf: Data
     /// Init the struct
-    init(image: Data?) {
-        self.image = image ?? Data()
+    init(pdf: Data?) {
+        self.pdf = pdf ?? Data()
     }
     /// Black magic
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        self.image = data
+        self.pdf = data
     }
     /// Save the exported image
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        return FileWrapper(regularFileWithContents: image as Data)
+        return FileWrapper(regularFileWithContents: pdf as Data)
     }
 }
