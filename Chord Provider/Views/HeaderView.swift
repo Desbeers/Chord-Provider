@@ -35,8 +35,7 @@ struct HeaderView: View {
             .padding(.trailing)
         }
         .padding(4)
-#endif
-#if os(iOS)
+#else
         General(song: song)
         Details(song: song)
         if let musicURL = getMusicURL() {

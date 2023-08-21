@@ -1,13 +1,14 @@
-## My stuff
-*.DS_Store
-.Ulysses-Group.plist
-Icon?
-*.psd
-*.pxm
-export/
-archive/
-08-calibre/
-
-## Xcode
-# User settings
+## User settings
 xcuserdata/
+
+## Icons
+icons/
+
+## Art
+Art/
+
+## Jazzy stuff
+build/
+
+## Mac stuff
+.DS_Store

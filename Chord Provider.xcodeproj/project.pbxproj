@@ -36,7 +36,7 @@
 		D7F13FDA2A6460B7002D875D /* ShareSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAC2A6460B7002D875D /* ShareSongView.swift */; };
 		D7F13FDB2A6460B7002D875D /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAD2A6460B7002D875D /* ToolbarView.swift */; };
 		D7F13FDC2A6460B7002D875D /* EditorView+EditorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAF2A6460B7002D875D /* EditorView+EditorButton.swift */; };
-		D7F13FDD2A6460B7002D875D /* EditorView+rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB02A6460B7002D875D /* EditorView+rules.swift */; };
+		D7F13FDD2A6460B7002D875D /* EditorView+rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB02A6460B7002D875D /* EditorView+rules.swift */; platformFilters = (ios, macos, ); };
 		D7F13FDE2A6460B7002D875D /* EditorView+regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB12A6460B7002D875D /* EditorView+regex.swift */; };
 		D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB22A6460B7002D875D /* EditorView.swift */; };
 		D7F13FE02A6460B7002D875D /* EditorView+format.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB32A6460B7002D875D /* EditorView+format.swift */; };
@@ -50,7 +50,7 @@
 		D7F13FE82A6460B7002D875D /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FBB2A6460B7002D875D /* AudioPlayerView.swift */; };
 		D7F13FEB2A646106002D875D /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7F13FEA2A646106002D875D /* SwiftlyChordUtilities */; };
 		D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */; };
-		D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; productRef = D7F13FF02A646129002D875D /* HighlightedTextEditor */; };
+		D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = D7F13FF02A646129002D875D /* HighlightedTextEditor */; };
 		D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F13FF82A646356002D875D /* Quartz.framework */; platformFilters = (macos, ); };
 		D7F140062A646356002D875D /* QLExtension (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7F13FF62A646356002D875D /* QLExtension (macOS).appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D7F1400B2A646439002D875D /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F972A6460B7002D875D /* PreviewProvider.swift */; };
@@ -94,6 +94,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D7A84D212A9201F1004BA2DA /* SwiftyGuitarChords */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftyGuitarChords; path = ../../../../Downloads/SwiftyGuitarChords; sourceTree = "<group>"; };
 		D7F13F6F2A645FEC002D875D /* Chord Provider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chord Provider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F13F7A2A645FED002D875D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChordProvider.entitlements; sourceTree = "<group>"; };
@@ -171,6 +172,7 @@
 		D7F13F662A645FEC002D875D = {
 			isa = PBXGroup;
 			children = (
+				D7A84D212A9201F1004BA2DA /* SwiftyGuitarChords */,
 				D7F13F712A645FEC002D875D /* Chord Provider */,
 				D7F13FF72A646356002D875D /* Frameworks */,
 				D7F13F702A645FEC002D875D /* Products */,
@@ -376,7 +378,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					D7F13F6E2A645FEC002D875D = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -452,6 +454,7 @@
 		};
 		D7F1401B2A646BBA002D875D /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -466,7 +469,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "git=$(sh /etc/profile; which git)\nnumber_of_commits=$(\"$git\" rev-list HEAD --count)\ngit_release_version=$(\"$git\" describe --tags --always --abbrev=0)\n\ncd \"${PROJECT_DIR}\" ; agvtool new-version ${number_of_commits}\n";
+			shellScript = "#git=$(sh /etc/profile; which git)\n#number_of_commits=$(\"$git\" rev-list HEAD --count)\n#git_release_version=$(\"$git\" describe --tags --always --abbrev=0)\n\n#cd \"${PROJECT_DIR}\" ; agvtool new-version ${number_of_commits}\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -554,6 +557,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -613,6 +617,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -669,7 +674,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 235;
+				CURRENT_PROJECT_VERSION = 236;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -696,12 +701,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "2,7";
 			};
 			name = Debug;
 		};
@@ -713,7 +719,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 235;
+				CURRENT_PROJECT_VERSION = 236;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -740,12 +746,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "2,7";
 			};
 			name = Release;
 		};
@@ -754,7 +761,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 235;
+				CURRENT_PROJECT_VERSION = 236;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -783,7 +790,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 235;
+				CURRENT_PROJECT_VERSION = 236;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;

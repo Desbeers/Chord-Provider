@@ -6,14 +6,28 @@
 //
 
 import SwiftUI
+
+#if os(visionOS)
+
+/// SwiftUI `View` for the `HighlightedTextEditor`
+struct EditorView: View {
+    /// The CordPro document
+    @Binding var document: ChordProDocument
+    /// The scene
+    @FocusedObject private var sceneState: SceneState?
+    /// The body of the `View`
+    var body: some View {
+        TextEditor(text: $document.text)
+    }
+}
+#else
+
 import HighlightedTextEditor
 
 /// SwiftUI `View` for the `HighlightedTextEditor`
 struct EditorView: View {
     /// The CordPro document
     @Binding var document: ChordProDocument
-//    /// The state of the scene
-//    @StateObject private var sceneState = SceneState()
     /// The scene
     @FocusedObject private var sceneState: SceneState?
     /// The body of the `View`
@@ -71,3 +85,5 @@ struct EditorView: View {
         .padding(.horizontal, 5)
     }
 }
+
+#endif

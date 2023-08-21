@@ -35,9 +35,7 @@ struct ContentView: View {
             }
         }
         .focusedSceneObject(sceneState)
-#endif
-
-#if os(iOS)
+#else
         MainView(document: $document, song: $sceneState.song, file: file)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarLeading) {

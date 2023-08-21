@@ -113,6 +113,22 @@ import SwiftUI
         }
     }
 #endif
+
+#if os(visionOS)
+
+    // MARK: visiondOS
+
+    var body: some Scene {
+        DocumentGroup(newDocument: ChordProDocument()) { file in
+            ContentView(document: file.$document, file: file.fileURL)
+            /// Give the scene access to the document.
+                .focusedSceneValue(\.document, file.$document)
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle("")
+        }
+        .defaultSize(width: 1200, height: 800)
+    }
+#endif
 }
 
 #if os(macOS)
