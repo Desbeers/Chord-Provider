@@ -26,8 +26,7 @@ extension Image {
     init(swiftImage: SWIFTImage) {
         #if os(macOS)
         self.init(nsImage: swiftImage)
-        #endif
-        #if os(iOS)
+        #else
         self.init(uiImage: swiftImage)
         #endif
     }

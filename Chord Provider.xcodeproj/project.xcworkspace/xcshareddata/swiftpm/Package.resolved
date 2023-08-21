@@ -1,41 +1,34 @@
 {
-  "pins" : [
-    {
-      "identity" : "highlightedtexteditor",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kyle-n/HighlightedTextEditor",
-      "state" : {
-        "revision" : "7069ede002afc6bde867aef7035f45ff72dc839c",
-        "version" : "2.1.0"
+  "object": {
+    "pins": [
+      {
+        "package": "HighlightedTextEditor",
+        "repositoryURL": "https://github.com/kyle-n/HighlightedTextEditor",
+        "state": {
+          "branch": null,
+          "revision": "7069ede002afc6bde867aef7035f45ff72dc839c",
+          "version": "2.1.0"
+        }
+      },
+      {
+        "package": "SwiftlyChordUtilities",
+        "repositoryURL": "https://github.com/Desbeers/SwiftlyChordUtilities",
+        "state": {
+          "branch": "main",
+          "revision": "b803f1e54efd0514a8cc87c0dbf57e0566f3d892",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftlyFolderUtilities",
+        "repositoryURL": "https://github.com/Desbeers/SwiftlyFolderUtilities",
+        "state": {
+          "branch": "main",
+          "revision": "7938d8bfcbc0697b95ddffa061a671572ecf9acb",
+          "version": null
+        }
       }
-    },
-    {
-      "identity" : "swiftlychordutilities",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
-      "state" : {
-        "branch" : "main",
-        "revision" : "b803f1e54efd0514a8cc87c0dbf57e0566f3d892"
-      }
-    },
-    {
-      "identity" : "swiftlyfolderutilities",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
-      "state" : {
-        "branch" : "main",
-        "revision" : "7938d8bfcbc0697b95ddffa061a671572ecf9acb"
-      }
-    },
-    {
-      "identity" : "swiftyguitarchords",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/BeauNouvelle/SwiftyGuitarChords.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "78ba7ab8c3e758bf4985f913a6eebca1750df34e"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }
