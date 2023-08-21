@@ -1,34 +1,41 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "HighlightedTextEditor",
-        "repositoryURL": "https://github.com/kyle-n/HighlightedTextEditor",
-        "state": {
-          "branch": null,
-          "revision": "7069ede002afc6bde867aef7035f45ff72dc839c",
-          "version": "2.1.0"
-        }
-      },
-      {
-        "package": "SwiftlyChordUtilities",
-        "repositoryURL": "https://github.com/Desbeers/SwiftlyChordUtilities",
-        "state": {
-          "branch": "main",
-          "revision": "b803f1e54efd0514a8cc87c0dbf57e0566f3d892",
-          "version": null
-        }
-      },
-      {
-        "package": "SwiftlyFolderUtilities",
-        "repositoryURL": "https://github.com/Desbeers/SwiftlyFolderUtilities",
-        "state": {
-          "branch": "main",
-          "revision": "7938d8bfcbc0697b95ddffa061a671572ecf9acb",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "highlightedtexteditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kyle-n/HighlightedTextEditor",
+      "state" : {
+        "revision" : "7069ede002afc6bde867aef7035f45ff72dc839c",
+        "version" : "2.1.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swiftlychordutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c1c72eb524e88705237ff67177e66d1dd381d0ff"
+      }
+    },
+    {
+      "identity" : "swiftlyfolderutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7938d8bfcbc0697b95ddffa061a671572ecf9acb"
+      }
+    },
+    {
+      "identity" : "swiftyguitarchords",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftyGuitarChords",
+      "state" : {
+        "branch" : "main",
+        "revision" : "fae0b6b55df940f47c6b6f2544a3ead3eca32d1c"
+      }
+    }
+  ],
+  "version" : 2
 }
