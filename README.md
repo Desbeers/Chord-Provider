@@ -4,13 +4,11 @@
 
 There are many "ChordPro" parsers in this world, however, none are *really* native in the Apple world.
 
-I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainly a mac user; the iPad version is my afterthought...
+I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainly a mac user; the other versions are my afterthought...
 
 ![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/screenshot.jpg)
 
-Written in SwiftUI 4, so macOS Ventura or iPadOS 16 only.
-
-The branch 'SwiftUI-3' has an older version for macOS Monterey or iOS 15, however, I don't update that version anymore.
+Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 
 ### General
 
@@ -64,6 +62,8 @@ I use my [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtiliti
 For the macOS target, I use my [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities) package to handle folder selection and monitoring.
 
 ## How to compile
+
+Xcode 15 is required.
 
 1. Clone the project.
 2. Change the signing certificate to your own.
