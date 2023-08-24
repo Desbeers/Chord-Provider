@@ -44,9 +44,14 @@ struct ContentView: View {
         }
         .focusedSceneObject(sceneState)
 #elseif os(iOS)
-        MainView(document: $document, song: $sceneState.song, file: file)
+        /// Dividers to avoid scrolling over the toolbars
+        VStack(spacing: 0) {
+            Divider()
+            MainView(document: $document, song: $sceneState.song, file: file)
+            Divider()
+        }
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: placement) {
                     ToolbarView(song: $sceneState.song)
