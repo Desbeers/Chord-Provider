@@ -13,9 +13,6 @@ struct HeaderView: View {
     let song: Song
     /// The optional file location
     let file: URL?
-    /// Current scaling of the `View`
-    @SceneStorage("scale")
-    var scale: Double = 1.2
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
@@ -28,11 +25,9 @@ struct HeaderView: View {
         }
         .frame(maxWidth: .infinity)
         .overlay(alignment: .trailing) {
-            Slider(value: $scale, in: 0.8...2.0) {
-                Label("Zoom", systemImage: "magnifyingglass")
-            }
-            .frame(width: 140)
-            .padding(.trailing)
+            ToolbarView.ScaleSlider()
+                .frame(width: 100)
+                .padding(.trailing)
         }
         .padding(4)
 #else

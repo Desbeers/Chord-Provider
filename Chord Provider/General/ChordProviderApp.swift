@@ -126,7 +126,6 @@ import SwiftUI
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle("")
         }
-        .defaultSize(width: 1200, height: 800)
     }
 #endif
 }

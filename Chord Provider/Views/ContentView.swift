@@ -15,6 +15,13 @@ struct ContentView: View {
     let file: URL?
     /// The state of the scene
     @StateObject private var sceneState = SceneState()
+#if os(visionOS)
+    /// Placement of the toolbar
+    let placement: ToolbarItemPlacement = .bottomOrnament
+#elseif os(iOS)
+    /// Placement of the toolbar
+    let placement: ToolbarItemPlacement = .topBarTrailing
+#endif
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
@@ -42,7 +49,7 @@ struct ContentView: View {
                     HeaderView(song: sceneState.song, file: file)
                         .labelStyle(.titleAndIcon)
                 }
-                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                ToolbarItemGroup(placement: placement) {
                     ToolbarView(song: $sceneState.song)
                 }
             }

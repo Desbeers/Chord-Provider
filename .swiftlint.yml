@@ -15,7 +15,7 @@ analyzer_rules:
 
 opt_in_rules:
   - array_init
-  - attributes
+#  - attributes
   - closure_end_indentation
   - closure_spacing
   - collection_alignment
@@ -63,10 +63,10 @@ opt_in_rules:
 #    severity: warning
 
 
-attributes:
-  always_on_same_line:
-    - "@main"
-    - "@objc"
+#attributes:
+#  always_on_same_line:
+#    - "@main"
+#    - "@objc"
 
 file_length:
     warning: 500

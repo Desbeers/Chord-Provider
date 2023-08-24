@@ -70,10 +70,13 @@ struct ChordsView: View {
                             showChordSheet = true
                         }
                     }
+#if os(visionOS)
+                    .hoverEffect()
+#endif
                 }
             }
             .padding(.top)
-            .padding(.trailing)
+            .padding(.horizontal)
         }
         .sheet(isPresented: $showChordSheet) {
             Sheet(chord: $selectedChord)

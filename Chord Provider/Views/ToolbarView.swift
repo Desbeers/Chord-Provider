@@ -33,19 +33,33 @@ struct ToolbarView: View {
                     .foregroundColor(song.transpose > 0 ? .primary : .secondary)
             })
             Button {
-                showChords.toggle()
-            } label: {
-                Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
-                    .frame(minWidth: 110, alignment: .leading)
-            }
-            Button {
                 showEditor.toggle()
             } label: {
                 Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
                     .frame(minWidth: 110, alignment: .leading)
             }
+            Button {
+                showChords.toggle()
+            } label: {
+                Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
+                    .frame(minWidth: 110, alignment: .leading)
+            }
             ShareSongView()
         }
         .labelStyle(.titleAndIcon)
+    }
+}
+
+extension ToolbarView {
+    struct ScaleSlider: View {
+        /// Current scaling of the `SongView`
+        @SceneStorage("scale") var scale: Double = 1.2
+        /// The body of the `View`
+        var body: some View {
+            Slider(value: $scale, in: 0.8...2.0) {
+                Label("Zoom", systemImage: "magnifyingglass")
+            }
+            .labelStyle(.iconOnly)
+        }
     }
 }
