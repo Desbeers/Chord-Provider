@@ -148,18 +148,4 @@ extension FileBrowser {
             }
         }
     }
-
-    /// The folder selector
-    func selectSongsFolder() async {
-        do {
-            _ = try await FolderBookmark.select(
-                prompt: "Select",
-                message: "Select the folder with your songs",
-                bookmark: FileBrowser.bookmark
-            )
-            await self.getFiles()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
 }

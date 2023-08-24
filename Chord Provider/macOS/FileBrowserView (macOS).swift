@@ -58,17 +58,15 @@ struct FileBrowserView: View {
     }
     /// Folder selection button
     var folderButton: some View {
-        Button(
-            action: {
-                Task {
-                    await fileBrowser.selectSongsFolder()
-                }
-            },
-            label: {
-                Label("Select a folder with your songs", systemImage: "folder")
+        FolderBookmark.SelectFolder(
+            bookmark: FileBrowser.bookmark,
+            title: "Select a folder",
+            systemImage: "folder"
+        ) {
+            Task { @MainActor in
+                await fileBrowser.getFiles()
             }
-        )
-        .help("Select the folder with your songs")
+        }
     }
 }
 
