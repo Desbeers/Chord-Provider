@@ -39,7 +39,7 @@ struct AudioPlayerView: View {
 #endif
                 },
                 label: {
-                    Image(systemName: "play.circle.fill").foregroundColor(.secondary)
+                    Image(systemName: "play.fill")
                 }
             )
             .padding(.leading)
@@ -52,11 +52,12 @@ struct AudioPlayerView: View {
                     }
                 },
                 label: {
-                    Image(systemName: "pause.circle.fill").foregroundColor(.secondary)
+                    Image(systemName: "pause.fill")
                 }
             )
             .disabled(!isPlaying)
         }
+        .buttonStyle(.bordered)
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Ooops..."),
@@ -73,6 +74,7 @@ struct AudioPlayerView: View {
                 audioPlayer = AVAudioPlayer.init()
             }
             audioPlayer = try AVAudioPlayer(contentsOf: musicURL)
+            audioPlayer?.prepareToPlay()
             audioPlayer?.play()
             /// For the button state
             isPlaying = true

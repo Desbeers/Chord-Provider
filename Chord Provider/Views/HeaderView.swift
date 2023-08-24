@@ -19,9 +19,7 @@ struct HeaderView: View {
         HStack(alignment: .center) {
             General(song: song)
             Details(song: song)
-            if let musicURL = getMusicURL() {
-                AudioPlayerView(musicURL: musicURL)
-            }
+            ToolbarView.PlayerButtons(song: song, file: file)
         }
         .frame(maxWidth: .infinity)
         .overlay(alignment: .trailing) {
@@ -30,25 +28,14 @@ struct HeaderView: View {
                 .padding(.trailing)
         }
         .padding(4)
-#else
+#elseif os(iOS)
         General(song: song)
         Details(song: song)
-        if let musicURL = getMusicURL() {
-            AudioPlayerView(musicURL: musicURL)
-        }
+            .labelStyle(.titleAndIcon)
+#elseif os(visionOS)
+        Details(song: song)
+            .labelStyle(.titleAndIcon)
 #endif
-    }
-
-    /// Get the URL for the music file
-    /// - Parameter musicPath: Te path of the file
-    /// - Returns: A full URL to the file, if found
-    func getMusicURL() -> URL? {
-        guard let file, let path = song.musicPath else {
-            return nil
-        }
-        var musicURL = file.deletingLastPathComponent()
-        musicURL.appendPathComponent(path)
-        return musicURL
     }
 }
 

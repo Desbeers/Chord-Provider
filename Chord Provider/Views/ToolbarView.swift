@@ -19,7 +19,7 @@ struct ToolbarView: View {
     var showChords: Bool = true
     /// The body of the `View`
     var body: some View {
-        Group {
+        HStack {
             Button(action: {
                 song.transpose -= 1
             }, label: {
@@ -35,16 +35,13 @@ struct ToolbarView: View {
             Button {
                 showEditor.toggle()
             } label: {
-                Label(showEditor ? "Hide editor" : "Edit song", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
-                    .frame(minWidth: 110, alignment: .leading)
+                Label("Edit", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
             Button {
                 showChords.toggle()
             } label: {
-                Label(showChords ? "Hide chords" : "Show chords", systemImage: showChords ? "number.square.fill" : "number.square")
-                    .frame(minWidth: 110, alignment: .leading)
+                Label("Chords", systemImage: showChords ? "number.circle.fill" : "number.circle")
             }
-            ShareSongView()
         }
         .labelStyle(.titleAndIcon)
     }
@@ -60,6 +57,33 @@ extension ToolbarView {
                 Label("Zoom", systemImage: "magnifyingglass")
             }
             .labelStyle(.iconOnly)
+        }
+    }
+}
+
+extension ToolbarView {
+    struct PlayerButtons: View {
+        /// The ``Song``
+        let song: Song
+        /// The optional file location
+        let file: URL?
+        /// The body of the `View`
+        var body: some View {
+            if let musicURL = getMusicURL() {
+                AudioPlayerView(musicURL: musicURL)
+            } else {
+                EmptyView()
+            }
+        }
+        /// Get the URL for the music file
+        /// - Returns: A full URL to the file, if found
+        private func getMusicURL() -> URL? {
+            guard let file, let path = song.musicPath else {
+                return nil
+            }
+            var musicURL = file.deletingLastPathComponent()
+            musicURL.appendPathComponent(path)
+            return musicURL
         }
     }
 }

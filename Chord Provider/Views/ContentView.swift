@@ -34,6 +34,7 @@ struct ContentView: View {
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
             ToolbarView(song: $sceneState.song)
+            ShareSongView()
         }
         .onChange(of: sceneState.showPrintDialog) { dialog in
             if dialog {
@@ -42,20 +43,35 @@ struct ContentView: View {
             }
         }
         .focusedSceneObject(sceneState)
-#else
+#elseif os(iOS)
         MainView(document: $document, song: $sceneState.song, file: file)
+            .navigationTitle(sceneState.song.title ?? "Chord Provider")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItemGroup(placement: .navigationBarLeading) {
-                    HeaderView(song: sceneState.song, file: file)
-                        .labelStyle(.titleAndIcon)
-                }
                 ToolbarItemGroup(placement: placement) {
                     ToolbarView(song: $sceneState.song)
+                        .buttonStyle(.bordered)
+                    ShareSongView()
+                }
+                ToolbarItemGroup(placement: .bottomBar) {
+                    HeaderView(song: sceneState.song, file: file)
+                        .foregroundColor(.accentColor)
                 }
             }
-            .toolbarBackground(Color("AccentColor"), for: .automatic)
-            .toolbarBackground(.visible, for: .automatic)
-            .toolbarColorScheme(.dark, for: .automatic)
+            .focusedSceneObject(sceneState)
+#elseif os(visionOS)
+        MainView(document: $document, song: $sceneState.song, file: file)
+            .navigationTitle(sceneState.song.title ?? "Chord Provider")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItemGroup(placement: placement) {
+                    ToolbarView(song: $sceneState.song)
+                    ShareSongView()
+                }
+                ToolbarItemGroup(placement: .secondaryAction) {
+                    HeaderView(song: sceneState.song, file: file)
+                }
+            }
             .focusedSceneObject(sceneState)
 #endif
     }

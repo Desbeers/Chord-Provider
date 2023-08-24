@@ -39,6 +39,7 @@ struct SongView: View {
 #if os(visionOS)
                     .toolbar {
                         ToolbarItemGroup(placement: .topBarTrailing) {
+                            Image(systemName: "magnifyingglass")
                             ToolbarView.ScaleSlider()
                                 .frame(width: 100)
                         }

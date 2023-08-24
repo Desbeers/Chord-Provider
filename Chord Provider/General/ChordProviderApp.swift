@@ -108,8 +108,6 @@ import SwiftUI
             ContentView(document: file.$document, file: file.fileURL)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("")
         }
     }
 #endif
@@ -123,8 +121,6 @@ import SwiftUI
             ContentView(document: file.$document, file: file.fileURL)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
-                .navigationBarTitleDisplayMode(.inline)
-                .navigationTitle("")
         }
     }
 #endif
