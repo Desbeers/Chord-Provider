@@ -34,7 +34,10 @@ struct SongView: View {
     var body: some View {
         VStack {
             ScrollView {
-                Song.Render(song: song, scale: scale)
+                ViewThatFits {
+                    Song.Render(song: song, scale: scale, style: .asGrid)
+                    Song.Render(song: song, scale: scale, style: .asList)
+                }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
 #if os(visionOS)
                     .toolbar {

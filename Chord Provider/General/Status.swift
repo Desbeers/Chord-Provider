@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// swiftlint:disable all
+
 /// The status of a song
 enum Status: String {
     case notFound
@@ -77,3 +79,5 @@ If you add a **'musicpath'** to your ChordPro file, Chord Provider can play the 
 If you have selected a folder, this welcome message will be replaced with a list of your songs and is searchable.
 """
 }
+
+// swiftlint:enable all

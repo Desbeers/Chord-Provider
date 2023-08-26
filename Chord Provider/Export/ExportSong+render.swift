@@ -87,21 +87,21 @@ extension ExportSong {
         for section in song.sections {
             switch section.type {
             case .verse:
-                part = renderPart(view: Song.Render.VerseView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.VerseView(section: section))
             case .chorus:
-                part = renderPart(view: Song.Render.ChorusView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.ChorusView(section: section))
             case .bridge:
-                part = renderPart(view: Song.Render.VerseView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.VerseView(section: section))
             case .repeatChorus:
-                part = renderPart(view: Song.Render.RepeatChorusView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.RepeatChorusView(section: section))
             case .tab:
-                part = renderPart(view: Song.Render.TabView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.TabView(section: section))
             case .grid:
-                part = renderPart(view: Song.Render.GridView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.GridView(section: section))
             case .comment:
-                part = renderPart(view: Song.Render.CommentView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.CommentView(section: section))
             default:
-                part = renderPart(view: Song.Render.PlainView(section: section, scale: 1))
+                part = renderPart(view: Song.Render.PlainView(section: section))
             }
             if let part {
                 parts.append(part)
