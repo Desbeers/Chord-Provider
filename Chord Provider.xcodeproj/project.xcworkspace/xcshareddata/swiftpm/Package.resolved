@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "documentkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/danielsaidi/DocumentKit.git",
+      "state" : {
+        "revision" : "440d46690b7acab270d1b09b9653e0ab22087498",
+        "version" : "0.1.1"
+      }
+    },
+    {
       "identity" : "highlightedtexteditor",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kyle-n/HighlightedTextEditor",
@@ -24,7 +33,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "80453733969d5650904928290ec02f2d3d65f934"
+        "revision" : "4a249ab028faaae49928d653a1799d561083fedc"
       }
     },
     {

@@ -2,7 +2,7 @@
 //  ExportSong+render.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 15/07/2023.
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI

@@ -6,16 +6,22 @@
 //
 
 import SwiftUI
-
+import SwiftlyFolderUtilities
+#if os(iOS)
+import DocumentKit
+#endif
 /// SwiftUI `Scene` for Chord Provider
 @main struct ChordProviderApp: App {
+
+    /// The ``FileBrowser``
+    @StateObject var fileBrowser: FileBrowser = .shared
+    /// The welcome view setting
+    @AppStorage("hideWelcome") var hideWelcome: Bool = true
 
 #if os(macOS)
 
     // MARK: macOS
 
-    /// The ``FileBrowser``
-    @StateObject var fileBrowser = FileBrowser()
     /// AppKit app delegate
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     /// The body of the `Scene`
@@ -39,6 +45,7 @@ import SwiftUI
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
+                .environmentObject(fileBrowser)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
                 .onDisappear {
@@ -108,6 +115,18 @@ import SwiftUI
             ContentView(document: file.$document, file: file.fileURL)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
+                .environmentObject(fileBrowser)
+                .task {
+                    if hideWelcome == false {
+                        UserDefaults.standard.resetDocumentGroupOnboardingState(for: "welcome")
+                    }
+                }
+        }
+        .additionalNavigationBarButtonItems(
+            leading: [.onboarding]
+        )
+        .onboardingSheet(id: "welcome") {
+            OnboardingView()
         }
     }
 #endif
@@ -119,6 +138,7 @@ import SwiftUI
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
+                .environmentObject(fileBrowser)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
         }

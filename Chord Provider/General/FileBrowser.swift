@@ -10,23 +10,30 @@ import SwiftlyFolderUtilities
 
 /// The observable FileBrowser for Chord Provider
 class FileBrowser: ObservableObject {
+
+    static let shared = FileBrowser()
+
     /// The list of songs
     @Published var songList: [SongItem] = []
     /// The list of artists
     @Published var artistList: [ArtistItem] = []
-    /// Bool if a folder is selected
-    @Published var folder: Bool = true
     /// The name of the folder bookmark
     static let bookmark: String = "SongsFolder"
+    /// The Class to monitor the songs folder
+    let folderMonitor = FolderMonitor()
+    /// The optional songs folder
+    @Published var songsFolder: URL?
+    /// The status
+    @Published var status: Status = .unknown
+    /// Init the FileBrowser
+#if os(macOS)
     /// The list of open windows
     @Published var openWindows: [NSWindow.WindowItem] = []
     /// The MenuBarExtra window
     /// - Note: Needed to close the MenuBarExtra when selecting a song
     var menuBarExtraWindow: NSWindow?
-    /// The Class to monitor the songs folder
-    let folderMonitor = FolderMonitor()
-    /// Init the FileBrowser
-    init() {
+#endif
+    private init() {
         folderMonitor.folderDidChange = {
             Task {
                 await self.getFiles()
@@ -75,13 +82,14 @@ extension FileBrowser {
     // MARK: Functions
 
     /// Get the song files from the user selected folder
-    @MainActor
-    func getFiles() async {
+    @MainActor func getFiles() async {
         do {
             /// The found songs
             var songs = [SongItem]()
             /// Get a list of all files
             try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { persistentURL in
+                songsFolder = persistentURL
+                status = .ready
                 folderMonitor.addRecursiveURL(persistentURL)
                 if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                     while let item = items.nextObject() as? URL {
@@ -92,23 +100,22 @@ extension FileBrowser {
                         }
                     }
                 }
+                /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
+                let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
+                    occurrence.artist
+                }
+                /// We now map over the dictionary and create our artist objects.
+                /// Then we want to sort them so that they are in the correct order.
+                artistList = grouped.map { artist -> ArtistItem in
+                    ArtistItem(name: artist.key, songs: artist.value)
+                }
+                .sorted { $0.name < $1.name }
+                songList = songs.sorted { $0.title < $1.title }
             }
-            /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
-            let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
-                occurrence.artist
-            }
-            /// We now map over the dictionary and create our artist objects.
-            /// Then we want to sort them so that they are in the correct order.
-            artistList = grouped.map { artist -> ArtistItem in
-                ArtistItem(name: artist.key, songs: artist.value)
-            }
-            .sorted { $0.name < $1.name }
-            songList = songs.sorted { $0.title < $1.title }
-            folder = true
         } catch {
             /// There is no folder selected
-            folder = false
-            print(error.localizedDescription)
+            songsFolder = nil
+            status = .noFolder
         }
     }
 

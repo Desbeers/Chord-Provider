@@ -16,57 +16,54 @@ struct FileBrowserView: View {
     @State var search: String = ""
     /// The body of the `View`
     var body: some View {
-        List {
-            if search.isEmpty {
-                ForEach(fileBrowser.artistList) { artist in
-                    Section(header: Text(artist.name).font(.headline)) {
-                        ForEach(fileBrowser.songList.filter { $0.artist == artist.name }) { song in
-                            Row(song: song)
+        Group {
+            switch fileBrowser.status {
+            case .noFolder:
+                WelcomeView()
+                    .navigationSubtitle("Welcome")
+            case .ready:
+                List {
+                    if search.isEmpty {
+                        ForEach(fileBrowser.artistList) { artist in
+                            Section(header: Text(artist.name).font(.headline)) {
+                                ForEach(fileBrowser.songList.filter { $0.artist == artist.name }) { song in
+                                    Row(song: song)
+                                }
+                            }
+                        }
+                    } else {
+                        ForEach(fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
+                            Row(song: song, showArtist: true)
                         }
                     }
                 }
-            } else {
-                ForEach(fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
-                    VStack(alignment: .leading) {
-                        Row(song: song)
-                        Text(song.artist)
-                            .font(.caption)
-                    }
-                }
+                .navigationSubtitle("\(fileBrowser.songList.count) songs")
+            default:
+                Image("HugeIcon")
+                    .resizable()
+                    .scaledToFit()
+                    .navigationSubtitle("Welcome")
             }
         }
+        .animation(.default, value: fileBrowser.status)
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
         .labelStyle(BrowserLabelStyle())
         .buttonStyle(.plain)
         .frame(width: 320)
-        .overlay(alignment: .center) {
-            if !fileBrowser.folder {
-                folderButton
-                    .buttonStyle(.bordered)
-            }
-        }
+        .frame(minHeight: 500)
         .navigationTitle("Chord Provider")
-        .navigationSubtitle("\(fileBrowser.songList.count) songs")
         .task {
             await fileBrowser.getFiles()
         }
-        .searchable(text: $search, placement: .sidebar)
         .toolbar {
             folderButton
         }
+        .searchable(text: $search, placement: .sidebar)
     }
     /// Folder selection button
     var folderButton: some View {
-        FolderBookmark.SelectFolder(
-            bookmark: FileBrowser.bookmark,
-            title: "Select a folder",
-            systemImage: "folder"
-        ) {
-            Task { @MainActor in
-                await fileBrowser.getFiles()
-            }
-        }
+        ToolbarView.FolderSelector()
     }
 }
 
@@ -76,11 +73,12 @@ extension FileBrowserView {
     struct Row: View {
         /// The song item
         let song: FileBrowser.SongItem
+        /// Show the artist or not
+        var showArtist: Bool = false
         /// The ``FileBrowser`` model
         @EnvironmentObject var fileBrowser: FileBrowser
         /// Open documents in the environment
-        @Environment(\.openDocument)
-        private var openDocument
+        @Environment(\.openDocument) private var openDocument
         /// Information about the `NSWindow`
         var window: NSWindow.WindowItem? {
             fileBrowser.openWindows.first { $0.fileURL == song.fileURL }
@@ -92,7 +90,20 @@ extension FileBrowserView {
                     openSong(url: song.fileURL)
                 },
                 label: {
-                    Label(song.title, systemImage: song.musicPath.isEmpty ? "music.note" : "music.note.list")
+                    Label(
+                        title: {
+                            VStack(alignment: .leading) {
+                                Text(song.title)
+                                if showArtist {
+                                    Text(song.artist)
+                                        .font(.caption)
+                                }
+                            }
+                        },
+                        icon: {
+                            Image(systemName: song.musicPath.isEmpty ? "music.note" : "music.note.list")
+                        }
+                    )
                 }
             )
             .contextMenu {

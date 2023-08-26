@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */; };
 		D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */; };
+		D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = D7AB1E802A98C284009BC9FB /* DocumentKit */; };
+		D7AB1E832A98E155009BC9FB /* OnboardingView (iPadOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */; platformFilter = ios; };
+		D7D39C4F2A9A13DA004EAE5F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C4E2A9A13DA004EAE5F /* Status.swift */; };
+		D7D39C512A9A19A1004EAE5F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */; };
 		D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F852A6460B7002D875D /* Song+Section+Line.swift */; };
 		D7F13FBD2A6460B7002D875D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F862A6460B7002D875D /* Song.swift */; };
 		D7F13FBE2A6460B7002D875D /* Song+Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F872A6460B7002D875D /* Song+Chord.swift */; };
@@ -20,7 +24,7 @@
 		D7F13FC42A6460B7002D875D /* ExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8E2A6460B7002D875D /* ExportDocument.swift */; };
 		D7F13FC52A6460B7002D875D /* ExportSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8F2A6460B7002D875D /* ExportSong.swift */; };
 		D7F13FC62A6460B7002D875D /* WindowManagement (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F912A6460B7002D875D /* WindowManagement (macOS).swift */; platformFilters = (macos, ); };
-		D7F13FC72A6460B7002D875D /* FileBrowser (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F922A6460B7002D875D /* FileBrowser (macOS).swift */; platformFilters = (macos, ); };
+		D7F13FC72A6460B7002D875D /* FileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F922A6460B7002D875D /* FileBrowser.swift */; };
 		D7F13FC82A6460B7002D875D /* FileBrowserView (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */; platformFilters = (macos, ); };
 		D7F13FCB2A6460B7002D875D /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F992A6460B7002D875D /* Credits.html */; platformFilters = (macos, ); };
 		D7F13FCD2A6460B7002D875D /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F9C2A6460B7002D875D /* ChordProviderApp.swift */; };
@@ -50,7 +54,7 @@
 		D7F13FE62A6460B7002D875D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB92A6460B7002D875D /* ContentView.swift */; };
 		D7F13FE72A6460B7002D875D /* ExportSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FBA2A6460B7002D875D /* ExportSongView.swift */; };
 		D7F13FE82A6460B7002D875D /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FBB2A6460B7002D875D /* AudioPlayerView.swift */; };
-		D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */ = {isa = PBXBuildFile; platformFilters = (macos, ); productRef = D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */; };
+		D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */; };
 		D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = D7F13FF02A646129002D875D /* HighlightedTextEditor */; };
 		D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F13FF82A646356002D875D /* Quartz.framework */; platformFilters = (macos, ); };
 		D7F140062A646356002D875D /* QLExtension (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7F13FF62A646356002D875D /* QLExtension (macOS).appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -94,6 +98,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingView (iPadOS).swift"; sourceTree = "<group>"; };
+		D7D39C4E2A9A13DA004EAE5F /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D7F13F6F2A645FEC002D875D /* Chord Provider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chord Provider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F13F7A2A645FED002D875D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChordProvider.entitlements; sourceTree = "<group>"; };
@@ -108,7 +115,7 @@
 		D7F13F8E2A6460B7002D875D /* ExportDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
 		D7F13F8F2A6460B7002D875D /* ExportSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportSong.swift; sourceTree = "<group>"; };
 		D7F13F912A6460B7002D875D /* WindowManagement (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WindowManagement (macOS).swift"; sourceTree = "<group>"; };
-		D7F13F922A6460B7002D875D /* FileBrowser (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileBrowser (macOS).swift"; sourceTree = "<group>"; };
+		D7F13F922A6460B7002D875D /* FileBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
 		D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileBrowserView (macOS).swift"; sourceTree = "<group>"; };
 		D7F13F962A6460B7002D875D /* QLExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = QLExtension.entitlements; sourceTree = "<group>"; };
 		D7F13F972A6460B7002D875D /* PreviewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
@@ -152,6 +159,7 @@
 			files = (
 				D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */,
 				D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */,
+				D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */,
 				D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +237,6 @@
 			children = (
 				D7F13F952A6460B7002D875D /* QLExtension */,
 				D7F13F912A6460B7002D875D /* WindowManagement (macOS).swift */,
-				D7F13F922A6460B7002D875D /* FileBrowser (macOS).swift */,
 				D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */,
 				D7F13F992A6460B7002D875D /* Credits.html */,
 			);
@@ -251,9 +258,11 @@
 			children = (
 				D7F13F9C2A6460B7002D875D /* ChordProviderApp.swift */,
 				D7F13F9F2A6460B7002D875D /* SceneState.swift */,
+				D7F13F922A6460B7002D875D /* FileBrowser.swift */,
 				D7F13F9D2A6460B7002D875D /* ChordProDocument.swift */,
 				D7F13FA02A6460B7002D875D /* Aliasses.swift */,
 				D7F13FA12A6460B7002D875D /* Debouncer.swift */,
+				D7D39C4E2A9A13DA004EAE5F /* Status.swift */,
 				D7F13F9E2A6460B7002D875D /* Assets.xcassets */,
 				D7F13F7A2A645FED002D875D /* Info.plist */,
 				D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */,
@@ -277,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */,
+				D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */,
 			);
 			path = iPadOS;
 			sourceTree = "<group>";
@@ -295,6 +305,7 @@
 				D7F13FB62A6460B7002D875D /* PrintSongView.swift */,
 				D7F13FAC2A6460B7002D875D /* ShareSongView.swift */,
 				D7F13FBA2A6460B7002D875D /* ExportSongView.swift */,
+				D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -343,6 +354,7 @@
 				D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */,
 				D7F13FF02A646129002D875D /* HighlightedTextEditor */,
 				D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */,
+				D7AB1E802A98C284009BC9FB /* DocumentKit */,
 			);
 			productName = "Chord Provider";
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
@@ -399,6 +411,7 @@
 				D7F13FEC2A646110002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */,
 				D7F13FEF2A646129002D875D /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
 				D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */,
+				D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */,
 			);
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
 			projectDirPath = "";
@@ -487,6 +500,7 @@
 				D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */,
 				D7F13FC62A6460B7002D875D /* WindowManagement (macOS).swift in Sources */,
 				D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */,
+				D7D39C4F2A9A13DA004EAE5F /* Status.swift in Sources */,
 				D7F13FE62A6460B7002D875D /* ContentView.swift in Sources */,
 				D7F13FE32A6460B7002D875D /* PrintSongView.swift in Sources */,
 				D7F13FE72A6460B7002D875D /* ExportSongView.swift in Sources */,
@@ -500,11 +514,13 @@
 				D7F13FD02A6460B7002D875D /* SceneState.swift in Sources */,
 				D7F13FE82A6460B7002D875D /* AudioPlayerView.swift in Sources */,
 				D7F13FD32A6460B7002D875D /* ChordPro.swift in Sources */,
+				D7AB1E832A98E155009BC9FB /* OnboardingView (iPadOS).swift in Sources */,
 				D7F13FC02A6460B7002D875D /* Song+Section.swift in Sources */,
 				D7F13FC52A6460B7002D875D /* ExportSong.swift in Sources */,
-				D7F13FC72A6460B7002D875D /* FileBrowser (macOS).swift in Sources */,
+				D7F13FC72A6460B7002D875D /* FileBrowser.swift in Sources */,
 				D7F13FD12A6460B7002D875D /* Aliasses.swift in Sources */,
 				D7F13FDD2A6460B7002D875D /* EditorView+rules.swift in Sources */,
+				D7D39C512A9A19A1004EAE5F /* WelcomeView.swift in Sources */,
 				D7F13FE52A6460B7002D875D /* SongView.swift in Sources */,
 				D7F13FC32A6460B7002D875D /* ExportSong+render.swift in Sources */,
 				D7F13FCD2A6460B7002D875D /* ChordProviderApp.swift in Sources */,
@@ -855,6 +871,14 @@
 				kind = branch;
 			};
 		};
+		D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielsaidi/DocumentKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
 		D7F13FEC2A646110002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Desbeers/SwiftlyFolderUtilities";
@@ -883,6 +907,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */;
 			productName = SwiftlyChordUtilities;
+		};
+		D7AB1E802A98C284009BC9FB /* DocumentKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */;
+			productName = DocumentKit;
 		};
 		D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */ = {
 			isa = XCSwiftPackageProductDependency;

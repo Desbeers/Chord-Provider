@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for the content
 struct ContentView: View {
@@ -15,13 +16,6 @@ struct ContentView: View {
     let file: URL?
     /// The state of the scene
     @StateObject private var sceneState = SceneState()
-#if os(visionOS)
-    /// Placement of the toolbar
-    let placement: ToolbarItemPlacement = .bottomOrnament
-#elseif os(iOS)
-    /// Placement of the toolbar
-    let placement: ToolbarItemPlacement = .topBarTrailing
-#endif
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
@@ -53,14 +47,18 @@ struct ContentView: View {
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItemGroup(placement: placement) {
+                ToolbarItemGroup(placement: .topBarTrailing) {
                     ToolbarView(song: $sceneState.song)
+                        .buttonStyle(.bordered)
+                    ToolbarView.FolderSelector()
+                        .labelStyle(.titleAndIcon)
                         .buttonStyle(.bordered)
                     ShareSongView()
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
                     HeaderView(song: sceneState.song, file: file)
                         .foregroundColor(.accentColor)
+                    ToolbarView.PlayerButtons(song: sceneState.song, file: file)
                 }
             }
             .focusedSceneObject(sceneState)
@@ -69,12 +67,16 @@ struct ContentView: View {
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItemGroup(placement: placement) {
-                    ToolbarView(song: $sceneState.song)
-                    ShareSongView()
+                ToolbarItemGroup(placement: .navigation) {
+                    ToolbarView.FolderSelector()
                 }
                 ToolbarItemGroup(placement: .secondaryAction) {
                     HeaderView(song: sceneState.song, file: file)
+                    ToolbarView.PlayerButtons(song: sceneState.song, file: file)
+                }
+                ToolbarItemGroup(placement: .bottomOrnament) {
+                    ToolbarView(song: $sceneState.song)
+                    ShareSongView()
                 }
             }
             .focusedSceneObject(sceneState)

@@ -7,9 +7,7 @@
 
 import SwiftUI
 import AVKit
-#if os(macOS)
 import SwiftlyFolderUtilities
-#endif
 
 /// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {
@@ -19,53 +17,122 @@ struct AudioPlayerView: View {
     @State private var audioPlayer: AVAudioPlayer?
     /// Bool if the player is playing or not
     @State private var isPlaying: Bool = false
+    /// The FileBrowser model
+    @EnvironmentObject var fileBrowser: FileBrowser
+    /// The status of the song
+    @State private var status: Status = .unknown
+    /// The iCloud URL of the song
+    private var iCloudURL: URL {
+        let hiddenFile = ".\(musicURL.lastPathComponent).icloud"
+        return musicURL.deletingLastPathComponent().appending(path: hiddenFile)
+    }
     /// Show an `Alert` if the music file is not found
     @State private var showAlert = false
+
+    // MARK: Body of the View
+
     /// The body of the `View`
     var body: some View {
         HStack {
-            Button(
-                action: {
-#if os(macOS)
-                    /// For macOS we need the bookmark to access the file
-                    Task {
-                        try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
-                            playSong()
-                        }
-                    }
-#else
-                    /// iOS can just play it...
-                    playSong()
-#endif
-                },
-                label: {
-                    Image(systemName: "play.fill")
-                }
-            )
-            .padding(.leading)
-            Button(
-                action: {
-                    if audioPlayer?.isPlaying == true {
-                        audioPlayer?.pause()
-                    } else {
-                        audioPlayer?.play()
-                    }
-                },
-                label: {
-                    Image(systemName: "pause.fill")
-                }
-            )
-            .disabled(!isPlaying)
+            playButton
+            if status == .ready {
+                pauseButton
+            } else {
+                Button(action: {
+                    showAlert.toggle()
+                }, label: {
+                    status.icon
+                })
+            }
         }
+        .animation(.default, value: status)
         .buttonStyle(.bordered)
-        .alert(isPresented: $showAlert) {
-            Alert(
-                title: Text("Ooops..."),
-                message: Text("The audio file was not found."),
-                dismissButton: .default(Text("OK"))
-            )
+        .task(id: musicURL) {
+            await checkSong()
+        }
+        .task(id: fileBrowser.songsFolder) {
+            await checkSong()
+        }
+        .alert(
+            status.title,
+            isPresented: $showAlert,
+            actions: {
+                switch status {
+                case .notDownloaded:
+                    Button(action: {
+                        Task {
+                            await downloadSong()
+                        }
+                    }, label: {
+                        Text("Download")
+                    })
+                    Button(action: {}, label: { Text("Cancel") })
+                default:
+                    EmptyView()
+                }
+            },
+            message: {
+                Text(status.message(song: musicURL.lastPathComponent))
+            }
+        )
+    }
+
+    // MARK: Additional View parts
+
+    /// The play button
+    @ViewBuilder var playButton: some View {
+        Button(
+            action: {
+                Task {
+                    try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+                        playSong()
+                    }
+                }
+            },
+            label: {
+                Image(systemName: "play.fill")
+            }
+        )
+        .disabled(status != .ready)
+    }
+
+    @ViewBuilder var pauseButton: some View {
+        Button(
+            action: {
+                if audioPlayer?.isPlaying == true {
+                    audioPlayer?.pause()
+                } else {
+                    audioPlayer?.play()
+                }
+            },
+            label: {
+                Image(systemName: "pause.fill")
+            }
+        )
+        .disabled(!isPlaying)
+    }
+
+    // MARK: Prive functions
+
+    /// Check the song file
+    @MainActor private func checkSong() async {
+        do {
+            try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+                if musicURL.exist() {
+                    status = .ready
+                } else {
+                    if iCloudURL.exist() {
+                        status = .notDownloaded
+                    } else {
+                        status = .notFound
+                    }
+                }
+            }
+        } catch {
+            status = .noFolder
         }
     }
+
     /// Play the song file
     private func playSong() {
         do {
@@ -81,6 +148,21 @@ struct AudioPlayerView: View {
         } catch let error {
             print(error)
             showAlert = true
+        }
+    }
+
+    /// Download the song
+    private func downloadSong() async {
+        try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+            do {
+                try FileManager.default.startDownloadingUbiquitousItem(at: iCloudURL )
+            } catch {
+                print(error.localizedDescription)
+            }
+            while status != .ready {
+                try? await Task.sleep(nanoseconds: 100000000)
+                await checkSong()
+            }
         }
     }
 }

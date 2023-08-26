@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyFolderUtilities
 
 /// Swiftui `View` for the toolbar
 struct ToolbarView: View {
@@ -48,6 +49,8 @@ struct ToolbarView: View {
 }
 
 extension ToolbarView {
+
+    /// SwiftUI `View` with a slider to zoom the content
     struct ScaleSlider: View {
         /// Current scaling of the `SongView`
         @SceneStorage("scale") var scale: Double = 1.2
@@ -62,6 +65,8 @@ extension ToolbarView {
 }
 
 extension ToolbarView {
+
+    /// SwiftUI `View` with optional player buttons
     struct PlayerButtons: View {
         /// The ``Song``
         let song: Song
@@ -71,6 +76,7 @@ extension ToolbarView {
         var body: some View {
             if let musicURL = getMusicURL() {
                 AudioPlayerView(musicURL: musicURL)
+                    .padding(.leading)
             } else {
                 EmptyView()
             }
@@ -84,6 +90,29 @@ extension ToolbarView {
             var musicURL = file.deletingLastPathComponent()
             musicURL.appendPathComponent(path)
             return musicURL
+        }
+    }
+}
+
+extension ToolbarView {
+
+    struct FolderSelector: View {
+        /// The FileBrowser model
+        @StateObject var fileBrowser: FileBrowser = .shared
+        /// Folder selector title
+        private var folderTitle: String {
+            FolderBookmark.getBookmarkL(bookmark: FileBrowser.bookmark)?.lastPathComponent ?? "Not selected"
+        }
+        var body: some View {
+            FolderBookmark.SelectFolder(
+                bookmark: FileBrowser.bookmark,
+                title: folderTitle,
+                systemImage: "folder"
+            ) {
+                Task { @MainActor in
+                    await fileBrowser.getFiles()
+                }
+            }
         }
     }
 }

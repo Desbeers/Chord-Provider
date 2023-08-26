@@ -2,7 +2,7 @@
 //  EditorView+regex.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 18/06/2023.
+//  © 2023 Nick Berendsen
 //
 
 import Foundation

@@ -56,10 +56,11 @@ Stole code (and ideas) from:
 
 The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords).
 The editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
+The onboarding for iPadOS is thanks to [DocumentKit](https://github.com/danielsaidi/DocumentKit)
 
 I use my [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities) package for chord handling.
 
-For the macOS target, I use my [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities) package to handle folder selection and monitoring.
+I use my [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities) package to handle folder selection and monitoring.
 
 ## How to compile
 
