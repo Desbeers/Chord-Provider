@@ -89,7 +89,7 @@ extension Song.Render {
                             Text(label)
                         }
                     }
-                    .font(.title2)
+                    .font(.title3)
                     .padding(.top)
                     Divider()
                     content
@@ -105,7 +105,7 @@ extension Song.Render {
                         .padding(.all, prominent ? 10 : 0)
                         .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
                         .frame(minWidth: 100, alignment: .trailing)
-                        .font(.title2)
+                        .font(.title3)
                         .gridColumnAlignment(.trailing)
                     content
                         .padding(.leading)
@@ -247,7 +247,7 @@ extension Song.Render {
         var style: Song.Style = .asGrid
         /// The body of the `View`
         var body: some View {
-            ProminentLabel(label: section.label ?? "", icon: "bubble.right")
+            ProminentLabel(label: section.label ?? "", icon: "bubble.right", color: .yellow)
                 .italic()
                 .modifier(SectionView(style: style))
         }
@@ -281,15 +281,16 @@ extension Song.Render {
     struct ProminentLabel: View {
         let label: String
         var icon: String?
+        var color: Color = .accentColor
         var body: some View {
             if let icon {
                 Label(label, systemImage: icon)
                     .padding(10)
-                    .background(Color.accentColor.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
+                    .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
             } else {
                 Text(label)
                     .padding(10)
-                    .background(Color.accentColor.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
+                    .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
             }
         }
     }

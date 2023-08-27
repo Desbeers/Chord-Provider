@@ -21,7 +21,7 @@ extension ExportSong {
                         .font(.largeTitle)
                     Text(song.artist ?? "Artist")
                         .font(.title2)
-                        .foregroundColor(Color("AccentColor"))
+                        .foregroundColor(Color.gray)
                         .padding(.bottom)
                     HeaderView.Details(song: song)
                 }
@@ -122,7 +122,7 @@ extension ExportSong {
                         .padding()
                     }
                     .frame(width: pageWidth, alignment: .leading)
-                    .accentColor(Color("AccentColor"))
+                    .accentColor(Color.gray)
                     .background(.white)
                     .font(.system(size: 14))
             )

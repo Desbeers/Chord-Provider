@@ -39,7 +39,7 @@ struct FileBrowserView: View {
                 }
                 .navigationSubtitle("\(fileBrowser.songList.count) songs")
             default:
-                Image("HugeIcon")
+                Image(.hugeIcon)
                     .resizable()
                     .scaledToFit()
                     .navigationSubtitle("Welcome")

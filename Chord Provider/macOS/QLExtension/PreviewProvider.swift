@@ -49,7 +49,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             .frame(width: 800, alignment: .center)
             .preferredColorScheme(.light)
             .background(.white)
-            .accentColor(Color("AccentColor"))
+            .accentColor(Color.gray)
         }
     }
 
