@@ -49,5 +49,5 @@ extension UTType {
 
     /// The `UTType` for a ChordPro document
     static let chordProDocument =
-    UTType(importedAs: "nl.desbeers.chordprovider.chordpro")
+    UTType(exportedAs: "nl.desbeers.chordprovider.chordpro")
 }
