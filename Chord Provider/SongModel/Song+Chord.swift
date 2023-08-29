@@ -17,21 +17,24 @@ extension Song {
         var id = UUID()
         /// The name of the chord
         var name: String
-        /// The ChordPosition defenition
+        /// The ChordPosition definition
         var chordPosition: ChordPosition
-        /// Bool if the chord is custom or from the SwiftyChords database
-        var isCustom: Bool
+        /// The status of the chord
+        var status: Status
         /// Display name for the chord
         var display: String {
-            if isCustom {
+            switch status {
+            case .standard, .transposed:
+                return chordPosition.key.display.symbol + chordPosition.suffix.display.symbolized
+            case .custom, .customTransposed:
                 /// Try to find it in the SwiftyChords database
                 let chord = findRootAndQuality(chord: name)
                 if let root = chord.root, let quality = chord.quality {
                     return "\(root.display.symbol)\(quality.display.symbolized)*"
                 }
                 return "\(name)*"
-            } else {
-                return chordPosition.key.display.symbol + chordPosition.suffix.display.symbolized
+            case .unknown:
+                return "\(name)*"
             }
         }
 
@@ -39,10 +42,13 @@ extension Song {
         /// - Returns: all chord postions for this chord
         func getChordPostions() -> [ChordPosition] {
             var chordPositions = [ChordPosition]()
-            if isCustom {
-                chordPositions.append(chordPosition)
-            } else {
+            switch status {
+            case .standard, .transposed:
                 chordPositions = SwiftyChords.Chords.guitar.matching(key: chordPosition.key).matching(suffix: chordPosition.suffix)
+            case .custom, .customTransposed:
+                chordPositions.append(chordPosition)
+            case .unknown:
+                break
             }
             return chordPositions
         }

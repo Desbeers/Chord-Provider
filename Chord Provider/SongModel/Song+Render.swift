@@ -40,18 +40,16 @@ extension Song {
         var sections: some View {
             ForEach(song.sections) { section in
                 switch section.type {
-                case .verse:
-                    VerseView(section: section, style: style)
+                case .verse, .bridge:
+                    VerseView(section: section, chords: song.chords, style: style)
                 case .chorus:
-                    ChorusView(section: section, style: style)
-                case .bridge:
-                    VerseView(section: section, style: style)
+                    ChorusView(section: section, chords: song.chords, style: style)
                 case .repeatChorus:
                     RepeatChorusView(section: section, style: style)
                 case .tab:
                     TabView(section: section, style: style)
                 case .grid:
-                    GridView(section: section, style: style)
+                    GridView(section: section, chords: song.chords, style: style)
                 case .comment:
                     CommentView(section: section, style: style)
                 default:
@@ -145,6 +143,8 @@ extension Song.Render {
     struct GridView: View {
         /// The `section` of the song
         let section: Song.Section
+        /// The chords of the song
+        let chords: [Song.Chord]
         /// The style of the `View`
         var style: Song.Style = .asGrid
         /// The body of the `View`
@@ -156,9 +156,8 @@ extension Song.Render {
                             ForEach(line.grid) { grid in
                                 Text("|")
                                 ForEach(grid.parts) { part in
-                                    if let chord = part.chord {
-                                        Text(chord)
-                                            .foregroundColor(.accentColor)
+                                    if let chord = chords.first(where: { $0.id == part.chord }) {
+                                        ChordView(sectionID: section.id, partID: part.id, chord: chord)
                                     } else {
                                         Text(part.text)
                                     }
@@ -176,13 +175,15 @@ extension Song.Render {
     struct VerseView: View {
         /// The `section` of the song
         let section: Song.Section
+        /// The chords of the song
+        let chords: [Song.Chord]
         /// The style of the `View`
         var style: Song.Style = .asGrid
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
-                    PartsView(parts: line.parts)
+                    PartsView(sectionID: section.id, parts: line.parts, chords: chords)
                 }
             }
             .modifier(SectionView(style: style, label: section.label))
@@ -193,13 +194,15 @@ extension Song.Render {
     struct ChorusView: View {
         /// The `section` of the song
         let section: Song.Section
+        /// The chords of the song
+        let chords: [Song.Chord]
         /// The style of the `View`
         var style: Song.Style = .asGrid
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
-                    PartsView(parts: line.parts)
+                    PartsView(sectionID: section.id, parts: line.parts, chords: chords)
                 }
             }
             .modifier(SectionView(style: style, label: section.label ?? "Chorus", prominent: true))
@@ -255,17 +258,19 @@ extension Song.Render {
 
     /// SwiftUI `View` for parts of a line
     struct PartsView: View {
+        /// The ID of the section
+        let sectionID: Int
         /// The `parts` of a `line`
         let parts: [Song.Section.Line.Part]
+        /// The chords of the song
+        let chords: [Song.Chord]
         /// The body of the `View`
         var body: some View {
             HStack(spacing: 0) {
                 ForEach(parts) { part in
                     VStack(alignment: .leading) {
-                        if let chord = part.chord {
-                            Text(chord)
-                                .padding(.trailing)
-                                .foregroundColor(.accentColor)
+                        if let chord = chords.first(where: { $0.id == part.chord }) {
+                            ChordView(sectionID: sectionID, partID: part.id, chord: chord)
                         } else {
                             /// Fill the space
                             Text(" ")
@@ -275,6 +280,49 @@ extension Song.Render {
                     }
                 }
             }
+        }
+    }
+
+    /// SwiftUI `View` for a chord as part of a line
+    struct ChordView: View {
+        /// The ID of the section
+        let sectionID: Int
+        /// The ID of the part
+        let partID: Int
+        /// The  chord
+        let chord: Song.Chord
+        /// The calculated ID of this `View`
+        var popoverID: String {
+            "\(sectionID)-\(partID)-\(chord.name)"
+        }
+        var color: Color {
+            switch chord.status {
+            case .customTransposed:
+                Color.red
+            default:
+                Color.accentColor
+            }
+        }
+        @State private var popover: String?
+        @State private var hover: Bool = false
+        /// The body of the `View`
+        var body: some View {
+            Text(chord.display)
+                .padding(.trailing)
+                .foregroundColor(color)
+                .onTapGesture {
+                    popover = popoverID
+                }
+                .id(popoverID)
+                .popover(item: $popover) { _ in
+                    ChordDiagramView(chord: chord, playButton: true)
+                        .padding()
+                }
+                .onHover { hovering in
+                    hover = hovering
+                }
+                .scaleEffect(hover ? 1.4 : 1, anchor: .center)
+                .animation(.default, value: hover)
         }
     }
 
@@ -294,4 +342,15 @@ extension Song.Render {
             }
         }
     }
+}
+
+/// Make a String identifiable
+extension String: Identifiable {
+
+    // swiftlint:disable type_name
+    public typealias ID = Int
+    public var id: Int {
+        return hash
+    }
+    // swiftlint:enable type_name
 }

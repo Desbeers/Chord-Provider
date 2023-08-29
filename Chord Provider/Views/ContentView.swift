@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
 import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for the content
@@ -27,6 +28,7 @@ struct ContentView: View {
         }
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
+            MidiPlayer.InstrumentPicker()
             ToolbarView(song: $sceneState.song)
             ShareSongView()
         }

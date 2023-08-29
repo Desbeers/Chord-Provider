@@ -250,11 +250,16 @@ enum ChordPro {
     private static func processDefine(text: String, song: inout Song) {
         if let match = text.wholeMatch(of: defineRegex) {
             let key = match.1
-            /// Remove standard chords with the same key if there is one in the chords list
-            song.chords = song.chords.filter { !($0.name == key && $0.isCustom == false) }
             /// Parse the define
             if let chord = define(from: text) {
-                song.chords.append(Song.Chord(name: key, chordPosition: chord, isCustom: true))
+                let status: Song.Chord.Status = song.transpose == 0 ? .custom : .customTransposed
+                /// Update a standard chord with the same key if there is one in the chords list
+                if let index = song.chords.firstIndex(where: { $0.name == key && ($0.status == .standard || $0.status == .transposed) }) {
+                    song.chords[index].chordPosition = chord
+                    song.chords[index].status = status
+                } else {
+                    song.chords.append(Song.Chord(name: key, chordPosition: chord, status: status))
+                }
             }
         }
     }
@@ -303,7 +308,7 @@ enum ChordPro {
                 if let chord {
                     let result = processChord(chord: String(chord), song: &song)
                     /// Add it as chord
-                    grid.parts.append(Song.Section.Line.Part(id: partID, chord: result))
+                    grid.parts.append(Song.Section.Line.Part(id: partID, chord: result.id))
                     partID += 1
                 }
 
@@ -344,7 +349,7 @@ enum ChordPro {
             let (_, chord, lyric) = match.output
             var part = Song.Section.Line.Part(id: partID)
             if let chord {
-                part.chord = processChord(chord: String(chord), song: &song)
+                part.chord = processChord(chord: String(chord), song: &song).id
                 part.text = " "
                 /// Because it has a chord; it should be at least a verse
                 if currentSection.type == .none {
@@ -373,10 +378,10 @@ enum ChordPro {
     ///   - chord: The `chord` as String
     ///   - song: The `Song`
     /// - Returns: The processed `chord` as String
-    private static func processChord(chord: String, song: inout Song) -> String {
+    private static func processChord(chord: String, song: inout Song) -> Song.Chord {
         /// Check if this chord is aready parsed
-        if  let match = song.chords.first(where: { $0.name == chord }) {
-            return match.display
+        if  let match = song.chords.last(where: { $0.name == chord }) {
+            return match
         }
         /// Try to find the chord in SwiftyChords and append to the used chord list from this song
         let result = findRootAndQuality(chord: chord)
@@ -393,12 +398,24 @@ enum ChordPro {
                 .filter { $0.key == rootValue && $0.suffix == quality }
                 .sorted { $0.baseFret < $1.baseFret }
             if let baseChord = chords.first {
-                let songChord = Song.Chord(name: chord, chordPosition: baseChord, isCustom: false)
+                let status: Song.Chord.Status = song.transpose == 0 ? .standard : .transposed
+                let songChord = Song.Chord(name: chord, chordPosition: baseChord, status: status)
                 song.chords.append(songChord)
-                return songChord.display
+                return songChord
             }
         }
-        /// Return the chord because it is possible to have a custom defined chard after the usage of that chord.
-        return chord
+        /// Return the chord because it is possible to have a custom defined chord after the usage of that chord.
+        let chordPosition = ChordPosition(
+            frets: [0],
+            fingers: [0],
+            baseFret: 0,
+            barres: [0],
+            midi: [0],
+            key: .c,
+            suffix: .major
+        )
+        let songChord = Song.Chord(name: chord, chordPosition: chordPosition, status: .unknown)
+        song.chords.append(songChord)
+        return songChord
     }
 }

@@ -39,39 +39,49 @@ extension ExportSong {
     @MainActor
     static func renderChords(song: Song) -> CGImage? {
         /// Size of the chord diagram
-        var frame: CGRect {
-            var width = Int((pageWidth * 2.0) / Double(song.chords.count))
-            width = width > Int(pageWidth / 4.0) ? Int(pageWidth / 4.0) : width
-            let height = Int(Double(width) * 1.5)
-            return CGRect(x: 0, y: 0, width: width, height: height)
-        }
+//        var frame: CGRect {
+//            var width = Int((pageWidth * 2.0) / Double(song.chords.count))
+//            width = width > Int(pageWidth / 4.0) ? Int(pageWidth / 4.0) : width
+//            let height = Int(Double(width) * 1.5)
+//            return CGRect(x: 0, y: 0, width: width, height: height)
+//        }
+        var frame = CGRect(x: 0, y: 0, width: 60, height: 80)
         /// Render the chords
         let renderer = ImageRenderer(
             content:
-                HStack {
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: frame.width ))],
+                    alignment: .center,
+                    spacing: 4,
+                    pinnedViews: [.sectionHeaders, .sectionFooters]
+                ) {
                     ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
-                        VStack {
-                            Text(chord.display)
-                                .foregroundColor(Color("AccentColor"))
-                                .font(.caption)
-                            let layer = chord.chordPosition.chordLayer(
-                                rect: frame,
-                                showFingers: false,
-                                chordName: .init(show: false)
-                            )
-                            if let image = layer.image() {
-                                Image(swiftImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: frame.width / 3)
-                            }
-                        }
+                        ChordDiagramView(chord: chord, frame: frame)
+                            //.minimumScaleFactor(0.1)
+                            //.frame(maxWidth: frame.width / 10)
+//                        VStack {
+//                            Text(chord.display)
+//                                .foregroundColor(Color.gray)
+//                                .font(.title)
+//                            let layer = chord.chordPosition.chordLayer(
+//                                rect: frame,
+//                                showFingers: false,
+//                                chordName: .init(show: false)
+//                            )
+//                            if let image = layer.image() {
+//                                Image(swiftImage: image)
+//                                    .resizable()
+//                                    .aspectRatio(contentMode: .fit)
+//                                    .frame(width: frame.width)
+//                            }
+//                        }
                     }
                 }
                 .padding()
                 .frame(width: pageWidth, alignment: .center)
                 .preferredColorScheme(.light)
                 .background(.white)
+                .accentColor(.gray)
         )
         renderer.scale = rendererScale
         return renderer.cgImage
@@ -86,18 +96,16 @@ extension ExportSong {
         var part: CGImage?
         for section in song.sections {
             switch section.type {
-            case .verse:
-                part = renderPart(view: Song.Render.VerseView(section: section))
+            case .verse, .bridge:
+                part = renderPart(view: Song.Render.VerseView(section: section, chords: song.chords))
             case .chorus:
-                part = renderPart(view: Song.Render.ChorusView(section: section))
-            case .bridge:
-                part = renderPart(view: Song.Render.VerseView(section: section))
+                part = renderPart(view: Song.Render.ChorusView(section: section, chords: song.chords))
             case .repeatChorus:
                 part = renderPart(view: Song.Render.RepeatChorusView(section: section))
             case .tab:
                 part = renderPart(view: Song.Render.TabView(section: section))
             case .grid:
-                part = renderPart(view: Song.Render.GridView(section: section))
+                part = renderPart(view: Song.Render.GridView(section: section, chords: song.chords))
             case .comment:
                 part = renderPart(view: Song.Render.CommentView(section: section))
             default:
