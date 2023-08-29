@@ -39,13 +39,7 @@ extension ExportSong {
     @MainActor
     static func renderChords(song: Song) -> CGImage? {
         /// Size of the chord diagram
-//        var frame: CGRect {
-//            var width = Int((pageWidth * 2.0) / Double(song.chords.count))
-//            width = width > Int(pageWidth / 4.0) ? Int(pageWidth / 4.0) : width
-//            let height = Int(Double(width) * 1.5)
-//            return CGRect(x: 0, y: 0, width: width, height: height)
-//        }
-        var frame = CGRect(x: 0, y: 0, width: 60, height: 80)
+        let frame = CGRect(x: 0, y: 0, width: 60, height: 80)
         /// Render the chords
         let renderer = ImageRenderer(
             content:
@@ -57,24 +51,6 @@ extension ExportSong {
                 ) {
                     ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                         ChordDiagramView(chord: chord, frame: frame)
-                            //.minimumScaleFactor(0.1)
-                            //.frame(maxWidth: frame.width / 10)
-//                        VStack {
-//                            Text(chord.display)
-//                                .foregroundColor(Color.gray)
-//                                .font(.title)
-//                            let layer = chord.chordPosition.chordLayer(
-//                                rect: frame,
-//                                showFingers: false,
-//                                chordName: .init(show: false)
-//                            )
-//                            if let image = layer.image() {
-//                                Image(swiftImage: image)
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fit)
-//                                    .frame(width: frame.width)
-//                            }
-//                        }
                     }
                 }
                 .padding()

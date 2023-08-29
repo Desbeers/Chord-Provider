@@ -91,15 +91,6 @@ extension ChordsView {
                                 )
                                 ChordDiagramView(chord: chordDiagram, playButton: true)
                             }
-
-//                            let frame = CGRect(x: 0, y: 0, width: 120, height: 180)
-//                            let layer = chord.chordLayer(rect: frame, showFingers: true)
-//                            if let image = layer.image() {
-//                                VStack {
-//                                    Image(swiftImage: image)
-//
-//                                }
-//                            }
                         }
                     }
                 }

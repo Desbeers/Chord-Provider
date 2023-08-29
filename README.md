@@ -19,13 +19,13 @@ Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 - You can 'define' a Capo but that will not change any notes; again on purpose.
 - You can click on a chord diagram and it will open a Sheet with all known versions.
 - It can export your song to a PDF document.
+- It can play chords with MIDI. Note: This does not work in a simulator.
 - It can play songs when stored next to the ChordPro file.
 
 
 ### macOS
 
 - It has a 'browser' for your songs if you select a folder.
-- It can play chords with MIDI on the 'Chord Sheet'
 - It has a 'quick view' plugin for 'ChordPro' files.
 
 ### Limitations

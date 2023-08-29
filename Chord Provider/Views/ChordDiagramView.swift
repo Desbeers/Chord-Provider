@@ -24,12 +24,10 @@ struct ChordDiagramView: View {
             switch chord.status {
             case .standard, .custom, .transposed:
                 diagram
-#if os(macOS)
                 if playButton {
                     MidiPlayer.PlayButton(chord: chord.chordPosition)
                         .font(.body)
                 }
-#endif
             case .customTransposed:
                 warning(message: "Custom chords cannot transpose to its new shape")
             case .unknown:

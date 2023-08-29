@@ -50,6 +50,7 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
+                    MidiPlayer.InstrumentPicker()
                     ToolbarView(song: $sceneState.song)
                         .buttonStyle(.bordered)
                     ToolbarView.FolderSelector()
