@@ -33,6 +33,7 @@ struct MainView: View {
 #if !os(visionOS)
                 if showChords {
                     ChordsView(song: song)
+                        .frame(minWidth: 150)
                 }
 #endif
             }

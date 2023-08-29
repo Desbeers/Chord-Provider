@@ -28,6 +28,7 @@ struct HeaderView: View {
                 .padding(.trailing)
         }
         .padding(4)
+        .frame(minHeight: 40)
 #elseif os(iOS)
         General(song: song)
         Details(song: song)
