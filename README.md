@@ -36,6 +36,11 @@ Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 - It has a 'browser' for your songs if you select a folder.
 - It has a 'quick view' plugin for 'ChordPro' files.
 
+## viosionOS
+
+- It breaks with every upade.
+- It is the future.
+  
 ### Limitations
 
 Well, Chord Provider a simple application. There are a lot better 'chord' applications and I wrote this just for fun. It serves me well but I know it's not that great. It might serve you well, as a 'chord' program or as a sample for a 'document based SwiftUI' application. SwiftUI is fun and great, however, also limited and challenging; especially on macOS. There are many 'workarounds' in the code; especially for 'window handling'.
