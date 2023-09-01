@@ -38,8 +38,8 @@ Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 
 ## viosionOS
 
-- It breaks with every upade.
-- It is the future.
+- It breaks with every update.
+- It is the future; however, not yet.
   
 ### Limitations
 
