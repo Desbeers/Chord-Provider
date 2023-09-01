@@ -1,12 +1,20 @@
 # Chord Provider
 
-## A [ChordPro](https://www.chordpro.org) file parser and editor in SwiftUI 4
+## A [ChordPro](https://www.chordpro.org) file parser and editor for macOS, iPadOS and visionOS
+
+![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
+
+**Chord Provider** is written in SwiftUI and needs Xcode 15 to compile.
+
+- macOS Ventura
+- iPadOS 16
+- visionOS 1
 
 There are many "ChordPro" parsers in this world, however, none are *really* native in the Apple world.
 
 I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainly a mac user; the other versions are my afterthought...
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/screenshot.jpg)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 
 Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 
