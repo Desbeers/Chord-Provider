@@ -14,7 +14,7 @@ struct WelcomeView: View {
         VStack {
             Text("Welcome to Chord Provider")
                 .font(.title)
-            Image(.hugeIcon)
+            Image(.launchIcon)
                 .resizable()
                 .scaledToFit()
             VStack(alignment: .leading) {
