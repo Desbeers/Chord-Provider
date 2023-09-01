@@ -36,7 +36,7 @@ Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 - It has a 'browser' for your songs if you select a folder.
 - It has a 'quick view' plugin for 'ChordPro' files.
 
-## viosionOS
+## visionOS
 
 - It breaks with every update.
 - It is the future; however, not yet.
