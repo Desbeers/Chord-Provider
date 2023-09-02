@@ -38,7 +38,7 @@ Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 
 ## visionOS
 
-- It breaks with every update.
+- Currently 'DocumentGroup' is partly broken.
 - It is the future; however, not yet.
   
 ### Limitations

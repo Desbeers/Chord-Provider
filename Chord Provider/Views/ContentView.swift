@@ -68,7 +68,6 @@ struct ContentView: View {
 #elseif os(visionOS)
         MainView(document: $document, song: $sceneState.song, file: file)
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
-            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItemGroup(placement: .navigation) {
                     ToolbarView.FolderSelector()
