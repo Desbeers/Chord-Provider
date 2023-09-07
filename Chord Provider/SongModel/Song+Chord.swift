@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyChords
 import SwiftlyChordUtilities
 
 extension Song {
@@ -44,7 +43,7 @@ extension Song {
             var chordPositions = [ChordPosition]()
             switch status {
             case .standard, .transposed:
-                chordPositions = SwiftyChords.Chords.guitar.matching(key: chordPosition.key).matching(suffix: chordPosition.suffix)
+                chordPositions = Chords.guitar.matching(key: chordPosition.key).matching(suffix: chordPosition.suffix)
             case .custom, .customTransposed:
                 chordPositions.append(chordPosition)
             case .unknown:

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftyChords
+import SwiftlyChordUtilities
 
 /// The structure of a song in `Chord Provider`
 struct Song {

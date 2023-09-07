@@ -33,7 +33,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "044666a0581a1f982f376fe4a1cbfc00cb763352"
+        "revision" : "94a63ffdd466dee906239726b77e10f10c8c11e6"
       }
     },
     {
@@ -43,15 +43,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "4a249ab028faaae49928d653a1799d561083fedc"
-      }
-    },
-    {
-      "identity" : "swiftyguitarchords",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/SwiftyGuitarChords",
-      "state" : {
-        "branch" : "main",
-        "revision" : "fae0b6b55df940f47c6b6f2544a3ead3eca32d1c"
       }
     }
   ],
