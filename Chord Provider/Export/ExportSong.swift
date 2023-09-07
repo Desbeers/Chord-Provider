@@ -107,7 +107,8 @@ enum ExportSong {
             pages.append(finalA4)
 #else
             let finalA4: SWIFTImage = UIGraphicsImageRenderer(size: pageSize).image { _ in
-                SWIFTImage(ciImage: page).draw(in: .init(origin: .zero, size: .init(width: rectToDrawIn.width, height: rectToDrawIn.height)))
+                SWIFTImage(ciImage: page)
+                    .draw(in: .init(origin: .zero, size: .init(width: rectToDrawIn.width, height: rectToDrawIn.height)))
             }
             pages.append(finalA4)
 #endif

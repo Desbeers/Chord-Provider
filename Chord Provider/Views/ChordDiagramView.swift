@@ -50,6 +50,8 @@ struct ChordDiagramView: View {
         )
         if let image = layer.image() {
             Image(swiftImage: image)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
         }
     }
     /// The warning if we can't show a diagram

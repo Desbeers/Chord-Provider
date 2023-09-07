@@ -38,19 +38,22 @@ extension ExportSong {
     /// - Returns: The header as CGImage
     @MainActor
     static func renderChords(song: Song) -> CGImage? {
-        /// Size of the chord diagram
-        let frame = CGRect(x: 0, y: 0, width: 60, height: 80)
+        /// Size of the chord diagrams
+        let frame = CGRect(x: 0, y: 0, width: 180, height: 240)
+        /// The grid items
+        let gridItems = Array(repeating: GridItem(.fixed(60), spacing: 0), count: 10)
         /// Render the chords
         let renderer = ImageRenderer(
             content:
                 LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: frame.width ))],
+                    columns: gridItems,
                     alignment: .center,
-                    spacing: 4,
-                    pinnedViews: [.sectionHeaders, .sectionFooters]
+                    spacing: 4
                 ) {
                     ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                         ChordDiagramView(chord: chord, frame: frame)
+                            .scaledToFit()
+                            .frame(width: 60)
                     }
                 }
                 .padding()
