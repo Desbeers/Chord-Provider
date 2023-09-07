@@ -36,7 +36,7 @@ extension DocumentGroupToolbarItem {
     }
 }
 
-extension UIImage {
+extension SWIFTImage {
 
-    static let onboarding = UIImage(systemName: "guitars")
+    static let onboarding = SWIFTImage(systemName: "guitars")
 }

@@ -10,9 +10,8 @@ import SwiftlyFolderUtilities
 
 /// The observable FileBrowser for Chord Provider
 class FileBrowser: ObservableObject {
-
+    /// The shared instance of the class
     static let shared = FileBrowser()
-
     /// The list of songs
     @Published var songList: [SongItem] = []
     /// The list of artists
@@ -25,7 +24,6 @@ class FileBrowser: ObservableObject {
     @Published var songsFolder: URL?
     /// The status
     @Published var status: Status = .unknown
-    /// Init the FileBrowser
 #if os(macOS)
     /// The list of open windows
     @Published var openWindows: [NSWindow.WindowItem] = []
@@ -33,6 +31,7 @@ class FileBrowser: ObservableObject {
     /// - Note: Needed to close the MenuBarExtra when selecting a song
     var menuBarExtraWindow: NSWindow?
 #endif
+    /// Init the FileBrowser
     private init() {
         folderMonitor.folderDidChange = {
             Task {

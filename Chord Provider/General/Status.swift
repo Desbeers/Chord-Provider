@@ -11,14 +11,20 @@ import SwiftUI
 
 /// The status of a song
 enum Status: String, LocalizedError {
+    /// The song was not found
     case songNotFound
+    /// The song is not yet downloaded
     case songNotDownloaded
+    /// There is no folder with songs selected
     case noFolderSelected
+    /// The song is ready
     case ready
+    /// An unknown status
     case unknown
 
     // MARK: Protocol items
 
+    /// The description of the status
     public var description: String {
         switch self {
         case .songNotFound:
@@ -31,11 +37,12 @@ enum Status: String, LocalizedError {
             self.rawValue
         }
     }
-
+    /// The error description of the status
     public var errorDescription: String? {
         description
     }
 
+    /// The recovery suggestion of the status
     var recoverySuggestion: String? {
         switch self {
         case .songNotFound:
@@ -59,6 +66,8 @@ You have not selected a folder with your songs. Chord Provider needs to know whe
         }
     }
 
+    /// The help anchor of the status
+    /// - Note: Used as the label button for an alert or confirmation dialog
     var helpAnchor: String? {
         switch self {
         case .songNotDownloaded:
@@ -70,6 +79,7 @@ You have not selected a folder with your songs. Chord Provider needs to know whe
 
     // MARK: Custom items
 
+    /// The icon of the status
     var icon: Image {
         switch self {
         case .songNotFound:
@@ -87,13 +97,15 @@ You have not selected a folder with your songs. Chord Provider needs to know whe
 
     // MARK: Static help
 
-    static let help = 
+    /// Static help message for the folder selector
+    static let help =
 """
 Chord Provider would like to know where to find your songs.
 
 If you add a **'musicpath'** to your ChordPro file, Chord Provider can play the song if it knows where to look for it. The song has to be in the same folder as your ChordPro file.
 """
-    static let browser = 
+    /// Static help message for the file browser
+    static let browser =
 """
 If you have selected a folder, this welcome message will be replaced with a list of your songs and is searchable.
 """

@@ -8,8 +8,12 @@
 import Foundation
 
 extension Song {
+
+    /// The style of the song view
     enum Style {
+        /// View the song as a list
         case asList
+        /// View the song as a grid
         case asGrid
     }
 }

@@ -91,6 +91,7 @@ struct AudioPlayerView: View {
         .disabled(status != .ready)
     }
 
+    /// The pause button
     @ViewBuilder var pauseButton: some View {
         Button(
             action: {

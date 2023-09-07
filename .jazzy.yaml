@@ -5,34 +5,43 @@ author_url: https://desbeers.nl
 github_url: https://github.com/desbeers/Chord-Provider/
 build_tool_arguments:
  - -scheme
- - Chord Provider (macOS)
+ - Chord Provider
+ - -sdk
+ - macosx
 min_acl: private
 output: Documentation
 clean: true
 theme: apple
+
+exclude: /*/GeneratedAssetSymbols*
 
 custom_categories:
 
   - name: SwiftUI
     children:
     - ChordProviderApp
+    - WelcomeView
     - ContentView
     - MainView
     - ToolbarView
     - HeaderView
     - SongView
     - ChordsView
+    - ChordDiagramView
     - AudioPlayerView
     - EditorView
     - FileBrowserView
     - ExportSongView
+    - PrintSongView
+    - ShareSongView
     - MarkupCommands
 
   - name: ChordPro
     children:
     - ChordPro
     - Song
-    
+    - Status
+
   - name: Observable Items
     children:
     - SceneState
@@ -57,6 +66,7 @@ custom_categories:
     children:
     - Image
     - View
+    - String
     - NSWindow
 
 # Command line for doc generation:

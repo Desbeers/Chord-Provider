@@ -42,6 +42,9 @@
                 <a href="Structs/ChordProviderApp.html">ChordProviderApp</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/WelcomeView.html">WelcomeView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/ContentView.html">ContentView</a>
               </li>
               <li class="nav-group-task">
@@ -49,6 +52,15 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ToolbarView.html">ToolbarView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ToolbarView/ScaleSlider.html">– ScaleSlider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ToolbarView/PlayerButtons.html">– PlayerButtons</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ToolbarView/FolderSelector.html">– FolderSelector</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/HeaderView.html">HeaderView</a>
@@ -69,6 +81,9 @@
                 <a href="Structs/ChordsView/Sheet.html">– Sheet</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/ChordDiagramView.html">ChordDiagramView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/AudioPlayerView.html">AudioPlayerView</a>
               </li>
               <li class="nav-group-task">
@@ -81,6 +96,9 @@
                 <a href="Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/EditorView.html">EditorView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/FileBrowserView.html">FileBrowserView</a>
               </li>
               <li class="nav-group-task">
@@ -91,6 +109,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ExportSongView.html">ExportSongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/PrintSongView.html">PrintSongView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ShareSongView.html">ShareSongView</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/MarkupCommands.html">MarkupCommands</a>
@@ -120,6 +144,12 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Song/Section.html">– Section</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Song/Style.html">– Style</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Status.html">Status</a>
               </li>
             </ul>
           </li>
@@ -187,6 +217,9 @@
                 <a href="Extensions/View.html">View</a>
               </li>
               <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -233,17 +266,25 @@
           <section class="section">
             
             <h1 id='chord-provider' class='heading'>Chord Provider</h1>
-<h2 id='a-a-href-https-www-chordpro-org-chordpro-a-file-parser-and-editor-in-swiftui-4' class='heading'>A <a href="https://www.chordpro.org">ChordPro</a> file parser and editor in SwiftUI 4</h2>
+<h2 id='a-a-href-https-www-chordpro-org-chordpro-a-file-parser-and-editor-for-macos-ipados-and-visionos' class='heading'>A <a href="https://www.chordpro.org">ChordPro</a> file parser and editor for macOS, iPadOS and visionOS</h2>
+
+<p><img src="https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png" alt="Icon"></p>
+
+<p><strong>Chord Provider</strong> is written in SwiftUI and needs Xcode 15 to compile.</p>
+
+<ul>
+<li>macOS Ventura</li>
+<li>iPadOS 16</li>
+<li>visionOS 1</li>
+</ul>
 
 <p>There are many &ldquo;ChordPro&rdquo; parsers in this world, however, none are <em>really</em> native in the Apple world.</p>
 
-<p>I mean, in the macOS world, it is often an afterthought&hellip; Not for me. I&rsquo;m mainly a mac user; the iPad version is my afterthought&hellip;</p>
+<p>I mean, in the macOS world, it is often an afterthought&hellip; Not for me. I&rsquo;m mainly a mac user; the other versions are my afterthought&hellip;</p>
 
-<p><img src="https://github.com/Desbeers/Chord-Provider/raw/main/screenshot.jpg" alt="Chord Provider"></p>
+<p><img src="https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg" alt="Chord Provider"></p>
 
-<p>Written in SwiftUI 4, so macOS Ventura or iPadOS 16 only.</p>
-
-<p>The branch &lsquo;SwiftUI-3&rsquo; has an older version for macOS Monterey or iOS 15, however, I don&rsquo;t update that version anymore.</p>
+<p>Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS</p>
 <h3 id='general' class='heading'>General</h3>
 
 <ul>
@@ -252,15 +293,22 @@
 <li>It has a &lsquo;highlighted TextEditor&rsquo;.</li>
 <li>It can transpose a song; however, only in the View. The document will not be changed and that&rsquo;s on purpose.</li>
 <li>You can &lsquo;define&rsquo; a Capo but that will not change any notes; again on purpose.</li>
-<li>You can click on a chord diagram and it will open s Sheet with all known versions.</li>
+<li>You can click on a chord diagram and it will open a Sheet with all known versions.</li>
+<li>It can export your song to a PDF document.</li>
+<li>It can play chords with MIDI. Note: This does not work in a simulator.</li>
+<li>It can play songs when stored next to the ChordPro file.</li>
 </ul>
 <h3 id='macos' class='heading'>macOS</h3>
 
 <ul>
 <li>It has a &lsquo;browser&rsquo; for your songs if you select a folder.</li>
-<li>It can export your song to a PDF document.</li>
-<li>It can play chords with MIDI on the &lsquo;Chord Sheet&rsquo;</li>
 <li>It has a &lsquo;quick view&rsquo; plugin for &lsquo;ChordPro&rsquo; files.</li>
+</ul>
+<h2 id='visionos' class='heading'>visionOS</h2>
+
+<ul>
+<li>Currently &lsquo;DocumentGroup&rsquo; is partly broken.</li>
+<li>It is the future; however, not yet.</li>
 </ul>
 <h3 id='limitations' class='heading'>Limitations</h3>
 
@@ -289,12 +337,17 @@
 <h3 id='used-packages' class='heading'>Used packages</h3>
 
 <p>The chord diagrams are made with <a href="https://github.com/BeauNouvelle/SwiftyGuitarChords">Swifty Guitar Chords</a>.
-The editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">HighlightedTextEditor</a></p>
+The editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">HighlightedTextEditor</a>
+The onboarding for iPadOS is thanks to <a href="https://github.com/danielsaidi/DocumentKit">DocumentKit</a></p>
 
 <p>I use my <a href="https://github.com/Desbeers/SwiftlyChordUtilities">SwiftlyChordUtilities</a> package for chord handling.</p>
 
-<p>For the macOS target, I use my <a href="https://github.com/Desbeers/SwiftlyFolderUtilities">SwiftlyFolderUtilities</a> package to handle folder selection and monitoring.</p>
+<p>I use my <a href="https://github.com/Desbeers/SwiftlyFolderUtilities">SwiftlyFolderUtilities</a> package to handle folder selection and monitoring.</p>
+
+<p>I use my <a href="https://github.com/Desbeers/SwiftlyAlertMessage">SwiftlyAlertMessage</a> package for alerts and confirmation dialogs.</p>
 <h2 id='how-to-compile' class='heading'>How to compile</h2>
+
+<p>Xcode 15 is required.</p>
 
 <ol>
 <li>Clone the project.</li>
@@ -305,7 +358,7 @@ The editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">Highligh
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-07-15)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-07)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

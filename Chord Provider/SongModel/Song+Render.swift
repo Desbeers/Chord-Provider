@@ -295,6 +295,7 @@ extension Song.Render {
         var popoverID: String {
             "\(sectionID)-\(partID)-\(chord.name)"
         }
+        /// The color of a chord
         var color: Color {
             switch chord.status {
             case .customTransposed:
@@ -303,7 +304,9 @@ extension Song.Render {
                 Color.accentColor
             }
         }
+        /// The `popover` state
         @State private var popover: String?
+        /// The 'hover' state
         @State private var hover: Bool = false
         /// The body of the `View`
         var body: some View {
@@ -326,9 +329,13 @@ extension Song.Render {
         }
     }
 
+    /// SwiftUI `View` for a prominent label
     struct ProminentLabel: View {
+        /// The label
         let label: String
+        /// The optional icon
         var icon: String?
+        /// The color of the label
         var color: Color = .accentColor
         var body: some View {
             if let icon {
@@ -344,13 +351,14 @@ extension Song.Render {
     }
 }
 
-/// Make a String identifiable
 extension String: Identifiable {
 
     // swiftlint:disable type_name
+    /// Make a String identifiable
     public typealias ID = Int
+    /// The ID of the string
     public var id: Int {
-        return hash
+        hash
     }
     // swiftlint:enable type_name
 }

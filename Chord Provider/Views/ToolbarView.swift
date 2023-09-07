@@ -96,6 +96,7 @@ extension ToolbarView {
 
 extension ToolbarView {
 
+    /// SwiftUI `View` for the folder selector
     struct FolderSelector: View {
         /// The FileBrowser model
         @StateObject var fileBrowser: FileBrowser = .shared

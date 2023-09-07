@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftlyChordUtilities
 
+/// SwiftUI `View` for a chord diagram
 struct ChordDiagramView: View {
     /// The chord
     let chord: Song.Chord
