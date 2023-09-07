@@ -115,7 +115,7 @@ extension FileBrowser {
         } catch {
             /// There is no folder selected
             songsFolder = nil
-            status = .noFolder
+            status = .noFolderSelected
         }
     }
 

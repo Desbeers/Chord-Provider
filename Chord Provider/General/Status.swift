@@ -10,20 +10,73 @@ import SwiftUI
 // swiftlint:disable all
 
 /// The status of a song
-enum Status: String {
-    case notFound
-    case notDownloaded
-    case noFolder
+enum Status: String, LocalizedError {
+    case songNotFound
+    case songNotDownloaded
+    case noFolderSelected
     case ready
     case unknown
 
+    // MARK: Protocol items
+
+    public var description: String {
+        switch self {
+        case .songNotFound:
+            "The song was not found"
+        case .songNotDownloaded:
+            "The song is not downloaded"
+        case .noFolderSelected:
+            "No songs folder selected"
+        default:
+            self.rawValue
+        }
+    }
+
+    public var errorDescription: String? {
+        description
+    }
+
+    var recoverySuggestion: String? {
+        switch self {
+        case .songNotFound:
+"""
+You have defined a song but it was not found.
+
+It has to be in the same folder as your ChordPro file to be playable.
+
+Both have to be in the selected 'songs folder'.
+"""
+        case .songNotDownloaded:
+            "This song is not yet downloaded from your iCloud and can not be played."
+        case .noFolderSelected:
+"""
+You have defined a song but it was not found.
+
+You have not selected a folder with your songs. Chord Provider needs to know where your songs are to be able to play it.
+"""
+        default:
+            self.rawValue
+        }
+    }
+
+    var helpAnchor: String? {
+        switch self {
+        case .songNotDownloaded:
+            "Download"
+        default:
+            "OK"
+        }
+    }
+
+    // MARK: Custom items
+
     var icon: Image {
         switch self {
-        case .notFound:
+        case .songNotFound:
             Image(systemName: "questionmark")
-        case .notDownloaded:
+        case .songNotDownloaded:
             Image(systemName: "icloud.and.arrow.down")
-        case .noFolder:
+        case .noFolderSelected:
             Image(systemName: "folder.badge.questionmark")
         case .ready:
             Image(systemName: "play.fill")
@@ -32,41 +85,7 @@ enum Status: String {
         }
     }
 
-    var title: String {
-        switch self {
-        case .notFound:
-            "The song was not found"
-        case .notDownloaded:
-            "Not downloaded"
-        case .noFolder:
-            "No songs folder selected"
-        default:
-            self.rawValue
-        }
-    }
-
-    func message(song: String) -> String {
-        switch self {
-        case .notFound:
-"""
-You have defined '\(song)' but it was not found.
-
-It has to be in the same folder as your ChordPro file to be playable.
-
-Both have to be in the selected 'songs folder'.
-"""
-        case .notDownloaded:
-            "'\(song)' is not yet downloaded from your iCloud and can not be played."
-        case .noFolder:
-"""
-You have defined '\(song)' but it was not found.
-
-You have not selected a folder with your songs. Chord Provider needs to know where your songs are to be able to play it.
-"""
-        default:
-            self.rawValue
-        }
-    }
+    // MARK: Static help
 
     static let help = 
 """

@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "swiftlyalertmessage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyAlertMessage",
+      "state" : {
+        "branch" : "main",
+        "revision" : "a44b877b34ddfd0093a38c575c73261d7944493b"
+      }
+    },
+    {
       "identity" : "swiftlychordutilities",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",

@@ -18,7 +18,7 @@ struct FileBrowserView: View {
     var body: some View {
         Group {
             switch fileBrowser.status {
-            case .noFolder:
+            case .noFolderSelected:
                 WelcomeView()
                     .navigationSubtitle("Welcome")
             case .ready:

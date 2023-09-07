@@ -8,6 +8,7 @@
 import SwiftUI
 import AVKit
 import SwiftlyFolderUtilities
+import SwiftlyAlertMessage
 
 /// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {
@@ -27,7 +28,9 @@ struct AudioPlayerView: View {
         return musicURL.deletingLastPathComponent().appending(path: hiddenFile)
     }
     /// Show an `Alert` if the music file is not found
-    @State private var showAlert = false
+    @State private var errorAlert: AlertMessage?
+    /// Show an `ConfirmationDialog` if the music file is not downloaded
+    @State private var confirmationDialog: AlertMessage?
 
     // MARK: Body of the View
 
@@ -38,13 +41,27 @@ struct AudioPlayerView: View {
             if status == .ready {
                 pauseButton
             } else {
-                Button(action: {
-                    showAlert.toggle()
-                }, label: {
-                    status.icon
-                })
+                Button(
+                    action: {
+                        switch status {
+                        case .songNotDownloaded:
+                            confirmationDialog = Status.songNotDownloaded.alert {
+                                Task {
+                                    await downloadSong()
+                                }
+                            }
+                        default:
+                            errorAlert = status.alert()
+                        }
+                    },
+                    label: {
+                        status.icon
+                    }
+                )
             }
         }
+        .errorAlert(message: $errorAlert)
+        .confirmationDialog(message: $confirmationDialog)
         .animation(.default, value: status)
         .buttonStyle(.bordered)
         .task(id: musicURL) {
@@ -53,28 +70,6 @@ struct AudioPlayerView: View {
         .task(id: fileBrowser.songsFolder) {
             await checkSong()
         }
-        .alert(
-            status.title,
-            isPresented: $showAlert,
-            actions: {
-                switch status {
-                case .notDownloaded:
-                    Button(action: {
-                        Task {
-                            await downloadSong()
-                        }
-                    }, label: {
-                        Text("Download")
-                    })
-                    Button(action: {}, label: { Text("Cancel") })
-                default:
-                    EmptyView()
-                }
-            },
-            message: {
-                Text(status.message(song: musicURL.lastPathComponent))
-            }
-        )
     }
 
     // MARK: Additional View parts
@@ -122,14 +117,14 @@ struct AudioPlayerView: View {
                     status = .ready
                 } else {
                     if iCloudURL.exist() {
-                        status = .notDownloaded
+                        status = .songNotDownloaded
                     } else {
-                        status = .notFound
+                        status = .songNotFound
                     }
                 }
             }
         } catch {
-            status = .noFolder
+            status = .noFolderSelected
         }
     }
 
@@ -145,9 +140,8 @@ struct AudioPlayerView: View {
             audioPlayer?.play()
             /// For the button state
             isPlaying = true
-        } catch let error {
-            print(error)
-            showAlert = true
+        } catch {
+            errorAlert = Status.songNotFound.alert()
         }
     }
 

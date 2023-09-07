@@ -75,6 +75,8 @@ I use my [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtiliti
 
 I use my [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities) package to handle folder selection and monitoring.
 
+I use my [SwiftlyAlertMessage](https://github.com/Desbeers/SwiftlyAlertMessage) package for alerts and confirmation dialogs.
+
 ## How to compile
 
 Xcode 15 is required.
