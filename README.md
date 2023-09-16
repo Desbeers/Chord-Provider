@@ -16,7 +16,9 @@ I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainl
 
 ![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 
-Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
+### The icon
+
+A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Olympic White'. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
 ### General
 
@@ -29,6 +31,7 @@ Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS
 - It can export your song to a PDF document.
 - It can play chords with MIDI. Note: This does not work in a simulator.
 - It can play songs when stored next to the ChordPro file.
+- Full 'left-handed' support.
 
 
 ### macOS
@@ -61,21 +64,28 @@ The iOS app will make an iCloud folder named "Chord Provider"; that's where your
 ### Thanks
 
 Stole code (and ideas) from:
-
+- [Swifty Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
 - [SongPro for Swift](https://github.com/SongProOrg/songpro-swift)
 - [Conscriptor](https://github.com/dbarsamian/conscriptor)
 
 ### Used packages
 
-The chord diagrams are made with [Swifty Guitar Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords).
-The editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
-The onboarding for iPadOS is thanks to [DocumentKit](https://github.com/danielsaidi/DocumentKit)
+#### External:
 
-I use my [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities) package for chord handling.
+- The editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
+- The onboarding for iPadOS is [DocumentKit](https://github.com/danielsaidi/DocumentKit)
 
-I use my [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities) package to handle folder selection and monitoring.
+#### My own:
 
-I use my [SwiftlyAlertMessage](https://github.com/Desbeers/SwiftlyAlertMessage) package for alerts and confirmation dialogs.
+![Icon](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png)
+
+- [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities): Handle musical chords
+- [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities): Handle folder selection and monitoring
+- [SwiftlyAlertMessage](https://github.com/Desbeers/SwiftlyAlertMessage): Alerts and confirmation dialogs
+
+*I like to start my package names with **Swiftly** instead of the usual **Swifty** {.leaing} or **Kit** {.trailing}.*
+
+*This is simply because it sounds more pleasing to me.*
 
 ## How to compile
 
