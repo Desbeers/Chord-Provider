@@ -46,7 +46,7 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
   
 ### Limitations
 
-Well, Chord Provider a simple application. There are a lot better 'chord' applications and I wrote this just for fun. It serves me well but I know it's not that great. It might serve you well, as a 'chord' program or as a sample for a 'document based SwiftUI' application. SwiftUI is fun and great, however, also limited and challenging; especially on macOS. There are many 'workarounds' in the code; especially for 'window handling'.
+Well, Chord Provider is a simple application. There are a lot better 'chord' applications and I wrote this just for fun. It serves me well but I know it's not that great. It might serve you well, as a 'chord' program or as a sample for a 'document based SwiftUI' application. SwiftUI is fun and great, however, also limited and challenging; especially on macOS. There are many 'workarounds' in the code; especially for 'window handling'.
 
 Not all chords in the database are correct; especially the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS Ventura to view and alter the database with all known chords.
 
