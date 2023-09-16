@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kyle-n/HighlightedTextEditor",
       "state" : {
-        "revision" : "7069ede002afc6bde867aef7035f45ff72dc839c",
-        "version" : "2.1.0"
+        "revision" : "759d7b4bd2c10d0bbe93bc62d68572a3702049e3",
+        "version" : "2.1.2"
       }
     },
     {
@@ -33,7 +33,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "94a63ffdd466dee906239726b77e10f10c8c11e6"
+        "revision" : "f177ec273d2ee4210e35bb524424db2a7edc61b5"
       }
     },
     {
@@ -43,6 +43,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "4a249ab028faaae49928d653a1799d561083fedc"
+      }
+    },
+    {
+      "identity" : "swiftlystructcache",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyStructCache",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e9b371734411f18e98982944ad213756b7f891fb"
       }
     }
   ],

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
 
 extension ExportSong {
 
@@ -39,9 +40,17 @@ extension ExportSong {
     @MainActor
     static func renderChords(song: Song) -> CGImage? {
         /// Size of the chord diagrams
-        let frame = CGRect(x: 0, y: 0, width: 180, height: 240)
+        let diagramOptions = ChordDefinition.DisplayOptions(
+            showName: true,
+            showNotes: true,
+            showPlayButton: false,
+            rootDisplay: .symbol,
+            qualityDisplay: .symbolized,
+            showFingers: true,
+            mirrorDiagram: false
+        )
         /// The grid items
-        let gridItems = Array(repeating: GridItem(.fixed(60), spacing: 0), count: 10)
+        let gridItems = Array(repeating: GridItem(.fixed(100), spacing: 0), count: 6)
         /// Render the chords
         let renderer = ImageRenderer(
             content:
@@ -51,16 +60,15 @@ extension ExportSong {
                     spacing: 4
                 ) {
                     ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
-                        ChordDiagramView(chord: chord, frame: frame)
-                            .scaledToFit()
-                            .frame(width: 60)
+                        ChordDefinitionView(chord: chord, width: 100, options: diagramOptions)
+                            .foregroundStyle(.black, .white)
+                            .frame(height: 150, alignment: .top)
                     }
                 }
                 .padding()
                 .frame(width: pageWidth, alignment: .center)
                 .preferredColorScheme(.light)
                 .background(.white)
-                .accentColor(.gray)
         )
         renderer.scale = rendererScale
         return renderer.cgImage

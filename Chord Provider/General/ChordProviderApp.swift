@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftlyFolderUtilities
+import SwiftlyChordUtilities
 #if os(iOS)
 import DocumentKit
 #endif
@@ -14,9 +15,21 @@ import DocumentKit
 @main struct ChordProviderApp: App {
 
     /// The ``FileBrowser``
-    @StateObject var fileBrowser: FileBrowser = .shared
+    @StateObject private var fileBrowser: FileBrowser = .shared
     /// The welcome view setting
     @AppStorage("hideWelcome") var hideWelcome: Bool = true
+    /// Default Chord Display Options
+    static let defaults = ChordDefinition.DisplayOptions(
+        showName: true,
+        showNotes: true,
+        showPlayButton: true,
+        rootDisplay: .symbol,
+        qualityDisplay: .symbolized,
+        showFingers: true,
+        mirrorDiagram: false
+    )
+    /// Chord Display Options
+    @StateObject private var chordDisplayOptions = ChordDisplayOptions(defaults: defaults)
 
 #if os(macOS)
 
@@ -46,6 +59,7 @@ import DocumentKit
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
                 .environmentObject(fileBrowser)
+                .environmentObject(chordDisplayOptions)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
                 .onDisappear {
@@ -115,6 +129,7 @@ import DocumentKit
             ContentView(document: file.$document, file: file.fileURL)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
+                .environmentObject(chordDisplayOptions)
                 .environmentObject(fileBrowser)
                 .task {
                     if hideWelcome == false {
@@ -138,6 +153,7 @@ import DocumentKit
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
+                .environmentObject(chordDisplayOptions)
                 .environmentObject(fileBrowser)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)

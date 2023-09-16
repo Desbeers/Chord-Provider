@@ -17,6 +17,8 @@ struct ContentView: View {
     let file: URL?
     /// The state of the scene
     @StateObject private var sceneState = SceneState()
+    /// Chord Display Options
+    @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
@@ -28,7 +30,8 @@ struct ContentView: View {
         }
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
-            MidiPlayer.InstrumentPicker()
+            chordDisplayOptions.mirrorButton
+            chordDisplayOptions.instrumentPicker
             ToolbarView(song: $sceneState.song)
             ShareSongView()
         }
@@ -50,7 +53,9 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
-                    MidiPlayer.InstrumentPicker()
+                    chordDisplayOptions.instrumentPicker
+                    chordDisplayOptions.mirrorButton
+                        .buttonStyle(.bordered)
                     ToolbarView(song: $sceneState.song)
                         .buttonStyle(.bordered)
                     ToolbarView.FolderSelector()
@@ -70,6 +75,7 @@ struct ContentView: View {
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
             .toolbar {
                 ToolbarItemGroup(placement: .navigation) {
+                    chordDisplayOptions.mirrorButton
                     ToolbarView.FolderSelector()
                 }
                 ToolbarItemGroup(placement: .secondaryAction) {

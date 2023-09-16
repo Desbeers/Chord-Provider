@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftlyChordUtilities
 
 extension Song.Section.Line {
 
@@ -14,7 +15,7 @@ extension Song.Section.Line {
         /// The unique ID
         var id: Int
         /// The optional chord ID
-        var chord: Song.Chord.ID?
+        var chord: ChordDefinition.ID?
         /// The optional text
         var text: String = ""
         /// Bool if the part is empty or not

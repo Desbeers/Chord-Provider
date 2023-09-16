@@ -12,10 +12,10 @@ import SwiftlyChordUtilities
 struct ChordsView: View {
     /// The ``Song``
     let song: Song
-    /// Size of the chord diagram
-    let frame = CGRect(x: 0, y: 0, width: 100, height: 150)
+    /// Chord Display Options
+    @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
     /// Sheet with chords
-    @State var showChordSheet: Song.Chord?
+    @State var showChordSheet: ChordDefinition?
     /// The body of the `View`
     var body: some View {
         ScrollView {
@@ -29,28 +29,18 @@ struct ChordsView: View {
                             },
                             label: {
                                 VStack(spacing: 0) {
-                                    ChordDiagramView(chord: chord, playButton: true)
-                                    Label(
-                                        title: {
-                                            Text("\(chord.getChordPostions().count) variations")
-                                        },
-                                        icon: {
-                                            Image(systemName: "info.circle.fill")
-                                        }
-                                    )
-                                    .font(.caption)
-                                    .padding(.vertical, 4)
-                                    .foregroundStyle(.secondary)
+                                    ChordDiagramView(chord: chord, width: 120)
                                 }
                             }
                         )
                     default:
-                        ChordDiagramView(chord: chord)
+                        ChordDiagramView(chord: chord, width: 120)
                     }
                 }
             }
             .padding()
         }
+        .animation(.default, value: song.chords)
         .buttonStyle(.plain)
         .sheet(item: $showChordSheet) { chord in
             Sheet(chord: chord)
@@ -65,30 +55,24 @@ extension ChordsView {
         /// The presentation mode of the `Sheet`
         @Environment(\.dismiss) var dismiss
         /// The selected chord
-        let chord: Song.Chord
+        let chord: ChordDefinition
+        /// All the chord variations
+        @State private var chords: [ChordDefinition] = []
         /// The body of the `View`
         var body: some View {
             VStack {
-                Text("Chord: \(chord.display)")
+                Text("Chord: \(chord.displayName(options: .init()))")
                     .font(.title)
-#if os(macOS)
-                MidiPlayer.InstrumentPicker()
-#endif
                 ScrollView {
                     LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 110))],
+                        columns: [GridItem(.adaptive(minimum: 140))],
                         alignment: .center,
                         spacing: 4,
                         pinnedViews: [.sectionHeaders, .sectionFooters]
                     ) {
-                        ForEach(chord.getChordPostions()) { chord in
+                        ForEach(chords) { chord in
                             VStack {
-                                let chordDiagram = Song.Chord(
-                                    name: chord.name,
-                                    chordPosition: chord,
-                                    status: .standard
-                                )
-                                ChordDiagramView(chord: chordDiagram, playButton: true)
+                                ChordDiagramView(chord: chord, width: 140)
                             }
                         }
                     }
@@ -104,7 +88,10 @@ extension ChordsView {
                 .keyboardShortcut(.defaultAction)
             }
             .padding()
-            .frame(minWidth: 400, idealWidth: 600, minHeight: 400, idealHeight: 600)
+            .frame(minWidth: 600, idealWidth: 600, minHeight: 600, idealHeight: 600)
+            .task {
+                chords = Chords.guitar.matching(root: chord.root).matching(quality: chord.quality)
+            }
         }
     }
 }

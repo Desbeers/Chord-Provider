@@ -70,6 +70,9 @@ enum ChordPro {
                 }
             }
         }
+        if song.key == nil {
+            song.key = song.chords.first?.root
+        }
         /// All done!
         return song
     }
@@ -105,15 +108,12 @@ enum ChordPro {
             case .time:
                 song.time = label
             case .key:
-                if let label, let key = Chords.Key(rawValue: label) {
-                    /// Transpose the chord if needed
+                if let label, var key = Chord.Root(rawValue: label) {
+                    /// Transpose the key if needed
                     if song.transpose != 0 {
-                        var chord = getChordInfo(root: key, quality: .major )
-                        chord.transpose(transpose: song.transpose, scale: key)
-                        song.key = chord.root
-                    } else {
-                        song.key = key
+                        key.transpose(transpose: song.transpose, scale: key)
                     }
+                    song.key = key
                 }
             case .tempo:
                 song.tempo = label
@@ -247,18 +247,20 @@ enum ChordPro {
     ///   - text: The chord definition
     ///   - song: The `song`
     private static func processDefine(text: String, song: inout Song) {
-        if let match = text.wholeMatch(of: defineRegex) {
-            let key = match.1
-            /// Parse the define
-            if let chord = define(from: text) {
-                let status: Song.Chord.Status = song.transpose == 0 ? .custom : .customTransposed
-                /// Update a standard chord with the same key if there is one in the chords list
-                if let index = song.chords.firstIndex(where: { $0.name == key && ($0.status == .standard || $0.status == .transposed) }) {
-                    song.chords[index].chordPosition = chord
-                    song.chords[index].status = status
-                } else {
-                    song.chords.append(Song.Chord(name: key, chordPosition: chord, status: status))
-                }
+        if var definedChord = ChordDefinition(definition: text) {
+            definedChord.status = song.transpose == 0 ? definedChord.status : .customTransposed
+            /// Update a standard chord with the same root and quality if there is one in the chords list
+            if let index = song.chords.firstIndex(where: {
+                $0.root == definedChord.root &&
+                $0.quality == definedChord.quality &&
+                ($0.status == .standard || $0.status == .transposed)
+            }) {
+                /// Use the same ID as the standard chord
+                definedChord.id = song.chords[index].id
+                song.chords[index] = definedChord
+            } else {
+                /// Add the chord as a new definition
+                song.chords.append(definedChord)
             }
         }
     }
@@ -377,44 +379,22 @@ enum ChordPro {
     ///   - chord: The `chord` as String
     ///   - song: The `Song`
     /// - Returns: The processed `chord` as String
-    private static func processChord(chord: String, song: inout Song) -> Song.Chord {
-        /// Check if this chord is aready parsed
+    private static func processChord(chord: String, song: inout Song) -> ChordDefinition {
+        /// Check if this chord is already parsed
         if  let match = song.chords.last(where: { $0.name == chord }) {
             return match
         }
-        /// Try to find the chord in SwiftyChords and append to the used chord list from this song
-        let result = findRootAndQuality(chord: chord)
 
-        if let root = result.root, let quality = result.quality {
-            var rootValue = root
-            /// Transpose the chord if needed
+        if var databaseChord = ChordDefinition(name: chord) {
+            databaseChord.name = chord
             if song.transpose != 0 {
-                var chord = getChordInfo(root: rootValue, quality: quality )
-                chord.transpose(transpose: song.transpose, scale: song.key ?? .c)
-                rootValue = chord.root
+                databaseChord.transpose(transpose: song.transpose, scale: song.key ?? .c)
             }
-            let chords = Chords.guitar
-                .filter { $0.key == rootValue && $0.suffix == quality }
-                .sorted { $0.baseFret < $1.baseFret }
-            if let baseChord = chords.first {
-                let status: Song.Chord.Status = song.transpose == 0 ? .standard : .transposed
-                let songChord = Song.Chord(name: chord, chordPosition: baseChord, status: status)
-                song.chords.append(songChord)
-                return songChord
-            }
+            song.chords.append(databaseChord)
+            return databaseChord
         }
-        /// Return the chord because it is possible to have a custom defined chord after the usage of that chord.
-        let chordPosition = ChordPosition(
-            frets: [0],
-            fingers: [0],
-            baseFret: 0,
-            barres: [0],
-            midi: [0],
-            key: .c,
-            suffix: .major
-        )
-        let songChord = Song.Chord(name: chord, chordPosition: chordPosition, status: .unknown)
-        song.chords.append(songChord)
-        return songChord
+        let unknownChord = ChordDefinition(unknown: chord)
+        song.chords.append(unknownChord)
+        return unknownChord
     }
 }

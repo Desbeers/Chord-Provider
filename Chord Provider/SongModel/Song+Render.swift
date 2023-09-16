@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
 
 extension Song {
 
@@ -144,7 +145,7 @@ extension Song.Render {
         /// The `section` of the song
         let section: Song.Section
         /// The chords of the song
-        let chords: [Song.Chord]
+        let chords: [ChordDefinition]
         /// The style of the `View`
         var style: Song.Style = .asGrid
         /// The body of the `View`
@@ -176,7 +177,7 @@ extension Song.Render {
         /// The `section` of the song
         let section: Song.Section
         /// The chords of the song
-        let chords: [Song.Chord]
+        let chords: [ChordDefinition]
         /// The style of the `View`
         var style: Song.Style = .asGrid
         /// The body of the `View`
@@ -195,7 +196,7 @@ extension Song.Render {
         /// The `section` of the song
         let section: Song.Section
         /// The chords of the song
-        let chords: [Song.Chord]
+        let chords: [ChordDefinition]
         /// The style of the `View`
         var style: Song.Style = .asGrid
         /// The body of the `View`
@@ -263,7 +264,7 @@ extension Song.Render {
         /// The `parts` of a `line`
         let parts: [Song.Section.Line.Part]
         /// The chords of the song
-        let chords: [Song.Chord]
+        let chords: [ChordDefinition]
         /// The body of the `View`
         var body: some View {
             HStack(spacing: 0) {
@@ -290,7 +291,7 @@ extension Song.Render {
         /// The ID of the part
         let partID: Int
         /// The  chord
-        let chord: Song.Chord
+        let chord: ChordDefinition
         /// The calculated ID of this `View`
         var popoverID: String {
             "\(sectionID)-\(partID)-\(chord.name)"
@@ -298,7 +299,7 @@ extension Song.Render {
         /// The color of a chord
         var color: Color {
             switch chord.status {
-            case .customTransposed:
+            case .customTransposed, .unknown:
                 Color.red
             default:
                 Color.accentColor
@@ -310,7 +311,7 @@ extension Song.Render {
         @State private var hover: Bool = false
         /// The body of the `View`
         var body: some View {
-            Text(chord.display)
+            Text(chord.displayName(options: .init()))
                 .padding(.trailing)
                 .foregroundColor(color)
                 .onTapGesture {
@@ -318,7 +319,7 @@ extension Song.Render {
                 }
                 .id(popoverID)
                 .popover(item: $popover) { _ in
-                    ChordDiagramView(chord: chord, playButton: true)
+                    ChordDiagramView(chord: chord, width: 140)
                         .padding()
                 }
                 .onHover { hovering in
