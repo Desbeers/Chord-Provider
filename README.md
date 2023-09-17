@@ -54,13 +54,6 @@ Not all chords in the database are correct; especially the more complicated chor
 
 The iOS app will make an iCloud folder named "Chord Provider"; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
 
-### Known issues
-
-- When you switch from light to dark mode and visa-versa; the chord diagrams are not updated.
-- SwiftUI 'DocumentGroup', used to show the songs, is very buggy and limited.
-- 'Pinch to zoom' is buggy on macOS. Sometimes it just stops working. There is a 'zoom' slider in the toolbar.
-- The 'song' is rendered in a SwiftUI View, so, a bit sluggish... But fancy!
-
 ### Thanks
 
 Stole code (and ideas) from:
