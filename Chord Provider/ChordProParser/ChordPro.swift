@@ -247,7 +247,7 @@ enum ChordPro {
     ///   - text: The chord definition
     ///   - song: The `song`
     private static func processDefine(text: String, song: inout Song) {
-        if var definedChord = ChordDefinition(definition: text) {
+        if var definedChord = ChordDefinition(definition: text, tuning: .guitarStandardETuning) {
             definedChord.status = song.transpose == 0 ? definedChord.status : .customTransposed
             /// Update a standard chord with the same root and quality if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
@@ -385,7 +385,7 @@ enum ChordPro {
             return match
         }
 
-        if var databaseChord = ChordDefinition(name: chord) {
+        if var databaseChord = ChordDefinition(name: chord, tuning: .guitarStandardETuning) {
             databaseChord.name = chord
             if song.transpose != 0 {
                 databaseChord.transpose(transpose: song.transpose, scale: song.key ?? .c)
