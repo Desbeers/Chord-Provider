@@ -117,6 +117,13 @@ import DocumentKit
                 }
         }
         .menuBarExtraStyle(.window)
+
+        // MARK: Settings
+
+        Settings {
+            SettingsView()
+                .environmentObject(chordDisplayOptions)
+        }
     }
 #endif
 

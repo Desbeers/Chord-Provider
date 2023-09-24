@@ -18,9 +18,9 @@ enum ChordPro {
     ///   - text: The text of the file
     ///   - transponse: The optional transpose of the song
     /// - Returns: A ``Song`` item
-    static func parse(text: String, transpose: Int) -> Song {
+    static func parse(text: String, transpose: Int, instrument: Instrument) -> Song {
         /// Start with a fresh song
-        var song = Song()
+        var song = Song(instrument: instrument)
         /// Add the optional transpose
         song.transpose = transpose
         /// Add a new line at the end of the text
@@ -247,7 +247,7 @@ enum ChordPro {
     ///   - text: The chord definition
     ///   - song: The `song`
     private static func processDefine(text: String, song: inout Song) {
-        if var definedChord = ChordDefinition(definition: text, tuning: .guitarStandardETuning) {
+        if var definedChord = ChordDefinition(definition: text, instrument: song.instrument) {
             definedChord.status = song.transpose == 0 ? definedChord.status : .customTransposed
             /// Update a standard chord with the same root and quality if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
@@ -384,16 +384,17 @@ enum ChordPro {
         if  let match = song.chords.last(where: { $0.name == chord }) {
             return match
         }
-
-        if var databaseChord = ChordDefinition(name: chord, tuning: .guitarStandardETuning) {
-            databaseChord.name = chord
+        /// Try to find it in the database
+        if var databaseChord = ChordDefinition(name: chord, instrument: song.instrument) {
             if song.transpose != 0 {
                 databaseChord.transpose(transpose: song.transpose, scale: song.key ?? .c)
+                /// Keep the original name
+                databaseChord.name = chord
             }
             song.chords.append(databaseChord)
             return databaseChord
         }
-        let unknownChord = ChordDefinition(unknown: chord)
+        let unknownChord = ChordDefinition(unknown: chord, instrument: song.instrument)
         song.chords.append(unknownChord)
         return unknownChord
     }

@@ -24,7 +24,10 @@ extension ExportSong {
                         .font(.title2)
                         .foregroundColor(Color.gray)
                         .padding(.bottom)
-                    HeaderView.Details(song: song)
+                    HStack {
+                        Label(song.instrument.label, systemImage: "guitars")
+                        HeaderView.Details(song: song)
+                    }
                 }
                 .frame(width: pageWidth, alignment: .center)
                 .preferredColorScheme(.light)
@@ -41,7 +44,7 @@ extension ExportSong {
     static func renderChords(song: Song) -> CGImage? {
         /// Size of the chord diagrams
         let diagramOptions = ChordDefinition.DisplayOptions(
-            showName: true,
+            showName: false,
             showNotes: true,
             showPlayButton: false,
             rootDisplay: .symbol,
@@ -60,9 +63,12 @@ extension ExportSong {
                     spacing: 4
                 ) {
                     ForEach(song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
-                        ChordDefinitionView(chord: chord, width: 100, options: diagramOptions)
-                            .foregroundStyle(.black, .white)
-                            .frame(height: 150, alignment: .top)
+                        VStack {
+                            Text(chord.displayName(options: .init(rootDisplay: .symbol, qualityDisplay: .symbolized)))
+                            ChordDefinitionView(chord: chord, width: 100, options: diagramOptions)
+                                .foregroundStyle(.black, .white)
+                                .frame(height: 120, alignment: .bottom)
+                        }
                     }
                 }
                 .padding()

@@ -35,6 +35,8 @@ struct Song {
     var musicPath: String?
     /// The optional transpose
     var transpose: Int = 0
+    /// The instrument
+    var instrument: Instrument
 
     // MARK: Song export
 

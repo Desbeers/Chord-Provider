@@ -19,6 +19,8 @@ struct ContentView: View {
     @StateObject private var sceneState = SceneState()
     /// Chord Display Options
     @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
+    /// Show settings (not for macOS)
+    @State private var showSettings: Bool = false
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
@@ -30,8 +32,9 @@ struct ContentView: View {
         }
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
-            chordDisplayOptions.mirrorButton
+            chordDisplayOptions.mirrorToggle
             chordDisplayOptions.instrumentPicker
+                .frame(width: 100)
             ToolbarView(song: $sceneState.song)
             ShareSongView()
         }
@@ -52,9 +55,19 @@ struct ContentView: View {
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(
+                        action: {
+                            showSettings.toggle()
+                        },
+                        label: {
+                            Image(systemName: "gear")
+                        }
+                    )
+                }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     chordDisplayOptions.instrumentPicker
-                    chordDisplayOptions.mirrorButton
+                    chordDisplayOptions.mirrorToggle
                         .buttonStyle(.bordered)
                     ToolbarView(song: $sceneState.song)
                         .buttonStyle(.bordered)
@@ -70,6 +83,9 @@ struct ContentView: View {
                 }
             }
             .focusedSceneObject(sceneState)
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+            }
 #elseif os(visionOS)
         MainView(document: $document, song: $sceneState.song, file: file)
             .navigationTitle(sceneState.song.title ?? "Chord Provider")

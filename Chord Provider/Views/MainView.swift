@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
 
 /// Swiftui `View` for the main content
 struct MainView: View {
@@ -15,6 +16,8 @@ struct MainView: View {
     @Binding var song: Song
     /// The optional file location
     let file: URL?
+    /// Chord Display Options
+    @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
     /// Bool to show the editor or not
     @SceneStorage("showEditor")
     var showEditor: Bool = false
@@ -49,7 +52,7 @@ struct MainView: View {
 #endif
         }
         .task {
-            song = ChordPro.parse(text: document.text, transpose: song.transpose)
+            song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
             ExportSong.savePDF(song: song)
             /// Always open the editor for a new file
             if document.text == ChordProDocument.newText {
@@ -59,13 +62,17 @@ struct MainView: View {
         .onChange(of: document.text) { _ in
             Task { @MainActor in
                 await document.buildSongDebouncer.submit {
-                    song = ChordPro.parse(text: document.text, transpose: song.transpose)
+                    song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
                     ExportSong.savePDF(song: song)
                 }
             }
         }
         .onChange(of: song.transpose) { _ in
-            song = ChordPro.parse(text: document.text, transpose: song.transpose)
+            song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
+        }
+        .onChange(of: chordDisplayOptions.instrument) { _ in
+            song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
+            ExportSong.savePDF(song: song)
         }
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)

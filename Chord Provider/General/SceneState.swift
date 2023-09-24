@@ -10,7 +10,7 @@ import SwiftUI
 /// The observable scene state for Chord Provider
 final class SceneState: ObservableObject {
     /// The current ``Song``
-    @Published var song = Song()
+    @Published var song = Song(instrument: .guitarStandardETuning)
     /// The Song rendered as PDF
     var pdf: Data = Data()
     /// The selection in the editor

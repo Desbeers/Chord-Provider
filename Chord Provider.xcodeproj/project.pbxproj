@@ -10,6 +10,7 @@
 		D701F8792A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */; };
 		D701F87A2A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */; };
 		D701F87B2A9CBA3D007DACF3 /* Aliasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA02A6460B7002D875D /* Aliasses.swift */; };
+		D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622B462ABF0B04008CAC63 /* SettingsView.swift */; };
 		D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */ = {isa = PBXBuildFile; productRef = D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */; };
 		D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */; };
 		D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */; };
@@ -103,6 +104,7 @@
 
 /* Begin PBXFileReference section */
 		D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDiagramView.swift; sourceTree = "<group>"; };
+		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingView (iPadOS).swift"; sourceTree = "<group>"; };
 		D7BFC7632A9A522E005E2A3E /* Song+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Style.swift"; sourceTree = "<group>"; };
 		D7D39C4E2A9A13DA004EAE5F /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				D7F13FAC2A6460B7002D875D /* ShareSongView.swift */,
 				D7F13FBA2A6460B7002D875D /* ExportSongView.swift */,
 				D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */,
+				D7622B462ABF0B04008CAC63 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				D7F13FC62A6460B7002D875D /* WindowManagement (macOS).swift in Sources */,
 				D701F8792A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */,
 				D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */,
+				D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */,
 				D7D39C4F2A9A13DA004EAE5F /* Status.swift in Sources */,
 				D7F13FE62A6460B7002D875D /* ContentView.swift in Sources */,
 				D7F13FE32A6460B7002D875D /* PrintSongView.swift in Sources */,
@@ -726,7 +730,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.ChordProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -773,7 +777,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.ChordProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
@@ -807,7 +811,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.ChordProvider.qlmacos;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4.qlmacos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -837,7 +841,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 4.0;
-				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.ChordProvider.qlmacos;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4.qlmacos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
