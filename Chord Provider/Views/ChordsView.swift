@@ -90,7 +90,8 @@ extension ChordsView {
             .padding()
             .frame(minWidth: 600, idealWidth: 600, minHeight: 600, idealHeight: 600)
             .task {
-                chords = Chords.guitar.matching(root: chord.root).matching(quality: chord.quality)
+                let allChords = Chords.getAllChordsForInstrument(instrument: chord.instrument)
+                chords = allChords.matching(root: chord.root).matching(quality: chord.quality).matching(bass: chord.bass)
             }
         }
     }
