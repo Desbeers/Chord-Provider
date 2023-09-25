@@ -22,37 +22,35 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 
 ### General
 
-- It wil view and/or edit 'ChordPro' files.
-- It recognise most of the 'ChordPro' directives, but not all.
-- It has a 'highlighted TextEditor'.
-- It can transpose a song; however, only in the View. The document will not be changed and that's on purpose.
-- You can 'define' a Capo but that will not change any notes; again on purpose.
+- It wil view and/or edit **ChordPro** files.
+- It recognise most of the **ChordPro** directives, but not all.
+- It can show diagrams for the guitar, guitalele and ukulele.
 - You can click on a chord diagram and it will open a Sheet with all known versions.
+- It can transpose a song; however, only in the View. The document will not be changed and that's on purpose.
+- You can 'define' a Capo but that will not change any notes in the document; again on purpose.
 - It can export your song to a PDF document.
 - It can play chords with MIDI. Note: This does not work in a simulator.
-- It can play songs when stored next to the ChordPro file.
+- It can play songs when stored next to the **ChordPro** file.
 - Full 'left-handed' support.
 
 
 ### macOS
 
 - It has a 'browser' for your songs if you select a folder.
-- It has a 'quick view' plugin for 'ChordPro' files.
+- It has a 'quick view' plugin for **ChordPro** files.
 
-## visionOS
+### visionOS
 
-- Currently 'DocumentGroup' is partly broken.
+- Currently `DocumentGroup` is partly broken (Xcode 15 beta 8).
 - It is the future; however, not yet.
   
 ### Limitations
 
-Well, Chord Provider is a simple application. There are a lot better 'chord' applications and I wrote this just for fun. It serves me well but I know it's not that great. It might serve you well, as a 'chord' program or as a sample for a 'document based SwiftUI' application. SwiftUI is fun and great, however, also limited and challenging; especially on macOS. There are many 'workarounds' in the code; especially for 'window handling'.
-
-Not all chords in the database are correct; especially the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS Ventura to view and alter the database with all known chords.
+Not all chords in the database are correct; especially the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS and iPadOS to view and alter the database with all known chords. Feel free to contribute!
 
 ### iCloud
 
-The iOS app will make an iCloud folder named "Chord Provider"; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
+The iOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
 
 ### Thanks
 
@@ -76,7 +74,7 @@ Stole code (and ideas) from:
 - [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities): Handle folder selection and monitoring
 - [SwiftlyAlertMessage](https://github.com/Desbeers/SwiftlyAlertMessage): Alerts and confirmation dialogs
 
-*I like to start my package names with **Swiftly** instead of the usual **Swifty** {.leaing} or **Kit** {.trailing}.*
+*I like to start my package names with **Swiftly** instead of the usual **Swifty** {.leading} or **Kit** {.trailing}.*
 
 *This is simply because it sounds more pleasing to me.*
 
