@@ -63,6 +63,11 @@ extension ChordsView {
             VStack {
                 Text("Chord: \(chord.displayName(options: .init()))")
                     .font(.title)
+                HStack {
+                    ForEach(chord.quality.intervals.intervals, id: \.self) { interval in
+                        Text(interval.description)
+                    }
+                }
                 ScrollView {
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 140))],
