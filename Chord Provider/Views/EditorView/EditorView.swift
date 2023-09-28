@@ -29,25 +29,29 @@ struct EditorView: View {
     /// The CordPro document
     @Binding var document: ChordProDocument
     /// The scene state
-    @EnvironmentObject private var sceneState: SceneState
+    @EnvironmentObject var sceneState: SceneState
+    /// Show a directive sheet
+    @State var showDirectiveSheet: Bool = false
+    /// The directive to show in the sheet
+    @State var directive: ChordPro.Directive = .define
     /// The definition of the directive sheet
-    @State private var definition: String = ""
+    @State var definition: String = ""
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                MarkupView()
+                directiveMenus
             }
             .padding()
             editor
         }
         .sheet(
-            isPresented: $sceneState.showDirectiveSheet,
+            isPresented: $showDirectiveSheet,
             onDismiss: {
                 if !definition.isEmpty {
                     EditorView.format(
                         document: &document,
-                        directive: sceneState.directive,
+                        directive: directive,
                         selection: sceneState.selection,
                         definition: definition,
                         in: sceneState.textView
@@ -57,7 +61,7 @@ struct EditorView: View {
                 }
             },
             content: {
-                DirectiveSheet(directive: sceneState.directive, definition: $definition)
+                DirectiveSheet(directive: directive, definition: $definition)
             }
         )
         /// The buttons on the editor toolbar change on selection

@@ -57,10 +57,10 @@ extension EditorView.DirectiveSheet {
             .font(.title)
         TextField(
             text: $definition,
-            prompt: Text(directive.label.text),
-            label: {
-                Text("Value")
-            })
+            prompt: Text(directive.label.text)
+        ) {
+            Text("Value")
+        }
         .frame(width: 400)
         .padding(.bottom)
         .textFieldStyle(.roundedBorder)

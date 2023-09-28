@@ -12,6 +12,7 @@ struct HeaderView: View {
     /// The ``Song``
     let song: Song
     /// The optional file location
+    /// - Note: Needed to play a song when a 'musicpath' is defined
     let file: URL?
     /// The body of the `View`
     var body: some View {

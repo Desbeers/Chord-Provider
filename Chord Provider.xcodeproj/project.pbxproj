@@ -12,8 +12,8 @@
 		D701F87B2A9CBA3D007DACF3 /* Aliasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA02A6460B7002D875D /* Aliasses.swift */; };
 		D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622B462ABF0B04008CAC63 /* SettingsView.swift */; };
 		D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */; };
-		D78E1ECF2AC58840001A0641 /* EditorView+DirectiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ECE2AC58840001A0641 /* EditorView+DirectiveButton.swift */; };
-		D78E1ED12AC5A58E001A0641 /* MarkupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ED02AC5A58E001A0641 /* MarkupView.swift */; };
+		D78E1ECF2AC58840001A0641 /* EditorView+directiveSheetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */; };
+		D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ED02AC5A58E001A0641 /* EditorView+directiveMenus.swift */; };
 		D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */ = {isa = PBXBuildFile; productRef = D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */; };
 		D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */; };
 		D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */; };
@@ -50,7 +50,7 @@
 		D7F13FD82A6460B7002D875D /* LaunchScreen (iPadOS).storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */; platformFilter = ios; };
 		D7F13FDA2A6460B7002D875D /* ShareSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAC2A6460B7002D875D /* ShareSongView.swift */; };
 		D7F13FDB2A6460B7002D875D /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAD2A6460B7002D875D /* ToolbarView.swift */; };
-		D7F13FDC2A6460B7002D875D /* EditorView+EditorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAF2A6460B7002D875D /* EditorView+EditorButton.swift */; };
+		D7F13FDC2A6460B7002D875D /* EditorView+directiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAF2A6460B7002D875D /* EditorView+directiveButton.swift */; };
 		D7F13FDD2A6460B7002D875D /* EditorView+rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB02A6460B7002D875D /* EditorView+rules.swift */; platformFilters = (ios, macos, ); };
 		D7F13FDE2A6460B7002D875D /* EditorView+regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB12A6460B7002D875D /* EditorView+regex.swift */; };
 		D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB22A6460B7002D875D /* EditorView.swift */; };
@@ -109,8 +109,8 @@
 		D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDiagramView.swift; sourceTree = "<group>"; };
 		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+DirectiveSheet.swift"; sourceTree = "<group>"; };
-		D78E1ECE2AC58840001A0641 /* EditorView+DirectiveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+DirectiveButton.swift"; sourceTree = "<group>"; };
-		D78E1ED02AC5A58E001A0641 /* MarkupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupView.swift; sourceTree = "<group>"; };
+		D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveSheetButton.swift"; sourceTree = "<group>"; };
+		D78E1ED02AC5A58E001A0641 /* EditorView+directiveMenus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveMenus.swift"; sourceTree = "<group>"; };
 		D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingView (iPadOS).swift"; sourceTree = "<group>"; };
 		D7BFC7632A9A522E005E2A3E /* Song+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Style.swift"; sourceTree = "<group>"; };
 		D7D39C4E2A9A13DA004EAE5F /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 		D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "LaunchScreen (iPadOS).storyboard"; sourceTree = "<group>"; };
 		D7F13FAC2A6460B7002D875D /* ShareSongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSongView.swift; sourceTree = "<group>"; };
 		D7F13FAD2A6460B7002D875D /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
-		D7F13FAF2A6460B7002D875D /* EditorView+EditorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorView+EditorButton.swift"; sourceTree = "<group>"; };
+		D7F13FAF2A6460B7002D875D /* EditorView+directiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveButton.swift"; sourceTree = "<group>"; };
 		D7F13FB02A6460B7002D875D /* EditorView+rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorView+rules.swift"; sourceTree = "<group>"; };
 		D7F13FB12A6460B7002D875D /* EditorView+regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorView+regex.swift"; sourceTree = "<group>"; };
 		D7F13FB22A6460B7002D875D /* EditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
@@ -313,7 +313,6 @@
 				D7F13FB52A6460B7002D875D /* MainView.swift */,
 				D7F13FB42A6460B7002D875D /* HeaderView.swift */,
 				D7F13FAD2A6460B7002D875D /* ToolbarView.swift */,
-				D78E1ED02AC5A58E001A0641 /* MarkupView.swift */,
 				D7F13FB82A6460B7002D875D /* SongView.swift */,
 				D7F13FB72A6460B7002D875D /* ChordsView.swift */,
 				D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */,
@@ -331,12 +330,13 @@
 			isa = PBXGroup;
 			children = (
 				D7F13FB22A6460B7002D875D /* EditorView.swift */,
-				D7F13FAF2A6460B7002D875D /* EditorView+EditorButton.swift */,
+				D78E1ED02AC5A58E001A0641 /* EditorView+directiveMenus.swift */,
+				D7F13FAF2A6460B7002D875D /* EditorView+directiveButton.swift */,
+				D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */,
+				D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */,
 				D7F13FB02A6460B7002D875D /* EditorView+rules.swift */,
 				D7F13FB12A6460B7002D875D /* EditorView+regex.swift */,
 				D7F13FB32A6460B7002D875D /* EditorView+format.swift */,
-				D78E1ECE2AC58840001A0641 /* EditorView+DirectiveButton.swift */,
-				D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */,
 			);
 			path = EditorView;
 			sourceTree = "<group>";
@@ -510,7 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D78E1ED12AC5A58E001A0641 /* MarkupView.swift in Sources */,
+				D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */,
 				D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */,
 				D7F13FDA2A6460B7002D875D /* ShareSongView.swift in Sources */,
 				D7F13FCE2A6460B7002D875D /* ChordProDocument.swift in Sources */,
@@ -533,7 +533,7 @@
 				D7F13FBF2A6460B7002D875D /* Song+Render.swift in Sources */,
 				D7F13FE42A6460B7002D875D /* ChordsView.swift in Sources */,
 				D7F13FDB2A6460B7002D875D /* ToolbarView.swift in Sources */,
-				D7F13FDC2A6460B7002D875D /* EditorView+EditorButton.swift in Sources */,
+				D7F13FDC2A6460B7002D875D /* EditorView+directiveButton.swift in Sources */,
 				D7F13FE12A6460B7002D875D /* HeaderView.swift in Sources */,
 				D7F13FD02A6460B7002D875D /* SceneState.swift in Sources */,
 				D7F13FE82A6460B7002D875D /* AudioPlayerView.swift in Sources */,
@@ -542,7 +542,7 @@
 				D7F13FC02A6460B7002D875D /* Song+Section.swift in Sources */,
 				D7F13FC52A6460B7002D875D /* ExportSong.swift in Sources */,
 				D7F13FC72A6460B7002D875D /* FileBrowser.swift in Sources */,
-				D78E1ECF2AC58840001A0641 /* EditorView+DirectiveButton.swift in Sources */,
+				D78E1ECF2AC58840001A0641 /* EditorView+directiveSheetButton.swift in Sources */,
 				D7F13FD12A6460B7002D875D /* Aliasses.swift in Sources */,
 				D7F13FDD2A6460B7002D875D /* EditorView+rules.swift in Sources */,
 				D7D39C512A9A19A1004EAE5F /* WelcomeView.swift in Sources */,

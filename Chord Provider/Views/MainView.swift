@@ -18,6 +18,10 @@ struct MainView: View {
     let file: URL?
     /// Chord Display Options
     @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
+    /// Bool to show the editor or not
+    @SceneStorage("showEditor") var showEditor: Bool = false
+    /// Bool to show the chords or not
+    @SceneStorage("showChords") var showChords: Bool = true
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
     /// The body of the `View`
@@ -25,12 +29,12 @@ struct MainView: View {
         GeometryReader { geometry in
             HStack(spacing: 0) {
                 SongView(song: song)
-                if sceneState.showEditor {
+                if showEditor {
                     EditorView(document: $document)
                         .frame(minWidth: 300)
                 }
 #if !os(visionOS)
-                if sceneState.showChords {
+                if showChords {
                     ChordsView(song: song)
                         .frame(minWidth: 150)
                 }
@@ -52,7 +56,7 @@ struct MainView: View {
             ExportSong.savePDF(song: song)
             /// Always open the editor for a new file
             if document.text == ChordProDocument.newText {
-                sceneState.showEditor = true
+                showEditor = true
             }
         }
         .onChange(of: document.text) { _ in
@@ -70,7 +74,7 @@ struct MainView: View {
             song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
             ExportSong.savePDF(song: song)
         }
-        .animation(.default, value: sceneState.showEditor)
-        .animation(.default, value: sceneState.showChords)
+        .animation(.default, value: showEditor)
+        .animation(.default, value: showChords)
     }
 }

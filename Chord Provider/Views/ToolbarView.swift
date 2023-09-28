@@ -14,30 +14,32 @@ struct ToolbarView: View {
     @Binding var song: Song
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
+    /// Bool to show the editor or not
+    @SceneStorage("showEditor") var showEditor: Bool = false
+    /// Bool to show the chords or not
+    @SceneStorage("showChords") var showChords: Bool = true
     /// The body of the `View`
     var body: some View {
         HStack {
             Button(action: {
                 song.transpose -= 1
             }, label: {
-                Label("♭", systemImage: "arrow.down")
-                    .foregroundColor(song.transpose < 0 ? .primary : .secondary)
+                Label("♭", systemImage: song.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle")
             })
             Button(action: {
                 song.transpose += 1
             }, label: {
-                Label("♯", systemImage: "arrow.up")
-                    .foregroundColor(song.transpose > 0 ? .primary : .secondary)
+                Label("♯", systemImage: song.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle")
             })
             Button {
-                sceneState.showEditor.toggle()
+                showEditor.toggle()
             } label: {
-                Label("Edit", systemImage: sceneState.showEditor ? "pencil.circle.fill" : "pencil.circle")
+                Label("Edit", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
             Button {
-                sceneState.showChords.toggle()
+                showChords.toggle()
             } label: {
-                Label("Chords", systemImage: sceneState.showChords ? "number.circle.fill" : "number.circle")
+                Label("Chords", systemImage: showChords ? "number.circle.fill" : "number.circle")
             }
         }
         .labelStyle(.titleAndIcon)

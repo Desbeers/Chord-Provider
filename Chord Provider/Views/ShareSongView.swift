@@ -9,13 +9,11 @@ import SwiftUI
 
 /// SwiftUI `View for the Share Button`
 struct ShareSongView: View {
-    /// The scene
-    @FocusedObject private var sceneSate: SceneState?
+    /// The export URL
+    let exportURL: URL
     /// The body of the `View`
     var body: some View {
-        if let url = sceneSate?.song.exportURL {
-            ShareLink(item: url)
-                .labelStyle(.iconOnly)
-        }
+        ShareLink(item: exportURL)
+            .labelStyle(.iconOnly)
     }
 }

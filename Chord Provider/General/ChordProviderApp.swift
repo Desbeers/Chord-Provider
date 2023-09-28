@@ -89,9 +89,6 @@ import DocumentKit
                 }
         }
         .commands {
-            CommandMenu("Markup") {
-                MarkupView()
-            }
             CommandGroup(after: CommandGroupPlacement.importExport) {
                 ExportSongView()
             }
@@ -136,8 +133,6 @@ import DocumentKit
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
-            /// Give the scene access to the document.
-                .focusedSceneValue(\.document, file.$document)
                 .environmentObject(chordDisplayOptions)
                 .environmentObject(fileBrowser)
                 .task {

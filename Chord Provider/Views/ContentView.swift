@@ -35,7 +35,7 @@ struct ContentView: View {
             chordDisplayOptions.instrumentPicker
                 .frame(width: 100)
             ToolbarView(song: $sceneState.song)
-            ShareSongView()
+            ShareSongView(exportURL: sceneState.song.exportURL)
         }
         .onChange(of: sceneState.showPrintDialog) { dialog in
             if dialog {
@@ -43,8 +43,8 @@ struct ContentView: View {
                 sceneState.showPrintDialog.toggle()
             }
         }
-        .focusedSceneObject(sceneState)
         .environmentObject(sceneState)
+        .focusedSceneObject(sceneState)
 #elseif os(iOS)
         /// Dividers to avoid scrolling over the toolbars
         VStack(spacing: 0) {
@@ -69,7 +69,7 @@ struct ContentView: View {
                     chordDisplayOptions.instrumentPicker
                     ToolbarView(song: $sceneState.song)
                     ToolbarView.FolderSelector()
-                    ShareSongView()
+                    ShareSongView(exportURL: sceneState.song.exportURL)
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
                     HeaderView(song: sceneState.song, file: file)
@@ -77,7 +77,6 @@ struct ContentView: View {
                     ToolbarView.PlayerButtons(song: sceneState.song, file: file)
                 }
             }
-            .focusedSceneObject(sceneState)
             .environmentObject(sceneState)
             .sheet(isPresented: $showSettings) {
                 SettingsView()
@@ -96,7 +95,6 @@ struct ContentView: View {
                 }
                 ToolbarItemGroup(placement: .bottomOrnament) {
                     ToolbarView(song: $sceneState.song)
-                    ShareSongView()
                 }
             }
             .focusedSceneObject(sceneState)

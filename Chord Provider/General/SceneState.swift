@@ -11,24 +11,12 @@ import SwiftUI
 final class SceneState: ObservableObject {
     /// The current ``Song``
     @Published var song = Song(instrument: .guitarStandardETuning)
-    /// The Song rendered as PDF
-    var pdf: Data = Data()
     /// The selection in the editor
     @Published var selection: NSRange = .init(location: 0, length: 0)
     /// The `NSTextView` of the editor
     var textView: SWIFTTextView?
-
-    /// Bool to show the song chords
-    @Published var showChords: Bool = true
-    /// Bool to show the editor
-    @Published var showEditor: Bool = false
-
-    /// Bool to show the `print` Dialog
+    /// Bool to show the `print` dialog
     @Published var showPrintDialog: Bool = false
-    /// Bool to show the ``EditorView/DirectiveSheet``
-    @Published var showDirectiveSheet: Bool = false
-    /// The directive to show in the sheet
-    var directive: ChordPro.Directive = .define
 }
 
 /// The `FocusedValueKey` for the scene state
