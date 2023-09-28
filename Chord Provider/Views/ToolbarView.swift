@@ -12,12 +12,8 @@ import SwiftlyFolderUtilities
 struct ToolbarView: View {
     /// The ``song``
     @Binding var song: Song
-    /// Bool to show the editor or not
-    @SceneStorage("showEditor")
-    var showEditor: Bool = false
-    /// Bool to show the chords or not
-    @AppStorage("showChords")
-    var showChords: Bool = true
+    /// The scene state
+    @EnvironmentObject private var sceneState: SceneState
     /// The body of the `View`
     var body: some View {
         HStack {
@@ -34,14 +30,14 @@ struct ToolbarView: View {
                     .foregroundColor(song.transpose > 0 ? .primary : .secondary)
             })
             Button {
-                showEditor.toggle()
+                sceneState.showEditor.toggle()
             } label: {
-                Label("Edit", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
+                Label("Edit", systemImage: sceneState.showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
             Button {
-                showChords.toggle()
+                sceneState.showChords.toggle()
             } label: {
-                Label("Chords", systemImage: showChords ? "number.circle.fill" : "number.circle")
+                Label("Chords", systemImage: sceneState.showChords ? "number.circle.fill" : "number.circle")
             }
         }
         .labelStyle(.titleAndIcon)

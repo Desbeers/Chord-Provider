@@ -10,7 +10,19 @@
           "red" : "0x77"
         }
       },
-      "idiom" : "universal"
+      "idiom" : "ipad"
+    },
+    {
+      "color" : {
+        "color-space" : "display-p3",
+        "components" : {
+          "alpha" : "1.000",
+          "blue" : "0x7C",
+          "green" : "0x85",
+          "red" : "0x77"
+        }
+      },
+      "idiom" : "mac"
     },
     {
       "color" : {

@@ -21,9 +21,10 @@ extension EditorView {
     ///     - textView: The `NSTextView` to update
     @MainActor
     static func format(
-        _ document: inout ChordProDocument,
+        document: inout ChordProDocument,
         directive: ChordPro.Directive,
         selection: NSRange,
+        definition: String?,
         in textView: SWIFTTextView?
     ) {
         /// Make sure we have a NSTextView and the selection can be converted to a Swift Range
@@ -32,7 +33,13 @@ extension EditorView {
         }
         let selectedText = document.text[range]
 
-        let replacementText = format(String(selectedText), directive: directive)
+        var replacementText = format(String(selectedText), directive: directive)
+
+        /// Override the selection when the definition is not empty
+        if let definition {
+            replacementText = format(definition, directive: directive)
+        }
+
         document.text.replaceSubrange(range, with: replacementText)
         /// Move the cursor
         var location = selection.location

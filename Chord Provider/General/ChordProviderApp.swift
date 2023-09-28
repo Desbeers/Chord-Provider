@@ -89,7 +89,9 @@ import DocumentKit
                 }
         }
         .commands {
-            MarkupCommands()
+            CommandMenu("Markup") {
+                MarkupView()
+            }
             CommandGroup(after: CommandGroupPlacement.importExport) {
                 ExportSongView()
             }

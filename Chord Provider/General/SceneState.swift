@@ -17,8 +17,18 @@ final class SceneState: ObservableObject {
     @Published var selection: NSRange = .init(location: 0, length: 0)
     /// The `NSTextView` of the editor
     var textView: SWIFTTextView?
+
+    /// Bool to show the song chords
+    @Published var showChords: Bool = true
+    /// Bool to show the editor
+    @Published var showEditor: Bool = false
+
     /// Bool to show the `print` Dialog
     @Published var showPrintDialog: Bool = false
+    /// Bool to show the ``EditorView/DirectiveSheet``
+    @Published var showDirectiveSheet: Bool = false
+    /// The directive to show in the sheet
+    var directive: ChordPro.Directive = .define
 }
 
 /// The `FocusedValueKey` for the scene state
@@ -53,38 +63,6 @@ extension FocusedValues {
         }
         set {
             self[DocumentFocusedValueKey.self] = newValue
-        }
-    }
-}
-
-/// SwiftUI `Commands` for editing the document
-struct MarkupCommands: Commands {
-    /// The Body of the `Commands`
-    var body: some Commands {
-        CommandMenu("Markup") {
-            Menu(
-                content: {
-                    EditorView.EditorButton(directive: .startOfVerse)
-                    EditorView.EditorButton(directive: .startOfChorus)
-                    EditorView.EditorButton(directive: .chorus)
-                    EditorView.EditorButton(directive: .startOfTab)
-                    EditorView.EditorButton(directive: .startOfGrid)
-                    EditorView.EditorButton(directive: .startOfBridge)
-                },
-                label: {
-                    Label("Enviroment directives", systemImage: "gear")
-                }
-            )
-            Divider()
-            Menu(
-                content: {
-                    EditorView.EditorButton(directive: .comment)
-                    EditorView.EditorButton(directive: .define)
-                },
-                label: {
-                    Label("More...", systemImage: "gear")
-                }
-            )
         }
     }
 }

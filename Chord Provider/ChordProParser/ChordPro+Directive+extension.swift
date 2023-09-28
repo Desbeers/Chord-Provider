@@ -25,11 +25,11 @@ extension ChordPro.Directive {
         case .comment:
             return ("{\(label(.comment)): ", "}\n")
         case .define:
-            return ("{\(label(.define)): [chord] base-fret [offset] frets [pos] fingers [pos]", "}\n")
+            return ("{\(label(.define)): ", "}\n")
         case .chorus:
             return ("{\(label(.chorus))", "}\n")
         default:
-            return ("{NOT IMPLEMENTED", "}\n")
+            return ("{\(self.rawValue): ", "}\n")
         }
         /// The formatted label of the directive
         func label(_ directive: ChordPro.Directive) -> String {
@@ -78,7 +78,34 @@ extension ChordPro.Directive {
         case .define:
             return ("Define", "music.note.list")
         default:
-            return ("NOT IMPLEMENTED", "questionmark.app")
+            return ("\(self.rawValue.capitalized)", "pencil")
         }
+    }
+}
+
+extension ChordPro.Directive {
+
+    static var metaDataDirectives: [ChordPro.Directive] {
+        [
+            .title,
+            .artist,
+            .album,
+            .year,
+            .key,
+            .time,
+            .tempo,
+            .capo
+        ]
+    }
+
+    static var environmentDirectives: [ChordPro.Directive] {
+        [
+            .startOfVerse,
+            .startOfChorus,
+            .chorus,
+            .startOfTab,
+            .startOfGrid,
+            .startOfBridge
+        ]
     }
 }

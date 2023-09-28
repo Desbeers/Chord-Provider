@@ -32,7 +32,6 @@ struct ContentView: View {
         }
         .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
-            chordDisplayOptions.mirrorToggle
             chordDisplayOptions.instrumentPicker
                 .frame(width: 100)
             ToolbarView(song: $sceneState.song)
@@ -45,6 +44,7 @@ struct ContentView: View {
             }
         }
         .focusedSceneObject(sceneState)
+        .environmentObject(sceneState)
 #elseif os(iOS)
         /// Dividers to avoid scrolling over the toolbars
         VStack(spacing: 0) {
@@ -67,13 +67,8 @@ struct ContentView: View {
                 }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     chordDisplayOptions.instrumentPicker
-                    chordDisplayOptions.mirrorToggle
-                        .buttonStyle(.bordered)
                     ToolbarView(song: $sceneState.song)
-                        .buttonStyle(.bordered)
                     ToolbarView.FolderSelector()
-                        .labelStyle(.titleAndIcon)
-                        .buttonStyle(.bordered)
                     ShareSongView()
                 }
                 ToolbarItemGroup(placement: .bottomBar) {
@@ -83,6 +78,7 @@ struct ContentView: View {
                 }
             }
             .focusedSceneObject(sceneState)
+            .environmentObject(sceneState)
             .sheet(isPresented: $showSettings) {
                 SettingsView()
             }
@@ -104,6 +100,7 @@ struct ContentView: View {
                 }
             }
             .focusedSceneObject(sceneState)
+            .environmentObject(sceneState)
 #endif
     }
 }
