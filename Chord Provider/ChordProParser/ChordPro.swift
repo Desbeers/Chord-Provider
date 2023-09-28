@@ -71,7 +71,7 @@ enum ChordPro {
             }
         }
         if song.key == nil {
-            song.key = song.chords.first?.root
+            song.key = song.chords.first
         }
         /// All done!
         return song
@@ -108,12 +108,12 @@ enum ChordPro {
             case .time:
                 song.time = label
             case .key:
-                if let label, var key = Chord.Root(rawValue: label) {
+                if let label, var chord = ChordDefinition(name: label, instrument: song.instrument) {
                     /// Transpose the key if needed
                     if song.transpose != 0 {
-                        key.transpose(transpose: song.transpose, scale: key)
+                        chord.transpose(transpose: song.transpose, scale: chord.root)
                     }
-                    song.key = key
+                    song.key = chord
                 }
             case .tempo:
                 song.tempo = label
@@ -387,7 +387,7 @@ enum ChordPro {
         /// Try to find it in the database
         if var databaseChord = ChordDefinition(name: chord, instrument: song.instrument) {
             if song.transpose != 0 {
-                databaseChord.transpose(transpose: song.transpose, scale: song.key ?? .c)
+                databaseChord.transpose(transpose: song.transpose, scale: song.key?.root ?? .c)
                 /// Keep the original name
                 databaseChord.name = chord
             }

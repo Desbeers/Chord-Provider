@@ -20,7 +20,7 @@ struct Song {
     /// The optional capo
     var capo: String?
     /// The optional key
-    var key: Chord.Root?
+    var key: ChordDefinition?
     /// The optional tempo
     var tempo: String?
     /// The optional time

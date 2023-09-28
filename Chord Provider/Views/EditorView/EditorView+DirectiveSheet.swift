@@ -24,46 +24,12 @@ extension EditorView {
         var body: some View {
             VStack {
                 switch directive {
+                case .key:
+                    keyView
                 case .define:
-                    CreateChordView()
-                    HStack {
-                        cancelButton
-                        Button(
-                            action: {
-                                definition = chordDisplayOptions.definition.define
-                                dismiss()
-                            },
-                            label: {
-                                Text("Add Definition")
-                            }
-                        )
-                        .keyboardShortcut(.defaultAction)
-                    }
+                    defineView
                 default:
-                    Text(directive.label.text)
-                        .font(.title)
-                    TextField(
-                        text: $definition,
-                        prompt: Text(directive.label.text),
-                        label: {
-                            Text("Value")
-                        })
-                    .frame(width: 400)
-                    .padding(.bottom)
-                    .textFieldStyle(.roundedBorder)
-
-                    HStack {
-                        cancelButton
-                        Button(
-                            action: {
-                                dismiss()
-                            },
-                            label: {
-                                Text("Add Directive")
-                            }
-                        )
-                        .keyboardShortcut(.defaultAction)
-                    }
+                    defaultView
                 }
             }
             .padding()
@@ -80,6 +46,81 @@ extension EditorView {
                 }
             )
             .keyboardShortcut(.cancelAction)
+        }
+    }
+}
+
+extension EditorView.DirectiveSheet {
+
+    @ViewBuilder var defaultView: some View {
+        Text(directive.label.text)
+            .font(.title)
+        TextField(
+            text: $definition,
+            prompt: Text(directive.label.text),
+            label: {
+                Text("Value")
+            })
+        .frame(width: 400)
+        .padding(.bottom)
+        .textFieldStyle(.roundedBorder)
+
+        HStack {
+            cancelButton
+            Button(
+                action: {
+                    dismiss()
+                },
+                label: {
+                    Text("Add Directive")
+                }
+            )
+            .keyboardShortcut(.defaultAction)
+        }
+    }
+}
+
+extension EditorView.DirectiveSheet {
+
+    @ViewBuilder var defineView: some View {
+        CreateChordView()
+        HStack {
+            cancelButton
+            Button(
+                action: {
+                    definition = chordDisplayOptions.definition.define
+                    dismiss()
+                },
+                label: {
+                    Text("Add Definition")
+                }
+            )
+            .keyboardShortcut(.defaultAction)
+        }
+    }
+}
+
+extension EditorView.DirectiveSheet {
+
+    @ViewBuilder var keyView: some View {
+        HStack {
+            chordDisplayOptions.rootPicker
+            chordDisplayOptions.qualityPicker
+        }
+        .padding()
+        .labelsHidden()
+        HStack {
+            cancelButton
+            Button(
+                action: {
+                    definition = "\(chordDisplayOptions.definition.root.rawValue)\(chordDisplayOptions.definition.quality.rawValue)"
+                    dismiss()
+                },
+                label: {
+                    Text("Add Key")
+                }
+            )
+            .keyboardShortcut(.defaultAction)
         }
     }
 }
