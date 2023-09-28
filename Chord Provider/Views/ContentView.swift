@@ -86,7 +86,7 @@ struct ContentView: View {
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
             .toolbar {
                 ToolbarItemGroup(placement: .navigation) {
-                    chordDisplayOptions.mirrorButton
+                    chordDisplayOptions.mirrorToggle
                     ToolbarView.FolderSelector()
                 }
                 ToolbarItemGroup(placement: .secondaryAction) {
@@ -97,7 +97,6 @@ struct ContentView: View {
                     ToolbarView(song: $sceneState.song)
                 }
             }
-            .focusedSceneObject(sceneState)
             .environmentObject(sceneState)
 #endif
     }

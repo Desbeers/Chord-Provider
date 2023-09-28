@@ -26,30 +26,16 @@ struct MainView: View {
     @EnvironmentObject private var sceneState: SceneState
     /// The body of the `View`
     var body: some View {
-        GeometryReader { geometry in
-            HStack(spacing: 0) {
-                SongView(song: song)
-                if showEditor {
-                    EditorView(document: $document)
-                        .frame(minWidth: 300)
-                }
-#if !os(visionOS)
-                if showChords {
-                    ChordsView(song: song)
-                        .frame(minWidth: 150)
-                }
-#endif
+        HStack(spacing: 0) {
+            SongView(song: song)
+            if showEditor {
+                EditorView(document: $document)
+                    .frame(minWidth: 300)
             }
-#if os(visionOS)
-            .ornament(attachmentAnchor: .scene(alignment: .trailing), contentAlignment: .center) {
-                if showChords {
-                    ChordsView(song: song)
-                        .frame(maxHeight: geometry.size.height)
-                        .glassBackgroundEffect()
-                        .padding(.leading, 80)
-                }
+            if showChords {
+                ChordsView(song: song)
+                    .frame(minWidth: 150)
             }
-#endif
         }
         .task {
             song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)

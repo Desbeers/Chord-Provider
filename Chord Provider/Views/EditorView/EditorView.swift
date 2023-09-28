@@ -13,8 +13,14 @@ import SwiftUI
 struct EditorView: View {
     /// The CordPro document
     @Binding var document: ChordProDocument
-    /// The scene
-    @FocusedObject private var sceneState: SceneState?
+    /// The scene state
+    @EnvironmentObject var sceneState: SceneState
+    /// Show a directive sheet
+    @State var showDirectiveSheet: Bool = false
+    /// The directive to show in the sheet
+    @State var directive: ChordPro.Directive = .define
+    /// The definition of the directive sheet
+    @State var definition: String = ""
     /// The body of the `View`
     var body: some View {
         TextEditor(text: $document.text)
