@@ -36,7 +36,7 @@ struct SongView: View {
         min(max(sceneState.currentScale * magnificationState.scale, minScale), maxScale)
     }
     /// The `MagnificationGesture`
-    var magnificationGesture: some Gesture {
+    private var magnificationGesture: some Gesture {
         MagnificationGesture()
             .updating($magnificationState) { value, state, _ in
                 state = .active(scale: value)
@@ -44,6 +44,14 @@ struct SongView: View {
             .onEnded { value in
                 sceneState.currentScale = min(max(sceneState.currentScale * value, minScale), maxScale)
             }
+    }
+    /// The `TapGesture`
+    private var doubleTapGesture: some Gesture {
+        TapGesture(count: 2).onEnded {
+            withAnimation {
+                sceneState.currentScale = min(max(sceneState.currentScale + 0.2, minScale), maxScale)
+            }
+        }
     }
     /// The body of the `View`
     var body: some View {
@@ -59,6 +67,11 @@ struct SongView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
-        .gesture(magnificationGesture)
+        .gesture(ExclusiveGesture(magnificationGesture, doubleTapGesture))
+        .onLongPressGesture(minimumDuration: 1) {
+            withAnimation {
+                sceneState.currentScale = min(max(sceneState.currentScale - 0.2, minScale), maxScale)
+            }
+        }
     }
 }
