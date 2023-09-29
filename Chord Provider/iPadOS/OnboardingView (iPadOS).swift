@@ -8,7 +8,7 @@
 import SwiftUI
 import DocumentKit
 
-/// Swiftui `View` for the onboarding
+/// SwiftUI `View` for the onboarding
 struct OnboardingView: View, DocumentGroupModal {
     @Environment(\.dismiss) private var dismiss
     @AppStorage("hideWelcome") var hideWelcome: Bool = true

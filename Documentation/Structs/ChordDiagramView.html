@@ -91,10 +91,7 @@
                 <a href="../Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/EditorView/EditorButton.html">– EditorButton</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
+                <a href="../Structs/EditorView/DirectiveSheet.html">– DirectiveSheet</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/EditorView.html">EditorView</a>
@@ -112,13 +109,13 @@
                 <a href="../Structs/ExportSongView.html">ExportSongView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SettingsView.html">SettingsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/PrintSongView.html">PrintSongView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ShareSongView.html">ShareSongView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -136,9 +133,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Song.html">Song</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Song/Chord.html">– Chord</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Song/Render.html">– Render</a>
@@ -282,9 +276,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider0A11DiagramViewV5chordAA4SongV0A0Vvp"></a>
+                    <a name="/s:14Chord_Provider0A11DiagramViewV5chord07SwiftlyA9Utilities0A10DefinitionVvp"></a>
                     <a name="//apple_ref/swift/Property/chord" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV5chordAA4SongV0A0Vvp">chord</a>
+                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV5chord07SwiftlyA9Utilities0A10DefinitionVvp">chord</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,7 +293,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">chord</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Chord</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">chord</span><span class="p">:</span> <span class="kt">ChordDefinition</span></code></pre>
 
                         </div>
                       </div>
@@ -309,9 +303,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider0A11DiagramViewV5frameSo6CGRectVvp"></a>
-                    <a name="//apple_ref/swift/Property/frame" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV5frameSo6CGRectVvp">frame</a>
+                    <a name="/s:14Chord_Provider0A11DiagramViewV5widthSdvp"></a>
+                    <a name="//apple_ref/swift/Property/width" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV5widthSdvp">width</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -319,14 +313,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Size of the chord diagram</p>
+                        <p>Width of the chord diagram</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">frame</span><span class="p">:</span> <span class="kt">CGRect</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">width</span><span class="p">:</span> <span class="kt">Double</span></code></pre>
 
                         </div>
                       </div>
@@ -336,9 +330,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider0A11DiagramViewV10playButtonSbvp"></a>
-                    <a name="//apple_ref/swift/Property/playButton" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV10playButtonSbvp">playButton</a>
+                    <a name="/s:14Chord_Provider0A11DiagramViewV11colorScheme7SwiftUI05ColorF0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/colorScheme" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV11colorScheme7SwiftUI05ColorF0Ovp">colorScheme</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -346,14 +340,43 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Bool to show the play button</p>
+                        <p>The current color scheme</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">playButton</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@Environment</span>
+<span class="k">var</span> <span class="nv">colorScheme</span><span class="p">:</span> <span class="kt">ColorScheme</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0A11DiagramViewV19chordDisplayOptions33_EFE05C3AE91BB199B97C9C7EC603E906LL07SwiftlyA9Utilities0afG0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/chordDisplayOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV19chordDisplayOptions33_EFE05C3AE91BB199B97C9C7EC603E906LL07SwiftlyA9Utilities0afG0Cvp">chordDisplayOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chord Display Options</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@EnvironmentObject</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">chordDisplayOptions</span><span class="p">:</span> <span class="kt">ChordDisplayOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -387,67 +410,12 @@
                     </section>
                   </div>
                 </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider0A11DiagramViewV7diagramQrvp"></a>
-                    <a name="//apple_ref/swift/Property/diagram" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV7diagramQrvp">diagram</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The chord diagram</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
-<span class="k">var</span> <span class="nv">diagram</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider0A11DiagramViewV7warning33_EFE05C3AE91BB199B97C9C7EC603E906LL7messageQrSS_tF"></a>
-                    <a name="//apple_ref/swift/Method/warning(message:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A11DiagramViewV7warning33_EFE05C3AE91BB199B97C9C7EC603E906LL7messageQrSS_tF">warning(message:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The warning if we can&rsquo;t show a diagram</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">warning</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-07)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

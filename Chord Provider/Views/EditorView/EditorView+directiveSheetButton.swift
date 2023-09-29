@@ -13,7 +13,6 @@ extension EditorView {
     func directiveSheetButton(directive: ChordPro.Directive) -> some View {
         Button(
             action: {
-                print(directive)
                 self.directive = directive
                 showDirectiveSheet = true
             }, label: {

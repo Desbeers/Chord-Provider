@@ -91,10 +91,7 @@
                 <a href="../Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/EditorView/EditorButton.html">– EditorButton</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
+                <a href="../Structs/EditorView/DirectiveSheet.html">– DirectiveSheet</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/EditorView.html">EditorView</a>
@@ -112,13 +109,13 @@
                 <a href="../Structs/ExportSongView.html">ExportSongView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SettingsView.html">SettingsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/PrintSongView.html">PrintSongView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ShareSongView.html">ShareSongView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -136,9 +133,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Song.html">Song</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Song/Chord.html">– Chord</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Song/Render.html">– Render</a>
@@ -273,7 +267,7 @@
 
                 </div>
               </div>
-            <p>Swiftui <code>View</code> for the toolbar</p>
+            <p>SwiftUI <code>View</code> for the toolbar</p>
 
           </section>
           <section class="section task-group-section">
@@ -301,6 +295,34 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@Binding</span>
 <span class="k">var</span> <span class="nv">song</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider11ToolbarViewV10sceneState33_EE6BC5314C57DED5D3B8015F9D5A1A5DLLAA05SceneF0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/sceneState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider11ToolbarViewV10sceneState33_EE6BC5314C57DED5D3B8015F9D5A1A5DLLAA05SceneF0Cvp">sceneState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The scene state</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@EnvironmentObject</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">sceneState</span><span class="p">:</span> <span class="kt"><a href="../Classes/SceneState.html">SceneState</a></span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -355,7 +377,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@AppStorage</span>
+                          <pre class="highlight swift"><code><span class="kd">@SceneStorage</span>
 <span class="k">var</span> <span class="nv">showChords</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
@@ -479,7 +501,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-07)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

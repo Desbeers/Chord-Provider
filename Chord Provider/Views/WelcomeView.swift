@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Swiftui `View` for the welcome screen
+/// SwiftUI `View` for the welcome screen
 struct WelcomeView: View {
 
     var body: some View {

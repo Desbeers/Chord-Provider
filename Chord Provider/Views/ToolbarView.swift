@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftlyFolderUtilities
 
-/// Swiftui `View` for the toolbar
+/// SwiftUI `View` for the toolbar
 struct ToolbarView: View {
     /// The ``song``
     @Binding var song: Song

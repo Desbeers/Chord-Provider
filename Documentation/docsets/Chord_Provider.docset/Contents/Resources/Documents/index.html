@@ -90,10 +90,7 @@
                 <a href="Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/EditorView/EditorButton.html">– EditorButton</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
+                <a href="Structs/EditorView/DirectiveSheet.html">– DirectiveSheet</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/EditorView.html">EditorView</a>
@@ -111,13 +108,13 @@
                 <a href="Structs/ExportSongView.html">ExportSongView</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/SettingsView.html">SettingsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/PrintSongView.html">PrintSongView</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ShareSongView.html">ShareSongView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -135,9 +132,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Song.html">Song</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Song/Chord.html">– Chord</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Song/Render.html">– Render</a>
@@ -283,68 +277,70 @@
 <p>I mean, in the macOS world, it is often an afterthought&hellip; Not for me. I&rsquo;m mainly a mac user; the other versions are my afterthought&hellip;</p>
 
 <p><img src="https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg" alt="Chord Provider"></p>
+<h3 id='the-icon' class='heading'>The icon</h3>
 
-<p>Written in SwiftUI for macOS Ventura, iPadOS 16 and visionOS</p>
+<p>A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An &lsquo;Olympic White&rsquo;. That is the color of the shape. The background is a suitable modification of her &lsquo;plate&rsquo;.</p>
 <h3 id='general' class='heading'>General</h3>
 
 <ul>
-<li>It wil view and/or edit &lsquo;ChordPro&rsquo; files.</li>
-<li>It recognise most of the &lsquo;ChordPro&rsquo; directives, but not all.</li>
-<li>It has a &lsquo;highlighted TextEditor&rsquo;.</li>
-<li>It can transpose a song; however, only in the View. The document will not be changed and that&rsquo;s on purpose.</li>
-<li>You can &lsquo;define&rsquo; a Capo but that will not change any notes; again on purpose.</li>
+<li>It wil view and/or edit <strong>ChordPro</strong> files.</li>
+<li>It recognise most of the <strong>ChordPro</strong> directives, but not all.</li>
+<li>It can show diagrams for the guitar, guitalele and ukulele.</li>
 <li>You can click on a chord diagram and it will open a Sheet with all known versions.</li>
+<li>It can transpose a song; however, only in the View. The document will not be changed and that&rsquo;s on purpose.</li>
+<li>You can &lsquo;define&rsquo; a Capo but that will not change any notes in the document; again on purpose.</li>
 <li>It can export your song to a PDF document.</li>
 <li>It can play chords with MIDI. Note: This does not work in a simulator.</li>
-<li>It can play songs when stored next to the ChordPro file.</li>
+<li>It can play songs when stored next to the <strong>ChordPro</strong> file.</li>
+<li>Full &lsquo;left-handed&rsquo; support.</li>
 </ul>
 <h3 id='macos' class='heading'>macOS</h3>
 
 <ul>
 <li>It has a &lsquo;browser&rsquo; for your songs if you select a folder.</li>
-<li>It has a &lsquo;quick view&rsquo; plugin for &lsquo;ChordPro&rsquo; files.</li>
+<li>It has a &lsquo;quick view&rsquo; plugin for <strong>ChordPro</strong> files.</li>
 </ul>
-<h2 id='visionos' class='heading'>visionOS</h2>
+<h3 id='visionos' class='heading'>visionOS</h3>
 
 <ul>
-<li>Currently &lsquo;DocumentGroup&rsquo; is partly broken.</li>
+<li>Currently <code>DocumentGroup</code> is partly broken (Xcode 15 beta 8).</li>
 <li>It is the future; however, not yet.</li>
 </ul>
 <h3 id='limitations' class='heading'>Limitations</h3>
 
-<p>Well, Chord Provider a simple application. There are a lot better &lsquo;chord&rsquo; applications and I wrote this just for fun. It serves me well but I know it&rsquo;s not that great. It might serve you well, as a &lsquo;chord&rsquo; program or as a sample for a &lsquo;document based SwiftUI&rsquo; application. SwiftUI is fun and great, however, also limited and challenging; especially on macOS. There are many &lsquo;workarounds&rsquo; in the code; especially for &lsquo;window handling&rsquo;.</p>
-
-<p>Not all chords in the database are correct; especially the more complicated chords. I wrote <a href="https://github.com/Desbeers/Chords-Database">Chords Database</a> for macOS Ventura to view and alter the database with all known chords.</p>
+<p>Not all chords in the database are correct; especially the more complicated chords. I wrote <a href="https://github.com/Desbeers/Chords-Database">Chords Database</a> for macOS and iPadOS to view and alter the database with all known chords. Feel free to contribute!</p>
 <h3 id='icloud' class='heading'>iCloud</h3>
 
-<p>The iOS app will make an iCloud folder named &ldquo;Chord Provider&rdquo;; that&rsquo;s where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.</p>
-<h3 id='known-issues' class='heading'>Known issues</h3>
-
-<ul>
-<li>When you switch from light to dark mode and visa-versa; the chord diagrams are not updated.</li>
-<li>SwiftUI &lsquo;DocumentGroup&rsquo;, used to show the songs, is very buggy and limited.</li>
-<li>&lsquo;Pinch to zoom&rsquo; is buggy on macOS. Sometimes it just stops working. There is a &lsquo;zoom&rsquo; slider in the toolbar.</li>
-<li>The &lsquo;song&rsquo; is rendered in a SwiftUI View, so, a bit sluggish&hellip; But fancy!</li>
-</ul>
+<p>The iOS app will make an iCloud folder named <strong>Chord Provider</strong>; that&rsquo;s where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.</p>
 <h3 id='thanks' class='heading'>Thanks</h3>
 
 <p>Stole code (and ideas) from:</p>
 
 <ul>
+<li><a href="https://github.com/BeauNouvelle/SwiftyGuitarChords">Swifty Chords</a></li>
 <li><a href="https://github.com/SongProOrg/songpro-swift">SongPro for Swift</a></li>
 <li><a href="https://github.com/dbarsamian/conscriptor">Conscriptor</a></li>
 </ul>
 <h3 id='used-packages' class='heading'>Used packages</h3>
+<h4 id='external' class='heading'>External:</h4>
 
-<p>The chord diagrams are made with <a href="https://github.com/BeauNouvelle/SwiftyGuitarChords">Swifty Guitar Chords</a>.
-The editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">HighlightedTextEditor</a>
-The onboarding for iPadOS is thanks to <a href="https://github.com/danielsaidi/DocumentKit">DocumentKit</a></p>
+<ul>
+<li>The editor is <a href="https://github.com/kyle-n/HighlightedTextEditor">HighlightedTextEditor</a></li>
+<li>The onboarding for iPadOS is <a href="https://github.com/danielsaidi/DocumentKit">DocumentKit</a></li>
+</ul>
+<h4 id='my-own' class='heading'>My own:</h4>
 
-<p>I use my <a href="https://github.com/Desbeers/SwiftlyChordUtilities">SwiftlyChordUtilities</a> package for chord handling.</p>
+<p><img src="https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png" alt="Icon"></p>
 
-<p>I use my <a href="https://github.com/Desbeers/SwiftlyFolderUtilities">SwiftlyFolderUtilities</a> package to handle folder selection and monitoring.</p>
+<ul>
+<li><a href="https://github.com/Desbeers/SwiftlyChordUtilities">SwiftlyChordUtilities</a>: Handle musical chords</li>
+<li><a href="https://github.com/Desbeers/SwiftlyFolderUtilities">SwiftlyFolderUtilities</a>: Handle folder selection and monitoring</li>
+<li><a href="https://github.com/Desbeers/SwiftlyAlertMessage">SwiftlyAlertMessage</a>: Alerts and confirmation dialogs</li>
+</ul>
 
-<p>I use my <a href="https://github.com/Desbeers/SwiftlyAlertMessage">SwiftlyAlertMessage</a> package for alerts and confirmation dialogs.</p>
+<p><em>I like to start my package names with **Swiftly</em>* instead of the usual <strong>Swifty</strong> {.leading} or <strong>Kit</strong> {.trailing}.*</p>
+
+<p><em>This is simply because it sounds more pleasing to me.</em></p>
 <h2 id='how-to-compile' class='heading'>How to compile</h2>
 
 <p>Xcode 15 is required.</p>
@@ -358,7 +354,7 @@ The onboarding for iPadOS is thanks to <a href="https://github.com/danielsaidi/D
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-07)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

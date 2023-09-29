@@ -8,7 +8,7 @@
 import SwiftUI
 import PDFKit
 
-/// SwiftUI `View for the Print Button`
+/// SwiftUI `View` for the Print Button
 struct PrintSongView: View {
     /// The scene
     @FocusedObject private var sceneSate: SceneState?
@@ -29,11 +29,10 @@ struct PrintSongView: View {
 
 extension PrintSongView {
 
-    /// Show a Print Dialog fore the current Song
-    ///
+    /// Show a Print Dialog for the current ``Song``
     /// - Note: Only in use for macOS, on iPadOS, _printing_ is available via the Share Sheet
     ///
-    /// - Parameter song: The Song to print
+    /// - Parameter song: The ``Song`` to print
     static func printDialog(song: Song) {
 #if os(macOS)
         if let window = NSApp.keyWindow {

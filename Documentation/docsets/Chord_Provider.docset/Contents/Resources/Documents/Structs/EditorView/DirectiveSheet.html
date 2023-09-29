@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Chord Structure Reference</title>
+    <title>DirectiveSheet Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/Chord" class="dashAnchor"></a>
-    <a title="Chord Structure Reference"></a>
+    <a name="//apple_ref/swift/Struct/DirectiveSheet" class="dashAnchor"></a>
+    <a title="DirectiveSheet Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">Chord Provider</a> (100% documented)</p>
@@ -30,7 +30,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">Chord_Provider Reference</a>
         <img id="carat" src="../../img/carat.png" alt=""/>
-        Chord Structure Reference
+        DirectiveSheet Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -91,10 +91,7 @@
                 <a href="../../Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Structs/EditorView/EditorButton.html">– EditorButton</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
+                <a href="../../Structs/EditorView/DirectiveSheet.html">– DirectiveSheet</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/EditorView.html">EditorView</a>
@@ -112,13 +109,13 @@
                 <a href="../../Structs/ExportSongView.html">ExportSongView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Structs/SettingsView.html">SettingsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Structs/PrintSongView.html">PrintSongView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/ShareSongView.html">ShareSongView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -136,9 +133,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Song.html">Song</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Structs/Song/Chord.html">– Chord</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Song/Render.html">– Render</a>
@@ -265,15 +259,15 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Chord</h1>
+            <h1>DirectiveSheet</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Chord</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">DirectiveSheet</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                 </div>
               </div>
-            <p>A chord in the <code><a href="../../Structs/Song.html">Song</a></code></p>
+            <p>SwiftUI <code>View</code> to define a directive</p>
 
           </section>
           <section class="section task-group-section">
@@ -282,9 +276,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV0A0V2id10Foundation4UUIDVvp"></a>
-                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV0A0V2id10Foundation4UUIDVvp">id</a>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV9directiveAA0A3ProO0E0Ovp"></a>
+                    <a name="//apple_ref/swift/Property/directive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV9directiveAA0A3ProO0E0Ovp">directive</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -292,14 +286,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The unique ID of the chord</p>
+                        <p>The directive</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../../Enums/ChordPro.html">ChordPro</a></span><span class="o">.</span><span class="kt">Directive</span></code></pre>
 
                         </div>
                       </div>
@@ -309,9 +303,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV0A0V4nameSSvp"></a>
-                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV0A0V4nameSSvp">name</a>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV10definitionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/definition" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV10definitionSSvp">definition</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -319,14 +313,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The name of the chord</p>
+                        <p>The definition</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@Binding</span>
+<span class="k">var</span> <span class="nv">definition</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">nonmutating</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -336,9 +331,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV0A0V13chordPosition12SwiftyChords0aE0Vvp"></a>
-                    <a name="//apple_ref/swift/Property/chordPosition" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV0A0V13chordPosition12SwiftyChords0aE0Vvp">chordPosition</a>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV19chordDisplayOptions33_9441BD093FC3DF7925D0F2340FFAA55ELL07SwiftlyA9Utilities0ahI0Cvp"></a>
+                    <a name="//apple_ref/swift/Property/chordDisplayOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV19chordDisplayOptions33_9441BD093FC3DF7925D0F2340FFAA55ELL07SwiftlyA9Utilities0ahI0Cvp">chordDisplayOptions</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -346,14 +341,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The ChordPosition definition</p>
+                        <p>Chord Display Options</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">chordPosition</span><span class="p">:</span> <span class="kt">ChordPosition</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@EnvironmentObject</span>
+<span class="kd">private</span> <span class="k">var</span> <span class="nv">chordDisplayOptions</span><span class="p">:</span> <span class="kt">ChordDisplayOptions</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -363,9 +359,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV0A0V6statusAE6StatusOvp"></a>
-                    <a name="//apple_ref/swift/Property/status" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV0A0V6statusAE6StatusOvp">status</a>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV7dismiss7SwiftUI13DismissActionVvp"></a>
+                    <a name="//apple_ref/swift/Property/dismiss" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV7dismiss7SwiftUI13DismissActionVvp">dismiss</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -373,14 +369,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The status of the chord</p>
+                        <p>The dismiss environment</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">status</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Song/Chord/Status.html">Status</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@Environment</span>
+<span class="k">var</span> <span class="nv">dismiss</span><span class="p">:</span> <span class="kt">DismissAction</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -390,9 +387,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV0A0V7displaySSvp"></a>
-                    <a name="//apple_ref/swift/Property/display" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV0A0V7displaySSvp">display</a>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV4bodyQrvp"></a>
+                    <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV4bodyQrvp">body</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -400,14 +397,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Display name for the chord</p>
+                        <p>The body of the <code>View</code></p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">display</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -417,9 +414,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV0A0V03getA8PostionsSay12SwiftyChords0A8PositionVGyF"></a>
-                    <a name="//apple_ref/swift/Method/getChordPostions()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV0A0V03getA8PostionsSay12SwiftyChords0A8PositionVGyF">getChordPostions()</a>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV12cancelButtonQrvp"></a>
+                    <a name="//apple_ref/swift/Property/cancelButton" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV12cancelButtonQrvp">cancelButton</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -427,20 +424,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The chord postions are different if this is a custom chord. So return the custom chord or the default standard chord positions.</p>
+                        <p>The cancel buttion</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getChordPostions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">ChordPosition</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">cancelButton</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>all chord postions for this chord</p>
                       </div>
                     </section>
                   </div>
@@ -448,9 +441,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV0A0V6StatusO"></a>
-                    <a name="//apple_ref/swift/Enum/Status" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV0A0V6StatusO">Status</a>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV07defaultD0Qrvp"></a>
+                    <a name="//apple_ref/swift/Property/defaultView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV07defaultD0Qrvp">defaultView</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -458,15 +451,71 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The status of a chord</p>
+                        <p>The default <code>View</code> when there is no specific <code>View</code> for the <code><a href="../../Enums/ChordPro/Directive.html">Directive</a></code></p>
 
-                        <a href="../../Structs/Song/Chord/Status.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Status</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="k">var</span> <span class="nv">defaultView</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV06defineD0Qrvp"></a>
+                    <a name="//apple_ref/swift/Property/defineView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV06defineD0Qrvp">defineView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>View</code> to define a chord</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="k">var</span> <span class="nv">defineView</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10EditorViewV14DirectiveSheetV03keyD0Qrvp"></a>
+                    <a name="//apple_ref/swift/Property/keyView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10EditorViewV14DirectiveSheetV03keyD0Qrvp">keyView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>View</code> to define the &lsquo;key&rsquo; of the song</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@ViewBuilder</span>
+<span class="k">var</span> <span class="nv">keyView</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -478,7 +527,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-07)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

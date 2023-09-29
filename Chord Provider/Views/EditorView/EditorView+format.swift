@@ -33,11 +33,11 @@ extension EditorView {
         }
         let selectedText = document.text[range]
 
-        var replacementText = format(String(selectedText), directive: directive)
+        var replacementText = format(directive: directive, argument: String(selectedText))
 
         /// Override the selection when the definition is not empty
         if let definition {
-            replacementText = format(definition, directive: directive)
+            replacementText = format(directive: directive, argument: definition)
         }
 
         document.text.replaceSubrange(range, with: replacementText)
@@ -58,21 +58,23 @@ extension EditorView {
 #endif
     }
 
-    /// Returns a string that has been reformatted based on the given ChordPro format.
-    /// - Parameter string: The string to format.
-    /// - Parameter directive: The ``Directive`` to apply
-    private static func format(_ string: String, directive: ChordPro.Directive) -> String {
+    /// Format a ``ChordPro/Directive`` with its argument
+    /// - Parameters:
+    ///   - directive: The ``ChordPro/Directive`` to apply
+    ///   - argument: The argument of the `directive`
+    /// - Returns: A formatted `Directive`  as `String`
+    private static func format(directive: ChordPro.Directive, argument: String) -> String {
 
-        var formattedString = string
+        var formattedDirective = argument
 
         var startOfFormat = directive.format.start
 
-        if directive.kind == .optionalLabel && !string.isEmpty {
+        if directive.kind == .optionalLabel && !argument.isEmpty {
             startOfFormat += ": "
         }
 
-        formattedString.insert(contentsOf: startOfFormat, at: formattedString.startIndex)
-        formattedString.append(directive.format.end)
-        return formattedString
+        formattedDirective.insert(contentsOf: startOfFormat, at: formattedDirective.startIndex)
+        formattedDirective.append(directive.format.end)
+        return formattedDirective
     }
 }

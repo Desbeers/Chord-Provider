@@ -32,6 +32,7 @@ custom_categories:
     - EditorView
     - FileBrowserView
     - ExportSongView
+    - SettingsView
     - PrintSongView
     - ShareSongView
     - MarkupCommands

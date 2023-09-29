@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftlyChordUtilities
 
+/// SwiftUI `View` for the settings
 struct SettingsView: View {
     /// Chord Display Options
     @EnvironmentObject var options: ChordDisplayOptions
@@ -25,6 +26,8 @@ struct SettingsView: View {
         diagram
 #endif
     }
+
+    /// `View` with diagram display options
     var diagram: some View {
         VStack {
             Text("Diagram Display Options")

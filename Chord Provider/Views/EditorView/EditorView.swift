@@ -11,7 +11,7 @@ import SwiftUI
 
 /// SwiftUI `View` for the `HighlightedTextEditor`
 struct EditorView: View {
-    /// The CordPro document
+    /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The scene state
     @EnvironmentObject var sceneState: SceneState
@@ -32,7 +32,7 @@ import HighlightedTextEditor
 
 /// SwiftUI `View` for the `HighlightedTextEditor`
 struct EditorView: View {
-    /// The CordPro document
+    /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The scene state
     @EnvironmentObject var sceneState: SceneState

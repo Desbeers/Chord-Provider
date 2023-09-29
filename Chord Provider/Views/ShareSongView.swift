@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// SwiftUI `View for the Share Button`
+/// SwiftUI `View` for the Share Button
 struct ShareSongView: View {
     /// The export URL
     let exportURL: URL

@@ -91,10 +91,7 @@
                 <a href="../../Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Structs/EditorView/EditorButton.html">– EditorButton</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
+                <a href="../../Structs/EditorView/DirectiveSheet.html">– DirectiveSheet</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/EditorView.html">EditorView</a>
@@ -112,13 +109,13 @@
                 <a href="../../Structs/ExportSongView.html">ExportSongView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Structs/SettingsView.html">SettingsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Structs/PrintSongView.html">PrintSongView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/ShareSongView.html">ShareSongView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -136,9 +133,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Song.html">Song</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Structs/Song/Chord.html">– Chord</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Song/Render.html">– Render</a>
@@ -1302,9 +1296,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider0A3ProO9DirectiveO6formatSS5start_SS3endtvg5labelL_ySSAEF"></a>
-                    <a name="//apple_ref/swift/Function/label(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A3ProO9DirectiveO6formatSS5start_SS3endtvg5labelL_ySSAEF">label(_:<wbr>)</a>
+                    <a name="/s:14Chord_Provider0A3ProO9DirectiveO5labelySSAEF"></a>
+                    <a name="//apple_ref/swift/Method/label(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A3ProO9DirectiveO5labelySSAEF">label(_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1312,7 +1306,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The formatted label of the directive</p>
+                        <p>The raw label of the directive</p>
 
                       </div>
                       <div class="declaration">
@@ -1322,6 +1316,29 @@
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">label</span><span class="p">(</span><span class="n">_</span> <span class="nv">directive</span><span class="p">:</span> <span class="kt"><a href="../../Enums/ChordPro.html">ChordPro</a></span><span class="o">.</span><span class="kt">Directive</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>directive</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>ChordPro/Directive</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The raw value as <code>String</code></p>
                       </div>
                     </section>
                   </div>
@@ -1413,12 +1430,66 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0A3ProO9DirectiveO18metaDataDirectivesSayAEGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/metaDataDirectives" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A3ProO9DirectiveO18metaDataDirectivesSayAEGvpZ">metaDataDirectives</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Array of <strong>Metadata</strong> <code>ChordPro/Directive</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">metaDataDirectives</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../Enums/ChordPro.html">ChordPro</a></span><span class="o">.</span><span class="kt">Directive</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0A3ProO9DirectiveO21environmentDirectivesSayAEGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/environmentDirectives" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A3ProO9DirectiveO21environmentDirectivesSayAEGvpZ">environmentDirectives</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Array of <strong>environment</strong> <code>ChordPro/Directive</code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">environmentDirectives</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../Enums/ChordPro.html">ChordPro</a></span><span class="o">.</span><span class="kt">Directive</span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-07)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

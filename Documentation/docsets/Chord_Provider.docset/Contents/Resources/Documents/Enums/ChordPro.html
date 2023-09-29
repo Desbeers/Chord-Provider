@@ -91,10 +91,7 @@
                 <a href="../Structs/EditorView.html">EditorView</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/EditorView/EditorButton.html">– EditorButton</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/EditorView/EditorButtonStyle.html">– EditorButtonStyle</a>
+                <a href="../Structs/EditorView/DirectiveSheet.html">– DirectiveSheet</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/EditorView.html">EditorView</a>
@@ -112,13 +109,13 @@
                 <a href="../Structs/ExportSongView.html">ExportSongView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/SettingsView.html">SettingsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/PrintSongView.html">PrintSongView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ShareSongView.html">ShareSongView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/MarkupCommands.html">MarkupCommands</a>
               </li>
             </ul>
           </li>
@@ -136,9 +133,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Song.html">Song</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Song/Chord.html">– Chord</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Song/Render.html">– Render</a>
@@ -291,9 +285,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider0A3ProO5parse4text9transposeAA4SongVSS_SitFZ"></a>
-                    <a name="//apple_ref/swift/Method/parse(text:transpose:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A3ProO5parse4text9transposeAA4SongVSS_SitFZ">parse(text:<wbr>transpose:<wbr>)</a>
+                    <a name="/s:14Chord_Provider0A3ProO5parse4text9transpose10instrumentAA4SongVSS_Si07SwiftlyA9Utilities10InstrumentOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/parse(text:transpose:instrument:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A3ProO5parse4text9transpose10instrumentAA4SongVSS_Si07SwiftlyA9Utilities10InstrumentOtFZ">parse(text:<wbr>transpose:<wbr>instrument:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -308,7 +302,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">parse</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">transpose</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">parse</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">transpose</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">instrument</span><span class="p">:</span> <span class="kt">Instrument</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span></code></pre>
 
                         </div>
                       </div>
@@ -868,9 +862,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider0A3ProO07processA033_043E50094A00AB272C1C55D1F9C13CFELL5chord4songAA4SongV0A0VSS_AIztFZ"></a>
+                    <a name="/s:14Chord_Provider0A3ProO07processA033_043E50094A00AB272C1C55D1F9C13CFELL5chord4song07SwiftlyA9Utilities0A10DefinitionVSS_AA4SongVztFZ"></a>
                     <a name="//apple_ref/swift/Method/processChord(chord:song:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider0A3ProO07processA033_043E50094A00AB272C1C55D1F9C13CFELL5chord4songAA4SongV0A0VSS_AIztFZ">processChord(chord:<wbr>song:<wbr>)</a>
+                    <a class="token" href="#/s:14Chord_Provider0A3ProO07processA033_043E50094A00AB272C1C55D1F9C13CFELL5chord4song07SwiftlyA9Utilities0A10DefinitionVSS_AA4SongVztFZ">processChord(chord:<wbr>song:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -885,7 +879,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">processChord</span><span class="p">(</span><span class="nv">chord</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">song</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Chord</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">processChord</span><span class="p">(</span><span class="nv">chord</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">song</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ChordDefinition</span></code></pre>
 
                         </div>
                       </div>
@@ -1092,7 +1086,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-07)</p>
+          <p>&copy; 2023 <a class="link" href="https://desbeers.nl" target="_blank" rel="external noopener">Nick Berendsen</a>. All rights reserved. (Last updated: 2023-09-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

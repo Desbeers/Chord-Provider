@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// SwiftUI `View for the Export Button`
+/// SwiftUI `View` for a ``Song`` export
 struct ExportSongView: View {
     /// The scene
     @FocusedObject private var scene: SceneState?

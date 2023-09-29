@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// Swiftui `View` for the song
+/// SwiftUI `View` for the song
 struct SongView: View {
     /// The ``Song``
     let song: Song

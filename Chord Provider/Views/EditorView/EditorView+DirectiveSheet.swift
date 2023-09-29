@@ -10,7 +10,7 @@ import SwiftlyChordUtilities
 
 extension EditorView {
 
-    /// SwiftUI `View` to difine a directive
+    /// SwiftUI `View` to define a directive
     struct DirectiveSheet: View {
         /// The directive
         let directive: ChordPro.Directive
@@ -51,7 +51,7 @@ extension EditorView {
 }
 
 extension EditorView.DirectiveSheet {
-
+    /// The default `View` when there is no specific `View` for the ``ChordPro/Directive``
     @ViewBuilder var defaultView: some View {
         Text(directive.label.text)
             .font(.title)
@@ -82,6 +82,7 @@ extension EditorView.DirectiveSheet {
 
 extension EditorView.DirectiveSheet {
 
+    /// `View` to define a chord
     @ViewBuilder var defineView: some View {
         CreateChordView()
         HStack {
@@ -102,6 +103,7 @@ extension EditorView.DirectiveSheet {
 
 extension EditorView.DirectiveSheet {
 
+    /// `View` to define the 'key' of the song
     @ViewBuilder var keyView: some View {
         HStack {
             chordDisplayOptions.rootPicker
