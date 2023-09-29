@@ -45,6 +45,8 @@ struct FileBrowserView: View {
                     .navigationSubtitle("Welcome")
             }
         }
+        .scrollContentBackground(.hidden)
+        .background(Color.telecaster.opacity(0.1))
         .animation(.default, value: fileBrowser.status)
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
@@ -102,6 +104,7 @@ extension FileBrowserView {
                         },
                         icon: {
                             Image(systemName: song.musicPath.isEmpty ? "music.note" : "music.note.list")
+                                .foregroundStyle(Color.accentColor)
                         }
                     )
                 }

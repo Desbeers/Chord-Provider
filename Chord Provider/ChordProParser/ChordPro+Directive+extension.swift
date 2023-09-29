@@ -89,7 +89,7 @@ extension ChordPro.Directive {
 }
 
 extension ChordPro.Directive {
-    
+
     /// Array of **Metadata** ``ChordPro/Directive``
     static var metaDataDirectives: [ChordPro.Directive] {
         [

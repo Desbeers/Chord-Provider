@@ -140,6 +140,11 @@ import DocumentKit
                         UserDefaults.standard.resetDocumentGroupOnboardingState(for: "welcome")
                     }
                 }
+                .toolbarColorScheme(.dark, for: .navigationBar)
+                .toolbarBackground(
+                    Color.accent,
+                    for: .navigationBar)
+                .toolbarBackground(.visible, for: .navigationBar)
         }
         .additionalNavigationBarButtonItems(
             leading: [.onboarding]

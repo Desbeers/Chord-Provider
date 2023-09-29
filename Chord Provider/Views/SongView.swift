@@ -13,13 +13,6 @@ struct SongView: View {
     let song: Song
     /// The scale factor of the `View`
     @SceneStorage("scale") var scale: Double = 1.2
-#if os(visionOS)
-    /// Song background material
-    let material: Material = .thickMaterial
-#else
-    /// Song background material
-    let material: Material = .thinMaterial
-#endif
     /// Pinch to zoom gesture
     var magnificationGesture: some Gesture {
         MagnificationGesture()
@@ -55,9 +48,5 @@ struct SongView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background {
-            Rectangle()
-                .fill(material)
-        }
     }
 }

@@ -30,7 +30,7 @@ struct ContentView: View {
                 .foregroundColor(.white)
             MainView(document: $document, song: $sceneState.song, file: file)
         }
-        .background(Color(nsColor: .textBackgroundColor))
+        .background(Color.telecaster.opacity(0.2))
         .toolbar {
             chordDisplayOptions.instrumentPicker
                 .frame(width: 100)
@@ -52,35 +52,37 @@ struct ContentView: View {
             MainView(document: $document, song: $sceneState.song, file: file)
             Divider()
         }
-            .navigationTitle(sceneState.song.title ?? "Chord Provider")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(
-                        action: {
-                            showSettings.toggle()
-                        },
-                        label: {
-                            Image(systemName: "gear")
-                        }
-                    )
-                }
-                ToolbarItemGroup(placement: .topBarTrailing) {
-                    chordDisplayOptions.instrumentPicker
-                    ToolbarView(song: $sceneState.song)
-                    ToolbarView.FolderSelector()
-                    ShareSongView(exportURL: sceneState.song.exportURL)
-                }
-                ToolbarItemGroup(placement: .bottomBar) {
-                    HeaderView(song: sceneState.song, file: file)
-                        .foregroundColor(.accentColor)
-                    ToolbarView.PlayerButtons(song: sceneState.song, file: file)
-                }
+        .navigationTitle(sceneState.song.title ?? "Chord Provider")
+        .navigationBarTitleDisplayMode(.inline)
+        .background(Color.telecaster.opacity(0.4))
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(
+                    action: {
+                        showSettings.toggle()
+                    },
+                    label: {
+                        Image(systemName: "gear")
+                    }
+                )
             }
-            .environmentObject(sceneState)
-            .sheet(isPresented: $showSettings) {
-                SettingsView()
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                chordDisplayOptions.instrumentPicker
+                ToolbarView(song: $sceneState.song)
+                ToolbarView.FolderSelector()
+                ShareSongView(exportURL: sceneState.song.exportURL)
             }
+            ToolbarItemGroup(placement: .bottomBar) {
+                HeaderView(song: sceneState.song, file: file)
+                    .foregroundColor(.accentColor)
+                ToolbarView.PlayerButtons(song: sceneState.song, file: file)
+            }
+        }
+        .environmentObject(sceneState)
+        .sheet(isPresented: $showSettings) {
+            SettingsView()
+        }
+
 #elseif os(visionOS)
         MainView(document: $document, song: $sceneState.song, file: file)
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
