@@ -15,6 +15,8 @@ final class SceneState: ObservableObject {
     @Published var selection: NSRange = .init(location: 0, length: 0)
     /// The `NSTextView` of the editor
     var textView: SWIFTTextView?
+    /// The current magnification scale
+    @Published var currentScale: Double = 1.2
     /// Bool to show the `print` dialog
     @Published var showPrintDialog: Bool = false
 }

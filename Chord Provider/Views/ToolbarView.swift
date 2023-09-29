@@ -50,11 +50,11 @@ extension ToolbarView {
 
     /// SwiftUI `View` with a slider to zoom the content
     struct ScaleSlider: View {
-        /// Current scaling of the `SongView`
-        @SceneStorage("scale") var scale: Double = 1.2
+        /// The scene state
+        @EnvironmentObject private var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Slider(value: $scale, in: 0.8...2.0) {
+            Slider(value: $sceneState.currentScale, in: 0.8...2.0) {
                 Label("Zoom", systemImage: "magnifyingglass")
             }
             .labelStyle(.iconOnly)

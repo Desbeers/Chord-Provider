@@ -27,7 +27,7 @@ struct MainView: View {
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
-            SongView(song: song)
+            SongView()
             if showEditor {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
