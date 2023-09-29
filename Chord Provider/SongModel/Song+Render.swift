@@ -322,11 +322,15 @@ extension Song.Render {
                     ChordDiagramView(chord: chord, width: 140)
                         .padding()
                 }
+#if os(macOS)
                 .onHover { hovering in
-                    hover = hovering
+                    if hovering {
+                        NSCursor.pointingHand.push()
+                    } else {
+                        NSCursor.pop()
+                    }
                 }
-                .scaleEffect(hover ? 1.4 : 1, anchor: .center)
-                .animation(.default, value: hover)
+#endif
         }
     }
 
