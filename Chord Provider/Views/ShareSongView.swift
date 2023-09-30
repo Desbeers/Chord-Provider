@@ -6,14 +6,15 @@
 //
 
 import SwiftUI
+import PDFKit
 
 /// SwiftUI `View` for the Share Button
 struct ShareSongView: View {
-    /// The export URL
-    let exportURL: URL
+    /// The scene state
+    @EnvironmentObject private var sceneState: SceneState
     /// The body of the `View`
     var body: some View {
-        ShareLink(item: exportURL)
+        ShareLink(item: sceneState.song.exportURL)
             .labelStyle(.iconOnly)
     }
 }

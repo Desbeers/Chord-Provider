@@ -12,29 +12,31 @@ extension Song {
 
     /// Render a ``Song`` struct into a SwiftUI View
     struct Render: View {
+        init(song: Song, options: DisplayOptions) {
+            self.song = song
+            self.options = options
+        }
         /// The ``Song``
         let song: Song
-        /// The scale factor of the `View`
-        let scale: CGFloat
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
+        /// The display options
+        let options: DisplayOptions
         /// The body of the `View`
         var body: some View {
             VStack {
-                switch style {
+                switch options.style {
                 case .asList:
                     VStack(alignment: .leading) {
                         sections
                     }
                 case .asGrid:
-                    Grid(alignment: .topTrailing, verticalSpacing: 20 * scale) {
+                    Grid(alignment: .topTrailing, verticalSpacing: 20 * options.scale) {
                         sections
                     }
                 }
             }
 
             .padding()
-            .font(.system(size: 14 * scale))
+            .font(.system(size: 14 * options.scale))
         }
 
         /// The sections of the `View`
@@ -42,19 +44,19 @@ extension Song {
             ForEach(song.sections) { section in
                 switch section.type {
                 case .verse, .bridge:
-                    VerseView(section: section, chords: song.chords, style: style)
+                    VerseView(section: section, options: options, chords: song.chords)
                 case .chorus:
-                    ChorusView(section: section, chords: song.chords, style: style)
+                    ChorusView(section: section, options: options, chords: song.chords)
                 case .repeatChorus:
-                    RepeatChorusView(section: section, style: style)
+                    RepeatChorusView(section: section, options: options)
                 case .tab:
-                    TabView(section: section, style: style)
+                    TabView(section: section, options: options)
                 case .grid:
-                    GridView(section: section, chords: song.chords, style: style)
+                    GridView(section: section, options: options, chords: song.chords)
                 case .comment:
-                    CommentView(section: section, style: style)
+                    CommentView(section: section, options: options)
                 default:
-                    PlainView(section: section, style: style)
+                    PlainView(section: section, options: options)
                 }
             }
         }
@@ -65,8 +67,8 @@ extension Song.Render {
 
     /// Wrapper around a section
     struct SectionView: ViewModifier {
-        /// The style
-        let style: Song.Style
+        /// The display options
+        let options: Song.DisplayOptions
         /// The optional label
         var label: String?
         /// Bool if the section is prominent (chorus for example)
@@ -76,14 +78,13 @@ extension Song.Render {
         /// - Parameter content: The content of the section
         /// - Returns: A `View` with the wrapped section
         func body(content: Content) -> some View {
-
-            switch style {
+            switch options.style {
             case .asList:
                 if let label {
                     VStack {
                         switch prominent {
                         case true:
-                            ProminentLabel(label: label)
+                            ProminentLabel(options: options, label: label)
                         case false:
                             Text(label)
                         }
@@ -124,8 +125,8 @@ extension Song.Render {
     struct PlainView: View {
         /// The `section` of the song
         let section: Song.Section
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
+        /// The display options
+        let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
@@ -136,7 +137,7 @@ extension Song.Render {
                 }
             }
             .frame(maxWidth: 400)
-            .modifier(SectionView(style: style, label: section.label))
+            .modifier(SectionView(options: options, label: section.label))
         }
     }
 
@@ -144,10 +145,10 @@ extension Song.Render {
     struct GridView: View {
         /// The `section` of the song
         let section: Song.Section
+        /// The display options
+        let options: Song.DisplayOptions
         /// The chords of the song
         let chords: [ChordDefinition]
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
@@ -158,7 +159,7 @@ extension Song.Render {
                                 Text("|")
                                 ForEach(grid.parts) { part in
                                     if let chord = chords.first(where: { $0.id == part.chord }) {
-                                        ChordView(sectionID: section.id, partID: part.id, chord: chord)
+                                        ChordView(options: options, sectionID: section.id, partID: part.id, chord: chord)
                                     } else {
                                         Text(part.text)
                                     }
@@ -168,7 +169,7 @@ extension Song.Render {
                     }
                 }
             }
-            .modifier(SectionView(style: style, label: section.label))
+            .modifier(SectionView(options: options, label: section.label))
         }
     }
 
@@ -176,18 +177,18 @@ extension Song.Render {
     struct VerseView: View {
         /// The `section` of the song
         let section: Song.Section
+        /// The display options
+        let options: Song.DisplayOptions
         /// The chords of the song
         let chords: [ChordDefinition]
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
-                    PartsView(sectionID: section.id, parts: line.parts, chords: chords)
+                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
                 }
             }
-            .modifier(SectionView(style: style, label: section.label))
+            .modifier(SectionView(options: options, label: section.label))
         }
     }
 
@@ -195,18 +196,18 @@ extension Song.Render {
     struct ChorusView: View {
         /// The `section` of the song
         let section: Song.Section
+        /// The display options
+        let options: Song.DisplayOptions
         /// The chords of the song
         let chords: [ChordDefinition]
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
-                    PartsView(sectionID: section.id, parts: line.parts, chords: chords)
+                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
                 }
             }
-            .modifier(SectionView(style: style, label: section.label ?? "Chorus", prominent: true))
+            .modifier(SectionView(options: options, label: section.label ?? "Chorus", prominent: true))
         }
     }
 
@@ -214,12 +215,12 @@ extension Song.Render {
     struct RepeatChorusView: View {
         /// The `section` of the song
         let section: Song.Section
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
+        /// The display options
+        let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
-            ProminentLabel(label: section.label ?? "Repeat Chorus", icon: "arrow.triangle.2.circlepath")
-                .modifier(SectionView(style: style))
+            ProminentLabel(options: options, label: section.label ?? "Repeat Chorus", icon: "arrow.triangle.2.circlepath")
+                .modifier(SectionView(options: options))
         }
     }
 
@@ -227,8 +228,8 @@ extension Song.Render {
     struct TabView: View {
         /// The `section` of the song
         let section: Song.Section
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
+        /// The display options
+        let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
@@ -239,7 +240,7 @@ extension Song.Render {
             .lineLimit(1)
             .minimumScaleFactor(0.01)
             .monospaced()
-            .modifier(SectionView(style: style, label: section.label))
+            .modifier(SectionView(options: options, label: section.label))
         }
     }
 
@@ -247,18 +248,20 @@ extension Song.Render {
     struct CommentView: View {
         /// The `section` of the song
         let section: Song.Section
-        /// The style of the `View`
-        var style: Song.Style = .asGrid
+        /// The display options
+        let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
-            ProminentLabel(label: section.label ?? "", icon: "bubble.right", color: .yellow)
+            ProminentLabel(options: options, label: section.label ?? "", icon: "bubble.right", color: .yellow)
                 .italic()
-                .modifier(SectionView(style: style))
+                .modifier(SectionView(options: options))
         }
     }
 
     /// SwiftUI `View` for parts of a line
     struct PartsView: View {
+        /// The display options
+        let options: Song.DisplayOptions
         /// The ID of the section
         let sectionID: Int
         /// The `parts` of a `line`
@@ -267,14 +270,11 @@ extension Song.Render {
         let chords: [ChordDefinition]
         /// The body of the `View`
         var body: some View {
-            HStack(spacing: 0) {
+            HStack(alignment: .bottom, spacing: 0) {
                 ForEach(parts) { part in
                     VStack(alignment: .leading) {
                         if let chord = chords.first(where: { $0.id == part.chord }) {
-                            ChordView(sectionID: sectionID, partID: part.id, chord: chord)
-                        } else {
-                            /// Fill the space
-                            Text(" ")
+                            ChordView(options: options, sectionID: sectionID, partID: part.id, chord: chord)
                         }
                         Text(part.text)
                             .multilineTextAlignment(.center)
@@ -284,58 +284,10 @@ extension Song.Render {
         }
     }
 
-    /// SwiftUI `View` for a chord as part of a line
-    struct ChordView: View {
-        /// The ID of the section
-        let sectionID: Int
-        /// The ID of the part
-        let partID: Int
-        /// The  chord
-        let chord: ChordDefinition
-        /// The calculated ID of this `View`
-        var popoverID: String {
-            "\(sectionID)-\(partID)-\(chord.name)"
-        }
-        /// The color of a chord
-        var color: Color {
-            switch chord.status {
-            case .customTransposed, .unknown:
-                Color.red
-            default:
-                Color.accentColor
-            }
-        }
-        /// The `popover` state
-        @State private var popover: String?
-        /// The 'hover' state
-        @State private var hover: Bool = false
-        /// The body of the `View`
-        var body: some View {
-            Text(chord.displayName(options: .init()))
-                .padding(.trailing)
-                .foregroundColor(color)
-                .onTapGesture {
-                    popover = popoverID
-                }
-                .id(popoverID)
-                .popover(item: $popover) { _ in
-                    ChordDiagramView(chord: chord, width: 140)
-                        .padding()
-                }
-#if os(macOS)
-                .onHover { hovering in
-                    if hovering {
-                        NSCursor.pointingHand.push()
-                    } else {
-                        NSCursor.pop()
-                    }
-                }
-#endif
-        }
-    }
-
     /// SwiftUI `View` for a prominent label
     struct ProminentLabel: View {
+        /// The display options
+        let options: Song.DisplayOptions
         /// The label
         let label: String
         /// The optional icon
@@ -345,11 +297,11 @@ extension Song.Render {
         var body: some View {
             if let icon {
                 Label(label, systemImage: icon)
-                    .padding(10)
+                    .padding(options.scale * 6)
                     .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
             } else {
                 Text(label)
-                    .padding(10)
+                    .padding(options.scale * 6)
                     .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
             }
         }

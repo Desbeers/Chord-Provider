@@ -10,7 +10,7 @@ import SwiftUI
 /// SwiftUI `View` for a ``Song`` export
 struct ExportSongView: View {
     /// The scene
-    @FocusedObject private var scene: SceneState?
+    @FocusedObject private var sceneState: SceneState?
     /// Present an export dialog
     @State private var exportFile = false
     /// The song as PDF
@@ -20,8 +20,10 @@ struct ExportSongView: View {
         // swiftlint:disable:next trailing_closure
         Button(
             action: {
-                if let scene {
-                    pdf = try? Data(contentsOf: scene.song.exportURL)
+                if let sceneState {
+                    /// Get the PDF
+                    pdf = try? Data(contentsOf: sceneState.song.exportURL)
+                    /// Show the export dialog
                     exportFile = true
                 }
             },
@@ -30,12 +32,12 @@ struct ExportSongView: View {
             }
         )
         .help("Export your song as PDF")
-        .disabled(scene == nil)
+        .disabled(sceneState == nil)
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),
             contentType: .pdf,
-            defaultFilename: scene?.song.exportName,
+            defaultFilename: sceneState?.song.exportName,
             onCompletion: { result in
                 if case .success = result {
                     print("Success")

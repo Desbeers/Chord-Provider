@@ -11,19 +11,22 @@ import PDFKit
 /// SwiftUI `View` for the Print Button
 struct PrintSongView: View {
     /// The scene
-    @FocusedObject private var sceneSate: SceneState?
+    @FocusedObject private var sceneState: SceneState?
     /// The body of the `View`
     var body: some View {
         Button(
             action: {
-                sceneSate?.showPrintDialog = true
+                if let sceneState {
+                    /// Show the print dialog
+                    sceneState.showPrintDialog = true
+                }
             },
             label: {
                 Label("Print…", systemImage: "printer")
             }
         )
         .help("Print your song")
-        .disabled(sceneSate == nil)
+        .disabled(sceneState == nil)
     }
 }
 

@@ -25,17 +25,17 @@ struct ContentView: View {
     var body: some View {
 #if os(macOS)
         VStack(spacing: 0) {
-            HeaderView(song: sceneState.song, file: file)
+            HeaderView(file: file)
                 .background(Color.accentColor)
                 .foregroundColor(.white)
-            MainView(document: $document, song: $sceneState.song, file: file)
+            MainView(document: $document, file: file)
         }
         .background(Color.telecaster.opacity(0.2))
         .toolbar {
             chordDisplayOptions.instrumentPicker
                 .frame(width: 100)
             ToolbarView(song: $sceneState.song)
-            ShareSongView(exportURL: sceneState.song.exportURL)
+            ShareSongView()
         }
         .onChange(of: sceneState.showPrintDialog) { dialog in
             if dialog {
@@ -49,7 +49,7 @@ struct ContentView: View {
         /// Dividers to avoid scrolling over the toolbars
         VStack(spacing: 0) {
             Divider()
-            MainView(document: $document, song: $sceneState.song, file: file)
+            MainView(document: $document, file: file)
             Divider()
         }
         .navigationTitle(sceneState.song.title ?? "Chord Provider")
@@ -70,11 +70,18 @@ struct ContentView: View {
                 chordDisplayOptions.instrumentPicker
                 ToolbarView(song: $sceneState.song)
                 ToolbarView.FolderSelector()
-                ShareSongView(exportURL: sceneState.song.exportURL)
+                ShareSongView()
             }
             ToolbarItemGroup(placement: .bottomBar) {
-                HeaderView(song: sceneState.song, file: file)
+                HeaderView(file: file)
                     .foregroundColor(.accentColor)
+                Toggle(isOn: $sceneState.chordAsDiagram) {
+                    Text("Chords as Diagram")
+                }
+                .foregroundColor(.accentColor)
+                .tint(.accentColor)
+                .padding(.leading)
+                .toggleStyle(.switch)
                 ToolbarView.PlayerButtons(song: sceneState.song, file: file)
             }
         }

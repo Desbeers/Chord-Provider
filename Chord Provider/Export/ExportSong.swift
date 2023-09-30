@@ -20,13 +20,13 @@ enum ExportSong {
     /// - Parameter song: The song
     /// - Returns: The song as NSData
     @MainActor
-    static func createPDF(song: Song) -> NSData? {
+    static func createPDF(song: Song, options: Song.DisplayOptions) -> NSData? {
         if let header = renderHeader(song: song) {
             var parts: [CGImage] = []
             if let chords = renderChords(song: song) {
                 parts.append(chords)
             }
-            parts += renderParts(song: song)
+            parts += renderParts(song: song, options: options)
             let pages = mergeParts(header: header, parts: parts)
             return pages2pdf(pages: pages)
         }
@@ -36,8 +36,8 @@ enum ExportSong {
     /// Write the PDF to disk
     /// - Parameter song: The song
     @MainActor
-    static func savePDF(song: Song) {
-        if let pdf = ExportSong.createPDF(song: song) {
+    static func savePDF(song: Song, options: Song.DisplayOptions) {
+        if let pdf = ExportSong.createPDF(song: song, options: options) as? Data {
             try? pdf.write(to: song.exportURL)
         }
     }

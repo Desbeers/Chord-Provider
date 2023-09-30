@@ -58,13 +58,28 @@ struct SongView: View {
         VStack {
             ScrollView {
                 ViewThatFits {
-                    Song.Render(song: sceneState.song, scale: scale, style: .asGrid)
-                    Song.Render(song: sceneState.song, scale: scale, style: .asList)
+                    Song.Render(
+                        song: sceneState.song,
+                        options: Song.DisplayOptions(
+                            style: .asGrid,
+                            scale: scale,
+                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName
+                        )
+                    )
+                    Song.Render(
+                        song: sceneState.song,
+                        options: Song.DisplayOptions(
+                            style: .asList,
+                            scale: scale,
+                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName
+                        )
+                    )
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
             }
         }
+        .animation(.default, value: sceneState.chordAsDiagram)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         .gesture(ExclusiveGesture(magnificationGesture, doubleTapGesture))

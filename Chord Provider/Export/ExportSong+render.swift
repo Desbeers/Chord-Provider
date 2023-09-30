@@ -84,25 +84,25 @@ extension ExportSong {
     /// - Parameter song: The song
     /// - Returns: An array of `CGImage`
     @MainActor
-    static func renderParts(song: Song) -> [CGImage] {
+    static func renderParts(song: Song, options: Song.DisplayOptions) -> [CGImage] {
         var parts: [CGImage] = []
         var part: CGImage?
         for section in song.sections {
             switch section.type {
             case .verse, .bridge:
-                part = renderPart(view: Song.Render.VerseView(section: section, chords: song.chords))
+                part = renderPart(view: Song.Render.VerseView(section: section, options: options, chords: song.chords))
             case .chorus:
-                part = renderPart(view: Song.Render.ChorusView(section: section, chords: song.chords))
+                part = renderPart(view: Song.Render.ChorusView(section: section, options: options, chords: song.chords))
             case .repeatChorus:
-                part = renderPart(view: Song.Render.RepeatChorusView(section: section))
+                part = renderPart(view: Song.Render.RepeatChorusView(section: section, options: options))
             case .tab:
-                part = renderPart(view: Song.Render.TabView(section: section))
+                part = renderPart(view: Song.Render.TabView(section: section, options: options))
             case .grid:
-                part = renderPart(view: Song.Render.GridView(section: section, chords: song.chords))
+                part = renderPart(view: Song.Render.GridView(section: section, options: options, chords: song.chords))
             case .comment:
-                part = renderPart(view: Song.Render.CommentView(section: section))
+                part = renderPart(view: Song.Render.CommentView(section: section, options: options))
             default:
-                part = renderPart(view: Song.Render.PlainView(section: section))
+                part = renderPart(view: Song.Render.PlainView(section: section, options: options))
             }
             if let part {
                 parts.append(part)

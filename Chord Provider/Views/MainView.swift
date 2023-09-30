@@ -12,8 +12,6 @@ import SwiftlyChordUtilities
 struct MainView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
-    /// The ``Song``
-    @Binding var song: Song
     /// The optional file location
     let file: URL?
     /// Chord Display Options
@@ -33,13 +31,12 @@ struct MainView: View {
                     .frame(minWidth: 300)
             }
             if showChords {
-                ChordsView(song: song)
+                ChordsView(song: sceneState.song)
                     .frame(minWidth: 150)
             }
         }
         .task {
-            song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
-            ExportSong.savePDF(song: song)
+            renderSong()
             /// Always open the editor for a new file
             if document.text == ChordProDocument.newText {
                 showEditor = true
@@ -48,19 +45,34 @@ struct MainView: View {
         .onChange(of: document.text) { _ in
             Task { @MainActor in
                 await document.buildSongDebouncer.submit {
-                    song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
-                    ExportSong.savePDF(song: song)
+                    renderSong()
                 }
             }
         }
-        .onChange(of: song.transpose) { _ in
-            song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
+        .onChange(of: sceneState.song.transpose) { _ in
+            renderSong()
         }
         .onChange(of: chordDisplayOptions.instrument) { _ in
-            song = ChordPro.parse(text: document.text, transpose: song.transpose, instrument: chordDisplayOptions.instrument)
-            ExportSong.savePDF(song: song)
+            renderSong()
+        }
+        .onChange(of: sceneState.chordAsDiagram) { _ in
+            renderSong()
         }
         .animation(.default, value: showEditor)
         .animation(.default, value: showChords)
+    }
+    /// Render the song
+    private func renderSong() {
+        sceneState.song = ChordPro.parse(
+            text: document.text,
+            transpose: sceneState.song.transpose,
+            instrument: chordDisplayOptions.instrument
+        )
+        let options = Song.DisplayOptions(
+            style: .asGrid,
+            scale: 1,
+            chords: sceneState.chordAsDiagram ? .asDiagram : .asName
+        )
+        ExportSong.savePDF(song: sceneState.song, options: options)
     }
 }

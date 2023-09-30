@@ -9,8 +9,8 @@ import SwiftUI
 
 /// SwiftUI `View` for the header
 struct HeaderView: View {
-    /// The ``Song``
-    let song: Song
+    /// The scene state
+    @EnvironmentObject private var sceneState: SceneState
     /// The optional file location
     /// - Note: Needed to play a song when a 'musicpath' is defined
     let file: URL?
@@ -18,9 +18,9 @@ struct HeaderView: View {
     var body: some View {
 #if os(macOS)
         HStack(alignment: .center) {
-            General(song: song)
-            Details(song: song)
-            ToolbarView.PlayerButtons(song: song, file: file)
+            General(song: sceneState.song)
+            Details(song: sceneState.song)
+            ToolbarView.PlayerButtons(song: sceneState.song, file: file)
         }
         .frame(maxWidth: .infinity)
         .overlay(alignment: .trailing) {
@@ -28,14 +28,21 @@ struct HeaderView: View {
                 .frame(width: 100)
                 .padding(.trailing)
         }
+        .overlay(alignment: .leading) {
+            Toggle(isOn: $sceneState.chordAsDiagram) {
+                Text("Chords as Diagram")
+            }
+            .padding(.leading)
+            .toggleStyle(.switch)
+        }
         .padding(4)
         .frame(minHeight: 40)
 #elseif os(iOS)
-        General(song: song)
-        Details(song: song)
+        General(song: sceneState.song)
+        Details(song: sceneState.song)
             .labelStyle(.titleAndIcon)
 #elseif os(visionOS)
-        Details(song: song)
+        Details(song: sceneState.song)
             .labelStyle(.titleAndIcon)
 #endif
     }
