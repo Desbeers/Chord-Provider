@@ -18,6 +18,8 @@ extension Song {
         var scale: Double = 1
         /// The style of the chords display
         var chords: Chord = .asName
+        /// The instrument for MIDI
+        var midiInstrument: Midi.Instrument = .acousticSteelGuitar
     }
 }
 

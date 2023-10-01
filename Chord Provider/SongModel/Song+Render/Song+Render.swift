@@ -89,7 +89,6 @@ extension Song.Render {
                             Text(label)
                         }
                     }
-                    .font(.title3)
                     .padding(.top)
                     Divider()
                     content
@@ -105,7 +104,6 @@ extension Song.Render {
                         .padding(.all, prominent ? 10 : 0)
                         .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
                         .frame(minWidth: 100, alignment: .trailing)
-                        .font(.title3)
                         .gridColumnAlignment(.trailing)
                     content
                         .padding(.leading)
@@ -279,6 +277,8 @@ extension Song.Render {
                         Text(part.text)
                             .multilineTextAlignment(.center)
                     }
+                    /// Don't truncate text
+                    .fixedSize(horizontal: true, vertical: false)
                 }
             }
         }

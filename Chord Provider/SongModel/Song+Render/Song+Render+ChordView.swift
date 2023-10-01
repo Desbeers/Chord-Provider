@@ -67,8 +67,20 @@ extension Song.Render {
                     }
 #endif
             case .asDiagram:
-                getDiagram()
-                    .offset(x: -4)
+                Button(
+                    action: {
+                        if chord.status != .unknown {
+                            chord.play(instrument: options.midiInstrument)
+                        }
+                    },
+                    label: {
+                        getDiagram()
+                            .offset(x: -4)
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: options.scale * 40)
+                    }
+                )
+                .buttonStyle(.plain)
             }
         }
         /// Get the diagram
@@ -76,13 +88,13 @@ extension Song.Render {
         @MainActor func getDiagram() -> some View {
             /// Check if in cache
             if let cachedImage = Song.Render.diagramCache.object(forKey: "\(chord.id.uuidString)\(colorScheme)" as NSString) {
-                return Image(swiftImage: cachedImage)
+                return Image(swiftImage: cachedImage).resizable()
             } else {
                 let primaryColor: Color = colorScheme == .dark ? .white : .black
                 let secondaryColor: Color = colorScheme == .dark ? .black : .white
                 let renderer = ImageRenderer(
                     content:
-                        ChordDefinitionView(chord: chord, width: 50, options: .init())
+                        ChordDefinitionView(chord: chord, width: 100, options: .init())
                         .foregroundStyle(primaryColor, secondaryColor)
                 )
                 renderer.scale = 2
@@ -96,7 +108,7 @@ extension Song.Render {
                 }
                 /// Store in the cache
                 Song.Render.diagramCache.setObject(image, forKey: "\(chord.id.uuidString)\(colorScheme)" as NSString)
-                return Image(swiftImage: image)
+                return Image(swiftImage: image).resizable()
             }
         }
     }

@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the song
 struct SongView: View {
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
+    /// Chord Display Options
+    @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
     /// The minimum scale factor
     private let minScale: Double = 0.8
     /// The maximum scale factor
@@ -63,7 +66,8 @@ struct SongView: View {
                         options: Song.DisplayOptions(
                             style: .asGrid,
                             scale: scale,
-                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName
+                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                         )
                     )
                     Song.Render(
@@ -71,7 +75,8 @@ struct SongView: View {
                         options: Song.DisplayOptions(
                             style: .asList,
                             scale: scale,
-                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName
+                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                         )
                     )
                 }
@@ -80,6 +85,7 @@ struct SongView: View {
             }
         }
         .animation(.default, value: sceneState.chordAsDiagram)
+        .animation(.default, value: sceneState.song.chords)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         .gesture(ExclusiveGesture(magnificationGesture, doubleTapGesture))
