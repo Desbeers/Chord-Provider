@@ -23,6 +23,8 @@
 		D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */; };
 		D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = D7AB1E802A98C284009BC9FB /* DocumentKit */; };
 		D7AB1E832A98E155009BC9FB /* OnboardingView (iPadOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */; platformFilter = ios; };
+		D7C3D61D2AC9C13400909639 /* FrameUp in Frameworks */ = {isa = PBXBuildFile; productRef = D7C3D61C2AC9C13400909639 /* FrameUp */; };
+		D7C3D61F2AC9C1CA00909639 /* FrameUp in Frameworks */ = {isa = PBXBuildFile; productRef = D7C3D61E2AC9C1CA00909639 /* FrameUp */; };
 		D7D39C4F2A9A13DA004EAE5F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C4E2A9A13DA004EAE5F /* Status.swift */; };
 		D7D39C512A9A19A1004EAE5F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */; };
 		D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F852A6460B7002D875D /* Song+Section+Line.swift */; };
@@ -176,6 +178,7 @@
 				D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */,
 				D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */,
 				D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */,
+				D7C3D61D2AC9C13400909639 /* FrameUp in Frameworks */,
 				D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */,
 				D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */,
 			);
@@ -185,6 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C3D61F2AC9C1CA00909639 /* FrameUp in Frameworks */,
 				D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */,
 				D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */,
 			);
@@ -387,6 +391,7 @@
 				D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */,
 				D7AB1E802A98C284009BC9FB /* DocumentKit */,
 				D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */,
+				D7C3D61C2AC9C13400909639 /* FrameUp */,
 			);
 			productName = "Chord Provider";
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
@@ -407,6 +412,7 @@
 			name = "QLExtension (macOS)";
 			packageProductDependencies = (
 				D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */,
+				D7C3D61E2AC9C1CA00909639 /* FrameUp */,
 			);
 			productName = "QLExtension (macOS)";
 			productReference = D7F13FF62A646356002D875D /* QLExtension (macOS).appex */;
@@ -445,6 +451,7 @@
 				D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */,
 				D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */,
 				D7A1DDE42AA9B60C00C13678 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */,
+				D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */,
 			);
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
 			projectDirPath = "";
@@ -933,6 +940,14 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ryanlintott/FrameUp";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.0;
+			};
+		};
 		D7F13FEC2A646110002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Desbeers/SwiftlyFolderUtilities";
@@ -971,6 +986,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */;
 			productName = DocumentKit;
+		};
+		D7C3D61C2AC9C13400909639 /* FrameUp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */;
+			productName = FrameUp;
+		};
+		D7C3D61E2AC9C1CA00909639 /* FrameUp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */;
+			productName = FrameUp;
 		};
 		D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */ = {
 			isa = XCSwiftPackageProductDependency;

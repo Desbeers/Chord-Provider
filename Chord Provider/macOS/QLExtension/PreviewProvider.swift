@@ -43,7 +43,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
                     .font(.title)
                 Text(song.artist ?? "Artist")
                     .font(.title2)
-                Song.Render(song: song, options: Song.DisplayOptions(style: .asGrid, scale: 1, chords: .asName))
+                Song.Render(song: song, options: Song.DisplayOptions(label: .grid, scale: 1, chords: .asName))
             }
             .padding()
             .frame(width: 800, alignment: .center)

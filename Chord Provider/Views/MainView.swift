@@ -10,18 +10,16 @@ import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the main content
 struct MainView: View {
+    /// The scene state
+    @EnvironmentObject private var sceneState: SceneState
     /// The ChordPro document
     @Binding var document: ChordProDocument
-    /// The optional file location
-    let file: URL?
     /// Chord Display Options
     @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
     /// Bool to show the editor or not
     @SceneStorage("showEditor") var showEditor: Bool = false
     /// Bool to show the chords or not
     @SceneStorage("showChords") var showChords: Bool = true
-    /// The scene state
-    @EnvironmentObject private var sceneState: SceneState
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
@@ -69,7 +67,7 @@ struct MainView: View {
             instrument: chordDisplayOptions.instrument
         )
         let options = Song.DisplayOptions(
-            style: .asGrid,
+            label: .grid,
             scale: 1,
             chords: sceneState.chordAsDiagram ? .asDiagram : .asName
         )

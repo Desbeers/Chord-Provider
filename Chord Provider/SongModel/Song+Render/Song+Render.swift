@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftlyChordUtilities
+import FrameUp
 
 extension Song {
 
@@ -22,21 +23,38 @@ extension Song {
         let options: DisplayOptions
         /// The body of the `View`
         var body: some View {
-            VStack {
-                switch options.style {
-                case .asList:
-                    VStack(alignment: .leading) {
-                        sections
-                    }
-                case .asGrid:
-                    Grid(alignment: .topTrailing, verticalSpacing: 20 * options.scale) {
-                        sections
+            switch options.paging {
+            case .asList:
+                VStack {
+                    switch options.label {
+                    case .inline:
+                        VStack(alignment: .leading) {
+                            sections
+                        }
+                    case .grid:
+                        Grid(alignment: .topTrailing, verticalSpacing: 20 * options.scale) {
+                            sections
+                        }
                     }
                 }
+                .font(.system(size: 14 * options.scale))
+            case .asColumns:
+                GeometryReader { geometry in
+                    ScrollView(.horizontal) {
+                        VFlow(
+                            alignment: .topLeading,
+                            maxHeight: geometry.size.height * 0.95,
+                            horizontalSpacing: options.scale * 40,
+                            verticalSpacing: options.scale * 10
+                        ) {
+                            sections
+                        }
+                        .padding()
+                        Spacer()
+                    }
+                    .font(.system(size: 14 * options.scale))
+                }
             }
-
-            .padding()
-            .font(.system(size: 14 * options.scale))
         }
 
         /// The sections of the `View`
@@ -78,27 +96,27 @@ extension Song.Render {
         /// - Parameter content: The content of the section
         /// - Returns: A `View` with the wrapped section
         func body(content: Content) -> some View {
-            switch options.style {
-            case .asList:
+            switch options.label {
+            case .inline:
                 if let label {
-                    VStack {
+                    VStack(alignment: .leading) {
                         switch prominent {
                         case true:
                             ProminentLabel(options: options, label: label)
                         case false:
                             Text(label)
                         }
+                        Divider()
+                        content
+                            .padding(.leading)
                     }
                     .padding(.top)
-                    Divider()
-                    content
-                        .padding(.leading)
                 } else {
                     content
                         .padding(.top)
                         .frame(maxWidth: .infinity)
                 }
-            case .asGrid:
+            case .grid:
                 GridRow {
                     Text(label ?? " ")
                         .padding(.all, prominent ? 10 : 0)

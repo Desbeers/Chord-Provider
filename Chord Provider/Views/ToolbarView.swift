@@ -64,12 +64,43 @@ extension ToolbarView {
 
 extension ToolbarView {
 
+    /// SwiftUI `View` with a togle to view inline diagrams
+    struct ChordAsDiagram: View {
+        /// The scene state
+        @EnvironmentObject private var sceneState: SceneState
+        /// The body of the `View`
+        var body: some View {
+            Toggle(isOn: $sceneState.chordAsDiagram) {
+                Text("Chords as Diagram")
+            }
+        }
+    }
+}
+
+extension ToolbarView {
+
+    /// SwiftUI `View` with a picker for the song paging
+    struct Pager: View {
+        /// The scene state
+        @EnvironmentObject private var sceneState: SceneState
+        /// The body of the `View`
+        var body: some View {
+            Picker("Pager:", selection: $sceneState.paging) {
+                ForEach(Song.DisplayOptions.Paging.allCases, id: \.rawValue) { value in
+                    value.label
+                        .tag(value)
+                }
+            }
+        }
+    }
+}
+
+extension ToolbarView {
+
     /// SwiftUI `View` with optional player buttons
     struct PlayerButtons: View {
-        /// The ``Song``
-        let song: Song
-        /// The optional file location
-        let file: URL?
+        /// The scene state
+        @EnvironmentObject private var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
             if let musicURL = getMusicURL() {
@@ -82,7 +113,7 @@ extension ToolbarView {
         /// Get the URL for the music file
         /// - Returns: A full URL to the file, if found
         private func getMusicURL() -> URL? {
-            guard let file, let path = song.musicPath else {
+            guard let file = sceneState.file, let path = sceneState.song.musicPath else {
                 return nil
             }
             var musicURL = file.deletingLastPathComponent()

@@ -64,6 +64,7 @@ Stole code (and ideas) from:
 #### External:
 
 - The editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
+- The song in *column view* is thanks to [FrameUp](https://github.com/ryanlintott/FrameUp)
 - The onboarding for iPadOS is [DocumentKit](https://github.com/danielsaidi/DocumentKit)
 
 #### My own:

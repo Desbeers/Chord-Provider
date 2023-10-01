@@ -20,7 +20,7 @@ struct HeaderView: View {
         HStack(alignment: .center) {
             General(song: sceneState.song)
             Details(song: sceneState.song)
-            ToolbarView.PlayerButtons(song: sceneState.song, file: file)
+            ToolbarView.PlayerButtons()
         }
         .frame(maxWidth: .infinity)
         .overlay(alignment: .trailing) {
@@ -29,9 +29,7 @@ struct HeaderView: View {
                 .padding(.trailing)
         }
         .overlay(alignment: .leading) {
-            Toggle(isOn: $sceneState.chordAsDiagram) {
-                Text("Chords as Diagram")
-            }
+            ToolbarView.ChordAsDiagram()
             .padding(.leading)
             .toggleStyle(.switch)
         }

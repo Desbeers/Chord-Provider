@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "frameup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ryanlintott/FrameUp",
+      "state" : {
+        "revision" : "4426f97af2ca78985c1322428347bd8be5e29fc1",
+        "version" : "0.6.0"
+      }
+    },
+    {
       "identity" : "highlightedtexteditor",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kyle-n/HighlightedTextEditor",
@@ -33,7 +42,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "3d3ea4980562e454f8497f23894142cef1d20183"
+        "revision" : "4d65e7ccf343e6ff20083ccbd55ebd1596225b4d"
       }
     },
     {

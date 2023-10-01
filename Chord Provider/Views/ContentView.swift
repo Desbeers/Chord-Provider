@@ -28,10 +28,12 @@ struct ContentView: View {
             HeaderView(file: file)
                 .background(Color.accentColor)
                 .foregroundColor(.white)
-            MainView(document: $document, file: file)
+            MainView(document: $document)
         }
         .background(Color.telecaster.opacity(0.2))
         .toolbar {
+            ToolbarView.Pager()
+                .pickerStyle(.segmented)
             chordDisplayOptions.instrumentPicker
                 .frame(width: 100)
             ToolbarView(song: $sceneState.song)
@@ -43,13 +45,16 @@ struct ContentView: View {
                 sceneState.showPrintDialog.toggle()
             }
         }
+        .task(id: file) {
+            sceneState.file = file
+        }
         .environmentObject(sceneState)
         .focusedSceneObject(sceneState)
 #elseif os(iOS)
         /// Dividers to avoid scrolling over the toolbars
         VStack(spacing: 0) {
             Divider()
-            MainView(document: $document, file: file)
+            MainView(document: $document)
             Divider()
         }
         .navigationTitle(sceneState.song.title ?? "Chord Provider")
@@ -67,6 +72,8 @@ struct ContentView: View {
                 )
             }
             ToolbarItemGroup(placement: .topBarTrailing) {
+                ToolbarView.Pager()
+                    .pickerStyle(.segmented)
                 chordDisplayOptions.instrumentPicker
                 ToolbarView(song: $sceneState.song)
                 ToolbarView.FolderSelector()
@@ -75,19 +82,20 @@ struct ContentView: View {
             ToolbarItemGroup(placement: .bottomBar) {
                 HeaderView(file: file)
                     .foregroundColor(.accentColor)
-                Toggle(isOn: $sceneState.chordAsDiagram) {
-                    Text("Chords as Diagram")
-                }
+                ToolbarView.ChordAsDiagram()
                 .foregroundColor(.accentColor)
                 .tint(.accentColor)
                 .padding(.leading)
                 .toggleStyle(.switch)
-                ToolbarView.PlayerButtons(song: sceneState.song, file: file)
+                ToolbarView.PlayerButtons()
             }
         }
         .environmentObject(sceneState)
         .sheet(isPresented: $showSettings) {
             SettingsView()
+        }
+        .task(id: file) {
+            sceneState.file = file
         }
 
 #elseif os(visionOS)

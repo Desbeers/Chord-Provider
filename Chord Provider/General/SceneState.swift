@@ -17,6 +17,8 @@ final class SceneState: ObservableObject {
     var textView: SWIFTTextView?
     /// Bool to show the `print` dialog (macOS)
     @Published var showPrintDialog: Bool = false
+    /// The optional file location
+    var file: URL?
 
     // MARK: Song View options
 
@@ -24,6 +26,8 @@ final class SceneState: ObservableObject {
     @Published var currentScale: Double = 1.0
     /// Show chords a diagrams
     @Published var chordAsDiagram: Bool = false
+    /// The paging otions
+    @Published var paging: Song.DisplayOptions.Paging = .asList
 }
 
 /// The `FocusedValueKey` for the scene state

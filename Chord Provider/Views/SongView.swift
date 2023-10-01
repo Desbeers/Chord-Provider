@@ -59,34 +59,51 @@ struct SongView: View {
     /// The body of the `View`
     var body: some View {
         VStack {
-            ScrollView {
-                ViewThatFits {
-                    Song.Render(
-                        song: sceneState.song,
-                        options: Song.DisplayOptions(
-                            style: .asGrid,
-                            scale: scale,
-                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
-                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+            switch sceneState.paging {
+            case .asList:
+                ScrollView {
+                    ViewThatFits {
+                        Song.Render(
+                            song: sceneState.song,
+                            options: Song.DisplayOptions(
+                                paging: .asList,
+                                label: .grid,
+                                scale: scale,
+                                chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                            )
                         )
-                    )
-                    Song.Render(
-                        song: sceneState.song,
-                        options: Song.DisplayOptions(
-                            style: .asList,
-                            scale: scale,
-                            chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
-                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                        Song.Render(
+                            song: sceneState.song,
+                            options: Song.DisplayOptions(
+                                paging: .asList,
+                                label: .inline,
+                                scale: scale,
+                                chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                            )
                         )
-                    )
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding()
+            case .asColumns:
+                Song.Render(
+                    song: sceneState.song,
+                    options: Song.DisplayOptions(
+                        paging: .asColumns,
+                        label: .inline,
+                        scale: scale,
+                        chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                        midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                    )
+                )
             }
         }
         .animation(.default, value: sceneState.chordAsDiagram)
         .animation(.default, value: sceneState.song.chords)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .animation(.default, value: sceneState.paging)
+        //.frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         .gesture(ExclusiveGesture(magnificationGesture, doubleTapGesture))
         .onLongPressGesture(minimumDuration: 1) {

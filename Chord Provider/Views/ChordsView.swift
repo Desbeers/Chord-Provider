@@ -40,6 +40,7 @@ struct ChordsView: View {
             }
             .padding()
         }
+        .background(.thinMaterial)
         .animation(.default, value: song.chords)
         .buttonStyle(.plain)
         .sheet(item: $showChordSheet) { chord in
