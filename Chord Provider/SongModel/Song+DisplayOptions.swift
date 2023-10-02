@@ -50,7 +50,7 @@ extension Song.DisplayOptions {
 extension Song.DisplayOptions {
 
     /// The paging of the song view
-    enum Paging: String, CaseIterable {
+    enum Paging: String, CaseIterable, Codable {
         /// View the song as a list
         case asList
         /// View the song in columns

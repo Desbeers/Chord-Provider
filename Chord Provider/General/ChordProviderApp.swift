@@ -30,6 +30,8 @@ import DocumentKit
     )
     /// Chord Display Options
     @StateObject private var chordDisplayOptions = ChordDisplayOptions(defaults: defaults)
+    /// The state of the app
+    @StateObject private var appState = AppState()
 
 #if os(macOS)
 
@@ -60,6 +62,7 @@ import DocumentKit
             ContentView(document: file.$document, file: file.fileURL)
                 .environmentObject(fileBrowser)
                 .environmentObject(chordDisplayOptions)
+                .environmentObject(appState)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
                 .onDisappear {

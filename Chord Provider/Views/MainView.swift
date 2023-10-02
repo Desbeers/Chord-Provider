@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the main content
 struct MainView: View {
+    /// The app state
+    @EnvironmentObject private var appState: AppState
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
     /// The ChordPro document
@@ -18,8 +20,6 @@ struct MainView: View {
     @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
     /// Bool to show the editor or not
     @SceneStorage("showEditor") var showEditor: Bool = false
-    /// Bool to show the chords or not
-    @SceneStorage("showChords") var showChords: Bool = true
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
@@ -28,7 +28,7 @@ struct MainView: View {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
             }
-            if showChords {
+            if appState.settings.showChords {
                 ChordsView(song: sceneState.song)
                     .frame(minWidth: 150)
             }
@@ -57,7 +57,7 @@ struct MainView: View {
             renderSong()
         }
         .animation(.default, value: showEditor)
-        .animation(.default, value: showChords)
+        .animation(.default, value: appState.settings)
     }
     /// Render the song
     private func renderSong() {

@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the song
 struct SongView: View {
+    /// The app state
+    @EnvironmentObject private var appState: AppState
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
     /// Chord Display Options
@@ -59,7 +61,7 @@ struct SongView: View {
     /// The body of the `View`
     var body: some View {
         VStack {
-            switch sceneState.paging {
+            switch appState.settings.paging {
             case .asList:
                 ScrollView {
                     ViewThatFits {
@@ -69,7 +71,7 @@ struct SongView: View {
                                 paging: .asList,
                                 label: .grid,
                                 scale: scale,
-                                chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
                                 midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                             )
                         )
@@ -79,7 +81,7 @@ struct SongView: View {
                                 paging: .asList,
                                 label: .inline,
                                 scale: scale,
-                                chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
                                 midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                             )
                         )
@@ -94,7 +96,7 @@ struct SongView: View {
                         paging: .asColumns,
                         label: .inline,
                         scale: scale,
-                        chords: sceneState.chordAsDiagram ? .asDiagram : .asName,
+                        chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
                         midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                     )
                 )

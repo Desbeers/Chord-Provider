@@ -12,12 +12,12 @@ import SwiftlyFolderUtilities
 struct ToolbarView: View {
     /// The ``song``
     @Binding var song: Song
+    /// The app state
+    @EnvironmentObject private var appState: AppState
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
     /// Bool to show the editor or not
     @SceneStorage("showEditor") var showEditor: Bool = false
-    /// Bool to show the chords or not
-    @SceneStorage("showChords") var showChords: Bool = true
     /// The body of the `View`
     var body: some View {
         HStack {
@@ -37,9 +37,9 @@ struct ToolbarView: View {
                 Label("Edit", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
             Button {
-                showChords.toggle()
+                appState.settings.showChords.toggle()
             } label: {
-                Label("Chords", systemImage: showChords ? "number.circle.fill" : "number.circle")
+                Label("Chords", systemImage: appState.settings.showChords ? "number.circle.fill" : "number.circle")
             }
         }
         .labelStyle(.titleAndIcon)
@@ -66,11 +66,11 @@ extension ToolbarView {
 
     /// SwiftUI `View` with a togle to view inline diagrams
     struct ChordAsDiagram: View {
-        /// The scene state
-        @EnvironmentObject private var sceneState: SceneState
+        /// The app state
+        @EnvironmentObject private var appState: AppState
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $sceneState.chordAsDiagram) {
+            Toggle(isOn: $appState.settings.showInlineDiagrams) {
                 Text("Chords as Diagram")
             }
         }
@@ -81,11 +81,11 @@ extension ToolbarView {
 
     /// SwiftUI `View` with a picker for the song paging
     struct Pager: View {
-        /// The scene state
-        @EnvironmentObject private var sceneState: SceneState
+        /// The app state
+        @EnvironmentObject private var appState: AppState
         /// The body of the `View`
         var body: some View {
-            Picker("Pager:", selection: $sceneState.paging) {
+            Picker("Pager:", selection: $appState.settings.paging) {
                 ForEach(Song.DisplayOptions.Paging.allCases, id: \.rawValue) { value in
                     value.label
                         .tag(value)
