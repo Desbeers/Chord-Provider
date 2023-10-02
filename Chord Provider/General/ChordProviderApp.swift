@@ -138,6 +138,7 @@ import DocumentKit
             ContentView(document: file.$document, file: file.fileURL)
                 .environmentObject(chordDisplayOptions)
                 .environmentObject(fileBrowser)
+                .environmentObject(appState)
                 .task {
                     if hideWelcome == false {
                         UserDefaults.standard.resetDocumentGroupOnboardingState(for: "welcome")
