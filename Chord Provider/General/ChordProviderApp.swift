@@ -166,6 +166,7 @@ import DocumentKit
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
+                .environmentObject(appState)
                 .environmentObject(chordDisplayOptions)
                 .environmentObject(fileBrowser)
             /// Give the scene access to the document.

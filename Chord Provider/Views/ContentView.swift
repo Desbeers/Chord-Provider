@@ -99,7 +99,7 @@ struct ContentView: View {
         }
 
 #elseif os(visionOS)
-        MainView(document: $document, song: $sceneState.song, file: file)
+        MainView(document: $document)
             .navigationTitle(sceneState.song.title ?? "Chord Provider")
             .toolbar {
                 ToolbarItemGroup(placement: .navigation) {
@@ -107,12 +107,15 @@ struct ContentView: View {
                     ToolbarView.FolderSelector()
                 }
                 ToolbarItemGroup(placement: .secondaryAction) {
-                    HeaderView(song: sceneState.song, file: file)
-                    ToolbarView.PlayerButtons(song: sceneState.song, file: file)
+                    HeaderView(file: file)
+                    ToolbarView.PlayerButtons()
                 }
                 ToolbarItemGroup(placement: .bottomOrnament) {
                     ToolbarView(song: $sceneState.song)
                 }
+            }
+            .task(id: file) {
+                sceneState.file = file
             }
             .environmentObject(sceneState)
 #endif
