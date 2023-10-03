@@ -105,7 +105,6 @@ struct SongView: View {
         .animation(.default, value: sceneState.chordAsDiagram)
         .animation(.default, value: sceneState.song.chords)
         .animation(.default, value: sceneState.paging)
-        //.frame(maxWidth: .infinity, maxHeight: .infinity)
         .contentShape(Rectangle())
         .gesture(ExclusiveGesture(magnificationGesture, doubleTapGesture))
         .onLongPressGesture(minimumDuration: 1) {

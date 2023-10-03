@@ -39,7 +39,7 @@ extension Song.DisplayOptions {
 extension Song.DisplayOptions {
 
     /// The label style of the song view
-    enum LabelStyle {
+    enum LabelStyle: String {
         /// View the labels inline
         case inline
         /// View the labels in a grid

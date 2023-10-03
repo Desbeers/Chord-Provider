@@ -46,8 +46,7 @@ extension Song.Render {
         var body: some View {
             switch options.chords {
             case .asName:
-                Text(chord.displayName(options: .init()))
-                    .padding(.trailing)
+                Text("\(chord.displayName(options: .init())) ")
                     .foregroundColor(color)
                     .onTapGesture {
                         popover = popoverID
@@ -94,7 +93,7 @@ extension Song.Render {
                 let secondaryColor: Color = colorScheme == .dark ? .black : .white
                 let renderer = ImageRenderer(
                     content:
-                        ChordDefinitionView(chord: chord, width: 100, options: .init())
+                        ChordDefinitionView(chord: chord, width: 100, options: .init(showFingers: false))
                         .foregroundStyle(primaryColor, secondaryColor)
                 )
                 renderer.scale = 2
