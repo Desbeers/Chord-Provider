@@ -295,6 +295,7 @@ extension Song.Render {
                         Text(part.text)
                             .multilineTextAlignment(.center)
                     }
+                    .padding(.vertical, options.scale)
                     /// Don't truncate text
                     .fixedSize(horizontal: true, vertical: false)
                 }
