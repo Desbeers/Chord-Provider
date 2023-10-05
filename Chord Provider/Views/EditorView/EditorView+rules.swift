@@ -28,7 +28,6 @@ extension EditorView {
     static let rules: [HighlightRule] = [
         /// The rule for all lines
         HighlightRule(pattern: NSRegularExpression.all, formattingRules: [
-            TextFormattingRule(key: .font, value: font(weight: .light)),
             TextFormattingRule(key: .paragraphStyle, value: nsParagraphStyle)
         ]),
         /// The rule for a chord
@@ -37,8 +36,7 @@ extension EditorView {
         ]),
         /// The rule for a directive
         HighlightRule(pattern: EditorView.directiveRegex, formattingRules: [
-            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemTeal),
-            TextFormattingRule(key: .font, value: font(weight: .medium))
+            TextFormattingRule(key: .foregroundColor, value: SWIFTColor.systemTeal)
         ]),
         /// The rule for the value of a directive
         HighlightRule(pattern: EditorView.directiveValueRegex, formattingRules: [
@@ -53,15 +51,8 @@ extension EditorView {
     /// The style of a paragraph in the editor
     static let nsParagraphStyle: NSParagraphStyle = {
         let style = NSMutableParagraphStyle()
-        style.lineHeightMultiple = 1.2
+        style.lineHeightMultiple = 1.5
         style.headIndent = 10
         return style
     }()
-
-    /// The font for a line in the editor
-    /// - Parameter weight: The weight of a font
-    /// - Returns: A font declaration
-    static func font(weight: SWIFTFont.Weight) -> SWIFTFont {
-        return SWIFTFont.monospacedSystemFont(ofSize: 14, weight: weight)
-    }
 }

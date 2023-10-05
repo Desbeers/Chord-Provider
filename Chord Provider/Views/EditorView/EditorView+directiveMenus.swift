@@ -45,6 +45,14 @@ extension EditorView {
                     Label("More...", systemImage: "pencil")
                 }
             )
+            Picker("Font Size:", selection: $appState.settings.editorFontSize) {
+                ForEach(12...24, id: \.self) { value in
+                    Text("\(value)px")
+                        .tag(value)
+                }
+            }
+            .labelsHidden()
+            .frame(maxWidth: 75)
         }
         .menuStyle(.button)
     }

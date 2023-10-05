@@ -14,6 +14,7 @@ struct ChordProviderSettings: Equatable, Codable {
     var showChords: Bool = true
     var showInlineDiagrams: Bool = false
     var paging: Song.DisplayOptions.Paging = .asList
+    var editorFontSize: Int = 14
 }
 
 extension ChordProviderSettings {
