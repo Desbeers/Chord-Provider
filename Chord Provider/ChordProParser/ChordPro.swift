@@ -23,7 +23,7 @@ enum ChordPro {
         var song = Song(instrument: instrument)
         /// Add the optional transpose
         song.transpose = transpose
-        /// Add a new line at the end of the text
+        /// Add a new line at the end of the text or else we might miss the last section of the song
         let text = "\(text)\n"
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
@@ -43,7 +43,8 @@ enum ChordPro {
                     processGrid(text: text, song: &song, currentSection: &currentSection)
                 }
             case "":
-                /// Empty line; close the section if it has an 'automatic type' or else close the section
+                /// Empty line; close the section if it has an 'automatic type',
+                /// else close the section and start a new one with the same label and type
                 if !currentSection.lines.isEmpty {
                     if currentSection.autoType {
                         song.sections.append(currentSection)
@@ -63,6 +64,7 @@ enum ChordPro {
             default:
                 switch currentSection.type {
                 case .tab:
+                    /// A tab can start with '|--02-3-4|', but also with 'E|--2-3-4| for example
                     processTab(text: text, song: &song, currentSection: &currentSection)
                 default:
                     /// Anything else
@@ -70,6 +72,7 @@ enum ChordPro {
                 }
             }
         }
+        /// Set the first chord as key if not set manual
         if song.key == nil {
             song.key = song.chords.first
         }
@@ -345,6 +348,7 @@ enum ChordPro {
         var partID: Int = 1
 
         var matches = text.matches(of: lineRegex)
+        /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {
             let (_, chord, lyric) = match.output
