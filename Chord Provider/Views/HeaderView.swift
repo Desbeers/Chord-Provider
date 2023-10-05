@@ -11,9 +11,6 @@ import SwiftUI
 struct HeaderView: View {
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
-    /// The optional file location
-    /// - Note: Needed to play a song when a 'musicpath' is defined
-    let file: URL?
     /// The body of the `View`
     var body: some View {
 #if os(macOS)

@@ -10,8 +10,6 @@ import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for the toolbar
 struct ToolbarView: View {
-    /// The ``song``
-    @Binding var song: Song
     /// The app state
     @EnvironmentObject private var appState: AppState
     /// The scene state
@@ -22,14 +20,14 @@ struct ToolbarView: View {
     var body: some View {
         HStack {
             Button(action: {
-                song.transpose -= 1
+                sceneState.song.transpose -= 1
             }, label: {
-                Label("♭", systemImage: song.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle")
+                Label("♭", systemImage: sceneState.song.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle")
             })
             Button(action: {
-                song.transpose += 1
+                sceneState.song.transpose += 1
             }, label: {
-                Label("♯", systemImage: song.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle")
+                Label("♯", systemImage: sceneState.song.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle")
             })
             Button {
                 showEditor.toggle()

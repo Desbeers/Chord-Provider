@@ -29,7 +29,7 @@ struct MainView: View {
                     .frame(minWidth: 300)
             }
             if appState.settings.showChords {
-                ChordsView(song: sceneState.song)
+                ChordsView()
                     .frame(minWidth: 150)
             }
         }

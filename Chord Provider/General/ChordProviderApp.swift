@@ -169,8 +169,6 @@ import DocumentKit
                 .environmentObject(appState)
                 .environmentObject(chordDisplayOptions)
                 .environmentObject(fileBrowser)
-            /// Give the scene access to the document.
-                .focusedSceneValue(\.document, file.$document)
         }
     }
 #endif
