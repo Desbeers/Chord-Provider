@@ -24,10 +24,6 @@ final class SceneState: ObservableObject {
 
     /// The current magnification scale
     @Published var currentScale: Double = 1.0
-    /// Show chords a diagrams
-    @Published var chordAsDiagram: Bool = false
-    /// The paging otions
-    @Published var paging: Song.DisplayOptions.Paging = .asList
 }
 
 /// The `FocusedValueKey` for the scene state

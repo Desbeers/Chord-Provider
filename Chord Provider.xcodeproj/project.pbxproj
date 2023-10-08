@@ -10,6 +10,8 @@
 		D701F8792A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */; };
 		D701F87A2A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */; };
 		D701F87B2A9CBA3D007DACF3 /* Aliasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA02A6460B7002D875D /* Aliasses.swift */; };
+		D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
+		D711FCFF2AD05C5600176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
 		D73A03E22AC76D3F00D6CD0E /* Song+DisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A03E12AC76D3F00D6CD0E /* Song+DisplayOptions.swift */; };
 		D73A03E32AC7E88B00D6CD0E /* Song+DisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A03E12AC76D3F00D6CD0E /* Song+DisplayOptions.swift */; };
 		D73A03E92AC85B6100D6CD0E /* Song+Render+ChordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A03E82AC85B6100D6CD0E /* Song+Render+ChordView.swift */; };
@@ -23,8 +25,6 @@
 		D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */; };
 		D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = D7AB1E802A98C284009BC9FB /* DocumentKit */; };
 		D7AB1E832A98E155009BC9FB /* OnboardingView (iPadOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */; platformFilter = ios; };
-		D7C3D61D2AC9C13400909639 /* FrameUp in Frameworks */ = {isa = PBXBuildFile; productRef = D7C3D61C2AC9C13400909639 /* FrameUp */; };
-		D7C3D61F2AC9C1CA00909639 /* FrameUp in Frameworks */ = {isa = PBXBuildFile; productRef = D7C3D61E2AC9C1CA00909639 /* FrameUp */; };
 		D7C3D6212AC9E52600909639 /* ChordProviderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */; };
 		D7C3D6222AC9E52600909639 /* ChordProviderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */; };
 		D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppState.swift */; };
@@ -115,6 +115,7 @@
 
 /* Begin PBXFileReference section */
 		D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDiagramView.swift; sourceTree = "<group>"; };
+		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
 		D73A03E12AC76D3F00D6CD0E /* Song+DisplayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+DisplayOptions.swift"; sourceTree = "<group>"; };
 		D73A03E82AC85B6100D6CD0E /* Song+Render+ChordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Render+ChordView.swift"; sourceTree = "<group>"; };
 		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -184,7 +185,6 @@
 				D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */,
 				D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */,
 				D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */,
-				D7C3D61D2AC9C13400909639 /* FrameUp in Frameworks */,
 				D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */,
 				D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */,
 			);
@@ -194,7 +194,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7C3D61F2AC9C1CA00909639 /* FrameUp in Frameworks */,
 				D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */,
 				D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */,
 			);
@@ -203,6 +202,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D711FD002AD2FC8A00176FDC /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
 		D73A03E72AC85B1300D6CD0E /* Song+Render */ = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +243,7 @@
 				D7F13F9B2A6460B7002D875D /* General */,
 				D7F13F842A6460B7002D875D /* SongModel */,
 				D7F13FA22A6460B7002D875D /* ChordProParser */,
+				D711FD002AD2FC8A00176FDC /* Layout */,
 				D7F13F8C2A6460B7002D875D /* Export */,
 				D7F13FAB2A6460B7002D875D /* Views */,
 				D7F13FA82A6460B7002D875D /* iPadOS */,
@@ -399,7 +407,6 @@
 				D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */,
 				D7AB1E802A98C284009BC9FB /* DocumentKit */,
 				D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */,
-				D7C3D61C2AC9C13400909639 /* FrameUp */,
 			);
 			productName = "Chord Provider";
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
@@ -420,7 +427,6 @@
 			name = "QLExtension (macOS)";
 			packageProductDependencies = (
 				D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */,
-				D7C3D61E2AC9C1CA00909639 /* FrameUp */,
 			);
 			productName = "QLExtension (macOS)";
 			productReference = D7F13FF62A646356002D875D /* QLExtension (macOS).appex */;
@@ -434,7 +440,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					D7F13F6E2A645FEC002D875D = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -459,7 +465,6 @@
 				D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */,
 				D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */,
 				D7A1DDE42AA9B60C00C13678 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */,
-				D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */,
 			);
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
 			projectDirPath = "";
@@ -582,6 +587,7 @@
 				D7F13FD42A6460B7002D875D /* ChordPro+Directive+extension.swift in Sources */,
 				D7F13FC42A6460B7002D875D /* ExportDocument.swift in Sources */,
 				D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */,
+				D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */,
 				D7F13FC82A6460B7002D875D /* FileBrowserView (macOS).swift in Sources */,
 				D7F13FDE2A6460B7002D875D /* EditorView+regex.swift in Sources */,
 				D7F13FC12A6460B7002D875D /* Song+Section+Line+Part.swift in Sources */,
@@ -594,6 +600,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7F140132A64647D002D875D /* Song.swift in Sources */,
+				D711FCFF2AD05C5600176FDC /* ColumnsLayout.swift in Sources */,
 				D7F1400F2A64646E002D875D /* ChordPro.swift in Sources */,
 				D7F140172A64647D002D875D /* Song+Section+Line.swift in Sources */,
 				D7C3D6252AC9EA0400909639 /* AppState.swift in Sources */,
@@ -952,14 +959,6 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ryanlintott/FrameUp";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.6.0;
-			};
-		};
 		D7F13FEC2A646110002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Desbeers/SwiftlyFolderUtilities";
@@ -998,16 +997,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */;
 			productName = DocumentKit;
-		};
-		D7C3D61C2AC9C13400909639 /* FrameUp */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */;
-			productName = FrameUp;
-		};
-		D7C3D61E2AC9C1CA00909639 /* FrameUp */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D7C3D61B2AC9C13400909639 /* XCRemoteSwiftPackageReference "FrameUp" */;
-			productName = FrameUp;
 		};
 		D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */ = {
 			isa = XCSwiftPackageProductDependency;

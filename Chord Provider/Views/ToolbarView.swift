@@ -18,7 +18,7 @@ struct ToolbarView: View {
     @SceneStorage("showEditor") var showEditor: Bool = false
     /// The body of the `View`
     var body: some View {
-        HStack {
+        Group {
             Button(action: {
                 sceneState.song.transpose -= 1
             }, label: {
@@ -34,11 +34,23 @@ struct ToolbarView: View {
             } label: {
                 Label("Edit", systemImage: showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
-            Button {
-                appState.settings.showChords.toggle()
-            } label: {
-                Label("Chords", systemImage: appState.settings.showChords ? "number.circle.fill" : "number.circle")
+            Menu("Chords", systemImage: appState.settings.showChords ? "number.circle.fill" : "number.circle") {
+                Button {
+                    appState.settings.showChords.toggle()
+                } label: {
+                    Text(appState.settings.showChords ? "Hide Chords" : "Show Chords")
+                }
+                Divider()
+                Picker("Position:", selection: $appState.settings.chordsPosition) {
+                    ForEach(ChordProviderSettings.Position.allCases, id: \.rawValue) { value in
+                        Text(value.rawValue)
+                            .tag(value)
+                    }
+                }
+                .pickerStyle(.inline)
+                .disabled(appState.settings.showChords == false)
             }
+            .frame(minWidth: 120)
         }
         .labelStyle(.titleAndIcon)
     }

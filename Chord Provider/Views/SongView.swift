@@ -102,9 +102,7 @@ struct SongView: View {
                 )
             }
         }
-        .animation(.default, value: sceneState.chordAsDiagram)
-        .animation(.default, value: sceneState.song.chords)
-        .animation(.default, value: sceneState.paging)
+        .animation(.default, value: appState.settings.showInlineDiagrams)
         .contentShape(Rectangle())
         .gesture(ExclusiveGesture(magnificationGesture, doubleTapGesture))
         .onLongPressGesture(minimumDuration: 1) {

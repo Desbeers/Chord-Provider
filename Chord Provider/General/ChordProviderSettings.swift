@@ -15,6 +15,12 @@ struct ChordProviderSettings: Equatable, Codable {
     var showInlineDiagrams: Bool = false
     var paging: Song.DisplayOptions.Paging = .asList
     var editorFontSize: Int = 14
+    var chordsPosition: Position = .right
+
+    enum Position: String, CaseIterable, Codable {
+        case right = "Right"
+        case bottom = "Bottom"
+    }
 }
 
 extension ChordProviderSettings {

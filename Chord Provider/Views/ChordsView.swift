@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the chord diagrams
 struct ChordsView: View {
+    /// The app state
+    @EnvironmentObject private var appState: AppState
     /// The scene state
     @EnvironmentObject private var sceneState: SceneState
     /// Chord Display Options
@@ -18,8 +20,10 @@ struct ChordsView: View {
     @State var showChordSheet: ChordDefinition?
     /// The body of the `View`
     var body: some View {
-        ScrollView {
-            VStack {
+        let layout = appState.settings.chordsPosition == .bottom ?
+        AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
+        ScrollView([appState.settings.chordsPosition == .bottom ? .horizontal : .vertical]) {
+            layout {
                 ForEach(sceneState.song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                     switch chord.status {
                     case .standard, .transposed:
@@ -38,10 +42,7 @@ struct ChordsView: View {
                     }
                 }
             }
-            .padding()
         }
-        .background(.thinMaterial)
-        .animation(.default, value: sceneState.song.chords)
         .buttonStyle(.plain)
         .sheet(item: $showChordSheet) { chord in
             Sheet(chord: chord)

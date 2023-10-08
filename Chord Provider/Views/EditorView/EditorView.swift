@@ -72,8 +72,6 @@ struct EditorView: View {
                 DirectiveSheet(directive: directive, definition: $definition)
             }
         )
-        /// The buttons on the editor toolbar change on selection
-        .animation(.default, value: sceneState.selection)
     }
     /// The editor
     var editor: some View {

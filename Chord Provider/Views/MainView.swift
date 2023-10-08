@@ -22,15 +22,19 @@ struct MainView: View {
     @SceneStorage("showEditor") var showEditor: Bool = false
     /// The body of the `View`
     var body: some View {
+        let layout = appState.settings.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0 ))
         HStack(spacing: 0) {
-            SongView()
+            layout {
+                SongView()
+                if appState.settings.showChords {
+                    Divider()
+                    ChordsView()
+                        .background(.thinMaterial)
+                }
+            }
             if showEditor {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
-            }
-            if appState.settings.showChords {
-                ChordsView()
-                    .frame(minWidth: 150)
             }
         }
         .task {
@@ -53,11 +57,7 @@ struct MainView: View {
         .onChange(of: chordDisplayOptions.instrument) { _ in
             renderSong()
         }
-        .onChange(of: sceneState.chordAsDiagram) { _ in
-            renderSong()
-        }
         .animation(.default, value: showEditor)
-        .animation(.default, value: appState.settings)
     }
     /// Render the song
     private func renderSong() {
@@ -69,7 +69,7 @@ struct MainView: View {
         let options = Song.DisplayOptions(
             label: .grid,
             scale: 1,
-            chords: sceneState.chordAsDiagram ? .asDiagram : .asName
+            chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName
         )
         ExportSong.savePDF(song: sceneState.song, options: options)
     }

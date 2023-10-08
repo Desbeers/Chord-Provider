@@ -78,13 +78,11 @@ function_body_length:
 
 legacy_hashing: error
 
-#identifier_name:
-#  excluded:
-#    - i
-#    - id
-#    - x
-#    - y
-#    - z
+identifier_name:
+  excluded:
+    - id
+    - x
+    - y
 
 indentation_width:
   indentation_width: 4

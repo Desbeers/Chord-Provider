@@ -39,21 +39,18 @@ extension Song {
                 }
                 .font(.system(size: 14 * options.scale))
             case .asColumns:
-                GeometryReader { geometry in
-                    ScrollView(.horizontal) {
-                        VFlow(
-                            alignment: .topLeading,
-                            maxHeight: geometry.size.height * 0.95,
-                            horizontalSpacing: options.scale * 40,
-                            verticalSpacing: options.scale * 10
-                        ) {
-                            sections
-                        }
-                        .padding()
-                        Spacer()
+                ScrollView(.horizontal) {
+                    ColumnsLayout(
+                        alignment: .topLeading,
+                        horizontalSpacing: options.scale * 40,
+                        verticalSpacing: options.scale * 5
+                    ) {
+                        sections
                     }
-                    .font(.system(size: 14 * options.scale))
+                    .padding()
                 }
+                .frame(maxHeight: .infinity)
+                .font(.system(size: 14 * options.scale))
             }
         }
 
@@ -98,8 +95,8 @@ extension Song.Render {
         func body(content: Content) -> some View {
             switch options.label {
             case .inline:
-                if let label {
-                    VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    if let label {
                         switch prominent {
                         case true:
                             ProminentLabel(options: options, label: label)
@@ -109,13 +106,12 @@ extension Song.Render {
                         Divider()
                         content
                             .padding(.leading)
+                    } else {
+                        content
+                            .padding(.leading)
                     }
-                    .padding(.top)
-                } else {
-                    content
-                        .padding(.top)
-                        .frame(maxWidth: .infinity)
                 }
+                .padding(.top)
             case .grid:
                 GridRow {
                     Text(label ?? " ")
@@ -152,7 +148,6 @@ extension Song.Render {
                     }
                 }
             }
-            .frame(maxWidth: 400)
             .modifier(SectionView(options: options, label: section.label))
         }
     }
@@ -185,6 +180,7 @@ extension Song.Render {
                     }
                 }
             }
+            .padding(.vertical, options.scale)
             .modifier(SectionView(options: options, label: section.label))
         }
     }
@@ -256,6 +252,7 @@ extension Song.Render {
             .lineLimit(1)
             .minimumScaleFactor(0.01)
             .monospaced()
+            .padding(.vertical, options.scale)
             .modifier(SectionView(options: options, label: section.label))
         }
     }

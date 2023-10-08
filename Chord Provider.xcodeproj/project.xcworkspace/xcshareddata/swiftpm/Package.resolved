@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "frameup",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ryanlintott/FrameUp",
-      "state" : {
-        "revision" : "4426f97af2ca78985c1322428347bd8be5e29fc1",
-        "version" : "0.6.0"
-      }
-    },
-    {
       "identity" : "highlightedtexteditor",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kyle-n/HighlightedTextEditor",
