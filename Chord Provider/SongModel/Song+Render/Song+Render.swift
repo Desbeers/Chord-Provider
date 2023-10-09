@@ -7,7 +7,6 @@
 
 import SwiftUI
 import SwiftlyChordUtilities
-import FrameUp
 
 extension Song {
 
