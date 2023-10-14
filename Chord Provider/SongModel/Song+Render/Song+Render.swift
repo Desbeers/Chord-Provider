@@ -40,9 +40,8 @@ extension Song {
             case .asColumns:
                 ScrollView(.horizontal) {
                     ColumnsLayout(
-                        alignment: .topLeading,
-                        horizontalSpacing: options.scale * 40,
-                        verticalSpacing: options.scale * 5
+                        columnSpacing: options.scale * 40,
+                        rowSpacing: options.scale * 10
                     ) {
                         sections
                     }

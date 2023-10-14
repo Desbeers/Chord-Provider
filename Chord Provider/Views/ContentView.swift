@@ -31,6 +31,7 @@ struct ContentView: View {
                     .foregroundColor(.white)
                 MainView(document: $document)
                     .background(Color.telecaster.opacity(0.2))
+                    .background(Color(nsColor: .textBackgroundColor))
             }
             .toolbar {
                 ToolbarView.Pager()

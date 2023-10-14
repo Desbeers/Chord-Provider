@@ -7,32 +7,23 @@
 
 import SwiftUI
 
-/// A view that arranges its subviews in colums
+/// A `Layout` that arranges its `subviews` in columns
 public struct ColumnsLayout: Layout {
-    /// The guide for aligning the subviews in this stack. This guide has the same screen coordinate for every subview.
-    public var alignment: Alignment
+    /// The spacing between the columns or `nil` to use the default
+    public var columnSpacing: Double?
+    /// The spacing between the subviews in the column row or`nil` to use the default
+    public var rowSpacing: Double?
 
-    /// The distance between adjacent subviews in a row or `nil` if you want the stack to choose a default distance.
-    public var horizontalSpacing: Double?
-
-    /// The distance between consequtive rows or`nil` if you want the stack to choose a default distance.
-    public var verticalSpacing: Double?
-
-    /// Creates a wrapping horizontal stack with the given spacings and alignment.
-    ///
+    /// Init the `ColumnLayout`
     /// - Parameters:
-    ///   - alignment: The guide for aligning the subviews in this stack. This guide has the same screen coordinate for every subview.
-    ///   - horizontalSpacing: The distance between adjacent subviews in a row or `nil` if you want the stack to choose a default distance.
-    ///   - verticalSpacing: The distance between consequtive rows or`nil` if you want the stack to choose a default distance.
-    ///   - content: A view builder that creates the content of this stack.
-    @inlinable public init(
-        alignment: Alignment = .center,
-        horizontalSpacing: Double? = nil,
-        verticalSpacing: Double? = nil
+    ///   - columnSpacing: The spacing between the columns or `nil` to use the default
+    ///   - rowSpacing: The spacing between the subviews in the column row or`nil` to use the default
+    public init(
+        columnSpacing: Double? = nil,
+        rowSpacing: Double? = nil
     ) {
-        self.alignment = alignment
-        self.horizontalSpacing = horizontalSpacing
-        self.verticalSpacing = verticalSpacing
+        self.columnSpacing = columnSpacing
+        self.rowSpacing = rowSpacing
     }
 
     public static var layoutProperties: LayoutProperties {
@@ -60,6 +51,13 @@ public struct ColumnsLayout: Layout {
         cache.minSize = minSize(subviews: subviews)
     }
 
+    /// Returns the size of the composite view, given a proposed size and the view’s subviews
+    /// - Note: Protocol requirement
+    /// - Parameters:
+    ///   - proposal: A size proposal for the container
+    ///   - subviews: A collection of proxies that represent the views that the container arranges
+    ///   - cache: Optional storage for calculated data
+    /// - Returns: A size that indicates how much space the container needs to arrange its subviews
     public func sizeThatFits(
         proposal: ProposedViewSize,
         subviews: Subviews,
@@ -79,6 +77,13 @@ public struct ColumnsLayout: Layout {
         return CGSize(width: width, height: height)
     }
 
+    /// Assigns positions to each of the layout’s subviews
+    /// - Note: Protocol requirement
+    /// - Parameters:
+    ///   - bounds: The region that the container view’s parent allocates to the container view, specified in the parent’s coordinate space
+    ///   - proposal: The size proposal from which the container generated the size that the parent used to create the bounds parameter
+    ///   - subviews: A collection of proxies that represent the views that the container arranges
+    ///   - cache: Optional storage for calculated data
     public func placeSubviews(
         in bounds: CGRect,
         proposal: ProposedViewSize,
@@ -87,7 +92,7 @@ public struct ColumnsLayout: Layout {
     ) {
         let columns = arrangeColumns(proposal: proposal, subviews: subviews, cache: &cache)
 
-        let anchor = UnitPoint(alignment)
+        let anchor = UnitPoint.topLeading
 
         for column in columns {
             for element in column.elements {
@@ -143,7 +148,7 @@ extension ColumnsLayout {
         for index in subviews.indices {
             var spacing = Double.zero
             if let previousIndex = currentColumn.elements.last?.index {
-                spacing = verticalSpacing(subviews[previousIndex], subviews[index])
+                spacing = rowSpacing(subviews[previousIndex], subviews[index])
             }
 
             let size = sizes[index]
@@ -177,7 +182,7 @@ extension ColumnsLayout {
 
             var spacing = Double.zero
             if let previousMaxWidthIndex {
-                spacing = horizontalSpacing(subviews[previousMaxWidthIndex], subviews[maxWidthIndex])
+                spacing = columnSpacing(subviews[previousMaxWidthIndex], subviews[maxWidthIndex])
             }
 
             columns[index].xOffset = currentX + spacing
@@ -210,15 +215,17 @@ extension ColumnsLayout {
             .reduce(CGSize.zero) { CGSize(width: max($0.width, $1.width), height: max($0.height, $1.height)) }
     }
 
-    private func horizontalSpacing(_ lhs: LayoutSubview, _ rhs: LayoutSubview) -> Double {
-        if let horizontalSpacing { return horizontalSpacing }
-
+    private func columnSpacing(_ lhs: LayoutSubview, _ rhs: LayoutSubview) -> Double {
+        if let columnSpacing {
+            return columnSpacing
+        }
         return lhs.spacing.distance(to: rhs.spacing, along: .horizontal)
     }
 
-    private func verticalSpacing(_ lhs: LayoutSubview, _ rhs: LayoutSubview) -> Double {
-        if let verticalSpacing { return verticalSpacing }
-
+    private func rowSpacing(_ lhs: LayoutSubview, _ rhs: LayoutSubview) -> Double {
+        if let rowSpacing {
+            return rowSpacing
+        }
         return lhs.spacing.distance(to: rhs.spacing, along: .vertical)
     }
 }
@@ -229,27 +236,27 @@ private extension CGSize {
     }
 }
 
-private extension UnitPoint {
-    init(_ alignment: Alignment) {
-        switch alignment {
-        case .leading:
-            self = .leading
-        case .topLeading:
-            self = .topLeading
-        case .top:
-            self = .top
-        case .topTrailing:
-            self = .topTrailing
-        case .trailing:
-            self = .trailing
-        case .bottomTrailing:
-            self = .bottomTrailing
-        case .bottom:
-            self = .bottom
-        case .bottomLeading:
-            self = .bottomLeading
-        default:
-            self = .center
-        }
-    }
-}
+//private extension UnitPoint {
+//    init(_ alignment: Alignment) {
+//        switch alignment {
+//        case .leading:
+//            self = .leading
+//        case .topLeading:
+//            self = .topLeading
+//        case .top:
+//            self = .top
+//        case .topTrailing:
+//            self = .topTrailing
+//        case .trailing:
+//            self = .trailing
+//        case .bottomTrailing:
+//            self = .bottomTrailing
+//        case .bottom:
+//            self = .bottom
+//        case .bottomLeading:
+//            self = .bottomLeading
+//        default:
+//            self = .center
+//        }
+//    }
+//}

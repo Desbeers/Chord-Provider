@@ -29,7 +29,7 @@ struct MainView: View {
                 if appState.settings.showChords {
                     Divider()
                     ChordsView()
-                        .background(.thinMaterial)
+                        .background(Color.telecaster.opacity(0.2))
                 }
             }
             if showEditor {
@@ -58,6 +58,7 @@ struct MainView: View {
             renderSong()
         }
         .animation(.default, value: showEditor)
+        .animation(.default, value: appState.settings)
     }
     /// Render the song
     private func renderSong() {
