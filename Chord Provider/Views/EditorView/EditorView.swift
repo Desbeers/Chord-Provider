@@ -75,7 +75,10 @@ struct EditorView: View {
     }
     /// The editor
     var editor: some View {
-        HighlightedTextEditor(text: $document.text, highlightRules: EditorView.rules)
+        HighlightedTextEditor(
+            text: $document.text,
+            highlightRules: EditorView.rules(fontSize: Double(appState.settings.editorFontSize))
+        )
         /// Below selector prevents the cursor from jumping while the SongView is updated
         /// It will also be passed to 'format' buttons
             .onSelectionChange { (range: NSRange) in
@@ -90,10 +93,6 @@ struct EditorView: View {
                     #endif
                     sceneState.textView = editor.textView
                 }
-                editor.textView.font = SWIFTFont.monospacedSystemFont(
-                    ofSize: Double(appState.settings.editorFontSize),
-                    weight: .regular
-                )
             }
     }
 }
