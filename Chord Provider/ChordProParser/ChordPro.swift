@@ -217,6 +217,10 @@ enum ChordPro {
                 if let label {
                     song.musicPath = label
                 }
+            case .tag:
+                if let label {
+                    song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
+                }
             }
         }
     }

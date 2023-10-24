@@ -112,6 +112,9 @@ extension ChordPro {
         /// This directive has the path to the music file
         case musicPath = "musicpath"
 
+        /// Tag(s) for the music file
+        case tag
+
         // swiftlint:enable identifier_name
     }
 }

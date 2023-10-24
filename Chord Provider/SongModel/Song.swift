@@ -33,6 +33,8 @@ struct Song {
     var tuning: String?
     /// The optional path to the audio file
     var musicPath: String?
+    /// The optional tag(s)
+    var tags: [String] = []
     /// The optional transpose
     var transpose: Int = 0
     /// The instrument

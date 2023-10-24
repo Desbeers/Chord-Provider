@@ -14,6 +14,12 @@ struct FileBrowserView: View {
     @EnvironmentObject var fileBrowser: FileBrowser
     /// The search query
     @State var search: String = ""
+    /// Tab item
+    @State private var tabItem: TabItem = .artists
+    /// All tags
+    @State private var allTags: [String] = []
+    /// Selected tag
+    @State private var selectedTag: [String] = []
     /// The body of the `View`
     var body: some View {
         Group {
@@ -22,18 +28,42 @@ struct FileBrowserView: View {
                 WelcomeView()
                     .navigationSubtitle("Welcome")
             case .ready:
-                List {
-                    if search.isEmpty {
-                        ForEach(fileBrowser.artistList) { artist in
-                            Section(header: Text(artist.name).font(.headline)) {
-                                ForEach(fileBrowser.songList.filter { $0.artist == artist.name }) { song in
-                                    Row(song: song)
-                                }
+                Picker("Menu", selection: $tabItem) {
+                    ForEach(TabItem.allCases, id: \.rawValue) { item in
+                        Text(item.rawValue)
+                            .tag(item)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .task(id: tabItem) {
+                    selectedTag = []
+                }
+                NavigationStack(path: $selectedTag.animation(.easeInOut)) {
+                    List {
+                        if search.isEmpty {
+                            switch tabItem {
+                            case .artists:
+                                artistsList
+                            case .songs:
+                                songsList
+                            case .tags:
+                                tagsList
+                            }
+                        } else {
+                            ForEach(fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
+                                Row(song: song, showArtist: true)
                             }
                         }
-                    } else {
-                        ForEach(fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
-                            Row(song: song, showArtist: true)
+                    }
+                    .opacity(selectedTag.isEmpty ? 1 : 0)
+                    .navigationDestination(for: String.self) { tag in
+                        List {
+                            Section(header: Text("Songs with '\(tag)' tag").font(.headline)) {
+                                ForEach(fileBrowser.songList.filter { $0.tags.contains(tag) }) { song in
+                                    Row(song: song, showArtist: true)
+                                }
+                            }
                         }
                     }
                 }
@@ -55,8 +85,11 @@ struct FileBrowserView: View {
         .frame(width: 320)
         .frame(minHeight: 500)
         .navigationTitle("Chord Provider")
-        .task {
+        .task(id: fileBrowser.songList) {
             await fileBrowser.getFiles()
+            let tags = fileBrowser.songList.flatMap(\.tags)
+            /// Make sure the tags are unique
+            allTags = Array(Set(tags).sorted())
         }
         .toolbar {
             folderButton
@@ -66,6 +99,45 @@ struct FileBrowserView: View {
     /// Folder selection button
     var folderButton: some View {
         ToolbarView.FolderSelector()
+    }
+    /// Artists list `View`
+    var artistsList: some View {
+        ForEach(fileBrowser.artistList) { artist in
+            Section(header: Text(artist.name).font(.headline)) {
+                ForEach(fileBrowser.songList.filter { $0.artist == artist.name }) { song in
+                    Row(song: song)
+                }
+            }
+        }
+    }
+    /// Songs list `View`
+    var songsList: some View {
+        Section(header: Text("All Songs").font(.headline)) {
+            ForEach(fileBrowser.songList.sorted(using: KeyPathComparator(\.title))) { song in
+                Row(song: song, showArtist: true)
+            }
+        }
+    }
+    /// Tags list `View`
+    var tagsList: some View {
+        Section(header: Text("All Tags").font(.headline)) {
+            ForEach(allTags) { tag in
+                Button(
+                    action: {
+                        selectedTag.append(tag)
+                    },
+                    label: {
+                        Label(tag, systemImage: "tag")
+                    }
+                )
+            }
+        }
+    }
+    /// Tab bar items
+    enum TabItem: String, CaseIterable {
+        case artists = "Artists"
+        case songs = "Songs"
+        case tags = "Tags"
     }
 }
 
@@ -78,7 +150,7 @@ extension FileBrowserView {
         /// Show the artist or not
         var showArtist: Bool = false
         /// The ``FileBrowser`` model
-        @EnvironmentObject var fileBrowser: FileBrowser
+        @EnvironmentObject private var fileBrowser: FileBrowser
         /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
         /// Information about the `NSWindow`
@@ -98,7 +170,11 @@ extension FileBrowserView {
                                 Text(song.title)
                                 if showArtist {
                                     Text(song.artist)
-                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                                if !song.tags.isEmpty {
+                                    Text(song.tags.joined(separator: " ∙ "))
+                                        .foregroundStyle(.tertiary)
                                 }
                             }
                         },
@@ -152,7 +228,7 @@ extension FileBrowserView {
         /// - Returns: A `View` with the label
         func makeBody(configuration: Configuration) -> some View {
             HStack {
-                configuration.icon.foregroundColor(.accentColor).frame(width: 10)
+                configuration.icon.foregroundColor(.accentColor).frame(width: 14)
                 configuration.title
             }
             .frame(maxWidth: .infinity, alignment: .leading)

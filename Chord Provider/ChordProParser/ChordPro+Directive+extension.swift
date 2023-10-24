@@ -100,7 +100,8 @@ extension ChordPro.Directive {
             .key,
             .time,
             .tempo,
-            .capo
+            .capo,
+            .tag
         ]
     }
 

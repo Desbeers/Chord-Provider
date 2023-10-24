@@ -46,7 +46,7 @@ extension FileBrowser {
     // MARK: Structures
 
     /// The struct for a song item in the browser
-    struct SongItem: Identifiable {
+    struct SongItem: Identifiable, Equatable {
         /// The unique ID
         var id: String {
             fileURL.description
@@ -55,6 +55,8 @@ extension FileBrowser {
         var artist: String = "Unknown artist"
         /// Title of the song
         var title: String = ""
+        /// The optional tags
+        var tags: [String] = []
         /// The searchable string
         var search: String {
             return "\(title) \(artist)"
@@ -148,6 +150,10 @@ extension FileBrowser {
             case .musicPath:
                 if let label {
                     song.musicPath = label
+                }
+            case .tag:
+                if let label {
+                    song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
                 }
             default:
                 break
