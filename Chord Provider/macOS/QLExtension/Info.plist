@@ -10,7 +10,7 @@
 			<true/>
 			<key>QLSupportedContentTypes</key>
 			<array>
-				<string>nl.desbeers.chordprovider.chordpro</string>
+				<string>org.chordpro</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

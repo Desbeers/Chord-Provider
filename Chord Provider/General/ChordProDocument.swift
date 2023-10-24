@@ -11,11 +11,11 @@ import UniformTypeIdentifiers
 /// The ChordProDocument for Chord Provider
 struct ChordProDocument: FileDocument {
     /// The text for a new song
-    static let newText: String = "{title: A new song}\n{subtitle: A new artist}\n\n"
+    static let newText: String = "{title: A new song}\n{artist: A new artist}\n\n"
     /// Build a song max one time per second
     let buildSongDebouncer = Debouncer(duration: 1)
     /// The file extensions Chord Provider can open
-    static let fileExtension: [String] = ["crd", "pro", "chopro", "cpm", "chordpro", "txt"]
+    static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
     /// The `UTType` for a ChordPro document
     static var readableContentTypes: [UTType] { [.chordProDocument] }
     /// The content of the ChordPro file
@@ -49,5 +49,5 @@ extension UTType {
 
     /// The `UTType` for a ChordPro document
     static let chordProDocument =
-    UTType(exportedAs: "nl.desbeers.chordprovider.chordpro")
+    UTType(importedAs: "org.chordpro")
 }
