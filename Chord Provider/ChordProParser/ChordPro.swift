@@ -29,7 +29,7 @@ enum ChordPro {
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text:
         for text in text.components(separatedBy: .newlines) {
-            switch text.prefix(1) {
+            switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
             case "{":
                 /// Directive
                 processDirective(text: text, song: &song, currentSection: &currentSection)
@@ -129,14 +129,25 @@ enum ChordPro {
 
             case .c, .comment:
                 if let label {
-                    processSection(
-                        label: label,
-                        type: Environment.comment,
-                        song: &song,
-                        currentSection: &currentSection
-                    )
-                    song.sections.append(currentSection)
-                    currentSection = Song.Section(id: song.sections.count + 1)
+                    /// Start with a new line
+                    var line = Song.Section.Line(id: currentSection.lines.count + 1)
+                    line.comment = label
+                    switch currentSection.type {
+                    case .none:
+                        /// A comment in its own section
+                        processSection(
+                            label: Environment.comment.rawValue,
+                            type: Environment.comment,
+                            song: &song,
+                            currentSection: &currentSection
+                        )
+                        currentSection.lines.append(line)
+                        song.sections.append(currentSection)
+                        currentSection = Song.Section(id: song.sections.count + 1)
+                    default:
+                        /// An inline comment, e.g. inside a verse or chorus
+                        currentSection.lines.append(line)
+                    }
                 }
 
                 // MARK: Environment directives

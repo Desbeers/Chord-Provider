@@ -90,19 +90,19 @@ extension ExportSong {
         for section in song.sections {
             switch section.type {
             case .verse, .bridge:
-                part = renderPart(view: Song.Render.VerseView(section: section, options: options, chords: song.chords))
+                part = renderPart(view: Song.Render.VerseSectionView(section: section, options: options, chords: song.chords))
             case .chorus:
-                part = renderPart(view: Song.Render.ChorusView(section: section, options: options, chords: song.chords))
+                part = renderPart(view: Song.Render.ChorusSectionView(section: section, options: options, chords: song.chords))
             case .repeatChorus:
                 part = renderPart(view: Song.Render.RepeatChorusView(section: section, options: options))
             case .tab:
-                part = renderPart(view: Song.Render.TabView(section: section, options: options))
+                part = renderPart(view: Song.Render.TabSectionView(section: section, options: options))
             case .grid:
-                part = renderPart(view: Song.Render.GridView(section: section, options: options, chords: song.chords))
+                part = renderPart(view: Song.Render.GridSectionView(section: section, options: options, chords: song.chords))
             case .comment:
-                part = renderPart(view: Song.Render.CommentView(section: section, options: options))
+                part = renderPart(view: Song.Render.CommentSectionView(section: section, options: options))
             default:
-                part = renderPart(view: Song.Render.PlainView(section: section, options: options))
+                part = renderPart(view: Song.Render.PlainSectionView(section: section, options: options))
             }
             if let part {
                 parts.append(part)

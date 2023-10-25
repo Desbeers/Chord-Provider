@@ -57,19 +57,19 @@ extension Song {
             ForEach(song.sections) { section in
                 switch section.type {
                 case .verse, .bridge:
-                    VerseView(section: section, options: options, chords: song.chords)
+                    VerseSectionView(section: section, options: options, chords: song.chords)
                 case .chorus:
-                    ChorusView(section: section, options: options, chords: song.chords)
+                    ChorusSectionView(section: section, options: options, chords: song.chords)
                 case .repeatChorus:
                     RepeatChorusView(section: section, options: options)
                 case .tab:
-                    TabView(section: section, options: options)
+                    TabSectionView(section: section, options: options)
                 case .grid:
-                    GridView(section: section, options: options, chords: song.chords)
+                    GridSectionView(section: section, options: options, chords: song.chords)
                 case .comment:
-                    CommentView(section: section, options: options)
+                    CommentSectionView(section: section, options: options)
                 default:
-                    PlainView(section: section, options: options)
+                    PlainSectionView(section: section, options: options)
                 }
             }
         }
@@ -131,18 +131,24 @@ extension Song.Render {
         }
     }
 
-    /// SwiftUI `View` for plain text
-    struct PlainView: View {
+    // MARK: Verse
+
+    /// SwiftUI `View` for a verse section
+    struct VerseSectionView: View {
         /// The `section` of the song
         let section: Song.Section
         /// The display options
         let options: Song.DisplayOptions
+        /// The chords of the song
+        let chords: [ChordDefinition]
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
-                    ForEach(line.parts) { part in
-                        Text(part.text.trimmingCharacters(in: .whitespacesAndNewlines))
+                    if line.comment.isEmpty {
+                        PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
+                    } else {
+                        CommentLabelView(comment: line.comment, options: options)
                     }
                 }
             }
@@ -150,8 +156,10 @@ extension Song.Render {
         }
     }
 
-    /// SwiftUI `View` for a grid
-    struct GridView: View {
+    // MARK: Chorus
+
+    /// SwiftUI `View` for a chorus section
+    struct ChorusSectionView: View {
         /// The `section` of the song
         let section: Song.Section
         /// The display options
@@ -160,61 +168,13 @@ extension Song.Render {
         let chords: [ChordDefinition]
         /// The body of the `View`
         var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                Grid(alignment: .leading) {
-                    ForEach(section.lines) { line in
-                        GridRow {
-                            ForEach(line.grid) { grid in
-                                Text("|")
-                                ForEach(grid.parts) { part in
-                                    if let chord = chords.first(where: { $0.id == part.chord }) {
-                                        ChordView(options: options, sectionID: section.id, partID: part.id, chord: chord)
-                                    } else {
-                                        Text(part.text)
-                                    }
-                                }
-                            }
-                        }
+            VStack(alignment: .leading) {
+                ForEach(section.lines) { line in
+                    if line.comment.isEmpty {
+                        PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
+                    } else {
+                        CommentLabelView(comment: line.comment, options: options)
                     }
-                }
-            }
-            .padding(.vertical, options.scale)
-            .modifier(SectionView(options: options, label: section.label))
-        }
-    }
-
-    /// SwiftUI `View` for a verse
-    struct VerseView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The chords of the song
-        let chords: [ChordDefinition]
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
-                }
-            }
-            .modifier(SectionView(options: options, label: section.label))
-        }
-    }
-
-    /// SwiftUI `View` for a chorus
-    struct ChorusView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The chords of the song
-        let chords: [ChordDefinition]
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
                 }
             }
             .modifier(SectionView(options: options, label: section.label ?? "Chorus", prominent: true))
@@ -234,8 +194,10 @@ extension Song.Render {
         }
     }
 
-    /// SwiftUI `View` for a tab
-    struct TabView: View {
+    // MARK: Tab
+
+    /// SwiftUI `View` for a tab section
+    struct TabSectionView: View {
         /// The `section` of the song
         let section: Song.Section
         /// The display options
@@ -244,30 +206,110 @@ extension Song.Render {
         var body: some View {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
-                    Text(line.tab)
+                    if line.comment.isEmpty {
+                        Text(line.tab)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.01)
+                            .monospaced()
+                    } else {
+                        CommentLabelView(comment: line.comment, options: options)
+                    }
                 }
             }
-            .lineLimit(1)
-            .minimumScaleFactor(0.01)
-            .monospaced()
             .padding(.vertical, options.scale)
             .modifier(SectionView(options: options, label: section.label))
         }
     }
 
-    /// SwiftUI `View` for a comment
-    struct CommentView: View {
+    // MARK: Grid
+
+    /// SwiftUI `View` for a grid section
+    struct GridSectionView: View {
+        /// The `section` of the song
+        let section: Song.Section
+        /// The display options
+        let options: Song.DisplayOptions
+        /// The chords of the song
+        let chords: [ChordDefinition]
+        /// The body of the `View`
+        var body: some View {
+            VStack(alignment: .leading, spacing: 0) {
+                Grid(alignment: .leading) {
+                    ForEach(section.lines) { line in
+                        if line.comment.isEmpty {
+                            GridRow {
+                                ForEach(line.grid) { grid in
+                                    Text("|")
+                                    ForEach(grid.parts) { part in
+                                        if let chord = chords.first(where: { $0.id == part.chord }) {
+                                            ChordView(options: options, sectionID: section.id, partID: part.id, chord: chord)
+                                        } else {
+                                            Text(part.text)
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            CommentLabelView(comment: line.comment, options: options)
+                        }
+                    }
+                }
+            }
+            .padding(.vertical, options.scale)
+            .modifier(SectionView(options: options, label: section.label))
+        }
+    }
+
+    // MARK: Comment
+
+    /// SwiftUI `View` for a comment in its own section
+    struct CommentSectionView: View {
         /// The `section` of the song
         let section: Song.Section
         /// The display options
         let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
-            ProminentLabel(options: options, label: section.label ?? "", icon: "bubble.right", color: .yellow)
-                .italic()
+            CommentLabelView(comment: section.lines.first?.comment ?? "", options: options)
                 .modifier(SectionView(options: options))
         }
     }
+
+    /// SwiftUI `View` for a comment label
+    struct CommentLabelView: View {
+        /// The comment
+        let comment: String
+        /// The display options
+        let options: Song.DisplayOptions
+        /// The body of the `View`
+        var body: some View {
+            ProminentLabel(options: options, label: comment, icon: "bubble.right", color: .yellow)
+                .italic()
+        }
+    }
+
+    // MARK: Plain
+
+    /// SwiftUI `View` for a plain text section
+    struct PlainSectionView: View {
+        /// The `section` of the song
+        let section: Song.Section
+        /// The display options
+        let options: Song.DisplayOptions
+        /// The body of the `View`
+        var body: some View {
+            VStack(alignment: .leading) {
+                ForEach(section.lines) { line in
+                    ForEach(line.parts) { part in
+                        Text(part.text.trimmingCharacters(in: .whitespacesAndNewlines))
+                    }
+                }
+            }
+            .modifier(SectionView(options: options, label: section.label))
+        }
+    }
+
+    // MARK: Parts
 
     /// SwiftUI `View` for parts of a line
     struct PartsView: View {

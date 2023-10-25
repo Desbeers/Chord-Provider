@@ -19,5 +19,7 @@ extension Song.Section {
         var grid = [Grid]()
         /// The optional tab  in the line
         var tab: String = ""
+        /// The optional comment in the line
+        var comment: String = ""
     }
 }
