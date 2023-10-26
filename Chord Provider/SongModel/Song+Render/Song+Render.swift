@@ -68,6 +68,8 @@ extension Song {
                     GridSectionView(section: section, options: options, chords: song.chords)
                 case .comment:
                     CommentSectionView(section: section, options: options)
+                case .strum:
+                    StrumSectionView(section: section, options: options)
                 default:
                     PlainSectionView(section: section, options: options)
                 }
@@ -283,8 +285,36 @@ extension Song.Render {
         let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
-            ProminentLabel(options: options, label: comment, icon: "bubble.right", color: .yellow)
+            ProminentLabel(options: options, label: comment, icon: "text.bubble", color: .yellow)
                 .italic()
+        }
+    }
+
+    // MARK: Strum
+
+    /// SwiftUI `View` for a strum section
+    struct StrumSectionView: View {
+        /// The `section` of the song
+        let section: Song.Section
+        /// The display options
+        let options: Song.DisplayOptions
+        /// The body of the `View`
+        var body: some View {
+            VStack(alignment: .leading) {
+                ForEach(section.lines) { line in
+                    if line.comment.isEmpty {
+                        ForEach(line.strum) {strum in
+                            Text(strum)
+                        }
+                        .tracking(2 * options.scale)
+                        .monospaced()
+                        .font(.system(size: 16 * options.scale))
+                    } else {
+                        CommentLabelView(comment: line.comment, options: options)
+                    }
+                }
+            }
+            .modifier(SectionView(options: options, label: section.label))
         }
     }
 

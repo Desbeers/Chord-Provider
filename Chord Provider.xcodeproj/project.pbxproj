@@ -29,6 +29,8 @@
 		D7C3D6222AC9E52600909639 /* ChordProviderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */; };
 		D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppState.swift */; };
 		D7C3D6252AC9EA0400909639 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppState.swift */; };
+		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
+		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7D39C4F2A9A13DA004EAE5F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C4E2A9A13DA004EAE5F /* Status.swift */; };
 		D7D39C512A9A19A1004EAE5F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */; };
 		D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F852A6460B7002D875D /* Song+Section+Line.swift */; };
@@ -125,6 +127,7 @@
 		D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingView (iPadOS).swift"; sourceTree = "<group>"; };
 		D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderSettings.swift; sourceTree = "<group>"; };
 		D7C3D6232AC9EA0400909639 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+strum.swift"; sourceTree = "<group>"; };
 		D7D39C4E2A9A13DA004EAE5F /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D7F13F6F2A645FEC002D875D /* Chord Provider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chord Provider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -257,9 +260,10 @@
 			children = (
 				D7F13F862A6460B7002D875D /* Song.swift */,
 				D7F13F892A6460B7002D875D /* Song+Section.swift */,
+				D7F13F852A6460B7002D875D /* Song+Section+Line.swift */,
 				D7F13F8A2A6460B7002D875D /* Song+Section+Line+Part.swift */,
 				D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */,
-				D7F13F852A6460B7002D875D /* Song+Section+Line.swift */,
+				D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */,
 				D73A03E12AC76D3F00D6CD0E /* Song+DisplayOptions.swift */,
 				D73A03E72AC85B1300D6CD0E /* Song+Render */,
 			);
@@ -553,6 +557,7 @@
 				D7F13FE22A6460B7002D875D /* MainView.swift in Sources */,
 				D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */,
 				D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */,
+				D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,
 				D7F13FC62A6460B7002D875D /* WindowManagement (macOS).swift in Sources */,
 				D701F8792A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */,
 				D73A03E22AC76D3F00D6CD0E /* Song+DisplayOptions.swift in Sources */,
@@ -603,6 +608,7 @@
 				D711FCFF2AD05C5600176FDC /* ColumnsLayout.swift in Sources */,
 				D7F1400F2A64646E002D875D /* ChordPro.swift in Sources */,
 				D7F140172A64647D002D875D /* Song+Section+Line.swift in Sources */,
+				D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,
 				D7C3D6252AC9EA0400909639 /* AppState.swift in Sources */,
 				D7F140162A64647D002D875D /* Song+Section+Line+Grid.swift in Sources */,
 				D7F1400E2A64646E002D875D /* ChordPro+Directive+extension.swift in Sources */,

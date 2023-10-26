@@ -66,6 +66,8 @@ enum ChordPro {
                 case .tab:
                     /// A tab can start with '|--02-3-4|', but also with 'E|--2-3-4| for example
                     processTab(text: text, song: &song, currentSection: &currentSection)
+                case .strum:
+                    processStrum(text: text, song: &song, currentSection: &currentSection)
                 default:
                     /// Anything else
                     processLine(text: text, song: &song, currentSection: &currentSection)
@@ -208,8 +210,17 @@ enum ChordPro {
                     currentSection: &currentSection
                 )
 
+                /// ## Start of Strum
+            case .sos, .startOfStrum:
+                processSection(
+                    label: label ?? Environment.strum.rawValue,
+                    type: .strum,
+                    song: &song,
+                    currentSection: &currentSection
+                )
+
                 /// # End of environment
-            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid:
+            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid, .eos, .endOfStrum:
                 processSection(
                     label: Environment.none.rawValue,
                     type: .none,
@@ -348,6 +359,35 @@ enum ChordPro {
             currentSection.label = Environment.grid.rawValue
             currentSection.autoType = true
         }
+    }
+
+    // MARK: Process a strum environment
+
+    /// Process a strum environment
+    /// - Parameters:
+    ///   - text: The text to process
+    ///   - song: The `Song`
+    ///   - currentSection: The current `section` of the `song`
+    private static func processStrum(text: String, song: inout Song, currentSection: inout Song.Section) {
+        /// Start with a fresh line
+        var line = Song.Section.Line(id: currentSection.lines.count + 1)
+
+        var pattern = ""
+        var bottom = ""
+
+        for(index, character) in text.trimmingCharacters(in: .whitespacesAndNewlines).enumerated() {
+            let value = Song.Section.Line.strumCharacterDict[String(character)]
+            pattern += value ?? String(character)
+            if (index % 2) == 0 {
+                bottom += "=="
+            } else {
+                pattern += " "
+                bottom += " "
+            }
+        }
+        line.strum.append(pattern)
+        line.strum.append(bottom)
+        currentSection.lines.append(line)
     }
 
     // MARK: Process a line

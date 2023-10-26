@@ -101,6 +101,8 @@ extension ExportSong {
                 part = renderPart(view: Song.Render.GridSectionView(section: section, options: options, chords: song.chords))
             case .comment:
                 part = renderPart(view: Song.Render.CommentSectionView(section: section, options: options))
+            case .strum:
+                part = renderPart(view: Song.Render.StrumSectionView(section: section, options: options))
             default:
                 part = renderPart(view: Song.Render.PlainSectionView(section: section, options: options))
             }

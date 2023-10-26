@@ -23,6 +23,8 @@ extension ChordPro.Directive {
             ("{\(label(.startOfTab))}\n", "\n{\(label(.endOfTab))}\n")
         case .startOfGrid:
             ("{\(label(.startOfGrid))}\n", "\n{\(label(.endOfGrid))}\n")
+        case .startOfStrum:
+            ("{\(label(.startOfStrum))}\n", "\n{\(label(.endOfStrum))}\n")
             // MARK: Inline elements
         case .chorus:
             /// - Note: The chorus can have an optional label
@@ -78,6 +80,8 @@ extension ChordPro.Directive {
             ("Tab", "music.mic")
         case .startOfGrid:
             ("Grid", "music.mic")
+        case .startOfStrum:
+            ("Strumming", "music.mic")
         case .comment:
             ("Add a Comment", "cloud")
         case .define:
@@ -113,7 +117,8 @@ extension ChordPro.Directive {
             .chorus,
             .startOfTab,
             .startOfGrid,
-            .startOfBridge
+            .startOfBridge,
+            .startOfStrum
         ]
     }
 }

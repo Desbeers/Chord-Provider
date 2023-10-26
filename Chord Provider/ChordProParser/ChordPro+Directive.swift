@@ -16,6 +16,8 @@ extension ChordPro {
 
         // swiftlint:disable identifier_name
 
+        // MARK: Official directives
+
         /// # Meta-data directives
 
         /// This directive defines the title of the song
@@ -107,13 +109,24 @@ extension ChordPro {
         /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings
         case define
 
-        /// # Custom directives
+        // MARK: Custom directives
 
         /// This directive has the path to the music file
         case musicPath = "musicpath"
 
         /// Tag(s) for the music file
         case tag
+
+        /// ### Strum
+
+        /// This directive indicates that the lines that follow defines a strum pattern
+        case startOfStrum = "start_of_strum"
+        /// This directive indicates that the lines that follow defines a strum pattern
+        case sos
+        /// This directive indicates the end of the strum
+        case endOfStrum = "end_of_strum"
+        /// This directive indicates the end of the strum
+        case eos
 
         // swiftlint:enable identifier_name
     }

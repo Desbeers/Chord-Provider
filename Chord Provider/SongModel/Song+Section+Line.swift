@@ -21,5 +21,7 @@ extension Song.Section {
         var tab: String = ""
         /// The optional comment in the line
         var comment: String = ""
+        /// The optional strum pattern in the line
+        var strum = [String]()
     }
 }

@@ -13,8 +13,9 @@ extension ChordPro {
 
     /// The environment of a section of the song
     enum Environment: String {
-        /// No environment
-        case none = ""
+
+        // MARK: Official environments
+
         /// Chorus environment
         case chorus = "Chorus"
         /// Repeat chorus environment
@@ -29,5 +30,12 @@ extension ChordPro {
         case tab = "Tab"
         /// Grid environment
         case grid = "Grid"
+
+        // MARK: Custom environments
+
+        /// No environment
+        case none = ""
+        /// Strum environment
+        case strum = "Strum"
     }
 }
