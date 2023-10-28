@@ -82,19 +82,18 @@ extension HeaderView {
         let song: Song
         /// The body of the `View`
         var body: some View {
-            HStack(alignment: .center) {
-                if let key = song.key {
-                    Label("\(key.displayName(options: .init()))", systemImage: "key").padding(.leading)
-                }
-                if let capo = song.capo {
-                    Label(capo, systemImage: "paperclip").padding(.leading)
-                }
-                if let tempo = song.tempo {
-                    Label(tempo, systemImage: "metronome").padding(.leading)
-                }
-                if let time = song.time {
-                    Label(time, systemImage: "repeat").padding(.leading)
-                }
+            if let key = song.key {
+                Label("\(key.displayName(options: .init()))", systemImage: "key").padding(.leading)
+            }
+            if let capo = song.capo {
+                Label(capo, systemImage: "paperclip").padding(.leading)
+            }
+            if let time = song.time {
+                Label(time, systemImage: "timer").padding(.leading)
+            }
+            if let tempo = song.tempo, let bpm = Float(tempo) {
+                MetronomeView(bpm: bpm)
+                    .padding(.leading)
             }
         }
     }

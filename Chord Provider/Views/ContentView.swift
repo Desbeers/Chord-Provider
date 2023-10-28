@@ -81,12 +81,12 @@ struct ContentView: View {
                 ToolbarItemGroup(placement: .bottomBar) {
                     HeaderView()
                         .foregroundColor(.accentColor)
+                    ToolbarView.PlayerButtons()
                     ToolbarView.ChordAsDiagram()
                         .foregroundColor(.accentColor)
                         .tint(.accentColor)
                         .padding(.leading)
                         .toggleStyle(.switch)
-                    ToolbarView.PlayerButtons()
                 }
             }
             .sheet(isPresented: $showSettings) {

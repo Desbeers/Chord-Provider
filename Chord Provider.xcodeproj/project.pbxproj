@@ -31,6 +31,10 @@
 		D7C3D6252AC9EA0400909639 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppState.swift */; };
 		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
+		D7CA63272AEB397A00C6B4BB /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63262AEB397A00C6B4BB /* Metronome.swift */; };
+		D7CA632E2AEB60CA00C6B4BB /* High.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632C2AEB60CA00C6B4BB /* High.aif */; };
+		D7CA632F2AEB60CA00C6B4BB /* Low.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* Low.aif */; };
+		D7CA63312AED3D4E00C6B4BB /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */; };
 		D7D39C4F2A9A13DA004EAE5F /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C4E2A9A13DA004EAE5F /* Status.swift */; };
 		D7D39C512A9A19A1004EAE5F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */; };
 		D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F852A6460B7002D875D /* Song+Section+Line.swift */; };
@@ -128,6 +132,10 @@
 		D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderSettings.swift; sourceTree = "<group>"; };
 		D7C3D6232AC9EA0400909639 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+strum.swift"; sourceTree = "<group>"; };
+		D7CA63262AEB397A00C6B4BB /* Metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
+		D7CA632C2AEB60CA00C6B4BB /* High.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = High.aif; sourceTree = "<group>"; };
+		D7CA632D2AEB60CA00C6B4BB /* Low.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Low.aif; sourceTree = "<group>"; };
+		D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
 		D7D39C4E2A9A13DA004EAE5F /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D7F13F6F2A645FEC002D875D /* Chord Provider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chord Provider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,6 +230,17 @@
 			path = "Song+Render";
 			sourceTree = "<group>";
 		};
+		D7CA63252AEB393B00C6B4BB /* Metronome */ = {
+			isa = PBXGroup;
+			children = (
+				D7CA63262AEB397A00C6B4BB /* Metronome.swift */,
+				D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */,
+				D7CA632D2AEB60CA00C6B4BB /* Low.aif */,
+				D7CA632C2AEB60CA00C6B4BB /* High.aif */,
+			);
+			path = Metronome;
+			sourceTree = "<group>";
+		};
 		D7F13F662A645FEC002D875D = {
 			isa = PBXGroup;
 			children = (
@@ -246,6 +265,7 @@
 				D7F13F9B2A6460B7002D875D /* General */,
 				D7F13F842A6460B7002D875D /* SongModel */,
 				D7F13FA22A6460B7002D875D /* ChordProParser */,
+				D7CA63252AEB393B00C6B4BB /* Metronome */,
 				D711FD002AD2FC8A00176FDC /* Layout */,
 				D7F13F8C2A6460B7002D875D /* Export */,
 				D7F13FAB2A6460B7002D875D /* Views */,
@@ -487,6 +507,8 @@
 			files = (
 				D7F13FD82A6460B7002D875D /* LaunchScreen (iPadOS).storyboard in Resources */,
 				D7F13FCB2A6460B7002D875D /* Credits.html in Resources */,
+				D7CA632E2AEB60CA00C6B4BB /* High.aif in Resources */,
+				D7CA632F2AEB60CA00C6B4BB /* Low.aif in Resources */,
 				D7F13FCF2A6460B7002D875D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,9 +569,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */,
+				D7CA63312AED3D4E00C6B4BB /* MetronomeView.swift in Sources */,
 				D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */,
 				D7F13FDA2A6460B7002D875D /* ShareSongView.swift in Sources */,
 				D7F13FCE2A6460B7002D875D /* ChordProDocument.swift in Sources */,
+				D7CA63272AEB397A00C6B4BB /* Metronome.swift in Sources */,
 				D7F13FD22A6460B7002D875D /* Debouncer.swift in Sources */,
 				D7F13FBD2A6460B7002D875D /* Song.swift in Sources */,
 				D7F13FD62A6460B7002D875D /* ChordPro+Regex.swift in Sources */,
