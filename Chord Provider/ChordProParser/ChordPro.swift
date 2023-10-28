@@ -23,8 +23,6 @@ enum ChordPro {
         var song = Song(instrument: instrument)
         /// Add the optional transpose
         song.transpose = transpose
-        /// Add a new line at the end of the text or else we might miss the last section of the song
-        let text = "\(text)\n"
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text:
@@ -43,21 +41,15 @@ enum ChordPro {
                     processGrid(text: text, song: &song, currentSection: &currentSection)
                 }
             case "":
-                /// Empty line; close the section if it has an 'automatic type',
-                /// else add an empty line in the section
+                /// Empty line; add an empty line in the section
                 if !currentSection.lines.isEmpty {
-                    if currentSection.type == .none || currentSection.autoType {
-                        song.sections.append(currentSection)
-                        currentSection = Song.Section(id: song.sections.count + 1)
-                    } else {
-                        /// Start with a fresh line:
-                        var line = Song.Section.Line(id: currentSection.lines.count + 1)
-                        /// Add an empty part
-                        /// - Note: Use a 'space' as text
-                        var part = Song.Section.Line.Part(id: 1, chord: nil, text: " ")
-                        line.parts.append(part)
-                        currentSection.lines.append(line)
-                    }
+                    /// Start with a fresh line:
+                    var line = Song.Section.Line(id: currentSection.lines.count + 1)
+                    /// Add an empty part
+                    /// - Note: Use a 'space' as text
+                    let part = Song.Section.Line.Part(id: 1, chord: nil, text: " ")
+                    line.parts.append(part)
+                    currentSection.lines.append(line)
                 }
             case "#":
                 /// A remark; just ignore it
@@ -74,6 +66,10 @@ enum ChordPro {
                     processLine(text: text, song: &song, currentSection: &currentSection)
                 }
             }
+        }
+        /// Close the last section if needed
+        if !currentSection.lines.isEmpty {
+            song.sections.append(currentSection)
         }
         /// Set the first chord as key if not set manual
         if song.key == nil {
@@ -311,7 +307,6 @@ enum ChordPro {
         if currentSection.type == .none {
             currentSection.type = .tab
             currentSection.label = Environment.tab.rawValue
-            currentSection.autoType = true
         }
     }
 
@@ -358,7 +353,6 @@ enum ChordPro {
         if currentSection.type == .none {
             currentSection.type = .grid
             currentSection.label = Environment.grid.rawValue
-            currentSection.autoType = true
         }
     }
 
@@ -416,7 +410,6 @@ enum ChordPro {
                 if currentSection.type == .none {
                     currentSection.type = .verse
                     currentSection.label = Environment.verse.rawValue
-                    currentSection.autoType = true
                 }
             }
             if let lyric {

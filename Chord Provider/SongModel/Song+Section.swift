@@ -17,8 +17,6 @@ extension Song {
         var label: String = ""
         /// The `Environment type` of the section
         var type: ChordPro.Environment = .none
-        /// Bool if the Environment is automatic set or not
-        var autoType: Bool = false
         /// The lines in the section
         var lines = [Line]()
     }

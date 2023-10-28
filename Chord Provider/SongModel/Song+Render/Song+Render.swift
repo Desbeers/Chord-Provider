@@ -125,7 +125,9 @@ extension Song.Render {
                             Rectangle()
                                 .frame(width: 1, height: nil, alignment: .leading)
                                 .foregroundColor(
-                                    prominent || label.isEmpty ? Color.clear : Color.secondary.opacity(0.3)), alignment: .leading
+                                    prominent || !label.isEmpty ? Color.secondary.opacity(0.3) : Color.clear
+                                ),
+                            alignment: .leading
                         )
                         .gridColumnAlignment(.leading)
                 }
@@ -345,7 +347,7 @@ extension Song.Render {
                     }
                 }
             }
-            .frame(maxWidth: 400 * options.scale, alignment: .leading)
+            .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
             .modifier(SectionView(options: options, label: section.label))
         }
     }
