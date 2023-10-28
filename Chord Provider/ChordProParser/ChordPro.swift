@@ -44,18 +44,19 @@ enum ChordPro {
                 }
             case "":
                 /// Empty line; close the section if it has an 'automatic type',
-                /// else close the section and start a new one with the same label and type
+                /// else add an empty line in the section
                 if !currentSection.lines.isEmpty {
-                    if currentSection.autoType {
+                    if currentSection.type == .none || currentSection.autoType {
                         song.sections.append(currentSection)
                         currentSection = Song.Section(id: song.sections.count + 1)
                     } else {
-                        song.sections.append(currentSection)
-                        currentSection = Song.Section(
-                            id: song.sections.count + 1,
-                            label: currentSection.label,
-                            type: currentSection.type
-                        )
+                        /// Start with a fresh line:
+                        var line = Song.Section.Line(id: currentSection.lines.count + 1)
+                        /// Add an empty part
+                        /// - Note: Use a 'space' as text
+                        var part = Song.Section.Line.Part(id: 1, chord: nil, text: " ")
+                        line.parts.append(part)
+                        currentSection.lines.append(line)
                     }
                 }
             case "#":

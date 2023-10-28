@@ -14,7 +14,7 @@ extension Song {
         /// The unique ID
         var id: Int
         /// The optional label of the section
-        var label: String?
+        var label: String = ""
         /// The `Environment type` of the section
         var type: ChordPro.Environment = .none
         /// Bool if the Environment is automatic set or not

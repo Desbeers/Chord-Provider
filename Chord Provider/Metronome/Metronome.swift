@@ -26,7 +26,7 @@ final class Metronome: ObservableObject {
         }
     }
     /// Bool for the high/low tick and animation
-    @Published var flip: Bool = false
+    @Published var flip: Bool = true
     /// Timing for the next 'tick'
     private var nextTick: DispatchTime = DispatchTime.distantFuture
     /// The ID of the 'low' sound

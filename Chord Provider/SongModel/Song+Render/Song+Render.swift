@@ -85,7 +85,7 @@ extension Song.Render {
         /// The display options
         let options: Song.DisplayOptions
         /// The optional label
-        var label: String?
+        var label: String = ""
         /// Bool if the section is prominent (chorus for example)
         var prominent: Bool = false
 
@@ -96,7 +96,10 @@ extension Song.Render {
             switch options.label {
             case .inline:
                 VStack(alignment: .leading) {
-                    if let label {
+                    if label.isEmpty {
+                        content
+                            .padding(.leading)
+                    } else {
                         switch prominent {
                         case true:
                             ProminentLabel(options: options, label: label)
@@ -106,15 +109,12 @@ extension Song.Render {
                         Divider()
                         content
                             .padding(.leading)
-                    } else {
-                        content
-                            .padding(.leading)
                     }
                 }
                 .padding(.top)
             case .grid:
                 GridRow {
-                    Text(label ?? " ")
+                    Text(label)
                         .padding(.all, prominent ? 10 : 0)
                         .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
                         .frame(minWidth: 100, alignment: .trailing)
@@ -125,7 +125,7 @@ extension Song.Render {
                             Rectangle()
                                 .frame(width: 1, height: nil, alignment: .leading)
                                 .foregroundColor(
-                                    prominent || label != nil ? Color.secondary.opacity(0.3) : Color.clear), alignment: .leading
+                                    prominent || label.isEmpty ? Color.clear : Color.secondary.opacity(0.3)), alignment: .leading
                         )
                         .gridColumnAlignment(.leading)
                 }
@@ -179,7 +179,13 @@ extension Song.Render {
                     }
                 }
             }
-            .modifier(SectionView(options: options, label: section.label ?? "Chorus", prominent: true))
+            .modifier(
+                SectionView(
+                    options: options,
+                    label: section.label.isEmpty ? "Chorus" : section.label,
+                    prominent: true
+                )
+            )
         }
     }
 
@@ -191,8 +197,12 @@ extension Song.Render {
         let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
-            ProminentLabel(options: options, label: section.label ?? "Repeat Chorus", icon: "arrow.triangle.2.circlepath")
-                .modifier(SectionView(options: options))
+            ProminentLabel(
+                options: options,
+                label: section.label.isEmpty ? "Repeat Chorus" : section.label,
+                icon: "arrow.triangle.2.circlepath"
+            )
+            .modifier(SectionView(options: options))
         }
     }
 
@@ -335,6 +345,7 @@ extension Song.Render {
                     }
                 }
             }
+            .frame(maxWidth: 400 * options.scale, alignment: .leading)
             .modifier(SectionView(options: options, label: section.label))
         }
     }
