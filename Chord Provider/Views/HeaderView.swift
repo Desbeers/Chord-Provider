@@ -18,7 +18,7 @@ struct HeaderView: View {
             General(song: sceneState.song)
             Details(song: sceneState.song)
             if let tempo = sceneState.song.tempo, let bpm = Float(tempo) {
-                MetronomeView(bpm: bpm)
+                MetronomeView(time: sceneState.song.time ?? "4/4", bpm: bpm)
                     .padding(.leading)
             }
             ToolbarView.PlayerButtons()
@@ -41,7 +41,7 @@ struct HeaderView: View {
         Details(song: sceneState.song)
             .labelStyle(.titleAndIcon)
         if let tempo = sceneState.song.tempo, let bpm = Float(tempo) {
-            MetronomeView(bpm: bpm)
+            MetronomeView(time: sceneState.song.time ?? "4/4", bpm: bpm)
                 .padding(.leading)
         }
 #elseif os(visionOS)

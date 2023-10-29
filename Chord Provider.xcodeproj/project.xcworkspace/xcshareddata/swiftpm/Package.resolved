@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/danielsaidi/DocumentKit.git",
       "state" : {
-        "revision" : "440d46690b7acab270d1b09b9653e0ab22087498",
-        "version" : "0.1.1"
+        "revision" : "a7ea087ecff31de0a96c8345ec176d193fdc4164",
+        "version" : "0.2.0"
       }
     },
     {
@@ -33,7 +33,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "55c6acf56f1321c996db159558121c4be81dcf7a"
+        "revision" : "d10dd03e8944404f8a494aec7a5df98b1b9903a9"
       }
     },
     {

@@ -141,7 +141,7 @@ import DocumentKit
                 .environmentObject(appState)
                 .task {
                     if hideWelcome == false {
-                        UserDefaults.standard.resetDocumentGroupOnboardingState(for: "welcome")
+                        UserDefaults.standard.removeObject(forKey: "welcome")
                     }
                 }
                 .toolbarColorScheme(.dark, for: .navigationBar)

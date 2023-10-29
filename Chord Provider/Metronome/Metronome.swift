@@ -10,6 +10,12 @@ import AVFoundation
 
 /// The observable metronome for Chord Provider
 final class Metronome: ObservableObject {
+    /// The time signature
+    var time: String = "4/4" {
+        didSet {
+            timeSignature = Int(time.prefix(1)) ?? 4
+        }
+    }
     /// The current BPM of the metronome
     var bpm: Float = 60.0 {
         didSet {
@@ -22,6 +28,10 @@ final class Metronome: ObservableObject {
             if enabled {
                 nextTick = DispatchTime.now()
                 tick()
+            } else {
+                /// Reset the animation and counter
+                flip = true
+                tickCounter = 1
             }
         }
     }
@@ -29,6 +39,10 @@ final class Metronome: ObservableObject {
     @Published var flip: Bool = true
     /// Timing for the next 'tick'
     private var nextTick: DispatchTime = DispatchTime.distantFuture
+    /// timeSignature
+    private var timeSignature: Int = 4
+    /// tickCounter
+    private var tickCounter: Int = 1
     /// The ID of the 'low' sound
     private var lowSoundID: SystemSoundID = 1
     /// The ID of the 'low' sound
@@ -58,7 +72,11 @@ final class Metronome: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: nextTick) { [weak self] in
             self?.tick()
         }
+        /// Animation
         flip.toggle()
-        AudioServicesPlaySystemSound(flip ? highSoundID : lowSoundID)
+        /// Play the tick
+        AudioServicesPlaySystemSound(tickCounter == 1 ? lowSoundID : highSoundID)
+        /// Update the counter
+        tickCounter = tickCounter < timeSignature ? tickCounter + 1 : 1
     }
 }

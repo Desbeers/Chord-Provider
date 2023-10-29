@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MetronomeView: View {
+    /// The time signature
+    let time: String
     /// The bpm
     let bpm: Float
     /// The metronome model
@@ -37,6 +39,9 @@ struct MetronomeView: View {
         .labelStyle(.titleAndIcon)
         .task(id: bpm) {
             metronome.bpm = bpm
+        }
+        .task(id: time) {
+            metronome.time = time
         }
     }
 }
