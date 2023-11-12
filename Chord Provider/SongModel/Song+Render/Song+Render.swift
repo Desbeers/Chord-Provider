@@ -395,11 +395,18 @@ extension Song.Render {
         var color: Color = .accentColor
         var body: some View {
             if let icon {
-                Label(label, systemImage: icon)
-                    .padding(options.scale * 6)
-                    .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
+                Label(
+                    title: {
+                        Text(.init(label))
+                    },
+                    icon: {
+                        Image(systemName: icon)
+                    }
+                )
+                .padding(options.scale * 6)
+                .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
             } else {
-                Text(label)
+                Text(.init(label))
                     .padding(options.scale * 6)
                     .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
             }

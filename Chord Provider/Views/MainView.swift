@@ -28,7 +28,7 @@ struct MainView: View {
                 SongView()
                 if appState.settings.showChords {
                     Divider()
-                    ChordsView()
+                    ChordsView(document: $document)
                         .background(Color.telecaster.opacity(0.2))
                 }
             }

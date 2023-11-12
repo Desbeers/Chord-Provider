@@ -273,12 +273,11 @@ enum ChordPro {
     ///   - text: The chord definition
     ///   - song: The `song`
     private static func processDefine(text: String, song: inout Song) {
-        if var definedChord = ChordDefinition(definition: text, instrument: song.instrument) {
+        if var definedChord = ChordDefinition(definition: text, instrument: song.instrument, status: .unknown) {
             definedChord.status = song.transpose == 0 ? definedChord.status : .customTransposed
-            /// Update a standard chord with the same root and quality if there is one in the chords list
+            /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
-                $0.root == definedChord.root &&
-                $0.quality == definedChord.quality &&
+                $0.name == definedChord.name &&
                 ($0.status == .standard || $0.status == .transposed)
             }) {
                 /// Use the same ID as the standard chord

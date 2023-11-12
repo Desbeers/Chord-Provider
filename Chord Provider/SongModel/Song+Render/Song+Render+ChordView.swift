@@ -85,8 +85,10 @@ extension Song.Render {
         /// Get the diagram
         /// - Note: Diagrams are stored in a memory cache to improve performance
         @MainActor func getDiagram() -> some View {
+            /// Create a unique ID
+            let diagramID = "\(chord.baseFret)-\(chord.frets)-\(colorScheme)"
             /// Check if in cache
-            if let cachedImage = Song.Render.diagramCache.object(forKey: "\(chord.id.uuidString)\(colorScheme)" as NSString) {
+            if let cachedImage = Song.Render.diagramCache.object(forKey: "\(diagramID)" as NSString) {
                 return Image(swiftImage: cachedImage).resizable()
             } else {
                 let primaryColor: Color = colorScheme == .dark ? .white : .black
@@ -106,7 +108,7 @@ extension Song.Render {
                     return Image(systemName: "questionmark.bubble")
                 }
                 /// Store in the cache
-                Song.Render.diagramCache.setObject(image, forKey: "\(chord.id.uuidString)\(colorScheme)" as NSString)
+                Song.Render.diagramCache.setObject(image, forKey: "\(diagramID)" as NSString)
                 return Image(swiftImage: image).resizable()
             }
         }
