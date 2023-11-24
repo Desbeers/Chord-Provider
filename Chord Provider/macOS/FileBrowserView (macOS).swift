@@ -36,6 +36,7 @@ struct FileBrowserView: View {
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
+                .disabled(!search.isEmpty)
                 .task(id: tabItem) {
                     selectedTag = []
                 }
@@ -56,6 +57,7 @@ struct FileBrowserView: View {
                             }
                         }
                     }
+                    .searchable(text: $search, placement: .sidebar)
                     .opacity(selectedTag.isEmpty ? 1 : 0)
                     .navigationDestination(for: String.self) { tag in
                         List {
@@ -92,9 +94,14 @@ struct FileBrowserView: View {
             allTags = Array(Set(tags).sorted())
         }
         .toolbar {
-            folderButton
+            if #available(macOS 14, *) {
+                folderButton
+                    .fileDialogMessage("Select a folder with your songs")
+                    .fileDialogConfirmationLabel("Select")
+            } else {
+                folderButton
+            }
         }
-        .searchable(text: $search, placement: .sidebar)
     }
     /// Folder selection button
     var folderButton: some View {
@@ -153,6 +160,8 @@ extension FileBrowserView {
         @EnvironmentObject private var fileBrowser: FileBrowser
         /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
+        /// Focus of the Window
+        @Environment(\.controlActiveState) var controlActiveState
         /// Information about the `NSWindow`
         var window: NSWindow.WindowItem? {
             fileBrowser.openWindows.first { $0.fileURL == song.fileURL }
@@ -174,7 +183,7 @@ extension FileBrowserView {
                                 }
                                 if !song.tags.isEmpty {
                                     Text(song.tags.joined(separator: " ∙ "))
-                                        .foregroundStyle(.tertiary)
+                                        .foregroundStyle(controlActiveState == .key ? .tertiary : .quaternary)
                                 }
                             }
                         },

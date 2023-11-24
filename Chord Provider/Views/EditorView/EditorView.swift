@@ -13,6 +13,8 @@ import SwiftUI
 struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
+    /// The app state
+    @EnvironmentObject var appState: AppState
     /// The scene state
     @EnvironmentObject var sceneState: SceneState
     /// Show a directive sheet
