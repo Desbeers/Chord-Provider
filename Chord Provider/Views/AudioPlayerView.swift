@@ -19,9 +19,9 @@ struct AudioPlayerView: View {
     /// Bool if the player is playing or not
     @State private var isPlaying: Bool = false
     /// The FileBrowser model
-    @EnvironmentObject var fileBrowser: FileBrowser
+    @Environment(FileBrowser.self) private var fileBrowser
     /// The status of the song
-    @State private var status: Status = .unknown
+    @State private var status: AudioStatus = .unknown
     /// The iCloud URL of the song
     private var iCloudURL: URL {
         let hiddenFile = ".\(musicURL.lastPathComponent).icloud"
@@ -32,38 +32,64 @@ struct AudioPlayerView: View {
     /// Show an `ConfirmationDialog` if the music file is not downloaded
     @State private var confirmationDialog: AlertMessage?
 
+    @State private var showFolderSelector: Bool = false
+
     // MARK: Body of the View
 
     /// The body of the `View`
     var body: some View {
         HStack {
             playButton
-            if status == .ready {
-                pauseButton
-            } else {
+            switch status {
+            case .songNotFound:
+                Button(action: {
+                    confirmationDialog = status.alert {
+                        showFolderSelector = true
+                    }
+                }, label: {
+                    status.icon
+                })
+            case .songNotDownloaded:
                 Button(
                     action: {
-                        switch status {
-                        case .songNotDownloaded:
-                            confirmationDialog = Status.songNotDownloaded.alert {
-                                Task {
-                                    await downloadSong()
-                                }
+                        confirmationDialog = status.alert {
+                            Task {
+                                await downloadSong()
                             }
-                        default:
-                            errorAlert = status.alert()
                         }
                     },
                     label: {
                         status.icon
                     }
                 )
+            case .noFolderSelected:
+                Button(action: {
+                    confirmationDialog = status.alert {
+                        showFolderSelector = true
+                    }
+                }, label: {
+                    status.icon
+                })
+            case .ready:
+                pauseButton
+            case .unknown:
+                Button(action: {
+                    errorAlert = status.alert()
+                }, label: {
+                    status.icon
+                })
             }
         }
         .errorAlert(message: $errorAlert)
         .confirmationDialog(message: $confirmationDialog)
+        .selectFolderSheet(bookmark: FileBrowser.bookmark, showSelector: $showFolderSelector) {
+            Task { @MainActor in
+                await fileBrowser.getFiles()
+            }
+        }
+        .fileDialogMessage("Select a folder with your songs")
+        .fileDialogConfirmationLabel("Select")
         .animation(.default, value: status)
-        .buttonStyle(.bordered)
         .task(id: musicURL) {
             await checkSong()
         }
@@ -142,7 +168,7 @@ struct AudioPlayerView: View {
             /// For the button state
             isPlaying = true
         } catch {
-            errorAlert = Status.songNotFound.alert()
+            errorAlert = AudioStatus.songNotFound.alert()
         }
     }
 

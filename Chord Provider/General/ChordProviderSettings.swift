@@ -28,10 +28,10 @@ extension ChordProviderSettings {
     /// Load the Chord Provider settings
     /// - Returns: The ``ChordProviderSettings``
     static func load() -> ChordProviderSettings {
-        if let hosts = try? Cache.get(key: "ChordProviderSettings", as: ChordProviderSettings.self) {
-            return hosts
+        if let settings = try? Cache.get(key: "ChordProviderSettings", as: ChordProviderSettings.self) {
+            return settings
         }
-        /// No settings found
+        /// No settings found; return defaults
         return ChordProviderSettings()
     }
 

@@ -5,12 +5,13 @@
 //  © 2023 Nick Berendsen
 //
 
-import Foundation
+import SwiftUI
 
 /// The observable app state for Chord Provider
-final class AppState: ObservableObject {
+@Observable
+final class AppState {
     /// The Chord Provider settings
-    @Published var settings: ChordProviderSettings {
+    var settings: ChordProviderSettings {
         didSet {
             ChordProviderSettings.save(settings: settings)
         }

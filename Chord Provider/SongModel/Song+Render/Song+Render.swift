@@ -24,12 +24,13 @@ extension Song {
         var body: some View {
             switch options.paging {
             case .asList:
-                VStack {
+                ScrollView {
                     switch options.label {
                     case .inline:
                         VStack(alignment: .leading) {
                             sections
                         }
+                        .scrollTargetLayout()
                     case .grid:
                         Grid(alignment: .topTrailing, verticalSpacing: 20 * options.scale) {
                             sections
@@ -45,8 +46,9 @@ extension Song {
                     ) {
                         sections
                     }
-                    .padding()
+                    .scrollTargetLayout()
                 }
+                .scrollTargetBehavior(.viewAligned)
                 .frame(maxHeight: .infinity)
                 .font(.system(size: 14 * options.scale))
             }

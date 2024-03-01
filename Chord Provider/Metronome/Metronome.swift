@@ -9,7 +9,8 @@ import Foundation
 import AVFoundation
 
 /// The observable metronome for Chord Provider
-final class Metronome: ObservableObject {
+@Observable
+final class Metronome {
     /// The time signature
     var time: String = "4/4" {
         didSet {
@@ -19,11 +20,11 @@ final class Metronome: ObservableObject {
     /// The current BPM of the metronome
     var bpm: Float = 60.0 {
         didSet {
-            bpm = min(300.0, max(30.0, bpm))
+            bpmValue = min(300.0, max(30.0, bpm))
         }
     }
     /// Bool if the metronome ticker is enabled
-    @Published var enabled: Bool = false {
+    var enabled: Bool = false {
         didSet {
             if enabled {
                 nextTick = DispatchTime.now()
@@ -36,9 +37,11 @@ final class Metronome: ObservableObject {
         }
     }
     /// Bool for the high/low tick and animation
-    @Published var flip: Bool = true
+    var flip: Bool = true
     /// Timing for the next 'tick'
     private var nextTick: DispatchTime = DispatchTime.distantFuture
+    /// The BPM value
+    private var bpmValue: Float = 60.0
     /// timeSignature
     private var timeSignature: Int = 4
     /// tickCounter
@@ -66,7 +69,7 @@ final class Metronome: ObservableObject {
         else {
             return
         }
-        let interval: TimeInterval = 60.0 / TimeInterval(bpm)
+        let interval: TimeInterval = 60.0 / TimeInterval(bpmValue)
         // swiftlint:disable:next shorthand_operator
         nextTick = nextTick + interval
         DispatchQueue.main.asyncAfter(deadline: nextTick) { [weak self] in

@@ -12,6 +12,9 @@
 		D701F87B2A9CBA3D007DACF3 /* Aliasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA02A6460B7002D875D /* Aliasses.swift */; };
 		D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
 		D711FCFF2AD05C5600176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
+		D733F6002B90A8AA0065D6FD /* AppState+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F5FF2B90A8AA0065D6FD /* AppState+Elements.swift */; };
+		D733F6022B90B1B40065D6FD /* SceneState+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6012B90B1B40065D6FD /* SceneState+Elements.swift */; };
+		D733F6042B90CC1C0065D6FD /* FileBrowser+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6032B90CC1C0065D6FD /* FileBrowser+Elements.swift */; };
 		D73A03E22AC76D3F00D6CD0E /* Song+DisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A03E12AC76D3F00D6CD0E /* Song+DisplayOptions.swift */; };
 		D73A03E32AC7E88B00D6CD0E /* Song+DisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A03E12AC76D3F00D6CD0E /* Song+DisplayOptions.swift */; };
 		D73A03E92AC85B6100D6CD0E /* Song+Render+ChordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A03E82AC85B6100D6CD0E /* Song+Render+ChordView.swift */; };
@@ -62,7 +65,6 @@
 		D7F13FD62A6460B7002D875D /* ChordPro+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA62A6460B7002D875D /* ChordPro+Regex.swift */; };
 		D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */; };
 		D7F13FD82A6460B7002D875D /* LaunchScreen (iPadOS).storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */; platformFilter = ios; };
-		D7F13FDA2A6460B7002D875D /* ShareSongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAC2A6460B7002D875D /* ShareSongView.swift */; };
 		D7F13FDB2A6460B7002D875D /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAD2A6460B7002D875D /* ToolbarView.swift */; };
 		D7F13FDC2A6460B7002D875D /* EditorView+directiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAF2A6460B7002D875D /* EditorView+directiveButton.swift */; };
 		D7F13FDD2A6460B7002D875D /* EditorView+rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB02A6460B7002D875D /* EditorView+rules.swift */; platformFilters = (ios, macos, ); };
@@ -122,6 +124,9 @@
 /* Begin PBXFileReference section */
 		D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDiagramView.swift; sourceTree = "<group>"; };
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
+		D733F5FF2B90A8AA0065D6FD /* AppState+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState+Elements.swift"; sourceTree = "<group>"; };
+		D733F6012B90B1B40065D6FD /* SceneState+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneState+Elements.swift"; sourceTree = "<group>"; };
+		D733F6032B90CC1C0065D6FD /* FileBrowser+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBrowser+Elements.swift"; sourceTree = "<group>"; };
 		D73A03E12AC76D3F00D6CD0E /* Song+DisplayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+DisplayOptions.swift"; sourceTree = "<group>"; };
 		D73A03E82AC85B6100D6CD0E /* Song+Render+ChordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Render+ChordView.swift"; sourceTree = "<group>"; };
 		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -169,7 +174,6 @@
 		D7F13FA62A6460B7002D875D /* ChordPro+Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Regex.swift"; sourceTree = "<group>"; };
 		D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive.swift"; sourceTree = "<group>"; };
 		D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "LaunchScreen (iPadOS).storyboard"; sourceTree = "<group>"; };
-		D7F13FAC2A6460B7002D875D /* ShareSongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSongView.swift; sourceTree = "<group>"; };
 		D7F13FAD2A6460B7002D875D /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 		D7F13FAF2A6460B7002D875D /* EditorView+directiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveButton.swift"; sourceTree = "<group>"; };
 		D7F13FB02A6460B7002D875D /* EditorView+rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorView+rules.swift"; sourceTree = "<group>"; };
@@ -374,10 +378,12 @@
 				D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */,
 				D7F13FBB2A6460B7002D875D /* AudioPlayerView.swift */,
 				D7F13FB62A6460B7002D875D /* PrintSongView.swift */,
-				D7F13FAC2A6460B7002D875D /* ShareSongView.swift */,
 				D7F13FBA2A6460B7002D875D /* ExportSongView.swift */,
 				D7D39C502A9A19A1004EAE5F /* WelcomeView.swift */,
 				D7622B462ABF0B04008CAC63 /* SettingsView.swift */,
+				D733F5FF2B90A8AA0065D6FD /* AppState+Elements.swift */,
+				D733F6012B90B1B40065D6FD /* SceneState+Elements.swift */,
+				D733F6032B90CC1C0065D6FD /* FileBrowser+Elements.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -571,10 +577,11 @@
 				D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */,
 				D7CA63312AED3D4E00C6B4BB /* MetronomeView.swift in Sources */,
 				D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */,
-				D7F13FDA2A6460B7002D875D /* ShareSongView.swift in Sources */,
+				D733F6002B90A8AA0065D6FD /* AppState+Elements.swift in Sources */,
 				D7F13FCE2A6460B7002D875D /* ChordProDocument.swift in Sources */,
 				D7CA63272AEB397A00C6B4BB /* Metronome.swift in Sources */,
 				D7F13FD22A6460B7002D875D /* Debouncer.swift in Sources */,
+				D733F6042B90CC1C0065D6FD /* FileBrowser+Elements.swift in Sources */,
 				D7F13FBD2A6460B7002D875D /* Song.swift in Sources */,
 				D7F13FD62A6460B7002D875D /* ChordPro+Regex.swift in Sources */,
 				D7F13FD52A6460B7002D875D /* ChordPro+Environment.swift in Sources */,
@@ -594,6 +601,7 @@
 				D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */,
 				D7F13FBF2A6460B7002D875D /* Song+Render.swift in Sources */,
 				D7F13FE42A6460B7002D875D /* ChordsView.swift in Sources */,
+				D733F6022B90B1B40065D6FD /* SceneState+Elements.swift in Sources */,
 				D7F13FDB2A6460B7002D875D /* ToolbarView.swift in Sources */,
 				D7F13FDC2A6460B7002D875D /* EditorView+directiveButton.swift in Sources */,
 				D7F13FE12A6460B7002D875D /* HeaderView.swift in Sources */,
@@ -808,10 +816,10 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphonesimulator*]" = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.3;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
 				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -856,10 +864,10 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UISupportsDocumentBrowser[sdk=iphonesimulator*]" = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.3;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
 				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -893,7 +901,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
 				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4.qlmacos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -923,7 +931,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
 				MARKETING_VERSION = 4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider4.qlmacos;
 				PRODUCT_NAME = "$(TARGET_NAME)";

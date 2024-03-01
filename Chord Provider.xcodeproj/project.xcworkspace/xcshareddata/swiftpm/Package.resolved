@@ -1,12 +1,13 @@
 {
+  "originHash" : "aecaadaf197dcd885de61f853b2a875f8e9314a8cabf28a5cd67f291154077f1",
   "pins" : [
     {
       "identity" : "documentkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/danielsaidi/DocumentKit.git",
       "state" : {
-        "revision" : "a7ea087ecff31de0a96c8345ec176d193fdc4164",
-        "version" : "0.2.0"
+        "revision" : "361f94c6f46935ff9ec91caee4245611ee6f3136",
+        "version" : "0.3.0"
       }
     },
     {
@@ -33,7 +34,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "490de797f7959c7092ef9bab60d1926660cfd35e"
+        "revision" : "0cbd79262e7624100976cd3ed61c969de11ae228"
       }
     },
     {
@@ -42,7 +43,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "4a249ab028faaae49928d653a1799d561083fedc"
+        "revision" : "4bdaa07a2e120b220882a5c386c664b4ece9e7a1"
       }
     },
     {
@@ -55,5 +56,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

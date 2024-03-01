@@ -13,7 +13,7 @@ struct MetronomeView: View {
     /// The bpm
     let bpm: Float
     /// The metronome model
-    @StateObject var metronome = Metronome()
+    @State var metronome = Metronome()
     /// The body of the `View`
     var body: some View {
         Button(
@@ -27,15 +27,11 @@ struct MetronomeView: View {
                     },
                     icon: {
                         Image(systemName: metronome.enabled ? "metronome.fill" : "metronome")
-                            .rotation3DEffect(
-                                .degrees(metronome.flip ? 180 : 0),
-                                axis: (x: 0.0, y: 1.0, z: 0.0)
-                            )
+                            .scaleEffect(x: metronome.flip ? -1 : 1, y: 1)
                     }
                 )
             }
         )
-        .buttonStyle(.bordered)
         .labelStyle(.titleAndIcon)
         .task(id: bpm) {
             metronome.bpm = bpm

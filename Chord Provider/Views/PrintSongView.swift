@@ -11,7 +11,8 @@ import PDFKit
 /// SwiftUI `View` for the Print Button
 struct PrintSongView: View {
     /// The scene
-    @FocusedObject private var sceneState: SceneState?
+    @FocusedValue(\.scene)
+    private var sceneState: SceneState?
     /// The body of the `View`
     var body: some View {
         Button(

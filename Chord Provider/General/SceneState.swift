@@ -8,28 +8,33 @@
 import SwiftUI
 
 /// The observable scene state for Chord Provider
-final class SceneState: ObservableObject {
+@Observable
+final class SceneState {
     /// The current ``Song``
-    @Published var song = Song(instrument: .guitarStandardETuning)
+    var song = Song(instrument: .guitarStandardETuning)
     /// The selection in the editor
-    @Published var selection: NSRange = .init(location: 0, length: 0)
+    var selection: NSRange = .init(location: 0, length: 0)
     /// The `NSTextView` of the editor
     var textView: SWIFTTextView?
     /// Bool to show the `print` dialog (macOS)
-    @Published var showPrintDialog: Bool = false
+    var showPrintDialog: Bool = false
     /// The optional file location
     var file: URL?
+    /// Show settings (not for macOS)
+    var showSettings: Bool = false
 
     // MARK: Song View options
 
     /// The current magnification scale
-    @Published var currentScale: Double = 1.0
+    var currentScale: Double = 1.0
+    /// Bool to show the editor or not
+    var showEditor: Bool = false
 }
 
 /// The `FocusedValueKey` for the scene state
 struct SceneFocusedValueKey: FocusedValueKey {
     /// The `typealias` for the key
-    typealias Value = Binding<SceneState>
+    typealias Value = SceneState
 }
 
 extension FocusedValues {

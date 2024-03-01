@@ -11,11 +11,11 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the song
 struct SongView: View {
     /// The app state
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     /// The scene state
-    @EnvironmentObject private var sceneState: SceneState
+    @Environment(SceneState.self) private var sceneState
     /// Chord Display Options
-    @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The minimum scale factor
     private let minScale: Double = 0.8
     /// The maximum scale factor
@@ -40,14 +40,14 @@ struct SongView: View {
     private var scale: Double {
         min(max(sceneState.currentScale * magnificationState.scale, minScale), maxScale)
     }
-    /// The `MagnificationGesture`
-    private var magnificationGesture: some Gesture {
-        MagnificationGesture()
+    /// The `MagnifyGesture`
+    private var magnifyGesture: some Gesture {
+        MagnifyGesture()
             .updating($magnificationState) { value, state, _ in
-                state = .active(scale: value)
+                state = .active(scale: value.magnification)
             }
             .onEnded { value in
-                sceneState.currentScale = min(max(sceneState.currentScale * value, minScale), maxScale)
+                sceneState.currentScale = min(max(sceneState.currentScale * value.magnification, minScale), maxScale)
             }
     }
     /// The `TapGesture`
@@ -63,32 +63,29 @@ struct SongView: View {
         VStack {
             switch appState.settings.paging {
             case .asList:
-                ScrollView {
-                    ViewThatFits {
-                        Song.Render(
-                            song: sceneState.song,
-                            options: Song.DisplayOptions(
-                                paging: .asList,
-                                label: .grid,
-                                scale: scale,
-                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
-                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
-                            )
+                ViewThatFits {
+                    Song.Render(
+                        song: sceneState.song,
+                        options: Song.DisplayOptions(
+                            paging: .asList,
+                            label: .grid,
+                            scale: scale,
+                            chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
+                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                         )
-                        Song.Render(
-                            song: sceneState.song,
-                            options: Song.DisplayOptions(
-                                paging: .asList,
-                                label: .inline,
-                                scale: scale,
-                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
-                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
-                            )
+                    )
+                    Song.Render(
+                        song: sceneState.song,
+                        options: Song.DisplayOptions(
+                            paging: .asList,
+                            label: .inline,
+                            scale: scale,
+                            chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
+                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                         )
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
+                    )
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .asColumns:
                 Song.Render(
                     song: sceneState.song,
@@ -102,9 +99,10 @@ struct SongView: View {
                 )
             }
         }
+        .contentMargins(.all, scale * 20, for: .scrollContent)
         .animation(.default, value: appState.settings.showInlineDiagrams)
         .contentShape(Rectangle())
-        .gesture(ExclusiveGesture(magnificationGesture, doubleTapGesture))
+        .gesture(ExclusiveGesture(magnifyGesture, doubleTapGesture))
         .onLongPressGesture(minimumDuration: 1) {
             withAnimation {
                 sceneState.currentScale = min(max(sceneState.currentScale - 0.2, minScale), maxScale)

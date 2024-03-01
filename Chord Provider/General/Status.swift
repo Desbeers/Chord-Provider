@@ -9,8 +9,8 @@ import SwiftUI
 
 // swiftlint:disable all
 
-/// The status of a song
-enum Status: String, LocalizedError {
+/// The status of an audio file
+enum AudioStatus: String, LocalizedError {
     /// The song was not found
     case songNotFound
     /// The song is not yet downloaded
@@ -72,6 +72,8 @@ You have not selected a folder with your songs. Chord Provider needs to know whe
         switch self {
         case .songNotDownloaded:
             "Download"
+        case .noFolderSelected, .songNotFound:
+            "Select Folder"
         default:
             "OK"
         }

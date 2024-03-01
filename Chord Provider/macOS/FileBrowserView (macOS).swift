@@ -11,7 +11,7 @@ import SwiftlyFolderUtilities
 /// SwiftUI `View` for the file browser
 struct FileBrowserView: View {
     /// The FileBrowser model
-    @EnvironmentObject var fileBrowser: FileBrowser
+    @Environment(FileBrowser.self) private var fileBrowser
     /// The search query
     @State var search: String = ""
     /// Tab item
@@ -94,19 +94,10 @@ struct FileBrowserView: View {
             allTags = Array(Set(tags).sorted())
         }
         .toolbar {
-            if #available(macOS 14, *) {
-                folderButton
-                    .fileDialogMessage("Select a folder with your songs")
-                    .fileDialogConfirmationLabel("Select")
-            } else {
-                folderButton
-            }
+            fileBrowser.folderSelector
         }
     }
-    /// Folder selection button
-    var folderButton: some View {
-        ToolbarView.FolderSelector()
-    }
+
     /// Artists list `View`
     var artistsList: some View {
         ForEach(fileBrowser.artistList) { artist in
@@ -157,7 +148,7 @@ extension FileBrowserView {
         /// Show the artist or not
         var showArtist: Bool = false
         /// The ``FileBrowser`` model
-        @EnvironmentObject private var fileBrowser: FileBrowser
+        @Environment(FileBrowser.self) private var fileBrowser
         /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
         /// Focus of the Window

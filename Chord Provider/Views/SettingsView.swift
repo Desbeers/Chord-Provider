@@ -11,7 +11,11 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the settings
 struct SettingsView: View {
     /// Chord Display Options
-    @EnvironmentObject var options: ChordDisplayOptions
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
+    /// The FileBrowser model
+    @Environment(FileBrowser.self) private var fileBrowser
+    /// Dismiss
+    @Environment(\.dismiss) private var dismiss
     /// The body of the `View`
     var body: some View {
 #if os(macOS)
@@ -20,10 +24,17 @@ struct SettingsView: View {
                 .tabItem {
                     Label("Diagrams", systemImage: "guitars")
                 }
+            folder
+                .tabItem {
+                    Label("Songs Folder", systemImage: "folder")
+                }
         }
         .frame(width: 450, height: 420)
+#elseif os(iOS)
+        diagram
 #else
         diagram
+            .frame(width: 450, height: 560)
 #endif
     }
 
@@ -35,32 +46,55 @@ struct SettingsView: View {
                 .padding(.top)
             Form {
                 Section("General") {
-                    options.fingersToggle
-                    options.notesToggle
-                    options.mirrorToggle
+                    chordDisplayOptions.fingersToggle
+                    chordDisplayOptions.notesToggle
+                    chordDisplayOptions.mirrorToggle
                 }
                 Section("MIDI") {
-                    options.playToggle
+                    chordDisplayOptions.playToggle
                     HStack {
                         Image(systemName: "guitars.fill")
-                        options.midiInstrumentPicker
+                        chordDisplayOptions.midiInstrumentPicker
                     }
-                    .disabled(!options.displayOptions.showPlayButton)
+                    .disabled(!chordDisplayOptions.displayOptions.showPlayButton)
                     .padding(.leading)
                 }
             }
             .formStyle(.grouped)
-            Button(
-                action: {
-                    options.displayOptions = ChordProviderApp.defaults
-                },
-                label: {
-                    Text("Reset to defaults")
-                }
-            )
+            HStack {
+                Button(
+                    action: {
+                        chordDisplayOptions.displayOptions = ChordProviderApp.defaults
+                    },
+                    label: {
+                        Text("Reset to defaults")
+                    }
+                )
+                .disabled(chordDisplayOptions.displayOptions == ChordProviderApp.defaults)
+                #if os(visionOS)
+                Button(
+                    action: {
+                        dismiss()
+                    },
+                    label: {
+                        Text("Close")
+                    }
+                )
+                #endif
+            }
             .padding(.bottom)
-            .disabled(options.displayOptions == ChordProviderApp.defaults)
         }
-        .animation(.default, value: options.displayOptions)
+        .animation(.default, value: chordDisplayOptions.displayOptions)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    /// `View` with folder selector
+    var folder: some View {
+        VStack {
+            Text(.init(AudioStatus.help))
+            fileBrowser.folderSelector
+                .padding()
+        }
+        .padding()
     }
 }

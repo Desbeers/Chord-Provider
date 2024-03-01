@@ -13,9 +13,9 @@ struct ChordsView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     /// The scene state
-    @EnvironmentObject private var sceneState: SceneState
+    @Environment(SceneState.self) private var sceneState
     /// Sheet with chords of the selected type
     @State var selectedChord: ChordDefinition?
     /// A new chord definition in the sheet
@@ -40,8 +40,18 @@ struct ChordsView: View {
                             }
                         )
                         .buttonStyle(.plain)
+                        .scrollTransition { effect, phase in
+                            effect
+                                .opacity(phase.isIdentity ? 1 : 0)
+                                .scaleEffect(phase.isIdentity ? 1 : 0.8)
+                        }
                     default:
                         ChordDiagramView(chord: chord, width: 120)
+                            .scrollTransition { effect, phase in
+                                effect
+                                    .opacity(phase.isIdentity ? 1 : 0)
+                                    .scaleEffect(phase.isIdentity ? 1 : 0.8)
+                            }
                     }
                 }
             }

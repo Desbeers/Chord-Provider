@@ -14,9 +14,9 @@ struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
-    @EnvironmentObject var appState: AppState
+    @Environment(AppState.self) var appState
     /// The scene state
-    @EnvironmentObject var sceneState: SceneState
+    @Environment(SceneState.self) var sceneState
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
     /// The directive to show in the sheet
@@ -37,9 +37,9 @@ struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
-    @EnvironmentObject var appState: AppState
+    @Environment(AppState.self) var appState
     /// The scene state
-    @EnvironmentObject var sceneState: SceneState
+    @Environment(SceneState.self) var sceneState
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
     /// The directive to show in the sheet

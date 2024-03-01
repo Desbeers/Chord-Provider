@@ -15,7 +15,7 @@ import DocumentKit
 @main struct ChordProviderApp: App {
 
     /// The ``FileBrowser``
-    @StateObject private var fileBrowser: FileBrowser = .shared
+    @State private var fileBrowser: FileBrowser = .shared
     /// The welcome view setting
     @AppStorage("hideWelcome") var hideWelcome: Bool = true
     /// Default Chord Display Options
@@ -29,9 +29,9 @@ import DocumentKit
         mirrorDiagram: false
     )
     /// Chord Display Options
-    @StateObject private var chordDisplayOptions = ChordDisplayOptions(defaults: defaults)
+    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: defaults)
     /// The state of the app
-    @StateObject private var appState = AppState()
+    @State private var appState = AppState()
 
 #if os(macOS)
 
@@ -47,7 +47,7 @@ import DocumentKit
         /// The 'Song List' window
         Window("Song List", id: "Main") {
             FileBrowserView()
-                .environmentObject(fileBrowser)
+                .environment(fileBrowser)
         }
         .keyboardShortcut("l")
         /// Make it sizable by the View frame
@@ -60,9 +60,9 @@ import DocumentKit
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
-                .environmentObject(fileBrowser)
-                .environmentObject(chordDisplayOptions)
-                .environmentObject(appState)
+                .environment(fileBrowser)
+                .environment(chordDisplayOptions)
+                .environment(appState)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.$document)
                 .onDisappear {
@@ -85,8 +85,8 @@ import DocumentKit
                         )
                     }
                 }
-                .onChange(of: file.fileURL) { [file] newURL in
-                    if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == file.fileURL }) {
+                .onChange(of: file.fileURL) { oldURL, newURL in
+                    if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == oldURL }) {
                         fileBrowser.openWindows[index].fileURL = newURL
                     }
                 }
@@ -113,7 +113,7 @@ import DocumentKit
         /// Add Chord Provider to the Menu Bar
         MenuBarExtra("Chord Provider", systemImage: "guitars") {
             FileBrowserView()
-                .environmentObject(fileBrowser)
+                .environment(fileBrowser)
                 .withHostingWindow { window in
                     fileBrowser.menuBarExtraWindow = window
                 }
@@ -124,7 +124,8 @@ import DocumentKit
 
         Settings {
             SettingsView()
-                .environmentObject(chordDisplayOptions)
+                .environment(chordDisplayOptions)
+                .environment(fileBrowser)
         }
     }
 #endif
@@ -136,17 +137,16 @@ import DocumentKit
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
-                .environmentObject(chordDisplayOptions)
-                .environmentObject(fileBrowser)
-                .environmentObject(appState)
+                .environment(chordDisplayOptions)
+                .environment(fileBrowser)
+                .environment(appState)
                 .task {
                     if hideWelcome == false {
                         UserDefaults.standard.removeObject(forKey: "welcome")
                     }
                 }
-                .toolbarColorScheme(.dark, for: .navigationBar)
                 .toolbarBackground(
-                    Color.accent,
+                    Color.accent.opacity(0.4),
                     for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
         }
@@ -166,9 +166,9 @@ import DocumentKit
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
-                .environmentObject(appState)
-                .environmentObject(chordDisplayOptions)
-                .environmentObject(fileBrowser)
+                .environment(appState)
+                .environment(chordDisplayOptions)
+                .environment(fileBrowser)
         }
     }
 #endif

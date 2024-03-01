@@ -6,9 +6,9 @@
 
 **Chord Provider** is written in SwiftUI and needs Xcode 15 to compile.
 
-- macOS Ventura
-- iPadOS 16
-- visionOS 1
+- macOS Sonoma
+- iPadOS 17
+- visionOS 1.1
 
 There are many "ChordPro" parsers in this world, however, none are *really* native in the Apple world.
 
@@ -41,7 +41,7 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 
 ### visionOS
 
-- Currently `DocumentGroup` is partly broken (Xcode 15 beta 8).
+- Currently `DocumentGroup` is partly broken (Xcode 15.3 beta 3).
 - It is the future; however, not yet.
   
 ### Limitations

@@ -11,18 +11,16 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the main content
 struct MainView: View {
     /// The app state
-    @EnvironmentObject private var appState: AppState
+    @Environment(AppState.self) private var appState
     /// The scene state
-    @EnvironmentObject private var sceneState: SceneState
+    @Environment(SceneState.self) private var sceneState
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// Chord Display Options
-    @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
-    /// Bool to show the editor or not
-    @SceneStorage("showEditor") var showEditor: Bool = false
+    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The body of the `View`
     var body: some View {
-        let layout = appState.settings.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0 ))
+        let layout = appState.settings.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
         HStack(spacing: 0) {
             layout {
                 SongView()
@@ -32,7 +30,7 @@ struct MainView: View {
                         .background(Color.telecaster.opacity(0.2))
                 }
             }
-            if showEditor {
+            if sceneState.showEditor {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
             }
@@ -41,26 +39,27 @@ struct MainView: View {
             renderSong()
             /// Always open the editor for a new file
             if document.text == ChordProDocument.newText {
-                showEditor = true
+                sceneState.showEditor = true
             }
         }
-        .onChange(of: document.text) { _ in
+        .onChange(of: document.text) {
             Task { @MainActor in
                 await document.buildSongDebouncer.submit {
                     renderSong()
                 }
             }
         }
-        .onChange(of: sceneState.song.transpose) { _ in
+        .onChange(of: sceneState.song.transpose) {
             renderSong()
         }
-        .onChange(of: chordDisplayOptions.instrument) { _ in
+        .onChange(of: chordDisplayOptions.instrument) {
             renderSong()
         }
-        .animation(.default, value: showEditor)
+        .animation(.default, value: sceneState.showEditor)
         .animation(.default, value: appState.settings)
     }
     /// Render the song
+    @MainActor
     private func renderSong() {
         sceneState.song = ChordPro.parse(
             text: document.text,

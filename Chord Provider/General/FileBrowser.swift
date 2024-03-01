@@ -9,24 +9,25 @@ import SwiftUI
 import SwiftlyFolderUtilities
 
 /// The observable FileBrowser for Chord Provider
-class FileBrowser: ObservableObject {
+@Observable
+class FileBrowser {
     /// The shared instance of the class
     static let shared = FileBrowser()
     /// The list of songs
-    @Published var songList: [SongItem] = []
+    var songList: [SongItem] = []
     /// The list of artists
-    @Published var artistList: [ArtistItem] = []
+    var artistList: [ArtistItem] = []
     /// The name of the folder bookmark
     static let bookmark: String = "SongsFolder"
     /// The Class to monitor the songs folder
     let folderMonitor = FolderMonitor()
     /// The optional songs folder
-    @Published var songsFolder: URL?
+    var songsFolder: URL?
     /// The status
-    @Published var status: Status = .unknown
+    var status: AudioStatus = .unknown
 #if os(macOS)
     /// The list of open windows
-    @Published var openWindows: [NSWindow.WindowItem] = []
+    var openWindows: [NSWindow.WindowItem] = []
     /// The MenuBarExtra window
     /// - Note: Needed to close the MenuBarExtra when selecting a song
     var menuBarExtraWindow: NSWindow?

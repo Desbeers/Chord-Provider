@@ -9,7 +9,7 @@ import SwiftUI
 
 /// SwiftUI `View` for the welcome screen
 struct WelcomeView: View {
-
+    @State private var fileBrowser: FileBrowser = .shared
     var body: some View {
         VStack {
             Text("Welcome to Chord Provider")
@@ -18,14 +18,14 @@ struct WelcomeView: View {
                 .resizable()
                 .scaledToFit()
             VStack(alignment: .leading) {
-                Text(.init(Status.help))
+                Text(.init(AudioStatus.help))
                     .padding(.bottom)
 #if os(macOS)
-                Text(.init(Status.browser))
+                Text(.init(AudioStatus.browser))
 #endif
             }
             .frame(maxWidth: 500)
-            ToolbarView.FolderSelector()
+            fileBrowser.folderSelector
                 .buttonStyle(.bordered)
         }
         .padding()

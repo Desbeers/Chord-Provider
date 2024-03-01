@@ -9,11 +9,12 @@ import SwiftUI
 
 /// SwiftUI `View` for the header
 struct HeaderView: View {
+    /// The app state
+    @Environment(AppState.self) var appState
     /// The scene state
-    @EnvironmentObject private var sceneState: SceneState
+    @Environment(SceneState.self) var sceneState
     /// The body of the `View`
     var body: some View {
-#if os(macOS)
         HStack(alignment: .center) {
             General(song: sceneState.song)
             Details(song: sceneState.song)
@@ -21,33 +22,28 @@ struct HeaderView: View {
                 MetronomeView(time: sceneState.song.time ?? "4/4", bpm: bpm)
                     .padding(.leading)
             }
-            ToolbarView.PlayerButtons()
+            sceneState.audioPlayerButtons
         }
+        .padding(4)
         .frame(maxWidth: .infinity)
+        .padding(.leading, 120)
+        .overlay(alignment: .leading) {
+            appState.chordsAsDiagramToggle
+                .frame(maxWidth: 110, maxHeight: 30)
+                .padding(.leading)
+        }
+#if os(macOS)
+        .padding(.trailing, 110)
         .overlay(alignment: .trailing) {
-            ToolbarView.ScaleSlider()
+            sceneState.scaleSlider
                 .frame(width: 100)
                 .padding(.trailing)
         }
-        .overlay(alignment: .leading) {
-            ToolbarView.ChordAsDiagram()
-            .padding(.leading)
-            .toggleStyle(.switch)
-        }
-        .padding(4)
-        .frame(minHeight: 40)
-#elseif os(iOS)
-        General(song: sceneState.song)
-        Details(song: sceneState.song)
-            .labelStyle(.titleAndIcon)
-        if let tempo = sceneState.song.tempo, let bpm = Float(tempo) {
-            MetronomeView(time: sceneState.song.time ?? "4/4", bpm: bpm)
-                .padding(.leading)
-        }
-#elseif os(visionOS)
-        Details(song: sceneState.song)
-            .labelStyle(.titleAndIcon)
 #endif
+        .frame(minHeight: 45)
+        .background(Color.telecasterPlate.opacity(0.8))
+        .foregroundStyle(.white)
+        .buttonStyle(.bordered)
     }
 }
 

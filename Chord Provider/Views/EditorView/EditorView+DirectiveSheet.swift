@@ -17,7 +17,7 @@ extension EditorView {
         /// The definition
         @Binding var definition: String
         /// Chord Display Options
-        @EnvironmentObject private var chordDisplayOptions: ChordDisplayOptions
+        @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
         /// The dismiss environment
         @Environment(\.dismiss) var dismiss
         /// The body of the `View`

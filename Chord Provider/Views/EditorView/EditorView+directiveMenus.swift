@@ -10,7 +10,9 @@ import SwiftUI
 extension EditorView {
 
     /// Menus with **ChordPro** directives
+    @ViewBuilder
     var directiveMenus: some View {
+        @Bindable var appState = appState
         Group {
             Menu(
                 content: {
@@ -52,9 +54,7 @@ extension EditorView {
                 }
             }
             .labelsHidden()
-#if os(macOS)
             .frame(maxWidth: 75)
-#endif
         }
         .menuStyle(.button)
     }
