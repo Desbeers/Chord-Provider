@@ -24,7 +24,8 @@ extension Song {
         var body: some View {
             switch options.paging {
             case .asList:
-                ScrollView {
+                /// - Note: Don't put this in a `ScrollView` because that will break the macOS quicklook plugin
+                VStack {
                     switch options.label {
                     case .inline:
                         VStack(alignment: .leading) {

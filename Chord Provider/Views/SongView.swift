@@ -63,29 +63,31 @@ struct SongView: View {
         VStack {
             switch appState.settings.paging {
             case .asList:
-                ViewThatFits {
-                    Song.Render(
-                        song: sceneState.song,
-                        options: Song.DisplayOptions(
-                            paging: .asList,
-                            label: .grid,
-                            scale: scale,
-                            chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
-                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                ScrollView {
+                    ViewThatFits {
+                        Song.Render(
+                            song: sceneState.song,
+                            options: Song.DisplayOptions(
+                                paging: .asList,
+                                label: .grid,
+                                scale: scale,
+                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
+                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                            )
                         )
-                    )
-                    Song.Render(
-                        song: sceneState.song,
-                        options: Song.DisplayOptions(
-                            paging: .asList,
-                            label: .inline,
-                            scale: scale,
-                            chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
-                            midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                        Song.Render(
+                            song: sceneState.song,
+                            options: Song.DisplayOptions(
+                                paging: .asList,
+                                label: .inline,
+                                scale: scale,
+                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
+                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                            )
                         )
-                    )
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             case .asColumns:
                 Song.Render(
                     song: sceneState.song,
