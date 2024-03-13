@@ -82,7 +82,7 @@
 		D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */; };
 		D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */ = {isa = PBXBuildFile; platformFilters = (ios, macos, ); productRef = D7F13FF02A646129002D875D /* HighlightedTextEditor */; };
 		D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F13FF82A646356002D875D /* Quartz.framework */; platformFilters = (macos, ); };
-		D7F140062A646356002D875D /* QLExtension (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7F13FF62A646356002D875D /* QLExtension (macOS).appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D7F140062A646356002D875D /* QLpreview (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7F13FF62A646356002D875D /* QLpreview (macOS).appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D7F1400B2A646439002D875D /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F972A6460B7002D875D /* PreviewProvider.swift */; };
 		D7F1400C2A64646E002D875D /* ChordPro+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA62A6460B7002D875D /* ChordPro+Regex.swift */; };
 		D7F1400D2A64646E002D875D /* ChordPro+Directive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */; };
@@ -114,7 +114,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D7F140062A646356002D875D /* QLExtension (macOS).appex in Embed Foundation Extensions */,
+				D7F140062A646356002D875D /* QLpreview (macOS).appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -158,7 +158,7 @@
 		D7F13F912A6460B7002D875D /* WindowManagement (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WindowManagement (macOS).swift"; sourceTree = "<group>"; };
 		D7F13F922A6460B7002D875D /* FileBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
 		D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileBrowserView (macOS).swift"; sourceTree = "<group>"; };
-		D7F13F962A6460B7002D875D /* QLExtension.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = QLExtension.entitlements; sourceTree = "<group>"; };
+		D7F13F962A6460B7002D875D /* QLpreview.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = QLpreview.entitlements; sourceTree = "<group>"; };
 		D7F13F972A6460B7002D875D /* PreviewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		D7F13F982A6460B7002D875D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7F13F992A6460B7002D875D /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 		D7F13FB92A6460B7002D875D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D7F13FBA2A6460B7002D875D /* ExportSongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportSongView.swift; sourceTree = "<group>"; };
 		D7F13FBB2A6460B7002D875D /* AudioPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
-		D7F13FF62A646356002D875D /* QLExtension (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLExtension (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7F13FF62A646356002D875D /* QLpreview (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLpreview (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F13FF82A646356002D875D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -258,7 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F13F6F2A645FEC002D875D /* Chord Provider.app */,
-				D7F13FF62A646356002D875D /* QLExtension (macOS).appex */,
+				D7F13FF62A646356002D875D /* QLpreview (macOS).appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -307,7 +307,7 @@
 		D7F13F902A6460B7002D875D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				D7F13F952A6460B7002D875D /* QLExtension */,
+				D7F13F952A6460B7002D875D /* QLpreview */,
 				D7F13F912A6460B7002D875D /* WindowManagement (macOS).swift */,
 				D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */,
 				D7F13F992A6460B7002D875D /* Credits.html */,
@@ -315,14 +315,14 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
-		D7F13F952A6460B7002D875D /* QLExtension */ = {
+		D7F13F952A6460B7002D875D /* QLpreview */ = {
 			isa = PBXGroup;
 			children = (
 				D7F13F972A6460B7002D875D /* PreviewProvider.swift */,
-				D7F13F962A6460B7002D875D /* QLExtension.entitlements */,
+				D7F13F962A6460B7002D875D /* QLpreview.entitlements */,
 				D7F13F982A6460B7002D875D /* Info.plist */,
 			);
-			path = QLExtension;
+			path = QLpreview;
 			sourceTree = "<group>";
 		};
 		D7F13F9B2A6460B7002D875D /* General */ = {
@@ -338,8 +338,8 @@
 				D7F13FA12A6460B7002D875D /* Debouncer.swift */,
 				D7D39C4E2A9A13DA004EAE5F /* Status.swift */,
 				D7F13F9E2A6460B7002D875D /* Assets.xcassets */,
-				D7F13F7A2A645FED002D875D /* Info.plist */,
 				D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */,
+				D7F13F7A2A645FED002D875D /* Info.plist */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -442,9 +442,9 @@
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D7F13FF52A646356002D875D /* QLExtension (macOS) */ = {
+		D7F13FF52A646356002D875D /* QLpreview (macOS) */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "QLExtension (macOS)" */;
+			buildConfigurationList = D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "QLpreview (macOS)" */;
 			buildPhases = (
 				D7F13FF22A646356002D875D /* Sources */,
 				D7F13FF32A646356002D875D /* Frameworks */,
@@ -454,12 +454,12 @@
 			);
 			dependencies = (
 			);
-			name = "QLExtension (macOS)";
+			name = "QLpreview (macOS)";
 			packageProductDependencies = (
 				D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */,
 			);
 			productName = "QLExtension (macOS)";
-			productReference = D7F13FF62A646356002D875D /* QLExtension (macOS).appex */;
+			productReference = D7F13FF62A646356002D875D /* QLpreview (macOS).appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -501,7 +501,7 @@
 			projectRoot = "";
 			targets = (
 				D7F13F6E2A645FEC002D875D /* Chord Provider */,
-				D7F13FF52A646356002D875D /* QLExtension (macOS) */,
+				D7F13FF52A646356002D875D /* QLpreview (macOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -667,7 +667,7 @@
 			platformFilters = (
 				macos,
 			);
-			target = D7F13FF52A646356002D875D /* QLExtension (macOS) */;
+			target = D7F13FF52A646356002D875D /* QLpreview (macOS) */;
 			targetProxy = D7F140042A646356002D875D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -885,7 +885,7 @@
 		D7F140082A646356002D875D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLpreview/QLpreview.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 238;
@@ -893,7 +893,7 @@
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Chord Provider/macOS/QLExtension/Info.plist";
+				INFOPLIST_FILE = "Chord Provider/macOS/QLpreview/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Chord Provider";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -915,7 +915,7 @@
 		D7F140092A646356002D875D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLExtension/QLExtension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLpreview/QLpreview.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 238;
@@ -923,7 +923,7 @@
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Chord Provider/macOS/QLExtension/Info.plist";
+				INFOPLIST_FILE = "Chord Provider/macOS/QLpreview/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Chord Provider";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -963,7 +963,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "QLExtension (macOS)" */ = {
+		D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "QLpreview (macOS)" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D7F140082A646356002D875D /* Debug */,

@@ -33,6 +33,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
     }
 
     /// SwiftUI `View` of the song rendered by the SwiftUI `ImageRenderer`
+    /// - Note: Make sure there are no `ScrollView`s anywhere in the final View or else the result will be an empty page
     struct SongExportView: View {
         /// The ``Song``
         let song: Song
