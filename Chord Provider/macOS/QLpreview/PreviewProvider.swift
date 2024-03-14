@@ -1,6 +1,6 @@
 //
 //  PreviewProvider.swift
-//  Chord Provider - QLExtension
+//  Chord Provider - QLpreview
 //
 //  © 2023 Nick Berendsen
 //
