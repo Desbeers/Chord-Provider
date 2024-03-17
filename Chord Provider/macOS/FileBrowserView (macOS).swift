@@ -188,7 +188,7 @@ extension FileBrowserView {
             .contextMenu {
                 Button(
                     action: {
-                        FolderBookmark.openInFinder(url: song.fileURL)
+                        FolderUtil.openInFinder(url: song.fileURL)
                     },
                     label: {
                         Text("Open song in Finder")

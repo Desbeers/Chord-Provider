@@ -82,13 +82,16 @@ struct AudioPlayerView: View {
         }
         .errorAlert(message: $errorAlert)
         .confirmationDialog(message: $confirmationDialog)
-        .selectFolderSheet(bookmark: FileBrowser.bookmark, showSelector: $showFolderSelector) {
+        .selectFolderSheet(
+            isPresented: $showFolderSelector,
+            bookmark: FileBrowser.bookmark,
+            message: FileBrowser.message,
+            confirmationLabel: FileBrowser.confirmationLabel
+        ) {
             Task { @MainActor in
                 await fileBrowser.getFiles()
             }
         }
-        .fileDialogMessage("Select a folder with your songs")
-        .fileDialogConfirmationLabel("Select")
         .animation(.default, value: status)
         .task(id: musicURL) {
             await checkSong()

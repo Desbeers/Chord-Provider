@@ -23,17 +23,17 @@ extension FileBrowser {
             FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)?.lastPathComponent ?? "No folder selected"
         }
         var body: some View {
-            FolderBookmark.SelectFolder(
+            FolderBookmark.SelectFolderButton(
                 bookmark: FileBrowser.bookmark,
-                title: folderTitle,
-                systemImage: "folder"
+                message: FileBrowser.message,
+                confirmationLabel: FileBrowser.confirmationLabel,
+                buttonLabel: folderTitle,
+                buttonSystemImage: "folder"
             ) {
                 Task { @MainActor in
                     await fileBrowser.getFiles()
                 }
             }
-            .fileDialogMessage("Select a folder with your songs")
-            .fileDialogConfirmationLabel("Select")
         }
     }
 }

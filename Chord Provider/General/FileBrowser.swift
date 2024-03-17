@@ -19,6 +19,10 @@ class FileBrowser {
     var artistList: [ArtistItem] = []
     /// The name of the folder bookmark
     static let bookmark: String = "SongsFolder"
+    /// The message of the folder selector
+    static let message: String = "Select the folder with your songs"
+    /// The label for the confirmation button of the folder selector
+    static let confirmationLabel = "Select"
     /// The Class to monitor the songs folder
     let folderMonitor = FolderMonitor()
     /// The optional songs folder
