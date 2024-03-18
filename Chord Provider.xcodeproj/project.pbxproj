@@ -49,8 +49,6 @@
 		D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */ = {isa = PBXBuildFile; productRef = D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */; };
 		D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */; };
 		D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */; };
-		D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = D7AB1E802A98C284009BC9FB /* DocumentKit */; };
-		D7AB1E832A98E155009BC9FB /* OnboardingView (iPadOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */; platformFilter = ios; };
 		D7C3D6212AC9E52600909639 /* ChordProviderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */; };
 		D7C3D6222AC9E52600909639 /* ChordProviderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */; };
 		D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppState.swift */; };
@@ -168,7 +166,6 @@
 		D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+DirectiveSheet.swift"; sourceTree = "<group>"; };
 		D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveSheetButton.swift"; sourceTree = "<group>"; };
 		D78E1ED02AC5A58E001A0641 /* EditorView+directiveMenus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveMenus.swift"; sourceTree = "<group>"; };
-		D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OnboardingView (iPadOS).swift"; sourceTree = "<group>"; };
 		D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderSettings.swift; sourceTree = "<group>"; };
 		D7C3D6232AC9EA0400909639 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+strum.swift"; sourceTree = "<group>"; };
@@ -245,7 +242,6 @@
 				D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */,
 				D7F13FEE2A646110002D875D /* SwiftlyFolderUtilities in Frameworks */,
 				D7F13FF12A646129002D875D /* HighlightedTextEditor in Frameworks */,
-				D7AB1E812A98C284009BC9FB /* DocumentKit in Frameworks */,
 				D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,7 +413,6 @@
 			isa = PBXGroup;
 			children = (
 				D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */,
-				D7AB1E822A98E155009BC9FB /* OnboardingView (iPadOS).swift */,
 			);
 			path = iPadOS;
 			sourceTree = "<group>";
@@ -514,7 +509,6 @@
 				D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */,
 				D7F13FF02A646129002D875D /* HighlightedTextEditor */,
 				D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */,
-				D7AB1E802A98C284009BC9FB /* DocumentKit */,
 				D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */,
 			);
 			productName = "Chord Provider";
@@ -575,7 +569,6 @@
 				D7F13FEC2A646110002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */,
 				D7F13FEF2A646129002D875D /* XCRemoteSwiftPackageReference "HighlightedTextEditor" */,
 				D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */,
-				D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */,
 				D7A1DDE42AA9B60C00C13678 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */,
 			);
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
@@ -725,7 +718,6 @@
 				D73A03E92AC85B6100D6CD0E /* Song+Render+ChordView.swift in Sources */,
 				D7F13FE82A6460B7002D875D /* AudioPlayerView.swift in Sources */,
 				D7F13FD32A6460B7002D875D /* ChordPro.swift in Sources */,
-				D7AB1E832A98E155009BC9FB /* OnboardingView (iPadOS).swift in Sources */,
 				D7F13FC02A6460B7002D875D /* Song+Section.swift in Sources */,
 				D7F13FC52A6460B7002D875D /* ExportSong.swift in Sources */,
 				D7F13FC72A6460B7002D875D /* FileBrowser.swift in Sources */,
@@ -1188,14 +1180,6 @@
 				kind = branch;
 			};
 		};
-		D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/danielsaidi/DocumentKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.1;
-			};
-		};
 		D7F13FEC2A646110002D875D /* XCRemoteSwiftPackageReference "SwiftlyFolderUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Desbeers/SwiftlyFolderUtilities";
@@ -1234,11 +1218,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */;
 			productName = SwiftlyChordUtilities;
-		};
-		D7AB1E802A98C284009BC9FB /* DocumentKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D7AB1E7F2A98C283009BC9FB /* XCRemoteSwiftPackageReference "DocumentKit" */;
-			productName = DocumentKit;
 		};
 		D7F13FED2A646110002D875D /* SwiftlyFolderUtilities */ = {
 			isa = XCSwiftPackageProductDependency;

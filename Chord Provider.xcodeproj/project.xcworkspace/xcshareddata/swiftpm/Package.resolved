@@ -1,15 +1,6 @@
 {
-  "originHash" : "aecaadaf197dcd885de61f853b2a875f8e9314a8cabf28a5cd67f291154077f1",
+  "originHash" : "e743b1e74229bf7bdb4ecc89dbdbf34bb81cca58956f8a4f84a692941ab03ed0",
   "pins" : [
-    {
-      "identity" : "documentkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/danielsaidi/DocumentKit.git",
-      "state" : {
-        "revision" : "361f94c6f46935ff9ec91caee4245611ee6f3136",
-        "version" : "0.3.0"
-      }
-    },
     {
       "identity" : "highlightedtexteditor",
       "kind" : "remoteSourceControl",

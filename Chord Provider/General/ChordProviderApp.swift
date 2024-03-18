@@ -8,9 +8,7 @@
 import SwiftUI
 import SwiftlyFolderUtilities
 import SwiftlyChordUtilities
-#if os(iOS)
-import DocumentKit
-#endif
+
 /// SwiftUI `Scene` for Chord Provider
 @main struct ChordProviderApp: App {
 
@@ -149,12 +147,6 @@ import DocumentKit
                     Color.accent.opacity(0.4),
                     for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
-        }
-        .additionalNavigationBarButtonItems(
-            leading: [.onboarding]
-        )
-        .onboardingSheet(id: "welcome") {
-            OnboardingView()
         }
     }
 #endif
