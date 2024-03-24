@@ -45,7 +45,7 @@ struct MainView: View {
         .onChange(of: document.text) {
             Task { @MainActor in
                 await document.buildSongDebouncer.submit {
-                    renderSong()
+                    await renderSong()
                 }
             }
         }

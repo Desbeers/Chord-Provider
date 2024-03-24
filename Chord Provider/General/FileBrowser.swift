@@ -86,12 +86,13 @@ extension FileBrowser {
     // MARK: Functions
 
     /// Get the song files from the user selected folder
-    @MainActor func getFiles() async {
+    @MainActor
+    func getFiles() async {
         do {
-            /// The found songs
-            var songs = [SongItem]()
             /// Get a list of all files
             try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { persistentURL in
+                /// The found songs
+                var songs = [SongItem]()
                 songsFolder = persistentURL
                 status = .ready
                 folderMonitor.addRecursiveURL(persistentURL)

@@ -109,7 +109,7 @@ struct AudioPlayerView: View {
             action: {
                 Task {
                     try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
-                        playSong()
+                        await playSong()
                     }
                 }
             },
@@ -140,7 +140,8 @@ struct AudioPlayerView: View {
     // MARK: Prive functions
 
     /// Check the song file
-    @MainActor private func checkSong() async {
+    @MainActor
+    private func checkSong() async {
         do {
             try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
                 if musicURL.exist() {
@@ -159,6 +160,7 @@ struct AudioPlayerView: View {
     }
 
     /// Play the song file
+    @MainActor
     private func playSong() {
         do {
             if isPlaying {
@@ -176,6 +178,7 @@ struct AudioPlayerView: View {
     }
 
     /// Download the song
+    @MainActor
     private func downloadSong() async {
         try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
             do {

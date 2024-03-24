@@ -22,7 +22,7 @@ actor Debouncer {
 
     /// Submit a debounce `Task`
     /// - Parameter operation: The `Task`
-    func submit(operation: @escaping () async -> Void) {
+    func submit(operation: @escaping @Sendable () async -> Void) {
         task?.cancel()
         task = Task {
             try await sleep()
