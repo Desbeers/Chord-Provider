@@ -54,7 +54,9 @@ extension EditorView {
                 }
             }
             .labelsHidden()
+#if os(macOS)
             .frame(maxWidth: 75)
+#endif
         }
         .menuStyle(.button)
     }

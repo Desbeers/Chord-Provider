@@ -17,23 +17,28 @@ extension FileBrowser {
     }
 
     private struct FolderSelector: View {
+        /// The FileBrowser model
         @Bindable var fileBrowser: FileBrowser
-        /// Folder selector title
-        private var folderTitle: String {
-            FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)?.lastPathComponent ?? "No folder selected"
-        }
+        /// The current selected folder
+        @State private var currentFolder: String = FileBrowser.folderTitle
         var body: some View {
             FolderBookmark.SelectFolderButton(
                 bookmark: FileBrowser.bookmark,
                 message: FileBrowser.message,
                 confirmationLabel: FileBrowser.confirmationLabel,
-                buttonLabel: folderTitle,
+                buttonLabel: currentFolder,
                 buttonSystemImage: "folder"
             ) {
                 Task { @MainActor in
+                    currentFolder = FileBrowser.folderTitle
                     await fileBrowser.getFiles()
                 }
             }
         }
+    }
+
+    /// Get the current selected folder
+    private static var folderTitle: String {
+        FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)?.lastPathComponent ?? "No folder selected"
     }
 }

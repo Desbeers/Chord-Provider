@@ -63,7 +63,7 @@ extension EditorView {
     ///   - directive: The ``ChordPro/Directive`` to apply
     ///   - argument: The argument of the `directive`
     /// - Returns: A formatted `Directive`  as `String`
-    private static func format(directive: ChordPro.Directive, argument: String) -> String {
+    static func format(directive: ChordPro.Directive, argument: String) -> String {
 
         var formattedDirective = argument
 

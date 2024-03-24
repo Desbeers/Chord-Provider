@@ -11,8 +11,6 @@ import SwiftlyFolderUtilities
 /// The observable FileBrowser for Chord Provider
 @Observable
 class FileBrowser {
-    /// The shared instance of the class
-    static let shared = FileBrowser()
     /// The list of songs
     var songList: [SongItem] = []
     /// The list of artists
@@ -37,7 +35,7 @@ class FileBrowser {
     var menuBarExtraWindow: NSWindow?
 #endif
     /// Init the FileBrowser
-    private init() {
+    init() {
         folderMonitor.folderDidChange = {
             Task {
                 await self.getFiles()

@@ -22,6 +22,8 @@ final class SceneState {
     var file: URL?
     /// Show settings (not for macOS)
     var showSettings: Bool = false
+    /// Present template sheet
+    var presentTemplate: Bool = false
 
     // MARK: Song View options
 

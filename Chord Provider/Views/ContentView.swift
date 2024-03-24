@@ -31,6 +31,15 @@ struct ContentView: View {
         .toolbar {
             ToolbarView()
         }
+        .sheet(
+            isPresented: $sceneState.presentTemplate,
+            onDismiss: {
+                //
+            },
+            content: {
+                TemplateView(document: $document, sceneState: sceneState)
+            }
+        )
 #if os(macOS)
         .onChange(of: sceneState.showPrintDialog) {
             if sceneState.showPrintDialog {
@@ -45,6 +54,11 @@ struct ContentView: View {
             SettingsView()
         }
 #endif
+        .task {
+            if document.text == ChordProDocument.newText {
+                sceneState.presentTemplate = true
+            }
+        }
         .task(id: file) {
             sceneState.file = file
         }

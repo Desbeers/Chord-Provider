@@ -11,9 +11,8 @@ import SwiftlyChordUtilities
 
 /// SwiftUI `Scene` for Chord Provider
 @main struct ChordProviderApp: App {
-
-    /// The ``FileBrowser``
-    @State private var fileBrowser: FileBrowser = .shared
+    /// The FileBrowser model
+    @State private var fileBrowser = FileBrowser()
     /// The welcome view setting
     @AppStorage("hideWelcome") var hideWelcome: Bool = true
     /// Default Chord Display Options

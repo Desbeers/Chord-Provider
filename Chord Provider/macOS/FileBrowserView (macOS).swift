@@ -25,8 +25,17 @@ struct FileBrowserView: View {
         Group {
             switch fileBrowser.status {
             case .noFolderSelected:
-                WelcomeView()
-                    .navigationSubtitle("Welcome")
+                VStack {
+                    Text("Welcome to Chord Provider")
+                        .font(.title)
+                    SongFolderView()
+                    Text(.init(AudioStatus.browser))
+                        .padding(.vertical)
+                        .font(.caption)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding()
+                .navigationSubtitle("Welcome")
             case .ready:
                 Picker("Menu", selection: $tabItem) {
                     ForEach(TabItem.allCases, id: \.rawValue) { item in
@@ -70,6 +79,7 @@ struct FileBrowserView: View {
                     }
                 }
                 .navigationSubtitle("\(fileBrowser.songList.count) songs")
+                .labelStyle(BrowserLabelStyle())
             default:
                 Image(.launchIcon)
                     .resizable()
@@ -82,7 +92,6 @@ struct FileBrowserView: View {
         .animation(.default, value: fileBrowser.status)
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
-        .labelStyle(BrowserLabelStyle())
         .buttonStyle(.plain)
         .frame(width: 320)
         .frame(minHeight: 500)
