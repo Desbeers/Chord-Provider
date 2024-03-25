@@ -207,7 +207,16 @@ enum ChordPro {
                     currentSection: &currentSection
                 )
 
-                /// ## Start of Strum
+                /// ## Start of Textblock
+            case .startOfTextblock:
+                processSection(
+                    label: label ?? Environment.textblock.rawValue,
+                    type: .textblock,
+                    song: &song,
+                    currentSection: &currentSection
+                )
+
+                /// ## Start of Strum (custom)
             case .sos, .startOfStrum:
                 processSection(
                     label: label ?? Environment.strum.rawValue,
@@ -217,7 +226,7 @@ enum ChordPro {
                 )
 
                 /// # End of environment
-            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid, .eos, .endOfStrum:
+            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid, .eos, .endOfTextblock, .endOfStrum:
                 processSection(
                     label: Environment.none.rawValue,
                     type: .none,

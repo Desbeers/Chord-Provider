@@ -99,6 +99,8 @@ extension ExportSong {
                 part = renderPart(view: Song.Render.TabSectionView(section: section, options: options))
             case .grid:
                 part = renderPart(view: Song.Render.GridSectionView(section: section, options: options, chords: song.chords))
+            case .textblock:
+                part = renderPart(view: Song.Render.TextblockSectionView(section: section, options: options))
             case .comment:
                 part = renderPart(view: Song.Render.CommentSectionView(section: section, options: options))
             case .strum:

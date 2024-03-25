@@ -104,6 +104,13 @@ extension ChordPro {
         /// This directive indicates the end of the grid
         case eog
 
+        /// ## Textblock
+
+        /// This directive indicates that the lines that follow define a piece of text that is combined into a single object that can be placed as an image
+        case startOfTextblock = "start_of_textblock"
+        /// This directive indicates the end of the textblock
+        case endOfTextblock = "end_of_textblock"
+
         /// # Chord diagrams
 
         /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings

@@ -31,6 +31,11 @@ extension ChordPro {
         /// Grid environment
         case grid = "Grid"
 
+        // MARK: Official delegated environment directives
+
+        /// Textblock environment
+        case textblock = "Text Block"
+
         // MARK: Custom environments
 
         /// No environment

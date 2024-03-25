@@ -23,6 +23,8 @@ extension ChordPro.Directive {
             ("{\(label(.startOfTab))}\n", "\n{\(label(.endOfTab))}\n")
         case .startOfGrid:
             ("{\(label(.startOfGrid))}\n", "\n{\(label(.endOfGrid))}\n")
+        case .startOfTextblock:
+            ("{\(label(.startOfTextblock))}\n", "\n{\(label(.endOfTextblock))}\n")
         case .startOfStrum:
             ("{\(label(.startOfStrum))}\n", "\n{\(label(.endOfStrum))}\n")
             // MARK: Inline elements
@@ -46,7 +48,7 @@ extension ChordPro.Directive {
     /// - Note: This is used to move the cursor in the editor when you apply a directive to selected text in the editor
     var kind: Kind {
         switch self {
-        case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .define:
+        case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .define:
             return .block
         case .chorus:
             return .optionalLabel
@@ -80,6 +82,8 @@ extension ChordPro.Directive {
             ("Tab", "music.mic")
         case .startOfGrid:
             ("Grid", "music.mic")
+        case .startOfTextblock:
+            ("Textblock", "text.alignleft")
         case .startOfStrum:
             ("Strumming", "music.mic")
         case .comment:
@@ -118,6 +122,7 @@ extension ChordPro.Directive {
             .startOfTab,
             .startOfGrid,
             .startOfBridge,
+            .startOfTextblock,
             .startOfStrum
         ]
     }

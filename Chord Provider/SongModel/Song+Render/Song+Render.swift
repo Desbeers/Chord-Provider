@@ -69,6 +69,8 @@ extension Song {
                     TabSectionView(section: section, options: options)
                 case .grid:
                     GridSectionView(section: section, options: options, chords: song.chords)
+                case .textblock:
+                    TextblockSectionView(section: section, options: options)
                 case .comment:
                     CommentSectionView(section: section, options: options)
                 case .strum:
@@ -274,6 +276,29 @@ extension Song.Render {
             }
             .padding(.vertical, options.scale)
             .modifier(SectionView(options: options, label: section.label))
+        }
+    }
+
+    // MARK: Textblock
+
+    /// SwiftUI `View` for a plain text section
+    struct TextblockSectionView: View {
+        /// The `section` of the song
+        let section: Song.Section
+        /// The display options
+        let options: Song.DisplayOptions
+        /// The body of the `View`
+        var body: some View {
+            VStack(alignment: .leading) {
+                ForEach(section.lines) { line in
+                    ForEach(line.parts) { part in
+                        Text(part.text.trimmingCharacters(in: .whitespacesAndNewlines))
+                    }
+                }
+            }
+            .foregroundStyle(.secondary)
+            .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
+            .modifier(SectionView(options: options, label: section.label == ChordPro.Environment.textblock.rawValue ? "" : section.label))
         }
     }
 

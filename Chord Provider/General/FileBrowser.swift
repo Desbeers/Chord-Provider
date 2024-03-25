@@ -93,7 +93,6 @@ extension FileBrowser {
             try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { persistentURL in
                 /// The found songs
                 var songs = [SongItem]()
-                songsFolder = persistentURL
                 status = .ready
                 folderMonitor.addRecursiveURL(persistentURL)
                 if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {

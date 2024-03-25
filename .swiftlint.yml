@@ -92,7 +92,10 @@ line_length:
   ignores_urls: true
   ignores_function_declarations: true
   ignores_comments: true
-  warning: 140
+  warning: 150
+
+function_body_length:
+  warning: 150
 
 multiline_arguments:
   first_argument_location: next_line
