@@ -30,8 +30,8 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 - You can 'define' a Capo but that will not change any notes in the document; again on purpose.
 - It can export your song to a PDF document.
 - It can play chords with MIDI. Note: This does not work in a simulator.
-- It can play songs when stored next to the **ChordPro** file.
-- Full 'left-handed' support.
+- It can play audio songs when stored next to the **ChordPro** file when defined with `{musicpath: file-name.m4a}` and when a music folder is selected (sandbox restriction).
+- Full 'left-handed' chords support.
 
 
 ### macOS
@@ -39,10 +39,15 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 - It has a 'browser' for your songs if you select a folder.
 - It has a 'quick view' plugin for **ChordPro** files.
 
+### iPadOS
+
+- It is not tested on a real device.
+
 ### visionOS
 
-- Currently `DocumentGroup` is partly broken (Xcode 15.3 beta 3).
+- Currently `DocumentGroup` is partly broken. Resizing the window does not really work. (Xcode 15.3).
 - It is the future; however, not yet.
+- It is not tested on a real device.
   
 ### Limitations
 
@@ -50,7 +55,7 @@ Not all chords in the database are correct; especially the more complicated chor
 
 ### iCloud
 
-The iOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
+The iPadOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
 
 ### Thanks
 
@@ -64,7 +69,6 @@ Stole code (and ideas) from:
 #### External:
 
 - The editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
-- The onboarding for iPadOS is [DocumentKit](https://github.com/danielsaidi/DocumentKit)
 
 #### My own:
 
