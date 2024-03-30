@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
 
 /// The observable scene state for Chord Provider
 @Observable
@@ -32,6 +33,26 @@ final class SceneState {
     /// Bool to show the editor or not
     var showEditor: Bool = false
 }
+
+
+extension SceneState {
+
+    @MainActor
+    func renderSong(text: String, instrument: Instrument, chordStyle: Song.DisplayOptions.Chord) {
+        song = ChordPro.parse(
+            text: text,
+            transpose: song.transpose,
+            instrument: instrument
+        )
+        let options = Song.DisplayOptions(
+            label: .grid,
+            scale: 1,
+            chords: chordStyle
+        )
+        ExportSong.savePDF(song: song, options: options)
+    }
+}
+
 
 /// The `FocusedValueKey` for the scene state
 struct SceneFocusedValueKey: FocusedValueKey {

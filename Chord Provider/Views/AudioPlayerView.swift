@@ -53,9 +53,7 @@ struct AudioPlayerView: View {
                 Button(
                     action: {
                         confirmationDialog = status.alert {
-                            Task {
-                                await downloadSong()
-                            }
+                            downloadSong(iCloudURL: iCloudURL)
                         }
                     },
                     label: {
@@ -88,16 +86,14 @@ struct AudioPlayerView: View {
             message: FileBrowser.message,
             confirmationLabel: FileBrowser.confirmationLabel
         ) {
-            Task { @MainActor in
-                await fileBrowser.getFiles()
-            }
+            fileBrowser.getFiles()
         }
         .animation(.default, value: status)
         .task(id: musicURL) {
-            await checkSong()
+            checkSong()
         }
         .task(id: fileBrowser.songsFolder) {
-            await checkSong()
+            checkSong()
         }
     }
 
@@ -107,10 +103,8 @@ struct AudioPlayerView: View {
     @ViewBuilder var playButton: some View {
         Button(
             action: {
-                Task {
-                    try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
-                        await playSong()
-                    }
+                try? FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+                    playSong()
                 }
             },
             label: {
@@ -140,10 +134,9 @@ struct AudioPlayerView: View {
     // MARK: Prive functions
 
     /// Check the song file
-    @MainActor
-    private func checkSong() async {
+    private func checkSong() {
         do {
-            try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+            try FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
                 if musicURL.exist() {
                     status = .ready
                 } else {
@@ -160,7 +153,6 @@ struct AudioPlayerView: View {
     }
 
     /// Play the song file
-    @MainActor
     private func playSong() {
         do {
             if isPlaying {
@@ -178,17 +170,18 @@ struct AudioPlayerView: View {
     }
 
     /// Download the song
-    @MainActor
-    private func downloadSong() async {
-        try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
-            do {
-                try FileManager.default.startDownloadingUbiquitousItem(at: iCloudURL )
-            } catch {
-                print(error.localizedDescription)
-            }
-            while status != .ready {
-                try? await Task.sleep(nanoseconds: 100000000)
-                await checkSong()
+    private func downloadSong(iCloudURL: URL) {
+        try? FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+            Task {
+                do {
+                    try FileManager.default.startDownloadingUbiquitousItem(at: iCloudURL )
+                } catch {
+                    print(error.localizedDescription)
+                }
+                while status != .ready {
+                    try? await Task.sleep(nanoseconds: 100000000)
+                    checkSong()
+                }
             }
         }
     }

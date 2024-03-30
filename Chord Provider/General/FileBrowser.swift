@@ -37,9 +37,7 @@ class FileBrowser {
     /// Init the FileBrowser
     init() {
         folderMonitor.folderDidChange = {
-            Task {
-                await self.getFiles()
-            }
+            self.getFiles()
         }
     }
 }
@@ -86,11 +84,10 @@ extension FileBrowser {
     // MARK: Functions
 
     /// Get the song files from the user selected folder
-    @MainActor
-    func getFiles() async {
+    func getFiles() {
         do {
             /// Get a list of all files
-            try await FolderBookmark.action(bookmark: FileBrowser.bookmark) { persistentURL in
+            try FolderBookmark.action(bookmark: FileBrowser.bookmark) { persistentURL in
                 /// The found songs
                 var songs = [SongItem]()
                 status = .ready

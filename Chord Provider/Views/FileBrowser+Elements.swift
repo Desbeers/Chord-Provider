@@ -29,10 +29,8 @@ extension FileBrowser {
                 buttonLabel: currentFolder,
                 buttonSystemImage: "folder"
             ) {
-                Task { @MainActor in
-                    currentFolder = FileBrowser.folderTitle
-                    await fileBrowser.getFiles()
-                }
+                currentFolder = FileBrowser.folderTitle
+                fileBrowser.getFiles()
             }
         }
     }

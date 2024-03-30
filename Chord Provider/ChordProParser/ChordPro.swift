@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftlyChordUtilities
 
 /// The `ChordPro` file parser
-enum ChordPro {
+actor ChordPro {
 
     // MARK: Parse a 'ChordPro' file
 

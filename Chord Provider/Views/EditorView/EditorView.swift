@@ -83,19 +83,19 @@ struct EditorView: View {
         )
         /// Below selector prevents the cursor from jumping while the SongView is updated
         /// It will also be passed to 'format' buttons
-            .onSelectionChange { (range: NSRange) in
-                sceneState.selection = range
-            }
+        .onSelectionChange { (range: NSRange) in
+            sceneState.selection = range
+        }
         /// Below is needed to interact with the NSTextView
-            .introspect { editor in
-                /// Setup the TextView
-                if sceneState.textView == nil {
-                    #if os(macOS)
-                    editor.textView.textContainerInset = NSSize(width: 10, height: 10)
-                    #endif
-                    sceneState.textView = editor.textView
-                }
+        .introspect { editor in
+            /// Setup the TextView
+            if sceneState.textView == nil {
+#if os(macOS)
+                editor.textView.textContainerInset = NSSize(width: 10, height: 10)
+#endif
+                sceneState.textView = editor.textView
             }
+        }
     }
 }
 

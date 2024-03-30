@@ -97,7 +97,7 @@ struct FileBrowserView: View {
         .frame(minHeight: 500)
         .navigationTitle("Chord Provider")
         .task(id: fileBrowser.songList) {
-            await fileBrowser.getFiles()
+            fileBrowser.getFiles()
             let tags = fileBrowser.songList.flatMap(\.tags)
             /// Make sure the tags are unique
             allTags = Array(Set(tags).sorted())
@@ -213,14 +213,22 @@ extension FileBrowserView {
 
         /// Open a new song window
         /// - Parameter url: The URL of the song
-        func openSong(url: URL) {
+        @MainActor func openSong(url: URL) {
             /// openDocument is very buggy; don't try to open a document when it is already open
             if let window {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
             } else {
+                /// Because this is running in a Task we have to do the sandbox-stuff ourselfs
+                /// instead of using the `FolderBookmark.action` method
                 Task {
-                    try? await FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
-                        try? await openDocument(at: song.fileURL)
+                    do {
+                        if let persistentURL = try FolderBookmark.getPersistentFileURL(FileBrowser.bookmark) {
+                            _ = persistentURL.startAccessingSecurityScopedResource()
+                            try await openDocument(at: url)
+                            persistentURL.stopAccessingSecurityScopedResource()
+                        }
+                    } catch {
+                        print(error.localizedDescription)
                     }
                 }
             }
