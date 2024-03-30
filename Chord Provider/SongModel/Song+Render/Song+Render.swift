@@ -107,7 +107,10 @@ extension Song.Render {
                     } else {
                         switch prominent {
                         case true:
-                            ProminentLabel(options: options, label: label)
+                            ProminentLabel(
+                                options: options,
+                                label: label
+                            )
                         case false:
                             Text(label)
                         }
@@ -292,7 +295,8 @@ extension Song.Render {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
                     ForEach(line.parts) { part in
-                        Text(part.text.trimmingCharacters(in: .whitespacesAndNewlines))
+                        /// Init the text like this to enable markdown formatting
+                        Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
                     }
                 }
             }
@@ -325,8 +329,13 @@ extension Song.Render {
         let options: Song.DisplayOptions
         /// The body of the `View`
         var body: some View {
-            ProminentLabel(options: options, label: comment, icon: "text.bubble", color: .yellow)
-                .italic()
+            ProminentLabel(
+                options: options,
+                label: comment,
+                icon: "text.bubble",
+                color: .yellow
+            )
+            .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
         }
     }
 
@@ -371,7 +380,8 @@ extension Song.Render {
             VStack(alignment: .leading) {
                 ForEach(section.lines) { line in
                     ForEach(line.parts) { part in
-                        Text(part.text.trimmingCharacters(in: .whitespacesAndNewlines))
+                        /// Init the text like this to enable markdown formatting
+                        Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
                     }
                 }
             }
@@ -425,6 +435,7 @@ extension Song.Render {
             if let icon {
                 Label(
                     title: {
+                        /// Init the text like this to enable markdown formatting
                         Text(.init(label))
                     },
                     icon: {
