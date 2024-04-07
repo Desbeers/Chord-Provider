@@ -42,15 +42,13 @@ struct ChordsView: View {
                         .buttonStyle(.plain)
                         .scrollTransition { effect, phase in
                             effect
-                                .opacity(phase.isIdentity ? 1 : 0)
-                                .scaleEffect(phase.isIdentity ? 1 : 0.8)
+                                .scaleEffect(phase.isIdentity ? 1 : 0.6)
                         }
                     default:
                         ChordDiagramView(chord: chord, width: 120)
                             .scrollTransition { effect, phase in
                                 effect
-                                    .opacity(phase.isIdentity ? 1 : 0)
-                                    .scaleEffect(phase.isIdentity ? 1 : 0.8)
+                                    .scaleEffect(phase.isIdentity ? 1 : 0.6)
                             }
                     }
                 }

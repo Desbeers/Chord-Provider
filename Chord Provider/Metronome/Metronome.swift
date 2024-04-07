@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 
 /// The observable metronome for Chord Provider
+@MainActor
 @Observable
 final class Metronome {
     /// The time signature

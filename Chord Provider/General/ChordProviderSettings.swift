@@ -10,7 +10,7 @@ import SwiftlyStructCache
 import SwiftlyChordUtilities
 
 /// Structure with all the Chord Provider Settings
-struct ChordProviderSettings: Equatable, Codable {
+struct ChordProviderSettings: Equatable, Codable, Sendable {
     var showChords: Bool = true
     var showInlineDiagrams: Bool = false
     var paging: Song.DisplayOptions.Paging = .asList
@@ -21,6 +21,16 @@ struct ChordProviderSettings: Equatable, Codable {
         case right = "Right"
         case bottom = "Bottom"
     }
+    /// Default Chord Display Options
+    static let defaults = ChordDefinition.DisplayOptions(
+        showName: true,
+        showNotes: true,
+        showPlayButton: true,
+        rootDisplay: .symbol,
+        qualityDisplay: .symbolized,
+        showFingers: true,
+        mirrorDiagram: false
+    )
 }
 
 extension ChordProviderSettings {

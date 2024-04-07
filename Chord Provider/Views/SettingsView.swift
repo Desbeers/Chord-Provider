@@ -64,13 +64,13 @@ struct SettingsView: View {
             HStack {
                 Button(
                     action: {
-                        chordDisplayOptions.displayOptions = ChordProviderApp.defaults
+                        chordDisplayOptions.displayOptions = ChordProviderSettings.defaults
                     },
                     label: {
                         Text("Reset to defaults")
                     }
                 )
-                .disabled(chordDisplayOptions.displayOptions == ChordProviderApp.defaults)
+                .disabled(chordDisplayOptions.displayOptions == ChordProviderSettings.defaults)
                 #if os(visionOS)
                 Button(
                     action: {

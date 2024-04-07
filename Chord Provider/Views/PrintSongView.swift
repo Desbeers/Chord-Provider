@@ -37,6 +37,7 @@ extension PrintSongView {
     /// - Note: Only in use for macOS, on iPadOS, _printing_ is available via the Share Sheet
     ///
     /// - Parameter song: The ``Song`` to print
+    @MainActor
     static func printDialog(song: Song) {
 #if os(macOS)
         if let window = NSApp.keyWindow {

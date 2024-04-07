@@ -15,18 +15,8 @@ import SwiftlyChordUtilities
     @State private var fileBrowser = FileBrowser()
     /// The welcome view setting
     @AppStorage("hideWelcome") var hideWelcome: Bool = true
-    /// Default Chord Display Options
-    static let defaults = ChordDefinition.DisplayOptions(
-        showName: true,
-        showNotes: true,
-        showPlayButton: true,
-        rootDisplay: .symbol,
-        qualityDisplay: .symbolized,
-        showFingers: true,
-        mirrorDiagram: false
-    )
     /// Chord Display Options
-    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: defaults)
+    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
     /// The state of the app
     @State private var appState = AppState()
 
