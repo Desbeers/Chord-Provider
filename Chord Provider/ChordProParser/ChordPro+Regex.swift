@@ -41,6 +41,9 @@ extension ChordPro {
             }
         }
         "}"
+        Optionally {
+            OneOrMore(.any)
+        }
     }
 
     /// The regex for a *normal*  line with optional`chords` and/or `lyrics`
