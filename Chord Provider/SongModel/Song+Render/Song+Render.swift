@@ -410,12 +410,12 @@ extension Song.Render {
                         if let chord = chords.first(where: { $0.id == part.chord }) {
                             ChordView(options: options, sectionID: sectionID, partID: part.id, chord: chord)
                         }
-                        Text(part.text)
+                        /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
+                        /// for the funny stuff added to the string...
+                        Text("\(part.text)\u{200c}")
                             .multilineTextAlignment(.center)
                     }
                     .padding(.vertical, options.scale)
-                    /// Don't truncate text
-                    .fixedSize(horizontal: true, vertical: false)
                 }
             }
         }

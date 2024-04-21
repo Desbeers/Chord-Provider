@@ -43,8 +43,6 @@ extension PrintSongView {
         if let window = NSApp.keyWindow {
             /// Set the print info
             let printInfo = NSPrintInfo()
-            /// Looks like we have to scale down, don't know why but this makes it fit
-            printInfo.scalingFactor = 0.72
             /// Build the PDF View
             let pdfView = PDFView()
             pdfView.document = PDFDocument(url: song.exportURL)

@@ -51,7 +51,7 @@ import SwiftlyChordUtilities
                 .environment(chordDisplayOptions)
                 .environment(appState)
             /// Give the scene access to the document.
-                .focusedSceneValue(\.document, file.$document)
+                .focusedSceneValue(\.document, file.document)
                 .onDisappear {
                     Task { @MainActor in
                         if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == file.fileURL }) {

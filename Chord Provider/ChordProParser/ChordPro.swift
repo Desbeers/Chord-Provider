@@ -421,9 +421,7 @@ actor ChordPro {
                 }
             }
             if let lyric {
-                /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
-                /// for the funny stuff added to the string...
-                part.text = String(lyric + "\u{200c}")
+                part.text = String(lyric)
             }
             if !(part.empty) {
                 partID += 1

@@ -23,8 +23,12 @@ final class SceneState {
     var file: URL?
     /// Show settings (not for macOS)
     var showSettings: Bool = false
+    /// Show inspector
+    var showInspector: Bool = false
     /// Present template sheet
     var presentTemplate: Bool = false
+    /// The data of the PDF export
+    var pdfData: Data?
 
     // MARK: Song View options
 
@@ -32,25 +36,6 @@ final class SceneState {
     var currentScale: Double = 1.0
     /// Bool to show the editor or not
     var showEditor: Bool = false
-}
-
-
-extension SceneState {
-
-    @MainActor
-    func renderSong(text: String, instrument: Instrument, chordStyle: Song.DisplayOptions.Chord) {
-        song = ChordPro.parse(
-            text: text,
-            transpose: song.transpose,
-            instrument: instrument
-        )
-        let options = Song.DisplayOptions(
-            label: .grid,
-            scale: 1,
-            chords: chordStyle
-        )
-        ExportSong.savePDF(song: song, options: options)
-    }
 }
 
 
@@ -75,7 +60,7 @@ extension FocusedValues {
 /// The `FocusedValueKey` for the current document
 struct DocumentFocusedValueKey: FocusedValueKey {
     /// The `typealias` for the key
-    typealias Value = Binding<ChordProDocument>
+    typealias Value = ChordProDocument
 }
 
 extension FocusedValues {

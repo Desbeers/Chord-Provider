@@ -63,6 +63,7 @@ Stole code (and ideas) from:
 - [Swifty Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
 - [SongPro for Swift](https://github.com/SongProOrg/songpro-swift)
 - [Conscriptor](https://github.com/dbarsamian/conscriptor)
+- [PdfBuilder](https://github.com/atrbx5/PdfBuilder)
 
 ### Used packages
 

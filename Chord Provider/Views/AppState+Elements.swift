@@ -2,7 +2,7 @@
 //  AppState+Elements.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 29/02/2024.
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI

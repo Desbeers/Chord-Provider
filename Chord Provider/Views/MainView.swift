@@ -57,6 +57,9 @@ struct MainView: View {
         .onChange(of: chordDisplayOptions.instrument) {
             renderSong()
         }
+        .onChange(of: chordDisplayOptions.displayOptions) {
+            renderSong()
+        }
         .animation(.default, value: sceneState.showEditor)
         .animation(.default, value: appState.settings)
     }
@@ -73,6 +76,11 @@ struct MainView: View {
             scale: 1,
             chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName
         )
-        ExportSong.savePDF(song: sceneState.song, options: options)
+        Task {
+            sceneState.pdfData = SongToPDF.renderPDF(song: sceneState.song, options: chordDisplayOptions.displayOptions)
+            if let data = sceneState.pdfData {
+                try? data.write(to: sceneState.song.exportURL)
+            }
+        }
     }
 }

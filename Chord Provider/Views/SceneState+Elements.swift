@@ -2,7 +2,7 @@
 //  SceneState+Elements.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 29/02/2024.
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
@@ -37,9 +37,7 @@ extension SceneState {
     private struct ShowEditorButton: View {
         @Bindable var sceneState: SceneState
         var body: some View {
-            Button {
-                sceneState.showEditor.toggle()
-            } label: {
+            Toggle(isOn: $sceneState.showEditor) {
                 Label("Edit", systemImage: sceneState.showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
         }
@@ -131,6 +129,25 @@ extension SceneState {
         var body: some View {
             ShareLink(item: sceneState.song.exportURL)
                 .labelStyle(.iconOnly)
+        }
+    }
+}
+
+extension SceneState {
+
+    // MARK: PDF inspector toggle
+
+    var pdfInspector: some View {
+        PDFInspector(sceneState: self)
+    }
+
+    private struct PDFInspector: View {
+        @Bindable var sceneState: SceneState
+        var body: some View {
+            Toggle(isOn: $sceneState.showInspector) {
+                Label("PDF preview", systemImage: sceneState.showInspector ? "eye.fill" : "eye")
+            }
+            .labelStyle(.iconOnly)
         }
     }
 }

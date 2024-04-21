@@ -14,19 +14,19 @@ extension ChordPro.Directive {
         switch self {
             // MARK: Block elements
         case .startOfChorus:
-            ("{\(label(.startOfChorus))}\n", "\n{\(label(.endOfChorus))}\n")
+            ("{\(label(.startOfChorus))}\n", "\n{\(label(.endOfChorus))}")
         case .startOfVerse:
-            ("{\(label(.startOfVerse))}\n", "\n{\(label(.endOfVerse))}\n")
+            ("{\(label(.startOfVerse))}\n", "\n{\(label(.endOfVerse))}")
         case .startOfBridge:
-            ("{\(label(.startOfBridge))}\n", "\n{\(label(.endOfBridge))}\n")
+            ("{\(label(.startOfBridge))}\n", "\n{\(label(.endOfBridge))}")
         case .startOfTab:
-            ("{\(label(.startOfTab))}\n", "\n{\(label(.endOfTab))}\n")
+            ("{\(label(.startOfTab))}\n", "\n{\(label(.endOfTab))}")
         case .startOfGrid:
-            ("{\(label(.startOfGrid))}\n", "\n{\(label(.endOfGrid))}\n")
+            ("{\(label(.startOfGrid))}\n", "\n{\(label(.endOfGrid))}")
         case .startOfTextblock:
-            ("{\(label(.startOfTextblock))}\n", "\n{\(label(.endOfTextblock))}\n")
+            ("{\(label(.startOfTextblock))}\n", "\n{\(label(.endOfTextblock))}")
         case .startOfStrum:
-            ("{\(label(.startOfStrum))}\n", "\n{\(label(.endOfStrum))}\n")
+            ("{\(label(.startOfStrum))}\n", "\n{\(label(.endOfStrum))}")
             // MARK: Inline elements
         case .chorus:
             /// - Note: The chorus can have an optional label

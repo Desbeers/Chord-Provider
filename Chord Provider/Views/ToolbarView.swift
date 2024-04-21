@@ -29,6 +29,9 @@ struct ToolbarView: View {
             sceneState.transposeMenu
             appState.chordsMenu
             sceneState.showEditorButton
+#if !os(visionOS)
+            sceneState.pdfInspector
+#endif
             sceneState.songShareLink
         }
     }

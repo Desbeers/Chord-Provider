@@ -8,18 +8,10 @@ import HighlightedTextEditor
 
 #if os(macOS)
 import AppKit
-/// Alias for NSColor
-typealias SWIFTColor = NSColor
-/// Alias for NSFont
-typealias SWIFTFont = NSFont
 #endif
 
 #if os(iOS)
 import UIKit
-/// Alias for UIColor
-typealias SWIFTColor = UIColor
-/// Alias for UIFont
-typealias SWIFTFont = UIFont
 #endif
 
 extension EditorView {
