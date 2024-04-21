@@ -26,7 +26,7 @@ extension PdfBuild {
         open override func draw(rect: inout CGRect) {
             for line in section.lines {
                 for part in line.parts {
-                    let line = PdfBuild.Text(part.text)
+                    let line = PdfBuild.Text(part.text, attributes: .plainLine)
                     line.draw(rect: &rect)
                 }
             }
@@ -40,8 +40,8 @@ extension StringAttributes {
 
     static var plainLine: StringAttributes {
         [
-            .foregroundColor: SWIFTColor.red,
-            .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)
+            .foregroundColor: SWIFTColor.gray,
+            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 }

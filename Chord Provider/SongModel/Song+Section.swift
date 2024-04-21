@@ -19,5 +19,7 @@ extension Song {
         var type: ChordPro.Environment = .none
         /// The lines in the section
         var lines = [Line]()
+        /// Bool if the section is automatic created
+        var autoCreated: Bool
     }
 }

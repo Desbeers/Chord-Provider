@@ -24,7 +24,7 @@ actor ChordPro {
         /// Add the optional transpose
         song.transpose = transpose
         /// And add the first section
-        var currentSection = Song.Section(id: song.sections.count + 1)
+        var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: true)
         /// Parse each line of the text:
         for text in text.components(separatedBy: .newlines) {
             switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
@@ -41,8 +41,8 @@ actor ChordPro {
                     processGrid(text: text, song: &song, currentSection: &currentSection)
                 }
             case "":
-                /// Empty line; add an empty line in the section
-                if !currentSection.lines.isEmpty {
+                /// Empty line
+                if !currentSection.lines.isEmpty && currentSection.autoCreated == false {
                     /// Start with a fresh line:
                     var line = Song.Section.Line(id: currentSection.lines.count + 1)
                     /// Add an empty part
@@ -50,6 +50,13 @@ actor ChordPro {
                     let part = Song.Section.Line.Part(id: 1, chord: nil, text: " ")
                     line.parts.append(part)
                     currentSection.lines.append(line)
+                } else {
+                    processSection(
+                        label: Environment.none.rawValue,
+                        type: .none,
+                        song: &song,
+                        currentSection: &currentSection
+                    )
                 }
             case "#":
                 /// A remark; just ignore it
@@ -142,7 +149,7 @@ actor ChordPro {
                         )
                         currentSection.lines.append(line)
                         song.sections.append(currentSection)
-                        currentSection = Song.Section(id: song.sections.count + 1)
+                        currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
                     default:
                         /// An inline comment, e.g. inside a verse or chorus
                         currentSection.lines.append(line)
@@ -169,7 +176,7 @@ actor ChordPro {
                     currentSection: &currentSection
                 )
                 song.sections.append(currentSection)
-                currentSection = Song.Section(id: song.sections.count + 1)
+                currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
 
                 /// ## Start of Verse
             case .sov, .startOfVerse:
@@ -266,10 +273,14 @@ actor ChordPro {
             /// There is already an empty section
             currentSection.type = type
             currentSection.label = label
+            currentSection.autoCreated = type == .none ? true : false
         } else {
             /// Make a new section
             song.sections.append(currentSection)
-            currentSection = Song.Section(id: song.sections.count + 1)
+            currentSection = Song.Section(
+                id: song.sections.count + 1,
+                autoCreated: type == .none ? true : false
+            )
             currentSection.type = type
             currentSection.label = label
         }
