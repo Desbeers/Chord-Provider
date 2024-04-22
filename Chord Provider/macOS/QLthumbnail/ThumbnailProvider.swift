@@ -19,7 +19,7 @@ class ThumbnailProvider: QLThumbnailProvider {
             let song = ChordPro.parse(text: fileContents, transpose: 0, instrument: .guitarStandardETuning)
             let data = SongToPDF.renderPDF(song: song, options: .init())
             /// Create image for data
-            let nsImage = NSImage(data: data)
+            let nsImage = NSImage(data: data.pdf)
             var rect = NSRect(origin: CGPoint(x: 0, y: 0), size: nsImage?.size ?? .zero)
             let cgImage = nsImage?.cgImage(forProposedRect: &rect, context: NSGraphicsContext.current, hints: nil)
             /// Set the icon content size in a 4:3 ratio

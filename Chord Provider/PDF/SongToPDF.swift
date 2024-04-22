@@ -20,8 +20,14 @@ extension SongToPDF {
     ///   - song: The ``Song``
     ///   - options: The display options
     /// - Returns: All the PDF elements in an array
-    static func getSongElements(song: Song, options: ChordDefinition.DisplayOptions) -> [PdfElement] {
+    static func getSongElements(
+        song: Song,
+        options: ChordDefinition.DisplayOptions,
+        counter: PdfBuild.TextPageCounter
+    ) -> [PdfElement] {
         var items: [PdfElement] = []
+
+        items.append(PdfBuild.SongSection(song: song, counter: counter))
 
         items.append(PdfBuild.Text("\(song.title ?? "No Title")", attributes: .songTitle))
         items.append(PdfBuild.Text("\(song.artist ?? "Unknown Artist")", attributes: .songArtist))
@@ -60,9 +66,12 @@ extension SongToPDF {
         return items
     }
 
-    static func renderPDF(song: Song, options: ChordDefinition.DisplayOptions) -> Data {
+    static func renderPDF(
+        song: Song,
+        options: ChordDefinition.DisplayOptions
+    ) -> (pdf: Data, toc: [PdfBuild.SongInfo]) {
 
-        let pdfInfo = PdfBuild.Info(
+        let pdfInfo = PdfBuild.DocumentInfo(
             title: song.title ?? "No title",
             author: song.artist ?? "Unknown artist"
         )
@@ -83,9 +92,13 @@ extension SongToPDF {
                 ]
             )
         ]
-        builder.items.append(contentsOf: getSongElements(song: song, options: options))
+        builder.items.append(contentsOf: getSongElements(song: song, options: options, counter: counter))
+
         /// Generate the PDF
-        return builder.generatePdf() as Data
+        let pdf = builder.generatePdf() as Data
+
+        /// Return the PDF and the list of songs sorted by page
+        return (pdf, Array(counter.songs).sorted(using: KeyPathComparator(\.page)))
     }
 }
 

@@ -36,6 +36,7 @@ class FileBrowser {
 #endif
     /// Init the FileBrowser
     init() {
+        songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)
         folderMonitor.folderDidChange = {
             self.getFiles()
         }

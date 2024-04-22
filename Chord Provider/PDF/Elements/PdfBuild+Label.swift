@@ -63,8 +63,6 @@ extension PdfBuild {
                 let width = leadingBounds.width + labelBounds.width + ((leading == nil ? 2 : 3) * padding)
                 let height = labelBounds.height + (2 * padding)
 
-
-
                 /// Calculate `X` based on alignment
 
                 var xOffset: CGFloat = 0
@@ -129,7 +127,7 @@ public extension StringAttributes {
     static var sectionLabel: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular),
+            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 }

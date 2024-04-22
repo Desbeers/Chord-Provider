@@ -15,7 +15,7 @@ extension PdfBuild {
 
     public class Builder {
 
-        init(info: PdfBuild.Info) {
+        init(info: PdfBuild.DocumentInfo) {
             self.pdfInfo = info.dictonary
         }
 

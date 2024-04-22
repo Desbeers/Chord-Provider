@@ -19,7 +19,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
         ) { (replyToUpdate: QLPreviewReply) in
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
             let song = ChordPro.parse(text: fileContents, transpose: 0, instrument: .guitarStandardETuning)
-            let data = SongToPDF.renderPDF(song: song, options: .init())
+            let data = SongToPDF.renderPDF(song: song, options: .init()).pdf
             replyToUpdate.title = "\(song.artist ?? "Artist") - \(song.title ?? "Title")"
             replyToUpdate.stringEncoding = .utf8
             return data

@@ -71,15 +71,12 @@ struct MainView: View {
             transpose: sceneState.song.transpose,
             instrument: chordDisplayOptions.instrument
         )
-        let options = Song.DisplayOptions(
-            label: .grid,
-            scale: 1,
-            chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName
-        )
         Task {
-            sceneState.pdfData = SongToPDF.renderPDF(song: sceneState.song, options: chordDisplayOptions.displayOptions)
-            if let data = sceneState.pdfData {
-                try? data.write(to: sceneState.song.exportURL)
+            let render = SongToPDF.renderPDF(song: sceneState.song, options: chordDisplayOptions.displayOptions)
+            sceneState.pdfData = render.pdf
+            /// Process the PDF data
+            if let result = SongToPDF.process(data: render.pdf, toc: render.toc) {
+                result.write(to: sceneState.song.exportURL)
             }
         }
     }

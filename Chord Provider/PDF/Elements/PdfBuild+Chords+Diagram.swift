@@ -336,7 +336,7 @@ public extension StringAttributes {
     static var diagramChordName: StringAttributes {
         [
             .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular),
+            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
@@ -365,7 +365,7 @@ public extension StringAttributes {
             .font: SWIFTFont.systemFont(ofSize: 4, weight: .regular)
         ] + .alignment(.left)
     }
-    
+
     static var diagramBottomBar: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,

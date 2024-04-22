@@ -13,7 +13,7 @@ import UIKit
 import SwiftlyChordUtilities
 
 extension PdfBuild {
-    
+
     /// A PDF chords item
     open class Chords: PdfElement {
 

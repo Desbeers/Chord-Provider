@@ -105,7 +105,7 @@ private_over_fileprivate:
   validate_extensions: true
 
 type_body_length:
-    warning: 300
+    warning: 350
 
 trailing_whitespace:
   ignores_empty_lines: false

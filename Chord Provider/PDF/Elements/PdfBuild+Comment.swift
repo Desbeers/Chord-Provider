@@ -22,8 +22,6 @@ extension PdfBuild {
         let leading = NSAttributedString(string: "􀌲", attributes: .sectionLabel)
         let label: NSAttributedString
 
-        //let commentColor = SWIFTColor(red: 242, green: 231, blue: 198, alpha: 1)
-
         let commentColor = SWIFTColor(red: 0.95, green: 0.9, blue: 0.78, alpha: 1)
 
         public init(_ comment: String) {

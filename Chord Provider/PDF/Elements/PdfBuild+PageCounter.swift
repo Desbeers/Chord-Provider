@@ -11,10 +11,6 @@ import AppKit
 import UIKit
 #endif
 
-//public protocol PdfPageCounterProtocol: AnyObject {
-//    var pageNumber: Int { get set }
-//}
-
 extension PdfBuild {
 
     /// A PDF pagecounter item
@@ -22,6 +18,8 @@ extension PdfBuild {
         public var pageNumber: Int
         public var format: String
         public var attributes: StringAttributes
+
+        public var songs = Set<SongInfo>()
 
         let padding: CGFloat = 2
 

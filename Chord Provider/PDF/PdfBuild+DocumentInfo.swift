@@ -1,5 +1,5 @@
 //
-//  PdfBuild+Info.swift
+//  PdfBuild+DocumentInfo.swift
 //  Chord Provider
 //
 //  © 2023 Nick Berendsen
@@ -13,13 +13,13 @@ import UIKit
 
 extension PdfBuild {
 
-    struct Info {
+    struct DocumentInfo {
         var title: String
         var author: String
         var subject: String = "Song lyrics and chords"
         var pdfCreator: String = "Chord Provider"
 
-        var dictonary: [CFString : String] {
+        var dictonary: [CFString: String] {
             [
                 kCGPDFContextTitle: self.title,
                 kCGPDFContextAuthor: self.author,

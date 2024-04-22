@@ -68,7 +68,7 @@ public extension StringAttributes {
     static var partChord: StringAttributes {
         [
             .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular),
+            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 

@@ -44,7 +44,7 @@ extension PdfBuild {
 
             for index in 0..<rowsCount {
                 let row = items[(index * columns.count)..<min(items.count, (index * columns.count + columns.count))]
-                var rowHeight: CGFloat = height(
+                let rowHeight: CGFloat = height(
                     row: [PdfElement](row),
                     columnWidth: columnWidth
                 )

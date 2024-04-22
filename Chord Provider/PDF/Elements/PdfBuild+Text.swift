@@ -29,7 +29,7 @@ extension PdfBuild {
         }
 
         public init(_ text: NSAttributedString) {
-            
+
             self.text = text
             var size = self.text.size()
             /// Add a bit extra width if the text ends with a `space`

@@ -81,6 +81,9 @@ import SwiftlyChordUtilities
         .commands {
             CommandGroup(after: CommandGroupPlacement.importExport) {
                 ExportSongView()
+                ExportLibraryView()
+                    .environment(fileBrowser)
+                    .environment(chordDisplayOptions)
             }
             CommandGroup(after: CommandGroupPlacement.importExport) {
                 PrintSongView()

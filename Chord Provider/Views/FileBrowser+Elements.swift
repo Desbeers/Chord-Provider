@@ -29,6 +29,7 @@ extension FileBrowser {
                 buttonLabel: currentFolder,
                 buttonSystemImage: "folder"
             ) {
+                fileBrowser.songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)
                 currentFolder = FileBrowser.folderTitle
                 fileBrowser.getFiles()
             }

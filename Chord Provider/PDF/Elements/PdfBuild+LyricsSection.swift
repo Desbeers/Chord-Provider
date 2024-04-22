@@ -31,10 +31,8 @@ extension PdfBuild {
 
             for line in section.lines {
                 if line.comment.isEmpty {
-                    //for part in line.parts {
                     let line = Line(parts: line.parts, chords: chords)
-                        line.draw(rect: &rect)
-                    //}
+                    line.draw(rect: &rect)
                 } else {
                     let comment = PdfBuild.Comment(line.comment).padding(6)
                     comment.draw(rect: &rect)
