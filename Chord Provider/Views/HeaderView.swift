@@ -41,7 +41,7 @@ struct HeaderView: View {
         }
 #endif
         .frame(minHeight: 45)
-        .background(Color.telecasterPlate.opacity(0.8))
+        .background(Color.telecasterPlate)
         .foregroundStyle(.white)
         .buttonStyle(.bordered)
     }

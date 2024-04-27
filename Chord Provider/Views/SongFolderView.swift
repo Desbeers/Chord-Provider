@@ -17,7 +17,7 @@ struct SongFolderView: View {
                 .resizable()
                 .scaledToFit()
             VStack(alignment: .leading) {
-                Text(.init(AudioStatus.help))
+                Text(.init(AudioFileStatus.help))
                     .padding(.bottom)
             }
             .frame(maxWidth: 500)

@@ -1,0 +1,66 @@
+//
+//  PDFBuild+ClipShape.swift
+//  Chord Provider
+//
+//  © 2023 Nick Berendsen
+//
+
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import AVFoundation
+
+extension PDFBuild {
+
+    public enum Shape {
+        case circle
+        case roundedRect(radius: CGFloat)
+    }
+
+    /// A PDF clipshape item
+    open class ClipShape: PDFElement {
+
+        let shape: Shape
+        let element: PDFElement
+
+        public init(_ shape: Shape, _ element: PDFElement) {
+            self.shape = shape
+            self.element = element
+        }
+
+        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+            if !calculationOnly {
+
+                let tempRect = calculateDraw(rect: rect, elements: [element])
+
+                var fillRect = rect
+                fillRect.size.height = rect.height - tempRect.height
+
+                let context = UIGraphicsGetCurrentContext()
+                switch shape {
+
+                case .circle:
+
+                    let clipRect = AVMakeRect(
+                        aspectRatio: CGSize(width: 1, height: 1),
+                        insideRect: fillRect
+                    )
+
+                    SWIFTBezierPath(roundedRect: clipRect, cornerRadius: clipRect.width / 2).addClip()
+
+                case .roundedRect(let radius):
+
+                    fillRect.size.height = 2 * radius
+
+                    fillRect.origin.y += (rect.size.height - fillRect.size.height) / 2
+
+                    SWIFTBezierPath(roundedRect: fillRect, cornerRadius: radius).addClip()
+                }
+                element.draw(rect: &rect, calculationOnly: calculationOnly)
+                context?.resetClip()
+            }
+        }
+    }
+}

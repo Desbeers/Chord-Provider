@@ -23,13 +23,13 @@ extension FileBrowser {
         @State private var currentFolder: String = FileBrowser.folderTitle
         var body: some View {
             FolderBookmark.SelectFolderButton(
-                bookmark: FileBrowser.bookmark,
+                bookmark: FileBrowser.folderBookmark,
                 message: FileBrowser.message,
                 confirmationLabel: FileBrowser.confirmationLabel,
                 buttonLabel: currentFolder,
                 buttonSystemImage: "folder"
             ) {
-                fileBrowser.songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)
+                fileBrowser.songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)
                 currentFolder = FileBrowser.folderTitle
                 fileBrowser.getFiles()
             }
@@ -38,6 +38,6 @@ extension FileBrowser {
 
     /// Get the current selected folder
     private static var folderTitle: String {
-        FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)?.lastPathComponent ?? "No folder selected"
+        FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)?.lastPathComponent ?? "No folder selected"
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftlyFolderUtilities
+import OSLog
 
 /// The observable FileBrowser for Chord Provider
 @Observable
@@ -16,7 +17,9 @@ class FileBrowser {
     /// The list of artists
     var artistList: [ArtistItem] = []
     /// The name of the folder bookmark
-    static let bookmark: String = "SongsFolder"
+    static let folderBookmark: String = "SongsFolder"
+    /// The name of the export bookmark
+    static let exportBookmark: String = "ExportFolder1"
     /// The message of the folder selector
     static let message: String = "Select the folder with your songs"
     /// The label for the confirmation button of the folder selector
@@ -26,7 +29,7 @@ class FileBrowser {
     /// The optional songs folder
     var songsFolder: URL?
     /// The status
-    var status: AudioStatus = .unknown
+    var status: AudioFileStatus = .unknown
 #if os(macOS)
     /// The list of open windows
     var openWindows: [NSWindow.WindowItem] = []
@@ -36,7 +39,7 @@ class FileBrowser {
 #endif
     /// Init the FileBrowser
     init() {
-        songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.bookmark)
+        songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)
         folderMonitor.folderDidChange = {
             self.getFiles()
         }
@@ -88,7 +91,7 @@ extension FileBrowser {
     func getFiles() {
         do {
             /// Get a list of all files
-            try FolderBookmark.action(bookmark: FileBrowser.bookmark) { persistentURL in
+            try FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { persistentURL in
                 /// The found songs
                 var songs = [SongItem]()
                 status = .ready
@@ -97,7 +100,7 @@ extension FileBrowser {
                     while let item = items.nextObject() as? URL {
                         if ChordProDocument.fileExtension.contains(item.pathExtension) {
                             var song = SongItem(fileURL: item)
-                            parseSongFile(item, &song)
+                            FileBrowser.parseSongFile(item, &song)
                             songs.append(song)
                         }
                     }
@@ -122,7 +125,8 @@ extension FileBrowser {
     }
 
     /// Parse the song file for metadata
-    private func parseSongFile(_ file: URL, _ song: inout SongItem) {
+    static func parseSongFile(_ file: URL, _ song: inout SongItem) {
+
         song.title = file.lastPathComponent
 
         do {
@@ -132,32 +136,32 @@ extension FileBrowser {
                 parseFileLine(text: text, song: &song)
             }
         } catch {
-            print(error)
+            Logger.application.error("\(error.localizedDescription, privacy: .public)")
         }
-    }
 
-    /// Parse the actual metadata
-    private func parseFileLine(text: String, song: inout SongItem) {
-        if let match = text.wholeMatch(of: ChordPro.directiveRegex) {
+        /// Parse the actual metadata
+        func parseFileLine(text: String, song: inout SongItem) {
+            if let match = text.wholeMatch(of: ChordPro.directiveRegex) {
 
-            let directive = match.1
-            let label = match.2
+                let directive = match.1
+                let label = match.2
 
-            switch directive {
-            case .t, .title:
-                song.title = label ?? "Unknown Title"
-            case .st, .subtitle, .artist:
-                song.artist = label ?? "Unknown Artist"
-            case .musicPath:
-                if let label {
-                    song.musicPath = label
+                switch directive {
+                case .t, .title:
+                    song.title = label ?? "Unknown Title"
+                case .st, .subtitle, .artist:
+                    song.artist = label ?? "Unknown Artist"
+                case .musicPath:
+                    if let label {
+                        song.musicPath = label
+                    }
+                case .tag:
+                    if let label {
+                        song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
+                    }
+                default:
+                    break
                 }
-            case .tag:
-                if let label {
-                    song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
-                }
-            default:
-                break
             }
         }
     }

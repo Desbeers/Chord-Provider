@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 /// SwiftUI `View` for a ``Song`` export
 struct ExportSongView: View {
@@ -17,7 +18,6 @@ struct ExportSongView: View {
     @State private var pdf: Data?
     /// The body of the `View`
     var body: some View {
-        // swiftlint:disable:next trailing_closure
         Button(
             action: {
                 if let sceneState {
@@ -36,14 +36,18 @@ struct ExportSongView: View {
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),
-            contentType: .pdf,
+            contentTypes: [.pdf],
             defaultFilename: sceneState?.song.exportName,
             onCompletion: { result in
-                if case .success = result {
-                    print("Success")
-                } else {
-                    print("Failure")
+                switch result {
+                case .success(let url):
+                    Logger.application.notice("Export song to \(url.lastPathComponent, privacy: .public) completed")
+                case .failure(let error):
+                    Logger.application.error("Export song error: \(error.localizedDescription, privacy: .public)")
                 }
+            },
+            onCancellation: {
+                Logger.application.notice("Export canceled")
             }
         )
     }

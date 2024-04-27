@@ -58,6 +58,20 @@ public extension StringAttributes {
         ] + .alignment(.center)
     }
 
+    static var exportTitle: StringAttributes {
+        [
+            .foregroundColor: SWIFTColor.white,
+            .font: SWIFTFont.systemFont(ofSize: 28, weight: .semibold)
+        ] + .alignment(.center)
+    }
+
+    static var exportAuthor: StringAttributes {
+        [
+            .foregroundColor: SWIFTColor.gray,
+            .font: SWIFTFont.systemFont(ofSize: 24, weight: .regular)
+        ] + .alignment(.center)
+    }
+
     static func alignment(_ alignment: NSTextAlignment) -> StringAttributes {
         let style = NSMutableParagraphStyle()
         style.alignment = alignment
@@ -69,23 +83,21 @@ public extension StringAttributes {
 
 public extension StringAttributes {
 
-    // swiftlint:disable force_unwrapping
     static var serifFont: StringAttributes {
 #if os(macOS)
         let descriptor = NSFontDescriptor
             .preferredFontDescriptor(
                 forTextStyle: .body
             )
-            .withDesign(.serif)!
-        return [.font: SWIFTFont(descriptor: descriptor, size: 10)!]
+            .withDesign(.serif)
+        return [.font: SWIFTFont(descriptor: descriptor ?? NSFontDescriptor(), size: 10) ?? [:]]
 #else
         let descriptor = UIFontDescriptor
             .preferredFontDescriptor(
                 withTextStyle: .body
             )
-            .withDesign(.serif)!
-        return [.font: SWIFTFont(descriptor: descriptor, size: 10)]
+            .withDesign(.serif)
+        return [.font: SWIFTFont(descriptor: descriptor ?? UIFontDescriptor(), size: 10)]
 #endif
     }
-    // swiftlint:enable force_unwrapping
 }

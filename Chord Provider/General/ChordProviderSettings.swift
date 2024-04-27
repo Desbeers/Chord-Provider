@@ -8,6 +8,7 @@
 import Foundation
 import SwiftlyStructCache
 import SwiftlyChordUtilities
+import OSLog
 
 /// Structure with all the Chord Provider Settings
 struct ChordProviderSettings: Equatable, Codable, Sendable {
@@ -51,7 +52,7 @@ extension ChordProviderSettings {
         do {
             try Cache.set(key: "ChordProviderSettings", object: settings)
         } catch {
-            print("Error saving ChordProvider settings")
+            Logger.application.error("Error saving ChordProvider settings")
         }
     }
 }

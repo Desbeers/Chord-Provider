@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for the file browser
@@ -29,7 +30,7 @@ struct FileBrowserView: View {
                     Text("Welcome to Chord Provider")
                         .font(.title)
                     SongFolderView()
-                    Text(.init(AudioStatus.browser))
+                    Text(.init(AudioFileStatus.browser))
                         .padding(.vertical)
                         .font(.caption)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,22 +89,22 @@ struct FileBrowserView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .background(Color.telecaster.opacity(0.1))
         .animation(.default, value: fileBrowser.status)
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
         .buttonStyle(.plain)
         .frame(width: 320)
         .frame(minHeight: 500)
+        .background(Color.telecaster.opacity(0.2))
         .navigationTitle("Chord Provider")
+        .toolbar {
+            fileBrowser.folderSelector
+        }
         .task(id: fileBrowser.songList) {
             fileBrowser.getFiles()
             let tags = fileBrowser.songList.flatMap(\.tags)
             /// Make sure the tags are unique
             allTags = Array(Set(tags).sorted())
-        }
-        .toolbar {
-            fileBrowser.folderSelector
         }
     }
 
@@ -222,13 +223,13 @@ extension FileBrowserView {
                 /// instead of using the `FolderBookmark.action` method
                 Task {
                     do {
-                        if let persistentURL = try FolderBookmark.getPersistentFileURL(FileBrowser.bookmark) {
+                        if let persistentURL = try FolderBookmark.getPersistentFileURL(FileBrowser.folderBookmark) {
                             _ = persistentURL.startAccessingSecurityScopedResource()
                             try await openDocument(at: url)
                             persistentURL.stopAccessingSecurityScopedResource()
                         }
                     } catch {
-                        print(error.localizedDescription)
+                        Logger.application.error("Error opening file: \(error.localizedDescription, privacy: .public)")
                     }
                 }
             }

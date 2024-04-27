@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 import AVKit
 import SwiftlyFolderUtilities
 import SwiftlyAlertMessage
@@ -21,7 +22,7 @@ struct AudioPlayerView: View {
     /// The FileBrowser model
     @Environment(FileBrowser.self) private var fileBrowser
     /// The status of the song
-    @State private var status: AudioStatus = .unknown
+    @State private var status: AudioFileStatus = .unknown
     /// The iCloud URL of the song
     private var iCloudURL: URL {
         let hiddenFile = ".\(musicURL.lastPathComponent).icloud"
@@ -82,7 +83,7 @@ struct AudioPlayerView: View {
         .confirmationDialog(message: $confirmationDialog)
         .selectFolderSheet(
             isPresented: $showFolderSelector,
-            bookmark: FileBrowser.bookmark,
+            bookmark: FileBrowser.folderBookmark,
             message: FileBrowser.message,
             confirmationLabel: FileBrowser.confirmationLabel
         ) {
@@ -103,7 +104,7 @@ struct AudioPlayerView: View {
     @ViewBuilder var playButton: some View {
         Button(
             action: {
-                try? FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+                try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
                     playSong()
                 }
             },
@@ -136,7 +137,7 @@ struct AudioPlayerView: View {
     /// Check the song file
     private func checkSong() {
         do {
-            try FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+            try FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
                 if musicURL.exist() {
                     status = .ready
                 } else {
@@ -165,18 +166,18 @@ struct AudioPlayerView: View {
             /// For the button state
             isPlaying = true
         } catch {
-            errorAlert = AudioStatus.songNotFound.alert()
+            errorAlert = AudioFileStatus.songNotFound.alert()
         }
     }
 
     /// Download the song
     private func downloadSong(iCloudURL: URL) {
-        try? FolderBookmark.action(bookmark: FileBrowser.bookmark) { _ in
+        try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
             Task {
                 do {
                     try FileManager.default.startDownloadingUbiquitousItem(at: iCloudURL )
                 } catch {
-                    print(error.localizedDescription)
+                    Logger.application.error("Export downloading song: \(error.localizedDescription, privacy: .public)")
                 }
                 while status != .ready {
                     try? await Task.sleep(nanoseconds: 100000000)

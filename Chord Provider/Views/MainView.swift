@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the main content
@@ -72,11 +73,12 @@ struct MainView: View {
             instrument: chordDisplayOptions.instrument
         )
         Task {
-            let render = SongToPDF.renderPDF(song: sceneState.song, options: chordDisplayOptions.displayOptions)
-            sceneState.pdfData = render.pdf
-            /// Process the PDF data
-            if let result = SongToPDF.process(data: render.pdf, toc: render.toc) {
-                result.write(to: sceneState.song.exportURL)
+            do {
+                let export = try SongExport.export(song: sceneState.song, options: chordDisplayOptions.displayOptions)
+                sceneState.pdfData = export.pdf
+                try export.pdf.write(to: sceneState.song.exportURL)
+            } catch {
+                Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
             }
         }
     }

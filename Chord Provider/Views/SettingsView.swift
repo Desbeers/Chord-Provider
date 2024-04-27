@@ -91,7 +91,7 @@ struct SettingsView: View {
     /// `View` with folder selector
     var folder: some View {
         VStack {
-            Text(.init(AudioStatus.help))
+            Text(.init(AudioFileStatus.help))
             fileBrowser.folderSelector
                 .padding()
         }

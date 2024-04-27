@@ -333,7 +333,7 @@ extension Song.Render {
                 options: options,
                 label: comment,
                 icon: "text.bubble",
-                color: .yellow
+                color: .comment
             )
             .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
         }
@@ -430,7 +430,7 @@ extension Song.Render {
         /// The optional icon
         var icon: String?
         /// The color of the label
-        var color: Color = .accentColor
+        var color: Color = .accent.opacity(0.2)
         var body: some View {
             if let icon {
                 Label(
@@ -443,11 +443,11 @@ extension Song.Render {
                     }
                 )
                 .padding(options.scale * 6)
-                .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
+                .background(color, in: RoundedRectangle(cornerRadius: 6))
             } else {
                 Text(.init(label))
                     .padding(options.scale * 6)
-                    .background(color.opacity(0.2), in: RoundedRectangle(cornerRadius: 6))
+                    .background(color, in: RoundedRectangle(cornerRadius: 6))
             }
         }
     }

@@ -12,12 +12,10 @@ import QuickLookThumbnailing
 class ThumbnailProvider: QLThumbnailProvider {
 
     override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
-        Task { @MainActor in
-            /// Create ethe image with SwiftUI `ImageRenderer`
-            /// - Note: Run on the MainActor or else you get a silent fatal error
+        do {
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
             let song = ChordPro.parse(text: fileContents, transpose: 0, instrument: .guitarStandardETuning)
-            let data = SongToPDF.renderPDF(song: song, options: .init())
+            let data = try SongExport.export(song: song, options: .init())
             /// Create image for data
             let nsImage = NSImage(data: data.pdf)
             var rect = NSRect(origin: CGPoint(x: 0, y: 0), size: nsImage?.size ?? .zero)
@@ -45,6 +43,8 @@ class ThumbnailProvider: QLThumbnailProvider {
             } else {
                 Logger.thumbnailProvider.log("Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public) failed")
             }
+        } catch {
+            Logger.thumbnailProvider.log("Make thumbnail error: \(error.localizedDescription, privacy: .public) failed")
         }
     }
 }

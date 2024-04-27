@@ -37,8 +37,11 @@ struct ChordProDocument: FileDocument {
     /// - Parameter configuration: The document configuration
     /// - Returns: A file in the file system
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        // swiftlint:disable:next force_unwrapping
-        let data = text.data(using: .utf8)!
+        guard
+            let data = text.data(using: .utf8)
+        else {
+            throw ChordProviderError.writeDocumentError
+        }
         return .init(regularFileWithContents: data)
     }
 }

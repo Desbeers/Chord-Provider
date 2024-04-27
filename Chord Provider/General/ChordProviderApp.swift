@@ -26,6 +26,8 @@ import SwiftlyChordUtilities
 
     /// AppKit app delegate
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    /// Open new windows
+    @Environment(\.openWindow) var openWindow
     /// The body of the `Scene`
     var body: some Scene {
 
@@ -40,6 +42,20 @@ import SwiftlyChordUtilities
         /// Make it sizable by the View frame
         .windowResizability(.contentSize)
         .defaultPosition(.topLeading)
+        .windowToolbarStyle(.unifiedCompact)
+
+        // MARK: 'Export Folder' single window
+
+        /// The 'Export Folder' window
+        Window("Export Folder with Songs…", id: "Export") {
+            ExportFolderView()
+                .environment(fileBrowser)
+                .environment(chordDisplayOptions)
+        }
+        .keyboardShortcut("e")
+        /// Make it sizable by the View frame
+        .windowResizability(.contentSize)
+        .defaultPosition(.center)
         .windowToolbarStyle(.unifiedCompact)
 
         // MARK: 'Song' document window
@@ -79,19 +95,23 @@ import SwiftlyChordUtilities
                 }
         }
         .commands {
-            CommandGroup(after: CommandGroupPlacement.importExport) {
-                ExportSongView()
-                ExportLibraryView()
-                    .environment(fileBrowser)
-                    .environment(chordDisplayOptions)
+            CommandGroup(after: .appInfo) {
+                Divider()
+                Button("Export Folder with Songs…") {
+                    openWindow(id: "Export")
+                }
             }
-            CommandGroup(after: CommandGroupPlacement.importExport) {
+            CommandGroup(after: .importExport) {
+                ExportSongView()
+            }
+            CommandGroup(after: .importExport) {
                 PrintSongView()
             }
             CommandGroup(replacing: .help) {
-                // swiftlint:disable:next force_unwrapping
-                Link(destination: URL(string: "https://github.com/Desbeers/Chord-Provider")!) {
-                    Text("Chord Provider on GitHub")
+                if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
+                    Link(destination: url) {
+                        Text("Chord Provider on GitHub")
+                    }
                 }
             }
         }
