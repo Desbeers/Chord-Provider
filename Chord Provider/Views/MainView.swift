@@ -70,7 +70,8 @@ struct MainView: View {
         sceneState.song = ChordPro.parse(
             text: document.text,
             transpose: sceneState.song.transpose,
-            instrument: chordDisplayOptions.instrument
+            instrument: chordDisplayOptions.instrument,
+            fileURL: sceneState.file
         )
         Task {
             do {

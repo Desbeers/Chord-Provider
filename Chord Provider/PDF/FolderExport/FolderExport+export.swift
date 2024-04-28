@@ -28,17 +28,23 @@ extension FolderExport {
         // MARK: Get the song files
         let files = try files()
 
+        /// Build the TOC to see how many pages we need
+        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.right))
+        counter.tocItems = files.map { file in
+            PDFBuild.TOCInfo(title: file.title, subtitle: file.artist, fileURL: file.fileURL)
+        }
+        var tocData = FolderExport.toc(info: info, counter: counter)
+        let tocPageCount = PDFDocument(data: tocData)?.pageCount ?? 0
+        /// Remove one page from the counter
+        counter.pageNumber -= 1
+
         // MARK: Render Content
-        let content = FolderExport.content(info: info, files: files, options: options, progress: progress)
-        let contentData = content.data
-        let counter = content.counter
+        let contentData = FolderExport.content(info: info, counter: counter, options: options, progress: progress)
 
         // MARK: Render Table of Contents
-
-        let tocData = FolderExport.toc(info: info, counter: counter)
+        tocData = FolderExport.toc(info: info, counter: counter)
 
         // MARK: Convert to PDFDocument
-
         guard
             let tocPDF = PDFDocument(data: tocData),
             let newPDF = PDFDocument(data: contentData)
@@ -47,23 +53,20 @@ extension FolderExport {
         }
 
         // MARK: Add outline
-
-        let toc = counter.tocItems.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.subtitle))
-
+        let toc = counter.tocItems
+        /// Make the root outline
         newPDF.outlineRoot = PDFOutline()
-
+        /// Add the child items
         let artists = PDFOutline()
         artists.label = "Artist"
         newPDF.outlineRoot?.insertChild(artists, at: 0)
         let songs = PDFOutline()
         songs.label = "Songs"
         newPDF.outlineRoot?.insertChild(songs, at: 1)
-
         /// Songs by artist
         var entryCounter: Int = 0
         for song in toc.sorted(using: KeyPathComparator(\.subtitle)) {
-            /// Internal, the first page number is `0`, so, take one off..
-            let page = song.pageNumber - 1 - counter.firstPage
+            let page = song.pageNumber - tocPageCount
             guard let pdfPage = newPDF.page(at: page) else {
                 throw ChordProviderError.createPdfError
             }
@@ -77,12 +80,10 @@ extension FolderExport {
             artists.insertChild(artistEntry, at: entryCounter)
             entryCounter += 1
         }
-
         /// Songs by title
         entryCounter = 0
         for song in toc.sorted(using: KeyPathComparator(\.title)) {
-            /// Internal, the first page number is `0`, so, take one off..
-            let page = song.pageNumber - 1 - counter.firstPage
+            let page = song.pageNumber - tocPageCount
             guard let pdfPage = newPDF.page(at: page) else {
                 throw ChordProviderError.createPdfError
             }
@@ -108,28 +109,30 @@ extension FolderExport {
         newPDF.insert(frontPage, at: 0)
 
         // MARK: Add TOC with internal links
-        for index in stride(from: 0, to: toc.count - 1, by: FolderExport.tocSongsOnPage) {
-            let tocPageIndex = (index / FolderExport.tocSongsOnPage) + 1
+        /// Use the Dictionary(grouping:) function so that all the items are grouped together by TOC page
+        let groupedTOC = Dictionary(grouping: counter.tocItems) { (occurrence: PDFBuild.TOCInfo) -> Int in
+            occurrence.tocPageNumber
+        }
+        let sortedTOC = groupedTOC.sorted(using: KeyPathComparator(\.key))
+        for (tocPageIndex, items) in sortedTOC {
             guard
-                let tocPage = tocPDF.page(at: tocPageIndex)
+                /// Internal, the first page number is `0`, so, take one extra off..
+                let tocPage = tocPDF.page(at: tocPageIndex - 1)
             else {
                 throw ChordProviderError.createPdfError
             }
-
-            for songIndex in index..<(index + FolderExport.tocSongsOnPage) where songIndex < toc.count {
-
-                let song = toc[songIndex]
+            for item in items.sorted(using: KeyPathComparator(\.pageNumber)) {
                 guard
-                    let destinationPage = newPDF.page(at: song.pageNumber - 2 - counter.firstPage + tocPageIndex)
+                    let destinationPage = newPDF.page(at: item.pageNumber - tocPageCount + tocPageIndex - 2)
                 else {
                     throw ChordProviderError.createPdfError
                 }
                 let mediaBox = tocPage.bounds(for: .mediaBox)
                 let bounds = CGRect(
-                    x: song.rect.origin.x,
-                    y: mediaBox.height - song.rect.origin.y - song.rect.height,
-                    width: song.rect.width,
-                    height: song.rect.height
+                    x: item.rect.origin.x,
+                    y: mediaBox.height - item.rect.origin.y - item.rect.height,
+                    width: item.rect.width,
+                    height: item.rect.height
                 )
                 let destinationCoordinates = CGPoint(x: 25, y: mediaBox.height)
                 let link = PDFAnnotation(
@@ -146,7 +149,7 @@ extension FolderExport {
                 tocPage.addAnnotation(link)
             }
             /// Insert the new TOC page with the internal links
-            newPDF.insert(tocPage, at: tocPageIndex)
+            newPDF.insert(tocPage, at: tocPageIndex - 1)
         }
         return newPDF
     }

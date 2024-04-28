@@ -16,21 +16,15 @@ extension FolderExport {
     /// - Returns: The Table of Contents as `Data`
     static func toc(info: PDFBuild.DocumentInfo, counter: PDFBuild.PageCounter) -> Data {
         let tocBuilder = PDFBuild.Builder(info: info)
+        tocBuilder.pageCounter = counter
         tocBuilder.elements.append(PDFBuild.PageBackgroundColor(color: .black))
         tocBuilder.elements.append(PDFBuild.Text(info.title, attributes: .exportTitle))
         tocBuilder.elements.append(PDFBuild.Text(info.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
+        tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .songTitle))
+        tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(20))
         for (index, tocInfo) in counter.tocItems.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.subtitle)).enumerated() {
-            if index % FolderExport.tocSongsOnPage == 0 {
-                switch index {
-                case 0:
-                    tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .songTitle))
-                    tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(20))
-                default:
-                    tocBuilder.elements.append(PDFBuild.PageBreak())
-                }
-            }
             tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter))
         }
         return tocBuilder.generatePdf()

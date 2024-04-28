@@ -65,7 +65,8 @@ extension SongExport {
     ) -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
             title: song.title ?? "Unknown title",
-            subtitle: song.artist ?? "Unkwon artist"
+            subtitle: song.artist ?? "Unknown artist",
+            fileURL: song.fileURL
         )
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))

@@ -18,7 +18,12 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             contentSize: CGSize.init(width: 800, height: 800)
         ) { (replyToUpdate: QLPreviewReply) in
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-            let song = ChordPro.parse(text: fileContents, transpose: 0, instrument: .guitarStandardETuning)
+            let song = ChordPro.parse(
+                text: fileContents,
+                transpose: 0,
+                instrument: .guitarStandardETuning,
+                fileURL: request.fileURL
+            )
             let data = try SongExport.export(song: song, options: .init()).pdf
             replyToUpdate.title = "\(song.artist ?? "Artist") - \(song.title ?? "Title")"
             replyToUpdate.stringEncoding = .utf8

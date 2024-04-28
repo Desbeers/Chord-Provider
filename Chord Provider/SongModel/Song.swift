@@ -11,6 +11,8 @@ import SwiftlyChordUtilities
 /// The structure of a song in `Chord Provider`
 struct Song {
 
+    var id: UUID = UUID()
+
     // MARK: Meta-data directives
 
     /// The optional title
@@ -39,6 +41,8 @@ struct Song {
     var transpose: Int = 0
     /// The instrument
     var instrument: Instrument
+    /// The optional file URL
+    var fileURL: URL?
 
     // MARK: Song export
 

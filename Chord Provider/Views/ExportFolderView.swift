@@ -77,7 +77,7 @@ struct ExportFolderView: View {
                                 exportFile = true
                             }
                         } catch {
-                            Logger.application.error("\(error.localizedDescription, privacy: .public)")
+                            Logger.application.error("\(error, privacy: .public)")
                         }
                     }
                 },

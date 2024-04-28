@@ -14,7 +14,12 @@ class ThumbnailProvider: QLThumbnailProvider {
     override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
         do {
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-            let song = ChordPro.parse(text: fileContents, transpose: 0, instrument: .guitarStandardETuning)
+            let song = ChordPro.parse(
+                text: fileContents,
+                transpose: 0,
+                instrument: .guitarStandardETuning,
+                fileURL: request.fileURL
+            )
             let data = try SongExport.export(song: song, options: .init())
             /// Create image for data
             let nsImage = NSImage(data: data.pdf)
