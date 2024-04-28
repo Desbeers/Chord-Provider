@@ -5,28 +5,33 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 import SwiftlyChordUtilities
 
 extension PDFBuild {
 
-    /// A PDF lyrics section item
-    open class LyricsSection: PDFElement {
+    /// A PDF **lyrics section** element
+    class LyricsSection: PDFElement {
 
+        /// The section with lyrics
         let section: Song.Section
+        /// All the chords from the song
         let chords: [ChordDefinition]
 
+        /// Init the **lyrics section** element
+        /// - Parameters:
+        ///   - section: The section with lyrics
+        ///   - chords: All the chords from the song
         init(_ section: Song.Section, chords: [ChordDefinition]) {
             self.section = section
             self.chords = chords
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-
+        /// Draw the **lyrics section** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             for line in section.lines {
                 if line.comment.isEmpty {
                     let line = Line(parts: line.parts, chords: chords)
@@ -38,15 +43,4 @@ extension PDFBuild {
             }
         }
     }
-}
-
-extension StringAttributes {
-
-//    /// String attributes for a strum line
-//    static var strumLine: StringAttributes {
-//        [
-//            .foregroundColor: SWIFTColor.black,
-//            .font: SWIFTFont.monospacedSystemFont(ofSize: 8, weight: .regular)
-//        ]
-//    }
 }

@@ -24,14 +24,6 @@ public typealias SWIFTEdgeInsets = NSEdgeInsets
 /// Alias for NSBezierPath
 public typealias SWIFTBezierPath = NSBezierPath
 
-// MARK: macOS functions
-
-/// macOS version of the `UIGraphicsGetCurrentContext` function from iOS
-/// - Returns: An optional A Quartz 2D drawing environment
-func UIGraphicsGetCurrentContext() -> CGContext? {
-    NSGraphicsContext.current?.cgContext
-}
-
 // MARK: macOS extensions
 
 extension NSBezierPath {

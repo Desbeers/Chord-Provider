@@ -183,7 +183,7 @@ extension FileBrowserView {
                                         .foregroundStyle(.secondary)
                                 }
                                 if !song.tags.isEmpty {
-                                    Text(song.tags.joined(separator: " ∙ "))
+                                    Text(song.tags.joined(separator: "∙"))
                                         .foregroundStyle(controlActiveState == .key ? .tertiary : .quaternary)
                                 }
                             }

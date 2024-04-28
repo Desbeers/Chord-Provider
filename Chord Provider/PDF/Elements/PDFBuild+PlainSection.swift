@@ -5,25 +5,27 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
-import SwiftlyChordUtilities
+import Foundation
 
 extension PDFBuild {
 
-    /// A PDF plain section item
-    open class PlainSection: PDFElement {
+    /// A PDF *plain section* element
+    class PlainSection: PDFElement {
 
+        /// The plain section
         let section: Song.Section
 
+        /// Init the **plain section** element
+        /// - Parameter section: The plain section
         init(_ section: Song.Section) {
             self.section = section
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        /// Draw the **plain section** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             for line in section.lines {
                 for part in line.parts {
                     let line = PDFBuild.Text(part.text, attributes: .plainLine)

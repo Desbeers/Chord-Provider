@@ -5,27 +5,28 @@
 //  © 2023 Nick Berendsen
 //
 
-
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 import SwiftlyChordUtilities
 
 extension PDFBuild {
 
-    /// A PDF tab section item
-    open class TabSection: PDFElement {
+    /// A PDF **tab section** element
+    class TabSection: PDFElement {
 
+        /// The section with tabs
         let section: Song.Section
 
+        /// Init the **tab section** element
+        /// - Parameter section: The section with tabs
         init(_ section: Song.Section) {
             self.section = section
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-
+        /// Draw the **lyrics section** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             for line in section.lines {
                 if line.comment.isEmpty {
                     let line = PDFBuild.TabSection.Line(line.tab)

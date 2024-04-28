@@ -5,40 +5,40 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 
 extension PDFBuild.TabSection {
 
-    open class Line: PDFElement {
+    /// A PDF **line** element for a `TabSection`
+    class Line: PDFElement {
 
+        /// The line with the tab
         let tab: String
 
-        public init(_ tab: String) {
+        /// Init the **tab** item
+        /// - Parameter tab: The line with the tab
+        init(_ tab: String) {
             self.tab = tab
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-
-            let textRect = rect.insetBy(dx: PDFElement.textPadding, dy: PDFElement.textPadding)
-
+        /// Draw the **line** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
+            let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
             let characters = tab.count
-
+            /// Calculate the font size so the line will not wrap
             let fontSize = min(textRect.width / CGFloat(characters), 10)
-
             let text = NSAttributedString(
                 string: tab,
                 attributes: .tabLine(fontSize: fontSize)
             )
-
             let textBounds = text.bounds(withSize: textRect.size)
             if !calculationOnly {
                 text.draw(with: textRect, options: textDrawingOptions, context: nil)
             }
-            let height = textBounds.height + 2 * PDFElement.textPadding
+            let height = textBounds.height + 2 * textPadding
             rect.origin.y += height
             rect.size.height -= height
         }
@@ -49,6 +49,7 @@ extension PDFBuild.TabSection {
 
 public extension StringAttributes {
 
+    /// Style atributes for the line of a tab
     static func tabLine(fontSize: CGFloat) -> StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,

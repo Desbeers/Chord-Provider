@@ -5,18 +5,20 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 
 extension PDFBuild {
 
-    /// A PDF pagebreak item
-    open class PageBreak: PDFElement {
-        open override func shoudPageBreak(rect: CGRect) -> Bool {
-            return true
+    /// A PDF **page break** element
+    ///
+    /// This element will close the current page and start a new one
+    class PageBreak: PDFElement {
+
+        /// Check if an ``PDFElement`` fits on the current page or if it should break
+        /// - Parameter rect: The available rectangle
+        /// - Returns: Bool if the page should break (always true for this element)
+        func shoudPageBreak(rect: CGRect) -> Bool {
+            true
         }
     }
 }

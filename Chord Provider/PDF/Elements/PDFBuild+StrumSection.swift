@@ -5,26 +5,27 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
-import SwiftlyChordUtilities
+import Foundation
 
 extension PDFBuild {
 
-    /// A PDF strum section item
-    open class StrumSection: PDFElement {
+    /// A PDF **strum section** element
+    class StrumSection: PDFElement {
 
+        /// The section with strumming
         let section: Song.Section
 
+        /// Init the **strum section** element
+        /// - Parameter section: The section with strumming
         init(_ section: Song.Section) {
             self.section = section
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-
+        /// Draw the **strum section** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             for line in section.lines {
                 if line.comment.isEmpty {
                     for strum in line.strum {

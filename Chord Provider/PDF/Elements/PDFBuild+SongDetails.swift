@@ -5,30 +5,31 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 import SwiftlyChordUtilities
 
 extension PDFBuild {
 
-    /// A PDF song details item
-    open class SongDetails: PDFElement {
+    /// A PDF **song details** element
+    class SongDetails: PDFElement {
 
+        /// The ``Song``
         let song: Song
 
+        /// Init the **song details** element
+        /// - Parameter song: The ``Song``
         init(song: Song) {
             self.song = song
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-
+        /// Draw the **song details** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
+            /// Add the detail items
             var items: [NSAttributedString] = []
-
             items.append(detailLabel(icon: "􀑭", label: song.instrument.label))
-
             if let key = song.key {
                 items.append(detailLabel(icon: "􀟕", label: key.displayName(options: .init())))
             }
@@ -38,19 +39,23 @@ extension PDFBuild {
             if let time = song.time {
                 items.append(detailLabel(icon: "􀐱", label: time))
             }
-
             let text = items.joined(with: "  ")
-
+            /// Draw the details
             let textBounds = text.bounds(withSize: rect.size)
             if !calculationOnly {
                 text.draw(with: rect, options: textDrawingOptions, context: nil)
             }
-            let height = textBounds.height + 2 * PDFElement.textPadding
+            let height = textBounds.height + 2 * textPadding
             rect.origin.y += height
             rect.size.height -= height
         }
 
-        func detailLabel(icon: String, label: String) -> NSAttributedString {
+        /// Make a detail label
+        /// - Parameters:
+        ///   - icon: The icon as `String`
+        ///   - label: The label as `String`
+        /// - Returns: An `NSAttributedString` with icon, label and attributes
+        private func detailLabel(icon: String, label: String) -> NSAttributedString {
             [
                 NSAttributedString(string: icon, attributes: .songDetailIcon),
                 NSAttributedString(string: label, attributes: .songDetailLabel)

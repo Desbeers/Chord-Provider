@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// SwiftUI `View` for the metronome
 @MainActor
 struct MetronomeView: View {
     /// The time signature

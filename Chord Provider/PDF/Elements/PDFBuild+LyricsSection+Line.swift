@@ -5,25 +5,22 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 import SwiftlyChordUtilities
 
 extension PDFBuild.LyricsSection {
 
-    /// A collection of parts that makes a line in a song
-    open class Line: PDFElement {
-
+    /// A PDF **line** element for a `LyricsSection`
+    class Line: PDFElement {
+        /// The parts in the line
         let parts: [Part]
+        /// The height of a single part
         let height: CGFloat
 
-        /// A collection of parts that makes a line in a song
+        /// Init the **line** element
         /// - Parameters:
         ///   - parts: The parts of the line
-        ///   - chords: All the chords in the song
+        ///   - chords: All the chords from the song
         init(parts: [Song.Section.Line.Part], chords: [ChordDefinition]) {
             var items: [Part] = []
             for part in parts {
@@ -33,7 +30,11 @@ extension PDFBuild.LyricsSection {
             self.height = items.first?.size.height ?? 0
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        /// Draw the **line** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             var partOffset: CGFloat = 0
             for part in parts {
                 var cellRect = CGRect(
@@ -43,6 +44,10 @@ extension PDFBuild.LyricsSection {
                     height: part.size.height
                 )
                 partOffset += part.size.width
+                /// Add a bit extra width if the text ends with a `space`
+                if part.text.string.last == " " {
+                    partOffset += 2 * textPadding
+                }
                 part.draw(rect: &cellRect, calculationOnly: calculationOnly)
             }
             rect.origin.y += height

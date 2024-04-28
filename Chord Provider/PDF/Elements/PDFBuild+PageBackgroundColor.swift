@@ -13,23 +13,28 @@ import UIKit
 
 extension PDFBuild {
 
-    /// A PDF page background color item
-    open class PageBackgroundColor: PDFElement {
+    /// A PDF **page background color** element
+    class PageBackgroundColor: PDFElement {
 
-        /// The color for the background
+        /// The ``SWIFTColor`` for the background
         let color: SWIFTColor
 
         /// Fill a page with a background color
         /// - Parameters:
-        ///   - color: The color for the background
-        public init(color: SWIFTColor) {
+        ///   - color: The ``SWIFTColor`` for the background
+        init(color: SWIFTColor) {
             self.color = color
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        /// Draw the **page background color** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        /// - Note: the rect value will be ignored and the full page size will be used
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             /// Render the background below the element
             if !calculationOnly, let context = UIGraphicsGetCurrentContext() {
-                let fillRect = PDFBuild.a4portraitPage
+                let fillRect = PDFBuild.pageRect
                 context.setFillColor(color.cgColor)
                 context.fill(fillRect)
             }

@@ -5,54 +5,43 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 
 extension PDFBuild {
 
-    /// A PDF pagecounter item
-    open class PageCounter: PDFElement {
-        public let startPage: Int
+    /// A PDF **page counter** element
+    /// 
+    /// - Keep a list of items for the TOC
+    /// - Drawing of the **page counter**
+    class PageCounter: PDFElement {
+
+        /// The number of the first page
+        public let firstPage: Int
+        /// The current page number
         public var pageNumber: Int
-        public var format: String
-        public var attributes: StringAttributes
+        /// The attributes for the page counter string
+        public let attributes: StringAttributes
+        /// The TOC items in the document
+        /// - Note: The `ContentItem` element can add elements to this array
+        public var tocItems: [TOCInfo] = []
 
-        public var songs: [SongInfo] = []
-
-        public init(startPage: Int, format: String = "%i", attributes: StringAttributes = StringAttributes()) {
-            self.startPage = startPage
-            self.pageNumber = startPage
-            self.format = format
+        /// Init the **page counter** element
+        /// - Parameters:
+        ///   - firstPage: The number of the first page
+        ///   - attributes: The attributes for the page counter string
+        init(firstPage: Int, attributes: StringAttributes = StringAttributes()) {
+            self.firstPage = firstPage
+            self.pageNumber = firstPage
             self.attributes = attributes
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-            let textRect = rect.insetBy(dx: PDFElement.textPadding, dy: PDFElement.textPadding)
-            let text = NSAttributedString(
-                string: String(format: format, pageNumber),
-                attributes: attributes)
-            let textBounds = text.bounds(withSize: textRect.size)
-            if !calculationOnly {
-                text.draw(with: textRect, options: textDrawingOptions, context: nil)
-            }
-            let height = textBounds.height + 2 * PDFElement.textPadding
-            rect.origin.y += height
-            rect.size.height -= height
+        /// Draw the **page counter** element with a `Text` element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
+            let pageCounter = PDFBuild.Text(String(pageNumber), attributes: attributes)
+            pageCounter.draw(rect: &rect, calculationOnly: calculationOnly)
         }
-    }
-}
-
-// MARK: Page counter string styling
-
-public extension StringAttributes {
-
-    static var pageCounter: StringAttributes {
-        [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)
-        ] + .alignment(.center)
     }
 }

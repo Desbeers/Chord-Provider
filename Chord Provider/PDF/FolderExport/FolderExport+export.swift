@@ -13,16 +13,23 @@ import OSLog
 
 extension FolderExport {
 
+    /// Export a folder with ChordPro songs
+    /// - Parameters:
+    ///   - info: The document info for the PDF
+    ///   - options: The chord display options
+    ///   - progress: A closure to observe the progress of PDF creation
+    /// - Returns: A PDFDocument if all well, else an error
     static func export(
         info: PDFBuild.DocumentInfo,
         options: ChordDefinition.DisplayOptions,
-        progress: @escaping (Float) -> Void
+        progress: @escaping (Double) -> Void
     ) async throws -> PDFDocument? {
+
         // MARK: Get the song files
         let files = try files()
 
         // MARK: Render Content
-        let content = FolderExport.content(files: files, options: options, progress: progress)
+        let content = FolderExport.content(info: info, files: files, options: options, progress: progress)
         let contentData = content.data
         let counter = content.counter
 
@@ -41,7 +48,7 @@ extension FolderExport {
 
         // MARK: Add outline
 
-        let toc = counter.songs.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.artist))
+        let toc = counter.tocItems.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.subtitle))
 
         newPDF.outlineRoot = PDFOutline()
 
@@ -52,12 +59,11 @@ extension FolderExport {
         songs.label = "Songs"
         newPDF.outlineRoot?.insertChild(songs, at: 1)
 
-        // MARK: Songs by artist
-
+        /// Songs by artist
         var entryCounter: Int = 0
-        for song in toc.sorted(using: KeyPathComparator(\.artist)) {
+        for song in toc.sorted(using: KeyPathComparator(\.subtitle)) {
             /// Internal, the first page number is `0`, so, take one off..
-            let page = song.page - 1 - counter.startPage
+            let page = song.pageNumber - 1 - counter.firstPage
             guard let pdfPage = newPDF.page(at: page) else {
                 throw ChordProviderError.createPdfError
             }
@@ -67,17 +73,16 @@ extension FolderExport {
 
             let artistEntry = PDFOutline()
             artistEntry.destination = newDest
-            artistEntry.label = "\(song.artist) - \(song.title)"
+            artistEntry.label = "\(song.subtitle) - \(song.title)"
             artists.insertChild(artistEntry, at: entryCounter)
             entryCounter += 1
         }
 
-        // MARK: Songs by title
-
+        /// Songs by title
         entryCounter = 0
         for song in toc.sorted(using: KeyPathComparator(\.title)) {
             /// Internal, the first page number is `0`, so, take one off..
-            let page = song.page - 1 - counter.startPage
+            let page = song.pageNumber - 1 - counter.firstPage
             guard let pdfPage = newPDF.page(at: page) else {
                 throw ChordProviderError.createPdfError
             }
@@ -87,7 +92,7 @@ extension FolderExport {
             let newDest = PDFDestination(page: pdfPage, at: topLeft)
             let songEntry = PDFOutline()
             songEntry.destination = newDest
-            songEntry.label = "\(song.title) - \(song.artist)"
+            songEntry.label = "\(song.title) - \(song.subtitle)"
             songs.insertChild(songEntry, at: entryCounter)
             entryCounter += 1
         }
@@ -98,11 +103,12 @@ extension FolderExport {
         else {
             throw ChordProviderError.createPdfError
         }
+        /// The first (empty) page of the content will be replaced by the cover
+        newPDF.removePage(at: 0)
         newPDF.insert(frontPage, at: 0)
 
         // MARK: Add TOC with internal links
         for index in stride(from: 0, to: toc.count - 1, by: FolderExport.tocSongsOnPage) {
-
             let tocPageIndex = (index / FolderExport.tocSongsOnPage) + 1
             guard
                 let tocPage = tocPDF.page(at: tocPageIndex)
@@ -114,22 +120,18 @@ extension FolderExport {
 
                 let song = toc[songIndex]
                 guard
-                    let destinationPage = newPDF.page(at: song.page - 1 - counter.startPage + tocPageIndex)
+                    let destinationPage = newPDF.page(at: song.pageNumber - 2 - counter.firstPage + tocPageIndex)
                 else {
                     throw ChordProviderError.createPdfError
                 }
-
                 let mediaBox = tocPage.bounds(for: .mediaBox)
-
                 let bounds = CGRect(
-                    x: song.toc.origin.x,
-                    y: mediaBox.height - song.toc.origin.y - song.toc.height,
-                    width: song.toc.width,
-                    height: song.toc.height
+                    x: song.rect.origin.x,
+                    y: mediaBox.height - song.rect.origin.y - song.rect.height,
+                    width: song.rect.width,
+                    height: song.rect.height
                 )
-
                 let destinationCoordinates = CGPoint(x: 25, y: mediaBox.height)
-
                 let link = PDFAnnotation(
                     bounds: bounds,
                     forType: .link,
@@ -146,7 +148,6 @@ extension FolderExport {
             /// Insert the new TOC page with the internal links
             newPDF.insert(tocPage, at: tocPageIndex)
         }
-
         return newPDF
     }
 }

@@ -5,49 +5,44 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 
 extension PDFBuild {
 
-    /// A PDF text item
-    open class Text: PDFElement {
+    /// A PDF **text** element
+    class Text: PDFElement {
 
+        /// The text
         let text: NSAttributedString
-        let size: CGSize
 
-        public init(_ text: String, attributes: StringAttributes = StringAttributes()) {
+        /// Init the **text** element
+        /// - Parameters:
+        ///   - text: The text as `String`
+        ///   - attributes: The ``StringAttributes`` for the text
+        init(_ text: String, attributes: StringAttributes = StringAttributes()) {
             self.text = NSAttributedString(
                 string: text,
                 attributes: attributes
             )
-            self.size = self.text.size()
         }
 
-        public init(_ text: NSAttributedString) {
-
+        /// Init the **text** element
+        /// - Parameter text: The text as `NSAttributedString`
+        init(_ text: NSAttributedString) {
             self.text = text
-            var size = self.text.size()
-            /// Add a bit extra width if the text ends with a `space`
-            if text.string.last == " " {
-                size.width += 2 * PDFElement.textPadding
-            }
-            self.size = size
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-            let textRect = rect.insetBy(dx: PDFElement.textPadding, dy: PDFElement.textPadding)
-
+        /// Draw the **text**
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the size should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
+            let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
             let textBounds = text.bounds(withSize: textRect.size)
-
             if !calculationOnly {
                 text.draw(with: textRect, options: textDrawingOptions, context: nil)
             }
-
-            let height = textBounds.height + 2 * PDFElement.textPadding
+            let height = textBounds.height + 2 * textPadding
             rect.origin.y += height
             rect.size.height -= height
         }

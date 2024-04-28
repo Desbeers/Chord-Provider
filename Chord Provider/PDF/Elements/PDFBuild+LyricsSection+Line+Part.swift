@@ -5,20 +5,25 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 import SwiftlyChordUtilities
 
 extension PDFBuild.LyricsSection.Line {
 
-    open class Part: PDFElement {
+    /// A PDF **part** element for a `Line` in a `LyricsSection`
+    class Part: PDFElement {
 
+        /// The text of the part
+        /// - Note: A merge of the optional chord and optional lyrics part
         let text: NSAttributedString
+        /// The size of the part
+        /// - Note: Used by the `Line` element to define the rectangle
         let size: CGSize
 
+        /// Init the **part** element
+        /// - Parameters:
+        ///   - part: The part of the lyrics line
+        ///   - chords: All the chords of the song
         init(part: Song.Section.Line.Part, chords: [ChordDefinition]) {
             var chordString: String = " "
             if let chord = chords.first(where: { $0.id == part.chord }) {
@@ -35,21 +40,19 @@ extension PDFBuild.LyricsSection.Line {
                     attributes: .partLyric)
             ]
                 .joined(with: "\n")
-            var size = self.text.size()
-
-            /// Add a bit extra width if the text ends with a `space`
-            if text.string.last == " " {
-                size.width += 2 * PDFElement.textPadding
-            }
-            self.size = size
+            self.size = text.size()
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        /// Draw the **part** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             let textBounds = text.bounds(withSize: rect.size)
             if !calculationOnly {
                 text.draw(with: rect, options: textDrawingOptions, context: nil)
             }
-            let height = textBounds.height + 2 * PDFElement.textPadding
+            let height = textBounds.height + 2 * textPadding
             rect.origin.y += height
             rect.size.height -= height
         }
@@ -60,6 +63,7 @@ extension PDFBuild.LyricsSection.Line {
 
 public extension StringAttributes {
 
+    /// Style atributes for the chord of the part
     static var partChord: StringAttributes {
         [
             .foregroundColor: SWIFTColor.gray,
@@ -67,6 +71,7 @@ public extension StringAttributes {
         ]
     }
 
+    /// Style atributes for the lyric of the part
     static var partLyric: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,

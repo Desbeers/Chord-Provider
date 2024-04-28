@@ -28,21 +28,6 @@ public enum PDFBuild {
     /// The Quartz 2D drawing destination
     static var pdfContext: CGContext?
 
-
-//    // MARK: Logging
-//
-//    public static var logEnabled = true
-//
-    static var calculationOnly = false
-//
-//    public static func log(_ msg: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
-//        if logEnabled, !calculationOnly {
-//            Logger.pdfBuild.log("􀉆 \(makeTag(function: function, file: file, line: line), privacy: .public) 􀅴 \(msg.debugDescription)")
-//        }
-//    }
-//
-//    private static func makeTag(function: String, file: String, line: Int) -> String {
-//        let className = NSURL(fileURLWithPath: file).lastPathComponent ?? file
-//        return "\(className): \(line) 􀄫 \(function)"
-//    }
+    /// The page size of the PDF document
+    static var pageRect: CGRect = .zero
 }

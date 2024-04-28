@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// SwiftUI `View` for a PDF document
 struct PdfView: View {
     /// The scene state
     @Environment(SceneState.self) var sceneState

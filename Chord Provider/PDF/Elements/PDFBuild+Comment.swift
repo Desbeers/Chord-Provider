@@ -5,33 +5,33 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 
 extension PDFBuild {
 
-    /// A PDF comment item
-    open class Comment: PDFElement {
+    /// A PDF **comment** element
+    class Comment: PDFElement {
 
-        /// The comment
-        let comment: String
+        /// The leading text of the comment
+        let leadingText = NSAttributedString(string: "􀌲", attributes: .sectionLabel)
+        /// The comment text
+        let commentText: NSAttributedString
 
-        let leading = NSAttributedString(string: "􀌲", attributes: .sectionLabel)
-        let label: NSAttributedString
-
-        public init(_ comment: String) {
-            self.comment = comment
-            self.label = NSAttributedString(string: comment, attributes: .sectionLabel)
+        /// Init the **comment** element
+        /// - Parameter commentText: The text of the comment
+        init(_ commentText: String) {
+            self.commentText = NSAttributedString(string: commentText, attributes: .sectionLabel)
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        /// Draw the **comment** element as a `Label` element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             let label = PDFBuild.Label(
-                leading: leading,
-                label: label,
-                color: .comment,
+                leadingText: leadingText,
+                labelText: commentText,
+                backgroundColor: .comment,
                 alignment: .left
             )
             label.draw(rect: &rect, calculationOnly: calculationOnly)

@@ -11,6 +11,8 @@ import SwiftlyFolderUtilities
 
 extension FolderExport {
 
+    /// Get all ChordPro songs from a specific folder
+    /// - Returns: All found songs in a ``FileBrowser/SongItem`` array
     static func files() throws -> [FileBrowser.SongItem] {
         var files: [FileBrowser.SongItem] = []
         do {

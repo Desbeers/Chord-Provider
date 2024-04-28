@@ -11,19 +11,17 @@
 		D701F87A2A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */; };
 		D701F87B2A9CBA3D007DACF3 /* Aliasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA02A6460B7002D875D /* Aliasses.swift */; };
 		D706FD8F2BCECC9F005DEDF6 /* PDFBuild+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD6F2BCECC9F005DEDF6 /* PDFBuild+Background.swift */; };
-		D706FD902BCECC9F005DEDF6 /* PDFBuild+ClipShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+ClipShape.swift */; };
+		D706FD902BCECC9F005DEDF6 /* PDFBuild+Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */; };
 		D706FD912BCECC9F005DEDF6 /* PDFBuild+Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */; };
-		D706FD952BCECC9F005DEDF6 /* PDFBuild+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD752BCECC9F005DEDF6 /* PDFBuild+Modifier.swift */; };
 		D706FD962BCECC9F005DEDF6 /* PDFBuild+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD762BCECC9F005DEDF6 /* PDFBuild+Padding.swift */; };
 		D706FD982BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD782BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift */; };
 		D706FD992BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD792BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift */; };
-		D706FD9A2BCECC9F005DEDF6 /* PDFBuild+PageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeader.swift */; };
+		D706FD9A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift */; };
 		D706FD9B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift */; };
 		D706FD9C2BCECC9F005DEDF6 /* PDFBuild+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */; };
 		D706FDA02BCECC9F005DEDF6 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD812BCECC9F005DEDF6 /* NSAttributedString+Extension.swift */; };
 		D706FDA52BCECC9F005DEDF6 /* PDFBuild+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */; };
 		D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8A2BCECC9F005DEDF6 /* PDFElement.swift */; };
-		D706FDA72BCECC9F005DEDF6 /* PDFElement+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8B2BCECC9F005DEDF6 /* PDFElement+Extension.swift */; };
 		D706FDA92BCECC9F005DEDF6 /* StringAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8D2BCECC9F005DEDF6 /* StringAttributes.swift */; };
 		D706FDAC2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */; };
 		D706FDAD2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */; };
@@ -45,13 +43,11 @@
 		D70B72902BD52A93003C89B4 /* PDFBuild+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */; };
 		D70B72912BD52A93003C89B4 /* PDFBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */; };
 		D70B72922BD52A93003C89B4 /* PDFElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8A2BCECC9F005DEDF6 /* PDFElement.swift */; };
-		D70B72932BD52A93003C89B4 /* PDFElement+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8B2BCECC9F005DEDF6 /* PDFElement+Extension.swift */; };
 		D70B72942BD52A94003C89B4 /* SongExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7972B902BCD506B00752CF9 /* SongExport.swift */; };
 		D70B72952BD52A94003C89B4 /* StringAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8D2BCECC9F005DEDF6 /* StringAttributes.swift */; };
 		D70B72962BD52A94003C89B4 /* PDFBuild+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */; };
 		D70B72972BD52A94003C89B4 /* PDFBuild.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */; };
 		D70B72982BD52A94003C89B4 /* PDFElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8A2BCECC9F005DEDF6 /* PDFElement.swift */; };
-		D70B72992BD52A94003C89B4 /* PDFElement+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8B2BCECC9F005DEDF6 /* PDFElement+Extension.swift */; };
 		D70B729A2BD52A9B003C89B4 /* PDFBuild+SongDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727D2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift */; };
 		D70B729B2BD52A9B003C89B4 /* PDFBuild+StrumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727F2BD50108003C89B4 /* PDFBuild+StrumSection.swift */; };
 		D70B729C2BD52A9B003C89B4 /* PDFBuild+GridSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */; };
@@ -61,7 +57,6 @@
 		D70B72A02BD52A9B003C89B4 /* PDFBuild+Chords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */; };
 		D70B72A12BD52A9B003C89B4 /* PDFBuild+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */; };
 		D70B72A22BD52A9B003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */; };
-		D70B72A32BD52A9B003C89B4 /* PDFBuild+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD752BCECC9F005DEDF6 /* PDFBuild+Modifier.swift */; };
 		D70B72A42BD52A9B003C89B4 /* PDFBuild+PageBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD782BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift */; };
 		D70B72A52BD52A9B003C89B4 /* PDFBuild+Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */; };
 		D70B72A62BD52A9B003C89B4 /* PDFBuild+LyricsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72832BD507B6003C89B4 /* PDFBuild+LyricsSection.swift */; };
@@ -70,10 +65,10 @@
 		D70B72A92BD52A9B003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */; };
 		D70B72AA2BD52A9B003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */; };
 		D70B72AB2BD52A9B003C89B4 /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
-		D70B72AC2BD52A9B003C89B4 /* PDFBuild+ClipShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+ClipShape.swift */; };
+		D70B72AC2BD52A9B003C89B4 /* PDFBuild+Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */; };
 		D70B72AD2BD52A9B003C89B4 /* PDFBuild+PageCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD792BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift */; };
 		D70B72AE2BD52A9B003C89B4 /* PDFBuild+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72812BD5040C003C89B4 /* PDFBuild+Comment.swift */; };
-		D70B72AF2BD52A9B003C89B4 /* PDFBuild+PageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeader.swift */; };
+		D70B72AF2BD52A9B003C89B4 /* PDFBuild+PageHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift */; };
 		D70B72B02BD52A9B003C89B4 /* PDFBuild+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711737F2BD279D80075325C /* PDFBuild+Label.swift */; };
 		D70B72B12BD52A9B003C89B4 /* PDFBuild+TabSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72852BD50EC6003C89B4 /* PDFBuild+TabSection.swift */; };
 		D70B72B22BD52A9C003C89B4 /* PDFBuild+SongDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727D2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift */; };
@@ -85,7 +80,6 @@
 		D70B72B82BD52A9C003C89B4 /* PDFBuild+Chords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */; };
 		D70B72B92BD52A9C003C89B4 /* PDFBuild+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */; };
 		D70B72BA2BD52A9C003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */; };
-		D70B72BB2BD52A9C003C89B4 /* PDFBuild+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD752BCECC9F005DEDF6 /* PDFBuild+Modifier.swift */; };
 		D70B72BC2BD52A9C003C89B4 /* PDFBuild+PageBreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD782BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift */; };
 		D70B72BD2BD52A9C003C89B4 /* PDFBuild+Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */; };
 		D70B72BE2BD52A9C003C89B4 /* PDFBuild+LyricsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72832BD507B6003C89B4 /* PDFBuild+LyricsSection.swift */; };
@@ -94,10 +88,10 @@
 		D70B72C12BD52A9C003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */; };
 		D70B72C22BD52A9C003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */; };
 		D70B72C32BD52A9C003C89B4 /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
-		D70B72C42BD52A9C003C89B4 /* PDFBuild+ClipShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+ClipShape.swift */; };
+		D70B72C42BD52A9C003C89B4 /* PDFBuild+Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */; };
 		D70B72C52BD52A9C003C89B4 /* PDFBuild+PageCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD792BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift */; };
 		D70B72C62BD52A9C003C89B4 /* PDFBuild+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72812BD5040C003C89B4 /* PDFBuild+Comment.swift */; };
-		D70B72C72BD52A9C003C89B4 /* PDFBuild+PageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeader.swift */; };
+		D70B72C72BD52A9C003C89B4 /* PDFBuild+PageHeaderFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift */; };
 		D70B72C82BD52A9C003C89B4 /* PDFBuild+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711737F2BD279D80075325C /* PDFBuild+Label.swift */; };
 		D70B72C92BD52A9C003C89B4 /* PDFBuild+TabSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72852BD50EC6003C89B4 /* PDFBuild+TabSection.swift */; };
 		D70B72CA2BD52AC8003C89B4 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD812BCECC9F005DEDF6 /* NSAttributedString+Extension.swift */; };
@@ -105,12 +99,12 @@
 		D70B72CD2BD54E86003C89B4 /* PDFBuild+PlainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */; };
 		D70B72CE2BD54E86003C89B4 /* PDFBuild+PlainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */; };
 		D70B72CF2BD54E86003C89B4 /* PDFBuild+PlainSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */; };
-		D70D101C2BD66C87006703EF /* PDFBuild+SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101B2BD66C87006703EF /* PDFBuild+SongInfo.swift */; };
-		D70D101D2BD66C87006703EF /* PDFBuild+SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101B2BD66C87006703EF /* PDFBuild+SongInfo.swift */; };
-		D70D101E2BD66C87006703EF /* PDFBuild+SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101B2BD66C87006703EF /* PDFBuild+SongInfo.swift */; };
-		D70D10202BD66D79006703EF /* PDFBuild+SongSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+SongSection.swift */; };
-		D70D10212BD66D79006703EF /* PDFBuild+SongSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+SongSection.swift */; };
-		D70D10222BD66D79006703EF /* PDFBuild+SongSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+SongSection.swift */; };
+		D70D101C2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */; };
+		D70D101D2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */; };
+		D70D101E2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */; };
+		D70D10202BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */; };
+		D70D10212BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */; };
+		D70D10222BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */; };
 		D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711737F2BD279D80075325C /* PDFBuild+Label.swift */; };
 		D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D7117F842BA2281E00D17A52 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */; };
@@ -171,7 +165,7 @@
 		D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */ = {isa = PBXBuildFile; productRef = D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */; };
 		D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */; };
 		D7A9B7C32A93BE8C007FD0A3 /* SwiftlyChordUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = D7A9B7C22A93BE8C007FD0A3 /* SwiftlyChordUtilities */; };
-		D7AB50632BD958FF00AA797B /* PDFBuild+SongTocItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB50622BD958FF00AA797B /* PDFBuild+SongTocItem.swift */; };
+		D7AB50632BD958FF00AA797B /* PDFBuild+TOCItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB50622BD958FF00AA797B /* PDFBuild+TOCItem.swift */; };
 		D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */; };
 		D7B319E02BD564DE006A173A /* PDFBuild+TextblockSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */; };
 		D7B319E12BD564DE006A173A /* PDFBuild+TextblockSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */; };
@@ -285,19 +279,17 @@
 /* Begin PBXFileReference section */
 		D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDiagramView.swift; sourceTree = "<group>"; };
 		D706FD6F2BCECC9F005DEDF6 /* PDFBuild+Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Background.swift"; sourceTree = "<group>"; };
-		D706FD702BCECC9F005DEDF6 /* PDFBuild+ClipShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+ClipShape.swift"; sourceTree = "<group>"; };
+		D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Clip.swift"; sourceTree = "<group>"; };
 		D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Divider.swift"; sourceTree = "<group>"; };
-		D706FD752BCECC9F005DEDF6 /* PDFBuild+Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Modifier.swift"; sourceTree = "<group>"; };
 		D706FD762BCECC9F005DEDF6 /* PDFBuild+Padding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Padding.swift"; sourceTree = "<group>"; };
 		D706FD782BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+PageBreak.swift"; sourceTree = "<group>"; };
 		D706FD792BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+PageCounter.swift"; sourceTree = "<group>"; };
-		D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+PageHeader.swift"; sourceTree = "<group>"; };
+		D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+PageHeaderFooter.swift"; sourceTree = "<group>"; };
 		D706FD7B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Spacer.swift"; sourceTree = "<group>"; };
 		D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Text.swift"; sourceTree = "<group>"; };
 		D706FD812BCECC9F005DEDF6 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Builder.swift"; sourceTree = "<group>"; };
 		D706FD8A2BCECC9F005DEDF6 /* PDFElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFElement.swift; sourceTree = "<group>"; };
-		D706FD8B2BCECC9F005DEDF6 /* PDFElement+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFElement+Extension.swift"; sourceTree = "<group>"; };
 		D706FD8D2BCECC9F005DEDF6 /* StringAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringAttributes.swift; sourceTree = "<group>"; };
 		D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+LyricsSection+Line+Part.swift"; sourceTree = "<group>"; };
 		D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+LyricsSection+Line.swift"; sourceTree = "<group>"; };
@@ -313,8 +305,8 @@
 		D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+GridSection.swift"; sourceTree = "<group>"; };
 		D70B728C2BD52196003C89B4 /* PDFKitRepresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFKitRepresentedView.swift; sourceTree = "<group>"; };
 		D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+PlainSection.swift"; sourceTree = "<group>"; };
-		D70D101B2BD66C87006703EF /* PDFBuild+SongInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+SongInfo.swift"; sourceTree = "<group>"; };
-		D70D101F2BD66D79006703EF /* PDFBuild+SongSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+SongSection.swift"; sourceTree = "<group>"; };
+		D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TOCInfo.swift"; sourceTree = "<group>"; };
+		D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+ContentItem.swift"; sourceTree = "<group>"; };
 		D711737F2BD279D80075325C /* PDFBuild+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Label.swift"; sourceTree = "<group>"; };
 		D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Section.swift"; sourceTree = "<group>"; };
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
@@ -346,7 +338,7 @@
 		D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFBuild.swift; sourceTree = "<group>"; };
 		D7972BE62BCEB28700752CF9 /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
 		D7972BEA2BCEB5DF00752CF9 /* Logger+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Extension.swift"; sourceTree = "<group>"; };
-		D7AB50622BD958FF00AA797B /* PDFBuild+SongTocItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+SongTocItem.swift"; sourceTree = "<group>"; };
+		D7AB50622BD958FF00AA797B /* PDFBuild+TOCItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TOCItem.swift"; sourceTree = "<group>"; };
 		D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TextblockSection.swift"; sourceTree = "<group>"; };
 		D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+DocumentInfo.swift"; sourceTree = "<group>"; };
 		D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderSettings.swift; sourceTree = "<group>"; };
@@ -444,22 +436,21 @@
 		D706FD7E2BCECC9F005DEDF6 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				D7EF99642BDAD98A0058E1CB /* PDFBuild+Image.swift */,
-				D70D101F2BD66D79006703EF /* PDFBuild+SongSection.swift */,
-				D7AB50622BD958FF00AA797B /* PDFBuild+SongTocItem.swift */,
-				D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeader.swift */,
+				D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */,
+				D7AB50622BD958FF00AA797B /* PDFBuild+TOCItem.swift */,
 				D706FD792BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift */,
-				D706FD752BCECC9F005DEDF6 /* PDFBuild+Modifier.swift */,
-				D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */,
+				D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift */,
 				D706FD782BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift */,
+				D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */,
 				D706FD762BCECC9F005DEDF6 /* PDFBuild+Padding.swift */,
-				D706FD702BCECC9F005DEDF6 /* PDFBuild+ClipShape.swift */,
+				D7EF99642BDAD98A0058E1CB /* PDFBuild+Image.swift */,
+				D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */,
+				D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */,
 				D706FD7B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift */,
 				D706FD6F2BCECC9F005DEDF6 /* PDFBuild+Background.swift */,
 				D75B48972BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift */,
 				D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */,
 				D711737F2BD279D80075325C /* PDFBuild+Label.swift */,
-				D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */,
 				D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */,
 				D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */,
 				D70B727D2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift */,
@@ -472,8 +463,8 @@
 				D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */,
 				D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */,
 				D70B727F2BD50108003C89B4 /* PDFBuild+StrumSection.swift */,
-				D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */,
 				D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */,
+				D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -543,10 +534,9 @@
 				D706FD7E2BCECC9F005DEDF6 /* Elements */,
 				D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */,
 				D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */,
-				D70D101B2BD66C87006703EF /* PDFBuild+SongInfo.swift */,
+				D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */,
 				D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */,
 				D706FD8A2BCECC9F005DEDF6 /* PDFElement.swift */,
-				D706FD8B2BCECC9F005DEDF6 /* PDFElement+Extension.swift */,
 				D706FD8D2BCECC9F005DEDF6 /* StringAttributes.swift */,
 			);
 			path = PDF;
@@ -940,7 +930,6 @@
 				D70B72962BD52A94003C89B4 /* PDFBuild+Builder.swift in Sources */,
 				D70B72972BD52A94003C89B4 /* PDFBuild.swift in Sources */,
 				D70B72982BD52A94003C89B4 /* PDFElement.swift in Sources */,
-				D70B72992BD52A94003C89B4 /* PDFElement+Extension.swift in Sources */,
 				D7117F902BA2291000D17A52 /* ChordPro+Environment.swift in Sources */,
 				D70B728B2BD51E92003C89B4 /* Image+Extension.swift in Sources */,
 				D7117F912BA2291000D17A52 /* ChordPro+Directive.swift in Sources */,
@@ -951,7 +940,7 @@
 				D70B72B32BD52A9C003C89B4 /* PDFBuild+StrumSection.swift in Sources */,
 				D70B72B42BD52A9C003C89B4 /* PDFBuild+GridSection.swift in Sources */,
 				D75B489C2BDD4BDD001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */,
-				D70D101E2BD66C87006703EF /* PDFBuild+SongInfo.swift in Sources */,
+				D70D101E2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */,
 				D70B72B52BD52A9C003C89B4 /* PDFBuild+Background.swift in Sources */,
 				D70B72B62BD52A9C003C89B4 /* PDFBuild+Padding.swift in Sources */,
 				D70B72B72BD52A9C003C89B4 /* PDFBuild+Spacer.swift in Sources */,
@@ -959,7 +948,6 @@
 				D70B72B92BD52A9C003C89B4 /* PDFBuild+Text.swift in Sources */,
 				D70B72BA2BD52A9C003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D7EF99672BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
-				D70B72BB2BD52A9C003C89B4 /* PDFBuild+Modifier.swift in Sources */,
 				D7EF996B2BDADC2E0058E1CB /* ChordProviderError.swift in Sources */,
 				D70B72BC2BD52A9C003C89B4 /* PDFBuild+PageBreak.swift in Sources */,
 				D70B72BD2BD52A9C003C89B4 /* PDFBuild+Divider.swift in Sources */,
@@ -969,10 +957,10 @@
 				D70B72C12BD52A9C003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
 				D70B72C22BD52A9C003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
 				D70B72C32BD52A9C003C89B4 /* PDFBuild+Section.swift in Sources */,
-				D70B72C42BD52A9C003C89B4 /* PDFBuild+ClipShape.swift in Sources */,
+				D70B72C42BD52A9C003C89B4 /* PDFBuild+Clip.swift in Sources */,
 				D70B72C52BD52A9C003C89B4 /* PDFBuild+PageCounter.swift in Sources */,
 				D70B72C62BD52A9C003C89B4 /* PDFBuild+Comment.swift in Sources */,
-				D70B72C72BD52A9C003C89B4 /* PDFBuild+PageHeader.swift in Sources */,
+				D70B72C72BD52A9C003C89B4 /* PDFBuild+PageHeaderFooter.swift in Sources */,
 				D70B72C82BD52A9C003C89B4 /* PDFBuild+Label.swift in Sources */,
 				D70B72C92BD52A9C003C89B4 /* PDFBuild+TabSection.swift in Sources */,
 				D70B72CB2BD52AC9003C89B4 /* NSAttributedString+Extension.swift in Sources */,
@@ -980,7 +968,7 @@
 				D7117F892BA2281E00D17A52 /* Song+Section+Line+strum.swift in Sources */,
 				D7117F942BA2297E00D17A52 /* ChordDiagramView.swift in Sources */,
 				D7117F922BA2292A00D17A52 /* Aliasses.swift in Sources */,
-				D70D10222BD66D79006703EF /* PDFBuild+SongSection.swift in Sources */,
+				D70D10222BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */,
 				D7117F952BA229A600D17A52 /* ColumnsLayout.swift in Sources */,
 				D7B319E12BD564DE006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D7117F8A2BA2281E00D17A52 /* Song+DisplayOptions.swift in Sources */,
@@ -998,14 +986,13 @@
 				D75B48912BDBD3A2001F6176 /* FolderExport+toc.swift in Sources */,
 				D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */,
 				D706FDA92BCECC9F005DEDF6 /* StringAttributes.swift in Sources */,
-				D70D101C2BD66C87006703EF /* PDFBuild+SongInfo.swift in Sources */,
+				D70D101C2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */,
 				D70B72742BD3CD2F003C89B4 /* PDFBuild+Chords.swift in Sources */,
 				D74C86D12BD6CF2C00003828 /* FolderExport+export.swift in Sources */,
 				D733F6002B90A8AA0065D6FD /* AppState+Elements.swift in Sources */,
 				D7F13FCE2A6460B7002D875D /* ChordProDocument.swift in Sources */,
 				D7CA63272AEB397A00C6B4BB /* Metronome.swift in Sources */,
 				D7F13FD22A6460B7002D875D /* Debouncer.swift in Sources */,
-				D706FDA72BCECC9F005DEDF6 /* PDFElement+Extension.swift in Sources */,
 				D733F6042B90CC1C0065D6FD /* FileBrowser+Elements.swift in Sources */,
 				D7F13FBD2A6460B7002D875D /* Song.swift in Sources */,
 				D7F13FD62A6460B7002D875D /* ChordPro+Regex.swift in Sources */,
@@ -1039,7 +1026,6 @@
 				D7F13FE72A6460B7002D875D /* ExportSongView.swift in Sources */,
 				D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */,
 				D70B727B2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
-				D706FD952BCECC9F005DEDF6 /* PDFBuild+Modifier.swift in Sources */,
 				D7F13FBF2A6460B7002D875D /* Song+Render.swift in Sources */,
 				D7F13FE42A6460B7002D875D /* ChordsView.swift in Sources */,
 				D7EF99652BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
@@ -1060,7 +1046,7 @@
 				D70B72862BD50EC6003C89B4 /* PDFBuild+TabSection.swift in Sources */,
 				D70B72792BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
 				D7F13FC02A6460B7002D875D /* Song+Section.swift in Sources */,
-				D706FD9A2BCECC9F005DEDF6 /* PDFBuild+PageHeader.swift in Sources */,
+				D706FD9A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift in Sources */,
 				D706FD8F2BCECC9F005DEDF6 /* PDFBuild+Background.swift in Sources */,
 				D70B72822BD5040C003C89B4 /* PDFBuild+Comment.swift in Sources */,
 				D70B72882BD5111D003C89B4 /* PDFBuild+GridSection.swift in Sources */,
@@ -1069,7 +1055,7 @@
 				D7C3D6212AC9E52600909639 /* ChordProviderSettings.swift in Sources */,
 				D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */,
 				D78E1ECF2AC58840001A0641 /* EditorView+directiveSheetButton.swift in Sources */,
-				D7AB50632BD958FF00AA797B /* PDFBuild+SongTocItem.swift in Sources */,
+				D7AB50632BD958FF00AA797B /* PDFBuild+TOCItem.swift in Sources */,
 				D7F13FD12A6460B7002D875D /* Aliasses.swift in Sources */,
 				D7F13FDD2A6460B7002D875D /* EditorView+rules.swift in Sources */,
 				D7D39C512A9A19A1004EAE5F /* SongFolderView.swift in Sources */,
@@ -1081,14 +1067,14 @@
 				D7F13FC42A6460B7002D875D /* ExportDocument.swift in Sources */,
 				D75B488C2BDBC2B8001F6176 /* FolderExport+content.swift in Sources */,
 				D7972BDD2BCE80DB00752CF9 /* PDFBuild.swift in Sources */,
-				D706FD902BCECC9F005DEDF6 /* PDFBuild+ClipShape.swift in Sources */,
+				D706FD902BCECC9F005DEDF6 /* PDFBuild+Clip.swift in Sources */,
 				D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */,
 				D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */,
 				D7F13FC82A6460B7002D875D /* FileBrowserView (macOS).swift in Sources */,
 				D7F13FDE2A6460B7002D875D /* EditorView+regex.swift in Sources */,
 				D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */,
 				D7B319E32BD57DE7006A173A /* PDFBuild+DocumentInfo.swift in Sources */,
-				D70D10202BD66D79006703EF /* PDFBuild+SongSection.swift in Sources */,
+				D70D10202BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */,
 				D7F13FC12A6460B7002D875D /* Song+Section+Line+Part.swift in Sources */,
 				D7504A1B2BA89D200099F686 /* TemplateView.swift in Sources */,
 				D7EF99692BDADC2E0058E1CB /* ChordProviderError.swift in Sources */,
@@ -1117,7 +1103,6 @@
 				D70B72902BD52A93003C89B4 /* PDFBuild+Builder.swift in Sources */,
 				D70B72912BD52A93003C89B4 /* PDFBuild.swift in Sources */,
 				D70B72922BD52A93003C89B4 /* PDFElement.swift in Sources */,
-				D70B72932BD52A93003C89B4 /* PDFElement+Extension.swift in Sources */,
 				D7F140142A64647D002D875D /* Song+Section.swift in Sources */,
 				D70B728A2BD51E91003C89B4 /* Image+Extension.swift in Sources */,
 				D7F140102A64646E002D875D /* ChordPro+Environment.swift in Sources */,
@@ -1128,7 +1113,7 @@
 				D70B729B2BD52A9B003C89B4 /* PDFBuild+StrumSection.swift in Sources */,
 				D70B729C2BD52A9B003C89B4 /* PDFBuild+GridSection.swift in Sources */,
 				D75B489B2BDD4BDC001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */,
-				D70D101D2BD66C87006703EF /* PDFBuild+SongInfo.swift in Sources */,
+				D70D101D2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */,
 				D70B729D2BD52A9B003C89B4 /* PDFBuild+Background.swift in Sources */,
 				D70B729E2BD52A9B003C89B4 /* PDFBuild+Padding.swift in Sources */,
 				D70B729F2BD52A9B003C89B4 /* PDFBuild+Spacer.swift in Sources */,
@@ -1136,7 +1121,6 @@
 				D70B72A12BD52A9B003C89B4 /* PDFBuild+Text.swift in Sources */,
 				D70B72A22BD52A9B003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D7EF99662BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
-				D70B72A32BD52A9B003C89B4 /* PDFBuild+Modifier.swift in Sources */,
 				D7EF996A2BDADC2E0058E1CB /* ChordProviderError.swift in Sources */,
 				D70B72A42BD52A9B003C89B4 /* PDFBuild+PageBreak.swift in Sources */,
 				D70B72A52BD52A9B003C89B4 /* PDFBuild+Divider.swift in Sources */,
@@ -1146,10 +1130,10 @@
 				D70B72A92BD52A9B003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
 				D70B72AA2BD52A9B003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
 				D70B72AB2BD52A9B003C89B4 /* PDFBuild+Section.swift in Sources */,
-				D70B72AC2BD52A9B003C89B4 /* PDFBuild+ClipShape.swift in Sources */,
+				D70B72AC2BD52A9B003C89B4 /* PDFBuild+Clip.swift in Sources */,
 				D70B72AD2BD52A9B003C89B4 /* PDFBuild+PageCounter.swift in Sources */,
 				D70B72AE2BD52A9B003C89B4 /* PDFBuild+Comment.swift in Sources */,
-				D70B72AF2BD52A9B003C89B4 /* PDFBuild+PageHeader.swift in Sources */,
+				D70B72AF2BD52A9B003C89B4 /* PDFBuild+PageHeaderFooter.swift in Sources */,
 				D70B72B02BD52A9B003C89B4 /* PDFBuild+Label.swift in Sources */,
 				D70B72B12BD52A9B003C89B4 /* PDFBuild+TabSection.swift in Sources */,
 				D70B72CA2BD52AC8003C89B4 /* NSAttributedString+Extension.swift in Sources */,
@@ -1157,7 +1141,7 @@
 				D7F140152A64647D002D875D /* Song+Section+Line+Part.swift in Sources */,
 				D7F140122A64647D002D875D /* Song+Render.swift in Sources */,
 				D701F87B2A9CBA3D007DACF3 /* Aliasses.swift in Sources */,
-				D70D10212BD66D79006703EF /* PDFBuild+SongSection.swift in Sources */,
+				D70D10212BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */,
 				D73A03EA2AC85B6100D6CD0E /* Song+Render+ChordView.swift in Sources */,
 				D7B319E02BD564DE006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D7F1400B2A646439002D875D /* PreviewProvider.swift in Sources */,

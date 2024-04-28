@@ -13,34 +13,34 @@ import UIKit
 
 extension PDFBuild {
 
-    /// The direction of a ``PDFBuild` item`
-    public enum Direction {
+    /// Directions that can be used to align a `PDFElement`
+    enum Direction {
         /// Horizontal direction
         case horizontal
         /// Vertical direction
         case vertical
     }
 
-    /// A PDF divider item
+    /// A PDF **divider** element
     public class Divider: PDFElement {
         /// The ``direction`` of the divider
         let direction: Direction
         /// The line with of the divider
         let lineWidth: CGFloat = 0.6
         /// The color of the divider
-        let strokeColor: CGColor = SWIFTColor.lightGray.cgColor
+        let strokeColor = SWIFTColor.lightGray.cgColor
 
-        /// Init the Divider
-        /// - Parameter direction: The ``direction of the Divider``
+        /// Init the **divider** element
+        /// - Parameter direction: The direction of the `divider`
         init(direction: Direction = .vertical) {
             self.direction = direction
         }
 
-        /// Draw the Divider
+        /// Draw the **divider**
         /// - Parameters:
-        ///   - rect: The drawing Rectangle
+        ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the size should be calculated
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             if let context = UIGraphicsGetCurrentContext() {
                 switch direction {
                 case .horizontal:

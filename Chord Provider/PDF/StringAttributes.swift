@@ -11,10 +11,16 @@ import AppKit
 import UIKit
 #endif
 
+/// Alias for a `NSAttributedString` key and value
 public typealias StringAttributes = [NSAttributedString.Key: Any]
 
 public extension StringAttributes {
 
+    /// Merge ``StringAttributes``
+    /// - Parameters:
+    ///   - left: Current ``StringAttributes``
+    ///   - right: The ``StringAttributes`` to add
+    /// - Returns: The merged ``StringAttributes``
     static func + (left: StringAttributes, right: StringAttributes) -> StringAttributes {
         var left = left
         for element in right {
@@ -22,14 +28,12 @@ public extension StringAttributes {
         }
         return left
     }
-}
 
-// MARK: General string styling
+    // MARK: General string styling
 
-/// - Note: Element specific styling is in its own file
+    /// - Note: Element specific styling is in its own file
 
-public extension StringAttributes {
-
+    /// Style atributes for the default font
     static var defaultFont: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,
@@ -37,6 +41,7 @@ public extension StringAttributes {
         ]
     }
 
+    /// Style atributes for the small font
     static var smallFont: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,
@@ -44,6 +49,7 @@ public extension StringAttributes {
         ]
     }
 
+    /// Style atributes for the title of the song
     static var songTitle: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,
@@ -51,6 +57,7 @@ public extension StringAttributes {
         ] + .alignment(.center)
     }
 
+    /// Style atributes for the artist of the song
     static var songArtist: StringAttributes {
         [
             .foregroundColor: SWIFTColor.gray,
@@ -58,6 +65,7 @@ public extension StringAttributes {
         ] + .alignment(.center)
     }
 
+    /// Style atributes for the export title
     static var exportTitle: StringAttributes {
         [
             .foregroundColor: SWIFTColor.white,
@@ -65,6 +73,7 @@ public extension StringAttributes {
         ] + .alignment(.center)
     }
 
+    /// Style atributes for the export author
     static var exportAuthor: StringAttributes {
         [
             .foregroundColor: SWIFTColor.gray,
@@ -72,17 +81,20 @@ public extension StringAttributes {
         ] + .alignment(.center)
     }
 
+    // MARK: String alignment styling
+
+    /// Style atributes for alignment of a paragraph
+    /// - Parameter alignment: The alignment
+    /// - Returns: A paragraph aligment style
     static func alignment(_ alignment: NSTextAlignment) -> StringAttributes {
         let style = NSMutableParagraphStyle()
         style.alignment = alignment
         return [.paragraphStyle: style]
     }
-}
 
-// MARK: Serif font string styling
+    // MARK: Serif font string styling
 
-public extension StringAttributes {
-
+    /// Style atributes for a *serif* font style
     static var serifFont: StringAttributes {
 #if os(macOS)
         let descriptor = NSFontDescriptor

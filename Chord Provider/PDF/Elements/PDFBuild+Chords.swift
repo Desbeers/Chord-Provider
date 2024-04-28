@@ -5,31 +5,35 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
+import Foundation
 import SwiftlyChordUtilities
 
 extension PDFBuild {
 
-    /// A PDF chords item
-    open class Chords: PDFElement {
+    /// A PDF **chords** element
+    ///
+    /// Display all the chord diagrams of the song
+    class Chords: PDFElement {
 
+        /// All the chords from the song
         let chords: [ChordDefinition]
-
+        /// The chord display options
         let options: ChordDefinition.DisplayOptions
 
-        var chordNameHeight: CGFloat = 0
-
+        /// Init the **chords** element
+        /// - Parameters:
+        ///   - chords: All the chords from the song
+        ///   - options: The chord display options
         init(chords: [ChordDefinition], options: ChordDefinition.DisplayOptions) {
             self.chords = chords
             self.options = options
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-
+        /// Draw the **chords** element as a `Section` element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             var items: [PDFElement] = []
             for chord in chords where chord.status != .unknown {
                 items.append(Diagram(chord: chord, options: options))

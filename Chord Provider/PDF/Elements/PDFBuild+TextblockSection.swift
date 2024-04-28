@@ -5,25 +5,27 @@
 //  © 2023 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
-import SwiftlyChordUtilities
+import Foundation
 
 extension PDFBuild {
 
-    /// A PDF textblock section item
-    open class TextblockSection: PDFElement {
+    /// A PDF **textblock section** element
+    class TextblockSection: PDFElement {
 
+        /// The section with textblock
         let section: Song.Section
 
+        /// Ini the **textblock section** element
+        /// - Parameter section: The section with textblock
         init(_ section: Song.Section) {
             self.section = section
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        /// Draw the **textblock section** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             for line in section.lines {
                 for part in line.parts {
                     let line = PDFBuild.Text(part.text, attributes: .textblockLine)

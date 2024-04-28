@@ -13,34 +13,39 @@ import UIKit
 
 extension PDFBuild {
 
-    /// A PDF background item
-    open class Background: PDFElement {
+    /// A PDF **background** element
+    ///
+    /// Fill a ``PDFElement`` with a ``SWIFTColor`` background
+    class Background: PDFElement {
 
-        /// The color for the background
+        /// The ``SWIFTColor`` for the background
         let color: SWIFTColor
         /// The ``PDFElement`` to add on top of the background
         let element: PDFElement
 
-        /// Fill a ``PDFElement`` with a background color
+        /// Init the **background** element
         /// - Parameters:
-        ///   - color: The color for the background
-        ///   - element: The ``PDFElement``
-        public init(color: SWIFTColor, _ element: PDFElement) {
+        ///   - color: The ``SWIFTColor`` for the background
+        ///   - element: The ``PDFElement`` to add on top of the background
+        init(color: SWIFTColor, _ element: PDFElement) {
             self.color = color
             self.element = element
         }
 
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
+        /// Draw the **background** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             /// Render the background below the element
-            if !calculationOnly {
+            if !calculationOnly, let context = UIGraphicsGetCurrentContext() {
                 let tempRect = calculateDraw(rect: rect, elements: [element])
                 var fillRect = rect
                 fillRect.size.height = rect.height - tempRect.height
-                let context = UIGraphicsGetCurrentContext()
-                context?.setFillColor(color.cgColor)
-                context?.fill(fillRect)
+                context.setFillColor(color.cgColor)
+                context.fill(fillRect)
             }
-            /// Render whatever goes on top of the background
+            /// Draw whatever goes on top of the background
             element.draw(rect: &rect, calculationOnly: calculationOnly)
         }
     }

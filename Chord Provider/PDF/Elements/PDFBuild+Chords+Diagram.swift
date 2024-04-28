@@ -14,50 +14,64 @@ import SwiftlyChordUtilities
 
 extension PDFBuild.Chords {
 
-    /// A PDF chord diagram item
-    open class Diagram: PDFElement {
+    /// A PDF **chord diagram** element
+    ///
+    /// Display a single chord diagram
+    class Diagram: PDFElement {
 
+        // MARK: Variables
+
+        /// The chord to display in a diagram
         let chord: ChordDefinition
-
+        /// The chord display options
         let options: ChordDefinition.DisplayOptions
 
-        let columns: Int
-        let width: CGFloat
-        let height: CGFloat
-        let xSpacing: CGFloat
-        let ySpacing: CGFloat
+        // MARK: Calculated constants
 
+        /// Total amount of columns of the diagram
+        let columns: Int
+        /// The width of the grid
+        let width: CGFloat
+        /// The height of the grid
+        let height: CGFloat
+        /// The horizontal spacing between each grid cell
+        let xSpacing: CGFloat
+        /// The vertical spacing between each grid cell
+        let ySpacing: CGFloat
+        /// The frets of the chord; adjusted for left-handed if needed
         let frets: [Int]
+        /// The fingers of the chord; adjusted for left-handed if needed
         let fingers: [Int]
 
-        var chordNameHeight: CGFloat = 0
+        // MARK: Fixed constants
 
+        /// The size of the grid
+        let gridSize = CGSize(width: 50, height: 60)
+
+        /// Init the **chord diagram** element
+        /// - Parameters:
+        ///   - chord: The chord to display in a diagram
+        ///   - options: The chord display options
         init(chord: ChordDefinition, options: ChordDefinition.DisplayOptions) {
             self.chord = chord
             self.options = options
-
             self.columns = (chord.instrument.strings.count) - 1
-            self.width = chordSize.width
-            self.height = chordSize.height
+            self.width = gridSize.width
+            self.height = gridSize.height
             self.xSpacing = width / Double(columns)
             self.ySpacing = height / 5
-
             self.frets = options.mirrorDiagram ? chord.frets.reversed() : chord.frets
             self.fingers = options.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
         }
 
-        let chordSize = CGSize(width: 50, height: 60)
-
-
-        /// Draw the Chord Diagram
-        /// - Parameter rect: The location and dimensions for the drawing
+        /// Draw the **chords** element as a `Section` element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         // swiftlint:disable:next function_body_length
-        open override func draw(rect: inout CGRect, calculationOnly: Bool) {
-
+        func draw(rect: inout CGRect, calculationOnly: Bool) {
             let initialRect = rect
-
             var currentDiagramHeight: CGFloat = 0
-
             drawChordName(rect: &rect)
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
             rect.size.height = initialRect.size.height - currentDiagramHeight
@@ -85,8 +99,8 @@ extension PDFBuild.Chords {
             }
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
             rect.size.height = initialRect.size.height - currentDiagramHeight
-            rect.origin.x += chordSize.width + 3 * xSpacing
-            rect.size.width -= chordSize.width + 3 * xSpacing
+            rect.origin.x += gridSize.width + 3 * xSpacing
+            rect.size.width -= gridSize.width + 3 * xSpacing
 
             // MARK: Chord Name
 
@@ -94,7 +108,7 @@ extension PDFBuild.Chords {
                 var nameRect = CGRect(
                     x: rect.origin.x,
                     y: rect.origin.y,
-                    width: chordSize.width + 3 * xSpacing,
+                    width: gridSize.width + 3 * xSpacing,
                     height: rect.height
                 )
                 let chord = chord.displayName(options: .init(rootDisplay: .symbol, qualityDisplay: .symbolized))
@@ -142,7 +156,7 @@ extension PDFBuild.Chords {
                     let nutRect = CGRect(
                         x: rect.origin.x + xSpacing * 1.25,
                         y: rect.origin.y,
-                        width: chordSize.width + xSpacing * 0.55,
+                        width: gridSize.width + xSpacing * 0.55,
                         height: ySpacing / 5
                     )
                     if chord.baseFret == 1, let context = UIGraphicsGetCurrentContext() {
@@ -160,7 +174,7 @@ extension PDFBuild.Chords {
                 var baseFretRect = CGRect(
                     x: rect.origin.x + xSpacing / 2.5,
                     y: rect.origin.y + ySpacing / 8,
-                    width: chordSize.width,
+                    width: gridSize.width,
                     height: rect.height
                 )
                 let name = PDFBuild.Text("\(chord.baseFret)", attributes: .diagramBaseFret + .alignment(.left))
@@ -175,24 +189,20 @@ extension PDFBuild.Chords {
                         x: rect.origin.x + (xSpacing * 1.5),
                         y: rect.origin.y
                     )
-
                     var start = gridPoint
-
                     if let context = UIGraphicsGetCurrentContext() {
-
-                        // MARK: Strings
+                        /// Draw the strings
                         for _ in 0...columns {
                             context.move(to: start)
-                            context.addLine(to: CGPoint(x: start.x, y: start.y + chordSize.height))
+                            context.addLine(to: CGPoint(x: start.x, y: start.y + gridSize.height))
                             start.x += xSpacing
                         }
                         /// Move start back to the gridpoint
                         start = gridPoint
-
-                        // MARK: Frets
+                        /// Draw the frets
                         for _ in 0...5 {
                             context.move(to: start)
-                            context.addLine(to: CGPoint(x: start.x + chordSize.width, y: start.y))
+                            context.addLine(to: CGPoint(x: start.x + gridSize.width, y: start.y))
                             start.y += ySpacing
                         }
                         context.setStrokeColor(SWIFTColor.black.cgColor)
@@ -202,13 +212,12 @@ extension PDFBuild.Chords {
                     }
                 }
                 /// Add this item to the total height
-                currentDiagramHeight += chordSize.height
+                currentDiagramHeight += gridSize.height
             }
 
             // MARK: Dots
 
             func drawDots(rect: inout CGRect) {
-
                 var dotRect = CGRect(
                     x: rect.origin.x + xSpacing,
                     y: rect.origin.y,
@@ -221,7 +230,7 @@ extension PDFBuild.Chords {
                             let finger = options.showFingers ? "\(fingers[column])" : " "
                             let text = PDFBuild.Text(finger, attributes: .diagramFinger)
                             let background = PDFBuild.Background(color: .gray, text)
-                            let shape = PDFBuild.ClipShape(.circle, background)
+                            let shape = PDFBuild.Clip(.circle, background)
                             var tmpRect = dotRect
                             shape.draw(rect: &tmpRect, calculationOnly: calculationOnly)
                         }
@@ -249,7 +258,7 @@ extension PDFBuild.Chords {
                         let finger = options.showFingers ? "\(barre.finger)" : " "
                         let text = PDFBuild.Text(finger, attributes: .diagramFinger)
                         let background = PDFBuild.Background(color: .gray, text)
-                        let shape = PDFBuild.ClipShape(.roundedRect(radius: xSpacing / 2), background)
+                        let shape = PDFBuild.Clip(.roundedRect(radius: xSpacing / 2), background)
                         var tmpRect = CGRect(
                             x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing),
                             y: barresRect.origin.y,
@@ -340,6 +349,7 @@ extension PDFBuild.Chords {
 
 public extension StringAttributes {
 
+    /// Style atributes for the diagram chord name
     static var diagramChordName: StringAttributes {
         [
             .foregroundColor: SWIFTColor.gray,
@@ -347,18 +357,15 @@ public extension StringAttributes {
         ]
     }
 
-    static var diagamDot: StringAttributes {
-        [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)
-        ]
-    }
+    /// Style atributes for the diagram finger
     static var diagramFinger: StringAttributes {
         [
             .foregroundColor: SWIFTColor.white,
             .font: SWIFTFont.systemFont(ofSize: 6, weight: .regular)
         ] + .alignment(.center)
     }
+
+    /// Style atributes for the diagram top bar
     static var diagramTopBar: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,
@@ -366,6 +373,7 @@ public extension StringAttributes {
         ] + .alignment(.center)
     }
 
+    /// Style atributes for the diagram base fret
     static var diagramBaseFret: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,
@@ -373,6 +381,7 @@ public extension StringAttributes {
         ] + .alignment(.left)
     }
 
+    /// Style atributes for the diagram top bar
     static var diagramBottomBar: StringAttributes {
         [
             .foregroundColor: SWIFTColor.black,

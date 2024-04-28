@@ -9,25 +9,30 @@ import Foundation
 
 extension FolderExport {
 
+    /// Create a Table of Contents
+    /// - Parameters:
+    ///   - info: The document info for the PDF
+    ///   - tocItems: The items for the TOC
+    /// - Returns: The Table of Contents as `Data`
     static func toc(info: PDFBuild.DocumentInfo, counter: PDFBuild.PageCounter) -> Data {
         let tocBuilder = PDFBuild.Builder(info: info)
-        tocBuilder.items.append(PDFBuild.PageBackgroundColor(color: .black))
-        tocBuilder.items.append(PDFBuild.Text(info.title, attributes: .exportTitle))
-        tocBuilder.items.append(PDFBuild.Text(info.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
-        tocBuilder.items.append(PDFBuild.Image(.launchIcon))
-        tocBuilder.items.append(PDFBuild.PageBreak())
-        for (index, song) in counter.songs.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.artist)).enumerated() {
+        tocBuilder.elements.append(PDFBuild.PageBackgroundColor(color: .black))
+        tocBuilder.elements.append(PDFBuild.Text(info.title, attributes: .exportTitle))
+        tocBuilder.elements.append(PDFBuild.Text(info.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
+        tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
+        tocBuilder.elements.append(PDFBuild.PageBreak())
+        for (index, tocInfo) in counter.tocItems.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.subtitle)).enumerated() {
             if index % FolderExport.tocSongsOnPage == 0 {
                 switch index {
                 case 0:
-                    tocBuilder.items.append(PDFBuild.Text("Table of Contents", attributes: .songTitle))
-                    tocBuilder.items.append(PDFBuild.Divider(direction: .horizontal).padding(20))
+                    tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .songTitle))
+                    tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(20))
                 default:
-                    tocBuilder.items.append(PDFBuild.PageBreak())
+                    tocBuilder.elements.append(PDFBuild.PageBreak())
                 }
             }
-            tocBuilder.items.append(PDFBuild.SongTocItem(songInfo: song, counter: counter))
+            tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter))
         }
-        return tocBuilder.generatePdf() as Data
+        return tocBuilder.generatePdf()
     }
 }
