@@ -26,15 +26,17 @@ extension PDFBuild.LyricsSection.Line {
         ///   - chords: All the chords of the song
         init(part: Song.Section.Line.Part, chords: [ChordDefinition]) {
             var chordString: String = " "
+            var chordStatus: Chord.Status = .unknown
             if let chord = chords.first(where: { $0.id == part.chord }) {
                 chordString = chord.displayName(options: .init())
+                chordStatus = chord.status
             }
             self.text =
             [
                 NSAttributedString(
                     /// Add a space behind the chordname so two chords will never 'stick' together
                     string: "\(chordString) ",
-                    attributes: .partChord),
+                    attributes: .partChord(chordStatus)),
                 NSAttributedString(
                     string: "\(part.text)",
                     attributes: .partLyric)
@@ -64,9 +66,9 @@ extension PDFBuild.LyricsSection.Line {
 public extension StringAttributes {
 
     /// Style atributes for the chord of the part
-    static var partChord: StringAttributes {
+    static func partChord(_ status: Chord.Status) -> StringAttributes {
         [
-            .foregroundColor: SWIFTColor.gray,
+            .foregroundColor:  status == .unknown ? SWIFTColor.red : SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
