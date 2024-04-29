@@ -21,7 +21,7 @@ extension SongExport {
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
         song: Song,
-        options: ChordDefinition.DisplayOptions
+        options: ChordDisplayOptions
     ) throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         let pdfInfo = PDFBuild.DocumentInfo(
             title: song.title ?? "No title",
@@ -60,7 +60,7 @@ extension SongExport {
     /// - Returns: All the PDF elements in an array
     static func getSongElements(
         song: Song,
-        options: ChordDefinition.DisplayOptions,
+        options: ChordDisplayOptions,
         counter: PDFBuild.PageCounter
     ) -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
@@ -76,7 +76,7 @@ extension SongExport {
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))
-        items.append(PDFBuild.Chords(chords: song.chords, options: options))
+        items.append(PDFBuild.Chords(chords: song.chords, options: options.displayOptions))
         items.append(PDFBuild.Spacer(10))
         /// Add all the sections
         for section in song.sections {

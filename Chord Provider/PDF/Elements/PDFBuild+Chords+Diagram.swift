@@ -309,9 +309,9 @@ extension PDFBuild.Chords {
             var isBarre: Bool = false
             var finger: Int = 0
             for column in chord.frets.indices {
-                if chord.frets[column] == barre && chord.barres.contains(chord.fingers[column]) {
+                if chord.frets[safe: column] == barre && chord.barres.contains(chord.fingers[safe: column] ?? -1) {
                     isBarre = true
-                    finger = chord.fingers[column]
+                    finger = chord.fingers[safe: column] ?? 0
                 }
             }
             switch isBarre {

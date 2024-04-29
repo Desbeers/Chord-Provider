@@ -23,7 +23,7 @@ extension FolderExport {
     static func content(
         info: PDFBuild.DocumentInfo,
         counter: PDFBuild.PageCounter,
-        options: ChordDefinition.DisplayOptions,
+        options: ChordDisplayOptions,
         progress: @escaping (Double) -> Void
     ) -> Data {
         let builder = PDFBuild.Builder(info: info)
@@ -51,7 +51,7 @@ extension FolderExport {
                         id: item.id,
                         text: fileContents,
                         transpose: 0,
-                        instrument: .guitarStandardETuning,
+                        instrument: options.instrument,
                         fileURL: item.fileURL
                     )
                     builder.elements.append(contentsOf: SongExport.getSongElements(song: song, options: options, counter: counter))

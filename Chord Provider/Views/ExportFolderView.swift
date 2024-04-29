@@ -46,6 +46,8 @@ struct ExportFolderView: View {
                     TextField("Title of the export", text: $pdfInfo.title, prompt: Text("Title"))
                     TextField("Author of the export", text: $pdfInfo.author, prompt: Text("Author"))
                 }
+                chordDisplayOptions.instrumentPicker
+                    .pickerStyle(.segmented)
                 Section("Diagrams") {
                     chordDisplayOptions.fingersToggle
                     chordDisplayOptions.notesToggle
@@ -64,7 +66,7 @@ struct ExportFolderView: View {
                             exporting = true
                             if let render = try await FolderExport.export(
                                 info: pdfInfo,
-                                options: chordDisplayOptions.displayOptions,
+                                options: chordDisplayOptions,
                                 progress: { page in
                                     progress = Double(page)
                                 }
@@ -90,7 +92,7 @@ struct ExportFolderView: View {
             .disabled(currentFolder == nil || pdfInfo.title.isEmpty || pdfInfo.author.isEmpty || exporting)
             .padding()
         }
-        .frame(width: 400, height: 460)
+        .frame(width: 400, height: 520)
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),

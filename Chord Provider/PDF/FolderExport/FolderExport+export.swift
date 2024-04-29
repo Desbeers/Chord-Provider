@@ -21,7 +21,7 @@ extension FolderExport {
     /// - Returns: A PDFDocument if all well, else an error
     static func export(
         info: PDFBuild.DocumentInfo,
-        options: ChordDefinition.DisplayOptions,
+        options: ChordDisplayOptions,
         progress: @escaping (Double) -> Void
     ) async throws -> PDFDocument? {
 

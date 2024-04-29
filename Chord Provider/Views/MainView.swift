@@ -76,7 +76,7 @@ struct MainView: View {
         )
         Task {
             do {
-                let export = try SongExport.export(song: sceneState.song, options: chordDisplayOptions.displayOptions)
+                let export = try SongExport.export(song: sceneState.song, options: chordDisplayOptions)
                 sceneState.pdfData = export.pdf
                 try export.pdf.write(to: sceneState.song.exportURL)
             } catch {
