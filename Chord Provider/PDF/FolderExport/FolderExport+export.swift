@@ -31,7 +31,12 @@ extension FolderExport {
         /// Build the TOC to see how many pages we need
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.right))
         counter.tocItems = files.map { file in
-            PDFBuild.TOCInfo(title: file.title, subtitle: file.artist, fileURL: file.fileURL)
+            PDFBuild.TOCInfo(
+                id: UUID(),
+                title: file.title,
+                subtitle: file.artist,
+                fileURL: file.fileURL
+            )
         }
         var tocData = FolderExport.toc(info: info, counter: counter)
         let tocPageCount = PDFDocument(data: tocData)?.pageCount ?? 0

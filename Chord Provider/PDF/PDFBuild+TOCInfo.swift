@@ -8,6 +8,8 @@ public extension PDFBuild {
 
     /// Information about an item for the TOC
     struct TOCInfo {
+        /// The ID of the TOC item
+        let id: UUID
         /// The title of the TOC item
         public var title: String
         /// The subtitle of the TOC item

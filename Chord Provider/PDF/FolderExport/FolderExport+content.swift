@@ -48,9 +48,10 @@ extension FolderExport {
                     )
                     builder.elements.append(PDFBuild.PageBreak())
                     let song = ChordPro.parse(
+                        id: item.id,
                         text: fileContents,
                         transpose: 0,
-                        instrument: .guitarStandardETuning, 
+                        instrument: .guitarStandardETuning,
                         fileURL: item.fileURL
                     )
                     builder.elements.append(contentsOf: SongExport.getSongElements(song: song, options: options, counter: counter))

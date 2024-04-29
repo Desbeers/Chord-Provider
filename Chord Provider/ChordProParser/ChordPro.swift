@@ -18,9 +18,9 @@ actor ChordPro {
     ///   - text: The text of the file
     ///   - transponse: The optional transpose of the song
     /// - Returns: A ``Song`` item
-    static func parse(text: String, transpose: Int, instrument: Instrument, fileURL: URL?) -> Song {
+    static func parse(id: UUID, text: String, transpose: Int, instrument: Instrument, fileURL: URL?) -> Song {
         /// Start with a fresh song
-        var song = Song(instrument: instrument, fileURL: fileURL)
+        var song = Song(id: id, instrument: instrument, fileURL: fileURL)
         /// Add the optional transpose
         song.transpose = transpose
         /// And add the first section

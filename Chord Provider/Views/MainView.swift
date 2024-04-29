@@ -68,6 +68,7 @@ struct MainView: View {
     @MainActor
     private func renderSong() {
         sceneState.song = ChordPro.parse(
+            id: UUID(),
             text: document.text,
             transpose: sceneState.song.transpose,
             instrument: chordDisplayOptions.instrument,

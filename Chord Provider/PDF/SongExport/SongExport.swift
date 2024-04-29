@@ -64,6 +64,7 @@ extension SongExport {
         counter: PDFBuild.PageCounter
     ) -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
+            id: song.id,
             title: song.title ?? "Unknown title",
             subtitle: song.artist ?? "Unknown artist",
             fileURL: song.fileURL

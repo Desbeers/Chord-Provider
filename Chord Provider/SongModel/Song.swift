@@ -11,6 +11,7 @@ import SwiftlyChordUtilities
 /// The structure of a song in `Chord Provider`
 struct Song {
 
+    /// The ID of the song
     var id: UUID = UUID()
 
     // MARK: Meta-data directives

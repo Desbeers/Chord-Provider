@@ -15,6 +15,7 @@ class ThumbnailProvider: QLThumbnailProvider {
         do {
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
             let song = ChordPro.parse(
+                id: UUID(),
                 text: fileContents,
                 transpose: 0,
                 instrument: .guitarStandardETuning,

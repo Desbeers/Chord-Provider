@@ -45,7 +45,7 @@ extension PDFBuild {
             /// Draw the TOC item
             tocItem.draw(rect: &rect, calculationOnly: calculationOnly)
             /// Calculate the used space and update the item in the `PageCounter` class
-            if !calculationOnly, let index = counter.tocItems.firstIndex(where: { $0.fileURL == tocInfo.fileURL }) {
+            if !calculationOnly, let index = counter.tocItems.firstIndex(where: { $0.id == tocInfo.id }) {
                 let usedRect = CGRect(
                     x: startRect.origin.x,
                     y: startRect.origin.y,
