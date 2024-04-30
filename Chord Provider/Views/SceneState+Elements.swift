@@ -56,9 +56,9 @@ extension SceneState {
         @Bindable var sceneState: SceneState
         var body: some View {
             Button {
-                sceneState.song.transpose += 1
+                sceneState.song.meta.transpose += 1
             } label: {
-                Label("♯", systemImage: sceneState.song.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle")
+                Label("♯", systemImage: sceneState.song.meta.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle")
             }
         }
     }
@@ -71,9 +71,9 @@ extension SceneState {
         @Bindable var sceneState: SceneState
         var body: some View {
             Button {
-                sceneState.song.transpose -= 1
+                sceneState.song.meta.transpose -= 1
             } label: {
-                Label("♭", systemImage: sceneState.song.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle")
+                Label("♭", systemImage: sceneState.song.meta.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle")
             }
         }
     }
@@ -96,7 +96,7 @@ extension SceneState {
                     sceneState.transposeUp
                 }
                 .controlGroupStyle(.palette)
-                Text("Transposed by \(sceneState.song.transpose.description) semitones")
+                Text("Transposed by \(sceneState.song.meta.transpose.description) semitones")
             } label: {
                 Label(
                     "Transpose", systemImage: icon)
@@ -104,7 +104,7 @@ extension SceneState {
             }
         }
         var icon: String {
-            switch sceneState.song.transpose {
+            switch sceneState.song.meta.transpose {
             case ...(-1):
                 "arrow.down.circle.fill"
             case 1...:
@@ -127,7 +127,7 @@ extension SceneState {
     private struct SongShareLink: View {
         @Bindable var sceneState: SceneState
         var body: some View {
-            ShareLink(item: sceneState.song.exportURL)
+            ShareLink(item: sceneState.song.meta.exportURL)
                 .labelStyle(.iconOnly)
         }
     }
@@ -196,7 +196,7 @@ extension SceneState {
         /// Get the URL for the music file
         /// - Returns: A full URL to the file, if found
         private func getMusicURL() -> URL? {
-            guard let file = sceneState.file, let path = sceneState.song.musicPath else {
+            guard let file = sceneState.file, let path = sceneState.song.meta.musicPath else {
                 return nil
             }
             var musicURL = file.deletingLastPathComponent()

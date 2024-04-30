@@ -151,6 +151,9 @@
 		D75B489A2BDD4BD0001F6176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F9E2A6460B7002D875D /* Assets.xcassets */; };
 		D75B489B2BDD4BDC001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48972BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift */; };
 		D75B489C2BDD4BDD001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48972BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift */; };
+		D75B48A42BDFE97F001F6176 /* Song+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48A32BDFE97F001F6176 /* Song+MetaData.swift */; };
+		D75B48A52BDFE97F001F6176 /* Song+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48A32BDFE97F001F6176 /* Song+MetaData.swift */; };
+		D75B48A62BDFE97F001F6176 /* Song+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48A32BDFE97F001F6176 /* Song+MetaData.swift */; };
 		D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622B462ABF0B04008CAC63 /* SettingsView.swift */; };
 		D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */; };
 		D78E1ECF2AC58840001A0641 /* EditorView+directiveSheetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */; };
@@ -328,6 +331,7 @@
 		D75B48922BDD0266001F6176 /* ExportFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportFolderView.swift; sourceTree = "<group>"; };
 		D75B48942BDD2291001F6176 /* FolderExport+files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FolderExport+files.swift"; sourceTree = "<group>"; };
 		D75B48972BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+PageBackgroundColor.swift"; sourceTree = "<group>"; };
+		D75B48A32BDFE97F001F6176 /* Song+MetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+MetaData.swift"; sourceTree = "<group>"; };
 		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+DirectiveSheet.swift"; sourceTree = "<group>"; };
 		D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveSheetButton.swift"; sourceTree = "<group>"; };
@@ -593,6 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F13F862A6460B7002D875D /* Song.swift */,
+				D75B48A32BDFE97F001F6176 /* Song+MetaData.swift */,
 				D7F13F892A6460B7002D875D /* Song+Section.swift */,
 				D7F13F852A6460B7002D875D /* Song+Section+Line.swift */,
 				D7F13F8A2A6460B7002D875D /* Song+Section+Line+Part.swift */,
@@ -955,6 +960,7 @@
 				D70B72BF2BD52A9C003C89B4 /* PDFBuild+LyricsSection+Line.swift in Sources */,
 				D70B72C02BD52A9C003C89B4 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */,
 				D70B72C12BD52A9C003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
+				D75B48A62BDFE97F001F6176 /* Song+MetaData.swift in Sources */,
 				D70B72C22BD52A9C003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
 				D70B72C32BD52A9C003C89B4 /* PDFBuild+Section.swift in Sources */,
 				D70B72C42BD52A9C003C89B4 /* PDFBuild+Clip.swift in Sources */,
@@ -1048,6 +1054,7 @@
 				D7F13FC02A6460B7002D875D /* Song+Section.swift in Sources */,
 				D706FD9A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift in Sources */,
 				D706FD8F2BCECC9F005DEDF6 /* PDFBuild+Background.swift in Sources */,
+				D75B48A42BDFE97F001F6176 /* Song+MetaData.swift in Sources */,
 				D70B72822BD5040C003C89B4 /* PDFBuild+Comment.swift in Sources */,
 				D70B72882BD5111D003C89B4 /* PDFBuild+GridSection.swift in Sources */,
 				D7F13FC72A6460B7002D875D /* FileBrowser.swift in Sources */,
@@ -1128,6 +1135,7 @@
 				D70B72A72BD52A9B003C89B4 /* PDFBuild+LyricsSection+Line.swift in Sources */,
 				D70B72A82BD52A9B003C89B4 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */,
 				D70B72A92BD52A9B003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
+				D75B48A52BDFE97F001F6176 /* Song+MetaData.swift in Sources */,
 				D70B72AA2BD52A9B003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
 				D70B72AB2BD52A9B003C89B4 /* PDFBuild+Section.swift in Sources */,
 				D70B72AC2BD52A9B003C89B4 /* PDFBuild+Clip.swift in Sources */,

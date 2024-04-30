@@ -29,14 +29,14 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool) {
             /// Add the detail items
             var items: [NSAttributedString] = []
-            items.append(detailLabel(icon: "􀑭", label: song.instrument.label))
-            if let key = song.key {
+            items.append(detailLabel(icon: "􀑭", label: song.meta.instrument.label))
+            if let key = song.meta.key {
                 items.append(detailLabel(icon: "􀟕", label: key.displayName(options: .init())))
             }
-            if let capo = song.capo {
+            if let capo = song.meta.capo {
                 items.append(detailLabel(icon: "􀉢", label: capo))
             }
-            if let time = song.time {
+            if let time = song.meta.time {
                 items.append(detailLabel(icon: "􀐱", label: time))
             }
             let text = items.joined(with: "  ")

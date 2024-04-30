@@ -52,7 +52,7 @@ struct MainView: View {
                 }
             }
         }
-        .onChange(of: sceneState.song.transpose) {
+        .onChange(of: sceneState.song.meta.transpose) {
             renderSong()
         }
         .onChange(of: chordDisplayOptions.instrument) {
@@ -70,7 +70,7 @@ struct MainView: View {
         sceneState.song = ChordPro.parse(
             id: UUID(),
             text: document.text,
-            transpose: sceneState.song.transpose,
+            transpose: sceneState.song.meta.transpose,
             instrument: chordDisplayOptions.instrument,
             fileURL: sceneState.file
         )
@@ -78,7 +78,7 @@ struct MainView: View {
             do {
                 let export = try SongExport.export(song: sceneState.song, options: chordDisplayOptions)
                 sceneState.pdfData = export.pdf
-                try export.pdf.write(to: sceneState.song.exportURL)
+                try export.pdf.write(to: sceneState.song.meta.exportURL)
             } catch {
                 Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
             }

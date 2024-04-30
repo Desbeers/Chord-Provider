@@ -12,7 +12,7 @@ import SwiftlyChordUtilities
 @Observable
 final class SceneState {
     /// The current ``Song``
-    var song = Song(instrument: .guitarStandardETuning)
+    var song = Song()
     /// The selection in the editor
     var selection: NSRange = .init(location: 0, length: 0)
     /// The `NSTextView` of the editor

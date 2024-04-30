@@ -24,8 +24,8 @@ extension SongExport {
         options: ChordDisplayOptions
     ) throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         let pdfInfo = PDFBuild.DocumentInfo(
-            title: song.title ?? "No title",
-            author: song.artist ?? "Unknown artist"
+            title: song.meta.title ?? "No title",
+            author: song.meta.artist ?? "Unknown artist"
         )
         let builder = PDFBuild.Builder(info: pdfInfo)
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.center))
@@ -65,14 +65,14 @@ extension SongExport {
     ) -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
             id: song.id,
-            title: song.title ?? "Unknown title",
-            subtitle: song.artist ?? "Unknown artist",
-            fileURL: song.fileURL
+            title: song.meta.title ?? "Unknown title",
+            subtitle: song.meta.artist ?? "Unknown artist",
+            fileURL: song.meta.fileURL
         )
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))
-        items.append(PDFBuild.Text("\(song.title ?? "No Title")", attributes: .songTitle))
-        items.append(PDFBuild.Text("\(song.artist ?? "Unknown Artist")", attributes: .songArtist))
+        items.append(PDFBuild.Text("\(song.meta.title ?? "No Title")", attributes: .songTitle))
+        items.append(PDFBuild.Text("\(song.meta.artist ?? "Unknown Artist")", attributes: .songArtist))
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))

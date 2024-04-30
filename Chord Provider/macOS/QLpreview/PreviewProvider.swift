@@ -26,7 +26,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
                 fileURL: request.fileURL
             )
             let data = try SongExport.export(song: song, options: .init()).pdf
-            replyToUpdate.title = "\(song.artist ?? "Artist") - \(song.title ?? "Title")"
+            replyToUpdate.title = "\(song.meta.artist ?? "Artist") - \(song.meta.title ?? "Title")"
             replyToUpdate.stringEncoding = .utf8
             return data
         }

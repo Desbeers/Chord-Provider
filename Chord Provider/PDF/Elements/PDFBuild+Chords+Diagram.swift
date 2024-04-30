@@ -15,7 +15,7 @@ import SwiftlyChordUtilities
 extension PDFBuild.Chords {
 
     /// A PDF **chord diagram** element
-    ///
+    /// 
     /// Display a single chord diagram
     class Diagram: PDFElement {
 
@@ -254,7 +254,7 @@ extension PDFBuild.Chords {
                     height: ySpacing
                 )
                 for row in 1...5 {
-                    if let barre = checkBarre(barre: row) {
+                    if let barre = chord.checkBarre(fret: row, mirrorDiagram: options.mirrorDiagram) {
                         let finger = options.showFingers ? "\(barre.finger)" : " "
                         let text = PDFBuild.Text(finger, attributes: .diagramFinger)
                         let background = PDFBuild.Background(color: .gray, text)
@@ -299,48 +299,6 @@ extension PDFBuild.Chords {
                 /// Add this item to the total height
                 currentDiagramHeight += height
             }
-        }
-
-
-        // MARK: Helper functions
-
-        // swiftlint:disable:next large_tuple
-        func checkBarre(barre: Int) -> (finger: Int, startIndex: Int, length: Int)? {
-            var isBarre: Bool = false
-            var finger: Int = 0
-            for column in chord.frets.indices {
-                if chord.frets[safe: column] == barre && chord.barres.contains(chord.fingers[safe: column] ?? -1) {
-                    isBarre = true
-                    finger = chord.fingers[safe: column] ?? 0
-                }
-            }
-            switch isBarre {
-            case true:
-                let bar = calculateBar(barre: barre, finger: finger)
-                return (finger, bar.startIndex, bar.length)
-            case false:
-                return nil
-            }
-        }
-
-        private func calculateBar(barre: Int, finger: Int) -> (startIndex: Int, length: Int) {
-            /// Draw barre behind all frets that are above the barre chord
-            var startIndex = (frets.firstIndex { $0 == barre } ?? 0)
-            let barreFretCount = frets.filter { $0 == barre }.count
-            var length = 0
-
-            for index in startIndex..<frets.count {
-                let dot = frets[index]
-                if dot >= barre {
-                    length += 1
-                } else if dot < barre && length < barreFretCount {
-                    length = 0
-                    startIndex = index + 1
-                } else {
-                    break
-                }
-            }
-            return (startIndex, length)
         }
     }
 }

@@ -14,50 +14,9 @@ struct Song {
     /// The ID of the song
     var id: UUID = UUID()
 
-    // MARK: Meta-data directives
+    // MARK: Meta data directives
 
-    /// The optional title
-    var title: String?
-    /// The optional artist
-    var artist: String?
-    /// The optional capo
-    var capo: String?
-    /// The optional key
-    var key: ChordDefinition?
-    /// The optional tempo
-    var tempo: String?
-    /// The optional time
-    var time: String?
-    /// The optional year
-    var year: String?
-    /// The optional album
-    var album: String?
-    /// The optional tuning
-    var tuning: String?
-    /// The optional path to the audio file
-    var musicPath: String?
-    /// The optional tag(s)
-    var tags: [String] = []
-    /// The optional transpose
-    var transpose: Int = 0
-    /// The instrument
-    var instrument: Instrument
-    /// The optional file URL
-    var fileURL: URL?
-
-    // MARK: Song export
-
-    /// The location for the PDF export
-    var exportURL: URL {
-        return FileManager.default.temporaryDirectory
-            .appendingPathComponent(exportName)
-            .appendingPathExtension("pdf")
-    }
-
-    /// The default name for the export
-    var exportName: String {
-        "\(artist ?? "Artist") - \(title ?? "Title")"
-    }
+    var meta = MetaData()
 
     // MARK: All the sections in the song
 

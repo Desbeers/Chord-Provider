@@ -2,7 +2,7 @@
 //  FolderExport+files.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 27/04/2024.
+//  © 2023 Nick Berendsen
 //
 
 import Foundation

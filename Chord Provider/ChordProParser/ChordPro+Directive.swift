@@ -39,6 +39,8 @@ extension ChordPro {
         case tempo
         /// This directive specifies the capo setting for the song
         case capo
+        /// This directive specifies the instrument setting for the song
+        case instrument
 
         /// # Formatting directives
 

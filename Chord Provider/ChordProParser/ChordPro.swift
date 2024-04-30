@@ -20,9 +20,11 @@ actor ChordPro {
     /// - Returns: A ``Song`` item
     static func parse(id: UUID, text: String, transpose: Int, instrument: Instrument, fileURL: URL?) -> Song {
         /// Start with a fresh song
-        var song = Song(id: id, instrument: instrument, fileURL: fileURL)
+        var song = Song(id: id)
+        song.meta.instrument = instrument
+        song.meta.fileURL = fileURL
         /// Add the optional transpose
-        song.transpose = transpose
+        song.meta.transpose = transpose
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: true)
         /// Parse each line of the text:
@@ -79,8 +81,8 @@ actor ChordPro {
             song.sections.append(currentSection)
         }
         /// Set the first chord as key if not set manual
-        if song.key == nil {
-            song.key = song.chords.first
+        if song.meta.key == nil {
+            song.meta.key = song.chords.first
         }
         /// All done!
         return song
@@ -109,27 +111,27 @@ actor ChordPro {
                 // MARK: Meta-data directives
 
             case .t, .title:
-                song.title = label
+                song.meta.title = label
             case .st, .subtitle, .artist:
-                song.artist = label
+                song.meta.artist = label
             case .capo:
-                song.capo = label
+                song.meta.capo = label
             case .time:
-                song.time = label
+                song.meta.time = label
             case .key:
-                if let label, var chord = ChordDefinition(name: label, instrument: song.instrument) {
+                if let label, var chord = ChordDefinition(name: label, instrument: song.meta.instrument) {
                     /// Transpose the key if needed
-                    if song.transpose != 0 {
-                        chord.transpose(transpose: song.transpose, scale: chord.root)
+                    if song.meta.transpose != 0 {
+                        chord.transpose(transpose: song.meta.transpose, scale: chord.root)
                     }
-                    song.key = chord
+                    song.meta.key = chord
                 }
             case .tempo:
-                song.tempo = label
+                song.meta.tempo = label
             case .year:
-                song.year = label
+                song.meta.year = label
             case .album:
-                song.album = label
+                song.meta.album = label
 
                 // MARK: Formatting directives
 
@@ -250,12 +252,14 @@ actor ChordPro {
                 // MARK: Custom directives
             case .musicPath:
                 if let label {
-                    song.musicPath = label
+                    song.meta.musicPath = label
                 }
             case .tag:
                 if let label {
-                    song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
+                    song.meta.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
                 }
+            case .instrument:
+                break
             }
         }
     }
@@ -293,8 +297,8 @@ actor ChordPro {
     ///   - text: The chord definition
     ///   - song: The `song`
     private static func processDefine(text: String, song: inout Song) {
-        if var definedChord = ChordDefinition(definition: text, instrument: song.instrument, status: .unknown) {
-            definedChord.status = song.transpose == 0 ? definedChord.status : .customTransposed
+        if var definedChord = ChordDefinition(definition: text, instrument: song.meta.instrument, status: .unknown) {
+            definedChord.status = song.meta.transpose == 0 ? definedChord.status : .customTransposed
             /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
                 $0.name == definedChord.name &&
@@ -455,16 +459,16 @@ actor ChordPro {
             return match
         }
         /// Try to find it in the database
-        if var databaseChord = ChordDefinition(name: chord, instrument: song.instrument) {
-            if song.transpose != 0 {
-                databaseChord.transpose(transpose: song.transpose, scale: song.key?.root ?? .c)
+        if var databaseChord = ChordDefinition(name: chord, instrument: song.meta.instrument) {
+            if song.meta.transpose != 0 {
+                databaseChord.transpose(transpose: song.meta.transpose, scale: song.meta.key?.root ?? .c)
                 /// Keep the original name
                 databaseChord.name = chord
             }
             song.chords.append(databaseChord)
             return databaseChord
         }
-        let unknownChord = ChordDefinition(unknown: chord, instrument: song.instrument)
+        let unknownChord = ChordDefinition(unknown: chord, instrument: song.meta.instrument)
         song.chords.append(unknownChord)
         return unknownChord
     }
