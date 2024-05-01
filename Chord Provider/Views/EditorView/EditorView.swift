@@ -92,6 +92,7 @@ struct EditorView: View {
             if sceneState.textView == nil {
 #if os(macOS)
                 editor.textView.textContainerInset = NSSize(width: 10, height: 10)
+                editor.textView.isIncrementalSearchingEnabled = true
 #endif
                 sceneState.textView = editor.textView
             }

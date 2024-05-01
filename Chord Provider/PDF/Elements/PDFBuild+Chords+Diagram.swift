@@ -87,7 +87,7 @@ extension PDFBuild.Chords {
             drawGrid(rect: &rect, calculationOnly: calculationOnly)
             /// No need to draw dots and barres when we are calculating the size
             if !calculationOnly {
-                drawDots(rect: &rect)
+                drawFrets(rect: &rect)
                 drawBarres(rect: &rect)
             }
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
@@ -215,19 +215,19 @@ extension PDFBuild.Chords {
                 currentDiagramHeight += gridSize.height
             }
 
-            // MARK: Dots
+            // MARK: Frets
 
-            func drawDots(rect: inout CGRect) {
+            func drawFrets(rect: inout CGRect) {
                 var dotRect = CGRect(
                     x: rect.origin.x + xSpacing,
                     y: rect.origin.y,
                     width: xSpacing,
                     height: ySpacing
                 )
-                for row in 1...5 {
-                    for column in chord.instrument.strings {
-                        if frets[column] == row && !chord.barres.contains(fingers[column]) {
-                            let finger = options.showFingers ? "\(fingers[column])" : " "
+                for fret in 1...5 {
+                    for string in chord.instrument.strings {
+                        if frets[string] == fret && !chord.barres.map(\.fret).contains(fret) {
+                            let finger = options.showFingers && fingers[string] != 0 ? "\(fingers[string])" : " "
                             let text = PDFBuild.Text(finger, attributes: .diagramFinger)
                             let background = PDFBuild.Background(color: .gray, text)
                             let shape = PDFBuild.Clip(.circle, background)
@@ -253,8 +253,10 @@ extension PDFBuild.Chords {
                     width: xSpacing,
                     height: ySpacing
                 )
-                for row in 1...5 {
-                    if let barre = chord.checkBarre(fret: row, mirrorDiagram: options.mirrorDiagram) {
+                for fret in 1...5 {
+                    if var barre = chord.barres.first(where: { $0.fret == fret }) {
+                        /// Mirror for left-handed if needed
+                        barre = options.mirrorDiagram ? chord.mirrorBarre(barre) : barre
                         let finger = options.showFingers ? "\(barre.finger)" : " "
                         let text = PDFBuild.Text(finger, attributes: .diagramFinger)
                         let background = PDFBuild.Background(color: .gray, text)

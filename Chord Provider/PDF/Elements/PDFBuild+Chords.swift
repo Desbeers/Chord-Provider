@@ -26,6 +26,8 @@ extension PDFBuild {
         ///   - options: The chord display options
         init(chords: [ChordDefinition], options: ChordDefinition.DisplayOptions) {
             self.chords = chords
+                .sorted(using: KeyPathComparator(\.root))
+                .sorted(using: KeyPathComparator(\.quality))
             self.options = options
         }
 
