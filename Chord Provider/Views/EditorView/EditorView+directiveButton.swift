@@ -14,15 +14,11 @@ extension EditorView {
     func directiveButton(directive: ChordPro.Directive) -> some View {
         Button(
             action: {
-                Task {
-                    await EditorView.format(
-                        document: &document,
-                        directive: directive,
-                        selection: sceneState.selection,
-                        definition: nil,
-                        in: sceneState.textView
-                    )
-                }
+                EditorView.format(
+                    directive: directive,
+                    definition: nil,
+                    in: connector
+                )
             }, label: {
                 Label("\(directive.label.text)…", systemImage: directive.label.icon)
             }

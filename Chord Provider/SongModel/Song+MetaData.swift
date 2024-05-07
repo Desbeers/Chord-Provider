@@ -12,7 +12,7 @@ extension Song {
 
     /// Meta data about the song
     struct MetaData {
-        
+
         // MARK: Meta-data directives
 
         /// The optional title

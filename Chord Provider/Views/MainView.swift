@@ -20,7 +20,7 @@ struct MainView: View {
     /// Chord Display Options
     @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// Build a song max one time per second
-        let buildSongDebouncer = Debouncer(duration: 1)
+    let buildSongDebouncer = Debouncer(duration: 1)
     /// The body of the `View`
     var body: some View {
         let layout = appState.settings.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
@@ -77,7 +77,6 @@ struct MainView: View {
         Task {
             do {
                 let export = try SongExport.export(song: sceneState.song, options: chordDisplayOptions)
-                sceneState.pdfData = export.pdf
                 try export.pdf.write(to: sceneState.song.meta.exportURL)
             } catch {
                 Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")

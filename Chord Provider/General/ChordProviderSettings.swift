@@ -15,8 +15,8 @@ struct ChordProviderSettings: Equatable, Codable, Sendable {
     var showChords: Bool = true
     var showInlineDiagrams: Bool = false
     var paging: Song.DisplayOptions.Paging = .asList
-    var editorFontSize: Int = 14
     var chordsPosition: Position = .right
+    var editor: ChordProviderSettings.Editor = .init()
 
     enum Position: String, CaseIterable, Codable {
         case right = "Right"

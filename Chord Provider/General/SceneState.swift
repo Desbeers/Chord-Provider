@@ -27,8 +27,8 @@ final class SceneState {
     var showInspector: Bool = false
     /// Present template sheet
     var presentTemplate: Bool = false
-    /// The data of the PDF export
-    var pdfData: Data?
+    /// The optional URL for a PDF quicklook
+    var quicklookURL: URL?
 
     // MARK: Song View options
 

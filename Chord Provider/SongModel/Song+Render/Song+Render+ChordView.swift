@@ -35,7 +35,7 @@ extension Song.Render {
             case .customTransposed, .unknown:
                 Color.red
             default:
-                Color.accentColor
+                Color.accent
             }
         }
         /// The `popover` state

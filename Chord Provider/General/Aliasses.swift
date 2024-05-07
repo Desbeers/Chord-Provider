@@ -23,6 +23,10 @@ public typealias SWIFTTextView = NSTextView
 public typealias SWIFTEdgeInsets = NSEdgeInsets
 /// Alias for NSBezierPath
 public typealias SWIFTBezierPath = NSBezierPath
+/// Alias for NSViewRepresentable
+public typealias SWIFTViewRepresentable = NSViewRepresentable
+/// Alias for NSTextViewDelegate
+public typealias SWIFTTextViewDelegate = NSTextViewDelegate
 
 // MARK: macOS extensions
 
@@ -65,6 +69,12 @@ extension NSRect {
     }
 }
 
+extension Color {
+    init(swiftColor: SWIFTColor) {
+        self.init(nsColor: swiftColor)
+    }
+}
+
 #else
 
 // MARK: iOS typealiases
@@ -81,11 +91,45 @@ public typealias SWIFTTextView = UITextView
 public typealias SWIFTEdgeInsets = UIEdgeInsets
 /// Alias for UIBezierPath
 public typealias SWIFTBezierPath = UIBezierPath
+/// Alias for UIViewRepresentable
+public typealias SWIFTViewRepresentable = UIViewRepresentable
+/// Alias for UITextViewDelegate
+public typealias SWIFTTextViewDelegate = UITextViewDelegate
 
-// MARK: macOS extensions
+// MARK: iOS extensions
 
 extension NSString {
     typealias DrawingOptions = NSStringDrawingOptions
 }
 
+extension Color {
+
+    init(swiftColor: SWIFTColor) {
+        self.init(uiColor: swiftColor)
+    }
+}
+
+extension UIColor {
+
+    /// iOS version of the `NSColor.textColor` from macOS
+    static var textColor: UIColor {
+        UIColor.label
+    }
+}
+
+extension UITextView {
+
+    /// iOS version of the `NSTextView.string` from macOS
+    var string: String {
+        text
+    }
+}
+
 #endif
+
+public extension SWIFTTextView {
+
+    var attributedStorage: NSMutableAttributedString? {
+        textStorage
+    }
+}

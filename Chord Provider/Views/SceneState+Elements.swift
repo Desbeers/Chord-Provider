@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import QuickLook
 
 extension SceneState {
 
@@ -135,19 +136,22 @@ extension SceneState {
 
 extension SceneState {
 
-    // MARK: PDF inspector toggle
+    // MARK: Quicklook button
 
-    var pdfInspector: some View {
-        PDFInspector(sceneState: self)
+    var quicklook: some View {
+        Quicklook(sceneState: self)
     }
 
-    private struct PDFInspector: View {
+    private struct Quicklook: View {
         @Bindable var sceneState: SceneState
         var body: some View {
-            Toggle(isOn: $sceneState.showInspector) {
-                Label("PDF preview", systemImage: sceneState.showInspector ? "eye.fill" : "eye")
-            }
+            Button(action: {
+                sceneState.quicklookURL = sceneState.quicklookURL == nil ? sceneState.song.meta.exportURL : nil
+            }, label: {
+                Label("PDF preview", systemImage: sceneState.quicklookURL == nil ? "eye" : "eye.fill")
+            })
             .labelStyle(.iconOnly)
+            .quickLookPreview($sceneState.quicklookURL)
         }
     }
 }

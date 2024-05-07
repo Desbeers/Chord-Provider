@@ -14,48 +14,32 @@ import UIKit
 
 extension EditorView {
 
-    /// Apply  a `directive` to the (optional) selected range in the `NSTextView`
+    /// Apply  a `directive` to the (optional) selected range in the ``ChordProEditor``
     /// - Parameters:
-    ///     - document: The `ChordProDocument` to update
-    ///     - directive: The `Directive` to apply
-    ///     - textView: The `NSTextView` to update
-    @MainActor
+    ///   - directive: The `Directive` to apply
+    ///   - definition: The optional definition of the directive
+    ///   - editor: The editor
     static func format(
-        document: inout ChordProDocument,
         directive: ChordPro.Directive,
-        selection: NSRange,
         definition: String?,
-        in textView: SWIFTTextView?
+        in editor: ChordProEditor.Connector
     ) {
-        /// Make sure we have a NSTextView and the selection can be converted to a Swift Range
-        guard let textView = textView, let range = Range(selection, in: document.text) else {
-            return
-        }
-        let selectedText = document.text[range]
+        Task {
 
-        var replacementText = format(directive: directive, argument: String(selectedText))
+            let selectedText = await editor.textView.selectedText
+            var replacementText = format(directive: directive, argument: String(selectedText))
+            /// Override the selection when the definition is not empty
+            if let definition {
+                replacementText = format(directive: directive, argument: definition)
+            }
 
-        /// Override the selection when the definition is not empty
-        if let definition {
-            replacementText = format(directive: directive, argument: definition)
+            switch editor.selection {
+            case .none, .single:
+                await editor.insertText(text: replacementText)
+            case .multiple:
+                await editor.wrapTextSelections(leading: directive.format.start, trailing: directive.format.end)
+            }
         }
-
-        document.text.replaceSubrange(range, with: replacementText)
-        /// Move the cursor
-        var location = selection.location
-        switch directive.kind {
-        case .block:
-            location += selectedText.isEmpty ? directive.format.start.count : replacementText.count
-        case .inline:
-            location += selectedText.isEmpty ? directive.format.start.count : replacementText.count
-        case .optionalLabel:
-            location = selection.location + replacementText.count
-        }
-#if os(macOS)
-        textView.setSelectedRange(NSRange(location: location, length: 0))
-#else
-        textView.selectedRange = NSRange(location: location, length: 0)
-#endif
     }
 
     /// Format a ``ChordPro/Directive`` with its argument

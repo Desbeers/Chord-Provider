@@ -68,7 +68,7 @@ public extension StringAttributes {
     /// Style atributes for the chord of the part
     static func partChord(_ status: Chord.Status) -> StringAttributes {
         [
-            .foregroundColor:  status == .unknown ? SWIFTColor.red : SWIFTColor.gray,
+            .foregroundColor: status == .unknown ? SWIFTColor.red : SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }

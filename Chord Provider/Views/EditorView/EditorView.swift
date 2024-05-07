@@ -7,45 +7,20 @@
 
 import SwiftUI
 
-#if os(visionOS)
-
-/// SwiftUI `View` for the `HighlightedTextEditor`
+/// SwiftUI `View` for the ``ChordProEditor``
 struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
     @Environment(AppState.self) var appState
-    /// The scene state
-    @Environment(SceneState.self) var sceneState
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
     /// The directive to show in the sheet
     @State var directive: ChordPro.Directive = .define
     /// The definition of the directive sheet
     @State var definition: String = ""
-    /// The body of the `View`
-    var body: some View {
-        TextEditor(text: $document.text)
-    }
-}
-#else
-
-import HighlightedTextEditor
-
-/// SwiftUI `View` for the `HighlightedTextEditor`
-struct EditorView: View {
-    /// The ChordPro document
-    @Binding var document: ChordProDocument
-    /// The app state
-    @Environment(AppState.self) var appState
-    /// The scene state
-    @Environment(SceneState.self) var sceneState
-    /// Show a directive sheet
-    @State var showDirectiveSheet: Bool = false
-    /// The directive to show in the sheet
-    @State var directive: ChordPro.Directive = .define
-    /// The definition of the directive sheet
-    @State var definition: String = ""
+    /// The connector class for the editor
+    @State var connector = ChordProEditor.Connector(settings: ChordProviderSettings.load().editor)
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -60,11 +35,9 @@ struct EditorView: View {
             onDismiss: {
                 if !definition.isEmpty {
                     EditorView.format(
-                        document: &document,
                         directive: directive,
-                        selection: sceneState.selection,
                         definition: definition,
-                        in: sceneState.textView
+                        in: connector
                     )
                     /// Clear the definition
                     definition = ""
@@ -77,27 +50,12 @@ struct EditorView: View {
     }
     /// The editor
     var editor: some View {
-        HighlightedTextEditor(
+        ChordProEditor(
             text: $document.text,
-            highlightRules: EditorView.rules(fontSize: Double(appState.settings.editorFontSize))
+            connector: connector
         )
-        /// Below selector prevents the cursor from jumping while the SongView is updated
-        /// It will also be passed to 'format' buttons
-        .onSelectionChange { (range: NSRange) in
-            sceneState.selection = range
-        }
-        /// Below is needed to interact with the NSTextView
-        .introspect { editor in
-            /// Setup the TextView
-            if sceneState.textView == nil {
-#if os(macOS)
-                editor.textView.textContainerInset = NSSize(width: 10, height: 10)
-                editor.textView.isIncrementalSearchingEnabled = true
-#endif
-                sceneState.textView = editor.textView
-            }
+        .task(id: appState.settings.editor) {
+            connector.settings = appState.settings.editor
         }
     }
 }
-
-#endif

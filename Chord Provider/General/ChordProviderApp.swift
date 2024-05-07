@@ -134,6 +134,7 @@ import SwiftlyChordUtilities
 
         Settings {
             SettingsView()
+                .environment(appState)
                 .environment(chordDisplayOptions)
                 .environment(fileBrowser)
         }

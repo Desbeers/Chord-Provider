@@ -17,10 +17,10 @@ extension EditorView {
             Menu(
                 content: {
                     ForEach(ChordPro.Directive.metaDataDirectives, id: \.self) { directive in
-                        if sceneState.selection.length == 0 {
-                            directiveSheetButton(directive: directive)
-                        } else {
+                        if connector.selection == .single {
                             directiveButton(directive: directive)
+                        } else {
+                            directiveSheetButton(directive: directive)
                         }
                     }
                 },
@@ -28,6 +28,7 @@ extension EditorView {
                     Label("Metadata", systemImage: "gear")
                 }
             )
+            .disabled(connector.selection == .multiple)
             Menu(
                 content: {
                     ForEach(ChordPro.Directive.environmentDirectives, id: \.self) { directive in
@@ -47,16 +48,7 @@ extension EditorView {
                     Label("More...", systemImage: "pencil")
                 }
             )
-            Picker("Font Size:", selection: $appState.settings.editorFontSize) {
-                ForEach(12...24, id: \.self) { value in
-                    Text("\(value)px")
-                        .tag(value)
-                }
-            }
-            .labelsHidden()
-#if os(macOS)
-            .frame(maxWidth: 75)
-#endif
+            .disabled(connector.selection == .multiple)
         }
         .menuStyle(.button)
     }

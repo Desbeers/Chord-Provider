@@ -28,12 +28,6 @@ struct ContentView: View {
             MainView(document: $document)
                 .background(Color.telecaster.opacity(0.2))
         }
-#if !os(visionOS)
-        .inspector(isPresented: $sceneState.showInspector) {
-            PdfView()
-                .inspectorColumnWidth(ideal: 500)
-        }
-#endif
         .toolbar {
             ToolbarView()
         }

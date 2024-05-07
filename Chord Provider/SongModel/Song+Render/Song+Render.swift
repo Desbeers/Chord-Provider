@@ -24,7 +24,6 @@ extension Song {
         var body: some View {
             switch options.paging {
             case .asList:
-                /// - Note: Don't put this in a `ScrollView` because that will break the macOS quicklook plugin
                 VStack {
                     switch options.label {
                     case .inline:
@@ -38,7 +37,9 @@ extension Song {
                         }
                     }
                 }
+
                 .font(.system(size: 14 * options.scale))
+
             case .asColumns:
                 ScrollView(.horizontal) {
                     ColumnsLayout(
@@ -124,7 +125,7 @@ extension Song.Render {
                 GridRow {
                     Text(label)
                         .padding(.all, prominent ? 10 : 0)
-                        .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
+                        .background(prominent ? Color.accent.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
                         .frame(minWidth: 100, alignment: .trailing)
                         .gridColumnAlignment(.trailing)
                     content

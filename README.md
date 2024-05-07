@@ -23,6 +23,7 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 ### General
 
 - It wil view and/or edit **ChordPro** files.
+- It has a editor that highlights your chords and directives with colors you can change in in the settings.
 - It recognise most of the **ChordPro** directives, but not all.
 - It can show diagrams for the guitar, guitalele and ukulele.
 - You can click on a chord diagram and it will open a Sheet with all known versions.
@@ -36,8 +37,10 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 
 ### macOS
 
+- It can export a whole folder with **ChordPro** files to a PDF with a Table of Contents.
 - It has a 'browser' for your songs if you select a folder.
 - It has a 'quick view' plugin for **ChordPro** files.
+- It makes thumbnails for your **ChordPro** files.
 
 ### iPadOS
 
@@ -53,6 +56,8 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 
 Not all chords in the database are correct; especially the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS and iPadOS to view and alter the database with all known chords. Feel free to contribute!
 
+Only the macOS version is well-tested. I don't have iDevices that are supported by the current software version and I have no intention to buy one anytime soon.
+
 ### iCloud
 
 The iPadOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
@@ -64,14 +69,11 @@ Stole code (and ideas) from:
 - [SongPro for Swift](https://github.com/SongProOrg/songpro-swift)
 - [Conscriptor](https://github.com/dbarsamian/conscriptor)
 - [PdfBuilder](https://github.com/atrbx5/PdfBuilder)
+- [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
 
 ### Used packages
 
-#### External:
-
-- The editor is [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
-
-#### My own:
+All my own and in my GitHub account.
 
 ![Icon](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png)
 

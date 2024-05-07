@@ -190,7 +190,7 @@ extension FileBrowserView {
                         },
                         icon: {
                             Image(systemName: song.musicPath.isEmpty ? "music.note" : "music.note.list")
-                                .foregroundStyle(Color.accentColor)
+                                .foregroundStyle(Color.accent)
                         }
                     )
                 }
@@ -246,7 +246,7 @@ extension FileBrowserView {
         /// - Returns: A `View` with the label
         func makeBody(configuration: Configuration) -> some View {
             HStack {
-                configuration.icon.foregroundColor(.accentColor).frame(width: 14)
+                configuration.icon.foregroundColor(.accent).frame(width: 14)
                 configuration.title
             }
             .frame(maxWidth: .infinity, alignment: .leading)
