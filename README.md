@@ -23,14 +23,14 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 ### General
 
 - It wil view and/or edit **ChordPro** files.
-- It has a editor that highlights your chords and directives with colors you can change in in the settings.
+- It has an editor that highlights your chords and directives with colors you can change in the settings.
 - It recognise most of the **ChordPro** directives, but not all.
 - It can show diagrams for the guitar, guitalele and ukulele.
 - You can click on a chord diagram and it will open a Sheet with all known versions.
 - It can transpose a song; however, only in the View. The document will not be changed and that's on purpose.
 - You can 'define' a Capo but that will not change any notes in the document; again on purpose.
 - It can export your song to a PDF document.
-- It can play chords with MIDI. Note: This does not work in a simulator.
+- It can play chords with MIDI with a guitar instrument that you can select in the settings. *Note: This does not work in a simulator*.
 - It can play audio songs when stored next to the **ChordPro** file when defined with `{musicpath: file-name.m4a}` and when a music folder is selected (sandbox restriction).
 - Full 'left-handed' chords support.
 
@@ -38,9 +38,11 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 ### macOS
 
 - It can export a whole folder with **ChordPro** files to a PDF with a Table of Contents.
-- It has a 'browser' for your songs if you select a folder.
-- It has a 'quick view' plugin for **ChordPro** files.
+- It has a 'Song List' Window for your songs if you select a folder.
+- It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`
 - It makes thumbnails for your **ChordPro** files.
+
+Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
 
 ### iPadOS
 
