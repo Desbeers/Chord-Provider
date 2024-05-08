@@ -43,6 +43,8 @@ struct ChordProEditor: SWIFTViewRepresentable {
         textView.string = self.text
         textView.allowsUndo = true
         textView.textContainerInset = NSSize(width: 10, height: 10)
+        /// Avoid weird jumping and allow multiple selections
+        textView.layoutManager?.allowsNonContiguousLayout = false
         connector.textView = textView
         return scrollView
     }
