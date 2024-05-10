@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/// Alias for a `NSAttributedString` key and value
+public typealias StringAttributes = [NSAttributedString.Key: Any]
+
 #if os(macOS)
 
 // MARK: macOS typealiases

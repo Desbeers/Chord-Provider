@@ -25,31 +25,28 @@ struct ChordProEditor: SWIFTViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(text: $text, connector: connector)
     }
 
     // MARK: Platform Specific
 
 #if os(macOS)
 
-    let scrollView = SWIFTTextView.scrollableTextView()
+    let macEditor = MacEditor.Wrapper()
 
-    var textView: SWIFTTextView {
-        scrollView.documentView as? SWIFTTextView ?? SWIFTTextView()
+    func makeNSView(context: Context) -> MacEditor.Wrapper {
+        macEditor.textView.string = text
+        macEditor.textView.selectedRanges = [NSValue(range: NSRange())]
+        connector.textView = macEditor.textView
+        macEditor.textView.delegate = context.coordinator
+        /// Wait for next cycle and set the textview as first responder
+        Task {
+            macEditor.textView.window?.makeFirstResponder(macEditor.textView)
+        }
+        return macEditor
     }
 
-    func makeNSView(context: Context) -> some NSView {
-        textView.delegate = context.coordinator
-        textView.string = self.text
-        textView.allowsUndo = true
-        textView.textContainerInset = NSSize(width: 10, height: 10)
-        /// Avoid weird jumping and allow multiple selections
-        textView.layoutManager?.allowsNonContiguousLayout = false
-        connector.textView = textView
-        return scrollView
-    }
-
-    func updateNSView(_ nsView: NSViewType, context: Context) {}
+    func updateNSView(_ nsView: MacEditor.Wrapper, context: Context) {}
 
 #else
 

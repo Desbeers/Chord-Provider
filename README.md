@@ -41,6 +41,7 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 - It has a 'Song List' Window for your songs if you select a folder.
 - It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`
 - It makes thumbnails for your **ChordPro** files.
+- It has a fancier editor with linenumbers and highlighted current paragraph
 
 Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
 
@@ -72,6 +73,7 @@ Stole code (and ideas) from:
 - [Conscriptor](https://github.com/dbarsamian/conscriptor)
 - [PdfBuilder](https://github.com/atrbx5/PdfBuilder)
 - [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
+- [LNTextView](https://github.com/JonWorms/LNTextView)
 
 ### Used packages
 

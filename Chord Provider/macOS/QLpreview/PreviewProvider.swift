@@ -7,7 +7,6 @@
 
 import Cocoa
 import Quartz
-import SwiftUI
 
 class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 

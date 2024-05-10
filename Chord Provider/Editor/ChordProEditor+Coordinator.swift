@@ -11,7 +11,10 @@ extension ChordProEditor {
 
     /// The coordinator for the ``ChordProEditor``
     class Coordinator: NSObject, SWIFTTextViewDelegate {
-        var parent: ChordProEditor
+
+        var text: Binding<String>
+
+        var connector: ChordProEditor.Connector
 
         var balance: String?
 
@@ -19,8 +22,9 @@ extension ChordProEditor {
 
         /// Init the **coordinator**
         /// - Parameter parent: The ``ChordProEditor``
-        public init(_ parent: ChordProEditor) {
-            self.parent = parent
+        public init(text: Binding<String>, connector: ChordProEditor.Connector) {
+            self.text = text
+            self.connector = connector
         }
 
         // MARK: Protocol Functions
@@ -38,21 +42,21 @@ extension ChordProEditor {
         }
 
         func textDidChange(_ notification: Notification) {
-            if let balance, let range = parent.textView.selectedRanges.first?.rangeValue {
+            if let balance, let range = connector.textView.selectedRanges.first?.rangeValue {
                 Task { @MainActor in
-                    parent.textView.insertText(balance, replacementRange: range)
-                    parent.textView.selectedRanges = [NSValue(range: range)]
+                    connector.textView.insertText(balance, replacementRange: range)
+                    connector.textView.selectedRanges = [NSValue(range: range)]
                 }
                 self.balance = nil
             }
-            parent.connector.processHighlighting(fullText: highlightFullText)
-            parent.text = parent.textView.string
+            connector.processHighlighting(fullText: highlightFullText)
+            text.wrappedValue = connector.textView.string
         }
 
         func textViewDidChangeSelection(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView
             else { return }
-            parent.connector.selectedRanges = textView.selectedRanges
+            connector.selectedRanges = textView.selectedRanges
         }
 #else
         func textView(
@@ -74,12 +78,12 @@ extension ChordProEditor {
                 }
                 self.balance = nil
             }
-            parent.connector.processHighlighting(fullText: highlightFullText)
-            parent.text = textView.text
+            connector.processHighlighting(fullText: highlightFullText)
+            text.wrappedValue = connector.textView.text
         }
 
         func textViewDidChangeSelection(_ textView: UITextView) {
-            parent.connector.selectedRanges = [NSValue(range: textView.selectedRange)]
+            connector.selectedRanges = [NSValue(range: textView.selectedRange)]
         }
 #endif
     }

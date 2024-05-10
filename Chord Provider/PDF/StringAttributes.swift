@@ -11,9 +11,6 @@ import AppKit
 import UIKit
 #endif
 
-/// Alias for a `NSAttributedString` key and value
-public typealias StringAttributes = [NSAttributedString.Key: Any]
-
 public extension StringAttributes {
 
     /// Merge ``StringAttributes``

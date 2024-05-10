@@ -2,12 +2,14 @@
 //  Color+Extension.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 07/05/2024.
+//  © 2023 Nick Berendsen
 //
 
 import SwiftUI
 
+/// Make `Color` codable
 extension Color: Codable {
+
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         let swiftColor = SWIFTColor(self)

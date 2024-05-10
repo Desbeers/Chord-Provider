@@ -9,14 +9,6 @@ import SwiftUI
 
 extension ChordProEditor.Connector {
 
-    /// The style of a paragraph in the editor
-    static let nsParagraphStyle: NSParagraphStyle = {
-        let style = NSMutableParagraphStyle()
-        style.lineHeightMultiple = 1.4
-        style.headIndent = 10
-        return style
-    }()
-
     @MainActor
     /// Highlight text containing chords or directives
     /// - Parameter fullText: True if the full text must be checked, or else only the current paragraph
@@ -31,7 +23,6 @@ extension ChordProEditor.Connector {
         /// Make all text in the default style
         textView.attributedStorage?.setAttributes(
             [
-                .paragraphStyle: ChordProEditor.Connector.nsParagraphStyle,
                 .foregroundColor: SWIFTColor.textColor,
                 .font: baseFont
             ], range: currentParagrapRange)
@@ -85,7 +76,6 @@ extension ChordProEditor.Connector {
         }
         /// The attributes for the next typing
         textView.typingAttributes = [
-            .paragraphStyle: ChordProEditor.Connector.nsParagraphStyle,
             .foregroundColor: SWIFTColor.textColor,
             .font: baseFont
         ]
