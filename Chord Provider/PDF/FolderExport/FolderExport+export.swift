@@ -16,12 +16,14 @@ extension FolderExport {
     /// Export a folder with ChordPro songs
     /// - Parameters:
     ///   - info: The document info for the PDF
-    ///   - options: The chord display options
+    ///   - generalOptions: The general options
+    ///   - chordDisplayOptions: The chord display options
     ///   - progress: A closure to observe the progress of PDF creation
     /// - Returns: A PDFDocument if all well, else an error
     static func export(
         info: PDFBuild.DocumentInfo,
-        options: ChordDisplayOptions,
+        generalOptions: ChordProviderGeneralOptions,
+        chordDisplayOptions: ChordDefinition.DisplayOptions,
         progress: @escaping (Double) -> Void
     ) async throws -> PDFDocument? {
 
@@ -44,7 +46,13 @@ extension FolderExport {
         counter.pageNumber -= 1
 
         // MARK: Render Content
-        let contentData = FolderExport.content(info: info, counter: counter, options: options, progress: progress)
+        let contentData = FolderExport.content(
+            info: info,
+            counter: counter,
+            generalOptions: generalOptions,
+            chordDisplayOptions: chordDisplayOptions,
+            progress: progress
+        )
 
         // MARK: Render Table of Contents
         tocData = FolderExport.toc(info: info, counter: counter)

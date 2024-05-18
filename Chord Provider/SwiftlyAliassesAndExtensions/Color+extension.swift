@@ -31,3 +31,13 @@ extension Color: Codable {
         self.init(swiftColor: swiftColor)
     }
 }
+
+extension Color {
+    init(swiftColor: SWIFTColor) {
+#if os(macOS)
+        self.init(nsColor: swiftColor)
+#else
+        self.init(uiColor: swiftColor)
+#endif
+    }
+}

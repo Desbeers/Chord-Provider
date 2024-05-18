@@ -37,9 +37,7 @@ extension Song {
                         }
                     }
                 }
-
                 .font(.system(size: 14 * options.scale))
-
             case .asColumns:
                 ScrollView(.horizontal) {
                     ColumnsLayout(
@@ -61,23 +59,23 @@ extension Song {
             ForEach(song.sections) { section in
                 switch section.type {
                 case .verse, .bridge:
-                    VerseSectionView(section: section, options: options, chords: song.chords)
+                    verseSection(section: section)
                 case .chorus:
-                    ChorusSectionView(section: section, options: options, chords: song.chords)
+                    chorusSection(section: section)
                 case .repeatChorus:
-                    RepeatChorusView(section: section, options: options)
+                    repeatChorusSection(section: section)
                 case .tab:
-                    TabSectionView(section: section, options: options)
+                    tabSection(section: section)
                 case .grid:
-                    GridSectionView(section: section, options: options, chords: song.chords)
+                    gridSection(section: section)
                 case .textblock:
-                    TextblockSectionView(section: section, options: options)
+                    textblockSection(section: section)
                 case .comment:
-                    CommentSectionView(section: section, options: options)
+                    commentSection(section: section)
                 case .strum:
-                    StrumSectionView(section: section, options: options)
+                    strumSection(section: section)
                 default:
-                    PlainSectionView(section: section, options: options)
+                    plainSection(section: section)
                 }
             }
         }
@@ -147,67 +145,47 @@ extension Song.Render {
     // MARK: Verse
 
     /// SwiftUI `View` for a verse section
-    struct VerseSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The chords of the song
-        let chords: [ChordDefinition]
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    if line.comment.isEmpty {
-                        PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
-                    } else {
-                        CommentLabelView(comment: line.comment, options: options)
-                    }
+    func verseSection(section: Song.Section) -> some View {
+        VStack(alignment: .leading) {
+            ForEach(section.lines) { line in
+                if line.comment.isEmpty {
+                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: song.chords)
+                } else {
+                    commentLabel(comment: line.comment)
                 }
             }
-            .modifier(SectionView(options: options, label: section.label))
         }
+        .modifier(SectionView(options: options, label: section.label))
     }
 
     // MARK: Chorus
 
     /// SwiftUI `View` for a chorus section
-    struct ChorusSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The chords of the song
-        let chords: [ChordDefinition]
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    if line.comment.isEmpty {
-                        PartsView(options: options, sectionID: section.id, parts: line.parts, chords: chords)
-                    } else {
-                        CommentLabelView(comment: line.comment, options: options)
-                    }
+    func chorusSection(section: Song.Section) -> some View {
+        VStack(alignment: .leading) {
+            ForEach(section.lines) { line in
+                if line.comment.isEmpty {
+                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: song.chords)
+                } else {
+                    commentLabel(comment: line.comment)
                 }
             }
-            .modifier(
-                SectionView(
-                    options: options,
-                    label: section.label.isEmpty ? "Chorus" : section.label,
-                    prominent: true
-                )
-            )
         }
+        .modifier(
+            SectionView(
+                options: options,
+                label: section.label.isEmpty ? "Chorus" : section.label,
+                prominent: true
+            )
+        )
     }
 
     /// SwiftUI `View` for a chorus repeat
-    struct RepeatChorusView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The body of the `View`
-        var body: some View {
+    @ViewBuilder func repeatChorusSection(section: Song.Section) -> some View {
+
+        if options.repeatWholeChorus, let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
+            chorusSection(section: lastChorus)
+        } else {
             ProminentLabel(
                 options: options,
                 label: section.label.isEmpty ? "Repeat Chorus" : section.label,
@@ -220,175 +198,124 @@ extension Song.Render {
     // MARK: Tab
 
     /// SwiftUI `View` for a tab section
-    struct TabSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    if line.comment.isEmpty {
-                        Text(line.tab)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.01)
-                            .monospaced()
-                    } else {
-                        CommentLabelView(comment: line.comment, options: options)
-                    }
+    func tabSection(section: Song.Section) -> some View {
+        VStack(alignment: .leading) {
+            ForEach(section.lines) { line in
+                if line.comment.isEmpty {
+                    Text(line.tab)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.01)
+                        .monospaced()
+                } else {
+                    commentLabel(comment: line.comment)
                 }
             }
-            .padding(.vertical, options.scale)
-            .modifier(SectionView(options: options, label: section.label))
         }
+        .padding(.vertical, options.scale)
+        .modifier(SectionView(options: options, label: section.label))
     }
 
     // MARK: Grid
 
     /// SwiftUI `View` for a grid section
-    struct GridSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The chords of the song
-        let chords: [ChordDefinition]
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                Grid(alignment: .leading) {
-                    ForEach(section.lines) { line in
-                        if line.comment.isEmpty {
-                            GridRow {
-                                ForEach(line.grid) { grid in
-                                    Text("|")
-                                    ForEach(grid.parts) { part in
-                                        if let chord = chords.first(where: { $0.id == part.chord }) {
-                                            ChordView(options: options, sectionID: section.id, partID: part.id, chord: chord)
-                                        } else {
-                                            Text(part.text)
-                                        }
+    func gridSection(section: Song.Section) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Grid(alignment: .leading) {
+                ForEach(section.lines) { line in
+                    if line.comment.isEmpty {
+                        GridRow {
+                            ForEach(line.grid) { grid in
+                                Text("|")
+                                ForEach(grid.parts) { part in
+                                    if let chord = song.chords.first(where: { $0.id == part.chord }) {
+                                        ChordView(options: options, sectionID: section.id, partID: part.id, chord: chord)
+                                    } else {
+                                        Text(part.text)
                                     }
                                 }
                             }
-                        } else {
-                            CommentLabelView(comment: line.comment, options: options)
                         }
+                    } else {
+                        commentLabel(comment: line.comment)
                     }
                 }
             }
-            .padding(.vertical, options.scale)
-            .modifier(SectionView(options: options, label: section.label))
         }
+        .padding(.vertical, options.scale)
+        .modifier(SectionView(options: options, label: section.label))
     }
 
     // MARK: Textblock
 
     /// SwiftUI `View` for a plain text section
-    struct TextblockSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    ForEach(line.parts) { part in
-                        /// Init the text like this to enable markdown formatting
-                        Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
-                    }
+    func textblockSection(section: Song.Section) -> some View {
+        VStack(alignment: .leading) {
+            ForEach(section.lines) { line in
+                ForEach(line.parts) { part in
+                    /// Init the text like this to enable markdown formatting
+                    Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
                 }
             }
-            .foregroundStyle(.secondary)
-            .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
-            .modifier(SectionView(options: options, label: section.label == ChordPro.Environment.textblock.rawValue ? "" : section.label))
         }
+        .foregroundStyle(.secondary)
+        .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
+        .modifier(SectionView(options: options, label: section.label == ChordPro.Environment.textblock.rawValue ? "" : section.label))
     }
 
     // MARK: Comment
 
     /// SwiftUI `View` for a comment in its own section
-    struct CommentSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The body of the `View`
-        var body: some View {
-            CommentLabelView(comment: section.lines.first?.comment ?? "", options: options)
-                .modifier(SectionView(options: options))
-        }
+    func commentSection(section: Song.Section) -> some View {
+        commentLabel(comment: section.lines.first?.comment ?? "")
+            .modifier(SectionView(options: options))
     }
 
     /// SwiftUI `View` for a comment label
-    struct CommentLabelView: View {
-        /// The comment
-        let comment: String
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The body of the `View`
-        var body: some View {
-            ProminentLabel(
-                options: options,
-                label: comment,
-                icon: "text.bubble",
-                color: .comment
-            )
-            .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
-        }
+    func commentLabel(comment: String) -> some View {
+        ProminentLabel(
+            options: options,
+            label: comment,
+            icon: "text.bubble",
+            color: .comment
+        )
+        .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
     }
 
     // MARK: Strum
 
     /// SwiftUI `View` for a strum section
-    struct StrumSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    if line.comment.isEmpty {
-                        ForEach(line.strum) {strum in
-                            Text(strum)
-                        }
-                        .tracking(2 * options.scale)
-                        .monospaced()
-                        .font(.system(size: 16 * options.scale))
-                    } else {
-                        CommentLabelView(comment: line.comment, options: options)
+    func strumSection(section: Song.Section) -> some View {
+        VStack(alignment: .leading) {
+            ForEach(section.lines) { line in
+                if line.comment.isEmpty {
+                    ForEach(line.strum) {strum in
+                        Text(strum)
                     }
+                    .tracking(2 * options.scale)
+                    .monospaced()
+                    .font(.system(size: 16 * options.scale))
+                } else {
+                    commentLabel(comment: line.comment)
                 }
             }
-            .modifier(SectionView(options: options, label: section.label))
         }
+        .modifier(SectionView(options: options, label: section.label))
     }
 
     // MARK: Plain
 
     /// SwiftUI `View` for a plain text section
-    struct PlainSectionView: View {
-        /// The `section` of the song
-        let section: Song.Section
-        /// The display options
-        let options: Song.DisplayOptions
-        /// The body of the `View`
-        var body: some View {
-            VStack(alignment: .leading) {
-                ForEach(section.lines) { line in
-                    ForEach(line.parts) { part in
-                        /// Init the text like this to enable markdown formatting
-                        Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
-                    }
+    func plainSection(section: Song.Section) -> some View {
+        VStack(alignment: .leading) {
+            ForEach(section.lines) { line in
+                ForEach(line.parts) { part in
+                    /// Init the text like this to enable markdown formatting
+                    Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
                 }
             }
-            .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
-            .modifier(SectionView(options: options, label: section.label))
         }
+        .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
+        .modifier(SectionView(options: options, label: section.label))
     }
 
     // MARK: Parts
@@ -452,16 +379,4 @@ extension Song.Render {
             }
         }
     }
-}
-
-extension String: Identifiable {
-
-    // swiftlint:disable type_name
-    /// Make a String identifiable
-    public typealias ID = Int
-    /// The ID of the string
-    public var id: Int {
-        hash
-    }
-    // swiftlint:enable type_name
 }

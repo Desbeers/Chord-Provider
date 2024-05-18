@@ -16,6 +16,9 @@ extension Song {
         var paging: Paging = .asList
         /// The label style of the song
         var label: LabelStyle = .grid
+
+        var repeatWholeChorus: Bool
+
         /// The scale factor of the song
         var scale: Double = 1
         /// The style of the chords display

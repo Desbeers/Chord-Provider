@@ -11,6 +11,8 @@ import SwiftlyChordUtilities
 import SwiftlyFolderUtilities
 
 struct ExportFolderView: View {
+    /// The app state
+    @Environment(AppState.self) private var appState
     /// The FileBrowser model
     @Environment(FileBrowser.self) private var fileBrowser
     /// Chord Display Options
@@ -41,12 +43,12 @@ struct ExportFolderView: View {
                         currentFolder = ExportFolderView.exportFolderTitle ?? "No folder selected"
                     }
                 }
-
+                appState.repeatWholeChorusToggle
+                chordDisplayOptions.instrumentPicker
                 Section("PDF info") {
                     TextField("Title of the export", text: $pdfInfo.title, prompt: Text("Title"))
                     TextField("Author of the export", text: $pdfInfo.author, prompt: Text("Author"))
                 }
-                chordDisplayOptions.instrumentPicker
                     .pickerStyle(.segmented)
                 Section("Diagrams") {
                     chordDisplayOptions.fingersToggle
@@ -66,7 +68,8 @@ struct ExportFolderView: View {
                             exporting = true
                             if let render = try await FolderExport.export(
                                 info: pdfInfo,
-                                options: chordDisplayOptions,
+                                generalOptions: appState.settings.general,
+                                chordDisplayOptions: chordDisplayOptions.displayOptions,
                                 progress: { page in
                                     progress = Double(page)
                                 }
@@ -84,7 +87,7 @@ struct ExportFolderView: View {
                     }
                 },
                 label: {
-                    Label("Export Folder", systemImage: "square.and.arrow.up")
+                    Label("Export Songs", systemImage: "square.and.arrow.up")
                 }
             )
             .help("Export your folder as PDF")
@@ -92,7 +95,7 @@ struct ExportFolderView: View {
             .disabled(currentFolder == nil || pdfInfo.title.isEmpty || pdfInfo.author.isEmpty || exporting)
             .padding()
         }
-        .frame(width: 400, height: 520)
+        .frame(width: 400, height: 600)
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),

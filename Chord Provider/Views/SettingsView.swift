@@ -21,6 +21,10 @@ struct SettingsView: View {
     /// The body of the `View`
     var body: some View {
         TabView {
+            general
+                .tabItem {
+                    Label("General", systemImage: "gear")
+                }
             diagram
                 .tabItem {
                     Label("Diagrams", systemImage: "guitars")
@@ -35,11 +39,24 @@ struct SettingsView: View {
                 }
         }
 #if os(macOS)
-        .frame(width: 450, height: 460)
+        .frame(width: 450, height: 480)
 #elseif os(visionOS)
         .frame(width: 450, height: 560)
 #endif
         .formStyle(.grouped)
+    }
+
+    /// `View` with general options
+    @ViewBuilder var general: some View {
+        @Bindable var appState = appState
+        VStack {
+            Text("General Options")
+                .font(.title)
+                .padding(.top)
+            Form {
+                appState.repeatWholeChorusToggle
+            }
+        }
     }
 
     /// `View` with diagram display options

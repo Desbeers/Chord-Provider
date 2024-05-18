@@ -21,7 +21,11 @@ class ThumbnailProvider: QLThumbnailProvider {
                 instrument: .guitarStandardETuning,
                 fileURL: request.fileURL
             )
-            let data = try SongExport.export(song: song, options: .init())
+            let data = try SongExport.export(
+                song: song,
+                generalOptions: .init(),
+                chordDisplayOptions: .init()
+            )
             /// Create image for data
             let nsImage = NSImage(data: data.pdf)
             var rect = NSRect(origin: CGPoint(x: 0, y: 0), size: nsImage?.size ?? .zero)

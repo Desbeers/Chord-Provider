@@ -24,7 +24,11 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
                 instrument: .guitarStandardETuning,
                 fileURL: request.fileURL
             )
-            let data = try SongExport.export(song: song, options: .init()).pdf
+            let data = try SongExport.export(
+                song: song,
+                generalOptions: .init(),
+                chordDisplayOptions: .init()
+            ).pdf
             replyToUpdate.title = "\(song.meta.artist ?? "Artist") - \(song.meta.title ?? "Title")"
             replyToUpdate.stringEncoding = .utf8
             return data

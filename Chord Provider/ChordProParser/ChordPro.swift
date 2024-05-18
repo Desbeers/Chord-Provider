@@ -180,7 +180,7 @@ actor ChordPro {
                 /// ## Repeat Chorus
             case .chorus:
                 processSection(
-                    label: label ?? Environment.repeatChorus.rawValue,
+                    label: label ?? Environment.chorus.rawValue,
                     type: .repeatChorus,
                     song: &song,
                     currentSection: &currentSection

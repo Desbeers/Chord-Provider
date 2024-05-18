@@ -23,7 +23,8 @@ extension FolderExport {
     static func content(
         info: PDFBuild.DocumentInfo,
         counter: PDFBuild.PageCounter,
-        options: ChordDisplayOptions,
+        generalOptions: ChordProviderGeneralOptions,
+        chordDisplayOptions: ChordDefinition.DisplayOptions,
         progress: @escaping (Double) -> Void
     ) -> Data {
         let builder = PDFBuild.Builder(info: info)
@@ -51,10 +52,17 @@ extension FolderExport {
                         id: item.id,
                         text: fileContents,
                         transpose: 0,
-                        instrument: options.instrument,
+                        instrument: chordDisplayOptions.instrument,
                         fileURL: item.fileURL
                     )
-                    builder.elements.append(contentsOf: SongExport.getSongElements(song: song, options: options, counter: counter))
+                    builder.elements.append(
+                        contentsOf: SongExport.getSongElements(
+                            song: song,
+                            generalOptions: generalOptions,
+                            chordDisplayOptions: chordDisplayOptions,
+                            counter: counter
+                        )
+                    )
                 } else {
                     Logger.application.error("No Access to \(item.title, privacy: .public)")
                 }

@@ -51,17 +51,19 @@ extension NSFont {
     static func italicSystemFont(ofSize fontSize: CGFloat) -> NSFont {
         let systemFont = NSFont.systemFont(ofSize: fontSize)
 
-        // Create a font descriptor with the italic trait
+        /// Create a font descriptor with the italic trait
         let fontDescriptor = systemFont.fontDescriptor.withSymbolicTraits(.italic)
 
-        // Create a font from the descriptor
+        /// Create a font from the descriptor
         let italicSystemFont = NSFont(descriptor: fontDescriptor, size: fontSize)
 
         return italicSystemFont ?? systemFont // Return italic font or fallback to system font
     }
 }
 
-extension NSRect {
+extension CGRect {
+
+    /// macOS version of `inset(by:)` from iOS
     func inset(by insets: NSEdgeInsets) -> NSRect {
         var rect = self
         rect.origin.x += insets.left
@@ -69,12 +71,6 @@ extension NSRect {
         rect.size.width -= (insets.left + insets.right)
         rect.size.height -= (insets.top + insets.bottom)
         return rect
-    }
-}
-
-extension Color {
-    init(swiftColor: SWIFTColor) {
-        self.init(nsColor: swiftColor)
     }
 }
 
@@ -101,13 +97,6 @@ public typealias SWIFTViewRepresentable = UIViewRepresentable
 
 extension NSString {
     typealias DrawingOptions = NSStringDrawingOptions
-}
-
-extension Color {
-
-    init(swiftColor: SWIFTColor) {
-        self.init(uiColor: swiftColor)
-    }
 }
 
 extension UIColor {

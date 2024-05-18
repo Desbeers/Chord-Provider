@@ -13,8 +13,6 @@ import SwiftlyChordUtilities
 @main struct ChordProviderApp: App {
     /// The FileBrowser model
     @State private var fileBrowser = FileBrowser()
-    /// The welcome view setting
-    @AppStorage("hideWelcome") var hideWelcome: Bool = true
     /// Chord Display Options
     @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
     /// The state of the app
@@ -49,6 +47,7 @@ import SwiftlyChordUtilities
         /// The 'Export Folder' window
         Window("Export Folder with Songs…", id: "Export") {
             ExportFolderView()
+                .environment(appState)
                 .environment(fileBrowser)
                 .environment(chordDisplayOptions)
         }
@@ -151,11 +150,6 @@ import SwiftlyChordUtilities
                 .environment(chordDisplayOptions)
                 .environment(fileBrowser)
                 .environment(appState)
-                .task {
-                    if hideWelcome == false {
-                        UserDefaults.standard.removeObject(forKey: "welcome")
-                    }
-                }
                 .toolbarBackground(
                     Color.accent.opacity(0.4),
                     for: .navigationBar)

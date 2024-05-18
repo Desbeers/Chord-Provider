@@ -70,6 +70,7 @@ struct SongView: View {
                             options: Song.DisplayOptions(
                                 paging: .asList,
                                 label: .grid,
+                                repeatWholeChorus: appState.settings.general.repeatWholeChorus,
                                 scale: scale,
                                 chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
                                 midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
@@ -80,6 +81,7 @@ struct SongView: View {
                             options: Song.DisplayOptions(
                                 paging: .asList,
                                 label: .inline,
+                                repeatWholeChorus: appState.settings.general.repeatWholeChorus,
                                 scale: scale,
                                 chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
                                 midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
@@ -94,6 +96,7 @@ struct SongView: View {
                     options: Song.DisplayOptions(
                         paging: .asColumns,
                         label: .inline,
+                        repeatWholeChorus: appState.settings.general.repeatWholeChorus,
                         scale: scale,
                         chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
                         midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
