@@ -15,12 +15,11 @@ extension EditorView {
         Button(
             action: {
                 EditorView.format(
-                    directive: directive,
-                    definition: nil,
+                    settings: DirectiveSettings(directive: directive),
                     in: connector
                 )
             }, label: {
-                Label("\(directive.label.text)…", systemImage: directive.label.icon)
+                Label("\(directive.details.button)…", systemImage: directive.details.icon)
             }
         )
     }

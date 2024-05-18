@@ -11,13 +11,13 @@ extension ChordProEditor {
 
     /// The coordinator for the ``ChordProEditor``
     class Coordinator: NSObject, SWIFTTextViewDelegate {
-
+        /// The text of the editor
         var text: Binding<String>
-
+        /// The connector class for the editor
         var connector: ChordProEditor.Connector
-
+        /// The optional balance string, close  a`{` or `[`
         var balance: String?
-
+        /// Bool if the whole text must be (re)highlighed or just the current fragment
         var highlightFullText: Bool = true
 
         /// Init the **coordinator**
@@ -36,9 +36,7 @@ extension ChordProEditor {
             shouldChangeTextIn affectedCharRange: NSRange,
             replacementString: String?
         ) -> Bool {
-            balance = replacementString == "[" ? "]" : replacementString == "{" ? "}" : nil
-            highlightFullText = replacementString?.count ?? 0 > 1
-            return true
+            return swiftTextView(replacementString: replacementString ?? "")
         }
 
         func textDidChange(_ notification: Notification) {
@@ -50,13 +48,14 @@ extension ChordProEditor {
                 self.balance = nil
             }
             connector.processHighlighting(fullText: highlightFullText)
+            swiftTextViewDidChangeSelection(selectedRanges: connector.textView.selectedRanges)
             text.wrappedValue = connector.textView.string
         }
 
         func textViewDidChangeSelection(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView
             else { return }
-            connector.selectedRanges = textView.selectedRanges
+            swiftTextViewDidChangeSelection(selectedRanges: textView.selectedRanges)
         }
 #else
         func textView(
@@ -64,9 +63,7 @@ extension ChordProEditor {
             shouldChangeTextIn affectedCharRange: NSRange,
             replacementText replacementString: String
         ) -> Bool {
-            balance = replacementString == "[" ? "]" : replacementString == "{" ? "}" : nil
-            highlightFullText = replacementString.count > 1
-            return true
+            return swiftTextView(replacementString: replacementString)
         }
 
         func textViewDidChange(_ textView: UITextView) {
@@ -79,12 +76,32 @@ extension ChordProEditor {
                 self.balance = nil
             }
             connector.processHighlighting(fullText: highlightFullText)
+            swiftTextViewDidChangeSelection(selectedRanges: connector.textView.selectedRanges)
             text.wrappedValue = connector.textView.text
         }
 
         func textViewDidChangeSelection(_ textView: UITextView) {
-            connector.selectedRanges = [NSValue(range: textView.selectedRange)]
+            swiftTextViewDidChangeSelection(selectedRanges: [NSValue(range: textView.selectedRange)])
         }
 #endif
+
+        // MARK: Wrap Platform Functions
+
+        func swiftTextView(replacementString: String) -> Bool {
+            balance = replacementString == "[" ? "]" : replacementString == "{" ? "}" : nil
+            highlightFullText = replacementString.count > 1
+            return true
+        }
+
+        func swiftTextViewDidChangeSelection(selectedRanges: [NSValue]) {
+            guard
+                let firstSelection = selectedRanges.first?.rangeValue
+            else {
+                return
+            }
+            connector.selectedRanges = selectedRanges
+            connector.textView.setSelectedTextLayoutFragment(selectedRange: firstSelection)
+            connector.textView.chordProEditorDelegate?.selectionNeedsDisplay()
+        }
     }
 }

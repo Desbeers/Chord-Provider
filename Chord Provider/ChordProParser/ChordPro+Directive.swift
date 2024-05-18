@@ -123,8 +123,11 @@ extension ChordPro {
         /// This directive has the path to the music file
         case musicPath = "musicpath"
 
-        /// Tag(s) for the music file
+        /// This directive defines a tag for the song
         case tag
+
+        /// Not a directive
+        case none
 
         /// ### Strum
 

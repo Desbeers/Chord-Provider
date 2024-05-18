@@ -28,7 +28,11 @@ extension ChordProEditor {
     static let directiveRegex = Regex {
         Regex {
             "{"
-            ChoiceOf(ChordProEditor.directives)
+            Capture {
+                ChoiceOf(ChordProEditor.directives)
+            } transform: {
+                ChordPro.Directive(rawValue: $0.lowercased())
+            }
             One(.anyOf(":}"))
         }
     }
@@ -36,10 +40,12 @@ extension ChordProEditor {
     /// Regex for an optional directive definition
     static let definitionRegex = Regex {
         ":"
-        OneOrMore {
-            CharacterClass(
-                .anyOf("{}").inverted
-            )
+        Capture {
+            OneOrMore {
+                CharacterClass(
+                    .anyOf("{}").inverted
+                )
+            }
         }
         "}"
     }
@@ -52,23 +58,6 @@ extension ChordProEditor {
                     .anyOf("[]{}")
                 )
             }
-        }
-    }
-}
-
-extension ChoiceOf where RegexOutput == Substring {
-
-    /// Extension to use an array of elements for a `ChoiceOf` regex part
-    /// - Parameter components: The choices components
-    init<S: Sequence<String>>(_ components: S) {
-        let exps = components.map { AlternationBuilder.buildExpression($0) }
-
-        guard !exps.isEmpty else {
-            fatalError("Empty choice!")
-        }
-
-        self = exps.dropFirst().reduce(AlternationBuilder.buildPartialBlock(first: exps[0])) { acc, next in
-            AlternationBuilder.buildPartialBlock(accumulated: acc, next: next)
         }
     }
 }

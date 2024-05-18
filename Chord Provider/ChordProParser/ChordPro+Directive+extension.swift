@@ -66,34 +66,6 @@ extension ChordPro.Directive {
         /// The directive can have an optional label; e.g.**{chorus: Repeat}** or jusr **{chorus}**
         case optionalLabel
     }
-
-    /// The label for the button
-    var label: (text: String, icon: String) {
-        switch self {
-        case .startOfChorus:
-            ("Chorus", "music.note.list")
-        case .chorus:
-            ("Repeat Chorus", "repeat")
-        case .startOfVerse:
-            ("Verse", "music.mic")
-        case .startOfBridge:
-            ("Bridge", "music.mic")
-        case .startOfTab:
-            ("Tab", "music.mic")
-        case .startOfGrid:
-            ("Grid", "music.mic")
-        case .startOfTextblock:
-            ("Textblock", "text.alignleft")
-        case .startOfStrum:
-            ("Strumming", "music.mic")
-        case .comment:
-            ("Add a Comment", "cloud")
-        case .define:
-            ("Define a Chord", "music.note.list")
-        default:
-            ("\(self.rawValue.capitalized)", "pencil")
-        }
-    }
 }
 
 extension ChordPro.Directive {
@@ -126,5 +98,10 @@ extension ChordPro.Directive {
             .startOfTextblock,
             .startOfStrum
         ]
+    }
+
+    /// Array of ``ChordPro/Directive`` that can be edited by double click on it (macOS only)
+    static var editableDirectives: [ChordPro.Directive] {
+        metaDataDirectives + [.t, .st, .subtitle, st, .comment, .define]
     }
 }

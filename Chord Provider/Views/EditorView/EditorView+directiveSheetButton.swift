@@ -10,14 +10,16 @@ import SwiftUI
 extension EditorView {
 
     /// A button for the text editor to add a directive with a sheet
+    /// - Note: Shown when there is no selection for the directive
     func directiveSheetButton(directive: ChordPro.Directive) -> some View {
         Button(
             action: {
-                self.directive = directive
+                directiveSettings.directive = directive
                 showDirectiveSheet = true
             }, label: {
-                Label("\(directive.label.text)…", systemImage: directive.label.icon)
+                Label("\(directive.details.button)…", systemImage: directive.details.icon)
             }
         )
+        .disabled(sceneState.song.definedMetaData.contains(directive))
     }
 }

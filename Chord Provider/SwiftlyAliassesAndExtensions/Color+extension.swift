@@ -1,5 +1,5 @@
 //
-//  Color+Extension.swift
+//  Color+extension.swift
 //  Chord Provider
 //
 //  © 2023 Nick Berendsen

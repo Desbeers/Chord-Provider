@@ -88,16 +88,14 @@ public typealias SWIFTImage = UIImage
 public typealias SWIFTColor = UIColor
 /// Alias for SWIFTFont
 public typealias SWIFTFont = UIFont
-/// Alias for UITextView
-public typealias SWIFTTextView = UITextView
+
 /// Alias for UIEdgeInsets
 public typealias SWIFTEdgeInsets = UIEdgeInsets
 /// Alias for UIBezierPath
 public typealias SWIFTBezierPath = UIBezierPath
 /// Alias for UIViewRepresentable
 public typealias SWIFTViewRepresentable = UIViewRepresentable
-/// Alias for UITextViewDelegate
-public typealias SWIFTTextViewDelegate = UITextViewDelegate
+
 
 // MARK: iOS extensions
 

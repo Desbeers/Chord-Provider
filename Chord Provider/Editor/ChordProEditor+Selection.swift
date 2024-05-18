@@ -2,19 +2,21 @@
 //  ChordProEditor+Selection.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 07/05/2024.
+//  © 2023 Nick Berendsen
 //
 
 import Foundation
 
 extension  ChordProEditor {
 
+    /// The current state of selection in the editor
     enum Selection: String {
         /// There is no selection in the editor
-        case none
+        case noSelection
         /// There is a single selection in trhe editor
-        case single
+        case singleSelection
         /// There are multiple selections in the editor
-        case multiple
+        /// - Note: Not used, I don't know how to get multiple selections with TextKit 2
+        case multipleSelections
     }
 }

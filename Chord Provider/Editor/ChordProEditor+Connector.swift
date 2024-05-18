@@ -13,7 +13,7 @@ extension ChordProEditor {
     /// The connector class for the editor
     class Connector {
         /// The current `NSTextView`
-        var textView: SWIFTTextView = .init()
+        var textView: TextView = .init()
 
         var settings: ChordProviderSettings.Editor {
             didSet {
@@ -31,9 +31,9 @@ extension ChordProEditor {
         var selection: ChordProEditor.Selection {
             switch selectedRanges.count {
             case 1:
-                return selectedRanges.first?.rangeValue.length == 0 ? .none : .single
+                return selectedRanges.first?.rangeValue.length == 0 ? .noSelection : .singleSelection
             default:
-                return .multiple
+                return .multipleSelections
             }
         }
 
@@ -42,18 +42,22 @@ extension ChordProEditor {
             self.baseFont = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
         }
 
-
-        @MainActor
-        /// Insert text at the current cursor position, removing any optional selected text
+        /// Insert text at the current range, removing any optional selected text
         /// - Parameter text: The text to insert
-        public func insertText(text: String) {
-            guard let range = selectedRanges.first?.rangeValue
-            else { return }
-            #if os(macOS)
+        /// - Parameter range: The optional range, or else the first selected range will be used
+        @MainActor
+        public func insertText(text: String, range: NSRange? = nil) {
+#if os(macOS)
+            guard
+                let range = range == nil ? selectedRanges.first?.rangeValue : range
+            else {
+                return
+            }
             textView.insertText(text, replacementRange: range)
-            #else
+#else
+            /// It seems iOS does not care about ranches
             textView.insertText(text)
-            #endif
+#endif
         }
 
 
@@ -74,25 +78,5 @@ extension ChordProEditor {
 #endif
             }
         }
-    }
-}
-
-extension SWIFTTextView {
-
-    /// Get the selected text from the NSTextView
-    var selectedText: String {
-        #if os(macOS)
-        string[selectedRange()]
-        #else
-        string[selectedRange]
-        #endif
-    }
-}
-
-extension String {
-
-    /// Get a part of a String from the subscript
-    subscript(_ range: NSRange) -> Self {
-        .init(self[index(startIndex, offsetBy: range.lowerBound) ..< index(startIndex, offsetBy: range.upperBound)])
     }
 }

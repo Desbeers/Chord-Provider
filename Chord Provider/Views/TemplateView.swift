@@ -34,15 +34,15 @@ struct TemplateView: View {
                     Form {
                         TextField(
                             text: $title,
-                            prompt: Text(ChordPro.Directive.title.label.text)
+                            prompt: Text(ChordPro.Directive.title.details.label)
                         ) {
-                            Text(ChordPro.Directive.title.label.text)
+                            Text(ChordPro.Directive.title.details.label)
                         }
                         TextField(
                             text: $artist,
-                            prompt: Text(ChordPro.Directive.artist.label.text)
+                            prompt: Text(ChordPro.Directive.artist.details.label)
                         ) {
-                            Text(ChordPro.Directive.artist.label.text)
+                            Text(ChordPro.Directive.artist.details.label)
                         }
                         Button("Add song") {
                             /// Convert the meta data

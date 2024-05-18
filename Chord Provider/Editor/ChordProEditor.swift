@@ -32,35 +32,38 @@ struct ChordProEditor: SWIFTViewRepresentable {
 
 #if os(macOS)
 
-    let macEditor = MacEditor.Wrapper()
+    let macEditor = Wrapper()
 
-    func makeNSView(context: Context) -> MacEditor.Wrapper {
+    func makeNSView(context: Context) -> Wrapper {
         macEditor.textView.string = text
-        macEditor.textView.selectedRanges = [NSValue(range: NSRange())]
         connector.textView = macEditor.textView
+
         macEditor.textView.delegate = context.coordinator
         /// Wait for next cycle and set the textview as first responder
-        Task {
+        Task { @MainActor in
+            connector.processHighlighting(fullText: true)
+            macEditor.textView.selectedRanges = [NSValue(range: NSRange())]
             macEditor.textView.window?.makeFirstResponder(macEditor.textView)
         }
         return macEditor
     }
 
-    func updateNSView(_ nsView: MacEditor.Wrapper, context: Context) {}
+    func updateNSView(_ nsView: Wrapper, context: Context) {}
 
 #else
 
-    let textView = UITextView()
+    let textView = TextView()
 
-    func makeUIView(context: Context) -> UITextView {
+    func makeUIView(context: Context) -> TextView {
         textView.delegate = context.coordinator
         textView.text = self.text
         textView.selectedRange = .init()
+        textView.textContainerInset = .zero
         connector.textView = textView
         return textView
     }
 
-    func updateUIView(_ view: UITextView, context: Context) {}
+    func updateUIView(_ view: TextView, context: Context) {}
 
 #endif
 }

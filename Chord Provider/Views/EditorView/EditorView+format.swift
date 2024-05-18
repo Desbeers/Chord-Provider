@@ -14,30 +14,43 @@ import UIKit
 
 extension EditorView {
 
-    /// Apply  a `directive` to the (optional) selected range in the ``ChordProEditor``
+    /// Apply  a `directive` in the ``ChordProEditor``
     /// - Parameters:
-    ///   - directive: The `Directive` to apply
-    ///   - definition: The optional definition of the directive
-    ///   - editor: The editor
+    ///   - settings: The settings for the directive
+    ///   - editor: The connector class for the editor
     static func format(
-        directive: ChordPro.Directive,
-        definition: String?,
+        settings: DirectiveSettings,
         in editor: ChordProEditor.Connector
     ) {
         Task {
+            /// Update a definition if we have a selected fragment
+            /// - Note: macOS only
+            if let fragment = settings.clickedFragment {
+                guard
+                    let paragraph = fragment.textElement as? NSTextParagraph,
+                    let range = paragraph.elementRange,
+                    let contentManager = paragraph.textContentManager,
+                    let nsRange = NSRange(textRange: range, in: contentManager)
 
-            let selectedText = await editor.textView.selectedText
-            var replacementText = format(directive: directive, argument: String(selectedText))
-            /// Override the selection when the definition is not empty
-            if let definition {
-                replacementText = format(directive: directive, argument: definition)
-            }
-
-            switch editor.selection {
-            case .none, .single:
-                await editor.insertText(text: replacementText)
-            case .multiple:
-                await editor.wrapTextSelections(leading: directive.format.start, trailing: directive.format.end)
+                else {
+                    return
+                }
+                let updatedDirective = "{\(settings.directive.rawValue): \(settings.definition)}\n"
+                await editor.insertText(text: updatedDirective, range: nsRange)
+            } else {
+                let selectedText = await editor.textView.selectedText
+                var replacementText = format(directive: settings.directive, argument: String(selectedText))
+                /// Replace the optional selection with the optional definition
+                if !settings.definition.isEmpty {
+                    replacementText = format(directive: settings.directive, argument: settings.definition)
+                }
+                switch editor.selection {
+                case .noSelection, .singleSelection:
+                    await editor.insertText(text: replacementText)
+                case .multipleSelections:
+                    /// - Note: I don't know how to get multiple selections with TextKit 2, so this is never used for now...
+                    await editor.wrapTextSelections(leading: settings.directive.format.start, trailing: settings.directive.format.end)
+                }
             }
         }
     }

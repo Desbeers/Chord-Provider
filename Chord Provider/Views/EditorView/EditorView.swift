@@ -7,18 +7,30 @@
 
 import SwiftUI
 
+extension EditorView {
+
+    struct DirectiveSettings {
+        /// The directive to show in the sheet
+        var directive: ChordPro.Directive = .none
+        /// The definition of the directive sheet
+        var definition: String = ""
+        /// The optional clicked fragment
+        var clickedFragment: NSTextLayoutFragment?
+    }
+}
+
 /// SwiftUI `View` for the ``ChordProEditor``
 struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
     @Environment(AppState.self) var appState
+    /// The scene state
+    @Environment(SceneState.self) var sceneState
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
-    /// The directive to show in the sheet
-    @State var directive: ChordPro.Directive = .define
-    /// The definition of the directive sheet
-    @State var definition: String = ""
+    /// The settings for the directive sheet
+    @State var directiveSettings = DirectiveSettings()
     /// The connector class for the editor
     @State var connector = ChordProEditor.Connector(settings: ChordProviderSettings.load().editor)
     /// The body of the `View`
@@ -33,29 +45,55 @@ struct EditorView: View {
         .sheet(
             isPresented: $showDirectiveSheet,
             onDismiss: {
-                if !definition.isEmpty {
+                if !directiveSettings.definition.isEmpty {
                     EditorView.format(
-                        directive: directive,
-                        definition: definition,
+                        settings: directiveSettings,
                         in: connector
                     )
-                    /// Clear the definition
-                    definition = ""
+                }
+                Task {
+
+                    /// Sleep for a moment to give the sheet some time to close
+                    /// - Note: Else the sheet will change during animation to its default
+                    try? await Task.sleep(for: .seconds(0.4))
+                    /// Clear the settings to default
+                    directiveSettings = DirectiveSettings()
+                    connector.textView.clickedFragment = nil
                 }
             },
             content: {
-                DirectiveSheet(directive: directive, definition: $definition)
+                DirectiveSheet(settings: $directiveSettings)
             }
         )
     }
     /// The editor
     var editor: some View {
-        ChordProEditor(
-            text: $document.text,
-            connector: connector
-        )
-        .task(id: appState.settings.editor) {
-            connector.settings = appState.settings.editor
+        VStack {
+            ChordProEditor(
+                text: $document.text,
+                connector: connector
+            )
+            .task(id: appState.settings.editor) {
+                connector.settings = appState.settings.editor
+            }
+            .task(id: connector.textView.clickedFragment) { @MainActor in
+                guard
+                    let directive = connector.textView.currentDirective,
+                    let fragment = connector.textView.clickedFragment,
+                    let paragraph = fragment.textElement as? NSTextParagraph,
+                    let match = paragraph.attributedString.string.firstMatch(of: ChordProEditor.definitionRegex)
+
+                else {
+                    return
+                }
+                directiveSettings.directive = directive
+                directiveSettings.definition = String(match.output.1).trimmingCharacters(in: .whitespacesAndNewlines)
+                directiveSettings.clickedFragment = fragment
+                showDirectiveSheet = true
+            }
+            Text(.init(connector.textView.currentDirective?.infoString ?? "No directive"))
+                .font(.caption)
+                .padding(.bottom, 4)
         }
     }
 }

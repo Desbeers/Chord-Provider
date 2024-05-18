@@ -12,10 +12,20 @@ extension EditorView {
 
     /// SwiftUI `View` to define a directive
     struct DirectiveSheet: View {
-        /// The directive
-        let directive: ChordPro.Directive
-        /// The definition
-        @Binding var definition: String
+
+        /// The directive settings
+        @Binding var settings: DirectiveSettings
+
+        /// The label for the action button
+        var actionLabel: String
+
+        /// The value for a slider
+        @State private var sliderValue: Double = 0
+
+        init(settings: Binding<DirectiveSettings>) {
+            self._settings = settings
+            self.actionLabel = settings.clickedFragment.wrappedValue == nil ? "Add" : "Update"
+        }
         /// Chord Display Options
         @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
         /// The dismiss environment
@@ -23,22 +33,26 @@ extension EditorView {
         /// The body of the `View`
         var body: some View {
             VStack {
-                switch directive {
+                switch settings.directive {
                 case .key:
                     keyView
                 case .define:
                     defineView
+                case .tempo:
+                    sliderView(start: 60, end: 240)
+                case .year:
+                    sliderView(start: 1900, end: 2024)
                 default:
                     defaultView
                 }
             }
             .padding()
+            .animation(.smooth, value: sliderValue)
         }
         /// The cancel buttion
         var cancelButton: some View {
             Button(
                 action: {
-                    definition = ""
                     dismiss()
                 },
                 label: {
@@ -51,19 +65,29 @@ extension EditorView {
 }
 
 extension EditorView.DirectiveSheet {
+
+    @ViewBuilder var directiveTitleView: some View {
+        Text(settings.directive.details.label)
+            .font(.title)
+            .padding(.bottom, 4)
+        Text(settings.directive.details.help)
+            .foregroundStyle(.secondary)
+            .padding(.bottom)
+    }
+}
+
+extension EditorView.DirectiveSheet {
     /// The default `View` when there is no specific `View` for the ``ChordPro/Directive``
     @ViewBuilder var defaultView: some View {
-        Text(directive.label.text)
-            .font(.title)
+        directiveTitleView
         TextField(
-            text: $definition,
-            prompt: Text(directive.label.text)
+            text: $settings.definition,
+            prompt: Text(settings.directive.details.label)
         ) {
             Text("Value")
         }
         .frame(width: 400)
         .padding(.bottom)
-        .textFieldStyle(.roundedBorder)
 
         HStack {
             cancelButton
@@ -72,7 +96,7 @@ extension EditorView.DirectiveSheet {
                     dismiss()
                 },
                 label: {
-                    Text("Add Directive")
+                    Text("\(actionLabel) Directive")
                 }
             )
             .keyboardShortcut(.defaultAction)
@@ -89,11 +113,11 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
-                    definition = chordDisplayOptions.definition.define
+                    settings.definition = chordDisplayOptions.definition.define
                     dismiss()
                 },
                 label: {
-                    Text("Add Definition")
+                    Text("\(actionLabel) Definition")
                 }
             )
             .keyboardShortcut(.defaultAction)
@@ -103,8 +127,40 @@ extension EditorView.DirectiveSheet {
 
 extension EditorView.DirectiveSheet {
 
+    /// `View` to define the 'slider' for a number directive
+    @ViewBuilder func sliderView(start: Double, end: Double) -> some View {
+        directiveTitleView
+        VStack {
+            Slider(value: $sliderValue, in: start...end, step: 1) { _ in
+                settings.definition = String(Int(sliderValue))
+            }
+            Text(verbatim: "\(Int(sliderValue))")
+                .font(.caption)
+        }
+        .padding()
+        HStack {
+            cancelButton
+            Button(
+                action: {
+                    dismiss()
+                },
+                label: {
+                    Text("\(actionLabel) \(settings.directive.details.label)")
+                }
+            )
+            .keyboardShortcut(.defaultAction)
+        }
+        .task {
+            sliderValue = Double(settings.definition) ?? (start + end) / 2
+        }
+    }
+}
+
+extension EditorView.DirectiveSheet {
+
     /// `View` to define the 'key' of the song
     @ViewBuilder var keyView: some View {
+        directiveTitleView
         HStack {
             chordDisplayOptions.rootPicker
             chordDisplayOptions.qualityPicker
@@ -115,11 +171,11 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
-                    definition = "\(chordDisplayOptions.definition.root.rawValue)\(chordDisplayOptions.definition.quality.rawValue)"
+                    settings.definition = "\(chordDisplayOptions.definition.root.rawValue)\(chordDisplayOptions.definition.quality.rawValue)"
                     dismiss()
                 },
                 label: {
-                    Text("Add Key")
+                    Text("\(actionLabel) Key")
                 }
             )
             .keyboardShortcut(.defaultAction)

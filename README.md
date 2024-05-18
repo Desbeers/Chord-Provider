@@ -41,7 +41,7 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 - It has a 'Song List' Window for your songs if you select a folder.
 - It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`
 - It makes thumbnails for your **ChordPro** files.
-- It has a fancier editor with linenumbers and highlighted current paragraph
+- It has a fancier editor with linenumbers and you van edit a directive by double-clicking on it.
 
 Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
 
@@ -51,7 +51,7 @@ Some other guitar applications claim the *ownership* of **ChordPro** files and t
 
 ### visionOS
 
-- Currently `DocumentGroup` is partly broken. Resizing the window does not really work. (Xcode 15.3).
+- Currently `DocumentGroup` is partly broken. Resizing the window does not really work and closing the PDF quickview will close the whole document. (Xcode 15.4).
 - It is the future; however, not yet.
 - It is not tested on a real device.
   

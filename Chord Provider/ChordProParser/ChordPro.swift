@@ -108,13 +108,19 @@ actor ChordPro {
 
             switch directive {
 
+            case .none:
+                break
+
                 // MARK: Meta-data directives
 
             case .t, .title:
+                song.definedMetaData.append(directive)
                 song.meta.title = label
             case .st, .subtitle, .artist:
+                song.definedMetaData.append(directive)
                 song.meta.artist = label
             case .capo:
+                song.definedMetaData.append(directive)
                 song.meta.capo = label
             case .time:
                 song.meta.time = label
@@ -129,8 +135,10 @@ actor ChordPro {
             case .tempo:
                 song.meta.tempo = label
             case .year:
+                song.definedMetaData.append(directive)
                 song.meta.year = label
             case .album:
+                song.definedMetaData.append(directive)
                 song.meta.album = label
 
                 // MARK: Formatting directives
@@ -252,6 +260,7 @@ actor ChordPro {
                 // MARK: Custom directives
             case .musicPath:
                 if let label {
+                    song.definedMetaData.append(directive)
                     song.meta.musicPath = label
                 }
             case .tag:

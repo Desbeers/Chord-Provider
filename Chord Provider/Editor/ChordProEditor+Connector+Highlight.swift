@@ -23,6 +23,7 @@ extension ChordProEditor.Connector {
         /// Make all text in the default style
         textView.attributedStorage?.setAttributes(
             [
+                .paragraphStyle: ChordProEditor.paragraphStyle,
                 .foregroundColor: SWIFTColor.textColor,
                 .font: baseFont
             ], range: currentParagrapRange)
@@ -50,16 +51,17 @@ extension ChordProEditor.Connector {
                 )
             }
         }
-        /// Simple directives
-        let directives = text.ranges(of: ChordProEditor.directiveRegex)
+        /// Directives
+        let directives = text.matches(of: ChordProEditor.directiveRegex)
         for directive in directives {
-            let nsRange = NSRange(range: directive, in: text, leadingOffset: 1, trailingOffset: 1)
+            let nsRange = NSRange(range: directive.range, in: text, leadingOffset: 1, trailingOffset: 1)
             if checkIntersection(nsRange) {
-                textView.attributedStorage?.addAttribute(
-                    .foregroundColor,
-                    value: SWIFTColor(settings.directiveColor),
-                    range: nsRange
-                )
+                textView.attributedStorage?.addAttributes(
+                    [
+                        .foregroundColor: SWIFTColor(settings.directiveColor),
+                        .definition: directive.output.1 ?? .none
+                    ],
+                    range: nsRange)
             }
         }
         /// The definition of a directive
@@ -74,8 +76,10 @@ extension ChordProEditor.Connector {
                 )
             }
         }
+
         /// The attributes for the next typing
         textView.typingAttributes = [
+            .paragraphStyle: ChordProEditor.paragraphStyle,
             .foregroundColor: SWIFTColor.textColor,
             .font: baseFont
         ]
@@ -86,34 +90,5 @@ extension ChordProEditor.Connector {
         func checkIntersection(_ nsRange: NSRange) -> Bool {
             return NSIntersectionRange(currentParagrapRange, nsRange).length != 0
         }
-    }
-}
-
-public extension NSRange {
-
-    /// Convert a Range to a NSRange, optional skipping leading or trailing characters
-    /// - Parameters:
-    ///   - range: The range
-    ///   - string: The string
-    ///   - leadingOffset: The leading offset
-    ///   - trailingOffset: The trailing offset
-    init(
-        range: Range<String.Index>,
-        in string: String,
-        leadingOffset: Int = 0,
-        trailingOffset: Int = 0
-    ) {
-        let utf16 = string.utf16
-        guard
-            let lowerBound = range.lowerBound.samePosition(in: utf16),
-            let upperBound = range.upperBound.samePosition(in: utf16)
-        else {
-            /// This should not happen
-            // swiftlint:disable:next fatal_error_message
-            fatalError()
-        }
-        let location = utf16.distance(from: utf16.startIndex, to: lowerBound)
-        let length = utf16.distance(from: lowerBound, to: upperBound)
-        self.init(location: location + leadingOffset, length: length - leadingOffset - trailingOffset)
     }
 }
