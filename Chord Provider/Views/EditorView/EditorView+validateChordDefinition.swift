@@ -9,28 +9,27 @@ import Foundation
 import SwiftlyChordUtilities
 
 extension EditorView {
-    
+
     /// Validate the definition of the chord
     /// - Returns: True or false to show the sheet. If true, the definition will be set or else an alert will be shown
     func validateChordDefinition() -> Bool {
-        guard
-            let chord = ChordDefinition(
+        do {
+            let chord = try ChordDefinition(
                 definition: directiveSettings.definition,
                 instrument: chordDisplayOptions.displayOptions.instrument,
                 status: .unknown
             )
-        else {
+            /// Set the definition
+            chordDisplayOptions.definition = chord
+            /// Show the sheet
+            return true
+        } catch {
             /// Clear the settings to default
             directiveSettings = DirectiveSettings()
             connector.textView.clickedFragment = nil
-            /// Show an error message
-            errorAlert = ChordProviderError.wrongChordDefinitionError.alert()
-            /// Don't show the sheet
-            return false
+            /// Show an error alert
+            errorAlert = error.alert()
         }
-        /// Set the definition
-        chordDisplayOptions.definition = chord
-        /// Show the sheet
-        return true
+        return false
     }
 }

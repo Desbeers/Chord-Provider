@@ -306,7 +306,7 @@ actor ChordPro {
     ///   - text: The chord definition
     ///   - song: The `song`
     private static func processDefine(text: String, song: inout Song) {
-        if var definedChord = ChordDefinition(definition: text, instrument: song.meta.instrument, status: .unknown) {
+        if var definedChord = try? ChordDefinition(definition: text, instrument: song.meta.instrument, status: .unknown) {
             definedChord.status = song.meta.transpose == 0 ? definedChord.status : .customTransposed
             /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
