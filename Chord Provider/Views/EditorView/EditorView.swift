@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SwiftlyChordUtilities
+import SwiftlyAlertMessage
 
 extension EditorView {
 
@@ -27,12 +29,16 @@ struct EditorView: View {
     @Environment(AppState.self) var appState
     /// The scene state
     @Environment(SceneState.self) var sceneState
+    /// Chord Display Options
+    @Environment(ChordDisplayOptions.self) var chordDisplayOptions
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
     /// The settings for the directive sheet
     @State var directiveSettings = DirectiveSettings()
     /// The connector class for the editor
     @State var connector = ChordProEditor.Connector(settings: ChordProviderSettings.load().editor)
+    /// Show an `Alert` if we have an error
+    @State var errorAlert: AlertMessage?
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -42,6 +48,7 @@ struct EditorView: View {
             .padding()
             editor
         }
+        .errorAlert(message: $errorAlert)
         .sheet(
             isPresented: $showDirectiveSheet,
             onDismiss: {
@@ -52,7 +59,6 @@ struct EditorView: View {
                     )
                 }
                 Task {
-
                     /// Sleep for a moment to give the sheet some time to close
                     /// - Note: Else the sheet will change during animation to its default
                     try? await Task.sleep(for: .seconds(0.4))
@@ -89,7 +95,13 @@ struct EditorView: View {
                 directiveSettings.directive = directive
                 directiveSettings.definition = String(match.output.1).trimmingCharacters(in: .whitespacesAndNewlines)
                 directiveSettings.clickedFragment = fragment
-                showDirectiveSheet = true
+                
+                switch directive {
+                case .define:
+                    showDirectiveSheet = validateChordDefinition()
+                default:
+                    showDirectiveSheet = true
+                }
             }
             Text(.init(connector.textView.currentDirective?.infoString ?? "No directive"))
                 .font(.caption)

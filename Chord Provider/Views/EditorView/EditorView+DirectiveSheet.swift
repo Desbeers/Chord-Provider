@@ -125,15 +125,6 @@ extension EditorView.DirectiveSheet {
             )
             .keyboardShortcut(.defaultAction)
         }
-        .onAppear {
-            /// Init the chord definition
-            if let definedChord = ChordDefinition(
-                definition: settings.definition,
-                instrument: sceneState.song.meta.instrument,
-                status: .unknown) {
-                chordDisplayOptions.definition = definedChord
-            }
-        }
     }
 }
 

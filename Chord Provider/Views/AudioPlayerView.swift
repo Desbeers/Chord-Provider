@@ -71,7 +71,7 @@ struct AudioPlayerView: View {
                 })
             case .ready:
                 pauseButton
-            case .unknown:
+            default:
                 Button(action: {
                     errorAlert = status.alert()
                 }, label: {
