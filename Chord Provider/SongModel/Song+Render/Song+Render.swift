@@ -123,7 +123,7 @@ extension Song.Render {
                 GridRow {
                     Text(label)
                         .padding(.all, prominent ? 10 : 0)
-                        .background(prominent ? Color.accent.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
+                        .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
                         .frame(minWidth: 100, alignment: .trailing)
                         .gridColumnAlignment(.trailing)
                     content
@@ -131,7 +131,7 @@ extension Song.Render {
                         .overlay(
                             Rectangle()
                                 .frame(width: 1, height: nil, alignment: .leading)
-                                .foregroundColor(
+                                .foregroundStyle(
                                     prominent || !label.isEmpty ? Color.secondary.opacity(0.3) : Color.clear
                                 ),
                             alignment: .leading
@@ -358,25 +358,27 @@ extension Song.Render {
         /// The optional icon
         var icon: String?
         /// The color of the label
-        var color: Color = .accent.opacity(0.2)
+        var color: Color = .accentColor.opacity(0.3)
+        /// The body of the `View`
         var body: some View {
-            if let icon {
-                Label(
-                    title: {
-                        /// Init the text like this to enable markdown formatting
-                        Text(.init(label))
-                    },
-                    icon: {
-                        Image(systemName: icon)
-                    }
-                )
-                .padding(options.scale * 6)
-                .background(color, in: RoundedRectangle(cornerRadius: 6))
-            } else {
-                Text(.init(label))
-                    .padding(options.scale * 6)
-                    .background(color, in: RoundedRectangle(cornerRadius: 6))
+            VStack {
+                if let icon {
+                    Label(
+                        title: {
+                            /// Init the text like this to enable markdown formatting
+                            Text(.init(label))
+                        },
+                        icon: {
+                            Image(systemName: icon)
+                        }
+                    )
+
+                } else {
+                    Text(.init(label))
+                }
             }
+            .padding(options.scale * 6)
+            .background(color, in: RoundedRectangle(cornerRadius: 6))
         }
     }
 }

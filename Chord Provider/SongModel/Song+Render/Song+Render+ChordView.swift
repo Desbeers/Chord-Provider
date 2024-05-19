@@ -35,7 +35,7 @@ extension Song.Render {
             case .customTransposed, .unknown:
                 Color.red
             default:
-                Color.accent
+                Color.accentColor
             }
         }
         /// The `popover` state
@@ -47,7 +47,7 @@ extension Song.Render {
             switch options.chords {
             case .asName:
                 Text("\(chord.displayName(options: .init())) ")
-                    .foregroundColor(color)
+                    .foregroundStyle(color)
                     .onTapGesture {
                         popover = popoverID
                     }

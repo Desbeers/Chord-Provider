@@ -25,7 +25,10 @@ struct ChordDiagramView: View {
             width: width,
             options: chordDisplayOptions.displayOptions
         )
-            .foregroundStyle(.primary, colorScheme == .dark ? .black : .white)
+        .foregroundStyle(
+            .primary,
+            colorScheme == .dark ? .black : .white
+        )
             .animation(.default, value: chordDisplayOptions.displayOptions)
     }
 }
