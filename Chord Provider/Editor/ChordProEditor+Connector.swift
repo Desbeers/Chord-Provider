@@ -11,15 +11,15 @@ extension ChordProEditor {
 
     @Observable
     /// The connector class for the editor
-    class Connector {
+    final class Connector {
         /// The current `NSTextView`
         var textView: TextView = .init()
 
         var settings: ChordProviderSettings.Editor {
             didSet {
                 baseFont = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
-                Task {
-                    await processHighlighting(fullText: true)
+                Task { @MainActor in
+                    processHighlighting(fullText: true)
                 }
             }
         }

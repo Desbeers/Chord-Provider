@@ -19,6 +19,8 @@ extension ChordProEditor {
         var balance: String?
         /// Bool if the whole text must be (re)highlighed or just the current fragment
         var highlightFullText: Bool = true
+        /// Debouncer for the text update
+        private var task: Task<Void, Never>?
 
         /// Init the **coordinator**
         /// - Parameter parent: The ``ChordProEditor``
@@ -49,7 +51,7 @@ extension ChordProEditor {
             }
             connector.processHighlighting(fullText: highlightFullText)
             swiftTextViewDidChangeSelection(selectedRanges: connector.textView.selectedRanges)
-            text.wrappedValue = connector.textView.string
+            updateTextBinding()
         }
 
         func textViewDidChangeSelection(_ notification: Notification) {
@@ -77,7 +79,7 @@ extension ChordProEditor {
             }
             connector.processHighlighting(fullText: highlightFullText)
             swiftTextViewDidChangeSelection(selectedRanges: connector.textView.selectedRanges)
-            text.wrappedValue = connector.textView.text
+            updateTextBinding()
         }
 
         func textViewDidChangeSelection(_ textView: UITextView) {
@@ -93,6 +95,7 @@ extension ChordProEditor {
             return true
         }
 
+        @MainActor
         func swiftTextViewDidChangeSelection(selectedRanges: [NSValue]) {
             guard
                 let firstSelection = selectedRanges.first?.rangeValue
@@ -102,6 +105,17 @@ extension ChordProEditor {
             connector.selectedRanges = selectedRanges
             connector.textView.setSelectedTextLayoutFragment(selectedRange: firstSelection)
             connector.textView.chordProEditorDelegate?.selectionNeedsDisplay()
+        }
+
+        @MainActor
+        func updateTextBinding() {
+            self.task?.cancel()
+            self.task = Task {
+                do {
+                    try await Task.sleep(for: .seconds(1))
+                    text.wrappedValue = connector.textView.string
+                } catch { }
+            }
         }
     }
 }

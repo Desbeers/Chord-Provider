@@ -214,7 +214,7 @@ extension FileBrowserView {
 
         /// Open a new song window
         /// - Parameter url: The URL of the song
-        @MainActor func openSong(url: URL) {
+        func openSong(url: URL) {
             /// openDocument is very buggy; don't try to open a document when it is already open
             if let window {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)

@@ -19,8 +19,6 @@ struct MainView: View {
     @Binding var document: ChordProDocument
     /// Chord Display Options
     @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
-    /// Build a song max one time per second
-    let buildSongDebouncer = Debouncer(duration: 1)
     /// The body of the `View`
     var body: some View {
         let layout = appState.settings.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
@@ -46,19 +44,12 @@ struct MainView: View {
             }
         }
         .onChange(of: document.text) {
-            Task {
-                await buildSongDebouncer.submit {
-                    await renderSong()
-                }
-            }
+            renderSong()
         }
         .onChange(of: sceneState.song.meta.transpose) {
             renderSong()
         }
         .onChange(of: appState.settings.general) {
-            renderSong()
-        }
-        .onChange(of: chordDisplayOptions.displayOptions.instrument) {
             renderSong()
         }
         .onChange(of: chordDisplayOptions.displayOptions) {

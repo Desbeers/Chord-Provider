@@ -22,7 +22,7 @@ extension EditorView {
         settings: DirectiveSettings,
         in editor: ChordProEditor.Connector
     ) {
-        Task {
+        Task { @MainActor in
             /// Update a definition if we have a selected fragment
             /// - Note: macOS only
             if let fragment = settings.clickedFragment {
@@ -36,9 +36,9 @@ extension EditorView {
                     return
                 }
                 let updatedDirective = "{\(settings.directive.rawValue): \(settings.definition)}\n"
-                await editor.insertText(text: updatedDirective, range: nsRange)
+                editor.insertText(text: updatedDirective, range: nsRange)
             } else {
-                let selectedText = await editor.textView.selectedText
+                let selectedText = editor.textView.selectedText
                 var replacementText = format(directive: settings.directive, argument: String(selectedText))
                 /// Replace the optional selection with the optional definition
                 if !settings.definition.isEmpty {
@@ -46,10 +46,10 @@ extension EditorView {
                 }
                 switch editor.selection {
                 case .noSelection, .singleSelection:
-                    await editor.insertText(text: replacementText)
+                    editor.insertText(text: replacementText)
                 case .multipleSelections:
                     /// - Note: I don't know how to get multiple selections with TextKit 2, so this is never used for now...
-                    await editor.wrapTextSelections(leading: settings.directive.format.start, trailing: settings.directive.format.end)
+                    editor.wrapTextSelections(leading: settings.directive.format.start, trailing: settings.directive.format.end)
                 }
             }
         }

@@ -65,21 +65,23 @@ struct ExportFolderView: View {
                 action: {
                     Task {
                         do {
+                            progress = 0
                             exporting = true
-                            if let render = try await FolderExport.export(
+                            for try await status in FolderExport.export(
                                 info: pdfInfo,
                                 generalOptions: appState.settings.general,
-                                chordDisplayOptions: chordDisplayOptions.displayOptions,
-                                progress: { page in
-                                    progress = Double(page)
-                                }
+                                chordDisplayOptions: chordDisplayOptions.displayOptions
                             ) {
-                                pdf = render.dataRepresentation()
-                                /// Stop the progress indicator
-                                exporting = false
-                                progress = 1
-                                /// Show the export dialog
-                                exportFile = true
+                                switch status {
+                                case .progress(let progress):
+                                    self.progress = progress
+                                case .finished(let data):
+                                    pdf = data
+                                    /// Stop the progress indicator
+                                    exporting = false
+                                    /// Show the export dialog
+                                    exportFile = true
+                                }
                             }
                         } catch {
                             Logger.application.error("\(error, privacy: .public)")

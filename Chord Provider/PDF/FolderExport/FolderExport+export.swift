@@ -13,6 +13,49 @@ import OSLog
 
 extension FolderExport {
 
+    /// The status of the export
+    enum Status {
+        /// Export is in progress
+        case progress(Double)
+        /// Export is finished
+        case finished(Data)
+    }
+
+    /// Export a folder with ChordPro songs
+    /// - Parameters:
+    ///   - info: The document info for the PDF
+    ///   - generalOptions: The general options
+    ///   - chordDisplayOptions: The chord display options
+    /// - Returns: A stream with progress indication and a document when finnished
+    static func export(
+        info: PDFBuild.DocumentInfo,
+        generalOptions: ChordProviderGeneralOptions,
+        chordDisplayOptions: ChordDefinition.DisplayOptions
+    ) -> AsyncThrowingStream<Status, Error> {
+        AsyncThrowingStream { continuation in
+            Task {
+                do {
+                    let render = try await FolderExport.export(
+                        info: info,
+                        generalOptions: generalOptions,
+                        chordDisplayOptions: chordDisplayOptions
+                    ) { page in
+                        continuation.yield(Status.progress(page))
+                    }
+                    if let render {
+                        continuation.yield(.finished(render))
+                    }
+                    continuation.finish()
+                } catch {
+                    continuation.finish(throwing: error)
+                }
+            }
+        }
+        }
+}
+
+extension FolderExport {
+
     /// Export a folder with ChordPro songs
     /// - Parameters:
     ///   - info: The document info for the PDF
@@ -25,7 +68,7 @@ extension FolderExport {
         generalOptions: ChordProviderGeneralOptions,
         chordDisplayOptions: ChordDefinition.DisplayOptions,
         progress: @escaping (Double) -> Void
-    ) async throws -> PDFDocument? {
+    ) async throws -> Data? {
 
         // MARK: Get the song files
         let files = try files()
@@ -164,6 +207,6 @@ extension FolderExport {
             /// Insert the new TOC page with the internal links
             newPDF.insert(tocPage, at: tocPageIndex - 1)
         }
-        return newPDF
+        return newPDF.dataRepresentation()
     }
 }

@@ -52,10 +52,11 @@ extension EditorView {
             .padding()
             .animation(.smooth, value: sliderValue)
         }
-        /// The cancel buttion
+        /// The cancel button
         var cancelButton: some View {
             Button(
                 action: {
+                    settings.definition = ""
                     dismiss()
                 },
                 label: {
