@@ -160,6 +160,7 @@
 		D77979242BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift */; };
 		D77979252BECFF4C00BE165A /* ChordProEditor+TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77979222BECFF4C00BE165A /* ChordProEditor+TextView.swift */; };
 		D78819622BFA39D40033545D /* EditorView+validateChordDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78819612BFA39D40033545D /* EditorView+validateChordDefinition.swift */; };
+		D78819662BFB25300033545D /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78819652BFB25300033545D /* Help.swift */; };
 		D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */; };
 		D78E1ECF2AC58840001A0641 /* EditorView+directiveSheetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */; };
 		D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78E1ED02AC5A58E001A0641 /* EditorView+directiveMenus.swift */; };
@@ -196,7 +197,6 @@
 		D7CA632E2AEB60CA00C6B4BB /* High.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632C2AEB60CA00C6B4BB /* High.aif */; };
 		D7CA632F2AEB60CA00C6B4BB /* Low.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* Low.aif */; };
 		D7CA63312AED3D4E00C6B4BB /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */; };
-		D7D39C4F2A9A13DA004EAE5F /* AudioFileStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C4E2A9A13DA004EAE5F /* AudioFileStatus.swift */; };
 		D7D39C512A9A19A1004EAE5F /* SongFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D39C502A9A19A1004EAE5F /* SongFolderView.swift */; };
 		D7EC289B2BF5533D00F220A1 /* NSTextRange+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC289A2BF5533D00F220A1 /* NSTextRange+extension.swift */; };
 		D7EC289D2BF68A7C00F220A1 /* NSTextView+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC289C2BF68A7C00F220A1 /* NSTextView+extension.swift */; };
@@ -353,6 +353,7 @@
 		D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Wrapper (macOS).swift"; sourceTree = "<group>"; };
 		D77979222BECFF4C00BE165A /* ChordProEditor+TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+TextView.swift"; sourceTree = "<group>"; };
 		D78819612BFA39D40033545D /* EditorView+validateChordDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+validateChordDefinition.swift"; sourceTree = "<group>"; };
+		D78819652BFB25300033545D /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
 		D78E1ECC2AC57E89001A0641 /* EditorView+DirectiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+DirectiveSheet.swift"; sourceTree = "<group>"; };
 		D78E1ECE2AC58840001A0641 /* EditorView+directiveSheetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveSheetButton.swift"; sourceTree = "<group>"; };
 		D78E1ED02AC5A58E001A0641 /* EditorView+directiveMenus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveMenus.swift"; sourceTree = "<group>"; };
@@ -381,7 +382,6 @@
 		D7CA632C2AEB60CA00C6B4BB /* High.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = High.aif; sourceTree = "<group>"; };
 		D7CA632D2AEB60CA00C6B4BB /* Low.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = Low.aif; sourceTree = "<group>"; };
 		D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
-		D7D39C4E2A9A13DA004EAE5F /* AudioFileStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileStatus.swift; sourceTree = "<group>"; };
 		D7D39C502A9A19A1004EAE5F /* SongFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongFolderView.swift; sourceTree = "<group>"; };
 		D7EC289A2BF5533D00F220A1 /* NSTextRange+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextRange+extension.swift"; sourceTree = "<group>"; };
 		D7EC289C2BF68A7C00F220A1 /* NSTextView+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+extension.swift"; sourceTree = "<group>"; };
@@ -711,8 +711,8 @@
 				D7F13F9D2A6460B7002D875D /* ChordProDocument.swift */,
 				D7F13F8E2A6460B7002D875D /* ExportDocument.swift */,
 				D7F13FA12A6460B7002D875D /* Debouncer.swift */,
-				D7D39C4E2A9A13DA004EAE5F /* AudioFileStatus.swift */,
 				D7EF99682BDADC2E0058E1CB /* ChordProviderError.swift */,
+				D78819652BFB25300033545D /* Help.swift */,
 				D7F13F9E2A6460B7002D875D /* Assets.xcassets */,
 				D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */,
 				D7972B8C2BCD24C100752CF9 /* ChordProviderDebug.entitlements */,
@@ -1093,9 +1093,9 @@
 				D75B488E2BDBC417001F6176 /* FolderExport.swift in Sources */,
 				D706FD9C2BCECC9F005DEDF6 /* PDFBuild+Text.swift in Sources */,
 				D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */,
-				D7D39C4F2A9A13DA004EAE5F /* AudioFileStatus.swift in Sources */,
 				D7A2FA6B2BE8F0C100869E24 /* ChordProEditor+Connector+Highlight.swift in Sources */,
 				D7F13FE62A6460B7002D875D /* ContentView.swift in Sources */,
+				D78819662BFB25300033545D /* Help.swift in Sources */,
 				D7972BE72BCEB28700752CF9 /* Image+Extension.swift in Sources */,
 				D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D7F13FE32A6460B7002D875D /* PrintSongView.swift in Sources */,

@@ -50,11 +50,12 @@ extension ChordProviderSettings {
 
     /// Save the Chord Provider settings to the cache
     /// - Parameter settings: The ``ChordProviderSettings``
-    static func save(settings: ChordProviderSettings) {
+    static func save(settings: ChordProviderSettings) throws {
         do {
             try Cache.set(key: "ChordProviderSettings", object: settings)
         } catch {
             Logger.application.error("Error saving ChordProvider settings")
+            throw ChordProviderError.saveSettingsError
         }
     }
 }

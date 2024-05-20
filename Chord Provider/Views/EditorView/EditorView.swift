@@ -95,7 +95,6 @@ struct EditorView: View {
                 directiveSettings.directive = directive
                 directiveSettings.definition = String(match.output.1).trimmingCharacters(in: .whitespacesAndNewlines)
                 directiveSettings.clickedFragment = fragment
-                
                 switch directive {
                 case .define:
                     showDirectiveSheet = validateChordDefinition()

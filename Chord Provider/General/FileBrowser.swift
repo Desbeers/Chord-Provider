@@ -29,7 +29,7 @@ class FileBrowser {
     /// The optional songs folder
     var songsFolder: URL?
     /// The status
-    var status: AudioFileStatus = .unknown
+    var status: ChordProviderError = .unknownStatus
 #if os(macOS)
     /// The list of open windows
     var openWindows: [NSWindow.WindowItem] = []
@@ -94,7 +94,7 @@ extension FileBrowser {
             try FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { persistentURL in
                 /// The found songs
                 var songs = [SongItem]()
-                status = .ready
+                status = .songsFolderIsSelected
                 folderMonitor.addRecursiveURL(persistentURL)
                 if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                     while let item = items.nextObject() as? URL {
@@ -120,7 +120,7 @@ extension FileBrowser {
         } catch {
             /// There is no folder selected
             songsFolder = nil
-            status = .noFolderSelected
+            status = .noSongsFolderSelectedError
         }
     }
 

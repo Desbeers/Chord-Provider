@@ -162,10 +162,10 @@ struct SettingsView: View {
                 Text("The folder with your songs")
                     .font(.title)
                     .padding(.top)
-                Text(.init(AudioFileStatus.help))
+                Text(.init(Help.folderSelector))
                     .padding()
                 #if os(macOS)
-                Text(.init(AudioFileStatus.macOSbrowser))
+                Text(.init(Help.macOSbrowser))
                     .padding()
                 #endif
                 fileBrowser.folderSelector

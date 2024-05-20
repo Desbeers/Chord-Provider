@@ -21,11 +21,11 @@ struct ExportDocument: FileDocument {
     /// Black magic
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents else {
-            throw CocoaError(.fileReadCorruptFile)
+            throw ChordProviderError.writeDocumentError
         }
         self.pdf = data
     }
-    /// Save the exported image
+    /// Save the exported PDF
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         return FileWrapper(regularFileWithContents: pdf as Data)
     }

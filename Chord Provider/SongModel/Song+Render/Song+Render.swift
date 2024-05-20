@@ -372,7 +372,6 @@ extension Song.Render {
                             Image(systemName: icon)
                         }
                     )
-
                 } else {
                     Text(.init(label))
                 }

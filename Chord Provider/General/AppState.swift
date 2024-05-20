@@ -13,7 +13,7 @@ final class AppState {
     /// The Chord Provider settings
     var settings: ChordProviderSettings {
         didSet {
-            ChordProviderSettings.save(settings: settings)
+            try? ChordProviderSettings.save(settings: settings)
         }
     }
     /// Init the class; get Chord Provider settings

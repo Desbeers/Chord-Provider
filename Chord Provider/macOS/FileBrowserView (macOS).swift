@@ -25,19 +25,19 @@ struct FileBrowserView: View {
     var body: some View {
         Group {
             switch fileBrowser.status {
-            case .noFolderSelected:
+            case .noSongsFolderSelectedError:
                 VStack {
                     Text("Welcome to Chord Provider")
                         .font(.title)
                     SongFolderView()
-                    Text(.init(AudioFileStatus.browser))
+                    Text(.init(Help.fileBrowser))
                         .padding(.vertical)
                         .font(.caption)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding()
                 .navigationSubtitle("Welcome")
-            case .ready:
+            case .songsFolderIsSelected:
                 Picker("Menu", selection: $tabItem) {
                     ForEach(TabItem.allCases, id: \.rawValue) { item in
                         Text(item.rawValue)

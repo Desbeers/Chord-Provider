@@ -22,7 +22,7 @@ struct AudioPlayerView: View {
     /// The FileBrowser model
     @Environment(FileBrowser.self) private var fileBrowser
     /// The status of the song
-    @State private var status: AudioFileStatus = .unknown
+    @State private var status: ChordProviderError = .unknownStatus
     /// The iCloud URL of the song
     private var iCloudURL: URL {
         let hiddenFile = ".\(musicURL.lastPathComponent).icloud"
@@ -42,7 +42,7 @@ struct AudioPlayerView: View {
         HStack {
             playButton
             switch status {
-            case .songNotFound:
+            case .audioFileNotFoundError:
                 Button(action: {
                     confirmationDialog = status.alert {
                         showFolderSelector = true
@@ -50,7 +50,7 @@ struct AudioPlayerView: View {
                 }, label: {
                     status.icon
                 })
-            case .songNotDownloaded:
+            case .audioFileNotDownloadedError:
                 Button(
                     action: {
                         confirmationDialog = status.alert {
@@ -61,7 +61,7 @@ struct AudioPlayerView: View {
                         status.icon
                     }
                 )
-            case .noFolderSelected:
+            case .noSongsFolderSelectedError:
                 Button(action: {
                     confirmationDialog = status.alert {
                         showFolderSelector = true
@@ -69,7 +69,7 @@ struct AudioPlayerView: View {
                 }, label: {
                     status.icon
                 })
-            case .ready:
+            case .readyToPlay:
                 pauseButton
             default:
                 Button(action: {
@@ -112,7 +112,7 @@ struct AudioPlayerView: View {
                 Image(systemName: "play.fill")
             }
         )
-        .disabled(status != .ready)
+        .disabled(status != .readyToPlay)
     }
 
     /// The pause button
@@ -139,17 +139,17 @@ struct AudioPlayerView: View {
         do {
             try FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
                 if musicURL.exist() {
-                    status = .ready
+                    status = .readyToPlay
                 } else {
                     if iCloudURL.exist() {
-                        status = .songNotDownloaded
+                        status = .audioFileNotDownloadedError
                     } else {
-                        status = .songNotFound
+                        status = .audioFileNotFoundError
                     }
                 }
             }
         } catch {
-            status = .noFolderSelected
+            status = .noSongsFolderSelectedError
         }
     }
 
@@ -166,7 +166,7 @@ struct AudioPlayerView: View {
             /// For the button state
             isPlaying = true
         } catch {
-            errorAlert = AudioFileStatus.songNotFound.alert()
+            errorAlert = ChordProviderError.audioFileNotFoundError.alert()
         }
     }
 
@@ -179,7 +179,7 @@ struct AudioPlayerView: View {
                 } catch {
                     Logger.application.error("Export downloading song: \(error.localizedDescription, privacy: .public)")
                 }
-                while status != .ready {
+                while status != .readyToPlay {
                     try? await Task.sleep(nanoseconds: 100000000)
                     checkSong()
                 }
