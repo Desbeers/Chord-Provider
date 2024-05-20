@@ -41,9 +41,11 @@ struct HeaderView: View {
         }
 #endif
         .frame(minHeight: 45)
+#if !os(visionOS)
         .background(Color.accentColor.saturation(0.6))
         .foregroundStyle(.white)
         .buttonStyle(.bordered)
+#endif
     }
 }
 

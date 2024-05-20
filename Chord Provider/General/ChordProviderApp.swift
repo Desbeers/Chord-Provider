@@ -47,6 +47,7 @@ import SwiftlyChordUtilities
         /// The 'Export Folder' window
         Window("Export Folder with Songs…", id: "Export") {
             ExportFolderView()
+                .frame(width: 400, height: 600)
                 .environment(appState)
                 .environment(fileBrowser)
                 .environment(chordDisplayOptions)

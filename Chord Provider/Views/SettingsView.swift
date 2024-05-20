@@ -35,8 +35,18 @@ struct SettingsView: View {
                 }
             folder
                 .tabItem {
-                    Label("Songs Folder", systemImage: "folder")
+                    Label("Songs", systemImage: "folder")
                 }
+#if !os(macOS)
+            /// - Note: Export has its own window on macOS
+            export
+                .tabItem {
+                    Label("Export", systemImage: "square.and.arrow.up")
+                }
+#endif
+        }
+        .overlay(alignment: .topLeading) {
+            close
         }
 #if os(macOS)
         .frame(width: 450, height: 480)
@@ -52,11 +62,11 @@ struct SettingsView: View {
         VStack {
             Text("General Options")
                 .font(.title)
-                .padding(.top)
             Form {
                 appState.repeatWholeChorusToggle
             }
         }
+        .padding(.vertical)
     }
 
     /// `View` with diagram display options
@@ -64,7 +74,6 @@ struct SettingsView: View {
         VStack {
             Text("Diagram Display Options")
                 .font(.title)
-                .padding(.top)
             Form {
                 Section("General") {
                     chordDisplayOptions.fingersToggle
@@ -81,22 +90,18 @@ struct SettingsView: View {
                     .padding(.leading)
                 }
             }
-            HStack {
-                Button(
-                    action: {
-                        chordDisplayOptions.displayOptions = ChordProviderSettings.defaults
-                    },
-                    label: {
-                        Text("Reset to defaults")
-                    }
-                )
-                .disabled(chordDisplayOptions.displayOptions == ChordProviderSettings.defaults)
-                close
-            }
-            .padding(.bottom)
+            Button(
+                action: {
+                    chordDisplayOptions.displayOptions = ChordProviderSettings.defaults
+                },
+                label: {
+                    Text("Reset to defaults")
+                }
+            )
+            .disabled(chordDisplayOptions.displayOptions == ChordProviderSettings.defaults)
         }
+        .padding(.vertical)
         .animation(.default, value: chordDisplayOptions.displayOptions)
-        //        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     /// `View` with editor settings
@@ -105,7 +110,6 @@ struct SettingsView: View {
         VStack {
             Text("Editor Options")
                 .font(.title)
-                .padding(.top)
             Form {
                 Section("Font") {
                     Picker("The font size of the editor", selection: $appState.settings.editor.fontSize) {
@@ -138,49 +142,50 @@ struct SettingsView: View {
                     )
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            HStack {
-                Button(
-                    action: {
-                        appState.settings.editor = ChordProviderSettings.Editor()
-                    },
-                    label: {
-                        Text("Reset to defaults")
-                    }
-                )
-                .disabled(appState.settings.editor == ChordProviderSettings.Editor())
-                close
-            }
+            Button(
+                action: {
+                    appState.settings.editor = ChordProviderSettings.Editor()
+                },
+                label: {
+                    Text("Reset to defaults")
+                }
+            )
+            .disabled(appState.settings.editor == ChordProviderSettings.Editor())
         }
-        .padding(.bottom)
+        .padding(.vertical)
     }
 
     /// `View` with folder selector
     var folder: some View {
         VStack {
-            VStack {
-                Text("The folder with your songs")
-                    .font(.title)
-                    .padding(.top)
+            Text("The folder with your songs")
+                .font(.title)
+            Form {
                 Text(.init(Help.folderSelector))
                     .padding()
-                #if os(macOS)
+#if os(macOS)
                 Text(.init(Help.macOSbrowser))
                     .padding()
-                #endif
+#endif
                 fileBrowser.folderSelector
                     .padding()
-                Spacer()
             }
-
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            close
-                .padding()
         }
+        .padding(.vertical)
+    }
+
+    /// `View` with folder export
+    var export: some View {
+        VStack {
+            Text("Export a Folder with Songs")
+                .font(.title)
+            ExportFolderView()
+        }
+        .padding(.vertical)
     }
 
     @ViewBuilder
-    /// A closebutton for visionOS
+    /// A close button for visionOS
     var close: some View {
 #if os(visionOS)
         Button(
@@ -188,9 +193,13 @@ struct SettingsView: View {
                 dismiss()
             },
             label: {
-                Text("Close")
+                Image(systemName: "xmark.circle")
             }
         )
+        .foregroundStyle(.quaternary)
+        .font(.title)
+        .buttonStyle(.plain)
+        .padding()
 #endif
     }
 }

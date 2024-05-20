@@ -95,7 +95,6 @@ struct ExportFolderView: View {
             .disabled(currentFolder == nil || pdfInfo.title.isEmpty || pdfInfo.author.isEmpty || exporting)
             .padding()
         }
-        .frame(width: 400, height: 600)
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),

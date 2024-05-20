@@ -22,7 +22,8 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 
 ### General
 
-- It wil view and/or edit **ChordPro** files.
+- It will view and/or edit **ChordPro** files.
+- It can export a whole folder with **ChordPro** files to a PDF with a Table of Contents.
 - It has an editor that highlights your chords and directives with colors you can change in the settings.
 - It recognise most of the **ChordPro** directives, but not all.
 - It can show diagrams for the guitar, guitalele and ukulele.
@@ -37,11 +38,10 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 
 ### macOS
 
-- It can export a whole folder with **ChordPro** files to a PDF with a Table of Contents.
 - It has a 'Song List' Window for your songs if you select a folder.
 - It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`
 - It makes thumbnails for your **ChordPro** files.
-- It has a fancier editor with linenumbers and you van edit a directive by double-clicking on it.
+- It has a fancier editor with linenumbers and you can edit a directive by double-clicking on it.
 
 Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
 
