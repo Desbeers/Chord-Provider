@@ -180,7 +180,7 @@ struct AudioPlayerView: View {
                     Logger.application.error("Export downloading song: \(error.localizedDescription, privacy: .public)")
                 }
                 while status != .readyToPlay {
-                    try? await Task.sleep(nanoseconds: 100000000)
+                    try? await Task.sleep(for: .seconds(1))
                     checkSong()
                 }
             }

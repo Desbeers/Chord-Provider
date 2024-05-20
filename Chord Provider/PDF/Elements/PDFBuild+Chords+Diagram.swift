@@ -68,8 +68,9 @@ extension PDFBuild.Chords {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        ///   - pageRect: The page size of the PDF document
         // swiftlint:disable:next function_body_length
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let initialRect = rect
             var currentDiagramHeight: CGFloat = 0
             drawChordName(rect: &rect)
@@ -87,7 +88,7 @@ extension PDFBuild.Chords {
             drawGrid(rect: &rect, calculationOnly: calculationOnly)
             /// No need to draw dots and barres when we are calculating the size
             if !calculationOnly {
-                drawFrets(rect: &rect)
+                drawFrets(rect: &rect, pageRect: pageRect)
                 drawBarres(rect: &rect)
             }
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
@@ -113,7 +114,7 @@ extension PDFBuild.Chords {
                 )
                 let chord = chord.displayName(options: .init(rootDisplay: .symbol, qualityDisplay: .symbolized))
                 let name = PDFBuild.Text(chord, attributes: .diagramChordName + .alignment(.center))
-                name.draw(rect: &nameRect, calculationOnly: calculationOnly)
+                name.draw(rect: &nameRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 /// Add this item to the total height
                 currentDiagramHeight += (nameRect.origin.y - rect.origin.y) * 0.8
             }
@@ -141,7 +142,7 @@ extension PDFBuild.Chords {
                     }
                     let symbol = PDFBuild.Text(string, attributes: .diagramTopBar)
                     var tmpRect = topBarRect
-                    symbol.draw(rect: &tmpRect, calculationOnly: calculationOnly)
+                    symbol.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                     height = tmpRect.origin.y - rect.origin.y
                     topBarRect.origin.x += xSpacing
                 }
@@ -178,7 +179,7 @@ extension PDFBuild.Chords {
                     height: rect.height
                 )
                 let name = PDFBuild.Text("\(chord.baseFret)", attributes: .diagramBaseFret + .alignment(.left))
-                name.draw(rect: &baseFretRect, calculationOnly: calculationOnly)
+                name.draw(rect: &baseFretRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
 
             // MARK: Grid
@@ -217,7 +218,7 @@ extension PDFBuild.Chords {
 
             // MARK: Frets
 
-            func drawFrets(rect: inout CGRect) {
+            func drawFrets(rect: inout CGRect, pageRect: CGRect) {
                 var dotRect = CGRect(
                     x: rect.origin.x + xSpacing,
                     y: rect.origin.y,
@@ -232,7 +233,7 @@ extension PDFBuild.Chords {
                             let background = PDFBuild.Background(color: .gray, text)
                             let shape = PDFBuild.Clip(.circle, background)
                             var tmpRect = dotRect
-                            shape.draw(rect: &tmpRect, calculationOnly: calculationOnly)
+                            shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                         }
                         /// Move X one string to the right
                         dotRect.origin.x += xSpacing
@@ -267,7 +268,7 @@ extension PDFBuild.Chords {
                             width: CGFloat(barre.length) * xSpacing,
                             height: ySpacing
                         )
-                        shape.draw(rect: &tmpRect, calculationOnly: calculationOnly)
+                        shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }
                     /// Move Y one fret down
                     barresRect.origin.y += ySpacing
@@ -293,7 +294,7 @@ extension PDFBuild.Chords {
                         let string = ("\(note.note.display.symbol)")
                         let note = PDFBuild.Text(string, attributes: .diagramBottomBar)
                         var tmpRect = notesBarRect
-                        note.draw(rect: &tmpRect, calculationOnly: calculationOnly)
+                        note.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                         height = tmpRect.origin.y - rect.origin.y
                     }
                     notesBarRect.origin.x += xSpacing

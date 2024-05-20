@@ -64,7 +64,7 @@ struct EditorView: View {
                     try? await Task.sleep(for: .seconds(0.4))
                     /// Clear the settings to default
                     directiveSettings = DirectiveSettings()
-                    connector.textView.clickedFragment = nil
+                    connector.clickedFragment = nil
                 }
             },
             content: {
@@ -79,15 +79,16 @@ struct EditorView: View {
                 text: $document.text,
                 connector: connector
             )
-            .task(id: appState.settings.editor) {
+            .onChange(of: appState.settings.editor) {
                 connector.settings = appState.settings.editor
             }
-            .task(id: connector.textView.clickedFragment) { @MainActor in
+            .onChange(of: connector.clickedFragment) {
+                let regex = ChordProEditor.Regexes()
                 guard
-                    let directive = connector.textView.currentDirective,
-                    let fragment = connector.textView.clickedFragment,
+                    let directive = connector.currentDirective,
+                    let fragment = connector.clickedFragment,
                     let paragraph = fragment.textElement as? NSTextParagraph,
-                    let match = paragraph.attributedString.string.firstMatch(of: ChordProEditor.definitionRegex)
+                    let match = paragraph.attributedString.string.firstMatch(of: regex.definitionRegex)
 
                 else {
                     return
@@ -102,7 +103,7 @@ struct EditorView: View {
                     showDirectiveSheet = true
                 }
             }
-            Text(.init(connector.textView.currentDirective?.infoString ?? "No directive"))
+            Text(.init(connector.currentDirective?.infoString ?? "No directive"))
                 .font(.caption)
                 .padding(.bottom, 4)
         }

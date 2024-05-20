@@ -30,13 +30,13 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        ///   - pageRect: The page size of the PDF document
         /// - Note: the rect value will be ignored and the full page size will be used
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Render the background below the element
             if !calculationOnly, let context = UIGraphicsGetCurrentContext() {
-                let fillRect = PDFBuild.pageRect
                 context.setFillColor(color.cgColor)
-                context.fill(fillRect)
+                context.fill(pageRect)
             }
         }
     }

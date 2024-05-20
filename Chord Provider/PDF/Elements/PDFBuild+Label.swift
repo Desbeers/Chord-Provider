@@ -44,7 +44,8 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let textRect = rect.insetBy(dx: 2 * textPadding, dy: 2 * textPadding)
             var labelRect = textRect
             var leadingBounds: CGRect = .zero

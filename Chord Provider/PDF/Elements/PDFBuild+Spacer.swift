@@ -25,7 +25,8 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             rect.origin.y += space
             rect.size.height -= space
         }

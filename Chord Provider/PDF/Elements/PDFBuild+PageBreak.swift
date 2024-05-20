@@ -17,7 +17,7 @@ extension PDFBuild {
         /// Check if an ``PDFElement`` fits on the current page or if it should break
         /// - Parameter rect: The available rectangle
         /// - Returns: Bool if the page should break (always true for this element)
-        func shoudPageBreak(rect: CGRect) -> Bool {
+        func shoudPageBreak(rect: CGRect, pageRect: CGRect) -> Bool {
             true
         }
     }

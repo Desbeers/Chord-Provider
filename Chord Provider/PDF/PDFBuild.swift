@@ -24,10 +24,4 @@ public enum PDFBuild {
 
     /// The default padding for a page
     public static let pagePadding: CGFloat = 40
-
-    /// The Quartz 2D drawing destination
-    static var pdfContext: CGContext?
-
-    /// The page size of the PDF document
-    static var pageRect: CGRect = .zero
 }

@@ -44,10 +44,11 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the size should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Clipping will not use any rectangle space, so nothing to calculate
             if !calculationOnly {
-                let tempRect = calculateDraw(rect: rect, elements: [element])
+                let tempRect = calculateDraw(rect: rect, elements: [element], pageRect: pageRect)
                 var fillRect = rect
                 fillRect.size.height = rect.height - tempRect.height
                 let context = UIGraphicsGetCurrentContext()
@@ -63,7 +64,7 @@ extension PDFBuild {
                     fillRect.origin.y += (rect.size.height - fillRect.size.height) / 2
                     SWIFTBezierPath(roundedRect: fillRect, cornerRadius: radius).addClip()
                 }
-                element.draw(rect: &rect, calculationOnly: calculationOnly)
+                element.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 context?.resetClip()
             }
         }

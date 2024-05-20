@@ -42,6 +42,8 @@ extension ChordProEditor {
         }
 
         func textDidChange(_ notification: Notification) {
+            guard let textView = notification.object as? NSTextView
+            else { return }
             if let balance, let range = connector.textView.selectedRanges.first?.rangeValue {
                 Task { @MainActor in
                     connector.textView.insertText(balance, replacementRange: range)
@@ -50,7 +52,7 @@ extension ChordProEditor {
                 self.balance = nil
             }
             connector.processHighlighting(fullText: highlightFullText)
-            swiftTextViewDidChangeSelection(selectedRanges: connector.textView.selectedRanges)
+            swiftTextViewDidChangeSelection(selectedRanges: textView.selectedRanges)
             updateTextBinding()
         }
 
@@ -104,6 +106,7 @@ extension ChordProEditor {
             }
             connector.selectedRanges = selectedRanges
             connector.textView.setSelectedTextLayoutFragment(selectedRange: firstSelection)
+
             connector.textView.chordProEditorDelegate?.selectionNeedsDisplay()
         }
 

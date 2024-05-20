@@ -25,11 +25,12 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             for line in section.lines {
                 for part in line.parts {
                     let line = PDFBuild.Text(part.text, attributes: .textblockLine)
-                    line.draw(rect: &rect, calculationOnly: calculationOnly)
+                    line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 }
             }
         }

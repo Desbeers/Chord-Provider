@@ -36,7 +36,8 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the size should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
             let textBounds = text.bounds(withSize: textRect.size)
             if !calculationOnly {

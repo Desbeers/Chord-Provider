@@ -36,17 +36,18 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Render the background below the element
             if !calculationOnly, let context = UIGraphicsGetCurrentContext() {
-                let tempRect = calculateDraw(rect: rect, elements: [element])
+                let tempRect = calculateDraw(rect: rect, elements: [element], pageRect: pageRect)
                 var fillRect = rect
                 fillRect.size.height = rect.height - tempRect.height
                 context.setFillColor(color.cgColor)
                 context.fill(fillRect)
             }
             /// Draw whatever goes on top of the background
-            element.draw(rect: &rect, calculationOnly: calculationOnly)
+            element.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }
     }
 }

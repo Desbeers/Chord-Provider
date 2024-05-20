@@ -28,6 +28,10 @@ extension PDFBuild {
         weak var pageCounter: PDFBuild.PageCounter?
         /// All the `PDFElement`'s for the document
         var elements = [PDFElement]()
+        /// The Quartz 2D drawing destination
+        var pdfContext: CGContext?
+        /// The page size of the PDF document
+        var pageRect: CGRect = .zero
 
         /// Init the **builder** class
         /// - Parameter info: The general document information
@@ -70,11 +74,11 @@ extension PDFBuild {
                     /// Store the `PageHeaderFooter`; it will be used with the next page
                     pageHeaderFooter = element
                 } else {
-                    if element.shoudPageBreak(rect: currentRect) {
+                    if element.shoudPageBreak(rect: currentRect, pageRect: pageRect) {
                         endPage()
                         currentRect = beginPage()
                     }
-                    element.draw(rect: &currentRect, calculationOnly: false)
+                    element.draw(rect: &currentRect, calculationOnly: false, pageRect: pageRect)
                 }
             }
         }
@@ -87,13 +91,13 @@ extension PDFBuild {
                 pageCounter.pageNumber += 1
             }
             var page = document.pageRect.inset(by: pageMargin)
-            pageHeaderFooter?.draw(rect: &page, calculationOnly: false)
+            pageHeaderFooter?.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
             return page
         }
 
         /// End the current PDF page
         private func endPage() {
-            PDFBuild.pdfContext?.endPDFPage()
+            pdfContext?.endPDFPage()
         }
     }
 }
@@ -109,10 +113,10 @@ extension PDFBuild.Builder {
             kCGPDFContextMediaBox: document.pageRect
         ] as CFDictionary
 
-        PDFBuild.pdfContext?.beginPDFPage(pageInfo)
+        pdfContext?.beginPDFPage(pageInfo)
         /// Scale and translate to flip vertically
-        PDFBuild.pdfContext?.translateBy(x: 0, y: document.pageRect.height)
-        PDFBuild.pdfContext?.scaleBy(x: 1.0, y: -1.0)
+        pdfContext?.translateBy(x: 0, y: document.pageRect.height)
+        pdfContext?.scaleBy(x: 1.0, y: -1.0)
 #else
         UIGraphicsBeginPDFPage()
 #endif
@@ -124,7 +128,7 @@ extension PDFBuild.Builder {
     func beginPdfContextToData(pageRect: CGRect) -> NSMutableData {
 
         /// Set the page size
-        PDFBuild.pageRect = pageRect
+        self.pageRect = pageRect
 
         let pdfData = NSMutableData()
 #if os(macOS)
@@ -134,7 +138,7 @@ extension PDFBuild.Builder {
         else {
             return pdfData
         }
-        PDFBuild.pdfContext = pdfContext
+        self.pdfContext = pdfContext
         NSGraphicsContext.saveGraphicsState()
         NSGraphicsContext.current = NSGraphicsContext(cgContext: pdfContext, flipped: true)
 #else
@@ -147,7 +151,7 @@ extension PDFBuild.Builder {
     func endPdfContext() {
 #if os(macOS)
         endPage()
-        PDFBuild.pdfContext?.closePDF()
+        pdfContext?.closePDF()
         NSGraphicsContext.restoreGraphicsState()
 #else
         UIGraphicsEndPDFContext()

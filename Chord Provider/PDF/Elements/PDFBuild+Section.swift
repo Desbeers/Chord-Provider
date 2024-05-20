@@ -40,7 +40,8 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Calculate the width of the columns
             let columnsWidth = calculateColumnsWidth(rect: rect)
             /// Calculate the total rows
@@ -50,7 +51,8 @@ extension PDFBuild {
                 let row = items[(index * columns.count)..<min(items.count, (index * columns.count + columns.count))]
                 let rowHeight: CGFloat = calculateSectionHeight(
                     rowElements: [PDFElement](row),
-                    columnsWidth: columnsWidth
+                    columnsWidth: columnsWidth,
+                    pageRect: pageRect
                 )
                 var cellOffset: CGFloat = 0
                 for (index, cell) in row.enumerated() {
@@ -61,7 +63,7 @@ extension PDFBuild {
                         height: rowHeight
                     )
                     cellOffset += columnsWidth[index]
-                    cell.draw(rect: &cellRect, calculationOnly: calculationOnly)
+                    cell.draw(rect: &cellRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 }
                 rowOffsetY += rowHeight
             }
@@ -111,7 +113,7 @@ extension PDFBuild {
         ///   - rowElements: The ``PDFElement`` array in a row
         ///   - columnWidth: The width of the column
         /// - Returns: A `CGFloat` with the calculated height of the section
-        private func calculateSectionHeight(rowElements: [PDFElement], columnsWidth: [CGFloat]) -> CGFloat {
+        private func calculateSectionHeight(rowElements: [PDFElement], columnsWidth: [CGFloat], pageRect: CGRect) -> CGFloat {
             var rowHeight: CGFloat = 5
             let maxHeight: Double = 10_000
             for (index, cell) in rowElements.enumerated() {
@@ -121,7 +123,7 @@ extension PDFBuild {
                     width: columnsWidth[index],
                     height: maxHeight
                 )
-                cell.draw(rect: &cellRect, calculationOnly: true)
+                cell.draw(rect: &cellRect, calculationOnly: true, pageRect: pageRect)
                 let tempHeight = maxHeight - cellRect.height
                 if tempHeight > rowHeight {
                     rowHeight = tempHeight

@@ -30,18 +30,19 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
-            drawHeader(rect: &rect, calculationOnly: calculationOnly)
-            drawFooter(rect: &rect, calculationOnly: calculationOnly)
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
+            drawHeader(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+            drawFooter(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }
 
         /// Draw the **header** elements
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func drawHeader(rect: inout CGRect, calculationOnly: Bool) {
+        func drawHeader(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             for item in header {
-                item.draw(rect: &rect, calculationOnly: calculationOnly)
+                item.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
         }
 
@@ -49,9 +50,9 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func drawFooter(rect: inout CGRect, calculationOnly: Bool) {
+        func drawFooter(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Calculate the footer rectangle
-            let tempRect = calculateDraw(rect: rect, elements: footer)
+            let tempRect = calculateDraw(rect: rect, elements: footer, pageRect: pageRect)
             let move = tempRect.height
             let contentHeight = rect.height - move
             var bottomRect = rect
@@ -61,7 +62,7 @@ extension PDFBuild {
             rect.size.height -= contentHeight
             /// Draw footer items
             for item in footer {
-                item.draw(rect: &bottomRect, calculationOnly: calculationOnly)
+                item.draw(rect: &bottomRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
         }
     }

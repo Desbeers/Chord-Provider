@@ -35,13 +35,14 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             var items: [PDFElement] = []
             for chord in chords where chord.status != .unknown {
                 items.append(Diagram(chord: chord, options: options))
             }
             let chords = PDFBuild.Section(columns: [SectionColumnWidth].init(repeating: .flexible, count: 7), items: items)
-            chords.draw(rect: &rect, calculationOnly: calculationOnly)
+            chords.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }
     }
 }

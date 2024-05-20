@@ -32,9 +32,11 @@ struct ChordProEditor: SWIFTViewRepresentable {
 
 #if os(macOS)
 
-    let macEditor = Wrapper()
-
     func makeNSView(context: Context) -> Wrapper {
+
+        let macEditor = Wrapper()
+
+        macEditor.textView.connector = connector
         macEditor.textView.string = text
         connector.textView = macEditor.textView
 
@@ -52,9 +54,10 @@ struct ChordProEditor: SWIFTViewRepresentable {
 
 #else
 
-    let textView = TextView()
-
     func makeUIView(context: Context) -> TextView {
+
+        let textView = TextView()
+
         textView.delegate = context.coordinator
         textView.text = self.text
         textView.selectedRange = .init()

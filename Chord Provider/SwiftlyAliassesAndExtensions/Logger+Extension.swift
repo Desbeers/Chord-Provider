@@ -11,7 +11,13 @@ import OSLog
 /// Messages for the Logger
 public extension Logger {
     private static let subsystem = Bundle.main.bundleIdentifier ?? ""
-    static let pdfBuild = Logger(subsystem: subsystem, category: "PDF build")
-    static let thumbnailProvider = Logger(subsystem: subsystem, category: "Thumbnail Provider")
-    static let application = Logger(subsystem: subsystem, category: "Application")
+    static var pdfBuild: Logger {
+        Logger(subsystem: subsystem, category: "PDF build")
+    }
+    static var thumbnailProvider: Logger {
+        Logger(subsystem: subsystem, category: "Thumbnail Provider")
+    }
+    static var application: Logger {
+        Logger(subsystem: subsystem, category: "Application")
+    }
 }

@@ -171,7 +171,9 @@ extension FileBrowserView {
         var body: some View {
             Button(
                 action: {
-                    openSong(url: song.fileURL)
+                    Task { @MainActor in
+                        await openSong(url: song.fileURL)
+                    }
                 },
                 label: {
                     Label(
@@ -214,23 +216,21 @@ extension FileBrowserView {
 
         /// Open a new song window
         /// - Parameter url: The URL of the song
-        func openSong(url: URL) {
+        @MainActor func openSong(url: URL) async {
             /// openDocument is very buggy; don't try to open a document when it is already open
             if let window {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
             } else {
-                /// Because this is running in a Task we have to do the sandbox-stuff ourselfs
+                /// Because this is running async we have to do the sandbox-stuff ourselfs
                 /// instead of using the `FolderBookmark.action` method
-                Task {
-                    do {
-                        if let persistentURL = try FolderBookmark.getPersistentFileURL(FileBrowser.folderBookmark) {
-                            _ = persistentURL.startAccessingSecurityScopedResource()
-                            try await openDocument(at: url)
-                            persistentURL.stopAccessingSecurityScopedResource()
-                        }
-                    } catch {
-                        Logger.application.error("Error opening file: \(error.localizedDescription, privacy: .public)")
+                do {
+                    if let persistentURL = try FolderBookmark.getPersistentFileURL(FileBrowser.folderBookmark) {
+                        _ = persistentURL.startAccessingSecurityScopedResource()
+                        try await openDocument(at: url)
+                        persistentURL.stopAccessingSecurityScopedResource()
                     }
+                } catch {
+                    Logger.application.error("Error opening file: \(error.localizedDescription, privacy: .public)")
                 }
             }
             /// If the browser is shown in a MenuBarExtra, close it

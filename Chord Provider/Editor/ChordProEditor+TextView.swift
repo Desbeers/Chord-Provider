@@ -10,16 +10,14 @@ import SwiftUI
 extension ChordProEditor {
 
     /// The text view for the editor
-    @Observable public class TextView: SWIFTTextView {
+    public class TextView: SWIFTTextView {
 
+        /// The Connector class
+        var connector: ChordProEditor.Connector?
         /// The delegate for the ChordProEditor
         var chordProEditorDelegate: ChordProEditorDelegate?
-        /// The optional curren directive
-        var currentDirective: ChordPro.Directive?
         /// The current fragment of the cursor
         var currentFragment: NSTextLayoutFragment?
-        /// The optional clicked fragment in the editor
-        var clickedFragment: NSTextLayoutFragment?
 
         // MARK: Override functions
 
@@ -42,11 +40,14 @@ extension ChordProEditor {
 
         /// Handle double-click on directives
         override func mouseDown(with event: NSEvent) {
-            if event.clickCount == 2, let currentDirective, ChordPro.Directive.editableDirectives.contains(currentDirective) {
-                self.clickedFragment = currentFragment
-            } else {
-                super.mouseDown(with: event)
+            guard
+                event.clickCount == 2,
+                let currentDirective = connector?.currentDirective,
+                ChordPro.Directive.editableDirectives.contains(currentDirective)
+            else {
+                return super.mouseDown(with: event)
             }
+            connector?.clickedFragment = currentFragment
         }
 #endif
 
@@ -68,7 +69,7 @@ extension ChordProEditor {
                 let fragment = textLayoutManager.textLayoutFragment(for: range.location),
                 let nsRange = NSRange(textRange: fragment.rangeInElement, in: textContentManager)
             else {
-                currentDirective = nil
+                connector?.currentDirective = nil
                 currentFragment = nil
                 return
             }
@@ -79,7 +80,7 @@ extension ChordProEditor {
                     directive = value
                 }
             }
-            currentDirective = directive
+            connector?.currentDirective = directive
             currentFragment = fragment
             setNeedsDisplay(bounds)
         }

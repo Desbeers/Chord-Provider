@@ -30,9 +30,10 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the size should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             var insetRect = rect.insetBy(dx: size, dy: size)
-            element.draw(rect: &insetRect, calculationOnly: calculationOnly)
+            element.draw(rect: &insetRect, calculationOnly: calculationOnly, pageRect: pageRect)
             let height = rect.height - insetRect.height
             rect.origin.y += height
             rect.size.height -= height

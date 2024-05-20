@@ -39,9 +39,10 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let pageCounter = PDFBuild.Text(String(pageNumber), attributes: attributes)
-            pageCounter.draw(rect: &rect, calculationOnly: calculationOnly)
+            pageCounter.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }
     }
 }

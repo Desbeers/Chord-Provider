@@ -17,20 +17,21 @@ protocol PDFElement {
     /// Check if a ``PDFElement`` fits on the current page or if it should break
     /// - Parameter rect: The available rectangle
     /// - Returns: Bool if the page should break
-    func shoudPageBreak(rect: CGRect) -> Bool
+    func shoudPageBreak(rect: CGRect, pageRect: CGRect) -> Bool
 
     /// Draw the ``PDFElement``
     /// - Parameters:
     ///   - rect: The available rectangle
     ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-    func draw(rect: inout CGRect, calculationOnly: Bool)
+    ///   - pageRect: The size of the page
+    func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect)
 
     /// Calculate the Rect Bounds for an ``PDFElement`` array
     /// - Parameters:
     ///   - rect: The available rectangle
     ///   - elements: The ``PDFElement`` array
     /// - Returns: The available rectangle after the drawing
-    func calculateDraw(rect: CGRect, elements: [PDFElement]) -> CGRect
+    func calculateDraw(rect: CGRect, elements: [PDFElement], pageRect: CGRect) -> CGRect
 
     /// Convert a string into Markdown
     /// - Parameter text: The text as String
@@ -58,9 +59,9 @@ extension PDFElement {
     /// Check if a ``PDFElement`` fits on the current page or if it should break
     /// - Parameter rect: The available rectangle
     /// - Returns: Bool if the page should break
-    func shoudPageBreak(rect: CGRect) -> Bool {
+    func shoudPageBreak(rect: CGRect, pageRect: CGRect) -> Bool {
         var tempRect = rect
-        draw(rect: &tempRect, calculationOnly: true)
+        draw(rect: &tempRect, calculationOnly: true, pageRect: pageRect)
         let breakPage = tempRect.origin.y > rect.maxY || rect.height < 10
         return breakPage
     }
@@ -70,10 +71,10 @@ extension PDFElement {
     ///   - rect: The available rectangle
     ///   - elements: The ``PDFElement`` array
     /// - Returns: The available rectangle after the drawing
-    func calculateDraw(rect: CGRect, elements: [PDFElement]) -> CGRect {
+    func calculateDraw(rect: CGRect, elements: [PDFElement], pageRect: CGRect) -> CGRect {
         var tempRect = rect
         for item in elements {
-            item.draw(rect: &tempRect, calculationOnly: true)
+            item.draw(rect: &tempRect, calculationOnly: true, pageRect: pageRect)
         }
         return tempRect
     }
@@ -93,7 +94,8 @@ extension PDFElement {
     /// - Parameters:
     ///   - rect: The available rectangle
     ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-    func draw(rect: inout CGRect, calculationOnly: Bool) {}
+    ///   - pageRect: The page size of the PDF document
+    func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {}
 
     /// Add padding to a `PDFElement`
     /// - Parameter size: The size of the padding

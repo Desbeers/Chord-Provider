@@ -146,6 +146,7 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
+                    settings.definition = String(Int(sliderValue))
                     dismiss()
                 },
                 label: {
@@ -154,7 +155,7 @@ extension EditorView.DirectiveSheet {
             )
             .keyboardShortcut(.defaultAction)
         }
-        .task {
+        .onAppear {
             sliderValue = Double(settings.definition) ?? (start + end) / 2
         }
     }

@@ -52,6 +52,6 @@ extension EditorView {
             .disabled(connector.selection == .multipleSelections)
         }
         .menuStyle(.button)
-        .disabled(connector.textView.currentDirective != nil)
+        .disabled(connector.currentDirective != nil)
     }
 }

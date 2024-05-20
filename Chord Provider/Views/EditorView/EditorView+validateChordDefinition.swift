@@ -26,7 +26,7 @@ extension EditorView {
         } catch {
             /// Clear the settings to default
             directiveSettings = DirectiveSettings()
-            connector.textView.clickedFragment = nil
+            connector.clickedFragment = nil
             /// Show an error alert
             errorAlert = error.alert()
         }

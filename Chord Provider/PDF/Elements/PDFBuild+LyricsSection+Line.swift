@@ -34,7 +34,8 @@ extension PDFBuild.LyricsSection {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             var partOffset: CGFloat = 0
             for part in parts {
                 var cellRect = CGRect(
@@ -48,7 +49,7 @@ extension PDFBuild.LyricsSection {
                 if part.text.string.last == " " {
                     partOffset += 2 * textPadding
                 }
-                part.draw(rect: &cellRect, calculationOnly: calculationOnly)
+                part.draw(rect: &cellRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
             rect.origin.y += height
             rect.size.height -= height

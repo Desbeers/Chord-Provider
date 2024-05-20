@@ -15,11 +15,19 @@ extension ChordProEditor {
         /// The current `NSTextView`
         var textView: TextView = .init()
 
+        /// The optional current directive
+        var currentDirective: ChordPro.Directive?
+        /// The current fragment of the cursor
+        var currentFragment: NSTextLayoutFragment?
+        /// The optional clicked fragment in the editor
+        var clickedFragment: NSTextLayoutFragment?
+
         var settings: ChordProviderSettings.Editor {
             didSet {
                 baseFont = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
                 Task { @MainActor in
                     processHighlighting(fullText: true)
+                    textView.chordProEditorDelegate?.selectionNeedsDisplay()
                 }
             }
         }

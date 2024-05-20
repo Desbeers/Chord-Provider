@@ -13,6 +13,9 @@ extension ChordProEditor.Connector {
     /// Highlight text containing chords or directives
     /// - Parameter fullText: True if the full text must be checked, or else only the current paragraph
     func processHighlighting(fullText: Bool) {
+
+        let regex = ChordProEditor.Regexes()
+
         let text = textView.string
 
         let fullRange = NSRange(location: 0, length: textView.string.count)
@@ -28,7 +31,7 @@ extension ChordProEditor.Connector {
                 .font: baseFont
             ], range: currentParagrapRange)
         /// Brackets
-        let brackets = text.ranges(of: ChordProEditor.bracketRegex)
+        let brackets = text.ranges(of: regex.bracketRegex)
         for bracket in brackets {
             let nsRange = NSRange(range: bracket, in: text)
             if checkIntersection(nsRange) {
@@ -40,7 +43,7 @@ extension ChordProEditor.Connector {
             }
         }
         /// Chords
-        let chords = text.ranges(of: ChordProEditor.chordRegex)
+        let chords = text.ranges(of: regex.chordRegex)
         for chord in chords {
             let nsRange = NSRange(range: chord, in: text, leadingOffset: 1, trailingOffset: 1)
             if checkIntersection(nsRange) {
@@ -52,7 +55,7 @@ extension ChordProEditor.Connector {
             }
         }
         /// Directives
-        let directives = text.matches(of: ChordProEditor.directiveRegex)
+        let directives = text.matches(of: regex.directiveRegex)
         for directive in directives {
             let nsRange = NSRange(range: directive.range, in: text, leadingOffset: 1, trailingOffset: 1)
             if checkIntersection(nsRange) {
@@ -65,7 +68,7 @@ extension ChordProEditor.Connector {
             }
         }
         /// The definition of a directive
-        let definitions = text.ranges(of: ChordProEditor.definitionRegex)
+        let definitions = text.ranges(of: regex.definitionRegex)
         for definition in definitions {
             let nsRange = NSRange(range: definition, in: text, leadingOffset: 1, trailingOffset: 1)
             if checkIntersection(nsRange) {

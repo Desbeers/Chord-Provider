@@ -30,7 +30,8 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
-        func draw(rect: inout CGRect, calculationOnly: Bool) {
+        ///   - pageRect: The page size of the PDF document
+        func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Remember the start rectangle to calculate the used space at the end
             let startRect = rect
             /// Define the TOC item with `PDFBuild` elements
@@ -43,7 +44,7 @@ extension PDFBuild {
                 ]
             )
             /// Draw the TOC item
-            tocItem.draw(rect: &rect, calculationOnly: calculationOnly)
+            tocItem.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
             /// Calculate the used space and update the item in the `PageCounter` class
             if !calculationOnly, let index = counter.tocItems.firstIndex(where: { $0.id == tocInfo.id }) {
                 let usedRect = CGRect(
