@@ -14,6 +14,9 @@ extension ChordProEditor.Connector {
     /// - Parameter fullText: True if the full text must be checked, or else only the current paragraph
     func processHighlighting(fullText: Bool) {
 
+        guard let textView
+        else { return }
+
         let regex = ChordProEditor.Regexes()
 
         let text = textView.string
@@ -21,7 +24,7 @@ extension ChordProEditor.Connector {
         let fullRange = NSRange(location: 0, length: textView.string.count)
 
         let composeText = textView.string as NSString
-        let currentParagrapRange = fullText ? fullRange : composeText.paragraphRange(for: textView.selectedRange)
+        let currentParagraphRange = fullText ? fullRange : composeText.paragraphRange(for: textView.selectedRange)
 
         /// Make all text in the default style
         textView.attributedStorage?.setAttributes(
@@ -29,7 +32,7 @@ extension ChordProEditor.Connector {
                 .paragraphStyle: ChordProEditor.paragraphStyle,
                 .foregroundColor: SWIFTColor.textColor,
                 .font: baseFont
-            ], range: currentParagrapRange)
+            ], range: currentParagraphRange)
         /// Brackets
         let brackets = text.ranges(of: regex.bracketRegex)
         for bracket in brackets {
@@ -91,7 +94,7 @@ extension ChordProEditor.Connector {
         /// - Parameter nsRange: The range of the regex result
         /// - Returns: True if it is in its range, else false
         func checkIntersection(_ nsRange: NSRange) -> Bool {
-            return NSIntersectionRange(currentParagrapRange, nsRange).length != 0
+            return NSIntersectionRange(currentParagraphRange, nsRange).length != 0
         }
     }
 }

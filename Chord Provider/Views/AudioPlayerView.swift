@@ -54,7 +54,7 @@ struct AudioPlayerView: View {
                 Button(
                     action: {
                         confirmationDialog = status.alert {
-                            downloadSong(iCloudURL: iCloudURL)
+                            downloadSong(musicURL: musicURL, iCloudURL: iCloudURL)
                         }
                     },
                     label: {
@@ -91,10 +91,10 @@ struct AudioPlayerView: View {
         }
         .animation(.default, value: status)
         .task(id: musicURL) {
-            checkSong()
+            status = AudioPlayerView.checkSong(musicURL: musicURL, iCloudURL: iCloudURL)
         }
         .task(id: fileBrowser.songsFolder) {
-            checkSong()
+            status = AudioPlayerView.checkSong(musicURL: musicURL, iCloudURL: iCloudURL)
         }
     }
 
@@ -135,22 +135,20 @@ struct AudioPlayerView: View {
     // MARK: Prive functions
 
     /// Check the song file
-    private func checkSong() {
-        do {
-            try FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
-                if musicURL.exist() {
-                    status = .readyToPlay
+    private static func checkSong(musicURL: URL, iCloudURL: URL) -> ChordProviderError {
+        var status = ChordProviderError.noSongsFolderSelectedError
+        try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
+            if musicURL.exist() {
+                status = .readyToPlay
+            } else {
+                if iCloudURL.exist() {
+                    status = .audioFileNotDownloadedError
                 } else {
-                    if iCloudURL.exist() {
-                        status = .audioFileNotDownloadedError
-                    } else {
-                        status = .audioFileNotFoundError
-                    }
+                    status = .audioFileNotFoundError
                 }
             }
-        } catch {
-            status = .noSongsFolderSelectedError
         }
+        return status
     }
 
     /// Play the song file
@@ -171,7 +169,7 @@ struct AudioPlayerView: View {
     }
 
     /// Download the song
-    private func downloadSong(iCloudURL: URL) {
+    private func downloadSong(musicURL: URL, iCloudURL: URL) {
         try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
             Task {
                 do {
@@ -179,9 +177,8 @@ struct AudioPlayerView: View {
                 } catch {
                     Logger.application.error("Export downloading song: \(error.localizedDescription, privacy: .public)")
                 }
-                while status != .readyToPlay {
+                while AudioPlayerView.checkSong(musicURL: musicURL, iCloudURL: iCloudURL) != .readyToPlay {
                     try? await Task.sleep(for: .seconds(1))
-                    checkSong()
                 }
             }
         }

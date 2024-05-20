@@ -257,6 +257,7 @@
 		D7F140152A64647D002D875D /* Song+Section+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8A2A6460B7002D875D /* Song+Section+Line+Part.swift */; };
 		D7F140162A64647D002D875D /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */; };
 		D7F140172A64647D002D875D /* Song+Section+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F852A6460B7002D875D /* Song+Section+Line.swift */; };
+		D7F65D922BFBFEA2003FB87D /* OpenDocumentAction+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F65D912BFBFEA2003FB87D /* OpenDocumentAction+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -431,6 +432,7 @@
 		D7F13FBB2A6460B7002D875D /* AudioPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
 		D7F13FF62A646356002D875D /* QLpreview (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLpreview (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F13FF82A646356002D875D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
+		D7F65D912BFBFEA2003FB87D /* OpenDocumentAction+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDocumentAction+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -569,6 +571,7 @@
 				D790D14F2BF3DA8B00802475 /* NSRange+extension.swift */,
 				D7EC289A2BF5533D00F220A1 /* NSTextRange+extension.swift */,
 				D7EC289C2BF68A7C00F220A1 /* NSTextView+extension.swift */,
+				D7F65D912BFBFEA2003FB87D /* OpenDocumentAction+extension.swift */,
 				D7EC28A22BF6982900F220A1 /* RegexOutput+extension.swift */,
 				D7EC28A02BF690FE00F220A1 /* String+extension.swift */,
 				D7EC289E2BF68AB900F220A1 /* UITextView+extension.swift */,
@@ -1048,6 +1051,7 @@
 				D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */,
 				D706FD9B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift in Sources */,
 				D7CA63312AED3D4E00C6B4BB /* MetronomeView.swift in Sources */,
+				D7F65D922BFBFEA2003FB87D /* OpenDocumentAction+extension.swift in Sources */,
 				D706FDA02BCECC9F005DEDF6 /* NSAttributedString+extension.swift in Sources */,
 				D75B48912BDBD3A2001F6176 /* FolderExport+toc.swift in Sources */,
 				D7A2FA6A2BE8F0C100869E24 /* ChordProEditor+Connector.swift in Sources */,

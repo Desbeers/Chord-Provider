@@ -44,10 +44,10 @@ extension ChordProEditor {
         func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView
             else { return }
-            if let balance, let range = connector.textView.selectedRanges.first?.rangeValue {
+            if let balance, let range = textView.selectedRanges.first?.rangeValue {
                 Task { @MainActor in
-                    connector.textView.insertText(balance, replacementRange: range)
-                    connector.textView.selectedRanges = [NSValue(range: range)]
+                    textView.insertText(balance, replacementRange: range)
+                    textView.selectedRanges = [NSValue(range: range)]
                 }
                 self.balance = nil
             }
@@ -80,7 +80,7 @@ extension ChordProEditor {
                 self.balance = nil
             }
             connector.processHighlighting(fullText: highlightFullText)
-            swiftTextViewDidChangeSelection(selectedRanges: connector.textView.selectedRanges)
+            swiftTextViewDidChangeSelection(selectedRanges: textView.selectedRanges)
             updateTextBinding()
         }
 
@@ -100,23 +100,25 @@ extension ChordProEditor {
         @MainActor
         func swiftTextViewDidChangeSelection(selectedRanges: [NSValue]) {
             guard
+                let textView = connector.textView,
                 let firstSelection = selectedRanges.first?.rangeValue
             else {
                 return
             }
             connector.selectedRanges = selectedRanges
-            connector.textView.setSelectedTextLayoutFragment(selectedRange: firstSelection)
-
-            connector.textView.chordProEditorDelegate?.selectionNeedsDisplay()
+            textView.setSelectedTextLayoutFragment(selectedRange: firstSelection)
+            textView.chordProEditorDelegate?.selectionNeedsDisplay()
         }
 
         @MainActor
         func updateTextBinding() {
+            guard let textView = connector.textView
+            else { return }
             self.task?.cancel()
             self.task = Task {
                 do {
                     try await Task.sleep(for: .seconds(1))
-                    text.wrappedValue = connector.textView.string
+                    text.wrappedValue = textView.string
                 } catch { }
             }
         }

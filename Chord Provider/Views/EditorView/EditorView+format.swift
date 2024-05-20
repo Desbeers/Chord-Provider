@@ -38,7 +38,7 @@ extension EditorView {
                 let updatedDirective = "{\(settings.directive.rawValue): \(settings.definition)}\n"
                 editor.insertText(text: updatedDirective, range: nsRange)
             } else {
-                let selectedText = editor.textView.selectedText
+                let selectedText = editor.textView?.selectedText ?? ""
                 var replacementText = format(directive: settings.directive, argument: String(selectedText))
                 /// Replace the optional selection with the optional definition
                 if !settings.definition.isEmpty {

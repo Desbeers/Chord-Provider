@@ -11,7 +11,7 @@ import SwiftlyAlertMessage
 
 extension EditorView {
 
-    struct DirectiveSettings {
+    struct DirectiveSettings: @unchecked Sendable {
         /// The directive to show in the sheet
         var directive: ChordPro.Directive = .none
         /// The definition of the directive sheet
