@@ -10,8 +10,9 @@ import SwiftUI
 extension ChordProEditor {
 
     @Observable
+    @MainActor
     /// The connector class for the editor
-    final class Connector: @unchecked Sendable {
+    final class Connector: Sendable {
         /// The current `NSTextView`
         var textView: TextView?
 

@@ -11,18 +11,18 @@ import SwiftlyAlertMessage
 
 extension EditorView {
 
-    struct DirectiveSettings: @unchecked Sendable {
+    struct DirectiveSettings: Sendable {
         /// The directive to show in the sheet
         var directive: ChordPro.Directive = .none
         /// The definition of the directive sheet
         var definition: String = ""
-        /// The optional clicked fragment
+        /// The optional clicked fragment range
         var clickedFragment: NSTextLayoutFragment?
     }
 }
 
 /// SwiftUI `View` for the ``ChordProEditor``
-struct EditorView: View {
+@MainActor struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
@@ -73,7 +73,7 @@ struct EditorView: View {
         )
     }
     /// The editor
-    var editor: some View {
+    @MainActor var editor: some View {
         VStack {
             ChordProEditor(
                 text: $document.text,
