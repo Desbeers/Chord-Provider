@@ -7,7 +7,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyAlertMessage",
       "state" : {
         "branch" : "main",
-        "revision" : "a44b877b34ddfd0093a38c575c73261d7944493b"
+        "revision" : "fba5deb1e01dcdcd93e6871245fa0a042486c14f"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "db371dffc84a7529f70d4db5083ad1d7081fbf8d"
+        "revision" : "ff1b0a62cc4fd6b7a993ca03ac26c4921d3a70b6"
       }
     },
     {
@@ -25,7 +25,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "8bb07181057eddb502c1819c8350bf904603b049"
+        "revision" : "0e2a529017e50d20593b7e2ada6d1505ff939f46"
       }
     },
     {
@@ -34,7 +34,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyStructCache",
       "state" : {
         "branch" : "main",
-        "revision" : "e9b371734411f18e98982944ad213756b7f891fb"
+        "revision" : "96346529ca304eeed2412a8140ca2661f162115c"
       }
     }
   ],
