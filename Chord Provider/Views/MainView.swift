@@ -15,6 +15,8 @@ struct MainView: View {
     @Environment(AppState.self) private var appState
     /// The scene state
     @Environment(SceneState.self) private var sceneState
+    /// The FileBrowser model
+    @Environment(FileBrowser.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// Chord Display Options
@@ -68,6 +70,11 @@ struct MainView: View {
             instrument: chordDisplayOptions.displayOptions.instrument,
             fileURL: sceneState.file
         )
+        if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == sceneState.file }) {
+            fileBrowser.songList[index].title = sceneState.song.meta.title ?? ""
+            fileBrowser.songList[index].artist = sceneState.song.meta.artist ?? ""
+            fileBrowser.songList[index].tags = sceneState.song.meta.tags
+        }
         Task {
             do {
                 let export = try SongExport.export(

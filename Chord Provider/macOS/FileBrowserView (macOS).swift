@@ -112,7 +112,7 @@ struct FileBrowserView: View {
     var artistsList: some View {
         ForEach(fileBrowser.artistList) { artist in
             Section(header: Text(artist.name).font(.headline)) {
-                ForEach(fileBrowser.songList.filter { $0.artist == artist.name }) { song in
+                ForEach(artist.songs) { song in
                     Row(song: song)
                 }
             }
@@ -121,7 +121,7 @@ struct FileBrowserView: View {
     /// Songs list `View`
     var songsList: some View {
         Section(header: Text("All Songs").font(.headline)) {
-            ForEach(fileBrowser.songList.sorted(using: KeyPathComparator(\.title))) { song in
+            ForEach(fileBrowser.songList) { song in
                 Row(song: song, showArtist: true)
             }
         }

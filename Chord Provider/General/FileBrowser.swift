@@ -24,8 +24,6 @@ class FileBrowser {
     static let message: String = "Select the folder with your songs"
     /// The label for the confirmation button of the folder selector
     static let confirmationLabel = "Select"
-    /// The Class to monitor the songs folder
-    let folderMonitor = FolderMonitor()
     /// The optional songs folder
     var songsFolder: URL?
     /// The status
@@ -40,9 +38,6 @@ class FileBrowser {
     /// Init the FileBrowser
     init() {
         songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)
-        folderMonitor.folderDidChange = {
-            self.getFiles()
-        }
     }
 }
 
@@ -64,7 +59,7 @@ extension FileBrowser {
         var tags: [String] = []
         /// The searchable string
         var search: String {
-            return "\(title) \(artist)"
+            "\(title) \(artist)"
         }
         /// Path of the optional audio file
         var musicPath: String = ""
@@ -75,7 +70,7 @@ extension FileBrowser {
     /// The struct for an artist item in the browser
     struct ArtistItem: Identifiable {
         /// The unique ID
-        let id = UUID()
+        var id: String { name }
         /// Name of the artist
         let name: String
         /// Songs of the artist
@@ -90,13 +85,11 @@ extension FileBrowser {
     /// Get the song files from the user selected folder
     func getFiles() {
         do {
+            var songs = songList
             /// Get a list of all files
             try FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { persistentURL in
-                /// The found songs
-                var songs = [SongItem]()
                 status = .songsFolderIsSelected
-                folderMonitor.addRecursiveURL(persistentURL)
-                if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
+                if songs.isEmpty, let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
                     while let item = items.nextObject() as? URL {
                         if ChordProDocument.fileExtension.contains(item.pathExtension) {
                             var song = SongItem(fileURL: item)
