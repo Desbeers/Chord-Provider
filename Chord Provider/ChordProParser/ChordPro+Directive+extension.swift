@@ -102,6 +102,18 @@ extension ChordPro.Directive {
 
     /// Array of ``ChordPro/Directive`` that can be edited by double click on it (macOS only)
     static var editableDirectives: [ChordPro.Directive] {
-        metaDataDirectives + [.t, .st, .subtitle, st, .comment, .define]
+        metaDataDirectives + environmentDirectives + [
+            .sov,
+            .soc,
+            .sot,
+            .sog,
+            .sob,
+            .sos,
+            .t,
+            .st,
+            .subtitle,
+            .comment,
+            .define
+        ]
     }
 }

@@ -83,18 +83,17 @@ extension EditorView {
                 connector.settings = appState.settings.editor
             }
             .onChange(of: connector.clickedFragment) {
-                let regex = ChordProEditor.Regexes()
                 guard
                     let directive = connector.currentDirective,
                     let fragment = connector.clickedFragment,
                     let paragraph = fragment.textElement as? NSTextParagraph,
-                    let match = paragraph.attributedString.string.firstMatch(of: regex.definitionRegex)
+                    let match = paragraph.attributedString.string.firstMatch(of: ChordPro.directiveRegex)
 
                 else {
                     return
                 }
                 directiveSettings.directive = directive
-                directiveSettings.definition = String(match.output.1).trimmingCharacters(in: .whitespacesAndNewlines)
+                directiveSettings.definition = String(match.output.2 ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
                 directiveSettings.clickedFragment = fragment
                 switch directive {
                 case .define:

@@ -12,6 +12,9 @@ extension ChordPro {
 
     // MARK: Regex definitions
 
+    /// All the directives we know about
+    static let directives = ChordPro.Directive.allCases.map(\.rawValue)
+
     /// The regex for a `directive` with an optional `label`
     ///
     ///     /// ## Examples
@@ -21,28 +24,31 @@ extension ChordPro {
     ///     {start_of_verse}
     ///     {start_of_verse: Last Verse}
     ///
+    /// - Note: This needs an extension for `ChoiceOf`
     static let directiveRegex = Regex {
         "{"
-        TryCapture {
-            OneOrMore {
-                CharacterClass(
-                    .anyOf(":").inverted
-                )
-            }
+        Capture {
+            ChoiceOf(directives)
         } transform: {
-            Directive(rawValue: $0.lowercased())
+            Directive(rawValue: $0.lowercased()) ?? .none
         }
         Optionally {
             ":"
             TryCapture {
-                OneOrMore(.any)
+                OneOrMore {
+                    CharacterClass(
+                        .anyOf("}").inverted
+                    )
+                }
             } transform: {
                 $0.trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
         "}"
         Optionally {
-            OneOrMore(.any)
+            CharacterClass(
+                .anyOf("{").inverted
+            )
         }
     }
 
@@ -55,17 +61,7 @@ extension ChordPro {
     static let lineRegex = Regex {
         /// The chord
         Optionally {
-            Regex {
-                "["
-                Capture {
-                    OneOrMore {
-                        CharacterClass(
-                            .anyOf("[] ").inverted
-                        )
-                    }
-                }
-                "]"
-            }
+            chordRegex
         }
         /// The lyric
         Optionally {
@@ -76,6 +72,32 @@ extension ChordPro {
                     )
                 }
             }
+        }
+    }
+
+    /// Regex for brackets for chords and directives
+    static let bracketRegex = Regex {
+        Capture {
+            OneOrMore {
+                CharacterClass(
+                    .anyOf("[]{}")
+                )
+            }
+        }
+    }
+
+    /// Regex for a chord
+    static let chordRegex = Regex {
+        Regex {
+            "["
+            Capture {
+                OneOrMore {
+                    CharacterClass(
+                        .anyOf("[] ").inverted
+                    )
+                }
+            }
+            "]"
         }
     }
 }

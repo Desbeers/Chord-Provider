@@ -101,7 +101,7 @@ actor ChordPro {
         currentSection: inout Song.Section
     ) {
 
-        if let match = text.wholeMatch(of: directiveRegex) {
+        if let match = text.firstMatch(of: directiveRegex) {
 
             let directive = match.1
             let label = match.2

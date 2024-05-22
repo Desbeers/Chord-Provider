@@ -176,7 +176,6 @@
 		D7A2FA692BE8F0C100869E24 /* ChordProEditor+Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2FA632BE8F0C100869E24 /* ChordProEditor+Coordinator.swift */; };
 		D7A2FA6A2BE8F0C100869E24 /* ChordProEditor+Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2FA642BE8F0C100869E24 /* ChordProEditor+Connector.swift */; };
 		D7A2FA6B2BE8F0C100869E24 /* ChordProEditor+Connector+Highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2FA652BE8F0C100869E24 /* ChordProEditor+Connector+Highlight.swift */; };
-		D7A2FA6C2BE8F0C100869E24 /* ChordProEditor+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2FA662BE8F0C100869E24 /* ChordProEditor+Regex.swift */; };
 		D7A384CC2BEA1C510020221C /* ChordProEditor+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A384CB2BEA1C510020221C /* ChordProEditor+Selection.swift */; };
 		D7A384CE2BEA29D30020221C /* ChordProviderSettings+Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A384CD2BEA29D30020221C /* ChordProviderSettings+Editor.swift */; };
 		D7A384D02BEA3DAA0020221C /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A384CF2BEA3DAA0020221C /* Color+extension.swift */; };
@@ -192,6 +191,8 @@
 		D7B319E52BD5833D006A173A /* PDFBuild+DocumentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */; };
 		D7C3D6212AC9E52600909639 /* ChordProviderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */; };
 		D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppState.swift */; };
+		D7C725C52BFDE3B6006D9C74 /* RegexOutput+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC28A22BF6982900F220A1 /* RegexOutput+extension.swift */; };
+		D7C725C62BFDE3B6006D9C74 /* RegexOutput+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC28A22BF6982900F220A1 /* RegexOutput+extension.swift */; };
 		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7CA63272AEB397A00C6B4BB /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63262AEB397A00C6B4BB /* Metronome.swift */; };
@@ -368,7 +369,6 @@
 		D7A2FA632BE8F0C100869E24 /* ChordProEditor+Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Coordinator.swift"; sourceTree = "<group>"; };
 		D7A2FA642BE8F0C100869E24 /* ChordProEditor+Connector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Connector.swift"; sourceTree = "<group>"; };
 		D7A2FA652BE8F0C100869E24 /* ChordProEditor+Connector+Highlight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Connector+Highlight.swift"; sourceTree = "<group>"; };
-		D7A2FA662BE8F0C100869E24 /* ChordProEditor+Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Regex.swift"; sourceTree = "<group>"; };
 		D7A384CB2BEA1C510020221C /* ChordProEditor+Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Selection.swift"; sourceTree = "<group>"; };
 		D7A384CD2BEA29D30020221C /* ChordProviderSettings+Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProviderSettings+Editor.swift"; sourceTree = "<group>"; };
 		D7A384CF2BEA3DAA0020221C /* Color+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
@@ -605,7 +605,6 @@
 				D7A2FA642BE8F0C100869E24 /* ChordProEditor+Connector.swift */,
 				D7A2FA652BE8F0C100869E24 /* ChordProEditor+Connector+Highlight.swift */,
 				D7A2FA632BE8F0C100869E24 /* ChordProEditor+Coordinator.swift */,
-				D7A2FA662BE8F0C100869E24 /* ChordProEditor+Regex.swift */,
 				D7A384CB2BEA1C510020221C /* ChordProEditor+Selection.swift */,
 				D734B7BC2BEF5D2D0074087C /* ChordProEditor+Static.swift */,
 				D77979222BECFF4C00BE165A /* ChordProEditor+TextView.swift */,
@@ -1040,6 +1039,7 @@
 				D7117F942BA2297E00D17A52 /* ChordDiagramView.swift in Sources */,
 				D7117F922BA2292A00D17A52 /* Aliasses.swift in Sources */,
 				D70D10222BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */,
+				D7C725C62BFDE3B6006D9C74 /* RegexOutput+extension.swift in Sources */,
 				D7117F952BA229A600D17A52 /* ColumnsLayout.swift in Sources */,
 				D7B319E12BD564DE006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D7117F8A2BA2281E00D17A52 /* Song+DisplayOptions.swift in Sources */,
@@ -1123,7 +1123,6 @@
 				D706FD912BCECC9F005DEDF6 /* PDFBuild+Divider.swift in Sources */,
 				D73A03E92AC85B6100D6CD0E /* Song+Render+ChordView.swift in Sources */,
 				D7F13FE82A6460B7002D875D /* AudioPlayerView.swift in Sources */,
-				D7A2FA6C2BE8F0C100869E24 /* ChordProEditor+Regex.swift in Sources */,
 				D7F13FD32A6460B7002D875D /* ChordPro.swift in Sources */,
 				D7A384CC2BEA1C510020221C /* ChordProEditor+Selection.swift in Sources */,
 				D70B72862BD50EC6003C89B4 /* PDFBuild+TabSection.swift in Sources */,
@@ -1232,6 +1231,7 @@
 				D7972BEC2BCEB5DF00752CF9 /* Logger+Extension.swift in Sources */,
 				D7F140152A64647D002D875D /* Song+Section+Line+Part.swift in Sources */,
 				D701F87B2A9CBA3D007DACF3 /* Aliasses.swift in Sources */,
+				D7C725C52BFDE3B6006D9C74 /* RegexOutput+extension.swift in Sources */,
 				D70D10212BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */,
 				D7B319E02BD564DE006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D7F1400B2A646439002D875D /* PreviewProvider.swift in Sources */,

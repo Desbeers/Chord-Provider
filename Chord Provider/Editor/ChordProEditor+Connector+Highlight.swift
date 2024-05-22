@@ -17,8 +17,6 @@ extension ChordProEditor.Connector {
         guard let textView
         else { return }
 
-        let regex = ChordProEditor.Regexes()
-
         let text = textView.string
 
         let fullRange = NSRange(location: 0, length: textView.string.count)
@@ -34,7 +32,7 @@ extension ChordProEditor.Connector {
                 .font: baseFont
             ], range: currentParagraphRange)
         /// Brackets
-        let brackets = text.ranges(of: regex.bracketRegex)
+        let brackets = text.ranges(of: ChordPro.bracketRegex)
         for bracket in brackets {
             let nsRange = NSRange(range: bracket, in: text)
             if checkIntersection(nsRange) {
@@ -46,7 +44,7 @@ extension ChordProEditor.Connector {
             }
         }
         /// Chords
-        let chords = text.ranges(of: regex.chordRegex)
+        let chords = text.ranges(of: ChordPro.chordRegex)
         for chord in chords {
             let nsRange = NSRange(range: chord, in: text, leadingOffset: 1, trailingOffset: 1)
             if checkIntersection(nsRange) {
@@ -58,23 +56,28 @@ extension ChordProEditor.Connector {
             }
         }
         /// Directives
-        let directives = text.matches(of: regex.directiveRegex)
+        let directives = text.matches(of: ChordPro.directiveRegex)
         for directive in directives {
-            let nsRange = NSRange(range: directive.range, in: text, leadingOffset: 1, trailingOffset: 1)
+            var nsRange = NSRange(range: directive.range, in: text, leadingOffset: 1, trailingOffset: 1)
+            nsRange.length = directive.output.1.rawValue.count
             if checkIntersection(nsRange) {
                 textView.attributedStorage?.addAttributes(
                     [
                         .foregroundColor: SWIFTColor(settings.directiveColor),
-                        .definition: directive.output.1 ?? .none
+                        .definition: directive.output.1
                     ],
-                    range: nsRange)
-            }
-        }
-        /// The definition of a directive
-        let definitions = text.ranges(of: regex.definitionRegex)
-        for definition in definitions {
-            let nsRange = NSRange(range: definition, in: text, leadingOffset: 1, trailingOffset: 1)
-            if checkIntersection(nsRange) {
+                    range: nsRange
+                )
+                /// Highlight the optional definition
+                guard
+                    let definition = directive.output.2,
+                    let directiveRange = directive.output.0.description.range(of: definition)
+                else {
+                    continue
+                }
+                let directiveNSRange = NSRange(range: directiveRange, in: directive.output.0.description)
+                nsRange.location += directiveNSRange.location - 1
+                nsRange.length = directiveNSRange.length
                 textView.attributedStorage?.addAttribute(
                     .foregroundColor,
                     value: SWIFTColor(settings.definitionColor),
