@@ -2,7 +2,7 @@
 //  AudioPlayerView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ struct AudioPlayerView: View {
     @State private var audioPlayer: AVAudioPlayer?
     /// Bool if the player is playing or not
     @State private var isPlaying: Bool = false
-    /// The FileBrowser model
+    /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The status of the song
     @State private var status: ChordProviderError = .unknownStatus

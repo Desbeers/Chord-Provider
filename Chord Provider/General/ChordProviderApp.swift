@@ -2,16 +2,23 @@
 //  ChordProviderApp.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 import SwiftlyFolderUtilities
 import SwiftlyChordUtilities
 
-/// SwiftUI `Scene` for Chord Provider
+/// SwiftUI `Scene` for **Chord Provider**
+///
+/// This is the starting point of the application
+///
+/// - Note: Each platform has its own `body`
 @main struct ChordProviderApp: App {
-    /// The FileBrowser model
+
+    // MARK: Shared
+
+    /// The observable ``FileBrowser`` class
     @State private var fileBrowser = FileBrowser()
     /// Chord Display Options
     @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
@@ -22,22 +29,30 @@ import SwiftlyChordUtilities
 
     // MARK: macOS
 
-    /// AppKit app delegate
+    /// The ``AppDelegate`` class  for **Chord Provider**
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    /// Open new windows
-    @Environment(\.openWindow) var openWindow
+    /// The `openWindow` environment to open a new Window
+    @Environment(\.openWindow) private var openWindow
     /// The body of the `Scene`
+    ///
+    /// The macOS `body` consist of the following scenes:
+    ///
+    /// - `Window`:  scene with a list of songs
+    /// - `Window`: scene to export a folder of songs
+    /// - `DocumentGroup` scene to open a single song
+    /// - `MenuBarExtra` scene that shows a list with songs as well
+    /// - `Settings` scene to open the settings Window
     var body: some Scene {
 
         // MARK: 'Song List' single window
 
         /// The 'Song List' window
-        Window("Song List", id: "Main") {
+        Window("Song List", id: AppSceneID.songList.rawValue) {
             FileBrowserView()
                 .environment(fileBrowser)
         }
         .keyboardShortcut("l")
-        /// Make it sizable by the View frame
+        /// Make it sizeable by the View frame
         .windowResizability(.contentSize)
         .defaultPosition(.topLeading)
         .windowToolbarStyle(.unifiedCompact)
@@ -45,7 +60,7 @@ import SwiftlyChordUtilities
         // MARK: 'Export Folder' single window
 
         /// The 'Export Folder' window
-        Window("Export Folder with Songs…", id: "Export") {
+        Window("Export Folder with Songs…", id: AppSceneID.exportFolderWindow.rawValue) {
             ExportFolderView()
                 .frame(width: 400, height: 600)
                 .environment(appState)
@@ -78,8 +93,10 @@ import SwiftlyChordUtilities
                 }
                 .withHostingWindow { window in
                     /// Register the window unless we are browsing Versions
-                    if !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false),
-                        let window = window?.windowController?.window {
+                    if
+                        !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false),
+                        let window = window?.windowController?.window
+                    {
                         fileBrowser.openWindows.append(
                             NSWindow.WindowItem(
                                 windowID: window.windowNumber,
@@ -98,7 +115,7 @@ import SwiftlyChordUtilities
             CommandGroup(after: .appInfo) {
                 Divider()
                 Button("Export Folder with Songs…") {
-                    openWindow(id: "Export")
+                    openWindow(id: AppSceneID.exportFolderWindow.rawValue)
                 }
             }
             CommandGroup(after: .importExport) {
@@ -132,6 +149,7 @@ import SwiftlyChordUtilities
 
         // MARK: Settings
 
+        /// The settings window
         Settings {
             SettingsView()
                 .environment(appState)
@@ -139,12 +157,27 @@ import SwiftlyChordUtilities
                 .environment(fileBrowser)
         }
     }
+
+    // MARK: Scene Windows
+
+    /// The window scenes we can open on macOS
+    ///
+    /// - Note: The ID of a scene we set on on a `Window` or to open a `Window` in the environment is a `String`.
+    /// This is is asking for troubles, so I use an `enum` instead.
+    private enum AppSceneID: String {
+        /// A scene with a list of songs
+        case songList
+        /// A scene to export a folder of songs
+        case exportFolderWindow
+    }
+
 #endif
 
 #if os(iOS)
 
     // MARK: iPadOS
 
+    /// The body of the `Scene`
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
@@ -161,8 +194,9 @@ import SwiftlyChordUtilities
 
 #if os(visionOS)
 
-    // MARK: visiondOS
+    // MARK: visionOS
 
+    /// The body of the `Scene`
     var body: some Scene {
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
@@ -173,13 +207,3 @@ import SwiftlyChordUtilities
     }
 #endif
 }
-
-#if os(macOS)
-/// AppDelegate for Chord Provider
-class AppDelegate: NSObject, NSApplicationDelegate {
-    /// Don't terminate when the last Chord Provider window is closed
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return false
-    }
-}
-#endif

@@ -2,7 +2,7 @@
 //  ThumbnailProvider.swift
 //  Chord Provider - QLthumbnail
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import AppKit

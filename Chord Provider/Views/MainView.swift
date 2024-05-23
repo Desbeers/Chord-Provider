@@ -2,7 +2,7 @@
 //  MainView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ struct MainView: View {
     @Environment(AppState.self) private var appState
     /// The scene state
     @Environment(SceneState.self) private var sceneState
-    /// The FileBrowser model
+    /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
@@ -71,8 +71,8 @@ struct MainView: View {
             fileURL: sceneState.file
         )
         if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == sceneState.file }) {
-            fileBrowser.songList[index].title = sceneState.song.meta.title ?? ""
-            fileBrowser.songList[index].artist = sceneState.song.meta.artist ?? ""
+            fileBrowser.songList[index].title = sceneState.song.meta.title
+            fileBrowser.songList[index].artist = sceneState.song.meta.artist
             fileBrowser.songList[index].tags = sceneState.song.meta.tags
         }
         Task {

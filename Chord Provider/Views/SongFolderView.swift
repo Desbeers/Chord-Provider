@@ -2,14 +2,14 @@
 //  SongFolderView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 
 /// SwiftUI `View` for selecting the songs folder
 struct SongFolderView: View {
-    /// The FileBrowser model
+    /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     var body: some View {
         VStack {

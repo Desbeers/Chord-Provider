@@ -2,7 +2,7 @@
 //  Metronome.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import Foundation
@@ -62,7 +62,7 @@ final class Metronome {
         }
     }
 
-    /// Play the metrome 'tick' as a system sound
+    /// Play the metronome 'tick' as a system sound
     private func tick() {
         guard
             enabled,

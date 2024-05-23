@@ -1,4 +1,3 @@
-module: Chord_Provider
 title: Chord Provider
 author: Nick Berendsen
 author_url: https://desbeers.nl
@@ -6,14 +5,20 @@ github_url: https://github.com/desbeers/Chord-Provider/
 build_tool_arguments:
  - -scheme
  - Chord Provider
- - -sdk
- - macosx
+# - -sdk
+# - macosx
 min_acl: private
 output: Documentation
 clean: true
 theme: apple
 
-exclude: /*/GeneratedAssetSymbols*
+source_host_files_url: https://github.com/desbeers/Chord-Provider/blob/main
+
+skip_undocumented: true
+
+modules:
+  - module: Chord_Provider
+  - module: SwiftlyChordUtilities
 
 custom_categories:
 
@@ -43,17 +48,18 @@ custom_categories:
     - Song
     - Status
 
-  - name: Observable Items
+  - name: Observable Classes
     children:
+    - AppState
     - SceneState
+    - FileBrowser
+    - ChordDisplayOptions
     - DocumentFocusedValueKey
     - SceneFocusedValueKey
     - FocusedValues
-    - FileBrowser
 
   - name: File Documents
     children:
-    - UTType
     - ChordProDocument
     - ExportDocument
     - ExportSong

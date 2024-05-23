@@ -2,14 +2,14 @@
 //  FileBrowser.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 import SwiftlyFolderUtilities
 import OSLog
 
-/// The observable FileBrowser for Chord Provider
+/// The observable ``FileBrowser`` class
 @Observable
 class FileBrowser {
     /// The list of songs

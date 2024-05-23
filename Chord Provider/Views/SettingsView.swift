@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ import SwiftlyChordUtilities
 struct SettingsView: View {
     /// Chord Display Options
     @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
-    /// The FileBrowser model
+    /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The app state
     @Environment(AppState.self) var appState

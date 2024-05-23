@@ -2,7 +2,7 @@
 //  EditorView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -41,6 +41,7 @@ extension EditorView {
     @State var errorAlert: AlertMessage?
     /// The body of the `View`
     var body: some View {
+        @Bindable var sceneState = sceneState
         VStack(spacing: 0) {
             HStack {
                 directiveMenus
@@ -49,6 +50,7 @@ extension EditorView {
             editor
         }
         .errorAlert(message: $errorAlert)
+        /// Show a sheet to add or edit a directive
         .sheet(
             isPresented: $showDirectiveSheet,
             onDismiss: {
@@ -69,6 +71,19 @@ extension EditorView {
             },
             content: {
                 DirectiveSheet(settings: $directiveSettings)
+            }
+        )
+        /// Show a sheet when we add a new song
+        .sheet(
+            isPresented: $sceneState.presentTemplate,
+            onDismiss: {
+                /// Insert the content of the document into the text view
+                connector.textView?.string = document.text
+                /// Run the highlighter
+                connector.processHighlighting(fullText: true)
+            },
+            content: {
+                TemplateView(document: $document, sceneState: sceneState)
             }
         )
     }

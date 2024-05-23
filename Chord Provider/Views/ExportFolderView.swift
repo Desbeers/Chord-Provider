@@ -2,7 +2,7 @@
 //  ExportFolderView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -13,7 +13,7 @@ import SwiftlyFolderUtilities
 struct ExportFolderView: View {
     /// The app state
     @Environment(AppState.self) private var appState
-    /// The FileBrowser model
+    /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// Chord Display Options
     @Environment(ChordDisplayOptions.self) private var chordDisplayOptions

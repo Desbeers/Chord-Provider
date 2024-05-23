@@ -2,7 +2,7 @@
 //  ChordPro.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -115,10 +115,10 @@ actor ChordPro {
 
             case .t, .title:
                 song.definedMetaData.append(directive)
-                song.meta.title = label
+                song.meta.title = label ?? song.meta.title
             case .st, .subtitle, .artist:
                 song.definedMetaData.append(directive)
-                song.meta.artist = label
+                song.meta.artist = label ?? song.meta.artist
             case .capo:
                 song.definedMetaData.append(directive)
                 song.meta.capo = label

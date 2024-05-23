@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -31,15 +31,15 @@ struct ContentView: View {
         .toolbar {
             ToolbarView()
         }
-        .sheet(
-            isPresented: $sceneState.presentTemplate,
-            onDismiss: {
-                //
-            },
-            content: {
-                TemplateView(document: $document, sceneState: sceneState)
-            }
-        )
+//        .sheet(
+//            isPresented: $sceneState.presentTemplate,
+//            onDismiss: {
+//                //
+//            },
+//            content: {
+//                TemplateView(document: $document, sceneState: sceneState)
+//            }
+//        )
 #if os(macOS)
         .onChange(of: sceneState.showPrintDialog) {
             if sceneState.showPrintDialog {

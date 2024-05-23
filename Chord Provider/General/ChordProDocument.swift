@@ -2,7 +2,7 @@
 //  ChordProDocument.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -44,13 +44,4 @@ struct ChordProDocument: FileDocument {
         }
         return .init(regularFileWithContents: data)
     }
-}
-
-extension UTType {
-
-    // MARK: The `UTType` for a `ChordPro` document
-
-    /// The `UTType` for a ChordPro document
-    static let chordProDocument =
-    UTType(importedAs: "org.chordpro")
 }

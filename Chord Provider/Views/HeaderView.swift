@@ -2,7 +2,7 @@
 //  HeaderView.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -58,9 +58,7 @@ extension HeaderView {
         /// The metadata of the ``Song``
         private var metaData: [String] {
             var meta: [String] = []
-            if let artist = song.meta.artist {
-                meta.append(artist)
-            }
+            meta.append(song.meta.artist)
             if let album = song.meta.album {
                 meta.append(album)
             }
@@ -72,8 +70,8 @@ extension HeaderView {
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
-                if let title = song.meta.title {
-                    Text(title)
+                if !song.meta.title.isEmpty {
+                    Text(song.meta.title)
                         .font(.headline)
                 }
                 Text(metaData.joined(separator: "∙"))
