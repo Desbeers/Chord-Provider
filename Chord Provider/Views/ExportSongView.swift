@@ -22,7 +22,7 @@ struct ExportSongView: View {
             action: {
                 if let sceneState {
                     /// Get the PDF
-                    pdf = try? Data(contentsOf: sceneState.song.meta.exportURL)
+                    pdf = try? Data(contentsOf: sceneState.song.metaData.exportURL)
                     /// Show the export dialog
                     exportFile = true
                 }
@@ -37,7 +37,7 @@ struct ExportSongView: View {
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),
             contentTypes: [.pdf],
-            defaultFilename: sceneState?.song.meta.exportName,
+            defaultFilename: sceneState?.song.metaData.exportName,
             onCompletion: { result in
                 switch result {
                 case .success(let url):

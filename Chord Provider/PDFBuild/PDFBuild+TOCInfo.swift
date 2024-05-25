@@ -6,7 +6,9 @@ import Foundation
 
 public extension PDFBuild {
 
-    /// Information about an item for the TOC
+    // MARK: Information about an item for the Table of Contents
+
+    /// Information about an item for the Table of Contents
     struct TOCInfo {
         /// The ID of the TOC item
         let id: UUID

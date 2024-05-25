@@ -8,12 +8,14 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// The ChordProDocument for Chord Provider
+/// The ChordProDocument for **Chord Provider**
 struct ChordProDocument: FileDocument {
-    /// The text for a new song
-    static let newSong: String = "A new song"
+    /// The title for a new song
+    static let newTitle: String = "A new song"
+    /// The artist for a new song
     static let newArtist: String = "A new artist"
-    static let newText: String = "{title: \(newSong)}\n{artist: \(newArtist)}\n\n"
+    /// The document text for a new song
+    static let newText: String = "{title: \(newTitle)}\n{artist: \(newArtist)}\n\n"
     /// The file extensions Chord Provider can open
     static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
     /// The `UTType` for a ChordPro document

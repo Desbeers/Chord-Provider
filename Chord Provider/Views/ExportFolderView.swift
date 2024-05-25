@@ -10,6 +10,7 @@ import OSLog
 import SwiftlyChordUtilities
 import SwiftlyFolderUtilities
 
+/// SwiftUI `View` for a folder export
 struct ExportFolderView: View {
     /// The app state
     @Environment(AppState.self) private var appState
@@ -29,6 +30,7 @@ struct ExportFolderView: View {
     @State private var progress: Double = 0
     /// The library as PDF
     @State private var pdf: Data?
+    /// The body of the `View`
     var body: some View {
         VStack {
             Form {

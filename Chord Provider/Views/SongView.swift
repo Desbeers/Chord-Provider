@@ -65,7 +65,7 @@ struct SongView: View {
             case .asList:
                 ScrollView {
                     ViewThatFits {
-                        Song.Render(
+                        Song.RenderView(
                             song: sceneState.song,
                             options: Song.DisplayOptions(
                                 paging: .asList,
@@ -76,7 +76,7 @@ struct SongView: View {
                                 midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
                             )
                         )
-                        Song.Render(
+                        Song.RenderView(
                             song: sceneState.song,
                             options: Song.DisplayOptions(
                                 paging: .asList,
@@ -91,7 +91,7 @@ struct SongView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             case .asColumns:
-                Song.Render(
+                Song.RenderView(
                     song: sceneState.song,
                     options: Song.DisplayOptions(
                         paging: .asColumns,

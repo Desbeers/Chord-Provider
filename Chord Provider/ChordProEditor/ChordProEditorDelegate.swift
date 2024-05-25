@@ -11,6 +11,7 @@ import Foundation
 // swiftlint:disable:next class_delegate_protocol
 protocol ChordProEditorDelegate {
 
+    /// A delegate function to update a view
     @MainActor
     func selectionNeedsDisplay()
 }

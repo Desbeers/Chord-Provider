@@ -8,11 +8,14 @@
 import Foundation
 import SwiftlyChordUtilities
 
+/// Export a single ``Song`` to a PDF
 enum SongExport {
     // Just a placeholder
 }
 
 extension SongExport {
+
+    // MARK: Export a single `Song` to PDF
 
     /// Export a single song to PDF
     /// - Parameters:
@@ -26,8 +29,8 @@ extension SongExport {
         chordDisplayOptions: ChordDefinition.DisplayOptions
     ) throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         let pdfInfo = PDFBuild.DocumentInfo(
-            title: song.meta.title,
-            author: song.meta.artist
+            title: song.metaData.title,
+            author: song.metaData.artist
         )
         let builder = PDFBuild.Builder(info: pdfInfo)
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.center))
@@ -62,7 +65,9 @@ extension SongExport {
 
 extension SongExport {
 
-    /// Get all the PDF elements for a song
+    // MARK: Get all the PDF elements for a `Song`
+
+    /// Get all the PDF elements for a ``Song``
     /// - Parameters:
     ///   - song: The ``Song``
     ///   - generalOptions: The general options
@@ -77,14 +82,14 @@ extension SongExport {
     ) -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
             id: song.id,
-            title: song.meta.title,
-            subtitle: song.meta.artist,
-            fileURL: song.meta.fileURL
+            title: song.metaData.title,
+            subtitle: song.metaData.artist,
+            fileURL: song.metaData.fileURL
         )
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))
-        items.append(PDFBuild.Text("\(song.meta.title)", attributes: .songTitle))
-        items.append(PDFBuild.Text("\(song.meta.artist)", attributes: .songArtist))
+        items.append(PDFBuild.Text("\(song.metaData.title)", attributes: .songTitle))
+        items.append(PDFBuild.Text("\(song.metaData.artist)", attributes: .songArtist))
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))
@@ -121,6 +126,9 @@ extension SongExport {
 
         // MARK: Lyrics Section (verse, chord or bridge)
 
+        /// Add a Lyrics Section (verse, chord or bridge)
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func lyricsSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
                 columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
@@ -139,6 +147,9 @@ extension SongExport {
 
         // MARK: Tab Section
 
+        /// Add a Tab Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func tabSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
                 columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
@@ -157,6 +168,9 @@ extension SongExport {
 
         // MARK: Grid Section
 
+        /// Add a Grid Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func gridSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
                 columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
@@ -175,6 +189,9 @@ extension SongExport {
 
         // MARK: Strum Section
 
+        /// Add a Strum Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func strumSection(section: Song.Section) -> PDFBuild.Section {
             let label = NSAttributedString(string: section.label, attributes: .sectionLabel)
             return PDFBuild.Section(
@@ -194,6 +211,9 @@ extension SongExport {
 
         // MARK: Textblock Section
 
+        /// Add a Textblock Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func textblockSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
                 columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
@@ -212,6 +232,9 @@ extension SongExport {
 
         // MARK: Plain Section
 
+        /// Add a Plain Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func plainSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
                 columns: [.fixed(width: 110), .flexible],
@@ -224,6 +247,9 @@ extension SongExport {
 
         // MARK: Comment Section
 
+        /// Add a Comment Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func commentSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
                 columns: [.fixed(width: 110), .flexible],
@@ -236,6 +262,9 @@ extension SongExport {
 
         // MARK: Repeat Chorus Section
 
+        /// Add a Repeat Chorus Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if generalOptions.repeatWholeChorus, let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
                 return lyricsSection(section: lastChorus)

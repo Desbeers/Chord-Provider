@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **content item** element
+
     /// A PDF **content item** element
     ///
     /// This element is not drawing anything but stores item information in the `PageCounter` class for creating a TOC

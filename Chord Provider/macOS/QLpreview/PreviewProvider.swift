@@ -29,7 +29,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
                 generalOptions: .init(),
                 chordDisplayOptions: .init()
             ).pdf
-            replyToUpdate.title = "\(song.meta.artist ?? "Artist") - \(song.meta.title ?? "Title")"
+            replyToUpdate.title = "\(song.metaData.artist) - \(song.metaData.title)"
             replyToUpdate.stringEncoding = .utf8
             return data
         }

@@ -5,16 +5,12 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
-import AppKit
-#else
-import UIKit
-#endif
-import OSLog
+import Foundation
 
+/// A collection of bits and pieces to create a PDF from a ``Song``
 public enum PDFBuild {
 
-    // MARK: Defaults
+    // MARK: Static defaults
 
     /// A4 Portrait Page
     public static let a4portraitPage = CGRect(x: 0, y: 0, width: 612, height: 792)

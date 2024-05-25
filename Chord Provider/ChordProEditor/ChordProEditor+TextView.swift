@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension ChordProEditor {
+    // MARK: The text view for the editor
 
     /// The text view for the editor
     public class TextView: SWIFTTextView {
@@ -21,6 +22,8 @@ extension ChordProEditor {
 
         // MARK: Override functions
 
+        /// Draw a background behind the current fragment
+        /// - Parameter dirtyRect: The current rect of the editor
         override public func draw(_ dirtyRect: CGRect) {
             guard let context = UIGraphicsGetCurrentContext() else { return }
             if let fragment = currentFragment {
@@ -38,7 +41,8 @@ extension ChordProEditor {
 
 #if os(macOS)
 
-        /// Handle double-click on directives
+        /// Handle double-click on directives to edit them
+        /// - Parameter event: The mouse click event
         override func mouseDown(with event: NSEvent) {
             guard
                 event.clickCount == 2,
@@ -53,6 +57,8 @@ extension ChordProEditor {
 
         // MARK: Private functions
 
+        /// Set the fragment and optional directive of the current cursor location
+        /// - Parameter selectedRange: The current selected range of the text editor
         func setSelectedTextLayoutFragment(selectedRange: NSRange) {
 #if os(macOS)
             /// - Note: `NSTextStorage` is an optional in macOS and not in iOS

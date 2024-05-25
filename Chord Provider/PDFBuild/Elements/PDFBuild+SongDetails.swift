@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 extension PDFBuild {
 
+    // MARK: A PDF **song details** element
+
     /// A PDF **song details** element
     class SongDetails: PDFElement {
 
@@ -30,14 +32,14 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Add the detail items
             var items: [NSAttributedString] = []
-            items.append(detailLabel(icon: "􀑭", label: song.meta.instrument.label))
-            if let key = song.meta.key {
+            items.append(detailLabel(icon: "􀑭", label: song.metaData.instrument.label))
+            if let key = song.metaData.key {
                 items.append(detailLabel(icon: "􀟕", label: key.displayName(options: .init())))
             }
-            if let capo = song.meta.capo {
+            if let capo = song.metaData.capo {
                 items.append(detailLabel(icon: "􀉢", label: capo))
             }
-            if let time = song.meta.time {
+            if let time = song.metaData.time {
                 items.append(detailLabel(icon: "􀐱", label: time))
             }
             let text = items.joined(with: "  ")
@@ -65,14 +67,20 @@ extension PDFBuild {
     }
 }
 
-extension StringAttributes {
-    static var songDetailIcon: StringAttributes {
+extension SWIFTStringAttribute {
+
+    // MARK: Song Detail string styling
+
+    /// String attributes for a song detail icon
+    static var songDetailIcon: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)
         ] + alignment(.center)
     }
-    static var songDetailLabel: StringAttributes {
+
+    /// String attributes for a song detail label
+    static var songDetailLabel: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)

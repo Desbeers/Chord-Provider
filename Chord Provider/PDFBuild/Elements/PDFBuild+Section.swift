@@ -9,15 +9,7 @@ import Foundation
 
 extension PDFBuild {
 
-    /// Width definition options that can be used with a `Section`
-    public enum SectionColumnWidth {
-        /// A flexable width
-        case flexible
-        /// A relative width between 0 and 1
-        case relative(fraction: CGFloat)
-        /// A fixed width
-        case fixed(width: CGFloat)
-    }
+    // MARK: A PDF **section** element
 
     /// A PDF **section** element
     class Section: PDFElement {
@@ -131,5 +123,15 @@ extension PDFBuild {
             }
             return rowHeight
         }
+    }
+
+    /// Width definition options that can be used with a `Section`
+    public enum SectionColumnWidth {
+        /// A flexible width
+        case flexible
+        /// A relative width between 0 and 1
+        case relative(fraction: CGFloat)
+        /// A fixed width
+        case fixed(width: CGFloat)
     }
 }

@@ -11,14 +11,16 @@ import AppKit
 import UIKit
 #endif
 
-public extension StringAttributes {
+public extension SWIFTStringAttribute {
+
+    // MARK: Merge stylings
 
     /// Merge ``StringAttributes``
     /// - Parameters:
     ///   - left: Current ``StringAttributes``
     ///   - right: The ``StringAttributes`` to add
     /// - Returns: The merged ``StringAttributes``
-    static func + (left: StringAttributes, right: StringAttributes) -> StringAttributes {
+    static func + (left: SWIFTStringAttribute, right: SWIFTStringAttribute) -> SWIFTStringAttribute {
         var left = left
         for element in right {
             left[element.key] = element.value
@@ -30,48 +32,48 @@ public extension StringAttributes {
 
     /// - Note: Element specific styling is in its own file
 
-    /// Style atributes for the default font
-    static var defaultFont: StringAttributes {
+    /// Style attributes for the default font
+    static var defaultFont: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
-    /// Style atributes for the small font
-    static var smallFont: StringAttributes {
+    /// Style attributes for the small font
+    static var smallFont: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 6, weight: .regular)
         ]
     }
 
-    /// Style atributes for the title of the song
-    static var songTitle: StringAttributes {
+    /// Style attributes for the title of the song
+    static var songTitle: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 14, weight: .semibold)
         ] + .alignment(.center)
     }
 
-    /// Style atributes for the artist of the song
-    static var songArtist: StringAttributes {
+    /// Style attributes for the artist of the song
+    static var songArtist: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 12, weight: .regular)
         ] + .alignment(.center)
     }
 
-    /// Style atributes for the export title
-    static var exportTitle: StringAttributes {
+    /// Style attributes for the export title
+    static var exportTitle: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.white,
             .font: SWIFTFont.systemFont(ofSize: 28, weight: .semibold)
         ] + .alignment(.center)
     }
 
-    /// Style atributes for the export author
-    static var exportAuthor: StringAttributes {
+    /// Style attributes for the export author
+    static var exportAuthor: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 24, weight: .regular)
@@ -80,10 +82,10 @@ public extension StringAttributes {
 
     // MARK: String alignment styling
 
-    /// Style atributes for alignment of a paragraph
+    /// Style attributes for alignment of a paragraph
     /// - Parameter alignment: The alignment
     /// - Returns: A paragraph aligment style
-    static func alignment(_ alignment: NSTextAlignment) -> StringAttributes {
+    static func alignment(_ alignment: NSTextAlignment) -> SWIFTStringAttribute {
         let style = NSMutableParagraphStyle()
         style.alignment = alignment
         return [.paragraphStyle: style]
@@ -91,8 +93,8 @@ public extension StringAttributes {
 
     // MARK: Serif font string styling
 
-    /// Style atributes for a *serif* font style
-    static var serifFont: StringAttributes {
+    /// Style attributes for a *serif* font style
+    static var serifFont: SWIFTStringAttribute {
 #if os(macOS)
         let descriptor = NSFontDescriptor
             .preferredFontDescriptor(

@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftlyChordUtilities
 
-/// The structure of a song in `Chord Provider`
+/// The structure of a song as shown in **Chord Provider**
 struct Song {
 
     /// The ID of the song
@@ -16,7 +16,8 @@ struct Song {
 
     // MARK: Meta data directives
 
-    var meta = MetaData()
+    /// The meta data about the ``Song``
+    var metaData = MetaData()
 
     // MARK: Meta data directives that are defined
 

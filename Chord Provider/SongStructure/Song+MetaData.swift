@@ -10,7 +10,9 @@ import SwiftlyChordUtilities
 
 extension Song {
 
-    /// Meta data about the song
+    // MARK: The structure for meta data about the song
+
+    /// Structure for meta data about the song
     struct MetaData {
 
         // MARK: Meta-data directives
@@ -55,27 +57,7 @@ extension Song {
 
         /// The default name for the export
         var exportName: String {
-            "\(artist ?? "Artist") - \(title ?? "Title")"
-        }
-    }
-}
-
-extension ChordPro.Directive {
-
-    // MARK: Symbols
-
-    /// The symbol for a meta data item
-    /// - Note: The sfSymbol is for SwiftUI and the literal for PDF export
-    var symbol: (sfSymbol: String, literal: String) {
-        switch self {
-        case .time:
-            ("timer", "􀐱")
-        case .capo:
-            ("paperclip", "􀉢")
-        case .instrument:
-            ("guitars", "􀑭")
-        default:
-            ("questionmark", "􀅍")
+            "\(artist) - \(title)"
         }
     }
 }

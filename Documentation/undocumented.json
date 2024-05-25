@@ -1,0 +1,68 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 18,
+      "symbol": "ResourceBundleClass",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 19,
+      "symbol": "resourceBundle",
+      "symbol_kind": "source.lang.swift.decl.var.global",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 192,
+      "symbol": "DeveloperToolsSupport.ColorResource.init(thinnableName:bundle:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 217,
+      "symbol": "AppKit.NSColor.init(thinnableResource:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 256,
+      "symbol": "SwiftUI.Color.init(thinnableResource:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 269,
+      "symbol": "SwiftUI.ShapeStyle.init(thinnableResource:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 284,
+      "symbol": "DeveloperToolsSupport.ImageResource.init(thinnableName:bundle:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
+      "line": 309,
+      "symbol": "AppKit.NSImage.init(thinnableResource:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-eexpicnodnjnrqcaxhxgqlcgejzj/Build/Intermediates.noindex/SwiftlyChordUtilities.build/Debug/SwiftlyChordUtilities.build/DerivedSources/resource_bundle_accessor.swift",
+      "line": 5,
+      "symbol": "BundleFinder",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/Desbeers/Documents/Github/Applications/Chord-Provider"
+}

@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **spacer** element
+
     /// A PDF **spacer** element
     class Spacer: PDFElement {
 

@@ -9,13 +9,21 @@ import Foundation
 
 extension ChordPro.Directive {
 
+    // MARK: Details of a directive
+
+    /// Details of a directive
     struct Details {
+        /// The label of the directive
         var label: String
+        /// The SF symbol of the directive
         var icon: String
+        /// The text for a button to create this directive
         var button: String
+        /// The help text for the directive
         var help: String
     }
 
+    /// The details of a directive
     var details: Details {
         switch self {
         case .title, .t:
@@ -231,6 +239,7 @@ extension ChordPro.Directive {
         }
     }
 
+    /// Information of a directive as a combined string with label and help
     var infoString: String {
         "**\(self.details.label)**: \(self.details.help)"
     }

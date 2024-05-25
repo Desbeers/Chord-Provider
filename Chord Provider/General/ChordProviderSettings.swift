@@ -10,18 +10,26 @@ import SwiftlyStructCache
 import SwiftlyChordUtilities
 import OSLog
 
-/// Structure with all the Chord Provider Settings
+/// Structure with all the **Chord Provider** settings
 struct ChordProviderSettings: Equatable, Codable, Sendable {
+    /// Show the chord diagrams
     var showChords: Bool = true
+    /// Show the chord diagrams inline with the song text
     var showInlineDiagrams: Bool = false
+    /// The paging style for the ``SongView``
     var paging: Song.DisplayOptions.Paging = .asList
+    /// The position for the chord diagrams
     var chordsPosition: Position = .right
-
+    /// General options (shared with the quickview plugins)
     var general = ChordProviderGeneralOptions()
-    var editor: ChordProviderSettings.Editor = .init()
+    /// The options for the ``ChordProEditor``
+    var editor: ChordProEditor.Settings = .init()
 
+    /// Possible positions for the chord diagrams
     enum Position: String, CaseIterable, Codable {
+        /// Show diagrams on the right of the `View`
         case right = "Right"
+        /// Show diagrams as the bottom of the `View`
         case bottom = "Bottom"
     }
     /// Default Chord Display Options

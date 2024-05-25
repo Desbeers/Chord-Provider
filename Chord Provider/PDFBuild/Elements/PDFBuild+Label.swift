@@ -13,6 +13,8 @@ import UIKit
 
 extension PDFBuild {
 
+    // MARK: A PDF **label** element
+
     /// A PDF **label** element
     public class Label: PDFElement {
 
@@ -110,12 +112,12 @@ extension PDFBuild {
     }
 }
 
-// MARK: Label string styling
+public extension SWIFTStringAttribute {
 
-public extension StringAttributes {
+    // MARK: Label string styling
 
-    /// Style atributes for the section label
-    static var sectionLabel: StringAttributes {
+    /// Style attributes for the section label
+    static var sectionLabel: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)

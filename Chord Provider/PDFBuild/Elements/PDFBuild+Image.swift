@@ -10,6 +10,8 @@ import AVFoundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **image** element
+
     /// A PDF **image** element
     class Image: PDFElement {
         /// The image to draw

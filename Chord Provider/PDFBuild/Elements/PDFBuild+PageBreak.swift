@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **page break** element
+
     /// A PDF **page break** element
     ///
     /// This element will close the current page and start a new one

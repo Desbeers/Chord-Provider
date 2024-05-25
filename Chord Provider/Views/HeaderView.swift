@@ -18,8 +18,8 @@ struct HeaderView: View {
         HStack(alignment: .center) {
             General(song: sceneState.song)
             Details(song: sceneState.song)
-            if let tempo = sceneState.song.meta.tempo, let bpm = Float(tempo) {
-                MetronomeView(time: sceneState.song.meta.time ?? "4/4", bpm: bpm)
+            if let tempo = sceneState.song.metaData.tempo, let bpm = Float(tempo) {
+                MetronomeView(time: sceneState.song.metaData.time ?? "4/4", bpm: bpm)
                     .padding(.leading)
             }
             sceneState.audioPlayerButtons
@@ -58,11 +58,11 @@ extension HeaderView {
         /// The metadata of the ``Song``
         private var metaData: [String] {
             var meta: [String] = []
-            meta.append(song.meta.artist)
-            if let album = song.meta.album {
+            meta.append(song.metaData.artist)
+            if let album = song.metaData.album {
                 meta.append(album)
             }
-            if let year = song.meta.year {
+            if let year = song.metaData.year {
                 meta.append(year)
             }
             return meta
@@ -70,8 +70,8 @@ extension HeaderView {
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
-                if !song.meta.title.isEmpty {
-                    Text(song.meta.title)
+                if !song.metaData.title.isEmpty {
+                    Text(song.metaData.title)
                         .font(.headline)
                 }
                 Text(metaData.joined(separator: "∙"))
@@ -86,13 +86,13 @@ extension HeaderView {
         let song: Song
         /// The body of the `View`
         var body: some View {
-            if let key = song.meta.key {
+            if let key = song.metaData.key {
                 Label("\(key.displayName(options: .init()))", systemImage: "key").padding(.leading)
             }
-            if let capo = song.meta.capo {
+            if let capo = song.metaData.capo {
                 Label(capo, systemImage: "paperclip").padding(.leading)
             }
-            if let time = song.meta.time {
+            if let time = song.metaData.time {
                 Label(time, systemImage: "timer").padding(.leading)
             }
         }

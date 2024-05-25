@@ -9,6 +9,8 @@ import Foundation
 
 extension ChordPro.Directive {
 
+    // MARK: Directive extensions
+
     /// The start and end of the directive
     var format: (start: String, end: String) {
         switch self {
@@ -43,9 +45,7 @@ extension ChordPro.Directive {
         directive.rawValue
     }
 
-    /// The kind of directive (block or inline)
-    ///
-    /// - Note: This is used to move the cursor in the editor when you apply a directive to selected text in the editor
+    /// The kind of directive (block, inline or optional label)
     var kind: Kind {
         switch self {
         case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .define:
@@ -69,6 +69,8 @@ extension ChordPro.Directive {
 }
 
 extension ChordPro.Directive {
+
+    // MARK: Grouped directives
 
     /// Array of **Metadata** ``ChordPro/Directive``
     static var metaDataDirectives: [ChordPro.Directive] {

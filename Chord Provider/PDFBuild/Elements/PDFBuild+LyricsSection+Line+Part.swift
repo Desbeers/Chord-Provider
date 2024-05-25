@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 extension PDFBuild.LyricsSection.Line {
 
+    // MARK: A PDF **part** element for a `Line` in a `LyricsSection`
+
     /// A PDF **part** element for a `Line` in a `LyricsSection`
     class Part: PDFElement {
 
@@ -26,7 +28,7 @@ extension PDFBuild.LyricsSection.Line {
         ///   - chords: All the chords of the song
         init(part: Song.Section.Line.Part, chords: [ChordDefinition]) {
             var chordString: String = " "
-            var chordStatus: Chord.Status = .unknown
+            var chordStatus: Chord.Status = .unknownChord
             if let chord = chords.first(where: { $0.id == part.chord }) {
                 chordString = chord.displayName(options: .init())
                 chordStatus = chord.status
@@ -62,20 +64,20 @@ extension PDFBuild.LyricsSection.Line {
     }
 }
 
-// MARK: Part string styling
+public extension SWIFTStringAttribute {
 
-public extension StringAttributes {
+    // MARK: Part string styling
 
-    /// Style atributes for the chord of the part
-    static func partChord(_ status: Chord.Status) -> StringAttributes {
+    /// Style attributes for the chord of the part
+    static func partChord(_ status: Chord.Status) -> SWIFTStringAttribute {
         [
-            .foregroundColor: status == .unknown ? SWIFTColor.red : SWIFTColor.gray,
+            .foregroundColor: status == .unknownChord ? SWIFTColor.red : SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
     /// Style atributes for the lyric of the part
-    static var partLyric: StringAttributes {
+    static var partLyric: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)

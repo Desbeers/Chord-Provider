@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension ChordProEditor {
+    // MARK: The coordinator for the editor
 
     /// The coordinator for the ``ChordProEditor``
     class Coordinator: NSObject, SWIFTTextViewDelegate {
@@ -33,6 +34,12 @@ extension ChordProEditor {
 
 #if os(macOS)
 
+        /// Protocol function to check if a text should change
+        /// - Parameters:
+        ///   - textView: The `NSTextView`
+        ///   - affectedCharRange: The character range that is affected
+        ///   - replacementString: The optional replacement string
+        /// - Returns: True or false
         func textView(
             _ textView: NSTextView,
             shouldChangeTextIn affectedCharRange: NSRange,
@@ -41,6 +48,8 @@ extension ChordProEditor {
             return swiftTextView(replacementString: replacementString ?? "")
         }
 
+        /// Protocol function with a notification that the text has changed
+        /// - Parameter notification: The notification with the `NSTextView` as object
         func textDidChange(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView
             else { return }
@@ -56,6 +65,8 @@ extension ChordProEditor {
             updateTextBinding()
         }
 
+        /// Protocol function with a notification that the text selection has changed
+        /// - Parameter notification: The notification with the `NSTextView` as object
         func textViewDidChangeSelection(_ notification: Notification) {
             guard let textView = notification.object as? NSTextView
             else { return }
@@ -91,12 +102,17 @@ extension ChordProEditor {
 
         // MARK: Wrap Platform Functions
 
+        /// Function the handle the protocol notification that a text should change
+        /// - Parameter replacementString: The optional replacement string
+        /// - Returns: True or false
         func swiftTextView(replacementString: String) -> Bool {
             balance = replacementString == "[" ? "]" : replacementString == "{" ? "}" : nil
             highlightFullText = replacementString.count > 1
             return true
         }
 
+        /// Function the handle the protocol notification that a text selection has changed
+        /// - Parameter selectedRanges: The current selected range
         @MainActor
         func swiftTextViewDidChangeSelection(selectedRanges: [NSValue]) {
             guard
@@ -110,6 +126,8 @@ extension ChordProEditor {
             textView.chordProEditorDelegate?.selectionNeedsDisplay()
         }
 
+        /// Update the text binding with the current text from the `NSTextView
+        /// - Note: With a debounce of one second to prevent too many updates
         @MainActor
         func updateTextBinding() {
             guard let textView = connector.textView

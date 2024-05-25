@@ -9,6 +9,8 @@ import Foundation
 
 extension Song {
 
+    // MARK: The structure for a section in the `Song`
+
     /// A section in the ``Song``
     struct Section: Identifiable {
         /// The unique ID

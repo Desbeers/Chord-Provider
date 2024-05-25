@@ -9,18 +9,6 @@ import SwiftUI
 import SwiftlyChordUtilities
 import SwiftlyAlertMessage
 
-extension EditorView {
-
-    struct DirectiveSettings: Sendable {
-        /// The directive to show in the sheet
-        var directive: ChordPro.Directive = .none
-        /// The definition of the directive sheet
-        var definition: String = ""
-        /// The optional clicked fragment range
-        var clickedFragment: NSTextLayoutFragment?
-    }
-}
-
 /// SwiftUI `View` for the ``ChordProEditor``
 @MainActor struct EditorView: View {
     /// The ChordPro document
@@ -77,10 +65,8 @@ extension EditorView {
         .sheet(
             isPresented: $sceneState.presentTemplate,
             onDismiss: {
-                /// Insert the content of the document into the text view
-                connector.textView?.string = document.text
-                /// Run the highlighter
-                connector.processHighlighting(fullText: true)
+                /// Set the text
+                connector.setText(text: document.text)
             },
             content: {
                 TemplateView(document: $document, sceneState: sceneState)
@@ -121,5 +107,18 @@ extension EditorView {
                 .font(.caption)
                 .padding(.bottom, 4)
         }
+    }
+}
+
+extension EditorView {
+
+    //// Directive settings to pass to the sheet
+    struct DirectiveSettings: Sendable {
+        /// The directive to show in the sheet
+        var directive: ChordPro.Directive = .none
+        /// The definition of the directive sheet
+        var definition: String = ""
+        /// The optional clicked fragment range
+        var clickedFragment: NSTextLayoutFragment?
     }
 }

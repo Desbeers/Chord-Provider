@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **text** element
+
     /// A PDF **text** element
     class Text: PDFElement {
 
@@ -19,7 +21,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - text: The text as `String`
         ///   - attributes: The ``StringAttributes`` for the text
-        init(_ text: String, attributes: StringAttributes = StringAttributes()) {
+        init(_ text: String, attributes: SWIFTStringAttribute = SWIFTStringAttribute()) {
             self.text = NSAttributedString(
                 string: text,
                 attributes: attributes

@@ -28,7 +28,7 @@ struct ChordsView: View {
             layout {
                 ForEach(sceneState.song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                     switch chord.status {
-                    case .standard, .transposed:
+                    case .standardChord, .transposedChord:
                         Button(
                             action: {
                                 selectedChord = chord

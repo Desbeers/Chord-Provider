@@ -45,7 +45,7 @@ extension PrintSongView {
             let printInfo = NSPrintInfo()
             /// Build the PDF View
             let pdfView = PDFView()
-            pdfView.document = PDFDocument(url: song.meta.exportURL)
+            pdfView.document = PDFDocument(url: song.metaData.exportURL)
             pdfView.minScaleFactor = 0.1
             pdfView.maxScaleFactor = 5
             pdfView.autoScales = true

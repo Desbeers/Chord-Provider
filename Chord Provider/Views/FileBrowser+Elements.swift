@@ -12,10 +12,11 @@ extension FileBrowser {
 
     // MARK: Folder Selector
 
+    /// Folder Selector
     var folderSelector: some View {
         FolderSelector(fileBrowser: self)
     }
-
+    /// Folder Selector
     private struct FolderSelector: View {
         /// The FileBrowser model
         @Bindable var fileBrowser: FileBrowser

@@ -13,6 +13,8 @@ import UIKit
 
 extension PDFBuild {
 
+    // MARK: A PDF **background** element
+
     /// A PDF **background** element
     ///
     /// Fill a ``PDFElement`` with a ``SWIFTColor`` background

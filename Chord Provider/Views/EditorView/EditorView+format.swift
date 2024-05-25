@@ -44,7 +44,7 @@ extension EditorView {
                 if !settings.definition.isEmpty {
                     replacementText = format(directive: settings.directive, argument: settings.definition)
                 }
-                switch editor.selection {
+                switch editor.selectionState {
                 case .noSelection, .singleSelection:
                     editor.insertText(text: replacementText)
                 case .multipleSelections:

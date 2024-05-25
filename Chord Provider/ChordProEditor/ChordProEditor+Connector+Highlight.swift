@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension ChordProEditor.Connector {
+    // MARK: Text highlighter
 
     /// Highlight text containing chords or directives
     /// - Parameter fullText: True if the full text must be checked, or else only the current paragraph
@@ -28,7 +29,7 @@ extension ChordProEditor.Connector {
             [
                 .paragraphStyle: ChordProEditor.paragraphStyle,
                 .foregroundColor: SWIFTColor.textColor,
-                .font: baseFont
+                .font: font
             ], range: currentParagraphRange)
         /// Brackets
         let brackets = text.ranges(of: ChordPro.bracketRegex)
@@ -89,7 +90,7 @@ extension ChordProEditor.Connector {
         textView.typingAttributes = [
             .paragraphStyle: ChordProEditor.paragraphStyle,
             .foregroundColor: SWIFTColor.textColor,
-            .font: baseFont
+            .font: font
         ]
 
         /// Check if the range of a regex result is within the current paragraph

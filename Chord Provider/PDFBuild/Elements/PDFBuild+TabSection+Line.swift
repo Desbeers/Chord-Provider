@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild.TabSection {
 
+    // MARK: A PDF **line** element for a `TabSection`
+
     /// A PDF **line** element for a `TabSection`
     class Line: PDFElement {
 
@@ -46,12 +48,12 @@ extension PDFBuild.TabSection {
     }
 }
 
-// MARK: Tab line string styling
+public extension SWIFTStringAttribute {
 
-public extension StringAttributes {
+    // MARK: Tab line string styling
 
-    /// Style atributes for the line of a tab
-    static func tabLine(fontSize: CGFloat) -> StringAttributes {
+    /// Style attributes for the line of a tab
+    static func tabLine(fontSize: CGFloat) -> SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)

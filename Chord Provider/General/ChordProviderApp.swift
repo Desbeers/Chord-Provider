@@ -47,7 +47,7 @@ import SwiftlyChordUtilities
         // MARK: 'Song List' single window
 
         /// The 'Song List' window
-        Window("Song List", id: AppSceneID.songList.rawValue) {
+        Window("Song List", id: AppSceneID.songListWindow.rawValue) {
             FileBrowserView()
                 .environment(fileBrowser)
         }
@@ -166,7 +166,7 @@ import SwiftlyChordUtilities
     /// This is is asking for troubles, so I use an `enum` instead.
     private enum AppSceneID: String {
         /// A scene with a list of songs
-        case songList
+        case songListWindow
         /// A scene to export a folder of songs
         case exportFolderWindow
     }

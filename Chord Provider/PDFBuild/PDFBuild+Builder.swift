@@ -13,6 +13,8 @@ import UIKit
 
 extension PDFBuild {
 
+    // MARK: The builder for `PDFElement` items
+
     /// Class to build a PDF with ``PDFElement`` items
     public class Builder {
 
@@ -37,7 +39,7 @@ extension PDFBuild {
         /// - Parameter info: The general document information
         init(info: PDFBuild.DocumentInfo) {
             self.document = info
-            self.auxiliaryInfo = info.dictonary
+            self.auxiliaryInfo = info.dictionary
             self.pageMargin = SWIFTEdgeInsets(
                 top: info.pagePadding,
                 left: info.pagePadding,

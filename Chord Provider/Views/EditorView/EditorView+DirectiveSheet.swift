@@ -25,6 +25,7 @@ extension EditorView {
         /// The value for a slider
         @State private var sliderValue: Double = 0
 
+        /// Init the `View`
         init(settings: Binding<DirectiveSettings>) {
             self._settings = settings
             self.actionLabel = settings.clickedFragment.wrappedValue == nil ? "Add" : "Update"
@@ -70,6 +71,7 @@ extension EditorView {
 
 extension EditorView.DirectiveSheet {
 
+    /// `View` of the directive sheet title
     @ViewBuilder var directiveTitleView: some View {
         Text(settings.directive.details.label)
             .font(.title)
@@ -92,7 +94,6 @@ extension EditorView.DirectiveSheet {
         }
         .frame(width: 400)
         .padding(.bottom)
-
         HStack {
             cancelButton
             Button(

@@ -9,6 +9,7 @@ import Foundation
 
 // swiftlint:disable all
 
+/// Static help strings
 enum Help {
 
     /// Static help message for the folder selector

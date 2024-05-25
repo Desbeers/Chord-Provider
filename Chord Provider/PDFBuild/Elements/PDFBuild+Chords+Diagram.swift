@@ -14,8 +14,10 @@ import SwiftlyChordUtilities
 
 extension PDFBuild.Chords {
 
+    // MARK: A PDF **chord diagram** element
+
     /// A PDF **chord diagram** element
-    /// 
+    ///
     /// Display a single chord diagram
     class Diagram: PDFElement {
 
@@ -88,7 +90,7 @@ extension PDFBuild.Chords {
             drawGrid(rect: &rect, calculationOnly: calculationOnly)
             /// No need to draw dots and barres when we are calculating the size
             if !calculationOnly {
-                drawFrets(rect: &rect, pageRect: pageRect)
+                drawFrets(rect: &rect)
                 drawBarres(rect: &rect)
             }
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
@@ -105,6 +107,8 @@ extension PDFBuild.Chords {
 
             // MARK: Chord Name
 
+            /// Draw the name of the chord
+            /// - Parameter rect: The available rect
             func drawChordName(rect: inout CGRect) {
                 var nameRect = CGRect(
                     x: rect.origin.x,
@@ -121,6 +125,8 @@ extension PDFBuild.Chords {
 
             // MARK: Top Bar
 
+            /// Draw the top bar of the chord
+            /// - Parameter rect: The available rect
             func drawTopBar(rect: inout CGRect) {
                 var topBarRect = CGRect(
                     x: rect.origin.x + xSpacing,
@@ -152,6 +158,10 @@ extension PDFBuild.Chords {
 
             // MARK: Nut
 
+            /// Draw the nut of the chord
+            /// - Parameters:
+            ///   - rect: The available rect
+            ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
             func drawNut(rect: inout CGRect, calculationOnly: Bool) {
                 if !calculationOnly {
                     let nutRect = CGRect(
@@ -171,6 +181,8 @@ extension PDFBuild.Chords {
 
             // MARK: Base Fret
 
+            /// Draw the base fret of the chord
+            /// - Parameter rect: The available rect
             func drawBaseFret(rect: inout CGRect) {
                 var baseFretRect = CGRect(
                     x: rect.origin.x + xSpacing / 2.5,
@@ -184,6 +196,10 @@ extension PDFBuild.Chords {
 
             // MARK: Grid
 
+            /// Draw the grid of the chords
+            /// - Parameters:
+            ///   - rect: The available rect
+            ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
             func drawGrid(rect: inout CGRect, calculationOnly: Bool) {
                 if !calculationOnly {
                     let gridPoint = CGPoint(
@@ -218,7 +234,10 @@ extension PDFBuild.Chords {
 
             // MARK: Frets
 
-            func drawFrets(rect: inout CGRect, pageRect: CGRect) {
+            /// Draw the frets in the grid
+            /// - Parameters:
+            ///   - rect: The available rect
+            func drawFrets(rect: inout CGRect) {
                 var dotRect = CGRect(
                     x: rect.origin.x + xSpacing,
                     y: rect.origin.y,
@@ -247,6 +266,8 @@ extension PDFBuild.Chords {
 
             // MARK: Barres
 
+            /// Draw the barres in the grid
+            /// - Parameter rect: The available rect
             func drawBarres(rect: inout CGRect) {
                 var barresRect = CGRect(
                     x: rect.origin.x + xSpacing,
@@ -277,6 +298,8 @@ extension PDFBuild.Chords {
 
             // MARK: Notes Bar
 
+            /// Draw the notes bar underneath the grid
+            /// - Parameter rect: The available rect
             func drawNotesBar(rect: inout CGRect) {
                 let notes = options.mirrorDiagram ? chord.components.reversed() : chord.components
                 var notesBarRect = CGRect(
@@ -306,44 +329,44 @@ extension PDFBuild.Chords {
     }
 }
 
-// MARK: Diagram string styling
+public extension SWIFTStringAttribute {
 
-public extension StringAttributes {
+    // MARK: Diagram string styling
 
-    /// Style atributes for the diagram chord name
-    static var diagramChordName: StringAttributes {
+    /// Style attributes for the diagram chord name
+    static var diagramChordName: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
-    /// Style atributes for the diagram finger
-    static var diagramFinger: StringAttributes {
+    /// Style attributes for the diagram finger
+    static var diagramFinger: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.white,
             .font: SWIFTFont.systemFont(ofSize: 6, weight: .regular)
         ] + .alignment(.center)
     }
 
-    /// Style atributes for the diagram top bar
-    static var diagramTopBar: StringAttributes {
+    /// Style attributes for the diagram top bar
+    static var diagramTopBar: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 4, weight: .regular)
         ] + .alignment(.center)
     }
 
-    /// Style atributes for the diagram base fret
-    static var diagramBaseFret: StringAttributes {
+    /// Style attributes for the diagram base fret
+    static var diagramBaseFret: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 4, weight: .regular)
         ] + .alignment(.left)
     }
 
-    /// Style atributes for the diagram top bar
-    static var diagramBottomBar: StringAttributes {
+    /// Style attributes for the diagram top bar
+    static var diagramBottomBar: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.systemFont(ofSize: 4, weight: .regular)

@@ -10,6 +10,7 @@
 import AppKit
 
 extension ChordProEditor {
+    // MARK: The wrapper for the editor (macOS)
 
     /// The macOS editor
     ///
@@ -19,20 +20,29 @@ extension ChordProEditor {
     /// - `NSRulerView`
     public class Wrapper: NSView, NSTextLayoutManagerDelegate, ChordProEditorDelegate {
 
+        /// The `NSTextView`
         public var textView = TextView()
 
+        /// The `NSRulerView`
         private var lineNumbers = LineNumbersView()
 
+        // MARK: Init
+
+        /// Init the `NSView`
+        /// - Parameter frameRect: The rect of the `NSView`
         override init(frame frameRect: NSRect) {
             super.init(frame: frameRect)
             setup()
         }
 
+        /// Init the `NSView`
+        /// - Parameter coder: The `NSCoder`
         required public init?(coder: NSCoder) {
             super.init(coder: coder)
             setup()
         }
 
+        /// Setup the `NSView`
         private func setup() {
 
             // MARK: Setup `NSScrollView`
@@ -91,6 +101,7 @@ extension ChordProEditor {
 
         // MARK: MacEditorDelegate
 
+        /// A delegate function to update a view
         func selectionNeedsDisplay() {
             lineNumbers.needsDisplay = true
         }

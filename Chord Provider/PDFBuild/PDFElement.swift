@@ -11,7 +11,7 @@ import AppKit
 import UIKit
 #endif
 
-/// A collection of elements to create a PDF page from a ``Song``
+/// A protocol for elements to create a PDF page from a ``Song``
 protocol PDFElement {
 
     /// Check if a ``PDFElement`` fits on the current page or if it should break

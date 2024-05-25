@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// All errors that can happen in the application
 enum ChordProviderError: String, LocalizedError {
 
     /// An error when creating a PDF

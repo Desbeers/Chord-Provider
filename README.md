@@ -1,6 +1,6 @@
 # Chord Provider
 
-## A [ChordPro](https://www.chordpro.org) file parser and editor for macOS, iPadOS and visionOS
+## A [ChordPro](https://www.chordpro.org) viewer, editor and PDF exporter for macOS, iPadOS and visionOS
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
 
@@ -10,7 +10,7 @@
 - iPadOS 17
 - visionOS 1.1
 
-There are many "ChordPro" parsers in this world, however, none are *really* native in the Apple world.
+There are many **ChordPro** parsers in this world, however, none are *really* native in the Apple world.
 
 I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainly a mac user; the other versions are my afterthought...
 
@@ -20,7 +20,7 @@ I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainl
 
 A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Olympic White'. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
-### General
+### All Platforms
 
 - It will view and/or edit **ChordPro** files.
 - It can export a whole folder with **ChordPro** files to a PDF with a Table of Contents.
@@ -47,12 +47,13 @@ Some other guitar applications claim the *ownership* of **ChordPro** files and t
 
 ### iPadOS
 
+- In my option, an iPad is consuming device, not ment for editing a file.
 - It is not tested on a real device.
 
 ### visionOS
 
 - Currently `DocumentGroup` is partly broken. Resizing the window does not really work and closing the PDF quickview will close the whole document. (Xcode 15.4).
-- It is the future; however, not yet.
+- It is the future; however, not yet and the only reason I keep the `iOS` target alive....
 - It is not tested on a real device.
   
 ### Limitations
@@ -64,6 +65,21 @@ Only the macOS version is well-tested. I don't have iDevices that are supported 
 ### iCloud
 
 The iPadOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
+
+### Documentation
+
+The source code is very well [documented](https://desbeers.github.io/Chord-Provider/) with [Jazzy](https://github.com/realm/jazzy); including the [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities) package that is an essential part of **Chord Provider**.
+
+### `SwiftUI` previews
+
+I don't use it so there a no `#preview` macro for any of my `Views`
+
+### TODO
+
+- Make it translatable; now it is only in English
+- Use different chord notations for e.g. German (CDEFGAH)
+
+Both are not high on my list, however a [PR](https://github.com/Desbeers/Chord-Provider/pulls) is welcome!
 
 ### Thanks
 

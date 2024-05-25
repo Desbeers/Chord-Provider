@@ -9,7 +9,9 @@ import Foundation
 
 extension PDFBuild {
 
-    /// A PDF *plain section* element
+    // MARK: A PDF **plain section** element
+
+    /// A PDF **plain section** element
     class PlainSection: PDFElement {
 
         /// The plain section
@@ -37,11 +39,12 @@ extension PDFBuild {
     }
 }
 
-// MARK: Plain line string styling
+extension SWIFTStringAttribute {
 
-extension StringAttributes {
+    // MARK: Plain line string styling
 
-    static var plainLine: StringAttributes {
+    /// String attributes for a plain line
+    static var plainLine: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)

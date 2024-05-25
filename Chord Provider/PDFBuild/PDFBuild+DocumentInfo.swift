@@ -13,6 +13,8 @@ import UIKit
 
 extension PDFBuild {
 
+    // MARK: Information about the PDF document
+
     /// Information about the PDF document
     struct DocumentInfo {
         /// The title of the PDF document
@@ -28,7 +30,7 @@ extension PDFBuild {
         /// The page padding of the PDF document
         let pagePadding: CGFloat = PDFBuild.pagePadding
         /// Metadata info for the PDF document
-        var dictonary: [CFString: String] {
+        var dictionary: [CFString: String] {
             [
                 kCGPDFContextTitle: self.title,
                 kCGPDFContextAuthor: self.author,

@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 extension PDFBuild {
 
+    // MARK: A PDF **grid section** element
+
     /// A PDF **grid section** element
     class GridSection: PDFElement {
 

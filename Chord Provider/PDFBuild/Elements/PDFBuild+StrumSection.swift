@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **strum section** element
+
     /// A PDF **strum section** element
     class StrumSection: PDFElement {
 
@@ -42,10 +44,12 @@ extension PDFBuild {
     }
 }
 
-extension StringAttributes {
+extension SWIFTStringAttribute {
+
+    // MARK: Strum string styling
 
     /// String attributes for a strum line
-    static var strumLine: StringAttributes {
+    static var strumLine: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.monospacedSystemFont(ofSize: 8, weight: .regular)

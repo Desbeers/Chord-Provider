@@ -12,25 +12,27 @@ struct ChordProEditor: SWIFTViewRepresentable {
 
     /// The text of the ChordPro file
     @Binding var text: String
-    /// The connector class for the editor
+    /// The observable ``Connector`` class for the editor
     var connector: Connector
 
     /// Init the **ChordProEditor**
     /// - Parameters:
-    ///   - text: The text of the ChordPro file
-    ///   - connector: The connector class for the editor
+    ///   - text: The text of the ``ChordProDocument``
+    ///   - connector: The ``ChordProEditor/Connector`` class for the editor
     init(text: Binding<String>, connector: Connector) {
         self._text = text
         self.connector = connector
     }
 
+    /// Make a `coordinator` for the ``SWIFTViewRepresentable``
+    /// - Returns: A `coordinator`
     func makeCoordinator() -> Coordinator {
         Coordinator(text: $text, connector: connector)
     }
 
-    // MARK: Platform Specific
-
 #if os(macOS)
+
+    // MARK: macOS
 
     func makeNSView(context: Context) -> Wrapper {
 
@@ -53,6 +55,8 @@ struct ChordProEditor: SWIFTViewRepresentable {
     func updateNSView(_ nsView: Wrapper, context: Context) {}
 
 #else
+
+    // MARK: iOS and visionOS
 
     func makeUIView(context: Context) -> TextView {
 

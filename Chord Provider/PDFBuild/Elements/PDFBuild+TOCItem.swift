@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **TOC item** element
+
     /// A PDF **TOC item** element
     class TOCItem: PDFElement {
 

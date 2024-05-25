@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **textblock section** element
+
     /// A PDF **textblock section** element
     class TextblockSection: PDFElement {
 
@@ -37,11 +39,12 @@ extension PDFBuild {
     }
 }
 
-// MARK: Textblock string styling
+extension SWIFTStringAttribute {
 
-extension StringAttributes {
+    // MARK: Textblock string styling
 
-    static var textblockLine: StringAttributes {
+    /// String attributes for a textblock  line
+    static var textblockLine: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.italicSystemFont(ofSize: 10)

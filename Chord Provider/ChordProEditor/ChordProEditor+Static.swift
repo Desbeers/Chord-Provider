@@ -8,6 +8,7 @@
 import SwiftUI
 
 extension ChordProEditor {
+    // MARK: Static settings for the editor
 
     /// The lineheight multiplier for the editpr text
     static let lineHeightMultiple: Double = 1.2
@@ -21,11 +22,11 @@ extension ChordProEditor {
     }()
 
     /// The style of a number in the ruler
-    static var rulerNumberStyle: StringAttributes {
+    static var rulerNumberStyle: SWIFTStringAttribute {
         let lineNumberStyle = NSMutableParagraphStyle()
         lineNumberStyle.alignment = .right
         lineNumberStyle.lineHeightMultiple = lineHeightMultiple
-        var fontAttributes: StringAttributes = [:]
+        var fontAttributes: SWIFTStringAttribute = [:]
         fontAttributes[NSAttributedString.Key.paragraphStyle] = lineNumberStyle
         fontAttributes[NSAttributedString.Key.backgroundColor] = SWIFTColor.clear
         fontAttributes[NSAttributedString.Key.foregroundColor] = highlightedForegroundColor
@@ -34,11 +35,11 @@ extension ChordProEditor {
     }
 
     /// The style of a symbol in the ruler
-    static var rulerSymbolStyle: StringAttributes {
+    static var rulerSymbolStyle: SWIFTStringAttribute {
         let lineNumberStyle = NSMutableParagraphStyle()
         lineNumberStyle.alignment = .right
         lineNumberStyle.lineHeightMultiple = lineHeightMultiple
-        var fontAttributes: StringAttributes = [:]
+        var fontAttributes: SWIFTStringAttribute = [:]
         fontAttributes[NSAttributedString.Key.paragraphStyle] = lineNumberStyle
         fontAttributes[NSAttributedString.Key.backgroundColor] = SWIFTColor.clear
         fontAttributes[NSAttributedString.Key.foregroundColor] = highlightedForegroundColor

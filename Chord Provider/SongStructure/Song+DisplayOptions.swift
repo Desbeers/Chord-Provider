@@ -10,15 +10,16 @@ import SwiftlyChordUtilities
 
 extension Song {
 
+    // MARK: The structure for `Song` display options
+
     /// The structure for ``Song`` display options
     struct DisplayOptions {
         /// The paging of the song
         var paging: Paging = .asList
         /// The label style of the song
         var label: LabelStyle = .grid
-
+        /// Repeat the whole last chorus when using a *{chorus}* directive
         var repeatWholeChorus: Bool
-
         /// The scale factor of the song
         var scale: Double = 1
         /// The style of the chords display

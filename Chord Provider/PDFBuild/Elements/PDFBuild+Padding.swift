@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **padding** element
+
     /// A PDF **padding** element
     class Padding: PDFElement {
 

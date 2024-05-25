@@ -14,13 +14,7 @@ import AVFoundation
 
 extension PDFBuild {
 
-    /// Shape styles that can be used to clip an``PDFElement`` with a `Clip`
-    enum ShapeStyle {
-        /// A circle shape
-        case circle
-        /// A rounded retangle shape
-        case roundedRect(radius: CGFloat)
-    }
+    // MARK: A PDF **clip** element
 
     /// A PDF **clip** element
     /// - Clip a ``PDFElement`` with a shape style
@@ -68,5 +62,13 @@ extension PDFBuild {
                 context?.resetClip()
             }
         }
+    }
+
+    /// Shape styles that can be used to clip an``PDFElement`` with a `Clip`
+    enum ShapeStyle {
+        /// A circle shape
+        case circle
+        /// A rounded retangle shape
+        case roundedRect(radius: CGFloat)
     }
 }

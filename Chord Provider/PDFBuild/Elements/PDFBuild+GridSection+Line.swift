@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 extension PDFBuild.GridSection {
 
+    // MARK: A PDF **line** element for a `GridSection`
+
     /// A PDF **line** element for a `GridSection`
     class Line: PDFElement {
 
@@ -73,16 +75,19 @@ extension PDFBuild.GridSection {
     }
 }
 
-extension StringAttributes {
+extension SWIFTStringAttribute {
+
+    // MARK: Grid string styling
 
     /// String attributes for a grid line
-    static var gridText: StringAttributes {
+    static var gridText: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.black,
             .font: SWIFTFont.monospacedSystemFont(ofSize: 10, weight: .regular)
         ]
     }
-    static var gridChord: StringAttributes {
+    /// String attributes for a grid chord
+    static var gridChord: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.monospacedSystemFont(ofSize: 10, weight: .regular)

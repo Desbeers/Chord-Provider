@@ -12,9 +12,19 @@ output: Documentation
 clean: true
 theme: apple
 
+copyright: © 2024 Nick Berendsen
+
+hide_documentation_coverage: true
+
 source_host_files_url: https://github.com/desbeers/Chord-Provider/blob/main
 
 skip_undocumented: true
+
+#exclude: /*/GeneratedAssetSymbols*,/*/resource_bundle_accessor*
+
+#merge_modules: extensions
+
+theme: JazzyTheme
 
 modules:
   - module: Chord_Provider
@@ -22,10 +32,54 @@ modules:
 
 custom_categories:
 
-  - name: SwiftUI
+  - name: General
     children:
     - ChordProviderApp
-    - WelcomeView
+    - AppDelegate
+    - ChordProviderSettings
+    - ChordProviderGeneralOptions
+    - ChordProviderError
+    - Help
+
+  - name: Song structure
+    children:
+    - Song
+
+  - name: Chord definitions
+    children:
+    - Chord
+    - Chords
+    - Instrument
+    - Scales
+    - Interval
+    - ChordDefinition
+    - Utils
+    - Analizer
+    - RegexDefinitions
+    - Database
+    - Midi
+    - MidiPlayer
+
+  - name: ChordPro parser
+    children:
+    - ChordPro
+
+  - name: ChordPro editor
+    children:
+    - ChordProEditor
+    - ChordProEditorDelegate
+
+  - name: PDF builder
+    children:
+    - SongExport
+    - FolderExport
+    - PDFBuild
+    - PDFElement
+
+  - name: SwiftUI
+    children:
+    - ColumnsLayout
+    - TemplateView
     - ContentView
     - MainView
     - ToolbarView
@@ -34,47 +88,33 @@ custom_categories:
     - ChordsView
     - ChordDiagramView
     - AudioPlayerView
+    - MetronomeView
     - EditorView
     - FileBrowserView
+    - SongFolderView
     - ExportSongView
+    - ExportFolderView
     - SettingsView
     - PrintSongView
-    - ShareSongView
-    - MarkupCommands
-
-  - name: ChordPro
-    children:
-    - ChordPro
-    - Song
-    - Status
+    - ChordDefinitionView
+    - CreateChordView
 
   - name: Observable Classes
     children:
     - AppState
     - SceneState
     - FileBrowser
-    - ChordDisplayOptions
+    - Metronome
     - DocumentFocusedValueKey
     - SceneFocusedValueKey
     - FocusedValues
+    - ChordDisplayOptions
 
   - name: File Documents
     children:
     - ChordProDocument
     - ExportDocument
-    - ExportSong
 
-  - name: Utilities
-    children:
-    - AppDelegate
-    - Debouncer
-
-  - name: Extensions
-    children:
-    - Image
-    - View
-    - String
-    - NSWindow
 
 # Command line for doc generation:
 # jazzy

@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 extension PDFBuild {
 
+    // MARK: A PDF **tab section** element
+
     /// A PDF **tab section** element
     class TabSection: PDFElement {
 

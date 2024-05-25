@@ -17,7 +17,7 @@ extension EditorView {
             let chord = try ChordDefinition(
                 definition: directiveSettings.definition,
                 instrument: chordDisplayOptions.displayOptions.instrument,
-                status: .unknown
+                status: .unknownChord
             )
             /// Set the definition
             chordDisplayOptions.definition = chord

@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **page counter** element
+
     /// A PDF **page counter** element
     /// 
     /// - Keep a list of items for the TOC
@@ -20,7 +22,7 @@ extension PDFBuild {
         /// The current page number
         public var pageNumber: Int
         /// The attributes for the page counter string
-        public let attributes: StringAttributes
+        public let attributes: SWIFTStringAttribute
         /// The TOC items in the document
         /// - Note: The `ContentItem` element can add elements to this array
         public var tocItems: [TOCInfo] = []
@@ -29,7 +31,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - firstPage: The number of the first page
         ///   - attributes: The attributes for the page counter string
-        init(firstPage: Int, attributes: StringAttributes = StringAttributes()) {
+        init(firstPage: Int, attributes: SWIFTStringAttribute = SWIFTStringAttribute()) {
             self.firstPage = firstPage
             self.pageNumber = firstPage
             self.attributes = attributes

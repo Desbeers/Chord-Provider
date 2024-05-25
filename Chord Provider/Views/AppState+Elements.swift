@@ -11,12 +11,15 @@ extension AppState {
 
     // MARK: Chords Menu
 
+    /// Chords menu
     var chordsMenu: some View {
         ChordsMenu(appState: self)
     }
-
+    /// Chords menu
     private struct ChordsMenu: View {
+        /// The binding to the observable ``AppState``
         @Bindable var appState: AppState
+        /// The body of the `View`
         var body: some View {
             Menu("Chords", systemImage: appState.settings.showChords ? "number.circle.fill" : "number.circle") {
                 appState.showChordsButton
@@ -32,12 +35,15 @@ extension AppState {
 
     // MARK: Show Chords Button
 
+    /// Show chords button
     var showChordsButton: some View {
         ShowChordsButton(appState: self)
     }
-
+    /// Show chords button
     private struct ShowChordsButton: View {
+        /// The binding to the observable ``AppState``
         @Bindable var appState: AppState
+        /// The body of the `View`
         var body: some View {
             Button {
                 appState.settings.showChords.toggle()
@@ -52,12 +58,15 @@ extension AppState {
 
     // MARK: Chords Position Picker
 
+    /// Chords Position Picker
     var chordsPositionPicker: some View {
         ChordsPositionPicker(appState: self)
     }
-
+    /// Chords Position Picker
     private struct ChordsPositionPicker: View {
+        /// The binding to the observable ``AppState``
         @Bindable var appState: AppState
+        /// The body of the `View`
         var body: some View {
             Picker("Position:", selection: $appState.settings.chordsPosition) {
                 ForEach(ChordProviderSettings.Position.allCases, id: \.rawValue) { value in
@@ -74,13 +83,14 @@ extension AppState {
 
     // MARK: Chords As Diagram Toggle
 
+    /// Chords As Diagram Toggle
     var chordsAsDiagramToggle: some View {
         ChordsAsDiagramToggle(appState: self)
     }
 
-    /// SwiftUI `View` with a togle to view inline diagrams
+    /// Chords As Diagram Toggle
     private struct ChordsAsDiagramToggle: View {
-        /// The app state
+        /// The binding to the observable ``AppState``
         @Bindable var appState: AppState
         /// The body of the `View`
         var body: some View {
@@ -99,12 +109,13 @@ extension AppState {
 
     // MARK: Song Paging Picker
 
+    /// Song Paging Picker
     var songPagingPicker: some View {
         SongPagingPicker(appState: self)
     }
-
+    /// Song Paging Picker
     private struct SongPagingPicker: View {
-        /// The app state
+        /// The binding to the observable ``AppState``
         @Bindable var appState: AppState
         /// The body of the `View`
         var body: some View {

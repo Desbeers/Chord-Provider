@@ -8,36 +8,36 @@
 import SwiftUI
 
 extension ChordProEditor {
+    // MARK: The observable `Connector` class for the editor
 
+    /// The observable `Connector` class for the editor
     @Observable
     @MainActor
-    /// The connector class for the editor
     final class Connector: Sendable {
         /// The current `NSTextView`
         var textView: TextView?
-
         /// The optional current directive
         var currentDirective: ChordPro.Directive?
         /// The current fragment of the cursor
         var currentFragment: NSTextLayoutFragment?
         /// The optional clicked fragment in the editor
         var clickedFragment: NSTextLayoutFragment?
-
-        var settings: ChordProviderSettings.Editor {
+        /// The settings for the editor
+        var settings: ChordProEditor.Settings {
             didSet {
-                baseFont = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
+                font = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
                 Task {
                     processHighlighting(fullText: true)
                     textView?.chordProEditorDelegate?.selectionNeedsDisplay()
                 }
             }
         }
-
-        var baseFont: SWIFTFont
-
+        /// The current font of the editor
+        var font: SWIFTFont
+        /// The selected ranges in the editor
         var selectedRanges: [NSValue] = []
-
-        var selection: ChordProEditor.Selection {
+        /// The current state of selection
+        var selectionState: ChordProEditor.SelectionState {
             switch selectedRanges.count {
             case 1:
                 return selectedRanges.first?.rangeValue.length == 0 ? .noSelection : .singleSelection
@@ -46,9 +46,24 @@ extension ChordProEditor {
             }
         }
 
-        init(settings: ChordProviderSettings.Editor) {
+        /// Init the `Connector` class
+        /// - Parameter settings: The settings for the editor
+        init(settings: ChordProEditor.Settings) {
             self.settings = settings
-            self.baseFont = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
+            self.font = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
+        }
+
+        /// Set the text of the text view, replacing whole content
+        /// - Parameter text: Te text
+        public func setText(text: String) {
+            /// Insert the content of the document into the text view
+#if os(macOS)
+            textView?.string = text
+#else
+            textView?.text = text
+#endif
+            /// Run the highlighter
+            processHighlighting(fullText: true)
         }
 
         /// Insert text at the current range, removing any optional selected text
@@ -74,6 +89,7 @@ extension ChordProEditor {
         /// - Parameters:
         ///   - leading: The leading text
         ///   - trailing: The trailing text
+        /// - Note: Not used, I don't know how to get multiple selections with TextKit 2
         public func wrapTextSelections(leading: String, trailing: String) {
             guard let textView
             else { return }

@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 extension PDFBuild.LyricsSection {
 
+    // MARK: A PDF **line** element for a `LyricsSection`
+
     /// A PDF **line** element for a `LyricsSection`
     class Line: PDFElement {
         /// The parts in the line

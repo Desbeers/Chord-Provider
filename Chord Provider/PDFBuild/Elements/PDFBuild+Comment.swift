@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **comment** element
+
     /// A PDF **comment** element
     class Comment: PDFElement {
 

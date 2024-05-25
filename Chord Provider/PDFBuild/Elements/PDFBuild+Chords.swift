@@ -10,6 +10,8 @@ import SwiftlyChordUtilities
 
 extension PDFBuild {
 
+    // MARK: A PDF **chords** element
+
     /// A PDF **chords** element
     ///
     /// Display all the chord diagrams of the song
@@ -38,7 +40,7 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             var items: [PDFElement] = []
-            for chord in chords where chord.status != .unknown {
+            for chord in chords where chord.status != .unknownChord {
                 items.append(Diagram(chord: chord, options: options))
             }
             let chords = PDFBuild.Section(columns: [SectionColumnWidth].init(repeating: .flexible, count: 7), items: items)

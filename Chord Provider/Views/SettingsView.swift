@@ -144,13 +144,13 @@ struct SettingsView: View {
             }
             Button(
                 action: {
-                    appState.settings.editor = ChordProviderSettings.Editor()
+                    appState.settings.editor = ChordProEditor.Settings()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
-            .disabled(appState.settings.editor == ChordProviderSettings.Editor())
+            .disabled(appState.settings.editor == ChordProEditor.Settings())
         }
         .padding(.vertical)
     }
@@ -184,8 +184,8 @@ struct SettingsView: View {
         .padding(.vertical)
     }
 
-    @ViewBuilder
     /// A close button for visionOS
+    @ViewBuilder
     var close: some View {
 #if os(visionOS)
         Button(

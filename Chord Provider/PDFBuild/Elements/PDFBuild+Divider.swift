@@ -13,13 +13,7 @@ import UIKit
 
 extension PDFBuild {
 
-    /// Directions that can be used to align a `PDFElement`
-    enum Direction {
-        /// Horizontal direction
-        case horizontal
-        /// Vertical direction
-        case vertical
-    }
+    // MARK: A PDF **divider** element
 
     /// A PDF **divider** element
     public class Divider: PDFElement {
@@ -72,5 +66,13 @@ extension PDFBuild {
                 context.strokePath()
             }
         }
+    }
+
+    /// Directions that can be used to align a `PDFElement`
+    enum Direction {
+        /// Horizontal direction
+        case horizontal
+        /// Vertical direction
+        case vertical
     }
 }

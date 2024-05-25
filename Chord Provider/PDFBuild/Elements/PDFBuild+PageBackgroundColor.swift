@@ -13,6 +13,8 @@ import UIKit
 
 extension PDFBuild {
 
+    // MARK: A PDF **page background color** element
+
     /// A PDF **page background color** element
     class PageBackgroundColor: PDFElement {
 

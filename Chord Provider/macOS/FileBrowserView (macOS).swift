@@ -143,8 +143,11 @@ struct FileBrowserView: View {
     }
     /// Tab bar items
     enum TabItem: String, CaseIterable {
+        /// Artists
         case artists = "Artists"
+        /// Songs
         case songs = "Songs"
+        /// Tags
         case tags = "Tags"
     }
 }

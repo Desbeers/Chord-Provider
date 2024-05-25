@@ -10,23 +10,32 @@
 import AppKit
 
 extension ChordProEditor {
+    // MARK: The line numbers view for the editor (macOS)
 
     /// The line numbers view for the editor
     public class LineNumbersView: NSRulerView {
 
         // MARK: Init
 
+        /// Init the `NSRulerView`
+        /// - Parameters:
+        ///   - scrollView: The current `NSScrollView`
+        ///   - orientation: The orientation of the `NSRulerView`
         required override public init(scrollView: NSScrollView?, orientation: NSRulerView.Orientation) {
             super.init(scrollView: scrollView, orientation: orientation)
             clipsToBounds = true
         }
 
+        /// Init the `NSRulerView`
+        /// - Parameter coder: The `NSCoder`
         required public init(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
 
         // MARK: Override functions
 
+        /// Draw a background a a stroke on the right of the `NSRulerView`
+        /// - Parameter dirtyRect: The current rect of the editor
         override public func draw(_ dirtyRect: NSRect) {
             guard
                 let context: CGContext = NSGraphicsContext.current?.cgContext
@@ -46,6 +55,8 @@ extension ChordProEditor {
             drawHashMarksAndLabels(in: bounds)
         }
 
+        /// Draw marks and labels in the current `NSRulerView`
+        /// - Parameter rect: The rect of the current `NSRulerView`
         override public func drawHashMarksAndLabels(in rect: NSRect) {
             guard
                 let textView: TextView = self.clientView as? TextView,

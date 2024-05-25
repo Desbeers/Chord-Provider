@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-/// Make `Color` codable
 extension Color: Codable {
 
+    /// Make `Color` encodable
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         let swiftColor = SWIFTColor(self)
@@ -20,6 +20,7 @@ extension Color: Codable {
         try container.encode(data)
     }
 
+    /// Make `Color` decodable
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let data = try container.decode(Data.self)
@@ -33,6 +34,8 @@ extension Color: Codable {
 }
 
 extension Color {
+
+    /// Init a `Color` with a `SWIFTColor` alias
     init(swiftColor: SWIFTColor) {
 #if os(macOS)
         self.init(nsColor: swiftColor)

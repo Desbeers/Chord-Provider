@@ -18,7 +18,7 @@ struct TemplateView: View {
     /// The dismiss environment
     @Environment(\.dismiss) var dismiss
     /// The title of the song
-    @State private var title: String = ChordProDocument.newSong
+    @State private var title: String = ChordProDocument.newTitle
     /// The artist of the song
     @State private var artist: String = ChordProDocument.newArtist
     /// The body of the `View`

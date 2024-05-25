@@ -8,11 +8,20 @@
 import SwiftUI
 
 /// Alias for a `NSAttributedString` key and value
-public typealias StringAttributes = [NSAttributedString.Key: Any]
+public typealias SWIFTStringAttribute = [NSAttributedString.Key: Any]
+
+public extension SWIFTTextView {
+
+    /// Wrap the `SWIFTTextView` textStorage in an optional
+    /// - Note: `NSTextStorage` is an optional in macOS and not in iOS
+    var attributedStorage: NSMutableAttributedString? {
+        textStorage
+    }
+}
 
 #if os(macOS)
 
-// MARK: macOS typealiases
+// MARK: macOS type aliases
 
 /// Alias for NSImage
 public typealias SWIFTImage = NSImage
@@ -30,49 +39,6 @@ public typealias SWIFTBezierPath = NSBezierPath
 public typealias SWIFTViewRepresentable = NSViewRepresentable
 /// Alias for NSTextViewDelegate
 public typealias SWIFTTextViewDelegate = NSTextViewDelegate
-
-// MARK: macOS extensions
-
-extension NSBezierPath {
-    convenience init(roundedRect: CGRect, cornerRadius: CGFloat) {
-        self.init(roundedRect: roundedRect, xRadius: cornerRadius, yRadius: cornerRadius)
-    }
-}
-
-public extension NSImage {
-    convenience init(systemName: String) {
-        // swiftlint:disable:next force_unwrapping
-        self.init(systemSymbolName: systemName, accessibilityDescription: nil)!
-    }
-}
-
-extension NSFont {
-
-    static func italicSystemFont(ofSize fontSize: CGFloat) -> NSFont {
-        let systemFont = NSFont.systemFont(ofSize: fontSize)
-
-        /// Create a font descriptor with the italic trait
-        let fontDescriptor = systemFont.fontDescriptor.withSymbolicTraits(.italic)
-
-        /// Create a font from the descriptor
-        let italicSystemFont = NSFont(descriptor: fontDescriptor, size: fontSize)
-
-        return italicSystemFont ?? systemFont // Return italic font or fallback to system font
-    }
-}
-
-extension CGRect {
-
-    /// macOS version of `inset(by:)` from iOS
-    func inset(by insets: NSEdgeInsets) -> NSRect {
-        var rect = self
-        rect.origin.x += insets.left
-        rect.origin.y += insets.top
-        rect.size.width -= (insets.left + insets.right)
-        rect.size.height -= (insets.top + insets.bottom)
-        return rect
-    }
-}
 
 #else
 
@@ -116,10 +82,3 @@ extension UITextView {
 }
 
 #endif
-
-public extension SWIFTTextView {
-
-    var attributedStorage: NSMutableAttributedString? {
-        textStorage
-    }
-}

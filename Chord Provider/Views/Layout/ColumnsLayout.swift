@@ -26,10 +26,10 @@ public struct ColumnsLayout: Layout {
         self.rowSpacing = rowSpacing
     }
 
+    /// The layout properties
     public static var layoutProperties: LayoutProperties {
         var properties = LayoutProperties()
         properties.stackOrientation = .vertical
-
         return properties
     }
 
@@ -43,10 +43,17 @@ public struct ColumnsLayout: Layout {
         var columns: (Int, [Column])?
     }
 
+    /// Make a cache
+    /// - Parameter subviews: The subviews
+    /// - Returns: The cache
     public func makeCache(subviews: Subviews) -> Cache {
         Cache(minSize: minSize(subviews: subviews))
     }
 
+    /// Update the cache
+    /// - Parameters:
+    ///   - cache: The cache
+    ///   - subviews: The subviews
     public func updateCache(_ cache: inout Cache, subviews: Subviews) {
         cache.minSize = minSize(subviews: subviews)
     }
@@ -108,19 +115,34 @@ public struct ColumnsLayout: Layout {
 
 extension ColumnsLayout {
 
+    /// The structure of a column
     struct Column {
+        /// The elements
         var elements: [Element] = []
+        /// The x-offset
         var xOffset: Double = .zero
+        /// The width
         var width: Double = .zero
+        /// The height
         var height: Double = .zero
-        // swiftlint:disable:next nesting
-        struct Element {
-            var index: Int
-            var size: CGSize
-            var yOffset: Double
-        }
     }
 
+    /// The structure of an element
+    struct Element {
+        /// The index
+        var index: Int
+        /// The size
+        var size: CGSize
+        /// The y-offset
+        var yOffset: Double
+    }
+
+    /// Arrange columns
+    /// - Parameters:
+    ///   - proposal: The proposed view size
+    ///   - subviews: The subviews
+    ///   - cache: The cache
+    /// - Returns: Thew columns
     private func arrangeColumns(
         proposal: ProposedViewSize,
         subviews: Subviews,
@@ -160,7 +182,7 @@ extension ColumnsLayout {
                 spacing = .zero
                 currentY = .zero
             }
-            let element = Column.Element(index: index, size: sizes[index], yOffset: currentY + spacing)
+            let element = Element(index: index, size: sizes[index], yOffset: currentY + spacing)
             currentColumn.elements.append(element)
             currentY += size.height + spacing
         }
@@ -196,8 +218,13 @@ extension ColumnsLayout {
         return columns
     }
 
+    /// Compute hash
+    /// - Parameters:
+    ///   - proposal: The proposed view size
+    ///   - sizes: The array of sizes
+    /// - Returns: A hash as `Int` value
     private func computeHash(proposal: ProposedViewSize, sizes: [CGSize]) -> Int {
-        let proposal = proposal.replacingUnspecifiedDimensions(by: .infinity)
+        let proposal = proposal.replacingUnspecifiedDimensions(by: CGSize(width: Double.infinity, height: Double.infinity))
 
         var hasher = Hasher()
 
@@ -209,12 +236,20 @@ extension ColumnsLayout {
         return hasher.finalize()
     }
 
+    /// Calculate the minimum size
+    /// - Parameter subviews: The subviews
+    /// - Returns: The size
     private func minSize(subviews: Subviews) -> CGSize {
         subviews
             .map { $0.sizeThatFits(.zero) }
             .reduce(CGSize.zero) { CGSize(width: max($0.width, $1.width), height: max($0.height, $1.height)) }
     }
 
+    /// Calculate the column spacing
+    /// - Parameters:
+    ///   - lhs: The left layout subview
+    ///   - rhs: The right layout subview
+    /// - Returns: The spacing as `Double`
     private func columnSpacing(_ lhs: LayoutSubview, _ rhs: LayoutSubview) -> Double {
         if let columnSpacing {
             return columnSpacing
@@ -222,16 +257,15 @@ extension ColumnsLayout {
         return lhs.spacing.distance(to: rhs.spacing, along: .horizontal)
     }
 
+    /// Calculate the row spacing
+    /// - Parameters:
+    ///   - lhs: The left layout subview
+    ///   - rhs: The right layout subview
+    /// - Returns: The spacing as `Double`
     private func rowSpacing(_ lhs: LayoutSubview, _ rhs: LayoutSubview) -> Double {
         if let rowSpacing {
             return rowSpacing
         }
         return lhs.spacing.distance(to: rhs.spacing, along: .vertical)
-    }
-}
-
-private extension CGSize {
-    static var infinity: Self {
-        .init(width: Double.infinity, height: Double.infinity)
     }
 }

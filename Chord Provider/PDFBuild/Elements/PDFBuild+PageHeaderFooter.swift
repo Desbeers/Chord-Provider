@@ -9,6 +9,8 @@ import Foundation
 
 extension PDFBuild {
 
+    // MARK: A PDF **page header and footer** element
+
     /// A PDF **page header and footer** element
     class PageHeaderFooter: PDFElement {
 
@@ -68,12 +70,12 @@ extension PDFBuild {
     }
 }
 
-// MARK: Footer string styling
+public extension SWIFTStringAttribute {
 
-public extension StringAttributes {
+    // MARK: Footer string styling
 
-    /// Style atributes for the footer
-    static var footer: StringAttributes {
+    /// Style attributes for the footer
+    static var footer: SWIFTStringAttribute {
         [
             .foregroundColor: SWIFTColor.gray,
             .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)

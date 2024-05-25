@@ -48,7 +48,7 @@ struct MainView: View {
         .onChange(of: document.text) {
             renderSong()
         }
-        .onChange(of: sceneState.song.meta.transpose) {
+        .onChange(of: sceneState.song.metaData.transpose) {
             renderSong()
         }
         .onChange(of: appState.settings.general) {
@@ -66,14 +66,14 @@ struct MainView: View {
         sceneState.song = ChordPro.parse(
             id: UUID(),
             text: document.text,
-            transpose: sceneState.song.meta.transpose,
+            transpose: sceneState.song.metaData.transpose,
             instrument: chordDisplayOptions.displayOptions.instrument,
             fileURL: sceneState.file
         )
         if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == sceneState.file }) {
-            fileBrowser.songList[index].title = sceneState.song.meta.title
-            fileBrowser.songList[index].artist = sceneState.song.meta.artist
-            fileBrowser.songList[index].tags = sceneState.song.meta.tags
+            fileBrowser.songList[index].title = sceneState.song.metaData.title
+            fileBrowser.songList[index].artist = sceneState.song.metaData.artist
+            fileBrowser.songList[index].tags = sceneState.song.metaData.tags
         }
         Task {
             do {
@@ -82,7 +82,7 @@ struct MainView: View {
                     generalOptions: appState.settings.general,
                     chordDisplayOptions: chordDisplayOptions.displayOptions
                 )
-                try export.pdf.write(to: sceneState.song.meta.exportURL)
+                try export.pdf.write(to: sceneState.song.metaData.exportURL)
             } catch {
                 Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
             }

@@ -32,7 +32,7 @@ struct AudioPlayerView: View {
     @State private var errorAlert: AlertMessage?
     /// Show an `ConfirmationDialog` if the music file is not downloaded
     @State private var confirmationDialog: AlertMessage?
-
+    /// Bool to show the folder selector
     @State private var showFolderSelector: Bool = false
 
     // MARK: Body of the View
