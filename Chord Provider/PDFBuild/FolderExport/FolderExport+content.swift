@@ -9,7 +9,6 @@ import Foundation
 import OSLog
 import PDFKit
 import SwiftlyChordUtilities
-import SwiftlyFolderUtilities
 
 extension FolderExport {
 
@@ -30,7 +29,9 @@ extension FolderExport {
         let builder = PDFBuild.Builder(info: info)
         builder.pageCounter = counter
         // MARK: Render PDF content
-        try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
+        if let exportFolder = try? FileBookmark.getBookmarkURL(.exportFolder) {
+            /// Get access to the URL
+            _ = exportFolder.startAccessingSecurityScopedResource()
             for item in counter.tocItems.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.subtitle)) {
                 if let file = item.fileURL, let fileContents = try? String(contentsOf: file, encoding: .utf8) {
                     builder.elements.append(
@@ -67,6 +68,8 @@ extension FolderExport {
                     Logger.application.error("No Access to \(item.title, privacy: .public)")
                 }
             }
+            /// Close access to the URL
+            exportFolder.stopAccessingSecurityScopedResource()
         }
         /// Generate the PDF
         let content = builder.generatePdf { page in progress(page) }

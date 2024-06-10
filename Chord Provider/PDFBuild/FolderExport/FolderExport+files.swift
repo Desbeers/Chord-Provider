@@ -7,7 +7,6 @@
 
 import Foundation
 import OSLog
-import SwiftlyFolderUtilities
 
 extension FolderExport {
 
@@ -17,8 +16,10 @@ extension FolderExport {
         var files: [FileBrowser.SongItem] = []
         do {
             /// Get a list of all files
-            try FolderBookmark.action(bookmark: FileBrowser.exportBookmark) { persistentURL in
-                if let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
+            if let exportFolder = try FileBookmark.getBookmarkURL(.exportFolder) {
+                /// Get access to the URL
+                _ = exportFolder.startAccessingSecurityScopedResource()
+                if let items = FileManager.default.enumerator(at: exportFolder, includingPropertiesForKeys: nil) {
                     while let item = items.nextObject() as? URL {
                         if ChordProDocument.fileExtension.contains(item.pathExtension) {
                             var song = FileBrowser.SongItem(fileURL: item)
@@ -27,9 +28,11 @@ extension FolderExport {
                         }
                     }
                 }
+                /// Stop access to the URL
+                exportFolder.stopAccessingSecurityScopedResource()
             }
         } catch {
-            throw ChordProviderError.noAccessToSongError
+            throw AppError.noAccessToSongError
         }
         return files.sorted(using: KeyPathComparator(\.artist)).sorted(using: KeyPathComparator(\.title))
     }

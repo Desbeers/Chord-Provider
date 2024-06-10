@@ -98,7 +98,6 @@ All my own and in my GitHub account.
 ![Icon](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png)
 
 - [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities): Handle musical chords
-- [SwiftlyFolderUtilities](https://github.com/Desbeers/SwiftlyFolderUtilities): Handle folder selection and monitoring
 - [SwiftlyAlertMessage](https://github.com/Desbeers/SwiftlyAlertMessage): Alerts and confirmation dialogs
 
 *I like to start my package names with **Swiftly** instead of the usual **Swifty** {.leading} or **Kit** {.trailing}.*

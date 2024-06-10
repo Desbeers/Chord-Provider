@@ -21,7 +21,7 @@ struct ExportDocument: FileDocument {
     /// Black magic
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents else {
-            throw ChordProviderError.writeDocumentError
+            throw AppError.writeDocumentError
         }
         self.pdf = data
     }

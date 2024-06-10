@@ -8,7 +8,6 @@
 import SwiftUI
 import OSLog
 import SwiftlyChordUtilities
-import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for a folder export
 struct ExportFolderView: View {
@@ -35,14 +34,8 @@ struct ExportFolderView: View {
         VStack {
             Form {
                 LabeledContent("The folder with songs") {
-                    FolderBookmark.SelectFolderButton(
-                        bookmark: FileBrowser.exportBookmark,
-                        message: FileBrowser.message,
-                        confirmationLabel: FileBrowser.confirmationLabel,
-                        buttonLabel: currentFolder ?? "No folder selected",
-                        buttonSystemImage: "square.and.arrow.down"
-                    ) {
-                        currentFolder = ExportFolderView.exportFolderTitle ?? "No folder selected"
+                    FileButtonView(bookmark: .exportFolder) {
+                        currentFolder = ExportFolderView.exportFolderTitle
                     }
                 }
                 appState.repeatWholeChorusToggle
@@ -126,6 +119,6 @@ struct ExportFolderView: View {
     }
     /// Get the current selected export folder
     private static var exportFolderTitle: String? {
-        FolderBookmark.getBookmarkLink(bookmark: FileBrowser.exportBookmark)?.lastPathComponent
+        try? FileBookmark.getBookmarkURL(.exportFolder)?.lastPathComponent
     }
 }

@@ -18,12 +18,16 @@ public extension Logger {
     static var pdfBuild: Logger {
         Logger(subsystem: subsystem, category: "PDF build")
     }
-    /// Logthumbnail provider messages
+    /// Log thumbnail provider messages
     static var thumbnailProvider: Logger {
         Logger(subsystem: subsystem, category: "Thumbnail Provider")
     }
     /// Log application messages
     static var application: Logger {
         Logger(subsystem: subsystem, category: "Application")
+    }
+    /// Log file access messages
+    static var fileAccess: Logger {
+        Logger(subsystem: subsystem, category: "File Access")
     }
 }

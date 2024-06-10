@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyFolderUtilities
 import OSLog
 
 /// The observable ``FileBrowser`` class
@@ -27,7 +26,7 @@ class FileBrowser {
     /// The optional songs folder
     var songsFolder: URL?
     /// The status
-    var status: ChordProviderError = .unknownStatus
+    var status: AppError = .unknownStatus
 #if os(macOS)
     /// The list of open windows
     var openWindows: [NSWindow.WindowItem] = []
@@ -37,7 +36,7 @@ class FileBrowser {
 #endif
     /// Init the FileBrowser
     init() {
-        songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)
+        songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder)
     }
 }
 
@@ -87,9 +86,11 @@ extension FileBrowser {
         do {
             var songs = songList
             /// Get a list of all files
-            try FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { persistentURL in
+            if let songsFolder = try FileBookmark.getBookmarkURL(.songsFolder) {
+                /// Get access to the URL
+                _ = songsFolder.startAccessingSecurityScopedResource()
                 status = .songsFolderIsSelected
-                if songs.isEmpty, let items = FileManager.default.enumerator(at: persistentURL, includingPropertiesForKeys: nil) {
+                if songs.isEmpty, let items = FileManager.default.enumerator(at: songsFolder, includingPropertiesForKeys: nil) {
                     while let item = items.nextObject() as? URL {
                         if ChordProDocument.fileExtension.contains(item.pathExtension) {
                             var song = SongItem(fileURL: item)
@@ -98,6 +99,9 @@ extension FileBrowser {
                         }
                     }
                 }
+                /// Close access to the URL
+                songsFolder.stopAccessingSecurityScopedResource()
+
                 /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
                 let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
                     occurrence.artist

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyFolderUtilities
 
 extension FileBrowser {
 
@@ -15,6 +14,7 @@ extension FileBrowser {
     /// Folder Selector
     var folderSelector: some View {
         FolderSelector(fileBrowser: self)
+            .id(self.songsFolder)
     }
     /// Folder Selector
     private struct FolderSelector: View {
@@ -22,15 +22,10 @@ extension FileBrowser {
         @Bindable var fileBrowser: FileBrowser
         /// The body of the `View`
         var body: some View {
-            FolderBookmark.SelectFolderButton(
-                bookmark: FileBrowser.folderBookmark,
-                message: FileBrowser.message,
-                confirmationLabel: FileBrowser.confirmationLabel,
-                buttonLabel: "Select",
-                buttonSystemImage: "folder"
+            FileButtonView(
+                bookmark: .songsFolder
             ) {
-                fileBrowser.songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)
-                fileBrowser.getFiles()
+                fileBrowser.songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder)
             }
         }
     }

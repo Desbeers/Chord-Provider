@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OSLog
-import SwiftlyFolderUtilities
 
 /// SwiftUI `View` for the file browser
 struct FileBrowserView: View {
@@ -52,6 +51,7 @@ struct FileBrowserView: View {
                 }
                 NavigationStack(path: $selectedTag.animation(.easeInOut)) {
                     List {
+                        fileBrowser.folderSelector
                         if search.isEmpty {
                             switch tabItem {
                             case .artists:
@@ -94,7 +94,7 @@ struct FileBrowserView: View {
         .listStyle(.sidebar)
         .buttonStyle(.plain)
         .frame(width: 320)
-        .frame(minHeight: 500)
+        .frame(minHeight: 540)
         .background(Color.telecaster.opacity(0.2))
         .navigationTitle("Chord Provider")
         .toolbar {
@@ -210,7 +210,7 @@ extension FileBrowserView {
             .contextMenu {
                 Button(
                     action: {
-                        FolderUtil.openInFinder(url: song.fileURL)
+                        FileBookmark.openInFinder(url: song.fileURL)
                     },
                     label: {
                         Text("Open song in Finder")
@@ -231,10 +231,8 @@ extension FileBrowserView {
             if let window {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
             } else {
-                /// Because this is running async we have to do the sandbox-stuff ourselfs
-                /// instead of using the `FolderBookmark.action` method
                 do {
-                    if let persistentURL = try FolderBookmark.getPersistentFileURL(FileBrowser.folderBookmark) {
+                    if let persistentURL = try FileBookmark.getBookmarkURL(.songsFolder) {
                         _ = persistentURL.startAccessingSecurityScopedResource()
                         try await openDocument(at: url)
                         persistentURL.stopAccessingSecurityScopedResource()

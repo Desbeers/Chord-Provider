@@ -7,7 +7,6 @@
 
 import Foundation
 import SwiftlyChordUtilities
-import SwiftlyFolderUtilities
 import PDFKit
 import OSLog
 
@@ -105,7 +104,7 @@ extension FolderExport {
             let tocPDF = PDFDocument(data: tocData),
             let newPDF = PDFDocument(data: contentData)
         else {
-            throw ChordProviderError.createPdfError
+            throw AppError.createPdfError
         }
 
         // MARK: Add outline
@@ -124,7 +123,7 @@ extension FolderExport {
         for song in toc.sorted(using: KeyPathComparator(\.subtitle)) {
             let page = song.pageNumber - tocPageCount
             guard let pdfPage = newPDF.page(at: page) else {
-                throw ChordProviderError.createPdfError
+                throw AppError.createPdfError
             }
             let pdfPageRect = pdfPage.bounds(for: PDFDisplayBox.mediaBox)
             let topLeft = CGPoint(x: pdfPageRect.minX, y: pdfPageRect.height + 20)
@@ -141,7 +140,7 @@ extension FolderExport {
         for song in toc.sorted(using: KeyPathComparator(\.title)) {
             let page = song.pageNumber - tocPageCount
             guard let pdfPage = newPDF.page(at: page) else {
-                throw ChordProviderError.createPdfError
+                throw AppError.createPdfError
             }
             let pdfPageRect = pdfPage.bounds(for: PDFDisplayBox.mediaBox)
             let topLeft = CGPoint(x: pdfPageRect.minX, y: pdfPageRect.height + 20)
@@ -158,7 +157,7 @@ extension FolderExport {
         guard
             let frontPage = tocPDF.page(at: 0)
         else {
-            throw ChordProviderError.createPdfError
+            throw AppError.createPdfError
         }
         /// The first (empty) page of the content will be replaced by the cover
         newPDF.removePage(at: 0)
@@ -175,13 +174,13 @@ extension FolderExport {
                 /// Internal, the first page number is `0`, so, take one extra off..
                 let tocPage = tocPDF.page(at: tocPageIndex - 1)
             else {
-                throw ChordProviderError.createPdfError
+                throw AppError.createPdfError
             }
             for item in items.sorted(using: KeyPathComparator(\.pageNumber)) {
                 guard
                     let destinationPage = newPDF.page(at: item.pageNumber - tocPageCount + tocPageIndex - 2)
                 else {
-                    throw ChordProviderError.createPdfError
+                    throw AppError.createPdfError
                 }
                 let mediaBox = tocPage.bounds(for: .mediaBox)
                 let bounds = CGRect(

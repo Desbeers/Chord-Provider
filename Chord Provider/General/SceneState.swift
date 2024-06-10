@@ -1,6 +1,6 @@
 //
 //  SceneState.swift
-//  Chord Provider (macOS)
+//  Chord Provider
 //
 //  © 2024 Nick Berendsen
 //
@@ -39,21 +39,12 @@ final class SceneState {
 
     // MARK: Export Stuff
 
-    /// The unique ID of the scene
-    let sceneID: String
-    /// The URL of the export file
-    let exportURL: URL
-
-    // MARK: Init
-
-    /// Init the scene state
-    init() {
-        /// Give it an unique ID
-        sceneID = UUID().uuidString
+    var exportURL: URL {
+        let fileName = "\(song.metaData.artist) - \(song.metaData.title)"
         /// Create URLs
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         /// Create an export URL
-        exportURL = temporaryDirectoryURL.appendingPathComponent(sceneID, conformingTo: .pdf)
+        return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .pdf)
     }
 }
 

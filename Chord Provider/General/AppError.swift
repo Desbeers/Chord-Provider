@@ -1,5 +1,5 @@
 //
-//  ChordProviderError.swift
+//  AppError.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// All errors that can happen in the application
-enum ChordProviderError: String, LocalizedError {
+enum AppError: String, LocalizedError {
 
     /// An error when creating a PDF
     case createPdfError
@@ -18,6 +18,8 @@ enum ChordProviderError: String, LocalizedError {
     case saveSettingsError
     /// An error when writing the document
     case writeDocumentError
+    /// An error when a custom file is not found
+    case customFileNotFound
 
     // MARK: Songs folder
 

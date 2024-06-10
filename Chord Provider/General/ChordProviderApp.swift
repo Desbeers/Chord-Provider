@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyFolderUtilities
 import SwiftlyChordUtilities
 
 /// SwiftUI `Scene` for **Chord Provider**

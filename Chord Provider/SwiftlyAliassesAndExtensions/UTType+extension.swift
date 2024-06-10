@@ -12,7 +12,7 @@ extension UTType {
 
     // MARK: The `UTType` for a `ChordPro` document
 
-    /// The `UTType` for a ChordPro document
-    static let chordProDocument =
+    /// The `UTType` for a ChordPro song
+    static let chordProSong =
     UTType(importedAs: "org.chordpro")
 }

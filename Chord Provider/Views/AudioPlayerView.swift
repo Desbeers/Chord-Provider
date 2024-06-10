@@ -8,7 +8,6 @@
 import SwiftUI
 import OSLog
 import AVKit
-import SwiftlyFolderUtilities
 import SwiftlyAlertMessage
 
 /// SwiftUI `View` for the audio player
@@ -22,7 +21,7 @@ struct AudioPlayerView: View {
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The status of the song
-    @State private var status: ChordProviderError = .unknownStatus
+    @State private var status: AppError = .unknownStatus
     /// The iCloud URL of the song
     private var iCloudURL: URL {
         let hiddenFile = ".\(musicURL.lastPathComponent).icloud"
@@ -54,7 +53,9 @@ struct AudioPlayerView: View {
                 Button(
                     action: {
                         confirmationDialog = status.alert {
-                            downloadSong(musicURL: musicURL, iCloudURL: iCloudURL)
+                            Task {
+                                status = await AudioPlayerView.downloadSong(musicURL: musicURL, iCloudURL: iCloudURL)
+                            }
                         }
                     },
                     label: {
@@ -81,13 +82,11 @@ struct AudioPlayerView: View {
         }
         .errorAlert(message: $errorAlert)
         .confirmationDialog(message: $confirmationDialog)
-        .selectFolderSheet(
+        .selectFileSheet(
             isPresented: $showFolderSelector,
-            bookmark: FileBrowser.folderBookmark,
-            message: FileBrowser.message,
-            confirmationLabel: FileBrowser.confirmationLabel
+            bookmark: .songsFolder
         ) {
-            fileBrowser.getFiles()
+            fileBrowser.songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder)
         }
         .animation(.default, value: status)
         .task(id: musicURL) {
@@ -104,8 +103,12 @@ struct AudioPlayerView: View {
     @ViewBuilder var playButton: some View {
         Button(
             action: {
-                try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
+                if let songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder) {
+                    /// Get access to the URL
+                    _ = songsFolder.startAccessingSecurityScopedResource()
                     playSong()
+                    /// Stop access to the URL
+                    songsFolder.stopAccessingSecurityScopedResource()
                 }
             },
             label: {
@@ -132,12 +135,14 @@ struct AudioPlayerView: View {
         .disabled(!isPlaying)
     }
 
-    // MARK: Prive functions
+    // MARK: Private functions
 
     /// Check the song file
-    private static func checkSong(musicURL: URL, iCloudURL: URL) -> ChordProviderError {
-        var status = ChordProviderError.noSongsFolderSelectedError
-        try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
+    private static func checkSong(musicURL: URL, iCloudURL: URL) -> AppError {
+        var status = AppError.noSongsFolderSelectedError
+        if let songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder) {
+            /// Get access to the URL
+            _ = songsFolder.startAccessingSecurityScopedResource()
             if musicURL.exist() {
                 status = .readyToPlay
             } else {
@@ -147,6 +152,8 @@ struct AudioPlayerView: View {
                     status = .audioFileNotFoundError
                 }
             }
+            /// Stop access to the URL
+            songsFolder.stopAccessingSecurityScopedResource()
         }
         return status
     }
@@ -164,23 +171,27 @@ struct AudioPlayerView: View {
             /// For the button state
             isPlaying = true
         } catch {
-            errorAlert = ChordProviderError.audioFileNotFoundError.alert()
+            errorAlert = AppError.audioFileNotFoundError.alert()
         }
     }
 
     /// Download the song
-    private func downloadSong(musicURL: URL, iCloudURL: URL) {
-        try? FolderBookmark.action(bookmark: FileBrowser.folderBookmark) { _ in
-            Task {
-                do {
-                    try FileManager.default.startDownloadingUbiquitousItem(at: iCloudURL )
-                } catch {
-                    Logger.application.error("Export downloading song: \(error.localizedDescription, privacy: .public)")
-                }
-                while AudioPlayerView.checkSong(musicURL: musicURL, iCloudURL: iCloudURL) != .readyToPlay {
-                    try? await Task.sleep(for: .seconds(1))
-                }
+    private static func downloadSong(musicURL: URL, iCloudURL: URL) async -> AppError {
+        if let songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder) {
+            /// Get access to the URL
+            _ = songsFolder.startAccessingSecurityScopedResource()
+            do {
+                try FileManager.default.startDownloadingUbiquitousItem(at: iCloudURL )
+            } catch {
+                Logger.application.error("Error downloading song: \(error.localizedDescription, privacy: .public)")
             }
+            while AudioPlayerView.checkSong(musicURL: musicURL, iCloudURL: iCloudURL) != .readyToPlay {
+                try? await Task.sleep(for: .seconds(1))
+            }
+            /// Stop access to the URL
+            songsFolder.stopAccessingSecurityScopedResource()
+            return .readyToPlay
         }
+        return .audioFileNotDownloadedError
     }
 }

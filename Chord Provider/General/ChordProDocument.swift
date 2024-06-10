@@ -19,7 +19,7 @@ struct ChordProDocument: FileDocument {
     /// The file extensions Chord Provider can open
     static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
     /// The `UTType` for a ChordPro document
-    static var readableContentTypes: [UTType] { [.chordProDocument] }
+    static var readableContentTypes: [UTType] { [.chordProSong] }
     /// The content of the ChordPro file
     var text: String
     /// Init the text
@@ -42,7 +42,7 @@ struct ChordProDocument: FileDocument {
         guard
             let data = text.data(using: .utf8)
         else {
-            throw ChordProviderError.writeDocumentError
+            throw AppError.writeDocumentError
         }
         return .init(regularFileWithContents: data)
     }

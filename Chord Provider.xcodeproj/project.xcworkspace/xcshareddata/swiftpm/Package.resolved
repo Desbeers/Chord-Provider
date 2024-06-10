@@ -1,5 +1,5 @@
 {
-  "originHash" : "8376efbcb1c614f4d8679690c47684141691e2ee0ce7d4c0af3251a77e1aa04d",
+  "originHash" : "c8ff5c600978a5172e69de08eaec4cf919a2689e0b4a0a86664957e01d04703e",
   "pins" : [
     {
       "identity" : "swiftlyalertmessage",
@@ -17,15 +17,6 @@
       "state" : {
         "branch" : "main",
         "revision" : "8bd09f26224e4a5bf3c6b0caf6956cbd3fb0974c"
-      }
-    },
-    {
-      "identity" : "swiftlyfolderutilities",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
-      "state" : {
-        "branch" : "main",
-        "revision" : "c5c0938fd95b843b0aa3f7f59b666f2b92ab2c31"
       }
     },
     {

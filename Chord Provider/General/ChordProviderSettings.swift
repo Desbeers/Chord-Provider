@@ -63,7 +63,7 @@ extension ChordProviderSettings {
             try Cache.set(key: "ChordProviderSettings", object: settings)
         } catch {
             Logger.application.error("Error saving ChordProvider settings")
-            throw ChordProviderError.saveSettingsError
+            throw AppError.saveSettingsError
         }
     }
 }

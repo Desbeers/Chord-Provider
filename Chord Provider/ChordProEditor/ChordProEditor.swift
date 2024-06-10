@@ -67,6 +67,7 @@ struct ChordProEditor: SWIFTViewRepresentable {
         textView.selectedRange = .init()
         textView.textContainerInset = .zero
         connector.textView = textView
+        connector.processHighlighting(fullText: true)
         return textView
     }
 
