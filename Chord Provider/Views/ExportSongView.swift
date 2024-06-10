@@ -22,7 +22,7 @@ struct ExportSongView: View {
             action: {
                 if let sceneState {
                     /// Get the PDF
-                    pdf = try? Data(contentsOf: sceneState.song.metaData.exportURL)
+                    pdf = try? Data(contentsOf: sceneState.exportURL)
                     /// Show the export dialog
                     exportFile = true
                 }

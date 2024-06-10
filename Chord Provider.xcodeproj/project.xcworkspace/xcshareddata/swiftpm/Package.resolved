@@ -16,7 +16,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "d2d5988a51a9e048f4d1c7395dc21442768f93ff"
+        "revision" : "8bd09f26224e4a5bf3c6b0caf6956cbd3fb0974c"
       }
     },
     {
@@ -25,7 +25,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyFolderUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "0e2a529017e50d20593b7e2ada6d1505ff939f46"
+        "revision" : "c5c0938fd95b843b0aa3f7f59b666f2b92ab2c31"
       }
     },
     {

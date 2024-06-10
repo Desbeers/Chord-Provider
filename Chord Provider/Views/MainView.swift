@@ -82,7 +82,7 @@ struct MainView: View {
                     generalOptions: appState.settings.general,
                     chordDisplayOptions: chordDisplayOptions.displayOptions
                 )
-                try export.pdf.write(to: sceneState.song.metaData.exportURL)
+                try export.pdf.write(to: sceneState.exportURL)
             } catch {
                 Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
             }

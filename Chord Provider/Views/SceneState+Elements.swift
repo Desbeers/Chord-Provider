@@ -147,7 +147,7 @@ extension SceneState {
         @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            ShareLink(item: sceneState.song.metaData.exportURL)
+            ShareLink(item: sceneState.exportURL)
                 .labelStyle(.iconOnly)
         }
     }
@@ -167,11 +167,16 @@ extension SceneState {
         @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Button(action: {
-                sceneState.quicklookURL = sceneState.quicklookURL == nil ? sceneState.song.metaData.exportURL : nil
-            }, label: {
-                Label("PDF preview", systemImage: sceneState.quicklookURL == nil ? "eye" : "eye.fill")
-            })
+            Button(
+                action: {
+                    sceneState.quicklookURL = sceneState.quicklookURL == nil ? sceneState.exportURL : nil
+                },
+                label: {
+                    Label("PDF preview", systemImage: sceneState.quicklookURL == nil ? "eye" : "eye.fill")
+                }
+            )
+            /// QuickView does not always work when the editor is open, so just disable it if so...
+            .disabled(sceneState.showEditor)
             .labelStyle(.iconOnly)
             .quickLookPreview($sceneState.quicklookURL)
         }

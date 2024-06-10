@@ -38,14 +38,14 @@ extension PrintSongView {
     ///
     /// - Parameter song: The ``Song`` to print
     @MainActor
-    static func printDialog(song: Song) {
+    static func printDialog(song: Song, exportURL: URL) {
 #if os(macOS)
         if let window = NSApp.keyWindow {
             /// Set the print info
             let printInfo = NSPrintInfo()
             /// Build the PDF View
             let pdfView = PDFView()
-            pdfView.document = PDFDocument(url: song.metaData.exportURL)
+            pdfView.document = PDFDocument(url: exportURL)
             pdfView.minScaleFactor = 0.1
             pdfView.maxScaleFactor = 5
             pdfView.autoScales = true

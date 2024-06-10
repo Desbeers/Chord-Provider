@@ -36,6 +36,25 @@ final class SceneState {
     var currentScale: Double = 1.0
     /// Bool to show the editor or not
     var showEditor: Bool = false
+
+    // MARK: Export Stuff
+
+    /// The unique ID of the scene
+    let sceneID: String
+    /// The URL of the export file
+    let exportURL: URL
+
+    // MARK: Init
+
+    /// Init the scene state
+    init() {
+        /// Give it an unique ID
+        sceneID = UUID().uuidString
+        /// Create URLs
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        /// Create an export URL
+        exportURL = temporaryDirectoryURL.appendingPathComponent(sceneID, conformingTo: .pdf)
+    }
 }
 
 

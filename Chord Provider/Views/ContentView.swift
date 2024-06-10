@@ -34,7 +34,7 @@ struct ContentView: View {
 #if os(macOS)
         .onChange(of: sceneState.showPrintDialog) {
             if sceneState.showPrintDialog {
-                PrintSongView.printDialog(song: sceneState.song)
+                PrintSongView.printDialog(song: sceneState.song, exportURL: sceneState.exportURL)
                 sceneState.showPrintDialog.toggle()
             }
         }

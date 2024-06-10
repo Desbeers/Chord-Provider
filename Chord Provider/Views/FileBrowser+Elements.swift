@@ -20,25 +20,18 @@ extension FileBrowser {
     private struct FolderSelector: View {
         /// The FileBrowser model
         @Bindable var fileBrowser: FileBrowser
-        /// The current selected folder
-        @State private var currentFolder: String = FileBrowser.folderTitle
+        /// The body of the `View`
         var body: some View {
             FolderBookmark.SelectFolderButton(
                 bookmark: FileBrowser.folderBookmark,
                 message: FileBrowser.message,
                 confirmationLabel: FileBrowser.confirmationLabel,
-                buttonLabel: currentFolder,
+                buttonLabel: "Select",
                 buttonSystemImage: "folder"
             ) {
                 fileBrowser.songsFolder = FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)
-                currentFolder = FileBrowser.folderTitle
                 fileBrowser.getFiles()
             }
         }
-    }
-
-    /// Get the current selected folder
-    private static var folderTitle: String {
-        FolderBookmark.getBookmarkLink(bookmark: FileBrowser.folderBookmark)?.lastPathComponent ?? "No folder selected"
     }
 }

@@ -49,12 +49,6 @@ extension Song {
 
         // MARK: Song export
 
-        /// The location for the PDF export
-        var exportURL: URL {
-            return FileManager.default.temporaryDirectory
-                .appendingPathComponent(exportName, conformingTo: .pdf)
-        }
-
         /// The default name for the export
         var exportName: String {
             "\(artist) - \(title)"

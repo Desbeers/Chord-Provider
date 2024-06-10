@@ -106,6 +106,13 @@ struct FileBrowserView: View {
             /// Make sure the tags are unique
             allTags = Array(Set(tags).sorted())
         }
+        .onChange(of: fileBrowser.songsFolder) {
+            fileBrowser.songList = []
+            fileBrowser.getFiles()
+            let tags = fileBrowser.songList.flatMap(\.tags)
+            /// Make sure the tags are unique
+            allTags = Array(Set(tags).sorted())
+        }
     }
 
     /// Artists list `View`

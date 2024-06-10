@@ -19,7 +19,7 @@ class FileBrowser {
     /// The name of the folder bookmark
     static let folderBookmark: String = "SongsFolder"
     /// The name of the export bookmark
-    static let exportBookmark: String = "ExportFolder1"
+    static let exportBookmark: String = "ExportFolder"
     /// The message of the folder selector
     static let message: String = "Select the folder with your songs"
     /// The label for the confirmation button of the folder selector
