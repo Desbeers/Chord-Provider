@@ -35,7 +35,7 @@ struct ContentView: View {
             }
         }
         /// Give the menubar access to the Scene State
-        .focusedSceneValue(\.scene, sceneState)
+        .focusedSceneValue(\.sceneState, sceneState)
         .task {
             if document.text == ChordProDocument.newText {
                 sceneState.presentTemplate = true

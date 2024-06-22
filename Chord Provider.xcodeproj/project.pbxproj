@@ -132,6 +132,8 @@
 		D72B61162C16E4460027B235 /* FileButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B61152C16E4460027B235 /* FileButtonView.swift */; };
 		D72EDE3E2BF789EE00624827 /* ChordPro+Directive+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */; };
 		D73361042BF2604C00B1B60F /* ChordProEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73361032BF2604C00B1B60F /* ChordProEditorDelegate.swift */; };
+		D7336ACF2C26FBFF00D0AA8E /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7336ACE2C26FBFF00D0AA8E /* AlertMessage.swift */; };
+		D7336AD12C27001800D0AA8E /* MenuButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7336AD02C27001800D0AA8E /* MenuButtonsView.swift */; };
 		D733F6002B90A8AA0065D6FD /* AppState+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F5FF2B90A8AA0065D6FD /* AppState+Elements.swift */; };
 		D733F6022B90B1B40065D6FD /* SceneState+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6012B90B1B40065D6FD /* SceneState+Elements.swift */; };
 		D733F6042B90CC1C0065D6FD /* FileBrowser+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6032B90CC1C0065D6FD /* FileBrowser+Elements.swift */; };
@@ -160,8 +162,8 @@
 		D75B48A52BDFE97F001F6176 /* Song+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48A32BDFE97F001F6176 /* Song+MetaData.swift */; };
 		D75B48A62BDFE97F001F6176 /* Song+MetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48A32BDFE97F001F6176 /* Song+MetaData.swift */; };
 		D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622B462ABF0B04008CAC63 /* SettingsView.swift */; };
-		D77979232BECFF4C00BE165A /* ChordProEditor+LineNumbersView (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D77979202BECFF4C00BE165A /* ChordProEditor+LineNumbersView (macOS).swift */; };
-		D77979242BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift */; };
+		D77979232BECFF4C00BE165A /* ChordProEditor+LineNumbersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77979202BECFF4C00BE165A /* ChordProEditor+LineNumbersView.swift */; };
+		D77979242BECFF4C00BE165A /* ChordProEditor+Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper.swift */; };
 		D77979252BECFF4C00BE165A /* ChordProEditor+TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77979222BECFF4C00BE165A /* ChordProEditor+TextView.swift */; };
 		D78819622BFA39D40033545D /* EditorView+validateChordDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78819612BFA39D40033545D /* EditorView+validateChordDefinition.swift */; };
 		D78819662BFB25300033545D /* Help.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78819652BFB25300033545D /* Help.swift */; };
@@ -174,7 +176,6 @@
 		D7972BEB2BCEB5DF00752CF9 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7972BEA2BCEB5DF00752CF9 /* Logger+extension.swift */; };
 		D7972BEC2BCEB5DF00752CF9 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7972BEA2BCEB5DF00752CF9 /* Logger+extension.swift */; };
 		D7972BED2BCEB5DF00752CF9 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7972BEA2BCEB5DF00752CF9 /* Logger+extension.swift */; };
-		D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */ = {isa = PBXBuildFile; productRef = D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */; };
 		D7A2FA682BE8F0C100869E24 /* ChordProEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2FA622BE8F0C100869E24 /* ChordProEditor.swift */; };
 		D7A2FA692BE8F0C100869E24 /* ChordProEditor+Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2FA632BE8F0C100869E24 /* ChordProEditor+Coordinator.swift */; };
 		D7A2FA6A2BE8F0C100869E24 /* ChordProEditor+Connector.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2FA642BE8F0C100869E24 /* ChordProEditor+Connector.swift */; };
@@ -192,14 +193,14 @@
 		D7B319E32BD57DE7006A173A /* PDFBuild+DocumentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */; };
 		D7B319E42BD5833C006A173A /* PDFBuild+DocumentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */; };
 		D7B319E52BD5833D006A173A /* PDFBuild+DocumentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */; };
-		D7C3D6212AC9E52600909639 /* ChordProviderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */; };
+		D7C3D6212AC9E52600909639 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6202AC9E52600909639 /* AppSettings.swift */; };
 		D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppState.swift */; };
 		D7C725C52BFDE3B6006D9C74 /* RegexOutput+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC28A22BF6982900F220A1 /* RegexOutput+extension.swift */; };
 		D7C725C62BFDE3B6006D9C74 /* RegexOutput+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EC28A22BF6982900F220A1 /* RegexOutput+extension.swift */; };
 		D7C725C92BFF59C3006D9C74 /* UTType+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725C82BFF59C3006D9C74 /* UTType+extension.swift */; };
 		D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */; };
 		D7C725CE2BFF5B49006D9C74 /* NSWindow+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */; };
-		D7C725D02BFF87C5006D9C74 /* AppDelegate (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CF2BFF87C5006D9C74 /* AppDelegate (macOS).swift */; };
+		D7C725D02BFF87C5006D9C74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */; };
 		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7CA63272AEB397A00C6B4BB /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63262AEB397A00C6B4BB /* Metronome.swift */; };
@@ -225,7 +226,7 @@
 		D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */; };
 		D7F13FC42A6460B7002D875D /* ExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8E2A6460B7002D875D /* ExportDocument.swift */; };
 		D7F13FC72A6460B7002D875D /* FileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F922A6460B7002D875D /* FileBrowser.swift */; };
-		D7F13FC82A6460B7002D875D /* FileBrowserView (macOS).swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */; };
+		D7F13FC82A6460B7002D875D /* FileBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F942A6460B7002D875D /* FileBrowserView.swift */; };
 		D7F13FCB2A6460B7002D875D /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F992A6460B7002D875D /* Credits.html */; platformFilters = (macos, ); };
 		D7F13FCD2A6460B7002D875D /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F9C2A6460B7002D875D /* ChordProviderApp.swift */; };
 		D7F13FCE2A6460B7002D875D /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F9D2A6460B7002D875D /* ChordProDocument.swift */; };
@@ -237,7 +238,6 @@
 		D7F13FD52A6460B7002D875D /* ChordPro+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA52A6460B7002D875D /* ChordPro+Environment.swift */; };
 		D7F13FD62A6460B7002D875D /* ChordPro+Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA62A6460B7002D875D /* ChordPro+Regex.swift */; };
 		D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */; };
-		D7F13FD82A6460B7002D875D /* LaunchScreen (iPadOS).storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */; platformFilter = ios; };
 		D7F13FDB2A6460B7002D875D /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAD2A6460B7002D875D /* ToolbarView.swift */; };
 		D7F13FDC2A6460B7002D875D /* EditorView+directiveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAF2A6460B7002D875D /* EditorView+directiveButton.swift */; };
 		D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB22A6460B7002D875D /* EditorView.swift */; };
@@ -339,6 +339,8 @@
 		D72B61152C16E4460027B235 /* FileButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileButtonView.swift; sourceTree = "<group>"; };
 		D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive+Details.swift"; sourceTree = "<group>"; };
 		D73361032BF2604C00B1B60F /* ChordProEditorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProEditorDelegate.swift; sourceTree = "<group>"; };
+		D7336ACE2C26FBFF00D0AA8E /* AlertMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
+		D7336AD02C27001800D0AA8E /* MenuButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonsView.swift; sourceTree = "<group>"; };
 		D733F5FF2B90A8AA0065D6FD /* AppState+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState+Elements.swift"; sourceTree = "<group>"; };
 		D733F6012B90B1B40065D6FD /* SceneState+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneState+Elements.swift"; sourceTree = "<group>"; };
 		D733F6032B90CC1C0065D6FD /* FileBrowser+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBrowser+Elements.swift"; sourceTree = "<group>"; };
@@ -381,8 +383,8 @@
 		D7723A202C02406D0031CD0C /* task.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = task.mustache; sourceTree = "<group>"; };
 		D7723A212C02406D0031CD0C /* tasks.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = tasks.mustache; sourceTree = "<group>"; };
 		D7723A242C0240800031CD0C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		D77979202BECFF4C00BE165A /* ChordProEditor+LineNumbersView (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+LineNumbersView (macOS).swift"; sourceTree = "<group>"; };
-		D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Wrapper (macOS).swift"; sourceTree = "<group>"; };
+		D77979202BECFF4C00BE165A /* ChordProEditor+LineNumbersView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+LineNumbersView.swift"; sourceTree = "<group>"; };
+		D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Wrapper.swift"; sourceTree = "<group>"; };
 		D77979222BECFF4C00BE165A /* ChordProEditor+TextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+TextView.swift"; sourceTree = "<group>"; };
 		D78819612BFA39D40033545D /* EditorView+validateChordDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+validateChordDefinition.swift"; sourceTree = "<group>"; };
 		D78819652BFB25300033545D /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
@@ -405,13 +407,13 @@
 		D7AEF87C2BFCEB6A00E7D178 /* NSTextLayoutFragment+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextLayoutFragment+extension.swift"; sourceTree = "<group>"; };
 		D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TextblockSection.swift"; sourceTree = "<group>"; };
 		D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+DocumentInfo.swift"; sourceTree = "<group>"; };
-		D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProviderSettings.swift; sourceTree = "<group>"; };
+		D7C3D6202AC9E52600909639 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		D7C3D6232AC9EA0400909639 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		D7C725C82BFF59C3006D9C74 /* UTType+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UTType+extension.swift"; sourceTree = "<group>"; };
 		D7C725CA2BFF5A92006D9C74 /* .jazzy.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .jazzy.yaml; sourceTree = "<group>"; };
 		D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+extension.swift"; sourceTree = "<group>"; };
-		D7C725CF2BFF87C5006D9C74 /* AppDelegate (macOS).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate (macOS).swift"; sourceTree = "<group>"; };
+		D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+strum.swift"; sourceTree = "<group>"; };
 		D7CA63262AEB397A00C6B4BB /* Metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
 		D7CA632C2AEB60CA00C6B4BB /* High.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = High.aif; sourceTree = "<group>"; };
@@ -435,7 +437,7 @@
 		D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+Grid.swift"; sourceTree = "<group>"; };
 		D7F13F8E2A6460B7002D875D /* ExportDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
 		D7F13F922A6460B7002D875D /* FileBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowser.swift; sourceTree = "<group>"; };
-		D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileBrowserView (macOS).swift"; sourceTree = "<group>"; };
+		D7F13F942A6460B7002D875D /* FileBrowserView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserView.swift; sourceTree = "<group>"; };
 		D7F13F962A6460B7002D875D /* QLpreview.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = QLpreview.entitlements; sourceTree = "<group>"; };
 		D7F13F972A6460B7002D875D /* PreviewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		D7F13F982A6460B7002D875D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -450,7 +452,6 @@
 		D7F13FA52A6460B7002D875D /* ChordPro+Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Environment.swift"; sourceTree = "<group>"; };
 		D7F13FA62A6460B7002D875D /* ChordPro+Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Regex.swift"; sourceTree = "<group>"; };
 		D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive.swift"; sourceTree = "<group>"; };
-		D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "LaunchScreen (iPadOS).storyboard"; sourceTree = "<group>"; };
 		D7F13FAD2A6460B7002D875D /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 		D7F13FAF2A6460B7002D875D /* EditorView+directiveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorView+directiveButton.swift"; sourceTree = "<group>"; };
 		D7F13FB22A6460B7002D875D /* EditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
@@ -483,7 +484,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7A1DDE62AA9B60C00C13678 /* SwiftlyAlertMessage in Frameworks */,
 				D7A9B7C12A93BE5E007FD0A3 /* SwiftlyChordUtilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,15 +650,6 @@
 			path = JazzyTheme;
 			sourceTree = "<group>";
 		};
-		D779791D2BECFEDA00BE165A /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift */,
-				D77979202BECFF4C00BE165A /* ChordProEditor+LineNumbersView (macOS).swift */,
-			);
-			path = macOS;
-			sourceTree = "<group>";
-		};
 		D77979262BED7FA200BE165A /* SwiftlyAliassesAndExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -707,11 +698,12 @@
 				D7A2FA652BE8F0C100869E24 /* ChordProEditor+Connector+Highlight.swift */,
 				D7A2FA632BE8F0C100869E24 /* ChordProEditor+Coordinator.swift */,
 				D7A384CB2BEA1C510020221C /* ChordProEditor+SelectionState.swift */,
+				D77979212BECFF4C00BE165A /* ChordProEditor+Wrapper.swift */,
+				D77979202BECFF4C00BE165A /* ChordProEditor+LineNumbersView.swift */,
 				D77979222BECFF4C00BE165A /* ChordProEditor+TextView.swift */,
 				D7A384CD2BEA29D30020221C /* ChordProEditor+Settings.swift */,
 				D734B7BC2BEF5D2D0074087C /* ChordProEditor+Static.swift */,
 				D73361032BF2604C00B1B60F /* ChordProEditorDelegate.swift */,
-				D779791D2BECFEDA00BE165A /* macOS */,
 			);
 			path = ChordProEditor;
 			sourceTree = "<group>";
@@ -760,8 +752,7 @@
 				D7F13F842A6460B7002D875D /* SongStructure */,
 				D7CA63252AEB393B00C6B4BB /* Metronome */,
 				D7F13FAB2A6460B7002D875D /* Views */,
-				D7F13FA82A6460B7002D875D /* iPadOS */,
-				D7F13F902A6460B7002D875D /* macOS */,
+				D7F13F902A6460B7002D875D /* QuickLook */,
 			);
 			path = "Chord Provider";
 			sourceTree = "<group>";
@@ -782,16 +773,13 @@
 			path = SongStructure;
 			sourceTree = "<group>";
 		};
-		D7F13F902A6460B7002D875D /* macOS */ = {
+		D7F13F902A6460B7002D875D /* QuickLook */ = {
 			isa = PBXGroup;
 			children = (
 				D7F13F952A6460B7002D875D /* QLpreview */,
 				D740728F2BA20D9000DD52F0 /* QLthumbnail */,
-				D7F13F942A6460B7002D875D /* FileBrowserView (macOS).swift */,
-				D7C725CF2BFF87C5006D9C74 /* AppDelegate (macOS).swift */,
-				D7F13F992A6460B7002D875D /* Credits.html */,
 			);
-			path = macOS;
+			path = QuickLook;
 			sourceTree = "<group>";
 		};
 		D7F13F952A6460B7002D875D /* QLpreview */ = {
@@ -808,7 +796,8 @@
 			isa = PBXGroup;
 			children = (
 				D7F13F9C2A6460B7002D875D /* ChordProviderApp.swift */,
-				D7C3D6202AC9E52600909639 /* ChordProviderSettings.swift */,
+				D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */,
+				D7C3D6202AC9E52600909639 /* AppSettings.swift */,
 				D7C3D6232AC9EA0400909639 /* AppState.swift */,
 				D7F13F9F2A6460B7002D875D /* SceneState.swift */,
 				D72B610F2C16E4170027B235 /* CustomFile.swift */,
@@ -816,12 +805,14 @@
 				D7F13F9D2A6460B7002D875D /* ChordProDocument.swift */,
 				D7F13F8E2A6460B7002D875D /* ExportDocument.swift */,
 				D7EF99682BDADC2E0058E1CB /* AppError.swift */,
+				D7336ACE2C26FBFF00D0AA8E /* AlertMessage.swift */,
 				D72B61122C16E42E0027B235 /* FileBookmark.swift */,
 				D78819652BFB25300033545D /* Help.swift */,
 				D7484C0B2C174C0A00D47D1A /* Cache.swift */,
 				D7F13F9E2A6460B7002D875D /* Assets.xcassets */,
 				D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */,
 				D7F13F7A2A645FED002D875D /* Info.plist */,
+				D7F13F992A6460B7002D875D /* Credits.html */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -839,19 +830,12 @@
 			path = ChordProParser;
 			sourceTree = "<group>";
 		};
-		D7F13FA82A6460B7002D875D /* iPadOS */ = {
-			isa = PBXGroup;
-			children = (
-				D7F13FA92A6460B7002D875D /* LaunchScreen (iPadOS).storyboard */,
-			);
-			path = iPadOS;
-			sourceTree = "<group>";
-		};
 		D7F13FAB2A6460B7002D875D /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				D711FD002AD2FC8A00176FDC /* Layout */,
 				D7F13FAE2A6460B7002D875D /* EditorView */,
+				D7F13F942A6460B7002D875D /* FileBrowserView.swift */,
 				D7F13FB92A6460B7002D875D /* ContentView.swift */,
 				D7504A1A2BA89D200099F686 /* TemplateView.swift */,
 				D7F13FB52A6460B7002D875D /* MainView.swift */,
@@ -867,6 +851,7 @@
 				D75B48922BDD0266001F6176 /* ExportFolderView.swift */,
 				D7D39C502A9A19A1004EAE5F /* SongFolderView.swift */,
 				D7622B462ABF0B04008CAC63 /* SettingsView.swift */,
+				D7336AD02C27001800D0AA8E /* MenuButtonsView.swift */,
 				D733F5FF2B90A8AA0065D6FD /* AppState+Elements.swift */,
 				D733F6012B90B1B40065D6FD /* SceneState+Elements.swift */,
 				D733F6032B90CC1C0065D6FD /* FileBrowser+Elements.swift */,
@@ -939,7 +924,6 @@
 			name = "Chord Provider";
 			packageProductDependencies = (
 				D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */,
-				D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */,
 			);
 			productName = "Chord Provider";
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
@@ -997,7 +981,6 @@
 			mainGroup = D7F13F662A645FEC002D875D;
 			packageReferences = (
 				D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */,
-				D7A1DDE42AA9B60C00C13678 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */,
 			);
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
 			projectDirPath = "";
@@ -1023,7 +1006,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7F13FD82A6460B7002D875D /* LaunchScreen (iPadOS).storyboard in Resources */,
 				D7F13FCB2A6460B7002D875D /* Credits.html in Resources */,
 				D7CA632E2AEB60CA00C6B4BB /* High.aif in Resources */,
 				D7CA632F2AEB60CA00C6B4BB /* Low.aif in Resources */,
@@ -1133,6 +1115,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7336AD12C27001800D0AA8E /* MenuButtonsView.swift in Sources */,
 				D73361042BF2604C00B1B60F /* ChordProEditorDelegate.swift in Sources */,
 				D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */,
 				D706FD9B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift in Sources */,
@@ -1159,7 +1142,7 @@
 				D734B7BD2BEF5D2D0074087C /* ChordProEditor+Static.swift in Sources */,
 				D7F13FD62A6460B7002D875D /* ChordPro+Regex.swift in Sources */,
 				D7A384D02BEA3DAA0020221C /* Color+extension.swift in Sources */,
-				D77979232BECFF4C00BE165A /* ChordProEditor+LineNumbersView (macOS).swift in Sources */,
+				D77979232BECFF4C00BE165A /* ChordProEditor+LineNumbersView.swift in Sources */,
 				D7F13FD52A6460B7002D875D /* ChordPro+Environment.swift in Sources */,
 				D7F13FE22A6460B7002D875D /* MainView.swift in Sources */,
 				D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */,
@@ -1168,6 +1151,7 @@
 				D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,
 				D7972B912BCD506B00752CF9 /* SongExport.swift in Sources */,
 				D7972BEB2BCEB5DF00752CF9 /* Logger+extension.swift in Sources */,
+				D7336ACF2C26FBFF00D0AA8E /* AlertMessage.swift in Sources */,
 				D701F8792A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */,
 				D73A03E22AC76D3F00D6CD0E /* Song+DisplayOptions.swift in Sources */,
 				D706FDAC2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */,
@@ -1180,7 +1164,7 @@
 				D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */,
 				D75B488E2BDBC417001F6176 /* FolderExport.swift in Sources */,
 				D706FD9C2BCECC9F005DEDF6 /* PDFBuild+Text.swift in Sources */,
-				D7C725D02BFF87C5006D9C74 /* AppDelegate (macOS).swift in Sources */,
+				D7C725D02BFF87C5006D9C74 /* AppDelegate.swift in Sources */,
 				D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D7A2FA6B2BE8F0C100869E24 /* ChordProEditor+Connector+Highlight.swift in Sources */,
 				D7F13FE62A6460B7002D875D /* ContentView.swift in Sources */,
@@ -1224,7 +1208,7 @@
 				D70B72882BD5111D003C89B4 /* PDFBuild+GridSection.swift in Sources */,
 				D7F13FC72A6460B7002D875D /* FileBrowser.swift in Sources */,
 				D75B48932BDD0266001F6176 /* ExportFolderView.swift in Sources */,
-				D7C3D6212AC9E52600909639 /* ChordProviderSettings.swift in Sources */,
+				D7C3D6212AC9E52600909639 /* AppSettings.swift in Sources */,
 				D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */,
 				D78819622BFA39D40033545D /* EditorView+validateChordDefinition.swift in Sources */,
 				D78E1ECF2AC58840001A0641 /* EditorView+directiveSheetButton.swift in Sources */,
@@ -1248,7 +1232,7 @@
 				D7EC289B2BF5533D00F220A1 /* NSTextRange+extension.swift in Sources */,
 				D7C3D6242AC9EA0400909639 /* AppState.swift in Sources */,
 				D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */,
-				D7F13FC82A6460B7002D875D /* FileBrowserView (macOS).swift in Sources */,
+				D7F13FC82A6460B7002D875D /* FileBrowserView.swift in Sources */,
 				D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */,
 				D7B319E32BD57DE7006A173A /* PDFBuild+DocumentInfo.swift in Sources */,
 				D7A2FA682BE8F0C100869E24 /* ChordProEditor.swift in Sources */,
@@ -1258,7 +1242,7 @@
 				D77979252BECFF4C00BE165A /* ChordProEditor+TextView.swift in Sources */,
 				D7EF99692BDADC2E0058E1CB /* AppError.swift in Sources */,
 				D7F13FE02A6460B7002D875D /* EditorView+format.swift in Sources */,
-				D77979242BECFF4C00BE165A /* ChordProEditor+Wrapper (macOS).swift in Sources */,
+				D77979242BECFF4C00BE165A /* ChordProEditor+Wrapper.swift in Sources */,
 				D75B48952BDD2291001F6176 /* FolderExport+files.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1352,7 +1336,7 @@
 		D74072982BA20D9000DD52F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLthumbnail/QLthumbnail.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLthumbnail/QLthumbnail.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
@@ -1360,7 +1344,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Chord Provider/macOS/QLthumbnail/Info.plist";
+				INFOPLIST_FILE = "Chord Provider/QuickLook/QLthumbnail/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "QLthumbnail (Chord Provider)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -1385,7 +1369,7 @@
 		D74072992BA20D9000DD52F0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLthumbnail/QLthumbnail.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLthumbnail/QLthumbnail.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
@@ -1393,7 +1377,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Chord Provider/macOS/QLthumbnail/Info.plist";
+				INFOPLIST_FILE = "Chord Provider/QuickLook/QLthumbnail/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "QLthumbnail (Chord Provider)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -1535,6 +1519,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
 				DEAD_CODE_STRIPPING = YES;
@@ -1544,6 +1529,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/General/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2024 Nick Berendsen";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1593,6 +1579,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/General/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2024 Nick Berendsen";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -1628,7 +1615,7 @@
 		D7F140082A646356002D875D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLpreview/QLpreview.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLpreview/QLpreview.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
@@ -1636,7 +1623,7 @@
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Chord Provider/macOS/QLpreview/Info.plist";
+				INFOPLIST_FILE = "Chord Provider/QuickLook/QLpreview/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "QLpreview (Chord Provider)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1658,7 +1645,7 @@
 		D7F140092A646356002D875D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Chord Provider/macOS/QLpreview/QLpreview.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLpreview/QLpreview.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 250;
@@ -1666,7 +1653,7 @@
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Chord Provider/macOS/QLpreview/Info.plist";
+				INFOPLIST_FILE = "Chord Provider/QuickLook/QLpreview/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "QLpreview (Chord Provider)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1727,14 +1714,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D7A1DDE42AA9B60C00C13678 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Desbeers/SwiftlyAlertMessage";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Desbeers/SwiftlyChordUtilities";
@@ -1750,11 +1729,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D7A9B7BF2A93BE5E007FD0A3 /* XCRemoteSwiftPackageReference "SwiftlyChordUtilities" */;
 			productName = SwiftlyChordUtilities;
-		};
-		D7A1DDE52AA9B60C00C13678 /* SwiftlyAlertMessage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D7A1DDE42AA9B60C00C13678 /* XCRemoteSwiftPackageReference "SwiftlyAlertMessage" */;
-			productName = SwiftlyAlertMessage;
 		};
 		D7A9B7C02A93BE5E007FD0A3 /* SwiftlyChordUtilities */ = {
 			isa = XCSwiftPackageProductDependency;

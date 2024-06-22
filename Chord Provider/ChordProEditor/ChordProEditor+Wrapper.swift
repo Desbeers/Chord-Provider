@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Wrapper (macOS).swift
+//  ChordProEditor+Wrapper.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen

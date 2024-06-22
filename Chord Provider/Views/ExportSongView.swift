@@ -10,8 +10,8 @@ import OSLog
 
 /// SwiftUI `View` for a ``Song`` export
 struct ExportSongView: View {
-    /// The scene
-    @FocusedValue(\.scene) private var sceneState: SceneState?
+    /// The scene state in the environment
+    @FocusedValue(\.sceneState) private var sceneState: SceneState?
     /// Present an export dialog
     @State private var exportFile = false
     /// The song as PDF

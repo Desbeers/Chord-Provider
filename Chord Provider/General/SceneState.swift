@@ -51,7 +51,7 @@ import SwiftlyChordUtilities
 
     init() {
         /// Get the default settings as is used last time
-        let appSettings = ChordProviderSettings.load(id: "Main")
+        let appSettings = AppSettings.load(id: "Main")
         self.songDisplayOptions = appSettings.songDisplayOptions
         self.chordDisplayOptions = ChordDisplayOptions(defaults: appSettings.chordDisplayOptions)
     }
@@ -66,30 +66,12 @@ struct SceneFocusedValueKey: FocusedValueKey {
 
 extension FocusedValues {
     /// The value of the scene state key
-    var scene: SceneFocusedValueKey.Value? {
+    var sceneState: SceneFocusedValueKey.Value? {
         get {
             self[SceneFocusedValueKey.self]
         }
         set {
             self[SceneFocusedValueKey.self] = newValue
-        }
-    }
-}
-
-/// The `FocusedValueKey` for the current document
-struct DocumentFocusedValueKey: FocusedValueKey {
-    /// The `typealias` for the key
-    typealias Value = ChordProDocument
-}
-
-extension FocusedValues {
-    /// The value of the document key
-    var document: DocumentFocusedValueKey.Value? {
-        get {
-            self[DocumentFocusedValueKey.self]
-        }
-        set {
-            self[DocumentFocusedValueKey.self] = newValue
         }
     }
 }

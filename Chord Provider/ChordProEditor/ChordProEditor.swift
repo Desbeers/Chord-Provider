@@ -41,7 +41,7 @@ struct ChordProEditor: NSViewRepresentable {
         macEditor.textView.delegate = context.coordinator
         /// Wait for next cycle and set the textview as first responder
         Task { @MainActor in
-            connector.processHighlighting(fullText: true)
+            connector.processHighlighting(fullHighlight: true)
             macEditor.textView.selectedRanges = [NSValue(range: NSRange())]
             macEditor.textView.window?.makeFirstResponder(macEditor.textView)
         }

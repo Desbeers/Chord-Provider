@@ -11,16 +11,16 @@ import SwiftUI
 @Observable final class AppState {
     /// The ID of the app state
     var id: String
-    /// The Chord Provider settings
-    var settings: ChordProviderSettings {
+    /// The application settings
+    var settings: AppSettings {
         didSet {
-            try? ChordProviderSettings.save(id: id, settings: settings)
+            try? AppSettings.save(id: id, settings: settings)
         }
     }
-    /// Init the class; get Chord Provider settings
+    /// Init the class; get application settings
     init(id: String) {
         self.id = id
-        self.settings = ChordProviderSettings.load(id: id)
+        self.settings = AppSettings.load(id: id)
     }
 }
 

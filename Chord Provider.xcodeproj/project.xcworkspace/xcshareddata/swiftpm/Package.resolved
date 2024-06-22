@@ -1,15 +1,6 @@
 {
-  "originHash" : "c8ff5c600978a5172e69de08eaec4cf919a2689e0b4a0a86664957e01d04703e",
+  "originHash" : "a1a30049151505f7de4b259e625eb47b31c2ad9360ea02e8a788f6c711680e0a",
   "pins" : [
-    {
-      "identity" : "swiftlyalertmessage",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/SwiftlyAlertMessage",
-      "state" : {
-        "branch" : "main",
-        "revision" : "4480dd40088d7883a501a32e39d66874ea2c1309"
-      }
-    },
     {
       "identity" : "swiftlychordutilities",
       "kind" : "remoteSourceControl",

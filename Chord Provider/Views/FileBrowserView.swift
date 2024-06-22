@@ -51,7 +51,6 @@ struct FileBrowserView: View {
                 }
                 NavigationStack(path: $selectedTag.animation(.easeInOut)) {
                     List {
-                        fileBrowser.folderSelector
                         if search.isEmpty {
                             switch tabItem {
                             case .artists:
@@ -82,7 +81,8 @@ struct FileBrowserView: View {
                 .navigationSubtitle("\(fileBrowser.songList.count) songs")
                 .labelStyle(BrowserLabelStyle())
             default:
-                Image(.launchIcon)
+                // swiftlint:disable:next force_unwrapping
+                Image(nsImage: NSImage(named: "AppIcon")!)
                     .resizable()
                     .scaledToFit()
                     .navigationSubtitle("Welcome")

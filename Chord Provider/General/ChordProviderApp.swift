@@ -110,6 +110,10 @@ import SwiftlyChordUtilities
             CommandGroup(after: .importExport) {
                 PrintSongView()
             }
+            CommandGroup(after: .textEditing) {
+                MenuButtonsView()
+                    .environment(appState)
+            }
             CommandGroup(replacing: .help) {
                 if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
                     Link(destination: url) {

@@ -13,7 +13,8 @@ struct SongFolderView: View {
     @Environment(FileBrowser.self) private var fileBrowser
     var body: some View {
         VStack {
-            Image(.launchIcon)
+            // swiftlint:disable:next force_unwrapping
+            Image(nsImage: NSImage(named: "AppIcon")!)
                 .resizable()
                 .scaledToFit()
             VStack(alignment: .leading) {

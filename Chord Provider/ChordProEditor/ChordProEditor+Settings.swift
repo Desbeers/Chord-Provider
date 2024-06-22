@@ -15,8 +15,11 @@ extension ChordProEditor {
 
         // MARK: Fonts
 
+        /// The range of available font sizes
+        static let fontSizeRange: ClosedRange<Double> = 10...24
+
         /// The size of the font
-        var fontSize: Int = 14
+        var fontSize: Double = 14
 
         // MARK: Colors (codable with an extension)
 

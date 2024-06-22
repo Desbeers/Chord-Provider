@@ -11,8 +11,8 @@ extension ChordProEditor.Connector {
     // MARK: Text highlighter
 
     /// Highlight text containing chords or directives
-    /// - Parameter fullText: True if the full text must be checked, or else only the current paragraph
-    func processHighlighting(fullText: Bool) {
+    /// - Parameter fullHighlight: True if the full text must be checked, or else only the current paragraph
+    func processHighlighting(fullHighlight: Bool) {
 
         guard let textView
         else { return }
@@ -22,7 +22,7 @@ extension ChordProEditor.Connector {
         let fullRange = NSRange(location: 0, length: textView.string.count)
 
         let composeText = textView.string as NSString
-        let currentParagraphRange = fullText ? fullRange : composeText.paragraphRange(for: textView.selectedRange)
+        let currentParagraphRange = fullHighlight ? fullRange : composeText.paragraphRange(for: textView.selectedRange)
 
         /// Make all text in the default style
         textView.textStorage?.setAttributes(

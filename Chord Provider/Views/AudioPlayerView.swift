@@ -8,7 +8,6 @@
 import SwiftUI
 import OSLog
 import AVKit
-import SwiftlyAlertMessage
 
 /// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {

@@ -11,7 +11,7 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the settings
 struct SettingsView: View {
     /// Chord Display Options
-    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
+    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: AppSettings.defaults)
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The app state
@@ -84,13 +84,13 @@ struct SettingsView: View {
             }
             Button(
                 action: {
-                    chordDisplayOptions.displayOptions = ChordProviderSettings.defaults
+                    chordDisplayOptions.displayOptions = AppSettings.defaults
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
-            .disabled(chordDisplayOptions.displayOptions == ChordProviderSettings.defaults)
+            .disabled(chordDisplayOptions.displayOptions == AppSettings.defaults)
         }
         .padding(.vertical)
         .animation(.default, value: chordDisplayOptions.displayOptions)
@@ -104,12 +104,18 @@ struct SettingsView: View {
                 .font(.title)
             Form {
                 Section("Font") {
-                    Picker("The font size of the editor", selection: $appState.settings.editor.fontSize) {
-                        ForEach(12...24, id: \.self) { value in
-                            Text("\(value)px")
-                                .tag(value)
-                        }
+                    HStack {
+                        Text("A")
+                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.lowerBound))
+                        Slider(
+                            value: $appState.settings.editor.fontSize,
+                            in: ChordProEditor.Settings.fontSizeRange,
+                            step: 1
+                        )
+                        Text("A")
+                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.upperBound))
                     }
+                    .foregroundColor(.secondary)
                 }
                 Section("Colors") {
                     ColorPicker(

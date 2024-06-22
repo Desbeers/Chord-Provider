@@ -16,7 +16,7 @@ struct ExportFolderView: View {
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// Chord Display Options
-    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
+    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: AppSettings.defaults)
     /// The current selected folder
     @State private var currentFolder: String? = ExportFolderView.exportFolderTitle
     /// The PDF info

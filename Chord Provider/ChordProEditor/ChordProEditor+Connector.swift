@@ -27,7 +27,7 @@ extension ChordProEditor {
             didSet {
                 font = NSFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
                 Task {
-                    processHighlighting(fullText: true)
+                    processHighlighting(fullHighlight: true)
                     textView?.chordProEditorDelegate?.selectionNeedsDisplay()
                 }
             }
@@ -59,7 +59,7 @@ extension ChordProEditor {
             /// Insert the content of the document into the text view
             textView?.string = text
             /// Run the highlighter
-            processHighlighting(fullText: true)
+            processHighlighting(fullHighlight: true)
         }
 
         /// Insert text at the current range, removing any optional selected text

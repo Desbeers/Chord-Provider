@@ -19,7 +19,7 @@ extension ChordProEditor {
         /// The optional balance string, close  a`{` or `[`
         var balance: String?
         /// Bool if the whole text must be (re)highlighed or just the current fragment
-        var highlightFullText: Bool = true
+        var fullHighlight: Bool = true
         /// Debouncer for the text update
         private var task: Task<Void, Never>?
 
@@ -43,58 +43,34 @@ extension ChordProEditor {
             shouldChangeTextIn affectedCharRange: NSRange,
             replacementString: String?
         ) -> Bool {
-            return swiftTextView(replacementString: replacementString ?? "")
+            balance = replacementString == "[" ? "]" : replacementString == "{" ? "}" : nil
+            fullHighlight = replacementString?.count ?? 0 > 1
+            return true
         }
 
         /// Protocol function with a notification that the text has changed
         /// - Parameter notification: The notification with the `NSTextView` as object
         func textDidChange(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView
+            guard let textView = notification.object as? NSTextView, let range = textView.selectedRanges.first?.rangeValue
             else { return }
-            if let balance, let range = textView.selectedRanges.first?.rangeValue {
-                Task { @MainActor in
-                    textView.insertText(balance, replacementRange: range)
-                    textView.selectedRanges = [NSValue(range: range)]
-                }
+            if let balance {
+                textView.insertText(balance, replacementRange: range)
+                textView.selectedRanges = [NSValue(range: range)]
                 self.balance = nil
             }
-            connector.processHighlighting(fullText: highlightFullText)
-            swiftTextViewDidChangeSelection(selectedRanges: textView.selectedRanges)
+            connector.processHighlighting(fullHighlight: fullHighlight)
+            connector.textView?.setSelectedTextLayoutFragment(selectedRange: range)
             updateTextBinding()
         }
 
         /// Protocol function with a notification that the text selection has changed
         /// - Parameter notification: The notification with the `NSTextView` as object
         func textViewDidChangeSelection(_ notification: Notification) {
-            guard let textView = notification.object as? NSTextView
+            guard let textView = notification.object as? NSTextView, let range = textView.selectedRanges.first?.rangeValue
             else { return }
-            swiftTextViewDidChangeSelection(selectedRanges: textView.selectedRanges)
-        }
-
-        // MARK: Wrap Platform Functions
-
-        /// Function the handle the protocol notification that a text should change
-        /// - Parameter replacementString: The optional replacement string
-        /// - Returns: True or false
-        func swiftTextView(replacementString: String) -> Bool {
-            balance = replacementString == "[" ? "]" : replacementString == "{" ? "}" : nil
-            highlightFullText = replacementString.count > 1
-            return true
-        }
-
-        /// Function the handle the protocol notification that a text selection has changed
-        /// - Parameter selectedRanges: The current selected range
-        @MainActor
-        func swiftTextViewDidChangeSelection(selectedRanges: [NSValue]) {
-            guard
-                let textView = connector.textView,
-                let firstSelection = selectedRanges.first?.rangeValue
-            else {
-                return
-            }
-            connector.selectedRanges = selectedRanges
-            textView.setSelectedTextLayoutFragment(selectedRange: firstSelection)
-            textView.chordProEditorDelegate?.selectionNeedsDisplay()
+            connector.selectedRanges = textView.selectedRanges
+            connector.textView?.setSelectedTextLayoutFragment(selectedRange: range)
+            connector.textView?.chordProEditorDelegate?.selectionNeedsDisplay()
         }
 
         /// Update the text binding with the current text from the `NSTextView
