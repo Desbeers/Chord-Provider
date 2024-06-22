@@ -1,0 +1,15 @@
+{
+  "originHash" : "a1a30049151505f7de4b259e625eb47b31c2ad9360ea02e8a788f6c711680e0a",
+  "pins" : [
+    {
+      "identity" : "swiftlychordutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e0ab19c68b1cf76f176a8ce8340449a4e9ef1e2b"
+      }
+    }
+  ],
+  "version" : 3
+}

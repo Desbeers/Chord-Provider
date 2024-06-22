@@ -345,7 +345,6 @@
 		D7336AD02C27001800D0AA8E /* MenuButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonsView.swift; sourceTree = "<group>"; };
 		D7336AD32C273A9F00D0AA8E /* Swing Low Sweet Chariot.chordpro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swing Low Sweet Chariot.chordpro"; sourceTree = "<group>"; };
 		D7336AD52C273AD700D0AA8E /* HelpButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButtonsView.swift; sourceTree = "<group>"; };
-		D7336AD72C27459700D0AA8E /* SwiftlyChordUtilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftlyChordUtilities; path = ../../Packages/SwiftlyChordUtilities; sourceTree = "<group>"; };
 		D733F5FF2B90A8AA0065D6FD /* AppState+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppState+Elements.swift"; sourceTree = "<group>"; };
 		D733F6012B90B1B40065D6FD /* SceneState+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneState+Elements.swift"; sourceTree = "<group>"; };
 		D733F6032B90CC1C0065D6FD /* FileBrowser+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBrowser+Elements.swift"; sourceTree = "<group>"; };
@@ -735,7 +734,6 @@
 		D7F13F662A645FEC002D875D = {
 			isa = PBXGroup;
 			children = (
-				D7336AD72C27459700D0AA8E /* SwiftlyChordUtilities */,
 				D7C725CA2BFF5A92006D9C74 /* .jazzy.yaml */,
 				D7A384D32BEAD9480020221C /* README.md */,
 				D7723A232C02406D0031CD0C /* JazzyTheme */,
