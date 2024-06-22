@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+TextView.swift
+//  MacEditorView+TextView.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-extension ChordProEditor {
+extension MacEditorView {
+
     // MARK: The text view for the editor
 
     /// The text view for the editor
     public class TextView: NSTextView {
 
         /// The Connector class
-        var connector: ChordProEditor.Connector?
+        var connector: MacEditorView.Connector?
         /// The delegate for the ChordProEditor
-        var chordProEditorDelegate: ChordProEditorDelegate?
+        var chordProEditorDelegate: MacEditorDelegate?
         /// The current fragment of the cursor
         var currentFragment: NSTextLayoutFragment?
 
@@ -33,7 +34,7 @@ extension ChordProEditor {
                     width: bounds.width,
                     height: fragment.layoutFragmentFrame.height
                 )
-                context.setFillColor(ChordProEditor.highlightedBackgroundColor.cgColor)
+                context.setFillColor(MacEditorView.highlightedBackgroundColor.cgColor)
                 context.fill(lineRect)
             }
             super.draw(dirtyRect)

@@ -15,7 +15,7 @@ struct MenuButtonsView: View {
     /// The scene state in the environment
     @FocusedValue(\.sceneState) private var sceneState: SceneState?
     /// The range of font sizes
-    private let fontSizeRange = ChordProEditor.Settings.fontSizeRange
+    private let fontSizeRange = MacEditorView.Settings.fontSizeRange
     /// The body of the `View`
     var body: some View {
         Group {

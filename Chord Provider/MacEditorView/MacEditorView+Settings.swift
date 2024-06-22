@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Settings.swift
+//  MacEditorView+Settings.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-extension ChordProEditor {
+extension MacEditorView {
+
     // MARK: Settings for the editor
 
     /// Settings for the editor

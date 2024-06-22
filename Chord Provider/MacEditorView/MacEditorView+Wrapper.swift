@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Wrapper.swift
+//  MacEditorView+Wrapper.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,16 +7,15 @@
 
 import AppKit
 
-extension ChordProEditor {
-    // MARK: The wrapper for the editor (macOS)
+extension MacEditorView {
 
-    /// The macOS editor
-    ///
+    // MARK: The wrapper for the editor
+
     /// A wrapper for
     /// - `NSScrollView`
     /// - `NSTextView`
     /// - `NSRulerView`
-    public class Wrapper: NSView, NSTextLayoutManagerDelegate, ChordProEditorDelegate {
+    public class Wrapper: NSView, MacEditorDelegate {
 
         /// The `NSTextView`
         public var textView = TextView()

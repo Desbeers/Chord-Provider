@@ -69,7 +69,7 @@ import SwiftlyChordUtilities
                 .environment(fileBrowser)
                 .environment(appState)
             /// Give the scene access to the document.
-                .focusedSceneValue(\.document, file.document)
+                .focusedSceneValue(\.document, file)
                 .onDisappear {
                     Task { @MainActor in
                         if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == file.fileURL }) {
@@ -115,11 +115,7 @@ import SwiftlyChordUtilities
                     .environment(appState)
             }
             CommandGroup(replacing: .help) {
-                if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
-                    Link(destination: url) {
-                        Text("Chord Provider on GitHub")
-                    }
-                }
+                HelpButtonsView()
             }
         }
         .defaultSize(width: 1000, height: 800)

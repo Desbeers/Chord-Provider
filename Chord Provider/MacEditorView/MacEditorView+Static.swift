@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Static.swift
+//  MacEditorView+Static.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,16 +7,17 @@
 
 import SwiftUI
 
-extension ChordProEditor {
+extension MacEditorView {
+
     // MARK: Static settings for the editor
 
-    /// The lineheight multiplier for the editpr text
+    /// The line height multiplier for the editor text
     static let lineHeightMultiple: Double = 1.2
 
     /// The style of a paragraph in the editor
     static let paragraphStyle: NSParagraphStyle = {
         let style = NSMutableParagraphStyle()
-        style.lineHeightMultiple = ChordProEditor.lineHeightMultiple
+        style.lineHeightMultiple = MacEditorView.lineHeightMultiple
         style.headIndent = 10
         return style
     }()

@@ -16,7 +16,7 @@ extension EditorView {
     ///   - editor: The connector class for the editor
     static func format(
         settings: DirectiveSettings,
-        in editor: ChordProEditor.Connector
+        in editor: MacEditorView.Connector
     ) {
         Task { @MainActor in
             /// Update a definition if we have a selected fragment

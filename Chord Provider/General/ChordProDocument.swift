@@ -51,7 +51,7 @@ struct ChordProDocument: FileDocument {
 /// The `FocusedValueKey` for the current document
 struct DocumentFocusedValueKey: FocusedValueKey {
     /// The `typealias` for the key
-    typealias Value = ChordProDocument
+    typealias Value = FileDocumentConfiguration<ChordProDocument>
 }
 
 extension FocusedValues {

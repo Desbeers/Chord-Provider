@@ -78,7 +78,7 @@ struct SettingsView: View {
                         Image(systemName: "guitars.fill")
                         chordDisplayOptions.midiInstrumentPicker
                     }
-                    .disabled(!chordDisplayOptions.displayOptions.showPlayButton)
+                    .disabled(!chordDisplayOptions.displayOptions.general.showPlayButton)
                     .padding(.leading)
                 }
             }
@@ -106,14 +106,14 @@ struct SettingsView: View {
                 Section("Font") {
                     HStack {
                         Text("A")
-                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.lowerBound))
+                            .font(.system(size: MacEditorView.Settings.fontSizeRange.lowerBound))
                         Slider(
                             value: $appState.settings.editor.fontSize,
-                            in: ChordProEditor.Settings.fontSizeRange,
+                            in: MacEditorView.Settings.fontSizeRange,
                             step: 1
                         )
                         Text("A")
-                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.upperBound))
+                            .font(.system(size: MacEditorView.Settings.fontSizeRange.upperBound))
                     }
                     .foregroundColor(.secondary)
                 }
@@ -142,13 +142,13 @@ struct SettingsView: View {
             }
             Button(
                 action: {
-                    appState.settings.editor = ChordProEditor.Settings()
+                    appState.settings.editor = MacEditorView.Settings()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
-            .disabled(appState.settings.editor == ChordProEditor.Settings())
+            .disabled(appState.settings.editor == MacEditorView.Settings())
         }
         .padding(.vertical)
     }

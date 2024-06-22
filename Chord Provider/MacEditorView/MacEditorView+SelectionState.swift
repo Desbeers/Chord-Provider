@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+SelectionState.swift
+//  MacEditorView+SelectionState.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,8 @@
 
 import Foundation
 
-extension  ChordProEditor {
+extension  MacEditorView {
+
     // MARK: Selection state of the text editor
 
     /// The current state of selection in the editor

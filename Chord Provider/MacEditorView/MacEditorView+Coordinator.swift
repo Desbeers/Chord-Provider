@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Coordinator.swift
+//  MacEditorView+Coordinator.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension ChordProEditor {
+extension MacEditorView {
     // MARK: The coordinator for the editor
 
     /// The coordinator for the ``ChordProEditor``
@@ -15,7 +15,7 @@ extension ChordProEditor {
         /// The text of the editor
         var text: Binding<String>
         /// The connector class for the editor
-        var connector: ChordProEditor.Connector
+        var connector: MacEditorView.Connector
         /// The optional balance string, close  a`{` or `[`
         var balance: String?
         /// Bool if the whole text must be (re)highlighed or just the current fragment
@@ -25,7 +25,7 @@ extension ChordProEditor {
 
         /// Init the **coordinator**
         /// - Parameter parent: The ``ChordProEditor``
-        public init(text: Binding<String>, connector: ChordProEditor.Connector) {
+        public init(text: Binding<String>, connector: MacEditorView.Connector) {
             self.text = text
             self.connector = connector
         }

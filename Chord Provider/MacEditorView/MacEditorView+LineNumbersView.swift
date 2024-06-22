@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+LineNumbersView.swift
+//  MacEditorView+LineNumbersView.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,8 +7,9 @@
 
 import AppKit
 
-extension ChordProEditor {
-    // MARK: The line numbers view for the editor (macOS)
+extension MacEditorView {
+
+    // MARK: The line numbers view for the editor
 
     /// The line numbers view for the editor
     public class LineNumbersView: NSRulerView {
@@ -41,10 +42,10 @@ extension ChordProEditor {
                 return
             }
             /// Fill the background
-            context.setFillColor(ChordProEditor.highlightedBackgroundColor.cgColor)
+            context.setFillColor(MacEditorView.highlightedBackgroundColor.cgColor)
             context.fill(bounds)
             /// Draw a border on the right
-            context.setStrokeColor(ChordProEditor.highlightedForegroundColor.cgColor)
+            context.setStrokeColor(MacEditorView.highlightedForegroundColor.cgColor)
             context.setLineWidth(0.5)
             context.move(to: CGPoint(x: bounds.width - 1, y: 0))
             context.addLine(to: CGPoint(x: bounds.width - 1, y: bounds.height))
@@ -80,7 +81,7 @@ extension ChordProEditor {
                 return true
             }
 
-            var attributes = ChordProEditor.rulerNumberStyle
+            var attributes = MacEditorView.rulerNumberStyle
             attributes[NSAttributedString.Key.font] = font
             var number = 1
             var lineRect = CGRect()
@@ -106,11 +107,11 @@ extension ChordProEditor {
                 }
 
                 if paragraph.layoutFragmentFrame == selectedTextLayoutFragment?.layoutFragmentFrame {
-                    context.setFillColor(ChordProEditor.highlightedBackgroundColor.cgColor)
+                    context.setFillColor(MacEditorView.highlightedBackgroundColor.cgColor)
                     context.fill(lineRect)
                     attributes[NSAttributedString.Key.foregroundColor] = NSColor.textColor
                 } else {
-                    attributes[NSAttributedString.Key.foregroundColor] = ChordProEditor.highlightedForegroundColor
+                    attributes[NSAttributedString.Key.foregroundColor] = MacEditorView.highlightedForegroundColor
                 }
 
                 lineRect.origin.x = 5

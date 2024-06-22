@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Connector+Highlight.swift
+//  MacEditorView+Connector+Highlight.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension ChordProEditor.Connector {
+extension MacEditorView.Connector {
     // MARK: Text highlighter
 
     /// Highlight text containing chords or directives
@@ -27,7 +27,7 @@ extension ChordProEditor.Connector {
         /// Make all text in the default style
         textView.textStorage?.setAttributes(
             [
-                .paragraphStyle: ChordProEditor.paragraphStyle,
+                .paragraphStyle: MacEditorView.paragraphStyle,
                 .foregroundColor: NSColor.textColor,
                 .font: font
             ], range: currentParagraphRange)
@@ -88,7 +88,7 @@ extension ChordProEditor.Connector {
 
         /// The attributes for the next typing
         textView.typingAttributes = [
-            .paragraphStyle: ChordProEditor.paragraphStyle,
+            .paragraphStyle: MacEditorView.paragraphStyle,
             .foregroundColor: NSColor.textColor,
             .font: font
         ]

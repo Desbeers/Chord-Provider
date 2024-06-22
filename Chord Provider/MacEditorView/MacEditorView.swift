@@ -1,5 +1,5 @@
 //
-//  ChordProEditor.swift
+//  MacEditorView.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `NSViewRepresentable` for the ChordPro editor
-struct ChordProEditor: NSViewRepresentable {
+struct MacEditorView: NSViewRepresentable {
 
     /// The text of the ChordPro file
     @Binding var text: String
@@ -31,22 +31,23 @@ struct ChordProEditor: NSViewRepresentable {
     }
 
     func makeNSView(context: Context) -> Wrapper {
-
         let macEditor = Wrapper()
-
         macEditor.textView.connector = connector
-        macEditor.textView.string = text
         connector.textView = macEditor.textView
 
         macEditor.textView.delegate = context.coordinator
         /// Wait for next cycle and set the textview as first responder
         Task { @MainActor in
-            connector.processHighlighting(fullHighlight: true)
             macEditor.textView.selectedRanges = [NSValue(range: NSRange())]
             macEditor.textView.window?.makeFirstResponder(macEditor.textView)
         }
         return macEditor
     }
 
-    func updateNSView(_ nsView: Wrapper, context: Context) {}
+    func updateNSView(_ view: Wrapper, context: Context) {
+        if view.textView.string != text {
+            view.textView.string = text
+            connector.processHighlighting(fullHighlight: true)
+        }
+    }
 }

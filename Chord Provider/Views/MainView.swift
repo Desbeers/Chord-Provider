@@ -61,6 +61,10 @@ struct MainView: View {
             sceneState.songDisplayOptions.repeatWholeChorus = appState.settings.songDisplayOptions.repeatWholeChorus
             renderSong()
         }
+        .onChange(of: appState.settings.chordDisplayOptions.general) {
+            sceneState.chordDisplayOptions.displayOptions.general = appState.settings.chordDisplayOptions.general
+            renderSong()
+        }
         .animation(.default, value: sceneState.showEditor)
         .animation(.default, value: appState.settings)
     }

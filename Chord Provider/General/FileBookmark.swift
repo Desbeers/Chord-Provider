@@ -90,7 +90,7 @@ extension FileBookmark {
 }
 
 public extension URL {
-    
+
     /// Open an URL in the Finder
     func openInFinder() {
         NSWorkspace.shared.activateFileViewerSelecting([self])

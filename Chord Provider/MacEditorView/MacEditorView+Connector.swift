@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Connector.swift
+//  MacEditorView+Connector.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension ChordProEditor {
+extension MacEditorView {
     // MARK: The observable `Connector` class for the editor
 
     /// The observable `Connector` class for the editor
@@ -23,7 +23,7 @@ extension ChordProEditor {
         /// The optional clicked fragment in the editor
         var clickedFragment: NSTextLayoutFragment?
         /// The settings for the editor
-        var settings: ChordProEditor.Settings {
+        var settings: MacEditorView.Settings {
             didSet {
                 font = NSFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
                 Task {
@@ -37,7 +37,7 @@ extension ChordProEditor {
         /// The selected ranges in the editor
         var selectedRanges: [NSValue] = []
         /// The current state of selection
-        var selectionState: ChordProEditor.SelectionState {
+        var selectionState: MacEditorView.SelectionState {
             switch selectedRanges.count {
             case 1:
                 return selectedRanges.first?.rangeValue.length == 0 ? .noSelection : .singleSelection
@@ -48,7 +48,7 @@ extension ChordProEditor {
 
         /// Init the `Connector` class
         /// - Parameter settings: The settings for the editor
-        init(settings: ChordProEditor.Settings) {
+        init(settings: MacEditorView.Settings) {
             self.settings = settings
             self.font = NSFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
         }

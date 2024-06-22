@@ -13,7 +13,7 @@ import OSLog
 struct AppSettings: Equatable, Codable, Sendable {
 
     /// The options for the ``ChordProEditor``
-    var editor: ChordProEditor.Settings = .init()
+    var editor: MacEditorView.Settings = .init()
 
     /// Song Display Options
     var songDisplayOptions = Song.DisplayOptions()

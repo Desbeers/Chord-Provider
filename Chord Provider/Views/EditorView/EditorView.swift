@@ -21,7 +21,7 @@ import SwiftlyChordUtilities
     /// The settings for the directive sheet
     @State var directiveSettings = DirectiveSettings()
     /// The connector class for the editor
-    @State var connector = ChordProEditor.Connector(settings: AppSettings.load(id: "Main").editor)
+    @State var connector = MacEditorView.Connector(settings: AppSettings.load(id: "Main").editor)
     /// Show an `Alert` if we have an error
     @State var errorAlert: AlertMessage?
     /// The body of the `View`
@@ -73,7 +73,7 @@ import SwiftlyChordUtilities
     /// The editor
     @MainActor var editor: some View {
         VStack {
-            ChordProEditor(
+            MacEditorView(
                 text: $document.text,
                 connector: connector
             )
