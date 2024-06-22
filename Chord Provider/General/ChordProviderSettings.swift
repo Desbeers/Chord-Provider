@@ -6,32 +6,21 @@
 //
 
 import Foundation
-import SwiftlyStructCache
 import SwiftlyChordUtilities
 import OSLog
 
 /// Structure with all the **Chord Provider** settings
 struct ChordProviderSettings: Equatable, Codable, Sendable {
-    /// Show the chord diagrams
-    var showChords: Bool = true
-    /// Show the chord diagrams inline with the song text
-    var showInlineDiagrams: Bool = false
-    /// The paging style for the ``SongView``
-    var paging: Song.DisplayOptions.Paging = .asList
-    /// The position for the chord diagrams
-    var chordsPosition: Position = .right
-    /// General options (shared with the quickview plugins)
-    var general = ChordProviderGeneralOptions()
+
     /// The options for the ``ChordProEditor``
     var editor: ChordProEditor.Settings = .init()
 
-    /// Possible positions for the chord diagrams
-    enum Position: String, CaseIterable, Codable {
-        /// Show diagrams on the right of the `View`
-        case right = "Right"
-        /// Show diagrams as the bottom of the `View`
-        case bottom = "Bottom"
-    }
+    /// Song Display Options
+    var songDisplayOptions = Song.DisplayOptions()
+
+    /// Chord Display Options
+    var chordDisplayOptions = ChordDefinition.DisplayOptions()
+
     /// Default Chord Display Options
     static let defaults = ChordDefinition.DisplayOptions(
         showName: true,
@@ -47,9 +36,10 @@ struct ChordProviderSettings: Equatable, Codable, Sendable {
 extension ChordProviderSettings {
 
     /// Load the Chord Provider settings
+    /// - Parameter id: The ID of the settings
     /// - Returns: The ``ChordProviderSettings``
-    static func load() -> ChordProviderSettings {
-        if let settings = try? Cache.get(key: "ChordProviderSettings", as: ChordProviderSettings.self) {
+    static func load(id: String) -> ChordProviderSettings {
+        if let settings = try? Cache.get(key: "ChordProviderSettings-\(id)", struct: ChordProviderSettings.self) {
             return settings
         }
         /// No settings found; return defaults
@@ -57,10 +47,12 @@ extension ChordProviderSettings {
     }
 
     /// Save the Chord Provider settings to the cache
+    /// - Parameter id: The ID of the settings
     /// - Parameter settings: The ``ChordProviderSettings``
-    static func save(settings: ChordProviderSettings) throws {
+    static func save(id: String, settings: ChordProviderSettings) throws {
         do {
-            try Cache.set(key: "ChordProviderSettings", object: settings)
+            try Cache.set(key: "ChordProviderSettings-\(id)", object: settings)
+            Logger.application.info("\(id, privacy: .public) saved")
         } catch {
             Logger.application.error("Error saving ChordProvider settings")
             throw AppError.saveSettingsError

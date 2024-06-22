@@ -1,11 +1,9 @@
 //
-//  CGRect+extension (macOS).swift
+//  CGRect+extension.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
 //
-
-#if os(macOS)
 
 import Foundation
 
@@ -21,5 +19,3 @@ extension CGRect {
         return rect
     }
 }
-
-#endif

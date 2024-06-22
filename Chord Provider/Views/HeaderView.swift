@@ -28,24 +28,20 @@ struct HeaderView: View {
         .frame(maxWidth: .infinity)
         .padding(.leading, 120)
         .overlay(alignment: .leading) {
-            appState.chordsAsDiagramToggle
+            sceneState.chordsAsDiagramToggle
                 .frame(maxWidth: 110, maxHeight: 30)
                 .padding(.leading)
         }
-#if os(macOS)
         .padding(.trailing, 110)
         .overlay(alignment: .trailing) {
             sceneState.scaleSlider
                 .frame(width: 100)
                 .padding(.trailing)
         }
-#endif
         .frame(minHeight: 45)
-#if !os(visionOS)
         .background(Color.accentColor.saturation(0.6))
         .foregroundStyle(.white)
         .buttonStyle(.bordered)
-#endif
     }
 }
 

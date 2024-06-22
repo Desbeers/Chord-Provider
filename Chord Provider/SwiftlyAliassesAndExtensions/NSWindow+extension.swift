@@ -5,8 +5,6 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
-
 import SwiftUI
 
 extension NSWindow {
@@ -33,5 +31,3 @@ extension NSWindow {
         var fileURL: URL?
     }
 }
-
-#endif

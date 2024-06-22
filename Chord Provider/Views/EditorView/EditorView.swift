@@ -17,14 +17,12 @@ import SwiftlyAlertMessage
     @Environment(AppState.self) var appState
     /// The scene state
     @Environment(SceneState.self) var sceneState
-    /// Chord Display Options
-    @Environment(ChordDisplayOptions.self) var chordDisplayOptions
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
     /// The settings for the directive sheet
     @State var directiveSettings = DirectiveSettings()
     /// The connector class for the editor
-    @State var connector = ChordProEditor.Connector(settings: ChordProviderSettings.load().editor)
+    @State var connector = ChordProEditor.Connector(settings: ChordProviderSettings.load(id: "Main").editor)
     /// Show an `Alert` if we have an error
     @State var errorAlert: AlertMessage?
     /// The body of the `View`

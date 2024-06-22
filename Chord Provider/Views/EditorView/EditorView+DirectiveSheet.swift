@@ -30,8 +30,6 @@ extension EditorView {
             self._settings = settings
             self.actionLabel = settings.clickedFragment.wrappedValue == nil ? "Add" : "Update"
         }
-        /// Chord Display Options
-        @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
         /// The dismiss environment
         @Environment(\.dismiss) var dismiss
         /// The body of the `View`
@@ -113,12 +111,13 @@ extension EditorView.DirectiveSheet {
 
     /// `View` to define a chord
     @ViewBuilder var defineView: some View {
-        CreateChordView()
+        @Bindable var chordDisplayOptions = sceneState.chordDisplayOptions
+        CreateChordView(chordDisplayOptions: $chordDisplayOptions)
         HStack {
             cancelButton
             Button(
                 action: {
-                    settings.definition = chordDisplayOptions.definition.define
+                    settings.definition = sceneState.chordDisplayOptions.definition.define
                     dismiss()
                 },
                 label: {
@@ -168,8 +167,8 @@ extension EditorView.DirectiveSheet {
     @ViewBuilder var keyView: some View {
         directiveTitleView
         HStack {
-            chordDisplayOptions.rootPicker
-            chordDisplayOptions.qualityPicker
+            sceneState.chordDisplayOptions.rootPicker
+            sceneState.chordDisplayOptions.qualityPicker
         }
         .padding()
         .labelsHidden()
@@ -177,7 +176,7 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
-                    settings.definition = "\(chordDisplayOptions.definition.root.rawValue)\(chordDisplayOptions.definition.quality.rawValue)"
+                    settings.definition = "\(sceneState.chordDisplayOptions.definition.root.rawValue)\(sceneState.chordDisplayOptions.definition.quality.rawValue)"
                     dismiss()
                 },
                 label: {

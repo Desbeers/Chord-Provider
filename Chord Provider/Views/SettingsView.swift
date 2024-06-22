@@ -11,7 +11,7 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the settings
 struct SettingsView: View {
     /// Chord Display Options
-    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
+    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The app state
@@ -37,22 +37,14 @@ struct SettingsView: View {
                 .tabItem {
                     Label("Songs", systemImage: "folder")
                 }
-#if !os(macOS)
-            /// - Note: Export has its own window on macOS
-            export
-                .tabItem {
-                    Label("Export", systemImage: "square.and.arrow.up")
-                }
-#endif
         }
-        .overlay(alignment: .topLeading) {
-            close
+        .task {
+            chordDisplayOptions.displayOptions = appState.settings.chordDisplayOptions
         }
-#if os(macOS)
-        .frame(width: 450, height: 480)
-#elseif os(visionOS)
-        .frame(width: 450, height: 560)
-#endif
+        .onChange(of: chordDisplayOptions.displayOptions) {
+            appState.settings.chordDisplayOptions = chordDisplayOptions.displayOptions
+        }
+        .frame(width: 400, height: 480)
         .formStyle(.grouped)
     }
 
@@ -163,10 +155,8 @@ struct SettingsView: View {
             Form {
                 Text(.init(Help.folderSelector))
                     .padding()
-#if os(macOS)
                 Text(.init(Help.macOSbrowser))
                     .padding()
-#endif
                 fileBrowser.folderSelector
                     .padding()
             }
@@ -182,24 +172,5 @@ struct SettingsView: View {
             ExportFolderView()
         }
         .padding(.vertical)
-    }
-
-    /// A close button for visionOS
-    @ViewBuilder
-    var close: some View {
-#if os(visionOS)
-        Button(
-            action: {
-                dismiss()
-            },
-            label: {
-                Image(systemName: "xmark.circle")
-            }
-        )
-        .foregroundStyle(.quaternary)
-        .font(.title)
-        .buttonStyle(.plain)
-        .padding()
-#endif
     }
 }

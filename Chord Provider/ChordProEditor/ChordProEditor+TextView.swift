@@ -11,7 +11,7 @@ extension ChordProEditor {
     // MARK: The text view for the editor
 
     /// The text view for the editor
-    public class TextView: SWIFTTextView {
+    public class TextView: NSTextView {
 
         /// The Connector class
         var connector: ChordProEditor.Connector?
@@ -25,7 +25,7 @@ extension ChordProEditor {
         /// Draw a background behind the current fragment
         /// - Parameter dirtyRect: The current rect of the editor
         override public func draw(_ dirtyRect: CGRect) {
-            guard let context = UIGraphicsGetCurrentContext() else { return }
+            guard let context = NSGraphicsContext.current?.cgContext else { return }
             if let fragment = currentFragment {
                 let lineRect = CGRect(
                     x: 0,
@@ -39,8 +39,6 @@ extension ChordProEditor {
             super.draw(dirtyRect)
         }
 
-#if os(macOS)
-
         /// Handle double-click on directives to edit them
         /// - Parameter event: The mouse click event
         override func mouseDown(with event: NSEvent) {
@@ -53,18 +51,15 @@ extension ChordProEditor {
             }
             connector?.clickedFragment = currentFragment
         }
-#endif
 
         // MARK: Private functions
 
         /// Set the fragment and optional directive of the current cursor location
         /// - Parameter selectedRange: The current selected range of the text editor
         func setSelectedTextLayoutFragment(selectedRange: NSRange) {
-#if os(macOS)
             /// - Note: `NSTextStorage` is an optional in macOS and not in iOS
             guard let textStorage = textStorage
             else { return }
-#endif
             var selectedRange = selectedRange
             /// The last location of the document is ignored so reduce with 1 if we are at the last location
             selectedRange.location -= selectedRange.location == string.count ? 1 : 0

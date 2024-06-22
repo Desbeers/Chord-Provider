@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 
 extension PDFBuild {
 
@@ -20,16 +16,16 @@ extension PDFBuild {
     /// Fill a ``PDFElement`` with a ``SWIFTColor`` background
     class Background: PDFElement {
 
-        /// The ``SWIFTColor`` for the background
-        let color: SWIFTColor
+        /// The `NSColor` for the background
+        let color: NSColor
         /// The ``PDFElement`` to add on top of the background
         let element: PDFElement
 
         /// Init the **background** element
         /// - Parameters:
-        ///   - color: The ``SWIFTColor`` for the background
+        ///   - color: The `NSColor` for the background
         ///   - element: The ``PDFElement`` to add on top of the background
-        init(color: SWIFTColor, _ element: PDFElement) {
+        init(color: NSColor, _ element: PDFElement) {
             self.color = color
             self.element = element
         }
@@ -41,7 +37,7 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Render the background below the element
-            if !calculationOnly, let context = UIGraphicsGetCurrentContext() {
+            if !calculationOnly, let context = NSGraphicsContext.current?.cgContext {
                 let tempRect = calculateDraw(rect: rect, elements: [element], pageRect: pageRect)
                 var fillRect = rect
                 fillRect.size.height = rect.height - tempRect.height

@@ -9,28 +9,28 @@ import SwiftUI
 import SwiftlyChordUtilities
 
 /// The observable scene state for Chord Provider
-@Observable
-final class SceneState {
+@Observable final class SceneState {
     /// The current ``Song``
     var song = Song()
     /// The selection in the editor
     var selection: NSRange = .init(location: 0, length: 0)
-    /// The `NSTextView` of the editor
-    var textView: SWIFTTextView?
     /// Bool to show the `print` dialog (macOS)
     var showPrintDialog: Bool = false
     /// The optional file location
     var file: URL?
     /// Show settings (not for macOS)
     var showSettings: Bool = false
-    /// Show inspector
-    var showInspector: Bool = false
     /// Present template sheet
     var presentTemplate: Bool = false
     /// The optional URL for a PDF quicklook
     var quicklookURL: URL?
 
     // MARK: Song View options
+
+    /// Song display options
+    var songDisplayOptions: Song.DisplayOptions
+    /// Chord Display Options
+    var chordDisplayOptions: ChordDisplayOptions
 
     /// The current magnification scale
     var currentScale: Double = 1.0
@@ -45,6 +45,15 @@ final class SceneState {
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         /// Create an export URL
         return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .pdf)
+    }
+
+    // MARK: Init
+
+    init() {
+        /// Get the default settings as is used last time
+        let appSettings = ChordProviderSettings.load(id: "Main")
+        self.songDisplayOptions = appSettings.songDisplayOptions
+        self.chordDisplayOptions = ChordDisplayOptions(defaults: appSettings.chordDisplayOptions)
     }
 }
 

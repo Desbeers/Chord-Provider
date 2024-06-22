@@ -34,12 +34,8 @@ struct PrintSongView: View {
 extension PrintSongView {
 
     /// Show a Print Dialog for the current ``Song``
-    /// - Note: Only in use for macOS, on iPadOS, _printing_ is available via the Share Sheet
-    ///
     /// - Parameter song: The ``Song`` to print
-    @MainActor
-    static func printDialog(song: Song, exportURL: URL) {
-#if os(macOS)
+    @MainActor static func printDialog(song: Song, exportURL: URL) {
         if let window = NSApp.keyWindow {
             /// Set the print info
             let printInfo = NSPrintInfo()
@@ -56,6 +52,5 @@ extension PrintSongView {
             /// Remove the sheet
             pdfView.removeFromSuperview()
         }
-#endif
     }
 }

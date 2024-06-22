@@ -16,19 +16,19 @@ struct ChordDiagramView: View {
     var width: Double
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
-    /// Chord Display Options
-    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
+    /// The scene state
+    @Environment(SceneState.self) private var sceneState
     /// The body of the `View`
     var body: some View {
         ChordDefinitionView(
             chord: chord,
             width: width,
-            options: chordDisplayOptions.displayOptions
+            options: sceneState.chordDisplayOptions.displayOptions
         )
         .foregroundStyle(
             .primary,
             colorScheme == .dark ? .black : .white
         )
-            .animation(.default, value: chordDisplayOptions.displayOptions)
+        .animation(.default, value: sceneState.chordDisplayOptions.displayOptions)
     }
 }

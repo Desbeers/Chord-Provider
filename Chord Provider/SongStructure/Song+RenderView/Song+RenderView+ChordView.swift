@@ -11,7 +11,7 @@ import SwiftlyChordUtilities
 extension Song.RenderView {
 
     /// Store diagrams in a memory cache for performance
-    static let diagramCache = NSCache<NSString, SWIFTImage>()
+    static let diagramCache = NSCache<NSString, NSImage>()
 
     /// SwiftUI `View` for a chord as part of a line
     struct ChordView: View {
@@ -56,7 +56,6 @@ extension Song.RenderView {
                         ChordDiagramView(chord: chord, width: 140)
                             .padding()
                     }
-#if os(macOS)
                     .onHover { hovering in
                         if hovering {
                             NSCursor.pointingHand.push()
@@ -64,7 +63,6 @@ extension Song.RenderView {
                             NSCursor.pop()
                         }
                     }
-#endif
             case .asDiagram:
                 Button(
                     action: {
@@ -89,7 +87,7 @@ extension Song.RenderView {
             let diagramID = "\(chord.baseFret)-\(chord.frets)-\(colorScheme)"
             /// Check if in cache
             if let cachedImage = Song.RenderView.diagramCache.object(forKey: "\(diagramID)" as NSString) {
-                return Image(swiftImage: cachedImage).resizable()
+                return Image(nsImage: cachedImage).resizable()
             } else {
                 let primaryColor: Color = colorScheme == .dark ? .white : .black
                 let secondaryColor: Color = colorScheme == .dark ? .black : .white
@@ -99,17 +97,13 @@ extension Song.RenderView {
                         .foregroundStyle(primaryColor, secondaryColor)
                 )
                 renderer.scale = 2
-#if os(macOS)
                 let image = renderer.nsImage
-#else
-                let image = renderer.uiImage
-#endif
                 guard let image else {
                     return Image(systemName: "questionmark.bubble")
                 }
                 /// Store in the cache
                 Song.RenderView.diagramCache.setObject(image, forKey: "\(diagramID)" as NSString)
-                return Image(swiftImage: image).resizable()
+                return Image(nsImage: image).resizable()
             }
         }
     }

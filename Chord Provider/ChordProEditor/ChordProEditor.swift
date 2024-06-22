@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `NSViewRepresentable` for the ChordPro editor
-struct ChordProEditor: SWIFTViewRepresentable {
+struct ChordProEditor: NSViewRepresentable {
 
     /// The text of the ChordPro file
     @Binding var text: String
@@ -30,10 +30,6 @@ struct ChordProEditor: SWIFTViewRepresentable {
         Coordinator(text: $text, connector: connector)
     }
 
-#if os(macOS)
-
-    // MARK: macOS
-
     func makeNSView(context: Context) -> Wrapper {
 
         let macEditor = Wrapper()
@@ -53,25 +49,4 @@ struct ChordProEditor: SWIFTViewRepresentable {
     }
 
     func updateNSView(_ nsView: Wrapper, context: Context) {}
-
-#else
-
-    // MARK: iOS and visionOS
-
-    func makeUIView(context: Context) -> TextView {
-
-        let textView = TextView()
-
-        textView.delegate = context.coordinator
-        textView.text = self.text
-        textView.selectedRange = .init()
-        textView.textContainerInset = .zero
-        connector.textView = textView
-        connector.processHighlighting(fullText: true)
-        return textView
-    }
-
-    func updateUIView(_ view: TextView, context: Context) {}
-
-#endif
 }

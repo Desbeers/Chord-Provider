@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 extension PDFBuild {
 
@@ -46,8 +46,8 @@ extension SWIFTStringAttribute {
     /// String attributes for a plain line
     static var plainLine: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 }

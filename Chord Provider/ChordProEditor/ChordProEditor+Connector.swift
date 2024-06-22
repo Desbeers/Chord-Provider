@@ -25,7 +25,7 @@ extension ChordProEditor {
         /// The settings for the editor
         var settings: ChordProEditor.Settings {
             didSet {
-                font = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
+                font = NSFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
                 Task {
                     processHighlighting(fullText: true)
                     textView?.chordProEditorDelegate?.selectionNeedsDisplay()
@@ -33,7 +33,7 @@ extension ChordProEditor {
             }
         }
         /// The current font of the editor
-        var font: SWIFTFont
+        var font: NSFont
         /// The selected ranges in the editor
         var selectedRanges: [NSValue] = []
         /// The current state of selection
@@ -50,18 +50,14 @@ extension ChordProEditor {
         /// - Parameter settings: The settings for the editor
         init(settings: ChordProEditor.Settings) {
             self.settings = settings
-            self.font = SWIFTFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
+            self.font = NSFont.monospacedSystemFont(ofSize: CGFloat(settings.fontSize), weight: .regular)
         }
 
         /// Set the text of the text view, replacing whole content
         /// - Parameter text: Te text
         public func setText(text: String) {
             /// Insert the content of the document into the text view
-#if os(macOS)
             textView?.string = text
-#else
-            textView?.text = text
-#endif
             /// Run the highlighter
             processHighlighting(fullText: true)
         }
@@ -72,17 +68,12 @@ extension ChordProEditor {
         public func insertText(text: String, range: NSRange? = nil) {
             guard let textView
             else { return }
-#if os(macOS)
             guard
                 let range = range == nil ? selectedRanges.first?.rangeValue : range
             else {
                 return
             }
             textView.insertText(text, replacementRange: range)
-#else
-            /// It seems iOS does not care about ranches
-            textView.insertText(text)
-#endif
         }
 
         /// Wrap text selections
@@ -97,11 +88,7 @@ extension ChordProEditor {
             for range in selectedRanges.reversed() {
                 let selectedText = textView.string[range.rangeValue]
                 let replacementText = "\(leading)\(selectedText)\(trailing)"
-#if os(macOS)
                 textView.insertText(replacementText, replacementRange: range.rangeValue)
-#else
-                textView.insertText(replacementText)
-#endif
             }
         }
     }

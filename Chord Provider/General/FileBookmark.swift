@@ -24,19 +24,11 @@ extension FileBookmark {
         }
         do {
             var bookmarkDataIsStale = false
-#if os(macOS)
             let urlForBookmark = try URL(
                 resolvingBookmarkData: bookmarkData,
                 relativeTo: nil,
                 bookmarkDataIsStale: &bookmarkDataIsStale
             )
-#else
-            let urlForBookmark = try URL(
-                resolvingBookmarkData: bookmarkData,
-                relativeTo: nil,
-                bookmarkDataIsStale: &bookmarkDataIsStale
-            )
-#endif
             if bookmarkDataIsStale {
                 setBookmarkURL(bookmark, urlForBookmark)
             }
@@ -57,18 +49,10 @@ extension FileBookmark {
     static func setBookmarkURL(_ bookmark: CustomFile, _ selectedURL: URL) {
         do {
             _ = selectedURL.startAccessingSecurityScopedResource()
-#if os(macOS)
             let bookmarkData = try selectedURL.bookmarkData(
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
-#else
-            let bookmarkData = try selectedURL.bookmarkData(
-                options: .suitableForBookmarkFile,
-                includingResourceValuesForKeys: nil,
-                relativeTo: nil
-            )
-#endif
             UserDefaults.standard.set(bookmarkData, forKey: bookmark.rawValue)
             selectedURL.stopAccessingSecurityScopedResource()
             Logger.fileAccess.info("Bookmark set for '\(selectedURL.lastPathComponent, privacy: .public)'")
@@ -93,8 +77,6 @@ extension FileBookmark {
     }
 }
 
-#if os(macOS)
-
 extension FileBookmark {
 
     /// Open an URL in the Finder
@@ -113,8 +95,6 @@ public extension URL {
         NSWorkspace.shared.activateFileViewerSelecting([self])
     }
 }
-
-#endif
 
 public extension URL {
     func exist() -> Bool {

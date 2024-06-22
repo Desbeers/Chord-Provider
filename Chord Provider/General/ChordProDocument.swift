@@ -28,11 +28,11 @@ struct ChordProDocument: FileDocument {
     }
     /// Init the configuration
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents, let string = String(data: data, encoding: .utf8)
+        guard let data = configuration.file.regularFileContents
         else {
             throw CocoaError(.fileReadCorruptFile)
         }
-        text = string
+        text = String(decoding: data, as: UTF8.self)
     }
 
     /// Write the document

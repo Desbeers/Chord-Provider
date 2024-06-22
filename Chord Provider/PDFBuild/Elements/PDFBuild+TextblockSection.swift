@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 extension PDFBuild {
 
@@ -46,8 +46,8 @@ extension SWIFTStringAttribute {
     /// String attributes for a textblock  line
     static var textblockLine: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.italicSystemFont(ofSize: 10)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.italicSystemFont(ofSize: 10)
         ]
     }
 }

@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 
 extension PDFBuild {
 
@@ -23,7 +19,7 @@ extension PDFBuild {
         /// Metadata info for the PDF file
         let auxiliaryInfo: [CFString: String]
         /// The margins for the page
-        let pageMargin: SWIFTEdgeInsets
+        let pageMargin: NSEdgeInsets
         /// The optional current `PageHeaderFooter` element
         private var pageHeaderFooter: PDFBuild.PageHeaderFooter?
         /// The optional `PageCounter` element
@@ -40,7 +36,7 @@ extension PDFBuild {
         init(info: PDFBuild.DocumentInfo) {
             self.document = info
             self.auxiliaryInfo = info.dictionary
-            self.pageMargin = SWIFTEdgeInsets(
+            self.pageMargin = NSEdgeInsets(
                 top: info.pagePadding,
                 left: info.pagePadding,
                 bottom: info.pagePadding,
@@ -110,7 +106,6 @@ extension PDFBuild.Builder {
 
     /// Begin a new PDF page
     func beginPdfPage() {
-#if os(macOS)
         let pageInfo = [
             kCGPDFContextMediaBox: document.pageRect
         ] as CFDictionary
@@ -119,9 +114,6 @@ extension PDFBuild.Builder {
         /// Scale and translate to flip vertically
         pdfContext?.translateBy(x: 0, y: document.pageRect.height)
         pdfContext?.scaleBy(x: 1.0, y: -1.0)
-#else
-        UIGraphicsBeginPDFPage()
-#endif
     }
 
     /// Begin a new PDF page
@@ -133,7 +125,6 @@ extension PDFBuild.Builder {
         self.pageRect = pageRect
 
         let pdfData = NSMutableData()
-#if os(macOS)
         guard
             let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData),
             let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: nil, auxiliaryInfo as CFDictionary)
@@ -143,20 +134,13 @@ extension PDFBuild.Builder {
         self.pdfContext = pdfContext
         NSGraphicsContext.saveGraphicsState()
         NSGraphicsContext.current = NSGraphicsContext(cgContext: pdfContext, flipped: true)
-#else
-        UIGraphicsBeginPDFContextToData(pdfData, pageRect, auxiliaryInfo)
-#endif
         return pdfData
     }
 
     /// End the current PDF page
     func endPdfContext() {
-#if os(macOS)
         endPage()
         pdfContext?.closePDF()
         NSGraphicsContext.restoreGraphicsState()
-#else
-        UIGraphicsEndPDFContext()
-#endif
     }
 }

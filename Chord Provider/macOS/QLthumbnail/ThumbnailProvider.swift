@@ -23,7 +23,6 @@ class ThumbnailProvider: QLThumbnailProvider {
             )
             let data = try SongExport.export(
                 song: song,
-                generalOptions: .init(),
                 chordDisplayOptions: .init()
             )
             /// Create image for data

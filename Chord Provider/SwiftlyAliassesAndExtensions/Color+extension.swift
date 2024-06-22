@@ -12,9 +12,9 @@ extension Color: Codable {
     /// Make `Color` encodable
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        let swiftColor = SWIFTColor(self)
+        let nsColor = NSColor(self)
         let data = try NSKeyedArchiver.archivedData(
-            withRootObject: swiftColor,
+            withRootObject: nsColor,
             requiringSecureCoding: true
         )
         try container.encode(data)
@@ -24,23 +24,11 @@ extension Color: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let data = try container.decode(Data.self)
-        guard let swiftColor = try NSKeyedUnarchiver
-            .unarchivedObject(ofClass: SWIFTColor.self, from: data)
+        guard let nsColor = try NSKeyedUnarchiver
+            .unarchivedObject(ofClass: NSColor.self, from: data)
         else {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid decoding of archived data")
         }
-        self.init(swiftColor: swiftColor)
-    }
-}
-
-extension Color {
-
-    /// Init a `Color` with a `SWIFTColor` alias
-    init(swiftColor: SWIFTColor) {
-#if os(macOS)
-        self.init(nsColor: swiftColor)
-#else
-        self.init(uiColor: swiftColor)
-#endif
+        self.init(nsColor: nsColor)
     }
 }

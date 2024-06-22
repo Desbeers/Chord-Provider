@@ -1,14 +1,24 @@
 # Chord Provider
 
-## A [ChordPro](https://www.chordpro.org) viewer, editor and PDF exporter for macOS, iPadOS and visionOS
+## A [ChordPro](https://www.chordpro.org) viewer, editor and PDF exporter for macOS, ~~iPadOS~~ and ~~visionOS~~
+
+## Important:
+
+Due to rude treatment of Apple Support to get an official Apple Developer Account, the iPad and Vision Pro targets for **Chord Provider** are dropped.
+
+> Upon review, we can’t verify your identity with the Apple Developer app or provide further assistance with this Apple ID for Apple developer programs.
+
+Request for further assistance was ignored. So, I lost interest to code for fully closed platforms.
+
+---
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
 
 **Chord Provider** is written in SwiftUI and needs Xcode 15 to compile.
 
 - macOS Sonoma
-- iPadOS 17
-- visionOS 1.1
+- ~~iPadOS 17~~
+- ~~visionOS 1.1~~
 
 There are many **ChordPro** parsers in this world, however, none are *really* native in the Apple world.
 
@@ -20,11 +30,9 @@ I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainl
 
 A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Olympic White'. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
-### All Platforms
-
 - It will view and/or edit **ChordPro** files.
 - It can export a whole folder with **ChordPro** files to a PDF with a Table of Contents.
-- It has an editor that highlights your chords and directives with colors you can change in the settings.
+- It has an editor that highlights your chords and directives with colors you can change in the settings and you can edit a directive by double-clicking on it.
 - It recognise most of the **ChordPro** directives, but not all.
 - It can show diagrams for the guitar, guitalele and ukulele.
 - You can click on a chord diagram and it will open a Sheet with all known versions.
@@ -34,37 +42,20 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 - It can play chords with MIDI with a guitar instrument that you can select in the settings. *Note: This does not work in a simulator*.
 - It can play audio songs when stored next to the **ChordPro** file when defined with `{musicpath: file-name.m4a}` and when a music folder is selected (sandbox restriction).
 - Full 'left-handed' chords support.
-
-
-### macOS
-
 - It has a 'Song List' Window for your songs if you select a folder.
 - It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`
 - It makes thumbnails for your **ChordPro** files.
 - It has a fancier editor with linenumbers and you can edit a directive by double-clicking on it.
-
-Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
-
-### iPadOS
-
-- In my option, an iPad is consuming device, not ment for editing a file.
-- It is not tested on a real device.
-
-### visionOS
-
-- Currently `DocumentGroup` is partly broken. Resizing the window does not really work and closing the PDF quickview will close the whole document. (Xcode 15.4).
-- It is the future; however, not yet and the only reason I keep the `iOS` target alive....
-- It is not tested on a real device.
   
 ### Limitations
 
-Not all chords in the database are correct; especially the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS and iPadOS to view and alter the database with all known chords. Feel free to contribute!
+Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
 
-Only the macOS version is well-tested. I don't have iDevices that are supported by the current software version and I have no intention to buy one anytime soon.
+Not all chords in the database are correct; especially the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS and iPadOS to view and alter the database with all known chords. Feel free to contribute!
 
 ### iCloud
 
-The iPadOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.
+~~The iPadOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.~~
 
 ### Documentation
 
@@ -93,7 +84,7 @@ Stole code (and ideas) from:
 
 ### Used packages
 
-All my own and in my GitHub account.
+Both my own and in my GitHub account.
 
 ![Icon](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png)
 

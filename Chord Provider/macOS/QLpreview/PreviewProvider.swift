@@ -26,7 +26,6 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             )
             let data = try SongExport.export(
                 song: song,
-                generalOptions: .init(),
                 chordDisplayOptions: .init()
             ).pdf
             replyToUpdate.title = "\(song.metaData.artist) - \(song.metaData.title)"

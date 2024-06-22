@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 import SwiftlyChordUtilities
 
 extension PDFBuild.LyricsSection.Line {
@@ -71,16 +71,16 @@ public extension SWIFTStringAttribute {
     /// Style attributes for the chord of the part
     static func partChord(_ status: Chord.Status) -> SWIFTStringAttribute {
         [
-            .foregroundColor: status == .unknownChord ? SWIFTColor.red : SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: status == .unknownChord ? NSColor.red : NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
     /// Style atributes for the lyric of the part
     static var partLyric: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 }

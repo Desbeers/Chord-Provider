@@ -1,11 +1,9 @@
 //
-//  ChordProEditor+LineNumbersView (macOS).swift
+//  ChordProEditor+LineNumbersView.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
 //
-
-#if os(macOS)
 
 import AppKit
 
@@ -135,5 +133,3 @@ extension ChordProEditor {
         }
     }
 }
-
-#endif

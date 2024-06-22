@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 
 extension PDFBuild {
 
@@ -22,12 +18,12 @@ extension PDFBuild {
         let leadingText: NSAttributedString?
         /// The text of the label
         let labelText: NSAttributedString
-        /// The ``SWIFTColor`` background of the label
-        let backgroundColor: SWIFTColor
+        /// The `NSColor` background of the label
+        let backgroundColor: NSColor
         /// The alignment of the label
         let alignment: NSTextAlignment
         /// The corner radius of the label
-        let cornerRaduis: CGFloat = 3
+        let cornerRadius: CGFloat = 3
 
         /// Init the **label** element
         /// - Parameters:
@@ -35,7 +31,7 @@ extension PDFBuild {
         ///   - labelText: The text of the label
         ///   - backgroundColor: The ``SWIFTColor`` background of the label
         ///   - alignment: The alignment of the label
-        init(leadingText: NSAttributedString? = nil, labelText: NSAttributedString, backgroundColor: SWIFTColor, alignment: NSTextAlignment) {
+        init(leadingText: NSAttributedString? = nil, labelText: NSAttributedString, backgroundColor: NSColor, alignment: NSTextAlignment) {
             self.leadingText = leadingText
             self.labelText = labelText
             self.backgroundColor = backgroundColor
@@ -90,9 +86,9 @@ extension PDFBuild {
                 width: width,
                 height: height
             )
-            if !calculationOnly, let context = UIGraphicsGetCurrentContext() {
+            if !calculationOnly, let context = NSGraphicsContext.current?.cgContext {
                 /// Add clip
-                SWIFTBezierPath(roundedRect: fillRect, cornerRadius: cornerRaduis).addClip()
+                NSBezierPath(roundedRect: fillRect, xRadius: cornerRadius, yRadius: cornerRadius).addClip()
                 /// Draw the background
                 context.setFillColor(backgroundColor.cgColor)
                 context.fill(fillRect)
@@ -119,8 +115,8 @@ public extension SWIFTStringAttribute {
     /// Style attributes for the section label
     static var sectionLabel: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 }

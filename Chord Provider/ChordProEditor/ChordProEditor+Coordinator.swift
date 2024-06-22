@@ -11,7 +11,7 @@ extension ChordProEditor {
     // MARK: The coordinator for the editor
 
     /// The coordinator for the ``ChordProEditor``
-    class Coordinator: NSObject, SWIFTTextViewDelegate {
+    class Coordinator: NSObject, NSTextViewDelegate {
         /// The text of the editor
         var text: Binding<String>
         /// The connector class for the editor
@@ -31,8 +31,6 @@ extension ChordProEditor {
         }
 
         // MARK: Protocol Functions
-
-#if os(macOS)
 
         /// Protocol function to check if a text should change
         /// - Parameters:
@@ -72,33 +70,6 @@ extension ChordProEditor {
             else { return }
             swiftTextViewDidChangeSelection(selectedRanges: textView.selectedRanges)
         }
-#else
-        func textView(
-            _ textView: UITextView,
-            shouldChangeTextIn affectedCharRange: NSRange,
-            replacementText replacementString: String
-        ) -> Bool {
-            return swiftTextView(replacementString: replacementString)
-        }
-
-        func textViewDidChange(_ textView: UITextView) {
-            if let balance {
-                Task { @MainActor in
-                    let range = textView.selectedRange
-                    textView.insertText(balance)
-                    textView.selectedRange = range
-                }
-                self.balance = nil
-            }
-            connector.processHighlighting(fullText: highlightFullText)
-            swiftTextViewDidChangeSelection(selectedRanges: textView.selectedRanges)
-            updateTextBinding()
-        }
-
-        func textViewDidChangeSelection(_ textView: UITextView) {
-            swiftTextViewDidChangeSelection(selectedRanges: [NSValue(range: textView.selectedRange)])
-        }
-#endif
 
         // MARK: Wrap Platform Functions
 

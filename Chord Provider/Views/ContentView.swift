@@ -18,8 +18,6 @@ struct ContentView: View {
     @Environment(AppState.self) private var appState
     /// The state of the scene
     @State private var sceneState = SceneState()
-    /// Chord Display Options
-    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -30,7 +28,6 @@ struct ContentView: View {
         .toolbar {
             ToolbarView()
         }
-#if os(macOS)
         .onChange(of: sceneState.showPrintDialog) {
             if sceneState.showPrintDialog {
                 PrintSongView.printDialog(song: sceneState.song, exportURL: sceneState.exportURL)
@@ -39,11 +36,6 @@ struct ContentView: View {
         }
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.scene, sceneState)
-#else
-        .sheet(isPresented: $sceneState.showSettings) {
-            SettingsView()
-        }
-#endif
         .task {
             if document.text == ChordProDocument.newText {
                 sceneState.presentTemplate = true

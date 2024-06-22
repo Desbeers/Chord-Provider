@@ -22,9 +22,9 @@ struct ChordsView: View {
     @State var defineChord: ChordDefinition?
     /// The body of the `View`
     var body: some View {
-        let layout = appState.settings.chordsPosition == .bottom ?
+        let layout = sceneState.songDisplayOptions.chordsPosition == .bottom ?
         AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-        ScrollView([appState.settings.chordsPosition == .bottom ? .horizontal : .vertical]) {
+        ScrollView([sceneState.songDisplayOptions.chordsPosition == .bottom ? .horizontal : .vertical]) {
             layout {
                 ForEach(sceneState.song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                     switch chord.status {

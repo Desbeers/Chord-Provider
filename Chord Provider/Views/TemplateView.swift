@@ -58,9 +58,6 @@ struct TemplateView: View {
                         .buttonStyle(.bordered)
                     }
                     .formStyle(.columns)
-#if !os(macOS)
-                    .textFieldStyle(.roundedBorder)
-#endif
                 }
             }
             .padding()

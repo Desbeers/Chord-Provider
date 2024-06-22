@@ -19,15 +19,13 @@ struct MainView: View {
     @Environment(FileBrowser.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
-    /// Chord Display Options
-    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The body of the `View`
     var body: some View {
-        let layout = appState.settings.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
+        let layout = sceneState.songDisplayOptions.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
         HStack(spacing: 0) {
             layout {
                 SongView()
-                if appState.settings.showChords {
+                if sceneState.songDisplayOptions.showChords {
                     Divider()
                     ChordsView(document: $document)
                         .background(Color.telecaster.opacity(0.2))
@@ -51,10 +49,16 @@ struct MainView: View {
         .onChange(of: sceneState.song.metaData.transpose) {
             renderSong()
         }
-        .onChange(of: appState.settings.general) {
+        .onChange(of: sceneState.songDisplayOptions) {
+            appState.settings.songDisplayOptions = sceneState.songDisplayOptions
             renderSong()
         }
-        .onChange(of: chordDisplayOptions.displayOptions) {
+        .onChange(of: sceneState.chordDisplayOptions.displayOptions) {
+            appState.settings.chordDisplayOptions = sceneState.chordDisplayOptions.displayOptions
+            renderSong()
+        }
+        .onChange(of: appState.settings.songDisplayOptions.repeatWholeChorus) {
+            sceneState.songDisplayOptions.repeatWholeChorus = appState.settings.songDisplayOptions.repeatWholeChorus
             renderSong()
         }
         .animation(.default, value: sceneState.showEditor)
@@ -67,9 +71,10 @@ struct MainView: View {
             id: UUID(),
             text: document.text,
             transpose: sceneState.song.metaData.transpose,
-            instrument: chordDisplayOptions.displayOptions.instrument,
+            instrument: sceneState.chordDisplayOptions.displayOptions.instrument,
             fileURL: sceneState.file
         )
+        sceneState.song.displayOptions = sceneState.songDisplayOptions
         if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == sceneState.file }) {
             fileBrowser.songList[index].title = sceneState.song.metaData.title
             fileBrowser.songList[index].artist = sceneState.song.metaData.artist
@@ -79,8 +84,7 @@ struct MainView: View {
             do {
                 let export = try SongExport.export(
                     song: sceneState.song,
-                    generalOptions: appState.settings.general,
-                    chordDisplayOptions: chordDisplayOptions.displayOptions
+                    chordDisplayOptions: sceneState.chordDisplayOptions.displayOptions
                 )
                 try export.pdf.write(to: sceneState.exportURL)
             } catch {

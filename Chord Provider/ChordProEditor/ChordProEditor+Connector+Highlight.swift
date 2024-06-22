@@ -25,10 +25,10 @@ extension ChordProEditor.Connector {
         let currentParagraphRange = fullText ? fullRange : composeText.paragraphRange(for: textView.selectedRange)
 
         /// Make all text in the default style
-        textView.attributedStorage?.setAttributes(
+        textView.textStorage?.setAttributes(
             [
                 .paragraphStyle: ChordProEditor.paragraphStyle,
-                .foregroundColor: SWIFTColor.textColor,
+                .foregroundColor: NSColor.textColor,
                 .font: font
             ], range: currentParagraphRange)
         /// Brackets
@@ -36,9 +36,9 @@ extension ChordProEditor.Connector {
         for bracket in brackets {
             let nsRange = NSRange(range: bracket, in: text)
             if checkIntersection(nsRange) {
-                textView.attributedStorage?.addAttribute(
+                textView.textStorage?.addAttribute(
                     .foregroundColor,
-                    value: SWIFTColor(settings.bracketColor),
+                    value: NSColor(settings.bracketColor),
                     range: nsRange
                 )
             }
@@ -48,9 +48,9 @@ extension ChordProEditor.Connector {
         for chord in chords {
             let nsRange = NSRange(range: chord, in: text, leadingOffset: 1, trailingOffset: 1)
             if checkIntersection(nsRange) {
-                textView.attributedStorage?.addAttribute(
+                textView.textStorage?.addAttribute(
                     .foregroundColor,
-                    value: SWIFTColor(settings.chordColor),
+                    value: NSColor(settings.chordColor),
                     range: nsRange
                 )
             }
@@ -61,9 +61,9 @@ extension ChordProEditor.Connector {
             var nsRange = NSRange(range: directive.range, in: text, leadingOffset: 1, trailingOffset: 1)
             nsRange.length = directive.output.1.rawValue.count
             if checkIntersection(nsRange) {
-                textView.attributedStorage?.addAttributes(
+                textView.textStorage?.addAttributes(
                     [
-                        .foregroundColor: SWIFTColor(settings.directiveColor),
+                        .foregroundColor: NSColor(settings.directiveColor),
                         .definition: directive.output.1
                     ],
                     range: nsRange
@@ -78,9 +78,9 @@ extension ChordProEditor.Connector {
                 let directiveNSRange = NSRange(range: directiveRange, in: directive.output.0.description)
                 nsRange.location += directiveNSRange.location - 1
                 nsRange.length = directiveNSRange.length
-                textView.attributedStorage?.addAttribute(
+                textView.textStorage?.addAttribute(
                     .foregroundColor,
-                    value: SWIFTColor(settings.definitionColor),
+                    value: NSColor(settings.definitionColor),
                     range: nsRange
                 )
             }
@@ -89,7 +89,7 @@ extension ChordProEditor.Connector {
         /// The attributes for the next typing
         textView.typingAttributes = [
             .paragraphStyle: ChordProEditor.paragraphStyle,
-            .foregroundColor: SWIFTColor.textColor,
+            .foregroundColor: NSColor.textColor,
             .font: font
         ]
 

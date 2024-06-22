@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 
 extension PDFBuild {
 
@@ -18,13 +14,13 @@ extension PDFBuild {
     /// A PDF **page background color** element
     class PageBackgroundColor: PDFElement {
 
-        /// The ``SWIFTColor`` for the background
-        let color: SWIFTColor
+        /// The `NSColor` for the background
+        let color: NSColor
 
         /// Fill a page with a background color
         /// - Parameters:
-        ///   - color: The ``SWIFTColor`` for the background
-        init(color: SWIFTColor) {
+        ///   - color: The `NSColor` for the background
+        init(color: NSColor) {
             self.color = color
         }
 
@@ -36,7 +32,7 @@ extension PDFBuild {
         /// - Note: the rect value will be ignored and the full page size will be used
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Render the background below the element
-            if !calculationOnly, let context = UIGraphicsGetCurrentContext() {
+            if !calculationOnly, let context = NSGraphicsContext.current?.cgContext {
                 context.setFillColor(color.cgColor)
                 context.fill(pageRect)
             }

@@ -5,8 +5,6 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
-
 import AppKit
 
 extension ChordProEditor {
@@ -107,5 +105,3 @@ extension ChordProEditor {
         }
     }
 }
-
-#endif

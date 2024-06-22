@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 import SwiftlyChordUtilities
 
 extension PDFBuild.Chords {
@@ -170,8 +166,8 @@ extension PDFBuild.Chords {
                         width: gridSize.width + xSpacing * 0.55,
                         height: ySpacing / 5
                     )
-                    if chord.baseFret == 1, let context = UIGraphicsGetCurrentContext() {
-                        context.setFillColor(SWIFTColor.black.cgColor)
+                    if chord.baseFret == 1, let context = NSGraphicsContext.current?.cgContext {
+                        context.setFillColor(NSColor.black.cgColor)
                         context.fill(nutRect)
                     }
                 }
@@ -207,7 +203,7 @@ extension PDFBuild.Chords {
                         y: rect.origin.y
                     )
                     var start = gridPoint
-                    if let context = UIGraphicsGetCurrentContext() {
+                    if let context = NSGraphicsContext.current?.cgContext {
                         /// Draw the strings
                         for _ in 0...columns {
                             context.move(to: start)
@@ -222,7 +218,7 @@ extension PDFBuild.Chords {
                             context.addLine(to: CGPoint(x: start.x + gridSize.width, y: start.y))
                             start.y += ySpacing
                         }
-                        context.setStrokeColor(SWIFTColor.black.cgColor)
+                        context.setStrokeColor(NSColor.black.cgColor)
                         context.setLineWidth(0.2)
                         context.setLineCap(.round)
                         context.strokePath()
@@ -336,40 +332,40 @@ public extension SWIFTStringAttribute {
     /// Style attributes for the diagram chord name
     static var diagramChordName: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
     /// Style attributes for the diagram finger
     static var diagramFinger: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.white,
-            .font: SWIFTFont.systemFont(ofSize: 6, weight: .regular)
+            .foregroundColor: NSColor.white,
+            .font: NSFont.systemFont(ofSize: 6, weight: .regular)
         ] + .alignment(.center)
     }
 
     /// Style attributes for the diagram top bar
     static var diagramTopBar: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 4, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 4, weight: .regular)
         ] + .alignment(.center)
     }
 
     /// Style attributes for the diagram base fret
     static var diagramBaseFret: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 4, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 4, weight: .regular)
         ] + .alignment(.left)
     }
 
     /// Style attributes for the diagram top bar
     static var diagramBottomBar: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 4, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 4, weight: .regular)
         ] + .alignment(.center)
     }
 }

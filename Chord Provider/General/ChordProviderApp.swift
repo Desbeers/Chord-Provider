@@ -14,20 +14,10 @@ import SwiftlyChordUtilities
 ///
 /// - Note: Each platform has its own `body`
 @main struct ChordProviderApp: App {
-
-    // MARK: Shared
-
     /// The observable ``FileBrowser`` class
     @State private var fileBrowser = FileBrowser()
-    /// Chord Display Options
-    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
     /// The state of the app
-    @State private var appState = AppState()
-
-#if os(macOS)
-
-    // MARK: macOS
-
+    @State private var appState = AppState(id: "Main")
     /// The ``AppDelegate`` class  for **Chord Provider**
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     /// The `openWindow` environment to open a new Window
@@ -64,7 +54,6 @@ import SwiftlyChordUtilities
                 .frame(width: 400, height: 600)
                 .environment(appState)
                 .environment(fileBrowser)
-                .environment(chordDisplayOptions)
         }
         .keyboardShortcut("e")
         /// Make it sizable by the View frame
@@ -78,7 +67,6 @@ import SwiftlyChordUtilities
         DocumentGroup(newDocument: ChordProDocument()) { file in
             ContentView(document: file.$document, file: file.fileURL)
                 .environment(fileBrowser)
-                .environment(chordDisplayOptions)
                 .environment(appState)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file.document)
@@ -94,8 +82,7 @@ import SwiftlyChordUtilities
                     /// Register the window unless we are browsing Versions
                     if
                         !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false),
-                        let window = window?.windowController?.window
-                    {
+                        let window = window?.windowController?.window {
                         fileBrowser.openWindows.append(
                             NSWindow.WindowItem(
                                 windowID: window.windowNumber,
@@ -152,7 +139,6 @@ import SwiftlyChordUtilities
         Settings {
             SettingsView()
                 .environment(appState)
-                .environment(chordDisplayOptions)
                 .environment(fileBrowser)
         }
     }
@@ -169,40 +155,4 @@ import SwiftlyChordUtilities
         /// A scene to export a folder of songs
         case exportFolderWindow
     }
-
-#endif
-
-#if os(iOS)
-
-    // MARK: iPadOS
-
-    /// The body of the `Scene`
-    var body: some Scene {
-        DocumentGroup(newDocument: ChordProDocument()) { file in
-            ContentView(document: file.$document, file: file.fileURL)
-                .environment(chordDisplayOptions)
-                .environment(fileBrowser)
-                .environment(appState)
-                .toolbarBackground(
-                    Color.accent.opacity(0.4),
-                    for: .navigationBar)
-                .toolbarBackground(.visible, for: .navigationBar)
-        }
-    }
-#endif
-
-#if os(visionOS)
-
-    // MARK: visionOS
-
-    /// The body of the `Scene`
-    var body: some Scene {
-        DocumentGroup(newDocument: ChordProDocument()) { file in
-            ContentView(document: file.$document, file: file.fileURL)
-                .environment(appState)
-                .environment(chordDisplayOptions)
-                .environment(fileBrowser)
-        }
-    }
-#endif
 }

@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 import AVFoundation
 
 extension PDFBuild {
@@ -15,15 +15,15 @@ extension PDFBuild {
     /// A PDF **image** element
     class Image: PDFElement {
         /// The image to draw
-        let image: SWIFTImage
+        let image: NSImage
         /// The optional fixed size of the image
         let fixedSize: CGSize?
 
         /// Init the **image** element
         /// - Parameters:
-        ///   - image: The `SWIIFTImage` to draw
+        ///   - image: The `NSImage` to draw
         ///   - size: the optional size of the image
-        init(_ image: SWIFTImage, size: CGSize? = nil) {
+        init(_ image: NSImage, size: CGSize? = nil) {
             self.image = image
             self.fixedSize = size
         }

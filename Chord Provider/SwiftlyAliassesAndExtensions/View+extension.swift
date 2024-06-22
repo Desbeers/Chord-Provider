@@ -4,8 +4,6 @@
 //
 //  © 2024 Nick Berendsen//
 
-#if os(macOS)
-
 import SwiftUI
 
 extension View {
@@ -17,5 +15,3 @@ extension View {
         self.background(NSWindow.HostingWindowFinder(callback: callback))
     }
 }
-
-#endif

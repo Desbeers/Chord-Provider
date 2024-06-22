@@ -92,7 +92,7 @@ line_length:
   ignores_urls: true
   ignores_function_declarations: true
   ignores_comments: true
-  warning: 150
+  warning: 165
 
 function_body_length:
   warning: 150

@@ -5,8 +5,6 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
-
 import AppKit
 
 extension NSFont {
@@ -24,9 +22,7 @@ extension NSFont {
 
         /// Create a font from the descriptor
         let italicSystemFont = NSFont(descriptor: fontDescriptor, size: fontSize)
-
-        return italicSystemFont ?? systemFont // Return italic font or fallback to system font
+        /// Return italic font or fallback to system font
+        return italicSystemFont ?? systemFont
     }
 }
-
-#endif

@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 
 public extension SWIFTStringAttribute {
 
@@ -35,48 +31,48 @@ public extension SWIFTStringAttribute {
     /// Style attributes for the default font
     static var defaultFont: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
     /// Style attributes for the small font
     static var smallFont: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 6, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 6, weight: .regular)
         ]
     }
 
     /// Style attributes for the title of the song
     static var songTitle: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 14, weight: .semibold)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 14, weight: .semibold)
         ] + .alignment(.center)
     }
 
     /// Style attributes for the artist of the song
     static var songArtist: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 12, weight: .regular)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 12, weight: .regular)
         ] + .alignment(.center)
     }
 
     /// Style attributes for the export title
     static var exportTitle: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.white,
-            .font: SWIFTFont.systemFont(ofSize: 28, weight: .semibold)
+            .foregroundColor: NSColor.white,
+            .font: NSFont.systemFont(ofSize: 28, weight: .semibold)
         ] + .alignment(.center)
     }
 
     /// Style attributes for the export author
     static var exportAuthor: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 24, weight: .regular)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 24, weight: .regular)
         ] + .alignment(.center)
     }
 
@@ -95,20 +91,11 @@ public extension SWIFTStringAttribute {
 
     /// Style attributes for a *serif* font style
     static var serifFont: SWIFTStringAttribute {
-#if os(macOS)
         let descriptor = NSFontDescriptor
             .preferredFontDescriptor(
                 forTextStyle: .body
             )
             .withDesign(.serif)
-        return [.font: SWIFTFont(descriptor: descriptor ?? NSFontDescriptor(), size: 10) ?? [:]]
-#else
-        let descriptor = UIFontDescriptor
-            .preferredFontDescriptor(
-                withTextStyle: .body
-            )
-            .withDesign(.serif)
-        return [.font: SWIFTFont(descriptor: descriptor ?? UIFontDescriptor(), size: 10)]
-#endif
+        return [.font: NSFont(descriptor: descriptor ?? NSFontDescriptor(), size: 10) ?? [:]]
     }
 }

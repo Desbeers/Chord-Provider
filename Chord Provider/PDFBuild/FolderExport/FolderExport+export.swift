@@ -23,12 +23,12 @@ extension FolderExport {
     /// Export a folder with ChordPro songs
     /// - Parameters:
     ///   - info: The document info for the PDF
-    ///   - generalOptions: The general options
+    ///   - songDisplayOptions: The song display options
     ///   - chordDisplayOptions: The chord display options
-    /// - Returns: A stream with progress indication and a document when finnished
+    /// - Returns: A stream with progress indication and a document when finished
     static func export(
         info: PDFBuild.DocumentInfo,
-        generalOptions: ChordProviderGeneralOptions,
+        songDisplayOptions: Song.DisplayOptions,
         chordDisplayOptions: ChordDefinition.DisplayOptions
     ) -> AsyncThrowingStream<Status, Error> {
         AsyncThrowingStream { continuation in
@@ -36,7 +36,7 @@ extension FolderExport {
                 do {
                     let render = try await FolderExport.export(
                         info: info,
-                        generalOptions: generalOptions,
+                        songDisplayOptions: songDisplayOptions,
                         chordDisplayOptions: chordDisplayOptions
                     ) { page in
                         continuation.yield(Status.progress(page))
@@ -58,13 +58,13 @@ extension FolderExport {
     /// Export a folder with ChordPro songs
     /// - Parameters:
     ///   - info: The document info for the PDF
-    ///   - generalOptions: The general options
+    ///   - songDisplayOptions: The song display options
     ///   - chordDisplayOptions: The chord display options
     ///   - progress: A closure to observe the progress of PDF creation
     /// - Returns: A PDFDocument if all well, else an error
     static func export(
         info: PDFBuild.DocumentInfo,
-        generalOptions: ChordProviderGeneralOptions,
+        songDisplayOptions: Song.DisplayOptions,
         chordDisplayOptions: ChordDefinition.DisplayOptions,
         progress: @escaping (Double) -> Void
     ) async throws -> Data? {
@@ -91,7 +91,7 @@ extension FolderExport {
         let contentData = FolderExport.content(
             info: info,
             counter: counter,
-            generalOptions: generalOptions,
+            songDisplayOptions: songDisplayOptions,
             chordDisplayOptions: chordDisplayOptions,
             progress: progress
         )

@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 import SwiftlyChordUtilities
 
 extension PDFBuild.GridSection {
@@ -82,15 +82,15 @@ extension SWIFTStringAttribute {
     /// String attributes for a grid line
     static var gridText: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
         ]
     }
     /// String attributes for a grid chord
     static var gridChord: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
         ]
     }
 }

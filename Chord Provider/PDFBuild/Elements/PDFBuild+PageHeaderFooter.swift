@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 extension PDFBuild {
 
@@ -77,8 +77,8 @@ public extension SWIFTStringAttribute {
     /// Style attributes for the footer
     static var footer: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 8, weight: .regular)
         ]
     }
 }

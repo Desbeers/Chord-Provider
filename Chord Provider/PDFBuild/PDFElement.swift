@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 
 /// A protocol for elements to create a PDF page from a ``Song``
 protocol PDFElement {
@@ -110,12 +106,4 @@ extension PDFElement {
     func clip(_ shape: PDFBuild.ShapeStyle) -> PDFElement {
         PDFBuild.Clip(shape, self)
     }
-
-#if os(macOS)
-    /// macOS version of the `UIGraphicsGetCurrentContext` function from iOS
-    /// - Returns: An optional Quartz 2D drawing environment
-    func UIGraphicsGetCurrentContext() -> CGContext? {
-        NSGraphicsContext.current?.cgContext
-    }
-#endif
 }

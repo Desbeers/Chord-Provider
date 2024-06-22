@@ -1,11 +1,9 @@
 //
-//  NSImage+extension (macOS).swift
+//  NSImage+extension.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
 //
-
-#if os(macOS)
 
 import AppKit
 
@@ -20,5 +18,3 @@ public extension NSImage {
         self.init(systemSymbolName: systemName, accessibilityDescription: nil)!
     }
 }
-
-#endif

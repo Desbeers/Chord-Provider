@@ -27,13 +27,11 @@ class FileBrowser {
     var songsFolder: URL?
     /// The status
     var status: AppError = .unknownStatus
-#if os(macOS)
     /// The list of open windows
     var openWindows: [NSWindow.WindowItem] = []
     /// The MenuBarExtra window
     /// - Note: Needed to close the MenuBarExtra when selecting a song
     var menuBarExtraWindow: NSWindow?
-#endif
     /// Init the FileBrowser
     init() {
         songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder)

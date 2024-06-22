@@ -17,6 +17,9 @@ actor ChordPro {
     /// - Parameters:
     ///   - text: The text of the file
     ///   - transpose: The optional transpose of the song
+    ///   - id: The ID of the song
+    ///   - instrument: The instrument of the song
+    ///   - fileURL: The optional file url of the song
     /// - Returns: A ``Song`` item
     static func parse(id: UUID, text: String, transpose: Int, instrument: Instrument, fileURL: URL?) -> Song {
         /// Start with a fresh song

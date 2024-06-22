@@ -7,94 +7,94 @@
 
 import SwiftUI
 
-extension AppState {
+extension SceneState {
 
     // MARK: Chords Menu
 
     /// Chords menu
     var chordsMenu: some View {
-        ChordsMenu(appState: self)
+        ChordsMenu(sceneState: self)
     }
     /// Chords menu
     private struct ChordsMenu: View {
-        /// The binding to the observable ``AppState``
-        @Bindable var appState: AppState
+        /// The binding to the observable ``SceneState``
+        @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Menu("Chords", systemImage: appState.settings.showChords ? "number.circle.fill" : "number.circle") {
-                appState.showChordsButton
+            Menu("Chords", systemImage: sceneState.songDisplayOptions.showChords ? "number.circle.fill" : "number.circle") {
+                sceneState.showChordsButton
                 Divider()
-                appState.chordsPositionPicker
+                sceneState.chordsPositionPicker
                     .pickerStyle(.inline)
             }
         }
     }
 }
 
-extension AppState {
+extension SceneState {
 
     // MARK: Show Chords Button
 
     /// Show chords button
     var showChordsButton: some View {
-        ShowChordsButton(appState: self)
+        ShowChordsButton(sceneState: self)
     }
     /// Show chords button
     private struct ShowChordsButton: View {
-        /// The binding to the observable ``AppState``
-        @Bindable var appState: AppState
+        /// The binding to the observable ``SceneState``
+        @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
             Button {
-                appState.settings.showChords.toggle()
+                sceneState.songDisplayOptions.showChords.toggle()
             } label: {
-                Text(appState.settings.showChords ? "Hide Chords" : "Show Chords")
+                Text(sceneState.songDisplayOptions.showChords ? "Hide Chords" : "Show Chords")
             }
         }
     }
 }
 
-extension AppState {
+extension SceneState {
 
     // MARK: Chords Position Picker
 
     /// Chords Position Picker
     var chordsPositionPicker: some View {
-        ChordsPositionPicker(appState: self)
+        ChordsPositionPicker(sceneState: self)
     }
     /// Chords Position Picker
     private struct ChordsPositionPicker: View {
-        /// The binding to the observable ``AppState``
-        @Bindable var appState: AppState
+        /// The binding to the observable ``SceneState``
+        @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Picker("Position:", selection: $appState.settings.chordsPosition) {
-                ForEach(ChordProviderSettings.Position.allCases, id: \.rawValue) { value in
+            Picker("Position:", selection: $sceneState.songDisplayOptions.chordsPosition) {
+                ForEach(Song.DisplayOptions.ChordsPosition.allCases, id: \.rawValue) { value in
                     Text(value.rawValue)
                         .tag(value)
                 }
             }
-            .disabled(appState.settings.showChords == false)
+            .disabled(sceneState.songDisplayOptions.showChords == false)
         }
     }
 }
 
-extension AppState {
+extension SceneState {
 
     // MARK: Chords As Diagram Toggle
 
     /// Chords As Diagram Toggle
     var chordsAsDiagramToggle: some View {
-        ChordsAsDiagramToggle(appState: self)
+        ChordsAsDiagramToggle(sceneState: self)
     }
 
     /// Chords As Diagram Toggle
     private struct ChordsAsDiagramToggle: View {
-        /// The binding to the observable ``AppState``
-        @Bindable var appState: AppState
+        /// The binding to the observable ``SceneState``
+        @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $appState.settings.showInlineDiagrams) {
+            Toggle(isOn: $sceneState.songDisplayOptions.showInlineDiagrams) {
                 Text("Chords as Diagram")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -105,21 +105,21 @@ extension AppState {
     }
 }
 
-extension AppState {
+extension SceneState {
 
     // MARK: Song Paging Picker
 
     /// Song Paging Picker
     var songPagingPicker: some View {
-        SongPagingPicker(appState: self)
+        SongPagingPicker(sceneState: self)
     }
     /// Song Paging Picker
     private struct SongPagingPicker: View {
-        /// The binding to the observable ``AppState``
-        @Bindable var appState: AppState
+        /// The binding to the observable ``SceneState``
+        @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Picker("Pager:", selection: $appState.settings.paging) {
+            Picker("Pager:", selection: $sceneState.songDisplayOptions.paging) {
                 ForEach(Song.DisplayOptions.Paging.allCases, id: \.rawValue) { value in
                     value.label
                         .tag(value)

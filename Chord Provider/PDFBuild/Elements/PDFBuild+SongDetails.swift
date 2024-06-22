@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 import SwiftlyChordUtilities
 
 extension PDFBuild {
@@ -74,16 +74,16 @@ extension SWIFTStringAttribute {
     /// String attributes for a song detail icon
     static var songDetailIcon: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.gray,
-            .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 8, weight: .regular)
         ] + alignment(.center)
     }
 
     /// String attributes for a song detail label
     static var songDetailLabel: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.systemFont(ofSize: 8, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 8, weight: .regular)
         ] + alignment(.center)
     }
 }

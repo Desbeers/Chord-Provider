@@ -22,7 +22,7 @@ extension FolderExport {
     static func content(
         info: PDFBuild.DocumentInfo,
         counter: PDFBuild.PageCounter,
-        generalOptions: ChordProviderGeneralOptions,
+        songDisplayOptions: Song.DisplayOptions,
         chordDisplayOptions: ChordDefinition.DisplayOptions,
         progress: @escaping (Double) -> Void
     ) -> Data {
@@ -59,7 +59,6 @@ extension FolderExport {
                     builder.elements.append(
                         contentsOf: SongExport.getSongElements(
                             song: song,
-                            generalOptions: generalOptions,
                             chordDisplayOptions: chordDisplayOptions,
                             counter: counter
                         )

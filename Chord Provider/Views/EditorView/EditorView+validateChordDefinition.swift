@@ -16,11 +16,11 @@ extension EditorView {
         do {
             let chord = try ChordDefinition(
                 definition: directiveSettings.definition,
-                instrument: chordDisplayOptions.displayOptions.instrument,
+                instrument: sceneState.chordDisplayOptions.displayOptions.instrument,
                 status: .unknownChord
             )
             /// Set the definition
-            chordDisplayOptions.definition = chord
+            sceneState.chordDisplayOptions.definition = chord
             /// Show the sheet
             return true
         } catch {

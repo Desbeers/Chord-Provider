@@ -25,7 +25,6 @@ extension SongExport {
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
         song: Song,
-        generalOptions: ChordProviderGeneralOptions,
         chordDisplayOptions: ChordDefinition.DisplayOptions
     ) throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         let pdfInfo = PDFBuild.DocumentInfo(
@@ -49,7 +48,6 @@ extension SongExport {
         builder.elements.append(
             contentsOf: getSongElements(
                 song: song,
-                generalOptions: generalOptions,
                 chordDisplayOptions: chordDisplayOptions,
                 counter: counter
             )
@@ -76,7 +74,6 @@ extension SongExport {
     // swiftlint:disable:next function_body_length
     static func getSongElements(
         song: Song,
-        generalOptions: ChordProviderGeneralOptions,
         chordDisplayOptions: ChordDefinition.DisplayOptions,
         counter: PDFBuild.PageCounter
     ) -> [PDFElement] {
@@ -266,7 +263,9 @@ extension SongExport {
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
-            if generalOptions.repeatWholeChorus, let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
+            if
+                song.displayOptions.repeatWholeChorus,
+                let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
                 return lyricsSection(section: lastChorus)
             } else {
                 let leadingText = NSAttributedString(string: "􀊯", attributes: .sectionLabel)

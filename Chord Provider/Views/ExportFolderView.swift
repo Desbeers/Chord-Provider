@@ -12,11 +12,11 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for a folder export
 struct ExportFolderView: View {
     /// The app state
-    @Environment(AppState.self) private var appState
+    @State private var appState = AppState(id: "FolderExport")
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// Chord Display Options
-    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
+    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: ChordProviderSettings.defaults)
     /// The current selected folder
     @State private var currentFolder: String? = ExportFolderView.exportFolderTitle
     /// The PDF info
@@ -40,6 +40,7 @@ struct ExportFolderView: View {
                 }
                 appState.repeatWholeChorusToggle
                 chordDisplayOptions.instrumentPicker
+                    .pickerStyle(.segmented)
                 Section("PDF info") {
                     TextField("Title of the export", text: $pdfInfo.title, prompt: Text("Title"))
                     TextField("Author of the export", text: $pdfInfo.author, prompt: Text("Author"))
@@ -64,7 +65,7 @@ struct ExportFolderView: View {
                             exporting = true
                             for try await status in FolderExport.export(
                                 info: pdfInfo,
-                                generalOptions: appState.settings.general,
+                                songDisplayOptions: appState.settings.songDisplayOptions,
                                 chordDisplayOptions: chordDisplayOptions.displayOptions
                             ) {
                                 switch status {
@@ -115,6 +116,12 @@ struct ExportFolderView: View {
         }
         .task(id: currentFolder) {
             pdfInfo.title = currentFolder ?? ""
+        }
+        .task {
+            chordDisplayOptions.displayOptions = appState.settings.chordDisplayOptions
+        }
+        .onChange(of: chordDisplayOptions.displayOptions) {
+            appState.settings.chordDisplayOptions = chordDisplayOptions.displayOptions
         }
     }
     /// Get the current selected export folder

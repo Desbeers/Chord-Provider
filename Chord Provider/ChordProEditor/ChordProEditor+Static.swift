@@ -28,7 +28,7 @@ extension ChordProEditor {
         lineNumberStyle.lineHeightMultiple = lineHeightMultiple
         var fontAttributes: SWIFTStringAttribute = [:]
         fontAttributes[NSAttributedString.Key.paragraphStyle] = lineNumberStyle
-        fontAttributes[NSAttributedString.Key.backgroundColor] = SWIFTColor.clear
+        fontAttributes[NSAttributedString.Key.backgroundColor] = NSColor.clear
         fontAttributes[NSAttributedString.Key.foregroundColor] = highlightedForegroundColor
 
         return fontAttributes
@@ -41,15 +41,15 @@ extension ChordProEditor {
         lineNumberStyle.lineHeightMultiple = lineHeightMultiple
         var fontAttributes: SWIFTStringAttribute = [:]
         fontAttributes[NSAttributedString.Key.paragraphStyle] = lineNumberStyle
-        fontAttributes[NSAttributedString.Key.backgroundColor] = SWIFTColor.clear
+        fontAttributes[NSAttributedString.Key.backgroundColor] = NSColor.clear
         fontAttributes[NSAttributedString.Key.foregroundColor] = highlightedForegroundColor
 
         return fontAttributes
     }
 
     /// The foreground of the highlighted line in the editor
-    static let highlightedForegroundColor: SWIFTColor = .textColor.withAlphaComponent(0.3)
+    static let highlightedForegroundColor: NSColor = .textColor.withAlphaComponent(0.3)
 
     /// The background of the highlighted line in the editor
-    static let highlightedBackgroundColor: SWIFTColor = .textColor.withAlphaComponent(0.03)
+    static let highlightedBackgroundColor: NSColor = .textColor.withAlphaComponent(0.03)
 }

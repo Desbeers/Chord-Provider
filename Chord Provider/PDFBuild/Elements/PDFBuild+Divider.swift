@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 
 extension PDFBuild {
 
@@ -22,7 +18,7 @@ extension PDFBuild {
         /// The line with of the divider
         let lineWidth: CGFloat = 0.6
         /// The color of the divider
-        let strokeColor = SWIFTColor.lightGray.cgColor
+        let strokeColor = NSColor.lightGray.cgColor
 
         /// Init the **divider** element
         /// - Parameter direction: The direction of the `divider`
@@ -36,7 +32,7 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the size should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            if let context = UIGraphicsGetCurrentContext() {
+            if let context = NSGraphicsContext.current?.cgContext {
                 switch direction {
                 case .horizontal:
                     if !calculationOnly {

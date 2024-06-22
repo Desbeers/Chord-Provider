@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 extension PDFBuild {
 
@@ -51,8 +51,8 @@ extension SWIFTStringAttribute {
     /// String attributes for a strum line
     static var strumLine: SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.monospacedSystemFont(ofSize: 8, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.monospacedSystemFont(ofSize: 8, weight: .regular)
         ]
     }
 }

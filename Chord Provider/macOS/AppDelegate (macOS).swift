@@ -5,8 +5,6 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
-
 import AppKit
 
 /// The AppDelegate for **Chord Provider**
@@ -16,5 +14,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 }
-
-#endif

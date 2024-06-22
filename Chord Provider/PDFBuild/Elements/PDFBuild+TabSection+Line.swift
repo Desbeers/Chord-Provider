@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 extension PDFBuild.TabSection {
 
@@ -55,8 +55,8 @@ public extension SWIFTStringAttribute {
     /// Style attributes for the line of a tab
     static func tabLine(fontSize: CGFloat) -> SWIFTStringAttribute {
         [
-            .foregroundColor: SWIFTColor.black,
-            .font: SWIFTFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
+            .foregroundColor: NSColor.black,
+            .font: NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
         ]
     }
 }

@@ -5,11 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
 import AVFoundation
 
 extension PDFBuild {
@@ -45,18 +41,18 @@ extension PDFBuild {
                 let tempRect = calculateDraw(rect: rect, elements: [element], pageRect: pageRect)
                 var fillRect = rect
                 fillRect.size.height = rect.height - tempRect.height
-                let context = UIGraphicsGetCurrentContext()
+                let context = NSGraphicsContext.current?.cgContext
                 switch shape {
                 case .circle:
                     let clipRect = AVMakeRect(
                         aspectRatio: CGSize(width: 1, height: 1),
                         insideRect: fillRect
                     )
-                    SWIFTBezierPath(roundedRect: clipRect, cornerRadius: clipRect.width / 2).addClip()
+                    NSBezierPath(roundedRect: clipRect, xRadius: clipRect.width / 2, yRadius: clipRect.width / 2).addClip()
                 case .roundedRect(let radius):
                     fillRect.size.height = 2 * radius
                     fillRect.origin.y += (rect.size.height - fillRect.size.height) / 2
-                    SWIFTBezierPath(roundedRect: fillRect, cornerRadius: radius).addClip()
+                    NSBezierPath(roundedRect: fillRect, xRadius: radius, yRadius: radius).addClip()
                 }
                 element.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 context?.resetClip()

@@ -14,8 +14,6 @@ struct SongView: View {
     @Environment(AppState.self) private var appState
     /// The scene state
     @Environment(SceneState.self) private var sceneState
-    /// Chord Display Options
-    @Environment(ChordDisplayOptions.self) private var chordDisplayOptions
     /// The minimum scale factor
     private let minScale: Double = 0.8
     /// The maximum scale factor
@@ -61,7 +59,7 @@ struct SongView: View {
     /// The body of the `View`
     var body: some View {
         VStack {
-            switch appState.settings.paging {
+            switch sceneState.songDisplayOptions.paging {
             case .asList:
                 ScrollView {
                     ViewThatFits {
@@ -70,10 +68,10 @@ struct SongView: View {
                             options: Song.DisplayOptions(
                                 paging: .asList,
                                 label: .grid,
-                                repeatWholeChorus: appState.settings.general.repeatWholeChorus,
+                                repeatWholeChorus: sceneState.songDisplayOptions.repeatWholeChorus,
                                 scale: scale,
-                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
-                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                                chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
+                                midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
                             )
                         )
                         Song.RenderView(
@@ -81,10 +79,10 @@ struct SongView: View {
                             options: Song.DisplayOptions(
                                 paging: .asList,
                                 label: .inline,
-                                repeatWholeChorus: appState.settings.general.repeatWholeChorus,
+                                repeatWholeChorus: sceneState.songDisplayOptions.repeatWholeChorus,
                                 scale: scale,
-                                chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
-                                midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                                chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
+                                midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
                             )
                         )
                     }
@@ -96,16 +94,16 @@ struct SongView: View {
                     options: Song.DisplayOptions(
                         paging: .asColumns,
                         label: .inline,
-                        repeatWholeChorus: appState.settings.general.repeatWholeChorus,
+                        repeatWholeChorus: sceneState.songDisplayOptions.repeatWholeChorus,
                         scale: scale,
-                        chords: appState.settings.showInlineDiagrams ? .asDiagram : .asName,
-                        midiInstrument: chordDisplayOptions.displayOptions.midiInstrument
+                        chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
+                        midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
                     )
                 )
             }
         }
         .contentMargins(.all, scale * 20, for: .scrollContent)
-        .animation(.default, value: appState.settings.showInlineDiagrams)
+        .animation(.default, value: sceneState.songDisplayOptions.showInlineDiagrams)
         .contentShape(Rectangle())
         .gesture(ExclusiveGesture(magnifyGesture, doubleTapGesture))
         .onLongPressGesture(minimumDuration: 1) {
