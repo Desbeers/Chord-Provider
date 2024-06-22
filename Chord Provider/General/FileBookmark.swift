@@ -90,13 +90,17 @@ extension FileBookmark {
 }
 
 public extension URL {
-
+    
+    /// Open an URL in the Finder
     func openInFinder() {
         NSWorkspace.shared.activateFileViewerSelecting([self])
     }
 }
 
 public extension URL {
+
+    /// Check if an URL exists
+    /// - Returns: True of false
     func exist() -> Bool {
         return FileManager.default.fileExists(atPath: self.path(percentEncoded: false))
     }

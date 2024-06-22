@@ -30,6 +30,8 @@ I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainl
 
 A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Olympic White'. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
+### What can **Chord Provider** do?
+
 - It will view and/or edit **ChordPro** files.
 - It can export a whole folder with **ChordPro** files to a PDF with a Table of Contents.
 - It has an editor that highlights your chords and directives with colors you can change in the settings and you can edit a directive by double-clicking on it.
@@ -84,12 +86,11 @@ Stole code (and ideas) from:
 
 ### Used packages
 
-Both my own and in my GitHub account.
+Just one of my own and in my GitHub account.
 
 ![Icon](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png)
 
 - [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities): Handle musical chords
-- [SwiftlyAlertMessage](https://github.com/Desbeers/SwiftlyAlertMessage): Alerts and confirmation dialogs
 
 *I like to start my package names with **Swiftly** instead of the usual **Swifty** {.leading} or **Kit** {.trailing}.*
 

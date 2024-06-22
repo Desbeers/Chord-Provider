@@ -20,7 +20,7 @@ source_host_files_url: https://github.com/desbeers/Chord-Provider/blob/main
 
 skip_undocumented: true
 
-#exclude: /*/GeneratedAssetSymbols*,/*/resource_bundle_accessor*
+exclude: /*/GeneratedAssetSymbols*,/*/resource_bundle_accessor*
 
 #merge_modules: extensions
 
@@ -36,9 +36,9 @@ custom_categories:
     children:
     - ChordProviderApp
     - AppDelegate
-    - ChordProviderSettings
-    - ChordProviderGeneralOptions
-    - ChordProviderError
+    - AppSettings
+    - AppError
+    - AlertMessage
     - Help
 
   - name: Song structure
@@ -94,6 +94,8 @@ custom_categories:
     - SongFolderView
     - ExportSongView
     - ExportFolderView
+    - FileButtonView
+    - MenuButtonsView
     - SettingsView
     - PrintSongView
     - ChordDefinitionView

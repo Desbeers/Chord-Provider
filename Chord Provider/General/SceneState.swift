@@ -39,6 +39,7 @@ import SwiftlyChordUtilities
 
     // MARK: Export Stuff
 
+    /// The URL of the export PDF
     var exportURL: URL {
         let fileName = "\(song.metaData.artist) - \(song.metaData.title)"
         /// Create URLs
@@ -49,6 +50,7 @@ import SwiftlyChordUtilities
 
     // MARK: Init
 
+    /// Init the class
     init() {
         /// Get the default settings as is used last time
         let appSettings = AppSettings.load(id: "Main")

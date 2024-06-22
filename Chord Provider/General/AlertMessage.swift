@@ -20,8 +20,11 @@ public struct AlertMessage {
         self.role = role
         self.action = action
     }
+    /// The `Error`
     let error: Error
+    /// The role of the button
     let role: ButtonRole?
+    /// The action for the button
     let action: (() -> Void)?
 }
 
@@ -32,20 +35,25 @@ extension AlertMessage {
     /// This to avoid an error:
     /// Protocol ‘LocalizedError’ as a type cannot conform to the protocol itself
     struct LocalizedAlertError: LocalizedError {
+        /// The underlying error
         let underlyingError: LocalizedError
+        /// The error description
         var errorDescription: String? {
             underlyingError.errorDescription
         }
+        /// The recovery suggestion
         var recoverySuggestion: String? {
             underlyingError.recoverySuggestion
         }
+        /// The failure reason
         var failureReason: String? {
             underlyingError.failureReason
         }
+        /// The help anchor
         var helpAnchor: String? {
             underlyingError.helpAnchor
         }
-
+        /// Init the struct
         init?(error: Error?) {
             if let localizedError = error as? LocalizedError {
                 underlyingError = localizedError
@@ -64,6 +72,7 @@ extension AlertMessage {
     /// Create a custom `LocalizedError`
     /// - Note: This is to wrap a `NSError` into the modern world
     struct LocalizedAlertCustomError: LocalizedError {
+        /// Init the struct
         init(
             errorDescription: String? = nil,
             recoverySuggestion: String? = nil,
@@ -75,10 +84,13 @@ extension AlertMessage {
             self.failureReason = failureReason
             self.helpAnchor = helpAnchor
         }
-
+        /// The error description
         var errorDescription: String?
+        /// The recovery suggestion
         var recoverySuggestion: String?
+        /// The failure reason
         var failureReason: String?
+        /// The help anchor
         var helpAnchor: String?
     }
 }
