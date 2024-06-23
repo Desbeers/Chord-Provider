@@ -137,7 +137,7 @@ extension SongExport {
                         alignment: .right
                     ),
                     PDFBuild.Divider(direction: .vertical),
-                    PDFBuild.LyricsSection(section, chords: song.chords)
+                    PDFBuild.LyricsSection(section,chords: song.displayOptions.general.lyricsOnly ? [] : song.chords)
                 ]
             )
         }
@@ -264,7 +264,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if
-                song.displayOptions.repeatWholeChorus,
+                song.displayOptions.general.repeatWholeChorus,
                 let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
                 return lyricsSection(section: lastChorus)
             } else {

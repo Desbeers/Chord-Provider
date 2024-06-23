@@ -27,23 +27,30 @@ extension PDFBuild.LyricsSection.Line {
         ///   - part: The part of the lyrics line
         ///   - chords: All the chords of the song
         init(part: Song.Section.Line.Part, chords: [ChordDefinition]) {
-            var chordString: String = " "
-            var chordStatus: Chord.Status = .unknownChord
-            if let chord = chords.first(where: { $0.id == part.chord }) {
-                chordString = chord.displayName(options: .init())
-                chordStatus = chord.status
-            }
-            self.text =
-            [
-                NSAttributedString(
-                    /// Add a space behind the chordname so two chords will never 'stick' together
-                    string: "\(chordString) ",
-                    attributes: .partChord(chordStatus)),
-                NSAttributedString(
+            if chords.isEmpty {
+                self.text = NSAttributedString(
                     string: "\(part.text)",
-                    attributes: .partLyric)
-            ]
-                .joined(with: "\n")
+                    attributes: .partLyric
+                )
+            } else {
+                var chordString: String = " "
+                var chordStatus: Chord.Status = .unknownChord
+                if let chord = chords.first(where: { $0.id == part.chord }) {
+                    chordString = chord.displayName(options: .init())
+                    chordStatus = chord.status
+                }
+                self.text =
+                [
+                    NSAttributedString(
+                        /// Add a space behind the chord-name so two chords will never 'stick' together
+                        string: "\(chordString) ",
+                        attributes: .partChord(chordStatus)),
+                    NSAttributedString(
+                        string: "\(part.text)",
+                        attributes: .partLyric)
+                ]
+                    .joined(with: "\n")
+            }
             self.size = text.size()
         }
 
@@ -76,7 +83,7 @@ public extension SWIFTStringAttribute {
         ]
     }
 
-    /// Style atributes for the lyric of the part
+    /// Style attributes for the lyric of the part
     static var partLyric: SWIFTStringAttribute {
         [
             .foregroundColor: NSColor.black,

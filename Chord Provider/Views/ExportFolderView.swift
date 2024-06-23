@@ -39,6 +39,7 @@ struct ExportFolderView: View {
                     }
                 }
                 appState.repeatWholeChorusToggle
+                appState.lyricsOnlyToggle
                 chordDisplayOptions.instrumentPicker
                     .pickerStyle(.segmented)
                 Section("PDF info") {

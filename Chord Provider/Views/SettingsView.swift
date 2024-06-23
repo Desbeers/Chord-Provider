@@ -44,7 +44,6 @@ struct SettingsView: View {
         .onChange(of: chordDisplayOptions.displayOptions) {
             appState.settings.chordDisplayOptions = chordDisplayOptions.displayOptions
         }
-        .frame(width: 400, height: 480)
         .formStyle(.grouped)
     }
 
@@ -56,6 +55,7 @@ struct SettingsView: View {
                 .font(.title)
             Form {
                 appState.repeatWholeChorusToggle
+                appState.lyricsOnlyToggle
             }
         }
         .padding(.vertical)

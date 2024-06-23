@@ -57,8 +57,8 @@ struct MainView: View {
             appState.settings.chordDisplayOptions = sceneState.chordDisplayOptions.displayOptions
             renderSong()
         }
-        .onChange(of: appState.settings.songDisplayOptions.repeatWholeChorus) {
-            sceneState.songDisplayOptions.repeatWholeChorus = appState.settings.songDisplayOptions.repeatWholeChorus
+        .onChange(of: appState.settings.songDisplayOptions.general) {
+            sceneState.songDisplayOptions.general = appState.settings.songDisplayOptions.general
             renderSong()
         }
         .onChange(of: appState.settings.chordDisplayOptions.general) {

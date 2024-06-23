@@ -140,6 +140,7 @@ import SwiftlyChordUtilities
             SettingsView()
                 .environment(appState)
                 .environment(fileBrowser)
+                .frame(width: 360, height: 480)
         }
     }
 

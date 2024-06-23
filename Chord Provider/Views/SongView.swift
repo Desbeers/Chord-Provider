@@ -66,9 +66,9 @@ struct SongView: View {
                         Song.RenderView(
                             song: sceneState.song,
                             options: Song.DisplayOptions(
+                                general: sceneState.songDisplayOptions.general,
                                 paging: .asList,
                                 label: .grid,
-                                repeatWholeChorus: sceneState.songDisplayOptions.repeatWholeChorus,
                                 scale: scale,
                                 chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
                                 midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
@@ -77,9 +77,9 @@ struct SongView: View {
                         Song.RenderView(
                             song: sceneState.song,
                             options: Song.DisplayOptions(
+                                general: sceneState.songDisplayOptions.general,
                                 paging: .asList,
                                 label: .inline,
-                                repeatWholeChorus: sceneState.songDisplayOptions.repeatWholeChorus,
                                 scale: scale,
                                 chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
                                 midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
@@ -92,9 +92,9 @@ struct SongView: View {
                 Song.RenderView(
                     song: sceneState.song,
                     options: Song.DisplayOptions(
+                        general: sceneState.songDisplayOptions.general,
                         paging: .asColumns,
                         label: .inline,
-                        repeatWholeChorus: sceneState.songDisplayOptions.repeatWholeChorus,
                         scale: scale,
                         chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
                         midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument

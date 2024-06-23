@@ -190,7 +190,7 @@ extension Song.RenderView {
     /// SwiftUI `View` for a chorus repeat
     @ViewBuilder func repeatChorusSection(section: Song.Section) -> some View {
 
-        if options.repeatWholeChorus, let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
+        if options.general.repeatWholeChorus, let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
             chorusSection(section: lastChorus)
         } else {
             ProminentLabel(
@@ -342,7 +342,7 @@ extension Song.RenderView {
             HStack(alignment: .bottom, spacing: 0) {
                 ForEach(parts) { part in
                     VStack(alignment: .leading) {
-                        if let chord = chords.first(where: { $0.id == part.chord }) {
+                        if !options.general.lyricsOnly,  let chord = chords.first(where: { $0.id == part.chord }) {
                             ChordView(options: options, sectionID: sectionID, partID: part.id, chord: chord)
                         }
                         /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift

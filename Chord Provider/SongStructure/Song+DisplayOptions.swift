@@ -14,12 +14,12 @@ extension Song {
 
     /// The structure for ``Song`` display options
     struct DisplayOptions: Codable, Equatable {
+        /// General options that should be applied to all scenes
+        var general = General()
         /// The paging of the song
         var paging: Paging = .asList
         /// The label style of the song
         var label: LabelStyle = .grid
-        /// Repeat the whole last chorus when using a *{chorus}* directive
-        var repeatWholeChorus: Bool = false
         /// The scale factor of the song
         var scale: Double = 1
         /// The style of the chords display
@@ -32,6 +32,17 @@ extension Song {
         var showInlineDiagrams: Bool = false
         /// The position for the chord diagrams
         var chordsPosition: ChordsPosition = .right
+    }
+}
+
+extension Song.DisplayOptions {
+
+    /// General options that should be applied to all scenes
+    struct General: Codable, Equatable {
+        /// Repeat the whole last chorus when using a *{chorus}* directive
+        var repeatWholeChorus: Bool = false
+        /// Show only lyrics
+        var lyricsOnly: Bool = false
     }
 }
 
