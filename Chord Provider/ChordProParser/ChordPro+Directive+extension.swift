@@ -32,9 +32,9 @@ extension ChordPro.Directive {
             // MARK: Inline elements
         case .chorus:
             /// - Note: The chorus can have an optional label
-            ("{\(label(.chorus))", "}\n")
+            ("{\(label(.chorus))", "}")
         default:
-            ("{\(self.rawValue): ", "}\n")
+            ("{\(self.rawValue): ", "}")
         }
     }
 
@@ -63,7 +63,7 @@ extension ChordPro.Directive {
         case block
         /// The directive is inline, e.g. **{comment: Hello World!}**
         case inline
-        /// The directive can have an optional label; e.g.**{chorus: Repeat}** or jusr **{chorus}**
+        /// The directive can have an optional label; e.g.**{chorus: Repeat}** or just **{chorus}**
         case optionalLabel
     }
 }
@@ -102,7 +102,7 @@ extension ChordPro.Directive {
         ]
     }
 
-    /// Array of ``ChordPro/Directive`` that can be edited by double click on it (macOS only)
+    /// Array of ``ChordPro/Directive`` that can be edited by double click on it
     static var editableDirectives: [ChordPro.Directive] {
         metaDataDirectives + environmentDirectives + [
             .sov,
@@ -115,6 +115,7 @@ extension ChordPro.Directive {
             .st,
             .subtitle,
             .comment,
+            .c,
             .define
         ]
     }

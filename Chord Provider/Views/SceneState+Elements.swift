@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import QuickLook
+import ChordProShared
 
 extension SceneState {
 
@@ -229,105 +229,10 @@ extension SceneState {
         @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Menu {
-                ControlGroup {
-                    sceneState.transposeDown
-                    sceneState.transposeUp
-                }
-                .controlGroupStyle(.palette)
-                Text("Transposed by \(sceneState.song.metaData.transpose.description) semitones")
-            } label: {
-                Label(
-                    "Transpose", systemImage: icon)
-                    .imageScale(.small)
+            ControlGroup {
+                sceneState.transposeDown
+                sceneState.transposeUp
             }
-        }
-        /// The transpose button icon
-        var icon: String {
-            switch sceneState.song.metaData.transpose {
-            case ...(-1):
-                "arrow.down.circle.fill"
-            case 1...:
-                "arrow.up.circle.fill"
-            default:
-                "arrow.up.arrow.down.circle"
-            }
-        }
-    }
-}
-
-extension SceneState {
-
-    // MARK: Song ShareLink
-
-    /// Song ShareLink
-    var songShareLink: some View {
-        SongShareLink(sceneState: self)
-    }
-    /// Song ShareLink
-    private struct SongShareLink: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
-        /// The body of the `View`
-        var body: some View {
-            ShareLink(item: sceneState.exportURL)
-                .labelStyle(.iconOnly)
-        }
-    }
-}
-
-extension SceneState {
-
-    // MARK: Quicklook Button
-
-    /// Quicklook Button
-    var quicklook: some View {
-        Quicklook(sceneState: self)
-    }
-    /// Quicklook Button
-    private struct Quicklook: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
-        /// The body of the `View`
-        var body: some View {
-            Button(
-                action: {
-                    sceneState.quicklookURL = sceneState.quicklookURL == nil ? sceneState.exportURL : nil
-                },
-                label: {
-                    Label("PDF preview", systemImage: sceneState.quicklookURL == nil ? "eye" : "eye.fill")
-                }
-            )
-            /// QuickView does not always work when the editor is open, so just disable it if so...
-            .disabled(sceneState.showEditor)
-            .labelStyle(.iconOnly)
-            .quickLookPreview($sceneState.quicklookURL)
-        }
-    }
-}
-
-extension SceneState {
-
-    // MARK: Show Settings Toggle
-
-    /// Show Settings Toggle
-    var showSettingsToggle: some View {
-        ShowSettingsToggle(sceneState: self)
-    }
-    /// Show Settings Toggle
-    private struct ShowSettingsToggle: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
-        /// The body of the `View`
-        var body: some View {
-            Button(
-                action: {
-                    sceneState.showSettings.toggle()
-                },
-                label: {
-                    Label("Settings", systemImage: "gear")
-                }
-            )
         }
     }
 }

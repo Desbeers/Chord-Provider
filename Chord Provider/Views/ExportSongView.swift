@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProShared
 
 /// SwiftUI `View` for a ``Song`` export
 struct ExportSongView: View {

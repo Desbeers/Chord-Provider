@@ -6,13 +6,43 @@
 //
 
 import Foundation
+import ChordProShared
 
 extension ChordPro {
 
     // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports
-    enum Directive: String, CaseIterable {
+    enum Directive: String, CaseIterable, Identifiable, ChordProDirective {
+
+        var id: String {
+            self.rawValue
+        }
+
+        var label: String {
+            self.details.label
+        }
+
+        var directive: String {
+            self.rawValue
+        }
+
+        var icon: String {
+            self.details.icon
+        }
+
+        var editable: Bool {
+            ChordPro.Directive.editableDirectives.contains(self)
+        }
+
+        var help: String {
+            self.details.help
+        }
+
+        var button: String {
+            self.details.button
+        }
+
 
         // swiftlint:disable identifier_name
 

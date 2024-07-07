@@ -18,10 +18,10 @@ extension EditorView {
             Menu(
                 content: {
                     ForEach(ChordPro.Directive.metaDataDirectives, id: \.self) { directive in
-                        if connector.selectionState == .singleSelection {
-                            directiveButton(directive: directive)
-                        } else {
+                        if sceneState.editorInternals.selectedRange.length == 0 {
                             directiveSheetButton(directive: directive)
+                        } else {
+                            directiveButton(directive: directive)
                         }
                     }
                 },
@@ -29,7 +29,6 @@ extension EditorView {
                     Label("Metadata", systemImage: "gear")
                 }
             )
-            .disabled(connector.selectionState == .multipleSelections)
             Menu(
                 content: {
                     ForEach(ChordPro.Directive.environmentDirectives, id: \.self) { directive in
@@ -43,16 +42,15 @@ extension EditorView {
             Menu(
                 content: {
                     directiveSheetButton(directive: .define)
-                        .disabled(connector.selectionState != .noSelection)
+                        .disabled(sceneState.editorInternals.selectedRange.length != 0)
                     directiveButton(directive: .comment)
                 },
                 label: {
                     Label("More...", systemImage: "pencil")
                 }
             )
-            .disabled(connector.selectionState == .multipleSelections)
         }
         .menuStyle(.button)
-        .disabled(connector.currentDirective != nil)
+        .disabled(sceneState.editorInternals.directive != nil)
     }
 }

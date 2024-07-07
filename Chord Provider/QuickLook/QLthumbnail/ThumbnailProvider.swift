@@ -57,3 +57,17 @@ class ThumbnailProvider: QLThumbnailProvider {
         }
     }
 }
+
+public protocol ChordProDirective {}
+
+/// Messages for the Logger
+public extension Logger {
+
+    /// The name of the subsystem
+    private static let subsystem = Bundle.main.bundleIdentifier ?? ""
+
+    /// Log thumbnail provider messages
+    static var thumbnailProvider: Logger {
+        Logger(subsystem: subsystem, category: "Thumbnail Provider")
+    }
+}

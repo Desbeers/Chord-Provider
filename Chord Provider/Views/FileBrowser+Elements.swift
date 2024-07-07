@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 
 extension FileBrowser {
 
@@ -22,10 +23,10 @@ extension FileBrowser {
         @Bindable var fileBrowser: FileBrowser
         /// The body of the `View`
         var body: some View {
-            FileButtonView(
-                bookmark: .songsFolder
+            UserFileButtonView(
+                userFile: UserFileItem.songsFolder
             ) {
-                fileBrowser.songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder)
+                fileBrowser.songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
             }
         }
     }

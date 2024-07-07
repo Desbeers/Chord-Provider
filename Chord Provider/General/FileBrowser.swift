@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProShared
 
 /// The observable ``FileBrowser`` class
 @Observable
@@ -34,7 +35,7 @@ class FileBrowser {
     var menuBarExtraWindow: NSWindow?
     /// Init the FileBrowser
     init() {
-        songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder)
+        songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
     }
 }
 
@@ -84,7 +85,7 @@ extension FileBrowser {
         do {
             var songs = songList
             /// Get a list of all files
-            if let songsFolder = try FileBookmark.getBookmarkURL(.songsFolder) {
+            if let songsFolder = try UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
                 /// Get access to the URL
                 _ = songsFolder.startAccessingSecurityScopedResource()
                 status = .songsFolderIsSelected

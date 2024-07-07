@@ -12,11 +12,11 @@ xcodebuild:
 	rm -fr "${DEST}"
 	$(MKDIR) -p "${DEST}"
 	xcodebuild \
-		-scheme BaseMacApp \
+		-scheme "Chord Provider" \
 		-configuration Release \
 		-arch x86_64 \
-		CODE_SIGN_IDENTITY="" \
-		CODE_SIGNING_REQUIRED=NO \
+		CODE_SIGN_IDENTITY="-" \
+		CODE_SIGNING_REQUIRED=YES \
 		-derivedDataPath "${DEST}"
 		
 archive: xcodebuild

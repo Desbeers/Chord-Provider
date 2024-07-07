@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct HelpButtonsView: View {
-    /// The document in the environment
-    @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
+    /// The scene state in the environment
+    @FocusedValue(\.sceneState) private var sceneState: SceneState?
     /// The body of the `View`
     var body: some View {
         if let sampleSong = Bundle.main.url(forResource: "Swing Low Sweet Chariot", withExtension: "chordpro") {
             Button("Insert a Song Example") {
-                if let document, let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-                    document.document.text = content
+                if
+                    let sceneState,
+                    let textView = sceneState.editorInternals.textView,
+                    let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+                    textView.replaceText(text: content)
                 }
             }
-            .disabled(document == nil)
+            .disabled(sceneState == nil)
         }
         Divider()
         if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {

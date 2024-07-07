@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import OSLog
+import ChordProShared
 import SwiftlyChordUtilities
 
 /// The observable scene state for Chord Provider
@@ -14,16 +16,24 @@ import SwiftlyChordUtilities
     var song = Song()
     /// The selection in the editor
     var selection: NSRange = .init(location: 0, length: 0)
-    /// Bool to show the `print` dialog (macOS)
-    var showPrintDialog: Bool = false
     /// The optional file location
     var file: URL?
     /// Show settings (not for macOS)
     var showSettings: Bool = false
     /// Present template sheet
     var presentTemplate: Bool = false
-    /// The optional URL for a PDF quicklook
-    var quicklookURL: URL?
+    /// PDF preview related stuff
+    var preview = PreviewState()
+
+//    /// The optional URL for a PDF quicklook
+//    var quickLookURL: URL?
+//    /// The random ID of the preview
+//    var quickLookID = UUID()
+//    /// Bool if the quick look is outdated
+//    var quickLookOutdated: Bool = false
+
+    /// The internals of the **ChordPro** editor
+    var editorInternals = ChordProEditor.Internals()
 
     // MARK: Song View options
 
@@ -48,6 +58,21 @@ import SwiftlyChordUtilities
         return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .pdf)
     }
 
+    /// Export the song to a PDF
+    func exportSongToPDF() -> (data: Data, url: URL)? {
+        do {
+            let export = try SongExport.export(
+                song: song,
+                chordDisplayOptions: chordDisplayOptions.displayOptions
+            )
+            try export.pdf.write(to: exportURL)
+            return (export.pdf, exportURL)
+        } catch {
+            Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
+            return nil
+        }
+    }
+
     // MARK: Init
 
     /// Init the class
@@ -58,6 +83,18 @@ import SwiftlyChordUtilities
         self.chordDisplayOptions = ChordDisplayOptions(defaults: appSettings.chordDisplayOptions)
     }
 }
+
+//extension SceneState {
+//
+//    struct QuickLook: Equatable {
+//        /// The optional URL for a PDF quicklook
+//        var quickLookURL: URL?
+//        /// The random ID of the preview
+//        var quickLookID = UUID()
+//        /// Bool if the quick look is outdated
+//        var quickLookOutdated: Bool = false
+//    }
+//}
 
 
 /// The `FocusedValueKey` for the scene state

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `Scene` for **Chord Provider**
@@ -23,8 +24,6 @@ import SwiftlyChordUtilities
     /// The `openWindow` environment to open a new Window
     @Environment(\.openWindow) private var openWindow
     /// The body of the `Scene`
-    ///
-    /// The macOS `body` consist of the following scenes:
     ///
     /// - `Window`:  scene with a list of songs
     /// - `Window`: scene to export a folder of songs
@@ -108,7 +107,7 @@ import SwiftlyChordUtilities
                 ExportSongView()
             }
             CommandGroup(after: .importExport) {
-                PrintSongView()
+                PrintPDFView()
             }
             CommandGroup(after: .textEditing) {
                 MenuButtonsView()
@@ -140,7 +139,7 @@ import SwiftlyChordUtilities
             SettingsView()
                 .environment(appState)
                 .environment(fileBrowser)
-                .frame(width: 360, height: 480)
+                .frame(width: 340, height: 480)
         }
     }
 

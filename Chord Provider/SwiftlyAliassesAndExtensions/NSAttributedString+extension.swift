@@ -11,7 +11,7 @@ public extension NSAttributedString {
 
     /// Set a `BoundingRect` with a `CGSize`
     /// - Parameter withSize: The size of the rect
-    /// - Returns: A `CGRexct with options`
+    /// - Returns: A `CGRect with options`
     func bounds(withSize: CGSize) -> CGRect {
         boundingRect(
             with: withSize,
@@ -22,15 +22,9 @@ public extension NSAttributedString {
     }
 }
 
-extension NSAttributedString.Key {
-
-    /// Make `definition` an attributed string key
-    static let definition: NSAttributedString.Key = .init("definition")
-}
-
 public extension Sequence where Iterator.Element == NSAttributedString {
 
-    /// Join an `NSAttributedString` with a seperator
+    /// Join an `NSAttributedString` with a separator
     /// - Parameter separator: The separator as `NSAttributedString`
     /// - Returns: A joined `NSAttributedString`
     func joined(with separator: NSAttributedString) -> NSAttributedString {

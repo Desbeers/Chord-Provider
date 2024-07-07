@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the content
@@ -26,13 +27,12 @@ struct ContentView: View {
                 .background(Color.telecaster.opacity(0.2))
         }
         .toolbar {
-            ToolbarView()
-        }
-        .onChange(of: sceneState.showPrintDialog) {
-            if sceneState.showPrintDialog {
-                PrintSongView.printDialog(song: sceneState.song, exportURL: sceneState.exportURL)
-                sceneState.showPrintDialog.toggle()
+            ToolbarItem(placement: .navigation) {
+                sceneState.showEditorButton
             }
+        }
+        .toolbar {
+            ToolbarView(document: document)
         }
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)

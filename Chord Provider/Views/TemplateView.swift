@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 
 /// SwiftUI `View` when creating a new document
 struct TemplateView: View {
@@ -27,7 +28,10 @@ struct TemplateView: View {
             Text("Add a new song")
                 .font(.title)
             HStack {
-                SongFolderView()
+                // swiftlint:disable:next force_unwrapping
+                Image(nsImage: NSImage(named: "AppIcon")!)
+                    .resizable()
+                    .scaledToFit()
                 Divider()
                     .padding(.horizontal)
                 VStack {
@@ -47,10 +51,10 @@ struct TemplateView: View {
                         Button("Add song") {
                             /// Convert the meta data
                             var metaData: [String] = []
-                            metaData.append(EditorView.format(directive: .title, argument: title))
-                            metaData.append(EditorView.format(directive: .artist, argument: artist))
+                            metaData.append(Editor.format(directive: .title, argument: title))
+                            metaData.append(Editor.format(directive: .artist, argument: artist))
                             /// Add the meta data to the document
-                            document.text = "\(metaData.joined())\n"
+                            document.text = "\(metaData.joined(separator: "\n"))\n"
                             /// Close the sheet
                             dismiss()
                         }
@@ -58,6 +62,7 @@ struct TemplateView: View {
                         .buttonStyle(.bordered)
                     }
                     .formStyle(.columns)
+                    .frame(width: 200)
                 }
             }
             .padding()

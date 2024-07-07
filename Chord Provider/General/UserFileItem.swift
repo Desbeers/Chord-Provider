@@ -7,25 +7,30 @@
 
 import Foundation
 import UniformTypeIdentifiers
+import ChordProShared
 
 /// All files that can be selected by a user
-enum CustomFile: String {
+enum UserFileItem: String, UserFile {
     /// The folder with songs
     case songsFolder
     /// An export folder
     case exportFolder
-    /// The `UTType` of the file
-    var utType: UTType {
+    /// The ID of the file item
+    var id: String {
+        return self.rawValue
+    }
+    /// The `UTType`s of the file
+    var utTypes: [UTType] {
         switch self {
         case .songsFolder:
-            UTType.folder
+            [UTType.folder]
         case .exportFolder:
-            UTType.folder
+            [UTType.folder]
         }
     }
     /// The optional calculated label of the file
     var label: String? {
-        return try? FileBookmark.getBookmarkURL(self)?.deletingPathExtension().lastPathComponent
+        return try? UserFileBookmark.getBookmarkURL(self)?.deletingPathExtension().lastPathComponent
     }
     /// The SF icon of the file
     var icon: String {

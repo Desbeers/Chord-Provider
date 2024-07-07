@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for a folder export
@@ -34,7 +35,7 @@ struct ExportFolderView: View {
         VStack {
             Form {
                 LabeledContent("The folder with songs") {
-                    FileButtonView(bookmark: .exportFolder) {
+                    UserFileButtonView(userFile: UserFileItem.exportFolder) {
                         currentFolder = ExportFolderView.exportFolderTitle
                     }
                 }
@@ -127,6 +128,6 @@ struct ExportFolderView: View {
     }
     /// Get the current selected export folder
     private static var exportFolderTitle: String? {
-        try? FileBookmark.getBookmarkURL(.exportFolder)?.lastPathComponent
+        try? UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder)?.lastPathComponent
     }
 }

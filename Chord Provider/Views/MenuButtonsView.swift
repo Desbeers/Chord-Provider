@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 
 /// Menu Items and Keyboard shortcuts for font size
 /// - Note: Unfortunately, this cannot be placed in a `Menu` because it does not proper update its state...
@@ -15,7 +16,7 @@ struct MenuButtonsView: View {
     /// The scene state in the environment
     @FocusedValue(\.sceneState) private var sceneState: SceneState?
     /// The range of font sizes
-    private let fontSizeRange = MacEditorView.Settings.fontSizeRange
+    private let fontSizeRange = ChordProEditor.Settings.fontSizeRange
     /// The body of the `View`
     var body: some View {
         Group {

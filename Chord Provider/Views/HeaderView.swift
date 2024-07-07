@@ -31,12 +31,14 @@ struct HeaderView: View {
             sceneState.chordsAsDiagramToggle
                 .frame(maxWidth: 110, maxHeight: 30)
                 .padding(.leading)
+                .disabled(sceneState.preview.active)
         }
         .padding(.trailing, 110)
         .overlay(alignment: .trailing) {
             sceneState.scaleSlider
                 .frame(width: 100)
                 .padding(.trailing)
+                .disabled(sceneState.preview.active)
         }
         .frame(minHeight: 45)
         .background(Color.accentColor.saturation(0.6))

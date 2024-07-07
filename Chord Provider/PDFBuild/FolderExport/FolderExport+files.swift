@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import ChordProShared
 
 extension FolderExport {
 
@@ -16,7 +17,7 @@ extension FolderExport {
         var files: [FileBrowser.SongItem] = []
         do {
             /// Get a list of all files
-            if let exportFolder = try FileBookmark.getBookmarkURL(.exportFolder) {
+            if let exportFolder = try UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder) {
                 /// Get access to the URL
                 _ = exportFolder.startAccessingSecurityScopedResource()
                 if let items = FileManager.default.enumerator(at: exportFolder, includingPropertiesForKeys: nil) {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProShared
 
 /// SwiftUI `View` for the file browser
 struct FileBrowserView: View {
@@ -210,7 +211,7 @@ extension FileBrowserView {
             .contextMenu {
                 Button(
                     action: {
-                        FileBookmark.openInFinder(url: song.fileURL)
+                        UserFileBookmark.openInFinder(url: song.fileURL)
                     },
                     label: {
                         Text("Open song in Finder")
@@ -232,7 +233,7 @@ extension FileBrowserView {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
             } else {
                 do {
-                    if let persistentURL = try FileBookmark.getBookmarkURL(.songsFolder) {
+                    if let persistentURL = try UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
                         _ = persistentURL.startAccessingSecurityScopedResource()
                         try await openDocument(at: url)
                         persistentURL.stopAccessingSecurityScopedResource()

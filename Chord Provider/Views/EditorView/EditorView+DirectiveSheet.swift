@@ -6,36 +6,29 @@
 //
 
 import SwiftUI
+import ChordProShared
 import SwiftlyChordUtilities
 
 extension EditorView {
 
     /// SwiftUI `View` to define a directive
     struct DirectiveSheet: View {
-
-        /// The directive settings
-        @Binding var settings: DirectiveSettings
-
+        /// The directive
+        let directive: ChordPro.Directive
         /// The scene state
         @Environment(SceneState.self) var sceneState
-
         /// The label for the action button
-        var actionLabel: String
-
+        var actionLabel: String {
+            sceneState.editorInternals.clickedDirective ? "Edit" : "Add"
+        }
         /// The value for a slider
         @State private var sliderValue: Double = 0
-
-        /// Init the `View`
-        init(settings: Binding<DirectiveSettings>) {
-            self._settings = settings
-            self.actionLabel = settings.clickedFragment.wrappedValue == nil ? "Add" : "Update"
-        }
         /// The dismiss environment
         @Environment(\.dismiss) var dismiss
         /// The body of the `View`
         var body: some View {
             VStack {
-                switch settings.directive {
+                switch directive {
                 case .key:
                     keyView
                 case .define:
@@ -55,7 +48,6 @@ extension EditorView {
         var cancelButton: some View {
             Button(
                 action: {
-                    settings.definition = ""
                     dismiss()
                 },
                 label: {
@@ -64,6 +56,10 @@ extension EditorView {
             )
             .keyboardShortcut(.cancelAction)
         }
+
+        private func format() {
+            Editor.format(directive: directive, editorInternals: sceneState.editorInternals)
+        }
     }
 }
 
@@ -71,10 +67,10 @@ extension EditorView.DirectiveSheet {
 
     /// `View` of the directive sheet title
     @ViewBuilder var directiveTitleView: some View {
-        Text(settings.directive.details.label)
+        Text(directive.details.label)
             .font(.title)
             .padding(.bottom, 4)
-        Text(settings.directive.details.help)
+        Text(directive.details.help)
             .foregroundStyle(.secondary)
             .padding(.bottom)
     }
@@ -83,10 +79,11 @@ extension EditorView.DirectiveSheet {
 extension EditorView.DirectiveSheet {
     /// The default `View` when there is no specific `View` for the ``ChordPro/Directive``
     @ViewBuilder var defaultView: some View {
+        @Bindable var sceneState = sceneState
         directiveTitleView
         TextField(
-            text: $settings.definition,
-            prompt: Text(settings.directive.details.label)
+            text: $sceneState.editorInternals.directiveArgument,
+            prompt: Text(directive.details.label)
         ) {
             Text("Value")
         }
@@ -96,6 +93,7 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
+                    format()
                     dismiss()
                 },
                 label: {
@@ -117,7 +115,8 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
-                    settings.definition = sceneState.chordDisplayOptions.definition.define
+                    sceneState.editorInternals.directiveArgument = sceneState.chordDisplayOptions.definition.define
+                    format()
                     dismiss()
                 },
                 label: {
@@ -135,9 +134,7 @@ extension EditorView.DirectiveSheet {
     @ViewBuilder func sliderView(start: Double, end: Double) -> some View {
         directiveTitleView
         VStack {
-            Slider(value: $sliderValue, in: start...end, step: 1) { _ in
-                settings.definition = String(Int(sliderValue))
-            }
+            Slider(value: $sliderValue, in: start...end, step: 1)
             Text(verbatim: "\(Int(sliderValue))")
                 .font(.caption)
         }
@@ -146,17 +143,18 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
-                    settings.definition = String(Int(sliderValue))
+                    sceneState.editorInternals.directiveArgument = String(Int(sliderValue))
+                    format()
                     dismiss()
                 },
                 label: {
-                    Text("\(actionLabel) \(settings.directive.details.label)")
+                    Text("\(actionLabel) \(directive.details.label)")
                 }
             )
             .keyboardShortcut(.defaultAction)
         }
         .onAppear {
-            sliderValue = Double(settings.definition) ?? (start + end) / 2
+            sliderValue = Double(sceneState.editorInternals.directiveArgument) ?? (start + end) / 2
         }
     }
 }
@@ -176,7 +174,9 @@ extension EditorView.DirectiveSheet {
             cancelButton
             Button(
                 action: {
-                    settings.definition = "\(sceneState.chordDisplayOptions.definition.root.rawValue)\(sceneState.chordDisplayOptions.definition.quality.rawValue)"
+                    sceneState.editorInternals.directiveArgument =
+                    "\(sceneState.chordDisplayOptions.definition.root.rawValue)\(sceneState.chordDisplayOptions.definition.quality.rawValue)"
+                    format()
                     dismiss()
                 },
                 label: {

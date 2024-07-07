@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the ``ChordProEditor``
@@ -18,10 +19,8 @@ import SwiftlyChordUtilities
     @Environment(SceneState.self) var sceneState
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
-    /// The settings for the directive sheet
-    @State var directiveSettings = DirectiveSettings()
-    /// The connector class for the editor
-    @State var connector = MacEditorView.Connector(settings: AppSettings.load(id: "Main").editor)
+    /// The optional directive to edit
+    @State var editDirective: ChordPro.Directive?
     /// Show an `Alert` if we have an error
     @State var errorAlert: AlertMessage?
     /// The body of the `View`
@@ -36,34 +35,15 @@ import SwiftlyChordUtilities
         }
         .errorAlert(message: $errorAlert)
         /// Show a sheet to add or edit a directive
-        .sheet(
-            isPresented: $showDirectiveSheet,
-            onDismiss: {
-                if !directiveSettings.definition.isEmpty {
-                    EditorView.format(
-                        settings: directiveSettings,
-                        in: connector
-                    )
-                }
-                Task {
-                    /// Sleep for a moment to give the sheet some time to close
-                    /// - Note: Else the sheet will change during animation to its default
-                    try? await Task.sleep(for: .seconds(0.4))
-                    /// Clear the settings to default
-                    directiveSettings = DirectiveSettings()
-                    connector.clickedFragment = nil
-                }
-            },
-            content: {
-                DirectiveSheet(settings: $directiveSettings)
-            }
-        )
+        .sheet(item: $editDirective) { directive in
+            DirectiveSheet(directive: directive)
+        }
         /// Show a sheet when we add a new song
         .sheet(
             isPresented: $sceneState.presentTemplate,
             onDismiss: {
                 /// Set the text
-                connector.setText(text: document.text)
+                sceneState.editorInternals.textView?.replaceText(text: document.text)
             },
             content: {
                 TemplateView(document: $document, sceneState: sceneState)
@@ -73,49 +53,40 @@ import SwiftlyChordUtilities
     /// The editor
     @MainActor var editor: some View {
         VStack {
-            MacEditorView(
+            ChordProEditor(
                 text: $document.text,
-                connector: connector
+                settings: appState.settings.editor,
+                directives: ChordPro.Directive.allCases
             )
-            .onChange(of: appState.settings.editor) {
-                connector.settings = appState.settings.editor
-            }
-            .onChange(of: connector.clickedFragment) {
-                guard
-                    let directive = connector.currentDirective,
-                    let fragment = connector.clickedFragment,
-                    let paragraph = fragment.textElement as? NSTextParagraph,
-                    let match = paragraph.attributedString.string.firstMatch(of: ChordPro.directiveRegex)
-
-                else {
-                    return
-                }
-                directiveSettings.directive = directive
-                directiveSettings.definition = String(match.output.2 ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
-                directiveSettings.clickedFragment = fragment
-                switch directive {
-                case .define:
-                    showDirectiveSheet = validateChordDefinition()
-                default:
-                    showDirectiveSheet = true
+            .introspect { editor in
+                Task { @MainActor in
+                    sceneState.editorInternals = editor
                 }
             }
-            Text(.init(connector.currentDirective?.infoString ?? "No directive"))
-                .font(.caption)
-                .padding(.bottom, 4)
+            .onChange(of: sceneState.editorInternals.clickedDirective) {
+                if
+                    sceneState.editorInternals.clickedDirective,
+                    let directive = sceneState.editorInternals.directive,
+                    let enumDirective = directive as? ChordPro.Directive {
+                    /// Show the sheet
+                    switch enumDirective {
+                    case .define:
+                        if validateChordDefinition() {
+                            editDirective = enumDirective
+                        }
+                    default:
+                        editDirective = enumDirective
+                    }
+                }
+            }
+            HStack(spacing: 0) {
+                Text(.init(sceneState.editorInternals.directive?.label ?? "No directive"))
+                if !sceneState.editorInternals.directiveArgument.isEmpty {
+                    Text(": **\(sceneState.editorInternals.directiveArgument)**")
+                }
+            }
+            .font(.caption)
+            .padding(.bottom, 4)
         }
-    }
-}
-
-extension EditorView {
-
-    //// Directive settings to pass to the sheet
-    struct DirectiveSettings: Sendable {
-        /// The directive to show in the sheet
-        var directive: ChordPro.Directive = .none
-        /// The definition of the directive sheet
-        var definition: String = ""
-        /// The optional clicked fragment range
-        var clickedFragment: NSTextLayoutFragment?
     }
 }

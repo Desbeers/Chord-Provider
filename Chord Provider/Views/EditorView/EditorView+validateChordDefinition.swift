@@ -15,7 +15,7 @@ extension EditorView {
     @MainActor func validateChordDefinition() -> Bool {
         do {
             let chord = try ChordDefinition(
-                definition: directiveSettings.definition,
+                definition: sceneState.editorInternals.directiveArgument,
                 instrument: sceneState.chordDisplayOptions.displayOptions.instrument,
                 status: .unknownChord
             )
@@ -24,9 +24,6 @@ extension EditorView {
             /// Show the sheet
             return true
         } catch {
-            /// Clear the settings to default
-            directiveSettings = DirectiveSettings()
-            connector.clickedFragment = nil
             /// Show an error alert
             errorAlert = error.alert()
         }

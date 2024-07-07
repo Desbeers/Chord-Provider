@@ -11,7 +11,7 @@ extension NSTextView {
 
     /// Get the selected text from the NSTextView
     /// - Note: This needs a `String` extension
-    var selectedText: String {
-        string[selectedRange()]
-    }
+//    var selectedText: String {
+//        string[selectedRange()]
+//    }
 }

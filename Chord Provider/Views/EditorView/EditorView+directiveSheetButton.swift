@@ -15,14 +15,13 @@ extension EditorView {
     func directiveSheetButton(directive: ChordPro.Directive) -> some View {
         Button(
             action: {
-                directiveSettings.directive = directive
                 /// If the directive is `define`, set the definition for a chord to its initial values
                 if
                     directive == .define,
                     let chord = ChordDefinition(name: "C", instrument: appState.settings.chordDisplayOptions.instrument) {
                     sceneState.chordDisplayOptions.definition = chord
                 }
-                showDirectiveSheet = true
+                editDirective = directive
             }, label: {
                 Label("\(directive.details.button)…", systemImage: directive.details.icon)
             }

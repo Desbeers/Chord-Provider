@@ -8,12 +8,13 @@
 import Foundation
 import SwiftlyChordUtilities
 import OSLog
+import ChordProShared
 
 /// All the settings for the application
 struct AppSettings: Equatable, Codable, Sendable {
 
     /// The options for the ``ChordProEditor``
-    var editor: MacEditorView.Settings = .init()
+    var editor: ChordProEditor.Settings = .init()
 
     /// Song Display Options
     var songDisplayOptions = Song.DisplayOptions()

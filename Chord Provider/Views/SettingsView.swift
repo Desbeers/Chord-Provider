@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the settings
@@ -21,21 +22,21 @@ struct SettingsView: View {
     /// The body of the `View`
     var body: some View {
         TabView {
-            general
+            editor
                 .tabItem {
-                    Label("General", systemImage: "gear")
+                    Label("Editor", systemImage: "pencil")
                 }
             diagram
                 .tabItem {
                     Label("Diagrams", systemImage: "guitars")
                 }
-            editor
-                .tabItem {
-                    Label("Editor", systemImage: "text.word.spacing")
-                }
             folder
                 .tabItem {
                     Label("Songs", systemImage: "folder")
+                }
+            options
+                .tabItem {
+                    Label("Options", systemImage: "music.quarternote.3")
                 }
         }
         .task {
@@ -44,44 +45,44 @@ struct SettingsView: View {
         .onChange(of: chordDisplayOptions.displayOptions) {
             appState.settings.chordDisplayOptions = chordDisplayOptions.displayOptions
         }
-        .formStyle(.grouped)
     }
 
     /// `View` with general options
-    @ViewBuilder var general: some View {
+    @ViewBuilder var options: some View {
         @Bindable var appState = appState
-        VStack {
-            Text("General Options")
-                .font(.title)
-            Form {
-                appState.repeatWholeChorusToggle
-                appState.lyricsOnlyToggle
-            }
+        VStack(alignment: .leading) {
+            appState.repeatWholeChorusToggle
+            appState.lyricsOnlyToggle
         }
-        .padding(.vertical)
+        .wrapSettingsSection(title: "General Options")
+        .frame(maxHeight: .infinity, alignment: .top)
     }
 
     /// `View` with diagram display options
     var diagram: some View {
         VStack {
-            Text("Diagram Display Options")
-                .font(.title)
-            Form {
-                Section("General") {
+            ScrollView {
+                VStack(alignment: .leading) {
                     chordDisplayOptions.fingersToggle
                     chordDisplayOptions.notesToggle
                     chordDisplayOptions.mirrorToggle
                 }
-                Section("MIDI") {
+                .wrapSettingsSection(title: "General")
+                VStack(alignment: .leading) {
                     chordDisplayOptions.playToggle
-                    HStack {
-                        Image(systemName: "guitars.fill")
-                        chordDisplayOptions.midiInstrumentPicker
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    if chordDisplayOptions.displayOptions.general.showPlayButton {
+                        HStack {
+                            Image(systemName: "guitars.fill")
+                            chordDisplayOptions.midiInstrumentPicker
+                        }
+                        .disabled(!chordDisplayOptions.displayOptions.general.showPlayButton)
+                        .padding([.top, .leading])
                     }
-                    .disabled(!chordDisplayOptions.displayOptions.general.showPlayButton)
-                    .padding(.leading)
                 }
+                .wrapSettingsSection(title: "MIDI")
             }
+            .frame(maxHeight: .infinity, alignment: .top)
             Button(
                 action: {
                     chordDisplayOptions.displayOptions = AppSettings.defaults
@@ -91,92 +92,120 @@ struct SettingsView: View {
                 }
             )
             .disabled(chordDisplayOptions.displayOptions == AppSettings.defaults)
+            .padding(.bottom)
         }
-        .padding(.vertical)
-        .animation(.default, value: chordDisplayOptions.displayOptions)
+        .animation(.default, value: chordDisplayOptions.displayOptions.general)
     }
 
     /// `View` with editor settings
-    @ViewBuilder var editor: some View {
+    @ViewBuilder var `editor`: some View {
         @Bindable var appState = appState
         VStack {
-            Text("Editor Options")
-                .font(.title)
-            Form {
-                Section("Font") {
+            ScrollView {
+                VStack {
                     HStack {
                         Text("A")
-                            .font(.system(size: MacEditorView.Settings.fontSizeRange.lowerBound))
+                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.lowerBound))
                         Slider(
                             value: $appState.settings.editor.fontSize,
-                            in: MacEditorView.Settings.fontSizeRange,
+                            in: ChordProEditor.Settings.fontSizeRange,
                             step: 1
                         )
                         Text("A")
-                            .font(.system(size: MacEditorView.Settings.fontSizeRange.upperBound))
+                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.upperBound))
                     }
                     .foregroundColor(.secondary)
+                    Picker("Font style", selection: $appState.settings.editor.fontStyle) {
+                        ForEach(ChordProEditor.Settings.FontStyle.allCases, id: \.self) { font in
+                            Text("\(font.rawValue)")
+                                .font(font.font(size: 12))
+                        }
+                    }
                 }
-                Section("Colors") {
-                    ColorPicker(
-                        "The highlight color for **chords**",
-                        selection: $appState.settings.editor.chordColor,
-                        supportsOpacity: false
+                .wrapSettingsSection(title: "Editor Font")
+                VStack {
+                    ColorPickerButtonView(
+                        selectedColor: $appState.settings.editor.chordColor,
+                        label: "The highlight color for **chords**"
                     )
-                    ColorPicker(
-                        "The highlight color for **brackets**",
-                        selection: $appState.settings.editor.bracketColor,
-                        supportsOpacity: false
+                    ColorPickerButtonView(
+                        selectedColor: $appState.settings.editor.directiveColor,
+                        label: "The highlight color for **directives**"
                     )
-                    ColorPicker(
-                        "The highlight color for **directives**",
-                        selection: $appState.settings.editor.directiveColor,
-                        supportsOpacity: false
+                    ColorPickerButtonView(
+                        selectedColor: $appState.settings.editor.argumentColor,
+                        label: "The highlight color for **arguments**"
                     )
-                    ColorPicker(
-                        "The highlight color for **definitions**",
-                        selection: $appState.settings.editor.definitionColor,
-                        supportsOpacity: false
+                    ColorPickerButtonView(
+                        selectedColor: $appState.settings.editor.pangoColor,
+                        label: "The highlight color for **pango**"
+                    )
+                    ColorPickerButtonView(
+                        selectedColor: $appState.settings.editor.bracketColor,
+                        label: "The highlight color for **brackets**"
+                    )
+                    ColorPickerButtonView(
+                        selectedColor: $appState.settings.editor.commentColor,
+                        label: "The highlight color for **comments**"
                     )
                 }
+                .wrapSettingsSection(title: "Highlight Colors")
             }
+            .frame(maxHeight: .infinity, alignment: .top)
             Button(
                 action: {
-                    appState.settings.editor = MacEditorView.Settings()
+                    appState.settings.editor = ChordProEditor.Settings()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
-            .disabled(appState.settings.editor == MacEditorView.Settings())
+            .padding(.bottom)
+            .disabled(appState.settings.editor == ChordProEditor.Settings())
         }
-        .padding(.vertical)
     }
 
     /// `View` with folder selector
     var folder: some View {
         VStack {
-            Text("The folder with your songs")
-                .font(.title)
-            Form {
-                Text(.init(Help.folderSelector))
-                    .padding()
-                Text(.init(Help.macOSbrowser))
-                    .padding()
-                fileBrowser.folderSelector
-                    .padding()
-            }
+            Text(.init(Help.folderSelector))
+                .padding()
+            Text(.init(Help.macOSbrowser))
+                .padding()
+            fileBrowser.folderSelector
+                .padding()
         }
-        .padding(.vertical)
+        .wrapSettingsSection(title: "The folder with your songs")
     }
+}
 
-    /// `View` with folder export
-    var export: some View {
-        VStack {
-            Text("Export a Folder with Songs")
-                .font(.title)
-            ExportFolderView()
+extension SettingsView {
+
+    struct WrapSettingsSection: ViewModifier {
+        let title: String
+        func body(content: Content) -> some View {
+            VStack(alignment: .center) {
+                Text(title)
+                    .font(.headline)
+                VStack {
+                    content
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.primary.opacity(0.04).cornerRadius(8))
+            }
+            .padding([.top, .horizontal])
+            .frame(maxWidth: .infinity)
         }
-        .padding(.vertical)
+    }
+}
+
+extension View {
+
+    /// Shortcut to the `WrapSettingsSection` modifier
+    /// - Parameter title: The title
+    /// - Returns: A modified `View`
+    func wrapSettingsSection(title: String) -> some View {
+        modifier(SettingsView.WrapSettingsSection(title: title))
     }
 }

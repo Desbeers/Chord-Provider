@@ -137,7 +137,7 @@ extension SongExport {
                         alignment: .right
                     ),
                     PDFBuild.Divider(direction: .vertical),
-                    PDFBuild.LyricsSection(section,chords: song.displayOptions.general.lyricsOnly ? [] : song.chords)
+                    PDFBuild.LyricsSection(section, chords: song.displayOptions.general.lyricsOnly ? [] : song.chords)
                 ]
             )
         }

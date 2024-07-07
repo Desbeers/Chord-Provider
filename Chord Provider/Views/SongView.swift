@@ -71,7 +71,7 @@ struct SongView: View {
                                 label: .grid,
                                 scale: scale,
                                 chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
-                                midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
+                                midiInstrument: sceneState.chordDisplayOptions.displayOptions.general.midiInstrument
                             )
                         )
                         Song.RenderView(
@@ -82,7 +82,7 @@ struct SongView: View {
                                 label: .inline,
                                 scale: scale,
                                 chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
-                                midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
+                                midiInstrument: sceneState.chordDisplayOptions.displayOptions.general.midiInstrument
                             )
                         )
                     }
@@ -97,7 +97,7 @@ struct SongView: View {
                         label: .inline,
                         scale: scale,
                         chords: sceneState.songDisplayOptions.showInlineDiagrams ? .asDiagram : .asName,
-                        midiInstrument: sceneState.chordDisplayOptions.displayOptions.midiInstrument
+                        midiInstrument: sceneState.chordDisplayOptions.displayOptions.general.midiInstrument
                     )
                 )
             }

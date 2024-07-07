@@ -35,3 +35,5 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
         return reply
     }
 }
+
+public protocol ChordProDirective {}

@@ -342,7 +342,7 @@ extension Song.RenderView {
             HStack(alignment: .bottom, spacing: 0) {
                 ForEach(parts) { part in
                     VStack(alignment: .leading) {
-                        if !options.general.lyricsOnly,  let chord = chords.first(where: { $0.id == part.chord }) {
+                        if !options.general.lyricsOnly, let chord = chords.first(where: { $0.id == part.chord }) {
                             ChordView(options: options, sectionID: sectionID, partID: part.id, chord: chord)
                         }
                         /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift

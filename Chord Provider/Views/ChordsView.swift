@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the chord diagrams

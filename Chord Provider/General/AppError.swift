@@ -16,6 +16,8 @@ enum AppError: String, LocalizedError {
     case noAccessToSongError
     /// An error when saving the application settings
     case saveSettingsError
+    /// An error when reading the document
+    case readDocumentError
     /// An error when writing the document
     case writeDocumentError
     /// An error when a custom file is not found

@@ -8,6 +8,7 @@
 import SwiftUI
 import OSLog
 import AVKit
+import ChordProShared
 
 /// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {
@@ -30,8 +31,6 @@ struct AudioPlayerView: View {
     @State private var errorAlert: AlertMessage?
     /// Show an `ConfirmationDialog` if the music file is not downloaded
     @State private var confirmationDialog: AlertMessage?
-    /// Bool to show the folder selector
-    @State private var showFolderSelector: Bool = false
 
     // MARK: Body of the View
 
@@ -43,7 +42,11 @@ struct AudioPlayerView: View {
             case .audioFileNotFoundError:
                 Button(action: {
                     confirmationDialog = status.alert {
-                        showFolderSelector = true
+                        Task {
+                            try? AppKitUtils.openPanel(userFile: UserFileItem.songsFolder) {
+                                fileBrowser.songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+                            }
+                        }
                     }
                 }, label: {
                     status.icon
@@ -64,7 +67,11 @@ struct AudioPlayerView: View {
             case .noSongsFolderSelectedError:
                 Button(action: {
                     confirmationDialog = status.alert {
-                        showFolderSelector = true
+                        Task {
+                            try? AppKitUtils.openPanel(userFile: UserFileItem.songsFolder) {
+                                fileBrowser.songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+                            }
+                        }
                     }
                 }, label: {
                     status.icon
@@ -81,12 +88,6 @@ struct AudioPlayerView: View {
         }
         .errorAlert(message: $errorAlert)
         .confirmationDialog(message: $confirmationDialog)
-        .selectFileSheet(
-            isPresented: $showFolderSelector,
-            bookmark: .songsFolder
-        ) {
-            fileBrowser.songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder)
-        }
         .animation(.default, value: status)
         .task(id: musicURL) {
             status = AudioPlayerView.checkSong(musicURL: musicURL, iCloudURL: iCloudURL)
@@ -102,7 +103,7 @@ struct AudioPlayerView: View {
     @ViewBuilder var playButton: some View {
         Button(
             action: {
-                if let songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder) {
+                if let songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
                     /// Get access to the URL
                     _ = songsFolder.startAccessingSecurityScopedResource()
                     playSong()
@@ -139,7 +140,7 @@ struct AudioPlayerView: View {
     /// Check the song file
     private static func checkSong(musicURL: URL, iCloudURL: URL) -> AppError {
         var status = AppError.noSongsFolderSelectedError
-        if let songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder) {
+        if let songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
             /// Get access to the URL
             _ = songsFolder.startAccessingSecurityScopedResource()
             if musicURL.exist() {
@@ -176,7 +177,7 @@ struct AudioPlayerView: View {
 
     /// Download the song
     private static func downloadSong(musicURL: URL, iCloudURL: URL) async -> AppError {
-        if let songsFolder = try? FileBookmark.getBookmarkURL(.songsFolder) {
+        if let songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
             /// Get access to the URL
             _ = songsFolder.startAccessingSecurityScopedResource()
             do {
