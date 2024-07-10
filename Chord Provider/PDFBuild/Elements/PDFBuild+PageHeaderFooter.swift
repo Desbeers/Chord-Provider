@@ -70,12 +70,12 @@ extension PDFBuild {
     }
 }
 
-public extension SWIFTStringAttribute {
+public extension PDFStringAttribute {
 
     // MARK: Footer string styling
 
     /// Style attributes for the footer
-    static var footer: SWIFTStringAttribute {
+    static var footer: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 8, weight: .regular)

@@ -48,12 +48,12 @@ extension PDFBuild.TabSection {
     }
 }
 
-public extension SWIFTStringAttribute {
+public extension PDFStringAttribute {
 
     // MARK: Tab line string styling
 
     /// Style attributes for the line of a tab
-    static func tabLine(fontSize: CGFloat) -> SWIFTStringAttribute {
+    static func tabLine(fontSize: CGFloat) -> PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)

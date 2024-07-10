@@ -39,12 +39,12 @@ extension PDFBuild {
     }
 }
 
-extension SWIFTStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Plain line string styling
 
     /// String attributes for a plain line
-    static var plainLine: SWIFTStringAttribute {
+    static var plainLine: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)

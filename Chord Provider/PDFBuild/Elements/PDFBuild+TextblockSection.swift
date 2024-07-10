@@ -39,12 +39,12 @@ extension PDFBuild {
     }
 }
 
-extension SWIFTStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Textblock string styling
 
     /// String attributes for a textblock  line
-    static var textblockLine: SWIFTStringAttribute {
+    static var textblockLine: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.italicSystemFont(ofSize: 10)

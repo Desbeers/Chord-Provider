@@ -75,19 +75,19 @@ extension PDFBuild.GridSection {
     }
 }
 
-extension SWIFTStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Grid string styling
 
     /// String attributes for a grid line
-    static var gridText: SWIFTStringAttribute {
+    static var gridText: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
         ]
     }
     /// String attributes for a grid chord
-    static var gridChord: SWIFTStringAttribute {
+    static var gridChord: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)

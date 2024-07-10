@@ -71,12 +71,12 @@ extension PDFBuild.LyricsSection.Line {
     }
 }
 
-public extension SWIFTStringAttribute {
+public extension PDFStringAttribute {
 
     // MARK: Part string styling
 
     /// Style attributes for the chord of the part
-    static func partChord(_ status: Chord.Status) -> SWIFTStringAttribute {
+    static func partChord(_ status: Chord.Status) -> PDFStringAttribute {
         [
             .foregroundColor: status == .unknownChord ? NSColor.red : NSColor.gray,
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)
@@ -84,7 +84,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the lyric of the part
-    static var partLyric: SWIFTStringAttribute {
+    static var partLyric: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)

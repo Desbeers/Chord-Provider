@@ -21,7 +21,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - text: The text as `String`
         ///   - attributes: The ``StringAttributes`` for the text
-        init(_ text: String, attributes: SWIFTStringAttribute = SWIFTStringAttribute()) {
+        init(_ text: String, attributes: PDFStringAttribute = PDFStringAttribute()) {
             self.text = NSAttributedString(
                 string: text,
                 attributes: attributes

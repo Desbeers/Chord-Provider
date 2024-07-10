@@ -325,12 +325,12 @@ extension PDFBuild.Chords {
     }
 }
 
-public extension SWIFTStringAttribute {
+public extension PDFStringAttribute {
 
     // MARK: Diagram string styling
 
     /// Style attributes for the diagram chord name
-    static var diagramChordName: SWIFTStringAttribute {
+    static var diagramChordName: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)
@@ -338,7 +338,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the diagram finger
-    static var diagramFinger: SWIFTStringAttribute {
+    static var diagramFinger: PDFStringAttribute {
         [
             .foregroundColor: NSColor.white,
             .font: NSFont.systemFont(ofSize: 6, weight: .regular)
@@ -346,7 +346,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the diagram top bar
-    static var diagramTopBar: SWIFTStringAttribute {
+    static var diagramTopBar: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 4, weight: .regular)
@@ -354,7 +354,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the diagram base fret
-    static var diagramBaseFret: SWIFTStringAttribute {
+    static var diagramBaseFret: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 4, weight: .regular)
@@ -362,7 +362,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the diagram top bar
-    static var diagramBottomBar: SWIFTStringAttribute {
+    static var diagramBottomBar: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 4, weight: .regular)

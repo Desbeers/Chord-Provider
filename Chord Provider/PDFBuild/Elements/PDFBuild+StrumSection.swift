@@ -44,12 +44,12 @@ extension PDFBuild {
     }
 }
 
-extension SWIFTStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Strum string styling
 
     /// String attributes for a strum line
-    static var strumLine: SWIFTStringAttribute {
+    static var strumLine: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.monospacedSystemFont(ofSize: 8, weight: .regular)

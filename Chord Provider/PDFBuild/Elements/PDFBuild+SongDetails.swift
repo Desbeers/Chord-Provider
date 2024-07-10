@@ -67,12 +67,12 @@ extension PDFBuild {
     }
 }
 
-extension SWIFTStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Song Detail string styling
 
     /// String attributes for a song detail icon
-    static var songDetailIcon: SWIFTStringAttribute {
+    static var songDetailIcon: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 8, weight: .regular)
@@ -80,7 +80,7 @@ extension SWIFTStringAttribute {
     }
 
     /// String attributes for a song detail label
-    static var songDetailLabel: SWIFTStringAttribute {
+    static var songDetailLabel: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 8, weight: .regular)

@@ -1,5 +1,5 @@
 //
-//  StringAttributes.swift
+//  PDFStringAttribute.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,10 @@
 
 import AppKit
 
-public extension SWIFTStringAttribute {
+/// Alias for a `NSAttributedString` key and value
+public typealias PDFStringAttribute = [NSAttributedString.Key: Any]
+
+public extension PDFStringAttribute {
 
     // MARK: Merge stylings
 
@@ -16,7 +19,7 @@ public extension SWIFTStringAttribute {
     ///   - left: Current ``StringAttributes``
     ///   - right: The ``StringAttributes`` to add
     /// - Returns: The merged ``StringAttributes``
-    static func + (left: SWIFTStringAttribute, right: SWIFTStringAttribute) -> SWIFTStringAttribute {
+    static func + (left: PDFStringAttribute, right: PDFStringAttribute) -> PDFStringAttribute {
         var left = left
         for element in right {
             left[element.key] = element.value
@@ -29,7 +32,7 @@ public extension SWIFTStringAttribute {
     /// - Note: Element specific styling is in its own file
 
     /// Style attributes for the default font
-    static var defaultFont: SWIFTStringAttribute {
+    static var defaultFont: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)
@@ -37,7 +40,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the small font
-    static var smallFont: SWIFTStringAttribute {
+    static var smallFont: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 6, weight: .regular)
@@ -45,7 +48,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the title of the song
-    static var songTitle: SWIFTStringAttribute {
+    static var songTitle: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 14, weight: .semibold)
@@ -53,7 +56,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the artist of the song
-    static var songArtist: SWIFTStringAttribute {
+    static var songArtist: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 12, weight: .regular)
@@ -61,7 +64,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the export title
-    static var exportTitle: SWIFTStringAttribute {
+    static var exportTitle: PDFStringAttribute {
         [
             .foregroundColor: NSColor.white,
             .font: NSFont.systemFont(ofSize: 28, weight: .semibold)
@@ -69,7 +72,7 @@ public extension SWIFTStringAttribute {
     }
 
     /// Style attributes for the export author
-    static var exportAuthor: SWIFTStringAttribute {
+    static var exportAuthor: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 24, weight: .regular)
@@ -81,7 +84,7 @@ public extension SWIFTStringAttribute {
     /// Style attributes for alignment of a paragraph
     /// - Parameter alignment: The alignment
     /// - Returns: A paragraph aligment style
-    static func alignment(_ alignment: NSTextAlignment) -> SWIFTStringAttribute {
+    static func alignment(_ alignment: NSTextAlignment) -> PDFStringAttribute {
         let style = NSMutableParagraphStyle()
         style.alignment = alignment
         return [.paragraphStyle: style]
@@ -90,7 +93,7 @@ public extension SWIFTStringAttribute {
     // MARK: Serif font string styling
 
     /// Style attributes for a *serif* font style
-    static var serifFont: SWIFTStringAttribute {
+    static var serifFont: PDFStringAttribute {
         let descriptor = NSFontDescriptor
             .preferredFontDescriptor(
                 forTextStyle: .body

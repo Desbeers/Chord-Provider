@@ -108,12 +108,12 @@ extension PDFBuild {
     }
 }
 
-public extension SWIFTStringAttribute {
+public extension PDFStringAttribute {
 
     // MARK: Label string styling
 
     /// Style attributes for the section label
-    static var sectionLabel: SWIFTStringAttribute {
+    static var sectionLabel: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)
