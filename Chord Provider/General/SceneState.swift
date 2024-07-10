@@ -84,19 +84,6 @@ import SwiftlyChordUtilities
     }
 }
 
-//extension SceneState {
-//
-//    struct QuickLook: Equatable {
-//        /// The optional URL for a PDF quicklook
-//        var quickLookURL: URL?
-//        /// The random ID of the preview
-//        var quickLookID = UUID()
-//        /// Bool if the quick look is outdated
-//        var quickLookOutdated: Bool = false
-//    }
-//}
-
-
 /// The `FocusedValueKey` for the scene state
 struct SceneFocusedValueKey: FocusedValueKey {
     /// The `typealias` for the key
