@@ -20,6 +20,7 @@ struct ToolbarView: View {
     /// The body of the `View`
     var body: some View {
         HStack {
+            sceneState.showEditorButton
             Group {
                 sceneState.songPagingPicker
                     .pickerStyle(.segmented)
