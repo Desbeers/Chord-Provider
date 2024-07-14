@@ -33,13 +33,13 @@ struct MainView: View {
                     .transition(.opacity)
             } else {
                 let layout = sceneState.songDisplayOptions.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-
                 layout {
                     SongView()
                     if sceneState.songDisplayOptions.showChords {
                         Divider()
                         ChordsView(document: $document)
-                            .background(Color.telecaster.opacity(0.2))
+                            .background(Color.telecaster.opacity(0.6))
+                            .shadow(radius: 100)
                     }
                 }
                 .transition(.move(edge: .trailing))
@@ -77,7 +77,7 @@ struct MainView: View {
         .animation(.default, value: sceneState.preview)
         .animation(.default, value: sceneState.showEditor)
         .animation(.default, value: appState.settings.editor)
-        .animation(.default, value: appState.settings.songDisplayOptions)
+        .animation(.default, value: sceneState.songDisplayOptions)
         .animation(.default, value: appState.settings.chordDisplayOptions)
     }
     /// Render the song

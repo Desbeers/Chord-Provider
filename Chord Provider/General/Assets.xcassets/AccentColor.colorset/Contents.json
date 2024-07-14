@@ -5,9 +5,9 @@
         "color-space" : "display-p3",
         "components" : {
           "alpha" : "1.000",
-          "blue" : "0x7C",
-          "green" : "0x85",
-          "red" : "0x77"
+          "blue" : "0x78",
+          "green" : "0x8D",
+          "red" : "0x7A"
         }
       },
       "idiom" : "mac"

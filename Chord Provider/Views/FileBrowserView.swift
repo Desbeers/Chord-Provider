@@ -96,11 +96,12 @@ struct FileBrowserView: View {
         .buttonStyle(.plain)
         .frame(width: 320)
         .frame(minHeight: 540)
-        .background(Color.telecaster.opacity(0.2))
+        .background(Color.white.colorMultiply(Color.telecaster))
         .navigationTitle("Chord Provider")
         .toolbar {
             fileBrowser.folderSelector
         }
+        .toolbarBackground(.telecaster)
         .task(id: fileBrowser.songList) {
             fileBrowser.getFiles()
             let tags = fileBrowser.songList.flatMap(\.tags)

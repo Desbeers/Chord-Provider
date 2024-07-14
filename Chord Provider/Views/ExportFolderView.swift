@@ -95,6 +95,7 @@ struct ExportFolderView: View {
             .disabled(currentFolder == nil || pdfInfo.title.isEmpty || pdfInfo.author.isEmpty || exporting)
             .padding()
         }
+        .background(Color.white.colorMultiply(Color.telecaster))
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),
@@ -113,9 +114,12 @@ struct ExportFolderView: View {
             }
         )
         .navigationTitle("Export Folder with Songs")
+        .scrollContentBackground(.hidden)
+        .background(Color.white.colorMultiply(Color.telecaster))
         .toolbar {
             Spacer()
         }
+        .toolbarBackground(.telecaster)
         .task(id: currentFolder) {
             pdfInfo.title = currentFolder ?? ""
         }

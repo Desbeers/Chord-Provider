@@ -24,11 +24,12 @@ struct ContentView: View {
         VStack(spacing: 0) {
             HeaderView()
             MainView(document: $document)
-                .background(Color.telecaster.opacity(0.2))
+                .background(Color.white.colorMultiply(Color.telecaster))
         }
         .toolbar {
             ToolbarView(document: document)
         }
+        .toolbarBackground(Color.telecaster)
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)
         .task {
