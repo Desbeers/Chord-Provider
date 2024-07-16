@@ -39,6 +39,8 @@ struct SettingsView: View {
                     Label("Options", systemImage: "music.quarternote.3")
                 }
         }
+        .background(Color.white.colorMultiply(Color.telecaster))
+        .toolbarBackground(.telecaster.gradient)
         .task {
             chordDisplayOptions.displayOptions = appState.settings.chordDisplayOptions
         }
@@ -118,7 +120,7 @@ struct SettingsView: View {
                     Picker("Font style", selection: $appState.settings.editor.fontStyle) {
                         ForEach(ChordProEditor.Settings.FontStyle.allCases, id: \.self) { font in
                             Text("\(font.rawValue)")
-                                .font(font.font(size: 12))
+                                .font(font.font())
                         }
                     }
                 }
@@ -126,27 +128,27 @@ struct SettingsView: View {
                 VStack {
                     ColorPickerButtonView(
                         selectedColor: $appState.settings.editor.chordColor,
-                        label: "The highlight color for **chords**"
+                        label: "Color for **chords**"
                     )
                     ColorPickerButtonView(
                         selectedColor: $appState.settings.editor.directiveColor,
-                        label: "The highlight color for **directives**"
+                        label: "Color for **directives**"
                     )
                     ColorPickerButtonView(
                         selectedColor: $appState.settings.editor.argumentColor,
-                        label: "The highlight color for **arguments**"
+                        label: "Color for **arguments**"
                     )
                     ColorPickerButtonView(
-                        selectedColor: $appState.settings.editor.pangoColor,
-                        label: "The highlight color for **pango**"
+                        selectedColor: $appState.settings.editor.markupColor,
+                        label: "Color for **markup**"
                     )
                     ColorPickerButtonView(
                         selectedColor: $appState.settings.editor.bracketColor,
-                        label: "The highlight color for **brackets**"
+                        label: "Color for **brackets**"
                     )
                     ColorPickerButtonView(
                         selectedColor: $appState.settings.editor.commentColor,
-                        label: "The highlight color for **comments**"
+                        label: "Color for **comments**"
                     )
                 }
                 .wrapSettingsSection(title: "Highlight Colors")
@@ -168,14 +170,20 @@ struct SettingsView: View {
     /// `View` with folder selector
     var folder: some View {
         VStack {
-            Text(.init(Help.folderSelector))
-                .padding()
-            Text(.init(Help.macOSbrowser))
-                .padding()
-            fileBrowser.folderSelector
-                .padding()
+            ScrollView {
+                VStack {
+                    Text(.init(Help.folderSelector))
+                        .padding()
+                    Text(.init(Help.macOSbrowser))
+                        .padding()
+                    fileBrowser.folderSelector
+                        .padding()
+                }
+                .wrapSettingsSection(title: "The folder with your songs")
+            }
         }
-        .wrapSettingsSection(title: "The folder with your songs")
+        .padding(.bottom)
+        .frame(maxWidth: .infinity)
     }
 }
 
