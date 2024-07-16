@@ -21,26 +21,29 @@ struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     /// The body of the `View`
     var body: some View {
-        TabView {
-            editor
-                .tabItem {
-                    Label("Editor", systemImage: "pencil")
-                }
-            diagram
-                .tabItem {
-                    Label("Diagrams", systemImage: "guitars")
-                }
-            folder
-                .tabItem {
-                    Label("Songs", systemImage: "folder")
-                }
-            options
-                .tabItem {
-                    Label("Options", systemImage: "music.quarternote.3")
-                }
+        VStack(spacing: 0) {
+            Divider()
+            TabView {
+                editor
+                    .tabItem {
+                        Label("Editor", systemImage: "pencil")
+                    }
+                diagram
+                    .tabItem {
+                        Label("Diagrams", systemImage: "guitars")
+                    }
+                folder
+                    .tabItem {
+                        Label("Songs", systemImage: "folder")
+                    }
+                options
+                    .tabItem {
+                        Label("Options", systemImage: "music.quarternote.3")
+                    }
+            }
         }
         .background(Color.white.colorMultiply(Color.telecaster))
-        .toolbarBackground(.telecaster.gradient)
+        .toolbarBackground(.telecaster)
         .task {
             chordDisplayOptions.displayOptions = appState.settings.chordDisplayOptions
         }
