@@ -127,7 +127,7 @@ extension PDFBuild.Builder {
         let pdfData = NSMutableData()
         guard
             let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData),
-            let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: nil, auxiliaryInfo as CFDictionary)
+            let pdfContext = CGContext(consumer: pdfConsumer, mediaBox: &self.pageRect, auxiliaryInfo as CFDictionary)
         else {
             return pdfData
         }

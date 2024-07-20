@@ -7,7 +7,7 @@
       "location" : "https://github.com/Desbeers/ChordProShared",
       "state" : {
         "branch" : "main",
-        "revision" : "6fbc61e710748238801bb1e829293b3e551df7f7"
+        "revision" : "05875a85b9e6e2047a513f7ad884b1fd56f5fd58"
       }
     },
     {
@@ -16,7 +16,7 @@
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "b7ae6ddce90482365ab6e71b5150b121c14b33e7"
+        "revision" : "9dff1cb97eac240eda75f9cd54ef139bef71eae1"
       }
     }
   ],
