@@ -1,24 +1,10 @@
 # Chord Provider
 
-## A [ChordPro](https://www.chordpro.org) viewer, editor and PDF exporter for macOS, ~~iPadOS~~ and ~~visionOS~~
-
-## Important:
-
-Due to rude treatment of Apple Support to get an official Apple Developer Account, the iPad and Vision Pro targets for **Chord Provider** are dropped.
-
-> Upon review, we can’t verify your identity with the Apple Developer app or provide further assistance with this Apple ID for Apple developer programs.
-
-Request for further assistance was ignored. So, I lost interest to code for fully closed platforms.
-
----
+## A [ChordPro](https://www.chordpro.org) viewer, editor and PDF exporter for macOS
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
 
-**Chord Provider** is written in SwiftUI and needs Xcode 15 to compile.
-
-- macOS Sonoma
-- ~~iPadOS 17~~
-- ~~visionOS 1.1~~
+**Chord Provider** is written in SwiftUI and needs macOS Sonoma.
 
 There are many **ChordPro** parsers in this world, however, none are *really* native in the Apple world.
 
@@ -54,10 +40,6 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
 
 Not all chords in the database are correct; especially the more complicated chords. I wrote [Chords Database](https://github.com/Desbeers/Chords-Database) for macOS and iPadOS to view and alter the database with all known chords. Feel free to contribute!
-
-### iCloud
-
-~~The iPadOS app will make an iCloud folder named **Chord Provider**; that's where your songs should be stored. In the macOS app, you can select a folder with your songs. If you use the same iCloud folder; updates are instantly.~~
 
 ### Documentation
 
