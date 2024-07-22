@@ -16,7 +16,7 @@ extension PDFBuild {
         /// The title of the PDF document
         var title: String = ""
         /// The author of the PDF document
-        var author: String = "Chord Provider"
+        var author: String = NSFullUserName()
         /// The subject of the PDF document
         var subject: String = "Song lyrics and chords"
         /// The creator of the PDF document

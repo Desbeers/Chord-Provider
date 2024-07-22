@@ -35,7 +35,7 @@ class FileBrowser {
     var menuBarExtraWindow: NSWindow?
     /// Init the FileBrowser
     init() {
-        songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+        songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
     }
 }
 
@@ -82,38 +82,36 @@ extension FileBrowser {
 
     /// Get the song files from the user selected folder
     func getFiles() {
-        do {
-            var songs = songList
-            /// Get a list of all files
-            if let songsFolder = try UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
-                /// Get access to the URL
-                _ = songsFolder.startAccessingSecurityScopedResource()
-                status = .songsFolderIsSelected
-                if songs.isEmpty, let items = FileManager.default.enumerator(at: songsFolder, includingPropertiesForKeys: nil) {
-                    while let item = items.nextObject() as? URL {
-                        if ChordProDocument.fileExtension.contains(item.pathExtension) {
-                            var song = SongItem(fileURL: item)
-                            FileBrowser.parseSongFile(item, &song)
-                            songs.append(song)
-                        }
+        var songs = songList
+        /// Get a list of all files
+        if let songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+            /// Get access to the URL
+            _ = songsFolder.startAccessingSecurityScopedResource()
+            status = .songsFolderIsSelected
+            if songs.isEmpty, let items = FileManager.default.enumerator(at: songsFolder, includingPropertiesForKeys: nil) {
+                while let item = items.nextObject() as? URL {
+                    if ChordProDocument.fileExtension.contains(item.pathExtension) {
+                        var song = SongItem(fileURL: item)
+                        FileBrowser.parseSongFile(item, &song)
+                        songs.append(song)
                     }
                 }
-                /// Close access to the URL
-                songsFolder.stopAccessingSecurityScopedResource()
-
-                /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
-                let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
-                    occurrence.artist
-                }
-                /// We now map over the dictionary and create our artist objects.
-                /// Then we want to sort them so that they are in the correct order.
-                artistList = grouped.map { artist -> ArtistItem in
-                    ArtistItem(name: artist.key, songs: artist.value)
-                }
-                .sorted { $0.name < $1.name }
-                songList = songs.sorted { $0.title < $1.title }
             }
-        } catch {
+            /// Close access to the URL
+            songsFolder.stopAccessingSecurityScopedResource()
+
+            /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
+            let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
+                occurrence.artist
+            }
+            /// We now map over the dictionary and create our artist objects.
+            /// Then we want to sort them so that they are in the correct order.
+            artistList = grouped.map { artist -> ArtistItem in
+                ArtistItem(name: artist.key, songs: artist.value)
+            }
+            .sorted { $0.name < $1.name }
+            songList = songs.sorted { $0.title < $1.title }
+        } else {
             /// There is no folder selected
             songsFolder = nil
             status = .noSongsFolderSelectedError
