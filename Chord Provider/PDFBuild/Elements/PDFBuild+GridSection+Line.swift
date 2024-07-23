@@ -35,9 +35,10 @@ extension PDFBuild.GridSection {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            var items: [NSAttributedString] = []
+            let line = NSMutableAttributedString()
+            //var items: [NSAttributedString] = []
             for part in grid {
-                items.append(
+                line.append(
                     NSAttributedString(
                         string: "|",
                         attributes: .gridText
@@ -45,26 +46,26 @@ extension PDFBuild.GridSection {
                 )
                 for part in part.parts {
                     if let chord = part.chord, let first = chords.first(where: { $0.id == chord }) {
-                        items.append(
+                        line.append(
                             NSAttributedString(
-                                string: first.displayName(options: .init()),
+                                string: "  \(first.displayName(options: .init()))",
                                 attributes: .gridChord
                             )
                         )
                     }
                     if !part.text.isEmpty {
-                        items.append(
+                        line.append(
                             NSAttributedString(
-                                string: part.text,
+                                string: "  \(part.text)",
                                 attributes: .gridText
                             )
                         )
                     }
                 }
             }
-            let line = items.joined(with: "  ")
+            //let line = items.joined(with: "  ")
             let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
-            let textBounds = line.bounds(withSize: textRect.size)
+            let textBounds = line.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
             if !calculationOnly {
                 line.draw(with: textRect, options: textDrawingOptions, context: nil)
             }

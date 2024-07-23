@@ -17,7 +17,7 @@ extension PDFBuild.LyricsSection.Line {
 
         /// The text of the part
         /// - Note: A merge of the optional chord and optional lyrics part
-        let text: NSAttributedString
+        let text = NSMutableAttributedString()
         /// The size of the part
         /// - Note: Used by the `Line` element to define the rectangle
         let size: CGSize
@@ -28,9 +28,11 @@ extension PDFBuild.LyricsSection.Line {
         ///   - chords: All the chords of the song
         init(part: Song.Section.Line.Part, chords: [ChordDefinition]) {
             if chords.isEmpty {
-                self.text = NSAttributedString(
-                    string: "\(part.text)",
-                    attributes: .partLyric
+                self.text.append(
+                    NSAttributedString(
+                        string: "\(part.text)",
+                        attributes: .partLyric
+                    )
                 )
             } else {
                 var chordString: String = " "
@@ -39,17 +41,17 @@ extension PDFBuild.LyricsSection.Line {
                     chordString = chord.displayName(options: .init())
                     chordStatus = chord.status
                 }
-                self.text =
-                [
+                self.text.append(
                     NSAttributedString(
                         /// Add a space behind the chord-name so two chords will never 'stick' together
-                        string: "\(chordString) ",
-                        attributes: .partChord(chordStatus)),
-                    NSAttributedString(
-                        string: "\(part.text)",
-                        attributes: .partLyric)
-                ]
-                    .joined(with: "\n")
+                        string: "\(chordString) \n",
+                        attributes: .partChord(chordStatus)
+                    )
+                )
+                self.text.append(NSAttributedString(
+                    string: "\(part.text)",
+                    attributes: .partLyric)
+                )
             }
             self.size = text.size()
         }
@@ -60,7 +62,7 @@ extension PDFBuild.LyricsSection.Line {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            let textBounds = text.bounds(withSize: rect.size)
+            let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
             if !calculationOnly {
                 text.draw(with: rect, options: textDrawingOptions, context: nil)
             }

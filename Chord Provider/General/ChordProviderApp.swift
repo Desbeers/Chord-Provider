@@ -171,7 +171,6 @@ public struct ResetApplicationButtonView: View {
             action: {
                 /// Remove user defaults
                 if let bundleID = Bundle.main.bundleIdentifier {
-                    dump(bundleID)
                     UserDefaults.standard.removePersistentDomain(forName: bundleID)
                 }
                 /// Delete the cache

@@ -18,8 +18,6 @@ extension PDFBuild {
         let document: DocumentInfo
         /// Metadata info for the PDF file
         let auxiliaryInfo: [CFString: String]
-        /// The margins for the page
-        let pageMargin: NSEdgeInsets
         /// The optional current `PageHeaderFooter` element
         private var pageHeaderFooter: PDFBuild.PageHeaderFooter?
         /// The optional `PageCounter` element
@@ -36,12 +34,6 @@ extension PDFBuild {
         init(info: PDFBuild.DocumentInfo) {
             self.document = info
             self.auxiliaryInfo = info.dictionary
-            self.pageMargin = NSEdgeInsets(
-                top: info.pagePadding,
-                left: info.pagePadding,
-                bottom: info.pagePadding,
-                right: info.pagePadding
-            )
         }
 
         /// Generate a PDF document with all the added elements
@@ -88,7 +80,7 @@ extension PDFBuild {
             if let pageCounter = pageCounter {
                 pageCounter.pageNumber += 1
             }
-            var page = document.pageRect.inset(by: pageMargin)
+            var page = document.pageRect.insetBy(dx: document.pagePadding, dy: document.pagePadding)
             pageHeaderFooter?.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
             return page
         }

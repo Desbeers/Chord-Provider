@@ -41,7 +41,7 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
-            let textBounds = text.bounds(withSize: textRect.size)
+            let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
             if !calculationOnly {
                 text.draw(with: textRect, options: textDrawingOptions, context: nil)
             }

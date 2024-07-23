@@ -50,14 +50,14 @@ extension PDFBuild {
             var leadingRect: CGRect = .zero
             if let leadingText {
                 /// Check how much space is needed for the leading; later used to calculate the background size
-                leadingBounds = leadingText.bounds(withSize: textRect.size)
+                leadingBounds = leadingText.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
                 /// Store the size to render the leading after the clipping and background
                 leadingRect = textRect
                 /// Adjust the remaining rect for the label
                 labelRect.origin.x += (leadingBounds.size.width + 2 * textPadding)
                 labelRect.size.width -= (leadingBounds.size.width + (6 * textPadding))
             }
-            let labelBounds = labelText.bounds(withSize: labelRect.size)
+            let labelBounds = labelText.boundingRect(with: labelRect.size, options: .usesLineFragmentOrigin)
             let width = leadingBounds.width + labelBounds.width + ((leadingText == nil ? 2 : 3) * 2 * textPadding)
             let height = labelBounds.height + (4 * textPadding)
             /// Calculate `X` based on alignment

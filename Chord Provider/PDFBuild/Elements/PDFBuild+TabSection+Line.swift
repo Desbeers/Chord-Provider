@@ -37,7 +37,7 @@ extension PDFBuild.TabSection {
                 string: tab,
                 attributes: .tabLine(fontSize: fontSize)
             )
-            let textBounds = text.bounds(withSize: textRect.size)
+            let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
             if !calculationOnly {
                 text.draw(with: textRect, options: textDrawingOptions, context: nil)
             }

@@ -45,9 +45,16 @@ extension PDFStringAttribute {
 
     /// String attributes for a textblock  line
     static var textblockLine: PDFStringAttribute {
-        [
+        /// Set the fallback font
+        let systemFont = NSFont.systemFont(ofSize: 10)
+        /// Create a font descriptor with the italic trait
+        let fontDescriptor = systemFont.fontDescriptor.withSymbolicTraits(.italic)
+        /// Create a font from the descriptor
+        let italicSystemFont = NSFont(descriptor: fontDescriptor, size: 10) ?? systemFont
+        /// Return italic font or fallback to system font
+        return [
             .foregroundColor: NSColor.gray,
-            .font: NSFont.italicSystemFont(ofSize: 10)
+            .font: italicSystemFont
         ]
     }
 }

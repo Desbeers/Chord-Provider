@@ -31,7 +31,7 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Add the detail items
-            var items: [NSAttributedString] = []
+            let items = NSMutableAttributedString()
             items.append(detailLabel(icon: "􀑭", label: song.metaData.instrument.label))
             if let key = song.metaData.key {
                 items.append(detailLabel(icon: "􀟕", label: key.displayName(options: .init())))
@@ -42,11 +42,10 @@ extension PDFBuild {
             if let time = song.metaData.time {
                 items.append(detailLabel(icon: "􀐱", label: time))
             }
-            let text = items.joined(with: "  ")
             /// Draw the details
-            let textBounds = text.bounds(withSize: rect.size)
+            let textBounds = items.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
             if !calculationOnly {
-                text.draw(with: rect, options: textDrawingOptions, context: nil)
+                items.draw(with: rect, options: textDrawingOptions, context: nil)
             }
             let height = textBounds.height + 2 * textPadding
             rect.origin.y += height
@@ -59,10 +58,11 @@ extension PDFBuild {
         ///   - label: The label as `String`
         /// - Returns: An `NSAttributedString` with icon, label and attributes
         private func detailLabel(icon: String, label: String) -> NSAttributedString {
-            [
-                NSAttributedString(string: icon, attributes: .songDetailIcon),
-                NSAttributedString(string: label, attributes: .songDetailLabel)
-            ].joined(with: " ")
+            let result = NSMutableAttributedString()
+            result.append(NSAttributedString(string: icon, attributes: .songDetailIcon))
+            result.append(NSAttributedString(string: " "))
+            result.append(NSAttributedString(string: label, attributes: .songDetailLabel))
+            return result
         }
     }
 }
