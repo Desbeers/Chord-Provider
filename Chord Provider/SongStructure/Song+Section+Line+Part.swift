@@ -11,7 +11,7 @@ import SwiftlyChordUtilities
 extension Song.Section.Line {
 
     /// A part in the ``Song/Section/Line``
-    struct Part: Identifiable {
+    struct Part: Identifiable, Equatable {
         /// The unique ID
         var id: Int
         /// The optional chord ID

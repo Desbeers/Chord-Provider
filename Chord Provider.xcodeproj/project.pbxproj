@@ -25,7 +25,6 @@
 		D70B72742BD3CD2F003C89B4 /* PDFBuild+Chords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */; };
 		D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */; };
 		D70B72792BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */; };
-		D70B727B2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */; };
 		D70B727E2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727D2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift */; };
 		D70B72802BD50108003C89B4 /* PDFBuild+StrumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727F2BD50108003C89B4 /* PDFBuild+StrumSection.swift */; };
 		D70B72822BD5040C003C89B4 /* PDFBuild+Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72812BD5040C003C89B4 /* PDFBuild+Comment.swift */; };
@@ -57,7 +56,6 @@
 		D70B72A72BD52A9B003C89B4 /* PDFBuild+LyricsSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */; };
 		D70B72A82BD52A9B003C89B4 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */; };
 		D70B72A92BD52A9B003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */; };
-		D70B72AA2BD52A9B003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */; };
 		D70B72AB2BD52A9B003C89B4 /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D70B72AC2BD52A9B003C89B4 /* PDFBuild+Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */; };
 		D70B72AD2BD52A9B003C89B4 /* PDFBuild+PageCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD792BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift */; };
@@ -80,7 +78,6 @@
 		D70B72BF2BD52A9C003C89B4 /* PDFBuild+LyricsSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */; };
 		D70B72C02BD52A9C003C89B4 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */; };
 		D70B72C12BD52A9C003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */; };
-		D70B72C22BD52A9C003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */; };
 		D70B72C32BD52A9C003C89B4 /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D70B72C42BD52A9C003C89B4 /* PDFBuild+Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */; };
 		D70B72C52BD52A9C003C89B4 /* PDFBuild+PageCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD792BCECC9F005DEDF6 /* PDFBuild+PageCounter.swift */; };
@@ -289,7 +286,6 @@
 		D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Chords.swift"; sourceTree = "<group>"; };
 		D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Chords+Diagram.swift"; sourceTree = "<group>"; };
 		D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TabSection+Line.swift"; sourceTree = "<group>"; };
-		D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+GridSection+Line.swift"; sourceTree = "<group>"; };
 		D70B727D2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+SongDetails.swift"; sourceTree = "<group>"; };
 		D70B727F2BD50108003C89B4 /* PDFBuild+StrumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+StrumSection.swift"; sourceTree = "<group>"; };
 		D70B72812BD5040C003C89B4 /* PDFBuild+Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Comment.swift"; sourceTree = "<group>"; };
@@ -463,7 +459,6 @@
 				D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */,
 				D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */,
 				D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */,
-				D70B727A2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift */,
 				D7EF99642BDAD98A0058E1CB /* PDFBuild+Image.swift */,
 				D711737F2BD279D80075325C /* PDFBuild+Label.swift */,
 				D70B72832BD507B6003C89B4 /* PDFBuild+LyricsSection.swift */,
@@ -1031,7 +1026,6 @@
 				D70B72C02BD52A9C003C89B4 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */,
 				D70B72C12BD52A9C003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
 				D75B48A62BDFE97F001F6176 /* Song+MetaData.swift in Sources */,
-				D70B72C22BD52A9C003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
 				D70B72C32BD52A9C003C89B4 /* PDFBuild+Section.swift in Sources */,
 				D70B72C42BD52A9C003C89B4 /* PDFBuild+Clip.swift in Sources */,
 				D70B72C52BD52A9C003C89B4 /* PDFBuild+PageCounter.swift in Sources */,
@@ -1103,7 +1097,6 @@
 				D7F13FE72A6460B7002D875D /* ExportSongView.swift in Sources */,
 				D7FA7F412C2CA9320031E1E8 /* ExportDocument.swift in Sources */,
 				D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */,
-				D70B727B2BD4E1CE003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
 				D7F13FBF2A6460B7002D875D /* Song+RenderView.swift in Sources */,
 				D7F13FE42A6460B7002D875D /* ChordsView.swift in Sources */,
 				D7EF99652BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
@@ -1206,7 +1199,6 @@
 				D70B72A82BD52A9B003C89B4 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */,
 				D70B72A92BD52A9B003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
 				D75B48A52BDFE97F001F6176 /* Song+MetaData.swift in Sources */,
-				D70B72AA2BD52A9B003C89B4 /* PDFBuild+GridSection+Line.swift in Sources */,
 				D70B72AB2BD52A9B003C89B4 /* PDFBuild+Section.swift in Sources */,
 				D70B72AC2BD52A9B003C89B4 /* PDFBuild+Clip.swift in Sources */,
 				D70B72AD2BD52A9B003C89B4 /* PDFBuild+PageCounter.swift in Sources */,

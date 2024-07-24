@@ -357,10 +357,13 @@ actor ChordPro {
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
         /// Give the structs an ID
         var partID: Int = 1
-        /// Seperate the grids
+        /// Separate the grids
         let grids = text.replacingOccurrences(of: " ", with: "").split(separator: "|")
         for text in grids where !text.isEmpty {
             var grid = Song.Section.Line.Grid(id: partID)
+            /// Add the divider
+            grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: "|"))
+            partID += 1
             /// Process like a 'normal' line'
             var matches = text.matches(of: lineRegex)
             matches = matches.dropLast()
@@ -372,7 +375,6 @@ actor ChordPro {
                     grid.parts.append(Song.Section.Line.Part(id: partID, chord: result.id))
                     partID += 1
                 }
-
                 if let spacer {
                     /// Add it as spacer
                     for _ in spacer {

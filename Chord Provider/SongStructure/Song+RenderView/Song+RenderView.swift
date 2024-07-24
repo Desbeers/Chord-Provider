@@ -232,7 +232,6 @@ extension Song.RenderView {
                     if line.comment.isEmpty {
                         GridRow {
                             ForEach(line.grid) { grid in
-                                Text("|")
                                 ForEach(grid.parts) { part in
                                     if let chord = song.chords.first(where: { $0.id == part.chord }) {
                                         ChordView(options: options, sectionID: section.id, partID: part.id, chord: chord)
