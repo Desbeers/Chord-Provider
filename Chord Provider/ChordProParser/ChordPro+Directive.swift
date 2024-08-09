@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ChordProShared
 
 extension ChordPro {
 
@@ -42,7 +41,6 @@ extension ChordPro {
         var button: String {
             self.details.button
         }
-
 
         // swiftlint:disable identifier_name
 
@@ -138,7 +136,8 @@ extension ChordPro {
 
         /// ## Textblock
 
-        /// This directive indicates that the lines that follow define a piece of text that is combined into a single object that can be placed as an image
+        /// This directive indicates that the lines that follow define a piece of text that is combined into a
+        /// single object that can be placed as an image
         case startOfTextblock = "start_of_textblock"
         /// This directive indicates the end of the textblock
         case endOfTextblock = "end_of_textblock"

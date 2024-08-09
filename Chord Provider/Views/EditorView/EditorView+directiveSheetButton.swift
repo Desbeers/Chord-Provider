@@ -18,7 +18,10 @@ extension EditorView {
                 /// If the directive is `define`, set the definition for a chord to its initial values
                 if
                     directive == .define,
-                    let chord = ChordDefinition(name: "C", instrument: appState.settings.chordDisplayOptions.instrument) {
+                    let chord = ChordDefinition(
+                        name: "C",
+                        instrument: appState.settings.chordDisplayOptions.instrument
+                    ) {
                     sceneState.chordDisplayOptions.definition = chord
                 }
                 editDirective = directive

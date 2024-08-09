@@ -105,7 +105,11 @@ extension PDFBuild {
         ///   - rowElements: The ``PDFElement`` array in a row
         ///   - columnWidth: The width of the column
         /// - Returns: A `CGFloat` with the calculated height of the section
-        private func calculateSectionHeight(rowElements: [PDFElement], columnsWidth: [CGFloat], pageRect: CGRect) -> CGFloat {
+        private func calculateSectionHeight(
+            rowElements: [PDFElement],
+            columnsWidth: [CGFloat],
+            pageRect: CGRect
+        ) -> CGFloat {
             var rowHeight: CGFloat = 5
             let maxHeight: Double = 10_000
             for (index, cell) in rowElements.enumerated() {

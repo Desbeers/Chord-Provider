@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 
 /// SwiftUI `View` with the preview pane
 struct PreviewPaneView: View {

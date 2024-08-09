@@ -234,16 +234,22 @@ extension PDFBuild.Chords {
             /// - Parameters:
             ///   - rect: The available rect
             func drawFrets(rect: inout CGRect) {
+                /// The circle radius is the same for every instrument
+                let circleRadius = gridSize.width / 5
+                /// Below should be 0 for a six string instrument
+                let xOffset = (xSpacing - circleRadius) / 2
+                /// Set the rect for the grid
                 var dotRect = CGRect(
-                    x: rect.origin.x + xSpacing,
+                    x: rect.origin.x + xSpacing + xOffset,
                     y: rect.origin.y,
-                    width: xSpacing,
+                    width: circleRadius,
                     height: ySpacing
                 )
                 for fret in 1...5 {
                     for string in chord.instrument.strings {
                         if frets[string] == fret && !chord.barres.map(\.fret).contains(fret) {
-                            let finger = options.general.showFingers && fingers[string] != 0 ? "\(fingers[string])" : " "
+                            let finger = options.general.showFingers && fingers[string] != 0 ?
+                            "\(fingers[string])" : " "
                             let text = PDFBuild.Text(finger, attributes: .diagramFinger)
                             let background = PDFBuild.Background(color: .gray, text)
                             let shape = PDFBuild.Clip(.circle, background)
@@ -254,7 +260,7 @@ extension PDFBuild.Chords {
                         dotRect.origin.x += xSpacing
                     }
                     /// Move X back to the left
-                    dotRect.origin.x = rect.origin.x + xSpacing
+                    dotRect.origin.x = rect.origin.x + xSpacing + xOffset
                     /// Move Y one fret down
                     dotRect.origin.y += ySpacing
                 }
@@ -265,6 +271,11 @@ extension PDFBuild.Chords {
             /// Draw the barres in the grid
             /// - Parameter rect: The available rect
             func drawBarres(rect: inout CGRect) {
+                /// The circle radius is the same for every instrument
+                let circleRadius = gridSize.width / 5
+                /// Below should be 0 for a six string instrument
+                let xOffset = (xSpacing - circleRadius) / 2
+                /// Set the rect for the grid
                 var barresRect = CGRect(
                     x: rect.origin.x + xSpacing,
                     y: rect.origin.y,
@@ -278,11 +289,11 @@ extension PDFBuild.Chords {
                         let finger = options.general.showFingers ? "\(barre.finger)" : " "
                         let text = PDFBuild.Text(finger, attributes: .diagramFinger)
                         let background = PDFBuild.Background(color: .gray, text)
-                        let shape = PDFBuild.Clip(.roundedRect(radius: xSpacing / 2), background)
+                        let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
                         var tmpRect = CGRect(
-                            x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing),
+                            x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing) + xOffset,
                             y: barresRect.origin.y,
-                            width: CGFloat(barre.length) * xSpacing,
+                            width: (CGFloat(barre.length) * xSpacing) - (2 * xOffset),
                             height: ySpacing
                         )
                         shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)

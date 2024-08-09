@@ -11,7 +11,10 @@ import QuickLookThumbnailing
 
 class ThumbnailProvider: QLThumbnailProvider {
 
-    override func provideThumbnail(for request: QLFileThumbnailRequest, _ handler: @escaping (QLThumbnailReply?, Error?) -> Void) {
+    override func provideThumbnail(
+        for request: QLFileThumbnailRequest,
+        _ handler: @escaping (QLThumbnailReply?, Error?) -> Void
+    ) {
         do {
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
             let song = ChordPro.parse(
@@ -40,7 +43,9 @@ class ThumbnailProvider: QLThumbnailProvider {
             )
             /// Draw icon if all is well
             if let cgImage {
-                Logger.thumbnailProvider.log("Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public)")
+                Logger.thumbnailProvider.log(
+                    "Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public)"
+                )
                 let qlThumbnailReply = QLThumbnailReply(contextSize: contextSize) { context -> Bool in
                     /// Draw the thumbnail in the provided context
                     context.draw(cgImage, in: scaleFrame, byTiling: false)
@@ -50,7 +55,9 @@ class ThumbnailProvider: QLThumbnailProvider {
                 qlThumbnailReply.extensionBadge = "ChordPro"
                 handler(qlThumbnailReply, nil)
             } else {
-                Logger.thumbnailProvider.log("Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public) failed")
+                Logger.thumbnailProvider.log(
+                    "Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public) failed"
+                )
             }
         } catch {
             Logger.thumbnailProvider.log("Make thumbnail error: \(error.localizedDescription, privacy: .public) failed")

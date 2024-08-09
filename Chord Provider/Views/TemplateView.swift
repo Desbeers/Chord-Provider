@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 
 /// SwiftUI `View` when creating a new document
 struct TemplateView: View {

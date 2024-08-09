@@ -284,7 +284,12 @@ actor ChordPro {
     ///   - type: The type of `section`
     ///   - song: The `song`
     ///   - currentSection: The current `section` of the `song`
-    private static func processSection(label: String, type: Environment, song: inout Song, currentSection: inout Song.Section) {
+    private static func processSection(
+        label: String,
+        type: Environment,
+        song: inout Song,
+        currentSection: inout Song.Section
+    ) {
         if currentSection.lines.isEmpty {
             /// There is already an empty section
             currentSection.type = type
@@ -309,7 +314,11 @@ actor ChordPro {
     ///   - text: The chord definition
     ///   - song: The `song`
     private static func processDefine(text: String, song: inout Song) {
-        if var definedChord = try? ChordDefinition(definition: text, instrument: song.metaData.instrument, status: .unknownChord) {
+        if var definedChord = try? ChordDefinition(
+            definition: text,
+            instrument: song.metaData.instrument,
+            status: .unknownChord
+        ) {
             definedChord.status = song.metaData.transpose == 0 ? definedChord.status : .customTransposedChord
             /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
@@ -358,31 +367,22 @@ actor ChordPro {
         /// Give the structs an ID
         var partID: Int = 1
         /// Separate the grids
-        let grids = text.replacingOccurrences(of: " ", with: "").split(separator: "|")
+        let grids = text.split(separator: " ")
         for text in grids where !text.isEmpty {
+            let text = text.trimmingCharacters(in: .whitespacesAndNewlines)
             var grid = Song.Section.Line.Grid(id: partID)
-            /// Add the divider
-            grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: "|"))
-            partID += 1
-            /// Process like a 'normal' line'
-            var matches = text.matches(of: lineRegex)
-            matches = matches.dropLast()
-            for match in matches {
-                let (_, chord, spacer) = match.output
-                if let chord {
-                    let result = processChord(chord: String(chord), song: &song)
-                    /// Add it as chord
+            switch text {
+            case "|", ".":
+                grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: text))
+            default:
+                let result = processChord(chord: String(text), song: &song, ignoreUnknown: true)
+                if result.status == .unknownChord {
+                    grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: text))
+                } else {
                     grid.parts.append(Song.Section.Line.Part(id: partID, chord: result.id))
-                    partID += 1
-                }
-                if let spacer {
-                    /// Add it as spacer
-                    for _ in spacer {
-                        grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: "."))
-                        partID += 1
-                    }
                 }
             }
+            partID += 1
             line.grid.append(grid)
         }
         currentSection.lines.append(line)
@@ -466,8 +466,9 @@ actor ChordPro {
     /// - Parameters:
     ///   - chord: The `chord` as String
     ///   - song: The `Song`
+    ///   - ignoreUnknown: Bool to ignore an unknown chord so it will not be added to the chord list
     /// - Returns: The processed `chord` as String
-    private static func processChord(chord: String, song: inout Song) -> ChordDefinition {
+    private static func processChord(chord: String, song: inout Song, ignoreUnknown: Bool = false) -> ChordDefinition {
         /// Check if this chord is already parsed
         if  let match = song.chords.last(where: { $0.name == chord }) {
             return match
@@ -483,7 +484,9 @@ actor ChordPro {
             return databaseChord
         }
         let unknownChord = ChordDefinition(unknown: chord, instrument: song.metaData.instrument)
-        song.chords.append(unknownChord)
+        if !ignoreUnknown {
+            song.chords.append(unknownChord)
+        }
         return unknownChord
     }
 }

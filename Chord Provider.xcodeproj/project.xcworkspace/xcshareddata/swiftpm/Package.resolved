@@ -1,22 +1,13 @@
 {
-  "originHash" : "0d34dbabef9719745bbcf383d79ea5a3be1330c3810c657f5c678e2afb374068",
+  "originHash" : "a1a30049151505f7de4b259e625eb47b31c2ad9360ea02e8a788f6c711680e0a",
   "pins" : [
-    {
-      "identity" : "chordproshared",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Desbeers/ChordProShared",
-      "state" : {
-        "branch" : "main",
-        "revision" : "6720418b9ddbfd5ec59aaa7f5637d7e1a7779841"
-      }
-    },
     {
       "identity" : "swiftlychordutilities",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Desbeers/SwiftlyChordUtilities",
       "state" : {
         "branch" : "main",
-        "revision" : "e1d7aef997a319335c4d016effe39780a855baa5"
+        "revision" : "a3fb0f708c6f8c8ca24a6c2069a7b90ce5e895cf"
       }
     }
   ],

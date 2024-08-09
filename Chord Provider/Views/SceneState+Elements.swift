@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 
 extension SceneState {
 
@@ -22,7 +21,10 @@ extension SceneState {
         @Bindable var sceneState: SceneState
         /// The body of the `View`
         var body: some View {
-            Menu("Chords", systemImage: sceneState.songDisplayOptions.showChords ? "number.circle.fill" : "number.circle") {
+            Menu(
+                "Chords",
+                systemImage: sceneState.songDisplayOptions.showChords ? "number.circle.fill" : "number.circle"
+            ) {
                 sceneState.showChordsButton
                 Divider()
                 sceneState.chordsPositionPicker
@@ -130,7 +132,6 @@ extension SceneState {
     }
 }
 
-
 extension SceneState {
 
     // MARK: Scale Slider
@@ -191,7 +192,10 @@ extension SceneState {
             Button {
                 sceneState.song.metaData.transpose += 1
             } label: {
-                Label("♯", systemImage: sceneState.song.metaData.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle")
+                Label(
+                    "♯",
+                    systemImage: sceneState.song.metaData.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle"
+                )
             }
         }
     }
@@ -209,7 +213,10 @@ extension SceneState {
             Button {
                 sceneState.song.metaData.transpose -= 1
             } label: {
-                Label("♭", systemImage: sceneState.song.metaData.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle")
+                Label(
+                    "♭",
+                    systemImage: sceneState.song.metaData.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle"
+                )
             }
         }
     }

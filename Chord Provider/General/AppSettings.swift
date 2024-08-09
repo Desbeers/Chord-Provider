@@ -8,7 +8,6 @@
 import Foundation
 import SwiftlyChordUtilities
 import OSLog
-import ChordProShared
 
 /// All the settings for the application
 struct AppSettings: Equatable, Codable, Sendable {

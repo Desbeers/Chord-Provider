@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the chord diagrams
@@ -142,7 +141,10 @@ extension ChordsView {
             return []
         }
         let allChords = Chords.getAllChordsForInstrument(instrument: selectedChord.instrument)
-        return allChords.matching(root: selectedChord.root).matching(quality: selectedChord.quality).matching(bass: selectedChord.bass)
+        return allChords
+            .matching(root: selectedChord.root)
+            .matching(quality: selectedChord.quality)
+            .matching(bass: selectedChord.bass)
     }
 
     /// Check of a chord in the sheet is the currrent selected chord

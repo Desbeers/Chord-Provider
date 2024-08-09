@@ -87,8 +87,10 @@ public struct ColumnsLayout: Layout {
     /// Assigns positions to each of the layout’s subviews
     /// - Note: Protocol requirement
     /// - Parameters:
-    ///   - bounds: The region that the container view’s parent allocates to the container view, specified in the parent’s coordinate space
-    ///   - proposal: The size proposal from which the container generated the size that the parent used to create the bounds parameter
+    ///   - bounds: The region that the container view’s parent allocates to the container view,
+    ///             specified in the parent’s coordinate space
+    ///   - proposal: The size proposal from which the container generated the size that the parent
+    ///               used to create the bounds parameter
     ///   - subviews: A collection of proxies that represent the views that the container arranges
     ///   - cache: Optional storage for calculated data
     public func placeSubviews(
@@ -103,9 +105,9 @@ public struct ColumnsLayout: Layout {
 
         for column in columns {
             for element in column.elements {
-                let x: Double = column.xOffset + anchor.x * (column.width - element.size.width)
-                let y: Double = element.yOffset + anchor.y * (bounds.height - column.height)
-                let point = CGPoint(x: x + bounds.minX, y: y + bounds.minY)
+                let xValue: Double = column.xOffset + anchor.x * (column.width - element.size.width)
+                let yValue: Double = element.yOffset + anchor.y * (bounds.height - column.height)
+                let point = CGPoint(x: xValue + bounds.minX, y: yValue + bounds.minY)
 
                 subviews[element.index].place(at: point, anchor: .topLeading, proposal: proposal)
             }
@@ -224,7 +226,12 @@ extension ColumnsLayout {
     ///   - sizes: The array of sizes
     /// - Returns: A hash as `Int` value
     private func computeHash(proposal: ProposedViewSize, sizes: [CGSize]) -> Int {
-        let proposal = proposal.replacingUnspecifiedDimensions(by: CGSize(width: Double.infinity, height: Double.infinity))
+        let proposal = proposal.replacingUnspecifiedDimensions(
+            by: CGSize(
+                width: Double.infinity,
+                height: Double.infinity
+            )
+        )
 
         var hasher = Hasher()
 

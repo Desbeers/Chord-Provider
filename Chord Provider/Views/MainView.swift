@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OSLog
-import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the main content
@@ -30,9 +29,10 @@ struct MainView: View {
             }
             if let data = sceneState.preview.data {
                 PreviewPaneView(data: data)
-                    .transition(.opacity)
+                    .transition(.move(edge: .trailing))
             } else {
-                let layout = sceneState.songDisplayOptions.chordsPosition == .right ? AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
+                let layout = sceneState.songDisplayOptions.chordsPosition == .right ?
+                AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     SongView()
                     if sceneState.songDisplayOptions.showChords {

@@ -31,7 +31,12 @@ extension PDFBuild {
         ///   - labelText: The text of the label
         ///   - backgroundColor: The ``SWIFTColor`` background of the label
         ///   - alignment: The alignment of the label
-        init(leadingText: NSAttributedString? = nil, labelText: NSAttributedString, backgroundColor: NSColor, alignment: NSTextAlignment) {
+        init(
+            leadingText: NSAttributedString? = nil,
+            labelText: NSAttributedString,
+            backgroundColor: NSColor,
+            alignment: NSTextAlignment
+        ) {
             self.leadingText = leadingText
             self.labelText = labelText
             self.backgroundColor = backgroundColor

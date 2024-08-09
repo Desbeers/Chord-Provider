@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 
 /// SwiftUI `View` for the Print Button
 struct PrintPDFView: View {

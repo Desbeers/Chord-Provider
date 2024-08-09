@@ -8,7 +8,6 @@
 import Foundation
 import OSLog
 import PDFKit
-import ChordProShared
 import SwiftlyChordUtilities
 
 extension FolderExport {
@@ -30,10 +29,13 @@ extension FolderExport {
         let builder = PDFBuild.Builder(info: info)
         builder.pageCounter = counter
         // MARK: Render PDF content
-        if let exportFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder) {
+        if let exportFolder = UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder) {
             /// Get access to the URL
             _ = exportFolder.startAccessingSecurityScopedResource()
-            for item in counter.tocItems.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.subtitle)) {
+            for item in counter
+                .tocItems
+                .sorted(using: KeyPathComparator(\.title))
+                .sorted(using: KeyPathComparator(\.subtitle)) {
                 if let file = item.fileURL, let fileContents = try? String(contentsOf: file, encoding: .utf8) {
                     builder.elements.append(
                         PDFBuild.PageHeaderFooter(
@@ -42,7 +44,10 @@ extension FolderExport {
                                 PDFBuild.Section(
                                     columns: [.flexible, .flexible],
                                     items: [
-                                        PDFBuild.Text("\(item.subtitle)∙\(item.title)", attributes: .footer + .alignment(.left)),
+                                        PDFBuild.Text(
+                                            "\(item.subtitle)∙\(item.title)",
+                                            attributes: .footer + .alignment(.left)
+                                        ),
                                         counter
                                     ]
                                 )

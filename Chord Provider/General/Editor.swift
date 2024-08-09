@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ChordProShared
 
 enum Editor {
     static func format(
@@ -20,7 +19,8 @@ enum Editor {
                 case true:
                     text = "{\(directive.rawValue): \(editorInternals.directiveArgument)}"
                 case false:
-                    let selectedText = editorInternals.directiveArgument.isEmpty ? textView.selectedText : editorInternals.directiveArgument
+                    let selectedText = editorInternals.directiveArgument.isEmpty ?
+                    textView.selectedText : editorInternals.directiveArgument
                     text = format(directive: directive, argument: selectedText)
                 }
                 textView.insertText(text, replacementRange: editorInternals.directiveRange ?? textView.selectedRange())

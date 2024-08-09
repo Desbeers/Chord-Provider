@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OSLog
-import ChordProShared
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for a folder export
@@ -132,6 +131,6 @@ struct ExportFolderView: View {
     }
     /// Get the current selected export folder
     private static var exportFolderTitle: String? {
-        try? UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder)?.lastPathComponent
+        UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder)?.lastPathComponent
     }
 }

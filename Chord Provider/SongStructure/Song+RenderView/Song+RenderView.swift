@@ -130,7 +130,10 @@ extension Song.RenderView {
                 GridRow {
                     Text(label)
                         .padding(.all, prominent ? 10 : 0)
-                        .background(prominent ? Color.accentColor.opacity(0.3) : Color.clear, in: RoundedRectangle(cornerRadius: 4))
+                        .background(
+                            prominent ? Color.accentColor.opacity(0.3) : Color.clear,
+                            in: RoundedRectangle(cornerRadius: 4)
+                        )
                         .frame(minWidth: 100, alignment: .trailing)
                         .gridColumnAlignment(.trailing)
                     content
@@ -189,8 +192,9 @@ extension Song.RenderView {
 
     /// SwiftUI `View` for a chorus repeat
     @ViewBuilder func repeatChorusSection(section: Song.Section) -> some View {
-
-        if options.general.repeatWholeChorus, let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
+        if
+            options.general.repeatWholeChorus,
+            let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
             chorusSection(section: lastChorus)
         } else {
             ProminentLabel(
@@ -234,7 +238,12 @@ extension Song.RenderView {
                             ForEach(line.grid) { grid in
                                 ForEach(grid.parts) { part in
                                     if let chord = song.chords.first(where: { $0.id == part.chord }) {
-                                        ChordView(options: options, sectionID: section.id, partID: part.id, chord: chord)
+                                        ChordView(
+                                            options: options,
+                                            sectionID: section.id,
+                                            partID: part.id,
+                                            chord: chord
+                                        )
                                     } else {
                                         Text(part.text)
                                     }
@@ -265,7 +274,12 @@ extension Song.RenderView {
         }
         .foregroundStyle(.secondary)
         .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
-        .modifier(SectionView(options: options, label: section.label == ChordPro.Environment.textblock.rawValue ? "" : section.label))
+        .modifier(
+            SectionView(
+                options: options,
+                label: section.label == ChordPro.Environment.textblock.rawValue ? "" : section.label
+            )
+        )
     }
 
     // MARK: Comment

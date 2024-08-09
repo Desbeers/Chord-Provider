@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OSLog
-import ChordProShared
 import SwiftlyChordUtilities
 
 /// The observable scene state for Chord Provider

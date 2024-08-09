@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 import SwiftlyChordUtilities
 
 extension EditorView {
@@ -175,7 +174,8 @@ extension EditorView.DirectiveSheet {
             Button(
                 action: {
                     sceneState.editorInternals.directiveArgument =
-                    "\(sceneState.chordDisplayOptions.definition.root.rawValue)\(sceneState.chordDisplayOptions.definition.quality.rawValue)"
+                    "\(sceneState.chordDisplayOptions.definition.root.rawValue)" +
+                    "\(sceneState.chordDisplayOptions.definition.quality.rawValue)"
                     format()
                     dismiss()
                 },

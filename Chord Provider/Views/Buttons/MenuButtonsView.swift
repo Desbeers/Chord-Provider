@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 
 /// Menu Items and Keyboard shortcuts for font size
 /// - Note: Unfortunately, this cannot be placed in a `Menu` because it does not proper update its state...

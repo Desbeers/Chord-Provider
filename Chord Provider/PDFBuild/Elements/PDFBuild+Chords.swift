@@ -43,7 +43,10 @@ extension PDFBuild {
             for chord in chords where chord.status != .unknownChord {
                 items.append(Diagram(chord: chord, options: options))
             }
-            let chords = PDFBuild.Section(columns: [SectionColumnWidth].init(repeating: .flexible, count: 7), items: items)
+            let chords = PDFBuild.Section(
+                columns: [SectionColumnWidth].init(repeating: .flexible, count: 7),
+                items: items
+            )
             chords.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }
     }

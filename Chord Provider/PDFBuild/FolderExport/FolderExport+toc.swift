@@ -24,7 +24,10 @@ extension FolderExport {
         tocBuilder.elements.append(PDFBuild.PageBreak())
         tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .songTitle))
         tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(20))
-        for tocInfo in counter.tocItems.sorted(using: KeyPathComparator(\.title)).sorted(using: KeyPathComparator(\.subtitle)) {
+        for tocInfo in counter
+            .tocItems
+            .sorted(using: KeyPathComparator(\.title))
+            .sorted(using: KeyPathComparator(\.subtitle)) {
             tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter))
         }
         return tocBuilder.generatePdf()

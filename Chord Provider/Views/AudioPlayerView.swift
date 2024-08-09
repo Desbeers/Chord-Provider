@@ -8,7 +8,6 @@
 import SwiftUI
 import OSLog
 import AVKit
-import ChordProShared
 
 /// SwiftUI `View` for the audio player
 struct AudioPlayerView: View {
@@ -44,7 +43,7 @@ struct AudioPlayerView: View {
                     confirmationDialog = status.alert {
                         Task {
                             try? AppKitUtils.openPanel(userFile: UserFileItem.songsFolder) {
-                                fileBrowser.songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+                                fileBrowser.songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
                             }
                         }
                     }
@@ -69,7 +68,7 @@ struct AudioPlayerView: View {
                     confirmationDialog = status.alert {
                         Task {
                             try? AppKitUtils.openPanel(userFile: UserFileItem.songsFolder) {
-                                fileBrowser.songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+                                fileBrowser.songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
                             }
                         }
                     }
@@ -103,7 +102,7 @@ struct AudioPlayerView: View {
     @ViewBuilder var playButton: some View {
         Button(
             action: {
-                if let songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+                if let songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
                     /// Get access to the URL
                     _ = songsFolder.startAccessingSecurityScopedResource()
                     playSong()
@@ -140,7 +139,7 @@ struct AudioPlayerView: View {
     /// Check the song file
     private static func checkSong(musicURL: URL, iCloudURL: URL) -> AppError {
         var status = AppError.noSongsFolderSelectedError
-        if let songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+        if let songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
             /// Get access to the URL
             _ = songsFolder.startAccessingSecurityScopedResource()
             if musicURL.exist() {
@@ -177,7 +176,7 @@ struct AudioPlayerView: View {
 
     /// Download the song
     private static func downloadSong(musicURL: URL, iCloudURL: URL) async -> AppError {
-        if let songsFolder = try? UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+        if let songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
             /// Get access to the URL
             _ = songsFolder.startAccessingSecurityScopedResource()
             do {

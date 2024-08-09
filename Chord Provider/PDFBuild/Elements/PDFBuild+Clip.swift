@@ -48,11 +48,21 @@ extension PDFBuild {
                         aspectRatio: CGSize(width: 1, height: 1),
                         insideRect: fillRect
                     )
-                    NSBezierPath(roundedRect: clipRect, xRadius: clipRect.width / 2, yRadius: clipRect.width / 2).addClip()
+                    NSBezierPath(
+                        roundedRect: clipRect,
+                        xRadius: clipRect.width / 2,
+                        yRadius: clipRect.width / 2
+                    )
+                    .addClip()
                 case .roundedRect(let radius):
                     fillRect.size.height = 2 * radius
                     fillRect.origin.y += (rect.size.height - fillRect.size.height) / 2
-                    NSBezierPath(roundedRect: fillRect, xRadius: radius, yRadius: radius).addClip()
+                    NSBezierPath(
+                        roundedRect: fillRect,
+                        xRadius: radius,
+                        yRadius: radius
+                    )
+                    .addClip()
                 }
                 element.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 context?.resetClip()

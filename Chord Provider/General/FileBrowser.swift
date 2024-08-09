@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OSLog
-import ChordProShared
 
 /// The observable ``FileBrowser`` class
 @Observable
@@ -88,7 +87,9 @@ extension FileBrowser {
             /// Get access to the URL
             _ = songsFolder.startAccessingSecurityScopedResource()
             status = .songsFolderIsSelected
-            if songs.isEmpty, let items = FileManager.default.enumerator(at: songsFolder, includingPropertiesForKeys: nil) {
+            if
+                songs.isEmpty,
+                let items = FileManager.default.enumerator(at: songsFolder, includingPropertiesForKeys: nil) {
                 while let item = items.nextObject() as? URL {
                     if ChordProDocument.fileExtension.contains(item.pathExtension) {
                         var song = SongItem(fileURL: item)
@@ -135,7 +136,7 @@ extension FileBrowser {
 
         /// Parse the actual metadata
         func parseFileLine(text: String, song: inout SongItem) {
-            if let match = text.wholeMatch(of: ChordPro.directiveRegex) {
+            if let match = text.firstMatch(of: ChordPro.directiveRegex) {
 
                 let directive = match.1
                 let label = match.2

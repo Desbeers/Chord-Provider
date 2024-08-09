@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChordProShared
 
 /// SwiftUI `View` with the 'share' button'
 struct ShareButtonView: View {

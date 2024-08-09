@@ -7,7 +7,6 @@
 
 import Foundation
 import UniformTypeIdentifiers
-import ChordProShared
 
 /// All files that can be selected by a user
 enum UserFileItem: String, UserFile {

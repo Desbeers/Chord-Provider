@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OSLog
-import ChordProShared
 
 /// SwiftUI `View` for the file browser
 struct FileBrowserView: View {
@@ -62,7 +61,9 @@ struct FileBrowserView: View {
                                 tagsList
                             }
                         } else {
-                            ForEach(fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
+                            ForEach(
+                                fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(search) }
+                            ) { song in
                                 Row(song: song, showArtist: true)
                             }
                         }
@@ -234,7 +235,7 @@ extension FileBrowserView {
                 NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
             } else {
                 do {
-                    if let persistentURL = try UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+                    if let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
                         _ = persistentURL.startAccessingSecurityScopedResource()
                         try await openDocument(at: url)
                         persistentURL.stopAccessingSecurityScopedResource()

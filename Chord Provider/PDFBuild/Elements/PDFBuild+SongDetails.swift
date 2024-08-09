@@ -62,6 +62,7 @@ extension PDFBuild {
             result.append(NSAttributedString(string: icon, attributes: .songDetailIcon))
             result.append(NSAttributedString(string: " "))
             result.append(NSAttributedString(string: label, attributes: .songDetailLabel))
+            result.append(NSAttributedString(string: " "))
             return result
         }
     }
