@@ -55,8 +55,8 @@ public extension PDFStringAttribute {
         ] + .alignment(.center)
     }
 
-    /// Style attributes for the artist of the song
-    static var songArtist: PDFStringAttribute {
+    /// Style attributes for the subtitle of the song
+    static var songSubtitle: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 12, weight: .regular)

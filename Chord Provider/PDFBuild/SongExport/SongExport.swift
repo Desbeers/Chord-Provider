@@ -83,10 +83,17 @@ extension SongExport {
             subtitle: song.metaData.artist,
             fileURL: song.metaData.fileURL
         )
+        var subtitle: [String] = [song.metaData.artist]
+        if let album = song.metaData.album {
+            subtitle.append(album)
+        }
+        if let year = song.metaData.year {
+            subtitle.append(year)
+        }
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))
         items.append(PDFBuild.Text("\(song.metaData.title)", attributes: .songTitle))
-        items.append(PDFBuild.Text("\(song.metaData.artist)", attributes: .songArtist))
+        items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .songSubtitle))
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))
