@@ -10,11 +10,11 @@ import OSLog
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for a folder export
-struct ExportFolderView: View {
+@MainActor struct ExportFolderView: View {
     /// The app state
     @State private var appState = AppState(id: "FolderExport")
     /// The observable ``FileBrowser`` class
-    @Environment(FileBrowser.self) private var fileBrowser
+    @State private var fileBrowser = FileBrowser.shared
     /// Chord Display Options
     @State private var chordDisplayOptions = ChordDisplayOptions(defaults: AppSettings.defaults)
     /// The current selected folder
@@ -32,7 +32,9 @@ struct ExportFolderView: View {
     /// The body of the `View`
     var body: some View {
         VStack {
+            Divider()
             Form {
+                Section("Export a folder with your **ChordPro** Songs to a single PDF") {}
                 LabeledContent("The folder with songs") {
                     UserFileButtonView(userFile: UserFileItem.exportFolder) {
                         currentFolder = ExportFolderView.exportFolderTitle
@@ -86,7 +88,7 @@ struct ExportFolderView: View {
                     }
                 },
                 label: {
-                    Label("Export Songs", systemImage: "square.and.arrow.up")
+                    Label("Export Folder", systemImage: "square.and.arrow.up")
                 }
             )
             .help("Export your folder as PDF")
@@ -94,7 +96,7 @@ struct ExportFolderView: View {
             .disabled(currentFolder == nil || pdfInfo.title.isEmpty || pdfInfo.author.isEmpty || exporting)
             .padding()
         }
-        .background(Color.white.colorMultiply(Color.telecaster))
+        .buttonStyle(.bordered)
         .fileExporter(
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),
@@ -112,13 +114,7 @@ struct ExportFolderView: View {
                 Logger.application.notice("Export canceled")
             }
         )
-        .navigationTitle("Export Folder with Songs")
         .scrollContentBackground(.hidden)
-        .background(Color.white.colorMultiply(Color.telecaster))
-        .toolbar {
-            Spacer()
-        }
-        .toolbarBackground(.telecaster)
         .task(id: currentFolder) {
             pdfInfo.title = currentFolder ?? ""
         }

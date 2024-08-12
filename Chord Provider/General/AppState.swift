@@ -8,7 +8,13 @@
 import SwiftUI
 
 /// The observable app state for Chord Provider
-@Observable final class AppState {
+@Observable @MainActor final class AppState {
+    /// The shared instance of the class
+    static let shared = AppState(id: "Main")
+    /// The list with recent files
+    var recentFiles: [URL] = []
+    /// The content for a new document
+    var newDocumentContent: String = ""
     /// The ID of the app state
     var id: String
     /// The application settings

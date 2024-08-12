@@ -8,7 +8,11 @@
 
 There are many **ChordPro** parsers in this world, however, none are *really* native in the Apple world.
 
-I mean, in the macOS world, it is often an afterthought... Not for me. I'm mainly a mac user; the other versions are my afterthought...
+I mean, in the macOS world, it is often an afterthought... Not for me. I'm mac user only and I don't use iStuff.
+
+SwiftUI is great and fun, however, on the mac... Not always. **Chord Provider** has awful hacks to deal with a SwiftUI `DocumentGroup` Scene For years. While I love my mac, in Cupertino it has not the highest priority...
+
+Also, lockdown goes further and further on macOS. Theoretically for a good reason but in practise a little bit less. I have no intension to bring **Chord Provider** to the Apple Store but I also can't provide a compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper. Well, the source is free!
 
 ![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 

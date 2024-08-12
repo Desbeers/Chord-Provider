@@ -10,7 +10,10 @@ import OSLog
 
 /// The observable ``FileBrowser`` class
 @Observable
+@MainActor
 class FileBrowser {
+    /// The shared instance of the class
+    static let shared = FileBrowser()
     /// The list of songs
     var songList: [SongItem] = []
     /// The list of artists
@@ -33,7 +36,7 @@ class FileBrowser {
     /// - Note: Needed to close the MenuBarExtra when selecting a song
     var menuBarExtraWindow: NSWindow?
     /// Init the FileBrowser
-    init() {
+    private init() {
         songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
     }
 }

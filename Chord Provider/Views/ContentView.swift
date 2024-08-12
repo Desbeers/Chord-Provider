@@ -31,11 +31,6 @@ struct ContentView: View {
         .toolbarBackground(Color.telecaster)
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)
-        .task {
-            if document.text == ChordProDocument.newText {
-                sceneState.presentTemplate = true
-            }
-        }
         .task(id: file) {
             sceneState.file = file
         }

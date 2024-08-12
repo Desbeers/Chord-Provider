@@ -37,17 +37,6 @@ import SwiftlyChordUtilities
         .sheet(item: $editDirective) { directive in
             DirectiveSheet(directive: directive)
         }
-        /// Show a sheet when we add a new song
-        .sheet(
-            isPresented: $sceneState.presentTemplate,
-            onDismiss: {
-                /// Set the text
-                sceneState.editorInternals.textView?.replaceText(text: document.text)
-            },
-            content: {
-                TemplateView(document: $document, sceneState: sceneState)
-            }
-        )
     }
     /// The editor
     @MainActor var editor: some View {

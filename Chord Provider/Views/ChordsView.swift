@@ -35,7 +35,7 @@ struct ChordsView: View {
                             },
                             label: {
                                 VStack(spacing: 0) {
-                                    ChordDiagramView(chord: chord, width: 120)
+                                    ChordDiagramView(chord: chord, width: 100)
                                 }
                             }
                         )
@@ -45,7 +45,7 @@ struct ChordsView: View {
                                 .scaleEffect(phase.isIdentity ? 1 : 0.6)
                         }
                     default:
-                        ChordDiagramView(chord: chord, width: 120)
+                        ChordDiagramView(chord: chord, width: 100)
                             .scrollTransition { effect, phase in
                                 effect
                                     .scaleEffect(phase.isIdentity ? 1 : 0.6)
@@ -105,27 +105,29 @@ extension ChordsView {
                             self.selectedChord = nil
                         },
                         label: {
-                            Text( self.defineChord == nil ? "Close" : "Cancel")
+                            Text("Close")
                         }
                     )
                     .keyboardShortcut(.defaultAction)
-                    Button(
-                        action: {
-                            if let chord = self.defineChord {
-                                if let range = document.text.range(of: selectedChord.define) {
-                                    document.text = document.text.replacingCharacters(in: range, with: chord.define)
-                                } else {
-                                    document.text += "\n\n{define: \(chord.define)}"
+                    if sceneState.showEditor {
+                        Button(
+                            action: {
+                                if let chord = self.defineChord {
+                                    if let range = document.text.range(of: selectedChord.define) {
+                                        document.text = document.text.replacingCharacters(in: range, with: chord.define)
+                                    } else {
+                                        document.text += "\n\n{define: \(chord.define)}"
+                                    }
                                 }
+                                self.defineChord = nil
+                                self.selectedChord = nil
+                            },
+                            label: {
+                                Text("Use Definition")
                             }
-                            self.defineChord = nil
-                            self.selectedChord = nil
-                        },
-                        label: {
-                            Text("Use Definition")
-                        }
-                    )
-                    .disabled(self.defineChord == nil)
+                        )
+                        .disabled(self.defineChord == nil)
+                    }
                 }
             }
             .padding()

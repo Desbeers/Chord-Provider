@@ -9,9 +9,9 @@ import SwiftUI
 import OSLog
 
 /// SwiftUI `View` for the file browser
-struct FileBrowserView: View {
-    /// The FileBrowser model
-    @Environment(FileBrowser.self) private var fileBrowser
+@MainActor struct FileBrowserView: View {
+    /// The observable ``FileBrowser`` class
+    @State private var fileBrowser = FileBrowser.shared
     /// The search query
     @State var search: String = ""
     /// Tab item
@@ -22,20 +22,28 @@ struct FileBrowserView: View {
     @State private var selectedTag: [String] = []
     /// The body of the `View`
     var body: some View {
-        Group {
+        VStack {
             switch fileBrowser.status {
             case .noSongsFolderSelectedError:
                 VStack {
-                    Text("Welcome to Chord Provider")
+                    Text("Your Songs")
                         .font(.title)
-                    SongFolderView()
+                        .padding()
                     Text(.init(Help.fileBrowser))
-                        .padding(.vertical)
+                        .padding()
+                    fileBrowser.folderSelector
+                        .buttonStyle(.bordered)
+                        .labelStyle(.titleAndIcon)
+                    Text("You can always select a new folder in the **Settings**.")
+                        .font(.footnote)
+                        .padding()
+                    Spacer()
+                    Text(.init(Help.musicPath))
                         .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                 }
                 .padding()
-                .navigationSubtitle("Welcome")
+                .frame(maxHeight: .infinity, alignment: .top)
             case .songsFolderIsSelected:
                 Picker("Menu", selection: $tabItem) {
                     ForEach(TabItem.allCases, id: \.rawValue) { item in
@@ -80,14 +88,12 @@ struct FileBrowserView: View {
                         }
                     }
                 }
-                .navigationSubtitle("\(fileBrowser.songList.count) songs")
                 .labelStyle(BrowserLabelStyle())
             default:
                 // swiftlint:disable:next force_unwrapping
                 Image(nsImage: NSImage(named: "AppIcon")!)
                     .resizable()
                     .scaledToFit()
-                    .navigationSubtitle("Welcome")
             }
         }
         .scrollContentBackground(.hidden)
@@ -95,14 +101,6 @@ struct FileBrowserView: View {
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
         .buttonStyle(.plain)
-        .frame(width: 320)
-        .frame(minHeight: 540)
-        .background(Color.white.colorMultiply(Color.telecaster))
-        .navigationTitle("Chord Provider")
-        .toolbar {
-            fileBrowser.folderSelector
-        }
-        .toolbarBackground(.telecaster)
         .task(id: fileBrowser.songList) {
             fileBrowser.getFiles()
             let tags = fileBrowser.songList.flatMap(\.tags)
@@ -165,13 +163,13 @@ struct FileBrowserView: View {
 extension FileBrowserView {
 
     /// SwiftUI `View` for a row in the browser list
-    struct Row: View {
+    @MainActor struct Row: View {
         /// The song item
         let song: FileBrowser.SongItem
         /// Show the artist or not
         var showArtist: Bool = false
-        /// The ``FileBrowser`` model
-        @Environment(FileBrowser.self) private var fileBrowser
+        /// The observable ``FileBrowser`` class
+        @State private var fileBrowser = FileBrowser.shared
         /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
         /// Focus of the Window
@@ -226,23 +224,19 @@ extension FileBrowserView {
                     .opacity(window == nil ? 0 : 1)
             }
         }
-
-        /// Open a new song window
+        /// Open a song window with an URL
         /// - Parameter url: The URL of the song
         @MainActor func openSong(url: URL) async {
-            /// openDocument is very buggy; don't try to open a document when it is already open
-            if let window {
-                NSApp.window(withWindowNumber: window.windowID)?.makeKeyAndOrderFront(self)
-            } else {
+            /// SwiftUI openDocument is very buggy; don't try to open a document when it is already open; the app will crash..
+            /// So I use the shared NSDocumentController instead
+            if let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+                _ = persistentURL.startAccessingSecurityScopedResource()
                 do {
-                    if let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
-                        _ = persistentURL.startAccessingSecurityScopedResource()
-                        try await openDocument(at: url)
-                        persistentURL.stopAccessingSecurityScopedResource()
-                    }
+                    try await NSDocumentController.shared.openDocument(withContentsOf: url, display: true)
                 } catch {
-                    Logger.application.error("Error opening file: \(error.localizedDescription, privacy: .public)")
+                    Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
                 }
+                persistentURL.stopAccessingSecurityScopedResource()
             }
             /// If the browser is shown in a MenuBarExtra, close it
             fileBrowser.menuBarExtraWindow?.close()

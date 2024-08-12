@@ -19,18 +19,8 @@ import SwiftlyChordUtilities
     var file: URL?
     /// Show settings (not for macOS)
     var showSettings: Bool = false
-    /// Present template sheet
-    var presentTemplate: Bool = false
     /// PDF preview related stuff
     var preview = PreviewState()
-
-//    /// The optional URL for a PDF quicklook
-//    var quickLookURL: URL?
-//    /// The random ID of the preview
-//    var quickLookID = UUID()
-//    /// Bool if the quick look is outdated
-//    var quickLookOutdated: Bool = false
-
     /// The internals of the **ChordPro** editor
     var editorInternals = ChordProEditor.Internals()
 

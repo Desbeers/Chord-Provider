@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the settings
-struct SettingsView: View {
+@MainActor struct SettingsView: View {
     /// Chord Display Options
     @State private var chordDisplayOptions = ChordDisplayOptions(defaults: AppSettings.defaults)
     /// The observable ``FileBrowser`` class
@@ -174,11 +174,12 @@ struct SettingsView: View {
         VStack {
             ScrollView {
                 VStack {
-                    Text(.init(Help.folderSelector))
-                        .padding()
-                    Text(.init(Help.macOSbrowser))
+                    Text(.init(Help.fileBrowser))
                         .padding()
                     fileBrowser.folderSelector
+                        .padding()
+                    Text(.init(Help.musicPath))
+                        .font(.caption)
                         .padding()
                 }
                 .wrapSettingsSection(title: "The folder with your songs")

@@ -9,108 +9,88 @@ import SwiftUI
 import SwiftlyChordUtilities
 
 /// SwiftUI `Scene` for **Chord Provider**
-///
-/// This is the starting point of the application
-///
-/// - Note: Each platform has its own `body`
 @main struct ChordProviderApp: App {
     /// The observable ``FileBrowser`` class
-    @State private var fileBrowser = FileBrowser()
+    @State private var fileBrowser = FileBrowser.shared
     /// The state of the app
-    @State private var appState = AppState(id: "Main")
+    @State private var appState = AppState.shared
     /// The ``AppDelegate`` class  for **Chord Provider**
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
-    /// The `openWindow` environment to open a new Window
-    @Environment(\.openWindow) private var openWindow
     /// The body of the `Scene`
-    ///
-    /// - `Window`:  scene with a list of songs
-    /// - `Window`: scene to export a folder of songs
-    /// - `DocumentGroup` scene to open a single song
-    /// - `MenuBarExtra` scene that shows a list with songs as well
-    /// - `Settings` scene to open the settings Window
     var body: some Scene {
-
-        // MARK: 'Song List' single window
-
-        /// The 'Song List' window
-        Window("Song List", id: AppSceneID.songListWindow.rawValue) {
-            FileBrowserView()
-                .environment(fileBrowser)
-        }
-        .keyboardShortcut("l")
-        /// Make it sizeable by the View frame
-        .windowResizability(.contentSize)
-        .defaultPosition(.topLeading)
-        .windowToolbarStyle(.unifiedCompact)
-
-        // MARK: 'Export Folder' single window
-
-        /// The 'Export Folder' window
-        Window("Export Folder with Songs…", id: AppSceneID.exportFolderWindow.rawValue) {
-            ExportFolderView()
-                .frame(width: 400, height: 600)
-                .environment(appState)
-                .environment(fileBrowser)
-        }
-        .keyboardShortcut("e")
-        /// Make it sizable by the View frame
-        .windowResizability(.contentSize)
-        .defaultPosition(.center)
-        .windowToolbarStyle(.unifiedCompact)
 
         // MARK: 'Song' document window
 
         /// The actual 'song' window
-        DocumentGroup(newDocument: ChordProDocument()) { file in
-            ContentView(document: file.$document, file: file.fileURL)
-                .environment(fileBrowser)
-                .environment(appState)
-            /// Give the scene access to the document.
-                .focusedSceneValue(\.document, file)
-                .onDisappear {
-                    Task { @MainActor in
-                        if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == file.fileURL }) {
-                            /// Mark window as closed
-                            fileBrowser.openWindows.remove(at: index)
+        ///
+        /// This is a dirty hack of the `DocumentGroup` scene.
+        /// It will hijack the creation of a new empty document and shows an AppKit Window instead
+        ///
+        /// See the ``AppDelegate``. It seems to work fine but it should not be like this...
+        ///
+        /// - Note: When you create a new document and remove all text; the window will close and the AppKit window will appear.
+        DocumentGroup(newDocument: ChordProDocument(text: appState.newDocumentContent)) { file in
+            if file.fileURL == nil && file.document.text.isEmpty {
+                ProgressView()
+                    .withHostingWindow { window in
+                        window?.alphaValue = 0
+                        window?.close()
+                        appDelegate.showNewDocumentView()
+                    }
+            } else {
+                ContentView(document: file.$document, file: file.fileURL)
+                    .environment(fileBrowser)
+                    .environment(appState)
+                /// Give the scene access to the document.
+                    .focusedSceneValue(\.document, file)
+                    .onDisappear {
+                        Task { @MainActor in
+                            if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == file.fileURL }) {
+                                /// Mark window as closed
+                                fileBrowser.openWindows.remove(at: index)
+                            }
                         }
                     }
-                }
-                .withHostingWindow { window in
-                    /// Register the window unless we are browsing Versions
-                    if
-                        !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false),
-                        let window = window?.windowController?.window {
-                        fileBrowser.openWindows.append(
-                            NSWindow.WindowItem(
-                                windowID: window.windowNumber,
-                                fileURL: file.fileURL
+                    .withHostingWindow { window in
+                        /// Register the window unless we are browsing Versions
+                        /// - Note: More dirty hacks
+                        if
+                            !(file.fileURL?.pathComponents.contains("com.apple.documentVersions") ?? false),
+                            let window = window?.windowController?.window {
+                            fileBrowser.openWindows.append(
+                                NSWindow.WindowItem(
+                                    windowID: window.windowNumber,
+                                    fileURL: file.fileURL
+                                )
                             )
-                        )
+                        }
                     }
-                }
-                .onChange(of: file.fileURL) { oldURL, newURL in
-                    if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == oldURL }) {
-                        fileBrowser.openWindows[index].fileURL = newURL
+                    .onChange(of: file.fileURL) { oldURL, newURL in
+                        if let index = fileBrowser.openWindows.firstIndex(where: { $0.fileURL == oldURL }) {
+                            fileBrowser.openWindows[index].fileURL = newURL
+                        }
                     }
-                }
+                    .task {
+                        appDelegate.closeWelcomeWindow()
+                        /// Reset the new content
+                        appState.newDocumentContent = ""
+                    }
+            }
         }
         .commands {
+#if DEBUG
             CommandGroup(after: .appInfo) {
                 Divider()
-                Button("Export Folder with Songs…") {
-                    openWindow(id: AppSceneID.exportFolderWindow.rawValue)
-                }
-#if DEBUG
-                Divider()
                 ResetApplicationButtonView()
-#endif
             }
+#endif
             CommandGroup(after: .importExport) {
                 ExportSongView()
+                    .keyboardShortcut("e")
             }
             CommandGroup(after: .importExport) {
                 PrintPDFView()
+                    .keyboardShortcut("p")
             }
             CommandGroup(after: .textEditing) {
                 MenuButtonsView()

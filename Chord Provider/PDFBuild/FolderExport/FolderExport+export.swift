@@ -70,7 +70,7 @@ extension FolderExport {
     ) async throws -> Data? {
 
         // MARK: Get the song files
-        let files = try files()
+        let files = try await files()
 
         /// Build the TOC to see how many pages we need
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.right))
