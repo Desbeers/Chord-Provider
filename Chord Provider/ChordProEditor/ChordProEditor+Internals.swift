@@ -18,8 +18,7 @@ extension ChordProEditor {
             directiveRange: NSRange? = nil,
             clickedDirective: Bool = false,
             selectedRange: NSRange = NSRange(),
-            textView: TextView? = nil,
-            songFileName: String = UUID().uuidString
+            textView: TextView? = nil
         ) {
             self.directive = directive
             self.directiveArgument = directiveArgument
@@ -27,7 +26,6 @@ extension ChordProEditor {
             self.clickedDirective = clickedDirective
             self.selectedRange = selectedRange
             self.textView = textView
-            self.songFileName = songFileName
         }
         /// The optional directive in the current paragraph
         public var directive: ChordProDirective?
@@ -41,7 +39,5 @@ extension ChordProEditor {
         public var selectedRange = NSRange()
         /// The ``textView``
         public var textView: TextView?
-        /// The calculated file name of the song
-        public var songFileName: String
     }
 }

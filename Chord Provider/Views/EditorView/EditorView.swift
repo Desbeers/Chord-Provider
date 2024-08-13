@@ -39,7 +39,7 @@ import SwiftlyChordUtilities
         }
     }
     /// The editor
-    @MainActor var editor: some View {
+    var editor: some View {
         VStack {
             ChordProEditor(
                 text: $document.text,
@@ -47,9 +47,7 @@ import SwiftlyChordUtilities
                 directives: ChordPro.Directive.allCases
             )
             .introspect { editor in
-                Task { @MainActor in
-                    sceneState.editorInternals = editor
-                }
+                sceneState.editorInternals = editor
             }
             .onChange(of: sceneState.editorInternals.clickedDirective) {
                 if

@@ -67,8 +67,6 @@ public struct ChordProEditor: NSViewRepresentable {
         if context.coordinator.parent.settings != settings {
             context.coordinator.parent = self
             highlightText(textView: wrapper.textView)
-            wrapper.textView.setFragmentInformation(selectedRange: wrapper.textView.selectedRange())
-            wrapper.textView.chordProEditorDelegate?.selectionNeedsDisplay()
         }
     }
     /// Highlight the text in the editor
@@ -97,15 +95,6 @@ extension ChordProEditor {
 
     @MainActor func runIntrospect(_ view: TextView) {
         guard let introspect = introspect else { return }
-        /// The calculated file name of the song
-        var songFileName: String {
-            var result: [String] = []
-                if let songSubtitle = view.songSubtitle {
-                    result.append(songSubtitle)
-                }
-                result.append(view.songTitle)
-            return result.joined(separator: " - ")
-        }
         /// Set the internals of the editor
         let internals = Internals(
             directive: view.currentDirective,
@@ -113,8 +102,7 @@ extension ChordProEditor {
             directiveRange: view.currentDirectiveRange,
             clickedDirective: view.clickedDirective,
             selectedRange: view.selectedRange(),
-            textView: view,
-            songFileName: songFileName
+            textView: view
         )
         introspect(internals)
     }

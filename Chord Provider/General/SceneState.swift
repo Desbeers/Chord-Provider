@@ -13,15 +13,11 @@ import SwiftlyChordUtilities
 @Observable final class SceneState {
     /// The current ``Song``
     var song = Song()
-    /// The selection in the editor
-    var selection: NSRange = .init(location: 0, length: 0)
     /// The optional file location
     var file: URL?
-    /// Show settings (not for macOS)
-    var showSettings: Bool = false
     /// PDF preview related stuff
     var preview = PreviewState()
-    /// The internals of the **ChordPro** editor
+    /// The internals of the **Chord Provider** editor
     var editorInternals = ChordProEditor.Internals()
 
     // MARK: Song View options

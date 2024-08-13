@@ -13,10 +13,6 @@ extension ChordProEditor {
 
     /// The text view for the editor
     public class TextView: NSTextView {
-        /// The title of the song
-        var songTitle: String = "New Song"
-        /// The subtitle of the song
-        var songSubtitle: String?
         /// The delegate for the ChordProEditor
         var chordProEditorDelegate: ChordProEditorDelegate?
         /// The parent
