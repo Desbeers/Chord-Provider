@@ -22,7 +22,7 @@ extension FolderExport {
         tocBuilder.elements.append(PDFBuild.Text(info.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
-        tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .songTitle))
+        tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle))
         tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(20))
         for tocInfo in counter
             .tocItems

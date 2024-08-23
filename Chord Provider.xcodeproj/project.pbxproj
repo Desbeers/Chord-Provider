@@ -513,9 +513,6 @@
 				D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */,
 				D7EF99642BDAD98A0058E1CB /* PDFBuild+Image.swift */,
 				D711737F2BD279D80075325C /* PDFBuild+Label.swift */,
-				D70B72832BD507B6003C89B4 /* PDFBuild+LyricsSection.swift */,
-				D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */,
-				D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */,
 				D706FD762BCECC9F005DEDF6 /* PDFBuild+Padding.swift */,
 				D75B48972BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift */,
 				D706FD782BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift */,
@@ -523,11 +520,7 @@
 				D706FD7A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift */,
 				D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */,
 				D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */,
-				D70B727D2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift */,
 				D706FD7B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift */,
-				D70B727F2BD50108003C89B4 /* PDFBuild+StrumSection.swift */,
-				D70B72852BD50EC6003C89B4 /* PDFBuild+TabSection.swift */,
-				D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */,
 				D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */,
 				D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */,
 				D7AB50622BD958FF00AA797B /* PDFBuild+TOCItem.swift */,
@@ -541,6 +534,34 @@
 				D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */,
 			);
 			path = Layout;
+			sourceTree = "<group>";
+		};
+		D71525932C72147A00F12353 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D706FD7E2BCECC9F005DEDF6 /* Elements */,
+				D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */,
+				D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */,
+				D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */,
+				D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */,
+				D706FD8A2BCECC9F005DEDF6 /* PDFElement.swift */,
+				D706FD8D2BCECC9F005DEDF6 /* PDFStringAttribute.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D71525942C7214A100F12353 /* SongElements */ = {
+			isa = PBXGroup;
+			children = (
+				D70B72832BD507B6003C89B4 /* PDFBuild+LyricsSection.swift */,
+				D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */,
+				D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */,
+				D70B727D2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift */,
+				D70B727F2BD50108003C89B4 /* PDFBuild+StrumSection.swift */,
+				D70B72852BD50EC6003C89B4 /* PDFBuild+TabSection.swift */,
+				D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */,
+			);
+			path = SongElements;
 			sourceTree = "<group>";
 		};
 		D7336AD22C273A3700D0AA8E /* Samples */ = {
@@ -697,15 +718,10 @@
 		D7972B922BCD8E2300752CF9 /* PDFBuild */ = {
 			isa = PBXGroup;
 			children = (
+				D71525942C7214A100F12353 /* SongElements */,
+				D71525932C72147A00F12353 /* Core */,
 				D75B48962BDD2C8E001F6176 /* SongExport */,
 				D75B488F2BDBCCFB001F6176 /* FolderExport */,
-				D706FD7E2BCECC9F005DEDF6 /* Elements */,
-				D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */,
-				D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */,
-				D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */,
-				D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */,
-				D706FD8A2BCECC9F005DEDF6 /* PDFElement.swift */,
-				D706FD8D2BCECC9F005DEDF6 /* PDFStringAttribute.swift */,
 			);
 			path = PDFBuild;
 			sourceTree = "<group>";

@@ -92,8 +92,8 @@ extension SongExport {
         }
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))
-        items.append(PDFBuild.Text("\(song.metaData.title)", attributes: .songTitle))
-        items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .songSubtitle))
+        items.append(PDFBuild.Text("\(song.metaData.title)", attributes: .pdfTitle))
+        items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .pdfSubtitle))
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))

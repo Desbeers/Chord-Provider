@@ -47,16 +47,16 @@ public extension PDFStringAttribute {
         ]
     }
 
-    /// Style attributes for the title of the song
-    static var songTitle: PDFStringAttribute {
+    /// Style attributes for the title of the PDF
+    static var pdfTitle: PDFStringAttribute {
         [
             .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 14, weight: .semibold)
         ] + .alignment(.center)
     }
 
-    /// Style attributes for the subtitle of the song
-    static var songSubtitle: PDFStringAttribute {
+    /// Style attributes for the subtitle of the PDF
+    static var pdfSubtitle: PDFStringAttribute {
         [
             .foregroundColor: NSColor.gray,
             .font: NSFont.systemFont(ofSize: 12, weight: .regular)
