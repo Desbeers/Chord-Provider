@@ -39,7 +39,7 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            let chords = chords.filter { $0.status != .unknownChord }
+            let chords = chords.filter { $0.status != .unknownChord } .sorted(using: KeyPathComparator(\.name))
             var items: [PDFElement] = []
             for chord in chords {
                 items.append(Diagram(chord: chord, options: options))
