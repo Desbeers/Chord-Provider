@@ -10,7 +10,7 @@ import SwiftUI
 /// SwiftUI `View` with the 'share' button'
 struct ShareButtonView: View {
     /// The scene state
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// Bool to show the share picker
     @State private var showSharePicker: Bool = false
     /// The export URL

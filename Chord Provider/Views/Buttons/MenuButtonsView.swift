@@ -11,9 +11,9 @@ import SwiftUI
 /// - Note: Unfortunately, this cannot be placed in a `Menu` because it does not proper update its state...
 struct MenuButtonsView: View {
     /// The app state
-    @Environment(AppState.self) private var appState
+    @Environment(AppStateModel.self) private var appState
     /// The scene state in the environment
-    @FocusedValue(\.sceneState) private var sceneState: SceneState?
+    @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The range of font sizes
     private let fontSizeRange = ChordProEditor.Settings.fontSizeRange
     /// The body of the `View`

@@ -15,7 +15,7 @@ extension EditorView {
         /// The directive
         let directive: ChordPro.Directive
         /// The scene state
-        @Environment(SceneState.self) var sceneState
+        @Environment(SceneStateModel.self) var sceneState
         /// The label for the action button
         var actionLabel: String {
             sceneState.editorInternals.clickedDirective ? "Edit" : "Add"

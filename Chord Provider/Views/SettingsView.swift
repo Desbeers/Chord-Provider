@@ -15,7 +15,7 @@ import SwiftlyChordUtilities
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The app state
-    @Environment(AppState.self) var appState
+    @Environment(AppStateModel.self) var appState
     /// Dismiss
     @Environment(\.dismiss) private var dismiss
     /// The body of the `View`

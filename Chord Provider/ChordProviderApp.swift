@@ -13,9 +13,9 @@ import SwiftlyChordUtilities
     /// The observable ``FileBrowser`` class
     @State private var fileBrowser = FileBrowser.shared
     /// The state of the app
-    @State private var appState = AppState.shared
+    @State private var appState = AppStateModel.shared
     /// The ``AppDelegate`` class  for **Chord Provider**
-    @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
+    @NSApplicationDelegateAdaptor private var appDelegate: AppDelegateModel
     /// The body of the `Scene`
     var body: some Scene {
 
@@ -71,17 +71,27 @@ import SwiftlyChordUtilities
                         }
                     }
                     .task {
-                        appDelegate.closeWelcomeWindow()
+                        appDelegate.closeWelcomeView()
                         /// Reset the new content
                         appState.newDocumentContent = ""
                     }
             }
         }
         .commands {
-#if DEBUG
-            CommandGroup(after: .appInfo) {
+            CommandGroup(after: .newItem) {
                 Divider()
-                ResetApplicationButtonView()
+                Button(
+                    action: {
+                        appDelegate.showExportFolderView()
+                    },
+                    label: {
+                        Text("Export Folder…")
+                    }
+                )
+            }
+#if DEBUG
+            CommandMenu("Debug") {
+                DebugButtons()
             }
 #endif
             CommandGroup(after: .importExport) {
@@ -89,7 +99,7 @@ import SwiftlyChordUtilities
                     .keyboardShortcut("e")
             }
             CommandGroup(after: .importExport) {
-                PrintPDFView()
+                PrintPDFButton(label: "Print…")
                     .keyboardShortcut("p")
             }
             CommandGroup(after: .textEditing) {

@@ -1,5 +1,5 @@
 //
-//  PrintPDFView.swift
+//  PrintPDFButton.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -8,9 +8,11 @@
 import SwiftUI
 
 /// SwiftUI `View` for the Print Button
-struct PrintPDFView: View {
-    /// The scene state in the environment
-    @FocusedValue(\.sceneState) private var sceneState: SceneState?
+struct PrintPDFButton: View {
+    /// The label for the button
+    let label: String
+    /// The observable state of the scene in the environment
+    @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The body of the `View`
     var body: some View {
         Button(
@@ -21,10 +23,10 @@ struct PrintPDFView: View {
                 }
             },
             label: {
-                Label("Print…", systemImage: "printer")
+                Label(label, systemImage: "printer")
             }
         )
-        .help("Print your song")
+        .help("Print a PDF of the song")
         .disabled(sceneState == nil)
     }
 }

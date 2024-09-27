@@ -12,9 +12,9 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the main content
 struct MainView: View {
     /// The app state
-    @Environment(AppState.self) private var appState
+    @Environment(AppStateModel.self) private var appState
     /// The scene state
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
     /// The ChordPro document

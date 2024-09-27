@@ -15,9 +15,9 @@ struct ContentView: View {
     /// The optional file location
     let file: URL?
     /// The app state
-    @Environment(AppState.self) private var appState
+    @Environment(AppStateModel.self) private var appState
     /// The state of the scene
-    @State private var sceneState = SceneState()
+    @State private var sceneState = SceneStateModel()
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {

@@ -10,9 +10,9 @@ import SwiftUI
 /// SwiftUI `View` for the header
 struct HeaderView: View {
     /// The app state
-    @Environment(AppState.self) var appState
+    @Environment(AppStateModel.self) var appState
     /// The scene state
-    @Environment(SceneState.self) var sceneState
+    @Environment(SceneStateModel.self) var sceneState
     /// The body of the `View`
     var body: some View {
         HStack(alignment: .center) {

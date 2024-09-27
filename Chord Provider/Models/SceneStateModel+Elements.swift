@@ -1,5 +1,5 @@
 //
-//  SceneState+Elements.swift
+//  SceneStateModel+Elements.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Chords Menu
 
@@ -17,8 +17,8 @@ extension SceneState {
     }
     /// Chords menu
     private struct ChordsMenu: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Menu(
@@ -34,7 +34,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Show Chords Button
 
@@ -44,8 +44,8 @@ extension SceneState {
     }
     /// Show chords button
     private struct ShowChordsButton: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Button {
@@ -57,7 +57,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Chords Position Picker
 
@@ -67,8 +67,8 @@ extension SceneState {
     }
     /// Chords Position Picker
     private struct ChordsPositionPicker: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Picker("Position:", selection: $sceneState.songDisplayOptions.chordsPosition) {
@@ -82,7 +82,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Chords As Diagram Toggle
 
@@ -93,8 +93,8 @@ extension SceneState {
 
     /// Chords As Diagram Toggle
     private struct ChordsAsDiagramToggle: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Toggle(isOn: $sceneState.songDisplayOptions.showInlineDiagrams) {
@@ -108,7 +108,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Song Paging Picker
 
@@ -118,8 +118,8 @@ extension SceneState {
     }
     /// Song Paging Picker
     private struct SongPagingPicker: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Picker("Pager:", selection: $sceneState.songDisplayOptions.paging) {
@@ -132,7 +132,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Scale Slider
 
@@ -142,8 +142,8 @@ extension SceneState {
     }
     /// Scale Slider
     private struct ScaleSlider: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Slider(value: $sceneState.currentScale, in: 0.8...2.0) {
@@ -154,7 +154,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Show Editor Button
 
@@ -164,8 +164,8 @@ extension SceneState {
     }
     /// Show Editor Button
     private struct ShowEditorButton: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Toggle(isOn: $sceneState.showEditor) {
@@ -175,7 +175,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Transpose Buttons
 
@@ -185,8 +185,8 @@ extension SceneState {
     }
     /// Transpose Up
     private struct TransposeUp: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Button {
@@ -206,8 +206,8 @@ extension SceneState {
     }
     /// Transpose Down
     private struct TransposeDown: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             Button {
@@ -222,7 +222,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Transpose Menu
 
@@ -232,8 +232,8 @@ extension SceneState {
     }
     /// Transpose Menu
     private struct TransposeMenu: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             ControlGroup {
@@ -244,7 +244,7 @@ extension SceneState {
     }
 }
 
-extension SceneState {
+extension SceneStateModel {
 
     // MARK: Audio Player Buttons
 
@@ -254,8 +254,8 @@ extension SceneState {
     }
     /// Audio Player Buttons
     private struct AudioPlayerButtons: View {
-        /// The binding to the observable ``SceneState``
-        @Bindable var sceneState: SceneState
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
             if let musicURL = getMusicURL() {

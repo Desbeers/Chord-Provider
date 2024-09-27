@@ -1,8 +1,8 @@
 //
 //  PreviewPaneView.swift
-//  ChordProMac
+//  Chord Provider
 //
-//  Created by Nick Berendsen on 05/07/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ struct PreviewPaneView: View {
     /// The PDF data
     let data: Data
     /// The observable state of the scene
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// The document in the environment
     @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
     /// Optional annotations in the PDF

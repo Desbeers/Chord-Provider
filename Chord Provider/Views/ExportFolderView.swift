@@ -12,7 +12,7 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for a folder export
 @MainActor struct ExportFolderView: View {
     /// The app state
-    @State private var appState = AppState(id: "FolderExport")
+    @State private var appState = AppStateModel(id: "FolderExport")
     /// The observable ``FileBrowser`` class
     @State private var fileBrowser = FileBrowser.shared
     /// Chord Display Options
@@ -96,6 +96,7 @@ import SwiftlyChordUtilities
             .disabled(currentFolder == nil || pdfInfo.title.isEmpty || pdfInfo.author.isEmpty || exporting)
             .padding()
         }
+        .frame(minWidth: 460, minHeight: 680)
         .buttonStyle(.bordered)
         .fileExporter(
             isPresented: $exportFile,

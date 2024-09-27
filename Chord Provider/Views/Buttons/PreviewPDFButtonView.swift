@@ -14,9 +14,9 @@ struct PreviewPDFButtonView: View {
     /// Bool if we have to replace the current preview
     var replacePreview: Bool = false
     /// The observable state of the application
-    @Environment(AppState.self) private var appState
+    @Environment(AppStateModel.self) private var appState
     /// The observable state of the scene
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
     var body: some View {
         Button(

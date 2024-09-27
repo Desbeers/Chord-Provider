@@ -17,7 +17,7 @@ struct ChordDiagramView: View {
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
     /// The scene state
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
     var body: some View {
         ChordDefinitionView(

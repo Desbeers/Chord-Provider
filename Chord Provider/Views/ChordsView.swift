@@ -13,9 +13,9 @@ struct ChordsView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
-    @Environment(AppState.self) private var appState
+    @Environment(AppStateModel.self) private var appState
     /// The scene state
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// Sheet with chords of the selected type
     @State var selectedChord: ChordDefinition?
     /// A new chord definition in the sheet

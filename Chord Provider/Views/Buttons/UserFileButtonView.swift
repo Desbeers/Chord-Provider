@@ -41,6 +41,7 @@ public struct UserFileButtonView<T: UserFile>: View {
                 Label(label ?? "Select", systemImage: userFile.icon)
             }
         )
+        .help(userFile.message)
         .task {
             label = userFile.label
         }

@@ -1,5 +1,5 @@
 //
-//  AppDelegate.swift
+//  AppDelegateModel.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -11,7 +11,7 @@ import SwiftUI
 ///
 /// Is is a bit sad the we have to go trough all loops just to get a good experience for a true mac application nowadays
 /// SwiftUI is great and fun, also on macOS, unless... It is more than 'Hello World!" in a document...
-class AppDelegate: NSObject, NSApplicationDelegate {
+@Observable class AppDelegateModel: NSObject, NSApplicationDelegate {
 
     /// Close all windows except the menuBarExtra
     /// - Note: Part of the `DocumentGroup` dirty hack; don't show the NSOpenPanel
@@ -38,29 +38,51 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
-    /// The controller for the `NewDocumentView` window
-    private var newDocumentViewController: NSWindowController?
+    /// The controller for the `WelcomeView` window
+    private var welcomeViewController: NSWindowController?
     /// Show the `NewDocumentView` window in Appkit
     @MainActor func showNewDocumentView() {
-        if newDocumentViewController == nil {
+        if welcomeViewController == nil {
             let window = NSWindow()
             window.title = "Chord Provider"
             window.styleMask = [.closable, .titled, .fullSizeContentView]
             window.titlebarAppearsTransparent = true
             window.isMovableByWindowBackground = true
-            window.contentView = NSHostingView(rootView: NewDocumentView())
+            window.contentView = NSHostingView(rootView: WelcomeView(appDelegate: self))
             window.toolbarStyle = .unifiedCompact
             window.center()
             /// Just a fancy animation; it is not a document window
             window.animationBehavior = .documentWindow
-            newDocumentViewController = NSWindowController(window: window)
+            welcomeViewController = NSWindowController(window: window)
         }
         /// Update the recent files list
-        AppState.shared.recentFiles = NSDocumentController.shared.recentDocumentURLs
-        newDocumentViewController?.showWindow(newDocumentViewController?.window)
+        AppStateModel.shared.recentFiles = NSDocumentController.shared.recentDocumentURLs
+        welcomeViewController?.showWindow(welcomeViewController?.window)
     }
-    /// Close the newDocumentViewController window
-    @MainActor func closeWelcomeWindow() {
-        newDocumentViewController?.window?.close()
+    /// Close the welcomeViewController window
+    @MainActor func closeWelcomeView() {
+        welcomeViewController?.window?.close()
+    }
+
+    /// The controller for the `ExportFolderView` window
+    private var exportFolderController: NSWindowController?
+    /// Show the `ExportFolderView` window in Appkit
+    @MainActor func showExportFolderView() {
+        if exportFolderController == nil {
+            let window = NSWindow()
+            window.title = "Chord Provider"
+            window.styleMask = [.closable, .miniaturizable, .titled, .fullSizeContentView]
+            window.titlebarAppearsTransparent = true
+            //window.isMovableByWindowBackground = true
+            window.contentView = NSHostingView(rootView: ExportFolderView())
+            window.toolbarStyle = .unifiedCompact
+            window.backgroundColor = NSColor(named: "TelecasterColor")
+            window.center()
+            /// Just a fancy animation; it is not a document window
+            window.animationBehavior = .documentWindow
+            exportFolderController = NSWindowController(window: window)
+        }
+        welcomeViewController?.window?.close()
+        exportFolderController?.showWindow(exportFolderController?.window)
     }
 }

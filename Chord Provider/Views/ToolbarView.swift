@@ -11,9 +11,9 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the toolbar
 struct ToolbarView: View {
     /// The app state
-    @Environment(AppState.self) private var appState
+    @Environment(AppStateModel.self) private var appState
     /// The scene state
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// The ChordPro document
     let document: ChordProDocument
     /// The body of the `View`

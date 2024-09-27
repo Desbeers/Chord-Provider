@@ -11,9 +11,9 @@ import SwiftlyChordUtilities
 /// SwiftUI `View` for the song
 struct SongView: View {
     /// The app state
-    @Environment(AppState.self) private var appState
+    @Environment(AppStateModel.self) private var appState
     /// The scene state
-    @Environment(SceneState.self) private var sceneState
+    @Environment(SceneStateModel.self) private var sceneState
     /// The minimum scale factor
     private let minScale: Double = 0.8
     /// The maximum scale factor

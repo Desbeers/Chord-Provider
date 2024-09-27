@@ -1,5 +1,5 @@
 //
-//  SceneState.swift
+//  SceneStateModel.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -10,7 +10,7 @@ import OSLog
 import SwiftlyChordUtilities
 
 /// The observable scene state for Chord Provider
-@Observable final class SceneState {
+@Observable final class SceneStateModel {
     /// The current ``Song``
     var song = Song()
     /// The optional file location
@@ -26,7 +26,6 @@ import SwiftlyChordUtilities
     var songDisplayOptions: Song.DisplayOptions
     /// Chord Display Options
     var chordDisplayOptions: ChordDisplayOptions
-
     /// The current magnification scale
     var currentScale: Double = 1.0
     /// Bool to show the editor or not
@@ -34,11 +33,13 @@ import SwiftlyChordUtilities
 
     // MARK: Export Stuff
 
+    /// The temporary directory URL for processing files
+    /// - Note: In its own directory so easier to debug
+    let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        .appendingPathComponent("ChordProviderTMP", isDirectory: true)
     /// The URL of the export PDF
     var exportURL: URL {
         let fileName = "\(song.metaData.artist) - \(song.metaData.title)"
-        /// Create URLs
-        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         /// Create an export URL
         return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .pdf)
     }
@@ -66,13 +67,14 @@ import SwiftlyChordUtilities
         let appSettings = AppSettings.load(id: "Main")
         self.songDisplayOptions = appSettings.songDisplayOptions
         self.chordDisplayOptions = ChordDisplayOptions(defaults: appSettings.chordDisplayOptions)
+        try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
     }
 }
 
 /// The `FocusedValueKey` for the scene state
 struct SceneFocusedValueKey: FocusedValueKey {
     /// The `typealias` for the key
-    typealias Value = SceneState
+    typealias Value = SceneStateModel
 }
 
 extension FocusedValues {

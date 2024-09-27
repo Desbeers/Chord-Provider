@@ -13,9 +13,9 @@ import SwiftlyChordUtilities
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The app state
-    @Environment(AppState.self) var appState
+    @Environment(AppStateModel.self) var appState
     /// The scene state
-    @Environment(SceneState.self) var sceneState
+    @Environment(SceneStateModel.self) var sceneState
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false
     /// The optional directive to edit

@@ -39,15 +39,28 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
+            let chords = chords.filter { $0.status != .unknownChord }
             var items: [PDFElement] = []
-            for chord in chords where chord.status != .unknownChord {
+            for chord in chords {
                 items.append(Diagram(chord: chord, options: options))
             }
-            let chords = PDFBuild.Section(
-                columns: [SectionColumnWidth].init(repeating: .flexible, count: 7),
+            /// Spread the chords evenly over multiple lines
+            let chordsCount = chords.count
+            let lines = Int((chordsCount - 1) / 7) + 1
+            let lineItems = Int((chordsCount - 1) / lines) + 1
+            let diagramWidth = rect.width / 7
+            let diagrams = PDFBuild.Section(
+                columns: .init(repeating: .fixed(width: diagramWidth), count: lineItems),
                 items: items
             )
-            chords.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+            /// Keep the original X value
+            let tempOriginX = rect.origin.x
+            /// Move the diagrams if we have less than 7 in a row
+            let extraX = (Double(7 - lineItems) / 2) * diagramWidth
+            rect.origin.x += extraX
+            diagrams.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+            /// Restore the original X value
+            rect.origin.x = tempOriginX
         }
     }
 }
