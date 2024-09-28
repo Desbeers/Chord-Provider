@@ -8,18 +8,7 @@
 import SwiftUI
 
 /// The structure for an Alert Message
-public struct AlertMessage {
-
-    /// Init the alert message
-    /// - Parameters:
-    ///   - error: The `Error`
-    ///   - role: The optional role of the *confirm* `Button`
-    ///   - action: The optional action of the *confirm* `Button`
-    public init(error: Error, role: ButtonRole? = nil, action: (() -> Void)? = nil) {
-        self.error = error
-        self.role = role
-        self.action = action
-    }
+struct AlertMessage {
     /// The `Error`
     let error: Error
     /// The role of the button
@@ -114,7 +103,7 @@ extension AlertMessage {
     }
 }
 
-public extension View {
+extension View {
 
     /// Show an `Error Alert`
     /// - Parameter message: The ``AlertMessage``
@@ -134,7 +123,7 @@ public extension View {
     }
 }
 
-public extension View {
+extension View {
 
     /// Show a `Confirmation Dialog`
     /// - Parameter message: The ``AlertMessage``
@@ -157,7 +146,7 @@ public extension View {
     }
 }
 
-public extension Error {
+extension Error {
 
     /// Create a ``AlertMessage`` from an Error
     /// - Parameters:

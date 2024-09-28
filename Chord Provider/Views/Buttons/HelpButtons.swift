@@ -1,14 +1,14 @@
 //
-//  HelpButtonsView.swift
+//  HelpButtons.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 22/06/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 
-struct HelpButtonsView: View {
-    /// The document in the environment
+struct HelpButtons: View {
+    /// The observable state of the document
     @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
     /// The body of the `View`
     var body: some View {

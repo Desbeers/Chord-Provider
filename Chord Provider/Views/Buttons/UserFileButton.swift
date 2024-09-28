@@ -1,5 +1,5 @@
 //
-//  UserFileButtonView.swift
+//  UserFileButton.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -9,19 +9,14 @@ import SwiftUI
 import UniformTypeIdentifiers
 import OSLog
 
-/// SwiftUI `View`to select a file
+/// SwiftUI `View` with a button to select a file
 /// 
 /// I don't use the `SwiftUI` '.fileImporter' here because it is too limited;
 /// especially on macOS versions lower than 14.
 /// So, I just call a good o'l NSOpenPanel here.`
 ///
 /// - Note: A file can be a *normal* file but also a folder
-public struct UserFileButtonView<T: UserFile>: View {
-    /// Init the struct
-    public init(userFile: T, action: @escaping () -> Void) {
-        self.userFile = userFile
-        self.action = action
-    }
+struct UserFileButton<T: UserFile>: View {
     /// The file to bookmark
     let userFile: T
     /// The action when a file is selected
@@ -29,7 +24,7 @@ public struct UserFileButtonView<T: UserFile>: View {
     /// The label of the button
     @State private var label: String?
     /// The body of the `View`
-    public var body: some View {
+    var body: some View {
         Button(
             action: {
                 try? AppKitUtils.openPanel(userFile: userFile) {

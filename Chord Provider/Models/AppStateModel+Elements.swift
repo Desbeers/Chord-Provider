@@ -10,7 +10,7 @@ import SwiftUI
 extension AppStateModel {
 
     /// SwiftUI `View` with a `Toggle` to show the whole last chorus when using a *{chorus}* directive
-    public var repeatWholeChorusToggle: some View {
+    var repeatWholeChorusToggle: some View {
         RepeatWholeChorusToggle(appState: self)
     }
     /// SwiftUI `View` with a `Toggle` to show the whole last chorus when using a *{chorus}* directive
@@ -30,7 +30,7 @@ extension AppStateModel {
 extension AppStateModel {
 
     /// SwiftUI `View` with a `Toggle` to show only the lyrics
-    public var lyricsOnlyToggle: some View {
+    var lyricsOnlyToggle: some View {
         LyricsOnlyToggle(appState: self)
     }
     /// SwiftUI `View` with a `Toggle` to show only the lyrics

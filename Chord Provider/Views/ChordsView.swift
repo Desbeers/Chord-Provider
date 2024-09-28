@@ -6,15 +6,14 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the chord diagrams
 struct ChordsView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The scene state
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// Sheet with chords of the selected type
     @State var selectedChord: ChordDefinition?

@@ -8,33 +8,20 @@
 import SwiftUI
 
 /// A `Layout` that arranges its `subviews` in columns
-public struct ColumnsLayout: Layout {
+struct ColumnsLayout: Layout {
     /// The spacing between the columns or `nil` to use the default
-    public var columnSpacing: Double?
+    var columnSpacing: Double?
     /// The spacing between the subviews in the column row or`nil` to use the default
-    public var rowSpacing: Double?
-
-    /// Init the `ColumnLayout`
-    /// - Parameters:
-    ///   - columnSpacing: The spacing between the columns or `nil` to use the default
-    ///   - rowSpacing: The spacing between the subviews in the column row or`nil` to use the default
-    public init(
-        columnSpacing: Double? = nil,
-        rowSpacing: Double? = nil
-    ) {
-        self.columnSpacing = columnSpacing
-        self.rowSpacing = rowSpacing
-    }
-
+    var rowSpacing: Double?
     /// The layout properties
-    public static var layoutProperties: LayoutProperties {
+    static var layoutProperties: LayoutProperties {
         var properties = LayoutProperties()
         properties.stackOrientation = .vertical
         return properties
     }
 
     /// A shared computation between `sizeThatFits` and `placeSubviews`.
-    public struct Cache {
+    struct Cache {
 
         /// The minimal size of the view.
         var minSize: CGSize
@@ -46,7 +33,7 @@ public struct ColumnsLayout: Layout {
     /// Make a cache
     /// - Parameter subviews: The subviews
     /// - Returns: The cache
-    public func makeCache(subviews: Subviews) -> Cache {
+    func makeCache(subviews: Subviews) -> Cache {
         Cache(minSize: minSize(subviews: subviews))
     }
 
@@ -54,7 +41,7 @@ public struct ColumnsLayout: Layout {
     /// - Parameters:
     ///   - cache: The cache
     ///   - subviews: The subviews
-    public func updateCache(_ cache: inout Cache, subviews: Subviews) {
+    func updateCache(_ cache: inout Cache, subviews: Subviews) {
         cache.minSize = minSize(subviews: subviews)
     }
 
@@ -65,7 +52,7 @@ public struct ColumnsLayout: Layout {
     ///   - subviews: A collection of proxies that represent the views that the container arranges
     ///   - cache: Optional storage for calculated data
     /// - Returns: A size that indicates how much space the container needs to arrange its subviews
-    public func sizeThatFits(
+    func sizeThatFits(
         proposal: ProposedViewSize,
         subviews: Subviews,
         cache: inout Cache
@@ -93,7 +80,7 @@ public struct ColumnsLayout: Layout {
     ///               used to create the bounds parameter
     ///   - subviews: A collection of proxies that represent the views that the container arranges
     ///   - cache: Optional storage for calculated data
-    public func placeSubviews(
+    func placeSubviews(
         in bounds: CGRect,
         proposal: ProposedViewSize,
         subviews: Subviews,

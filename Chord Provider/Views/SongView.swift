@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the song
 struct SongView: View {
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The scene state
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The minimum scale factor
     private let minScale: Double = 0.8

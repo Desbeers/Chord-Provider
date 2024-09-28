@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the toolbar
 struct ToolbarView: View {
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The scene state
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The ChordPro document
     let document: ChordProDocument
@@ -30,8 +29,8 @@ struct ToolbarView: View {
             }
             /// Disable the buttons when showing a preview
             .disabled(sceneState.preview.data != nil)
-            PreviewPDFButtonView(label: "Preview the PDF")
-            ShareButtonView()
+            PreviewPDFButton(label: "Preview the PDF")
+            ShareButton()
         }
     }
 }

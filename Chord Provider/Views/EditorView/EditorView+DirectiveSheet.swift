@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 extension EditorView {
 
@@ -14,7 +13,7 @@ extension EditorView {
     struct DirectiveSheet: View {
         /// The directive
         let directive: ChordPro.Directive
-        /// The scene state
+        /// The observable state of the scene
         @Environment(SceneStateModel.self) var sceneState
         /// The label for the action button
         var actionLabel: String {

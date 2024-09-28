@@ -47,7 +47,7 @@ enum AppError: String, LocalizedError {
     // MARK: Protocol items
 
     /// The description of the status
-    public var description: String {
+    var description: String {
         switch self {
         case .audioFileNotFoundError:
             "The song was not found"
@@ -60,7 +60,7 @@ enum AppError: String, LocalizedError {
         }
     }
     /// The error description of the status
-    public var errorDescription: String? {
+    var errorDescription: String? {
         description
     }
 

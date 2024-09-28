@@ -1,5 +1,5 @@
 //
-//  ShareButtonView.swift
+//  ShareButton.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -8,8 +8,8 @@
 import SwiftUI
 
 /// SwiftUI `View` with the 'share' button'
-struct ShareButtonView: View {
-    /// The scene state
+struct ShareButton: View {
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// Bool to show the share picker
     @State private var showSharePicker: Bool = false

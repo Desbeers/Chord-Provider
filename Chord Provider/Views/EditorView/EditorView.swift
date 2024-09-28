@@ -6,15 +6,14 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the ``ChordProEditor``
 @MainActor struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) var appState
-    /// The scene state
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) var sceneState
     /// Show a directive sheet
     @State var showDirectiveSheet: Bool = false

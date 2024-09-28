@@ -22,7 +22,7 @@ extension FileBrowser {
         @Bindable var fileBrowser: FileBrowser
         /// The body of the `View`
         var body: some View {
-            UserFileButtonView(
+            UserFileButton(
                 userFile: UserFileItem.songsFolder
             ) {
                 fileBrowser.songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)

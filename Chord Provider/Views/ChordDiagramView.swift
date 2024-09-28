@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for a chord diagram
 struct ChordDiagramView: View {
@@ -16,7 +15,7 @@ struct ChordDiagramView: View {
     var width: Double
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
-    /// The scene state
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
     var body: some View {

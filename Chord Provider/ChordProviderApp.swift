@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `Scene` for **Chord Provider**
 @main struct ChordProviderApp: App {
@@ -103,11 +102,11 @@ import SwiftlyChordUtilities
                     .keyboardShortcut("p")
             }
             CommandGroup(after: .textEditing) {
-                MenuButtonsView()
+                FontSizeButtons()
                     .environment(appState)
             }
             CommandGroup(replacing: .help) {
-                HelpButtonsView()
+                HelpButtons()
             }
         }
         .defaultSize(width: 1000, height: 800)

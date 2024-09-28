@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the settings
 @MainActor struct SettingsView: View {
@@ -14,7 +13,7 @@ import SwiftlyChordUtilities
     @State private var chordDisplayOptions = ChordDisplayOptions(defaults: AppSettings.defaults)
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) var appState
     /// Dismiss
     @Environment(\.dismiss) private var dismiss
@@ -128,27 +127,27 @@ import SwiftlyChordUtilities
                 }
                 .wrapSettingsSection(title: "Editor Font")
                 VStack {
-                    ColorPickerButtonView(
+                    ColorPickerButton(
                         selectedColor: $appState.settings.editor.chordColor,
                         label: "Color for **chords**"
                     )
-                    ColorPickerButtonView(
+                    ColorPickerButton(
                         selectedColor: $appState.settings.editor.directiveColor,
                         label: "Color for **directives**"
                     )
-                    ColorPickerButtonView(
+                    ColorPickerButton(
                         selectedColor: $appState.settings.editor.argumentColor,
                         label: "Color for **arguments**"
                     )
-                    ColorPickerButtonView(
+                    ColorPickerButton(
                         selectedColor: $appState.settings.editor.markupColor,
                         label: "Color for **markup**"
                     )
-                    ColorPickerButtonView(
+                    ColorPickerButton(
                         selectedColor: $appState.settings.editor.bracketColor,
                         label: "Color for **brackets**"
                     )
-                    ColorPickerButtonView(
+                    ColorPickerButton(
                         selectedColor: $appState.settings.editor.commentColor,
                         label: "Color for **comments**"
                     )

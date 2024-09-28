@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import SwiftlyChordUtilities
 
 extension PDFBuild.Chords {
 

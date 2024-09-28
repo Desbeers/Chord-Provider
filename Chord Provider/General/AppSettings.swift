@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftlyChordUtilities
 import OSLog
 
 /// All the settings for the application

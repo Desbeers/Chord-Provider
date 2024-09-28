@@ -65,10 +65,10 @@ class ThumbnailProvider: QLThumbnailProvider {
     }
 }
 
-public protocol ChordProDirective {}
+protocol ChordProDirective {}
 
 /// Messages for the Logger
-public extension Logger {
+extension Logger {
 
     /// The name of the subsystem
     private static let subsystem = Bundle.main.bundleIdentifier ?? ""

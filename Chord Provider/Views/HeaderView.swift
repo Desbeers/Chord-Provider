@@ -9,9 +9,9 @@ import SwiftUI
 
 /// SwiftUI `View` for the header
 struct HeaderView: View {
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) var appState
-    /// The scene state
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) var sceneState
     /// The body of the `View`
     var body: some View {

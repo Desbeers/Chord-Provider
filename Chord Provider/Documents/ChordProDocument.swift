@@ -9,25 +9,25 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 /// The ChordProDocument for **Chord Provider**
-public struct ChordProDocument: FileDocument {
+struct ChordProDocument: FileDocument {
     /// The title for a new song
-    public static let newTitle: String = "A new song"
+    static let newTitle: String = "A new song"
     /// The artist for a new song
-    public static let newArtist: String = "A new artist"
+    static let newArtist: String = "A new artist"
     /// The document text for a new song
-    public static let newText: String = "{title: \(newTitle)}\n{artist: \(newArtist)}\n\n"
+    static let newText: String = "{title: \(newTitle)}\n{artist: \(newArtist)}\n\n"
     /// The file extensions Chord Provider can open
-    public static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
+    static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
     /// The `UTType` for a ChordPro document
-    public static var readableContentTypes: [UTType] { [.chordProSong] }
+    static var readableContentTypes: [UTType] { [.chordProSong] }
     /// The content of the ChordPro file
-    public var text: String
+    var text: String
     /// Init the text
-    public init(text: String = newText) {
+    init(text: String = newText) {
         self.text = text
     }
     /// Init the configuration
-    public init(configuration: ReadConfiguration) throws {
+    init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents
         else {
             throw AppError.readDocumentError
@@ -38,7 +38,7 @@ public struct ChordProDocument: FileDocument {
     /// Write the document
     /// - Parameter configuration: The document configuration
     /// - Returns: A file in the file system
-    public func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         guard
             let data = text.data(using: .utf8)
         else {
@@ -49,12 +49,12 @@ public struct ChordProDocument: FileDocument {
 }
 
 /// The `FocusedValueKey` for the current document
-public struct DocumentFocusedValueKey: FocusedValueKey {
+struct DocumentFocusedValueKey: FocusedValueKey {
     /// The `typealias` for the key
-    public typealias Value = FileDocumentConfiguration<ChordProDocument>
+    typealias Value = FileDocumentConfiguration<ChordProDocument>
 }
 
-public extension FocusedValues {
+extension FocusedValues {
     /// The value of the document key
     var document: DocumentFocusedValueKey.Value? {
         get {

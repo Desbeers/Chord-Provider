@@ -73,7 +73,6 @@ import SwiftUI
             window.title = "Chord Provider"
             window.styleMask = [.closable, .miniaturizable, .titled, .fullSizeContentView]
             window.titlebarAppearsTransparent = true
-            //window.isMovableByWindowBackground = true
             window.contentView = NSHostingView(rootView: ExportFolderView())
             window.toolbarStyle = .unifiedCompact
             window.backgroundColor = NSColor(named: "TelecasterColor")

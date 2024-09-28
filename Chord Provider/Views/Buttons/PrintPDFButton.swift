@@ -11,7 +11,7 @@ import SwiftUI
 struct PrintPDFButton: View {
     /// The label for the button
     let label: String
-    /// The observable state of the scene in the environment
+    /// The observable state of the scene
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The body of the `View`
     var body: some View {

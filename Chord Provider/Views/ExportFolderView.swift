@@ -7,7 +7,6 @@
 
 import SwiftUI
 import OSLog
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for a folder export
 @MainActor struct ExportFolderView: View {
@@ -36,7 +35,7 @@ import SwiftlyChordUtilities
             Form {
                 Section("Export a folder with your **ChordPro** Songs to a single PDF") {}
                 LabeledContent("The folder with songs") {
-                    UserFileButtonView(userFile: UserFileItem.exportFolder) {
+                    UserFileButton(userFile: UserFileItem.exportFolder) {
                         currentFolder = ExportFolderView.exportFolderTitle
                     }
                 }

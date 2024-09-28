@@ -6,7 +6,7 @@
 
 **Chord Provider** is written in SwiftUI and needs macOS Sonoma.
 
-There are many **ChordPro** parsers in this world, however, none are *really* native in the Apple world.
+There are many **ChordPro** parsers in this world, however, almost none are *really* native in the Apple world.
 
 I mean, in the macOS world, it is often an afterthought... Not for me. I'm mac user only and I don't use iStuff.
 
@@ -69,18 +69,6 @@ Stole code (and ideas) from:
 - [PdfBuilder](https://github.com/atrbx5/PdfBuilder)
 - [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
 - [LNTextView](https://github.com/JonWorms/LNTextView)
-
-### Used packages
-
-Just one of my own and in my GitHub account.
-
-![Icon](https://github.com/Desbeers/SwiftlyChordUtilities/raw/main/Images/icon.png)
-
-- [SwiftlyChordUtilities](https://github.com/Desbeers/SwiftlyChordUtilities): Handle musical chords
-
-*I like to start my package names with **Swiftly** instead of the usual **Swifty** {.leading} or **Kit** {.trailing}.*
-
-*This is simply because it sounds more pleasing to me.*
 
 ## How to compile
 

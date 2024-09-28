@@ -1,5 +1,5 @@
 //
-//  MenuButtonsView.swift
+//  FontSizeButtons.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-/// Menu Items and Keyboard shortcuts for font size
-/// - Note: Unfortunately, this cannot be placed in a `Menu` because it does not proper update its state...
-struct MenuButtonsView: View {
-    /// The app state
+/// SwiftUI `View` with buttons to resize the editor font
+/// - Note: Unfortunately, this cannot be placed in a `Menu` because it does not proper update its state.
+struct FontSizeButtons: View {
+    /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The scene state in the environment
+    /// The observable state of the scene
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The range of font sizes
     private let fontSizeRange = ChordProEditor.Settings.fontSizeRange

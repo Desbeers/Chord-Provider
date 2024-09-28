@@ -8,7 +8,6 @@
 import Foundation
 import OSLog
 import PDFKit
-import SwiftlyChordUtilities
 
 extension FolderExport {
 

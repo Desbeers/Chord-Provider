@@ -2,7 +2,7 @@
 //  ChordProEditor+LayoutManager.swift
 //  Chord Provider
 //
-//  © 2023 Nick Berendsen
+//  © 2024 Nick Berendsen
 //
 
 import AppKit
@@ -52,7 +52,7 @@ extension ChordProEditor {
         // MARK: Layout Manager Delegate
 
         // swiftlint:disable:next function_parameter_count
-        public func layoutManager(
+        func layoutManager(
             _ layoutManager: NSLayoutManager,
             shouldSetLineFragmentRect lineFragmentRect: UnsafeMutablePointer<NSRect>,
             lineFragmentUsedRect: UnsafeMutablePointer<NSRect>,

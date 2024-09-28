@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the content
 struct ContentView: View {
@@ -14,7 +13,7 @@ struct ContentView: View {
     @Binding var document: ChordProDocument
     /// The optional file location
     let file: URL?
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
     /// The state of the scene
     @State private var sceneState = SceneStateModel()

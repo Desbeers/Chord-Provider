@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftlyChordUtilities
 
 extension PDFBuild.LyricsSection {
 

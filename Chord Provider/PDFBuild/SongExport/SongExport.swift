@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftlyChordUtilities
 
 /// Export a single ``Song`` to a PDF
 enum SongExport {

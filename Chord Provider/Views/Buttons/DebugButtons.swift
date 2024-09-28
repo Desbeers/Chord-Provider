@@ -9,7 +9,7 @@ import SwiftUI
 
 /// SwiftUI `View` with debug buttons
 struct DebugButtons: View {
-    /// The scene state in the environment
+    /// The observable state of the scene
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The body of the `View`
     var body: some View {
@@ -43,48 +43,3 @@ struct DebugButtons: View {
         .disabled(sceneState == nil)
     }
 }
-
-
-////
-////  ResetApplicationButtonView.swift
-////  Chord Provider
-////
-////  © 2024 Nick Berendsen
-////
-//
-//import SwiftUI
-//
-///// SwiftUI `View` with a `Button` to reset the application
-//public struct ResetApplicationButtonView: View {
-//    /// Init the `View`
-//    public init() {}
-//    /// The body of the `View`
-//    public var body: some View {
-//        Button(
-//            action: {
-//                /// Remove user defaults
-//                if let bundleID = Bundle.main.bundleIdentifier {
-//                    UserDefaults.standard.removePersistentDomain(forName: bundleID)
-//                }
-//                /// Delete the cache
-//                let manager = FileManager.default
-//                if let cacheFolderURL = manager.urls(
-//                    for: .cachesDirectory,
-//                    in: .userDomainMask
-//                ).first {
-//                    try? manager.removeItem(at: cacheFolderURL)
-//                    try? manager.createDirectory(
-//                        at: cacheFolderURL,
-//                        withIntermediateDirectories: false,
-//                        attributes: nil
-//                    )
-//                }
-//                /// Terminate the application
-//                NSApp.terminate(nil)
-//            },
-//            label: {
-//                Text("Reset Application")
-//            }
-//        )
-//    }
-//}

@@ -7,13 +7,12 @@
 
 import SwiftUI
 import OSLog
-import SwiftlyChordUtilities
 
 /// SwiftUI `View` for the main content
 struct MainView: View {
-    /// The app state
+    /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The scene state
+    /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowser.self) private var fileBrowser

@@ -10,7 +10,7 @@ import OSLog
 
 /// SwiftUI `View` for a ``Song`` export
 struct ExportSongView: View {
-    /// The scene state in the environment
+    /// The observable state of the scene
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// Present an export dialog
     @State private var exportFile = false

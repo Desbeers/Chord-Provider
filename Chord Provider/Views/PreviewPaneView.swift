@@ -13,7 +13,7 @@ struct PreviewPaneView: View {
     let data: Data
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
-    /// The document in the environment
+    /// The observable state of the document
     @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
     /// Optional annotations in the PDF
     @State private var annotations: [(userName: String, contents: String)] = []
@@ -23,7 +23,7 @@ struct PreviewPaneView: View {
         AppKitUtils.PDFKitRepresentedView(data: data, annotations: $annotations)
             .overlay(alignment: .top) {
                 if sceneState.preview.outdated {
-                    PreviewPDFButtonView.UpdatePreview()
+                    PreviewPDFButton.UpdatePreview()
                 }
             }
             .onChange(of: document?.document.text) {
