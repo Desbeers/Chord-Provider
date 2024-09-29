@@ -4,7 +4,7 @@
 
 import Foundation
 
-public extension PDFBuild {
+extension PDFBuild {
 
     // MARK: Information about an item for the Table of Contents
 
@@ -13,17 +13,17 @@ public extension PDFBuild {
         /// The ID of the TOC item
         let id: UUID
         /// The title of the TOC item
-        public var title: String
+        var title: String
         /// The subtitle of the TOC item
-        public var subtitle: String
+        var subtitle: String
         /// The page number in the PDF
-        public var pageNumber: Int = 0
+        var pageNumber: Int = 0
         /// The TOC page number
-        public var tocPageNumber: Int = 0
+        var tocPageNumber: Int = 0
         /// The rectangle of TOC entry
         /// - Note: Used to make internal links
-        public var rect: CGRect = .zero
+        var rect: CGRect = .zero
         /// The URL of the item
-        public var fileURL: URL?
+        var fileURL: URL?
     }
 }

@@ -11,7 +11,7 @@ import OSLog
 /// SwiftUI `View` for the file browser
 @MainActor struct FileBrowserView: View {
     /// The observable ``FileBrowser`` class
-    @State private var fileBrowser = FileBrowser.shared
+    @State private var fileBrowser = FileBrowserModel.shared
     /// The search query
     @State var search: String = ""
     /// Tab item
@@ -165,11 +165,11 @@ extension FileBrowserView {
     /// SwiftUI `View` for a row in the browser list
     @MainActor struct Row: View {
         /// The song item
-        let song: FileBrowser.SongItem
+        let song: FileBrowserModel.SongItem
         /// Show the artist or not
         var showArtist: Bool = false
         /// The observable ``FileBrowser`` class
-        @State private var fileBrowser = FileBrowser.shared
+        @State private var fileBrowser = FileBrowserModel.shared
         /// Open documents in the environment
         @Environment(\.openDocument) private var openDocument
         /// Focus of the Window
@@ -182,8 +182,8 @@ extension FileBrowserView {
         var body: some View {
             Button(
                 action: {
-                    Task { @MainActor in
-                        await openSong(url: song.fileURL)
+                    Task {
+                        await fileBrowser.openSong(url: song.fileURL)
                     }
                 },
                 label: {
@@ -224,23 +224,23 @@ extension FileBrowserView {
                     .opacity(window == nil ? 0 : 1)
             }
         }
-        /// Open a song window with an URL
-        /// - Parameter url: The URL of the song
-        @MainActor func openSong(url: URL) async {
-            /// SwiftUI openDocument is very buggy; don't try to open a document when it is already open; the app will crash..
-            /// So I use the shared NSDocumentController instead
-            if let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
-                _ = persistentURL.startAccessingSecurityScopedResource()
-                do {
-                    try await NSDocumentController.shared.openDocument(withContentsOf: url, display: true)
-                } catch {
-                    Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
-                }
-                persistentURL.stopAccessingSecurityScopedResource()
-            }
-            /// If the browser is shown in a MenuBarExtra, close it
-            fileBrowser.menuBarExtraWindow?.close()
-        }
+//        /// Open a song window with an URL
+//        /// - Parameter url: The URL of the song
+//        @MainActor func openSong(url: URL) async {
+//            /// SwiftUI openDocument is very buggy; don't try to open a document when it is already open; the app will crash..
+//            /// So I use the shared NSDocumentController instead
+//            if let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+//                _ = persistentURL.startAccessingSecurityScopedResource()
+//                do {
+//                    try await NSDocumentController.shared.openDocument(withContentsOf: url, display: true)
+//                } catch {
+//                    Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
+//                }
+//                persistentURL.stopAccessingSecurityScopedResource()
+//            }
+//            /// If the browser is shown in a MenuBarExtra, close it
+//            fileBrowser.menuBarExtraWindow?.close()
+//        }
     }
 
     /// SwiftUI `LabelStyle` for a browser item

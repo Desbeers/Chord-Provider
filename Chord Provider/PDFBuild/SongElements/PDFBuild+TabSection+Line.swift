@@ -48,7 +48,7 @@ extension PDFBuild.TabSection {
     }
 }
 
-public extension PDFStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Tab line string styling
 

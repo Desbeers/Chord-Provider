@@ -19,9 +19,9 @@ extension EditorView {
                     directive == .define,
                     let chord = ChordDefinition(
                         name: "C",
-                        instrument: appState.settings.chordDisplayOptions.instrument
+                        instrument: sceneState.settings.song.instrument
                     ) {
-                    sceneState.chordDisplayOptions.definition = chord
+                    sceneState.definition = chord
                 }
                 editDirective = directive
             }, label: {

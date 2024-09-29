@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Sequence {
+extension Sequence {
 
     /// Filter a Sequence by an unique keypath
     /// - Parameter keyPath: The keypath

@@ -8,9 +8,9 @@
 import AppKit
 
 /// Alias for a `NSAttributedString` key and value
-public typealias PDFStringAttribute = [NSAttributedString.Key: Any]
+typealias PDFStringAttribute = [NSAttributedString.Key: Any]
 
-public extension PDFStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Merge stylings
 

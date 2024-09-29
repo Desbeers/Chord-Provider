@@ -7,13 +7,14 @@
 import SwiftUI
 
 /// A SwiftUI `View` to create a ``ChordDefinition`` with pickers
-public struct CreateChordView: View {
-    /// Init the `View`
-    public init(chordDisplayOptions: Bindable<ChordDisplayOptions>) {
-        self._chordDisplayOptions = chordDisplayOptions
-    }
+struct CreateChordView: View {
+
+    /// The observable state of the application
+    @Environment(AppStateModel.self) private var appState
+
+
     /// Chord Display Options object
-    @Bindable var chordDisplayOptions: ChordDisplayOptions
+    @Bindable var sceneState: SceneStateModel
     /// The chord diagram
     @State private var diagram: ChordDefinition?
     /// The current color scheme
@@ -23,36 +24,36 @@ public struct CreateChordView: View {
     /// The chord components result
     @State private var chordComponents: [[Chord.Root]] = []
     /// The body of the `View`
-    public var body: some View {
+    var body: some View {
         VStack {
-            Text("\(chordDisplayOptions.definition.displayName(options: .init(rootDisplay: .raw, qualityDisplay: .raw)))")
+            Text("\(sceneState.definition.displayName)")
                 .font(.largeTitle)
             HStack {
-                ForEach(chordDisplayOptions.definition.quality.intervals.intervals, id: \.self) { interval in
+                ForEach(sceneState.definition.quality.intervals.intervals, id: \.self) { interval in
                     Text(interval.description)
                 }
             }
-            chordDisplayOptions.rootPicker
+            sceneState.rootPicker
                 .pickerStyle(.segmented)
                 .padding(.bottom)
                 .labelsHidden()
             HStack {
                 LabeledContent(content: {
-                    chordDisplayOptions.qualityPicker
+                    sceneState.qualityPicker
                         .labelsHidden()
                 }, label: {
                     Text("Quality:")
                 })
                 .frame(maxWidth: 150)
                 LabeledContent(content: {
-                    chordDisplayOptions.baseFretPicker
+                    sceneState.baseFretPicker
                     .labelsHidden()
                 }, label: {
                     Text("Base fret:")
                 })
                 .frame(maxWidth: 150)
                 LabeledContent(content: {
-                    chordDisplayOptions.bassPicker
+                    sceneState.bassPicker
                         .labelsHidden()
                 }, label: {
                     Text("Optional bass:")
@@ -66,9 +67,9 @@ public struct CreateChordView: View {
                         title: {
                             if let components = chordComponents.first {
                                 HStack {
-                                    Text("**\(chordDisplayOptions.definition.displayName(options: .init()))** contains")
+                                    Text("**\(sceneState.definition.displayName)** contains")
                                     ForEach(components, id: \.self) { element in
-                                        Text(element.display.symbol)
+                                        Text(element.display)
                                             .fontWeight(checkRequiredNote(note: element) ? .bold : .regular)
                                     }
                                 }
@@ -84,40 +85,36 @@ public struct CreateChordView: View {
                 VStack {
                     Section(
                         content: {
-                            chordDisplayOptions.fretsPicker
+                            sceneState.fretsPicker
                         }, header: {
                             header(text: "Frets")
                         })
                     Section(
                         content: {
-                            chordDisplayOptions.fingersPicker
+                            sceneState.fingersPicker
                         }, header: {
                             header(text: "Fingers")
                         })
                 }
-#if os(macOS)
                 .pickerStyle(.radioGroup)
-#else
-                .pickerStyle(.wheel)
-#endif
                 .frame(width: 400)
             }
         }
         .padding(.bottom)
         .overlay(alignment: .topLeading) {
-            Label(chordDisplayOptions.displayOptions.instrument.label, systemImage: "guitars")
+            Label(sceneState.settings.song.instrument.label, systemImage: "guitars")
         }
-        .task(id: chordDisplayOptions.definition) {
+        .task(id: sceneState.definition) {
             let diagram = ChordDefinition(
-                id: chordDisplayOptions.definition.id,
-                name: chordDisplayOptions.definition.name,
-                frets: chordDisplayOptions.definition.frets,
-                fingers: chordDisplayOptions.definition.fingers,
-                baseFret: chordDisplayOptions.definition.baseFret,
-                root: chordDisplayOptions.definition.root,
-                quality: chordDisplayOptions.definition.quality,
-                bass: chordDisplayOptions.definition.bass,
-                instrument: chordDisplayOptions.definition.instrument,
+                id: sceneState.definition.id,
+                name: sceneState.definition.name,
+                frets: sceneState.definition.frets,
+                fingers: sceneState.definition.fingers,
+                baseFret: sceneState.definition.baseFret,
+                root: sceneState.definition.root,
+                quality: sceneState.definition.quality,
+                bass: sceneState.definition.bass,
+                instrument: sceneState.definition.instrument,
                 status: .standardChord
             )
             self.diagram = diagram
@@ -126,9 +123,13 @@ public struct CreateChordView: View {
     }
 
     /// The diagram `View`
-    @ViewBuilder func diagramView(width: Double) -> some View {
+    @MainActor @ViewBuilder func diagramView(width: Double) -> some View {
         if let diagram {
-            ChordDefinitionView(chord: diagram, width: width, options: chordDisplayOptions.displayOptions)
+            ChordDefinitionView(
+                chord: diagram,
+                width: width,
+                settings: appState.settings
+            )
                 .foregroundStyle(.primary, colorScheme == .light ? .white : .black)
         } else {
             ProgressView()

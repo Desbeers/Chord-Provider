@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension Array where Element == ChordDefinition {
+extension Array where Element == ChordDefinition {
 
     /// Get all roots
     /// - Returns: All the roots

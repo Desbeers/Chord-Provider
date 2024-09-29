@@ -15,11 +15,11 @@ extension EditorView {
         do {
             let chord = try ChordDefinition(
                 definition: sceneState.editorInternals.directiveArgument,
-                instrument: sceneState.chordDisplayOptions.displayOptions.instrument,
+                instrument: sceneState.settings.song.instrument,
                 status: .unknownChord
             )
             /// Set the definition
-            sceneState.chordDisplayOptions.definition = chord
+            sceneState.definition = chord
             /// Show the sheet
             return true
         } catch {

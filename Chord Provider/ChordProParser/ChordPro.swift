@@ -20,10 +20,9 @@ actor ChordPro {
     ///   - instrument: The instrument of the song
     ///   - fileURL: The optional file url of the song
     /// - Returns: A ``Song`` item
-    static func parse(id: UUID, text: String, transpose: Int, instrument: Instrument, fileURL: URL?) -> Song {
+    static func parse(id: UUID, text: String, transpose: Int, settings: AppSettings, fileURL: URL?) -> Song {
         /// Start with a fresh song
-        var song = Song(id: id)
-        song.metaData.instrument = instrument
+        var song = Song(id: id, settings: settings)
         song.metaData.fileURL = fileURL
         /// Add the optional transpose
         song.metaData.transpose = transpose
@@ -127,7 +126,7 @@ actor ChordPro {
             case .time:
                 song.metaData.time = label
             case .key:
-                if let label, var chord = ChordDefinition(name: label, instrument: song.metaData.instrument) {
+                if let label, var chord = ChordDefinition(name: label, instrument: song.settings.song.instrument) {
                     /// Transpose the key if needed
                     if song.metaData.transpose != 0 {
                         chord.transpose(transpose: song.metaData.transpose, scale: chord.root)
@@ -315,7 +314,7 @@ actor ChordPro {
     private static func processDefine(text: String, song: inout Song) {
         if var definedChord = try? ChordDefinition(
             definition: text,
-            instrument: song.metaData.instrument,
+            instrument: song.settings.song.instrument,
             status: .unknownChord
         ) {
             definedChord.status = song.metaData.transpose == 0 ? definedChord.status : .customTransposedChord
@@ -473,7 +472,7 @@ actor ChordPro {
             return match
         }
         /// Try to find it in the database
-        if var databaseChord = ChordDefinition(name: chord, instrument: song.metaData.instrument) {
+        if var databaseChord = ChordDefinition(name: chord, instrument: song.settings.song.instrument) {
             if song.metaData.transpose != 0 {
                 databaseChord.transpose(transpose: song.metaData.transpose, scale: song.metaData.key?.root ?? .c)
                 /// Keep the original name
@@ -482,7 +481,7 @@ actor ChordPro {
             song.chords.append(databaseChord)
             return databaseChord
         }
-        let unknownChord = ChordDefinition(unknown: chord, instrument: song.metaData.instrument)
+        let unknownChord = ChordDefinition(unknown: chord, instrument: song.settings.song.instrument)
         if !ignoreUnknown {
             song.chords.append(unknownChord)
         }

@@ -11,11 +11,11 @@ import OSLog
 /// SwiftUI `View` for a folder export
 @MainActor struct ExportFolderView: View {
     /// The app state
-    @State private var appState = AppStateModel(id: "FolderExport")
+    @State private var appState = AppStateModel(id: .exportFolderView)
+    /// The state of the scene
+    @State private var sceneState = SceneStateModel(id: .exportFolderView)
     /// The observable ``FileBrowser`` class
-    @State private var fileBrowser = FileBrowser.shared
-    /// Chord Display Options
-    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: AppSettings.defaults)
+    @State private var fileBrowser = FileBrowserModel.shared
     /// The current selected folder
     @State private var currentFolder: String? = ExportFolderView.exportFolderTitle
     /// The PDF info
@@ -41,7 +41,7 @@ import OSLog
                 }
                 appState.repeatWholeChorusToggle
                 appState.lyricsOnlyToggle
-                chordDisplayOptions.instrumentPicker
+                sceneState.instrumentPicker
                     .pickerStyle(.segmented)
                 Section("PDF info") {
                     TextField("Title of the export", text: $pdfInfo.title, prompt: Text("Title"))
@@ -49,9 +49,9 @@ import OSLog
                 }
                     .pickerStyle(.segmented)
                 Section("Diagrams") {
-                    chordDisplayOptions.fingersToggle
-                    chordDisplayOptions.notesToggle
-                    chordDisplayOptions.mirrorToggle
+                    appState.fingersToggle
+                    appState.notesToggle
+                    appState.mirrorToggle
                 }
             }
             .formStyle(.grouped)
@@ -63,12 +63,13 @@ import OSLog
                 action: {
                     Task {
                         do {
+                            /// Bring the sceneSate settings to the appState
+                            appState.settings.song = sceneState.settings.song
                             progress = 0
                             exporting = true
                             for try await status in FolderExport.export(
-                                info: pdfInfo,
-                                songDisplayOptions: appState.settings.songDisplayOptions,
-                                chordDisplayOptions: chordDisplayOptions.displayOptions
+                                documentInfo: pdfInfo,
+                                appSettings: appState.settings
                             ) {
                                 switch status {
                                 case .progress(let progress):
@@ -117,12 +118,6 @@ import OSLog
         .scrollContentBackground(.hidden)
         .task(id: currentFolder) {
             pdfInfo.title = currentFolder ?? ""
-        }
-        .task {
-            chordDisplayOptions.displayOptions = appState.settings.chordDisplayOptions
-        }
-        .onChange(of: chordDisplayOptions.displayOptions) {
-            appState.settings.chordDisplayOptions = chordDisplayOptions.displayOptions
         }
     }
     /// Get the current selected export folder

@@ -19,13 +19,13 @@ extension PDFBuild {
         /// All the chords from the song
         let chords: [ChordDefinition]
         /// The chord display options
-        let options: ChordDefinition.DisplayOptions
+        let options: AppSettings.DiagramDisplayOptions
 
         /// Init the **chords** element
         /// - Parameters:
         ///   - chords: All the chords from the song
         ///   - options: The chord display options
-        init(chords: [ChordDefinition], options: ChordDefinition.DisplayOptions) {
+        init(chords: [ChordDefinition], options: AppSettings.DiagramDisplayOptions) {
             self.chords = chords
                 .sorted(using: KeyPathComparator(\.root))
                 .sorted(using: KeyPathComparator(\.quality))

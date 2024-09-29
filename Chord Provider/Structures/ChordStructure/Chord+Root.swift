@@ -11,10 +11,10 @@ extension Chord {
 
     /// The root of a chord
     /// - Note: Changes to the raw value might break the databases
-    public enum Root: String, CaseIterable, Codable, Comparable, Sendable, Identifiable {
+    enum Root: String, CaseIterable, Codable, Comparable, Sendable, Identifiable {
 
         /// Identifiable protocol
-        public var id: String {
+        var id: String {
             self.rawValue
         }
 
@@ -59,54 +59,38 @@ extension Chord {
         // swiftlint:enable identifier_name
 
         /// Implement Comparable
-        public static func < (lhs: Self, rhs: Self) -> Bool {
+        static func < (lhs: Self, rhs: Self) -> Bool {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
         }
 
-        /// Contains text for accessibility text-to-speech and symbolised versions.
-        public var display: (accessible: String, symbol: String) {
+        /// The display of Root
+        var display: String {
             switch self {
-            case .c:
-                ("C", "C")
-            case .cSharp:
-                ("C sharp", "C♯")
-            case .dFlat:
-                ("D flat", "D♭")
-            case .d:
-                ("D", "D")
-            case .dSharp:
-                ("D sharp", "D♯")
-            case .eFlat:
-                ("E flat", "E♭")
-            case .e:
-                ("E", "E")
-            case .f:
-                ("F", "F")
-            case .fSharp:
-                ("F sharp", "F♯")
-            case .gFlat:
-                ("G flat", "G♭")
-            case .g:
-                ("G", "G")
-            case .gSharp:
-                ("G sharp", "G♯")
-            case .aFlat:
-                ("A flat", "A♭")
-            case .a:
-                ("A", "A")
-            case .aSharp:
-                ("A sharp", "A♯")
-            case .bFlat:
-                ("B flat", "B♭")
-            case .b:
-                ("B", "B")
-            case .none:
-                ("X", "X")
+            case .c:        "C"
+            case .cSharp:   "C♯"
+            case .dFlat:    "D♭"
+            case .d:        "D"
+            case .dSharp:   "D♯"
+            case .eFlat:    "E♭"
+            case .e:        "E"
+            case .f:        "F"
+            case .fSharp:   "F♯"
+            case .gFlat:    "G♭"
+            case .g:        "G"
+            case .gSharp:   "G♯"
+            case .aFlat:    "A♭"
+            case .a:        "A"
+            case .aSharp:   "A♯"
+            case .bFlat:    "B♭"
+            case .b:        "B"
+            case .none:     "X"
             }
         }
 
+        // swiftlint:disable indentation_width
+
         /// The accidental of the root
-        public var accidental: Accidental {
+        var accidental: Accidental {
             switch self {
             case .c, .d, .e, .f, .g, .a, .b, .none:
                     .natural
@@ -118,7 +102,7 @@ extension Chord {
         }
 
         /// The copy of a root
-        public var copy: Root {
+        var copy: Root {
             switch self {
             case .cSharp:
                     .dFlat
@@ -134,10 +118,12 @@ extension Chord {
                     .none
             }
         }
+
+        // swiftlint:enable indentation_width
     }
 }
 
-public extension Chord.Root {
+extension Chord.Root {
 
     /// Transpose a note
     /// - Parameters:

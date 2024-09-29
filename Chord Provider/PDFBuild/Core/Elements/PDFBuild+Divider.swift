@@ -12,7 +12,7 @@ extension PDFBuild {
     // MARK: A PDF **divider** element
 
     /// A PDF **divider** element
-    public class Divider: PDFElement {
+    class Divider: PDFElement {
         /// The ``direction`` of the divider
         let direction: Direction
         /// The line with of the divider

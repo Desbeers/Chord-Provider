@@ -8,7 +8,7 @@
 import Foundation
 
 /// Static scale dictionaries
-public enum Scales {
+enum Scales {
 
     /// The note to value dictionary
     static var noteValueDict: [Chord.Root: Int] {

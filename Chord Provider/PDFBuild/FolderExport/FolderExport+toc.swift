@@ -11,15 +11,18 @@ extension FolderExport {
 
     /// Create a Table of Contents
     /// - Parameters:
-    ///   - info: The document info for the PDF
+    ///   - documentInfo: The document info for the PDF
     ///   - tocItems: The items for the TOC
     /// - Returns: The Table of Contents as `Data`
-    static func toc(info: PDFBuild.DocumentInfo, counter: PDFBuild.PageCounter) -> Data {
-        let tocBuilder = PDFBuild.Builder(info: info)
+    static func toc(
+        documentInfo: PDFBuild.DocumentInfo,
+        counter: PDFBuild.PageCounter
+    ) -> Data {
+        let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo)
         tocBuilder.pageCounter = counter
         tocBuilder.elements.append(PDFBuild.PageBackgroundColor(color: .black))
-        tocBuilder.elements.append(PDFBuild.Text(info.title, attributes: .exportTitle))
-        tocBuilder.elements.append(PDFBuild.Text(info.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
+        tocBuilder.elements.append(PDFBuild.Text(documentInfo.title, attributes: .exportTitle))
+        tocBuilder.elements.append(PDFBuild.Text(documentInfo.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
         tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle))

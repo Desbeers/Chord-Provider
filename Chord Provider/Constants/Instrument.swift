@@ -1,5 +1,5 @@
 //
-//  Instruments.swift
+//  Instrument.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -9,7 +9,13 @@
 import Foundation
 
 /// The instruments we know about
-public enum Instrument: String, CaseIterable, Codable, Sendable {
+enum Instrument: String, CaseIterable, Codable, Identifiable, Sendable {
+
+    /// Make ``Instrument`` identifiable
+    var id: String {
+        self.rawValue
+    }
+
     /// Guitar Standard E tuning
     case guitarStandardETuning
     /// Guitalele
@@ -18,7 +24,7 @@ public enum Instrument: String, CaseIterable, Codable, Sendable {
     case ukuleleStandardGTuning
 }
 
-public extension Instrument {
+extension Instrument {
 
     /// The label of the instrument
     var label: String {

@@ -21,9 +21,9 @@ struct ChordsView: View {
     @State var defineChord: ChordDefinition?
     /// The body of the `View`
     var body: some View {
-        let layout = sceneState.songDisplayOptions.chordsPosition == .bottom ?
+        let layout = sceneState.settings.song.chordsPosition == .bottom ?
         AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-        ScrollView([sceneState.songDisplayOptions.chordsPosition == .bottom ? .horizontal : .vertical]) {
+        ScrollView([sceneState.settings.song.chordsPosition == .bottom ? .horizontal : .vertical]) {
             layout {
                 ForEach(sceneState.song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
                     switch chord.status {
@@ -62,10 +62,10 @@ struct ChordsView: View {
 extension ChordsView {
 
     /// Present a Sheet with chord definitions for the selected chord name
-    @ViewBuilder var chordsSheet: some View {
+    @MainActor @ViewBuilder var chordsSheet: some View {
         if let selectedChord {
             VStack {
-                Text("Chord: \(selectedChord.displayName(options: .init()))")
+                Text("Chord: \(selectedChord.displayName)")
                     .font(.title)
                 HStack {
                     ForEach(selectedChord.quality.intervals.intervals, id: \.self) { interval in

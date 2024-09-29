@@ -7,46 +7,27 @@
 
 import SwiftUI
 
-public extension ChordDefinition {
+extension ChordDefinition {
 
     /// Format the name of the chord for display
     /// - Parameter options: The ``DisplayOptions``
     /// - Returns: A formatted string with the name of the chord
-    func displayName(options: DisplayOptions) -> String {
+    var displayName: String {
         var name: String = ""
-
         if self.status == .unknownChord || self.quality == .unknown {
             /// We don't know anything about this chord; so use the original name
             name = self.name
         } else {
-            switch options.general.rootDisplay {
-            case .raw:
-                name = self.root.rawValue
-            case .accessible:
-                name = self.root.display.accessible
-            case .symbol:
-                name = self.root.display.symbol
-            }
-
-            switch options.general.qualityDisplay {
-            case .raw:
-                name += "\(self.quality.rawValue)"
-            case .short:
-                name += "\(self.quality.display.short)"
-            case .symbolized:
-                name += "\(self.quality.display.symbolized)"
-            case .altSymbol:
-                name += "\(self.quality.display.altSymbol)"
-            }
+            name = self.root.display + self.quality.display
             if let bass = self.bass {
-                name += "/\(bass.display.symbol)"
+                name += bass.display
             }
         }
         return name
     }
 }
 
-public extension ChordDefinition {
+extension ChordDefinition {
 
     /// Try to validate a ``ChordDefinition``
     var validate: Chord.Status {
@@ -54,7 +35,7 @@ public extension ChordDefinition {
     }
 }
 
-public extension ChordDefinition {
+extension ChordDefinition {
 
     /// Convert a ``ChordDefinition`` into a **ChordPro** `{define}`
     var define: String {
@@ -77,7 +58,7 @@ public extension ChordDefinition {
     }
 }
 
-public extension ChordDefinition {
+extension ChordDefinition {
 
     /// Play a ``ChordDefinition`` with MIDI
     /// - Parameter instrument: The `instrument` to use
@@ -88,7 +69,7 @@ public extension ChordDefinition {
     }
 }
 
-public extension ChordDefinition {
+extension ChordDefinition {
 
     /// Mirror a `Barre` for a left-handed chord
     /// - Parameter barre: The original barre

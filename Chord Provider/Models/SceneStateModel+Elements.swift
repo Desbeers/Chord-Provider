@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// MARK: Menus
+
 extension SceneStateModel {
 
     // MARK: Chords Menu
@@ -23,7 +25,7 @@ extension SceneStateModel {
         var body: some View {
             Menu(
                 "Chords",
-                systemImage: sceneState.songDisplayOptions.showChords ? "number.circle.fill" : "number.circle"
+                systemImage: sceneState.settings.song.showChords ? "number.circle.fill" : "number.circle"
             ) {
                 sceneState.showChordsButton
                 Divider()
@@ -33,6 +35,8 @@ extension SceneStateModel {
         }
     }
 }
+
+// MARK: Buttons
 
 extension SceneStateModel {
 
@@ -49,38 +53,15 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Button {
-                sceneState.songDisplayOptions.showChords.toggle()
+                sceneState.settings.song.showChords.toggle()
             } label: {
-                Text(sceneState.songDisplayOptions.showChords ? "Hide Chords" : "Show Chords")
+                Text(sceneState.settings.song.showChords ? "Hide Chords" : "Show Chords")
             }
         }
     }
 }
 
-extension SceneStateModel {
-
-    // MARK: Chords Position Picker
-
-    /// Chords Position Picker
-    var chordsPositionPicker: some View {
-        ChordsPositionPicker(sceneState: self)
-    }
-    /// Chords Position Picker
-    private struct ChordsPositionPicker: View {
-        /// The binding to the observable ``SceneStateModel``
-        @Bindable var sceneState: SceneStateModel
-        /// The body of the `View`
-        var body: some View {
-            Picker("Position:", selection: $sceneState.songDisplayOptions.chordsPosition) {
-                ForEach(Song.DisplayOptions.ChordsPosition.allCases, id: \.rawValue) { value in
-                    Text(value.rawValue)
-                        .tag(value)
-                }
-            }
-            .disabled(sceneState.songDisplayOptions.showChords == false)
-        }
-    }
-}
+// MARK: Toggles
 
 extension SceneStateModel {
 
@@ -97,7 +78,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $sceneState.songDisplayOptions.showInlineDiagrams) {
+            Toggle(isOn: $sceneState.settings.song.showInlineDiagrams) {
                 Text("Chords as Diagram")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -107,6 +88,8 @@ extension SceneStateModel {
         }
     }
 }
+
+// MARK: Pickers
 
 extension SceneStateModel {
 
@@ -122,15 +105,232 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Pager:", selection: $sceneState.songDisplayOptions.paging) {
-                ForEach(Song.DisplayOptions.Paging.allCases, id: \.rawValue) { value in
+            Picker("Pager:", selection: $sceneState.settings.song.paging) {
+                ForEach(AppSettings.SongDisplayOptions.Paging.allCases, id: \.rawValue) { value in
                     value.label
                         .tag(value)
                 }
             }
         }
     }
+
+    // MARK: Chords Position Picker
+
+    /// Chords Position Picker
+    var chordsPositionPicker: some View {
+        ChordsPositionPicker(sceneState: self)
+    }
+    /// Chords Position Picker
+    private struct ChordsPositionPicker: View {
+        /// The binding to the observable ``SceneStateModel``
+        @Bindable var sceneState: SceneStateModel
+        /// The body of the `View`
+        var body: some View {
+            Picker("Position:", selection: $sceneState.settings.song.chordsPosition) {
+                ForEach(AppSettings.SongDisplayOptions.ChordsPosition.allCases, id: \.rawValue) { value in
+                    Text(value.rawValue)
+                        .tag(value)
+                }
+            }
+            .disabled(sceneState.settings.song.showChords == false)
+        }
+    }
+
+    // MARK: Root Picker
+
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
+    var rootPicker: some View {
+        RootPicker(sceneState: self)
+    }
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
+    struct RootPicker: View {
+        /// Chord Display Options object
+        @Bindable var sceneState: SceneStateModel
+        /// The body of the `View`
+        var body: some View {
+            Picker("Root:", selection: $sceneState.definition.root) {
+                ForEach(Chord.Root.allCases.dropFirst(), id: \.rawValue) { value in
+                    Text(value.display)
+                        .tag(value)
+                }
+            }
+        }
+    }
+
+    // MARK: Quality Picker
+
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
+    var qualityPicker: some View {
+        QualityPicker(sceneState: self)
+    }
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
+    struct QualityPicker: View {
+        /// Chord Display Options object
+        @Bindable var sceneState: SceneStateModel
+        /// The body of the `View`
+        var body: some View {
+            Picker("Quality:", selection: $sceneState.definition.quality) {
+                ForEach(Chord.Quality.allCases, id: \.rawValue) { value in
+                    Text(value == .major ? "major" : value.rawValue)
+                        .tag(value)
+                }
+            }
+        }
+    }
+
+    // MARK: Base Fret Picker
+
+    /// SwiftUI `View` with a `Picker` to select a `baseFret` value
+    var baseFretPicker: some View {
+        BaseFretPicker(sceneState: self)
+    }
+    /// SwiftUI `View` with a `Picker` to select a `baseFret` value
+    struct BaseFretPicker: View {
+        /// Chord Display Options object
+        @Bindable var sceneState: SceneStateModel
+        /// The selected bass note
+        @State private var bass: Chord.Root = .none
+        /// The body of the `View`
+        var body: some View {
+            Picker("Base fret:", selection: $sceneState.definition.baseFret) {
+                ForEach(1...20, id: \.self) { value in
+                    Text(fretLabel(fret: value))
+                        .tag(value)
+                }
+            }
+        }
+        /// Make the label fancy
+        private func fretLabel(fret: Int) -> String {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .ordinal
+            return formatter.string(from: NSNumber(value: Int32(fret))) ?? "\(fret)"
+        }
+    }
+
+    // MARK: Bass Picker
+
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as bass note
+    var bassPicker: some View {
+        BassPicker(sceneState: self)
+    }
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as bass note
+    struct BassPicker: View {
+        /// Chord Display Options object
+        @Bindable var sceneState: SceneStateModel
+        /// The selected bass note
+        @State private var bass: Chord.Root = .none
+        /// The body of the `View`
+        var body: some View {
+            Picker("Bass:", selection: $bass) {
+                ForEach(Chord.Root.allCases) { value in
+                    Text(value.rawValue)
+                        .tag(value)
+                }
+            }
+            .task {
+                if let bassNote = sceneState.definition.bass {
+                    bass = bassNote
+                }
+            }
+            .task(id: bass) {
+                sceneState.definition.bass = bass == .none ? nil : bass
+            }
+        }
+    }
+
+    // MARK: Frets Picker
+
+    /// SwiftUI `View` with a `Picker` to select `fret` values
+    var fretsPicker: some View {
+        FretsPicker(
+            instrument: definition.instrument,
+            guitarTuningOrder: self.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            sceneState: self
+        )
+    }
+
+    /// SwiftUI `View` with a `Picker` to select `fret` values
+    struct FretsPicker: View {
+        /// The instrument
+        let instrument: Instrument
+        /// The order of the tuning
+        let guitarTuningOrder: [Int]
+        /// Chord Display Options object
+        @Bindable var sceneState: SceneStateModel
+        /// The body of the `View`
+        var body: some View {
+            HStack {
+                ForEach(guitarTuningOrder, id: \.self) { fret in
+                    Picker(
+                        selection: $sceneState.definition.frets[fret],
+                        content: {
+                            Text("⛌")
+                                .tag(-1)
+                                .foregroundColor(.red)
+                            ForEach(0...5, id: \.self) { value in
+                                /// Calculate the fret note
+                                /// - Note: Only add the base fret after the first row because the note can still be played open
+                                let fret = sceneState
+                                    .definition
+                                    .instrument.offset[fret] + (value == 0 ? 1 : sceneState.definition.baseFret) + 40 + value
+                                /// Convert the fret to a label
+                                let label = Utils.valueToNote(value: fret, scale: sceneState.definition.root)
+                                Text(label.display)
+                                    .tag(value)
+                            }
+                        },
+                        label: {
+                            Text("\(instrument.stringName[fret].display)")
+                                .font(.title3)
+                        }
+                    )
+                }
+            }
+        }
+    }
+
+    // MARK: Fingers Picker
+
+    /// SwiftUI `View` with a `Picker` to select `finger` values
+    var fingersPicker: some View {
+        FingersPicker(
+            instrument: definition.instrument,
+            guitarTuningOrder: self.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            sceneState: self
+        )
+    }
+    /// SwiftUI `View` with a `Picker` to select `finger` values
+    struct FingersPicker: View {
+        /// The instrument
+        let instrument: Instrument
+        /// The order of the tuning
+        let guitarTuningOrder: [Int]
+        /// Chord Display Options object
+        @Bindable var sceneState: SceneStateModel
+        /// The body of the `View`
+        var body: some View {
+            HStack {
+                ForEach(guitarTuningOrder, id: \.self) { finger in
+                    Picker(
+                        selection: $sceneState.definition.fingers[finger],
+                        content: {
+                            ForEach(0...4, id: \.self) { value in
+                                Text("\(value)")
+                                    .tag(value)
+                            }
+                        },
+                        label: {
+                            Text("\(instrument.stringName[finger].display)")
+                                .font(.title3)
+                        }
+                    )
+                }
+            }
+        }
+    }
 }
+
+// MARK: Sliders
 
 extension SceneStateModel {
 
@@ -146,7 +346,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Slider(value: $sceneState.currentScale, in: 0.8...2.0) {
+            Slider(value: $sceneState.settings.song.scale, in: 0.8...2.0) {
                 Label("Zoom", systemImage: "magnifyingglass")
             }
             .labelStyle(.iconOnly)
@@ -267,13 +467,39 @@ extension SceneStateModel {
         }
         /// Get the URL for the music file
         /// - Returns: A full URL to the file, if found
-        private func getMusicURL() -> URL? {
+        @MainActor private func getMusicURL() -> URL? {
             guard let file = sceneState.file, let path = sceneState.song.metaData.musicPath else {
                 return nil
             }
             var musicURL = file.deletingLastPathComponent()
             musicURL.appendPathComponent(path)
             return musicURL
+        }
+    }
+}
+
+// MARK: Pickers
+
+extension SceneStateModel {
+
+    // MARK: Instrument Picker
+
+    /// SwiftUI `Picker` to select a  ``Instrument`` value
+    var instrumentPicker: some View {
+        InstrumentPicker(sceneState: self)
+    }
+    /// SwiftUI `Picker` to select a  ``Instrument`` value
+    struct InstrumentPicker: View {
+        /// Chord Display Options object
+        @Bindable var sceneState: SceneStateModel
+        /// The body of the `View`
+        var body: some View {
+            Picker("Instrument:", selection: $sceneState.settings.song.instrument) {
+                ForEach(Instrument.allCases, id: \.rawValue) { value in
+                    Text(value.label)
+                        .tag(value)
+                }
+            }
         }
     }
 }

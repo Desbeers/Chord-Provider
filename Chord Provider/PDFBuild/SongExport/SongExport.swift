@@ -19,18 +19,16 @@ extension SongExport {
     /// Export a single song to PDF
     /// - Parameters:
     ///   - song: The ``Song`` to export
-    ///   - generalOptions: The general options
-    ///   - chordDisplayOptions: The chord display options
+    ///   - appSettings: The application settings
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
-        song: Song,
-        chordDisplayOptions: ChordDefinition.DisplayOptions
+        song: Song
     ) throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
-        let pdfInfo = PDFBuild.DocumentInfo(
+        let documentInfo = PDFBuild.DocumentInfo(
             title: song.metaData.title,
             author: song.metaData.artist
         )
-        let builder = PDFBuild.Builder(info: pdfInfo)
+        let builder = PDFBuild.Builder(documentInfo: documentInfo)
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.center))
         builder.pageCounter = counter
 
@@ -47,7 +45,6 @@ extension SongExport {
         builder.elements.append(
             contentsOf: getSongElements(
                 song: song,
-                chordDisplayOptions: chordDisplayOptions,
                 counter: counter
             )
         )
@@ -67,13 +64,11 @@ extension SongExport {
     /// Get all the PDF elements for a ``Song``
     /// - Parameters:
     ///   - song: The ``Song``
-    ///   - generalOptions: The general options
-    ///   - chordDisplayOptions: The chord display options
+    ///   - appSettings: The application settings
     /// - Returns: All the PDF elements in an array
     // swiftlint:disable:next function_body_length
     static func getSongElements(
         song: Song,
-        chordDisplayOptions: ChordDefinition.DisplayOptions,
         counter: PDFBuild.PageCounter
     ) -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
@@ -96,7 +91,7 @@ extension SongExport {
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))
-        items.append(PDFBuild.Chords(chords: song.chords, options: chordDisplayOptions))
+        items.append(PDFBuild.Chords(chords: song.chords, options: song.settings.diagram))
         items.append(PDFBuild.Spacer(10))
         /// Add all the sections
         for section in song.sections {
@@ -143,7 +138,7 @@ extension SongExport {
                         alignment: .right
                     ),
                     PDFBuild.Divider(direction: .vertical),
-                    PDFBuild.LyricsSection(section, chords: song.displayOptions.general.lyricsOnly ? [] : song.chords)
+                    PDFBuild.LyricsSection(section, chords: song.settings.song.lyricsOnly ? [] : song.chords)
                 ]
             )
         }
@@ -270,7 +265,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if
-                song.displayOptions.general.repeatWholeChorus,
+                song.settings.song.repeatWholeChorus,
                 let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
                 return lyricsSection(section: lastChorus)
             } else {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public extension Chord {
+extension Chord {
 
     // MARK: Status of a `ChordDefinition`
 
@@ -43,7 +43,7 @@ public extension Chord {
         // MARK: Protocol items
 
         /// The description of the status
-        public var description: String {
+        var description: String {
             switch self {
 
             case .toManyFrets:
@@ -69,12 +69,12 @@ public extension Chord {
             }
         }
         /// The error description of the status
-        public var errorDescription: String? {
+        var errorDescription: String? {
             description
         }
 
         /// The recovery suggestion of the status
-        public var recoverySuggestion: String? {
+        var recoverySuggestion: String? {
             switch self {
             case .unknownChord:
                 "this definition does not have a valid chord name"
@@ -90,7 +90,7 @@ public extension Chord {
         // MARK: Custom
 
         /// The color for a label
-        public var color: Color {
+        var color: Color {
             switch self {
             case .correct:
                 Color.accentColor

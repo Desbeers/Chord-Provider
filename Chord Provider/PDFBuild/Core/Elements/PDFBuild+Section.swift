@@ -130,7 +130,7 @@ extension PDFBuild {
     }
 
     /// Width definition options that can be used with a `Section`
-    public enum SectionColumnWidth {
+    enum SectionColumnWidth {
         /// A flexible width
         case flexible
         /// A relative width between 0 and 1

@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `View` for the content
-struct ContentView: View {
+@MainActor struct ContentView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The optional file location
@@ -16,7 +16,7 @@ struct ContentView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
     /// The state of the scene
-    @State private var sceneState = SceneStateModel()
+    @State private var sceneState = SceneStateModel(id: .mainView)
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {

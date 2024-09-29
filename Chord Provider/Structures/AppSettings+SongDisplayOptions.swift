@@ -1,30 +1,30 @@
 //
-//  Song+DisplayOptions.swift
+//  AppSettings+SongDisplayOptions.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  Created by Nick Berendsen on 28/09/2024.
 //
 
 import SwiftUI
 
-extension Song {
+extension AppSettings {
 
-    // MARK: The structure for `Song` display options
-
-    /// The structure for ``Song`` display options
-    struct DisplayOptions: Codable, Equatable {
-        /// General options that should be applied to all scenes
-        var general = General()
+    /// Options for displaying a song; uniqur for each scene
+    struct SongDisplayOptions: Equatable, Codable, Sendable {
+        /// Repeat the whole last chorus when using a *{chorus}* directive
+        var repeatWholeChorus: Bool = false
+        /// Show only lyrics
+        var lyricsOnly: Bool = false
         /// The paging of the song
         var paging: Paging = .asList
         /// The label style of the song
-        var label: LabelStyle = .grid
+        var labelStyle: LabelStyle = .grid
         /// The scale factor of the song
         var scale: Double = 1
         /// The style of the chords display
         var chords: Chord = .asName
-        /// The instrument for MIDI
-        var midiInstrument: Midi.Instrument = .acousticSteelGuitar
+        /// The instrument for the song
+        var instrument: Instrument = .guitarStandardETuning
         /// Show the chord diagrams
         var showChords: Bool = true
         /// Show the chord diagrams inline with the song text
@@ -34,43 +34,26 @@ extension Song {
     }
 }
 
-extension Song.DisplayOptions {
-
-    /// General options that should be applied to all scenes
-    struct General: Codable, Equatable {
-        /// Repeat the whole last chorus when using a *{chorus}* directive
-        var repeatWholeChorus: Bool = false
-        /// Show only lyrics
-        var lyricsOnly: Bool = false
-    }
-}
-
-extension Song.DisplayOptions {
+extension AppSettings.SongDisplayOptions {
 
     /// The enum for a `Chord` display option
-    enum Chord: Codable {
+    enum Chord: Equatable, Codable, Sendable {
         /// Show the chord with its name
         case asName
         /// Show a chord with its diagram
         case asDiagram
     }
-}
-
-extension Song.DisplayOptions {
 
     /// The label style of the song view
-    enum LabelStyle: String, Codable {
+    enum LabelStyle: String, Equatable, Codable, Sendable {
         /// View the labels inline
         case inline
         /// View the labels in a grid
         case grid
     }
-}
-
-extension Song.DisplayOptions {
 
     /// The paging of the song view
-    enum Paging: String, CaseIterable, Codable {
+    enum Paging: String, CaseIterable, Equatable, Codable, Sendable {
         /// View the song as a list
         case asList
         /// View the song in columns
@@ -85,12 +68,9 @@ extension Song.DisplayOptions {
             }
         }
     }
-}
-
-extension Song.DisplayOptions {
 
     /// Possible positions for the chord diagrams
-    enum ChordsPosition: String, CaseIterable, Codable {
+    enum ChordsPosition: String, CaseIterable, Equatable, Codable, Sendable {
         /// Show diagrams on the right of the `View`
         case right = "Right"
         /// Show diagrams as the bottom of the `View`

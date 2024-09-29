@@ -18,14 +18,14 @@ extension PDFBuild {
     class PageCounter: PDFElement {
 
         /// The number of the first page
-        public let firstPage: Int
+        let firstPage: Int
         /// The current page number
-        public var pageNumber: Int
+        var pageNumber: Int
         /// The attributes for the page counter string
-        public let attributes: PDFStringAttribute
+        let attributes: PDFStringAttribute
         /// The TOC items in the document
         /// - Note: The `ContentItem` element can add elements to this array
-        public var tocItems: [TOCInfo] = []
+        var tocItems: [TOCInfo] = []
 
         /// Init the **page counter** element
         /// - Parameters:

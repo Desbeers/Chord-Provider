@@ -62,3 +62,16 @@ extension Bundle {
         return data
     }
 }
+
+extension Bundle {
+
+    var releaseVersionNumber: String {
+        return infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown Version"
+    }
+    var buildVersionNumber: String {
+        return infoDictionary?["CFBundleVersion"] as? String ?? "Unknown Version"
+    }
+    var copyright: String {
+        return infoDictionary?["NSHumanReadableCopyright"] as? String ?? "Unknown Copyright"
+    }
+}

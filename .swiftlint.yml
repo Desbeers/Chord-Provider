@@ -107,6 +107,9 @@ private_over_fileprivate:
 type_body_length:
     warning: 350
 
+file_length:
+    warning: 600
+
 trailing_whitespace:
   ignores_empty_lines: false
   ignores_comments: true

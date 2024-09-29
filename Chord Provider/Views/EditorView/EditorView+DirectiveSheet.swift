@@ -10,7 +10,7 @@ import SwiftUI
 extension EditorView {
 
     /// SwiftUI `View` to define a directive
-    struct DirectiveSheet: View {
+    @MainActor struct DirectiveSheet: View {
         /// The directive
         let directive: ChordPro.Directive
         /// The observable state of the scene
@@ -107,13 +107,13 @@ extension EditorView.DirectiveSheet {
 
     /// `View` to define a chord
     @ViewBuilder var defineView: some View {
-        @Bindable var chordDisplayOptions = sceneState.chordDisplayOptions
-        CreateChordView(chordDisplayOptions: $chordDisplayOptions)
+        @Bindable var sceneState = sceneState
+        CreateChordView(sceneState: sceneState)
         HStack {
             cancelButton
             Button(
                 action: {
-                    sceneState.editorInternals.directiveArgument = sceneState.chordDisplayOptions.definition.define
+                    sceneState.editorInternals.directiveArgument = sceneState.definition.define
                     format()
                     dismiss()
                 },
@@ -163,8 +163,8 @@ extension EditorView.DirectiveSheet {
     @ViewBuilder var keyView: some View {
         directiveTitleView
         HStack {
-            sceneState.chordDisplayOptions.rootPicker
-            sceneState.chordDisplayOptions.qualityPicker
+            sceneState.rootPicker
+            sceneState.qualityPicker
         }
         .padding()
         .labelsHidden()
@@ -173,8 +173,8 @@ extension EditorView.DirectiveSheet {
             Button(
                 action: {
                     sceneState.editorInternals.directiveArgument =
-                    "\(sceneState.chordDisplayOptions.definition.root.rawValue)" +
-                    "\(sceneState.chordDisplayOptions.definition.quality.rawValue)"
+                    "\(sceneState.definition.root.rawValue)" +
+                    "\(sceneState.definition.quality.rawValue)"
                     format()
                     dismiss()
                 },

@@ -12,7 +12,7 @@ extension PDFBuild {
     // MARK: A PDF **label** element
 
     /// A PDF **label** element
-    public class Label: PDFElement {
+    class Label: PDFElement {
 
         /// The optional leading text of the label
         let leadingText: NSAttributedString?
@@ -113,7 +113,7 @@ extension PDFBuild {
     }
 }
 
-public extension PDFStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Label string styling
 

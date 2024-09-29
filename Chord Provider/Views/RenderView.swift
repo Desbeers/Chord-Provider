@@ -1,5 +1,5 @@
 //
-//  Song+RenderView.swift
+//  RenderView.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,93 +7,105 @@
 
 import SwiftUI
 
-extension Song {
+// MARK: Render a `Song` structure into a SwiftUI `View`
 
-    // MARK: Render a `Song` structure into a SwiftUI `View`
+/// Render a ``Song`` structure into a SwiftUI `View`
+struct RenderView: View {
 
-    /// Render a ``Song`` structure into a SwiftUI `View`
-    struct RenderView: View {
+    /// The ``Song``
+    let song: Song
 
-        /// Init the RenderView
-        /// - Parameters:
-        ///   - song: The ``Song``
-        ///   - options: The ``Song/DisplayOptions``
-        init(song: Song, options: DisplayOptions) {
-            self.song = song
-            self.options = options
-        }
-        /// The ``Song``
-        let song: Song
-        /// The display options
-        let options: DisplayOptions
-        /// The body of the `View`
-        var body: some View {
-            switch options.paging {
-            case .asList:
-                VStack {
-                    switch options.label {
-                    case .inline:
-                        VStack(alignment: .leading) {
-                            sections
-                        }
-                        .scrollTargetLayout()
-                    case .grid:
-                        Grid(alignment: .topTrailing, verticalSpacing: 20 * options.scale) {
-                            sections
-                        }
-                    }
-                }
-                .font(.system(size: 14 * options.scale))
-            case .asColumns:
-                ScrollView(.horizontal) {
-                    ColumnsLayout(
-                        columnSpacing: options.scale * 40,
-                        rowSpacing: options.scale * 10
-                    ) {
+    /// Init the `View`
+    /// - Parameters:
+    ///   - song: The ``Song
+    ///   - paging: The option for the paging
+    ///   - labelStyle: The option for the label style
+    init(
+        song: Song,
+        paging: AppSettings.SongDisplayOptions.Paging,
+        labelStyle: AppSettings.SongDisplayOptions.LabelStyle
+    ) {
+        var song = song
+        let viewSettings = AppSettings.SongDisplayOptions(
+            repeatWholeChorus: song.settings.song.repeatWholeChorus,
+            lyricsOnly: song.settings.song.lyricsOnly,
+            paging: paging,
+            labelStyle: labelStyle,
+            scale: song.settings.song.scale,
+            chords: song.settings.song.showInlineDiagrams ? .asDiagram : .asName,
+            instrument: song.settings.song.instrument
+        )
+        song.settings.song = viewSettings
+        self.song = song
+    }
+
+    /// The body of the `View`
+    var body: some View {
+        switch song.settings.song.paging {
+        case .asList:
+            VStack {
+                switch song.settings.song.labelStyle {
+                case .inline:
+                    VStack(alignment: .leading) {
                         sections
                     }
                     .scrollTargetLayout()
-                }
-                .scrollTargetBehavior(.viewAligned)
-                .frame(maxHeight: .infinity)
-                .font(.system(size: 14 * options.scale))
-            }
-        }
-
-        /// The sections of the `View`
-        var sections: some View {
-            ForEach(song.sections) { section in
-                switch section.type {
-                case .verse, .bridge:
-                    verseSection(section: section)
-                case .chorus:
-                    chorusSection(section: section)
-                case .repeatChorus:
-                    repeatChorusSection(section: section)
-                case .tab:
-                    tabSection(section: section)
                 case .grid:
-                    gridSection(section: section)
-                case .textblock:
-                    textblockSection(section: section)
-                case .comment:
-                    commentSection(section: section)
-                case .strum:
-                    strumSection(section: section)
-                default:
-                    plainSection(section: section)
+                    Grid(alignment: .topTrailing, verticalSpacing: 20 * song.settings.song.scale) {
+                        sections
+                    }
                 }
+            }
+            .font(.system(size: 14 * song.settings.song.scale))
+        case .asColumns:
+            ScrollView(.horizontal) {
+                ColumnsLayout(
+                    columnSpacing: song.settings.song.scale * 40,
+                    rowSpacing: song.settings.song.scale * 10
+                ) {
+                    sections
+                }
+                .scrollTargetLayout()
+            }
+            .scrollTargetBehavior(.viewAligned)
+            .frame(maxHeight: .infinity)
+            .font(.system(size: 14 * song.settings.song.scale))
+        }
+    }
+
+    /// The sections of the `View`
+    var sections: some View {
+        ForEach(song.sections) { section in
+            switch section.type {
+            case .verse, .bridge:
+                verseSection(section: section)
+            case .chorus:
+                chorusSection(section: section)
+            case .repeatChorus:
+                repeatChorusSection(section: section)
+            case .tab:
+                tabSection(section: section)
+            case .grid:
+                gridSection(section: section)
+            case .textblock:
+                textblockSection(section: section)
+            case .comment:
+                commentSection(section: section)
+            case .strum:
+                strumSection(section: section)
+            default:
+                plainSection(section: section)
             }
         }
     }
 }
 
-extension Song.RenderView {
+extension RenderView {
 
     /// Wrapper around a section
     struct SectionView: ViewModifier {
         /// The display options
-        let options: Song.DisplayOptions
+        let settings: AppSettings
         /// The optional label
         var label: String = ""
         /// Bool if the section is prominent (chorus for example)
@@ -103,7 +115,7 @@ extension Song.RenderView {
         /// - Parameter content: The content of the section
         /// - Returns: A `View` with the wrapped section
         func body(content: Content) -> some View {
-            switch options.label {
+            switch settings.song.labelStyle {
             case .inline:
                 VStack(alignment: .leading) {
                     if label.isEmpty {
@@ -113,7 +125,7 @@ extension Song.RenderView {
                         switch prominent {
                         case true:
                             ProminentLabel(
-                                options: options,
+                                settings: settings,
                                 label: label
                             )
                         case false:
@@ -158,13 +170,13 @@ extension Song.RenderView {
         VStack(alignment: .leading) {
             ForEach(section.lines) { line in
                 if line.comment.isEmpty {
-                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: song.chords)
+                    PartsView(settings: song.settings, sectionID: section.id, parts: line.parts, chords: song.chords)
                 } else {
                     commentLabel(comment: line.comment)
                 }
             }
         }
-        .modifier(SectionView(options: options, label: section.label))
+        .modifier(SectionView(settings: song.settings, label: section.label))
     }
 
     // MARK: Chorus
@@ -174,7 +186,12 @@ extension Song.RenderView {
         VStack(alignment: .leading) {
             ForEach(section.lines) { line in
                 if line.comment.isEmpty {
-                    PartsView(options: options, sectionID: section.id, parts: line.parts, chords: song.chords)
+                    PartsView(
+                        settings: song.settings,
+                        sectionID: section.id,
+                        parts: line.parts,
+                        chords: song.chords
+                    )
                 } else {
                     commentLabel(comment: line.comment)
                 }
@@ -182,7 +199,7 @@ extension Song.RenderView {
         }
         .modifier(
             SectionView(
-                options: options,
+                settings: song.settings,
                 label: section.label.isEmpty ? "Chorus" : section.label,
                 prominent: true
             )
@@ -192,16 +209,16 @@ extension Song.RenderView {
     /// SwiftUI `View` for a chorus repeat
     @ViewBuilder func repeatChorusSection(section: Song.Section) -> some View {
         if
-            options.general.repeatWholeChorus,
+            song.settings.song.repeatWholeChorus,
             let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
             chorusSection(section: lastChorus)
         } else {
             ProminentLabel(
-                options: options,
+                settings: song.settings,
                 label: section.label.isEmpty ? "Repeat Chorus" : section.label,
                 icon: "arrow.triangle.2.circlepath"
             )
-            .modifier(SectionView(options: options))
+            .modifier(SectionView(settings: song.settings))
         }
     }
 
@@ -221,8 +238,8 @@ extension Song.RenderView {
                 }
             }
         }
-        .padding(.vertical, options.scale)
-        .modifier(SectionView(options: options, label: section.label))
+        .padding(.vertical, song.settings.song.scale)
+        .modifier(SectionView(settings: song.settings, label: section.label))
     }
 
     // MARK: Grid
@@ -238,7 +255,7 @@ extension Song.RenderView {
                                 ForEach(grid.parts) { part in
                                     if let chord = song.chords.first(where: { $0.id == part.chord }) {
                                         ChordView(
-                                            options: options,
+                                            settings: song.settings,
                                             sectionID: section.id,
                                             partID: part.id,
                                             chord: chord
@@ -255,8 +272,8 @@ extension Song.RenderView {
                 }
             }
         }
-        .padding(.vertical, options.scale)
-        .modifier(SectionView(options: options, label: section.label))
+        .padding(.vertical, song.settings.song.scale)
+        .modifier(SectionView(settings: song.settings, label: section.label))
     }
 
     // MARK: Textblock
@@ -272,10 +289,10 @@ extension Song.RenderView {
             }
         }
         .foregroundStyle(.secondary)
-        .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
+        .frame(idealWidth: 400 * song.settings.song.scale, maxWidth: 400 * song.settings.song.scale, alignment: .leading)
         .modifier(
             SectionView(
-                options: options,
+                settings: song.settings,
                 label: section.label == ChordPro.Environment.textblock.rawValue ? "" : section.label
             )
         )
@@ -286,18 +303,18 @@ extension Song.RenderView {
     /// SwiftUI `View` for a comment in its own section
     func commentSection(section: Song.Section) -> some View {
         commentLabel(comment: section.lines.first?.comment ?? "")
-            .modifier(SectionView(options: options))
+            .modifier(SectionView(settings: song.settings))
     }
 
     /// SwiftUI `View` for a comment label
     func commentLabel(comment: String) -> some View {
         ProminentLabel(
-            options: options,
+            settings: song.settings,
             label: comment,
             icon: "text.bubble",
             color: .comment
         )
-        .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
+        .frame(idealWidth: 400 * song.settings.song.scale, maxWidth: 400 * song.settings.song.scale, alignment: .leading)
     }
 
     // MARK: Strum
@@ -310,15 +327,15 @@ extension Song.RenderView {
                     ForEach(line.strum) {strum in
                         Text(strum)
                     }
-                    .tracking(2 * options.scale)
+                    .tracking(2 * song.settings.song.scale)
                     .monospaced()
-                    .font(.system(size: 16 * options.scale))
+                    .font(.system(size: 16 * song.settings.song.scale))
                 } else {
                     commentLabel(comment: line.comment)
                 }
             }
         }
-        .modifier(SectionView(options: options, label: section.label))
+        .modifier(SectionView(settings: song.settings, label: section.label))
     }
 
     // MARK: Plain
@@ -333,8 +350,8 @@ extension Song.RenderView {
                 }
             }
         }
-        .frame(idealWidth: 400 * options.scale, maxWidth: 400 * options.scale, alignment: .leading)
-        .modifier(SectionView(options: options, label: section.label))
+        .frame(idealWidth: 400 * song.settings.song.scale, maxWidth: 400 * song.settings.song.scale, alignment: .leading)
+        .modifier(SectionView(settings: song.settings, label: section.label))
     }
 
     // MARK: Parts
@@ -342,7 +359,7 @@ extension Song.RenderView {
     /// SwiftUI `View` for parts of a line
     struct PartsView: View {
         /// The display options
-        let options: Song.DisplayOptions
+        let settings: AppSettings
         /// The ID of the section
         let sectionID: Int
         /// The `parts` of a `line`
@@ -354,15 +371,15 @@ extension Song.RenderView {
             HStack(alignment: .bottom, spacing: 0) {
                 ForEach(parts) { part in
                     VStack(alignment: .leading) {
-                        if !options.general.lyricsOnly, let chord = chords.first(where: { $0.id == part.chord }) {
-                            ChordView(options: options, sectionID: sectionID, partID: part.id, chord: chord)
+                        if !settings.song.lyricsOnly, let chord = chords.first(where: { $0.id == part.chord }) {
+                            ChordView(settings: settings, sectionID: sectionID, partID: part.id, chord: chord)
                         }
                         /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
                         /// for the funny stuff added to the string...
                         Text("\(part.text)\u{200c}")
                             .multilineTextAlignment(.center)
                     }
-                    .padding(.vertical, options.scale)
+                    .padding(.vertical, settings.song.scale)
                 }
             }
         }
@@ -371,7 +388,7 @@ extension Song.RenderView {
     /// SwiftUI `View` for a prominent label
     struct ProminentLabel: View {
         /// The display options
-        let options: Song.DisplayOptions
+        let settings: AppSettings
         /// The label
         let label: String
         /// The optional icon
@@ -395,7 +412,7 @@ extension Song.RenderView {
                     Text(.init(label))
                 }
             }
-            .padding(options.scale * 6)
+            .padding(settings.song.scale * 6)
             .background(color, in: RoundedRectangle(cornerRadius: 6))
         }
     }

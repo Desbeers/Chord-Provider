@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 /// The observable scene state for Chord Provider
-@Observable final class SceneStateModel {
+@MainActor @Observable final class SceneStateModel {
     /// The current ``Song``
     var song = Song()
     /// The optional file location
@@ -19,16 +19,18 @@ import OSLog
     /// The internals of the **Chord Provider** editor
     var editorInternals = ChordProEditor.Internals()
 
+    var settings: AppSettings
+
     // MARK: Song View options
 
-    /// Song display options
-    var songDisplayOptions: Song.DisplayOptions
-    /// Chord Display Options
-    var chordDisplayOptions: ChordDisplayOptions
-    /// The current magnification scale
-    var currentScale: Double = 1.0
     /// Bool to show the editor or not
     var showEditor: Bool = false
+
+    // MARK: Editor stuff
+
+    /// All the values of a ``ChordDefinition``
+    /// - Note: Used for editing a chord
+    var definition: ChordDefinition
 
     // MARK: Export Stuff
 
@@ -47,8 +49,7 @@ import OSLog
     func exportSongToPDF() -> (data: Data, url: URL)? {
         do {
             let export = try SongExport.export(
-                song: song,
-                chordDisplayOptions: chordDisplayOptions.displayOptions
+                song: song
             )
             try export.pdf.write(to: exportURL)
             return (export.pdf, exportURL)
@@ -61,11 +62,11 @@ import OSLog
     // MARK: Init
 
     /// Init the class
-    init() {
-        /// Get the default settings as is used last time
-        let appSettings = AppSettings.load(id: "Main")
-        self.songDisplayOptions = appSettings.songDisplayOptions
-        self.chordDisplayOptions = ChordDisplayOptions(defaults: appSettings.chordDisplayOptions)
+    init(id: AppStateModel.AppStateID) {
+        settings = AppSettings.load(id: id)
+        // swiftlint:disable:next force_unwrapping
+        self.definition = ChordDefinition(name: "C", instrument: .guitarStandardETuning)!
+        /// Create the temp directory
         try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
     }
 }

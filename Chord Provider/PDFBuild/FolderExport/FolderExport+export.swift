@@ -21,22 +21,19 @@ extension FolderExport {
 
     /// Export a folder with ChordPro songs
     /// - Parameters:
-    ///   - info: The document info for the PDF
-    ///   - songDisplayOptions: The song display options
-    ///   - chordDisplayOptions: The chord display options
+    ///   - documentInfo: The document info for the PDF
+    ///   - appSettings: The application settings
     /// - Returns: A stream with progress indication and a document when finished
     static func export(
-        info: PDFBuild.DocumentInfo,
-        songDisplayOptions: Song.DisplayOptions,
-        chordDisplayOptions: ChordDefinition.DisplayOptions
+        documentInfo: PDFBuild.DocumentInfo,
+        appSettings: AppSettings
     ) -> AsyncThrowingStream<Status, Error> {
         AsyncThrowingStream { continuation in
             Task {
                 do {
                     let render = try await FolderExport.export(
-                        info: info,
-                        songDisplayOptions: songDisplayOptions,
-                        chordDisplayOptions: chordDisplayOptions
+                        documentInfo: documentInfo,
+                        appSettings: appSettings
                     ) { page in
                         continuation.yield(Status.progress(page))
                     }
@@ -49,22 +46,19 @@ extension FolderExport {
                 }
             }
         }
-        }
+    }
 }
 
 extension FolderExport {
 
     /// Export a folder with ChordPro songs
     /// - Parameters:
-    ///   - info: The document info for the PDF
-    ///   - songDisplayOptions: The song display options
-    ///   - chordDisplayOptions: The chord display options
-    ///   - progress: A closure to observe the progress of PDF creation
+    ///   - documentInfo: The document info for the PDF
+    ///   - appSettings: The application settings
     /// - Returns: A PDFDocument if all well, else an error
     static func export(
-        info: PDFBuild.DocumentInfo,
-        songDisplayOptions: Song.DisplayOptions,
-        chordDisplayOptions: ChordDefinition.DisplayOptions,
+        documentInfo: PDFBuild.DocumentInfo,
+        appSettings: AppSettings,
         progress: @escaping (Double) -> Void
     ) async throws -> Data? {
 
@@ -81,22 +75,21 @@ extension FolderExport {
                 fileURL: file.fileURL
             )
         }
-        var tocData = FolderExport.toc(info: info, counter: counter)
+        var tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter)
         let tocPageCount = PDFDocument(data: tocData)?.pageCount ?? 0
         /// Remove one page from the counter
         counter.pageNumber -= 1
 
         // MARK: Render Content
         let contentData = FolderExport.content(
-            info: info,
+            documentInfo: documentInfo,
             counter: counter,
-            songDisplayOptions: songDisplayOptions,
-            chordDisplayOptions: chordDisplayOptions,
+            appSettings: appSettings,
             progress: progress
         )
 
         // MARK: Render Table of Contents
-        tocData = FolderExport.toc(info: info, counter: counter)
+        tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter)
 
         // MARK: Convert to PDFDocument
         guard

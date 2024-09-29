@@ -8,7 +8,7 @@
 import Foundation
 
 /// Bits and pieces to get chord definitions
-public enum Chords {
+enum Chords {
     // Just a placeholder
 }
 
@@ -17,39 +17,39 @@ extension Chords {
     // MARK: Public
 
     /// Get all the guitar chords in a ``ChordDefinition`` array
-    public static let guitar = Chords.importDefinitions(instrument: .guitarStandardETuning)
+    static let guitar = Chords.importDefinitions(instrument: .guitarStandardETuning)
 
     /// Get all the guitalele chords in a ``ChordDefinition`` array
-    public static let guitalele = Chords.importDefinitions(instrument: .guitaleleStandardATuning)
+    static let guitalele = Chords.importDefinitions(instrument: .guitaleleStandardATuning)
 
     /// Get all the ukulele chords in a ``ChordDefinition`` array
-    public static let ukulele = Chords.importDefinitions(instrument: .ukuleleStandardGTuning)
+    static let ukulele = Chords.importDefinitions(instrument: .ukuleleStandardGTuning)
 
     /// Get all the database definitions in JSON format
     /// - Parameter instrument: The ``Instrument``
     /// - Returns: The ``Database`` in JSON format
-    public static func jsonDatabase(instrument: Instrument) -> String {
+    static func jsonDatabase(instrument: Instrument) -> String {
         Bundle.main.json(from: instrument.database)
     }
 
     /// Import a ``Database`` in JSON format to a ``ChordDefinition`` array
     /// - Parameter database: The ``Database`` in JSON format
     /// - Returns: A ``ChordDefinition`` array
-    public static func importDatabase(database: String) -> [ChordDefinition] {
+    static func importDatabase(database: String) -> [ChordDefinition] {
         importDefinitions(database: database)
     }
 
     /// Export a ``ChordDefinition`` array to a ``Database`` in JSON format
     /// - Parameter definitions: A ``ChordDefinition`` array
     /// - Returns: The ``Database`` in JSON format
-    public static func exportDatabase(definitions: [ChordDefinition]) -> String {
+    static func exportDatabase(definitions: [ChordDefinition]) -> String {
         exportDefinitions(definitions: definitions)
     }
 
     /// Get all chord definitions for an instrument
     /// - Parameter instrument: The ``Instrument``
     /// - Returns: An ``ChordDefinition`` array
-    public static func getAllChordsForInstrument(instrument: Instrument) -> [ChordDefinition] {
+    static func getAllChordsForInstrument(instrument: Instrument) -> [ChordDefinition] {
         switch instrument {
         case .guitarStandardETuning:
             Chords.guitar

@@ -85,7 +85,7 @@ extension HeaderView {
         /// The body of the `View`
         var body: some View {
             if let key = song.metaData.key {
-                Label("\(key.displayName(options: .init()))", systemImage: "key").padding(.leading)
+                Label("\(key.displayName)", systemImage: "key").padding(.leading)
             }
             if let capo = song.metaData.capo {
                 Label(capo, systemImage: "paperclip").padding(.leading)

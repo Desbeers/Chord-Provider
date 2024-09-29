@@ -38,21 +38,17 @@ import SwiftUI
         return false
     }
 
+    /// Default style mask
+    let styleMask: NSWindow.StyleMask = [.closable, .miniaturizable, .titled, .fullSizeContentView]
+
     /// The controller for the `WelcomeView` window
     private var welcomeViewController: NSWindowController?
     /// Show the `NewDocumentView` window in Appkit
     @MainActor func showNewDocumentView() {
         if welcomeViewController == nil {
-            let window = NSWindow()
-            window.title = "Chord Provider"
-            window.styleMask = [.closable, .titled, .fullSizeContentView]
-            window.titlebarAppearsTransparent = true
-            window.isMovableByWindowBackground = true
+            let window = createWindow(title: "Chord Provider")
             window.contentView = NSHostingView(rootView: WelcomeView(appDelegate: self))
-            window.toolbarStyle = .unifiedCompact
             window.center()
-            /// Just a fancy animation; it is not a document window
-            window.animationBehavior = .documentWindow
             welcomeViewController = NSWindowController(window: window)
         }
         /// Update the recent files list
@@ -64,24 +60,57 @@ import SwiftUI
         welcomeViewController?.window?.close()
     }
 
+    /// The controller for the ``AboutView`` window
+    private var aboutController: NSWindowController?
+    /// Show the ``AboutView`` window in Appkit
+    @MainActor func showAboutView() {
+        if aboutController == nil {
+            let window = createWindow(title: "About Chord Provider")
+            window.contentView = NSHostingView(rootView: AboutView())
+            window.center()
+            aboutController = NSWindowController(window: window)
+        }
+        aboutController?.showWindow(aboutController?.window)
+    }
+
     /// The controller for the `ExportFolderView` window
     private var exportFolderController: NSWindowController?
     /// Show the `ExportFolderView` window in Appkit
     @MainActor func showExportFolderView() {
         if exportFolderController == nil {
-            let window = NSWindow()
-            window.title = "Chord Provider"
-            window.styleMask = [.closable, .miniaturizable, .titled, .fullSizeContentView]
-            window.titlebarAppearsTransparent = true
+            let window = createWindow(title: "Chord Provider")
             window.contentView = NSHostingView(rootView: ExportFolderView())
-            window.toolbarStyle = .unifiedCompact
-            window.backgroundColor = NSColor(named: "TelecasterColor")
             window.center()
-            /// Just a fancy animation; it is not a document window
-            window.animationBehavior = .documentWindow
             exportFolderController = NSWindowController(window: window)
         }
         welcomeViewController?.window?.close()
         exportFolderController?.showWindow(exportFolderController?.window)
+    }
+
+    /// The controller for the ``ChordsDatabaseView`` window
+    private var chordsDatabaseController: NSWindowController?
+    /// Show the ``ChordsDatabaseView`` window in Appkit
+    @MainActor func showChordsDatabaseView() {
+        if chordsDatabaseController == nil {
+            let window = createWindow(title: "Chords Database")
+            window.styleMask.update(with: .resizable)
+            window.contentView = NSHostingView(rootView: ChordsDatabaseView())
+            window.center()
+            chordsDatabaseController = NSWindowController(window: window)
+        }
+        welcomeViewController?.window?.close()
+        chordsDatabaseController?.showWindow(chordsDatabaseController?.window)
+    }
+
+    @MainActor private func createWindow(title: String) -> NSWindow {
+        let window = NSWindow()
+        window.title = title
+        window.styleMask = styleMask
+        window.titlebarAppearsTransparent = true
+        window.toolbarStyle = .unifiedCompact
+        window.backgroundColor = NSColor(named: "TelecasterColor")
+        /// Just a fancy animation; it is not a document window
+        window.animationBehavior = .documentWindow
+        return window
     }
 }

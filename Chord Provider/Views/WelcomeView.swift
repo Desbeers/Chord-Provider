@@ -11,6 +11,8 @@ import OSLog
 @MainActor struct WelcomeView: View {
     /// The state of the app
     @State private var appState = AppStateModel.shared
+    /// The observable ``FileBrowser`` class
+    @State private var fileBrowser = FileBrowserModel.shared
     /// The AppDelegate to bring additional Windows into the SwiftUI world
     let appDelegate: AppDelegateModel
     /// The currently selected tab
@@ -23,7 +25,6 @@ import OSLog
                 Image(nsImage: NSImage(named: "AppIcon")!)
                     .resizable()
                     .frame(width: 280, height: 280)
-                    .transition(.slide)
                 VStack(alignment: .leading) {
                     Button(
                         action: {
@@ -60,6 +61,14 @@ import OSLog
                             Label("Export a folder with songs", systemImage: "doc.on.doc")
                         }
                     )
+                    Button(
+                        action: {
+                            appDelegate.showChordsDatabaseView()
+                        },
+                        label: {
+                            Label("View Chord Diagrams", systemImage: "hand.raised.fingers.spread")
+                        }
+                    )
                 }
                 .labelStyle(ButtonLabelStyle())
             }
@@ -78,7 +87,6 @@ import OSLog
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(nsColor: .textBackgroundColor))
         }
-        //.labelStyle(ButtonLabelStyle())
         .buttonStyle(.plain)
         .toolbar {
             Picker("Tabs", selection: $selectedTab) {
@@ -89,7 +97,7 @@ import OSLog
             }
             .pickerStyle(.segmented)
         }
-        .frame(width: 640, height: 400)
+        .frame(width: 640)
         .animation(.default, value: selectedTab)
     }
 }
@@ -122,6 +130,18 @@ extension WelcomeView {
                     Text("You have no recent songs")
                 }
             }
+            if let song = fileBrowser.songList.randomElement() {
+                Divider()
+                Button {
+                    Task {
+                        await fileBrowser.openSong(url: song.fileURL)
+                    }
+                } label: {
+                    Label(song.title, systemImage: "shuffle")
+                }
+                .help("A random song from your library")
+                .padding(.bottom, 6)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -145,7 +165,6 @@ extension WelcomeView {
                     .frame(width: 30, alignment: .trailing)
                 configuration.title
                     .padding(.trailing, 30)
-                    //.frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.vertical, 2)
         }

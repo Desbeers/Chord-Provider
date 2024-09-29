@@ -10,7 +10,7 @@ import SwiftUI
 /// SwiftUI `Scene` for **Chord Provider**
 @main struct ChordProviderApp: App {
     /// The observable ``FileBrowser`` class
-    @State private var fileBrowser = FileBrowser.shared
+    @State private var fileBrowser = FileBrowserModel.shared
     /// The state of the app
     @State private var appState = AppStateModel.shared
     /// The ``AppDelegate`` class  for **Chord Provider**
@@ -77,16 +77,32 @@ import SwiftUI
             }
         }
         .commands {
+            CommandGroup(replacing: .appInfo) {
+                Button {
+                    appDelegate.showAboutView()
+                } label: {
+                    Text("About Chord Provider")
+                }
+                Divider()
+                Button {
+                    appDelegate.showChordsDatabaseView()
+                } label: {
+                    Text("Chords Database")
+                }
+            }
             CommandGroup(after: .newItem) {
                 Divider()
-                Button(
-                    action: {
-                        appDelegate.showExportFolderView()
-                    },
-                    label: {
-                        Text("Export Folder…")
-                    }
-                )
+                Button {
+                    appDelegate.showExportFolderView()
+                } label: {
+                    Text("Export Folder…")
+                }
+                Divider()
+                Button {
+                    appDelegate.showChordsDatabaseView()
+                } label: {
+                    Text("Chords Database")
+                }
             }
 #if DEBUG
             CommandMenu("Debug") {
@@ -94,7 +110,7 @@ import SwiftUI
             }
 #endif
             CommandGroup(after: .importExport) {
-                ExportSongView()
+                ExportSongButton()
                     .keyboardShortcut("e")
             }
             CommandGroup(after: .importExport) {

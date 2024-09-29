@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-@preconcurrency import SwiftUI
+import SwiftUI
 
 extension ChordProEditor {
 

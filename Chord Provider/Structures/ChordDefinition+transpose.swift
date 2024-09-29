@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension ChordDefinition {
+extension ChordDefinition {
 
     /// Transpose a ``ChordDefinition``
     /// - Parameters:

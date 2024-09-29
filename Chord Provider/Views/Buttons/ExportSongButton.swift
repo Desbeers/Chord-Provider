@@ -1,5 +1,5 @@
 //
-//  ExportSongView.swift
+//  ExportSongButton.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -8,8 +8,8 @@
 import SwiftUI
 import OSLog
 
-/// SwiftUI `View` for a ``Song`` export
-struct ExportSongView: View {
+/// SwiftUI `View` with a button for a ``Song`` export
+struct ExportSongButton: View {
     /// The observable state of the scene
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// Present an export dialog

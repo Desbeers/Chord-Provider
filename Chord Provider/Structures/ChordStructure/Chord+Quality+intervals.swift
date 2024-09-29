@@ -20,7 +20,7 @@
 
 import Foundation
 
-public extension Chord.Quality {
+extension Chord.Quality {
 
     /// The intervals of a ``Chord/Quality``
     var intervals: (intervals: [Interval], optional: [Interval]) {

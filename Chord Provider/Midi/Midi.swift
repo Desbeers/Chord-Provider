@@ -10,17 +10,17 @@ import Foundation
 // MARK: Play a `ChordDefinition` with MIDI
 
 /// Play a ``ChordDefinition`` with MIDI
-public enum Midi {
+enum Midi {
     /// Just a placeholder
 }
 
-public extension Midi {
+extension Midi {
 
     /// The available MIDI instruments for the player
     enum Instrument: Int, CaseIterable, Codable, Sendable, Identifiable {
 
         /// Identifiable protocol
-        public var id: String {
+        var id: String {
             "\(self.rawValue)"
         }
 
@@ -40,7 +40,7 @@ public extension Midi {
         case distortionGuitar
 
         //// The label for the instrument
-        public var label: String {
+        var label: String {
             switch self {
             case .acousticNylonGuitar:
                 return "Acoustic Nylon Guitar"

@@ -15,6 +15,8 @@ struct ChordDiagramView: View {
     var width: Double
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
+    /// The observable state of the application
+    @Environment(AppStateModel.self) private var appState
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
@@ -22,12 +24,12 @@ struct ChordDiagramView: View {
         ChordDefinitionView(
             chord: chord,
             width: width,
-            options: sceneState.chordDisplayOptions.displayOptions
+            settings: appState.settings
         )
         .foregroundStyle(
             .primary,
             colorScheme == .dark ? .black : .white
         )
-        .animation(.default, value: sceneState.chordDisplayOptions.displayOptions)
+        .animation(.default, value: appState.settings.diagram)
     }
 }

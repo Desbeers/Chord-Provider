@@ -15,8 +15,8 @@ struct Song {
 
     // MARK: Display options
 
-    /// The display options for the ``Song``
-    var displayOptions = DisplayOptions()
+    /// The settings for the ``Song`` in the Document
+    var settings = AppSettings()
 
     // MARK: Meta data directives
 

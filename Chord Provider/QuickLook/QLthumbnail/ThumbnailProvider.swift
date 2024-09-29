@@ -21,12 +21,11 @@ class ThumbnailProvider: QLThumbnailProvider {
                 id: UUID(),
                 text: fileContents,
                 transpose: 0,
-                instrument: .guitarStandardETuning,
+                settings: AppSettings(),
                 fileURL: request.fileURL
             )
             let data = try SongExport.export(
-                song: song,
-                chordDisplayOptions: .init()
+                song: song
             )
             /// Create image for data
             let nsImage = NSImage(data: data.pdf)
@@ -66,6 +65,12 @@ class ThumbnailProvider: QLThumbnailProvider {
 }
 
 protocol ChordProDirective {}
+
+struct AppSettings {
+    /// Simple substitute for the real AppSettings
+    var diagram = DiagramDisplayOptions()
+    var song = SongDisplayOptions()
+}
 
 /// Messages for the Logger
 extension Logger {

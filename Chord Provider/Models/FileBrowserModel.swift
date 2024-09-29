@@ -1,5 +1,5 @@
 //
-//  FileBrowser.swift
+//  FileBrowserModel.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -8,12 +8,12 @@
 import SwiftUI
 import OSLog
 
-/// The observable ``FileBrowser`` class
+/// The observable ``FileBrowserModel`` class
 @Observable
 @MainActor
-class FileBrowser {
+class FileBrowserModel {
     /// The shared instance of the class
-    static let shared = FileBrowser()
+    static let shared = FileBrowserModel()
     /// The list of songs
     var songList: [SongItem] = []
     /// The list of artists
@@ -38,10 +38,11 @@ class FileBrowser {
     /// Init the FileBrowser
     private init() {
         songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+        getFiles()
     }
 }
 
-extension FileBrowser {
+extension FileBrowserModel {
 
     // MARK: Structures
 
@@ -78,7 +79,7 @@ extension FileBrowser {
     }
 }
 
-extension FileBrowser {
+extension FileBrowserModel {
 
     // MARK: Functions
 
@@ -96,7 +97,7 @@ extension FileBrowser {
                 while let item = items.nextObject() as? URL {
                     if ChordProDocument.fileExtension.contains(item.pathExtension) {
                         var song = SongItem(fileURL: item)
-                        FileBrowser.parseSongFile(item, &song)
+                        FileBrowserModel.parseSongFile(item, &song)
                         songs.append(song)
                     }
                 }

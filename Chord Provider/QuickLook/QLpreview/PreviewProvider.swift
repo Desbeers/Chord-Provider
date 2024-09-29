@@ -21,12 +21,11 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
                 id: UUID(),
                 text: fileContents,
                 transpose: 0,
-                instrument: .guitarStandardETuning,
+                settings: AppSettings(),
                 fileURL: request.fileURL
             )
             let data = try SongExport.export(
-                song: song,
-                chordDisplayOptions: .init()
+                song: song
             ).pdf
             replyToUpdate.title = "\(song.metaData.artist) - \(song.metaData.title)"
             replyToUpdate.stringEncoding = .utf8
@@ -36,4 +35,10 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
     }
 }
 
-public protocol ChordProDirective {}
+protocol ChordProDirective {}
+
+struct AppSettings {
+    /// Simple substitute for the real AppSettings
+    var diagram = DiagramDisplayOptions()
+    var song = SongDisplayOptions()
+}

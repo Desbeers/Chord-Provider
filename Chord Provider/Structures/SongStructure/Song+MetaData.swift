@@ -12,7 +12,7 @@ extension Song {
     // MARK: The structure for meta data about the song
 
     /// Structure for meta data about the song
-    struct MetaData {
+    struct MetaData: Equatable {
 
         // MARK: Meta-data directives
 
@@ -40,8 +40,6 @@ extension Song {
         var tags: [String] = []
         /// The optional transpose
         var transpose: Int = 0
-        /// The instrument
-        var instrument: Instrument = .guitarStandardETuning
 
         /// The optional file URL
         var fileURL: URL?

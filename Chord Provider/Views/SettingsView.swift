@@ -9,10 +9,8 @@ import SwiftUI
 
 /// SwiftUI `View` for the settings
 @MainActor struct SettingsView: View {
-    /// Chord Display Options
-    @State private var chordDisplayOptions = ChordDisplayOptions(defaults: AppSettings.defaults)
     /// The observable ``FileBrowser`` class
-    @Environment(FileBrowser.self) private var fileBrowser
+    @Environment(FileBrowserModel.self) private var fileBrowser
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
     /// Dismiss
@@ -42,12 +40,6 @@ import SwiftUI
         }
         .background(Color.white.colorMultiply(Color.telecaster))
         .toolbarBackground(.telecaster)
-        .task {
-            chordDisplayOptions.displayOptions = appState.settings.chordDisplayOptions
-        }
-        .onChange(of: chordDisplayOptions.displayOptions) {
-            appState.settings.chordDisplayOptions = chordDisplayOptions.displayOptions
-        }
     }
 
     /// `View` with general options
@@ -66,20 +58,19 @@ import SwiftUI
         VStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    chordDisplayOptions.fingersToggle
-                    chordDisplayOptions.notesToggle
-                    chordDisplayOptions.mirrorToggle
+                    appState.fingersToggle
+                    appState.notesToggle
+                    appState.mirrorToggle
                 }
                 .wrapSettingsSection(title: "General")
                 VStack(alignment: .leading) {
-                    chordDisplayOptions.playToggle
+                    appState.playToggle
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    if chordDisplayOptions.displayOptions.general.showPlayButton {
+                    if appState.settings.diagram.showPlayButton {
                         HStack {
                             Image(systemName: "guitars.fill")
-                            chordDisplayOptions.midiInstrumentPicker
+                            appState.midiInstrumentPicker
                         }
-                        .disabled(!chordDisplayOptions.displayOptions.general.showPlayButton)
                         .padding([.top, .leading])
                     }
                 }
@@ -88,16 +79,16 @@ import SwiftUI
             .frame(maxHeight: .infinity, alignment: .top)
             Button(
                 action: {
-                    chordDisplayOptions.displayOptions = AppSettings.defaults
+                    appState.settings.diagram = AppSettings.DiagramDisplayOptions()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
-            .disabled(chordDisplayOptions.displayOptions == AppSettings.defaults)
+            .disabled(appState.settings.diagram == AppSettings.DiagramDisplayOptions())
             .padding(.bottom)
         }
-        .animation(.default, value: chordDisplayOptions.displayOptions.general)
+        .animation(.default, value: appState.settings.diagram.showPlayButton)
     }
 
     /// `View` with editor settings

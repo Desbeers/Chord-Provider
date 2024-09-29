@@ -12,7 +12,7 @@ extension PDFBuild {
     // MARK: The builder for `PDFElement` items
 
     /// Class to build a PDF with ``PDFElement`` items
-    public class Builder {
+    class Builder {
 
         /// General document information
         let document: DocumentInfo
@@ -31,15 +31,15 @@ extension PDFBuild {
 
         /// Init the **builder** class
         /// - Parameter info: The general document information
-        init(info: PDFBuild.DocumentInfo) {
-            self.document = info
-            self.auxiliaryInfo = info.dictionary
+        init(documentInfo: PDFBuild.DocumentInfo) {
+            self.document = documentInfo
+            self.auxiliaryInfo = documentInfo.dictionary
         }
 
         /// Generate a PDF document with all the added elements
         /// - Parameter progress: The closure with progress indication
         /// - Returns: A PDF document as `Data`
-        public func generatePdf(
+        func generatePdf(
             progress: @escaping (Double) -> Void = { _ in }
         ) -> Data {
             let pdfData = beginPdfContextToData(pageRect: document.pageRect)
@@ -50,7 +50,7 @@ extension PDFBuild {
 
         /// Append a page to the PDF document
         /// - Parameter progress: The closure with progress indication
-        public func appendPdf(progress: @escaping (Double) -> Void = { _ in }) {
+        func appendPdf(progress: @escaping (Double) -> Void = { _ in }) {
             /// Set the first found `PageHeaderFooter` element, if exists
             if let element = elements.first as? PDFBuild.PageHeaderFooter {
                 pageHeaderFooter = element

@@ -46,7 +46,7 @@ extension PDFBuild {
                     if let chord = part.chord, let first = chords.first(where: { $0.id == chord }) {
                         elements[column].append(
                             NSAttributedString(
-                                string: "\(first.displayName(options: .init()))\n",
+                                string: "\(first.displayName)\n",
                                 attributes: .gridChord
                             )
                         )

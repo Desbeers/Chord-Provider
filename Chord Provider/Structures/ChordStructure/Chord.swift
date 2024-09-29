@@ -8,10 +8,10 @@
 import Foundation
 
 /// Bits and pieces that makes a ``ChordDefinition``
-public enum Chord {
+enum Chord {
 
     /// The grouping of chords
-    public enum Group {
+    enum Group {
         /// Major chords
         case major
         /// Minor chords
@@ -27,7 +27,7 @@ public enum Chord {
     }
 
     /// The accidental of a root
-    public enum Accidental {
+    enum Accidental {
         /// Natural accidental
         case natural
         /// Sharp accidental

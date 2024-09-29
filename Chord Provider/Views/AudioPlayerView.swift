@@ -18,7 +18,7 @@ struct AudioPlayerView: View {
     /// Bool if the player is playing or not
     @State private var isPlaying: Bool = false
     /// The observable ``FileBrowser`` class
-    @Environment(FileBrowser.self) private var fileBrowser
+    @Environment(FileBrowserModel.self) private var fileBrowser
     /// The status of the song
     @State private var status: AppError = .unknownStatus
     /// The iCloud URL of the song

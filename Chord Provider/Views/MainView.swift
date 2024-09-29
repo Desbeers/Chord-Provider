@@ -15,7 +15,7 @@ struct MainView: View {
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The observable ``FileBrowser`` class
-    @Environment(FileBrowser.self) private var fileBrowser
+    @Environment(FileBrowserModel.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The body of the `View`
@@ -30,11 +30,11 @@ struct MainView: View {
                 PreviewPaneView(data: data)
                     .transition(.move(edge: .trailing))
             } else {
-                let layout = sceneState.songDisplayOptions.chordsPosition == .right ?
+                let layout = sceneState.settings.song.chordsPosition == .right ?
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     SongView()
-                    if sceneState.songDisplayOptions.showChords {
+                    if sceneState.settings.song.showChords {
                         Divider()
                         ChordsView(document: $document)
                             .background(Color.telecaster.opacity(0.6))
@@ -57,54 +57,31 @@ struct MainView: View {
         .onChange(of: sceneState.song.metaData.transpose) {
             renderSong()
         }
-        .onChange(of: sceneState.songDisplayOptions) {
-            appState.settings.songDisplayOptions = sceneState.songDisplayOptions
+        .onChange(of: appState.settings) {
             renderSong()
         }
-        .onChange(of: sceneState.chordDisplayOptions.displayOptions) {
-            appState.settings.chordDisplayOptions = sceneState.chordDisplayOptions.displayOptions
-            renderSong()
-        }
-        .onChange(of: appState.settings.songDisplayOptions.general) {
-            sceneState.songDisplayOptions.general = appState.settings.songDisplayOptions.general
-            renderSong()
-        }
-        .onChange(of: appState.settings.chordDisplayOptions.general) {
-            sceneState.chordDisplayOptions.displayOptions.general = appState.settings.chordDisplayOptions.general
+        .onChange(of: sceneState.settings) {
+            appState.settings.song = sceneState.settings.song
             renderSong()
         }
         .animation(.default, value: sceneState.preview)
         .animation(.default, value: sceneState.showEditor)
-        .animation(.default, value: appState.settings.editor)
-        .animation(.default, value: sceneState.songDisplayOptions)
-        .animation(.default, value: appState.settings.chordDisplayOptions)
+        .animation(.default, value: sceneState.settings)
+        .animation(.default, value: sceneState.song.metaData)
     }
     /// Render the song
-    @MainActor
-    private func renderSong() {
+    @MainActor private func renderSong() {
         sceneState.song = ChordPro.parse(
             id: UUID(),
             text: document.text,
             transpose: sceneState.song.metaData.transpose,
-            instrument: sceneState.chordDisplayOptions.displayOptions.instrument,
+            settings: appState.settings,
             fileURL: sceneState.file
         )
-        sceneState.song.displayOptions = sceneState.songDisplayOptions
         if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == sceneState.file }) {
             fileBrowser.songList[index].title = sceneState.song.metaData.title
             fileBrowser.songList[index].artist = sceneState.song.metaData.artist
             fileBrowser.songList[index].tags = sceneState.song.metaData.tags
         }
-//        Task {
-//            do {
-//                let export = try SongExport.export(
-//                    song: sceneState.song,
-//                    chordDisplayOptions: sceneState.chordDisplayOptions.displayOptions
-//                )
-//                try export.pdf.write(to: sceneState.exportURL)
-//            } catch {
-//                Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
-//            }
-//        }
     }
 }

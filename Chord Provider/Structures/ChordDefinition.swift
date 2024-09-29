@@ -8,43 +8,43 @@
 import Foundation
 
 /// The structure of a chord definition
-public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
+struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
 
     // MARK: Database items
 
     /// The ID of the chord
-    public var id: UUID
+    var id: UUID
     /// The fret positions of the chord
-    public var frets: [Int]
+    var frets: [Int]
     /// The finger positions of the chord
-    public var fingers: [Int]
+    var fingers: [Int]
     /// The base fret of the chord
-    public var baseFret: Int
+    var baseFret: Int
     /// The root of the chord
-    public var root: Chord.Root
+    var root: Chord.Root
     /// The quality of the chord
-    public var quality: Chord.Quality
+    var quality: Chord.Quality
 
     // MARK: Other items
 
     /// The name of the chord
-    public var name: String
+    var name: String
 
     /// The fingers you have to bar for the chord
     /// - Note: A calculated value by the init
-    public var barres: [Chord.Barre]
+    var barres: [Chord.Barre]
 
     /// The instrument of the chord
-    public var instrument: Instrument
+    var instrument: Instrument
 
     /// The appended notes on the chord
     var appended: [String] = []
     /// The base note of an optional 'slash' chord
-    public var bass: Chord.Root?
+    var bass: Chord.Root?
     /// The components of the chord definition
-    public var components: [Chord.Component] = []
+    var components: [Chord.Component] = []
     /// The status of the chord
-    public var status: Chord.Status
+    var status: Chord.Status
 
     // MARK: Coding keys
 
@@ -68,7 +68,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     }
 
     /// Custom encoder for the ``ChordDefinition``
-    public func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container: KeyedEncodingContainer<ChordDefinition.CodingKeys> = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(self.id, forKey: .id)

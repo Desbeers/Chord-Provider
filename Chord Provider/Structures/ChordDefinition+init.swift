@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension ChordDefinition {
+extension ChordDefinition {
 
     // MARK: Init from the decoder
 

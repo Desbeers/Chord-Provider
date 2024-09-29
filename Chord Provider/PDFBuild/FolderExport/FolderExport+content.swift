@@ -13,19 +13,18 @@ extension FolderExport {
 
     /// Convert ChordPro files to a PDF
     /// - Parameters:
-    ///   - info: The document info for the PDF
+    ///   - documentInfo: The document info for the PDF
     ///   - counter: The `PDFBuild.PageCounter` class
-    ///   - options: The chord display options
+    ///   - appSettings: The application settings
     ///   - progress: A closure to observe the progress of PDF creation
     /// - Returns: The PDF as `Data` and the `PageCounter` class with TOC info
     static func content(
-        info: PDFBuild.DocumentInfo,
+        documentInfo: PDFBuild.DocumentInfo,
         counter: PDFBuild.PageCounter,
-        songDisplayOptions: Song.DisplayOptions,
-        chordDisplayOptions: ChordDefinition.DisplayOptions,
+        appSettings: AppSettings,
         progress: @escaping (Double) -> Void
     ) -> Data {
-        let builder = PDFBuild.Builder(info: info)
+        let builder = PDFBuild.Builder(documentInfo: documentInfo)
         builder.pageCounter = counter
         // MARK: Render PDF content
         if let exportFolder = UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder) {
@@ -58,13 +57,12 @@ extension FolderExport {
                         id: item.id,
                         text: fileContents,
                         transpose: 0,
-                        instrument: chordDisplayOptions.instrument,
+                        settings: appSettings,
                         fileURL: item.fileURL
                     )
                     builder.elements.append(
                         contentsOf: SongExport.getSongElements(
                             song: song,
-                            chordDisplayOptions: chordDisplayOptions,
                             counter: counter
                         )
                     )

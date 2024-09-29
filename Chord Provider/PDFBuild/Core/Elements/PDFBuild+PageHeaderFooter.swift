@@ -70,7 +70,7 @@ extension PDFBuild {
     }
 }
 
-public extension PDFStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Footer string styling
 

@@ -37,7 +37,7 @@ extension PDFBuild.LyricsSection.Line {
                 var chordString: String = " "
                 var chordStatus: Chord.Status = .unknownChord
                 if let chord = chords.first(where: { $0.id == part.chord }) {
-                    chordString = chord.displayName(options: .init())
+                    chordString = chord.displayName
                     chordStatus = chord.status
                 }
                 self.text.append(
@@ -72,7 +72,7 @@ extension PDFBuild.LyricsSection.Line {
     }
 }
 
-public extension PDFStringAttribute {
+extension PDFStringAttribute {
 
     // MARK: Part string styling
 
