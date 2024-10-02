@@ -10,9 +10,9 @@ import SwiftUI
 @MainActor struct ChordsDatabaseView: View {
 
     /// The app state
-    @State private var appState = AppStateModel(id: .exportFolderView)
+    @State private var appState = AppStateModel(id: .chordsDatabaseView)
     /// The state of the scene
-    @State private var sceneState = SceneStateModel(id: .exportFolderView)
+    @State private var sceneState = SceneStateModel(id: .chordsDatabaseView)
 
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
@@ -52,11 +52,19 @@ import SwiftUI
                     ContentUnavailableView("Nothing found", systemImage: "magnifyingglass", description: Text("No chords with the name **\(search)** found."))
                 }
             }
+            HStack {
+                appState.mirrorToggle
+                appState.notesToggle
+                Spacer()
+                appState.midiInstrumentPicker
+            }
+            .padding()
         }
         .scaleModifier
         .frame(minWidth: 800, minHeight: 600)
         .animation(.default, value: chords)
-        .animation(.default, value: appState.settings)
+        .animation(.smooth, value: appState.settings)
+        .animation(.smooth, value: sceneState.settings)
         .searchable(text: $search)
         .task(id: sceneState.settings.song.instrument) {
             switch sceneState.settings.song.instrument {
@@ -106,7 +114,6 @@ import SwiftUI
             .primary,
             colorScheme == .dark ? .black : .white
         )
-        .animation(.default, value: appState.settings.diagram)
     }
 
     func filterChords() {

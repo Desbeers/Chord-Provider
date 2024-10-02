@@ -80,7 +80,19 @@ import OSLog
                     .opacity(selectedTag.isEmpty ? 1 : 0)
                     .navigationDestination(for: String.self) { tag in
                         List {
-                            Section(header: Text("Songs with '\(tag)' tag").font(.headline)) {
+                            Section(
+                                header:
+                                    HStack {
+                                        Button {
+                                            selectedTag = []
+                                        } label: {
+                                            Image(systemName: "chevron.backward")
+                                                .bold()
+                                                .foregroundStyle(.primary)
+                                        }
+                                        Text("Songs with '\(tag)' tag").font(.headline)
+                                    }
+                            ) {
                                 ForEach(fileBrowser.songList.filter { $0.tags.contains(tag) }) { song in
                                     Row(song: song, showArtist: true)
                                 }
@@ -88,7 +100,6 @@ import OSLog
                         }
                     }
                 }
-                .labelStyle(BrowserLabelStyle())
             default:
                 // swiftlint:disable:next force_unwrapping
                 Image(nsImage: NSImage(named: "AppIcon")!)
@@ -170,10 +181,6 @@ extension FileBrowserView {
         var showArtist: Bool = false
         /// The observable ``FileBrowser`` class
         @State private var fileBrowser = FileBrowserModel.shared
-        /// Open documents in the environment
-        @Environment(\.openDocument) private var openDocument
-        /// Focus of the Window
-        @Environment(\.controlActiveState) var controlActiveState
         /// Information about the `NSWindow`
         var window: NSWindow.WindowItem? {
             fileBrowser.openWindows.first { $0.fileURL == song.fileURL }
@@ -191,13 +198,14 @@ extension FileBrowserView {
                         title: {
                             VStack(alignment: .leading) {
                                 Text(song.title)
+                                    .foregroundStyle(.primary)
                                 if showArtist {
                                     Text(song.artist)
                                         .foregroundStyle(.secondary)
                                 }
                                 if !song.tags.isEmpty {
                                     Text(song.tags.joined(separator: "∙"))
-                                        .foregroundStyle(controlActiveState == .key ? .tertiary : .quaternary)
+                                        //.foregroundStyle(controlActiveState == .key ? .tertiary : .quaternary)
                                 }
                             }
                         },
@@ -224,23 +232,6 @@ extension FileBrowserView {
                     .opacity(window == nil ? 0 : 1)
             }
         }
-//        /// Open a song window with an URL
-//        /// - Parameter url: The URL of the song
-//        @MainActor func openSong(url: URL) async {
-//            /// SwiftUI openDocument is very buggy; don't try to open a document when it is already open; the app will crash..
-//            /// So I use the shared NSDocumentController instead
-//            if let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
-//                _ = persistentURL.startAccessingSecurityScopedResource()
-//                do {
-//                    try await NSDocumentController.shared.openDocument(withContentsOf: url, display: true)
-//                } catch {
-//                    Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
-//                }
-//                persistentURL.stopAccessingSecurityScopedResource()
-//            }
-//            /// If the browser is shown in a MenuBarExtra, close it
-//            fileBrowser.menuBarExtraWindow?.close()
-//        }
     }
 
     /// SwiftUI `LabelStyle` for a browser item

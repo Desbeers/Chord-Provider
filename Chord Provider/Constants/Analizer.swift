@@ -19,8 +19,7 @@ enum Analizer {
         var root: Chord.Root?
         var quality: Chord.Quality?
         var bass: Chord.Root?
-        let regex = RegexDefinitions()
-        if let match = chord.wholeMatch(of: regex.chordRegex) {
+        if let match = chord.wholeMatch(of: RegexDefinitions.chordName) {
             root = match.1
             if let qualityMatch = match.2 {
                 quality = qualityMatch

@@ -43,11 +43,14 @@ import SwiftUI
 
     /// The controller for the `WelcomeView` window
     private var welcomeViewController: NSWindowController?
-    /// Show the `NewDocumentView` window in Appkit
+    /// Show the `WelcomeView` window in Appkit
     @MainActor func showNewDocumentView() {
         if welcomeViewController == nil {
             let window = createWindow(title: "Chord Provider")
+            window.styleMask.remove(.titled)
+            window.isMovableByWindowBackground = true
             window.contentView = NSHostingView(rootView: WelcomeView(appDelegate: self))
+            window.backgroundColor = NSColor.clear
             window.center()
             welcomeViewController = NSWindowController(window: window)
         }
@@ -61,16 +64,24 @@ import SwiftUI
     }
 
     /// The controller for the ``AboutView`` window
-    private var aboutController: NSWindowController?
+    private var aboutViewController: NSWindowController?
     /// Show the ``AboutView`` window in Appkit
     @MainActor func showAboutView() {
-        if aboutController == nil {
+        if aboutViewController == nil {
             let window = createWindow(title: "About Chord Provider")
-            window.contentView = NSHostingView(rootView: AboutView())
+            window.styleMask.remove(.titled)
+            window.isMovableByWindowBackground = true
+            window.contentView = NSHostingView(rootView: AboutView(appDelegate: self))
+            window.backgroundColor = NSColor.clear
             window.center()
-            aboutController = NSWindowController(window: window)
+            aboutViewController = NSWindowController(window: window)
         }
-        aboutController?.showWindow(aboutController?.window)
+        aboutViewController?.showWindow(aboutViewController?.window)
+    }
+
+    /// Close the welcomeViewController window
+    @MainActor func closeAboutView() {
+        aboutViewController?.window?.close()
     }
 
     /// The controller for the `ExportFolderView` window
@@ -103,7 +114,7 @@ import SwiftUI
     }
 
     @MainActor private func createWindow(title: String) -> NSWindow {
-        let window = NSWindow()
+        let window = MyNSWindow()
         window.title = title
         window.styleMask = styleMask
         window.titlebarAppearsTransparent = true
@@ -112,5 +123,13 @@ import SwiftUI
         /// Just a fancy animation; it is not a document window
         window.animationBehavior = .documentWindow
         return window
+    }
+}
+extension AppDelegateModel {
+
+    class MyNSWindow: NSWindow {
+        override var canBecomeMain: Bool { true }
+        override var canBecomeKey: Bool { true }
+        override var acceptsFirstResponder: Bool { true }
     }
 }

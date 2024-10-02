@@ -140,7 +140,7 @@ extension FileBrowserModel {
 
         /// Parse the actual metadata
         func parseFileLine(text: String, song: inout SongItem) {
-            if let match = text.firstMatch(of: ChordPro.directiveRegex) {
+            if let match = text.firstMatch(of: RegexDefinitions.directive) {
 
                 let directive = match.1
                 let label = match.2

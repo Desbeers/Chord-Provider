@@ -9,7 +9,7 @@ import Foundation
 import RegexBuilder
 
 /// Regex definitions to parse a chord
-struct RegexDefinitions {
+enum RegexDefinitions {
 
     // MARK: Regex to parse a chord name
 
@@ -22,9 +22,9 @@ struct RegexDefinitions {
     ///     Am -> root: Am, quality: m
     ///     Dsus4 -> root: D, quality: sus4
     ///
-    let chordRegex = Regex {
+    nonisolated(unsafe) static let chordName = Regex {
         /// The root
-        rootRegex
+        chordRoot
         /// The optional quality
         Optionally {
             Capture {
@@ -46,14 +46,14 @@ struct RegexDefinitions {
         }
         Optionally {
             "/"
-            rootRegex
+            chordRoot
         }
     }
 
     // MARK: Regex to parse a define
 
     /// The regex for a chord definition
-    let defineRegex = Regex {
+    nonisolated(unsafe) static let chordDefine = Regex {
         /// Capture the name
         Capture {
             OneOrMore {
@@ -109,7 +109,7 @@ struct RegexDefinitions {
     // MARK: Regex to parse the root of a chord
 
     /// The regex to parse the root of a chord
-    static var rootRegex: Capture<(Substring, Chord.Root)> {
+    nonisolated(unsafe) static let chordRoot = Regex {
         Capture {
             OneOrMore {
                 CharacterClass(
@@ -118,6 +118,81 @@ struct RegexDefinitions {
             }
         } transform: { root in
             Chord.Root(rawValue: String(root)) ?? Chord.Root.none
+        }
+    }
+
+    /// The regex for a `directive` with an optional `label`
+    ///
+    ///     /// ## Examples
+    ///
+    ///     {title: The title of the song}
+    ///     {chorus}
+    ///     {start_of_verse}
+    ///     {start_of_verse: Last Verse}
+    ///
+    /// - Note: This needs an extension for `ChoiceOf`
+    nonisolated(unsafe) static let directive = Regex {
+        "{"
+        Capture {
+            ChoiceOf(ChordPro.directives)
+        } transform: {
+            ChordPro.Directive(rawValue: $0.lowercased()) ?? .none
+        }
+        Optionally {
+            ":"
+            TryCapture {
+                OneOrMore {
+                    CharacterClass(
+                        .anyOf("}").inverted
+                    )
+                }
+            } transform: {
+                $0.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+        }
+        "}"
+        Optionally {
+            CharacterClass(
+                .anyOf("{").inverted
+            )
+        }
+    }
+
+    /// The regex for a *normal*  line with optional`chords` and/or `lyrics`
+    ///
+    ///     /// ## Example
+    ///
+    ///     [A]I sing you a [G]song!!
+    ///
+    nonisolated(unsafe) static let line = Regex {
+        /// The chord
+        Optionally {
+            chord
+        }
+        /// The lyric
+        Optionally {
+            Capture {
+                OneOrMore {
+                    CharacterClass(
+                        .anyOf("[]").inverted
+                    )
+                }
+            }
+        }
+    }
+
+    /// Regex for a chord
+    nonisolated(unsafe) static let chord = Regex {
+        Regex {
+            "["
+            Capture {
+                OneOrMore {
+                    CharacterClass(
+                        .anyOf("[] ").inverted
+                    )
+                }
+            }
+            "]"
         }
     }
 }

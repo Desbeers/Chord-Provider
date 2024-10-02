@@ -14,11 +14,6 @@ extension AppStateModel {
     // MARK: Play Button
 
     /// SwiftUI `Button` to play the chord with MIDI
-
-    func playButton(chord: ChordDefinition) -> some View {
-        PlayButton(chord: chord, instrument: self.settings.diagram.midiInstrument)
-    }
-
     struct PlayButton: View {
         /// The chord to play
         let chord: ChordDefinition

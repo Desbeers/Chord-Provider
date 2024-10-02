@@ -14,10 +14,9 @@ extension Utils {
     ///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
     ///
     /// - Parameter define: ChordPro string definition of the chord
-    /// - Returns: A  `ChordPostion` struct, if found, else an Error
+    /// - Returns: A  ``ChordDefinition`` struct, if found, else an Error
     static func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
-        let regex = RegexDefinitions()
-        if let definition = define.firstMatch(of: regex.defineRegex) {
+        if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
 
             let positions = instrument.strings.count
 

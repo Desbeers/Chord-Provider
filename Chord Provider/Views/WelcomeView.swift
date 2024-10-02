@@ -20,7 +20,10 @@ import OSLog
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
-            VStack(spacing: 10) {
+            VStack {
+                Text("Chord Provider")
+                    .font(.title)
+                    .padding(.top)
                 // swiftlint:disable:next force_unwrapping
                 Image(nsImage: NSImage(named: "AppIcon")!)
                     .resizable()
@@ -70,12 +73,22 @@ import OSLog
                         }
                     )
                 }
-                .labelStyle(ButtonLabelStyle())
+                .labelStyle(CreateLabelStyle())
             }
             .frame(maxHeight: .infinity)
             .padding([.leading, .bottom])
-            .background(Color.telecaster)
+            //.background(Color.telecaster)
+            .background(.regularMaterial)
             VStack {
+                Picker("Tabs", selection: $selectedTab) {
+                    ForEach(NewTabs.allCases) { tab in
+                        Text(tab.rawValue)
+                            .tag(tab)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .padding(.top)
                 switch selectedTab {
                 case .recent:
                     recent
@@ -86,17 +99,12 @@ import OSLog
             .padding(.horizontal, 6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(nsColor: .textBackgroundColor))
+            .labelStyle(ButtonLabelStyle())
+        }
+        .closeWindowModifier {
+            appDelegate.closeWelcomeView()
         }
         .buttonStyle(.plain)
-        .toolbar {
-            Picker("Tabs", selection: $selectedTab) {
-                ForEach(NewTabs.allCases) { tab in
-                    Text(tab.rawValue)
-                        .tag(tab)
-                }
-            }
-            .pickerStyle(.segmented)
-        }
         .frame(width: 640)
         .animation(.default, value: selectedTab)
     }
@@ -121,8 +129,8 @@ extension WelcomeView {
                             Label(url.deletingPathExtension().lastPathComponent, systemImage: "doc.badge.clock")
                         }
                     )
-                    .padding(.vertical, 2)
                 }
+                .listRowSeparator(.hidden)
             }
             .scrollContentBackground(.hidden)
             .overlay {
@@ -141,6 +149,7 @@ extension WelcomeView {
                 }
                 .help("A random song from your library")
                 .padding(.bottom, 6)
+                .labelStyle(.titleAndIcon)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -156,17 +165,37 @@ enum NewTabs: String, CaseIterable, Identifiable {
 }
 
 extension WelcomeView {
+
+    /// The style of a label on the Welcome View
+    struct CreateLabelStyle: LabelStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            HStack {
+                configuration.icon
+                    .foregroundColor(.secondary)
+                    .imageScale(.medium)
+                    .frame(width: 20, alignment: .trailing)
+                configuration.title
+            }
+            .padding(.vertical, 2)
+        }
+    }
+
+    /// The style of a label on the Welcome View
     struct ButtonLabelStyle: LabelStyle {
         func makeBody(configuration: Configuration) -> some View {
             HStack {
                 configuration.icon
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(.secondary)
                     .imageScale(.large)
-                    .frame(width: 30, alignment: .trailing)
                 configuration.title
-                    .padding(.trailing, 30)
+                    .padding(.trailing)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.vertical, 2)
+            .padding(.leading)
+            .padding(.vertical, 4)
+            .background(.regularMaterial)
+            //.background(Color(nsColor: .windowBackgroundColor).opacity(0.5))
+            .cornerRadius(6)
         }
     }
 }

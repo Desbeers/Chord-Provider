@@ -9,6 +9,9 @@ import Foundation
 
 extension ChordPro {
 
+    /// All the directives we know about
+    static let directives = ChordPro.Directive.allCases.map(\.rawValue)
+
     // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports

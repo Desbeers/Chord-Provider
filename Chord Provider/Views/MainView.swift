@@ -66,7 +66,7 @@ struct MainView: View {
         }
         .animation(.default, value: sceneState.preview)
         .animation(.default, value: sceneState.showEditor)
-        .animation(.default, value: sceneState.settings)
+        .animation(.smooth, value: sceneState.settings)
         .animation(.default, value: sceneState.song.metaData)
     }
     /// Render the song

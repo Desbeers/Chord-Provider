@@ -86,7 +86,7 @@ struct ChordDefinitionView: View {
         }
         .overlay(alignment: .topLeading) {
             if diagramDisplayOptions.showPlayButton {
-                AppStateModel.shared.playButton(chord: chord)
+                AppStateModel.PlayButton(chord: chord, instrument: diagramDisplayOptions.midiInstrument)
                     .font(.body)
                     .padding(.top, lineHeight / 2)
                     .padding(.leading, horizontalPadding)

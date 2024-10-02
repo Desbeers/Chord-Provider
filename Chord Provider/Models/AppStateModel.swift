@@ -37,6 +37,6 @@ extension AppStateModel {
     enum AppStateID: String {
         case mainView
         case exportFolderView
-        case databaseView
+        case chordsDatabaseView
     }
 }

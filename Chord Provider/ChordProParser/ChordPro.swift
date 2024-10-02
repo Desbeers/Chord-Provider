@@ -102,7 +102,7 @@ actor ChordPro {
         currentSection: inout Song.Section
     ) {
 
-        if let match = text.firstMatch(of: directiveRegex) {
+        if let match = text.firstMatch(of: RegexDefinitions.directive) {
 
             let directive = match.1
             let label = match.2
@@ -432,7 +432,7 @@ actor ChordPro {
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
         var partID: Int = 1
 
-        var matches = text.matches(of: lineRegex)
+        var matches = text.matches(of: RegexDefinitions.line)
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {
