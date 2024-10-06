@@ -16,5 +16,13 @@ extension Chord {
         let note: Chord.Root
         /// The MIDI note value
         let midi: Int?
+        /// The name and octave
+        var nameAndOctave: String? {
+            if let midi {
+                let octave = (midi / 12) - 1
+                return "\(note.display)\(octave)"
+            }
+            return nil
+        }
     }
 }

@@ -38,6 +38,28 @@ extension Instrument {
         }
     }
 
+    /// The description of the instrument
+    var description: String {
+        switch self {
+        case .guitarStandardETuning:
+            "Guitar, 6 strings, standard tuning"
+        case .guitaleleStandardATuning:
+            "Guitalele, 6 strings, standard tuning"
+        case .ukuleleStandardGTuning:
+            "Ukulele, 4 strings, standard tuning"
+        }
+    }
+
+    /// The tuning of the instrument
+    var tuning: [String] {
+        var tuning: [String] = []
+        for string in strings {
+            let octave = ((offset[string] + 41) / 12) - 1
+            tuning.append("\(stringName[string].display)\(octave)")
+        }
+        return tuning
+    }
+
     /// The strings of the instrument
     var strings: [Int] {
         switch self {

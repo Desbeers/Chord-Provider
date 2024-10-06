@@ -107,10 +107,21 @@
 		D70D96CF2CB2877F00B51A14 /* ChordPro+Directive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */; };
 		D70D96D02CB2878300B51A14 /* ChordPro+Directive+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */; };
 		D70D96D12CB2878300B51A14 /* ChordPro+Directive+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */; };
-		D70D96D22CB2878700B51A14 /* ChordPro+Directive+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA42A6460B7002D875D /* ChordPro+Directive+extension.swift */; };
-		D70D96D32CB2878700B51A14 /* ChordPro+Directive+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA42A6460B7002D875D /* ChordPro+Directive+extension.swift */; };
+		D70D96D22CB2878700B51A14 /* ChordPro+Directive+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA42A6460B7002D875D /* ChordPro+Directive+extensions.swift */; };
+		D70D96D32CB2878700B51A14 /* ChordPro+Directive+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA42A6460B7002D875D /* ChordPro+Directive+extensions.swift */; };
 		D70D96D42CB2878D00B51A14 /* ChordPro+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA52A6460B7002D875D /* ChordPro+Environment.swift */; };
 		D70D96D52CB2878D00B51A14 /* ChordPro+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA52A6460B7002D875D /* ChordPro+Environment.swift */; };
+		D70D96D92CB291DF00B51A14 /* ChordPro+Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */; };
+		D70D96DB2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96DA2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift */; };
+		D70D96DD2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */; };
+		D70D96DE2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */; };
+		D70D96DF2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */; };
+		D70D96E22CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */; };
+		D70D96E32CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */; };
+		D70D96E42CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */; };
+		D70D96E52CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
+		D70D96E62CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
+		D70D96E72CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
 		D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711737F2BD279D80075325C /* PDFBuild+Label.swift */; };
 		D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D7117F842BA2281E00D17A52 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */; };
@@ -332,7 +343,7 @@
 		D7F13FCF2A6460B7002D875D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F9E2A6460B7002D875D /* Assets.xcassets */; };
 		D7F13FD02A6460B7002D875D /* SceneStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F9F2A6460B7002D875D /* SceneStateModel.swift */; };
 		D7F13FD32A6460B7002D875D /* ChordProParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA32A6460B7002D875D /* ChordProParser.swift */; };
-		D7F13FD42A6460B7002D875D /* ChordPro+Directive+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA42A6460B7002D875D /* ChordPro+Directive+extension.swift */; };
+		D7F13FD42A6460B7002D875D /* ChordPro+Directive+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA42A6460B7002D875D /* ChordPro+Directive+extensions.swift */; };
 		D7F13FD52A6460B7002D875D /* ChordPro+Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA52A6460B7002D875D /* ChordPro+Environment.swift */; };
 		D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */; };
 		D7F13FDB2A6460B7002D875D /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FAD2A6460B7002D875D /* ToolbarView.swift */; };
@@ -426,6 +437,11 @@
 		D70D96C52CB260DD00B51A14 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		D70D96C72CB26B8C00B51A14 /* WelcomeView+CreateDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView+CreateDocument.swift"; sourceTree = "<group>"; };
 		D70D96CA2CB2868900B51A14 /* ChordPro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPro.swift; sourceTree = "<group>"; };
+		D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordPro+Instrument.swift"; sourceTree = "<group>"; };
+		D70D96DA2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordsDatabaseDocument.swift; sourceTree = "<group>"; };
+		D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GuitarStandardETuning.json; sourceTree = "<group>"; };
+		D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UkuleleStandardGTuning.json; sourceTree = "<group>"; };
+		D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GuitaleleStandardATuning.json; sourceTree = "<group>"; };
 		D711737F2BD279D80075325C /* PDFBuild+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Label.swift"; sourceTree = "<group>"; };
 		D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Section.swift"; sourceTree = "<group>"; };
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
@@ -589,7 +605,7 @@
 		D7F13F9E2A6460B7002D875D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7F13F9F2A6460B7002D875D /* SceneStateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneStateModel.swift; sourceTree = "<group>"; };
 		D7F13FA32A6460B7002D875D /* ChordProParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProParser.swift; sourceTree = "<group>"; };
-		D7F13FA42A6460B7002D875D /* ChordPro+Directive+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive+extension.swift"; sourceTree = "<group>"; };
+		D7F13FA42A6460B7002D875D /* ChordPro+Directive+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive+extensions.swift"; sourceTree = "<group>"; };
 		D7F13FA52A6460B7002D875D /* ChordPro+Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Environment.swift"; sourceTree = "<group>"; };
 		D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive.swift"; sourceTree = "<group>"; };
 		D7F13FAD2A6460B7002D875D /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
@@ -690,8 +706,9 @@
 				D70D96CA2CB2868900B51A14 /* ChordPro.swift */,
 				D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */,
 				D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */,
-				D7F13FA42A6460B7002D875D /* ChordPro+Directive+extension.swift */,
+				D7F13FA42A6460B7002D875D /* ChordPro+Directive+extensions.swift */,
 				D7F13FA52A6460B7002D875D /* ChordPro+Environment.swift */,
+				D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */,
 			);
 			path = ChordPro;
 			sourceTree = "<group>";
@@ -779,6 +796,7 @@
 				D730BB9E2CA844C2008719F2 /* Interval.swift */,
 				D730BBA02CA844C2008719F2 /* RegexDefinitions.swift */,
 				D730BBA12CA844C2008719F2 /* Scales.swift */,
+				D730BBC12CA844C2008719F2 /* Chords.swift */,
 			);
 			path = Statics;
 			sourceTree = "<group>";
@@ -787,12 +805,15 @@
 			isa = PBXGroup;
 			children = (
 				D7F13F9E2A6460B7002D875D /* Assets.xcassets */,
-				D730BBB12CA844C2008719F2 /* GuitarStandardETuning.chordsdb */,
 				D730BBAF2CA844C2008719F2 /* GuitaleleStandardATuning.chordsdb */,
-				D730BBB22CA844C2008719F2 /* UkuleleStandardGTuning.chordsdb */,
+				D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */,
 				D730BBB02CA844C2008719F2 /* GuitarSoundFont.sf2 */,
-				D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */,
+				D730BBB12CA844C2008719F2 /* GuitarStandardETuning.chordsdb */,
+				D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */,
 				D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */,
+				D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */,
+				D730BBB22CA844C2008719F2 /* UkuleleStandardGTuning.chordsdb */,
+				D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -871,6 +892,7 @@
 		D76C24E62C3AFFC700C93D82 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
+				D70D96DA2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift */,
 				D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */,
 				D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */,
 			);
@@ -1021,7 +1043,6 @@
 				D70D96D72CB28B8200B51A14 /* AppSettings */,
 				D7EB791E2CA9B980004D965B /* Chord */,
 				D70D96D62CB28B6F00B51A14 /* ChordDefinition */,
-				D730BBC12CA844C2008719F2 /* Chords.swift */,
 				D730BBC22CA844C2008719F2 /* ChordsDatabase.swift */,
 				D7EA87792C5A587A009A3D82 /* PreviewState.swift */,
 				D7F13F842A6460B7002D875D /* SongStructure */,
@@ -1322,8 +1343,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D70D96E72CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */,
 				D730BC012CA844C2008719F2 /* GuitarStandardETuning.chordsdb in Resources */,
+				D70D96DF2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D785807A2CA89720000FB5F8 /* Assets.xcassets in Resources */,
+				D70D96E42CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1332,13 +1356,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7336AD42C273A9F00D0AA8E /* Swing Low Sweet Chariot.chordpro in Resources */,
+				D70D96DD2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */,
+				D70D96E52CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */,
 				D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */,
 				D730BBFF2CA844C2008719F2 /* GuitarStandardETuning.chordsdb in Resources */,
 				D730BC022CA844C2008719F2 /* UkuleleStandardGTuning.chordsdb in Resources */,
 				D730BBFC2CA844C2008719F2 /* GuitarSoundFont.sf2 in Resources */,
 				D7F13FCF2A6460B7002D875D /* Assets.xcassets in Resources */,
 				D730BBF92CA844C2008719F2 /* GuitaleleStandardATuning.chordsdb in Resources */,
+				D70D96E22CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,8 +1373,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D70D96E62CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */,
 				D730BC002CA844C2008719F2 /* GuitarStandardETuning.chordsdb in Resources */,
+				D70D96DE2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D78580792CA8971F000FB5F8 /* Assets.xcassets in Resources */,
+				D70D96E32CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1430,7 +1460,7 @@
 				D70B72BA2BD52A9C003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D7EF99672BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
 				D7EF996B2BDADC2E0058E1CB /* AppError.swift in Sources */,
-				D70D96D32CB2878700B51A14 /* ChordPro+Directive+extension.swift in Sources */,
+				D70D96D32CB2878700B51A14 /* ChordPro+Directive+extensions.swift in Sources */,
 				D70B72BC2BD52A9C003C89B4 /* PDFBuild+PageBreak.swift in Sources */,
 				D70B72BD2BD52A9C003C89B4 /* PDFBuild+Divider.swift in Sources */,
 				D70B72BE2BD52A9C003C89B4 /* PDFBuild+LyricsSection.swift in Sources */,
@@ -1527,6 +1557,7 @@
 				D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */,
 				D7EA875B2C5A580A009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift in Sources */,
 				D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */,
+				D70D96D92CB291DF00B51A14 /* ChordPro+Instrument.swift in Sources */,
 				D730BBF02CA844C2008719F2 /* MidiPlayer+Chord.swift in Sources */,
 				D730BC1D2CA844C2008719F2 /* ChordDefinition.swift in Sources */,
 				D730BC292CA844C2008719F2 /* ChordDefinition+transpose.swift in Sources */,
@@ -1613,7 +1644,7 @@
 				D72B61102C16E4170027B235 /* UserFileItem.swift in Sources */,
 				D730BC832CA85435008719F2 /* AppSettings+DiagramDisplayOptions.swift in Sources */,
 				D70B72842BD507B6003C89B4 /* PDFBuild+LyricsSection.swift in Sources */,
-				D7F13FD42A6460B7002D875D /* ChordPro+Directive+extension.swift in Sources */,
+				D7F13FD42A6460B7002D875D /* ChordPro+Directive+extensions.swift in Sources */,
 				D7EA87672C5A580A009A3D82 /* ChordProEditor+TextView.swift in Sources */,
 				D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */,
 				D730BBF62CA844C2008719F2 /* Utils+Define.swift in Sources */,
@@ -1631,6 +1662,7 @@
 				D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */,
 				D7F13FC82A6460B7002D875D /* WelcomeView+FileBrowser.swift in Sources */,
 				D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */,
+				D70D96DB2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift in Sources */,
 				D7336AD62C273AD700D0AA8E /* HelpButtons.swift in Sources */,
 				D7FA7F402C2CA9320031E1E8 /* ChordProDocument.swift in Sources */,
 				D7EA87662C5A580A009A3D82 /* ChordProEditor+Static.swift in Sources */,
@@ -1696,7 +1728,7 @@
 				D730BC652CA849C6008719F2 /* ChordsDatabase.swift in Sources */,
 				D730BC662CA849C6008719F2 /* Chord+Quality+intervals.swift in Sources */,
 				D730BC672CA849C6008719F2 /* ChordDefinition.swift in Sources */,
-				D70D96D22CB2878700B51A14 /* ChordPro+Directive+extension.swift in Sources */,
+				D70D96D22CB2878700B51A14 /* ChordPro+Directive+extensions.swift in Sources */,
 				D730BC682CA849C6008719F2 /* Chord+Root.swift in Sources */,
 				D730BC6A2CA849C6008719F2 /* Chord+Status.swift in Sources */,
 				D730BC6B2CA849C6008719F2 /* Chord+Quality.swift in Sources */,

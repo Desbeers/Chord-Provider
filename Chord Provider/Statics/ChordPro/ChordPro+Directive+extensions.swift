@@ -1,5 +1,5 @@
 //
-//  ChordPro+Directive+extension.swift
+//  ChordPro+Directive+extensions.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
