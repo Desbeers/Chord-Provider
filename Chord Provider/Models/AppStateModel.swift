@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// The observable app state for Chord Provider
+/// The observable application state for **Chord Provider**
 @Observable @MainActor final class AppStateModel {
     /// The shared instance of the class
     static let shared = AppStateModel(id: .mainView)
@@ -23,6 +23,10 @@ import SwiftUI
             try? AppSettings.save(id: id, settings: settings)
         }
     }
+
+
+    var media = MediaPlayerView.Item()
+
     /// Init the class; get application settings
     init(id: AppStateID) {
         self.id = id

@@ -23,6 +23,7 @@ import SwiftUI
     @State var errorAlert: AlertMessage?
     /// The body of the `View`
     var body: some View {
+        /// The binding to the observable state of the scene
         @Bindable var sceneState = sceneState
         VStack(spacing: 0) {
             HStack {

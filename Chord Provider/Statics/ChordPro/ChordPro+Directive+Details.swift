@@ -201,13 +201,6 @@ extension ChordPro.Directive {
                 button: "Define Chord",
                 help: "This directive defines a chord in terms of fret/string positions and, optionally, finger settings"
             )
-        case .musicPath:
-            Details(
-                label: "Music Path",
-                icon: "speaker.square",
-                button: "Music Path",
-                help: "This directive has the path to the music file"
-            )
         case .tag:
             Details(
                 label: "Tag",

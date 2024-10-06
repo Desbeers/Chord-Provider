@@ -7,13 +7,13 @@
 
 import AppKit
 
-/// A protocol for elements to create a PDF page from a ``Song``
+/// Protocol for elements to create a PDF
 protocol PDFElement {
 
     /// Check if a ``PDFElement`` fits on the current page or if it should break
     /// - Parameter rect: The available rectangle
     /// - Returns: Bool if the page should break
-    func shoudPageBreak(rect: CGRect, pageRect: CGRect) -> Bool
+    func shouldPageBreak(rect: CGRect, pageRect: CGRect) -> Bool
 
     /// Draw the ``PDFElement``
     /// - Parameters:
@@ -55,7 +55,7 @@ extension PDFElement {
     /// Check if a ``PDFElement`` fits on the current page or if it should break
     /// - Parameter rect: The available rectangle
     /// - Returns: Bool if the page should break
-    func shoudPageBreak(rect: CGRect, pageRect: CGRect) -> Bool {
+    func shouldPageBreak(rect: CGRect, pageRect: CGRect) -> Bool {
         var tempRect = rect
         draw(rect: &tempRect, calculationOnly: true, pageRect: pageRect)
         let breakPage = tempRect.origin.y > rect.maxY || rect.height < 10

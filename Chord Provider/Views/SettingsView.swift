@@ -38,8 +38,8 @@ import SwiftUI
                     }
             }
         }
-        .background(Color.white.colorMultiply(Color.telecaster))
-        .toolbarBackground(.telecaster)
+//        .background(Color.white.colorMultiply(Color.telecaster))
+//        .toolbarBackground(.telecaster)
     }
 
     /// `View` with general options

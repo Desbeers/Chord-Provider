@@ -64,7 +64,7 @@ extension PDFBuild {
                     /// Store the `PageHeaderFooter`; it will be used with the next page
                     pageHeaderFooter = element
                 } else {
-                    if element.shoudPageBreak(rect: currentRect, pageRect: pageRect) {
+                    if element.shouldPageBreak(rect: currentRect, pageRect: pageRect) {
                         endPage()
                         currentRect = beginPage()
                     }

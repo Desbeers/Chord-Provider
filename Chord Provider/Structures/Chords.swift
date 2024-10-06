@@ -66,7 +66,7 @@ extension Chords {
     /// - Parameter database: The ``Instrument``
     /// - Returns: An array of ``ChordDefinition``
     static func importDefinitions(instrument: Instrument) -> [ChordDefinition] {
-        let database = Bundle.main.decode(Database.self, from: instrument.database)
+        let database = Bundle.main.decode(ChordsDatabase.self, from: instrument.database)
         return importDatabase(database: database)
     }
 
@@ -79,7 +79,7 @@ extension Chords {
         else { return [] }
 
         do {
-            let database = try decoder.decode(Database.self, from: data)
+            let database = try decoder.decode(ChordsDatabase.self, from: data)
             return importDatabase(database: database)
         } catch {
             print(error)
@@ -99,7 +99,7 @@ extension Chords {
         }
         let definitions = definitions.map(\.define).sorted()
 
-        let export = Database(
+        let export = ChordsDatabase(
             instrument: firstDefinition.instrument,
             definitions: definitions
         )
@@ -116,7 +116,7 @@ extension Chords {
     /// Import a database with chord definitions
     /// - Parameter database: The ``Database`` to import
     /// - Returns: An array of ``ChordDefinition``
-    static func importDatabase(database: Database) -> [ChordDefinition] {
+    static func importDatabase(database: ChordsDatabase) -> [ChordDefinition] {
         var definitions: [ChordDefinition] = []
         for definition in database.definitions {
             if let result = try? ChordDefinition(

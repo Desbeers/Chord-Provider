@@ -18,6 +18,8 @@ struct MainView: View {
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
+    /// The optional file location
+    let file: URL?
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
@@ -25,6 +27,7 @@ struct MainView: View {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
                     .transition(.opacity)
+                Divider()
             }
             if let data = sceneState.preview.data {
                 PreviewPaneView(data: data)
@@ -34,11 +37,12 @@ struct MainView: View {
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     SongView()
+                        .background(Color(nsColor: .textBackgroundColor))
                     if sceneState.settings.song.showChords {
                         Divider()
                         ChordsView(document: $document)
-                            .background(Color.telecaster.opacity(0.6))
-                            .shadow(radius: 100)
+                            .background(Color(nsColor: .textBackgroundColor))
+                            .shadow(color: .secondary.opacity(0.25), radius: 60)
                     }
                 }
                 .transition(.move(edge: .trailing))
@@ -71,14 +75,15 @@ struct MainView: View {
     }
     /// Render the song
     @MainActor private func renderSong() {
-        sceneState.song = ChordPro.parse(
+        sceneState.song = ChordProParser.parse(
             id: UUID(),
             text: document.text,
             transpose: sceneState.song.metaData.transpose,
             settings: appState.settings,
-            fileURL: sceneState.file
+            fileURL: file
         )
-        if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == sceneState.file }) {
+        sceneState.getMedia()
+        if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == file }) {
             fileBrowser.songList[index].title = sceneState.song.metaData.title
             fileBrowser.songList[index].artist = sceneState.song.metaData.artist
             fileBrowser.songList[index].tags = sceneState.song.metaData.tags

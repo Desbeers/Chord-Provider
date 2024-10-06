@@ -11,7 +11,7 @@ import SwiftUI
 @main struct ChordProviderApp: App {
     /// The observable ``FileBrowser`` class
     @State private var fileBrowser = FileBrowserModel.shared
-    /// The state of the app
+    /// The observable state of the application
     @State private var appState = AppStateModel.shared
     /// The ``AppDelegate`` class  for **Chord Provider**
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegateModel
@@ -132,7 +132,7 @@ import SwiftUI
 
         /// Add Chord Provider to the Menu Bar
         MenuBarExtra("Chord Provider", systemImage: "guitars") {
-            FileBrowserView()
+            WelcomeView(appDelegate: appDelegate)
                 .environment(fileBrowser)
                 .withHostingWindow { window in
                     fileBrowser.menuBarExtraWindow = window
@@ -149,18 +149,5 @@ import SwiftUI
                 .environment(fileBrowser)
                 .frame(width: 340, height: 480)
         }
-    }
-
-    // MARK: Scene Windows
-
-    /// The window scenes we can open on macOS
-    ///
-    /// - Note: The ID of a scene we set on on a `Window` or to open a `Window` in the environment is a `String`.
-    /// This is is asking for troubles, so I use an `enum` instead.
-    private enum AppSceneID: String {
-        /// A scene with a list of songs
-        case songListWindow
-        /// A scene to export a folder of songs
-        case exportFolderWindow
     }
 }

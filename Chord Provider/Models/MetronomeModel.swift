@@ -1,5 +1,5 @@
 //
-//  Metronome.swift
+//  MetronomeModel.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -8,10 +8,8 @@
 import Foundation
 import AVFoundation
 
-/// The observable metronome for Chord Provider
-@MainActor
-@Observable
-final class Metronome {
+/// The observable metronome state for **Chord Provider**
+@MainActor @Observable final class MetronomeModel {
     /// The time signature
     var time: String = "4/4" {
         didSet {
@@ -54,10 +52,10 @@ final class Metronome {
 
     /// Init the class
     init() {
-        if let fileURL = Bundle.main.url(forResource: "Low", withExtension: "aif") {
+        if let fileURL = Bundle.main.url(forResource: "LowTick", withExtension: "aif") {
             AudioServicesCreateSystemSoundID(fileURL as CFURL, &lowSoundID)
         }
-        if let fileURL = Bundle.main.url(forResource: "High", withExtension: "aif") {
+        if let fileURL = Bundle.main.url(forResource: "HighTick", withExtension: "aif") {
             AudioServicesCreateSystemSoundID(fileURL as CFURL, &highSoundID)
         }
     }

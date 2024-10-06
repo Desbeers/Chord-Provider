@@ -1,5 +1,5 @@
 //
-//  ChordPro.swift
+//  ChordProParser.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-/// The `ChordPro` file parser
-actor ChordPro {
+/// The **ChordPro** file parser
+actor ChordProParser {
 
     // MARK: Parse a 'ChordPro' file
 
@@ -55,7 +55,7 @@ actor ChordPro {
                     currentSection.lines.append(line)
                 } else {
                     processSection(
-                        label: Environment.none.rawValue,
+                        label: ChordPro.Environment.none.rawValue,
                         type: .none,
                         song: &song,
                         currentSection: &currentSection
@@ -153,8 +153,8 @@ actor ChordPro {
                     case .none:
                         /// A comment in its own section
                         processSection(
-                            label: Environment.comment.rawValue,
-                            type: Environment.comment,
+                            label: ChordPro.Environment.comment.rawValue,
+                            type: ChordPro.Environment.comment,
                             song: &song,
                             currentSection: &currentSection
                         )
@@ -172,7 +172,7 @@ actor ChordPro {
                 /// ## Start of Chorus
             case .soc, .startOfChorus:
                 processSection(
-                    label: label ?? Environment.chorus.rawValue,
+                    label: label ?? ChordPro.Environment.chorus.rawValue,
                     type: .chorus,
                     song: &song,
                     currentSection: &currentSection
@@ -181,7 +181,7 @@ actor ChordPro {
                 /// ## Repeat Chorus
             case .chorus:
                 processSection(
-                    label: label ?? Environment.chorus.rawValue,
+                    label: label ?? ChordPro.Environment.chorus.rawValue,
                     type: .repeatChorus,
                     song: &song,
                     currentSection: &currentSection
@@ -192,7 +192,7 @@ actor ChordPro {
                 /// ## Start of Verse
             case .sov, .startOfVerse:
                 processSection(
-                    label: label ?? Environment.verse.rawValue,
+                    label: label ?? ChordPro.Environment.verse.rawValue,
                     type: .verse,
                     song: &song,
                     currentSection: &currentSection
@@ -201,7 +201,7 @@ actor ChordPro {
                 /// ## Start of Bridge
             case .sob, .startOfBridge:
                 processSection(
-                    label: label ?? Environment.bridge.rawValue,
+                    label: label ?? ChordPro.Environment.bridge.rawValue,
                     type: .bridge,
                     song: &song,
                     currentSection: &currentSection
@@ -210,7 +210,7 @@ actor ChordPro {
                 /// ## Start of Tab
             case .sot, .startOfTab:
                 processSection(
-                    label: label ?? Environment.tab.rawValue,
+                    label: label ?? ChordPro.Environment.tab.rawValue,
                     type: .tab,
                     song: &song,
                     currentSection: &currentSection
@@ -219,7 +219,7 @@ actor ChordPro {
                 /// ## Start of Grid
             case .sog, .startOfGrid:
                 processSection(
-                    label: label ?? Environment.grid.rawValue,
+                    label: label ?? ChordPro.Environment.grid.rawValue,
                     type: .grid,
                     song: &song,
                     currentSection: &currentSection
@@ -228,7 +228,7 @@ actor ChordPro {
                 /// ## Start of Textblock
             case .startOfTextblock:
                 processSection(
-                    label: label ?? Environment.textblock.rawValue,
+                    label: label ?? ChordPro.Environment.textblock.rawValue,
                     type: .textblock,
                     song: &song,
                     currentSection: &currentSection
@@ -237,7 +237,7 @@ actor ChordPro {
                 /// ## Start of Strum (custom)
             case .sos, .startOfStrum:
                 processSection(
-                    label: label ?? Environment.strum.rawValue,
+                    label: label ?? ChordPro.Environment.strum.rawValue,
                     type: .strum,
                     song: &song,
                     currentSection: &currentSection
@@ -246,7 +246,7 @@ actor ChordPro {
                 /// # End of environment
             case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid, .eos, .endOfTextblock, .endOfStrum:
                 processSection(
-                    label: Environment.none.rawValue,
+                    label: ChordPro.Environment.none.rawValue,
                     type: .none,
                     song: &song,
                     currentSection: &currentSection
@@ -259,11 +259,6 @@ actor ChordPro {
                 }
 
                 // MARK: Custom directives
-            case .musicPath:
-                if let label {
-                    song.definedMetaData.append(directive)
-                    song.metaData.musicPath = label
-                }
             case .tag:
                 if let label {
                     song.metaData.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
@@ -284,7 +279,7 @@ actor ChordPro {
     ///   - currentSection: The current `section` of the `song`
     private static func processSection(
         label: String,
-        type: Environment,
+        type: ChordPro.Environment,
         song: inout Song,
         currentSection: inout Song.Section
     ) {
@@ -348,7 +343,7 @@ actor ChordPro {
         /// Mark the section as Tab if not set
         if currentSection.type == .none {
             currentSection.type = .tab
-            currentSection.label = Environment.tab.rawValue
+            currentSection.label = ChordPro.Environment.tab.rawValue
         }
     }
 
@@ -387,7 +382,7 @@ actor ChordPro {
         /// Mark the section as Grid if not set
         if currentSection.type == .none {
             currentSection.type = .grid
-            currentSection.label = Environment.grid.rawValue
+            currentSection.label = ChordPro.Environment.grid.rawValue
         }
     }
 
@@ -444,7 +439,7 @@ actor ChordPro {
                 /// Because it has a chord; it should be at least a verse
                 if currentSection.type == .none {
                     currentSection.type = .verse
-                    currentSection.label = Environment.verse.rawValue
+                    currentSection.label = ChordPro.Environment.verse.rawValue
                 }
             }
             if let lyric {

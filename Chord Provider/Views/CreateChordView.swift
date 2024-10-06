@@ -6,14 +6,11 @@
 //
 import SwiftUI
 
-/// A SwiftUI `View` to create a ``ChordDefinition`` with pickers
+/// SwiftUI `View` to create a ``ChordDefinition`` with pickers
 struct CreateChordView: View {
-
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-
-
-    /// Chord Display Options object
+    /// The binding to the observable state of the scene
     @Bindable var sceneState: SceneStateModel
     /// The chord diagram
     @State private var diagram: ChordDefinition?

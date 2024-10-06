@@ -8,12 +8,10 @@
 import SwiftUI
 import OSLog
 
-/// The observable scene state for Chord Provider
+/// The observable scene state for **Chord Provider**
 @MainActor @Observable final class SceneStateModel {
     /// The current ``Song``
     var song = Song()
-    /// The optional file location
-    var file: URL?
     /// PDF preview related stuff
     var preview = PreviewState()
     /// The internals of the **Chord Provider** editor
@@ -56,6 +54,19 @@ import OSLog
         } catch {
             Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
             return nil
+        }
+    }
+
+    func getMedia() {
+        if let fileURL = song.metaData.fileURL {
+            var mediaURL = fileURL.deletingPathExtension().appendingPathExtension("m4a")
+            if mediaURL.exist() {
+                song.metaData.audioURL = mediaURL
+            }
+            mediaURL = fileURL.deletingPathExtension().appendingPathExtension("mp4")
+            if mediaURL.exist() {
+                song.metaData.videoURL = mediaURL
+            }
         }
     }
 

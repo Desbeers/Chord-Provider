@@ -1,5 +1,5 @@
 //
-//  EditorView+Directive.swift
+//  ChordPro+Directive+extension.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -72,7 +72,7 @@ extension ChordPro.Directive {
 
     // MARK: Grouped directives
 
-    /// Array of **Metadata** ``ChordPro/Directive``
+    /// Array of **Metadata** ``ChordProParser/Directive``
     static var metaDataDirectives: [ChordPro.Directive] {
         [
             .title,
@@ -83,12 +83,11 @@ extension ChordPro.Directive {
             .time,
             .tempo,
             .capo,
-            .tag,
-            .musicPath
+            .tag
         ]
     }
 
-    /// Array of **environment** ``ChordPro/Directive``
+    /// Array of **environment** ``ChordProParser/Directive``
     static var environmentDirectives: [ChordPro.Directive] {
         [
             .startOfVerse,

@@ -8,14 +8,13 @@
 import SwiftUI
 
 /// SwiftUI `View` for the metronome
-@MainActor
-struct MetronomeView: View {
+@MainActor struct MetronomeView: View {
     /// The time signature
     let time: String
     /// The bpm
     let bpm: Float
-    /// The metronome model
-    @State var metronome = Metronome()
+    /// The observable state of the metronome
+    @State var metronome = MetronomeModel()
     /// The body of the `View`
     var body: some View {
         Button(

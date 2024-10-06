@@ -2,7 +2,7 @@
 //  ScaleModifier.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 29/09/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI

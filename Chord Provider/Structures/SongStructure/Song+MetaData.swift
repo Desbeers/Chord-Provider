@@ -34,8 +34,10 @@ extension Song {
         var album: String?
         /// The optional tuning
         var tuning: String?
-        /// The optional path to the audio file
-        var musicPath: String?
+        /// The optional URL to the audio file
+        var audioURL: URL?
+        /// The optional URL to the video file
+        var videoURL: URL?
         /// The optional tag(s)
         var tags: [String] = []
         /// The optional transpose

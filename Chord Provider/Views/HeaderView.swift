@@ -9,6 +9,8 @@ import SwiftUI
 
 /// SwiftUI `View` for the header
 struct HeaderView: View {
+    /// The AppDelegate to bring additional Windows into the SwiftUI world
+    @Environment(AppDelegateModel.self) private var appDelegate
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
     /// The observable state of the scene
@@ -18,11 +20,7 @@ struct HeaderView: View {
         HStack(alignment: .center) {
             General(song: sceneState.song)
             Details(song: sceneState.song)
-            if let tempo = sceneState.song.metaData.tempo, let bpm = Float(tempo) {
-                MetronomeView(time: sceneState.song.metaData.time ?? "4/4", bpm: bpm)
-                    .padding(.leading)
-            }
-            sceneState.audioPlayerButtons
+            MediaPlayerView.Buttons()
         }
         .padding(4)
         .frame(maxWidth: .infinity)

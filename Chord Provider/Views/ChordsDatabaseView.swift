@@ -2,14 +2,14 @@
 //  ChordsDatabaseView.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 29/09/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 
 @MainActor struct ChordsDatabaseView: View {
 
-    /// The app state
+    /// The observable state of the application
     @State private var appState = AppStateModel(id: .chordsDatabaseView)
     /// The state of the scene
     @State private var sceneState = SceneStateModel(id: .chordsDatabaseView)

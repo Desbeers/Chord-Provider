@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-/// A SwiftUI `View` for a ``ChordDefinition``
+/// SwiftUI `View` for a ``ChordDefinition``
 
 struct ChordDefinitionView: View {
 

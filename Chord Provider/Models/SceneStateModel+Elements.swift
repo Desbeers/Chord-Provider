@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import QuickLook
 
 // MARK: Menus
 
@@ -19,7 +20,7 @@ extension SceneStateModel {
     }
     /// Chords menu
     private struct ChordsMenu: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -48,7 +49,7 @@ extension SceneStateModel {
     }
     /// Show chords button
     private struct ShowChordsButton: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -74,7 +75,7 @@ extension SceneStateModel {
 
     /// Chords As Diagram Toggle
     private struct ChordsAsDiagramToggle: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -101,7 +102,7 @@ extension SceneStateModel {
     }
     /// Song Paging Picker
     private struct SongPagingPicker: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -122,7 +123,7 @@ extension SceneStateModel {
     }
     /// Chords Position Picker
     private struct ChordsPositionPicker: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -144,7 +145,7 @@ extension SceneStateModel {
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
     struct RootPicker: View {
-        /// Chord Display Options object
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -165,7 +166,7 @@ extension SceneStateModel {
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
     struct QualityPicker: View {
-        /// Chord Display Options object
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -186,7 +187,7 @@ extension SceneStateModel {
     }
     /// SwiftUI `View` with a `Picker` to select a `baseFret` value
     struct BaseFretPicker: View {
-        /// Chord Display Options object
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The selected bass note
         @State private var bass: Chord.Root = .none
@@ -215,7 +216,7 @@ extension SceneStateModel {
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as bass note
     struct BassPicker: View {
-        /// Chord Display Options object
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The selected bass note
         @State private var bass: Chord.Root = .none
@@ -255,7 +256,7 @@ extension SceneStateModel {
         let instrument: Instrument
         /// The order of the tuning
         let guitarTuningOrder: [Int]
-        /// Chord Display Options object
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -305,7 +306,7 @@ extension SceneStateModel {
         let instrument: Instrument
         /// The order of the tuning
         let guitarTuningOrder: [Int]
-        /// Chord Display Options object
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -342,7 +343,7 @@ extension SceneStateModel {
     }
     /// Scale Slider
     private struct ScaleSlider: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -364,7 +365,7 @@ extension SceneStateModel {
     }
     /// Show Editor Button
     private struct ShowEditorButton: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -385,7 +386,7 @@ extension SceneStateModel {
     }
     /// Transpose Up
     private struct TransposeUp: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -406,7 +407,7 @@ extension SceneStateModel {
     }
     /// Transpose Down
     private struct TransposeDown: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -432,7 +433,7 @@ extension SceneStateModel {
     }
     /// Transpose Menu
     private struct TransposeMenu: View {
-        /// The binding to the observable ``SceneStateModel``
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
@@ -440,40 +441,6 @@ extension SceneStateModel {
                 sceneState.transposeDown
                 sceneState.transposeUp
             }
-        }
-    }
-}
-
-extension SceneStateModel {
-
-    // MARK: Audio Player Buttons
-
-    /// Audio Player Buttons
-    var audioPlayerButtons: some View {
-        AudioPlayerButtons(sceneState: self)
-    }
-    /// Audio Player Buttons
-    private struct AudioPlayerButtons: View {
-        /// The binding to the observable ``SceneStateModel``
-        @Bindable var sceneState: SceneStateModel
-        /// The body of the `View`
-        var body: some View {
-            if let musicURL = getMusicURL() {
-                AudioPlayerView(musicURL: musicURL)
-                    .padding(.leading)
-            } else {
-                EmptyView()
-            }
-        }
-        /// Get the URL for the music file
-        /// - Returns: A full URL to the file, if found
-        @MainActor private func getMusicURL() -> URL? {
-            guard let file = sceneState.file, let path = sceneState.song.metaData.musicPath else {
-                return nil
-            }
-            var musicURL = file.deletingLastPathComponent()
-            musicURL.appendPathComponent(path)
-            return musicURL
         }
     }
 }
@@ -490,7 +457,7 @@ extension SceneStateModel {
     }
     /// SwiftUI `Picker` to select a  ``Instrument`` value
     struct InstrumentPicker: View {
-        /// Chord Display Options object
+        /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {

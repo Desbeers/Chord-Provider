@@ -17,7 +17,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             contentSize: CGSize.init(width: 800, height: 800)
         ) { (replyToUpdate: QLPreviewReply) in
             let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-            let song = ChordPro.parse(
+            let song = ChordProParser.parse(
                 id: UUID(),
                 text: fileContents,
                 transpose: 0,

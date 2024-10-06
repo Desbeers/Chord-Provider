@@ -1,5 +1,5 @@
 //
-//  ChordPro+Directive.swift
+// ChordPro+Directive.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -151,9 +151,6 @@ extension ChordPro {
         case define
 
         // MARK: Custom directives
-
-        /// This directive has the path to the music file
-        case musicPath = "musicpath"
 
         /// This directive defines a tag for the song
         case tag

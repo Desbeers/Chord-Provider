@@ -2,7 +2,7 @@
 //  PreviewPDFButton.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 26/05/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI

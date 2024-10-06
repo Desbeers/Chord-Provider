@@ -9,6 +9,7 @@ disabled_rules:
   - orphaned_doc_comment
   - todo
   - unused_capture_list
+  - nesting
 
 analyzer_rules:
   - unused_import

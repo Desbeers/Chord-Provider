@@ -8,10 +8,8 @@
 import SwiftUI
 import OSLog
 
-/// The observable ``FileBrowserModel`` class
-@Observable
-@MainActor
-class FileBrowserModel {
+/// The observable file broweser state for **Chord Provider**
+@Observable @MainActor class FileBrowserModel {
     /// The shared instance of the class
     static let shared = FileBrowserModel()
     /// The list of songs
@@ -62,8 +60,6 @@ extension FileBrowserModel {
         var search: String {
             "\(title) \(artist)"
         }
-        /// Path of the optional audio file
-        var musicPath: String = ""
         /// URL of the ChordPro document
         var fileURL: URL
     }
@@ -150,10 +146,6 @@ extension FileBrowserModel {
                     song.title = label ?? "Unknown Title"
                 case .st, .subtitle, .artist:
                     song.artist = label ?? "Unknown Artist"
-                case .musicPath:
-                    if let label {
-                        song.musicPath = label
-                    }
                 case .tag:
                     if let label {
                         song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))

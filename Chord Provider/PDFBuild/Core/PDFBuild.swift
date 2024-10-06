@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// A collection of bits and pieces to create a PDF from a ``Song``
+/// A collection of bits and pieces to create a PDF
 enum PDFBuild {
 
     // MARK: Static defaults

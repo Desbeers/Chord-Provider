@@ -77,6 +77,7 @@ extension EditorView.DirectiveSheet {
 extension EditorView.DirectiveSheet {
     /// The default `View` when there is no specific `View` for the ``ChordPro/Directive``
     @ViewBuilder var defaultView: some View {
+        /// The binding to the observable state of the scene
         @Bindable var sceneState = sceneState
         directiveTitleView
         TextField(
@@ -107,6 +108,7 @@ extension EditorView.DirectiveSheet {
 
     /// `View` to define a chord
     @ViewBuilder var defineView: some View {
+        /// The binding to the observable state of the scene
         @Bindable var sceneState = sceneState
         CreateChordView(sceneState: sceneState)
         HStack {

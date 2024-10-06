@@ -1,27 +1,11 @@
 //
-//  CloseWindowButton.swift
+//  CloseWindowModifier.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 01/10/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
-
-struct CloseWindowButton: View {
-    /// The action when a file is selected
-    let action: () -> Void
-    /// The body of the `View`
-    var body: some View {
-        Button {
-            action()
-        } label: {
-            Image(systemName: "xmark.circle")
-                .imageScale(.medium)
-                .foregroundStyle(.secondary)
-                .padding(5)
-        }
-    }
-}
 
 struct CloseWindowModifier: ViewModifier {
 

@@ -20,7 +20,7 @@ extension ChordDefinition {
         } else {
             name = self.root.display + self.quality.display
             if let bass = self.bass {
-                name += bass.display
+                name += "/\(bass.display)"
             }
         }
         return name
