@@ -16,6 +16,8 @@ extension WelcomeView {
         @State private var appState = AppStateModel.shared
         /// The observable ``FileBrowser`` class
         @State private var fileBrowser = FileBrowserModel.shared
+        /// The AppDelegate to bring additional Windows into the SwiftUI world
+        let appDelegate: AppDelegateModel
         /// The body of the `View`
         var body: some View {
             VStack {
@@ -25,6 +27,8 @@ extension WelcomeView {
                             action: {
                                 Task {
                                     do {
+                                        print("RECENT")
+                                        appDelegate.closeWelcomeView()
                                         try await NSDocumentController.shared.openDocument(withContentsOf: url, display: true)
                                     } catch {
                                         Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
@@ -32,11 +36,7 @@ extension WelcomeView {
                                 }
                             },
                             label: {
-                                if let song = fileBrowser.songList.first(where: { $0.fileURL == url }) {
-                                    FileBrowser.Row(song: song, showArtist: true)
-                                } else {
                                     Label(url.deletingPathExtension().lastPathComponent, systemImage: "doc.badge.clock")
-                                }
                             }
                         )
                     }

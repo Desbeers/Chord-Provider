@@ -72,6 +72,7 @@ extension WelcomeView {
                         }
                     )
                 }
+                .padding(.trailing)
                 .labelStyle(.createDocument)
             }
         }

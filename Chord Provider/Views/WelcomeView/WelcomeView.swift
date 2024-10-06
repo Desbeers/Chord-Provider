@@ -37,7 +37,7 @@ import OSLog
                 .padding(.top)
                 switch selectedTab {
                 case .recent:
-                    RecentFiles()
+                    RecentFiles(appDelegate: appDelegate)
                 case .yourSongs:
                     FileBrowser()
                 }

@@ -19,8 +19,7 @@ import SwiftUI
         for window in NSApp.windows where window.styleMask.rawValue != 0 {
             window.close()
         }
-        //showNewDocumentView()
-        showChordsDatabaseView()
+        showWelcomeView()
     }
 
     /// Show the `NewDocumentView` instead of the NSOpenPanel when there are no documents open
@@ -29,7 +28,7 @@ import SwiftUI
         case true:
             return true
         case false:
-            showNewDocumentView()
+            showWelcomeView()
             return false
         }
     }
@@ -47,7 +46,7 @@ import SwiftUI
     /// The controller for the `WelcomeView` window
     private var welcomeViewController: NSWindowController?
     /// Show the `WelcomeView` window in Appkit
-    @MainActor func showNewDocumentView() {
+    @MainActor func showWelcomeView() {
         if welcomeViewController == nil {
             let window = createWindow(id: .welcomeView)
             window.styleMask.remove(.titled)

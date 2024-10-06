@@ -34,7 +34,7 @@ import SwiftUI
                     .withHostingWindow { window in
                         window?.alphaValue = 0
                         window?.close()
-                        appDelegate.showNewDocumentView()
+                        appDelegate.showWelcomeView()
                     }
             } else {
                 ContentView(document: file.$document, file: file.fileURL)
@@ -132,6 +132,7 @@ import SwiftUI
                 .environment(fileBrowser)
                 .withHostingWindow { window in
                     fileBrowser.menuBarExtraWindow = window
+                    appDelegate.closeWelcomeView()
                 }
         }
         .menuBarExtraStyle(.window)
