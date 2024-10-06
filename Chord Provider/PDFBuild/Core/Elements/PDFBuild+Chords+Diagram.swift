@@ -111,7 +111,7 @@ extension PDFBuild.Chords {
                     width: gridSize.width + 3 * xSpacing,
                     height: rect.height
                 )
-                let chord = chord.displayName
+                let chord = chord.display
                 let name = PDFBuild.Text(chord, attributes: .diagramChordName + .alignment(.center))
                 name.draw(rect: &nameRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 /// Add this item to the total height

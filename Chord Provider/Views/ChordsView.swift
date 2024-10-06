@@ -65,7 +65,7 @@ extension ChordsView {
     @MainActor @ViewBuilder var chordsSheet: some View {
         if let selectedChord {
             VStack {
-                Text("Chord: \(selectedChord.displayName)")
+                Text("Chord: \(selectedChord.display)")
                     .font(.title)
                 HStack {
                     ForEach(selectedChord.quality.intervals.intervals, id: \.self) { interval in

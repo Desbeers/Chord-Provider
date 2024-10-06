@@ -83,12 +83,6 @@ import SwiftUI
                 } label: {
                     Text("About Chord Provider")
                 }
-                Divider()
-                Button {
-                    appDelegate.showChordsDatabaseView()
-                } label: {
-                    Text("Chords Database")
-                }
             }
             CommandGroup(after: .newItem) {
                 Divider()
@@ -97,12 +91,14 @@ import SwiftUI
                 } label: {
                     Text("Export Folder…")
                 }
-                Divider()
+            }
+            CommandGroup(after: .toolbar) {
                 Button {
                     appDelegate.showChordsDatabaseView()
                 } label: {
-                    Text("Chords Database")
+                    Text("Show Chords Database")
                 }
+                Divider()
             }
 #if DEBUG
             CommandMenu("Debug") {

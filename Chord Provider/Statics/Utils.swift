@@ -63,7 +63,7 @@ enum Utils {
 
     /// Check if fingers should be barred
     /// - Parameters:
-    ///   - frets: The frest of the chord
+    ///   - frets: The frets of the chord
     ///   - fingers: The fingers of the chord
     ///   - baseFret: The base fret of the chord
     /// - Returns: An array with fingers that shoud be barred

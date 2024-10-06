@@ -165,8 +165,8 @@ extension EditorView.DirectiveSheet {
     @ViewBuilder var keyView: some View {
         directiveTitleView
         HStack {
-            sceneState.rootPicker
-            sceneState.qualityPicker
+            sceneState.rootPicker()
+            sceneState.qualityPicker()
         }
         .padding()
         .labelsHidden()

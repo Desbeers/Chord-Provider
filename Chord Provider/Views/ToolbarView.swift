@@ -13,8 +13,6 @@ struct ToolbarView: View {
     @Environment(AppStateModel.self) private var appState
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
-    /// The ChordPro document
-    let document: ChordProDocument
     /// The body of the `View`
     var body: some View {
         HStack {
@@ -23,7 +21,7 @@ struct ToolbarView: View {
                 sceneState.songPagingPicker
                     .pickerStyle(.segmented)
                 sceneState.instrumentPicker
-                    .pickerStyle(.segmented)
+                    //.pickerStyle(.segmented)
                 sceneState.transposeMenu
                 sceneState.chordsMenu
             }

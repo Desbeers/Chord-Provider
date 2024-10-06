@@ -83,7 +83,7 @@ extension Chord {
             case .aSharp:   "A♯"
             case .bFlat:    "B♭"
             case .b:        "B"
-            case .none:     "X"
+            case .none:     "All"
             }
         }
 
@@ -101,8 +101,8 @@ extension Chord {
             }
         }
 
-        /// The copy of a root
-        var copy: Root {
+        /// Swap sharp and flat
+        var swapSharpFlat: Root {
             switch self {
             case .cSharp:
                     .dFlat

@@ -13,6 +13,9 @@ extension Chord {
     /// - Note: Changes to the raw value might break the databases
     enum Quality: String, CaseIterable, Codable, Comparable, Sendable {
 
+        /// Fallback
+        case unknown = "All Qualities"
+
         // MARK: Triad
 
         /// Major
@@ -123,11 +126,6 @@ extension Chord {
         /// Augmented 9
         case augNine = "aug9"
 
-        // MARK: Other
-
-        /// Fallback
-        case unknown
-
         /// Implement Comparable
         static func < (lhs: Self, rhs: Self) -> Bool {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
@@ -136,6 +134,7 @@ extension Chord {
         /// The display of Quality
         var display: String {
             switch self {
+            case .unknown:                  "All"
             case .major:                    ""
             case .minor:                    "m"
             case .dim:                      "dim"
@@ -181,7 +180,6 @@ extension Chord {
             case .addNine:                  "add⁹"
             case .minorAddNine:             "madd⁹"
             case .addEleven:                "add¹¹"
-            case .unknown:                  "?"
             }
         }
 

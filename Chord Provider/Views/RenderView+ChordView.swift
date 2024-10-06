@@ -46,7 +46,7 @@ extension RenderView {
         var body: some View {
             switch settings.song.chords {
             case .asName:
-                Text("\(chord.displayName) ")
+                Text("\(chord.display) ")
                     .foregroundStyle(color)
                     .onTapGesture {
                         popover = popoverID

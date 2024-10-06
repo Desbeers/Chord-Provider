@@ -30,6 +30,8 @@ extension ChordDefinition {
         self.instrument = .guitar
     }
 
+    // MARK: Init with all known values
+
     /// Init the ``ChordDefinition`` with all known values
     init(
         id: UUID,

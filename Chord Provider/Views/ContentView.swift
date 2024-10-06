@@ -24,7 +24,7 @@ import SwiftUI
             MainView(document: $document, file: file)
         }
         .toolbar {
-            ToolbarView(document: document)
+            ToolbarView()
         }
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)

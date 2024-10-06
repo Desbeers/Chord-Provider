@@ -23,20 +23,20 @@ struct CreateChordView: View {
     /// The body of the `View`
     var body: some View {
         VStack {
-            Text("\(sceneState.definition.displayName)")
+            Text("\(sceneState.definition.display)")
                 .font(.largeTitle)
             HStack {
                 ForEach(sceneState.definition.quality.intervals.intervals, id: \.self) { interval in
                     Text(interval.description)
                 }
             }
-            sceneState.rootPicker
+            sceneState.rootPicker()
                 .pickerStyle(.segmented)
                 .padding(.bottom)
                 .labelsHidden()
             HStack {
                 LabeledContent(content: {
-                    sceneState.qualityPicker
+                    sceneState.qualityPicker()
                         .labelsHidden()
                 }, label: {
                     Text("Quality:")
@@ -64,7 +64,7 @@ struct CreateChordView: View {
                         title: {
                             if let components = chordComponents.first {
                                 HStack {
-                                    Text("**\(sceneState.definition.displayName)** contains")
+                                    Text("**\(sceneState.definition.display)** contains")
                                     ForEach(components, id: \.self) { element in
                                         Text(element.display)
                                             .fontWeight(checkRequiredNote(note: element) ? .bold : .regular)

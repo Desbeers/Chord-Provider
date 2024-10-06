@@ -33,7 +33,7 @@ extension PDFBuild {
             let items = NSMutableAttributedString()
             items.append(detailLabel(icon: "􀑭", label: song.settings.song.instrument.label))
             if let key = song.metaData.key {
-                items.append(detailLabel(icon: "􀟕", label: key.displayName))
+                items.append(detailLabel(icon: "􀟕", label: key.display))
             }
             if let capo = song.metaData.capo {
                 items.append(detailLabel(icon: "􀉢", label: capo))

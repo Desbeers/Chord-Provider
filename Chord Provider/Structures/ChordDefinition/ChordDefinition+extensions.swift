@@ -1,5 +1,5 @@
 //
-//  ChordDefinition+Extensions.swift
+//  ChordDefinition+extensions.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -10,9 +10,8 @@ import SwiftUI
 extension ChordDefinition {
 
     /// Format the name of the chord for display
-    /// - Parameter options: The ``DisplayOptions``
     /// - Returns: A formatted string with the name of the chord
-    var displayName: String {
+    var display: String {
         var name: String = ""
         if self.status == .unknownChord || self.quality == .unknown {
             /// We don't know anything about this chord; so use the original name

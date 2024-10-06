@@ -19,7 +19,8 @@ import SwiftUI
         for window in NSApp.windows where window.styleMask.rawValue != 0 {
             window.close()
         }
-        showNewDocumentView()
+        //showNewDocumentView()
+        showChordsDatabaseView()
     }
 
     /// Show the `NewDocumentView` instead of the NSOpenPanel when there are no documents open
@@ -152,7 +153,7 @@ import SwiftUI
         window.title = id.rawValue
         window.styleMask = styleMask
         window.titlebarAppearsTransparent = true
-        window.toolbarStyle = .unifiedCompact
+        window.toolbarStyle = .unified
         window.identifier = NSUserInterfaceItemIdentifier(id.rawValue)
         /// Just a fancy animation; it is not a document window
         window.animationBehavior = .documentWindow

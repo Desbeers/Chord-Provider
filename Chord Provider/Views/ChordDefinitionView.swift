@@ -72,7 +72,7 @@ struct ChordDefinitionView: View {
     var body: some View {
         VStack(spacing: 0) {
             if diagramDisplayOptions.showName {
-                Text(chord.displayName)
+                Text(chord.display)
                     .font(.system(size: lineHeight, weight: .semibold, design: .default))
                     .padding(lineHeight / 4)
             }

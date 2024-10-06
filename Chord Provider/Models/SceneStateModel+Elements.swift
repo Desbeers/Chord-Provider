@@ -140,20 +140,28 @@ extension SceneStateModel {
     // MARK: Root Picker
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
-    var rootPicker: some View {
-        RootPicker(sceneState: self)
+    func rootPicker(showAll: Bool = false) -> some View {
+        RootPicker(sceneState: self, showAll: showAll)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
     struct RootPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
+        /// Bool to show the 'all' option
+        let showAll: Bool
         /// The body of the `View`
         var body: some View {
             Picker("Root:", selection: $sceneState.definition.root) {
-                ForEach(Chord.Root.allCases.dropFirst(), id: \.rawValue) { value in
+                ForEach(cases, id: \.rawValue) { value in
                     Text(value.display)
                         .tag(value)
                 }
+            }
+        }
+        var cases: [Chord.Root] {
+            switch showAll {
+            case true: Chord.Root.allCases
+            case false: Array(Chord.Root.allCases.dropFirst())
             }
         }
     }
@@ -161,20 +169,28 @@ extension SceneStateModel {
     // MARK: Quality Picker
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
-    var qualityPicker: some View {
-        QualityPicker(sceneState: self)
+    func qualityPicker(showAll: Bool = false) -> some View {
+        QualityPicker(sceneState: self, showAll: showAll)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
     struct QualityPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
+        /// Bool to show the 'all' option
+        let showAll: Bool
         /// The body of the `View`
         var body: some View {
             Picker("Quality:", selection: $sceneState.definition.quality) {
                 ForEach(Chord.Quality.allCases, id: \.rawValue) { value in
-                    Text(value == .major ? "major" : value.rawValue)
+                    Text(value == .major ? "major" : value.display)
                         .tag(value)
                 }
+            }
+        }
+        var cases: [Chord.Quality] {
+            switch showAll {
+            case true: Chord.Quality.allCases
+            case false: Array(Chord.Quality.allCases.dropFirst())
             }
         }
     }
@@ -465,6 +481,7 @@ extension SceneStateModel {
                 ForEach(Instrument.allCases, id: \.rawValue) { value in
                     Text(value.label)
                         .tag(value)
+                        .help(value.description)
                 }
             }
         }

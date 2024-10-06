@@ -37,7 +37,7 @@ extension PDFBuild.LyricsSection.Line {
                 var chordString: String = " "
                 var chordStatus: Chord.Status = .unknownChord
                 if let chord = chords.first(where: { $0.id == part.chord }) {
-                    chordString = chord.displayName
+                    chordString = chord.display
                     chordStatus = chord.status
                 }
                 self.text.append(

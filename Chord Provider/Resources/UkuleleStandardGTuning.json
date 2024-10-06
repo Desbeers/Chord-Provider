@@ -1,40 +1,61 @@
 {
+  "pdf" : {
+    "diagrams" : {
+      "vcells" : 6
+    }
+  },
+  "instrument" : {
+    "description" : "Ukulele, 4 strings, standard tuning",
+    "type" : "ukulele"
+  },
+  "tuning" : [
+    "G4",
+    "C4",
+    "E4",
+    "A4"
+  ],
   "chords" : [
     {
-      "fingers" : [
+      "frets" : [
         2,
         1,
         0,
         0
       ],
       "name" : "A",
-      "frets" : [
+      "base" : 1,
+      "fingers" : [
         2,
         1,
         0,
         0
-      ],
-      "base" : 1
+      ]
     },
     {
-      "display" : "A♯",
-      "base" : 1,
-      "frets" : [
-        3,
-        2,
-        1,
-        1
-      ],
       "fingers" : [
         3,
         2,
         1,
         1
       ],
-      "name" : "A#"
+      "name" : "A#",
+      "frets" : [
+        3,
+        2,
+        1,
+        1
+      ],
+      "display" : "A♯",
+      "base" : 1
     },
     {
-      "name" : "A#\/A",
+      "base" : 1,
+      "fingers" : [
+        3,
+        4,
+        1,
+        2
+      ],
       "display" : "A♯\/A",
       "frets" : [
         2,
@@ -42,32 +63,28 @@
         1,
         1
       ],
-      "fingers" : [
-        3,
-        4,
-        1,
-        2
-      ],
-      "base" : 1
+      "name" : "A#\/A"
     },
     {
-      "base" : 1,
-      "display" : "A♯¹¹",
-      "fingers" : [
-        1,
-        1,
-        2,
-        3
-      ],
       "frets" : [
         3,
         3,
         4,
         5
       ],
-      "name" : "A#11"
+      "fingers" : [
+        1,
+        1,
+        2,
+        3
+      ],
+      "base" : 1,
+      "name" : "A#11",
+      "display" : "A♯¹¹"
     },
     {
+      "display" : "A♯¹³",
+      "base" : 1,
       "fingers" : [
         0,
         2,
@@ -75,8 +92,6 @@
         1
       ],
       "name" : "A#13",
-      "display" : "A♯¹³",
-      "base" : 1,
       "frets" : [
         0,
         2,
@@ -85,8 +100,8 @@
       ]
     },
     {
-      "name" : "A#5",
       "base" : 1,
+      "display" : "A♯⁵",
       "frets" : [
         3,
         5,
@@ -99,26 +114,27 @@
         1,
         1
       ],
-      "display" : "A♯⁵"
+      "name" : "A#5"
     },
     {
-      "name" : "A#6",
-      "base" : 1,
       "frets" : [
         0,
         2,
         1,
         1
       ],
+      "display" : "A♯⁶",
+      "name" : "A#6",
       "fingers" : [
         0,
         2,
         1,
         1
       ],
-      "display" : "A♯⁶"
+      "base" : 1
     },
     {
+      "base" : 1,
       "display" : "A♯⁷",
       "frets" : [
         1,
@@ -127,7 +143,6 @@
         1
       ],
       "name" : "A#7",
-      "base" : 1,
       "fingers" : [
         1,
         2,
@@ -136,7 +151,7 @@
       ]
     },
     {
-      "base" : 1,
+      "name" : "A#7sus2",
       "frets" : [
         1,
         0,
@@ -149,19 +164,19 @@
         2,
         3
       ],
-      "display" : "A♯⁷sus²",
-      "name" : "A#7sus2"
+      "base" : 1,
+      "display" : "A♯⁷sus²"
     },
     {
-      "frets" : [
+      "display" : "A♯⁷sus⁴",
+      "name" : "A#7sus4",
+      "fingers" : [
         1,
         3,
         1,
         1
       ],
-      "name" : "A#7sus4",
-      "display" : "A♯⁷sus⁴",
-      "fingers" : [
+      "frets" : [
         1,
         3,
         1,
@@ -176,69 +191,71 @@
         4,
         3
       ],
-      "fingers" : [
-        2,
-        1,
-        4,
-        3
-      ],
+      "base" : 1,
       "display" : "A♯⁹",
       "name" : "A#9",
-      "base" : 1
+      "fingers" : [
+        2,
+        1,
+        4,
+        3
+      ]
     },
     {
+      "frets" : [
+        3,
+        2,
+        1,
+        3
+      ],
+      "display" : "A♯add⁹",
+      "name" : "A#add9",
       "base" : 1,
       "fingers" : [
         3,
         2,
         1,
         4
-      ],
-      "display" : "A♯add⁹",
-      "frets" : [
-        3,
-        2,
-        1,
-        3
-      ],
-      "name" : "A#add9"
+      ]
     },
     {
-      "name" : "A#aug",
+      "fingers" : [
+        4,
+        2,
+        3,
+        1
+      ],
       "frets" : [
         3,
         2,
         2,
         1
       ],
-      "display" : "A♯aug",
+      "name" : "A#aug",
       "base" : 1,
+      "display" : "A♯aug"
+    },
+    {
+      "name" : "A#aug7",
+      "display" : "A♯aug⁷",
+      "base" : 1,
+      "frets" : [
+        1,
+        2,
+        2,
+        1
+      ],
       "fingers" : [
-        4,
+        1,
         2,
         3,
         1
       ]
     },
     {
-      "display" : "A♯aug⁷",
-      "fingers" : [
-        1,
-        2,
-        3,
-        1
-      ],
-      "name" : "A#aug7",
-      "frets" : [
-        1,
-        2,
-        2,
-        1
-      ],
-      "base" : 1
-    },
-    {
+      "base" : 1,
       "display" : "A♯dim",
+      "name" : "A#dim",
       "frets" : [
         3,
         1,
@@ -250,13 +267,12 @@
         1,
         0,
         2
-      ],
-      "name" : "A#dim",
-      "base" : 1
+      ]
     },
     {
       "base" : 1,
       "display" : "A♯dim⁷",
+      "name" : "A#dim7",
       "frets" : [
         0,
         1,
@@ -268,80 +284,80 @@
         2,
         0,
         3
-      ],
-      "name" : "A#dim7"
+      ]
     },
     {
-      "base" : 1,
       "frets" : [
         3,
         1,
         1,
         1
       ],
-      "name" : "A#m",
-      "display" : "A♯m",
       "fingers" : [
         3,
         1,
         1,
         1
-      ]
+      ],
+      "base" : 1,
+      "display" : "A♯m",
+      "name" : "A#m"
     },
     {
+      "name" : "A#m11",
+      "display" : "A♯m¹¹",
       "frets" : [
         3,
         3,
         4,
         4
       ],
-      "name" : "A#m11",
-      "display" : "A♯m¹¹",
-      "base" : 1,
       "fingers" : [
         1,
         1,
         2,
         3
-      ]
+      ],
+      "base" : 1
     },
     {
       "fingers" : [
-        1,
-        1,
-        3,
-        1
-      ],
-      "frets" : [
         1,
         1,
         3,
         1
       ],
       "display" : "A♯m¹³",
+      "frets" : [
+        1,
+        1,
+        3,
+        1
+      ],
       "base" : 1,
       "name" : "A#m13"
     },
     {
-      "base" : 1,
+      "name" : "A#m6",
       "fingers" : [
         0,
         1,
         1,
         1
       ],
-      "display" : "A♯m⁶",
+      "base" : 1,
       "frets" : [
         0,
         1,
         1,
         1
       ],
-      "name" : "A#m6"
+      "display" : "A♯m⁶"
     },
     {
+      "base" : 1,
       "name" : "A#m7",
-      "base" : 1,
+      "display" : "A♯m⁷",
       "frets" : [
         1,
         1,
@@ -353,79 +369,79 @@
         1,
         1,
         1
-      ],
-      "display" : "A♯m⁷"
+      ]
     },
     {
-      "frets" : [
-        1,
-        1,
-        0,
-        1
-      ],
-      "fingers" : [
-        1,
-        2,
-        0,
-        3
-      ],
+      "base" : 1,
       "display" : "A♯m⁷♭⁵",
+      "fingers" : [
+        1,
+        2,
+        0,
+        3
+      ],
       "name" : "A#m7b5",
-      "base" : 1
+      "frets" : [
+        1,
+        1,
+        0,
+        1
+      ]
     },
     {
-      "frets" : [
-        3,
+      "fingers" : [
+        2,
         1,
         4,
         3
       ],
-      "name" : "A#m9",
       "display" : "A♯m⁹",
-      "fingers" : [
-        2,
-        1,
-        4,
-        3
-      ],
-      "base" : 1
-    },
-    {
-      "fingers" : [
-        4,
-        1,
-        2,
-        0
-      ],
-      "display" : "A♯mMaj⁷",
-      "name" : "A#mMaj7",
-      "frets" : [
-        3,
-        1,
-        1,
-        0
-      ],
-      "base" : 1
-    },
-    {
-      "name" : "A#madd9",
+      "name" : "A#m9",
       "base" : 1,
-      "display" : "A♯madd⁹",
       "frets" : [
         3,
         1,
-        1,
-        3
-      ],
-      "fingers" : [
-        2,
-        1,
-        1,
+        4,
         3
       ]
     },
     {
+      "frets" : [
+        3,
+        1,
+        1,
+        0
+      ],
+      "base" : 1,
+      "display" : "A♯mMaj⁷",
+      "fingers" : [
+        4,
+        1,
+        2,
+        0
+      ],
+      "name" : "A#mMaj7"
+    },
+    {
+      "fingers" : [
+        2,
+        1,
+        1,
+        3
+      ],
+      "base" : 1,
+      "frets" : [
+        3,
+        1,
+        1,
+        3
+      ],
+      "display" : "A♯madd⁹",
+      "name" : "A#madd9"
+    },
+    {
       "display" : "A♯maj⁷",
+      "base" : 1,
       "name" : "A#maj7",
       "frets" : [
         3,
@@ -438,17 +454,11 @@
         2,
         1,
         0
-      ],
-      "base" : 1
+      ]
     },
     {
       "display" : "A♯maj⁹",
-      "fingers" : [
-        1,
-        0,
-        3,
-        4
-      ],
+      "name" : "A#maj9",
       "base" : 1,
       "frets" : [
         3,
@@ -456,16 +466,21 @@
         5,
         5
       ],
-      "name" : "A#maj9"
+      "fingers" : [
+        1,
+        0,
+        3,
+        4
+      ]
     },
     {
-      "base" : 1,
       "frets" : [
         3,
         0,
         1,
         1
       ],
+      "base" : 1,
       "display" : "A♯sus²",
       "name" : "A#sus2",
       "fingers" : [
@@ -477,6 +492,7 @@
     },
     {
       "display" : "A♯sus⁴",
+      "name" : "A#sus4",
       "base" : 1,
       "frets" : [
         3,
@@ -489,25 +505,24 @@
         4,
         1,
         1
-      ],
-      "name" : "A#sus4"
+      ]
     },
     {
+      "base" : 1,
+      "name" : "A\/C#",
+      "frets" : [
+        2,
+        1,
+        0,
+        0
+      ],
       "fingers" : [
         2,
         1,
         0,
         0
       ],
-      "name" : "A\/C#",
-      "base" : 1,
-      "display" : "A\/C♯",
-      "frets" : [
-        2,
-        1,
-        0,
-        0
-      ]
+      "display" : "A\/C♯"
     },
     {
       "name" : "A\/D",
@@ -517,32 +532,39 @@
         0,
         4
       ],
+      "base" : 1,
       "frets" : [
         2,
         2,
         0,
         4
-      ],
-      "base" : 1
+      ]
     },
     {
-      "display" : "A¹¹",
-      "name" : "A11",
       "base" : 1,
-      "fingers" : [
-        1,
-        1,
-        2,
-        3
-      ],
+      "display" : "A¹¹",
       "frets" : [
         2,
         2,
         3,
         4
+      ],
+      "name" : "A11",
+      "fingers" : [
+        1,
+        1,
+        2,
+        3
       ]
     },
     {
+      "fingers" : [
+        0,
+        1,
+        2,
+        0
+      ],
+      "base" : 1,
       "frets" : [
         0,
         1,
@@ -550,48 +572,41 @@
         0
       ],
       "display" : "A¹³",
-      "base" : 1,
-      "name" : "A13",
-      "fingers" : [
-        0,
-        1,
-        2,
-        0
-      ]
+      "name" : "A13"
     },
     {
-      "fingers" : [
-        1,
-        3,
-        0,
-        0
-      ],
+      "base" : 1,
       "frets" : [
         2,
         4,
         0,
         0
       ],
-      "display" : "A⁵",
       "name" : "A5",
-      "base" : 1
-    },
-    {
       "fingers" : [
         1,
         3,
-        1,
-        4
+        0,
+        0
       ],
+      "display" : "A⁵"
+    },
+    {
+      "base" : 1,
       "frets" : [
         2,
         4,
         2,
         4
       ],
+      "display" : "A⁶",
       "name" : "A6",
-      "base" : 1,
-      "display" : "A⁶"
+      "fingers" : [
+        1,
+        3,
+        1,
+        4
+      ]
     },
     {
       "name" : "A7",
@@ -601,25 +616,25 @@
         0,
         0
       ],
+      "base" : 1,
       "frets" : [
         0,
         1,
         0,
         0
       ],
-      "display" : "A⁷",
-      "base" : 1
+      "display" : "A⁷"
     },
     {
       "name" : "A7sus2",
+      "base" : 1,
+      "display" : "A⁷sus²",
       "frets" : [
         4,
         4,
         3,
         0
       ],
-      "display" : "A⁷sus²",
-      "base" : 1,
       "fingers" : [
         2,
         3,
@@ -628,13 +643,6 @@
       ]
     },
     {
-      "base" : 1,
-      "fingers" : [
-        0,
-        2,
-        0,
-        0
-      ],
       "frets" : [
         0,
         2,
@@ -642,7 +650,14 @@
         0
       ],
       "display" : "A⁷sus⁴",
-      "name" : "A7sus4"
+      "fingers" : [
+        0,
+        2,
+        0,
+        0
+      ],
+      "name" : "A7sus4",
+      "base" : 1
     },
     {
       "frets" : [
@@ -651,62 +666,62 @@
         3,
         2
       ],
+      "display" : "A⁹",
+      "name" : "A9",
       "fingers" : [
         2,
         1,
         4,
         3
       ],
-      "display" : "A⁹",
-      "base" : 1,
-      "name" : "A9"
+      "base" : 1
     },
     {
+      "fingers" : [
+        2,
+        1,
+        0,
+        3
+      ],
+      "name" : "Aadd9",
       "base" : 1,
-      "display" : "Aadd⁹",
       "frets" : [
         2,
         1,
         0,
         2
       ],
-      "name" : "Aadd9",
-      "fingers" : [
-        2,
-        1,
-        0,
-        3
-      ]
+      "display" : "Aadd⁹"
     },
     {
+      "frets" : [
+        2,
+        1,
+        1,
+        4
+      ],
+      "base" : 1,
       "name" : "Aaug",
       "fingers" : [
         2,
         1,
         1,
         4
-      ],
-      "frets" : [
-        2,
-        1,
-        1,
-        4
-      ],
-      "base" : 1
+      ]
     },
     {
-      "fingers" : [
+      "frets" : [
         0,
         1,
-        2,
+        1,
         0
       ],
       "display" : "Aaug⁷",
       "name" : "Aaug7",
-      "frets" : [
+      "fingers" : [
         0,
         1,
-        1,
+        2,
         0
       ],
       "base" : 1
@@ -729,58 +744,57 @@
       "name" : "Adim7"
     },
     {
+      "name" : "Am",
       "base" : 1,
-      "frets" : [
-        2,
+      "fingers" : [
+        1,
         0,
         0,
         0
       ],
-      "name" : "Am",
-      "fingers" : [
-        1,
+      "frets" : [
+        2,
         0,
         0,
         0
       ]
     },
     {
-      "base" : 1,
-      "fingers" : [
-        1,
-        2,
-        3,
-        4
-      ],
       "display" : "Am¹¹",
+      "base" : 1,
       "name" : "Am11",
       "frets" : [
         2,
         2,
         3,
         3
+      ],
+      "fingers" : [
+        1,
+        2,
+        3,
+        4
       ]
     },
     {
-      "name" : "Am13",
-      "frets" : [
-        0,
-        0,
-        2,
-        0
-      ],
       "fingers" : [
         0,
         0,
         1,
         0
       ],
-      "display" : "Am¹³",
-      "base" : 1
+      "name" : "Am13",
+      "base" : 1,
+      "frets" : [
+        0,
+        0,
+        2,
+        0
+      ],
+      "display" : "Am¹³"
     },
     {
       "base" : 1,
-      "display" : "Am⁶",
       "fingers" : [
         1,
         3,
@@ -793,19 +807,20 @@
         4,
         2,
         3
-      ]
+      ],
+      "display" : "Am⁶"
     },
     {
       "name" : "Am7",
-      "frets" : [
+      "fingers" : [
         0,
         0,
         0,
         0
       ],
+      "base" : 1,
       "display" : "Am⁷",
-      "base" : 1,
-      "fingers" : [
+      "frets" : [
         0,
         0,
         0,
@@ -813,42 +828,40 @@
       ]
     },
     {
-      "base" : 1,
+      "fingers" : [
+        1,
+        3,
+        3,
+        3
+      ],
       "display" : "Am⁷♭⁵",
-      "frets" : [
-        2,
-        3,
-        3,
-        3
-      ],
+      "base" : 1,
       "name" : "Am7b5",
-      "fingers" : [
-        1,
+      "frets" : [
+        2,
         3,
         3,
         3
       ]
     },
     {
-      "display" : "Am⁹",
       "base" : 1,
+      "name" : "Am9",
       "frets" : [
         2,
         0,
         3,
         2
       ],
-      "name" : "Am9",
       "fingers" : [
         1,
         0,
         3,
         2
-      ]
+      ],
+      "display" : "Am⁹"
     },
     {
-      "name" : "AmMaj7",
-      "base" : 1,
       "fingers" : [
         1,
         0,
@@ -856,6 +869,8 @@
         0
       ],
       "display" : "AmMaj⁷",
+      "base" : 1,
+      "name" : "AmMaj7",
       "frets" : [
         1,
         0,
@@ -864,20 +879,20 @@
       ]
     },
     {
-      "display" : "Amadd⁹",
       "base" : 1,
-      "fingers" : [
-        1,
-        0,
-        0,
-        3
-      ],
       "name" : "Amadd9",
+      "display" : "Amadd⁹",
       "frets" : [
         2,
         0,
         0,
         2
+      ],
+      "fingers" : [
+        1,
+        0,
+        0,
+        3
       ]
     },
     {
@@ -898,6 +913,13 @@
       "base" : 1
     },
     {
+      "fingers" : [
+        3,
+        1,
+        4,
+        0
+      ],
+      "base" : 1,
       "display" : "Amaj⁹",
       "frets" : [
         4,
@@ -905,41 +927,34 @@
         4,
         0
       ],
-      "base" : 1,
-      "fingers" : [
-        3,
-        1,
-        4,
-        0
-      ],
       "name" : "Amaj9"
     },
     {
+      "display" : "Asus⁴",
+      "fingers" : [
+        1,
+        2,
+        0,
+        0
+      ],
+      "base" : 1,
       "name" : "Asus4",
       "frets" : [
         2,
         2,
         0,
         0
-      ],
-      "fingers" : [
-        1,
-        2,
-        0,
-        0
-      ],
-      "base" : 1,
-      "display" : "Asus⁴"
+      ]
     },
     {
+      "name" : "B",
+      "base" : 1,
       "fingers" : [
         3,
         2,
         1,
         1
       ],
-      "name" : "B",
-      "base" : 1,
       "frets" : [
         4,
         3,
@@ -948,42 +963,40 @@
       ]
     },
     {
+      "base" : 1,
+      "name" : "B11",
+      "display" : "B¹¹",
       "frets" : [
         4,
         3,
         0,
         0
       ],
-      "base" : 1,
       "fingers" : [
         2,
         1,
         0,
         0
-      ],
-      "name" : "B11",
-      "display" : "B¹¹"
+      ]
     },
     {
-      "base" : 1,
       "fingers" : [
         1,
         2,
         3,
         1
       ],
-      "name" : "B13",
+      "display" : "B¹³",
+      "base" : 1,
       "frets" : [
         2,
         3,
         4,
         2
       ],
-      "display" : "B¹³"
+      "name" : "B13"
     },
     {
-      "display" : "B⁵",
-      "name" : "B5",
       "base" : 1,
       "frets" : [
         4,
@@ -996,7 +1009,9 @@
         0,
         1,
         2
-      ]
+      ],
+      "display" : "B⁵",
+      "name" : "B5"
     },
     {
       "frets" : [
@@ -1005,168 +1020,174 @@
         2,
         2
       ],
+      "base" : 1,
+      "display" : "B⁶",
+      "name" : "B6",
       "fingers" : [
         1,
         4,
         2,
         3
-      ],
-      "display" : "B⁶",
-      "name" : "B6",
-      "base" : 1
+      ]
     },
     {
+      "name" : "B7",
+      "frets" : [
+        2,
+        3,
+        2,
+        2
+      ],
       "fingers" : [
         1,
         2,
         1,
         1
       ],
-      "name" : "B7",
       "display" : "B⁷",
-      "base" : 1,
-      "frets" : [
-        2,
-        3,
-        2,
-        2
-      ]
+      "base" : 1
     },
     {
-      "frets" : [
-        2,
-        1,
-        2,
-        2
-      ],
-      "base" : 1,
       "fingers" : [
         2,
         1,
         3,
         4
       ],
+      "display" : "B⁷sus²",
+      "base" : 1,
       "name" : "B7sus2",
-      "display" : "B⁷sus²"
+      "frets" : [
+        2,
+        1,
+        2,
+        2
+      ]
     },
     {
-      "base" : 1,
-      "name" : "B7sus4",
       "frets" : [
         2,
         4,
         2,
         2
       ],
+      "name" : "B7sus4",
       "fingers" : [
         1,
         3,
         1,
         1
       ],
+      "base" : 1,
       "display" : "B⁷sus⁴"
     },
     {
-      "fingers" : [
-        2,
-        1,
-        4,
-        3
-      ],
+      "display" : "B⁹",
       "frets" : [
         4,
         3,
         5,
         4
       ],
-      "name" : "B9",
       "base" : 1,
-      "display" : "B⁹"
+      "fingers" : [
+        2,
+        1,
+        4,
+        3
+      ],
+      "name" : "B9"
     },
     {
-      "base" : 1,
+      "display" : "Badd⁹",
+      "frets" : [
+        4,
+        3,
+        2,
+        4
+      ],
       "fingers" : [
         3,
         2,
         1,
         4
       ],
-      "name" : "Badd9",
-      "frets" : [
-        4,
-        3,
-        2,
-        4
-      ],
-      "display" : "Badd⁹"
+      "base" : 1,
+      "name" : "Badd9"
     },
     {
-      "name" : "Baug",
-      "base" : 1,
+      "fingers" : [
+        4,
+        2,
+        3,
+        1
+      ],
       "frets" : [
         4,
         3,
         3,
         2
       ],
+      "base" : 1,
+      "name" : "Baug"
+    },
+    {
+      "display" : "Baug⁷",
+      "name" : "Baug7",
+      "base" : 1,
       "fingers" : [
-        4,
+        1,
         2,
         3,
         1
+      ],
+      "frets" : [
+        2,
+        3,
+        3,
+        2
       ]
     },
     {
-      "fingers" : [
-        1,
-        2,
-        3,
-        1
-      ],
-      "name" : "Baug7",
-      "frets" : [
-        2,
-        3,
-        3,
-        2
-      ],
-      "display" : "Baug⁷",
-      "base" : 1
-    },
-    {
-      "base" : 1,
       "frets" : [
         4,
         2,
         1,
         2
       ],
+      "base" : 1,
+      "name" : "Bdim",
       "fingers" : [
         4,
         2,
         1,
         3
-      ],
-      "name" : "Bdim"
+      ]
     },
     {
       "base" : 1,
-      "fingers" : [
-        1,
-        3,
-        2,
-        4
-      ],
-      "display" : "Bdim⁷",
       "name" : "Bdim7",
       "frets" : [
         1,
         2,
         1,
         2
+      ],
+      "display" : "Bdim⁷",
+      "fingers" : [
+        1,
+        3,
+        2,
+        4
       ]
     },
     {
+      "fingers" : [
+        3,
+        1,
+        1,
+        1
+      ],
       "name" : "Bm",
       "base" : 1,
       "frets" : [
@@ -1174,107 +1195,101 @@
         2,
         2,
         2
-      ],
-      "fingers" : [
-        3,
-        1,
-        1,
-        1
       ]
     },
     {
-      "frets" : [
-        4,
-        2,
-        0,
-        0
-      ],
+      "base" : 1,
       "fingers" : [
         3,
         1,
         0,
         0
       ],
-      "name" : "Bm11",
-      "base" : 1,
-      "display" : "Bm¹¹"
+      "frets" : [
+        4,
+        2,
+        0,
+        0
+      ],
+      "display" : "Bm¹¹",
+      "name" : "Bm11"
     },
     {
-      "base" : 1,
-      "frets" : [
-        4,
-        2,
-        4,
-        0
-      ],
-      "fingers" : [
-        2,
-        1,
-        3,
-        0
-      ],
+      "display" : "Bm¹³",
       "name" : "Bm13",
-      "display" : "Bm¹³"
-    },
-    {
-      "fingers" : [
-        1,
+      "frets" : [
+        4,
         2,
+        4,
+        0
+      ],
+      "fingers" : [
+        2,
+        1,
         3,
-        4
-      ],
-      "name" : "Bm6",
-      "base" : 1,
-      "display" : "Bm⁶",
-      "frets" : [
-        1,
-        2,
-        2,
-        2
-      ]
-    },
-    {
-      "display" : "Bm⁷",
-      "frets" : [
-        2,
-        2,
-        2,
-        2
-      ],
-      "name" : "Bm7",
-      "fingers" : [
-        1,
-        1,
-        1,
-        1
+        0
       ],
       "base" : 1
     },
     {
-      "display" : "Bm⁷♭⁵",
+      "fingers" : [
+        1,
+        2,
+        3,
+        4
+      ],
       "base" : 1,
-      "name" : "Bm7b5",
+      "name" : "Bm6",
+      "frets" : [
+        1,
+        2,
+        2,
+        2
+      ],
+      "display" : "Bm⁶"
+    },
+    {
+      "frets" : [
+        2,
+        2,
+        2,
+        2
+      ],
+      "display" : "Bm⁷",
+      "fingers" : [
+        1,
+        1,
+        1,
+        1
+      ],
+      "base" : 1,
+      "name" : "Bm7"
+    },
+    {
       "fingers" : [
         2,
         3,
         1,
         4
       ],
+      "base" : 1,
       "frets" : [
         2,
         2,
         1,
         2
-      ]
+      ],
+      "name" : "Bm7b5",
+      "display" : "Bm⁷♭⁵"
     },
     {
-      "base" : 1,
       "fingers" : [
         2,
         1,
         4,
         3
       ],
+      "base" : 1,
       "name" : "Bm9",
       "display" : "Bm⁹",
       "frets" : [
@@ -1285,6 +1300,12 @@
       ]
     },
     {
+      "fingers" : [
+        2,
+        1,
+        1,
+        1
+      ],
       "base" : 1,
       "frets" : [
         3,
@@ -1292,39 +1313,29 @@
         2,
         2
       ],
-      "fingers" : [
-        2,
-        1,
-        1,
-        1
-      ],
       "display" : "BmMaj⁷",
       "name" : "BmMaj7"
     },
     {
+      "display" : "Bmadd⁹",
       "frets" : [
         4,
         2,
         2,
         4
       ],
-      "display" : "Bmadd⁹",
+      "name" : "Bmadd9",
       "fingers" : [
         3,
         1,
         2,
         4
       ],
-      "name" : "Bmadd9",
       "base" : 1
     },
     {
-      "frets" : [
-        4,
-        3,
-        2,
-        1
-      ],
+      "display" : "Bmaj⁷",
+      "name" : "Bmaj7",
       "fingers" : [
         4,
         3,
@@ -1332,25 +1343,29 @@
         1
       ],
       "base" : 1,
-      "display" : "Bmaj⁷",
-      "name" : "Bmaj7"
+      "frets" : [
+        4,
+        3,
+        2,
+        1
+      ]
     },
     {
-      "base" : 1,
-      "display" : "Bsus²",
+      "name" : "Bsus2",
       "fingers" : [
         4,
         1,
         2,
         3
       ],
+      "display" : "Bsus²",
+      "base" : 1,
       "frets" : [
         4,
         1,
         2,
         2
-      ],
-      "name" : "Bsus2"
+      ]
     },
     {
       "frets" : [
@@ -1370,23 +1385,25 @@
       "base" : 1
     },
     {
-      "name" : "C",
       "fingers" : [
         0,
         0,
         0,
         3
       ],
+      "base" : 1,
       "frets" : [
         0,
         0,
         0,
         3
       ],
-      "base" : 1
+      "name" : "C"
     },
     {
+      "base" : 1,
       "display" : "C♯",
+      "name" : "C#",
       "frets" : [
         1,
         1,
@@ -1398,59 +1415,74 @@
         1,
         1,
         4
-      ],
-      "name" : "C#",
-      "base" : 1
+      ]
     },
     {
-      "name" : "C#11",
-      "fingers" : [
-        2,
-        4,
-        1,
-        3
-      ],
       "frets" : [
         4,
         5,
         2,
         4
       ],
+      "fingers" : [
+        2,
+        4,
+        1,
+        3
+      ],
       "display" : "C♯¹¹",
-      "base" : 1
+      "base" : 1,
+      "name" : "C#11"
     },
     {
-      "display" : "C♯¹³",
       "base" : 1,
-      "fingers" : [
-        3,
-        1,
-        1,
-        1
-      ],
       "frets" : [
         4,
         1,
         1,
         1
       ],
-      "name" : "C#13"
+      "fingers" : [
+        3,
+        1,
+        1,
+        1
+      ],
+      "name" : "C#13",
+      "display" : "C♯¹³"
     },
     {
-      "display" : "C♯⁵",
       "name" : "C#5",
+      "frets" : [
+        1,
+        1,
+        4,
+        4
+      ],
+      "base" : 1,
       "fingers" : [
         1,
         1,
         3,
         4
       ],
+      "display" : "C♯⁵"
+    },
+    {
       "base" : 1,
+      "name" : "C#6",
+      "display" : "C♯⁶",
       "frets" : [
         1,
         1,
-        4,
-        4
+        1,
+        1
+      ],
+      "fingers" : [
+        1,
+        1,
+        1,
+        1
       ]
     },
     {
@@ -1458,85 +1490,68 @@
         1,
         1,
         1,
-        1
-      ],
-      "frets" : [
-        1,
-        1,
-        1,
-        1
-      ],
-      "name" : "C#6",
-      "display" : "C♯⁶",
-      "base" : 1
-    },
-    {
-      "frets" : [
-        1,
-        1,
-        1,
         2
       ],
-      "base" : 1,
       "display" : "C♯⁷",
-      "fingers" : [
+      "base" : 1,
+      "name" : "C#7",
+      "frets" : [
         1,
         1,
         1,
         2
-      ],
-      "name" : "C#7"
+      ]
     },
     {
       "name" : "C#7sus2",
+      "frets" : [
+        4,
+        3,
+        4,
+        4
+      ],
       "display" : "C♯⁷sus²",
-      "frets" : [
-        4,
-        3,
-        4,
-        4
-      ],
-      "fingers" : [
-        2,
-        1,
-        3,
-        4
-      ],
-      "base" : 1
-    },
-    {
-      "name" : "C#7sus4",
-      "display" : "C♯⁷sus⁴",
       "base" : 1,
-      "frets" : [
-        1,
-        1,
-        2,
-        2
-      ],
       "fingers" : [
-        1,
         2,
+        1,
         3,
         4
       ]
     },
     {
       "frets" : [
-        4,
+        1,
+        1,
+        2,
+        2
+      ],
+      "display" : "C♯⁷sus⁴",
+      "fingers" : [
+        1,
+        2,
         3,
+        4
+      ],
+      "name" : "C#7sus4",
+      "base" : 1
+    },
+    {
+      "fingers" : [
+        3,
+        2,
         1,
         4
       ],
       "display" : "C♯⁹",
-      "fingers" : [
-        3,
-        2,
-        1,
-        4
-      ],
+      "base" : 1,
       "name" : "C#9",
-      "base" : 1
+      "frets" : [
+        4,
+        3,
+        1,
+        4
+      ]
     },
     {
       "frets" : [
@@ -1551,47 +1566,45 @@
         1,
         4
       ],
-      "name" : "C#add9",
       "base" : 1,
-      "display" : "C♯add⁹"
+      "display" : "C♯add⁹",
+      "name" : "C#add9"
     },
     {
-      "base" : 1,
       "frets" : [
         2,
         1,
         1,
         0
       ],
+      "base" : 1,
       "display" : "C♯aug",
+      "name" : "C#aug",
       "fingers" : [
         3,
         1,
         2,
         0
-      ],
-      "name" : "C#aug"
+      ]
     },
     {
-      "fingers" : [
-        2,
-        1,
-        1,
-        3
-      ],
-      "display" : "C♯aug⁷",
-      "name" : "C#aug7",
       "base" : 1,
+      "name" : "C#aug7",
       "frets" : [
         2,
         1,
         1,
         2
+      ],
+      "display" : "C♯aug⁷",
+      "fingers" : [
+        2,
+        1,
+        1,
+        3
       ]
     },
     {
-      "name" : "C#dim",
-      "display" : "C♯dim",
       "base" : 1,
       "fingers" : [
         0,
@@ -1599,6 +1612,8 @@
         0,
         4
       ],
+      "name" : "C#dim",
+      "display" : "C♯dim",
       "frets" : [
         0,
         1,
@@ -1607,23 +1622,30 @@
       ]
     },
     {
-      "fingers" : [
-        0,
-        1,
-        0,
-        3
-      ],
+      "name" : "C#dim7",
       "display" : "C♯dim⁷",
-      "base" : 1,
       "frets" : [
         0,
         1,
         0,
         1
       ],
-      "name" : "C#dim7"
+      "fingers" : [
+        0,
+        1,
+        0,
+        3
+      ],
+      "base" : 1
     },
     {
+      "fingers" : [
+        1,
+        4,
+        4,
+        4
+      ],
+      "name" : "C#m",
       "base" : 1,
       "frets" : [
         1,
@@ -1631,65 +1653,58 @@
         4,
         4
       ],
-      "display" : "C♯m",
-      "fingers" : [
-        1,
-        4,
-        4,
-        4
-      ],
-      "name" : "C#m"
+      "display" : "C♯m"
     },
     {
+      "name" : "C#m11",
       "frets" : [
         4,
         4,
         2,
         4
       ],
-      "display" : "C♯m¹¹",
+      "base" : 1,
       "fingers" : [
         2,
         3,
         1,
         4
       ],
-      "base" : 1,
-      "name" : "C#m11"
+      "display" : "C♯m¹¹"
     },
     {
+      "base" : 1,
       "name" : "C#m13",
-      "display" : "C♯m¹³",
+      "frets" : [
+        3,
+        1,
+        0,
+        2
+      ],
       "fingers" : [
         3,
         1,
         0,
         2
       ],
-      "base" : 1,
-      "frets" : [
-        3,
-        1,
-        0,
-        2
-      ]
+      "display" : "C♯m¹³"
     },
     {
       "display" : "C♯m⁶",
       "base" : 1,
-      "frets" : [
-        1,
-        1,
-        0,
-        1
-      ],
       "fingers" : [
         1,
         2,
         0,
         3
       ],
-      "name" : "C#m6"
+      "name" : "C#m6",
+      "frets" : [
+        1,
+        1,
+        0,
+        1
+      ]
     },
     {
       "frets" : [
@@ -1698,15 +1713,15 @@
         0,
         2
       ],
+      "name" : "C#m7",
       "fingers" : [
         1,
         2,
         0,
         3
       ],
-      "name" : "C#m7",
-      "display" : "C♯m⁷",
-      "base" : 1
+      "base" : 1,
+      "display" : "C♯m⁷"
     },
     {
       "frets" : [
@@ -1716,25 +1731,25 @@
         2
       ],
       "name" : "C#m7b5",
-      "display" : "C♯m⁷♭⁵",
-      "base" : 1,
       "fingers" : [
         0,
         1,
         0,
         3
-      ]
+      ],
+      "display" : "C♯m⁷♭⁵",
+      "base" : 1
     },
     {
-      "name" : "C#m9",
+      "base" : 1,
       "frets" : [
         4,
         3,
         0,
         4
       ],
-      "base" : 1,
       "display" : "C♯m⁹",
+      "name" : "C#m9",
       "fingers" : [
         3,
         2,
@@ -1743,15 +1758,15 @@
       ]
     },
     {
+      "display" : "C♯mMaj⁷",
       "name" : "C#mMaj7",
+      "base" : 1,
       "frets" : [
         1,
         0,
         0,
         4
       ],
-      "display" : "C♯mMaj⁷",
-      "base" : 1,
       "fingers" : [
         1,
         0,
@@ -1760,13 +1775,13 @@
       ]
     },
     {
-      "fingers" : [
+      "frets" : [
         1,
         3,
         0,
         4
       ],
-      "frets" : [
+      "fingers" : [
         1,
         3,
         0,
@@ -1777,12 +1792,8 @@
       "name" : "C#madd9"
     },
     {
-      "fingers" : [
-        1,
-        1,
-        1,
-        3
-      ],
+      "display" : "C♯maj⁷",
+      "name" : "C#maj7",
       "frets" : [
         1,
         1,
@@ -1790,30 +1801,34 @@
         3
       ],
       "base" : 1,
-      "display" : "C♯maj⁷",
-      "name" : "C#maj7"
+      "fingers" : [
+        1,
+        1,
+        1,
+        3
+      ]
     },
     {
-      "frets" : [
-        5,
-        3,
-        1,
-        4
-      ],
       "fingers" : [
         4,
         2,
         1,
         3
       ],
-      "name" : "C#maj9",
+      "frets" : [
+        5,
+        3,
+        1,
+        4
+      ],
       "display" : "C♯maj⁹",
+      "name" : "C#maj9",
       "base" : 1
     },
     {
-      "name" : "C#sus2",
-      "base" : 1,
       "display" : "C♯sus²",
+      "base" : 1,
+      "name" : "C#sus2",
       "fingers" : [
         1,
         2,
@@ -1828,43 +1843,42 @@
       ]
     },
     {
+      "base" : 1,
+      "display" : "C♯sus⁴",
       "name" : "C#sus4",
+      "frets" : [
+        1,
+        1,
+        2,
+        4
+      ],
       "fingers" : [
         1,
         1,
         2,
         4
-      ],
-      "frets" : [
-        1,
-        1,
-        2,
-        4
-      ],
-      "display" : "C♯sus⁴",
-      "base" : 1
+      ]
     },
     {
-      "frets" : [
-        3,
-        5,
-        0,
-        3
-      ],
       "fingers" : [
         1,
         4,
         0,
         2
       ],
-      "display" : "C¹¹",
       "base" : 1,
-      "name" : "C11"
+      "name" : "C11",
+      "frets" : [
+        3,
+        5,
+        0,
+        3
+      ],
+      "display" : "C¹¹"
     },
     {
-      "name" : "C13",
       "display" : "C¹³",
-      "base" : 1,
+      "name" : "C13",
       "fingers" : [
         3,
         0,
@@ -1876,11 +1890,17 @@
         0,
         0,
         0
-      ]
+      ],
+      "base" : 1
     },
     {
       "name" : "C5",
-      "display" : "C⁵",
+      "frets" : [
+        0,
+        0,
+        3,
+        3
+      ],
       "fingers" : [
         0,
         0,
@@ -1888,32 +1908,32 @@
         1
       ],
       "base" : 1,
-      "frets" : [
-        0,
-        0,
-        3,
-        3
-      ]
+      "display" : "C⁵"
     },
     {
+      "display" : "C⁶",
       "frets" : [
-        0,
-        0,
-        0,
-        0
-      ],
-      "fingers" : [
         0,
         0,
         0,
         0
       ],
       "base" : 1,
-      "display" : "C⁶",
+      "fingers" : [
+        0,
+        0,
+        0,
+        0
+      ],
       "name" : "C6"
     },
     {
-      "display" : "C⁷",
+      "fingers" : [
+        0,
+        0,
+        0,
+        1
+      ],
       "frets" : [
         0,
         0,
@@ -1922,41 +1942,36 @@
       ],
       "base" : 1,
       "name" : "C7",
-      "fingers" : [
-        0,
-        0,
-        0,
-        1
-      ]
+      "display" : "C⁷"
     },
     {
-      "base" : 1,
-      "display" : "C⁷sus²",
       "fingers" : [
         2,
         1,
         3,
         4
       ],
+      "name" : "C7sus2",
+      "base" : 1,
+      "display" : "C⁷sus²",
       "frets" : [
         3,
         2,
         3,
         3
-      ],
-      "name" : "C7sus2"
+      ]
     },
     {
-      "display" : "C⁷sus⁴",
-      "name" : "C7sus4",
       "base" : 1,
-      "frets" : [
+      "fingers" : [
         0,
         0,
         1,
         1
       ],
-      "fingers" : [
+      "display" : "C⁷sus⁴",
+      "name" : "C7sus4",
+      "frets" : [
         0,
         0,
         1,
@@ -1964,6 +1979,13 @@
       ]
     },
     {
+      "name" : "C9",
+      "fingers" : [
+        2,
+        1,
+        0,
+        3
+      ],
       "display" : "C⁹",
       "base" : 1,
       "frets" : [
@@ -1971,33 +1993,28 @@
         2,
         0,
         3
-      ],
-      "fingers" : [
-        2,
-        1,
-        0,
-        3
-      ],
-      "name" : "C9"
+      ]
     },
     {
-      "frets" : [
+      "fingers" : [
         0,
         2,
         0,
         3
       ],
+      "base" : 1,
+      "name" : "Cadd9",
       "display" : "Cadd⁹",
-      "fingers" : [
+      "frets" : [
         0,
         2,
         0,
         3
-      ],
-      "base" : 1,
-      "name" : "Cadd9"
+      ]
     },
     {
+      "base" : 1,
+      "name" : "Caug",
       "fingers" : [
         1,
         0,
@@ -2009,25 +2026,23 @@
         0,
         0,
         3
-      ],
-      "name" : "Caug",
-      "base" : 1
+      ]
     },
     {
-      "base" : 1,
-      "name" : "Caug7",
-      "display" : "Caug⁷",
-      "fingers" : [
-        1,
-        0,
-        0,
-        2
-      ],
       "frets" : [
         1,
         0,
         0,
         1
+      ],
+      "display" : "Caug⁷",
+      "base" : 1,
+      "name" : "Caug7",
+      "fingers" : [
+        1,
+        0,
+        0,
+        2
       ]
     },
     {
@@ -2047,8 +2062,12 @@
       "name" : "Cdim"
     },
     {
-      "name" : "Cdim7",
-      "base" : 1,
+      "frets" : [
+        2,
+        3,
+        2,
+        3
+      ],
       "display" : "Cdim⁷",
       "fingers" : [
         1,
@@ -2056,45 +2075,41 @@
         2,
         4
       ],
-      "frets" : [
-        2,
-        3,
-        2,
-        3
-      ]
+      "name" : "Cdim7",
+      "base" : 1
     },
     {
       "name" : "Cm",
+      "frets" : [
+        0,
+        3,
+        3,
+        3
+      ],
       "fingers" : [
         0,
         1,
         1,
         1
       ],
-      "base" : 1,
-      "frets" : [
-        0,
-        3,
-        3,
-        3
-      ]
+      "base" : 1
     },
     {
+      "name" : "Cm11",
+      "base" : 1,
+      "fingers" : [
+        2,
+        3,
+        1,
+        4
+      ],
       "display" : "Cm¹¹",
       "frets" : [
         3,
         3,
         1,
         3
-      ],
-      "name" : "Cm11",
-      "fingers" : [
-        2,
-        3,
-        1,
-        4
-      ],
-      "base" : 1
+      ]
     },
     {
       "base" : 1,
@@ -2104,39 +2119,33 @@
         3,
         1
       ],
-      "display" : "Cm¹³",
       "name" : "Cm13",
       "frets" : [
         3,
         3,
         5,
         3
-      ]
+      ],
+      "display" : "Cm¹³"
     },
     {
-      "base" : 1,
-      "name" : "Cm6",
-      "display" : "Cm⁶",
-      "frets" : [
-        2,
-        3,
-        3,
-        3
-      ],
       "fingers" : [
         1,
         2,
         3,
         4
-      ]
-    },
-    {
+      ],
+      "base" : 1,
       "frets" : [
-        3,
+        2,
         3,
         3,
         3
       ],
+      "display" : "Cm⁶",
+      "name" : "Cm6"
+    },
+    {
       "display" : "Cm⁷",
       "name" : "Cm7",
       "fingers" : [
@@ -2145,32 +2154,32 @@
         1,
         1
       ],
-      "base" : 1
-    },
-    {
       "frets" : [
         3,
         3,
-        2,
+        3,
         3
       ],
+      "base" : 1
+    },
+    {
       "display" : "Cm⁷♭⁵",
+      "name" : "Cm7b5",
       "fingers" : [
         2,
         3,
         1,
         4
       ],
-      "name" : "Cm7b5",
-      "base" : 1
+      "base" : 1,
+      "frets" : [
+        3,
+        3,
+        2,
+        3
+      ]
     },
     {
-      "fingers" : [
-        2,
-        1,
-        1,
-        1
-      ],
       "base" : 1,
       "frets" : [
         4,
@@ -2179,100 +2188,100 @@
         3
       ],
       "display" : "CmMaj⁷",
-      "name" : "CmMaj7"
+      "name" : "CmMaj7",
+      "fingers" : [
+        2,
+        1,
+        1,
+        1
+      ]
     },
     {
-      "name" : "Cmadd9",
       "fingers" : [
         3,
         1,
         2,
         4
       ],
-      "base" : 1,
+      "name" : "Cmadd9",
       "frets" : [
         5,
         3,
         3,
         5
       ],
+      "base" : 1,
       "display" : "Cmadd⁹"
     },
     {
+      "frets" : [
+        0,
+        0,
+        0,
+        2
+      ],
+      "name" : "Cmaj7",
+      "display" : "Cmaj⁷",
       "fingers" : [
         0,
         0,
         0,
         1
       ],
-      "display" : "Cmaj⁷",
-      "base" : 1,
-      "name" : "Cmaj7",
-      "frets" : [
-        0,
-        0,
-        0,
-        2
-      ]
+      "base" : 1
     },
     {
-      "base" : 1,
+      "name" : "Cmaj9",
       "frets" : [
         4,
         0,
         0,
         5
       ],
-      "display" : "Cmaj⁹",
-      "name" : "Cmaj9",
       "fingers" : [
         1,
         0,
         0,
         3
-      ]
+      ],
+      "display" : "Cmaj⁹",
+      "base" : 1
     },
     {
       "display" : "Csus²",
+      "base" : 1,
+      "frets" : [
+        0,
+        2,
+        3,
+        3
+      ],
       "name" : "Csus2",
       "fingers" : [
         0,
         1,
         2,
         3
-      ],
-      "base" : 1,
-      "frets" : [
-        0,
-        2,
-        3,
-        3
       ]
     },
     {
-      "name" : "Csus4",
-      "base" : 1,
+      "frets" : [
+        0,
+        0,
+        1,
+        3
+      ],
+      "fingers" : [
+        0,
+        0,
+        1,
+        3
+      ],
       "display" : "Csus⁴",
-      "fingers" : [
-        0,
-        0,
-        1,
-        3
-      ],
-      "frets" : [
-        0,
-        0,
-        1,
-        3
-      ]
+      "base" : 1,
+      "name" : "Csus4"
     },
     {
-      "fingers" : [
-        1,
-        2,
-        3,
-        0
-      ],
       "name" : "D",
       "frets" : [
         2,
@@ -2280,41 +2289,47 @@
         2,
         0
       ],
-      "base" : 1
+      "base" : 1,
+      "fingers" : [
+        1,
+        2,
+        3,
+        0
+      ]
     },
     {
+      "fingers" : [
+        0,
+        3,
+        4,
+        1
+      ],
+      "display" : "D♯",
+      "base" : 1,
       "name" : "D#",
       "frets" : [
         0,
         3,
         3,
         1
-      ],
-      "fingers" : [
-        0,
-        3,
-        4,
-        1
-      ],
-      "base" : 1,
-      "display" : "D♯"
+      ]
     },
     {
+      "base" : 1,
+      "name" : "D#11",
       "fingers" : [
         0,
         2,
         3,
         4
       ],
+      "display" : "D♯¹¹",
       "frets" : [
         0,
         3,
         4,
         4
-      ],
-      "base" : 1,
-      "name" : "D#11",
-      "display" : "D♯¹¹"
+      ]
     },
     {
       "fingers" : [
@@ -2324,8 +2339,8 @@
         2
       ],
       "display" : "D♯¹³",
-      "name" : "D#13",
       "base" : 1,
+      "name" : "D#13",
       "frets" : [
         5,
         3,
@@ -2334,25 +2349,30 @@
       ]
     },
     {
-      "name" : "D#6",
-      "fingers" : [
-        1,
-        1,
-        1,
-        1
-      ],
-      "base" : 1,
       "display" : "D♯⁶",
       "frets" : [
         3,
         3,
         3,
         3
-      ]
+      ],
+      "base" : 1,
+      "fingers" : [
+        1,
+        1,
+        1,
+        1
+      ],
+      "name" : "D#6"
     },
     {
-      "display" : "D♯⁷",
       "base" : 1,
+      "fingers" : [
+        1,
+        1,
+        1,
+        2
+      ],
       "frets" : [
         3,
         3,
@@ -2360,22 +2380,17 @@
         4
       ],
       "name" : "D#7",
-      "fingers" : [
-        1,
-        1,
-        1,
-        2
-      ]
+      "display" : "D♯⁷"
     },
     {
-      "display" : "D♯⁷sus²",
-      "base" : 1,
       "fingers" : [
         2,
         3,
         1,
         4
       ],
+      "display" : "D♯⁷sus²",
+      "base" : 1,
       "name" : "D#7sus2",
       "frets" : [
         3,
@@ -2385,109 +2400,115 @@
       ]
     },
     {
-      "base" : 1,
       "fingers" : [
         1,
         2,
         3,
         4
       ],
+      "base" : 1,
       "display" : "D♯⁷sus⁴",
+      "name" : "D#7sus4",
       "frets" : [
         3,
         3,
         4,
         4
-      ],
-      "name" : "D#7sus4"
+      ]
     },
     {
-      "frets" : [
-        0,
-        3,
-        1,
-        4
-      ],
+      "display" : "D♯⁹",
       "name" : "D#9",
-      "base" : 1,
       "fingers" : [
         0,
         2,
         1,
         4
       ],
-      "display" : "D♯⁹"
+      "frets" : [
+        0,
+        3,
+        1,
+        4
+      ],
+      "base" : 1
     },
     {
       "display" : "D♯add⁹",
       "name" : "D#add9",
+      "frets" : [
+        0,
+        3,
+        1,
+        1
+      ],
       "fingers" : [
         0,
         3,
         1,
         1
       ],
-      "base" : 1,
-      "frets" : [
-        0,
-        3,
-        1,
-        1
-      ]
+      "base" : 1
     },
     {
-      "display" : "D♯aug",
+      "fingers" : [
+        0,
+        2,
+        3,
+        1
+      ],
       "name" : "D#aug",
-      "base" : 1,
       "frets" : [
         0,
         3,
         3,
         2
       ],
-      "fingers" : [
-        0,
-        2,
-        3,
-        1
-      ]
+      "display" : "D♯aug",
+      "base" : 1
     },
     {
+      "frets" : [
+        4,
+        3,
+        3,
+        4
+      ],
+      "display" : "D♯aug⁷",
+      "name" : "D#aug7",
       "fingers" : [
         2,
         1,
         1,
         3
       ],
-      "display" : "D♯aug⁷",
-      "name" : "D#aug7",
-      "base" : 1,
-      "frets" : [
-        4,
-        3,
-        3,
-        4
-      ]
+      "base" : 1
     },
     {
+      "frets" : [
+        2,
+        3,
+        2,
+        0
+      ],
+      "base" : 1,
       "fingers" : [
         1,
         3,
         2,
         0
       ],
-      "display" : "D♯dim",
       "name" : "D#dim",
-      "base" : 1,
+      "display" : "D♯dim"
+    },
+    {
       "frets" : [
         2,
         3,
         2,
-        0
-      ]
-    },
-    {
-      "base" : 1,
+        3
+      ],
+      "name" : "D#dim7",
       "fingers" : [
         1,
         3,
@@ -2495,18 +2516,9 @@
         4
       ],
       "display" : "D♯dim⁷",
-      "name" : "D#dim7",
-      "frets" : [
-        2,
-        3,
-        2,
-        3
-      ]
+      "base" : 1
     },
     {
-      "base" : 1,
-      "display" : "D♯m",
-      "name" : "D#m",
       "frets" : [
         3,
         3,
@@ -2518,10 +2530,18 @@
         4,
         2,
         1
-      ]
+      ],
+      "display" : "D♯m",
+      "base" : 1,
+      "name" : "D#m"
     },
     {
-      "display" : "D♯m⁶",
+      "fingers" : [
+        2,
+        3,
+        1,
+        4
+      ],
       "frets" : [
         3,
         3,
@@ -2529,17 +2549,10 @@
         3
       ],
       "name" : "D#m6",
-      "base" : 1,
-      "fingers" : [
-        2,
-        3,
-        1,
-        4
-      ]
+      "display" : "D♯m⁶",
+      "base" : 1
     },
     {
-      "name" : "D#m7",
-      "base" : 1,
       "frets" : [
         3,
         3,
@@ -2547,6 +2560,8 @@
         4
       ],
       "display" : "D♯m⁷",
+      "base" : 1,
+      "name" : "D#m7",
       "fingers" : [
         2,
         3,
@@ -2561,78 +2576,78 @@
         2,
         4
       ],
-      "display" : "D♯m⁷♭⁵",
+      "frets" : [
+        2,
+        3,
+        2,
+        4
+      ],
       "name" : "D#m7b5",
-      "base" : 1,
-      "frets" : [
-        2,
-        3,
-        2,
-        4
-      ]
+      "display" : "D♯m⁷♭⁵",
+      "base" : 1
     },
     {
-      "name" : "D#maj7",
-      "base" : 1,
-      "frets" : [
-        3,
-        3,
-        3,
-        5
-      ],
       "fingers" : [
         1,
         1,
         1,
         3
       ],
-      "display" : "D♯maj⁷"
+      "frets" : [
+        3,
+        3,
+        3,
+        5
+      ],
+      "name" : "D#maj7",
+      "display" : "D♯maj⁷",
+      "base" : 1
     },
     {
       "display" : "D♯maj⁹",
-      "name" : "D#maj9",
       "base" : 1,
-      "fingers" : [
-        0,
-        2,
-        1,
-        4
-      ],
+      "name" : "D#maj9",
       "frets" : [
         0,
         3,
         1,
         5
+      ],
+      "fingers" : [
+        0,
+        2,
+        1,
+        4
       ]
     },
     {
-      "name" : "D#sus2",
-      "display" : "D♯sus²",
-      "fingers" : [
-        3,
-        4,
-        1,
-        1
-      ],
-      "base" : 1,
       "frets" : [
         3,
         3,
         1,
         1
+      ],
+      "display" : "D♯sus²",
+      "base" : 1,
+      "name" : "D#sus2",
+      "fingers" : [
+        3,
+        4,
+        1,
+        1
       ]
     },
     {
+      "name" : "D#sus4",
       "base" : 1,
-      "fingers" : [
+      "frets" : [
         1,
         3,
         4,
         1
       ],
       "display" : "D♯sus⁴",
-      "name" : "D#sus4",
-      "frets" : [
+      "fingers" : [
         1,
         3,
         4,
@@ -2642,13 +2657,13 @@
     {
       "display" : "D¹¹",
       "base" : 1,
+      "name" : "D11",
       "frets" : [
         0,
         2,
         2,
         3
       ],
-      "name" : "D11",
       "fingers" : [
         0,
         1,
@@ -2657,6 +2672,12 @@
       ]
     },
     {
+      "fingers" : [
+        4,
+        1,
+        1,
+        1
+      ],
       "name" : "D13",
       "frets" : [
         5,
@@ -2664,40 +2685,27 @@
         2,
         2
       ],
-      "base" : 1,
-      "fingers" : [
-        4,
-        1,
-        1,
-        1
-      ],
-      "display" : "D¹³"
+      "display" : "D¹³",
+      "base" : 1
     },
     {
-      "base" : 1,
-      "name" : "D5",
-      "fingers" : [
-        1,
-        2,
-        4,
-        0
-      ],
-      "display" : "D⁵",
       "frets" : [
         2,
         2,
         5,
         0
-      ]
-    },
-    {
+      ],
+      "display" : "D⁵",
       "fingers" : [
         1,
-        1,
-        1,
-        1
+        2,
+        4,
+        0
       ],
-      "name" : "D6",
+      "name" : "D5",
+      "base" : 1
+    },
+    {
       "base" : 1,
       "display" : "D⁶",
       "frets" : [
@@ -2705,35 +2713,42 @@
         2,
         2,
         2
-      ]
+      ],
+      "fingers" : [
+        1,
+        1,
+        1,
+        1
+      ],
+      "name" : "D6"
     },
     {
-      "display" : "D⁷",
       "name" : "D7",
-      "base" : 1,
+      "frets" : [
+        2,
+        2,
+        2,
+        3
+      ],
       "fingers" : [
         1,
         1,
         1,
         2
       ],
-      "frets" : [
-        2,
-        2,
-        2,
-        3
-      ]
+      "display" : "D⁷",
+      "base" : 1
     },
     {
-      "name" : "D7sus2",
-      "display" : "D⁷sus²",
       "base" : 1,
+      "name" : "D7sus2",
       "frets" : [
         2,
         0,
         0,
         5
       ],
+      "display" : "D⁷sus²",
       "fingers" : [
         1,
         0,
@@ -2742,41 +2757,41 @@
       ]
     },
     {
-      "base" : 1,
-      "name" : "D7sus4",
       "frets" : [
         2,
         2,
         3,
         3
       ],
-      "fingers" : [
-        1,
-        2,
-        3,
-        4
-      ],
-      "display" : "D⁷sus⁴"
-    },
-    {
-      "name" : "D9",
-      "display" : "D⁹",
+      "display" : "D⁷sus⁴",
       "base" : 1,
       "fingers" : [
-        3,
-        2,
         1,
+        2,
+        3,
         4
       ],
+      "name" : "D7sus4"
+    },
+    {
+      "base" : 1,
+      "display" : "D⁹",
       "frets" : [
         5,
         4,
         2,
         5
-      ]
+      ],
+      "fingers" : [
+        3,
+        2,
+        1,
+        4
+      ],
+      "name" : "D9"
     },
     {
-      "display" : "Dadd⁹",
+      "name" : "Dadd9",
       "base" : 1,
       "frets" : [
         2,
@@ -2784,39 +2799,39 @@
         2,
         5
       ],
-      "name" : "Dadd9",
       "fingers" : [
         1,
         3,
         1,
         4
-      ]
+      ],
+      "display" : "Dadd⁹"
     },
     {
-      "base" : 1,
+      "name" : "Daug",
       "fingers" : [
         4,
         2,
         3,
         1
       ],
-      "name" : "Daug",
       "frets" : [
         3,
         2,
         2,
         1
-      ]
+      ],
+      "base" : 1
     },
     {
+      "base" : 1,
+      "name" : "Daug7",
       "frets" : [
         3,
         2,
         2,
         3
       ],
-      "base" : 1,
-      "name" : "Daug7",
       "fingers" : [
         2,
         1,
@@ -2826,6 +2841,8 @@
       "display" : "Daug⁷"
     },
     {
+      "base" : 1,
+      "name" : "Ddim",
       "frets" : [
         1,
         2,
@@ -2837,13 +2854,16 @@
         3,
         2,
         0
-      ],
-      "name" : "Ddim",
-      "base" : 1
+      ]
     },
     {
       "display" : "Ddim⁷",
-      "base" : 1,
+      "frets" : [
+        1,
+        2,
+        1,
+        2
+      ],
       "name" : "Ddim7",
       "fingers" : [
         1,
@@ -2851,89 +2871,84 @@
         2,
         4
       ],
-      "frets" : [
-        1,
-        2,
-        1,
-        2
-      ]
-    },
-    {
-      "frets" : [
-        2,
-        2,
-        1,
-        0
-      ],
-      "fingers" : [
-        2,
-        3,
-        1,
-        0
-      ],
-      "name" : "Dm",
       "base" : 1
     },
     {
+      "name" : "Dm",
+      "frets" : [
+        2,
+        2,
+        1,
+        0
+      ],
+      "base" : 1,
+      "fingers" : [
+        2,
+        3,
+        1,
+        0
+      ]
+    },
+    {
+      "frets" : [
+        0,
+        2,
+        1,
+        3
+      ],
       "fingers" : [
         0,
         2,
         1,
         3
       ],
-      "base" : 1,
       "display" : "Dm¹¹",
       "name" : "Dm11",
-      "frets" : [
-        0,
-        2,
-        1,
-        3
-      ]
+      "base" : 1
     },
     {
+      "display" : "Dm⁶",
       "frets" : [
         2,
         2,
         1,
         2
       ],
-      "base" : 1,
-      "display" : "Dm⁶",
-      "name" : "Dm6",
       "fingers" : [
         2,
         3,
         1,
         4
-      ]
+      ],
+      "base" : 1,
+      "name" : "Dm6"
     },
     {
-      "display" : "Dm⁷",
+      "name" : "Dm7",
+      "base" : 1,
+      "fingers" : [
+        2,
+        3,
+        1,
+        4
+      ],
       "frets" : [
         2,
         2,
         1,
         3
       ],
-      "base" : 1,
-      "fingers" : [
-        2,
-        3,
-        1,
-        4
-      ],
-      "name" : "Dm7"
+      "display" : "Dm⁷"
     },
     {
-      "name" : "Dm7b5",
+      "base" : 1,
       "fingers" : [
         1,
         2,
         1,
         3
       ],
-      "base" : 1,
+      "name" : "Dm7b5",
       "frets" : [
         1,
         2,
@@ -2943,64 +2958,57 @@
       "display" : "Dm⁷♭⁵"
     },
     {
+      "fingers" : [
+        1,
+        2,
+        0,
+        3
+      ],
       "name" : "Dm9",
-      "base" : 1,
+      "display" : "Dm⁹",
       "frets" : [
         5,
         5,
         0,
         5
       ],
-      "display" : "Dm⁹",
-      "fingers" : [
-        1,
-        2,
-        0,
-        3
-      ]
+      "base" : 1
     },
     {
-      "name" : "Dmaj7",
+      "display" : "Dmaj⁷",
       "frets" : [
         2,
         2,
         2,
         4
       ],
-      "display" : "Dmaj⁷",
       "fingers" : [
         1,
         1,
         1,
         3
       ],
-      "base" : 1
+      "base" : 1,
+      "name" : "Dmaj7"
     },
     {
-      "base" : 1,
-      "frets" : [
-        2,
-        2,
-        0,
-        0
-      ],
       "display" : "Dsus²",
+      "name" : "Dsus2",
+      "base" : 1,
       "fingers" : [
         2,
         3,
         0,
         0
       ],
-      "name" : "Dsus2"
+      "frets" : [
+        2,
+        2,
+        0,
+        0
+      ]
     },
     {
-      "display" : "Dsus⁴",
-      "fingers" : [
-        0,
-        2,
-        3,
-        0
-      ],
       "base" : 1,
       "frets" : [
         0,
@@ -3008,9 +3016,17 @@
         3,
         0
       ],
+      "fingers" : [
+        0,
+        2,
+        3,
+        0
+      ],
+      "display" : "Dsus⁴",
       "name" : "Dsus4"
     },
     {
+      "name" : "E",
       "base" : 1,
       "frets" : [
         1,
@@ -3023,37 +3039,36 @@
         4,
         0,
         2
-      ],
-      "name" : "E"
+      ]
     },
     {
-      "base" : 1,
-      "name" : "E11",
       "frets" : [
         1,
         2,
         0,
         0
       ],
+      "name" : "E11",
       "display" : "E¹¹",
       "fingers" : [
         1,
         2,
         0,
         0
-      ]
+      ],
+      "base" : 1
     },
     {
-      "display" : "E¹³",
       "name" : "E13",
-      "frets" : [
+      "base" : 1,
+      "display" : "E¹³",
+      "fingers" : [
         1,
         2,
         0,
         4
       ],
-      "base" : 1,
-      "fingers" : [
+      "frets" : [
         1,
         2,
         0,
@@ -3067,17 +3082,19 @@
         0,
         1
       ],
-      "display" : "E⁵",
-      "base" : 1,
-      "name" : "E5",
       "frets" : [
         4,
         4,
         0,
         2
-      ]
+      ],
+      "base" : 1,
+      "display" : "E⁵",
+      "name" : "E5"
     },
     {
+      "display" : "E⁶",
+      "base" : 1,
       "name" : "E6",
       "frets" : [
         4,
@@ -3085,108 +3102,106 @@
         4,
         4
       ],
-      "base" : 1,
       "fingers" : [
         1,
         1,
         1,
         1
-      ],
-      "display" : "E⁶"
+      ]
     },
     {
+      "fingers" : [
+        1,
+        2,
+        0,
+        3
+      ],
+      "display" : "E⁷",
+      "base" : 1,
       "frets" : [
         1,
         2,
         0,
         2
       ],
-      "name" : "E7",
-      "base" : 1,
-      "display" : "E⁷",
-      "fingers" : [
-        1,
-        2,
-        0,
-        3
-      ]
+      "name" : "E7"
     },
     {
-      "display" : "E⁷sus²",
+      "base" : 1,
+      "name" : "E7sus2",
+      "fingers" : [
+        2,
+        3,
+        1,
+        4
+      ],
       "frets" : [
         4,
         4,
         2,
         5
       ],
-      "fingers" : [
-        2,
-        3,
-        1,
-        4
-      ],
-      "name" : "E7sus2",
-      "base" : 1
+      "display" : "E⁷sus²"
     },
     {
-      "fingers" : [
-        1,
-        2,
-        3,
-        4
-      ],
+      "display" : "E⁷sus⁴",
       "frets" : [
         4,
         4,
         5,
         5
       ],
-      "display" : "E⁷sus⁴",
+      "fingers" : [
+        1,
+        2,
+        3,
+        4
+      ],
       "base" : 1,
       "name" : "E7sus4"
     },
     {
-      "fingers" : [
-        1,
-        3,
-        2,
-        4
-      ],
       "base" : 1,
       "display" : "E⁹",
+      "name" : "E9",
       "frets" : [
         1,
         4,
         2,
         5
       ],
-      "name" : "E9"
-    },
-    {
-      "base" : 1,
       "fingers" : [
         1,
-        4,
+        3,
         2,
-        2
-      ],
+        4
+      ]
+    },
+    {
       "frets" : [
         1,
         4,
         2,
         2
       ],
+      "fingers" : [
+        1,
+        4,
+        2,
+        2
+      ],
       "display" : "Eadd⁹",
+      "base" : 1,
       "name" : "Eadd9"
     },
     {
+      "base" : 1,
       "fingers" : [
         1,
         0,
         0,
         3
       ],
-      "base" : 1,
       "frets" : [
         1,
         0,
@@ -3196,32 +3211,32 @@
       "name" : "Eaug"
     },
     {
+      "display" : "Eaug⁷",
+      "fingers" : [
+        1,
+        2,
+        0,
+        3
+      ],
       "name" : "Eaug7",
-      "base" : 1,
-      "fingers" : [
-        1,
-        2,
-        0,
-        3
-      ],
       "frets" : [
         1,
         2,
         0,
         3
       ],
-      "display" : "Eaug⁷"
+      "base" : 1
     },
     {
-      "fingers" : [
-        0,
-        4,
-        0,
-        1
-      ],
       "name" : "Edim",
-      "base" : 1,
       "frets" : [
+        0,
+        4,
+        0,
+        1
+      ],
+      "base" : 1,
+      "fingers" : [
         0,
         4,
         0,
@@ -3229,82 +3244,65 @@
       ]
     },
     {
-      "display" : "Edim⁷",
+      "fingers" : [
+        0,
+        2,
+        0,
+        3
+      ],
+      "name" : "Edim7",
       "frets" : [
         0,
         1,
         0,
         1
       ],
-      "base" : 1,
-      "name" : "Edim7",
-      "fingers" : [
-        0,
-        2,
-        0,
-        3
-      ]
+      "display" : "Edim⁷",
+      "base" : 1
     },
     {
+      "base" : 1,
+      "name" : "Em",
+      "fingers" : [
+        0,
+        3,
+        2,
+        1
+      ],
       "frets" : [
         0,
         4,
         3,
         2
-      ],
-      "base" : 1,
-      "fingers" : [
-        0,
-        3,
-        2,
-        1
-      ],
-      "name" : "Em"
+      ]
     },
     {
+      "display" : "Em¹¹",
+      "fingers" : [
+        0,
+        2,
+        0,
+        0
+      ],
       "frets" : [
         0,
         2,
         0,
         0
       ],
-      "display" : "Em¹¹",
-      "name" : "Em11",
       "base" : 1,
-      "fingers" : [
-        0,
-        2,
-        0,
-        0
-      ]
+      "name" : "Em11"
     },
     {
+      "base" : 1,
+      "name" : "Em13",
+      "display" : "Em¹³",
       "frets" : [
         0,
         2,
         0,
         4
       ],
-      "base" : 1,
-      "fingers" : [
-        0,
-        1,
-        0,
-        3
-      ],
-      "display" : "Em¹³",
-      "name" : "Em13"
-    },
-    {
-      "frets" : [
-        0,
-        1,
-        0,
-        2
-      ],
-      "display" : "Em⁶",
-      "name" : "Em6",
-      "base" : 1,
       "fingers" : [
         0,
         1,
@@ -3313,6 +3311,24 @@
       ]
     },
     {
+      "name" : "Em6",
+      "frets" : [
+        0,
+        1,
+        0,
+        2
+      ],
+      "base" : 1,
+      "fingers" : [
+        0,
+        1,
+        0,
+        3
+      ],
+      "display" : "Em⁶"
+    },
+    {
+      "base" : 1,
       "frets" : [
         0,
         2,
@@ -3320,48 +3336,47 @@
         2
       ],
       "display" : "Em⁷",
-      "base" : 1,
+      "name" : "Em7",
       "fingers" : [
         0,
         2,
         0,
         3
-      ],
-      "name" : "Em7"
+      ]
     },
     {
       "base" : 1,
       "name" : "Em7b5",
-      "frets" : [
-        0,
-        2,
-        0,
-        1
-      ],
       "fingers" : [
         0,
         3,
         0,
         2
       ],
+      "frets" : [
+        0,
+        2,
+        0,
+        1
+      ],
       "display" : "Em⁷♭⁵"
     },
     {
-      "name" : "Em9",
+      "display" : "Em⁹",
+      "base" : 1,
       "fingers" : [
         0,
         2,
         1,
         4
       ],
+      "name" : "Em9",
       "frets" : [
         0,
         4,
         2,
         5
-      ],
-      "base" : 1,
-      "display" : "Em⁹"
+      ]
     },
     {
       "name" : "EmMaj7",
@@ -3371,145 +3386,145 @@
         0,
         2
       ],
+      "display" : "EmMaj⁷",
       "base" : 1,
       "fingers" : [
         0,
         3,
         0,
         2
-      ],
-      "display" : "EmMaj⁷"
+      ]
     },
     {
-      "display" : "Emadd⁹",
       "base" : 1,
-      "fingers" : [
-        0,
-        3,
-        1,
-        1
-      ],
       "name" : "Emadd9",
+      "display" : "Emadd⁹",
       "frets" : [
         0,
         4,
         2,
         2
+      ],
+      "fingers" : [
+        0,
+        3,
+        1,
+        1
       ]
     },
     {
+      "frets" : [
+        1,
+        3,
+        0,
+        2
+      ],
+      "fingers" : [
+        1,
+        3,
+        0,
+        2
+      ],
+      "name" : "Emaj7",
       "display" : "Emaj⁷",
-      "frets" : [
-        1,
-        3,
-        0,
-        2
-      ],
-      "fingers" : [
-        1,
-        3,
-        0,
-        2
-      ],
-      "base" : 1,
-      "name" : "Emaj7"
+      "base" : 1
     },
     {
-      "base" : 1,
-      "display" : "Esus²",
+      "fingers" : [
+        3,
+        4,
+        1,
+        1
+      ],
       "name" : "Esus2",
+      "base" : 1,
       "frets" : [
         4,
         4,
         2,
         2
       ],
+      "display" : "Esus²"
+    },
+    {
+      "display" : "Esus⁴",
+      "fingers" : [
+        1,
+        2,
+        0,
+        0
+      ],
+      "base" : 1,
+      "frets" : [
+        4,
+        4,
+        0,
+        0
+      ],
+      "name" : "Esus4"
+    },
+    {
+      "fingers" : [
+        2,
+        0,
+        1,
+        0
+      ],
+      "frets" : [
+        2,
+        0,
+        1,
+        0
+      ],
+      "base" : 1,
+      "name" : "F"
+    },
+    {
+      "base" : 1,
+      "name" : "F#",
+      "display" : "F♯",
+      "frets" : [
+        3,
+        1,
+        2,
+        1
+      ],
       "fingers" : [
         3,
-        4,
         1,
+        2,
         1
       ]
     },
     {
-      "frets" : [
-        4,
-        4,
-        0,
-        0
-      ],
       "fingers" : [
-        1,
-        2,
-        0,
-        0
-      ],
-      "name" : "Esus4",
-      "display" : "Esus⁴",
-      "base" : 1
-    },
-    {
-      "fingers" : [
-        2,
         0,
         1,
-        0
-      ],
-      "frets" : [
         2,
-        0,
-        1,
-        0
-      ],
-      "name" : "F",
-      "base" : 1
-    },
-    {
-      "frets" : [
-        3,
-        1,
-        2,
-        1
-      ],
-      "fingers" : [
-        3,
-        1,
-        2,
-        1
+        4
       ],
       "base" : 1,
-      "display" : "F♯",
-      "name" : "F#"
-    },
-    {
-      "name" : "F#5",
       "display" : "F♯⁵",
+      "name" : "F#5",
       "frets" : [
         -1,
         1,
         2,
         4
-      ],
-      "base" : 1,
-      "fingers" : [
-        0,
-        1,
-        2,
-        4
       ]
     },
     {
       "base" : 1,
-      "fingers" : [
-        2,
-        3,
-        1,
-        4
-      ],
       "frets" : [
         3,
         3,
         2,
+        4
+      ],
+      "fingers" : [
+        2,
+        3,
+        1,
         4
       ],
       "display" : "F♯⁶",
@@ -3517,18 +3532,35 @@
     },
     {
       "display" : "F♯⁷",
+      "name" : "F#7",
       "frets" : [
         3,
         4,
         2,
         4
       ],
-      "base" : 1,
-      "name" : "F#7",
       "fingers" : [
         2,
         3,
         1,
+        4
+      ],
+      "base" : 1
+    },
+    {
+      "display" : "F♯⁷sus²",
+      "base" : 1,
+      "name" : "F#7sus2",
+      "fingers" : [
+        1,
+        3,
+        2,
+        4
+      ],
+      "frets" : [
+        1,
+        4,
+        2,
         4
       ]
     },
@@ -3537,53 +3569,37 @@
         1,
         4,
         2,
-        4
+        1
       ],
-      "name" : "F#7sus2",
-      "display" : "F♯⁷sus²",
+      "base" : 1,
       "fingers" : [
         1,
-        3,
+        4,
         2,
-        4
+        1
       ],
-      "base" : 1
-    },
-    {
       "display" : "F♯⁹",
-      "frets" : [
-        1,
-        4,
-        2,
-        1
-      ],
-      "fingers" : [
-        1,
-        4,
-        2,
-        1
-      ],
-      "name" : "F#9",
-      "base" : 1
+      "name" : "F#9"
     },
     {
       "name" : "F#add9",
+      "base" : 1,
+      "fingers" : [
+        1,
+        1,
+        2,
+        1
+      ],
       "display" : "F♯add⁹",
       "frets" : [
         1,
         1,
         2,
         1
-      ],
-      "fingers" : [
-        1,
-        1,
-        2,
-        1
-      ],
-      "base" : 1
+      ]
     },
     {
+      "name" : "F#aug",
       "frets" : [
         3,
         2,
@@ -3591,40 +3607,34 @@
         1
       ],
       "display" : "F♯aug",
+      "base" : 1,
       "fingers" : [
         4,
         2,
         3,
         1
-      ],
-      "name" : "F#aug",
-      "base" : 1
+      ]
     },
     {
       "display" : "F♯dim",
       "base" : 1,
+      "frets" : [
+        2,
+        0,
+        2,
+        0
+      ],
       "fingers" : [
         1,
         0,
         2,
         0
       ],
-      "name" : "F#dim",
-      "frets" : [
-        2,
-        0,
-        2,
-        0
-      ]
+      "name" : "F#dim"
     },
     {
-      "frets" : [
-        2,
-        3,
-        2,
-        3
-      ],
       "display" : "F♯dim⁷",
+      "base" : 1,
       "name" : "F#dim7",
       "fingers" : [
         1,
@@ -3632,66 +3642,67 @@
         2,
         4
       ],
-      "base" : 1
+      "frets" : [
+        2,
+        3,
+        2,
+        3
+      ]
     },
     {
-      "fingers" : [
+      "base" : 1,
+      "frets" : [
         2,
         1,
-        3,
+        2,
         0
       ],
       "display" : "F♯m",
-      "base" : 1,
-      "name" : "F#m",
-      "frets" : [
+      "fingers" : [
         2,
         1,
-        2,
+        3,
         0
-      ]
+      ],
+      "name" : "F#m"
     },
     {
       "base" : 1,
-      "display" : "F♯m⁶",
-      "name" : "F#m6",
       "frets" : [
         2,
         3,
         2,
         4
       ],
+      "name" : "F#m6",
       "fingers" : [
         1,
         2,
         1,
         3
-      ]
+      ],
+      "display" : "F♯m⁶"
     },
     {
-      "display" : "F♯m⁷",
       "name" : "F#m7",
+      "fingers" : [
+        1,
+        3,
+        2,
+        4
+      ],
       "frets" : [
         2,
         4,
         2,
         4
       ],
-      "fingers" : [
-        1,
-        3,
-        2,
-        4
-      ],
+      "display" : "F♯m⁷",
       "base" : 1
     },
     {
-      "frets" : [
-        2,
-        4,
-        2,
-        3
-      ],
+      "base" : 1,
+      "name" : "F#m7b5",
       "fingers" : [
         1,
         3,
@@ -3699,8 +3710,12 @@
         2
       ],
       "display" : "F♯m⁷♭⁵",
-      "name" : "F#m7b5",
-      "base" : 1
+      "frets" : [
+        2,
+        4,
+        2,
+        3
+      ]
     },
     {
       "fingers" : [
@@ -3709,17 +3724,20 @@
         2,
         0
       ],
-      "name" : "F#m9",
-      "base" : 1,
       "frets" : [
         1,
         4,
         2,
         0
       ],
+      "base" : 1,
+      "name" : "F#m9",
       "display" : "F♯m⁹"
     },
     {
+      "base" : 1,
+      "name" : "F#mMaj7",
+      "display" : "F♯mMaj⁷",
       "frets" : [
         2,
         5,
@@ -3731,177 +3749,174 @@
         4,
         1,
         3
-      ],
-      "display" : "F♯mMaj⁷",
-      "base" : 1,
-      "name" : "F#mMaj7"
+      ]
     },
     {
-      "display" : "F♯madd⁹",
-      "base" : 1,
       "fingers" : [
         1,
         2,
         3,
         0
       ],
-      "name" : "F#madd9",
       "frets" : [
         1,
         1,
         2,
         0
-      ]
+      ],
+      "base" : 1,
+      "display" : "F♯madd⁹",
+      "name" : "F#madd9"
     },
     {
       "name" : "F#maj7",
-      "base" : 1,
-      "frets" : [
-        3,
-        5,
-        2,
-        4
-      ],
       "fingers" : [
         2,
         4,
         1,
         3
       ],
-      "display" : "F♯maj⁷"
-    },
-    {
-      "base" : 1,
-      "name" : "F#maj9",
-      "display" : "F♯maj⁹",
       "frets" : [
-        1,
+        3,
         5,
         2,
-        1
+        4
       ],
+      "display" : "F♯maj⁷",
+      "base" : 1
+    },
+    {
+      "display" : "F♯maj⁹",
+      "base" : 1,
+      "name" : "F#maj9",
       "fingers" : [
         1,
         4,
         2,
         1
+      ],
+      "frets" : [
+        1,
+        5,
+        2,
+        1
       ]
     },
     {
-      "name" : "F#sus2",
-      "base" : 1,
       "fingers" : [
         1,
         0,
         2,
         4
       ],
+      "base" : 1,
       "frets" : [
         1,
         1,
         2,
         4
       ],
+      "name" : "F#sus2",
       "display" : "F♯sus²"
     },
     {
+      "base" : 1,
       "frets" : [
         4,
         1,
         2,
         2
       ],
+      "name" : "F#sus4",
+      "display" : "F♯sus⁴",
       "fingers" : [
         4,
         1,
         2,
         3
-      ],
-      "name" : "F#sus4",
-      "display" : "F♯sus⁴",
-      "base" : 1
+      ]
     },
     {
-      "base" : 1,
       "fingers" : [
         3,
         4,
         1,
         0
       ],
-      "display" : "F¹¹",
+      "name" : "F11",
       "frets" : [
         3,
         3,
         1,
         0
       ],
-      "name" : "F11"
+      "base" : 1,
+      "display" : "F¹¹"
     },
     {
+      "display" : "F⁵",
+      "name" : "F5",
       "frets" : [
         -1,
         0,
         1,
         3
       ],
-      "base" : 1,
-      "display" : "F⁵",
-      "name" : "F5",
       "fingers" : [
         0,
         0,
         1,
         3
-      ]
-    },
-    {
-      "frets" : [
-        2,
-        2,
-        1,
-        3
       ],
-      "fingers" : [
-        2,
-        3,
-        1,
-        4
-      ],
-      "name" : "F6",
-      "display" : "F⁶",
       "base" : 1
     },
     {
+      "base" : 1,
       "fingers" : [
         2,
         3,
         1,
         4
       ],
-      "display" : "F⁷",
-      "name" : "F7",
+      "display" : "F⁶",
+      "frets" : [
+        2,
+        2,
+        1,
+        3
+      ],
+      "name" : "F6"
+    },
+    {
       "base" : 1,
       "frets" : [
         2,
         3,
         1,
         3
+      ],
+      "name" : "F7",
+      "display" : "F⁷",
+      "fingers" : [
+        2,
+        3,
+        1,
+        4
       ]
     },
     {
-      "fingers" : [
+      "display" : "F⁷sus²",
+      "frets" : [
         0,
-        2,
+        3,
         1,
         3
       ],
       "name" : "F7sus2",
-      "display" : "F⁷sus²",
       "base" : 1,
-      "frets" : [
+      "fingers" : [
         0,
-        3,
+        2,
         1,
         3
       ]
@@ -3915,112 +3930,112 @@
         0
       ],
       "display" : "F⁹",
+      "name" : "F9",
       "frets" : [
         0,
         3,
         1,
         0
-      ],
-      "name" : "F9"
+      ]
     },
     {
+      "fingers" : [
+        0,
+        0,
+        1,
+        0
+      ],
+      "base" : 1,
       "display" : "Fadd⁹",
-      "name" : "Fadd9",
       "frets" : [
         0,
         0,
         1,
         0
       ],
-      "fingers" : [
-        0,
-        0,
-        1,
-        0
-      ],
-      "base" : 1
+      "name" : "Fadd9"
     },
     {
-      "frets" : [
-        2,
-        1,
-        1,
-        0
-      ],
       "fingers" : [
         3,
         1,
         2,
+        0
+      ],
+      "frets" : [
+        2,
+        1,
+        1,
         0
       ],
       "name" : "Faug",
       "base" : 1
     },
     {
-      "base" : 1,
+      "display" : "Faug⁷",
       "frets" : [
         2,
         3,
         1,
         4
       ],
+      "base" : 1,
+      "name" : "Faug7",
       "fingers" : [
         2,
         3,
         1,
         4
-      ],
-      "display" : "Faug⁷",
-      "name" : "Faug7"
+      ]
     },
     {
       "base" : 1,
       "name" : "Fdim",
+      "fingers" : [
+        1,
+        0,
+        2,
+        3
+      ],
       "frets" : [
         1,
         -1,
         1,
         2
-      ],
-      "fingers" : [
-        1,
-        0,
-        2,
-        3
       ]
     },
     {
-      "fingers" : [
-        1,
-        3,
-        2,
-        4
-      ],
-      "name" : "Fdim7",
-      "display" : "Fdim⁷",
       "frets" : [
         1,
         2,
         1,
         2
       ],
+      "display" : "Fdim⁷",
+      "name" : "Fdim7",
+      "fingers" : [
+        1,
+        3,
+        2,
+        4
+      ],
       "base" : 1
     },
     {
-      "base" : 1,
       "name" : "Fm",
+      "fingers" : [
+        1,
+        0,
+        2,
+        4
+      ],
       "frets" : [
         1,
         0,
         1,
         3
       ],
-      "fingers" : [
-        1,
-        0,
-        2,
-        4
-      ]
+      "base" : 1
     },
     {
       "fingers" : [
@@ -4030,68 +4045,69 @@
         1
       ],
       "display" : "Fm¹¹",
-      "base" : 1,
-      "name" : "Fm11",
       "frets" : [
         1,
         3,
         1,
         1
-      ]
+      ],
+      "base" : 1,
+      "name" : "Fm11"
     },
     {
-      "frets" : [
-        1,
-        2,
-        1,
-        3
-      ],
-      "display" : "Fm⁶",
-      "base" : 1,
       "fingers" : [
         1,
         3,
         2,
         4
       ],
+      "frets" : [
+        1,
+        2,
+        1,
+        3
+      ],
+      "base" : 1,
+      "display" : "Fm⁶",
       "name" : "Fm6"
     },
     {
-      "base" : 1,
+      "name" : "Fm7",
       "display" : "Fm⁷",
+      "frets" : [
+        1,
+        3,
+        1,
+        3
+      ],
       "fingers" : [
         1,
         3,
         1,
         4
       ],
-      "frets" : [
-        1,
-        3,
-        1,
-        3
-      ],
-      "name" : "Fm7"
+      "base" : 1
     },
     {
-      "fingers" : [
-        1,
-        3,
-        1,
-        2
-      ],
-      "base" : 1,
-      "frets" : [
-        1,
-        3,
-        1,
-        2
-      ],
       "display" : "Fm⁷♭⁵",
-      "name" : "Fm7b5"
+      "fingers" : [
+        1,
+        3,
+        1,
+        2
+      ],
+      "base" : 1,
+      "name" : "Fm7b5",
+      "frets" : [
+        1,
+        3,
+        1,
+        2
+      ]
     },
     {
-      "base" : 1,
+      "name" : "FmMaj7",
+      "display" : "FmMaj⁷",
       "frets" : [
         1,
         4,
@@ -4104,19 +4120,18 @@
         1,
         3
       ],
-      "display" : "FmMaj⁷",
-      "name" : "FmMaj7"
+      "base" : 1
     },
     {
-      "name" : "Fmadd9",
-      "display" : "Fmadd⁹",
+      "base" : 1,
       "fingers" : [
         0,
         3,
         2,
         1
       ],
-      "base" : 1,
+      "display" : "Fmadd⁹",
+      "name" : "Fmadd9",
       "frets" : [
         0,
         5,
@@ -4125,30 +4140,23 @@
       ]
     },
     {
-      "display" : "Fmaj⁷",
       "frets" : [
         2,
         4,
         1,
         3
       ],
+      "display" : "Fmaj⁷",
+      "name" : "Fmaj7",
       "fingers" : [
         2,
         4,
         1,
         3
       ],
-      "name" : "Fmaj7",
       "base" : 1
     },
     {
-      "base" : 1,
-      "fingers" : [
-        0,
-        3,
-        1,
-        0
-      ],
       "display" : "Fmaj⁹",
       "name" : "Fmaj9",
       "frets" : [
@@ -4156,7 +4164,14 @@
         4,
         1,
         0
-      ]
+      ],
+      "fingers" : [
+        0,
+        3,
+        1,
+        0
+      ],
+      "base" : 1
     },
     {
       "frets" : [
@@ -4165,34 +4180,40 @@
         1,
         3
       ],
+      "base" : 1,
       "fingers" : [
         0,
         0,
         1,
         3
       ],
-      "base" : 1,
       "name" : "Fsus2",
       "display" : "Fsus²"
     },
     {
-      "display" : "Fsus⁴",
+      "name" : "Fsus4",
       "fingers" : [
         3,
         0,
         1,
         1
       ],
+      "display" : "Fsus⁴",
       "frets" : [
         3,
         0,
         1,
         1
       ],
-      "base" : 1,
-      "name" : "Fsus4"
+      "base" : 1
     },
     {
+      "frets" : [
+        0,
+        2,
+        3,
+        2
+      ],
       "fingers" : [
         0,
         1,
@@ -4200,49 +4221,44 @@
         2
       ],
       "name" : "G",
-      "frets" : [
-        0,
-        2,
-        3,
-        2
-      ],
       "base" : 1
     },
     {
-      "fingers" : [
-        3,
-        1,
-        2,
-        1
-      ],
+      "name" : "G#",
       "frets" : [
         5,
         3,
         4,
         3
       ],
+      "base" : 1,
       "display" : "G♯",
-      "name" : "G#",
-      "base" : 1
+      "fingers" : [
+        3,
+        1,
+        2,
+        1
+      ]
     },
     {
-      "name" : "G#11",
+      "base" : 1,
+      "frets" : [
+        1,
+        1,
+        2,
+        3
+      ],
       "fingers" : [
         1,
         1,
         2,
         3
       ],
-      "base" : 1,
       "display" : "G♯¹¹",
-      "frets" : [
-        1,
-        1,
-        2,
-        3
-      ]
+      "name" : "G#11"
     },
     {
+      "display" : "G♯⁵",
       "base" : 1,
       "fingers" : [
         1,
@@ -4256,12 +4272,15 @@
         3,
         4,
         -1
-      ],
-      "display" : "G♯⁵"
+      ]
     },
     {
-      "display" : "G♯⁶",
-      "base" : 1,
+      "fingers" : [
+        1,
+        3,
+        1,
+        4
+      ],
       "name" : "G#6",
       "frets" : [
         1,
@@ -4269,142 +4288,138 @@
         1,
         3
       ],
+      "display" : "G♯⁶",
+      "base" : 1
+    },
+    {
+      "base" : 1,
       "fingers" : [
         1,
         3,
-        1,
+        2,
         4
-      ]
-    },
-    {
-      "name" : "G#7",
+      ],
       "display" : "G♯⁷",
-      "base" : 1,
+      "name" : "G#7",
       "frets" : [
         1,
         3,
         2,
         3
-      ],
-      "fingers" : [
-        1,
-        3,
-        2,
-        4
       ]
     },
     {
-      "base" : 1,
+      "name" : "G#7sus2",
       "display" : "G♯⁷sus²",
-      "frets" : [
-        1,
-        3,
-        2,
-        1
-      ],
+      "base" : 1,
       "fingers" : [
         1,
         3,
         2,
         1
       ],
-      "name" : "G#7sus2"
-    },
-    {
       "frets" : [
         1,
         3,
         2,
-        4
-      ],
+        1
+      ]
+    },
+    {
       "name" : "G#7sus4",
-      "fingers" : [
+      "frets" : [
         1,
         3,
         2,
         4
       ],
-      "display" : "G♯⁷sus⁴",
-      "base" : 1
-    },
-    {
-      "frets" : [
+      "fingers" : [
         1,
-        0,
+        3,
         2,
-        1
+        4
       ],
       "base" : 1,
-      "display" : "G♯⁹",
+      "display" : "G♯⁷sus⁴"
+    },
+    {
+      "name" : "G#9",
       "fingers" : [
         1,
         0,
         3,
         2
       ],
-      "name" : "G#9"
-    },
-    {
-      "name" : "G#add9",
-      "display" : "G♯add⁹",
       "base" : 1,
+      "display" : "G♯⁹",
       "frets" : [
-        3,
-        3,
-        4,
-        3
-      ],
-      "fingers" : [
         1,
-        1,
+        0,
         2,
         1
       ]
     },
     {
+      "fingers" : [
+        1,
+        1,
+        2,
+        1
+      ],
+      "frets" : [
+        3,
+        3,
+        4,
+        3
+      ],
+      "display" : "G♯add⁹",
+      "name" : "G#add9",
+      "base" : 1
+    },
+    {
+      "display" : "G♯aug",
       "frets" : [
         1,
         0,
         0,
         3
       ],
-      "base" : 1,
-      "name" : "G#aug",
       "fingers" : [
         1,
         0,
         0,
         3
       ],
-      "display" : "G♯aug"
+      "base" : 1,
+      "name" : "G#aug"
     },
     {
-      "base" : 1,
-      "frets" : [
-        1,
-        4,
-        2,
-        3
-      ],
       "display" : "G♯aug⁷",
+      "name" : "G#aug7",
+      "frets" : [
+        1,
+        4,
+        2,
+        3
+      ],
       "fingers" : [
         1,
         4,
         2,
         3
       ],
-      "name" : "G#aug7"
+      "base" : 1
     },
     {
-      "name" : "G#dim",
       "fingers" : [
         1,
         2,
         0,
         3
       ],
-      "base" : 1,
+      "name" : "G#dim",
       "display" : "G♯dim",
+      "base" : 1,
       "frets" : [
         1,
         2,
@@ -4413,6 +4428,8 @@
       ]
     },
     {
+      "base" : 1,
+      "name" : "G#dim7",
       "frets" : [
         1,
         2,
@@ -4425,12 +4442,12 @@
         2,
         4
       ],
-      "base" : 1,
-      "name" : "G#dim7",
       "display" : "G♯dim⁷"
     },
     {
+      "base" : 1,
       "display" : "G♯m",
+      "name" : "G#m",
       "frets" : [
         4,
         3,
@@ -4442,12 +4459,16 @@
         2,
         4,
         1
-      ],
-      "name" : "G#m",
-      "base" : 1
+      ]
     },
     {
       "name" : "G#m7",
+      "fingers" : [
+        1,
+        4,
+        2,
+        3
+      ],
       "frets" : [
         1,
         3,
@@ -4455,16 +4476,10 @@
         2
       ],
       "display" : "G♯m⁷",
-      "base" : 1,
-      "fingers" : [
-        1,
-        4,
-        2,
-        3
-      ]
+      "base" : 1
     },
     {
-      "base" : 1,
+      "name" : "G#m7b5",
       "fingers" : [
         1,
         2,
@@ -4478,44 +4493,45 @@
         2,
         2
       ],
-      "name" : "G#m7b5"
+      "base" : 1
     },
     {
-      "base" : 1,
-      "fingers" : [
-        0,
-        2,
-        3,
-        1
-      ],
-      "name" : "G#mMaj7",
       "display" : "G♯mMaj⁷",
+      "base" : 1,
       "frets" : [
         0,
         3,
         4,
         2
+      ],
+      "name" : "G#mMaj7",
+      "fingers" : [
+        0,
+        2,
+        3,
+        1
       ]
     },
     {
-      "base" : 1,
-      "name" : "G#madd9",
-      "display" : "G♯madd⁹",
-      "frets" : [
-        4,
-        3,
-        4,
-        1
-      ],
       "fingers" : [
         3,
         2,
         4,
         1
+      ],
+      "display" : "G♯madd⁹",
+      "name" : "G#madd9",
+      "base" : 1,
+      "frets" : [
+        4,
+        3,
+        4,
+        1
       ]
     },
     {
-      "display" : "G♯maj⁷",
+      "base" : 1,
+      "name" : "G#maj7",
       "fingers" : [
         1,
         3,
@@ -4528,71 +4544,70 @@
         3,
         3
       ],
-      "name" : "G#maj7",
-      "base" : 1
+      "display" : "G♯maj⁷"
     },
     {
       "name" : "G#maj9",
+      "frets" : [
+        0,
+        0,
+        4,
+        1
+      ],
+      "fingers" : [
+        0,
+        0,
+        4,
+        1
+      ],
+      "base" : 1,
+      "display" : "G♯maj⁹"
+    },
+    {
+      "frets" : [
+        1,
+        3,
+        4,
+        1
+      ],
       "base" : 1,
       "fingers" : [
-        0,
-        0,
+        1,
+        3,
         4,
         1
       ],
-      "display" : "G♯maj⁹",
-      "frets" : [
-        0,
-        0,
-        4,
-        1
-      ]
-    },
-    {
       "display" : "G♯sus²",
-      "fingers" : [
-        1,
-        3,
-        4,
-        1
-      ],
+      "name" : "G#sus2"
+    },
+    {
+      "base" : 1,
       "frets" : [
         1,
         3,
         4,
-        1
+        4
       ],
-      "name" : "G#sus2",
-      "base" : 1
-    },
-    {
-      "display" : "G♯sus⁴",
       "fingers" : [
         1,
         2,
         3,
         4
       ],
-      "name" : "G#sus4",
-      "frets" : [
-        1,
-        3,
-        4,
-        4
-      ],
-      "base" : 1
+      "display" : "G♯sus⁴",
+      "name" : "G#sus4"
     },
     {
-      "display" : "G¹¹",
-      "name" : "G11",
-      "base" : 1,
-      "frets" : [
+      "fingers" : [
         0,
         0,
         1,
         2
       ],
-      "fingers" : [
+      "base" : 1,
+      "display" : "G¹¹",
+      "name" : "G11",
+      "frets" : [
         0,
         0,
         1,
@@ -4600,83 +4615,83 @@
       ]
     },
     {
-      "display" : "G¹³",
-      "name" : "G13",
-      "fingers" : [
-        0,
-        4,
-        1,
-        2
-      ],
       "frets" : [
         0,
         4,
         1,
         2
       ],
+      "fingers" : [
+        0,
+        4,
+        1,
+        2
+      ],
+      "display" : "G¹³",
+      "name" : "G13",
       "base" : 1
     },
     {
+      "name" : "G5",
+      "base" : 1,
+      "display" : "G⁵",
+      "fingers" : [
+        0,
+        1,
+        2,
+        4
+      ],
       "frets" : [
         0,
         2,
         3,
         5
-      ],
-      "fingers" : [
-        0,
-        1,
-        2,
-        4
-      ],
-      "name" : "G5",
-      "base" : 1,
-      "display" : "G⁵"
+      ]
     },
     {
+      "frets" : [
+        0,
+        2,
+        0,
+        2
+      ],
       "fingers" : [
         0,
         2,
         0,
         3
       ],
-      "base" : 1,
+      "name" : "G6",
       "display" : "G⁶",
-      "frets" : [
-        0,
-        2,
-        0,
-        2
-      ],
-      "name" : "G6"
+      "base" : 1
     },
     {
       "base" : 1,
-      "frets" : [
-        0,
-        2,
-        1,
-        2
-      ],
-      "name" : "G7",
       "display" : "G⁷",
       "fingers" : [
         0,
         2,
         1,
         3
+      ],
+      "name" : "G7",
+      "frets" : [
+        0,
+        2,
+        1,
+        2
       ]
     },
     {
-      "fingers" : [
+      "name" : "G7sus2",
+      "display" : "G⁷sus²",
+      "frets" : [
         0,
         2,
         1,
         0
       ],
-      "name" : "G7sus2",
-      "display" : "G⁷sus²",
-      "frets" : [
+      "fingers" : [
         0,
         2,
         1,
@@ -4686,20 +4701,20 @@
     },
     {
       "display" : "G⁷sus⁴",
-      "name" : "G7sus4",
+      "base" : 1,
       "frets" : [
         0,
         2,
         1,
         3
       ],
+      "name" : "G7sus4",
       "fingers" : [
         0,
         2,
         1,
         3
-      ],
-      "base" : 1
+      ]
     },
     {
       "name" : "G9",
@@ -4709,17 +4724,22 @@
         5,
         2
       ],
+      "base" : 1,
       "fingers" : [
         0,
         3,
         4,
         1
       ],
-      "base" : 1,
       "display" : "G⁹"
     },
     {
-      "name" : "Gadd9",
+      "frets" : [
+        0,
+        2,
+        5,
+        2
+      ],
       "base" : 1,
       "display" : "Gadd⁹",
       "fingers" : [
@@ -4728,76 +4748,71 @@
         4,
         2
       ],
+      "name" : "Gadd9"
+    },
+    {
+      "name" : "Gaug",
+      "base" : 1,
       "frets" : [
         0,
+        3,
+        3,
+        2
+      ],
+      "fingers" : [
+        0,
         2,
-        5,
+        3,
+        1
+      ]
+    },
+    {
+      "fingers" : [
+        0,
+        3,
+        1,
+        2
+      ],
+      "display" : "Gaug⁷",
+      "base" : 1,
+      "name" : "Gaug7",
+      "frets" : [
+        0,
+        3,
+        1,
         2
       ]
     },
     {
-      "name" : "Gaug",
-      "frets" : [
+      "fingers" : [
         0,
-        3,
+        1,
         3,
         2
       ],
+      "name" : "Gdim",
+      "base" : 1,
+      "frets" : [
+        0,
+        1,
+        3,
+        1
+      ]
+    },
+    {
       "fingers" : [
         0,
         2,
-        3,
-        1
-      ],
-      "base" : 1
-    },
-    {
-      "frets" : [
         0,
-        3,
-        1,
-        2
+        3
       ],
-      "name" : "Gaug7",
-      "display" : "Gaug⁷",
-      "fingers" : [
-        0,
-        3,
-        1,
-        2
-      ],
-      "base" : 1
-    },
-    {
-      "name" : "Gdim",
-      "frets" : [
-        0,
-        1,
-        3,
-        1
-      ],
-      "fingers" : [
-        0,
-        1,
-        3,
-        2
-      ],
-      "base" : 1
-    },
-    {
+      "base" : 1,
       "display" : "Gdim⁷",
       "frets" : [
         0,
         1,
         0,
         1
-      ],
-      "base" : 1,
-      "fingers" : [
-        0,
-        2,
-        0,
-        3
       ],
       "name" : "Gdim7"
     },
@@ -4808,87 +4823,87 @@
         3,
         1
       ],
-      "name" : "Gm",
-      "base" : 1,
       "frets" : [
         0,
         2,
         3,
         1
-      ]
+      ],
+      "base" : 1,
+      "name" : "Gm"
     },
     {
+      "base" : 1,
       "frets" : [
+        0,
+        0,
+        1,
+        1
+      ],
+      "fingers" : [
         0,
         0,
         1,
         1
       ],
       "display" : "Gm¹¹",
-      "name" : "Gm11",
+      "name" : "Gm11"
+    },
+    {
+      "name" : "Gm13",
+      "display" : "Gm¹³",
       "fingers" : [
         0,
+        4,
+        1,
+        1
+      ],
+      "frets" : [
         0,
+        4,
         1,
         1
       ],
       "base" : 1
     },
     {
-      "name" : "Gm13",
-      "display" : "Gm¹³",
       "base" : 1,
-      "frets" : [
-        0,
-        4,
-        1,
-        1
-      ],
       "fingers" : [
         0,
-        4,
-        1,
+        2,
+        0,
+        1
+      ],
+      "display" : "Gm⁶",
+      "name" : "Gm6",
+      "frets" : [
+        0,
+        2,
+        0,
         1
       ]
     },
     {
-      "display" : "Gm⁶",
-      "base" : 1,
-      "frets" : [
-        0,
-        2,
-        0,
-        1
-      ],
       "fingers" : [
         0,
         2,
-        0,
+        1,
         1
       ],
-      "name" : "Gm6"
-    },
-    {
+      "display" : "Gm⁷",
       "base" : 1,
       "name" : "Gm7",
-      "fingers" : [
-        0,
-        2,
-        1,
-        1
-      ],
       "frets" : [
         0,
         2,
         1,
         1
-      ],
-      "display" : "Gm⁷"
+      ]
     },
     {
+      "name" : "Gm7b5",
       "display" : "Gm⁷♭⁵",
       "base" : 1,
-      "name" : "Gm7b5",
       "frets" : [
         0,
         1,
@@ -4903,66 +4918,66 @@
       ]
     },
     {
-      "frets" : [
-        0,
-        5,
-        5,
-        1
-      ],
-      "name" : "Gm9",
-      "base" : 1,
       "display" : "Gm⁹",
+      "base" : 1,
+      "name" : "Gm9",
       "fingers" : [
         0,
         3,
         4,
         1
+      ],
+      "frets" : [
+        0,
+        5,
+        5,
+        1
       ]
     },
     {
-      "fingers" : [
-        0,
-        2,
-        3,
-        1
-      ],
+      "name" : "GmMaj7",
       "frets" : [
         0,
         2,
         2,
         1
       ],
-      "name" : "GmMaj7",
-      "base" : 1,
-      "display" : "GmMaj⁷"
+      "fingers" : [
+        0,
+        2,
+        3,
+        1
+      ],
+      "display" : "GmMaj⁷",
+      "base" : 1
     },
     {
       "base" : 1,
+      "frets" : [
+        3,
+        2,
+        3,
+        0
+      ],
+      "name" : "Gmadd9",
+      "display" : "Gmadd⁹",
       "fingers" : [
         2,
         1,
         3,
         0
-      ],
-      "display" : "Gmadd⁹",
-      "name" : "Gmadd9",
-      "frets" : [
-        3,
-        2,
-        3,
-        0
       ]
     },
     {
-      "frets" : [
-        0,
-        2,
-        2,
-        2
-      ],
-      "name" : "Gmaj7",
       "display" : "Gmaj⁷",
       "base" : 1,
+      "name" : "Gmaj7",
+      "frets" : [
+        0,
+        2,
+        2,
+        2
+      ],
       "fingers" : [
         0,
         1,
@@ -4971,57 +4986,63 @@
       ]
     },
     {
-      "frets" : [
-        0,
-        2,
-        3,
-        0
-      ],
       "fingers" : [
         0,
         2,
         3,
         0
       ],
-      "base" : 1,
       "display" : "Gsus²",
-      "name" : "Gsus2"
+      "name" : "Gsus2",
+      "frets" : [
+        0,
+        2,
+        3,
+        0
+      ],
+      "base" : 1
     },
     {
+      "base" : 1,
       "name" : "Gsus4",
+      "display" : "Gsus⁴",
       "frets" : [
         0,
         2,
         3,
         3
       ],
-      "base" : 1,
       "fingers" : [
         0,
         1,
         2,
         3
-      ],
-      "display" : "Gsus⁴"
+      ]
     },
     {
-      "name" : "Adim",
-      "base" : 2,
+      "fingers" : [
+        1,
+        2,
+        4,
+        3
+      ],
       "frets" : [
         1,
         2,
         4,
         2
       ],
-      "fingers" : [
-        1,
-        2,
-        4,
-        3
-      ]
+      "name" : "Adim",
+      "base" : 2
     },
     {
-      "name" : "Asus2",
+      "display" : "Asus²",
+      "fingers" : [
+        2,
+        3,
+        4,
+        1
+      ],
       "base" : 2,
       "frets" : [
         1,
@@ -5029,15 +5050,11 @@
         4,
         1
       ],
-      "fingers" : [
-        2,
-        3,
-        4,
-        1
-      ],
-      "display" : "Asus²"
+      "name" : "Asus2"
     },
     {
+      "base" : 2,
+      "display" : "D♯⁵",
       "fingers" : [
         1,
         1,
@@ -5050,97 +5067,97 @@
         2,
         5,
         5
-      ],
-      "base" : 2,
-      "display" : "D♯⁵"
+      ]
     },
     {
-      "display" : "D♯m¹³",
-      "name" : "D#m13",
-      "base" : 2,
       "fingers" : [
         4,
         2,
         1,
         3
       ],
+      "base" : 2,
       "frets" : [
         5,
         2,
         1,
         2
-      ]
+      ],
+      "name" : "D#m13",
+      "display" : "D♯m¹³"
     },
     {
-      "fingers" : [
-        3,
-        2,
-        1,
-        4
-      ],
-      "name" : "D#m9",
       "display" : "D♯m⁹",
       "base" : 2,
+      "fingers" : [
+        3,
+        2,
+        1,
+        4
+      ],
       "frets" : [
         5,
         4,
         1,
         5
+      ],
+      "name" : "D#m9"
+    },
+    {
+      "base" : 2,
+      "frets" : [
+        2,
+        5,
+        0,
+        1
+      ],
+      "display" : "F♯¹¹",
+      "name" : "F#11",
+      "fingers" : [
+        2,
+        4,
+        0,
+        1
       ]
     },
     {
-      "frets" : [
-        2,
-        5,
-        0,
-        1
-      ],
       "base" : 2,
-      "display" : "F♯¹¹",
-      "fingers" : [
-        2,
-        4,
-        0,
-        1
-      ],
-      "name" : "F#11"
-    },
-    {
-      "name" : "F#13",
-      "display" : "F♯¹³",
       "frets" : [
         2,
         3,
         1,
         5
       ],
+      "name" : "F#13",
       "fingers" : [
         2,
         3,
         1,
         4
       ],
-      "base" : 2
+      "display" : "F♯¹³"
     },
     {
+      "name" : "F#aug7",
+      "base" : 2,
       "frets" : [
         2,
         5,
         0,
         4
       ],
+      "display" : "F♯aug⁷",
       "fingers" : [
         1,
         4,
         0,
         3
-      ],
-      "display" : "F♯aug⁷",
-      "base" : 2,
-      "name" : "F#aug7"
+      ]
     },
     {
       "base" : 2,
+      "display" : "F♯m¹¹",
+      "name" : "F#m11",
       "fingers" : [
         1,
         3,
@@ -5152,111 +5169,126 @@
         5,
         0,
         0
-      ],
-      "name" : "F#m11",
-      "display" : "F♯m¹¹"
+      ]
     },
     {
-      "fingers" : [
+      "frets" : [
         2,
-        4,
+        5,
         3,
         1
       ],
       "name" : "G#m9",
       "display" : "G♯m⁹",
-      "frets" : [
-        2,
-        5,
-        3,
-        1
-      ],
-      "base" : 2
-    },
-    {
-      "display" : "Bmaj⁹",
+      "base" : 2,
       "fingers" : [
         2,
-        1,
         4,
-        3
-      ],
+        3,
+        1
+      ]
+    },
+    {
       "base" : 3,
       "name" : "Bmaj9",
+      "display" : "Bmaj⁹",
       "frets" : [
         2,
         1,
         4,
         2
+      ],
+      "fingers" : [
+        2,
+        1,
+        4,
+        3
       ]
     },
     {
+      "display" : "Cm⁹",
       "base" : 3,
-      "frets" : [
-        3,
+      "fingers" : [
+        2,
         1,
         4,
         3
       ],
       "name" : "Cm9",
-      "fingers" : [
-        2,
+      "frets" : [
+        3,
         1,
         4,
         3
-      ],
-      "display" : "Cm⁹"
+      ]
     },
     {
-      "name" : "D#m11",
-      "base" : 3,
-      "frets" : [
-        4,
-        4,
-        2,
-        4
-      ],
       "fingers" : [
         2,
         3,
         1,
         4
       ],
-      "display" : "D♯m¹¹"
+      "base" : 3,
+      "display" : "D♯m¹¹",
+      "frets" : [
+        4,
+        4,
+        2,
+        4
+      ],
+      "name" : "D#m11"
     },
     {
+      "frets" : [
+        4,
+        3,
+        3,
+        3
+      ],
+      "base" : 3,
+      "display" : "DmMaj⁷",
       "fingers" : [
         2,
         1,
         1,
         1
       ],
-      "base" : 3,
-      "frets" : [
-        4,
-        3,
-        3,
-        3
-      ],
-      "name" : "DmMaj7",
-      "display" : "DmMaj⁷"
+      "name" : "DmMaj7"
     },
     {
-      "frets" : [
-        4,
-        4,
-        0,
-        3
-      ],
+      "name" : "Dmaj9",
       "display" : "Dmaj⁹",
       "base" : 3,
+      "frets" : [
+        4,
+        4,
+        0,
+        3
+      ],
       "fingers" : [
         2,
         3,
         0,
         1
+      ]
+    },
+    {
+      "frets" : [
+        1,
+        4,
+        0,
+        4
       ],
-      "name" : "Dmaj9"
+      "fingers" : [
+        1,
+        3,
+        0,
+        4
+      ],
+      "base" : 3,
+      "display" : "F♯¹³",
+      "name" : "F#13"
     },
     {
       "fingers" : [
@@ -5265,7 +5297,6 @@
         1,
         4
       ],
-      "name" : "Fm9",
       "display" : "Fm⁹",
       "base" : 3,
       "frets" : [
@@ -5273,7 +5304,8 @@
         3,
         2,
         4
-      ]
+      ],
+      "name" : "Fm9"
     },
     {
       "fingers" : [
@@ -5282,68 +5314,69 @@
         1,
         1
       ],
+      "base" : 3,
+      "display" : "G♯m¹¹",
       "name" : "G#m11",
       "frets" : [
         2,
         4,
         2,
         2
-      ],
-      "display" : "G♯m¹¹",
-      "base" : 3
+      ]
     },
     {
-      "display" : "G♯m⁶",
-      "fingers" : [
-        1,
-        2,
-        1,
-        3
-      ],
-      "base" : 3,
       "frets" : [
         2,
         3,
         2,
         4
       ],
-      "name" : "G#m6"
+      "fingers" : [
+        1,
+        2,
+        1,
+        3
+      ],
+      "name" : "G#m6",
+      "display" : "G♯m⁶",
+      "base" : 3
     },
     {
+      "name" : "Gmaj9",
+      "display" : "Gmaj⁹",
+      "frets" : [
+        2,
+        4,
+        1,
+        0
+      ],
       "base" : 3,
       "fingers" : [
         2,
         4,
         1,
         0
-      ],
-      "frets" : [
-        2,
-        4,
-        1,
-        0
-      ],
-      "name" : "Gmaj9",
-      "display" : "Gmaj⁹"
+      ]
     },
     {
-      "frets" : [
-        4,
-        3,
-        3,
-        3
-      ],
+      "name" : "D#mMaj7",
       "fingers" : [
         2,
         1,
         1,
         1
       ],
+      "frets" : [
+        4,
+        3,
+        3,
+        3
+      ],
       "display" : "D♯mMaj⁷",
-      "name" : "D#mMaj7",
       "base" : 4
     },
     {
+      "base" : 4,
       "name" : "Dm13",
       "frets" : [
         2,
@@ -5351,7 +5384,6 @@
         4,
         2
       ],
-      "base" : 4,
       "fingers" : [
         1,
         1,
@@ -5362,37 +5394,37 @@
     },
     {
       "name" : "Dmadd9",
+      "base" : 4,
       "frets" : [
         4,
         2,
         0,
         0
       ],
-      "display" : "Dmadd⁹",
-      "base" : 4,
       "fingers" : [
         2,
         1,
         0,
         0
-      ]
+      ],
+      "display" : "Dmadd⁹"
     },
     {
-      "fingers" : [
-        4,
-        2,
-        1,
-        3
-      ],
-      "base" : 4,
+      "display" : "Emaj⁹",
       "name" : "Emaj9",
+      "base" : 4,
       "frets" : [
         5,
         3,
         1,
         4
       ],
-      "display" : "Emaj⁹"
+      "fingers" : [
+        4,
+        2,
+        1,
+        3
+      ]
     },
     {
       "display" : "F♯⁷sus⁴",
@@ -5413,22 +5445,25 @@
     },
     {
       "name" : "F#m13",
-      "base" : 4,
-      "fingers" : [
-        4,
-        2,
-        1,
-        3
-      ],
       "frets" : [
         5,
         3,
         2,
         4
       ],
-      "display" : "F♯m¹³"
+      "display" : "F♯m¹³",
+      "fingers" : [
+        4,
+        2,
+        1,
+        3
+      ],
+      "base" : 4
     },
     {
+      "name" : "F13",
+      "base" : 4,
+      "display" : "F¹³",
       "frets" : [
         5,
         2,
@@ -5440,83 +5475,80 @@
         1,
         1,
         1
-      ],
-      "display" : "F¹³",
-      "name" : "F13",
-      "base" : 4
+      ]
     },
     {
+      "base" : 4,
       "name" : "F7sus4",
+      "frets" : [
+        2,
+        2,
+        3,
+        3
+      ],
       "fingers" : [
         1,
         1,
         2,
         3
       ],
-      "display" : "F⁷sus⁴",
-      "frets" : [
-        2,
+      "display" : "F⁷sus⁴"
+    },
+    {
+      "name" : "G#13",
+      "base" : 4,
+      "fingers" : [
         2,
         3,
-        3
+        1,
+        4
+      ],
+      "frets" : [
+        2,
+        3,
+        1,
+        5
+      ],
+      "display" : "G♯¹³"
+    },
+    {
+      "display" : "G♯m¹³",
+      "name" : "G#m13",
+      "frets" : [
+        1,
+        3,
+        1,
+        5
+      ],
+      "fingers" : [
+        1,
+        3,
+        1,
+        4
       ],
       "base" : 4
-    },
-    {
-      "frets" : [
-        2,
-        3,
-        1,
-        5
-      ],
-      "name" : "G#13",
-      "display" : "G♯¹³",
-      "base" : 4,
-      "fingers" : [
-        2,
-        3,
-        1,
-        4
-      ]
-    },
-    {
-      "fingers" : [
-        1,
-        3,
-        1,
-        4
-      ],
-      "base" : 4,
-      "name" : "G#m13",
-      "display" : "G♯m¹³",
-      "frets" : [
-        1,
-        3,
-        1,
-        5
-      ]
     },
     {
       "display" : "D♯madd⁹",
-      "base" : 5,
       "frets" : [
         4,
         2,
         2,
         4
       ],
+      "base" : 5,
+      "name" : "D#madd9",
       "fingers" : [
         3,
         1,
         1,
         4
-      ],
-      "name" : "D#madd9"
+      ]
     },
     {
       "display" : "Fm¹³",
-      "name" : "Fm13",
       "base" : 7,
+      "name" : "Fm13",
       "frets" : [
         2,
         2,
@@ -5531,699 +5563,689 @@
       ]
     },
     {
-      "display" : "C♯",
+      "display" : "B♭",
+      "copy" : "A#",
+      "name" : "Bb"
+    },
+    {
+      "name" : "Bb\/A",
+      "display" : "B♭\/A",
+      "copy" : "A#\/A"
+    },
+    {
+      "name" : "Bb11",
+      "copy" : "A#11",
+      "display" : "B♭¹¹"
+    },
+    {
+      "name" : "Bb13",
+      "display" : "B♭¹³",
+      "copy" : "A#13"
+    },
+    {
+      "copy" : "A#5",
+      "display" : "B♭⁵",
+      "name" : "Bb5"
+    },
+    {
+      "copy" : "A#6",
+      "name" : "Bb6",
+      "display" : "B♭⁶"
+    },
+    {
+      "name" : "Bb7",
+      "display" : "B♭⁷",
+      "copy" : "A#7"
+    },
+    {
+      "copy" : "A#7sus2",
+      "name" : "Bb7sus2",
+      "display" : "B♭⁷sus²"
+    },
+    {
+      "copy" : "A#7sus4",
+      "name" : "Bb7sus4",
+      "display" : "B♭⁷sus⁴"
+    },
+    {
+      "name" : "Bb9",
+      "display" : "B♭⁹",
+      "copy" : "A#9"
+    },
+    {
+      "display" : "B♭add⁹",
+      "copy" : "A#add9",
+      "name" : "Bbadd9"
+    },
+    {
+      "display" : "B♭aug",
+      "name" : "Bbaug",
+      "copy" : "A#aug"
+    },
+    {
+      "name" : "Bbaug7",
+      "display" : "B♭aug⁷",
+      "copy" : "A#aug7"
+    },
+    {
+      "name" : "Bbdim",
+      "display" : "B♭dim",
+      "copy" : "A#dim"
+    },
+    {
+      "name" : "Bbdim7",
+      "display" : "B♭dim⁷",
+      "copy" : "A#dim7"
+    },
+    {
+      "display" : "B♭m",
+      "name" : "Bbm",
+      "copy" : "A#m"
+    },
+    {
+      "display" : "B♭m¹¹",
+      "copy" : "A#m11",
+      "name" : "Bbm11"
+    },
+    {
+      "copy" : "A#m13",
+      "name" : "Bbm13",
+      "display" : "B♭m¹³"
+    },
+    {
+      "copy" : "A#m6",
+      "name" : "Bbm6",
+      "display" : "B♭m⁶"
+    },
+    {
+      "name" : "Bbm7",
+      "copy" : "A#m7",
+      "display" : "B♭m⁷"
+    },
+    {
+      "name" : "Bbm7b5",
+      "copy" : "A#m7b5",
+      "display" : "B♭m⁷♭⁵"
+    },
+    {
+      "copy" : "A#m9",
+      "name" : "Bbm9",
+      "display" : "B♭m⁹"
+    },
+    {
+      "display" : "B♭mMaj⁷",
+      "copy" : "A#mMaj7",
+      "name" : "BbmMaj7"
+    },
+    {
+      "display" : "B♭madd⁹",
+      "copy" : "A#madd9",
+      "name" : "Bbmadd9"
+    },
+    {
+      "display" : "B♭maj⁷",
+      "copy" : "A#maj7",
+      "name" : "Bbmaj7"
+    },
+    {
+      "name" : "Bbmaj9",
+      "copy" : "A#maj9",
+      "display" : "B♭maj⁹"
+    },
+    {
+      "name" : "Bbsus2",
+      "copy" : "A#sus2",
+      "display" : "B♭sus²"
+    },
+    {
+      "display" : "B♭sus⁴",
+      "copy" : "A#sus4",
+      "name" : "Bbsus4"
+    },
+    {
+      "copy" : "C#",
       "name" : "Db",
-      "copy" : "C#"
+      "display" : "D♭"
     },
     {
-      "display" : "C♯¹¹",
       "copy" : "C#11",
-      "name" : "Db11"
+      "name" : "Db11",
+      "display" : "D♭¹¹"
     },
     {
-      "name" : "Db13",
+      "display" : "D♭¹³",
       "copy" : "C#13",
-      "display" : "C♯¹³"
+      "name" : "Db13"
     },
     {
-      "copy" : "C#5",
-      "display" : "C♯⁵",
-      "name" : "Db5"
+      "display" : "D♭⁵",
+      "name" : "Db5",
+      "copy" : "C#5"
     },
     {
-      "display" : "C♯⁶",
+      "copy" : "C#6",
       "name" : "Db6",
-      "copy" : "C#6"
+      "display" : "D♭⁶"
     },
     {
-      "display" : "C♯⁷",
       "copy" : "C#7",
-      "name" : "Db7"
+      "name" : "Db7",
+      "display" : "D♭⁷"
     },
     {
-      "display" : "C♯⁷sus²",
       "copy" : "C#7sus2",
-      "name" : "Db7sus2"
+      "name" : "Db7sus2",
+      "display" : "D♭⁷sus²"
     },
     {
-      "display" : "C♯⁷sus⁴",
-      "copy" : "C#7sus4",
-      "name" : "Db7sus4"
+      "name" : "Db7sus4",
+      "display" : "D♭⁷sus⁴",
+      "copy" : "C#7sus4"
     },
     {
-      "name" : "Db9",
-      "display" : "C♯⁹",
-      "copy" : "C#9"
+      "copy" : "C#9",
+      "display" : "D♭⁹",
+      "name" : "Db9"
     },
     {
-      "display" : "C♯add⁹",
       "copy" : "C#add9",
-      "name" : "Dbadd9"
+      "name" : "Dbadd9",
+      "display" : "D♭add⁹"
     },
     {
-      "display" : "C♯aug",
-      "copy" : "C#aug",
-      "name" : "Dbaug"
+      "display" : "D♭aug",
+      "name" : "Dbaug",
+      "copy" : "C#aug"
     },
     {
-      "display" : "C♯aug⁷",
+      "copy" : "C#aug7",
       "name" : "Dbaug7",
-      "copy" : "C#aug7"
+      "display" : "D♭aug⁷"
     },
     {
-      "copy" : "C#dim",
-      "display" : "C♯dim",
-      "name" : "Dbdim"
+      "name" : "Dbdim",
+      "display" : "D♭dim",
+      "copy" : "C#dim"
     },
     {
-      "name" : "Dbdim7",
-      "display" : "C♯dim⁷",
-      "copy" : "C#dim7"
+      "display" : "D♭dim⁷",
+      "copy" : "C#dim7",
+      "name" : "Dbdim7"
     },
     {
       "copy" : "C#m",
-      "display" : "C♯m",
-      "name" : "Dbm"
+      "name" : "Dbm",
+      "display" : "D♭m"
     },
     {
+      "copy" : "C#m11",
       "name" : "Dbm11",
-      "display" : "C♯m¹¹",
-      "copy" : "C#m11"
+      "display" : "D♭m¹¹"
     },
     {
-      "copy" : "C#m13",
+      "display" : "D♭m¹³",
       "name" : "Dbm13",
-      "display" : "C♯m¹³"
+      "copy" : "C#m13"
     },
     {
       "copy" : "C#m6",
       "name" : "Dbm6",
-      "display" : "C♯m⁶"
+      "display" : "D♭m⁶"
     },
     {
-      "copy" : "C#m7",
+      "display" : "D♭m⁷",
       "name" : "Dbm7",
-      "display" : "C♯m⁷"
+      "copy" : "C#m7"
     },
     {
-      "display" : "C♯m⁷♭⁵",
-      "copy" : "C#m7b5",
-      "name" : "Dbm7b5"
+      "name" : "Dbm7b5",
+      "display" : "D♭m⁷♭⁵",
+      "copy" : "C#m7b5"
     },
     {
-      "display" : "C♯m⁹",
       "name" : "Dbm9",
-      "copy" : "C#m9"
+      "copy" : "C#m9",
+      "display" : "D♭m⁹"
     },
     {
-      "name" : "DbmMaj7",
       "copy" : "C#mMaj7",
-      "display" : "C♯mMaj⁷"
+      "name" : "DbmMaj7",
+      "display" : "D♭mMaj⁷"
     },
     {
       "copy" : "C#madd9",
-      "name" : "Dbmadd9",
-      "display" : "C♯madd⁹"
+      "display" : "D♭madd⁹",
+      "name" : "Dbmadd9"
     },
     {
       "name" : "Dbmaj7",
-      "display" : "C♯maj⁷",
-      "copy" : "C#maj7"
+      "copy" : "C#maj7",
+      "display" : "D♭maj⁷"
     },
     {
       "name" : "Dbmaj9",
-      "display" : "C♯maj⁹",
-      "copy" : "C#maj9"
+      "copy" : "C#maj9",
+      "display" : "D♭maj⁹"
     },
     {
-      "name" : "Dbsus2",
-      "display" : "C♯sus²",
-      "copy" : "C#sus2"
+      "display" : "D♭sus²",
+      "copy" : "C#sus2",
+      "name" : "Dbsus2"
     },
     {
+      "display" : "D♭sus⁴",
       "name" : "Dbsus4",
-      "display" : "C♯sus⁴",
       "copy" : "C#sus4"
     },
     {
-      "display" : "D♯",
       "copy" : "D#",
-      "name" : "Eb"
+      "name" : "Eb",
+      "display" : "E♭"
     },
     {
       "name" : "Eb11",
-      "display" : "D♯¹¹",
+      "display" : "E♭¹¹",
       "copy" : "D#11"
     },
     {
-      "display" : "D♯¹³",
-      "copy" : "D#13",
-      "name" : "Eb13"
+      "display" : "E♭¹³",
+      "name" : "Eb13",
+      "copy" : "D#13"
     },
     {
       "name" : "Eb6",
       "copy" : "D#6",
-      "display" : "D♯⁶"
+      "display" : "E♭⁶"
     },
     {
+      "display" : "E♭⁷",
       "name" : "Eb7",
-      "display" : "D♯⁷",
       "copy" : "D#7"
     },
     {
-      "display" : "D♯⁷sus²",
+      "display" : "E♭⁷sus²",
       "copy" : "D#7sus2",
       "name" : "Eb7sus2"
     },
     {
       "name" : "Eb7sus4",
-      "display" : "D♯⁷sus⁴",
+      "display" : "E♭⁷sus⁴",
       "copy" : "D#7sus4"
     },
     {
-      "display" : "D♯⁹",
-      "copy" : "D#9",
-      "name" : "Eb9"
+      "display" : "E♭⁹",
+      "name" : "Eb9",
+      "copy" : "D#9"
     },
     {
       "copy" : "D#add9",
-      "name" : "Ebadd9",
-      "display" : "D♯add⁹"
+      "display" : "E♭add⁹",
+      "name" : "Ebadd9"
     },
     {
       "name" : "Ebaug",
-      "display" : "D♯aug",
-      "copy" : "D#aug"
+      "copy" : "D#aug",
+      "display" : "E♭aug"
     },
     {
       "copy" : "D#aug7",
-      "name" : "Ebaug7",
-      "display" : "D♯aug⁷"
+      "display" : "E♭aug⁷",
+      "name" : "Ebaug7"
     },
     {
+      "copy" : "D#dim",
       "name" : "Ebdim",
-      "display" : "D♯dim",
-      "copy" : "D#dim"
+      "display" : "E♭dim"
     },
     {
       "name" : "Ebdim7",
-      "display" : "D♯dim⁷",
-      "copy" : "D#dim7"
+      "copy" : "D#dim7",
+      "display" : "E♭dim⁷"
     },
     {
-      "display" : "D♯m",
+      "name" : "Ebm",
       "copy" : "D#m",
-      "name" : "Ebm"
+      "display" : "E♭m"
     },
     {
-      "display" : "D♯m⁶",
-      "copy" : "D#m6",
-      "name" : "Ebm6"
+      "name" : "Ebm6",
+      "display" : "E♭m⁶",
+      "copy" : "D#m6"
     },
     {
-      "copy" : "D#m7",
-      "display" : "D♯m⁷",
-      "name" : "Ebm7"
+      "name" : "Ebm7",
+      "display" : "E♭m⁷",
+      "copy" : "D#m7"
     },
     {
       "copy" : "D#m7b5",
-      "display" : "D♯m⁷♭⁵",
+      "display" : "E♭m⁷♭⁵",
       "name" : "Ebm7b5"
     },
     {
       "name" : "Ebmaj7",
-      "display" : "D♯maj⁷",
-      "copy" : "D#maj7"
+      "copy" : "D#maj7",
+      "display" : "E♭maj⁷"
     },
     {
-      "display" : "D♯maj⁹",
-      "name" : "Ebmaj9",
-      "copy" : "D#maj9"
+      "copy" : "D#maj9",
+      "display" : "E♭maj⁹",
+      "name" : "Ebmaj9"
     },
     {
-      "display" : "D♯sus²",
+      "display" : "E♭sus²",
       "copy" : "D#sus2",
       "name" : "Ebsus2"
     },
     {
       "name" : "Ebsus4",
-      "display" : "D♯sus⁴",
-      "copy" : "D#sus4"
+      "copy" : "D#sus4",
+      "display" : "E♭sus⁴"
     },
     {
-      "display" : "D♯⁵",
-      "name" : "Eb5",
-      "copy" : "D#5"
-    },
-    {
-      "name" : "Ebm13",
-      "display" : "D♯m¹³",
-      "copy" : "D#m13"
-    },
-    {
-      "display" : "D♯m⁹",
-      "copy" : "D#m9",
-      "name" : "Ebm9"
-    },
-    {
-      "copy" : "D#m11",
-      "display" : "D♯m¹¹",
-      "name" : "Ebm11"
-    },
-    {
-      "name" : "EbmMaj7",
-      "copy" : "D#mMaj7",
-      "display" : "D♯mMaj⁷"
-    },
-    {
-      "name" : "Ebmadd9",
-      "display" : "D♯madd⁹",
-      "copy" : "D#madd9"
-    },
-    {
+      "copy" : "F#",
       "name" : "Gb",
-      "display" : "F♯",
-      "copy" : "F#"
+      "display" : "G♭"
     },
     {
       "name" : "Gb5",
-      "display" : "F♯⁵",
+      "display" : "G♭⁵",
       "copy" : "F#5"
     },
     {
       "name" : "Gb6",
-      "copy" : "F#6",
-      "display" : "F♯⁶"
+      "display" : "G♭⁶",
+      "copy" : "F#6"
     },
     {
+      "name" : "Gb7",
       "copy" : "F#7",
-      "display" : "F♯⁷",
-      "name" : "Gb7"
+      "display" : "G♭⁷"
     },
     {
-      "name" : "Gb7sus2",
-      "display" : "F♯⁷sus²",
-      "copy" : "F#7sus2"
+      "copy" : "F#7sus2",
+      "display" : "G♭⁷sus²",
+      "name" : "Gb7sus2"
     },
     {
       "copy" : "F#9",
-      "display" : "F♯⁹",
-      "name" : "Gb9"
+      "name" : "Gb9",
+      "display" : "G♭⁹"
     },
     {
-      "name" : "Gbadd9",
-      "display" : "F♯add⁹",
-      "copy" : "F#add9"
+      "copy" : "F#add9",
+      "display" : "G♭add⁹",
+      "name" : "Gbadd9"
     },
     {
-      "display" : "F♯aug",
-      "copy" : "F#aug",
-      "name" : "Gbaug"
+      "name" : "Gbaug",
+      "display" : "G♭aug",
+      "copy" : "F#aug"
     },
     {
+      "display" : "G♭dim",
       "name" : "Gbdim",
-      "copy" : "F#dim",
-      "display" : "F♯dim"
+      "copy" : "F#dim"
     },
     {
-      "name" : "Gbdim7",
-      "display" : "F♯dim⁷",
-      "copy" : "F#dim7"
+      "display" : "G♭dim⁷",
+      "copy" : "F#dim7",
+      "name" : "Gbdim7"
     },
     {
-      "display" : "F♯m",
+      "copy" : "F#m",
       "name" : "Gbm",
-      "copy" : "F#m"
+      "display" : "G♭m"
     },
     {
       "copy" : "F#m6",
       "name" : "Gbm6",
-      "display" : "F♯m⁶"
+      "display" : "G♭m⁶"
     },
     {
-      "copy" : "F#m7",
+      "display" : "G♭m⁷",
       "name" : "Gbm7",
-      "display" : "F♯m⁷"
+      "copy" : "F#m7"
     },
     {
+      "copy" : "F#m7b5",
       "name" : "Gbm7b5",
-      "display" : "F♯m⁷♭⁵",
-      "copy" : "F#m7b5"
+      "display" : "G♭m⁷♭⁵"
     },
     {
-      "display" : "F♯m⁹",
-      "copy" : "F#m9",
-      "name" : "Gbm9"
+      "display" : "G♭m⁹",
+      "name" : "Gbm9",
+      "copy" : "F#m9"
     },
     {
       "name" : "GbmMaj7",
-      "display" : "F♯mMaj⁷",
+      "display" : "G♭mMaj⁷",
       "copy" : "F#mMaj7"
     },
     {
+      "copy" : "F#madd9",
       "name" : "Gbmadd9",
-      "display" : "F♯madd⁹",
-      "copy" : "F#madd9"
+      "display" : "G♭madd⁹"
     },
     {
-      "display" : "F♯maj⁷",
+      "display" : "G♭maj⁷",
       "name" : "Gbmaj7",
       "copy" : "F#maj7"
     },
     {
-      "display" : "F♯maj⁹",
       "copy" : "F#maj9",
-      "name" : "Gbmaj9"
+      "name" : "Gbmaj9",
+      "display" : "G♭maj⁹"
     },
     {
-      "display" : "F♯sus²",
+      "copy" : "F#sus2",
       "name" : "Gbsus2",
-      "copy" : "F#sus2"
+      "display" : "G♭sus²"
     },
     {
       "copy" : "F#sus4",
       "name" : "Gbsus4",
-      "display" : "F♯sus⁴"
+      "display" : "G♭sus⁴"
     },
     {
-      "name" : "Gb11",
-      "copy" : "F#11",
-      "display" : "F♯¹¹"
-    },
-    {
-      "display" : "F♯¹³",
-      "copy" : "F#13",
-      "name" : "Gb13"
-    },
-    {
-      "copy" : "F#aug7",
-      "name" : "Gbaug7",
-      "display" : "F♯aug⁷"
-    },
-    {
-      "name" : "Gbm11",
-      "display" : "F♯m¹¹",
-      "copy" : "F#m11"
-    },
-    {
-      "name" : "Gb7sus4",
-      "display" : "F♯⁷sus⁴",
-      "copy" : "F#7sus4"
-    },
-    {
-      "name" : "Gbm13",
-      "copy" : "F#m13",
-      "display" : "F♯m¹³"
-    },
-    {
-      "copy" : "G#",
       "name" : "Ab",
-      "display" : "G♯"
+      "copy" : "G#",
+      "display" : "A♭"
     },
     {
-      "display" : "G♯¹¹",
       "copy" : "G#11",
+      "display" : "A♭¹¹",
       "name" : "Ab11"
     },
     {
-      "name" : "Ab5",
+      "display" : "A♭⁵",
       "copy" : "G#5",
-      "display" : "G♯⁵"
+      "name" : "Ab5"
     },
     {
       "name" : "Ab6",
-      "display" : "G♯⁶",
+      "display" : "A♭⁶",
       "copy" : "G#6"
     },
     {
-      "name" : "Ab7",
       "copy" : "G#7",
-      "display" : "G♯⁷"
+      "display" : "A♭⁷",
+      "name" : "Ab7"
     },
     {
-      "display" : "G♯⁷sus²",
-      "copy" : "G#7sus2",
-      "name" : "Ab7sus2"
+      "display" : "A♭⁷sus²",
+      "name" : "Ab7sus2",
+      "copy" : "G#7sus2"
     },
     {
+      "display" : "A♭⁷sus⁴",
       "copy" : "G#7sus4",
-      "name" : "Ab7sus4",
-      "display" : "G♯⁷sus⁴"
+      "name" : "Ab7sus4"
     },
     {
-      "name" : "Ab9",
-      "display" : "G♯⁹",
-      "copy" : "G#9"
+      "copy" : "G#9",
+      "display" : "A♭⁹",
+      "name" : "Ab9"
     },
     {
-      "display" : "G♯add⁹",
       "copy" : "G#add9",
+      "display" : "A♭add⁹",
       "name" : "Abadd9"
     },
     {
+      "display" : "A♭aug",
       "name" : "Abaug",
-      "copy" : "G#aug",
-      "display" : "G♯aug"
+      "copy" : "G#aug"
     },
     {
-      "display" : "G♯aug⁷",
+      "display" : "A♭aug⁷",
       "copy" : "G#aug7",
       "name" : "Abaug7"
     },
     {
+      "copy" : "G#dim",
       "name" : "Abdim",
-      "display" : "G♯dim",
-      "copy" : "G#dim"
+      "display" : "A♭dim"
     },
     {
-      "name" : "Abdim7",
+      "display" : "A♭dim⁷",
       "copy" : "G#dim7",
-      "display" : "G♯dim⁷"
+      "name" : "Abdim7"
     },
     {
       "name" : "Abm",
       "copy" : "G#m",
-      "display" : "G♯m"
+      "display" : "A♭m"
     },
     {
-      "display" : "G♯m⁷",
-      "copy" : "G#m7",
-      "name" : "Abm7"
+      "name" : "Abm7",
+      "display" : "A♭m⁷",
+      "copy" : "G#m7"
     },
     {
+      "display" : "A♭m⁷♭⁵",
       "copy" : "G#m7b5",
-      "name" : "Abm7b5",
-      "display" : "G♯m⁷♭⁵"
+      "name" : "Abm7b5"
     },
     {
-      "display" : "G♯mMaj⁷",
-      "name" : "AbmMaj7",
-      "copy" : "G#mMaj7"
+      "display" : "A♭mMaj⁷",
+      "copy" : "G#mMaj7",
+      "name" : "AbmMaj7"
     },
     {
-      "display" : "G♯madd⁹",
+      "display" : "A♭madd⁹",
       "copy" : "G#madd9",
       "name" : "Abmadd9"
     },
     {
       "name" : "Abmaj7",
       "copy" : "G#maj7",
-      "display" : "G♯maj⁷"
+      "display" : "A♭maj⁷"
     },
     {
       "name" : "Abmaj9",
-      "display" : "G♯maj⁹",
+      "display" : "A♭maj⁹",
       "copy" : "G#maj9"
     },
     {
+      "name" : "Absus2",
       "copy" : "G#sus2",
-      "display" : "G♯sus²",
-      "name" : "Absus2"
+      "display" : "A♭sus²"
     },
     {
-      "name" : "Absus4",
-      "display" : "G♯sus⁴",
-      "copy" : "G#sus4"
+      "display" : "A♭sus⁴",
+      "copy" : "G#sus4",
+      "name" : "Absus4"
+    },
+    {
+      "copy" : "D#5",
+      "name" : "Eb5",
+      "display" : "E♭⁵"
+    },
+    {
+      "display" : "E♭m¹³",
+      "name" : "Ebm13",
+      "copy" : "D#m13"
+    },
+    {
+      "display" : "E♭m⁹",
+      "name" : "Ebm9",
+      "copy" : "D#m9"
+    },
+    {
+      "name" : "Gb11",
+      "display" : "G♭¹¹",
+      "copy" : "F#11"
+    },
+    {
+      "copy" : "F#13",
+      "name" : "Gb13",
+      "display" : "G♭¹³"
+    },
+    {
+      "copy" : "F#aug7",
+      "name" : "Gbaug7",
+      "display" : "G♭aug⁷"
+    },
+    {
+      "display" : "G♭m¹¹",
+      "copy" : "F#m11",
+      "name" : "Gbm11"
     },
     {
       "name" : "Abm9",
-      "display" : "G♯m⁹",
-      "copy" : "G#m9"
+      "copy" : "G#m9",
+      "display" : "A♭m⁹"
     },
     {
+      "name" : "Ebm11",
+      "display" : "E♭m¹¹",
+      "copy" : "D#m11"
+    },
+    {
+      "display" : "G♭¹³",
+      "name" : "Gb13",
+      "copy" : "F#13"
+    },
+    {
+      "display" : "A♭m¹¹",
       "name" : "Abm11",
-      "display" : "G♯m¹¹",
       "copy" : "G#m11"
     },
     {
+      "display" : "A♭m⁶",
       "copy" : "G#m6",
-      "display" : "G♯m⁶",
       "name" : "Abm6"
     },
     {
+      "display" : "E♭mMaj⁷",
+      "name" : "EbmMaj7",
+      "copy" : "D#mMaj7"
+    },
+    {
+      "display" : "G♭⁷sus⁴",
+      "copy" : "F#7sus4",
+      "name" : "Gb7sus4"
+    },
+    {
+      "display" : "G♭m¹³",
+      "name" : "Gbm13",
+      "copy" : "F#m13"
+    },
+    {
       "name" : "Ab13",
-      "display" : "G♯¹³",
-      "copy" : "G#13"
+      "copy" : "G#13",
+      "display" : "A♭¹³"
     },
     {
       "name" : "Abm13",
-      "display" : "G♯m¹³",
+      "display" : "A♭m¹³",
       "copy" : "G#m13"
     },
     {
-      "name" : "Bb",
-      "copy" : "A#",
-      "display" : "A♯"
-    },
-    {
-      "name" : "Bb\/A",
-      "display" : "A♯\/A",
-      "copy" : "A#\/A"
-    },
-    {
-      "copy" : "A#11",
-      "name" : "Bb11",
-      "display" : "A♯¹¹"
-    },
-    {
-      "display" : "A♯¹³",
-      "name" : "Bb13",
-      "copy" : "A#13"
-    },
-    {
-      "copy" : "A#5",
-      "display" : "A♯⁵",
-      "name" : "Bb5"
-    },
-    {
-      "name" : "Bb6",
-      "display" : "A♯⁶",
-      "copy" : "A#6"
-    },
-    {
-      "name" : "Bb7",
-      "display" : "A♯⁷",
-      "copy" : "A#7"
-    },
-    {
-      "copy" : "A#7sus2",
-      "display" : "A♯⁷sus²",
-      "name" : "Bb7sus2"
-    },
-    {
-      "copy" : "A#7sus4",
-      "name" : "Bb7sus4",
-      "display" : "A♯⁷sus⁴"
-    },
-    {
-      "copy" : "A#9",
-      "name" : "Bb9",
-      "display" : "A♯⁹"
-    },
-    {
-      "name" : "Bbadd9",
-      "copy" : "A#add9",
-      "display" : "A♯add⁹"
-    },
-    {
-      "copy" : "A#aug",
-      "name" : "Bbaug",
-      "display" : "A♯aug"
-    },
-    {
-      "name" : "Bbaug7",
-      "display" : "A♯aug⁷",
-      "copy" : "A#aug7"
-    },
-    {
-      "name" : "Bbdim",
-      "copy" : "A#dim",
-      "display" : "A♯dim"
-    },
-    {
-      "name" : "Bbdim7",
-      "display" : "A♯dim⁷",
-      "copy" : "A#dim7"
-    },
-    {
-      "display" : "A♯m",
-      "copy" : "A#m",
-      "name" : "Bbm"
-    },
-    {
-      "copy" : "A#m11",
-      "display" : "A♯m¹¹",
-      "name" : "Bbm11"
-    },
-    {
-      "display" : "A♯m¹³",
-      "name" : "Bbm13",
-      "copy" : "A#m13"
-    },
-    {
-      "display" : "A♯m⁶",
-      "copy" : "A#m6",
-      "name" : "Bbm6"
-    },
-    {
-      "display" : "A♯m⁷",
-      "name" : "Bbm7",
-      "copy" : "A#m7"
-    },
-    {
-      "copy" : "A#m7b5",
-      "name" : "Bbm7b5",
-      "display" : "A♯m⁷♭⁵"
-    },
-    {
-      "copy" : "A#m9",
-      "name" : "Bbm9",
-      "display" : "A♯m⁹"
-    },
-    {
-      "name" : "BbmMaj7",
-      "display" : "A♯mMaj⁷",
-      "copy" : "A#mMaj7"
-    },
-    {
-      "copy" : "A#madd9",
-      "display" : "A♯madd⁹",
-      "name" : "Bbmadd9"
-    },
-    {
-      "copy" : "A#maj7",
-      "name" : "Bbmaj7",
-      "display" : "A♯maj⁷"
-    },
-    {
-      "copy" : "A#maj9",
-      "display" : "A♯maj⁹",
-      "name" : "Bbmaj9"
-    },
-    {
-      "name" : "Bbsus2",
-      "copy" : "A#sus2",
-      "display" : "A♯sus²"
-    },
-    {
-      "display" : "A♯sus⁴",
-      "copy" : "A#sus4",
-      "name" : "Bbsus4"
+      "display" : "E♭madd⁹",
+      "name" : "Ebmadd9",
+      "copy" : "D#madd9"
     }
-  ],
-  "tuning" : [
-    "G4",
-    "C4",
-    "E4",
-    "A4"
-  ],
-  "instrument" : {
-    "type" : "ukulele",
-    "description" : "Ukulele, 4 strings, standard tuning"
-  },
-  "pdf" : {
-    "diagrams" : {
-      "vcells" : 6
-    }
-  }
+  ]
 }
