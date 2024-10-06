@@ -63,4 +63,36 @@ extension Utils {
         }
         throw Chord.Status.unknownChord
     }
+
+    /// Create a `ChordDefinition` structure from a **ChordPro** JSON chord
+    ///
+    ///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
+    ///
+    /// - Parameter define: A **ChordPro** JSON chord
+    /// - Returns: A  ``ChordDefinition`` struct, if found, else an Error
+    static func define(from chord: ChordPro.Instrument.Chord, instrument: Instrument) throws -> ChordDefinition {
+        if chord.copy == nil {
+            let elements = Analizer.findChordElements(chord: chord.name)
+            guard
+                let root = elements.root,
+                let quality = elements.quality
+            else {
+                throw Chord.Status.unknownChord
+            }
+            let chordDefinition = ChordDefinition(
+                id: UUID(),
+                name: chord.name,
+                frets: chord.frets ?? [],
+                fingers: chord.fingers ?? [],
+                baseFret: chord.base ?? 1,
+                root: root,
+                quality: quality,
+                bass: elements.bass,
+                instrument: instrument
+            )
+            return chordDefinition
+        } else {
+            throw Chord.Status.chordIsCopy
+        }
+    }
 }

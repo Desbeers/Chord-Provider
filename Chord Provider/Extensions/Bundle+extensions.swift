@@ -22,7 +22,7 @@ extension Bundle {
         dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
         keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys
     ) -> T {
-        guard let url = self.url(forResource: file, withExtension: "chordsdb") else {
+        guard let url = self.url(forResource: file, withExtension: "json") else {
             fatalError("Failed to locate \(file) in bundle.")
         }
 

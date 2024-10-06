@@ -25,9 +25,9 @@ extension ChordDefinition {
         /// Calculated values
         self.name = "\(root.rawValue)\(quality.rawValue)"
         self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
-        self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: .guitarStandardETuning)
+        self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: .guitar)
         self.status = .standardChord
-        self.instrument = .guitarStandardETuning
+        self.instrument = .guitar
     }
 
     /// Init the ``ChordDefinition`` with all known values
@@ -138,6 +138,36 @@ extension ChordDefinition {
         /// Calculated values
         self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
         self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+    }
+
+    // MARK: Init with a ChordPro JSON chord
+
+    /// Init the ``ChordDefinition`` with the name of a chord
+    ///
+    /// - Parameters:
+    ///   - chord: The **ChordPro** JSON chord
+    ///   - instrument: The ``Instrument``
+    init?(chord: ChordPro.Instrument.Chord, instrument: Instrument) {
+        /// Parse the JSON chord definition
+        do {
+            let definition = try Utils.define(from: chord, instrument: instrument)
+            /// Set the properties
+            self.id = definition.id
+            self.frets = definition.frets
+            self.fingers = definition.fingers
+            self.baseFret = definition.baseFret
+            self.root = definition.root
+            self.quality = definition.quality
+            self.bass = definition.bass
+            self.name = definition.name
+            self.instrument = definition.instrument
+            self.status = .standardChord
+            /// Calculated values
+            self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
+            self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+        } catch {
+            return nil
+        }
     }
 
     // MARK: Init with an unknown name

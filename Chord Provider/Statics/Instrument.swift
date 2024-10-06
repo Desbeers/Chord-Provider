@@ -17,11 +17,11 @@ enum Instrument: String, CaseIterable, Codable, Identifiable, Sendable {
     }
 
     /// Guitar Standard E tuning
-    case guitarStandardETuning
+    case guitar
     /// Guitalele
-    case guitaleleStandardATuning
+    case guitalele
     /// Ukulele Standard G tuning
-    case ukuleleStandardGTuning
+    case ukulele
 }
 
 extension Instrument {
@@ -29,11 +29,11 @@ extension Instrument {
     /// The label of the instrument
     var label: String {
         switch self {
-        case .guitarStandardETuning:
+        case .guitar:
             "Guitar"
-        case .guitaleleStandardATuning:
+        case .guitalele:
             "Guitalele"
-        case .ukuleleStandardGTuning:
+        case .ukulele:
             "Ukulele"
         }
     }
@@ -41,11 +41,11 @@ extension Instrument {
     /// The description of the instrument
     var description: String {
         switch self {
-        case .guitarStandardETuning:
+        case .guitar:
             "Guitar, 6 strings, standard tuning"
-        case .guitaleleStandardATuning:
+        case .guitalele:
             "Guitalele, 6 strings, standard tuning"
-        case .ukuleleStandardGTuning:
+        case .ukulele:
             "Ukulele, 4 strings, standard tuning"
         }
     }
@@ -63,7 +63,7 @@ extension Instrument {
     /// The strings of the instrument
     var strings: [Int] {
         switch self {
-        case .ukuleleStandardGTuning:
+        case .ukulele:
             [0, 1, 2, 3]
         default:
             [0, 1, 2, 3, 4, 5]
@@ -72,11 +72,11 @@ extension Instrument {
     /// The name of the strings
     var stringName: [Chord.Root] {
         switch self {
-        case .guitarStandardETuning:
+        case .guitar:
             [.e, .a, .d, .g, .b, .e]
-        case .guitaleleStandardATuning:
+        case .guitalele:
             [.a, .d, .g, .c, .e, .a]
-        case .ukuleleStandardGTuning:
+        case .ukulele:
             [.g, .c, .e, .a]
         }
     }
@@ -84,11 +84,11 @@ extension Instrument {
     ///  - Note: Start with -1, because of the BaseFret value in `ChordDefinition`
     var offset: [Int] {
         switch self {
-        case .guitarStandardETuning:
+        case .guitar:
             [-1, 4, 9, 14, 18, 23]
-        case .guitaleleStandardATuning:
+        case .guitalele:
             [4, 9, 14, 19, 23, 28]
-        case .ukuleleStandardGTuning:
+        case .ukulele:
             [26, 19, 23, 28]
         }
     }
@@ -99,11 +99,11 @@ extension Instrument {
     /// The databases for the instruments
     var database: String {
         switch self {
-        case .guitarStandardETuning:
+        case .guitar:
             "GuitarStandardETuning"
-        case .guitaleleStandardATuning:
+        case .guitalele:
             "GuitaleleStandardATuning"
-        case .ukuleleStandardGTuning:
+        case .ukulele:
             "UkuleleStandardGTuning"
         }
     }

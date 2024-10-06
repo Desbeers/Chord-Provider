@@ -17,32 +17,18 @@ extension Chords {
     // MARK: Public
 
     /// Get all the guitar chords in a ``ChordDefinition`` array
-    static let guitar = Chords.importDefinitions(instrument: .guitarStandardETuning)
+    static let guitar = Chords.importInstrument(.guitar)
 
     /// Get all the guitalele chords in a ``ChordDefinition`` array
-    static let guitalele = Chords.importDefinitions(instrument: .guitaleleStandardATuning)
+    static let guitalele = Chords.importInstrument(.guitalele)
 
     /// Get all the ukulele chords in a ``ChordDefinition`` array
-    static let ukulele = Chords.importDefinitions(instrument: .ukuleleStandardGTuning)
+    static let ukulele = Chords.importInstrument(.ukulele)
 
-    /// Get all the database definitions in JSON format
-    /// - Parameter instrument: The ``Instrument``
-    /// - Returns: The ``Database`` in JSON format
-    static func jsonDatabase(instrument: Instrument) -> String {
-        Bundle.main.json(from: instrument.database)
-    }
-
-    /// Import a ``Database`` in JSON format to a ``ChordDefinition`` array
-    /// - Parameter database: The ``Database`` in JSON format
-    /// - Returns: A ``ChordDefinition`` array
-    static func importDatabase(database: String) -> [ChordDefinition] {
-        importDefinitions(database: database)
-    }
-
-    /// Export a ``ChordDefinition`` array to a ``Database`` in JSON format
+    /// Export a ``ChordDefinition`` array to JSON format
     /// - Parameter definitions: A ``ChordDefinition`` array
     /// - Returns: The ``Database`` in JSON format
-    static func exportDatabase(definitions: [ChordDefinition]) -> String {
+    static func exportInstrument(definitions: [ChordDefinition]) -> String {
         exportDefinitions(definitions: definitions)
     }
 
@@ -51,11 +37,11 @@ extension Chords {
     /// - Returns: An ``ChordDefinition`` array
     static func getAllChordsForInstrument(instrument: Instrument) -> [ChordDefinition] {
         switch instrument {
-        case .guitarStandardETuning:
+        case .guitar:
             Chords.guitar
-        case .guitaleleStandardATuning:
+        case .guitalele:
             Chords.guitalele
-        case .ukuleleStandardGTuning:
+        case .ukulele:
             Chords.ukulele
         }
     }
@@ -63,88 +49,103 @@ extension Chords {
     // MARK: Private
 
     /// Import a definition database from a JSON database file
-    /// - Parameter database: The ``Instrument``
-    /// - Returns: An array of ``ChordDefinition``
-    static func importDefinitions(instrument: Instrument) -> [ChordDefinition] {
-        let database = Bundle.main.decode(ChordsDatabase.self, from: instrument.database)
+    private static func importInstrument( _ instrument: Instrument) -> [ChordDefinition] {
+        let database = Bundle.main.decode(ChordPro.Instrument.self, from: instrument.database)
         return importDatabase(database: database)
     }
 
-    /// Import a definition database from a JSON string
-    /// - Parameter database: The database in JSON format
-    /// - Returns: An array of ``ChordDefinition``
-    static func importDefinitions(database: String) -> [ChordDefinition] {
-        let decoder = JSONDecoder()
-        guard let data = database.data(using: .utf8)
-        else { return [] }
-
-        do {
-            let database = try decoder.decode(ChordsDatabase.self, from: data)
-            return importDatabase(database: database)
-        } catch {
-            print(error)
-            return []
-        }
-    }
-
-    /// Export the definitions to a String
+    /// Export the definitions to a JSON string
     /// - Parameter definitions: The chord definitions
     /// - Returns: A String will all definitions
-    static func exportDefinitions(definitions: [ChordDefinition]) -> String {
-        guard
-            /// The first definition is needed to find the instrument
-            let firstDefinition = definitions.first
-        else {
-            return("No definitions")
-        }
-        let definitions = definitions.map(\.define).sorted()
-
-        let export = ChordsDatabase(
-            instrument: firstDefinition.instrument,
-            definitions: definitions
-        )
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        do {
-            let encodedData = try encoder.encode(export)
-            return String(decoding: encodedData, as: UTF8.self)
-        } catch {
-            return "error"
-        }
+    static func exportToJSON(definitions: [ChordDefinition]) throws -> String {
+        return ""
+//        guard
+//            /// The first definition is needed to find the instrument
+//            let instrument = definitions.first?.instrument
+//        else {
+//            throw Chord.Status.noChordsDefined
+//        }
+//        /// Only export basic and sharp chords first; flat chords are treated as a copy
+//        let basicAndSharps = definitions.filter { $0.root.accidental != .flat }
+//        var chords = definitions.map { chord in
+//            
+//            let name = chord.root.accidental == .flat ? chord.root.copy : chord.root
+//            let copy = chord.root.accidental == .flat ? chord.root : nil
+//
+//            name += chord.quality.display
+//            if let bass = self.bass {
+//                name += "/\(bass.display)"
+//            }
+//
+//            ChordPro.Instrument.Chord(
+//                name: chord.name,
+//                display: chord.name == chord.displayName ? nil : chord.displayName,
+//                base:  chord.root.accidental == .flat ? nil : chord.baseFret,
+//                frets: chord.root.accidental == .flat ? nil : chord.frets,
+//                fingers: chord.root.accidental == .flat ? nil : chord.fingers,
+//                copy: chord.root.accidental == .flat ? nil : nil
+//            )
+//        }
+//
+//        let export = ChordPro.Instrument(
+//            instrument: .init(
+//                description: instrument.description,
+//                type: instrument.rawValue
+//            ),
+//            tuning: instrument.tuning,
+//            chords: chords,
+//            pdf: .init(diagrams: .init(vcells: 6))
+//        )
+//
+//        let encoder = JSONEncoder()
+//        encoder.outputFormatting = .prettyPrinted
+//        do {
+//            let encodedData = try encoder.encode(export)
+//            return String(decoding: encodedData, as: UTF8.self)
+//        } catch {
+//            return "error"
+//        }
+//
+//
+//
+//        let definitions = definitions.map(\.define).sorted()
+//
+//        let export = ChordsDatabase(
+//            instrument: firstDefinition.instrument,
+//            definitions: definitions
+//        )
+//        let encoder = JSONEncoder()
+//        encoder.outputFormatting = .prettyPrinted
+//        do {
+//            let encodedData = try encoder.encode(export)
+//            return String(decoding: encodedData, as: UTF8.self)
+//        } catch {
+//            throw Chord.Status.noChordsDefined
+//        }
     }
 
     /// Import a database with chord definitions
     /// - Parameter database: The ``Database`` to import
     /// - Returns: An array of ``ChordDefinition``
-    static func importDatabase(database: ChordsDatabase) -> [ChordDefinition] {
+    static func importDatabase(database: ChordPro.Instrument) -> [ChordDefinition] {
         var definitions: [ChordDefinition] = []
-        for definition in database.definitions {
-            if let result = try? ChordDefinition(
-                definition: definition,
-                instrument: database.instrument,
-                status: .standardChord
-            ) {
-                definitions.append(result)
+        if let instrument = Instrument(rawValue: database.instrument.type) {
+            /// Get all chord definitions
+            for chord in database.chords where chord.copy == nil {
+                if let result = ChordDefinition(chord: chord, instrument: instrument) {
+                    definitions.append(result)
+                }
+            }
+            /// Get all copies of chord definitions
+            for chord in database.chords where chord.copy != nil {
+                if var copy = definitions.first(where: { $0.name == chord.copy }) {
+                    dump(copy)
+                    copy.name = chord.name
+                    copy.root = copy.root.copy
+                    definitions.append(copy)
+                }
             }
         }
         return definitions.sorted(using: KeyPathComparator(\.baseFret))
-    }
-
-    /// Parse a String with chord definitions
-    /// - Parameters:
-    ///   - instrument: The ``Instrument``
-    ///   - definitions: The definitions as String
-    /// - Returns: An array of ``ChordDefinition``
-    static func parseDefinitions(instrument: Instrument, definitions: String) -> [ChordDefinition] {
-        definitions.split(separator: "\n", omittingEmptySubsequences: true).map { definition in
-            if let result = try? ChordDefinition(
-                definition: String(definition),
-                instrument: instrument,
-                status: .standardChord
-            ) {
-                return result
-            }
-            return ChordDefinition(unknown: "Unknown", instrument: instrument)
-        }
     }
 }

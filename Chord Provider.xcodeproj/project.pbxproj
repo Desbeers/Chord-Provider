@@ -122,6 +122,8 @@
 		D70D96E52CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
 		D70D96E62CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
 		D70D96E72CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
+		D70D96E82CB2B62500B51A14 /* ChordPro+Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */; };
+		D70D96E92CB2B62500B51A14 /* ChordPro+Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */; };
 		D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711737F2BD279D80075325C /* PDFBuild+Label.swift */; };
 		D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D7117F842BA2281E00D17A52 /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */; };
@@ -1418,6 +1420,7 @@
 				D7117F852BA2281E00D17A52 /* Song+Section+Line.swift in Sources */,
 				D70B72CF2BD54E86003C89B4 /* PDFBuild+PlainSection.swift in Sources */,
 				D7117F8F2BA2291000D17A52 /* ChordProParser.swift in Sources */,
+				D70D96E92CB2B62500B51A14 /* ChordPro+Instrument.swift in Sources */,
 				D70B72942BD52A94003C89B4 /* SongExport.swift in Sources */,
 				D70B72952BD52A94003C89B4 /* PDFStringAttribute.swift in Sources */,
 				D70B72962BD52A94003C89B4 /* PDFBuild+Builder.swift in Sources */,
@@ -1686,6 +1689,7 @@
 				D7F1400F2A64646E002D875D /* ChordProParser.swift in Sources */,
 				D7F140172A64647D002D875D /* Song+Section+Line.swift in Sources */,
 				D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,
+				D70D96E82CB2B62500B51A14 /* ChordPro+Instrument.swift in Sources */,
 				D70B72CE2BD54E86003C89B4 /* PDFBuild+PlainSection.swift in Sources */,
 				D7F140162A64647D002D875D /* Song+Section+Line+Grid.swift in Sources */,
 				D70B728E2BD52A93003C89B4 /* SongExport.swift in Sources */,

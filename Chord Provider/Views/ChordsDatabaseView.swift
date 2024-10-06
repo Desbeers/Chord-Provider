@@ -17,7 +17,7 @@ import SwiftUI
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
 
-    @State private var selectedTab: Instrument = .guitarStandardETuning
+    @State private var selectedTab: Instrument = .guitar
 
     @State private var allChords: [ChordDefinition] = []
 
@@ -88,11 +88,11 @@ import SwiftUI
         .searchable(text: $search)
         .task(id: sceneState.settings.song.instrument) {
             switch sceneState.settings.song.instrument {
-            case .guitarStandardETuning:
+            case .guitar:
                 allChords = Chords.guitar
-            case .guitaleleStandardATuning:
+            case .guitalele:
                 allChords = Chords.guitalele
-            case .ukuleleStandardGTuning:
+            case .ukulele:
                 allChords = Chords.ukulele
             }
             filterChords()
@@ -187,7 +187,7 @@ extension ChordsDatabaseView {
         let export = ChordPro.Instrument(
             instrument: .init(
                 description: sceneState.settings.song.instrument.description,
-                type: sceneState.settings.song.instrument.label.lowercased()
+                type: sceneState.settings.song.instrument.rawValue
             ),
             tuning: sceneState.settings.song.instrument.tuning,
             chords: chords,

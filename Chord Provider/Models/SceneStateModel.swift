@@ -76,7 +76,7 @@ import OSLog
     init(id: AppStateModel.AppStateID) {
         settings = AppSettings.load(id: id)
         // swiftlint:disable:next force_unwrapping
-        self.definition = ChordDefinition(name: "C", instrument: .guitarStandardETuning)!
+        self.definition = ChordDefinition(name: "C", instrument: .guitar)!
         /// Create the temp directory
         try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
     }

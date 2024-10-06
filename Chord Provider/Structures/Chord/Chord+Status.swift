@@ -28,9 +28,6 @@ extension Chord {
         case toManyFrets
         /// The definition has not enough frets
         case notEnoughFrets
-
-        /// The definition is correct
-        case correct
         /// The definition has a wrong bass note
         case wrongBassNote
         /// The definition has a wrong root note
@@ -39,13 +36,18 @@ extension Chord {
         case wrongNotes
         /// The definition contains wrong fingers
         case wrongFingers
+        /// The definition is a copy of another definition
+        case chordIsCopy
+        /// There are no chords defined
+        case noChordsDefined
+        /// The definition is correct
+        case correct
 
         // MARK: Protocol items
 
         /// The description of the status
         var description: String {
             switch self {
-
             case .toManyFrets:
                 "To many frets"
             case .notEnoughFrets:

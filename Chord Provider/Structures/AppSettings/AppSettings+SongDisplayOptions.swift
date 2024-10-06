@@ -24,7 +24,7 @@ extension AppSettings {
         /// The style of the chords display
         var chords: Chord = .asName
         /// The instrument for the song
-        var instrument: Instrument = .guitarStandardETuning
+        var instrument: Instrument = .guitar
         /// Show the chord diagrams
         var showChords: Bool = true
         /// Show the chord diagrams inline with the song text
