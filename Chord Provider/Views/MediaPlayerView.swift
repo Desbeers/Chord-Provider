@@ -73,7 +73,7 @@ extension MediaPlayerView {
         /// The body of the `View`
         var body: some View {
             if let tempo = sceneState.song.metaData.tempo, let bpm = Float(tempo) {
-                MetronomeView(time: sceneState.song.metaData.time ?? "4/4", bpm: bpm)
+                MetronomeButton(time: sceneState.song.metaData.time ?? "4/4", bpm: bpm)
                     .padding(.leading)
             }
             if let musicURL = sceneState.song.metaData.audioURL {

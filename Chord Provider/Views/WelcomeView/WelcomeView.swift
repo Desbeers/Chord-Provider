@@ -16,6 +16,8 @@ import OSLog
     @State private var fileBrowser = FileBrowserModel.shared
     /// The AppDelegate to bring additional Windows into the SwiftUI world
     let appDelegate: AppDelegateModel
+    /// The ID of the Window
+    let windowID: AppDelegateModel.WindowID
     /// The currently selected tab
     @State private var selectedTab: NewTabs = .recent
     /// The body of the `View`
@@ -35,12 +37,21 @@ import OSLog
                 .pickerStyle(.segmented)
                 .labelsHidden()
                 .padding(.top)
-                switch selectedTab {
-                case .recent:
-                    RecentFiles(appDelegate: appDelegate)
-                case .yourSongs:
-                    FileBrowser()
+                VStack {
+                    switch selectedTab {
+                    case .recent:
+                        RecentFiles(appDelegate: appDelegate)
+                    case .yourSongs:
+                        FileBrowser()
+                    }
                 }
+                .frame(maxHeight: .infinity)
+                    if windowID == .welcomeView {
+                        Toggle("Show this window when creating a new document", isOn: $appState.settings.application.showWelcomeWindow)
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .padding(.bottom, 6)
+                    }
             }
             .padding(.horizontal, 6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)

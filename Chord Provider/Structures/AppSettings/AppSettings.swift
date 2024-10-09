@@ -10,12 +10,26 @@ import OSLog
 
 /// All the settings for the application
 struct AppSettings: Equatable, Codable, Sendable {
+    /// Settings that will change the behaviour of the application
+    var application = Application()
     /// The options for displaying a ``Song``
     var song = SongDisplayOptions()
     /// The options for displacing a ``ChordDefinition``
     var diagram = DiagramDisplayOptions()
     /// The options for the ``ChordProEditor``
     var editor: ChordProEditor.Settings = .init()
+}
+
+extension AppSettings {
+
+    /// Settings that will change the behaviour of the application
+    struct Application: Codable, Equatable {
+
+        /// Bool to show the Welcome window when creating a new document
+        var showWelcomeWindow: Bool = true
+        /// Bool to show the Welcome View as MenuBarExtra
+        var showMenuBarExtra: Bool = true
+    }
 }
 
 extension AppSettings {

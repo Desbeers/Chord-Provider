@@ -27,8 +27,7 @@ extension WelcomeView {
                             action: {
                                 Task {
                                     do {
-                                        print("RECENT")
-                                        appDelegate.closeWelcomeView()
+                                        appDelegate.closeWelcomeWindow()
                                         try await NSDocumentController.shared.openDocument(withContentsOf: url, display: true)
                                     } catch {
                                         Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
@@ -36,7 +35,7 @@ extension WelcomeView {
                                 }
                             },
                             label: {
-                                    Label(url.deletingPathExtension().lastPathComponent, systemImage: "doc.badge.clock")
+                                Label(url.deletingPathExtension().lastPathComponent, systemImage: "doc.badge.clock")
                             }
                         )
                     }

@@ -124,13 +124,15 @@ extension Chords {
             )
         }
 
+        chords.sort(using: KeyPathComparator(\.base))
+
         let export = ChordPro.Instrument(
             instrument: .init(
                 description: instrument.description,
                 type: instrument.rawValue
             ),
             tuning: instrument.tuning,
-            chords: chords,
+            chords: chords.reversed(),
             pdf: .init(diagrams: .init(vcells: 6))
         )
 

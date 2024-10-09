@@ -1,5 +1,5 @@
 //
-//  MetronomeView.swift
+//  MetronomeButton.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-/// SwiftUI `View` for the metronome
-@MainActor struct MetronomeView: View {
+/// SwiftUI `View` for the metronome button
+@MainActor struct MetronomeButton: View {
     /// The time signature
     let time: String
     /// The bpm

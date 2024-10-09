@@ -29,15 +29,15 @@ import SwiftUI
         ///
         /// - Note: When you create a new document and remove all text; the window will close and the AppKit window will appear.
         DocumentGroup(newDocument: ChordProDocument(text: appState.newDocumentContent)) { file in
-            if file.fileURL == nil && file.document.text.isEmpty {
+            if file.fileURL == nil && file.document.text == ChordProDocument.newText && appState.settings.application.showWelcomeWindow {
                 ProgressView()
                     .withHostingWindow { window in
                         window?.alphaValue = 0
                         window?.close()
-                        appDelegate.showWelcomeView()
+                        appDelegate.showWelcomeWindow()
                     }
             } else {
-                ContentView(document: file.$document, file: file.fileURL)
+                MainView(document: file.$document, file: file.fileURL)
                     .environment(fileBrowser)
                     .environment(appState)
                 /// Give the scene access to the document.
@@ -70,9 +70,10 @@ import SwiftUI
                         }
                     }
                     .task {
-                        appDelegate.closeWelcomeView()
+                        appDelegate.closeWelcomeWindow()
+                        fileBrowser.menuBarExtraWindow?.close()
                         /// Reset the new content
-                        appState.newDocumentContent = ""
+                        appState.newDocumentContent = ChordProDocument.newText
                     }
             }
         }
@@ -123,19 +124,6 @@ import SwiftUI
         }
         .defaultSize(width: 1000, height: 800)
         .defaultPosition(.center)
-
-        // MARK: 'Song List' menu bar extra
-
-        /// Add Chord Provider to the Menu Bar
-        MenuBarExtra("Chord Provider", systemImage: "guitars") {
-            WelcomeView(appDelegate: appDelegate)
-                .environment(fileBrowser)
-                .withHostingWindow { window in
-                    fileBrowser.menuBarExtraWindow = window
-                    appDelegate.closeWelcomeView()
-                }
-        }
-        .menuBarExtraStyle(.window)
 
         // MARK: Settings
 

@@ -26,11 +26,12 @@ extension WelcomeView {
                 // swiftlint:disable:next force_unwrapping
                 Image(nsImage: NSImage(named: "AppIcon")!)
                     .resizable()
-                    .frame(width: 280, height: 280)
+                    .frame(width: 240, height: 240)
                 VStack(alignment: .leading) {
                     Button(
                         action: {
-                            appState.newDocumentContent = ChordProDocument.newText
+                            /// Make sure the new text is diffent from the default or else the welcome view will show again
+                            appState.newDocumentContent = ChordProDocument.newText + "\n"
                             NSDocumentController.shared.newDocument(nil)
                         },
                         label: {
@@ -68,7 +69,7 @@ extension WelcomeView {
                             appDelegate.showChordsDatabaseView()
                         },
                         label: {
-                            Label("View Chord Diagrams", systemImage: "hand.raised.fingers.spread")
+                            Label("View chord diagrams", systemImage: "hand.raised.fingers.spread")
                         }
                     )
                 }

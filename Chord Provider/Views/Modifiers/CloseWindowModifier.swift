@@ -31,6 +31,7 @@ struct CloseWindowModifier: ViewModifier {
                         .foregroundStyle(hoverButton ? .primary : .secondary)
                         .padding(5)
                 }
+                .keyboardShortcut("w")
                 .onHover { hovering in
                     hoverButton = hovering
                 }

@@ -27,7 +27,7 @@ struct AboutView: View {
             }
             .padding()
             VStack(spacing: 10) {
-                Text("A beautiful and **real** macOS application to view and edit [ChordPro](https://www.chordpro.org) songs on your mac or export them to PDF files.")
+                Text("A beautiful and **real** macOS application to view and edit [ChordPro](https://www.chordpro.org) songs on your Mac or export them to PDF files.")
                 Text("The source code is released under the **GPL3 licence** and is available on [GitHub](https://github.com/Desbeers/Chord-Provider).")
                     .font(.footnote)
                     .foregroundStyle(.secondary)

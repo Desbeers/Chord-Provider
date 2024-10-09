@@ -23,8 +23,6 @@ import Foundation
 
     var editChords: Bool = false
 
-
     /// The Navigation stack path
     var navigationStack: [ChordDefinition] = []
-
 }

@@ -385,7 +385,14 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $sceneState.showEditor) {
+            Button {
+                sceneState.isAnimating = true
+                withAnimation {
+                    sceneState.showEditor.toggle()
+                } completion: {
+                    sceneState.isAnimating = false
+                }
+            } label: {
                 Label("Edit", systemImage: sceneState.showEditor ? "pencil.circle.fill" : "pencil.circle")
             }
         }

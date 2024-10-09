@@ -14,7 +14,7 @@ import SwiftUI
     /// The list with recent files
     var recentFiles: [URL] = []
     /// The content for a new document
-    var newDocumentContent: String = ""
+    var newDocumentContent: String = ChordProDocument.newText
     /// The ID of the app state
     var id: AppStateID
     /// The application settings
@@ -23,7 +23,6 @@ import SwiftUI
             try? AppSettings.save(id: id, settings: settings)
         }
     }
-
 
     var media = MediaPlayerView.Item()
 

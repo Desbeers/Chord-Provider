@@ -21,7 +21,7 @@ extension Styles {
             HStack {
                 configuration.icon
                     .foregroundColor(.secondary)
-                    .imageScale(.medium)
+                    .imageScale(.large)
                     .frame(width: 20, alignment: .trailing)
                 configuration.title
             }

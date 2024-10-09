@@ -21,7 +21,7 @@ struct ToolbarView: View {
                 sceneState.songPagingPicker
                     .pickerStyle(.segmented)
                 sceneState.instrumentPicker
-                    //.pickerStyle(.segmented)
+                    .pickerStyle(.segmented)
                 sceneState.transposeMenu
                 sceneState.chordsMenu
             }

@@ -16,13 +16,18 @@ import OSLog
     var preview = PreviewState()
     /// The internals of the **Chord Provider** editor
     var editorInternals = ChordProEditor.Internals()
-
+    /// The settings for the scene
     var settings: AppSettings
+    /// The status of the View
+    var status: Status = .loading
 
     // MARK: Song View options
 
     /// Bool to show the editor or not
     var showEditor: Bool = false
+    /// Bool that some animation is ongoing
+    /// - Note: Used to hide the ``SongView`` during animation because of performance
+    var isAnimating: Bool = false
 
     // MARK: Editor stuff
 
@@ -79,6 +84,15 @@ import OSLog
         self.definition = ChordDefinition(name: "C", instrument: .guitar)!
         /// Create the temp directory
         try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
+    }
+}
+
+extension SceneStateModel {
+
+    enum Status {
+        case loading
+        case ready
+        case error
     }
 }
 

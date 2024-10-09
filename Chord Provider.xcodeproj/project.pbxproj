@@ -296,7 +296,7 @@
 		D7CA63272AEB397A00C6B4BB /* MetronomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */; };
 		D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */; };
 		D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */; };
-		D7CA63312AED3D4E00C6B4BB /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */; };
+		D7CA63312AED3D4E00C6B4BB /* MetronomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */; };
 		D7EA87592C5A580A009A3D82 /* AppKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */; };
 		D7EA875A2C5A580A009A3D82 /* AppKitUtils+openPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87472C5A5809009A3D82 /* AppKitUtils+openPanel.swift */; };
 		D7EA875B2C5A580A009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */; };
@@ -357,7 +357,6 @@
 		D7F13FE32A6460B7002D875D /* PrintPDFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB62A6460B7002D875D /* PrintPDFButton.swift */; };
 		D7F13FE42A6460B7002D875D /* ChordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB72A6460B7002D875D /* ChordsView.swift */; };
 		D7F13FE52A6460B7002D875D /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB82A6460B7002D875D /* SongView.swift */; };
-		D7F13FE62A6460B7002D875D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB92A6460B7002D875D /* ContentView.swift */; };
 		D7F13FE72A6460B7002D875D /* ExportSongButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FBA2A6460B7002D875D /* ExportSongButton.swift */; };
 		D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F13FF82A646356002D875D /* Quartz.framework */; platformFilters = (macos, ); };
 		D7F140062A646356002D875D /* QLpreview (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7F13FF62A646356002D875D /* QLpreview (macOS).appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -554,7 +553,7 @@
 		D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeModel.swift; sourceTree = "<group>"; };
 		D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighTick.aif; sourceTree = "<group>"; };
 		D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = LowTick.aif; sourceTree = "<group>"; };
-		D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
+		D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeButton.swift; sourceTree = "<group>"; };
 		D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitUtils.swift; sourceTree = "<group>"; };
 		D7EA87472C5A5809009A3D82 /* AppKitUtils+openPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+openPanel.swift"; sourceTree = "<group>"; };
 		D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+PDFKitRepresentedView.swift"; sourceTree = "<group>"; };
@@ -618,7 +617,6 @@
 		D7F13FB62A6460B7002D875D /* PrintPDFButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrintPDFButton.swift; sourceTree = "<group>"; };
 		D7F13FB72A6460B7002D875D /* ChordsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordsView.swift; sourceTree = "<group>"; };
 		D7F13FB82A6460B7002D875D /* SongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
-		D7F13FB92A6460B7002D875D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D7F13FBA2A6460B7002D875D /* ExportSongButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportSongButton.swift; sourceTree = "<group>"; };
 		D7F13FF62A646356002D875D /* QLpreview (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLpreview (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F13FF82A646356002D875D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -888,6 +886,7 @@
 				D7F13FBA2A6460B7002D875D /* ExportSongButton.swift */,
 				D75141562C60C5B40011D9A4 /* DebugButtons.swift */,
 				D7336AD02C27001800D0AA8E /* FontSizeButtons.swift */,
+				D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */,
 				D7EA877D2C5A5888009A3D82 /* ColorPickerButton.swift */,
 				D7EA877C2C5A5888009A3D82 /* UserFileButton.swift */,
 				D7A283822C3476A300E2F0BB /* PreviewPDFButton.swift */,
@@ -1190,15 +1189,13 @@
 		D7F13FAB2A6460B7002D875D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D7CA63302AED3D4E00C6B4BB /* MetronomeView.swift */,
-				D70D96C12CB25D4800B51A14 /* WelcomeView */,
 				D7EB79172CA97421004D965B /* AboutView.swift */,
+				D70D96C12CB25D4800B51A14 /* WelcomeView */,
 				D70D96F22CB30D3E00B51A14 /* ChordsDatabaseView */,
 				D730BBC42CA844C2008719F2 /* ChordDefinitionView.swift */,
 				D730BBC92CA844C2008719F2 /* CreateChordView.swift */,
 				D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */,
 				D7F13FB72A6460B7002D875D /* ChordsView.swift */,
-				D7F13FB92A6460B7002D875D /* ContentView.swift */,
 				D7F13FAE2A6460B7002D875D /* EditorView */,
 				D75B48922BDD0266001F6176 /* ExportFolderView.swift */,
 				D7F13FB42A6460B7002D875D /* HeaderView.swift */,
@@ -1510,7 +1507,7 @@
 				D730BC082CA844C2008719F2 /* Chord+Barre.swift in Sources */,
 				D78E1ED12AC5A58E001A0641 /* EditorView+directiveMenus.swift in Sources */,
 				D706FD9B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift in Sources */,
-				D7CA63312AED3D4E00C6B4BB /* MetronomeView.swift in Sources */,
+				D7CA63312AED3D4E00C6B4BB /* MetronomeButton.swift in Sources */,
 				D730BC1A2CA844C2008719F2 /* Chord+Status.swift in Sources */,
 				D730BBDE2CA844C2008719F2 /* Bundle+extensions.swift in Sources */,
 				D7F65D922BFBFEA2003FB87D /* OpenDocumentAction+extension.swift in Sources */,
@@ -1577,7 +1574,6 @@
 				D7EA87782C5A5861009A3D82 /* UserFile.swift in Sources */,
 				D7C725D02BFF87C5006D9C74 /* AppDelegateModel.swift in Sources */,
 				D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */,
-				D7F13FE62A6460B7002D875D /* ContentView.swift in Sources */,
 				D78819662BFB25300033545D /* Help.swift in Sources */,
 				D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D75141572C60C5B40011D9A4 /* DebugButtons.swift in Sources */,

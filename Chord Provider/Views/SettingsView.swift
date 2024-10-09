@@ -13,13 +13,17 @@ import SwiftUI
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
-    /// Dismiss
-    @Environment(\.dismiss) private var dismiss
+    /// The AppDelegate to bring additional Windows into the SwiftUI world
+    @Environment(AppDelegateModel.self) private var appDelegate
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
             Divider()
             TabView {
+                general
+                    .tabItem {
+                        Label("General", systemImage: "gear")
+                    }
                 editor
                     .tabItem {
                         Label("Editor", systemImage: "pencil")
@@ -41,13 +45,31 @@ import SwiftUI
     }
 
     /// `View` with general options
+    @ViewBuilder var general: some View {
+        @Bindable var appState = appState
+        VStack(alignment: .leading) {
+            Toggle("Show the welcome screen when creating a new document", isOn: $appState.settings.application.showWelcomeWindow)
+                .onChange(of: appState.settings.application.showMenuBarExtra) {
+                    appDelegate.setupMenuBarExtra()
+                }
+            Text("When enabled you can choose between a new song, a new songbook or open an existing song. When disabled, a new song will be created.")
+                .font(.caption)
+            Toggle("Add quick access to the menu bar", isOn: $appState.settings.application.showMenuBarExtra)
+            Text("When enabled, you can access the welcome screen from the menu bar.")
+                .font(.caption)
+        }
+        .wrapSettingsSection(title: "General Options")
+        .frame(maxHeight: .infinity, alignment: .top)
+    }
+
+    /// `View` with song options
     @ViewBuilder var options: some View {
         @Bindable var appState = appState
         VStack(alignment: .leading) {
             appState.repeatWholeChorusToggle
             appState.lyricsOnlyToggle
         }
-        .wrapSettingsSection(title: "General Options")
+        .wrapSettingsSection(title: "Display Options")
         .frame(maxHeight: .infinity, alignment: .top)
     }
 

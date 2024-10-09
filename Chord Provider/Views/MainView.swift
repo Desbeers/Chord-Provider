@@ -9,11 +9,11 @@ import SwiftUI
 import OSLog
 
 /// SwiftUI `View` for the main content
-struct MainView: View {
+@MainActor struct MainView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The observable state of the scene
-    @Environment(SceneStateModel.self) private var sceneState
+    /// The state of the scene
+    @State private var sceneState = SceneStateModel(id: .mainView)
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The ChordPro document
@@ -22,38 +22,33 @@ struct MainView: View {
     let file: URL?
     /// The body of the `View`
     var body: some View {
-        HStack(spacing: 0) {
-            if sceneState.showEditor {
-                EditorView(document: $document)
-                    .frame(minWidth: 300)
-                    .transition(.opacity)
-                Divider()
+        VStack(spacing: 0) {
+            switch sceneState.status {
+            case .loading:
+                ProgressView()
+            case .ready:
+                HeaderView()
+                main
+            case .error:
+                ContentUnavailableView(
+                    "Ooops",
+                    systemImage: "exclamationmark.triangle",
+                    description: Text("Something went wrong")
+                )
             }
-            if let data = sceneState.preview.data {
-                PreviewPaneView(data: data)
-                    .transition(.move(edge: .trailing))
-            } else {
-                let layout = sceneState.settings.song.chordsPosition == .right ?
-                AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-                layout {
-                    SongView()
-                        .background(Color(nsColor: .textBackgroundColor))
-                    if sceneState.settings.song.showChords {
-                        Divider()
-                        ChordsView(document: $document)
-                            .background(Color(nsColor: .textBackgroundColor))
-                            .shadow(color: .secondary.opacity(0.25), radius: 60)
-                    }
-                }
-                .transition(.move(edge: .trailing))
-            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(nsColor: .textBackgroundColor))
+        .toolbar {
+            ToolbarView()
         }
         .task {
             renderSong()
             /// Always open the editor for a new file
-            if document.text == ChordProDocument.newText {
+            if document.text == ChordProDocument.newText || document.text == ChordProDocument.newText + "\n" {
                 sceneState.showEditor = true
             }
+            sceneState.status = .ready
         }
         .onChange(of: document.text) {
             renderSong()
@@ -69,10 +64,46 @@ struct MainView: View {
             renderSong()
         }
         .animation(.default, value: sceneState.preview)
-        .animation(.default, value: sceneState.showEditor)
         .animation(.smooth, value: sceneState.settings)
         .animation(.default, value: sceneState.song.metaData)
+        .animation(.default, value: sceneState.status)
+        /// Give the menubar access to the Scene State
+        .focusedSceneValue(\.sceneState, sceneState)
+        .environment(sceneState)
     }
+    /// The main of the `View`
+    var main: some View {
+        HStack(spacing: 0) {
+            if sceneState.showEditor {
+                EditorView(document: $document)
+                    .frame(minWidth: 300)
+                .transition(.opacity)
+                Divider()
+            }
+            if let data = sceneState.preview.data {
+                PreviewPaneView(data: data)
+                    .transition(.move(edge: .trailing))
+            } else if sceneState.isAnimating {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+            } else {
+                let layout = sceneState.settings.song.chordsPosition == .right ?
+                AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
+                layout {
+                    SongView()
+                        .background(Color(nsColor: .textBackgroundColor))
+                    if sceneState.settings.song.showChords {
+                        Divider()
+                        ChordsView(document: $document)
+                            .background(Color(nsColor: .textBackgroundColor))
+                            .shadow(color: .secondary.opacity(0.25), radius: 60)
+                    }
+                }
+            }
+        }
+        .frame(maxHeight: .infinity)
+    }
+
     /// Render the song
     @MainActor private func renderSong() {
         sceneState.song = ChordProParser.parse(
