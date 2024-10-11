@@ -25,7 +25,7 @@ struct ChordsView: View {
         AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
         ScrollView([sceneState.settings.song.chordsPosition == .bottom ? .horizontal : .vertical]) {
             layout {
-                ForEach(sceneState.song.chords.sorted(using: KeyPathComparator(\.name))) { chord in
+                ForEach(sceneState.song.chords.sorted(using: KeyPathComparator(\.display))) { chord in
                     switch chord.status {
                     case .standardChord, .transposedChord:
                         Button(

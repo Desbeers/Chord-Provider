@@ -98,9 +98,6 @@ struct CreateChordView: View {
             }
         }
         .padding(.bottom)
-        .overlay(alignment: .topLeading) {
-            Label(sceneState.settings.song.instrument.label, systemImage: "guitars")
-        }
         .task(id: sceneState.definition) {
             let diagram = ChordDefinition(
                 id: sceneState.definition.id,

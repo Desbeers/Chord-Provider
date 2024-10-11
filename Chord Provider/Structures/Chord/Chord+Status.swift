@@ -18,6 +18,8 @@ extension Chord {
         case standardChord
         /// A transposed chord
         case transposedChord
+        /// A transposed chord that is unknown
+        case transposedUnknownChord
         /// A custom defined chord
         case customChord
         /// A custom defined chord that is transposed
@@ -54,6 +56,8 @@ extension Chord {
                 "Not enough frets"
             case .customTransposedChord:
                 "A custom chord can not be transposed in the diagram"
+            case .transposedUnknownChord:
+                "This transposed chord is unknown"
             case .unknownChord:
                 "This chord is unknown"
             case .correct:
@@ -90,6 +94,15 @@ extension Chord {
         }
 
         // MARK: Custom
+
+        var knownChord: Bool {
+            switch self {
+            case .standardChord, .transposedChord, .customChord, .customTransposedChord, .correct:
+                true
+            default:
+                false
+            }
+        }
 
         /// The color for a label
         var color: Color {

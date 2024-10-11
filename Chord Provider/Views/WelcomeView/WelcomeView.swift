@@ -50,7 +50,8 @@ import OSLog
                         Toggle("Show this window when creating a new document", isOn: $appState.settings.application.showWelcomeWindow)
                             .font(.footnote)
                             .foregroundColor(.secondary)
-                            .padding(.bottom, 6)
+                            .padding(.bottom)
+                            .controlSize(.small)
                     }
             }
             .padding(.horizontal, 6)

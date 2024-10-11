@@ -25,14 +25,14 @@ extension Array where Element == ChordDefinition {
     /// - Parameter root: The root note
     /// - Returns: All matching chord definitions
     func matching(root: Chord.Root) -> [ChordDefinition] {
-        root == .none ? self : self.filter { $0.root == root }
+        self.filter { $0.root == root }
     }
 
     /// Find all chord definitions matching a quality
     /// - Parameter quality: The quality
     /// - Returns: All matching chord definitions
     func matching(quality: Chord.Quality) -> [ChordDefinition] {
-        quality == .unknown ? self : self.filter { $0.quality == quality }
+        self.filter { $0.quality == quality }
     }
 
     /// Find all chord definitions matching a bass note

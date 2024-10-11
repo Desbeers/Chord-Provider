@@ -31,14 +31,10 @@ import SwiftUI
                 List {
                     Group {
                         chordsDatabaseState.editChordsToggle
-                        //HStack {
                         appState.mirrorToggle
-
                         appState.notesToggle
                         Spacer()
                         appState.midiInstrumentPicker
-                        //}
-
                     }
                     .fixedSize(horizontal: false, vertical: true)
                     .lineLimit(nil)
@@ -65,8 +61,6 @@ import SwiftUI
         .environment(sceneState)
         .environment(appState)
     }
-
-
 
     var details: some View {
         VStack {
@@ -109,8 +103,7 @@ import SwiftUI
                         }
                     }
                 }
-
-                .navigationDestination(for: ChordDefinition.self) { chord in
+                .navigationDestination(for: ChordDefinition.self) { _ in
                     CreateChordView(sceneState: sceneState)
                 }
             }
@@ -134,7 +127,6 @@ import SwiftUI
         .animation(.smooth, value: appState.settings)
         .animation(.smooth, value: sceneState.settings)
         .animation(.smooth, value: chordsDatabaseState.editChords)
-//        .searchable(text: $chordsDatabaseState.search)
         .task(id: sceneState.settings.song.instrument) {
             chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.settings.song.instrument)
         }
@@ -185,12 +177,18 @@ import SwiftUI
     }
 
     func filterChords() {
-        chordsDatabaseState.chords = chordsDatabaseState.allChords
-            .matching(root: sceneState.definition.root)
-            .matching(quality: sceneState.definition.quality)
-            .sorted(using: [
-                KeyPathComparator(\.root), KeyPathComparator(\.bass), KeyPathComparator(\.quality)
-            ])
+
+        var chords = chordsDatabaseState.allChords
+
+        if sceneState.definition.root != .none {
+            chords = chords.matching(root: sceneState.definition.root)
+        }
+        if sceneState.definition.quality != .unknown {
+            chords = chords.matching(quality: sceneState.definition.quality)
+        }
+        chordsDatabaseState.chords = chords.sorted(using: [
+            KeyPathComparator(\.root), KeyPathComparator(\.bass), KeyPathComparator(\.quality)
+        ])
     }
 
     /// Chord actions

@@ -42,7 +42,7 @@ extension Styles {
             .padding(.leading)
             .padding(.vertical, 4)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(.ultraThinMaterial)
+            .background(Color(nsColor: .windowBackgroundColor).opacity(0.5))
             .cornerRadius(6)
         }
     }

@@ -32,7 +32,7 @@ extension RenderView {
         /// The color of a chord
         var color: Color {
             switch chord.status {
-            case .customTransposedChord, .unknownChord:
+            case .unknownChord, .customTransposedChord, .transposedUnknownChord:
                 Color.red
             default:
                 Color.accentColor

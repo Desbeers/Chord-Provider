@@ -15,7 +15,7 @@ actor ChordProParser {
     /// Parse a ChordPro file
     /// - Parameters:
     ///   - text: The text of the file
-    ///   - transpose: The optional transpose of the song
+    ///   - transpose: The optional transpose of the song in the GUI
     ///   - id: The ID of the song
     ///   - instrument: The instrument of the song
     ///   - fileURL: The optional file url of the song
