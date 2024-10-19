@@ -14,7 +14,7 @@ import SwiftUI
     /// The state of the scene
     @State var sceneState = SceneStateModel(id: .chordsDatabaseView)
     /// The observable state of the chords database
-    @State var chordsDatabaseState = ChordDatabaseStateModel()
+    @State var chordsDatabaseState = ChordsDatabaseStateModel()
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
 
@@ -76,10 +76,10 @@ import SwiftUI
             appState.settings.song = sceneState.settings.song
         }
         .toolbar {
-                sceneState.scaleSlider
-                    .frame(width: 80)
-                sceneState.instrumentPicker
-                    .pickerStyle(.segmented)
+            sceneState.scaleSlider
+                .frame(width: 80)
+            sceneState.instrumentPicker
+                .pickerStyle(.segmented)
         }
         .fileExporter(
             isPresented: $chordsDatabaseState.showExportSheet,

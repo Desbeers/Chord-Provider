@@ -44,7 +44,7 @@ struct AboutView: View {
         .frame(width: 240)
         .background(.ultraThickMaterial)
         .closeWindowModifier {
-            appDelegate.closeAboutView()
+            appDelegate.closeAboutWindow()
         }
     }
 }

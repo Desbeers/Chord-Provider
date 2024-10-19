@@ -2,13 +2,13 @@
 //  ChordsDatabaseView+diagram.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 19/10/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 
 extension ChordsDatabaseView {
-    
+
     func diagram(chord: ChordDefinition) -> some View {
         HStack {
             ChordDefinitionView(

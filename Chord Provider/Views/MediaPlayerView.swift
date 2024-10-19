@@ -92,10 +92,10 @@ extension MediaPlayerView {
                         subtitle: sceneState.song.metaData.title,
                         url: url
                     )
-                    appDelegate.showMediaPlayerView()
+                    appDelegate.showMediaPlayerWindow()
                 } else {
                     appState.media = .init()
-                    appDelegate.closeMediaPlayerView()
+                    appDelegate.closeMediaPlayerWindow()
                 }
             } label: {
                 Image(systemName: kind.systemName + (appState.media.url != nil && appState.media.kind == kind ? ".fill" : ""))

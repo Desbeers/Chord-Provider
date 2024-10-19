@@ -2,7 +2,7 @@
 //  ChordsDatabaseView+grid.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 19/10/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -34,10 +34,16 @@ extension ChordsDatabaseView {
                             .cornerRadius(6)
                             .padding(4)
                     }
-                    Button {
-
-                    } label: {
-                        Label("Add a new chord", systemImage: "plus")
+                    if chordsDatabaseState.editChords {
+                        Button {
+                            if var definition = chordsDatabaseState.chords.first {
+                                definition.status = .addDefinition
+                                sceneState.definition = definition
+                                chordsDatabaseState.navigationStack.append(definition)
+                            }
+                        } label: {
+                            Label("Add a new chord", systemImage: "plus")
+                        }
                     }
                 }
             }

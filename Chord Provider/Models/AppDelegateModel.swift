@@ -24,8 +24,7 @@ import SwiftUI
             window.close()
         }
         setupMenuBarExtra()
-        //showWelcomeWindow()
-        showChordsDatabaseView()
+        showWelcomeWindow()
     }
 
     @objc func togglePopover(_ sender: NSStatusItem) {
@@ -132,7 +131,7 @@ import SwiftUI
     /// The controller for the `About` window
     private var aboutViewController: NSWindowController?
     /// Show the ``AboutView`` in an AppKit window
-    func showAboutView() {
+    func showAboutWindow() {
         if aboutViewController == nil {
             let window = createWindow(id: .aboutView)
             window.styleMask.remove(.titled)
@@ -145,7 +144,7 @@ import SwiftUI
         aboutViewController?.showWindow(nil)
     }
     /// Close the ``AboutView`` window
-    func closeAboutView() {
+    func closeAboutWindow() {
         aboutViewController?.window?.close()
     }
 
@@ -154,7 +153,7 @@ import SwiftUI
     /// The controller for the `Media Player` window
     var mediaPlayerViewController: NSWindowController?
     /// Show the ``MediaPlayerView`` in an AppKit window
-    func showMediaPlayerView() {
+    func showMediaPlayerWindow() {
         if mediaPlayerViewController == nil {
             let window = createWindow(id: .mediaPlayerView)
             window.styleMask.update(with: .resizable)
@@ -169,7 +168,7 @@ import SwiftUI
     }
 
     /// Close the ``MediaPlayerView`` window
-    func closeMediaPlayerView() {
+    func closeMediaPlayerWindow() {
         mediaPlayerViewController?.window?.close()
     }
 
@@ -178,7 +177,7 @@ import SwiftUI
     /// The controller for the `Export Folder` window
     private var exportFolderViewController: NSWindowController?
     /// Show the ``ExportFolderView`` in an AppKit window
-    func showExportFolderView() {
+    func showExportFolderWindow() {
         if exportFolderViewController == nil {
             let window = createWindow(id: .exportFolderView)
             window.contentView = NSHostingView(rootView: ExportFolderView())
@@ -195,7 +194,7 @@ import SwiftUI
     /// The controller for the `Chords Database` window
     private var chordsDatabaseViewController: NSWindowController?
     /// Show the ``ChordsDatabaseView`` in an AppKit window
-    func showChordsDatabaseView() {
+    func showChordsDatabaseWindow() {
         if chordsDatabaseViewController == nil {
             let window = createWindow(id: .chordsDatabaseView)
             window.styleMask.update(with: .resizable)

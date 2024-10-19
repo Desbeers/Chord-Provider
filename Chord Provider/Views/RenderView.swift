@@ -46,10 +46,8 @@ struct RenderView: View {
             VStack {
                 switch song.settings.song.labelStyle {
                 case .inline:
-                    //VStack(alignment: .leading) {
-                        sections
-                    //}
-                    .scrollTargetLayout()
+                    sections
+                        .scrollTargetLayout()
                 case .grid:
                     Grid(alignment: .topTrailing, verticalSpacing: 20 * song.settings.song.scale) {
                         sections

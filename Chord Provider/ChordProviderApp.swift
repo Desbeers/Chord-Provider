@@ -80,7 +80,7 @@ import SwiftUI
         .commands {
             CommandGroup(replacing: .appInfo) {
                 Button {
-                    appDelegate.showAboutView()
+                    appDelegate.showAboutWindow()
                 } label: {
                     Text("About Chord Provider")
                 }
@@ -88,14 +88,14 @@ import SwiftUI
             CommandGroup(after: .newItem) {
                 Divider()
                 Button {
-                    appDelegate.showExportFolderView()
+                    appDelegate.showExportFolderWindow()
                 } label: {
                     Text("Export Folder…")
                 }
             }
             CommandGroup(after: .toolbar) {
                 Button {
-                    appDelegate.showChordsDatabaseView()
+                    appDelegate.showChordsDatabaseWindow()
                 } label: {
                     Text("Show Chords Database")
                 }

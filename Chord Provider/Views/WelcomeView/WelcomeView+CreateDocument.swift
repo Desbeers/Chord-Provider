@@ -58,7 +58,7 @@ extension WelcomeView {
                     )
                     Button(
                         action: {
-                            appDelegate.showExportFolderView()
+                            appDelegate.showExportFolderWindow()
                         },
                         label: {
                             Label("Export a folder with songs", systemImage: "doc.on.doc")
@@ -66,7 +66,7 @@ extension WelcomeView {
                     )
                     Button(
                         action: {
-                            appDelegate.showChordsDatabaseView()
+                            appDelegate.showChordsDatabaseWindow()
                         },
                         label: {
                             Label("View chord diagrams", systemImage: "hand.raised.fingers.spread")

@@ -2,7 +2,7 @@
 //  ChordsDatabaseView+options.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 19/10/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
@@ -14,8 +14,6 @@ extension ChordsDatabaseView {
                 appState.mirrorToggle
                 appState.playToggle
                 chordsDatabaseState.editChordsToggle
-
-
             }
             GridRow {
 

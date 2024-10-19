@@ -78,7 +78,11 @@ extension Chords {
                 definitions.append(copy)
             }
         }
-        return definitions.sorted(using: KeyPathComparator(\.baseFret))
+        return definitions.sorted(
+            using: [
+                KeyPathComparator(\.baseFret), KeyPathComparator(\.frets.description)
+            ]
+        )
     }
 
     /// Export the definitions to a JSON string
@@ -123,9 +127,7 @@ extension Chords {
                 copy: chord.name
             )
         }
-
-        chords.sort(using: KeyPathComparator(\.base))
-
+        chords.sort(using: [KeyPathComparator(\.base), KeyPathComparator(\.frets?.description)])
         let export = ChordPro.Instrument(
             instrument: .init(
                 description: instrument.description,

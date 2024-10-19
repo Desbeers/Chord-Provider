@@ -2,24 +2,24 @@
 //  ChordsDatabaseView+EditView.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 19/10/2024.
+//  © 2024 Nick Berendsen
 //
 
 import SwiftUI
 
 extension ChordsDatabaseView {
-    
+
+    /// SwiftUI `View` to edit the database
     @MainActor struct EditView: View {
-
+        /// The chord we want to edit or the chord as starting point to add
         let chord: ChordDefinition
-
+        /// The optional flat chord when editing or adding a sharp chord
         @State var flatChord: ChordDefinition?
-
         /// The observable state of the scene
         @Environment(SceneStateModel.self) private var sceneState
         /// The observable state of the chords database
-        @Environment(ChordDatabaseStateModel.self) private var chordDatabaseState
-
+        @Environment(ChordsDatabaseStateModel.self) private var chordDatabaseState
+        /// The body of the `View`
         var body: some View {
             VStack {
                 CreateChordView(showAllOption: false, hideFlats: true, sceneState: sceneState)
@@ -38,7 +38,7 @@ extension ChordsDatabaseView {
                 }
             }
         }
-
+        /// The editor bottons
         var buttons: some View {
             VStack {
                 if let flatChord {

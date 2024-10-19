@@ -395,7 +395,6 @@ extension SceneStateModel {
                     sceneState.showEditor.toggle()
                 } completion: {
                     Task {@MainActor in
-                        print("DONE!")
                         sceneState.isAnimating = false
                     }
                 }

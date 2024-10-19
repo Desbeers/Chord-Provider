@@ -22,18 +22,14 @@ extension ChordProParser {
         currentSection: inout Song.Section
     ) {
         if let match = text.firstMatch(of: RegexDefinitions.directive) {
-
             let directive = match.1
             var label = match.2
-            /// Check if the lable contains arguments
+            /// Check if the label contains arguments
             if let attributes = label?.matches(of: RegexDefinitions.arguments) {
-                for attribute in attributes {
-                    if attribute.output.1 == .label {
-                        label = attribute.output.2
-                    }
+                for attribute in attributes where attribute.output.1 == .label {
+                    label = attribute.output.2
                 }
             }
-
             switch directive {
 
             case .none:

@@ -202,8 +202,6 @@ extension AppStateModel {
         var body: some View {
             VStack(alignment: .leading) {
                 Label("MIDI Instrument", systemImage: "guitars.fill")
-
-                //Image(systemName: "guitars.fill")
                 Picker("MIDI Instrument:", selection: $appState.settings.diagram.midiInstrument) {
                     ForEach(Midi.Instrument.allCases) { value in
                         Text(value.label)

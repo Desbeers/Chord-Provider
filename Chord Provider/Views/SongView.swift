@@ -13,8 +13,7 @@ import SwiftUI
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
     var body: some View {
-        let _ = print("RENDER SONG")
-        return VStack {
+        VStack {
             switch sceneState.settings.song.paging {
             case .asList:
                 ScrollView {
