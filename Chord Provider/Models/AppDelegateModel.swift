@@ -24,7 +24,8 @@ import SwiftUI
             window.close()
         }
         setupMenuBarExtra()
-        showWelcomeWindow()
+        //showWelcomeWindow()
+        showChordsDatabaseView()
     }
 
     @objc func togglePopover(_ sender: NSStatusItem) {
@@ -198,6 +199,7 @@ import SwiftUI
         if chordsDatabaseViewController == nil {
             let window = createWindow(id: .chordsDatabaseView)
             window.styleMask.update(with: .resizable)
+            window.titlebarAppearsTransparent = false
             window.contentView = NSHostingView(rootView: ChordsDatabaseView())
             window.center()
             chordsDatabaseViewController = NSWindowController(window: window)

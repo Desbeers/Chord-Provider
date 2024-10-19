@@ -8,6 +8,10 @@ import SwiftUI
 
 /// SwiftUI `View` to create a ``ChordDefinition`` with pickers
 struct CreateChordView: View {
+    /// Bool to show the 'all' option
+    let showAllOption: Bool
+    /// Bool to hide the flats
+    let hideFlats: Bool
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
     /// The binding to the observable state of the scene
@@ -30,33 +34,36 @@ struct CreateChordView: View {
                     Text(interval.description)
                 }
             }
-            sceneState.rootPicker()
-                .pickerStyle(.segmented)
-                .padding(.bottom)
-                .labelsHidden()
-            HStack {
-                LabeledContent(content: {
-                    sceneState.qualityPicker()
-                        .labelsHidden()
-                }, label: {
-                    Text("Quality:")
-                })
-                .frame(maxWidth: 150)
-                LabeledContent(content: {
-                    sceneState.baseFretPicker
+            Group {
+                sceneState.rootPicker(showAllOption: showAllOption, hideFlats: hideFlats)
+                    .pickerStyle(.segmented)
+                    .padding(.bottom)
                     .labelsHidden()
-                }, label: {
-                    Text("Base fret:")
-                })
-                .frame(maxWidth: 150)
-                LabeledContent(content: {
-                    sceneState.bassPicker
-                        .labelsHidden()
-                }, label: {
-                    Text("Optional bass:")
-                })
-                .frame(maxWidth: 200)
+                HStack {
+                    LabeledContent(content: {
+                        sceneState.qualityPicker()
+                            .labelsHidden()
+                    }, label: {
+                        Text("Quality:")
+                    })
+                    .frame(maxWidth: 150)
+                    LabeledContent(content: {
+                        sceneState.baseFretPicker
+                            .labelsHidden()
+                    }, label: {
+                        Text("Base fret:")
+                    })
+                    .frame(maxWidth: 150)
+                    LabeledContent(content: {
+                        sceneState.bassPicker
+                            .labelsHidden()
+                    }, label: {
+                        Text("Optional bass:")
+                    })
+                    .frame(maxWidth: 200)
+                }
             }
+            .disabled(sceneState.definition.status == .editDefinition)
             HStack {
                 VStack {
                     diagramView(width: 180)

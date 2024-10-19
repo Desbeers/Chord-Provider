@@ -30,8 +30,8 @@ extension WelcomeView {
                 VStack(alignment: .leading) {
                     Button(
                         action: {
-                            /// Make sure the new text is diffent from the default or else the welcome view will show again
-                            appState.newDocumentContent = ChordProDocument.newText + "\n"
+                            /// Make sure the new text is different from the default or else the welcome view will show again
+                            appState.newDocumentContent = appState.standardDocumentContent + "\n"
                             NSDocumentController.shared.newDocument(nil)
                         },
                         label: {

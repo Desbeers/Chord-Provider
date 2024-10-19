@@ -73,7 +73,7 @@ extension Chords {
         for chord in database.chords where chord.copy != nil {
             if var copy = definitions.first(where: { $0.name == chord.copy }) {
                 copy.name = chord.name
-                copy.root = copy.root.swapSharpFlat
+                copy.root = copy.root.swapSharpForFlat
                 copy.id = UUID()
                 definitions.append(copy)
             }
@@ -107,7 +107,7 @@ extension Chords {
             /// Make an editable copy
             var copy = chord
             /// Swap sharp for flat
-            copy.root = chord.root.swapSharpFlat
+            copy.root = chord.root.swapSharpForFlat
             /// Change the name
             copy.name = "\(copy.root.rawValue)\(chord.quality.rawValue)"
             if let bass = chord.bass {

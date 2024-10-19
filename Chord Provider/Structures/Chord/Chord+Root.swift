@@ -20,8 +20,8 @@ extension Chord {
 
         // swiftlint:disable identifier_name
 
-        /// None
-        case none = "None"
+        /// All
+        case all = "All"
         /// C
         case c = "C"
         /// C sharp
@@ -56,6 +56,8 @@ extension Chord {
         case b = "B"
         /// B flat
         case bFlat = "Bb"
+        /// None
+        case none = "None"
         // swiftlint:enable identifier_name
 
         /// Implement Comparable
@@ -66,6 +68,7 @@ extension Chord {
         /// The display of Root
         var display: String {
             switch self {
+            case .all:     "All"
             case .c:        "C"
             case .cSharp:   "C♯"
             case .dFlat:    "D♭"
@@ -83,7 +86,7 @@ extension Chord {
             case .aSharp:   "A♯"
             case .bFlat:    "B♭"
             case .b:        "B"
-            case .none:     "All"
+            case .none:     "None"
             }
         }
 
@@ -92,7 +95,7 @@ extension Chord {
         /// The accidental of the root
         var accidental: Accidental {
             switch self {
-            case .c, .d, .e, .f, .g, .a, .b, .none:
+            case .all, .c, .d, .e, .f, .g, .a, .b, .none:
                     .natural
             case .cSharp, .dSharp, .fSharp, .gSharp, .aSharp:
                     .sharp
@@ -101,8 +104,35 @@ extension Chord {
             }
         }
 
-        /// Swap sharp and flat
-        var swapSharpFlat: Root {
+        static var naturalAndSharp: [Chord.Root] {
+            [.all, .c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b, .none]
+        }
+
+        var naturalAndSharpDisplay: String {
+            switch self {
+            case .all:
+                "All"
+            case .c, .d, .e, .f, .g, .a, .b:
+                self.rawValue
+            case .cSharp:
+                "C♯/D♭"
+            case .dSharp:
+                "D♯/E♭"
+            case .fSharp:
+                "F♯/G♭"
+            case .gSharp:
+                "G♯/F♭"
+            case .aSharp:
+                "A♯/G♭"
+            case .dFlat, .eFlat, .gFlat, .aFlat, .bFlat:
+                self.rawValue
+            case .none:
+                "None"
+            }
+        }
+
+        /// Swap sharp for flat
+        var swapSharpForFlat: Root {
             switch self {
             case .cSharp:
                     .dFlat

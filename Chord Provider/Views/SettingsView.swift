@@ -47,15 +47,31 @@ import SwiftUI
     /// `View` with general options
     @ViewBuilder var general: some View {
         @Bindable var appState = appState
-        VStack(alignment: .leading) {
-            Toggle("Show the welcome screen when creating a new document", isOn: $appState.settings.application.showWelcomeWindow)
-                .onChange(of: appState.settings.application.showMenuBarExtra) {
-                    appDelegate.setupMenuBarExtra()
-                }
-            Text("When enabled you can choose between a new song, a new songbook or open an existing song. When disabled, a new song will be created.")
-                .font(.caption)
-            Toggle("Add quick access to the menu bar", isOn: $appState.settings.application.showMenuBarExtra)
-            Text("When enabled, you can access the welcome screen from the menu bar.")
+
+        VStack {
+            VStack(alignment: .leading) {
+                Toggle("Show the welcome screen when creating a new document", isOn: $appState.settings.application.showWelcomeWindow)
+                Text("When enabled you can choose between a new song, a new songbook or open an existing song. When disabled, a new song will be created.")
+                    .font(.caption)
+                Toggle("Add quick access to the menu bar", isOn: $appState.settings.application.showMenuBarExtra)
+                Text("When enabled, you can access the welcome screen from the menu bar.")
+                    .font(.caption)
+                Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
+                    .onChange(of: appState.settings.application.useCustomSongTemplate) { _ in
+                        /// Update the appState with the new song content
+                        appState.standardDocumentContent = ChordProDocument.getSongTemplateContent(settings: appState.settings)
+                        appState.newDocumentContent = appState.standardDocumentContent
+                    }
+            }
+            UserFileButton(
+                userFile: UserFileItem.customSongTemplate
+            ) {
+                /// Update the appState with the new song content
+                appState.standardDocumentContent = ChordProDocument.getSongTemplateContent(settings: appState.settings)
+                appState.newDocumentContent = appState.standardDocumentContent
+            }
+            .disabled(!appState.settings.application.useCustomSongTemplate)
+            Text("You can use your own **ChordPro** file as a starting point when you create a new song")
                 .font(.caption)
         }
         .wrapSettingsSection(title: "General Options")
@@ -87,11 +103,8 @@ import SwiftUI
                     appState.playToggle
                         .frame(maxWidth: .infinity, alignment: .leading)
                     if appState.settings.diagram.showPlayButton {
-                        HStack {
-                            Image(systemName: "guitars.fill")
-                            appState.midiInstrumentPicker
-                        }
-                        .padding([.top, .leading])
+                        appState.midiInstrumentPicker
+                            .padding([.top, .leading])
                     }
                 }
                 .wrapSettingsSection(title: "MIDI")

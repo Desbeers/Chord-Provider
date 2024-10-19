@@ -110,7 +110,7 @@ extension EditorView.DirectiveSheet {
     @ViewBuilder var defineView: some View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState = sceneState
-        CreateChordView(sceneState: sceneState)
+        CreateChordView(showAllOption: false, hideFlats: false, sceneState: sceneState)
         HStack {
             cancelButton
             Button(
@@ -165,7 +165,7 @@ extension EditorView.DirectiveSheet {
     @ViewBuilder var keyView: some View {
         directiveTitleView
         HStack {
-            sceneState.rootPicker()
+            sceneState.rootPicker(showAllOption: false, hideFlats: false)
             sceneState.qualityPicker()
         }
         .padding()

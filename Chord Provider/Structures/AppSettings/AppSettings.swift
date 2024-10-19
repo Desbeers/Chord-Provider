@@ -29,6 +29,8 @@ extension AppSettings {
         var showWelcomeWindow: Bool = true
         /// Bool to show the Welcome View as MenuBarExtra
         var showMenuBarExtra: Bool = true
+        /// Bool to use a custom song template
+        var useCustomSongTemplate: Bool = false
     }
 }
 

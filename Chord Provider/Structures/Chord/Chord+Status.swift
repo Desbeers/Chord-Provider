@@ -44,6 +44,10 @@ extension Chord {
         case noChordsDefined
         /// The definition is correct
         case correct
+        /// Add a definition
+        case addDefinition = "Add chord definition"
+        /// Edit a definition
+        case editDefinition = "Edit chord definition"
 
         // MARK: Protocol items
 

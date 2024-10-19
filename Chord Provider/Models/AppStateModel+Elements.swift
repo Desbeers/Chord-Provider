@@ -200,11 +200,19 @@ extension AppStateModel {
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("MIDI Instrument:", selection: $appState.settings.diagram.midiInstrument) {
-                ForEach(Midi.Instrument.allCases) { value in
-                    Text(value.label)
-                        .tag(value)
+            VStack(alignment: .leading) {
+                Label("MIDI Instrument", systemImage: "guitars.fill")
+
+                //Image(systemName: "guitars.fill")
+                Picker("MIDI Instrument:", selection: $appState.settings.diagram.midiInstrument) {
+                    ForEach(Midi.Instrument.allCases) { value in
+                        Text(value.label)
+                            .tag(value)
+                    }
                 }
+                .frame(maxWidth: 180)
+                .labelsHidden()
+                .disabled(!appState.settings.diagram.showPlayButton)
             }
         }
     }

@@ -13,8 +13,11 @@ import SwiftUI
     static let shared = AppStateModel(id: .mainView)
     /// The list with recent files
     var recentFiles: [URL] = []
-    /// The content for a new document
-    var newDocumentContent: String = ChordProDocument.newText
+    /// The standard content for a new document
+    var standardDocumentContent: String
+    /// The actual content for a new song
+    /// - Note: This will be different thah the standard when opened from the ``WelcomeView``
+    var newDocumentContent: String
     /// The ID of the app state
     var id: AppStateID
     /// The application settings
@@ -29,7 +32,13 @@ import SwiftUI
     /// Init the class; get application settings
     init(id: AppStateID) {
         self.id = id
-        self.settings = AppSettings.load(id: id)
+        /// Get the application settings from the cache
+        let settings = AppSettings.load(id: id)
+        self.settings = settings
+        /// Set the content of a new song
+        let content = ChordProDocument.getSongTemplateContent(settings: settings)
+        self.standardDocumentContent = content
+        self.newDocumentContent = content
     }
 }
 

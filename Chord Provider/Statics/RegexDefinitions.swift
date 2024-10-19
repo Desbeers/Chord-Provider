@@ -158,6 +158,29 @@ enum RegexDefinitions {
         }
     }
 
+    nonisolated(unsafe) static let arguments = Regex {
+        Capture {
+            OneOrMore {
+                CharacterClass(
+                    .anyOf("=").inverted
+                )
+            }
+        } transform: {
+            ChordPro.Directive.Argument(rawValue: $0.lowercased())
+        }
+        "=\""
+        Capture {
+            OneOrMore {
+                CharacterClass
+                    .any
+            }
+        } transform: {
+            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        "\""
+    }
+
+
     /// The regex for a *normal*  line with optional`chords` and/or `lyrics`
     ///
     ///     /// ## Example

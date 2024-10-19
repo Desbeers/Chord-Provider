@@ -24,6 +24,22 @@ extension ChordDefinition {
         }
         return name
     }
+
+    /// Format the name of the chord with a flat version for display
+    /// - Returns: A formatted string with the flat name of the chord
+    var displayFlatForSharp: String {
+        var name: String = ""
+        if self.status == .unknownChord || self.quality == .unknown {
+            /// We don't know anything about this chord; so use the original name
+            name = self.name
+        } else {
+            name = self.root.swapSharpForFlat.display + self.quality.display
+            if let bass = self.bass {
+                name += "/\(bass.display)"
+            }
+        }
+        return name
+    }
 }
 
 extension ChordDefinition {

@@ -14,6 +14,8 @@ enum UserFileItem: String, UserFile {
     case songsFolder
     /// An export folder
     case exportFolder
+    /// A custom song template
+    case customSongTemplate
     /// The ID of the file item
     var id: String {
         return self.rawValue
@@ -25,6 +27,8 @@ enum UserFileItem: String, UserFile {
             [UTType.folder]
         case .exportFolder:
             [UTType.folder]
+        case .customSongTemplate:
+            [UTType.chordProSong]
         }
     }
     /// The optional calculated label of the file
@@ -38,6 +42,8 @@ enum UserFileItem: String, UserFile {
             "folder"
         case .exportFolder:
             "folder"
+        case .customSongTemplate:
+            "music.note.list"
         }
     }
     /// The message for the file sheet
@@ -47,6 +53,8 @@ enum UserFileItem: String, UserFile {
             "Select the folder with your songs"
         case .exportFolder:
             "Select the folder with the songs to export"
+        case .customSongTemplate:
+            "Select your custom template"
         }
     }
 }

@@ -2,7 +2,7 @@
 //  ChordPro+Instrument.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 06/10/2024.
+//  © 2024 Nick Berendsen
 //
 
 import Foundation

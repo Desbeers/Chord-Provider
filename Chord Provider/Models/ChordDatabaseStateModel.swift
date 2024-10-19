@@ -21,8 +21,18 @@ import Foundation
 
     var exportData: String = ""
 
-    var editChords: Bool = false
+    var editChords: Bool = true
 
     /// The Navigation stack path
     var navigationStack: [ChordDefinition] = []
+
+    //var action: Action = .add
 }
+
+//extension ChordDatabaseStateModel {
+//
+//    enum Action: String {
+//        case edit = "Edit chord"
+//        case add = "Add new chord"
+//    }
+//}

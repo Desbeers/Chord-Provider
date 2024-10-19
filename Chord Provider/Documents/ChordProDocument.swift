@@ -48,6 +48,24 @@ struct ChordProDocument: FileDocument {
     }
 }
 
+extension ChordProDocument {
+
+    static func getSongTemplateContent(settings: AppSettings) -> String {
+        if
+            settings.application.useCustomSongTemplate,
+            let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.customSongTemplate) {
+            /// Get access to the URL
+            _ = persistentURL.startAccessingSecurityScopedResource()
+            let data = try? String(contentsOf: persistentURL, encoding: .utf8)
+            /// Stop access to the URL
+            persistentURL.stopAccessingSecurityScopedResource()
+            return data ?? ChordProDocument.newText
+        } else {
+            return ChordProDocument.newText
+        }
+    }
+}
+
 /// The `FocusedValueKey` for the current document
 struct DocumentFocusedValueKey: FocusedValueKey {
     /// The `typealias` for the key

@@ -45,7 +45,7 @@ import OSLog
         .task {
             renderSong()
             /// Always open the editor for a new file
-            if document.text == ChordProDocument.newText || document.text == ChordProDocument.newText + "\n" {
+            if document.text == appState.standardDocumentContent || document.text == appState.standardDocumentContent + "\n" {
                 sceneState.showEditor = true
             }
             sceneState.status = .ready
@@ -77,7 +77,7 @@ import OSLog
             if sceneState.showEditor {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
-                .transition(.opacity)
+                    .transition(.opacity)
                 Divider()
             }
             if let data = sceneState.preview.data {

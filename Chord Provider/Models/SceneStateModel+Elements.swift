@@ -140,29 +140,33 @@ extension SceneStateModel {
     // MARK: Root Picker
 
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
-    func rootPicker(showAll: Bool = false) -> some View {
-        RootPicker(sceneState: self, showAll: showAll)
+    func rootPicker(showAllOption: Bool, hideFlats: Bool) -> some View {
+        RootPicker(sceneState: self, showAllOption: showAllOption, hideFlats: hideFlats)
     }
     /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
     struct RootPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// Bool to show the 'all' option
-        let showAll: Bool
+        let showAllOption: Bool
+        /// Bool to hide the flats
+        let hideFlats: Bool
         /// The body of the `View`
         var body: some View {
             Picker("Root:", selection: $sceneState.definition.root) {
                 ForEach(cases, id: \.rawValue) { value in
-                    Text(value.display)
+                    Text(hideFlats ? value.naturalAndSharpDisplay : value.display)
                         .tag(value)
                 }
             }
         }
         var cases: [Chord.Root] {
-            switch showAll {
-            case true: Chord.Root.allCases
-            case false: Array(Chord.Root.allCases.dropFirst())
+            var cases: [Chord.Root] = []
+            switch hideFlats {
+            case true: cases = Chord.Root.naturalAndSharp.dropLast()
+            case false: cases = Array(Chord.Root.allCases.dropFirst().dropLast())
             }
+            return showAllOption ? cases : Array(cases.dropFirst())
         }
     }
 
@@ -390,7 +394,10 @@ extension SceneStateModel {
                 withAnimation {
                     sceneState.showEditor.toggle()
                 } completion: {
-                    sceneState.isAnimating = false
+                    Task {@MainActor in
+                        print("DONE!")
+                        sceneState.isAnimating = false
+                    }
                 }
             } label: {
                 Label("Edit", systemImage: sceneState.showEditor ? "pencil.circle.fill" : "pencil.circle")

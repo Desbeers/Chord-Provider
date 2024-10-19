@@ -29,7 +29,7 @@ import SwiftUI
         ///
         /// - Note: When you create a new document and remove all text; the window will close and the AppKit window will appear.
         DocumentGroup(newDocument: ChordProDocument(text: appState.newDocumentContent)) { file in
-            if file.fileURL == nil && file.document.text == ChordProDocument.newText && appState.settings.application.showWelcomeWindow {
+            if file.fileURL == nil && file.document.text == appState.standardDocumentContent && appState.settings.application.showWelcomeWindow {
                 ProgressView()
                     .withHostingWindow { window in
                         window?.alphaValue = 0
@@ -73,7 +73,7 @@ import SwiftUI
                         appDelegate.closeWelcomeWindow()
                         fileBrowser.menuBarExtraWindow?.close()
                         /// Reset the new content
-                        appState.newDocumentContent = ChordProDocument.newText
+                        appState.newDocumentContent = appState.standardDocumentContent
                     }
             }
         }
