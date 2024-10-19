@@ -229,8 +229,8 @@ extension RenderView {
                 if line.comment.isEmpty {
                     Text(line.tab)
                         .lineLimit(1)
-                        .minimumScaleFactor(0.01)
                         .monospaced()
+                        .minimumScaleFactor(0.1)
                 } else {
                     commentLabel(comment: line.comment)
                 }

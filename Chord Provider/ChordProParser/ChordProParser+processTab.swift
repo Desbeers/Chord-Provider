@@ -19,7 +19,7 @@ extension ChordProParser {
     static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line
         var line = Song.Section.Line(id: currentSection.lines.count + 1)
-        line.tab = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        line.tab = text.trimmingCharacters(in: .newlines)
         currentSection.lines.append(line)
         /// Mark the section as Tab if not set
         if currentSection.type == .none {

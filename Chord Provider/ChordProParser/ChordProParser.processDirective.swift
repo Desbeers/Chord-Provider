@@ -167,7 +167,23 @@ extension ChordProParser {
                 )
 
                 /// # End of environment
-            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eot, .endOfTab, .eog, .endOfGrid, .eos, .endOfTextblock, .endOfStrum:
+
+            case .eot, .endOfTab:
+                /// Make sure tab lines have the same length because of scaling
+                let tabs = currentSection.lines.map(\.tab)
+                if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
+                    for (index, line) in currentSection.lines.enumerated() {
+                        currentSection.lines[index].tab += (String(repeating: " ", count: maxLength - currentSection.lines[index].tab.count))
+                    }
+                }
+                processSection(
+                    label: ChordPro.Environment.none.rawValue,
+                    type: .none,
+                    song: &song,
+                    currentSection: &currentSection
+                )
+
+            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eog, .endOfGrid, .eos, .endOfTextblock, .endOfStrum:
                 processSection(
                     label: ChordPro.Environment.none.rawValue,
                     type: .none,
