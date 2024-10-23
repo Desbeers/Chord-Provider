@@ -13,6 +13,12 @@ struct Song {
     /// The ID of the song
     var id: UUID = UUID()
 
+    /// The total lines of the song
+    var lines: Int = 0
+
+    /// The log of the parser
+    var log: [ChordProEditor.LogItem] = []
+
     // MARK: Display options
 
     /// The settings for the ``Song`` in the Document

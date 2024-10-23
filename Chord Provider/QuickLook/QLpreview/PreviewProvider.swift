@@ -42,3 +42,7 @@ struct AppSettings {
     var diagram = DiagramDisplayOptions()
     var song = SongDisplayOptions()
 }
+
+struct ChordProEditor {
+    /// Simple substitute for the real ChordProEditor
+}

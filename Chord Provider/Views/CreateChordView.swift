@@ -104,7 +104,6 @@ struct CreateChordView: View {
                 .frame(width: 400)
             }
         }
-        .padding(.bottom)
         .task(id: sceneState.definition) {
             let diagram = ChordDefinition(
                 id: sceneState.definition.id,

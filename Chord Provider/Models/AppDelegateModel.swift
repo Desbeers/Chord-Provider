@@ -217,6 +217,7 @@ import SwiftUI
         window.titlebarAppearsTransparent = true
         window.toolbarStyle = .unified
         window.identifier = NSUserInterfaceItemIdentifier(id.rawValue)
+        window.backingType = .buffered
         /// Just a fancy animation; it is not a document window
         window.animationBehavior = .documentWindow
         return window

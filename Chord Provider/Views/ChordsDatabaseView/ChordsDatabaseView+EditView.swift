@@ -23,11 +23,11 @@ extension ChordsDatabaseView {
         var body: some View {
             VStack {
                 CreateChordView(showAllOption: false, hideFlats: true, sceneState: sceneState)
-                    .padding()
+                    .padding(.horizontal)
                     .frame(maxHeight: .infinity)
                 buttons
                     .frame(maxWidth: .infinity)
-                    .frame(height: 120)
+                    .frame(height: 100)
                     .background(.ultraThinMaterial)
             }
             .task(id: chord) {

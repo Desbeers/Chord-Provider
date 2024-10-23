@@ -36,6 +36,9 @@ extension ChordProParser {
         if !ignoreUnknown {
             song.chords.append(unknownChord)
         }
+        /// Add it to the log
+        song.log.append(.init(type: .warning, lineNumber: song.lines, message: "Unknown chord: **\(chord)**"))
+        /// Return the unknown chord
         return unknownChord
     }
 }

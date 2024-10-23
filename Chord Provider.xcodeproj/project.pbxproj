@@ -401,6 +401,9 @@
 		D7F65D922BFBFEA2003FB87D /* OpenDocumentAction+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F65D912BFBFEA2003FB87D /* OpenDocumentAction+extension.swift */; };
 		D7FA7F402C2CA9320031E1E8 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */; };
 		D7FA7F412C2CA9320031E1E8 /* ExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */; };
+		D7FFABB92CC7B02D007D592A /* ChordProEditor+LogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FFABB82CC7B02D007D592A /* ChordProEditor+LogItem.swift */; };
+		D7FFABBA2CC7B596007D592A /* ChordProEditor+LogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FFABB82CC7B02D007D592A /* ChordProEditor+LogItem.swift */; };
+		D7FFABBB2CC7B596007D592A /* ChordProEditor+LogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FFABB82CC7B02D007D592A /* ChordProEditor+LogItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -667,6 +670,7 @@
 		D7F65D912BFBFEA2003FB87D /* OpenDocumentAction+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenDocumentAction+extension.swift"; sourceTree = "<group>"; };
 		D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProDocument.swift; sourceTree = "<group>"; };
 		D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
+		D7FFABB82CC7B02D007D592A /* ChordProEditor+LogItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+LogItem.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1075,6 +1079,7 @@
 				D7EA87502C5A580A009A3D82 /* ChordProEditor+Internals.swift */,
 				D7EA87512C5A580A009A3D82 /* ChordProEditor+LayoutManager.swift */,
 				D7EA87522C5A580A009A3D82 /* ChordProEditor+LineNumbersView.swift */,
+				D7FFABB82CC7B02D007D592A /* ChordProEditor+LogItem.swift */,
 				D7EA87532C5A580A009A3D82 /* ChordProEditor+Settings.swift */,
 				D7EA87542C5A580A009A3D82 /* ChordProEditor+Static.swift */,
 				D7EA87552C5A580A009A3D82 /* ChordProEditor+TextView.swift */,
@@ -1474,6 +1479,7 @@
 				D7B319E52BD5833D006A173A /* PDFBuild+DocumentInfo.swift in Sources */,
 				D74072912BA20D9000DD52F0 /* ThumbnailProvider.swift in Sources */,
 				D7117F842BA2281E00D17A52 /* Song+Section+Line+Grid.swift in Sources */,
+				D7FFABBB2CC7B596007D592A /* ChordProEditor+LogItem.swift in Sources */,
 				D7117F852BA2281E00D17A52 /* Song+Section+Line.swift in Sources */,
 				D70B72CF2BD54E86003C89B4 /* PDFBuild+PlainSection.swift in Sources */,
 				D7117F8F2BA2291000D17A52 /* ChordProParser.swift in Sources */,
@@ -1686,6 +1692,7 @@
 				D752E5942CBA9E1300CDE42D /* ChordProParser.processDirective.swift in Sources */,
 				D730BBE72CA844C2008719F2 /* Sequence+extensions.swift in Sources */,
 				D73A03E92AC85B6100D6CD0E /* RenderView+ChordView.swift in Sources */,
+				D7FFABB92CC7B02D007D592A /* ChordProEditor+LogItem.swift in Sources */,
 				D7EA877B2C5A587A009A3D82 /* PreviewState.swift in Sources */,
 				D7EA87682C5A580A009A3D82 /* ChordProEditor+Wrapper.swift in Sources */,
 				D7F13FD32A6460B7002D875D /* ChordProParser.swift in Sources */,
@@ -1768,6 +1775,7 @@
 				D7B319E42BD5833C006A173A /* PDFBuild+DocumentInfo.swift in Sources */,
 				D7F140132A64647D002D875D /* Song.swift in Sources */,
 				D711FCFF2AD05C5600176FDC /* ColumnsLayout.swift in Sources */,
+				D7FFABBA2CC7B596007D592A /* ChordProEditor+LogItem.swift in Sources */,
 				D7F1400F2A64646E002D875D /* ChordProParser.swift in Sources */,
 				D7F140172A64647D002D875D /* Song+Section+Line.swift in Sources */,
 				D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,

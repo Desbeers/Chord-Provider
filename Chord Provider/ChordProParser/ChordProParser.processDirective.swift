@@ -172,7 +172,7 @@ extension ChordProParser {
                 /// Make sure tab lines have the same length because of scaling
                 let tabs = currentSection.lines.map(\.tab)
                 if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
-                    for (index, line) in currentSection.lines.enumerated() {
+                    for index in currentSection.lines.indices {
                         currentSection.lines[index].tab += (String(repeating: " ", count: maxLength - currentSection.lines[index].tab.count))
                     }
                 }
@@ -205,6 +205,9 @@ extension ChordProParser {
             case .instrument:
                 break
             }
+        } else {
+            /// Add the unknown directive to the log
+            song.log.append(.init(type: .warning, lineNumber: song.lines, message: "Unknown directive: **\(text)**"))
         }
     }
 }

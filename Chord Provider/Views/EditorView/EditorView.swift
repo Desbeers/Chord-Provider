@@ -40,11 +40,13 @@ import SwiftUI
     }
     /// The editor
     var editor: some View {
-        VStack {
+        VStack(spacing: 0) {
+            Divider()
             ChordProEditor(
                 text: $document.text,
                 settings: appState.settings.editor,
-                directives: ChordPro.Directive.allCases
+                directives: ChordPro.Directive.allCases,
+                log: sceneState.song.log
             )
             .introspect { editor in
                 sceneState.editorInternals = editor
@@ -65,14 +67,19 @@ import SwiftUI
                     }
                 }
             }
+            Divider()
             HStack(spacing: 0) {
-                Text(.init(sceneState.editorInternals.directive?.label ?? "No directive"))
-                if !sceneState.editorInternals.directiveArgument.isEmpty {
-                    Text(": **\(sceneState.editorInternals.directiveArgument)**")
-                }
+                Text("Line \(sceneState.editorInternals.currentLineNumber)")
+                let logMessages = sceneState.song.log
+                    .filter { $0.lineNumber == sceneState.editorInternals.currentLineNumber }
+                    .map(\.message)
+                    .joined(separator: ", ")
+                Text(.init(logMessages.isEmpty ? " " : ": \(logMessages)"))
             }
             .font(.caption)
-            .padding(.bottom, 4)
+            .padding(.leading)
+            .padding([.vertical], 4)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }

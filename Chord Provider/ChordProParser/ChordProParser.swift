@@ -30,6 +30,8 @@ actor ChordProParser {
         var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: true)
         /// Parse each line of the text:
         for text in text.components(separatedBy: .newlines) {
+            /// Increase the line number
+            song.lines += 1
             switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
             case "{":
                 /// Directive

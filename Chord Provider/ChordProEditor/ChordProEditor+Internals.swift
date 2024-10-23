@@ -11,6 +11,8 @@ extension ChordProEditor {
 
     /// Share internal editor stuff with the SwiftUI `View`
     struct Internals: Sendable {
+        /// The current line number of the cursor
+        var currentLineNumber: Int = 0
         /// The optional directive in the current paragraph
         var directive: ChordProDirective?
         /// The optional directive argument in the current paragraph

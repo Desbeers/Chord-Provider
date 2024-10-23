@@ -72,6 +72,10 @@ struct AppSettings {
     var song = SongDisplayOptions()
 }
 
+struct ChordProEditor {
+    /// Simple substitute for the real ChordProEditor
+}
+
 /// Messages for the Logger
 extension Logger {
 

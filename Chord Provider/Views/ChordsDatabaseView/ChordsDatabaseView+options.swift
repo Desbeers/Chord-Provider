@@ -12,15 +12,14 @@ extension ChordsDatabaseView {
         Grid(alignment: .leading) {
             GridRow {
                 appState.mirrorToggle
-                appState.playToggle
+                appState.midiInstrumentPicker
+                    .frame(maxWidth: 220)
                 chordsDatabaseState.editChordsToggle
             }
             GridRow {
-
-                appState.notesToggle
-
-                appState.midiInstrumentPicker
-                    .frame(maxWidth: 220)
+                sceneState.scaleSlider
+                    .frame(width: 120)
+                Spacer()
                 Button {
                     do {
                         chordsDatabaseState.exportData = try Chords.exportToJSON(definitions: chordsDatabaseState.allChords)

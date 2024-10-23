@@ -17,13 +17,8 @@ import SwiftUI
     @State var chordsDatabaseState = ChordsDatabaseStateModel()
     /// The current color scheme
     @Environment(\.colorScheme) var colorScheme
-
-//    /// The chord for the 'delete' action
-//    @State var actionButton: ChordDefinition?
-
     /// The conformation dialog to delete a chord
     @State var showDeleteConfirmation = false
-
     /// The body of the `View`
     var body: some View {
         NavigationStack(path: $chordsDatabaseState.navigationStack.animation(.smooth)) {
@@ -33,17 +28,19 @@ import SwiftUI
                 Divider()
                 options
                     .frame(maxWidth: .infinity)
-                    .frame(height: 120)
+                    .frame(height: 100)
                     .background(.ultraThinMaterial)
             }
             .navigationDestination(for: ChordDefinition.self) { chord in
                 ChordsDatabaseView.EditView(chord: chord)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .searchable(text: $chordsDatabaseState.search, placement: .toolbar, prompt: Text("Search chords"))
+                    .navigationBarBackButtonHidden()
             }
-            .searchable(text: $chordsDatabaseState.search, placement: .automatic, prompt: Text("Search chords"))
+            .searchable(text: $chordsDatabaseState.search, placement: .toolbar, prompt: Text("Search chords"))
             .opacity(chordsDatabaseState.navigationStack.isEmpty ? 1 : 0)
         }
-        .frame(minWidth: 800, minHeight: 600)
+        .frame(minWidth: 860, minHeight: 600)
         .background(Color(nsColor: .textBackgroundColor))
         .scaleModifier
         .animation(.default, value: chordsDatabaseState.navigationStack)
@@ -54,8 +51,18 @@ import SwiftUI
         .task(id: sceneState.settings.song.instrument) {
             chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.settings.song.instrument)
         }
+        .task {
+            /// Set defaults
+            sceneState.settings.diagram.showNotes = true
+            sceneState.settings.diagram.showPlayButton = true
+        }
         .onChange(of: chordsDatabaseState.allChords) {
             filterChords()
+        }
+        .onChange(of: chordsDatabaseState.navigationStack) {
+            if chordsDatabaseState.navigationStack.isEmpty {
+                sceneState.definition.status = .standardChord
+            }
         }
         .task(id: sceneState.definition) {
             filterChords()
@@ -76,8 +83,6 @@ import SwiftUI
             appState.settings.song = sceneState.settings.song
         }
         .toolbar {
-            sceneState.scaleSlider
-                .frame(width: 80)
             sceneState.instrumentPicker
                 .pickerStyle(.segmented)
         }

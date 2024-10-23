@@ -30,8 +30,8 @@ extension ChordsDatabaseView {
                     ForEach(chordsDatabaseState.chords) { chord in
                         diagram(chord: chord)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(Color.accentColor.opacity(0.1))
-                            .cornerRadius(6)
+                            .background(Color.accentColor.opacity(0.25))
+                            .cornerRadius(6 * sceneState.settings.song.scale)
                             .padding(4)
                     }
                     if chordsDatabaseState.editChords {

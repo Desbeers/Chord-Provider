@@ -57,7 +57,7 @@ import SwiftUI
                 Text("When enabled, you can access the welcome screen from the menu bar.")
                     .font(.caption)
                 Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
-                    .onChange(of: appState.settings.application.useCustomSongTemplate) { _ in
+                    .onChange(of: appState.settings.application.useCustomSongTemplate) {
                         /// Update the appState with the new song content
                         appState.standardDocumentContent = ChordProDocument.getSongTemplateContent(settings: appState.settings)
                         appState.newDocumentContent = appState.standardDocumentContent

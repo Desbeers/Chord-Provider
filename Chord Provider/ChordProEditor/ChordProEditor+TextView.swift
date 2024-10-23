@@ -19,6 +19,10 @@ extension ChordProEditor {
         var parent: ChordProEditor?
         /// All the directives we know about
         var directives: [ChordProDirective] = []
+        /// The log from the song parser
+        var log: [LogItem] = []
+        /// The current line number of the cursor
+        var currentLineNumber: Int = 0
         /// The optional current directive of the paragraph
         var currentDirective: ChordProDirective?
         /// The optional argument of the current directive

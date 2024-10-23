@@ -29,8 +29,8 @@ extension ChordProParser {
             currentSection.label = label
             currentSection.autoCreated = type == .none ? true : false
         } else {
-            /// Make a new section
             song.sections.append(currentSection)
+            /// Make a new section
             currentSection = Song.Section(
                 id: song.sections.count + 1,
                 autoCreated: type == .none ? true : false
