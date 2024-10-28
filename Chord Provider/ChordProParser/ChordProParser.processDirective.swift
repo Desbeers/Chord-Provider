@@ -32,7 +32,7 @@ extension ChordProParser {
             }
             switch directive {
 
-            case .none:
+            case .none, .warning:
                 break
 
                 // MARK: Meta-data directives
@@ -173,7 +173,7 @@ extension ChordProParser {
                 let tabs = currentSection.lines.map(\.tab)
                 if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
                     for index in currentSection.lines.indices {
-                        currentSection.lines[index].tab += (String(repeating: " ", count: maxLength - currentSection.lines[index].tab.count))
+                        currentSection.lines[index].tab += String(repeating: " ", count: maxLength - currentSection.lines[index].tab.count)
                     }
                 }
                 processSection(

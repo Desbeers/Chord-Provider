@@ -110,7 +110,8 @@ extension ChordProEditor {
                         drawDirectiveIcon(
                             directive,
                             inRect: markerRect,
-                            highlight: highlight
+                            highlight: highlight,
+                            warning: false
                         )
                     }
                     if highlight {
@@ -134,6 +135,8 @@ extension ChordProEditor {
                 let highlight = layoutManager.extraLineFragmentRect.minY == textView.currentParagraphRect?.minY
                 drawLineNumber(lineNumber, inRect: markerRect, highlight: highlight)
             }
+            /// Set the internals of the editor
+            textView.parent?.runIntrospect(textView)
 
             /// Draw the number of the line
             func drawLineNumber(_ number: Int, inRect rect: NSRect, highlight: Bool) {
@@ -148,8 +151,14 @@ extension ChordProEditor {
                     attributes[NSAttributedString.Key.foregroundColor] = NSColor.secondaryLabelColor
                 }
                 if textView.log.map(\.lineNumber).contains(number) {
-                    /// We have a warning, make the line number red
+                    /// We have a warning, make the line number red and shw a warning icon
                     attributes[NSAttributedString.Key.foregroundColor] = NSColor.red
+                    drawDirectiveIcon(
+                        ChordPro.Directive.warning,
+                        inRect: rect,
+                        highlight: highlight,
+                        warning: true
+                    )
                 }
                 /// Define the rect of the string
                 var stringRect = rect
@@ -160,7 +169,7 @@ extension ChordProEditor {
                 NSString(string: "\(number)").draw(in: stringRect, withAttributes: attributes)
             }
             /// Draw the directive icon of the line
-            func drawDirectiveIcon(_ directive: ChordProDirective, inRect rect: NSRect, highlight: Bool) {
+            func drawDirectiveIcon(_ directive: ChordProDirective, inRect rect: NSRect, highlight: Bool, warning: Bool) {
                 var iconRect = rect
                 let imageAttachment = NSTextAttachment()
                 let imageConfiguration = NSImage.SymbolConfiguration(pointSize: font.pointSize * 0.7, weight: .medium)
@@ -169,7 +178,7 @@ extension ChordProEditor {
                     let imageString = NSMutableAttributedString(attachment: imageAttachment)
                     imageString.addAttribute(
                         .foregroundColor,
-                        value: highlight ? NSColor.textColor : NSColor.secondaryLabelColor,
+                        value: warning ? NSColor.red : highlight ? NSColor.textColor : NSColor.secondaryLabelColor,
                         range: NSRange(location: 0, length: imageString.length)
                     )
                     let imageSize = imageString.size()
@@ -179,17 +188,6 @@ extension ChordProEditor {
                     imageString.draw(in: iconRect)
                 }
             }
-            /// Get optional directive argument inside the range
-            func getDirectiveArgument(nsRange: NSRange) -> String? {
-                var string: String?
-                textStorage.enumerateAttribute(.directiveArgument, in: nsRange) {values, _, _ in
-                    if let value = values as? String {
-                        string = value.trimmingCharacters(in: .whitespacesAndNewlines)
-                    }
-                }
-                return string
-            }
-            textView.parent?.runIntrospect(textView)
         }
     }
 }

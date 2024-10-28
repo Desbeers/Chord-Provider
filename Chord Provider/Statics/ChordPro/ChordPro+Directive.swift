@@ -154,7 +154,8 @@ extension ChordPro {
 
         /// This directive defines a tag for the song
         case tag
-
+        /// A warning defined a directive to the editor can draw an icon for it
+        case warning
         /// Not a directive
         case none
 

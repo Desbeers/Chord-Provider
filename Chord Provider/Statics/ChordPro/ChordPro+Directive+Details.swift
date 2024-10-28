@@ -222,6 +222,13 @@ extension ChordPro.Directive {
                 button: "Strum",
                 help: "This directive indicates the end of the strum"
             )
+        case .warning:
+            Details(
+                label: "Warning",
+                icon: "exclamationmark.triangle",
+                button: "None",
+                help: "A warning is found"
+            )
         case .none:
             Details(
                 label: "None",

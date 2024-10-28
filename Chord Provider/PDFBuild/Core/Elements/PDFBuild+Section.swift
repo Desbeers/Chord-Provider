@@ -28,7 +28,7 @@ extension PDFBuild {
             self.items = items
         }
 
-        /// Draw the **page background color** element
+        /// Draw the **section** element
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
