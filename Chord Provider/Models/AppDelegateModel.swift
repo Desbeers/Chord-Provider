@@ -117,7 +117,7 @@ import SwiftUI
         }
         /// Update the recent files list
         AppStateModel.shared.recentFiles = NSDocumentController.shared.recentDocumentURLs
-        welcomeWindowController?.showWindow(nil)
+        openWindow(controller: welcomeWindowController)
     }
     /// Close the ``WelcomeView`` window
     func closeWelcomeWindow() {
@@ -141,7 +141,7 @@ import SwiftUI
             window.center()
             aboutViewController = NSWindowController(window: window)
         }
-        aboutViewController?.showWindow(nil)
+        openWindow(controller: aboutViewController)
     }
     /// Close the ``AboutView`` window
     func closeAboutWindow() {
@@ -164,7 +164,7 @@ import SwiftUI
             window.center()
             mediaPlayerViewController = NSWindowController(window: window)
         }
-        mediaPlayerViewController?.showWindow(nil)
+        openWindow(controller: mediaPlayerViewController)
     }
 
     /// Close the ``MediaPlayerView`` window
@@ -186,7 +186,7 @@ import SwiftUI
         }
         closePopover(sender: self)
         welcomeWindowController?.window?.close()
-        exportFolderViewController?.showWindow(nil)
+        openWindow(controller: exportFolderViewController)
     }
 
     // MARK: Chord Database window
@@ -205,7 +205,17 @@ import SwiftUI
         }
         closePopover(sender: self)
         welcomeWindowController?.window?.close()
-        chordsDatabaseViewController?.showWindow(nil)
+        openWindow(controller: chordsDatabaseViewController)
+    }
+
+    // MARK: Open a Window
+
+    /// Open a window and make it key and front
+    /// - Parameter controller: The `NSWindowController` of the window
+    @MainActor private func openWindow(controller: NSWindowController?) {
+        controller?.showWindow(nil)
+        controller?.window?.makeKey()
+        controller?.window?.orderFrontRegardless()
     }
 
     // MARK: Create a default NSWindow
