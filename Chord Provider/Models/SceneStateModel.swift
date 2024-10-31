@@ -68,6 +68,10 @@ import OSLog
             if mediaURL.exist() {
                 song.metaData.audioURL = mediaURL
             }
+            mediaURL = fileURL.deletingPathExtension().appendingPathExtension("mp3")
+            if mediaURL.exist() {
+                song.metaData.audioURL = mediaURL
+            }
             mediaURL = fileURL.deletingPathExtension().appendingPathExtension("mp4")
             if mediaURL.exist() {
                 song.metaData.videoURL = mediaURL

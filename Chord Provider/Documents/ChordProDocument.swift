@@ -20,6 +20,8 @@ struct ChordProDocument: FileDocument {
     static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
     /// The `UTType` for a ChordPro document
     static var readableContentTypes: [UTType] { [.chordProSong] }
+    /// A warning for a line in the source; defined as a directive
+    static let warningDirective = ChordPro.Directive.warning
     /// The content of the ChordPro file
     var text: String
     /// Init the text
@@ -28,12 +30,14 @@ struct ChordProDocument: FileDocument {
     }
     /// Init the configuration
     init(configuration: ReadConfiguration) throws {
-        guard let data = configuration.file.regularFileContents
+        guard
+            let data = configuration.file.regularFileContents,
+            let text = String(data: data, encoding: .utf8)
         else {
             throw AppError.readDocumentError
         }
         /// Replace any Windows line endings
-        text = String(decoding: data, as: UTF8.self).replacingOccurrences(of: "\r\n", with: "\n")
+        self.text = text.replacingOccurrences(of: "\r\n", with: "\n")
     }
     /// Write the document
     /// - Parameter configuration: The document configuration

@@ -953,8 +953,8 @@
 		D76C24E62C3AFFC700C93D82 /* Documents */ = {
 			isa = PBXGroup;
 			children = (
-				D70D96DA2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift */,
 				D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */,
+				D70D96DA2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift */,
 				D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */,
 			);
 			path = Documents;

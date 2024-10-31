@@ -120,11 +120,10 @@ extension Chords {
             return ChordPro.Instrument.Chord(
                 name: copy.name,
                 display: copy.name == copy.display ? nil : copy.display,
-                base: nil,
-                frets: nil,
-                fingers: nil,
-                /// Make it a copy of the sharp chord
-                copy: chord.name
+                base: copy.baseFret,
+                frets: copy.frets,
+                fingers: copy.fingers,
+                copy: nil
             )
         }
         chords.sort(using: [KeyPathComparator(\.base), KeyPathComparator(\.frets?.description)])
@@ -142,7 +141,7 @@ extension Chords {
         encoder.outputFormatting = .prettyPrinted
         do {
             let encodedData = try encoder.encode(export)
-            return String(decoding: encodedData, as: UTF8.self)
+            return String(data: encodedData, encoding: .utf8) ?? "error"
         } catch {
             throw Chord.Status.noChordsDefined
         }

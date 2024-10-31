@@ -18,14 +18,15 @@ struct ChordsDatabaseDocument: FileDocument {
     init(string: String) {
         self.string = string
     }
-    /// Black magic
+    /// Init the configuration
     init(configuration: ReadConfiguration) throws {
         guard
-            let data = configuration.file.regularFileContents
+            let data = configuration.file.regularFileContents,
+            let string = String(data: data, encoding: .utf8)
         else {
-            throw CocoaError(.fileReadCorruptFile)
+            throw AppError.readDocumentError
         }
-        string = String(decoding: data, as: UTF8.self)
+        self.string = string
     }
     /// Save the exported Log
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
