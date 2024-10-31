@@ -43,6 +43,7 @@ extension ChordsDatabaseView {
                     } label: {
                         Label("Add a new chord", systemImage: "plus")
                     }
+                    .padding()
                 }
             }
             .overlay {
