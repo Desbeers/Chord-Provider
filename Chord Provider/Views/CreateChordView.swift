@@ -29,12 +29,14 @@ struct CreateChordView: View {
         VStack {
             Text("\(sceneState.definition.display)")
                 .font(.largeTitle)
-            Text("\(sceneState.definition.name)")
             HStack {
                 ForEach(sceneState.definition.quality.intervals.intervals, id: \.self) { interval in
                     Text(interval.description)
                 }
             }
+            Text("{\(sceneState.definition.define)}")
+                .textSelection(.enabled)
+                .foregroundStyle(.secondary)
             Group {
                 sceneState.rootPicker(showAllOption: showAllOption, hideFlats: hideFlats)
                     .pickerStyle(.segmented)

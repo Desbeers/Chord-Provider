@@ -705,8 +705,6 @@
 			isa = PBXGroup;
 			children = (
 				D706FD6F2BCECC9F005DEDF6 /* PDFBuild+Background.swift */,
-				D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */,
-				D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */,
 				D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */,
 				D70B72812BD5040C003C89B4 /* PDFBuild+Comment.swift */,
 				D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */,
@@ -820,6 +818,8 @@
 		D71525942C7214A100F12353 /* SongElements */ = {
 			isa = PBXGroup;
 			children = (
+				D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */,
+				D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */,
 				D70B72832BD507B6003C89B4 /* PDFBuild+LyricsSection.swift */,
 				D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */,
 				D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */,

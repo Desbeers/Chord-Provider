@@ -246,7 +246,7 @@ extension PDFBuild.Chords {
                 )
                 for fret in 1...5 {
                     for string in chord.instrument.strings {
-                        if frets[string] == fret && !chord.barres.map(\.fret).contains(fret) {
+                        if frets[string] == fret {
                             let finger = options.showFingers && fingers[string] != 0 ?
                             "\(fingers[string])" : " "
                             let text = PDFBuild.Text(finger, attributes: .diagramFinger)

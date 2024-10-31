@@ -10,12 +10,6 @@ import SwiftUI
 /// SwiftUI `View` for a ``ChordDefinition``
 
 struct ChordDefinitionView: View {
-
-//    /// The observable state of the application
-//    @Environment(AppStateModel.self) private var appState
-//    /// The observable state of the scene
-//    @Environment(SceneStateModel.self) private var sceneState
-
     /// The chord to display in a diagram
     let chord: ChordDefinition
     /// The width of the diagram
@@ -35,7 +29,7 @@ struct ChordDefinitionView: View {
     /// The offset for an instrument with less than 6 strings
     /// - Note: Used to give a barre some padding
     let xOffset: Double
-
+    /// The display options for the diagram
     let diagramDisplayOptions: AppSettings.DiagramDisplayOptions
 
     /// Init the `View`
@@ -120,10 +114,10 @@ struct ChordDefinitionView: View {
                     .font(.system(size: lineHeight * 0.6, weight: .regular, design: .default))
                     .frame(height: gridHeight / 5)
             }
+            fretsGrid
             if !chord.barres.isEmpty {
                 barresGrid
             }
-            fretsGrid
         }
         .frame(height: gridHeight)
         if diagramDisplayOptions.showNotes {
@@ -175,7 +169,7 @@ struct ChordDefinitionView: View {
             ForEach((1...5), id: \.self) { fret in
                 GridRow {
                     ForEach(chord.instrument.strings, id: \.self) { string in
-                        if frets[string] == fret && !chord.barres.map(\.fret).contains(fret) {
+                        if frets[string] == fret {
                             VStack(spacing: 0) {
                                 switch diagramDisplayOptions.showFingers {
                                 case true:

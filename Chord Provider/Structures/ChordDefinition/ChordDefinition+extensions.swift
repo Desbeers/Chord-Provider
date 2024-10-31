@@ -12,9 +12,9 @@ extension ChordDefinition {
     /// Get the name of the chord for internal use
     /// - Returns: A string with the name of the chord
     var getName: String {
-        var name = self.root.display + self.quality.display
+        var name = self.root.rawValue + self.quality.rawValue
         if let bass = self.bass {
-            name += "/\(bass.display)"
+            name += "/\(bass.rawValue)"
         }
         return name
     }
