@@ -14,8 +14,6 @@ enum Chords {
 
 extension Chords {
 
-    // MARK: Public
-
     /// Get all the guitar chords in a ``ChordDefinition`` array
     static let guitar = Chords.importInstrument(.guitar)
 
@@ -24,17 +22,6 @@ extension Chords {
 
     /// Get all the ukulele chords in a ``ChordDefinition`` array
     static let ukulele = Chords.importInstrument(.ukulele)
-
-    /// Export a ``ChordDefinition`` array to JSON format
-    /// - Parameter definitions: A ``ChordDefinition`` array
-    /// - Returns: The ``Database`` in JSON format
-    static func exportInstrument(definitions: [ChordDefinition]) throws -> String {
-        do {
-            return try exportToJSON(definitions: definitions)
-        } catch {
-            throw Chord.Status.noChordsDefined
-        }
-    }
 
     /// Get all chord definitions for an instrument
     /// - Parameter instrument: The ``Instrument``
@@ -49,8 +36,6 @@ extension Chords {
             Chords.ukulele
         }
     }
-
-    // MARK: Private
 
     /// Import a definition database from a JSON database file
     private static func importInstrument( _ instrument: Instrument) -> [ChordDefinition] {
@@ -86,9 +71,11 @@ extension Chords {
     }
 
     /// Export the definitions to a JSON string
-    /// - Parameter definitions: The chord definitions
-    /// - Returns: A String will all definitions
-    static func exportToJSON(definitions: [ChordDefinition]) throws -> String {
+    /// - Parameters:
+    ///   - definitions: The chord definitions
+    ///   - uniqueNames: Bool if the chord name should be unique, so one chord for each name
+    /// - Returns: A JSON string with chord definitions in **ChordPro** format
+    static func exportToJSON(definitions: [ChordDefinition], uniqueNames: Bool) throws -> String {
         guard
             /// The first definition is needed to find the instrument
             let instrument = definitions.first?.instrument
@@ -126,19 +113,25 @@ extension Chords {
                 copy: nil
             )
         }
-        chords.sort(using: [KeyPathComparator(\.base), KeyPathComparator(\.frets?.description)])
+        chords.sort(
+            using: [
+                KeyPathComparator(\.name),
+                KeyPathComparator(\.base),
+                KeyPathComparator(\.frets?.description)
+            ]
+        )
         let export = ChordPro.Instrument(
             instrument: .init(
                 description: instrument.description,
                 type: instrument.rawValue
             ),
             tuning: instrument.tuning,
-            chords: chords.reversed(),
+            chords: uniqueNames ? chords.uniqued(by: \.name) : chords,
             pdf: .init(diagrams: .init(vcells: 6))
         )
 
         let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         do {
             let encodedData = try encoder.encode(export)
             return String(data: encodedData, encoding: .utf8) ?? "error"

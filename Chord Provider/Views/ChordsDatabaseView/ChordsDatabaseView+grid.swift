@@ -22,7 +22,7 @@ extension ChordsDatabaseView {
             .disabled(!chordsDatabaseState.search.isEmpty)
             ScrollView {
                 LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 100 * sceneState.settings.song.scale + (chordsDatabaseState.editChords ? 40 : 0)), spacing: 0)],
+                    columns: [GridItem(.adaptive(minimum: 100 * sceneState.settings.song.scale + 40), spacing: 0)],
                     alignment: .center,
                     spacing: 0,
                     pinnedViews: [.sectionHeaders, .sectionFooters]
@@ -34,16 +34,14 @@ extension ChordsDatabaseView {
                             .cornerRadius(6 * sceneState.settings.song.scale)
                             .padding(4)
                     }
-                    if chordsDatabaseState.editChords {
-                        Button {
-                            if var definition = chordsDatabaseState.chords.first {
-                                definition.status = .addDefinition
-                                sceneState.definition = definition
-                                chordsDatabaseState.navigationStack.append(definition)
-                            }
-                        } label: {
-                            Label("Add a new chord", systemImage: "plus")
+                    Button {
+                        if var definition = chordsDatabaseState.chords.first {
+                            definition.status = .addDefinition
+                            sceneState.definition = definition
+                            chordsDatabaseState.navigationStack.append(definition)
                         }
+                    } label: {
+                        Label("Add a new chord", systemImage: "plus")
                     }
                 }
             }

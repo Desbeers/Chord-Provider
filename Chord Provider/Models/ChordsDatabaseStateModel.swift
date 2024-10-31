@@ -19,8 +19,6 @@ import Foundation
     var showExportSheet: Bool = false
     /// The JSON data of the chord definitions
     var exportData: String = ""
-    /// Bool if the chords should be editable
-    var editChords: Bool = false
     /// The Navigation stack path
     var navigationStack: [ChordDefinition] = []
 }

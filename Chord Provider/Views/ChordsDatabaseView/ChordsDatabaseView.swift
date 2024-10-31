@@ -47,7 +47,6 @@ import SwiftUI
         .animation(.default, value: chordsDatabaseState.chords)
         .animation(.smooth, value: appState.settings)
         .animation(.smooth, value: sceneState.settings)
-        .animation(.smooth, value: chordsDatabaseState.editChords)
         .task(id: sceneState.settings.song.instrument) {
             chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.settings.song.instrument)
         }

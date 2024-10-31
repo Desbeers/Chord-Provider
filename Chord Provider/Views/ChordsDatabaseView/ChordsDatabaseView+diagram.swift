@@ -20,9 +20,7 @@ extension ChordsDatabaseView {
                 .primary,
                 colorScheme == .dark ? .black : .white
             )
-            if chordsDatabaseState.editChords {
-                actions(chord: chord)
-            }
+            actions(chord: chord)
         }
     }
 
