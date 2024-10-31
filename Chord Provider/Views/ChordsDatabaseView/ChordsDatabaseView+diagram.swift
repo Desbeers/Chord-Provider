@@ -40,7 +40,7 @@ extension ChordsDatabaseView {
             isPresented: $showDeleteConfirmation,
             titleVisibility: .visible
         ) {
-            deleteButton(chord: chord)
+            deleteButton(chord: sceneState.definition)
         } message: {
             Text("With base fret \(sceneState.definition.baseFret)")
         }

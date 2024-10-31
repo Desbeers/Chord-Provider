@@ -29,6 +29,7 @@ struct CreateChordView: View {
         VStack {
             Text("\(sceneState.definition.display)")
                 .font(.largeTitle)
+            Text("\(sceneState.definition.name)")
             HStack {
                 ForEach(sceneState.definition.quality.intervals.intervals, id: \.self) { interval in
                     Text(interval.description)
@@ -105,9 +106,11 @@ struct CreateChordView: View {
             }
         }
         .task(id: sceneState.definition) {
+            /// Construct the internal name
+            sceneState.definition.name = sceneState.definition.getName
             let diagram = ChordDefinition(
                 id: sceneState.definition.id,
-                name: sceneState.definition.name,
+                name: sceneState.definition.getName,
                 frets: sceneState.definition.frets,
                 fingers: sceneState.definition.fingers,
                 baseFret: sceneState.definition.baseFret,

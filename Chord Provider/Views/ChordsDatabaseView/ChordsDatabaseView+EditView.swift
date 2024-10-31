@@ -38,7 +38,7 @@ extension ChordsDatabaseView {
                 }
             }
         }
-        /// The editor bottons
+        /// The editor buttons
         var buttons: some View {
             VStack {
                 if let flatChord {

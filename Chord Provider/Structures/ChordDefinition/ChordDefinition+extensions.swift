@@ -9,6 +9,16 @@ import SwiftUI
 
 extension ChordDefinition {
 
+    /// Get the name of the chord for internal use
+    /// - Returns: A string with the name of the chord
+    var getName: String {
+        var name = self.root.display + self.quality.display
+        if let bass = self.bass {
+            name += "/\(bass.display)"
+        }
+        return name
+    }
+
     /// Format the name of the chord for display
     /// - Returns: A formatted string with the name of the chord
     var display: String {
