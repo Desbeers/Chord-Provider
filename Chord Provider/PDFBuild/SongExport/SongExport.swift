@@ -91,7 +91,9 @@ extension SongExport {
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))
-        items.append(PDFBuild.Chords(chords: song.chords, options: song.settings.diagram))
+        if !song.chords.isEmpty {
+            items.append(PDFBuild.Chords(chords: song.chords, options: song.settings.diagram))
+        }
         items.append(PDFBuild.Spacer(10))
         /// Add all the sections
         for section in song.sections {

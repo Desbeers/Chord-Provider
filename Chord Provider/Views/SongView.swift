@@ -13,34 +13,39 @@ import SwiftUI
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
     var body: some View {
-        VStack {
-            switch sceneState.settings.song.paging {
-            case .asList:
-                ScrollView {
-                    ViewThatFits {
-                        RenderView(
-                            song: sceneState.song,
-                            paging: .asList,
-                            labelStyle: .grid
-                        )
-                        RenderView(
-                            song: sceneState.song,
-                            paging: .asList,
-                            labelStyle: .inline
-                        )
+        if sceneState.song.sections.isEmpty {
+            ContentUnavailableView("The Song is Empty", systemImage: "music.quarternote.3")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } else {
+            VStack {
+                switch sceneState.settings.song.paging {
+                case .asList:
+                    ScrollView {
+                        ViewThatFits {
+                            RenderView(
+                                song: sceneState.song,
+                                paging: .asList,
+                                labelStyle: .grid
+                            )
+                            RenderView(
+                                song: sceneState.song,
+                                paging: .asList,
+                                labelStyle: .inline
+                            )
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                case .asColumns:
+                    RenderView(
+                        song: sceneState.song,
+                        paging: .asColumns,
+                        labelStyle: .inline
+                    )
                 }
-            case .asColumns:
-                RenderView(
-                    song: sceneState.song,
-                    paging: .asColumns,
-                    labelStyle: .inline
-                )
             }
+            .contentMargins(.all, sceneState.settings.song.scale * 20, for: .scrollContent)
+            .contentShape(Rectangle())
+            .scaleModifier
         }
-        .contentMargins(.all, sceneState.settings.song.scale * 20, for: .scrollContent)
-        .contentShape(Rectangle())
-        .scaleModifier
     }
 }
