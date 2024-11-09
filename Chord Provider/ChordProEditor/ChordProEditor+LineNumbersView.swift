@@ -96,14 +96,13 @@ extension ChordProEditor {
                     let warning = textView.log.map(\.lineNumber).contains(lineNumber)
                     /// Check if the paragraph contains a directive
                     var directive: ChordProDirective?
-                    if warning {
-                        directive = ChordProDocument.warningDirective
-                    } else {
-                        textStorage.enumerateAttribute(.directive, in: nsRange) {values, _, _ in
-                            if let value = values as? String, textView.directives.map(\.directive).contains(value) {
-                                directive = textView.directives.first { $0.directive == value }
-                            }
+                    textStorage.enumerateAttribute(.directive, in: nsRange) {values, _, _ in
+                        if let value = values as? String, textView.directives.map(\.directive).contains(value) {
+                            directive = textView.directives.first { $0.directive == value }
                         }
+                    }
+                    if warning, directive == nil {
+                        directive = ChordProDocument.warningDirective
                     }
                     /// Draw the line number
                     drawLineNumber(
@@ -165,7 +164,7 @@ extension ChordProEditor {
                 var stringRect = rect
                 /// Move the string a bit up
                 stringRect.origin.y -= layoutManager.baselineNudge
-                /// And a bit to the left to make space for the optional stmbol
+                /// And a bit to the left to make space for the optional ss-symbol
                 stringRect.size.width -= font.pointSize * 1.75
                 NSString(string: "\(number)").draw(in: stringRect, withAttributes: attributes)
             }
@@ -182,11 +181,10 @@ extension ChordProEditor {
                         value: warning ? NSColor.red : highlight ? NSColor.textColor : NSColor.secondaryLabelColor,
                         range: NSRange(location: 0, length: imageString.length)
                     )
-                    let imageSize = imageString.size()
                     /// Move the image a bit down
-                    iconRect.origin.y += (layoutManager.lineHeight - imageSize.height) - (layoutManager.baselineNudge * 1.4 )
+                    iconRect.origin.y += font.pointSize * 0.32 * ChordProEditor.lineHeightMultiple
                     /// And to the right side of the ruler
-                    iconRect.origin.x += iconRect.width - (imageSize.width * 1.4)
+                    iconRect.origin.x = ruleThickness * 0.9
                     imageString.draw(in: iconRect)
                 }
             }

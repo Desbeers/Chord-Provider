@@ -27,7 +27,7 @@ actor ChordProParser {
         /// Add the optional transpose
         song.metaData.transpose = transpose
         /// And add the first section
-        var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: true)
+        var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
         /// Parse each line of the text:
         for text in text.components(separatedBy: .newlines) {
             /// Increase the line number

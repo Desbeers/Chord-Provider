@@ -184,6 +184,9 @@ extension ChordProParser {
                 )
 
             case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eog, .endOfGrid, .eos, .endOfTextblock, .endOfStrum:
+                if currentSection.autoCreated {
+                    song.log.append(.init(type: .warning, lineNumber: song.lines, message: "Not in \(currentSection.type.rawValue) context"))
+                }
                 processSection(
                     label: ChordPro.Environment.none.rawValue,
                     type: .none,

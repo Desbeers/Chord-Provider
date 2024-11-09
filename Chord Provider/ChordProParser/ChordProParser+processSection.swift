@@ -23,17 +23,20 @@ extension ChordProParser {
         song: inout Song,
         currentSection: inout Song.Section
     ) {
+        if type != .none, currentSection.type == type {
+            song.log.append(.init(type: .warning, lineNumber: song.lines, message: "Already in \(type.rawValue) context"))
+        }
         if currentSection.lines.isEmpty {
             /// There is already an empty section
             currentSection.type = type
             currentSection.label = label
-            currentSection.autoCreated = type == .none ? true : false
+            currentSection.autoCreated = false
         } else {
             song.sections.append(currentSection)
             /// Make a new section
             currentSection = Song.Section(
                 id: song.sections.count + 1,
-                autoCreated: type == .none ? true : false
+                autoCreated: false
             )
             currentSection.type = type
             currentSection.label = label

@@ -34,6 +34,8 @@ extension ChordProParser {
                 if currentSection.type == .none {
                     currentSection.type = .verse
                     currentSection.label = ChordPro.Environment.verse.rawValue
+                    currentSection.autoCreated = true
+                    song.log.append(.init(type: .warning, lineNumber: song.lines, message: "No environment set, assuming Verse"))
                 }
             }
             if let lyric {

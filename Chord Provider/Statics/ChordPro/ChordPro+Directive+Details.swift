@@ -169,7 +169,7 @@ extension ChordPro.Directive {
         case .startOfGrid, .sog:
             Details(
                 label: "Start of Grid",
-                icon: "square.grid.3x2",
+                icon: "square.grid.2x2",
                 button: "Grid",
                 help: "This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles"
             )
