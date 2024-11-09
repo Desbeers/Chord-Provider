@@ -30,9 +30,6 @@ import OSLog
     var status: AppError = .unknownStatus
     /// The list of open windows
     var openWindows: [NSWindow.WindowItem] = []
-    /// The MenuBarExtra window
-    /// - Note: Needed to close the MenuBarExtra when selecting a song
-    var menuBarExtraWindow: NSWindow?
     /// Init the FileBrowser
     private init() {
         songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)

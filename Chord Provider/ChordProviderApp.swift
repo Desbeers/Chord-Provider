@@ -74,7 +74,6 @@ import SwiftUI
                     }
                     .task {
                         appDelegate.closeWelcomeWindow()
-                        fileBrowser.menuBarExtraWindow?.close()
                         /// Reset the new content
                         appState.newDocumentContent = appState.standardDocumentContent
                     }

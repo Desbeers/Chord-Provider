@@ -11,11 +11,12 @@ import SwiftUI
 ///
 /// Is is a bit sad the we have to go trough all loops just to get a good experience for a true mac application nowadays
 /// SwiftUI is great and fun, also on macOS, unless... It is more than 'Hello World!" in a document...
-@Observable @MainActor final class AppDelegateModel: NSObject, NSApplicationDelegate {
-
+@Observable @MainActor final class AppDelegateModel: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var statusItem: NSStatusItem?
     let popover = NSPopover()
     var eventMonitor: EventMonitor?
+
+    var saveChordDatabaseDialog: Bool = false
 
     /// Close all windows except the menuBarExtra
     /// - Note: Part of the `DocumentGroup` dirty hack; don't show the NSOpenPanel
@@ -192,14 +193,14 @@ import SwiftUI
     // MARK: Chord Database window
 
     /// The controller for the `Chords Database` window
-    private var chordsDatabaseViewController: NSWindowController?
+    var chordsDatabaseViewController: NSWindowController?
     /// Show the ``ChordsDatabaseView`` in an AppKit window
     func showChordsDatabaseWindow() {
         if chordsDatabaseViewController == nil {
             let window = createWindow(id: .chordsDatabaseView)
             window.styleMask.update(with: .resizable)
             window.titlebarAppearsTransparent = false
-            window.contentView = NSHostingView(rootView: ChordsDatabaseView())
+            window.contentView = NSHostingView(rootView: ChordsDatabaseView(appDelegate: self))
             window.center()
             chordsDatabaseViewController = NSWindowController(window: window)
         }
@@ -228,6 +229,7 @@ import SwiftUI
         window.toolbarStyle = .unified
         window.identifier = NSUserInterfaceItemIdentifier(id.rawValue)
         window.backingType = .buffered
+        window.delegate = self
         /// Just a fancy animation; it is not a document window
         window.animationBehavior = .documentWindow
         return window
@@ -249,6 +251,22 @@ import SwiftUI
         case exportFolderView = "Export Songs"
         /// The ``ChordsDatabaseView``
         case chordsDatabaseView = "Chords Database"
+    }
+
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        guard let windowID = WindowID(rawValue: sender.identifier?.rawValue ?? "") else {
+            return true
+        }
+        switch windowID {
+        case .chordsDatabaseView:
+            if let window = chordsDatabaseViewController?.window, window.isDocumentEdited {
+                saveChordDatabaseDialog = true
+                return false
+            }
+            return true
+        default:
+            return true
+        }
     }
 }
 

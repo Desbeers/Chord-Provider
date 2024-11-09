@@ -45,7 +45,5 @@ extension FileBrowserModel {
             }
             persistentURL.stopAccessingSecurityScopedResource()
         }
-        /// If the browser is shown in a MenuBarExtra, close it
-        menuBarExtraWindow?.close()
     }
 }

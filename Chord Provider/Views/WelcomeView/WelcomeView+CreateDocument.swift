@@ -35,7 +35,7 @@ extension WelcomeView {
                             NSDocumentController.shared.newDocument(nil)
                         },
                         label: {
-                            Label("Start with an empty song", systemImage: "doc")
+                            Label("Start with an Empty Song", systemImage: "doc")
                         }
                     )
                     Button(
@@ -53,7 +53,7 @@ extension WelcomeView {
                             }
                         },
                         label: {
-                            Label("Open a **ChordPro** song", systemImage: "doc.badge.ellipsis")
+                            Label("Open a **ChordPro** Song", systemImage: "doc.badge.ellipsis")
                         }
                     )
                     Button(
@@ -61,7 +61,7 @@ extension WelcomeView {
                             appDelegate.showExportFolderWindow()
                         },
                         label: {
-                            Label("Export a folder with songs", systemImage: "doc.on.doc")
+                            Label("Export a Folder with Songs", systemImage: "doc.on.doc")
                         }
                     )
                     Button(
@@ -69,7 +69,7 @@ extension WelcomeView {
                             appDelegate.showChordsDatabaseWindow()
                         },
                         label: {
-                            Label("View chord diagrams", systemImage: "hand.raised.fingers.spread")
+                            Label("View Chord Diagrams", systemImage: "hand.raised.fingers.spread")
                         }
                     )
                 }

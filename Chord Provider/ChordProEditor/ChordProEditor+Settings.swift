@@ -48,6 +48,8 @@ extension ChordProEditor {
 }
 
 extension ChordProEditor.Settings {
+
+    /// The editor font-style
     enum FontStyle: String, CaseIterable, Codable, Sendable {
         /// Use a monospaced font
         case monospaced = "Monospaced"

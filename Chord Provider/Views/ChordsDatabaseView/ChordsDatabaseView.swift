@@ -8,7 +8,8 @@
 import SwiftUI
 
 @MainActor struct ChordsDatabaseView: View {
-
+    /// The AppDelegate to bring additional Windows into the SwiftUI world
+    @Bindable var  appDelegate: AppDelegateModel
     /// The observable state of the application
     @State var appState = AppStateModel(id: .chordsDatabaseView)
     /// The state of the scene
@@ -32,7 +33,7 @@ import SwiftUI
                     .background(.ultraThinMaterial)
             }
             .navigationDestination(for: ChordDefinition.self) { chord in
-                ChordsDatabaseView.EditView(chord: chord)
+                ChordsDatabaseView.EditView(chord: chord, appDelegate: appDelegate)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .searchable(text: $chordsDatabaseState.search, placement: .toolbar, prompt: Text("Search chords"))
                     .navigationBarBackButtonHidden()
@@ -40,7 +41,7 @@ import SwiftUI
             .searchable(text: $chordsDatabaseState.search, placement: .toolbar, prompt: Text("Search chords"))
             .opacity(chordsDatabaseState.navigationStack.isEmpty ? 1 : 0)
         }
-        .frame(minWidth: 860, minHeight: 600)
+        .frame(minWidth: 860, minHeight: 620)
         .background(Color(nsColor: .textBackgroundColor))
         .scaleModifier
         .animation(.default, value: chordsDatabaseState.navigationStack)
@@ -85,6 +86,20 @@ import SwiftUI
             sceneState.instrumentPicker
                 .pickerStyle(.segmented)
         }
+        .confirmationDialog(
+            "The Chords Database has changed",
+            isPresented: $appDelegate.saveChordDatabaseDialog,
+            titleVisibility: .visible,
+            actions: {
+                Button("No", role: .cancel) {
+                    appDelegate.chordsDatabaseViewController?.close()
+                }
+                Button("Yes") {
+                    chordsDatabaseState.showExportSheet = true
+                }
+            }, message: {
+                Text("Do you want to save your database?")
+            })
         .fileExporter(
             isPresented: $chordsDatabaseState.showExportSheet,
             document: ChordsDatabaseDocument(string: chordsDatabaseState.exportData),
