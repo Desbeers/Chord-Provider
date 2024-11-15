@@ -45,6 +45,7 @@ extension ChordProParser {
         if currentSection.type == .none {
             currentSection.type = .grid
             currentSection.label = ChordPro.Environment.grid.rawValue
+            song.log.append(.init(type: .warning, lineNumber: song.lines, message: "No environment set, assuming Grid"))
         }
     }
 }

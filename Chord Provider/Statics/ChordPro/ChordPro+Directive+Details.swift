@@ -120,7 +120,7 @@ extension ChordPro.Directive {
         case .chorus:
             Details(
                 label: "Repeat Chorus",
-                icon: "music.quarternote.3",
+                icon: "repeat",
                 button: "Repeat Chorus",
                 help: "his directive indicates that the song chorus must be played here"
             )
