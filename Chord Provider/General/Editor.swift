@@ -23,7 +23,7 @@ enum Editor {
                     textView.selectedText : editorInternals.directiveArgument
                     text = format(directive: directive, argument: selectedText)
                 }
-                textView.insertText(text, replacementRange: editorInternals.directiveRange ?? textView.selectedRange())
+                textView.insertText("\(text)\n", replacementRange: editorInternals.currentLineRange ?? textView.selectedRange())
             }
         }
     }

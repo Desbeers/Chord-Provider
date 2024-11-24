@@ -20,8 +20,6 @@ struct ChordProDocument: FileDocument {
     static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
     /// The `UTType` for a ChordPro document
     static var readableContentTypes: [UTType] { [.chordProSong] }
-    /// A warning for a line in the source; defined as a directive
-    static let warningDirective = ChordPro.Directive.warning
     /// The content of the ChordPro file
     var text: String
     /// Init the text

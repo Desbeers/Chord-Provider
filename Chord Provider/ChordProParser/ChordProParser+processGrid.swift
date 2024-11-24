@@ -18,7 +18,12 @@ extension ChordProParser {
     ///   - currentSection: The current `section` of the `song`
     static func processGrid(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line:
-        var line = Song.Section.Line(id: currentSection.lines.count + 1)
+        var line = Song.Section.Line(
+            sourceLineNumber: song.lines,
+            environment: .grid,
+            directive: .environmentLine,
+            source: text
+        )
         /// Give the structs an ID
         var partID: Int = 1
         /// Separate the grids
@@ -30,7 +35,12 @@ extension ChordProParser {
             case "|", ".":
                 grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: text))
             default:
-                let result = processChord(chord: String(text), song: &song, ignoreUnknown: true)
+                let result = processChord(
+                    chord: String(text),
+                    line: &line,
+                    song: &song,
+                    ignoreUnknown: true
+                )
                 if result.status == .unknownChord {
                     grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: text))
                 } else {
@@ -38,14 +48,18 @@ extension ChordProParser {
                 }
             }
             partID += 1
-            line.grid.append(grid)
+            line.addGrid(grid)
+        }
+        /// Mark the section as Grid if not set
+        if currentSection.environment == .none {
+            line.addWarning(
+                autoSection(
+                    environment: .grid,
+                    currentSection: &currentSection,
+                    song: &song
+                )
+            )
         }
         currentSection.lines.append(line)
-        /// Mark the section as Grid if not set
-        if currentSection.type == .none {
-            currentSection.type = .grid
-            currentSection.label = ChordPro.Environment.grid.rawValue
-            song.log.append(.init(type: .warning, lineNumber: song.lines, message: "No environment set, assuming Grid"))
-        }
     }
 }

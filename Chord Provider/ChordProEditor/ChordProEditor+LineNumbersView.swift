@@ -44,7 +44,6 @@ extension ChordProEditor {
             guard
                 let textView: TextView = self.clientView as? TextView,
                 let textContainer: NSTextContainer = textView.textContainer,
-                let textStorage: NSTextStorage = textView.textStorage,
                 let layoutManager: LayoutManager = textView.layoutManager as? LayoutManager,
                 let context: CGContext = NSGraphicsContext.current?.cgContext
             else {
@@ -92,29 +91,22 @@ extension ChordProEditor {
                     )
                     /// Bool if the line should be highlighted
                     let highlight = markerRect.minY == textView.currentParagraphRect?.minY
+                    /// The content of the current line
+                    let line = textView.getCurrentLine(lineNumber: lineNumber)
                     /// Bool if the line contains a warning
-                    let warning = textView.log.map(\.lineNumber).contains(lineNumber)
-                    /// Check if the paragraph contains a directive
-                    var directive: ChordProDirective?
-                    textStorage.enumerateAttribute(.directive, in: nsRange) {values, _, _ in
-                        if let value = values as? String, textView.directives.map(\.directive).contains(value) {
-                            directive = textView.directives.first { $0.directive == value }
-                        }
-                    }
-                    if warning, directive == nil {
-                        directive = ChordProDocument.warningDirective
-                    }
+                    let warning: Bool = line.warning != nil
                     /// Draw the line number
                     drawLineNumber(
                         lineNumber,
                         inRect: markerRect,
                         highlight: highlight,
                         warning: warning,
-                        directive: directive
+                        directive: line.directive
                     )
                     if highlight {
-                        /// Set the current line number of the cursor
-                        textView.currentLineNumber = lineNumber
+                        /// Set the current line of the cursor
+                        textView.currentLine = line
+                        textView.currentDirectiveArgument = line.argument
                     }
                     lineNumber += 1
                 }
@@ -131,13 +123,17 @@ extension ChordProEditor {
                 )
                 /// Bool if the line should be highlighted
                 let highlight = layoutManager.extraLineFragmentRect.minY == textView.currentParagraphRect?.minY
-                drawLineNumber(lineNumber, inRect: markerRect, highlight: highlight, warning: false, directive: nil)
+                drawLineNumber(lineNumber, inRect: markerRect, highlight: highlight, warning: false, directive: .none)
+                if highlight {
+                    /// Set the current line of the cursor
+                    textView.currentLine = Song.Section.Line(sourceLineNumber: lineNumber)
+                }
             }
             /// Set the internals of the editor
             textView.parent?.runIntrospect(textView)
 
             /// Draw the number of the line
-            func drawLineNumber(_ number: Int, inRect rect: NSRect, highlight: Bool, warning: Bool, directive: ChordProDirective?) {
+            func drawLineNumber(_ number: Int, inRect rect: NSRect, highlight: Bool, warning: Bool, directive: ChordPro.Directive) {
                 var attributes = ChordProEditor.rulerNumberStyle
                 attributes[NSAttributedString.Key.font] = font
                 switch highlight {
@@ -162,8 +158,8 @@ extension ChordProEditor {
                 let string = NSMutableAttributedString(string: "\(number) ")
                 string.addAttributes(attributes, range: NSRange(location: 0, length: string.length))
                 string.draw(in: stringRect)
-                /// Draw the optional directive icon
-                if let directive = directive, let image = NSImage(systemSymbolName: directive.icon, accessibilityDescription: directive.label) {
+                /// Draw the optional directive icon if not none
+                if directive != .none, let image = NSImage(systemSymbolName: directive.icon, accessibilityDescription: directive.label) {
                     let imageConfiguration = NSImage.SymbolConfiguration(pointSize: font.pointSize * 0.7, weight: .regular)
                     let imageAttachment = NSTextAttachment()
                     imageAttachment.image = image.withSymbolConfiguration(imageConfiguration)
@@ -182,17 +178,6 @@ extension ChordProEditor {
                     imageString.addAttributes(attributes, range: NSRange(location: 0, length: imageString.length))
                     imageString.draw(in: stringRect)
                 }
-            }
-
-            /// Get optional directive argument inside the range
-            func getDirectiveArgument(nsRange: NSRange) -> String? {
-                var string: String?
-                textStorage.enumerateAttribute(.directiveArgument, in: nsRange) {values, _, _ in
-                    if let value = values as? String {
-                        string = value.trimmingCharacters(in: .whitespacesAndNewlines)
-                    }
-                }
-                return string
             }
             textView.parent?.runIntrospect(textView)
         }

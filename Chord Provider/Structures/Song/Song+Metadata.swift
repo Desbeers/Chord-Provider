@@ -1,5 +1,5 @@
 //
-//  Song+MetaData.swift
+//  Song+Metadata.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -9,10 +9,10 @@ import Foundation
 
 extension Song {
 
-    // MARK: The structure for meta data about the song
+    // MARK: The structure for metadata about the song
 
-    /// Structure for meta data about the song
-    struct MetaData: Equatable {
+    /// Structure for metadata about the song
+    struct Metadata: Equatable, Codable {
 
         // MARK: Meta-data directives
 
@@ -20,6 +20,8 @@ extension Song {
         var title: String = "No title"
         /// The artist
         var artist: String = "Unknown Artist"
+        /// The optional subtitle
+        var subtitle: String?
         /// The optional capo
         var capo: String?
         /// The optional key

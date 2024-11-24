@@ -21,21 +21,19 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
                 id: UUID(),
                 text: fileContents,
                 transpose: 0,
-                settings: AppSettings(),
+                settings: AppSettings.Song(),
                 fileURL: request.fileURL
             )
             let data = try SongExport.export(
                 song: song
             ).pdf
-            replyToUpdate.title = "\(song.metaData.artist) - \(song.metaData.title)"
+            replyToUpdate.title = "\(song.metadata.artist) - \(song.metadata.title)"
             replyToUpdate.stringEncoding = .utf8
             return data
         }
         return reply
     }
 }
-
-protocol ChordProDirective {}
 
 struct AppSettings {
     /// Simple substitute for the real AppSettings

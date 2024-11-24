@@ -54,11 +54,11 @@ extension HeaderView {
         /// The metadata of the ``Song``
         private var metaData: [String] {
             var meta: [String] = []
-            meta.append(song.metaData.artist)
-            if let album = song.metaData.album {
+            meta.append(song.metadata.artist)
+            if let album = song.metadata.album {
                 meta.append(album)
             }
-            if let year = song.metaData.year {
+            if let year = song.metadata.year {
                 meta.append(year)
             }
             return meta
@@ -66,8 +66,8 @@ extension HeaderView {
         /// The body of the `View`
         var body: some View {
             VStack(alignment: .leading) {
-                if !song.metaData.title.isEmpty {
-                    Text(song.metaData.title)
+                if !song.metadata.title.isEmpty {
+                    Text(song.metadata.title)
                         .font(.headline)
                 }
                 Text(metaData.joined(separator: "∙"))
@@ -82,13 +82,13 @@ extension HeaderView {
         let song: Song
         /// The body of the `View`
         var body: some View {
-            if let key = song.metaData.key {
+            if let key = song.metadata.key {
                 Label("\(key.display)", systemImage: "key").padding(.leading)
             }
-            if let capo = song.metaData.capo {
+            if let capo = song.metadata.capo {
                 Label(capo, systemImage: "paperclip").padding(.leading)
             }
-            if let time = song.metaData.time {
+            if let time = song.metadata.time {
                 Label(time, systemImage: "timer").padding(.leading)
             }
         }

@@ -17,7 +17,7 @@ extension EditorView {
         Group {
             Menu(
                 content: {
-                    ForEach(ChordPro.Directive.metaDataDirectives, id: \.self) { directive in
+                    ForEach(ChordPro.Directive.metadataDirectives, id: \.self) { directive in
                         if sceneState.editorInternals.selectedRange.length == 0 {
                             directiveSheetButton(directive: directive)
                         } else {
@@ -51,6 +51,5 @@ extension EditorView {
             )
         }
         .menuStyle(.button)
-        .disabled(sceneState.editorInternals.directive != nil)
     }
 }

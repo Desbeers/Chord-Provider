@@ -102,7 +102,7 @@ import SwiftUI
                 VStack(alignment: .leading) {
                     appState.playToggle
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    if appState.settings.diagram.showPlayButton {
+                    if appState.settings.song.diagram.showPlayButton {
                         appState.midiInstrumentPicker
                             .padding([.top, .leading])
                     }
@@ -112,16 +112,16 @@ import SwiftUI
             .frame(maxHeight: .infinity, alignment: .top)
             Button(
                 action: {
-                    appState.settings.diagram = AppSettings.DiagramDisplayOptions()
+                    appState.settings.song.diagram = AppSettings.DiagramDisplayOptions()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
-            .disabled(appState.settings.diagram == AppSettings.DiagramDisplayOptions())
+            .disabled(appState.settings.song.diagram == AppSettings.DiagramDisplayOptions())
             .padding(.bottom)
         }
-        .animation(.default, value: appState.settings.diagram.showPlayButton)
+        .animation(.default, value: appState.settings.song.diagram.showPlayButton)
     }
 
     /// `View` with editor settings

@@ -72,14 +72,14 @@ extension MediaPlayerView {
         @Environment(SceneStateModel.self) var sceneState
         /// The body of the `View`
         var body: some View {
-            if let tempo = sceneState.song.metaData.tempo, let bpm = Float(tempo) {
-                MetronomeButton(time: sceneState.song.metaData.time ?? "4/4", bpm: bpm)
+            if let tempo = sceneState.song.metadata.tempo, let bpm = Float(tempo) {
+                MetronomeButton(time: sceneState.song.metadata.time ?? "4/4", bpm: bpm)
                     .padding(.leading)
             }
-            if let musicURL = sceneState.song.metaData.audioURL {
+            if let musicURL = sceneState.song.metadata.audioURL {
                 mediaButton(url: musicURL, kind: .audio)
             }
-            if let videoURL = sceneState.song.metaData.videoURL {
+            if let videoURL = sceneState.song.metadata.videoURL {
                 mediaButton(url: videoURL, kind: .video)
             }
         }
@@ -88,8 +88,8 @@ extension MediaPlayerView {
                 if appState.media.url == nil || appState.media.kind != kind {
                     appState.media = .init(
                         kind: kind,
-                        title: sceneState.song.metaData.artist,
-                        subtitle: sceneState.song.metaData.title,
+                        title: sceneState.song.metadata.artist,
+                        subtitle: sceneState.song.metadata.title,
                         url: url
                     )
                     appDelegate.showMediaPlayerWindow()

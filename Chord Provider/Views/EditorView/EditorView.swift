@@ -45,36 +45,33 @@ import SwiftUI
             ChordProEditor(
                 text: $document.text,
                 settings: appState.settings.editor,
-                directives: ChordPro.Directive.allCases,
-                log: sceneState.song.log
+                lines: sceneState.song.sections.flatMap(\.lines)
             )
             .introspect { editor in
                 sceneState.editorInternals = editor
             }
             .onChange(of: sceneState.editorInternals.clickedDirective) {
-                if
-                    sceneState.editorInternals.clickedDirective,
-                    let directive = sceneState.editorInternals.directive,
-                    let enumDirective = directive as? ChordPro.Directive {
+                if sceneState.editorInternals.clickedDirective {
                     /// Show the sheet
-                    switch enumDirective {
+                    switch sceneState.editorInternals.currentLine.directive {
                     case .define:
                         if validateChordDefinition() {
-                            editDirective = enumDirective
+                            editDirective = sceneState.editorInternals.currentLine.directive
                         }
                     default:
-                        editDirective = enumDirective
+                        editDirective = sceneState.editorInternals.currentLine.directive
                     }
                 }
             }
             Divider()
             HStack(spacing: 0) {
-                Text("Line \(sceneState.editorInternals.currentLineNumber)")
-                let logMessages = sceneState.song.log
-                    .filter { $0.lineNumber == sceneState.editorInternals.currentLineNumber }
-                    .map(\.message)
-                    .joined(separator: ", ")
-                Text(.init(logMessages.isEmpty ? " " : ": \(logMessages)"))
+                Text("Line \(sceneState.editorInternals.currentLine.sourceLineNumber)")
+                if let warning = sceneState.editorInternals.currentLine.warning {
+                    Text(.init(": \(warning.joined(separator: ", "))"))
+                }
+                Spacer()
+                sceneState.cleanSourceButton
+                    .controlSize(.small)
             }
             .font(.caption)
             .padding(.leading)

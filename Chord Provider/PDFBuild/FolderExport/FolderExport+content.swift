@@ -57,7 +57,7 @@ extension FolderExport {
                         id: item.id,
                         text: fileContents,
                         transpose: 0,
-                        settings: appSettings,
+                        settings: appSettings.song,
                         fileURL: item.fileURL
                     )
                     builder.elements.append(

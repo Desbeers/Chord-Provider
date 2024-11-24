@@ -14,7 +14,6 @@ enum Analizer {
     /// Find the root, quality and optional bass of a named chord
     /// - Parameter chord: The name of the chord
     /// - Returns: The root and quality
-    // swiftlint:disable:next large_tuple
     static func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?, bass: Chord.Root?) {
         var root: Chord.Root?
         var quality: Chord.Quality?

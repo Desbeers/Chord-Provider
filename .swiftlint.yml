@@ -119,3 +119,9 @@ vertical_whitespace:
 
 cyclomatic_complexity:
   ignores_case_statements: true
+
+large_tuple:
+    warning: 4
+
+function_parameter_count:
+    warning: 7

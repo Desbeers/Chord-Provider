@@ -11,7 +11,7 @@ import OSLog
 /// The observable scene state for **Chord Provider**
 @MainActor @Observable final class SceneStateModel {
     /// The current ``Song``
-    var song = Song()
+    var song: Song
     /// PDF preview related stuff
     var preview = PreviewState()
     /// The internals of the **Chord Provider** editor
@@ -43,7 +43,7 @@ import OSLog
         .appendingPathComponent("ChordProviderTMP", isDirectory: true)
     /// The URL of the export PDF
     var exportURL: URL {
-        let fileName = "\(song.metaData.artist) - \(song.metaData.title)"
+        let fileName = "\(song.metadata.artist) - \(song.metadata.title)"
         /// Create an export URL
         return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .pdf)
     }
@@ -63,18 +63,18 @@ import OSLog
     }
 
     func getMedia() {
-        if let fileURL = song.metaData.fileURL {
+        if let fileURL = song.metadata.fileURL {
             var mediaURL = fileURL.deletingPathExtension().appendingPathExtension("m4a")
             if mediaURL.exist() {
-                song.metaData.audioURL = mediaURL
+                song.metadata.audioURL = mediaURL
             }
             mediaURL = fileURL.deletingPathExtension().appendingPathExtension("mp3")
             if mediaURL.exist() {
-                song.metaData.audioURL = mediaURL
+                song.metadata.audioURL = mediaURL
             }
             mediaURL = fileURL.deletingPathExtension().appendingPathExtension("mp4")
             if mediaURL.exist() {
-                song.metaData.videoURL = mediaURL
+                song.metadata.videoURL = mediaURL
             }
         }
     }
@@ -88,6 +88,8 @@ import OSLog
         self.definition = ChordDefinition(name: "C", instrument: .guitar)!
         /// Create the temp directory
         try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
+        /// Init the song with an unique ID
+        self.song = Song(id: UUID())
     }
 }
 

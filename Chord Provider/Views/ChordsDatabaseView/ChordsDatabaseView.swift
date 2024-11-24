@@ -48,13 +48,13 @@ import SwiftUI
         .animation(.default, value: chordsDatabaseState.chords)
         .animation(.smooth, value: appState.settings)
         .animation(.smooth, value: sceneState.settings)
-        .task(id: sceneState.settings.song.instrument) {
-            chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.settings.song.instrument)
+        .task(id: sceneState.settings.song.display.instrument) {
+            chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.settings.song.display.instrument)
         }
         .task {
             /// Set defaults
-            sceneState.settings.diagram.showNotes = true
-            sceneState.settings.diagram.showPlayButton = true
+            sceneState.settings.song.diagram.showNotes = true
+            sceneState.settings.song.diagram.showPlayButton = true
         }
         .onChange(of: chordsDatabaseState.allChords) {
             filterChords()
@@ -104,7 +104,7 @@ import SwiftUI
             isPresented: $chordsDatabaseState.showExportSheet,
             document: ChordsDatabaseDocument(string: chordsDatabaseState.exportData),
             contentTypes: [.json],
-            defaultFilename: "ChordPro \(sceneState.settings.song.instrument) chords"
+            defaultFilename: "ChordPro \(sceneState.settings.song.display.instrument) chords"
         ) { result in
             if case .success = result {
                 print("Success")
@@ -112,7 +112,7 @@ import SwiftUI
                 print("Failure")
             }
         }
-        .navigationSubtitle(sceneState.settings.song.instrument.description)
+        .navigationSubtitle(sceneState.settings.song.display.instrument.description)
         .environment(sceneState)
         .environment(appState)
         .environment(chordsDatabaseState)

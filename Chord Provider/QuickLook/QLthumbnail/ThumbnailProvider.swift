@@ -21,7 +21,7 @@ class ThumbnailProvider: QLThumbnailProvider {
                 id: UUID(),
                 text: fileContents,
                 transpose: 0,
-                settings: AppSettings(),
+                settings: AppSettings.Song(),
                 fileURL: request.fileURL
             )
             let data = try SongExport.export(
@@ -63,8 +63,6 @@ class ThumbnailProvider: QLThumbnailProvider {
         }
     }
 }
-
-protocol ChordProDirective {}
 
 struct AppSettings {
     /// Simple substitute for the real AppSettings

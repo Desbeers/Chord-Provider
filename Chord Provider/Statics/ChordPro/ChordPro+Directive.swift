@@ -15,7 +15,7 @@ extension ChordPro {
     // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports
-    enum Directive: String, CaseIterable, Identifiable, ChordProDirective {
+    enum Directive: String, CaseIterable, Identifiable, Codable {
 
         var id: String {
             self.rawValue
@@ -54,7 +54,6 @@ extension ChordPro {
         /// This directive defines the title of the song
         case t, title
         /// This directive defines a subtitle of the song
-        /// - Note: It will be used as artist
         case st, subtitle
         /// This directive defines an artist
         case artist
@@ -154,8 +153,17 @@ extension ChordPro {
 
         /// This directive defines a tag for the song
         case tag
-        /// A warning defined a directive to the editor can draw an icon for it
-        case warning
+
+        // MARK: Custom metadata directives
+
+        /// A comment in the source
+        case sourceComment = "source_comment"
+
+        case environmentLine = "environment_line"
+
+        /// An unknown directive
+        case unknownDirective = "unknown_directive"
+
         /// Not a directive
         case none
 

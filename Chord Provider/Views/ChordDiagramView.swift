@@ -24,12 +24,12 @@ struct ChordDiagramView: View {
         ChordDefinitionView(
             chord: chord,
             width: width,
-            settings: appState.settings
+            settings: appState.settings.song
         )
         .foregroundStyle(
             .primary,
             colorScheme == .dark ? .black : .white
         )
-        .animation(.default, value: appState.settings.diagram)
+        .animation(.default, value: appState.settings.song.diagram)
     }
 }

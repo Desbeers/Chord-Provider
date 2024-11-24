@@ -38,7 +38,6 @@ extension ChordProEditor {
 
     // swiftlint:enable force_try
 
-    // swiftlint:disable:next large_tuple
     static func regexes(settings: Settings) -> [(regex: NSRegularExpression, color: NSColor, regexType: RegexType)] {
         return [
             (commentsRegex, NSColor(settings.commentColor), .normal),
@@ -60,8 +59,7 @@ extension ChordProEditor {
     @MainActor static func highlight(
         view: NSTextView,
         settings: Settings,
-        range: NSRange,
-        directives: [ChordProDirective]
+        range: NSRange
     ) {
         let text = view.textStorage?.string ?? ""
         let regexes = ChordProEditor.regexes(settings: settings)
@@ -109,7 +107,7 @@ extension ChordProEditor {
         /// Some extra love for known directives
         guard
             let knownDirectiveRegex = try? NSRegularExpression(
-                pattern: "(?<=\\{)(?:" + directives.map(\.directive).joined(separator: "|") + ")(?=[\\}|\\:])"
+                pattern: "(?<=\\{)(?:" + ChordPro.directives.joined(separator: "|") + ")(?=[\\}|\\:])"
             ),
             let boldFont = NSFont(
                 descriptor: settings.font.fontDescriptor.addingAttributes().withSymbolicTraits(.bold),

@@ -22,7 +22,7 @@ extension ChordProParser {
         currentSection: inout Song.Section
     ) {
         if let match = text.firstMatch(of: RegexDefinitions.directive) {
-            let directive = match.1
+            let parsedDirective = match.1
             var label = match.2
             /// Check if the label contains arguments
             if let attributes = label?.matches(of: RegexDefinitions.arguments) {
@@ -30,187 +30,184 @@ extension ChordProParser {
                     label = attribute.output.2
                 }
             }
-            switch directive {
+            /// Handle known directives
+            if let directive = ChordPro.Directive(rawValue: parsedDirective.lowercased()) {
 
-            case .none, .warning:
-                break
+                if directive != directive.shortToLong {
+                    currentSection.warning = "Short directive for **\(directive.label)**"
+                }
 
-                // MARK: Meta-data directives
+                let directive = directive.shortToLong
 
-            case .t, .title:
-                song.definedMetaData.append(directive)
-                song.metaData.title = label ?? song.metaData.title
-            case .st, .subtitle, .artist:
-                song.definedMetaData.append(directive)
-                song.metaData.artist = label ?? song.metaData.artist
-            case .capo:
-                song.definedMetaData.append(directive)
-                song.metaData.capo = label
-            case .time:
-                song.metaData.time = label
-            case .key:
-                if let label, var chord = ChordDefinition(name: label, instrument: song.settings.song.instrument) {
-                    /// Transpose the key if needed
-                    if song.metaData.transpose != 0 {
-                        chord.transpose(transpose: song.metaData.transpose, scale: chord.root)
+                /// Process metadata
+                if ChordPro.Directive.metadataDirectives.contains(directive) {
+                    processMetadata(directive: directive, label: label, currentSection: &currentSection, song: &song)
+                }
+
+                switch directive {
+
+                    // MARK: Formatting directives
+
+                case .c, .comment:
+                    if let label {
+                        processComment(comment: label, currentSection: &currentSection, song: &song)
                     }
-                    song.metaData.key = chord
-                }
-            case .tempo:
-                song.metaData.tempo = label
-            case .year:
-                song.definedMetaData.append(directive)
-                song.metaData.year = label
-            case .album:
-                song.definedMetaData.append(directive)
-                song.metaData.album = label
 
-                // MARK: Formatting directives
+                    // MARK: Environment directives
 
-            case .c, .comment:
-                if let label {
-                    /// Start with a new line
-                    var line = Song.Section.Line(id: currentSection.lines.count + 1)
-                    line.comment = label
-                    switch currentSection.type {
-                    case .none:
-                        /// A comment in its own section
-                        processSection(
-                            label: ChordPro.Environment.comment.rawValue,
-                            type: ChordPro.Environment.comment,
-                            song: &song,
-                            currentSection: &currentSection
-                        )
-                        currentSection.lines.append(line)
-                        song.sections.append(currentSection)
-                        currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
-                    default:
-                        /// An inline comment, e.g. inside a verse or chorus
-                        currentSection.lines.append(line)
+                    /// ## Start of Chorus
+                case .soc, .startOfChorus:
+                    openSection(
+                        sectionLabel: label ?? ChordPro.Environment.chorus.label,
+                        directive: .startOfChorus,
+                        directiveLabel: label,
+                        environment: .chorus,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// ## Repeat Chorus
+                case .chorus:
+                    /// Add the directive as a single line in a section
+                    addSection(
+                        /// - Note: Use the 'normal' chorus label because this directive can be replaced by a whole chorus with the same name
+                        sectionLabel: label ?? ChordPro.Environment.chorus.label,
+                        directive: .chorus,
+                        directiveLabel: label,
+                        environment: .repeatChorus,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// ## Start of Verse
+                case .sov, .startOfVerse:
+                    openSection(
+                        sectionLabel: label ?? ChordPro.Environment.verse.label,
+                        directive: .startOfVerse,
+                        directiveLabel: label,
+                        environment: .verse,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// ## Start of Bridge
+                case .sob, .startOfBridge:
+                    openSection(
+                        sectionLabel: label ?? ChordPro.Environment.bridge.label,
+                        directive: .startOfBridge,
+                        directiveLabel: label,
+                        environment: .bridge,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// ## Start of Tab
+                case .sot, .startOfTab:
+                    openSection(
+                        sectionLabel: label ?? ChordPro.Environment.tab.label,
+                        directive: .startOfTab,
+                        directiveLabel: label,
+                        environment: .tab,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// ## Start of Grid
+                case .sog, .startOfGrid:
+                    openSection(
+                        sectionLabel: label ?? ChordPro.Environment.grid.label,
+                        directive: .startOfGrid,
+                        directiveLabel: label,
+                        environment: .grid,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// ## Start of Textblock
+                case .startOfTextblock:
+                    openSection(
+                        sectionLabel: label ?? ChordPro.Environment.textblock.label,
+                        directive: .startOfTextblock,
+                        directiveLabel: label,
+                        environment: .textblock,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// ## Start of Strum (custom)
+                case .sos, .startOfStrum:
+                    openSection(
+                        sectionLabel: label ?? ChordPro.Environment.strum.label,
+                        directive: .startOfStrum,
+                        directiveLabel: label,
+                        environment: .strum,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+
+                    /// # End of environment
+
+                case .eot, .endOfTab:
+                    /// Make sure tab lines have the same length because of scaling
+                    let tabs = currentSection.lines.map(\.argument)
+                    if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
+                        for index in currentSection.lines.indices {
+                            currentSection.lines[index].argument += String(repeating: " ", count: maxLength - currentSection.lines[index].argument.count)
+                        }
                     }
-                }
+                    /// Add the directive as a single line in a section; this will close the current section
+                    addSection(
+                        directive: directive,
+                        environment: .metadata,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
 
-                // MARK: Environment directives
+                case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eog, .endOfGrid, .eos, .endOfTextblock, .endOfStrum:
+                    /// Add the directive as a single line in a section; this will close the current section
+                    addSection(
+                        directive: directive,
+                        environment: .metadata,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
 
-                /// ## Start of Chorus
-            case .soc, .startOfChorus:
-                processSection(
-                    label: label ?? ChordPro.Environment.chorus.rawValue,
-                    type: .chorus,
-                    song: &song,
-                    currentSection: &currentSection
-                )
+                    // MARK: Chord diagrams
 
-                /// ## Repeat Chorus
-            case .chorus:
-                processSection(
-                    label: label ?? ChordPro.Environment.chorus.rawValue,
-                    type: .repeatChorus,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-                song.sections.append(currentSection)
-                currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
-
-                /// ## Start of Verse
-            case .sov, .startOfVerse:
-                processSection(
-                    label: label ?? ChordPro.Environment.verse.rawValue,
-                    type: .verse,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-
-                /// ## Start of Bridge
-            case .sob, .startOfBridge:
-                processSection(
-                    label: label ?? ChordPro.Environment.bridge.rawValue,
-                    type: .bridge,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-
-                /// ## Start of Tab
-            case .sot, .startOfTab:
-                processSection(
-                    label: label ?? ChordPro.Environment.tab.rawValue,
-                    type: .tab,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-
-                /// ## Start of Grid
-            case .sog, .startOfGrid:
-                processSection(
-                    label: label ?? ChordPro.Environment.grid.rawValue,
-                    type: .grid,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-
-                /// ## Start of Textblock
-            case .startOfTextblock:
-                processSection(
-                    label: label ?? ChordPro.Environment.textblock.rawValue,
-                    type: .textblock,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-
-                /// ## Start of Strum (custom)
-            case .sos, .startOfStrum:
-                processSection(
-                    label: label ?? ChordPro.Environment.strum.rawValue,
-                    type: .strum,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-
-                /// # End of environment
-
-            case .eot, .endOfTab:
-                /// Make sure tab lines have the same length because of scaling
-                let tabs = currentSection.lines.map(\.tab)
-                if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
-                    for index in currentSection.lines.indices {
-                        currentSection.lines[index].tab += String(repeating: " ", count: maxLength - currentSection.lines[index].tab.count)
+                case .define:
+                    if let label {
+                        processDefine(label: label, currentSection: &currentSection, song: &song)
                     }
+                default:
+                    break
                 }
-                processSection(
-                    label: ChordPro.Environment.none.rawValue,
-                    type: .none,
-                    song: &song,
-                    currentSection: &currentSection
+            } else {
+
+                // MARK: Unknown directive
+
+                /// Add the unknown directive as a single line in a section
+                currentSection.warning = "Unknown directive"
+                addSection(
+                    sectionLabel: label,
+                    directive: .unknownDirective,
+                    directiveLabel: label,
+                    environment: .metadata,
+                    currentSection: &currentSection,
+                    song: &song
                 )
-
-            case .eoc, .endOfChorus, .eov, .endOfVerse, .eob, .endOfBridge, .eog, .endOfGrid, .eos, .endOfTextblock, .endOfStrum:
-                if currentSection.autoCreated {
-                    song.log.append(.init(type: .warning, lineNumber: song.lines, message: "Not in \(currentSection.type.rawValue) context"))
-                }
-                processSection(
-                    label: ChordPro.Environment.none.rawValue,
-                    type: .none,
-                    song: &song,
-                    currentSection: &currentSection
-                )
-
-                // MARK: Chord diagrams
-            case .define:
-                if let label {
-                    processDefine(text: label, song: &song)
-                }
-
-                // MARK: Custom directives
-            case .tag:
-                if let label {
-                    song.metaData.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
-                }
-            case .instrument:
-                break
             }
         } else {
-            /// Add the unknown directive to the log
-            song.log.append(.init(type: .warning, lineNumber: song.lines, message: "Unknown directive: **\(text)**"))
+
+            // MARK: Not a (complete) directive
+
+            /// Add the unknown directive as a single line in a section
+            currentSection.warning = "Not a complete directive"
+            addSection(
+                directive: .unknownDirective,
+                environment: .metadata,
+                currentSection: &currentSection,
+                song: &song
+            )
         }
     }
 }

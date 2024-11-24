@@ -34,39 +34,42 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            let lines = section.lines.filter(\.comment.isEmpty)
+            let lines = section.lines.filter { $0.directive == .environmentLine }
             let maxColumns = lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
                 let elements = grids.flatMap { $0.parts }.count
                 return max(accumulator, elements)
             }
             let elements: [NSMutableAttributedString] = (0 ..< maxColumns).map { _ in NSMutableAttributedString() }
+
             for line in lines {
-                let parts = line.grid.flatMap { $0.parts }
-                for (column, part) in parts.enumerated() {
-                    if let chord = part.chord, let first = chords.first(where: { $0.id == chord }) {
-                        elements[column].append(
-                            NSAttributedString(
-                                string: "\(first.display)\n",
-                                attributes: .gridChord
-                            )
-                        )
-                    }
-                    if !part.text.isEmpty {
-                        elements[column].append(
-                            NSAttributedString(
-                                string: "\(part.text)\n",
-                                attributes: .gridText
-                            )
-                        )
-                    }
-                    if part == parts.last, column < maxColumns {
-                        for index in (column + 1)..<maxColumns {
-                            elements[index].append(
+                if let grid = line.grid {
+                    let parts = grid.flatMap { $0.parts }
+                    for (column, part) in parts.enumerated() {
+                        if let chord = part.chord, let first = chords.first(where: { $0.id == chord }) {
+                            elements[column].append(
                                 NSAttributedString(
-                                    string: "\n",
+                                    string: "\(first.display)\n",
+                                    attributes: .gridChord
+                                )
+                            )
+                        }
+                        if !part.text.isEmpty {
+                            elements[column].append(
+                                NSAttributedString(
+                                    string: "\(part.text)\n",
                                     attributes: .gridText
                                 )
                             )
+                        }
+                        if part == parts.last, column < maxColumns {
+                            for index in (column + 1)..<maxColumns {
+                                elements[index].append(
+                                    NSAttributedString(
+                                        string: "\n",
+                                        attributes: .gridText
+                                    )
+                                )
+                            }
                         }
                     }
                 }

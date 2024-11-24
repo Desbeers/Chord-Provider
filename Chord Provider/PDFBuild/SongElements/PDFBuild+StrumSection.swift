@@ -30,14 +30,19 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             for line in section.lines {
-                if line.comment.isEmpty {
-                    for strum in line.strum {
-                        let line = PDFBuild.Text(strum, attributes: .strumLine)
-                        line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                switch line.directive {
+                case .environmentLine:
+                    if let strums = line.strum {
+                        for strum in strums {
+                            let line = PDFBuild.Text(strum, attributes: .strumLine)
+                            line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                        }
                     }
-                } else {
-                    let comment = PDFBuild.Comment(line.comment).padding(6)
+                case .comment:
+                    let comment = PDFBuild.Comment(line.argument).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                default:
+                    break
                 }
             }
         }

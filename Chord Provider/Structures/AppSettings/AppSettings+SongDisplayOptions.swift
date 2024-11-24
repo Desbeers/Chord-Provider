@@ -5,11 +5,11 @@
 //  © 2024 Nick Berendsen
 //
 
-import SwiftUI
+import Foundation
 
 extension AppSettings {
 
-    /// Options for displaying a song; uniqur for each scene
+    /// Options for displaying a song; unique for each scene
     struct SongDisplayOptions: Equatable, Codable, Sendable {
         /// Repeat the whole last chorus when using a *{chorus}* directive
         var repeatWholeChorus: Bool = false
@@ -37,7 +37,7 @@ extension AppSettings {
 extension AppSettings.SongDisplayOptions {
 
     /// The enum for a `Chord` display option
-    enum Chord: Equatable, Codable, Sendable {
+    enum Chord: String, Equatable, Codable, Sendable {
         /// Show the chord with its name
         case asName
         /// Show a chord with its diagram
@@ -59,12 +59,12 @@ extension AppSettings.SongDisplayOptions {
         /// View the song in columns
         case asColumns
         /// The label for the paging
-        var label: some View {
+        var label: (text: String, sfSymbol: String, help: String) {
             switch self {
             case .asList:
-                Label("Single page", systemImage: "list.bullet")
+                ("List", "list.bullet", "Show the song in a list")
             case .asColumns:
-                Label("Columns", systemImage: "square.grid.2x2")
+                ("Columns", "square.grid.2x2", "Show the song in columns")
             }
         }
     }

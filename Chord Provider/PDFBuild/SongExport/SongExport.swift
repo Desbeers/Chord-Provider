@@ -25,8 +25,8 @@ extension SongExport {
         song: Song
     ) throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         let documentInfo = PDFBuild.DocumentInfo(
-            title: song.metaData.title,
-            author: song.metaData.artist
+            title: song.metadata.title,
+            author: song.metadata.artist
         )
         let builder = PDFBuild.Builder(documentInfo: documentInfo)
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.center))
@@ -73,20 +73,20 @@ extension SongExport {
     ) -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
             id: song.id,
-            title: song.metaData.title,
-            subtitle: song.metaData.artist,
-            fileURL: song.metaData.fileURL
+            title: song.metadata.title,
+            subtitle: song.metadata.artist,
+            fileURL: song.metadata.fileURL
         )
-        var subtitle: [String] = [song.metaData.artist]
-        if let album = song.metaData.album {
+        var subtitle: [String] = [song.metadata.artist]
+        if let album = song.metadata.album {
             subtitle.append(album)
         }
-        if let year = song.metaData.year {
+        if let year = song.metadata.year {
             subtitle.append(year)
         }
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))
-        items.append(PDFBuild.Text("\(song.metaData.title)", attributes: .pdfTitle))
+        items.append(PDFBuild.Text("\(song.metadata.title)", attributes: .pdfTitle))
         items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .pdfSubtitle))
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
@@ -95,9 +95,9 @@ extension SongExport {
             items.append(PDFBuild.Chords(chords: song.chords, options: song.settings.diagram))
         }
         items.append(PDFBuild.Spacer(10))
-        /// Add all the sections
-        for section in song.sections {
-            switch section.type {
+        /// Add all the sections, except metadata stuff
+        for section in song.sections where section.environment != .metadata {
+            switch section.environment {
             case .chorus:
                 items.append(lyricsSection(section: section))
             case .repeatChorus:
@@ -118,6 +118,8 @@ extension SongExport {
                 items.append(plainSection(section: section))
             case .strum:
                 items.append(strumSection(section: section))
+            case .metadata:
+                break
             }
             items.append(PDFBuild.Spacer(10))
         }
@@ -136,11 +138,11 @@ extension SongExport {
                     PDFBuild.Label(
                         leadingText: nil,
                         labelText: NSAttributedString(string: section.label, attributes: .sectionLabel),
-                        backgroundColor: section.type == .chorus ? .gray.withAlphaComponent(0.3) : .clear,
+                        backgroundColor: section.environment == .chorus ? .gray.withAlphaComponent(0.3) : .clear,
                         alignment: .right
                     ),
                     PDFBuild.Divider(direction: .vertical),
-                    PDFBuild.LyricsSection(section, chords: song.settings.song.lyricsOnly ? [] : song.chords)
+                    PDFBuild.LyricsSection(section, chords: song.settings.display.lyricsOnly ? [] : song.chords)
                 ]
             )
         }
@@ -255,7 +257,7 @@ extension SongExport {
                 columns: [.fixed(width: 110), .flexible],
                 items: [
                     PDFBuild.Spacer(),
-                    PDFBuild.Comment(section.lines.first?.comment ?? "Empty comment")
+                    PDFBuild.Comment(section.lines.first?.argument ?? "Empty comment")
                 ]
             )
         }
@@ -267,8 +269,8 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if
-                song.settings.song.repeatWholeChorus,
-                let lastChorus = song.sections.last(where: { $0.type == .chorus && $0.label == section.label }) {
+                song.settings.display.repeatWholeChorus,
+                let lastChorus = song.sections.last(where: { $0.environment == .chorus && $0.label == section.label }) {
                 return lyricsSection(section: lastChorus)
             } else {
                 let leadingText = NSAttributedString(string: "􀊯", attributes: .sectionLabel)

@@ -15,13 +15,18 @@ extension ChordProParser {
     /// - Parameters:
     ///   - text: The chord definition
     ///   - song: The `song`
-    static func processDefine(text: String, song: inout Song) {
-        if var definedChord = try? ChordDefinition(
-            definition: text,
-            instrument: song.settings.song.instrument,
+    static func processDefine(
+        label: String,
+        currentSection: inout Song.Section,
+        song: inout Song
+    ) {
+        do {
+        var definedChord = try ChordDefinition(
+            definition: label,
+            instrument: song.settings.display.instrument,
             status: .unknownChord
-        ) {
-            definedChord.status = song.metaData.transpose == 0 ? definedChord.status : .customTransposedChord
+        )
+            definedChord.status = song.metadata.transpose == 0 ? definedChord.status : .customTransposedChord
             /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
                 $0.name == definedChord.name &&
@@ -34,6 +39,17 @@ extension ChordProParser {
                 /// Add the chord as a new definition
                 song.chords.append(definedChord)
             }
+        } catch {
+            /// The definition could not be processed
+            currentSection.warning = "Wrong chord definition: \(error.localizedDescription)"
         }
+        addSection(
+            sectionLabel: label,
+            directive: .define,
+            directiveLabel: label,
+            environment: .metadata,
+            currentSection: &currentSection,
+            song: &song
+        )
     }
 }

@@ -18,7 +18,7 @@ import SwiftUI
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
             VStack {
-                switch sceneState.settings.song.paging {
+                switch sceneState.settings.song.display.paging {
                 case .asList:
                     ScrollView {
                         ViewThatFits {
@@ -43,7 +43,7 @@ import SwiftUI
                     )
                 }
             }
-            .contentMargins(.all, sceneState.settings.song.scale * 20, for: .scrollContent)
+            .contentMargins(.all, sceneState.settings.song.display.scale * 20, for: .scrollContent)
             .contentShape(Rectangle())
             .scaleModifier
         }

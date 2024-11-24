@@ -11,6 +11,46 @@ extension ChordPro.Directive {
 
     // MARK: Directive extensions
 
+    /// Convert short directives to its long version
+    var shortToLong: ChordPro.Directive {
+        // swiftlint:disable indentation_width
+        switch self {
+        case .t:
+                .title
+        case .st:
+                .subtitle
+        case .c:
+                .comment
+        case .soc:
+                .startOfChorus
+        case .eoc:
+                .endOfChorus
+        case .sov:
+                .startOfVerse
+        case .eov:
+                .endOfVerse
+        case .sob:
+                .startOfBridge
+        case .eob:
+                .endOfBridge
+        case .sot:
+                .startOfTab
+        case .eot:
+                .endOfTab
+        case .sog:
+                .startOfGrid
+        case .eog:
+                .endOfGrid
+        case .sos:
+                .startOfStrum
+        case .eos:
+                .endOfStrum
+        default:
+            self
+        }
+        // swiftlint:enable indentation_width
+    }
+
     /// The start and end of the directive
     var format: (start: String, end: String) {
         switch self {
@@ -73,9 +113,10 @@ extension ChordPro.Directive {
     // MARK: Grouped directives
 
     /// Array of **Metadata** ``ChordProParser/Directive``
-    static var metaDataDirectives: [ChordPro.Directive] {
+    static var metadataDirectives: [ChordPro.Directive] {
         [
             .title,
+            .subtitle,
             .artist,
             .album,
             .year,
@@ -103,7 +144,7 @@ extension ChordPro.Directive {
 
     /// Array of ``ChordPro/Directive`` that can be edited by double click on it
     static var editableDirectives: [ChordPro.Directive] {
-        metaDataDirectives + environmentDirectives + [
+        metadataDirectives + environmentDirectives + [
             .sov,
             .soc,
             .sot,

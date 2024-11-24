@@ -37,7 +37,7 @@ struct ExportSongButton: View {
             isPresented: $exportFile,
             document: ExportDocument(pdf: pdf),
             contentTypes: [.pdf],
-            defaultFilename: sceneState?.song.metaData.exportName,
+            defaultFilename: sceneState?.song.metadata.exportName,
             onCompletion: { result in
                 switch result {
                 case .success(let url):

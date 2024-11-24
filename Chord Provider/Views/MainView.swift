@@ -53,10 +53,15 @@ import OSLog
         .onChange(of: document.text) {
             renderSong()
         }
-        .onChange(of: sceneState.song.metaData.transpose) {
+        .onChange(of: sceneState.song.metadata.transpose) {
             renderSong()
         }
-        .onChange(of: appState.settings) {
+        .onChange(of: appState.settings.song.display.repeatWholeChorus) {
+            sceneState.settings.song.display.repeatWholeChorus = appState.settings.song.display.repeatWholeChorus
+            renderSong()
+        }
+        .onChange(of: appState.settings.song.display.lyricsOnly) {
+            sceneState.settings.song.display.lyricsOnly = appState.settings.song.display.lyricsOnly
             renderSong()
         }
         .onChange(of: sceneState.settings) {
@@ -65,7 +70,7 @@ import OSLog
         }
         .animation(.default, value: sceneState.preview)
         .animation(.smooth, value: sceneState.settings)
-        .animation(.default, value: sceneState.song.metaData)
+        .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.status)
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)
@@ -87,12 +92,12 @@ import OSLog
                 ProgressView()
                     .frame(maxWidth: .infinity)
             } else {
-                let layout = sceneState.settings.song.chordsPosition == .right ?
+                let layout = sceneState.settings.song.display.chordsPosition == .right ?
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     SongView()
                         .background(Color(nsColor: .textBackgroundColor))
-                    if sceneState.settings.song.showChords {
+                    if sceneState.settings.song.display.showChords {
                         Divider()
                         ChordsView(document: $document)
                             .background(Color(nsColor: .textBackgroundColor))
@@ -107,17 +112,17 @@ import OSLog
     /// Render the song
     @MainActor private func renderSong() {
         sceneState.song = ChordProParser.parse(
-            id: UUID(),
+            id: sceneState.song.id,
             text: document.text,
-            transpose: sceneState.song.metaData.transpose,
-            settings: appState.settings,
+            transpose: sceneState.song.metadata.transpose,
+            settings: sceneState.settings.song,
             fileURL: file
         )
         sceneState.getMedia()
         if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == file }) {
-            fileBrowser.songList[index].title = sceneState.song.metaData.title
-            fileBrowser.songList[index].artist = sceneState.song.metaData.artist
-            fileBrowser.songList[index].tags = sceneState.song.metaData.tags
+            fileBrowser.songList[index].title = sceneState.song.metadata.title
+            fileBrowser.songList[index].artist = sceneState.song.metadata.artist
+            fileBrowser.songList[index].tags = sceneState.song.metadata.tags
         }
     }
 }

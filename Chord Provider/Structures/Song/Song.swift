@@ -5,29 +5,26 @@
 //  © 2024 Nick Berendsen
 //
 
-import SwiftUI
+import Foundation
 
 /// The structure of a song as shown in **Chord Provider**
-struct Song {
+struct Song: Codable {
 
     /// The ID of the song
-    var id: UUID = UUID()
+    var id: UUID
 
     /// The total lines of the song
     var lines: Int = 0
 
-    /// The log of the parser
-    var log: [ChordProEditor.LogItem] = []
-
     // MARK: Display options
 
     /// The settings for the ``Song`` in the Document
-    var settings = AppSettings()
+    var settings = AppSettings.Song()
 
-    // MARK: Meta data directives
+    // MARK: Metadata directives
 
-    /// The meta data about the ``Song``
-    var metaData = MetaData()
+    /// The metadata about the ``Song``
+    var metadata = Metadata()
 
     // MARK: Meta data directives that are defined
 

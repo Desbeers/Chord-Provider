@@ -15,10 +15,8 @@ struct ChordProEditor: NSViewRepresentable {
     @Binding var text: String
     /// The ``Settings`` for the editor
     let settings: Settings
-    /// All the directives we know about
-    let directives: [ChordProDirective]
-    /// The log from the song parser
-    let log: [LogItem]
+    /// The parsed song lines
+    let lines: [Song.Section.Line]
     /// The 'introspect' callback with the editor``Internals``
     private(set) var introspect: IntrospectCallback?
     /// Make a `coordinator` for the `NSViewRepresentable`
@@ -32,11 +30,10 @@ struct ChordProEditor: NSViewRepresentable {
     func makeNSView(context: Context) -> Wrapper {
         let wrapper = Wrapper()
         wrapper.delegate = context.coordinator
-        wrapper.textView.directives = directives
         wrapper.textView.parent = self
         wrapper.textView.font = settings.font
         wrapper.textView.string = text
-        wrapper.textView.log = log
+        wrapper.textView.lines = lines
         /// Wait for next cycle and set the textview as first responder
         Task { @MainActor in
             highlightText(textView: wrapper.textView)
@@ -50,8 +47,8 @@ struct ChordProEditor: NSViewRepresentable {
     ///   - view: The wrapped editor
     ///   - context: The context
     func updateNSView(_ wrapper: Wrapper, context: Context) {
-        if wrapper.textView.log != log {
-            wrapper.textView.log = log
+        if wrapper.textView.lines != lines {
+            wrapper.textView.lines = lines
             wrapper.selectionNeedsDisplay()
         }
         /// Update the text in the TextView when it is changed from *outside*; like when adding the example song
@@ -63,6 +60,7 @@ struct ChordProEditor: NSViewRepresentable {
         if context.coordinator.parent.settings != settings {
             context.coordinator.parent = self
             highlightText(textView: wrapper.textView)
+            wrapper.selectionNeedsDisplay()
         }
     }
     /// Highlight the text in the editor
@@ -73,8 +71,7 @@ struct ChordProEditor: NSViewRepresentable {
         ChordProEditor.highlight(
             view: textView,
             settings: settings,
-            range: range ?? NSRange(location: 0, length: text.utf16.count),
-            directives: directives
+            range: range ?? NSRange(location: 0, length: text.utf16.count)
         )
     }
 }
@@ -93,10 +90,9 @@ extension ChordProEditor {
         guard let introspect = introspect else { return }
         /// Set the internals of the editor
         let internals = Internals(
-            currentLineNumber: view.currentLineNumber,
-            directive: view.currentDirective,
+            currentLine: view.currentLine,
             directiveArgument: view.currentDirectiveArgument,
-            directiveRange: view.currentDirectiveRange,
+            currentLineRange: view.currentLineRange,
             clickedDirective: view.clickedDirective,
             selectedRange: view.selectedRange(),
             textView: view

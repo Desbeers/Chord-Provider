@@ -130,13 +130,10 @@ enum RegexDefinitions {
     ///     {start_of_verse}
     ///     {start_of_verse: Last Verse}
     ///
-    /// - Note: This needs an extension for `ChoiceOf`
     nonisolated(unsafe) static let directive = Regex {
         "{"
         Capture {
-            ChoiceOf(ChordPro.directives)
-        } transform: {
-            ChordPro.Directive(rawValue: $0.lowercased()) ?? .none
+            OneOrMore(.word)
         }
         Optionally {
             ":"

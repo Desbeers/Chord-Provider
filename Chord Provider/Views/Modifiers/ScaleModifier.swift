@@ -32,7 +32,7 @@ import SwiftUI
     }
     /// Calculate the scale within the minimum and maximum scale value
     private var scale: Double {
-        min(max(sceneState.settings.song.scale * magnificationState.scale * 0.5, minScale), maxScale)
+        min(max(sceneState.settings.song.display.scale * magnificationState.scale * 0.5, minScale), maxScale)
     }
     /// The `MagnifyGesture`
     private var magnifyGesture: some Gesture {
@@ -41,14 +41,14 @@ import SwiftUI
                 state = .active(scale: value.magnification)
             }
             .onEnded { value in
-                sceneState.settings.song.scale = min(max(sceneState.settings.song.scale * value.magnification, minScale), maxScale)
+                sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale * value.magnification, minScale), maxScale)
             }
     }
     /// The `TapGesture`
     private var doubleTapGesture: some Gesture {
         TapGesture(count: 2).onEnded {
             withAnimation {
-                sceneState.settings.song.scale = min(max(sceneState.settings.song.scale + 0.2, minScale), maxScale)
+                sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale + 0.2, minScale), maxScale)
             }
         }
     }
@@ -58,7 +58,7 @@ import SwiftUI
             .gesture(ExclusiveGesture(magnifyGesture, doubleTapGesture))
             .onLongPressGesture(minimumDuration: 1) {
                 withAnimation {
-                    sceneState.settings.song.scale = min(max(sceneState.settings.song.scale - 0.2, minScale), maxScale)
+                    sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale - 0.2, minScale), maxScale)
                 }
             }
     }

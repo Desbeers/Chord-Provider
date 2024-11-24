@@ -16,7 +16,7 @@ extension RenderView {
     struct ChordView: View {
 
         /// The display options
-        let settings: AppSettings
+        let settings: AppSettings.Song
         /// The ID of the section
         let sectionID: Int
         /// The ID of the part
@@ -44,7 +44,7 @@ extension RenderView {
         @State private var hover: Bool = false
         /// The body of the `View`
         var body: some View {
-            switch settings.song.chords {
+            switch settings.display.chords {
             case .asName:
                 Text("\(chord.display) ")
                     .foregroundStyle(color)
@@ -74,7 +74,7 @@ extension RenderView {
                         getDiagram()
                             .offset(x: -4)
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: settings.song.scale * 40)
+                            .frame(width: settings.display.scale * 40)
                     }
                 )
                 .buttonStyle(.plain)

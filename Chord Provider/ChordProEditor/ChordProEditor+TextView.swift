@@ -17,18 +17,14 @@ extension ChordProEditor {
         var chordProEditorDelegate: ChordProEditorDelegate?
         /// The parent
         var parent: ChordProEditor?
-        /// All the directives we know about
-        var directives: [ChordProDirective] = []
-        /// The log from the song parser
-        var log: [LogItem] = []
-        /// The current line number of the cursor
-        var currentLineNumber: Int = 0
-        /// The optional current directive of the paragraph
-        var currentDirective: ChordProDirective?
+        /// The parsed song lines
+        var lines: [Song.Section.Line] = []
+        /// The current line at the cursor
+        var currentLine = Song.Section.Line()
         /// The optional argument of the current directive
         var currentDirectiveArgument: String = ""
-        /// The range of the current directive
-        var currentDirectiveRange: NSRange?
+        /// The range of the current line
+        var currentLineRange: NSRange = .init()
         /// The rect of the current paragraph
         var currentParagraphRect: NSRect?
         /// The optional double-clicked directive in the editor
@@ -65,7 +61,7 @@ extension ChordProEditor {
         /// - Parameter event: The mouse click event
         override func mouseDown(with event: NSEvent) {
             setFragmentInformation(selectedRange: selectedRange())
-            if event.clickCount == 2, let currentDirective, currentDirective.editable == true {
+            if event.clickCount == 2, currentLine.directive.editable == true {
                 clickedDirective = true
                 parent?.runIntrospect(self)
             } else {
@@ -94,6 +90,17 @@ extension ChordProEditor {
             self.insertText(text, replacementRange: NSRange(location: 0, length: composeText.length))
         }
 
+        /// Get the parsed current line
+        /// - Parameter lineNumber: The current line number
+        /// - Returns: The parsed current line
+        func getCurrentLine(lineNumber: Int) -> Song.Section.Line {
+            var result = Song.Section.Line()
+            if let line = lines.first(where: { $0.sourceLineNumber == lineNumber }) {
+                result = line
+            }
+            return result
+        }
+
         /// Set the fragment information
         /// - Parameter selectedRange: The current selected range of the text editor
         func setFragmentInformation(selectedRange: NSRange) {
@@ -115,33 +122,8 @@ extension ChordProEditor {
                 nsRange.length != 0 {
                 currentParagraphRect?.size.height -= layoutManager.lineHeight
             }
-            /// Find the optional directive of the fragment
-            var directive: ChordProDirective?
-            textStorage.enumerateAttribute(.directive, in: nsRange) {values, _, _ in
-                if let value = values as? String, directives.map(\.directive).contains(value) {
-                    directive = directives.first { $0.directive == value }
-                }
-            }
-            /// Find the optional directive argument of the fragment
-            var directiveArgument: String?
-            textStorage.enumerateAttribute(.directiveArgument, in: nsRange) {values, _, _ in
-                if let value = values as? String {
-                    directiveArgument = value
-                }
-            }
-            /// Get the range of the directive for optional editing
-            var directiveRange: NSRange?
-            if currentDirective != nil {
-                textStorage.enumerateAttribute(.directiveRange, in: nsRange) {values, _, _ in
-                    if let value = values as? NSRange {
-                        directiveRange = value
-                    }
-                }
-            }
-            /// Set the found values
-            currentDirective = directive
-            currentDirectiveArgument = directiveArgument?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            currentDirectiveRange = directiveRange
+            /// Set the range of the current paragraph
+            currentLineRange = nsRange
             /// Run introspect to inform the SwiftUI `View`
             parent?.runIntrospect(self)
         }

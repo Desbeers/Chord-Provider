@@ -13,9 +13,7 @@ struct AppSettings: Equatable, Codable, Sendable {
     /// Settings that will change the behaviour of the application
     var application = Application()
     /// The options for displaying a ``Song``
-    var song = SongDisplayOptions()
-    /// The options for displacing a ``ChordDefinition``
-    var diagram = DiagramDisplayOptions()
+    var song = Song()
     /// The options for the ``ChordProEditor``
     var editor: ChordProEditor.Settings = .init()
 }

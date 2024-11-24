@@ -21,6 +21,8 @@ extension ChordPro.Directive {
         var button: String
         /// The help text for the directive
         var help: String
+        /// The optional environment
+        var environment: ChordPro.Environment?
     }
 
     /// The details of a directive
@@ -108,7 +110,8 @@ extension ChordPro.Directive {
                 label: "Start of Chorus",
                 icon: "music.note.list",
                 button: "Chorus",
-                help: "This directive indicates that the lines that follow form the song’s chorus"
+                help: "This directive indicates that the lines that follow form the song’s chorus",
+                environment: .chorus
             )
         case .endOfChorus, .eoc:
             Details(
@@ -129,7 +132,8 @@ extension ChordPro.Directive {
                 label: "Start of Verse",
                 icon: "list.star",
                 button: "Verse",
-                help: "Specifies that the following lines form a verse of the song"
+                help: "Specifies that the following lines form a verse of the song",
+                environment: .verse
             )
         case .endOfVerse, .eov:
             Details(
@@ -222,12 +226,26 @@ extension ChordPro.Directive {
                 button: "Strum",
                 help: "This directive indicates the end of the strum"
             )
-        case .warning:
+        case .sourceComment:
             Details(
-                label: "Warning",
-                icon: "exclamationmark.triangle",
+                label: "Source Comment",
+                icon: "bubble",
                 button: "None",
-                help: "A warning is found"
+                help: "Ignored in the Output"
+            )
+        case .environmentLine:
+            Details(
+                label: "Inside Environment Block",
+                icon: "lines.measurement.vertical",
+                button: "None",
+                help: "Inside Environment Block"
+            )
+        case .unknownDirective:
+            Details(
+                label: "Unknown",
+                icon: "questionmark",
+                button: "None",
+                help: "This directive is unknown"
             )
         case .none:
             Details(

@@ -25,7 +25,7 @@ extension ChordsDatabaseView {
                         print(error)
                     }
                 } label: {
-                    Text("Export all \(sceneState.settings.song.instrument) chords")
+                    Text("Export all \(sceneState.settings.song.display.instrument) chords")
                 }
             }
             GridRow {
@@ -44,7 +44,7 @@ extension ChordsDatabaseView {
                             print(error)
                         }
                     } label: {
-                        Text(.init("Export \(sceneState.settings.song.instrument) chords to **ChordPro** format"))
+                        Text(.init("Export \(sceneState.settings.song.display.instrument) chords to **ChordPro** format"))
                     }
                     Text("Only the first definition of a chord will be exported")
                         .font(.caption)

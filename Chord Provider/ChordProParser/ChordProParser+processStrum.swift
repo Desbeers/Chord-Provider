@@ -18,10 +18,17 @@ extension ChordProParser {
     ///   - currentSection: The current `section` of the `song`
     static func processStrum(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line
-        var line = Song.Section.Line(id: currentSection.lines.count + 1)
+        var line = Song.Section.Line(
+            sourceLineNumber: song.lines,
+            environment: .strum,
+            directive: .environmentLine,
+            source: text
+        )
 
         var pattern = ""
         var bottom = ""
+
+        var strum: [String] = []
 
         for(index, character) in text.trimmingCharacters(in: .whitespacesAndNewlines).enumerated() {
             let value = Song.Section.Line.strumCharacterDict[String(character)]
@@ -33,8 +40,9 @@ extension ChordProParser {
                 bottom += " "
             }
         }
-        line.strum.append(pattern)
-        line.strum.append(bottom)
+        strum.append(pattern)
+        strum.append(bottom)
+        line.strum = strum
         currentSection.lines.append(line)
     }
 }

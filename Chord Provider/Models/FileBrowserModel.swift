@@ -138,17 +138,20 @@ extension FileBrowserModel {
                 let directive = match.1
                 let label = match.2
 
-                switch directive {
-                case .t, .title:
-                    song.title = label ?? "Unknown Title"
-                case .st, .subtitle, .artist:
-                    song.artist = label ?? "Unknown Artist"
-                case .tag:
-                    if let label {
-                        song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
+                if let directive = ChordPro.Directive(rawValue: directive.lowercased()) {
+
+                    switch directive {
+                    case .t, .title:
+                        song.title = label ?? "Unknown Title"
+                    case .st, .subtitle, .artist:
+                        song.artist = label ?? "Unknown Artist"
+                    case .tag:
+                        if let label {
+                            song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
+                        }
+                    default:
+                        break
                     }
-                default:
-                    break
                 }
             }
         }

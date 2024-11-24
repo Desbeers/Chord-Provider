@@ -18,13 +18,18 @@ extension ChordProParser {
     ///   - currentSection: The current `section` of the `song`
     static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line
-        var line = Song.Section.Line(id: currentSection.lines.count + 1)
-        line.tab = text.trimmingCharacters(in: .newlines)
+        var line = Song.Section.Line(
+            sourceLineNumber: song.lines,
+            environment: .tab,
+            directive: .environmentLine,
+            source: text
+        )
+        line.argument = text.trimmingCharacters(in: .newlines)
         currentSection.lines.append(line)
         /// Mark the section as Tab if not set
-        if currentSection.type == .none {
-            currentSection.type = .tab
-            currentSection.label = ChordPro.Environment.tab.rawValue
+        if currentSection.environment == .none {
+            currentSection.environment = .tab
+            currentSection.label = ChordPro.Environment.tab.label
         }
     }
 }

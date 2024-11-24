@@ -35,12 +35,17 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             for line in section.lines {
-                if line.comment.isEmpty {
-                    let line = Line(parts: line.parts, chords: chords)
-                    line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
-                } else {
-                    let comment = PDFBuild.Comment(line.comment).padding(6)
+                switch line.directive {
+                case .environmentLine:
+                    if let parts = line.parts {
+                        let line = Line(parts: parts, chords: chords)
+                        line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                    }
+                case .comment:
+                    let comment = PDFBuild.Comment(line.argument).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                default:
+                    break
                 }
             }
         }
