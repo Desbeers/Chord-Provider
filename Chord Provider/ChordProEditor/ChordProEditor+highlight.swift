@@ -13,10 +13,8 @@ extension ChordProEditor {
     enum RegexType {
         /// Normal; only apply a color to the match
         case normal
-        /// Range; apply a color and the range of the match
-        case range
-        /// Argument; apply a color and the argument of the match
-        case argument
+        /// The regex for a directive that can have an argument
+        case directive
     }
 
     // swiftlint:disable force_try
@@ -24,15 +22,13 @@ extension ChordProEditor {
     /// The regex for chords
     static let chordRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]", options: .caseInsensitive)
     /// The regex for directives
-    static let directiveRegex = try! NSRegularExpression(pattern: "\\{.*\\}")
-    /// The regex for directive arguments
-    static let directiveArgumentRegex = try! NSRegularExpression(pattern: "(?<=\\:)(.*)(?=\\})")
+    static let directiveRegex = try! NSRegularExpression(pattern: "\\{(\\w+):?([^\\}]+)?\\}")
     /// The regex for comments
-    static let commentsRegex = try! NSRegularExpression(pattern: "(?<=^|\\n)#[^\\n]*")
+    static let commentsRegex = try! NSRegularExpression(pattern: "(?<=^|\\n)(#[^\\n]*)")
     /// The regex for markup
-    static let markupRegex = try! NSRegularExpression(pattern: "<\\/?[^>]*>")
+    static let markupRegex = try! NSRegularExpression(pattern: "<\\/?([^>]*)>")
     /// The regex for brackets
-    static let bracketsRegex = try! NSRegularExpression(pattern: "\\/?[\\[\\]\\{\\}\"]")
+    static let bracketsRegex = try! NSRegularExpression(pattern: "\\/?([\\[\\]\\{\\}\"\\<\\>/])")
     /// The regex for new lines
     static let newLineRegex = try! NSRegularExpression(pattern: "\n", options: [])
 
@@ -41,8 +37,7 @@ extension ChordProEditor {
     static func regexes(settings: Settings) -> [(regex: NSRegularExpression, color: NSColor, regexType: RegexType)] {
         return [
             (commentsRegex, NSColor(settings.commentColor), .normal),
-            (directiveRegex, NSColor(settings.directiveColor), .range),
-            (directiveArgumentRegex, NSColor(settings.argumentColor), .argument),
+            (directiveRegex, NSColor(settings.directiveColor), .directive),
             (markupRegex, NSColor(settings.markupColor), .normal),
             (chordRegex, NSColor(settings.chordColor), .normal),
             (bracketsRegex, NSColor(settings.bracketColor), .normal)
@@ -61,6 +56,17 @@ extension ChordProEditor {
         settings: Settings,
         range: NSRange
     ) {
+
+        /// Some extra love for known directives
+        guard
+            let boldFont = NSFont(
+                descriptor: settings.font.fontDescriptor.addingAttributes().withSymbolicTraits(.bold),
+                size: settings.font.pointSize
+            )
+        else {
+            return
+        }
+
         let text = view.textStorage?.string ?? ""
         let regexes = ChordProEditor.regexes(settings: settings)
         /// Make all text in the default style
@@ -75,76 +81,43 @@ extension ChordProEditor {
         regexes.forEach { regex in
             let matches = regex.regex.matches(in: text, options: [], range: range)
             matches.forEach { match in
-                switch regex.regexType {
-                case .normal:
+                if match.numberOfRanges > 1 {
                     view.textStorage?.addAttribute(
                         .foregroundColor,
                         value: regex.color,
-                        range: match.range
+                        range: match.range(at: 1)
                     )
-                case .range:
-                    view.textStorage?.addAttributes(
-                        [
-                            .foregroundColor: regex.color,
-                            .directiveRange: match.range
-                        ],
-                        range: match.range
-                    )
-                case .argument:
-                    if let swiftRange = Range(match.range, in: text) {
-                        view.textStorage?.addAttributes(
-                            [
-                                .foregroundColor: regex.color,
-                                .directiveArgument: text[swiftRange]
-                            ],
-                            range: match.range
+                    if regex.regexType == .directive, directiveIsKnown(range: match.range(at: 1)) {
+                        view.textStorage?.addAttribute(
+                            .font,
+                            value: boldFont,
+                            range: match.range(at: 1)
                         )
                     }
                 }
+                if match.numberOfRanges > 2 {
+                    /// There is an argument
+                    view.textStorage?.addAttribute(
+                        .foregroundColor,
+                        value: NSColor(settings.argumentColor),
+                        range: match.range(at: 2)
+                    )
+                }
             }
         }
-
-        /// Some extra love for known directives
-        guard
-            let knownDirectiveRegex = try? NSRegularExpression(
-                pattern: "(?<=\\{)(?:" + ChordPro.directives.joined(separator: "|") + ")(?=[\\}|\\:])"
-            ),
-            let boldFont = NSFont(
-                descriptor: settings.font.fontDescriptor.addingAttributes().withSymbolicTraits(.bold),
-                size: settings.font.pointSize
-            )
-        else {
-            return
-        }
-        let matches = knownDirectiveRegex.matches(in: text, options: [], range: range)
-        matches.forEach { match in
-            if let swiftRange = Range(match.range, in: text) {
-                view.textStorage?.addAttributes(
-                    [
-                        .font: boldFont,
-                        .directive: text[swiftRange]
-                    ],
-                    range: match.range
-                )
-            }
-        }
-
         /// The attributes for the next typing
         view.typingAttributes = [
             .foregroundColor: NSColor.textColor,
             .font: settings.font
         ]
+        /// Check if a found directive is known
+        /// - Parameter range: The range of the directive
+        /// - Returns: True or False
+        func directiveIsKnown(range: NSRange) -> Bool {
+            guard let swiftRange = Range(range, in: text) else {
+                return false
+            }
+            return ChordPro.directives.contains(String(text[swiftRange]))
+        }
     }
-}
-
-extension NSAttributedString.Key {
-
-    /// Make `directive` an attributed string key
-    static let directive: NSAttributedString.Key = .init("directive")
-
-    /// Make `directiveArgument` an attributed string key
-    static let directiveArgument: NSAttributedString.Key = .init("directiveArgument")
-
-    /// Make `directiveRange` an attributed string key
-    static let directiveRange: NSAttributedString.Key = .init("directiveRange")
 }
