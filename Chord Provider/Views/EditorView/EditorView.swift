@@ -68,6 +68,7 @@ import SwiftUI
                 Text("Line \(sceneState.editorInternals.currentLine.sourceLineNumber)")
                 if let warning = sceneState.editorInternals.currentLine.warning {
                     Text(.init(": \(warning.joined(separator: ", "))"))
+                        .lineLimit(1)
                 }
                 Spacer()
                 sceneState.cleanSourceButton

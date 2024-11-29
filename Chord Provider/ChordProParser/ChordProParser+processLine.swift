@@ -20,15 +20,19 @@ extension ChordProParser {
         /// Start with a fresh line:
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            environment: currentSection.environment,
             directive: .environmentLine,
             source: text
         )
+        /// Remove markup, if any, **Chord Provider** does not support it
+        let textCopy = text.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
+        if text != textCopy {
+            line.addWarning("**Chord Provider** does not support inline markup")
+        }
         var partID: Int = 1
         /// All the parts in the ine
         var parts: [Song.Section.Line.Part] = []
         /// Chop the line in parts
-        var matches = text.matches(of: RegexDefinitions.line)
+        var matches = textCopy.matches(of: RegexDefinitions.line)
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {
@@ -61,6 +65,19 @@ extension ChordProParser {
             }
         }
         line.parts = parts
+        /// If we still don't know whet environment it is, make it a textblock
+        if currentSection.environment == .none {
+            line.addWarning(
+                autoSection(
+                    environment: .textblock,
+                    currentSection: &currentSection,
+                    song: &song
+                )
+            )
+        }
+        /// Set the correct environment
+        line.environment = currentSection.environment
+        /// Add the line
         currentSection.lines.append(line)
     }
 }

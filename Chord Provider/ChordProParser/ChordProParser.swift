@@ -10,6 +10,9 @@ import SwiftUI
 /// The **ChordPro** file parser
 actor ChordProParser {
 
+    /// A dictionary with optional arguments for a directive
+    typealias Arguments = [ChordPro.Directive.FormattingAttribute: String]
+
     // MARK: Parse a 'ChordPro' file
 
     /// Parse a ChordPro file
@@ -69,7 +72,6 @@ actor ChordProParser {
             song.lines += 1
             closeSection(
                 directive: currentSection.environment.directives.close,
-                environment: currentSection.environment,
                 currentSection: &currentSection,
                 song: &song
             )
@@ -78,24 +80,47 @@ actor ChordProParser {
         if song.metadata.key == nil {
             song.metadata.key = song.chords.first
         }
+
+        encode(song)
+
         /// All done!
         return song
+    }
+}
 
-//        let lines = song.sections.flatMap(\.lines)
-//        for line in lines {
-//            print("\(line.sourceLineNumber):\t\(line.source)")
-//        }
+extension ChordProParser {
 
-//        let encoder = JSONEncoder()
-//        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-//        //encoder.keyEncodingStrategy = .convertToSnakeCase
-//        do {
-//            let encodedData = try encoder.encode(song)
-//            let content = String(data: encodedData, encoding: .utf8) ?? "error"
-//            print(content)
-//        } catch {
-//            print(error)
-//        }
+    // MARK: Debug stuff
 
+    static func printLines(_ song: Song) {
+        let lines = song.sections.flatMap(\.lines)
+        for line in lines {
+            print("\(line.sourceLineNumber):\t\(line.source)")
+        }
+    }
+
+    static func encode(_ song: Song) {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        //  encoder.keyEncodingStrategy = .convertToSnakeCase
+        do {
+            let encodedData = try encoder.encode(song.sections)
+            let content = String(data: encodedData, encoding: .utf8) ?? "error"
+            print(content)
+            //  decode(content)
+        } catch {
+            print(error)
+        }
+    }
+
+    static func decode(_ string: String) {
+        let decoder = JSONDecoder()
+        do {
+            let data = Data(string.utf8)
+            let sections = try decoder.decode([Song.Section].self, from: data)
+            dump(sections)
+        } catch {
+            print(error)
+        }
     }
 }

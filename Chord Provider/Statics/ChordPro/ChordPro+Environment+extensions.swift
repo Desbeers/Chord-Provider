@@ -22,10 +22,12 @@ extension ChordPro.Environment {
             (.startOfTab, .endOfTab)
         case .grid:
             (.startOfGrid, .endOfGrid)
+        case .abc:
+            (.startOfABC, .endOfABC)
         case .textblock:
             (.startOfTextblock, .endOfTextblock)
         default:
-            (.none, .none)
+            (.unknown, .unknown)
         }
     }
 }

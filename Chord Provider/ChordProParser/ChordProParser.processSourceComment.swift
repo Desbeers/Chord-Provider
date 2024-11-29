@@ -26,10 +26,11 @@ extension ChordProParser {
         } else {
             /// A source comment in its own section
             addSection(
+                /// - Note: add the raw source here, or else it will be calculated with a directive
                 source: comment,
-                sectionLabel: ChordPro.Directive.sourceComment.label,
                 directive: .sourceComment,
-                environment: .metadata,
+                arguments: Arguments(),
+                environment: .none,
                 currentSection: &currentSection,
                 song: &song
             )

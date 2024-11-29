@@ -11,30 +11,27 @@ extension ChordProParser {
 
     /// Open a new section in the song
     /// - Parameters:
-    ///   - label: The optional label of the section
-    ///   - directive: The ``ChordPro/Directive`` of the section
-    ///   - environment: The ``ChordPro/Environment`` of the section
-    ///   - currentSection: The current section of the song
-    ///   - song: The song itself
+    ///   - directive: The ``ChordPro/Directive`` to add to the line
+    ///   - arguments: The optional arguments for the directive
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
     static func openSection(
-        sectionLabel: String?,
         directive: ChordPro.Directive,
-        directiveLabel: String?,
-        environment: ChordPro.Environment,
+        arguments: Arguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
+
         /// Add the directive in its own section
         addSection(
-            sectionLabel: sectionLabel,
             directive: directive,
-            directiveLabel: directiveLabel,
-            environment: .metadata,
+            arguments: arguments,
             currentSection: &currentSection,
             song: &song
         )
+
         /// Update the current section
-        currentSection.environment = environment
-        currentSection.label = sectionLabel ?? ""
+        currentSection.environment = directive.environment
+        currentSection.label = arguments[.plain] ?? arguments[.label] ?? directive.environment.label
     }
 }

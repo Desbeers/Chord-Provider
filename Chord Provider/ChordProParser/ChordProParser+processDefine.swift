@@ -16,10 +16,11 @@ extension ChordProParser {
     ///   - text: The chord definition
     ///   - song: The `song`
     static func processDefine(
-        label: String,
+        arguments: Arguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
+        let label = arguments[.plain] ?? ""
         do {
         var definedChord = try ChordDefinition(
             definition: label,
@@ -41,13 +42,11 @@ extension ChordProParser {
             }
         } catch {
             /// The definition could not be processed
-            currentSection.warning = "Wrong chord definition: \(error.localizedDescription)"
+            currentSection.addWarning("Wrong chord definition: \(error.localizedDescription)")
         }
         addSection(
-            sectionLabel: label,
             directive: .define,
-            directiveLabel: label,
-            environment: .metadata,
+            arguments: arguments,
             currentSection: &currentSection,
             song: &song
         )

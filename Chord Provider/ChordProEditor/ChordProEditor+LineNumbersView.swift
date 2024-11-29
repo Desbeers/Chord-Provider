@@ -123,7 +123,7 @@ extension ChordProEditor {
                 )
                 /// Bool if the line should be highlighted
                 let highlight = layoutManager.extraLineFragmentRect.minY == textView.currentParagraphRect?.minY
-                drawLineNumber(lineNumber, inRect: markerRect, highlight: highlight, warning: false, directive: .none)
+                drawLineNumber(lineNumber, inRect: markerRect, highlight: highlight, warning: false, directive: .emptyLine)
                 if highlight {
                     /// Set the current line of the cursor
                     textView.currentLine = Song.Section.Line(sourceLineNumber: lineNumber)
@@ -158,8 +158,8 @@ extension ChordProEditor {
                 let string = NSMutableAttributedString(string: "\(number) ")
                 string.addAttributes(attributes, range: NSRange(location: 0, length: string.length))
                 string.draw(in: stringRect)
-                /// Draw the optional directive icon if not none
-                if directive != .none, let image = NSImage(systemSymbolName: directive.icon, accessibilityDescription: directive.label) {
+                /// Draw the directive icon
+                if let image = NSImage(systemSymbolName: directive.icon, accessibilityDescription: directive.label) {
                     let imageConfiguration = NSImage.SymbolConfiguration(pointSize: font.pointSize * 0.7, weight: .regular)
                     let imageAttachment = NSTextAttachment()
                     imageAttachment.image = image.withSymbolConfiguration(imageConfiguration)

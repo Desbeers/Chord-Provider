@@ -10,26 +10,35 @@ import Foundation
 extension ChordProParser {
 
     static func processComment(
-        comment: String,
+        arguments: Arguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
+        let comment = arguments[.plain] ?? ""
         if !currentSection.lines.isEmpty && currentSection.autoCreated == false {
             /// A comment inside a section
-            let line = Song.Section.Line(
+            var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 environment: currentSection.environment,
                 directive: .comment,
                 argument: comment,
                 source: "{\(ChordPro.Directive.comment.rawValue): \(comment)}"
             )
+            if let warning = currentSection.warning {
+                line.addWarning(warning)
+            }
+            if comment.isEmpty {
+                line.addWarning("The comment is empty")
+            }
             currentSection.lines.append(line)
         } else {
             /// A  comment in its own section
+            if comment.isEmpty {
+                currentSection.addWarning("The comment is empty")
+            }
             addSection(
-                sectionLabel: comment,
                 directive: .comment,
-                directiveLabel: comment,
+                arguments: arguments,
                 environment: .comment,
                 currentSection: &currentSection,
                 song: &song

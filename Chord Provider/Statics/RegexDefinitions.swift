@@ -136,7 +136,11 @@ enum RegexDefinitions {
             OneOrMore(.word)
         }
         Optionally {
-            ":"
+            OneOrMore {
+                CharacterClass(
+                    .anyOf(": ")
+                )
+            }
             TryCapture {
                 OneOrMore {
                     CharacterClass(
@@ -155,21 +159,18 @@ enum RegexDefinitions {
         }
     }
 
-    nonisolated(unsafe) static let arguments = Regex {
-        Capture {
-            OneOrMore {
-                CharacterClass(
-                    .anyOf("=").inverted
-                )
-            }
+    nonisolated(unsafe) static let formattingAttributes = Regex {
+        TryCapture {
+            OneOrMore(.word)
         } transform: {
-            ChordPro.Directive.Argument(rawValue: $0.lowercased())
+            ChordPro.Directive.FormattingAttribute(rawValue: $0.lowercased())
         }
         "=\""
         Capture {
             OneOrMore {
-                CharacterClass
-                    .any
+                CharacterClass(
+                    .anyOf("\"").inverted
+                )
             }
         } transform: {
             $0.trimmingCharacters(in: .whitespacesAndNewlines)

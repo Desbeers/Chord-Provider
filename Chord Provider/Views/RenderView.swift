@@ -84,6 +84,9 @@ struct RenderView: View {
                 gridSection(section: section)
             case .textblock:
                 textblockSection(section: section)
+            case .abc:
+                /// Not supported
+                EmptyView()
             case .comment:
                 commentSection(section: section)
             case .strum:
@@ -91,8 +94,9 @@ struct RenderView: View {
             case .metadata:
                 /// Don't render metadata
                 EmptyView()
-            default:
-                plainSection(section: section)
+            case .none:
+                /// Not an environment
+                EmptyView()
             }
         }
     }
@@ -334,6 +338,7 @@ extension RenderView {
         .modifier(
             SectionView(
                 settings: song.settings,
+                /// - Note: Don't show the default label for a textblock
                 label: section.label == ChordPro.Environment.textblock.label ? "" : section.label
             )
         )
@@ -348,7 +353,7 @@ extension RenderView {
     }
 
     /// SwiftUI `View` for a comment label
-    func commentLabel(comment: String) -> some View {
+    @ViewBuilder func commentLabel(comment: String) -> some View {
         ProminentLabel(
             settings: song.settings,
             label: comment,

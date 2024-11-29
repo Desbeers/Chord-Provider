@@ -114,11 +114,12 @@ extension SongExport {
                 items.append(gridSection(section: section))
             case .textblock:
                 items.append(textblockSection(section: section))
-            case .none:
-                items.append(plainSection(section: section))
             case .strum:
                 items.append(strumSection(section: section))
-            case .metadata:
+            case .abc:
+                /// Not supported
+                break
+            case .metadata, .none:
                 break
             }
             items.append(PDFBuild.Spacer(10))
@@ -217,12 +218,14 @@ extension SongExport {
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
         func textblockSection(section: Song.Section) -> PDFBuild.Section {
-            PDFBuild.Section(
+            /// - Note: Don't show the default label for a textblock
+            let label = section.label == ChordPro.Environment.textblock.label ? "" : section.label
+            return PDFBuild.Section(
                 columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Label(
                         leadingText: nil,
-                        labelText: NSAttributedString(string: section.label, attributes: .sectionLabel),
+                        labelText: NSAttributedString(string: label, attributes: .sectionLabel),
                         backgroundColor: .clear,
                         alignment: .right
                     ),

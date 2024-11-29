@@ -22,7 +22,7 @@ extension ChordProEditor {
     /// The regex for chords
     static let chordRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]", options: .caseInsensitive)
     /// The regex for directives
-    static let directiveRegex = try! NSRegularExpression(pattern: "\\{(\\w+):?([^\\}]+)?\\}")
+    static let directiveRegex = try! NSRegularExpression(pattern: "\\{(\\w+):?([^\\}\\n]+)?(?:\\}|\\n)")
     /// The regex for comments
     static let commentsRegex = try! NSRegularExpression(pattern: "(?<=^|\\n)(#[^\\n]*)")
     /// The regex for markup

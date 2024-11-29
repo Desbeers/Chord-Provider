@@ -32,6 +32,18 @@ extension Song {
         /// - Note: Automatically created sections will end with an 'newline', unlike defined sections.
         var autoCreated: Bool
         /// Optional warning for this section
-        var warning: String?
+        private(set) var warning: Set<String>?
+
+        /// - Note: warnings are *optionals* so we can not just 'insert' it
+        mutating func addWarning(_ warning: String) {
+            if self.warning == nil {
+                self.warning = [warning]
+            } else {
+                self.warning?.insert(warning)
+            }
+        }
+        mutating func resetWarnings() {
+            self.warning = nil
+        }
     }
 }

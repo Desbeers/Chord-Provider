@@ -7,18 +7,31 @@
 
 import Foundation
 
+struct DirectiveSource: Equatable, Codable {
+    var long: String
+    var short: String
+}
+
+extension DirectiveSource: ExpressibleByStringLiteral {
+    init(stringLiteral: String) {
+        let parts = stringLiteral.split(separator: "|")
+        long = String(parts.first ?? "")
+        short = String(parts.last ?? "")
+    }
+}
+
 extension ChordPro {
 
     /// All the directives we know about
-    static let directives = ChordPro.Directive.allCases.map(\.rawValue)
+    static let directives = ChordPro.Directive.allCases.map(\.rawValue.long)
 
     // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports
-    enum Directive: String, CaseIterable, Identifiable, Codable {
+    enum Directive: DirectiveSource, CaseIterable, Identifiable, Codable {
 
         var id: String {
-            self.rawValue
+            self.rawValue.long
         }
 
         var label: String {
@@ -26,7 +39,7 @@ extension ChordPro {
         }
 
         var directive: String {
-            self.rawValue
+            self.rawValue.long
         }
 
         var icon: String {
@@ -45,16 +58,18 @@ extension ChordPro {
             self.details.button
         }
 
-        // swiftlint:disable identifier_name
+        var environment: ChordPro.Environment {
+            self.details.environment
+        }
 
         // MARK: Official directives
 
         /// # Meta-data directives
 
         /// This directive defines the title of the song
-        case t, title
+        case title = "title|t"
         /// This directive defines a subtitle of the song
-        case st, subtitle
+        case subtitle = "subtitle|st"
         /// This directive defines an artist
         case artist
         /// This directive defines an album this song occurs on
@@ -75,66 +90,57 @@ extension ChordPro {
         /// # Formatting directives
 
         /// This directive introduce a comment line
-        case c, comment
+        case comment = "comment|c"
+        /// Specifies the name of the file containing the image
+        case image
 
         /// # Environment directives
 
         /// ## Chorus
 
         /// This directive indicates that the lines that follow form the song’s chorus
-        case startOfChorus = "start_of_chorus"
-        /// This directive indicates that the lines that follow form the song’s chorus
-        case soc
+        case startOfChorus = "start_of_chorus|soc"
         /// This directive indicates the end of the chorus
-        case endOfChorus = "end_of_chorus"
-        /// This directive indicates the end of the chorus
-        case eoc
+        case endOfChorus = "end_of_chorus|eoc"
         /// This directive indicates that the song chorus must be played here
         case chorus
 
         /// ## Verse
 
         /// Specifies that the following lines form a verse of the song
-        case startOfVerse = "start_of_verse"
-        /// Specifies that the following lines form a verse of the song
-        case sov
+        case startOfVerse = "start_of_verse|sov"
         /// Specifies the end of the verse
-        case endOfVerse = "end_of_verse"
-        /// Specifies the end of the verse
-        case eov
+        case endOfVerse = "end_of_verse|eov"
 
         /// ## Bridge
 
         /// Specifies that the following lines form a bridge of the song
-        case startOfBridge = "start_of_bridge"
-        /// Specifies that the following lines form a bridge of the song
-        case sob
+        case startOfBridge = "start_of_bridge|sob"
         /// Specifies the end of the bridge
-        case endOfBridge = "end_of_bridge"
-        /// Specifies the end of the bridge
-        case eob
+        case endOfBridge = "end_of_bridge|eob"
 
         /// ## Tab
 
         /// This directive indicates that the lines that follow form a section of guitar TAB instructions
-        case startOfTab = "start_of_tab"
-        /// This directive indicates that the lines that follow form a section of guitar TAB instructions
-        case sot
+        case startOfTab = "start_of_tab|sot"
         /// This directive indicates the end of the tab
-        case endOfTab = "end_of_tab"
-        /// This directive indicates the end of the tab
-        case eot
+        case endOfTab = "end_of_tab|eot"
 
         /// ## Grid
 
         /// This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles
-        case startOfGrid = "start_of_grid"
-        /// This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles
-        case sog
+        case startOfGrid = "start_of_grid|sog"
         /// This directive indicates the end of the grid
-        case endOfGrid = "end_of_grid"
-        /// This directive indicates the end of the grid
-        case eog
+        case endOfGrid = "end_of_grid|eog"
+
+        /// # Delegated environment directives
+
+        /// ## ABC
+
+        /// This directive indicates that the lines that follow define a piece of music written in ABC music notation
+        case startOfABC = "start_of_abc"
+        /// This directive indicates the end of the ABC
+        case endOfABC = "end_of_abc"
 
         /// ## Textblock
 
@@ -149,35 +155,37 @@ extension ChordPro {
         /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings
         case define
 
+        // MARK: Output related directives
+
+        /// This directive forces a new page to be generated at the place where it occurs in the song
+        case newPage = "new_page|np"
+
+        /// When printing songs in multiple columns, this directive forces printing to continue in the next column
+        case columnBreak = "column_break|colb"
+
         // MARK: Custom directives
 
         /// This directive defines a tag for the song
         case tag
 
-        // MARK: Custom metadata directives
-
-        /// A comment in the source
-        case sourceComment = "source_comment"
-
-        case environmentLine = "environment_line"
-
-        /// An unknown directive
-        case unknownDirective = "unknown_directive"
-
-        /// Not a directive
-        case none
-
         /// ### Strum
 
         /// This directive indicates that the lines that follow defines a strum pattern
-        case startOfStrum = "start_of_strum"
-        /// This directive indicates that the lines that follow defines a strum pattern
-        case sos
+        case startOfStrum = "start_of_strum|sos"
         /// This directive indicates the end of the strum
-        case endOfStrum = "end_of_strum"
-        /// This directive indicates the end of the strum
-        case eos
+        case endOfStrum = "end_of_strum|eos"
 
-        // swiftlint:enable identifier_name
+        // MARK: Custom metadata directives
+
+        /// - Note: These are not *real* directives
+
+        /// A comment in the source
+        case sourceComment = "source_comment"
+        /// A line that is inside an environment
+        case environmentLine = "environment_line"
+        /// An empty line
+        case emptyLine = "empty_line"
+        /// An unknown directive
+        case unknown
     }
 }

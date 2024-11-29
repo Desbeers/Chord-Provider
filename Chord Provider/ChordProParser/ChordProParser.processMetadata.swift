@@ -11,12 +11,14 @@ extension ChordProParser {
 
     static func processMetadata(
         directive: ChordPro.Directive,
-        label: String?,
+        arguments: Arguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
         /// Set this metadata as defined
         song.definedMetaData.append(directive)
+        /// Get the label
+        let label = arguments[.plain]
         /// Add the metadata to the song
         switch directive {
 
@@ -58,10 +60,8 @@ extension ChordProParser {
             break
         }
         addSection(
-            sectionLabel: directive.label,
             directive: directive,
-            directiveLabel: label,
-            environment: .metadata,
+            arguments: arguments,
             currentSection: &currentSection,
             song: &song
         )

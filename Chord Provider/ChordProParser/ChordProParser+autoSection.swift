@@ -21,7 +21,7 @@ extension ChordProParser {
             sourceLineNumber: -song.lines,
             environment: currentSection.environment,
             directive: environment.directives.open,
-            source: "{\(environment.directives.open.rawValue)}"
+            source: "{\(environment.directives.open.rawValue.long)}"
         )
         currentSection.lines.append(line)
         return "No environment set, using **\(environment.label)**"

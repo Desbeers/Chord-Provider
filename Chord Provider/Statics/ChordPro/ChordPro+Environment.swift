@@ -33,6 +33,9 @@ extension ChordPro {
 
         // MARK: Official delegated environment directives
 
+        /// ABC environment
+        case abc
+
         /// Textblock environment
         case textblock
 
@@ -44,7 +47,8 @@ extension ChordPro {
         /// The environment contains metadata
         case metadata
 
-        /// No environment
+        /// Not an environment
+        /// - Note: A source comment or an empty line for example
         case none
     }
 }
@@ -68,6 +72,8 @@ extension ChordPro.Environment {
             "Tab"
         case .grid:
             "Grid"
+        case .abc:
+            "ABC"
         case .textblock:
             "Text Block"
         case .strum:
