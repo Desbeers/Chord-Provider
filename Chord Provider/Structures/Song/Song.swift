@@ -8,7 +8,7 @@
 import Foundation
 
 /// The structure of a song as shown in **Chord Provider**
-struct Song: Codable {
+struct Song: Equatable, Codable {
 
     /// The ID of the song
     var id: UUID

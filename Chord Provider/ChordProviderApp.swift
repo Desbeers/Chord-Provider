@@ -40,7 +40,7 @@ import SwiftUI
                         appDelegate.showWelcomeWindow()
                     }
             } else {
-                MainView(document: file.$document, file: file.fileURL)
+                MainView(appDelegate: appDelegate, document: file.$document, file: file.fileURL)
                     .environment(fileBrowser)
                     .environment(appState)
                 /// Give the scene access to the document.
@@ -106,6 +106,11 @@ import SwiftUI
 #if DEBUG
             CommandMenu("Debug") {
                 DebugButtons()
+                Button {
+                    appDelegate.showDebugWindow()
+                } label: {
+                    Text("Show Debug Window")
+                }
             }
 #endif
             CommandGroup(after: .importExport) {

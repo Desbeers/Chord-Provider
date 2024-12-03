@@ -17,7 +17,7 @@ enum Editor {
                 var text = ""
                 switch editorInternals.clickedDirective {
                 case true:
-                    text = "{\(directive.rawValue): \(editorInternals.directiveArgument)}"
+                    text = "{\(directive.rawValue.long): \(editorInternals.directiveArgument)}"
                 case false:
                     let selectedText = editorInternals.directiveArgument.isEmpty ?
                     textView.selectedText : editorInternals.directiveArgument

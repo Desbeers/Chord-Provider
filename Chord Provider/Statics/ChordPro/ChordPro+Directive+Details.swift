@@ -73,16 +73,16 @@ extension ChordPro.Directive {
                 label: "Key",
                 icon: "key",
                 button: "Key",
-                help: "This directive specifies the key the song is written in",environment: .metadata
-
+                help: "This directive specifies the key the song is written in",
+                environment: .metadata
             )
         case .time:
             Details(
                 label: "Time",
                 icon: "timer",
                 button: "Time",
-                help: "This directive specifies a time signature",environment: .metadata
-
+                help: "This directive specifies a time signature",
+                environment: .metadata
             )
         case .tempo:
             Details(

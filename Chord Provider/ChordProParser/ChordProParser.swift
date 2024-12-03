@@ -80,9 +80,6 @@ actor ChordProParser {
         if song.metadata.key == nil {
             song.metadata.key = song.chords.first
         }
-
-        encode(song)
-
         /// All done!
         return song
     }
@@ -92,24 +89,16 @@ extension ChordProParser {
 
     // MARK: Debug stuff
 
-    static func printLines(_ song: Song) {
-        let lines = song.sections.flatMap(\.lines)
-        for line in lines {
-            print("\(line.sourceLineNumber):\t\(line.source)")
-        }
-    }
-
-    static func encode(_ song: Song) {
+    static func encode<T: Codable>(_ value: T) -> String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         //  encoder.keyEncodingStrategy = .convertToSnakeCase
         do {
-            let encodedData = try encoder.encode(song.sections)
+            let encodedData = try encoder.encode(value)
             let content = String(data: encodedData, encoding: .utf8) ?? "error"
-            print(content)
-            //  decode(content)
+            return content
         } catch {
-            print(error)
+            return error.localizedDescription
         }
     }
 

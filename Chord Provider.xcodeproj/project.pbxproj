@@ -297,6 +297,8 @@
 		D752E5B62CC3684100CDE42D /* ChordsDatabaseView+options.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752E5B52CC3684100CDE42D /* ChordsDatabaseView+options.swift */; };
 		D752E5B82CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752E5B72CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift */; };
 		D752E5BA2CC3D4A100CDE42D /* ChordsDatabaseView+EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752E5B92CC3D4A100CDE42D /* ChordsDatabaseView+EditView.swift */; };
+		D75955AF2CF9D5E500CF3590 /* DebugMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75955AE2CF9D5E500CF3590 /* DebugMessage.swift */; };
+		D75955B32CF9D65A00CF3590 /* DebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75955B22CF9D65A00CF3590 /* DebugView.swift */; };
 		D75B488C2BDBC2B8001F6176 /* FolderExport+content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B488B2BDBC2B8001F6176 /* FolderExport+content.swift */; };
 		D75B488E2BDBC417001F6176 /* FolderExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B488D2BDBC417001F6176 /* FolderExport.swift */; };
 		D75B48912BDBD3A2001F6176 /* FolderExport+toc.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75B48902BDBD3A2001F6176 /* FolderExport+toc.swift */; };
@@ -574,6 +576,8 @@
 		D752E5B52CC3684100CDE42D /* ChordsDatabaseView+options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordsDatabaseView+options.swift"; sourceTree = "<group>"; };
 		D752E5B72CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordsDatabaseView+diagram.swift"; sourceTree = "<group>"; };
 		D752E5B92CC3D4A100CDE42D /* ChordsDatabaseView+EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordsDatabaseView+EditView.swift"; sourceTree = "<group>"; };
+		D75955AE2CF9D5E500CF3590 /* DebugMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMessage.swift; sourceTree = "<group>"; };
+		D75955B22CF9D65A00CF3590 /* DebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugView.swift; sourceTree = "<group>"; };
 		D75B488B2BDBC2B8001F6176 /* FolderExport+content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FolderExport+content.swift"; sourceTree = "<group>"; };
 		D75B488D2BDBC417001F6176 /* FolderExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderExport.swift; sourceTree = "<group>"; };
 		D75B48902BDBD3A2001F6176 /* FolderExport+toc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FolderExport+toc.swift"; sourceTree = "<group>"; };
@@ -893,6 +897,7 @@
 				D730BBA02CA844C2008719F2 /* RegexDefinitions.swift */,
 				D730BBA12CA844C2008719F2 /* Scales.swift */,
 				D730BBC12CA844C2008719F2 /* Chords.swift */,
+				D75955AE2CF9D5E500CF3590 /* DebugMessage.swift */,
 			);
 			path = Statics;
 			sourceTree = "<group>";
@@ -1295,6 +1300,7 @@
 				D70D96C42CB260CC00B51A14 /* Styles */,
 				D7EB791B2CA995B1004D965B /* Modifiers */,
 				D7F13FB52A6460B7002D875D /* MainView.swift */,
+				D75955B22CF9D65A00CF3590 /* DebugView.swift */,
 				D7622B462ABF0B04008CAC63 /* SettingsView.swift */,
 				D7F13FB82A6460B7002D875D /* SongView.swift */,
 				D7F13F882A6460B7002D875D /* RenderView.swift */,
@@ -1693,6 +1699,7 @@
 				D7EA87782C5A5861009A3D82 /* UserFile.swift in Sources */,
 				D7C725D02BFF87C5006D9C74 /* AppDelegateModel.swift in Sources */,
 				D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */,
+				D75955AF2CF9D5E500CF3590 /* DebugMessage.swift in Sources */,
 				D78819662BFB25300033545D /* Help.swift in Sources */,
 				D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D75141572C60C5B40011D9A4 /* DebugButtons.swift in Sources */,
@@ -1798,6 +1805,7 @@
 				D7F13FC82A6460B7002D875D /* WelcomeView+FileBrowser.swift in Sources */,
 				D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */,
 				D70D96DB2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift in Sources */,
+				D75955B32CF9D65A00CF3590 /* DebugView.swift in Sources */,
 				D7336AD62C273AD700D0AA8E /* HelpButtons.swift in Sources */,
 				D7FA7F402C2CA9320031E1E8 /* ChordProDocument.swift in Sources */,
 				D7EA87662C5A580A009A3D82 /* ChordProEditor+Static.swift in Sources */,

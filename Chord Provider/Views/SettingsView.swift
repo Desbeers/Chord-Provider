@@ -17,30 +17,27 @@ import SwiftUI
     @Environment(AppDelegateModel.self) private var appDelegate
     /// The body of the `View`
     var body: some View {
-        VStack(spacing: 0) {
-            Divider()
-            TabView {
-                general
-                    .tabItem {
-                        Label("General", systemImage: "gear")
-                    }
-                editor
-                    .tabItem {
-                        Label("Editor", systemImage: "pencil")
-                    }
-                diagram
-                    .tabItem {
-                        Label("Diagrams", systemImage: "guitars")
-                    }
-                folder
-                    .tabItem {
-                        Label("Songs", systemImage: "folder")
-                    }
-                options
-                    .tabItem {
-                        Label("Options", systemImage: "music.quarternote.3")
-                    }
-            }
+        TabView {
+            general
+                .tabItem {
+                    Label("General", systemImage: "gear")
+                }
+            editor
+                .tabItem {
+                    Label("Editor", systemImage: "pencil")
+                }
+            diagram
+                .tabItem {
+                    Label("Diagrams", systemImage: "guitars")
+                }
+            folder
+                .tabItem {
+                    Label("Songs", systemImage: "folder")
+                }
+            options
+                .tabItem {
+                    Label("Options", systemImage: "music.quarternote.3")
+                }
         }
     }
 

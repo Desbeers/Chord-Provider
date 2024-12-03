@@ -18,6 +18,8 @@ import SwiftUI
 
     var saveChordDatabaseDialog: Bool = false
 
+    var song: Song?
+
     /// Close all windows except the menuBarExtra
     /// - Note: Part of the `DocumentGroup` dirty hack; don't show the NSOpenPanel
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -209,6 +211,25 @@ import SwiftUI
         openWindow(controller: chordsDatabaseViewController)
     }
 
+    // MARK: Debug window
+
+    /// The controller for the `Debug` window
+    private var debugViewController: NSWindowController?
+    /// Show the ``DebugView`` in an AppKit window
+    func showDebugWindow() {
+        if debugViewController == nil {
+            let window = createWindow(id: .debugView)
+            window.styleMask.update(with: .resizable)
+            window.toolbarStyle = .preference
+            window.contentView = NSHostingView(rootView: DebugView(appDelegate: self))
+            window.center()
+            debugViewController = NSWindowController(window: window)
+        }
+        closePopover(sender: self)
+        welcomeWindowController?.window?.close()
+        openWindow(controller: debugViewController)
+    }
+
     // MARK: Open a Window
 
     /// Open a window and make it key and front
@@ -251,6 +272,8 @@ import SwiftUI
         case exportFolderView = "Export Songs"
         /// The ``ChordsDatabaseView``
         case chordsDatabaseView = "Chords Database"
+        /// The ``DebugView``
+        case debugView = "Debug"
     }
 
     func windowShouldClose(_ sender: NSWindow) -> Bool {
