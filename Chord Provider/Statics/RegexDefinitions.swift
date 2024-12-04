@@ -165,11 +165,16 @@ enum RegexDefinitions {
         }
         "="
         Capture {
+            Optionally {
+                "\""
+            }
             OneOrMore {
                 CharacterClass(
-                    .word,
-                    .anyOf("\"")
+                    .anyOf("\"").inverted
                 )
+            }
+            Optionally {
+                "\""
             }
         } transform: {
             $0.trimmingCharacters(in: .whitespacesAndNewlines)

@@ -31,7 +31,7 @@ extension ChordProParser {
         song: inout Song,
         currentSection: inout Song.Section
     ) {
-        if text.contains(":") {
+        if text.contains(/:(?!\/)/) {
             currentSection.addWarning("No need for a colon **:** in a directive")
         }
         if let match = text.firstMatch(of: RegexDefinitions.directive) {

@@ -34,7 +34,7 @@ extension ChordProParser {
     static func stringToArguments(_ parsedArgument: String?, currentSection: inout Song.Section) -> ChordProParser.Arguments {
         var arguments = Arguments()
         /// Check if the label contains formatting attributes
-        if let parsedArgument, parsedArgument.contains("=") {
+        if let parsedArgument, parsedArgument.contains("="), !parsedArgument.starts(with: "http") {
             let attributes = parsedArgument.matches(of: RegexDefinitions.formattingAttributes)
             /// Map the attributes in a dictionary
             arguments = attributes.reduce(into: Arguments()) {
