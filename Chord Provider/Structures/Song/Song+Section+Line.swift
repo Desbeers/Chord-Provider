@@ -28,8 +28,8 @@ extension Song.Section {
         /// The `Directive` of the section
         var directive: ChordPro.Directive = .unknown
 
-        /// The optional argument of the directive
-        var argument: String = ""
+        /// The optional arguments of the directive
+        var arguments: ChordProParser.Arguments?
 
         /// The source of the line
         var source: String = ""
@@ -47,6 +47,10 @@ extension Song.Section {
         /// The optional strum pattern in the line
         var strum: [String]?
 
+        /// The calculated label of the directive
+        var label: String {
+            arguments?[.plain] ?? arguments?[.label] ?? ""
+        }
 
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String) {
@@ -77,7 +81,7 @@ extension Song.Section.Line {
         case sourceLineNumber
         case environment
         case directive
-        case argument
+        case arguments
         case source
         case warning
         case parts
@@ -92,10 +96,10 @@ extension Song.Section.Line {
         self.environment = try container.decode(ChordPro.Environment.self, forKey: .environment)
 
         let directive = try container.decode(String.self, forKey: .directive)
-
         self.directive = ChordProParser.getDirective(directive)?.directive ?? .unknown
 
-        self.argument = try container.decode(String.self, forKey: .argument)
+        self.arguments = try container.decodeIfPresent(ChordProParser.Arguments.self, forKey: .arguments)
+
         self.source = try container.decode(String.self, forKey: .source)
         self.warning = try container.decodeIfPresent(Set<String>.self, forKey: .warning)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
@@ -109,7 +113,9 @@ extension Song.Section.Line {
         try container.encode(self.sourceLineNumber, forKey: .sourceLineNumber)
         try container.encode(self.environment, forKey: .environment)
         try container.encode(self.directive.rawValue.long, forKey: .directive)
-        try container.encode(self.argument, forKey: .argument)
+
+        try container.encodeIfPresent(self.arguments, forKey: .arguments)
+
         try container.encode(self.source, forKey: .source)
         try container.encodeIfPresent(self.warning, forKey: .warning)
         try container.encodeIfPresent(self.parts, forKey: .parts)

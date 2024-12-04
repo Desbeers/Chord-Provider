@@ -160,22 +160,20 @@ enum RegexDefinitions {
     }
 
     nonisolated(unsafe) static let formattingAttributes = Regex {
-        TryCapture {
+        Capture {
             OneOrMore(.word)
-        } transform: {
-            ChordPro.Directive.FormattingAttribute(rawValue: $0.lowercased())
         }
-        "=\""
+        "="
         Capture {
             OneOrMore {
                 CharacterClass(
-                    .anyOf("\"").inverted
+                    .word,
+                    .anyOf("\"")
                 )
             }
         } transform: {
             $0.trimmingCharacters(in: .whitespacesAndNewlines)
         }
-        "\""
     }
 
 

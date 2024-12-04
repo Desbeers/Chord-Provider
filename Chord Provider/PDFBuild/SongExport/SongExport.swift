@@ -260,7 +260,7 @@ extension SongExport {
                 columns: [.fixed(width: 110), .flexible],
                 items: [
                     PDFBuild.Spacer(),
-                    PDFBuild.Comment(section.lines.first?.argument ?? "Empty comment")
+                    PDFBuild.Comment(section.lines.first?.label ?? "Empty comment")
                 ]
             )
         }

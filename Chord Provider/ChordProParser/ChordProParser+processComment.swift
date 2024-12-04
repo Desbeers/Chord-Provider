@@ -1,5 +1,5 @@
 //
-//  ChordProParser.processComment.swift
+//  ChordProParser+processComment.swift
 //  Chord Provider
 //
 //  Created by Nick Berendsen on 20/11/2024.
@@ -21,8 +21,8 @@ extension ChordProParser {
                 sourceLineNumber: song.lines,
                 environment: currentSection.environment,
                 directive: .comment,
-                argument: comment,
-                source: "{\(ChordPro.Directive.comment.rawValue): \(comment)}"
+                arguments: [.plain: comment],
+                source: "{\(ChordPro.Directive.comment) \(comment)}"
             )
             if let warning = currentSection.warning {
                 line.addWarning(warning)
@@ -31,6 +31,8 @@ extension ChordProParser {
                 line.addWarning("The comment is empty")
             }
             currentSection.lines.append(line)
+            /// Clear any warnings
+            currentSection.resetWarnings()
         } else {
             /// A  comment in its own section
             if comment.isEmpty {

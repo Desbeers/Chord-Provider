@@ -32,10 +32,10 @@ extension PDFBuild {
             for line in section.lines {
                 switch line.directive {
                 case .environmentLine:
-                    let line = PDFBuild.TabSection.Line(line.argument)
+                    let line = PDFBuild.TabSection.Line(line.label)
                     line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 case .comment:
-                    let comment = PDFBuild.Comment(line.argument).padding(6)
+                    let comment = PDFBuild.Comment(line.label).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break

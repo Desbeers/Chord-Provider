@@ -39,7 +39,7 @@ extension PDFBuild {
                         }
                     }
                 case .comment:
-                    let comment = PDFBuild.Comment(line.argument).padding(6)
+                    let comment = PDFBuild.Comment(line.label).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break

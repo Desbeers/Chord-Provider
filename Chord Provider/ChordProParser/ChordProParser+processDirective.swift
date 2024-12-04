@@ -1,5 +1,5 @@
 //
-//  ChordProParser.processDirective.swift
+//  ChordProParser+processDirective.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -31,23 +31,14 @@ extension ChordProParser {
         song: inout Song,
         currentSection: inout Song.Section
     ) {
+        if text.contains(":") {
+            currentSection.addWarning("No need for a colon **:** in a directive")
+        }
         if let match = text.firstMatch(of: RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
 
-            var arguments = Arguments()
-            /// Check if the label contains formatting attributes
-            /// - Note: This will remove the default argument
-            if let parsedArgument, parsedArgument.contains("=") {
-                let attributes = parsedArgument.matches(of: RegexDefinitions.formattingAttributes)
-                /// Map the attributes in a dictionary
-                arguments = attributes.reduce(into: Arguments()) {
-                    $0[$1.1] = $1.2
-                }
-            } else if let parsedArgument {
-                /// Set the default argument
-                arguments[.plain] = parsedArgument
-            }
+            let arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
 
             /// Handle known directives
             if let directive = getDirective(parsedDirective.lowercased()) {
@@ -60,7 +51,7 @@ extension ChordProParser {
 
                 if ChordPro.Directive.metadataDirectives.contains(directive) {
 
-                    // MARK: Formatting directives
+                    // MARK: Metadata directives
 
                     /// Process metadata
                     processMetadata(directive: directive, arguments: arguments, currentSection: &currentSection, song: &song)
@@ -111,10 +102,13 @@ extension ChordProParser {
 
                     case .endOfTab:
                         /// Make sure tab lines have the same length because of scaling
-                        let tabs = currentSection.lines.map(\.argument)
+                        let tabs: [String] = currentSection.lines.map(\.arguments).compactMap { element -> String in
+                            return element?[.plain] ?? "error"
+                        }
                         if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
                             for index in currentSection.lines.indices {
-                                currentSection.lines[index].argument += String(repeating: " ", count: maxLength - currentSection.lines[index].argument.count)
+                                let adjustedString = tabs[index] + String(repeating: " ", count: maxLength - tabs[index].count)
+                                currentSection.lines[index].arguments?[.plain] = adjustedString
                             }
                         }
                         /// Add the directive as a single line in a section; this will close the current section
@@ -143,7 +137,7 @@ extension ChordProParser {
 
                     default:
                         /// A known but unsupported directive
-                        currentSection.addWarning("**\(directive.rawValue.long)** is not supported")
+                        currentSection.addWarning("**\(directive.details.label)** is not supported")
                         addSection(
                             directive: directive,
                             arguments: arguments,

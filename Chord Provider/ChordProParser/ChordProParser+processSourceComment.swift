@@ -1,37 +1,34 @@
 //
-//  ChordProParser.processEmptyLine.swift
+//  ChordProParser+processSourceComment.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 21/11/2024.
+//  Created by Nick Berendsen on 18/11/2024.
 //
 
 import Foundation
 
 extension ChordProParser {
 
-    static func processEmptyLine(
+    static func processSourceComment(
+        comment: String,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
         if !currentSection.lines.isEmpty && currentSection.autoCreated == false {
-            /// Add an empty line to the section
-            var line = Song.Section.Line(
+            /// A source comment inside a section
+            let line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 environment: currentSection.environment,
-                directive: .environmentLine,
-                source: ""
+                directive: .sourceComment,
+                source: comment
             )
-            /// Add an empty part
-            /// - Note: Use a 'space' as text
-            let part = Song.Section.Line.Part(id: 1, chord: nil, text: " ")
-            line.parts = [part]
             currentSection.lines.append(line)
         } else {
-            /// Add the empty line as a single line in a section
+            /// A source comment in its own section
             addSection(
                 /// - Note: add the raw source here, or else it will be calculated with a directive
-                source: "",
-                directive: .emptyLine,
+                source: comment,
+                directive: .sourceComment,
                 arguments: Arguments(),
                 environment: .none,
                 currentSection: &currentSection,

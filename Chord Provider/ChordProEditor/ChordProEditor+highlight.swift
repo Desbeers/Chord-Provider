@@ -27,6 +27,8 @@ extension ChordProEditor {
     static let commentsRegex = try! NSRegularExpression(pattern: "(?<=^|\\n)(#[^\\n]*)")
     /// The regex for markup
     static let markupRegex = try! NSRegularExpression(pattern: "<\\/?([^>]*)>")
+    /// The regex for `key=value`
+    static let keyValueRegex = try! NSRegularExpression(pattern: "\"\\/?([^\"]*)\"")
     /// The regex for brackets
     static let bracketsRegex = try! NSRegularExpression(pattern: "\\/?([\\[\\]\\{\\}\"\\<\\>/])")
     /// The regex for new lines
@@ -39,6 +41,7 @@ extension ChordProEditor {
             (commentsRegex, NSColor(settings.commentColor), .normal),
             (directiveRegex, NSColor(settings.directiveColor), .directive),
             (markupRegex, NSColor(settings.markupColor), .normal),
+            (keyValueRegex, NSColor(settings.markupColor), .normal),
             (chordRegex, NSColor(settings.chordColor), .normal),
             (bracketsRegex, NSColor(settings.bracketColor), .normal)
         ]

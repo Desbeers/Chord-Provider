@@ -195,7 +195,7 @@ extension RenderView {
                         )
                     }
                 case .comment:
-                    commentLabel(comment: line.argument)
+                    commentLabel(comment: line.label)
                 default:
                     EmptyView()
                 }
@@ -225,7 +225,7 @@ extension RenderView {
                         )
                     }
                 case .comment:
-                    commentLabel(comment: line.argument)
+                    commentLabel(comment: line.label)
                 default:
                     EmptyView()
                 }
@@ -265,12 +265,12 @@ extension RenderView {
             ForEach(section.lines) { line in
                 switch line.directive {
                 case .environmentLine:
-                    Text(line.argument)
+                    Text(line.label)
                         .lineLimit(1)
                         .monospaced()
                         .minimumScaleFactor(0.1)
                 case .comment:
-                    commentLabel(comment: line.argument)
+                    commentLabel(comment: line.label)
                 default:
                     EmptyView()
                 }
@@ -308,7 +308,7 @@ extension RenderView {
                             }
                         }
                     case .comment:
-                        commentLabel(comment: line.argument)
+                        commentLabel(comment: line.label)
                     default:
                         EmptyView()
                     }
@@ -348,7 +348,7 @@ extension RenderView {
 
     /// SwiftUI `View` for a comment in its own section
     func commentSection(section: Song.Section) -> some View {
-        commentLabel(comment: section.lines.first?.argument ?? "")
+        commentLabel(comment: section.lines.first?.label ?? "")
             .modifier(SectionView(settings: song.settings))
     }
 
@@ -380,7 +380,7 @@ extension RenderView {
                         .font(.system(size: 16 * song.settings.display.scale))
                     }
                 case .comment:
-                    commentLabel(comment: line.argument)
+                    commentLabel(comment: line.label)
                 default:
                     EmptyView()
                 }

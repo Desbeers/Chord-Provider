@@ -48,17 +48,8 @@ extension ChordProParser {
         /// Calculate the source
         var calculatedSource = source ?? ""
         if source == nil {
-            var label: [String] = []
-            if let plain = arguments[.plain] {
-                /// Add it as a simple label
-                label.append(plain)
-            } else {
-                /// Parse the arguments
-                for (key, value) in arguments {
-                    label.append("\(key)=\"\(value)\"")
-                }
-            }
-            calculatedSource = "{\(directive.rawValue.long)" + (label.isEmpty ? "" : ": \(label.joined(separator: " "))") + "}"
+            let label: String = argumentsToString(arguments) ?? ""
+            calculatedSource = "{\(directive.rawValue.long)\(label.isEmpty ? "" : " \(label)")}"
         }
 
         /// Add the single line
@@ -66,7 +57,7 @@ extension ChordProParser {
             sourceLineNumber: song.lines,
             environment: directive.environment,
             directive: directive,
-            argument: sectionLabel ?? arguments[.plain] ?? arguments[.label] ?? "",
+            arguments: arguments.isEmpty ? nil : arguments,
             source: calculatedSource
         )
 

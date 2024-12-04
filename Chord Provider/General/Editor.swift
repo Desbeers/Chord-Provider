@@ -17,7 +17,7 @@ enum Editor {
                 var text = ""
                 switch editorInternals.clickedDirective {
                 case true:
-                    text = "{\(directive.rawValue.long): \(editorInternals.directiveArgument)}"
+                    text = "{\(directive.rawValue.long) \(editorInternals.directiveArgument)}"
                 case false:
                     let selectedText = editorInternals.directiveArgument.isEmpty ?
                     textView.selectedText : editorInternals.directiveArgument
@@ -40,7 +40,7 @@ enum Editor {
         var startOfFormat = directive.format.start
 
         if directive.kind == .optionalLabel && !argument.isEmpty {
-            startOfFormat += ": "
+            startOfFormat += " "
         }
 
         formattedDirective.insert(contentsOf: startOfFormat, at: formattedDirective.startIndex)

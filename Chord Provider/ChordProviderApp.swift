@@ -76,6 +76,10 @@ import SwiftUI
                         appDelegate.closeWelcomeWindow()
                         /// Reset the new content
                         appState.newDocumentContent = appState.standardDocumentContent
+#if DEBUG
+                        /// Show the debug window
+                        appDelegate.showDebugWindow()
+#endif
                     }
             }
         }

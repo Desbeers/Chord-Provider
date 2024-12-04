@@ -21,8 +21,8 @@ extension ChordProEditor {
         var lines: [Song.Section.Line] = []
         /// The current line at the cursor
         var currentLine = Song.Section.Line()
-        /// The optional argument of the current directive
-        var currentDirectiveArgument: String = ""
+        /// The optional arguments of the current directive
+        var currentDirectiveArguments = ChordProParser.Arguments()
         /// The range of the current line
         var currentLineRange: NSRange = .init()
         /// The rect of the current paragraph

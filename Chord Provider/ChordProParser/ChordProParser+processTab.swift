@@ -22,9 +22,9 @@ extension ChordProParser {
             sourceLineNumber: song.lines,
             environment: .tab,
             directive: .environmentLine,
-            source: text
+            arguments: [.plain: text.trimmingCharacters(in: .newlines)],
+            source: text.trimmingCharacters(in: .whitespacesAndNewlines)
         )
-        line.argument = text.trimmingCharacters(in: .newlines)
         currentSection.lines.append(line)
         /// Mark the section as Tab if not set
         if currentSection.environment == .none {

@@ -1,5 +1,5 @@
 //
-//  ChordProParser.processMetadata.swift
+//  ChordProParser+processMetadata.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen

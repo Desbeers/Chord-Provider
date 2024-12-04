@@ -106,7 +106,7 @@ extension ChordProEditor {
                     if highlight {
                         /// Set the current line of the cursor
                         textView.currentLine = line
-                        textView.currentDirectiveArgument = line.argument
+                        textView.currentDirectiveArguments = line.arguments ?? ChordProParser.Arguments()
                     }
                     lineNumber += 1
                 }
