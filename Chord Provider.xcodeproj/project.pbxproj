@@ -612,6 +612,7 @@
 		D7723A202C02406D0031CD0C /* task.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = task.mustache; sourceTree = "<group>"; };
 		D7723A212C02406D0031CD0C /* tasks.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = tasks.mustache; sourceTree = "<group>"; };
 		D7723A242C0240800031CD0C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D7781B4D2D0C94E100EC0CCF /* ChordProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChordProvider.entitlements; sourceTree = "<group>"; };
 		D779D3542C68F0D700380175 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D78819612BFA39D40033545D /* EditorView+validateChordDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+validateChordDefinition.swift"; sourceTree = "<group>"; };
 		D78819652BFB25300033545D /* Help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Help.swift; sourceTree = "<group>"; };
@@ -673,7 +674,6 @@
 		D7F056932CEBB45E00E422AA /* ChordProParser+processSourceComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+processSourceComment.swift"; sourceTree = "<group>"; };
 		D7F13F6F2A645FEC002D875D /* Chord Provider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chord Provider.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F13F7A2A645FED002D875D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChordProvider.entitlements; sourceTree = "<group>"; };
 		D7F13F852A6460B7002D875D /* Song+Section+Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line.swift"; sourceTree = "<group>"; };
 		D7F13F862A6460B7002D875D /* Song.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
 		D7F13F882A6460B7002D875D /* RenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderView.swift; sourceTree = "<group>"; };
@@ -1257,8 +1257,8 @@
 				D7EF99682BDADC2E0058E1CB /* AppError.swift */,
 				D7B45F5D2C2DD438003932CB /* Editor.swift */,
 				D78819652BFB25300033545D /* Help.swift */,
-				D7F13F7B2A645FED002D875D /* ChordProvider.entitlements */,
 				D7F13F7A2A645FED002D875D /* Info.plist */,
+				D7781B4D2D0C94E100EC0CCF /* ChordProvider.entitlements */,
 			);
 			path = General;
 			sourceTree = "<group>";

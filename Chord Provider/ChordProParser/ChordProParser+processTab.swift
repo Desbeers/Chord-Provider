@@ -18,7 +18,7 @@ extension ChordProParser {
     ///   - currentSection: The current `section` of the `song`
     static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
         /// Start with a fresh line
-        var line = Song.Section.Line(
+        let line = Song.Section.Line(
             sourceLineNumber: song.lines,
             environment: .tab,
             directive: .environmentLine,
