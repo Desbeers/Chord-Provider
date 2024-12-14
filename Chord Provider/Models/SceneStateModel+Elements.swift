@@ -424,15 +424,28 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Button {
-                if let document {
-                    let content = sceneState.song.sections.flatMap(\.lines).map(\.source).joined(separator: "\n")
-                    document.document.text = content
-                }
+                sceneState.cleanConfirmation = true
             } label: {
                 Label("Clean Source", systemImage: "paintbrush")
             }
             .help("Try to fix warnings in the document")
             .disabled(document == nil)
+            .confirmationDialog(
+                "Clean the document source?",
+                isPresented: $sceneState.cleanConfirmation,
+                titleVisibility: .visible,
+                actions: {
+                    Button("Clean") {
+                        if let document {
+                            let content = sceneState.song.sections.flatMap(\.lines).map(\.source).joined(separator: "\n")
+                            document.document.text = content
+                        }
+                    }
+                },
+                message: {
+                    Text("This will try to clean the source but can give unexpected results.\n\nYou can always undo this.")
+                }
+            )
         }
     }
 }

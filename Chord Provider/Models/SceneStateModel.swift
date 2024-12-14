@@ -40,6 +40,8 @@ import OSLog
     /// All the values of a ``ChordDefinition``
     /// - Note: Used for editing a chord
     var definition: ChordDefinition
+    /// Bool to show the `clean` confirmation dialog
+    var cleanConfirmation = false
 
     // MARK: Export Stuff
 
