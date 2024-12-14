@@ -19,8 +19,6 @@ import SwiftUI
     @State var showDirectiveSheet: Bool = false
     /// The optional directive to edit
     @State var editDirective: ChordPro.Directive?
-    /// Show an `Alert` if we have an error
-    @State var errorAlert: AlertMessage?
     /// The body of the `View`
     var body: some View {
         /// The binding to the observable state of the scene
@@ -32,7 +30,6 @@ import SwiftUI
             .padding()
             editor
         }
-        .errorAlert(message: $errorAlert)
         /// Show a sheet to add or edit a directive
         .sheet(item: $editDirective) { directive in
             DirectiveSheet(directive: directive)

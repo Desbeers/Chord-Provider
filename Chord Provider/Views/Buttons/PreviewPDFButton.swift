@@ -22,7 +22,9 @@ struct PreviewPDFButton: View {
         Button(
             action: {
                 if sceneState.preview.data == nil || replacePreview {
-                    showPreview()
+                    Task {
+                        await showPreview()
+                    }
                 } else {
                     sceneState.preview.data = nil
                 }
@@ -34,8 +36,8 @@ struct PreviewPDFButton: View {
         .help("Preview of the PDF")
     }
     /// Show a preview of the PDF
-    @MainActor func showPreview() {
-        if let pdf = sceneState.exportSongToPDF() {
+    @MainActor func showPreview() async {
+        if let pdf = await sceneState.exportSongToPDF() {
             /// The preview is not outdated
             sceneState.preview.outdated = false
             /// Show the preview

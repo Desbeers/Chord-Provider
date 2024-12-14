@@ -32,11 +32,16 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 - It can transpose a song; however, only in the View. The document will not be changed and that's on purpose.
 - You can 'define' a Capo but that will not change any notes in the document; again on purpose.
 - It can play chords with MIDI with a guitar instrument that you can select in the settings.
-- It can play audio songs when stored next to the **ChordPro** file when defined with `{musicpath: file-name.m4a}` and when a music folder is selected (sandbox restriction).
+- It can play audio songs or videos when stored next to the **ChordPro** file,
 - Full 'left-handed' chords support.
-- It has a 'Song List' Window for your songs if you select a folder.
 - It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`
 - It makes thumbnails for your **ChordPro** files.
+
+### Optional use the **ChordPro CLI reference implementation** for PDF creation
+
+The [official reference implementation](https://www.chordpro.org/) of the **ChordPro** format is *much* more powerful to create PDF's.
+
+If you have the CLI utility installed on your system, **Chord Provider** can optional use it for creating PDF's.
   
 ### Limitations
 

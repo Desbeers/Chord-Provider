@@ -16,6 +16,10 @@ enum UserFileItem: String, UserFile {
     case exportFolder
     /// A custom song template
     case customSongTemplate
+    /// A custom configuration for the ChordPro CLI
+    case customChordProConfig
+    /// A custom configuration for the ChordPro CLI
+    case customChordProLibrary
     /// The ID of the file item
     var id: String {
         return self.rawValue
@@ -29,6 +33,10 @@ enum UserFileItem: String, UserFile {
             [UTType.folder]
         case .customSongTemplate:
             [UTType.chordProSong]
+        case .customChordProConfig:
+            [UTType.json]
+        case .customChordProLibrary:
+            [UTType.folder]
         }
     }
     /// The optional calculated label of the file
@@ -44,6 +52,10 @@ enum UserFileItem: String, UserFile {
             "folder"
         case .customSongTemplate:
             "music.note.list"
+        case .customChordProConfig:
+            "gear"
+        case .customChordProLibrary:
+            "building.columns"
         }
     }
     /// The message for the file sheet
@@ -55,6 +67,10 @@ enum UserFileItem: String, UserFile {
             "Select the folder with the songs to export"
         case .customSongTemplate:
             "Select your custom template"
+        case .customChordProConfig:
+            "Select your custom ChordPro template"
+        case .customChordProLibrary:
+            "Select your custom ChordPro library"
         }
     }
 }

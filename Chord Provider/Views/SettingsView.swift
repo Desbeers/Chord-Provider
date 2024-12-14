@@ -15,6 +15,8 @@ import SwiftUI
     @Environment(AppStateModel.self) var appState
     /// The AppDelegate to bring additional Windows into the SwiftUI world
     @Environment(AppDelegateModel.self) private var appDelegate
+    /// Bool if **ChordPro CLI** averrable
+    @State var haveChordProCLI: Bool = false
     /// The body of the `View`
     var body: some View {
         TabView {
@@ -38,6 +40,9 @@ import SwiftUI
                 .tabItem {
                     Label("Options", systemImage: "music.quarternote.3")
                 }
+        }
+        .task {
+            haveChordProCLI = await checkChordProCLI()
         }
     }
 
@@ -78,11 +83,43 @@ import SwiftUI
     /// `View` with song options
     @ViewBuilder var options: some View {
         @Bindable var appState = appState
-        VStack(alignment: .leading) {
-            appState.repeatWholeChorusToggle
-            appState.lyricsOnlyToggle
+        ScrollView {
+            VStack(alignment: .leading) {
+                appState.repeatWholeChorusToggle
+                appState.lyricsOnlyToggle
+            }
+            .wrapSettingsSection(title: "Display Options")
+            VStack {
+                VStack(alignment: .leading) {
+                    Toggle(isOn: $appState.settings.chordPro.useChordProCLI) {
+                        Text("Use the official ChordPro to create a PDF")
+                        Text("When enabled, PDF's will be rendered with the official ChordPro reference implementation.")
+                    }
+                    Toggle(isOn: $appState.settings.chordPro.useCustomConfig) {
+                        Text("Use a custom ChordPro configuration")
+                        Text("When enabled, ChordPro will use your own configuration.")
+                    }
+                }
+                UserFileButton(
+                    userFile: UserFileItem.customChordProConfig
+                ) {}
+                    .disabled(!appState.settings.chordPro.useChordProCLI || !appState.settings.chordPro.useCustomConfig)
+                VStack(alignment: .leading) {
+                    Toggle(isOn: $appState.settings.chordPro.useAdditionalLibrary) {
+                        Text("Add a custom library")
+                        // swiftlint:disable:next line_length
+                        Text("**ChordPro** has a built-in library with configs and other data. With *custom library* you can add an additional location where to look for data.")
+                    }
+                    .disabled(!appState.settings.chordPro.useChordProCLI)
+                }
+                UserFileButton(
+                    userFile: UserFileItem.customChordProLibrary
+                ) {}
+                    .disabled(!appState.settings.chordPro.useChordProCLI || !appState.settings.chordPro.useAdditionalLibrary)
+            }
+            .wrapSettingsSection(title: "ChordPro Integration")
+            .disabled(!haveChordProCLI)
         }
-        .wrapSettingsSection(title: "Display Options")
         .frame(maxHeight: .infinity, alignment: .top)
     }
 
@@ -209,6 +246,17 @@ import SwiftUI
         .frame(maxWidth: .infinity)
     }
 }
+
+extension SettingsView {
+
+    func checkChordProCLI() async -> Bool {
+        if (try? await Terminal.getChordProBinary()) != nil {
+            return true
+        }
+        return false
+    }
+}
+
 
 extension SettingsView {
 

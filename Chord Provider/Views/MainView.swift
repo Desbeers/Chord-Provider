@@ -44,7 +44,10 @@ import OSLog
         .toolbar {
             ToolbarView()
         }
+        .errorAlert(message: $sceneState.errorAlert)
         .task {
+            sceneState.file = file
+            sceneState.content = document.text
             renderSong()
             /// Always open the editor for a new file
             if document.text == appState.standardDocumentContent || document.text == appState.standardDocumentContent + "\n" {
@@ -53,6 +56,7 @@ import OSLog
             sceneState.status = .ready
         }
         .onChange(of: document.text) {
+            sceneState.content = document.text
             renderSong()
         }
         .onChange(of: sceneState.song.metadata.transpose) {

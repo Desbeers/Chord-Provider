@@ -19,11 +19,13 @@ struct ShareButton: View {
     var body: some View {
         Button(
             action: {
-                if sceneState.exportSongToPDF() != nil {
-                    /// Set the export URL
-                    exportURL = sceneState.exportURL
-                    /// Show the share picker
-                    self.showSharePicker = true
+                Task {
+                    if await sceneState.exportSongToPDF() != nil {
+                        /// Set the export URL
+                        exportURL = sceneState.exportURL
+                        /// Show the share picker
+                        self.showSharePicker = true
+                    }
                 }
             },
             label: {

@@ -1,6 +1,6 @@
 //
 //  AppState.swift
-//  Chord Provider (macOS)
+//  Chord Provider
 //
 //  © 2024 Nick Berendsen
 //
@@ -39,6 +39,23 @@ import SwiftUI
         let content = ChordProDocument.getSongTemplateContent(settings: settings)
         self.standardDocumentContent = content
         self.newDocumentContent = content
+    }
+}
+
+extension AppStateModel {
+
+    /// Add the user settings as arguments to **ChordPro** for the Terminal action
+    /// - Parameter settings: The ``AppSettings``
+    /// - Returns: An array with arguments
+    static func getUserSettings(settings: AppSettings) -> [String] {
+        /// Start with an empty array
+        var arguments: [String] = []
+        /// Optional show only the lyrics
+        if settings.song.display.lyricsOnly {
+            arguments.append("--lyrics-only")
+        }
+        /// Return the basic settings
+        return arguments
     }
 }
 

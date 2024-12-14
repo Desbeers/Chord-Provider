@@ -24,7 +24,7 @@ extension EditorView {
             return true
         } catch {
             /// Show an error alert
-            errorAlert = error.alert()
+            sceneState.errorAlert = error.alert()
         }
         return false
     }

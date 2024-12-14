@@ -17,9 +17,11 @@ struct PrintPDFButton: View {
     var body: some View {
         Button(
             action: {
-                if let sceneState, let pdf = sceneState.exportSongToPDF() {
-                    /// Show the print dialog
-                    AppKitUtils.printDialog(exportURL: pdf.url)
+                Task {
+                    if let sceneState, let pdf = await sceneState.exportSongToPDF() {
+                        /// Show the print dialog
+                        AppKitUtils.printDialog(exportURL: pdf.url)
+                    }
                 }
             },
             label: {

@@ -16,6 +16,8 @@ struct AppSettings: Equatable, Codable, Sendable {
     var song = Song()
     /// The options for the ``ChordProEditor``
     var editor: ChordProEditor.Settings = .init()
+    /// ChordPro integration
+    var chordPro: ChordPro = .init()
 }
 
 extension AppSettings {
@@ -29,6 +31,22 @@ extension AppSettings {
         var showMenuBarExtra: Bool = true
         /// Bool to use a custom song template
         var useCustomSongTemplate: Bool = false
+    }
+}
+
+extension AppSettings {
+
+    /// ChordPro integration
+    struct ChordPro: Codable, Equatable {
+
+        /// Bool to use the ChordPro CLI for PDF creation
+        var useChordProCLI: Bool = false
+        /// Bool to use a custom config instead of system
+        var useCustomConfig: Bool = false
+        /// The selected custom config
+        var customConfigURL: URL?
+        /// Bool to use an additional library
+        var useAdditionalLibrary: Bool = false
     }
 }
 

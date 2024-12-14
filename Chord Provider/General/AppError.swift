@@ -22,6 +22,8 @@ enum AppError: String, LocalizedError {
     case writeDocumentError
     /// An error when a custom file is not found
     case customFileNotFound
+    /// The song is empty
+    case emptySong
 
     // MARK: Songs folder
 
@@ -39,10 +41,19 @@ enum AppError: String, LocalizedError {
     /// The audio file is ready to play
     case readyToPlay
 
+    // MARK: ChordPro integration
+
+    /// A binary error if **ChordPro** is not found
+    case binaryNotFound
+    /// An error when creating a PDF
+    case createChordProPdfError
+
     // MARK: Fallback
 
     /// An unknown status
     case unknownStatus
+    /// Not an error
+    case noErrorOccurred
 
     // MARK: Protocol items
 
@@ -55,6 +66,10 @@ enum AppError: String, LocalizedError {
             "The song is not downloaded"
         case .noSongsFolderSelectedError:
             "No songs folder selected"
+        case .binaryNotFound:
+            "The ChordPro CLI was not found"
+        case .createChordProPdfError:
+            "The ChordPro CLI could not create a PDF"
         default:
             self.rawValue
         }
@@ -84,6 +99,14 @@ Both have to be in the selected 'songs folder'.
 You have defined a song but it was not found.
 
 You have not selected a folder with your songs. Chord Provider needs to know where your songs are to be able to play it.
+"""
+        case .binaryNotFound:
+"""
+It looks like the ChordPro CLI is not installed or it is not in your $path.
+"""
+        case .createChordProPdfError:
+"""
+Sorry... Please use its official GUI for diagnostics.
 """
         default:
             self.rawValue

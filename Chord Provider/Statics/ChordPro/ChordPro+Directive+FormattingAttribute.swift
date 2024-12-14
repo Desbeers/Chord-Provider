@@ -20,6 +20,8 @@ extension ChordPro.Directive {
         case y
         case scale
         case src
+        case spread
+        case width
 
         /// Implement Comparable
         static func < (lhs: FormattingAttribute, rhs: FormattingAttribute) -> Bool {
@@ -38,6 +40,8 @@ extension ChordPro.Directive {
             case .y: 7
             case .scale: 8
             case .src: 9
+            case .spread: 10
+            case .width: 11
             }
         }
     }

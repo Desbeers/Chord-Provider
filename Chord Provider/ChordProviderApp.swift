@@ -143,7 +143,7 @@ import SwiftUI
             SettingsView()
                 .environment(appState)
                 .environment(fileBrowser)
-                .frame(width: 340, height: 480)
+                .frame(width: 340, height: 490)
         }
     }
 }
