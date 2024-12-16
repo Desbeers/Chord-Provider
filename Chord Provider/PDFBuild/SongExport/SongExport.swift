@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 /// Export a single ``Song`` to a PDF
 enum SongExport {
@@ -116,6 +116,8 @@ extension SongExport {
                 items.append(textblockSection(section: section))
             case .strum:
                 items.append(strumSection(section: section))
+            case .image:
+                items.append(imageSection(section: section, fileURL: song.metadata.fileURL))
             case .abc:
                 /// Not supported
                 break
@@ -229,7 +231,7 @@ extension SongExport {
                         backgroundColor: .clear,
                         alignment: .right
                     ),
-                    PDFBuild.Divider(direction: .vertical),
+                    label.isEmpty ? PDFBuild.Spacer() : PDFBuild.Divider(direction: .vertical),
                     PDFBuild.TextblockSection(section)
                 ]
             )
@@ -292,5 +294,59 @@ extension SongExport {
                 )
             }
         }
+
+        // MARK: Image Section
+
+        /// Add a Comment Section
+        /// - Parameter section: The current section
+        /// - Returns: A ``PDFBuild/Section`` element
+        func imageSection(section: Song.Section, fileURL: URL?) -> PDFBuild.Section {
+            var arguments = section.arguments
+            if arguments?[.align] == nil {
+                /// Set the default
+                arguments?[.align] = "center"
+            }
+            if let source = arguments?[.src], let image = loadImage(source: source, fileURL: fileURL) {
+                return PDFBuild.Section(
+                    columns: [.fixed(width: 110), .flexible],
+                    items: [
+                        PDFBuild.Spacer(),
+                        PDFBuild.Image(
+                            image,
+                            size: ChordProParser.getImageSize(image: image, arguments: arguments),
+                            alignment: PDFBuild.getAlign(arguments),
+                            offset: ChordProParser.getOffset(arguments)
+                        )
+                    ]
+                )
+            }
+            return PDFBuild.Section(
+                columns: [.fixed(width: 110), .flexible],
+                items: [
+                    PDFBuild.Spacer(),
+                    PDFBuild.Comment("Image not available")
+                ]
+            )
+        }
+    }
+}
+
+
+extension SongExport {
+    static func loadImage(source: String, fileURL: URL?) -> NSImage? {
+        guard let imageURL = ChordProParser.getImageSource(source, fileURL: fileURL) else { return nil }
+        let semaphore = DispatchSemaphore(value: 0)
+
+        var image: NSImage?
+
+        let task = URLSession.shared.dataTask(with: imageURL) { data, _, _ in
+            if let data, let nsImage = NSImage(data: data) {
+                image = nsImage
+            }
+            semaphore.signal()
+        }
+        task.resume()
+        semaphore.wait()
+        return image
     }
 }

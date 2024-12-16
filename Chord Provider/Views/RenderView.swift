@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: Render a `Song` structure into a SwiftUI `View`
 
 /// Render a ``Song`` structure into a SwiftUI `View`
-struct RenderView: View {
+@MainActor struct RenderView: View {
 
     /// The ``Song``
     let song: Song
@@ -51,6 +51,7 @@ struct RenderView: View {
                     Grid(alignment: .topTrailing, verticalSpacing: 20 * song.settings.display.scale) {
                         sections
                     }
+                    .fixedSize(horizontal: true, vertical: false)
                 }
             }
             .font(.system(size: 14 * song.settings.display.scale))
@@ -91,6 +92,9 @@ struct RenderView: View {
                 commentSection(section: section)
             case .strum:
                 strumSection(section: section)
+            case .image:
+                /// TODO
+                imageSection(section: section)
             case .metadata:
                 /// Don't render metadata
                 EmptyView()
@@ -323,7 +327,7 @@ extension RenderView {
 
     /// SwiftUI `View` for a plain text section
     func textblockSection(section: Song.Section) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: getFlush(section.arguments)) {
             ForEach(section.lines) { line in
                 if let parts = line.parts {
                     ForEach(parts) { part in
@@ -334,7 +338,7 @@ extension RenderView {
             }
         }
         .foregroundStyle(.secondary)
-        .frame(idealWidth: 400 * song.settings.display.scale, maxWidth: 400 * song.settings.display.scale, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: getAlign(section.arguments))
         .modifier(
             SectionView(
                 settings: song.settings,
@@ -387,6 +391,26 @@ extension RenderView {
             }
         }
         .modifier(SectionView(settings: song.settings, label: section.label))
+    }
+
+    // MARK: Image
+
+    /// SwiftUI `View` for an image
+    func imageSection(section: Song.Section) -> some View {
+        var arguments = section.arguments
+        if arguments?[.align] == nil {
+            /// Set the default
+            arguments?[.align] = "center"
+        }
+        return VStack {
+            ImageView(
+                fileURL: song.metadata.fileURL,
+                arguments: arguments,
+                scale: song.settings.display.scale
+            )
+        }
+        .frame(maxWidth: .infinity, alignment: getAlign(arguments))
+        .modifier(SectionView(settings: song.settings, label: ""))
     }
 
     // MARK: Plain
@@ -468,5 +492,34 @@ extension RenderView {
             .padding(settings.display.scale * 6)
             .background(color, in: RoundedRectangle(cornerRadius: 6))
         }
+    }
+}
+
+extension RenderView {
+    func getFlush(_ arguments: ChordProParser.Arguments?) -> HorizontalAlignment {
+        if let flush = arguments?[.flush] {
+            switch flush {
+            case "center":
+                return .center
+            case "right":
+                return .trailing
+            default:
+                return .leading
+            }
+        }
+        return .leading
+    }
+    func getAlign(_ arguments: ChordProParser.Arguments?) -> Alignment {
+        if let align = arguments?[.align] {
+            switch align {
+            case "center":
+                return .center
+            case "right":
+                return .trailing
+            default:
+                return .leading
+            }
+        }
+        return .leading
     }
 }

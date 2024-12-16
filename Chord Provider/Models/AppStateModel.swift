@@ -27,6 +27,16 @@ import SwiftUI
         }
     }
 
+    var imageCache: NSCache<NSURL, NSImage>?
+
+    func setImageCache(image: NSImage, key: URL) {
+        imageCache?.setObject(image, forKey: key as NSURL)
+    }
+
+    func getImageFromCache(from key: URL) -> NSImage? {
+        imageCache?.object(forKey: key as NSURL) as? NSImage
+    }
+
     var media = MediaPlayerView.Item()
 
     /// Init the class; get application settings

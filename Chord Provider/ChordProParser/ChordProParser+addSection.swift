@@ -44,6 +44,8 @@ extension ChordProParser {
         /// Update the current section
         currentSection.environment = environment
         currentSection.label = sectionLabel ?? arguments[.plain] ?? arguments[.label] ?? directive.environment.label
+        /// Set the arguments
+        currentSection.arguments = arguments
 
         /// Calculate the source
         var calculatedSource = source ?? ""
@@ -78,5 +80,7 @@ extension ChordProParser {
 
         /// Set the environment
         currentSection.environment = directive.environment
+        /// Set the arguments
+        currentSection.arguments = arguments
     }
 }

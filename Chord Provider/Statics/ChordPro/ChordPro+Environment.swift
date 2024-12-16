@@ -47,6 +47,9 @@ extension ChordPro {
         /// The environment contains metadata
         case metadata
 
+        /// Image environment
+        case image
+
         /// Not an environment
         /// - Note: A source comment or an empty line for example
         case none
@@ -80,6 +83,8 @@ extension ChordPro.Environment {
             "Strum"
         case .metadata:
             "Metadata"
+        case .image:
+            "Image"
         case .none:
             "None"
         }

@@ -133,6 +133,16 @@ extension ChordProParser {
                     case .define:
                         processDefine(arguments: arguments, currentSection: &currentSection, song: &song)
 
+                        // MARK: Images
+
+                    case .image:
+                        addSection(
+                            directive: directive,
+                            arguments: arguments,
+                            environment: .image,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
                         // MARK: Unsupported directives
 
                     default:

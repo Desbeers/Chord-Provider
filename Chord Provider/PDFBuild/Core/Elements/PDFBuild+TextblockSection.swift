@@ -17,7 +17,7 @@ extension PDFBuild {
         /// The section with textblock
         let section: Song.Section
 
-        /// Ini the **textblock section** element
+        /// Init the **textblock section** element
         /// - Parameter section: The section with textblock
         init(_ section: Song.Section) {
             self.section = section
@@ -32,7 +32,7 @@ extension PDFBuild {
             for line in section.lines {
                 if let parts = line.parts {
                     for part in parts {
-                        let line = PDFBuild.Text(part.text, attributes: .textblockLine)
+                        let line = PDFBuild.Text(part.text, attributes: .textblockLine + .alignment(PDFBuild.getAlign(section.arguments)))
                         line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }
                 }
