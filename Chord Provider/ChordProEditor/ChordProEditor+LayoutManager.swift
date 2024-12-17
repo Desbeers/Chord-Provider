@@ -23,7 +23,7 @@ extension ChordProEditor {
         }
 
         var lineHeight: CGFloat {
-            let lineHeight = fontLineHeight * ChordProEditor.lineHeightMultiple
+            let lineHeight = fontLineHeight * Editor.lineHeightMultiple
             return lineHeight
         }
 

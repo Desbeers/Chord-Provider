@@ -11,14 +11,11 @@ extension ChordProEditor {
 
     // MARK: Static settings for the editor
 
-    /// The line height multiplier for the editor text
-    static let lineHeightMultiple: Double = 1.6
-
     /// The style of a number in the ruler
     static var rulerNumberStyle: [NSAttributedString.Key: Any] {
         let lineNumberStyle = NSMutableParagraphStyle()
         lineNumberStyle.alignment = .right
-        lineNumberStyle.lineHeightMultiple = lineHeightMultiple
+        lineNumberStyle.lineHeightMultiple = Editor.lineHeightMultiple
         var fontAttributes: [NSAttributedString.Key: Any] = [:]
         fontAttributes[NSAttributedString.Key.paragraphStyle] = lineNumberStyle
         return fontAttributes

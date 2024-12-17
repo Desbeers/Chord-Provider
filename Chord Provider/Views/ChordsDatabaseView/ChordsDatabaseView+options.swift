@@ -11,8 +11,8 @@ extension ChordsDatabaseView {
     var options: some View {
         Grid(alignment: .leading) {
             GridRow {
-                appState.mirrorToggle
-                appState.midiInstrumentPicker
+                AppStateModel.MirrorToggle(appState: appState)
+                AppStateModel.MidiInstrumentPicker(appState: appState)
                     .frame(maxWidth: 220)
                 Button {
                     do {

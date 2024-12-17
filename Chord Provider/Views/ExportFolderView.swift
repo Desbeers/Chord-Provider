@@ -39,8 +39,8 @@ struct ExportFolderView: View {
                         currentFolder = ExportFolderView.exportFolderTitle
                     }
                 }
-                appState.repeatWholeChorusToggle
-                appState.lyricsOnlyToggle
+                AppStateModel.RepeatWholeChorusToggle(appState: appState)
+                AppStateModel.LyricsOnlyToggle(appState: appState)
                 sceneState.instrumentPicker
                     .pickerStyle(.segmented)
                 Section("PDF info") {
@@ -49,9 +49,9 @@ struct ExportFolderView: View {
                 }
                     .pickerStyle(.segmented)
                 Section("Diagrams") {
-                    appState.fingersToggle
-                    appState.notesToggle
-                    appState.mirrorToggle
+                    AppStateModel.FingersToggle(appState: appState)
+                    AppStateModel.NotesToggle(appState: appState)
+                    AppStateModel.MirrorToggle(appState: appState)
                 }
             }
             .formStyle(.grouped)

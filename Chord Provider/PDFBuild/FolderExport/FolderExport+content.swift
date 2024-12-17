@@ -23,7 +23,7 @@ extension FolderExport {
         counter: PDFBuild.PageCounter,
         appSettings: AppSettings,
         progress: @escaping (Double) -> Void
-    ) -> Data {
+    ) async -> Data {
         let builder = PDFBuild.Builder(documentInfo: documentInfo)
         builder.pageCounter = counter
         // MARK: Render PDF content
@@ -60,7 +60,7 @@ extension FolderExport {
                         settings: appSettings.song,
                         fileURL: item.fileURL
                     )
-                    builder.elements.append(
+                    await builder.elements.append(
                         contentsOf: SongExport.getSongElements(
                             song: song,
                             counter: counter

@@ -37,9 +37,9 @@ extension AppStateModel {
     // MARK: Repeat Whole Chorus Toggle
 
     /// SwiftUI `View` with a `Toggle` to show the whole last chorus when using a *{chorus}* directive
-    var repeatWholeChorusToggle: some View {
-        RepeatWholeChorusToggle(appState: self)
-    }
+//    var repeatWholeChorusToggle: some View {
+//        RepeatWholeChorusToggle(appState: self)
+//    }
     /// SwiftUI `View` with a `Toggle` to show the whole last chorus when using a *{chorus}* directive
     struct RepeatWholeChorusToggle: View {
         /// Chord Display Options object
@@ -55,10 +55,10 @@ extension AppStateModel {
 
     // MARK: Lyrics Only Toggle
 
-    /// SwiftUI `View` with a `Toggle` to show only the lyrics
-    var lyricsOnlyToggle: some View {
-        LyricsOnlyToggle(appState: self)
-    }
+//    /// SwiftUI `View` with a `Toggle` to show only the lyrics
+//    var lyricsOnlyToggle: some View {
+//        LyricsOnlyToggle(appState: self)
+//    }
     /// SwiftUI `View` with a `Toggle` to show only the lyrics
     struct LyricsOnlyToggle: View {
         /// Chord Display Options object
@@ -74,10 +74,10 @@ extension AppStateModel {
 
     // MARK: Name Toggle
 
-    /// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
-    var nameToggle: some View {
-        NameToggle(appState: self)
-    }
+//    /// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
+//    var nameToggle: some View {
+//        NameToggle(appState: self)
+//    }
     //// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
     struct NameToggle: View {
         /// App State
@@ -92,10 +92,10 @@ extension AppStateModel {
 
     // MARK: Fingers Toggle
 
-    /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
-    var fingersToggle: some View {
-        FingersToggle(appState: self)
-    }
+//    /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
+//    var fingersToggle: some View {
+//        FingersToggle(appState: self)
+//    }
     /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
     struct FingersToggle: View {
         /// Chord Display Options object
@@ -120,10 +120,10 @@ extension AppStateModel {
 
     // MARK: Notes Toggle
 
-    /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
-    var notesToggle: some View {
-        NotesToggle(appState: self)
-    }
+//    /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
+//    var notesToggle: some View {
+//        NotesToggle(appState: self)
+//    }
     /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
     struct NotesToggle: View {
         /// Chord Display Options object
@@ -142,10 +142,10 @@ extension AppStateModel {
 
     // MARK: Mirror Toggle
 
-    /// SwiftUI `View` with a `Toggle`  to mirror the diagram
-    var mirrorToggle: some View {
-        MirrorToggle(appState: self)
-    }
+//    /// SwiftUI `View` with a `Toggle`  to mirror the diagram
+//    var mirrorToggle: some View {
+//        MirrorToggle(appState: self)
+//    }
     /// SwiftUI `View` with a `Toggle`  to mirror the diagram
     struct MirrorToggle: View {
         /// Chord Display Options object
@@ -164,10 +164,10 @@ extension AppStateModel {
 
     // MARK: Play Toggle
 
-    /// SwiftUI `View` with a `Toggle` to show or hide the play button
-    var playToggle: some View {
-        PlayToggle(appState: self)
-    }
+//    /// SwiftUI `View` with a `Toggle` to show or hide the play button
+//    var playToggle: some View {
+//        PlayToggle(appState: self)
+//    }
     /// SwiftUI `View` with a `Toggle`  to show or hide the play button
     struct PlayToggle: View {
         /// Chord Display Options object
@@ -191,10 +191,10 @@ extension AppStateModel {
 
     // MARK: Midi Instrument Picker
 
-    /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
-    var midiInstrumentPicker: some View {
-        MidiInstrumentPicker(appState: self)
-    }
+//    /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
+//    var midiInstrumentPicker: some View {
+//        MidiInstrumentPicker(appState: self)
+//    }
     /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
     struct MidiInstrumentPicker: View {
         /// Chord Display Options object

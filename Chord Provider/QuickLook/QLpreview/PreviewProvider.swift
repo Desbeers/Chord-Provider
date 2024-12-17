@@ -12,21 +12,25 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
     func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {
         let contentType = UTType.pdf
+        let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
+        let song = ChordProParser.parse(
+            id: UUID(),
+            text: fileContents,
+            transpose: 0,
+            settings: AppSettings.Song(),
+            fileURL: request.fileURL
+        )
+        let songData = try await SongExport.export(
+            song: song
+        ).pdf
+
         let reply = QLPreviewReply.init(
             dataOfContentType: contentType,
             contentSize: CGSize.init(width: 800, height: 800)
         ) { (replyToUpdate: QLPreviewReply) in
-            let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-            let song = ChordProParser.parse(
-                id: UUID(),
-                text: fileContents,
-                transpose: 0,
-                settings: AppSettings.Song(),
-                fileURL: request.fileURL
-            )
-            let data = try SongExport.export(
-                song: song
-            ).pdf
+
+            let data = songData
+
             replyToUpdate.title = "\(song.metadata.artist) - \(song.metadata.title)"
             replyToUpdate.stringEncoding = .utf8
             return data

@@ -85,8 +85,8 @@ struct SettingsView: View {
         @Bindable var appState = appState
         ScrollView {
             VStack(alignment: .leading) {
-                appState.repeatWholeChorusToggle
-                appState.lyricsOnlyToggle
+                AppStateModel.RepeatWholeChorusToggle(appState: appState)
+                AppStateModel.LyricsOnlyToggle(appState: appState)
             }
             .wrapSettingsSection(title: "Display Options")
             VStack {
@@ -128,16 +128,16 @@ struct SettingsView: View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    appState.fingersToggle
-                    appState.notesToggle
-                    appState.mirrorToggle
+                    AppStateModel.FingersToggle(appState: appState)
+                    AppStateModel.NotesToggle(appState: appState)
+                    AppStateModel.MirrorToggle(appState: appState)
                 }
                 .wrapSettingsSection(title: "General")
                 VStack(alignment: .leading) {
-                    appState.playToggle
+                    AppStateModel.PlayToggle(appState: appState)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     if appState.settings.song.diagram.showPlayButton {
-                        appState.midiInstrumentPicker
+                        AppStateModel.MidiInstrumentPicker(appState: appState)
                             .padding([.top, .leading])
                     }
                 }

@@ -81,7 +81,7 @@ extension FolderExport {
         counter.pageNumber -= 1
 
         // MARK: Render Content
-        let contentData = FolderExport.content(
+        let contentData = await FolderExport.content(
             documentInfo: documentInfo,
             counter: counter,
             appSettings: appSettings,

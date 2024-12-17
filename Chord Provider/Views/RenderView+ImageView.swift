@@ -27,9 +27,9 @@ extension RenderView {
                 .resizable()
                 .frame(width: imageView.size.width * scale, height: imageView.size.height * scale)
                 .offset(x: offset.width, y: offset.height)
-                .onChange(of: arguments) {
+                .task(id: arguments) {
                     offset = ChordProParser.getOffset(arguments)
-                    imageView.updateArguments(arguments)
+                    await imageView.updateArguments(arguments)
                 }
                 .animation(.default, value: imageView.size)
                 .animation(.default, value: imageView.image)

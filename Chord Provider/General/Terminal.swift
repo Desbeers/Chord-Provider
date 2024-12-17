@@ -19,7 +19,7 @@ extension Terminal {
     /// Run a script in the shell and return its output
     /// - Parameter arguments: The arguments to pass to the shell
     /// - Returns: The output from the shell
-    @MainActor static func runInShell(arguments: [String], sceneState: SceneStateModel?) async -> Output {
+    @MainActor static func runInShell(arguments: [String], sceneState: SceneStateModel? = nil) async -> Output {
         /// The normal output
         var allOutput: [OutputItem] = []
         /// The error output
@@ -116,7 +116,7 @@ extension Terminal {
     /// - Note: The executable is packed in this application
     static func getChordProBinary() async throws -> URL {
         if
-            let which = await Terminal.runInShell(arguments: ["which chordpro"], sceneState: nil)
+            let which = await Terminal.runInShell(arguments: ["which chordpro"])
                 .standardOutput.first?.message.trimmingCharacters(in: .whitespacesAndNewlines),
             which.contains("/chordpro") {
             return URL(filePath: which)

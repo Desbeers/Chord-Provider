@@ -36,7 +36,7 @@ extension AppKitUtils {
             Coordinator(self)
         }
         // swiftlint:disable:next nesting
-        class Coordinator: NSObject, NSSharingServicePickerDelegate {
+        class Coordinator: NSObject, @preconcurrency NSSharingServicePickerDelegate {
             /// The parent
             let parent: SharingServiceRepresentedView
             /// Init the **coordinator**
@@ -47,7 +47,7 @@ extension AppKitUtils {
             // MARK: Protocol Stuff
 
             /// Asks the delegate to provide an object that the selected sharing service can use as its delegate
-            func sharingServicePicker(
+            @MainActor func sharingServicePicker(
                 _ sharingServicePicker: NSSharingServicePicker,
                 sharingServicesForItems items: [Any],
                 proposedSharingServices proposedServices: [NSSharingService]
@@ -58,9 +58,7 @@ extension AppKitUtils {
                     let url = parent.url,
                     let image = NSImage(systemSymbolName: "printer", accessibilityDescription: "Printer") {
                     let printService = NSSharingService(title: "Print PDF", image: image, alternateImage: image) {
-                        Task {
-                            await AppKitUtils.printDialog(exportURL: url)
-                        }
+                        AppKitUtils.printDialog(exportURL: url)
                     }
                     share.insert(printService, at: 0)
                 }

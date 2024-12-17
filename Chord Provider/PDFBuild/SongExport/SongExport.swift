@@ -23,7 +23,7 @@ extension SongExport {
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
         song: Song
-    ) throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
+    ) async throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         let documentInfo = PDFBuild.DocumentInfo(
             title: song.metadata.title,
             author: song.metadata.artist
@@ -42,7 +42,7 @@ extension SongExport {
                 ]
             )
         ]
-        builder.elements.append(
+        await builder.elements.append(
             contentsOf: getSongElements(
                 song: song,
                 counter: counter
@@ -70,7 +70,7 @@ extension SongExport {
     static func getSongElements(
         song: Song,
         counter: PDFBuild.PageCounter
-    ) -> [PDFElement] {
+    ) async -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
             id: song.id,
             title: song.metadata.title,
@@ -132,7 +132,7 @@ extension SongExport {
             case .strum:
                 items.append(strumSection(section: section))
             case .image:
-                items.append(imageSection(section: section, fileURL: song.metadata.fileURL))
+                await items.append(imageSection(section: section, fileURL: song.metadata.fileURL))
             case .abc:
                 /// Not supported
                 break
@@ -313,13 +313,13 @@ extension SongExport {
         /// Add a Comment Section
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
-        func imageSection(section: Song.Section, fileURL: URL?) -> PDFBuild.Section {
+        func imageSection(section: Song.Section, fileURL: URL?) async -> PDFBuild.Section {
             var arguments = section.arguments
             if arguments?[.align] == nil {
                 /// Set the default
                 arguments?[.align] = "center"
             }
-            if let source = arguments?[.src], let image = loadImage(source: source, fileURL: fileURL) {
+            if let source = arguments?[.src], let image = await loadImage(source: source, fileURL: fileURL) {
                 return PDFBuild.Section(
                     columns: [.fixed(width: labelWidth + 10), .flexible],
                     items: [
@@ -350,21 +350,14 @@ extension SongExport {
     static func labelDivider(section: Song.Section) -> PDFElement {
         section.label.isEmpty ? PDFBuild.Spacer() : PDFBuild.Divider(direction: .vertical)
     }
-
-    static func loadImage(source: String, fileURL: URL?) -> NSImage? {
+    static func loadImage(source: String, fileURL: URL?) async -> NSImage? {
         guard let imageURL = ChordProParser.getImageSource(source, fileURL: fileURL) else { return nil }
-        let semaphore = DispatchSemaphore(value: 0)
-
         var image: NSImage?
-
-        let task = URLSession.shared.dataTask(with: imageURL) { data, _, _ in
-            if let data, let nsImage = NSImage(data: data) {
-                image = nsImage
-            }
-            semaphore.signal()
+        let task = Task.detached {
+            try? Data(contentsOf: imageURL)
         }
-        task.resume()
-        semaphore.wait()
+        guard let data = await task.value, let nsImage = NSImage(data: data) else { return nil }
+        image = nsImage
         return image
     }
 }

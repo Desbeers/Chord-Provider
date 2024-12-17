@@ -8,6 +8,10 @@
 import Foundation
 
 enum Editor {
+
+    /// The line height multiplier for the editor text
+    static let lineHeightMultiple: Double = 1.6
+
     static func format(
         directive: ChordPro.Directive,
         editorInternals: ChordProEditor.Internals

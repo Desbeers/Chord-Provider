@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 /// The observable scene state for **Chord Provider**
-@Observable final class SceneStateModel {
+@MainActor @Observable final class SceneStateModel {
     /// The optional file location
     var file: URL?
     /// The raw content of the document
@@ -63,7 +63,7 @@ import OSLog
         case false:
             /// Default renderer
             do {
-                let export = try SongExport.export(
+                let export = try await SongExport.export(
                     song: song
                 )
                 try export.pdf.write(to: exportURL)
