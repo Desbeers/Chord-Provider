@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 /// SwiftUI `View` for the main content
-@MainActor struct MainView: View {
+struct MainView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
     /// The AppDelegate to bring additional Windows into the SwiftUI world

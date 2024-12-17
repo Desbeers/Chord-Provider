@@ -36,7 +36,7 @@ struct PreviewPDFButton: View {
         .help("Preview of the PDF")
     }
     /// Show a preview of the PDF
-    @MainActor func showPreview() async {
+    func showPreview() async {
         if let pdf = await sceneState.exportSongToPDF() {
             /// The preview is not outdated
             sceneState.preview.outdated = false

@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 /// SwiftUI `View` for a folder export
-@MainActor struct ExportFolderView: View {
+struct ExportFolderView: View {
     /// The observable state of the application
     @State private var appState = AppStateModel(id: .exportFolderView)
     /// The state of the scene

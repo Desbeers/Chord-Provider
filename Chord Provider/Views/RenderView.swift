@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: Render a `Song` structure into a SwiftUI `View`
 
 /// Render a ``Song`` structure into a SwiftUI `View`
-@MainActor struct RenderView: View {
+struct RenderView: View {
 
     /// The ``Song``
     let song: Song

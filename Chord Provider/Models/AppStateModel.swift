@@ -8,16 +8,17 @@
 import SwiftUI
 
 /// The observable application state for **Chord Provider**
-@Observable @MainActor final class AppStateModel {
+@Observable final class AppStateModel {
     /// The shared instance of the class
-    static let shared = AppStateModel(id: .mainView)
+    nonisolated(unsafe) static let shared = AppStateModel(id: .mainView)
     /// The list with recent files
     var recentFiles: [URL] = []
     /// The standard content for a new document
     var standardDocumentContent: String
     /// The actual content for a new song
-    /// - Note: This will be different thah the standard when opened from the ``WelcomeView``
+    /// - Note: This will be different than the standard when opened from the ``WelcomeView``
     var newDocumentContent: String
+
     /// The ID of the app state
     var id: AppStateID
     /// The application settings

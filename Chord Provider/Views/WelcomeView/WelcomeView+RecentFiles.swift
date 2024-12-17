@@ -11,7 +11,7 @@ import OSLog
 extension WelcomeView {
 
     /// SwiftUI `View` for the recent files
-    @MainActor struct RecentFiles: View {
+    struct RecentFiles: View {
         /// The observable state of the application
         @State private var appState = AppStateModel.shared
         /// The observable ``FileBrowser`` class

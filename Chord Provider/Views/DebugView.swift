@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `View` for the debug window
-@MainActor struct DebugView: View {
+struct DebugView: View {
     /// The currently selected tab
     @State private var tab: DebugMessage = .source
     /// The source of the song

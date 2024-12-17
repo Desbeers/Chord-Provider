@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `View` for the song
-@MainActor struct SongView: View {
+struct SongView: View {
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`

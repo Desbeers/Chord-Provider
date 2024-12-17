@@ -82,7 +82,7 @@ extension RenderView {
         }
         /// Get the diagram
         /// - Note: Diagrams are stored in a memory cache to improve performance
-        @MainActor func getDiagram() -> some View {
+        func getDiagram() -> some View {
             /// Create a unique ID
             let diagramID = "\(chord.baseFret)-\(chord.frets)-\(colorScheme)"
             /// Check if in cache

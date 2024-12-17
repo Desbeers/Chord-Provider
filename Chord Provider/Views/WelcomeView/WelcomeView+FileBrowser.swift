@@ -11,7 +11,7 @@ import OSLog
 extension WelcomeView {
 
     /// SwiftUI `View` for the file browser
-    @MainActor struct FileBrowser: View {
+    struct FileBrowser: View {
         /// The observable ``FileBrowser`` class
         @State private var fileBrowser = FileBrowserModel.shared
         /// The search query
@@ -175,7 +175,7 @@ extension WelcomeView {
 extension WelcomeView.FileBrowser {
 
     /// SwiftUI `View` for a row in the browser list
-    @MainActor struct Row: View {
+    struct Row: View {
         /// The song item
         let song: FileBrowserModel.SongItem
         /// Show the artist or not

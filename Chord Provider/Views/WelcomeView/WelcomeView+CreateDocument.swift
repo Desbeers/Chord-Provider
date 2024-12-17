@@ -11,7 +11,7 @@ import OSLog
 extension WelcomeView {
 
     /// SwiftUI `View` for creating a new document
-    @MainActor struct CreateDocument: View {
+    struct CreateDocument: View {
         /// The observable state of the application
         @State private var appState = AppStateModel.shared
         /// The AppDelegate to bring additional Windows into the SwiftUI world

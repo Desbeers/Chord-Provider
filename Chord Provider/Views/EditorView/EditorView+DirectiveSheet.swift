@@ -10,7 +10,7 @@ import SwiftUI
 extension EditorView {
 
     /// SwiftUI `View` to define a directive
-    @MainActor struct DirectiveSheet: View {
+    struct DirectiveSheet: View {
         /// The directive
         let directive: ChordPro.Directive
         /// The observable state of the scene

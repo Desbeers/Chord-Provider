@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@MainActor struct ScaleModifier: ViewModifier {
+struct ScaleModifier: ViewModifier {
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The minimum scale factor

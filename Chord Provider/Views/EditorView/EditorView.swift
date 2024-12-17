@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `View` for the ``ChordProEditor``
-@MainActor struct EditorView: View {
+struct EditorView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
     /// The observable state of the application

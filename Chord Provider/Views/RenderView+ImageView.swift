@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension RenderView {
-    @MainActor struct ImageView: View {
+    struct ImageView: View {
         @State private var imageView: ImageViewModel
 
         let arguments: ChordProParser.Arguments?

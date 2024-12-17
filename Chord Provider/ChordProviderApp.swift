@@ -28,7 +28,7 @@ import SwiftUI
         /// See the ``AppDelegate``. It seems to work fine but it should not be like this...
         ///
         /// - Note: When you create a new document and remove all text; the window will close and the AppKit window will appear.
-        DocumentGroup(newDocument: ChordProDocument(text: appState.newDocumentContent)) { file in
+        DocumentGroup(newDocument: ChordProDocument(text: AppStateModel.shared.newDocumentContent)) { file in
             if file.fileURL == nil &&
                 file.document.text == appState.standardDocumentContent &&
                 appState.settings.application.showWelcomeWindow &&

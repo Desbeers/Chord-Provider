@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 /// SwiftUI `View` for the Welcome Window
-@MainActor struct WelcomeView: View {
+struct WelcomeView: View {
     /// The observable state of the application
     @State private var appState = AppStateModel.shared
     /// The observable ``FileBrowser`` class

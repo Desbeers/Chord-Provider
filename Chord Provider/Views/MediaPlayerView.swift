@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@MainActor struct MediaPlayerView: View {
+struct MediaPlayerView: View {
     /// The observable state of the application
     @State private var appState = AppStateModel.shared
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `View` for the metronome button
-@MainActor struct MetronomeButton: View {
+struct MetronomeButton: View {
     /// The time signature
     let time: String
     /// The bpm

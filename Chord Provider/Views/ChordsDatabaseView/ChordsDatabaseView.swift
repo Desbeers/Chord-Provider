@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@MainActor struct ChordsDatabaseView: View {
+struct ChordsDatabaseView: View {
     /// The AppDelegate to bring additional Windows into the SwiftUI world
     @Bindable var  appDelegate: AppDelegateModel
     /// The observable state of the application

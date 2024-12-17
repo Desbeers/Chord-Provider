@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 /// The observable scene state for **Chord Provider**
-@MainActor @Observable final class SceneStateModel {
+@Observable final class SceneStateModel {
     /// The optional file location
     var file: URL?
     /// The raw content of the document

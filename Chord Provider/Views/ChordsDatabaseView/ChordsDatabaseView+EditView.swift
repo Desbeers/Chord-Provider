@@ -10,7 +10,7 @@ import SwiftUI
 extension ChordsDatabaseView {
 
     /// SwiftUI `View` to edit the database
-    @MainActor struct EditView: View {
+    struct EditView: View {
         /// The chord we want to edit or the chord as starting point to add
         let chord: ChordDefinition
         /// The AppDelegate to bring additional Windows into the SwiftUI world

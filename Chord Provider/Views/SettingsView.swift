@@ -8,7 +8,7 @@
 import SwiftUI
 
 /// SwiftUI `View` for the settings
-@MainActor struct SettingsView: View {
+struct SettingsView: View {
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The observable state of the application

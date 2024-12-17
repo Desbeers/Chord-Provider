@@ -8,7 +8,7 @@
 import AppKit
 import OSLog
 
-@MainActor @Observable class ImageViewModel {
+@Observable class ImageViewModel {
     // swiftlint:disable:next force_unwrapping
     var image = NSImage(systemSymbolName: "photo", accessibilityDescription: nil)!
     var size = CGSize(width: 100, height: 80)
@@ -46,9 +46,7 @@ import OSLog
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard error == nil else {
                 Logger.application.error("Error loading image: \(error, privacy: .public)")
-                Task {
-                    await self.fallbackImage()
-                }
+                self.fallbackImage()
                 return
             }
             DispatchQueue.main.async { [weak self] in

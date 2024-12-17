@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String: Identifiable {
+extension String: @retroactive Identifiable {
 
     /// Make a String identifiable
     public var id: Int {
