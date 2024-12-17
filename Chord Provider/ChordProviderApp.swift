@@ -78,7 +78,7 @@ import SwiftUI
                         appState.newDocumentContent = appState.standardDocumentContent
 #if DEBUG
                         /// Show the debug window
-                        appDelegate.showDebugWindow()
+                        // appDelegate.showDebugWindow()
 #endif
                     }
             }

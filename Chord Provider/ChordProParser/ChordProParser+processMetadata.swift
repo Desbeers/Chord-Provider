@@ -60,6 +60,7 @@ extension ChordProParser {
             break
         }
         addSection(
+            sectionLabel: "",
             directive: directive,
             arguments: arguments,
             currentSection: &currentSection,

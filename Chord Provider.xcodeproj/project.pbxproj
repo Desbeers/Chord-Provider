@@ -763,7 +763,6 @@
 				D70B72812BD5040C003C89B4 /* PDFBuild+Comment.swift */,
 				D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */,
 				D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */,
-				D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */,
 				D7EF99642BDAD98A0058E1CB /* PDFBuild+Image.swift */,
 				D711737F2BD279D80075325C /* PDFBuild+Label.swift */,
 				D706FD762BCECC9F005DEDF6 /* PDFBuild+Padding.swift */,
@@ -885,6 +884,7 @@
 				D70B727F2BD50108003C89B4 /* PDFBuild+StrumSection.swift */,
 				D70B72852BD50EC6003C89B4 /* PDFBuild+TabSection.swift */,
 				D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */,
+				D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */,
 			);
 			path = SongElements;
 			sourceTree = "<group>";

@@ -48,7 +48,7 @@ extension PDFBuild {
                         if let chord = part.chord, let first = chords.first(where: { $0.id == chord }) {
                             elements[column].append(
                                 NSAttributedString(
-                                    string: "\(first.display)\n",
+                                    string: "\(first.display)" + (line == lines.last ? "" : "\n"),
                                     attributes: .gridChord
                                 )
                             )
@@ -56,12 +56,12 @@ extension PDFBuild {
                         if !part.text.isEmpty {
                             elements[column].append(
                                 NSAttributedString(
-                                    string: "\(part.text)\n",
+                                    string: "\(part.text)" + (line == lines.last ? "" : "\n"),
                                     attributes: .gridText
                                 )
                             )
                         }
-                        if part == parts.last, column < maxColumns {
+                        if line != lines.last, part == parts.last, column < maxColumns {
                             for index in (column + 1)..<maxColumns {
                                 elements[index].append(
                                     NSAttributedString(

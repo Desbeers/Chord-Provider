@@ -58,29 +58,29 @@ extension ChordPro {
 
 extension ChordPro.Environment {
 
-    /// The label for the environment
+    /// The default label for the environment
     var label: String {
         switch self {
         case .chorus:
             "Chorus"
         case .repeatChorus:
-            "Repeat Chorus"
+            ""
         case .verse:
             "Verse"
         case .bridge:
             "Bridge"
         case .comment:
-            "Comment"
+            ""
         case .tab:
-            "Tab"
+            ""
         case .grid:
-            "Grid"
+            ""
         case .abc:
             "ABC"
         case .textblock:
-            "Text Block"
+            ""
         case .strum:
-            "Strum"
+            ""
         case .metadata:
             "Metadata"
         case .image:

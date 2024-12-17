@@ -32,7 +32,7 @@ extension PDFBuild.TabSection {
             let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
             let characters = tab.count
             /// Calculate the font size so the line will not wrap
-            let fontSize = min(textRect.width / CGFloat(characters), 10)
+            let fontSize = min(textRect.width / (Double(characters) * 0.7), 10)
             let text = NSAttributedString(
                 string: tab,
                 attributes: .tabLine(fontSize: fontSize)

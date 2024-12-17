@@ -39,7 +39,7 @@ extension PDFElement {
 
     /// The default padding for text
     /// - Note: Static because it is used in inits
-    var textPadding: CGFloat { 2 }
+    var textPadding: Double { 2 }
 
     /// The default text drawing options
     var textDrawingOptions: NSString.DrawingOptions {

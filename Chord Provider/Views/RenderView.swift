@@ -342,8 +342,7 @@ extension RenderView {
         .modifier(
             SectionView(
                 settings: song.settings,
-                /// - Note: Don't show the default label for a textblock
-                label: section.label == ChordPro.Environment.textblock.label ? "" : section.label
+                label: section.label
             )
         )
     }

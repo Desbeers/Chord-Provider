@@ -45,6 +45,7 @@ extension ChordProParser {
             currentSection.addWarning("Wrong chord definition: \(error.localizedDescription)")
         }
         addSection(
+            sectionLabel: "",
             directive: .define,
             arguments: arguments,
             currentSection: &currentSection,

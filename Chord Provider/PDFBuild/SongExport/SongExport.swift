@@ -95,6 +95,21 @@ extension SongExport {
             items.append(PDFBuild.Chords(chords: song.chords, options: song.settings.diagram))
         }
         items.append(PDFBuild.Spacer(10))
+
+        // MARK: Calculate label size
+
+        /// Default value
+        var labelWidth: Double = 100
+        let labels = song.sections.map(\.label)
+        if let max = labels.max(by: { $1.count > $0.count }) {
+            let text = NSAttributedString(
+                string: max,
+                attributes: .sectionLabel
+            )
+            let textBounds = text.boundingRect(with: PDFBuild.a4portraitPage.size, options: .usesLineFragmentOrigin)
+            labelWidth = textBounds.width + 8
+        }
+
         /// Add all the sections, except metadata stuff
         for section in song.sections where section.environment != .metadata {
             switch section.environment {
@@ -136,7 +151,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func lyricsSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Label(
                         leadingText: nil,
@@ -157,7 +172,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func tabSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Label(
                         leadingText: nil,
@@ -165,7 +180,7 @@ extension SongExport {
                         backgroundColor: .clear,
                         alignment: .right
                     ),
-                    PDFBuild.Divider(direction: .vertical),
+                    labelDivider(section: section),
                     PDFBuild.TabSection(section)
                 ]
             )
@@ -178,7 +193,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func gridSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Label(
                         leadingText: nil,
@@ -186,7 +201,7 @@ extension SongExport {
                         backgroundColor: .clear,
                         alignment: .right
                     ),
-                    PDFBuild.Divider(direction: .vertical),
+                    labelDivider(section: section),
                     PDFBuild.GridSection(section, chords: song.chords)
                 ]
             )
@@ -200,7 +215,7 @@ extension SongExport {
         func strumSection(section: Song.Section) -> PDFBuild.Section {
             let label = NSAttributedString(string: section.label, attributes: .sectionLabel)
             return PDFBuild.Section(
-                columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Label(
                         leadingText: nil,
@@ -208,7 +223,7 @@ extension SongExport {
                         backgroundColor: .clear,
                         alignment: .right
                     ),
-                    PDFBuild.Divider(direction: .vertical),
+                    labelDivider(section: section),
                     PDFBuild.StrumSection(section)
                 ]
             )
@@ -220,18 +235,16 @@ extension SongExport {
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
         func textblockSection(section: Song.Section) -> PDFBuild.Section {
-            /// - Note: Don't show the default label for a textblock
-            let label = section.label == ChordPro.Environment.textblock.label ? "" : section.label
             return PDFBuild.Section(
-                columns: [.fixed(width: 100), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Label(
                         leadingText: nil,
-                        labelText: NSAttributedString(string: label, attributes: .sectionLabel),
+                        labelText: NSAttributedString(string: section.label, attributes: .sectionLabel),
                         backgroundColor: .clear,
                         alignment: .right
                     ),
-                    label.isEmpty ? PDFBuild.Spacer() : PDFBuild.Divider(direction: .vertical),
+                    labelDivider(section: section),
                     PDFBuild.TextblockSection(section)
                 ]
             )
@@ -259,7 +272,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func commentSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: 110), .flexible],
+                columns: [.fixed(width: labelWidth + 26), .flexible],
                 items: [
                     PDFBuild.Spacer(),
                     PDFBuild.Comment(section.lines.first?.label ?? "Empty comment")
@@ -281,7 +294,7 @@ extension SongExport {
                 let leadingText = NSAttributedString(string: "􀊯", attributes: .sectionLabel)
                 let labelText = NSAttributedString(string: section.label, attributes: .sectionLabel)
                 return PDFBuild.Section(
-                    columns: [.fixed(width: 110), .flexible],
+                    columns: [.fixed(width: labelWidth + 26), .flexible],
                     items: [
                         PDFBuild.Spacer(),
                         PDFBuild.Label(
@@ -308,7 +321,7 @@ extension SongExport {
             }
             if let source = arguments?[.src], let image = loadImage(source: source, fileURL: fileURL) {
                 return PDFBuild.Section(
-                    columns: [.fixed(width: 110), .flexible],
+                    columns: [.fixed(width: labelWidth + 10), .flexible],
                     items: [
                         PDFBuild.Spacer(),
                         PDFBuild.Image(
@@ -321,7 +334,7 @@ extension SongExport {
                 )
             }
             return PDFBuild.Section(
-                columns: [.fixed(width: 110), .flexible],
+                columns: [.fixed(width: labelWidth + 10), .flexible],
                 items: [
                     PDFBuild.Spacer(),
                     PDFBuild.Comment("Image not available")
@@ -333,6 +346,11 @@ extension SongExport {
 
 
 extension SongExport {
+
+    static func labelDivider(section: Song.Section) -> PDFElement {
+        section.label.isEmpty ? PDFBuild.Spacer() : PDFBuild.Divider(direction: .vertical)
+    }
+
     static func loadImage(source: String, fileURL: URL?) -> NSImage? {
         guard let imageURL = ChordProParser.getImageSource(source, fileURL: fileURL) else { return nil }
         let semaphore = DispatchSemaphore(value: 0)

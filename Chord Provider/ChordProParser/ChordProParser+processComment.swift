@@ -39,6 +39,7 @@ extension ChordProParser {
                 currentSection.addWarning("The comment is empty")
             }
             addSection(
+                sectionLabel: "",
                 directive: .comment,
                 arguments: arguments,
                 environment: .comment,

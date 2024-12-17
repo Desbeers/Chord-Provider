@@ -5,7 +5,7 @@
 //  © 2024 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 extension PDFBuild {
 
@@ -15,14 +15,14 @@ extension PDFBuild {
     class Comment: PDFElement {
 
         /// The leading text of the comment
-        let leadingText = NSAttributedString(string: "􀌲", attributes: .sectionLabel)
+        let leadingText = NSAttributedString(string: "􀌲", attributes: .commentLabel)
         /// The comment text
         let commentText: NSAttributedString
 
         /// Init the **comment** element
         /// - Parameter commentText: The text of the comment
         init(_ commentText: String) {
-            self.commentText = NSAttributedString(string: commentText, attributes: .sectionLabel)
+            self.commentText = NSAttributedString(string: commentText, attributes: .commentLabel)
         }
 
         /// Draw the **comment** element as a `Label` element
@@ -39,5 +39,18 @@ extension PDFBuild {
             )
             label.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }
+    }
+}
+
+extension PDFStringAttribute {
+
+    // MARK: Command string styling
+
+    /// Style attributes for a comment
+    static var commentLabel: PDFStringAttribute {
+        [
+            .foregroundColor: NSColor.black,
+            .font: NSFont.systemFont(ofSize: 8, weight: .regular)
+        ]
     }
 }
