@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -173,7 +173,7 @@
 		D73A03E92AC85B6100D6CD0E /* RenderView+ChordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A03E82AC85B6100D6CD0E /* RenderView+ChordView.swift */; };
 		D740728D2BA20D9000DD52F0 /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D740728C2BA20D9000DD52F0 /* QuickLookThumbnailing.framework */; };
 		D740728E2BA20D9000DD52F0 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F13FF82A646356002D875D /* Quartz.framework */; };
-		D74072962BA20D9000DD52F0 /* QLthumbnail (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D740728B2BA20D9000DD52F0 /* QLthumbnail (macOS).appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D74072962BA20D9000DD52F0 /* ChordPro Thumbnail.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D740728B2BA20D9000DD52F0 /* ChordPro Thumbnail.appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D7496DD02CEE3DE000C8FFA8 /* ChordProParser+processComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7496DCF2CEE3DE000C8FFA8 /* ChordProParser+processComment.swift */; };
 		D7496DD12CEE3DE000C8FFA8 /* ChordProParser+processComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7496DCF2CEE3DE000C8FFA8 /* ChordProParser+processComment.swift */; };
 		D7496DE02CEF661E00C8FFA8 /* ChordProParser+processEmptyLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7496DDF2CEF661E00C8FFA8 /* ChordProParser+processEmptyLine.swift */; };
@@ -322,7 +322,7 @@
 		D7F13FE52A6460B7002D875D /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FB82A6460B7002D875D /* SongView.swift */; };
 		D7F13FE72A6460B7002D875D /* ExportSongButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FBA2A6460B7002D875D /* ExportSongButton.swift */; };
 		D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F13FF82A646356002D875D /* Quartz.framework */; platformFilters = (macos, ); };
-		D7F140062A646356002D875D /* QLpreview (macOS).appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7F13FF62A646356002D875D /* QLpreview (macOS).appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D7F140062A646356002D875D /* ChordPro Preview.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D7F13FF62A646356002D875D /* ChordPro Preview.appex */; platformFilters = (macos, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		D7F1400B2A646439002D875D /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F972A6460B7002D875D /* PreviewProvider.swift */; };
 		D7F1400F2A64646E002D875D /* ChordProParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA32A6460B7002D875D /* ChordProParser.swift */; };
 		D7F140132A64647D002D875D /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F862A6460B7002D875D /* Song.swift */; };
@@ -365,8 +365,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				D74072962BA20D9000DD52F0 /* QLthumbnail (macOS).appex in Embed Foundation Extensions */,
-				D7F140062A646356002D875D /* QLpreview (macOS).appex in Embed Foundation Extensions */,
+				D74072962BA20D9000DD52F0 /* ChordPro Thumbnail.appex in Embed Foundation Extensions */,
+				D7F140062A646356002D875D /* ChordPro Preview.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,7 +463,7 @@
 		D733F6012B90B1B40065D6FD /* SceneStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneStateModel+Elements.swift"; sourceTree = "<group>"; };
 		D733F6032B90CC1C0065D6FD /* FileBrowserModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBrowserModel+Elements.swift"; sourceTree = "<group>"; };
 		D73A03E82AC85B6100D6CD0E /* RenderView+ChordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+ChordView.swift"; sourceTree = "<group>"; };
-		D740728B2BA20D9000DD52F0 /* QLthumbnail (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLthumbnail (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D740728B2BA20D9000DD52F0 /* ChordPro Thumbnail.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "ChordPro Thumbnail.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D740728C2BA20D9000DD52F0 /* QuickLookThumbnailing.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLookThumbnailing.framework; path = System/Library/Frameworks/QuickLookThumbnailing.framework; sourceTree = SDKROOT; };
 		D74072902BA20D9000DD52F0 /* ThumbnailProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailProvider.swift; sourceTree = "<group>"; };
 		D74072922BA20D9000DD52F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -615,7 +615,7 @@
 		D7F13FB72A6460B7002D875D /* ChordsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordsView.swift; sourceTree = "<group>"; };
 		D7F13FB82A6460B7002D875D /* SongView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongView.swift; sourceTree = "<group>"; };
 		D7F13FBA2A6460B7002D875D /* ExportSongButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportSongButton.swift; sourceTree = "<group>"; };
-		D7F13FF62A646356002D875D /* QLpreview (macOS).appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "QLpreview (macOS).appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7F13FF62A646356002D875D /* ChordPro Preview.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "ChordPro Preview.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7F13FF82A646356002D875D /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		D7F344072CECBED700205A90 /* ChordProParser+openSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+openSection.swift"; sourceTree = "<group>"; };
 		D7F3440B2CECBEE400205A90 /* ChordProParser+closeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+closeSection.swift"; sourceTree = "<group>"; };
@@ -1104,8 +1104,8 @@
 			isa = PBXGroup;
 			children = (
 				D7F13F6F2A645FEC002D875D /* Chord Provider.app */,
-				D7F13FF62A646356002D875D /* QLpreview (macOS).appex */,
-				D740728B2BA20D9000DD52F0 /* QLthumbnail (macOS).appex */,
+				D7F13FF62A646356002D875D /* ChordPro Preview.appex */,
+				D740728B2BA20D9000DD52F0 /* ChordPro Thumbnail.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1263,9 +1263,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D740728A2BA20D9000DD52F0 /* QLthumbnail (macOS) */ = {
+		D740728A2BA20D9000DD52F0 /* ChordPro Thumbnail */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D74072972BA20D9000DD52F0 /* Build configuration list for PBXNativeTarget "QLthumbnail (macOS)" */;
+			buildConfigurationList = D74072972BA20D9000DD52F0 /* Build configuration list for PBXNativeTarget "ChordPro Thumbnail" */;
 			buildPhases = (
 				D74072872BA20D9000DD52F0 /* Sources */,
 				D74072882BA20D9000DD52F0 /* Frameworks */,
@@ -1275,11 +1275,11 @@
 			);
 			dependencies = (
 			);
-			name = "QLthumbnail (macOS)";
+			name = "ChordPro Thumbnail";
 			packageProductDependencies = (
 			);
 			productName = "QLthumbnail (macOS)";
-			productReference = D740728B2BA20D9000DD52F0 /* QLthumbnail (macOS).appex */;
+			productReference = D740728B2BA20D9000DD52F0 /* ChordPro Thumbnail.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		D7F13F6E2A645FEC002D875D /* Chord Provider */ = {
@@ -1305,9 +1305,9 @@
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D7F13FF52A646356002D875D /* QLpreview (macOS) */ = {
+		D7F13FF52A646356002D875D /* ChordPro Preview */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "QLpreview (macOS)" */;
+			buildConfigurationList = D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "ChordPro Preview" */;
 			buildPhases = (
 				D7F13FF22A646356002D875D /* Sources */,
 				D7F13FF32A646356002D875D /* Frameworks */,
@@ -1317,11 +1317,11 @@
 			);
 			dependencies = (
 			);
-			name = "QLpreview (macOS)";
+			name = "ChordPro Preview";
 			packageProductDependencies = (
 			);
 			productName = "QLExtension (macOS)";
-			productReference = D7F13FF62A646356002D875D /* QLpreview (macOS).appex */;
+			productReference = D7F13FF62A646356002D875D /* ChordPro Preview.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1346,7 +1346,6 @@
 				};
 			};
 			buildConfigurationList = D7F13F6A2A645FEC002D875D /* Build configuration list for PBXProject "Chord Provider" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -1356,13 +1355,14 @@
 			mainGroup = D7F13F662A645FEC002D875D;
 			packageReferences = (
 			);
+			preferredProjectObjectVersion = 77;
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				D7F13F6E2A645FEC002D875D /* Chord Provider */,
-				D7F13FF52A646356002D875D /* QLpreview (macOS) */,
-				D740728A2BA20D9000DD52F0 /* QLthumbnail (macOS) */,
+				D7F13FF52A646356002D875D /* ChordPro Preview */,
+				D740728A2BA20D9000DD52F0 /* ChordPro Thumbnail */,
 			);
 		};
 /* End PBXProject section */
@@ -1771,7 +1771,7 @@
 			platformFilters = (
 				macos,
 			);
-			target = D740728A2BA20D9000DD52F0 /* QLthumbnail (macOS) */;
+			target = D740728A2BA20D9000DD52F0 /* ChordPro Thumbnail */;
 			targetProxy = D74072942BA20D9000DD52F0 /* PBXContainerItemProxy */;
 		};
 		D7F140052A646356002D875D /* PBXTargetDependency */ = {
@@ -1779,7 +1779,7 @@
 			platformFilters = (
 				macos,
 			);
-			target = D7F13FF52A646356002D875D /* QLpreview (macOS) */;
+			target = D7F13FF52A646356002D875D /* ChordPro Preview */;
 			targetProxy = D7F140042A646356002D875D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1797,7 +1797,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/QuickLook/QLthumbnail/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "QLthumbnail (Chord Provider)";
+				INFOPLIST_KEY_CFBundleDisplayName = "ChordPro Thumbnail";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1806,7 +1806,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1830,7 +1830,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/QuickLook/QLthumbnail/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "QLthumbnail (Chord Provider)";
+				INFOPLIST_KEY_CFBundleDisplayName = "ChordPro Thumbnail";
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1839,7 +1839,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2001,7 +2001,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2050,7 +2050,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2078,14 +2078,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/QuickLook/QLpreview/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "QLpreview (Chord Provider)";
+				INFOPLIST_KEY_CFBundleDisplayName = "ChordPro Preview";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2108,14 +2108,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/QuickLook/QLpreview/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "QLpreview (Chord Provider)";
+				INFOPLIST_KEY_CFBundleDisplayName = "ChordPro Preview";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2129,7 +2129,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D74072972BA20D9000DD52F0 /* Build configuration list for PBXNativeTarget "QLthumbnail (macOS)" */ = {
+		D74072972BA20D9000DD52F0 /* Build configuration list for PBXNativeTarget "ChordPro Thumbnail" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D74072982BA20D9000DD52F0 /* Debug */,
@@ -2156,7 +2156,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "QLpreview (macOS)" */ = {
+		D7F140072A646356002D875D /* Build configuration list for PBXNativeTarget "ChordPro Preview" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D7F140082A646356002D875D /* Debug */,

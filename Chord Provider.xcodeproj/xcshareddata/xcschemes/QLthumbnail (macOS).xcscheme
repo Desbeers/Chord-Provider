@@ -17,8 +17,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D740728A2BA20D9000DD52F0"
-               BuildableName = "QLthumbnail (macOS).appex"
-               BlueprintName = "QLthumbnail (macOS)"
+               BuildableName = "ChordPro Thumbnail.appex"
+               BlueprintName = "ChordPro Thumbnail"
                ReferencedContainer = "container:Chord Provider.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
