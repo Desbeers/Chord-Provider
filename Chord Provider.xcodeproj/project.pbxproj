@@ -93,9 +93,6 @@
 		D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
 		D711FCFF2AD05C5600176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
-		D716EF292D11CF2200AEF7F9 /* FileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D716EF282D11CF2200AEF7F9 /* FileIcon.png */; };
-		D716EF2A2D11CF2200AEF7F9 /* FileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D716EF282D11CF2200AEF7F9 /* FileIcon.png */; };
-		D716EF2B2D11CF2200AEF7F9 /* FileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = D716EF282D11CF2200AEF7F9 /* FileIcon.png */; };
 		D71C30BD2CF0D73C00F6CAE9 /* AppSettings+Song+SceneOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C30BC2CF0D73C00F6CAE9 /* AppSettings+Song+SceneOptions.swift */; };
 		D71C30BE2CF0D83200F6CAE9 /* AppSettings+Song+SceneOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C30BC2CF0D73C00F6CAE9 /* AppSettings+Song+SceneOptions.swift */; };
 		D72B61102C16E4170027B235 /* UserFileItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B610F2C16E4170027B235 /* UserFileItem.swift */; };
@@ -243,6 +240,7 @@
 		D7A10B892D131657005DD032 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */; };
 		D7A10B8A2D131657005DD032 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */; };
 		D7A10B8D2D131919005DD032 /* SongExport+images.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A10B8B2D131918005DD032 /* SongExport+images.swift */; };
+		D7A10B8E2D132ECE005DD032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F9E2A6460B7002D875D /* Assets.xcassets */; };
 		D7A283832C3476A300E2F0BB /* PreviewPDFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A283822C3476A300E2F0BB /* PreviewPDFButton.swift */; };
 		D7AB50632BD958FF00AA797B /* PDFBuild+TOCItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB50622BD958FF00AA797B /* PDFBuild+TOCItem.swift */; };
 		D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */; };
@@ -418,7 +416,6 @@
 		D711737F2BD279D80075325C /* PDFBuild+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Label.swift"; sourceTree = "<group>"; };
 		D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Section.swift"; sourceTree = "<group>"; };
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
-		D716EF282D11CF2200AEF7F9 /* FileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FileIcon.png; sourceTree = "<group>"; };
 		D71C30BC2CF0D73C00F6CAE9 /* AppSettings+Song+SceneOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Song+SceneOptions.swift"; sourceTree = "<group>"; };
 		D72B610F2C16E4170027B235 /* UserFileItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFileItem.swift; sourceTree = "<group>"; };
 		D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive+Details.swift"; sourceTree = "<group>"; };
@@ -832,7 +829,6 @@
 				D730BBB02CA844C2008719F2 /* GuitarSoundFont.sf2 */,
 				D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */,
 				D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */,
-				D716EF282D11CF2200AEF7F9 /* FileIcon.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1372,7 +1368,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D716EF2B2D11CF2200AEF7F9 /* FileIcon.png in Resources */,
+				D7A10B8E2D132ECE005DD032 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1387,7 +1383,6 @@
 				D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */,
 				D730BBFC2CA844C2008719F2 /* GuitarSoundFont.sf2 in Resources */,
 				D7F13FCF2A6460B7002D875D /* Assets.xcassets in Resources */,
-				D716EF292D11CF2200AEF7F9 /* FileIcon.png in Resources */,
 				D70D96E22CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1399,7 +1394,6 @@
 				D70D96E62CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */,
 				D70D96DE2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D78580792CA8971F000FB5F8 /* Assets.xcassets in Resources */,
-				D716EF2A2D11CF2200AEF7F9 /* FileIcon.png in Resources */,
 				D70D96E32CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
