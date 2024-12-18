@@ -23,7 +23,13 @@ actor ChordProParser {
     ///   - instrument: The instrument of the song
     ///   - fileURL: The optional file url of the song
     /// - Returns: A ``Song`` item
-    static func parse(id: UUID, text: String, transpose: Int, settings: AppSettings.Song, fileURL: URL?) -> Song {
+    static func parse(
+        id: UUID,
+        text: String,
+        transpose: Int,
+        settings: AppSettings.Song,
+        fileURL: URL?
+    ) -> Song {
         /// Start with a fresh song
         var song = Song(id: id, settings: settings)
         song.metadata.fileURL = fileURL

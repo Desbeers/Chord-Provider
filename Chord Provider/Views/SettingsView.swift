@@ -166,18 +166,18 @@ struct SettingsView: View {
                 VStack {
                     HStack {
                         Text("A")
-                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.lowerBound))
+                            .font(.system(size: Editor.Settings.fontSizeRange.lowerBound))
                         Slider(
                             value: $appState.settings.editor.fontSize,
-                            in: ChordProEditor.Settings.fontSizeRange,
+                            in: Editor.Settings.fontSizeRange,
                             step: 1
                         )
                         Text("A")
-                            .font(.system(size: ChordProEditor.Settings.fontSizeRange.upperBound))
+                            .font(.system(size: Editor.Settings.fontSizeRange.upperBound))
                     }
                     .foregroundColor(.secondary)
                     Picker("Font style", selection: $appState.settings.editor.fontStyle) {
-                        ForEach(ChordProEditor.Settings.FontStyle.allCases, id: \.self) { font in
+                        ForEach(Editor.Settings.FontStyle.allCases, id: \.self) { font in
                             Text("\(font.rawValue)")
                                 .font(font.font())
                         }
@@ -215,14 +215,14 @@ struct SettingsView: View {
             .frame(maxHeight: .infinity, alignment: .top)
             Button(
                 action: {
-                    appState.settings.editor = ChordProEditor.Settings()
+                    appState.settings.editor = Editor.Settings()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
             .padding(.bottom)
-            .disabled(appState.settings.editor == ChordProEditor.Settings())
+            .disabled(appState.settings.editor == Editor.Settings())
         }
     }
 

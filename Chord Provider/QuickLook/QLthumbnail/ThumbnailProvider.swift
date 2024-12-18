@@ -22,21 +22,9 @@ class ThumbnailProvider: QLThumbnailProvider {
 
             handler(qlThumbnailReply, nil)
         }
-        Logger.thumbnailProvider.log(
+        Logger.application.log(
             "Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public) failed"
         )
         handler(nil, nil)
-    }
-}
-
-/// Messages for the Logger
-extension Logger {
-
-    /// The name of the subsystem
-    private static let subsystem = Bundle.main.bundleIdentifier ?? ""
-
-    /// Log thumbnail provider messages
-    static var thumbnailProvider: Logger {
-        Logger(subsystem: subsystem, category: "Thumbnail Provider")
     }
 }

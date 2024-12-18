@@ -25,7 +25,7 @@ extension ChordProEditor {
                 return
             }
             /// Fill the background
-            context.setFillColor(ChordProEditor.highlightedBackgroundColor.cgColor)
+            context.setFillColor(Editor.highlightedBackgroundColor.cgColor)
             context.fill(bounds)
             /// Draw a border on the right
             context.setStrokeColor(NSColor.secondaryLabelColor.cgColor)
@@ -66,7 +66,7 @@ extension ChordProEditor {
             // MARK: Set first line number
 
             /// The line number for the first visible line
-            lineNumber += ChordProEditor.newLineRegex.numberOfMatches(
+            lineNumber += Editor.newLineRegex.numberOfMatches(
                 in: textView.string,
                 options: [],
                 range: NSRange(location: 0, length: visibleGlyphRange.location)
@@ -134,11 +134,11 @@ extension ChordProEditor {
 
             /// Draw the number of the line
             func drawLineNumber(_ number: Int, inRect rect: NSRect, highlight: Bool, warning: Bool, directive: ChordPro.Directive) {
-                var attributes = ChordProEditor.rulerNumberStyle
+                var attributes = Editor.rulerNumberStyle
                 attributes[NSAttributedString.Key.font] = font
                 switch highlight {
                 case true:
-                    context.setFillColor(ChordProEditor.highlightedBackgroundColor.cgColor)
+                    context.setFillColor(Editor.highlightedBackgroundColor.cgColor)
                     context.fill(rect)
                     attributes[NSAttributedString.Key.foregroundColor] = NSColor.textColor
                 case false:

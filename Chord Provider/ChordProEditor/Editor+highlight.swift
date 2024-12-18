@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+highlight.swift
+//  Editor+highlight.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import AppKit
 
-extension ChordProEditor {
+extension Editor {
 
     /// The type of regex
     enum RegexType {
@@ -36,7 +36,7 @@ extension ChordProEditor {
 
     // swiftlint:enable force_try
 
-    static func regexes(settings: Settings) -> [(regex: NSRegularExpression, color: NSColor, regexType: RegexType)] {
+    static func regexes(settings: Editor.Settings) -> [(regex: NSRegularExpression, color: NSColor, regexType: RegexType)] {
         return [
             (commentsRegex, NSColor(settings.commentColor), .normal),
             (directiveRegex, NSColor(settings.directiveColor), .directive),
@@ -56,7 +56,7 @@ extension ChordProEditor {
     /// - Returns: A highlighted text
     @MainActor static func highlight(
         view: NSTextView,
-        settings: Settings,
+        settings: Editor.Settings,
         range: NSRange
     ) {
 
@@ -71,7 +71,7 @@ extension ChordProEditor {
         }
 
         let text = view.textStorage?.string ?? ""
-        let regexes = ChordProEditor.regexes(settings: settings)
+        let regexes = Editor.regexes(settings: settings)
         /// Make all text in the default style
         view.textStorage?.setAttributes(
             [

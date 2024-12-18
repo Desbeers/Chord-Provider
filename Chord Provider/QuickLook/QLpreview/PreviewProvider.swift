@@ -39,6 +39,8 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
     }
 }
 
+// MARK: Substitutes
+
 struct AppSettings {
     /// Simple substitute for the real AppSettings
     var diagram = DiagramDisplayOptions()
@@ -47,4 +49,12 @@ struct AppSettings {
 
 struct ChordProEditor {
     /// Simple substitute for the real ChordProEditor
+}
+
+extension SongExport {
+
+    ///  Sandbox restriction, sandbox extension cannot load local external images
+    static func loadImage(source: String, fileURL: URL?) async -> NSImage? {
+        nil
+    }
 }

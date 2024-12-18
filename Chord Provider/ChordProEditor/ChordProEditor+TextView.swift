@@ -51,7 +51,7 @@ extension ChordProEditor {
                     width: dirtyRect.width,
                     height: currentParagraphRect.height
                 )
-                context.setFillColor(ChordProEditor.highlightedForegroundColor.cgColor)
+                context.setFillColor(Editor.highlightedForegroundColor.cgColor)
                 context.fill(lineRect)
             }
             super.draw(dirtyRect)

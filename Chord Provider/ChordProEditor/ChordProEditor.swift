@@ -14,7 +14,7 @@ struct ChordProEditor: NSViewRepresentable {
     /// The `Binding` to the text of the document
     @Binding var text: String
     /// The ``Settings`` for the editor
-    let settings: Settings
+    let settings: Editor.Settings
     /// The parsed song lines
     let lines: [Song.Section.Line]
     /// The 'introspect' callback with the editor``Internals``
@@ -68,7 +68,7 @@ struct ChordProEditor: NSViewRepresentable {
     ///   - textView: The current ``TextView``
     ///   - range: The range to highlight
     @MainActor func highlightText(textView: NSTextView, range: NSRange? = nil) {
-        ChordProEditor.highlight(
+        Editor.highlight(
             view: textView,
             settings: settings,
             range: range ?? NSRange(location: 0, length: text.utf16.count)

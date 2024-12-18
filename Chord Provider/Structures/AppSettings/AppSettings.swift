@@ -15,7 +15,7 @@ struct AppSettings: Equatable, Codable, Sendable {
     /// The options for displaying a ``Song``
     var song = Song()
     /// The options for the ``ChordProEditor``
-    var editor: ChordProEditor.Settings = .init()
+    var editor: Editor.Settings = .init()
     /// ChordPro integration
     var chordPro: ChordPro = .init()
 }

@@ -2,7 +2,7 @@
 //  ChordProParser+processSourceComment.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 18/11/2024.
+//  © 2024 Nick Berendsen
 //
 
 import Foundation

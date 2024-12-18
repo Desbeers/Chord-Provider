@@ -15,14 +15,18 @@ extension PDFBuild {
     class Comment: PDFElement {
 
         /// The leading text of the comment
-        let leadingText = NSAttributedString(string: "􀌲", attributes: .commentLabel)
+        let leadingText: NSAttributedString
         /// The comment text
         let commentText: NSAttributedString
+        /// Background color
+        let backgroundColor: NSColor
 
         /// Init the **comment** element
         /// - Parameter commentText: The text of the comment
-        init(_ commentText: String) {
+        init(_ commentText: String, icon: String = "􀌲", backgroundColor: NSColor = .pdfComment) {
+            self.leadingText = NSAttributedString(string: icon, attributes: .commentLabel)
             self.commentText = NSAttributedString(string: commentText, attributes: .commentLabel)
+            self.backgroundColor = backgroundColor
         }
 
         /// Draw the **comment** element as a `Label` element
@@ -34,7 +38,7 @@ extension PDFBuild {
             let label = PDFBuild.Label(
                 leadingText: leadingText,
                 labelText: commentText,
-                backgroundColor: .comment,
+                backgroundColor: backgroundColor,
                 alignment: .left
             )
             label.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)

@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import OSLog
 
 /// Export a single ``Song`` to a PDF
 enum SongExport {
@@ -337,7 +338,7 @@ extension SongExport {
                 columns: [.fixed(width: labelWidth + 10), .flexible],
                 items: [
                     PDFBuild.Spacer(),
-                    PDFBuild.Comment("Image not available")
+                    PDFBuild.Comment("Image not available", icon: "􀏅", backgroundColor: .pdfTelecaster)
                 ]
             )
         }
@@ -349,15 +350,5 @@ extension SongExport {
 
     static func labelDivider(section: Song.Section) -> PDFElement {
         section.label.isEmpty ? PDFBuild.Spacer() : PDFBuild.Divider(direction: .vertical)
-    }
-    static func loadImage(source: String, fileURL: URL?) async -> NSImage? {
-        guard let imageURL = ChordProParser.getImageSource(source, fileURL: fileURL) else { return nil }
-        var image: NSImage?
-        let task = Task.detached {
-            try? Data(contentsOf: imageURL)
-        }
-        guard let data = await task.value, let nsImage = NSImage(data: data) else { return nil }
-        image = nsImage
-        return image
     }
 }

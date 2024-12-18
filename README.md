@@ -37,7 +37,7 @@ A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Oly
 - It can play chords with MIDI with a guitar instrument that you can select in the settings.
 - It can play audio songs or videos when stored next to the **ChordPro** file,
 - Full 'left-handed' chords support.
-- It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`
+- It has a 'quicklook' plugin for **ChordPro** files. Select a song in the `Finder` and press `space`. Images are not supported in the preview.
 - It makes thumbnails for your **ChordPro** files.
 
 ### Optional use the **ChordPro CLI reference implementation** for PDF creation

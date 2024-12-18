@@ -15,7 +15,7 @@ struct FontSizeButtons: View {
     /// The observable state of the scene
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The range of font sizes
-    private let fontSizeRange = ChordProEditor.Settings.fontSizeRange
+    private let fontSizeRange = Editor.Settings.fontSizeRange
     /// The body of the `View`
     var body: some View {
         Group {

@@ -1,5 +1,5 @@
 //
-//  ChordProEditor+Settings.swift
+//  Editor+Settings.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension ChordProEditor {
+extension Editor {
 
     // MARK: Settings for the editor
 
@@ -47,7 +47,7 @@ extension ChordProEditor {
     }
 }
 
-extension ChordProEditor.Settings {
+extension Editor.Settings {
 
     /// The editor font-style
     enum FontStyle: String, CaseIterable, Codable, Sendable {
