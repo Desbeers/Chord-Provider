@@ -99,6 +99,7 @@ struct SettingsView: View {
                         Text("Use a custom ChordPro configuration")
                         Text("When enabled, ChordPro will use your own configuration.")
                     }
+                    .disabled(!appState.settings.chordPro.useChordProCLI)
                 }
                 UserFileButton(
                     userFile: UserFileItem.customChordProConfig

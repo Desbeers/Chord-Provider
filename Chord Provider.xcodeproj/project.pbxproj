@@ -260,7 +260,6 @@
 		D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */; };
 		D7CA63312AED3D4E00C6B4BB /* MetronomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */; };
 		D7EA87592C5A580A009A3D82 /* AppKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */; };
-		D7EA875A2C5A580A009A3D82 /* AppKitUtils+openPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87472C5A5809009A3D82 /* AppKitUtils+openPanel.swift */; };
 		D7EA875B2C5A580A009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */; };
 		D7EA875C2C5A580A009A3D82 /* AppKitUtils+printDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */; };
 		D7EA875E2C5A580A009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA874B2C5A5809009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift */; };
@@ -551,7 +550,6 @@
 		D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = LowTick.aif; sourceTree = "<group>"; };
 		D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeButton.swift; sourceTree = "<group>"; };
 		D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitUtils.swift; sourceTree = "<group>"; };
-		D7EA87472C5A5809009A3D82 /* AppKitUtils+openPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+openPanel.swift"; sourceTree = "<group>"; };
 		D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+PDFKitRepresentedView.swift"; sourceTree = "<group>"; };
 		D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+printDialog.swift"; sourceTree = "<group>"; };
 		D7EA874B2C5A5809009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+SharingServiceRepresentedView.swift"; sourceTree = "<group>"; };
@@ -1009,7 +1007,6 @@
 			isa = PBXGroup;
 			children = (
 				D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */,
-				D7EA87472C5A5809009A3D82 /* AppKitUtils+openPanel.swift */,
 				D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */,
 				D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */,
 				D7EA874B2C5A5809009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift */,
@@ -1597,7 +1594,6 @@
 				D70D96C62CB260DD00B51A14 /* Styles.swift in Sources */,
 				D7AB50632BD958FF00AA797B /* PDFBuild+TOCItem.swift in Sources */,
 				D752E5B82CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift in Sources */,
-				D7EA875A2C5A580A009A3D82 /* AppKitUtils+openPanel.swift in Sources */,
 				D7EA875E2C5A580A009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift in Sources */,
 				D7F13FE52A6460B7002D875D /* SongView.swift in Sources */,
 				D730BC2F2CA844C2008719F2 /* ChordsDatabase.swift in Sources */,

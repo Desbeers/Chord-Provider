@@ -10,7 +10,7 @@ import Quartz
 
 extension AppKitUtils {
 
-    /// Show a QL preview of the current document
+    /// Show a QL preview of an URL
     /// - Note: I don't use the SwiftUI ` .quickLookPreview($url)` here because
     ///         that seems to conflict with a `NSTextView` in a `NSViewRepresentable.
     ///         Unsaved documents cannot be previewed on macOS 14 for some unknown reason...
