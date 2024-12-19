@@ -116,7 +116,7 @@ struct MainView: View {
     }
 
     /// Render the song
-    @MainActor private func renderSong() {
+    private func renderSong() {
         sceneState.song = ChordProParser.parse(
             id: sceneState.song.id,
             text: document.text,

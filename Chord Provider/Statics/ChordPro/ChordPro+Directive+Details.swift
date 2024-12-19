@@ -40,7 +40,7 @@ extension ChordPro.Directive {
             Details(
                 label: "Subtitle",
                 icon: "music.note",
-                button: "Title",
+                button: "Subitle",
                 help: "This directive defines a subtitle of the song",
                 environment: .metadata
             )

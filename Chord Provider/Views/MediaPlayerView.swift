@@ -83,7 +83,7 @@ extension MediaPlayerView {
                 mediaButton(url: videoURL, kind: .video)
             }
         }
-        @MainActor private func mediaButton(url: URL, kind: Kind) -> some View {
+        private func mediaButton(url: URL, kind: Kind) -> some View {
             Button {
                 if appState.media.url == nil || appState.media.kind != kind {
                     appState.media = .init(

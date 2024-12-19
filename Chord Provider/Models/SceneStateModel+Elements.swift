@@ -395,9 +395,7 @@ extension SceneStateModel {
                 withAnimation {
                     sceneState.showEditor.toggle()
                 } completion: {
-                    Task {@MainActor in
-                        sceneState.isAnimating = false
-                    }
+                    sceneState.isAnimating = false
                 }
             } label: {
                 Label("Edit", systemImage: sceneState.showEditor ? "pencil.circle.fill" : "pencil.circle")

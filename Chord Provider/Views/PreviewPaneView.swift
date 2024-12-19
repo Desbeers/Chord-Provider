@@ -15,12 +15,10 @@ struct PreviewPaneView: View {
     @Environment(SceneStateModel.self) private var sceneState
     /// The observable state of the document
     @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
-    /// Optional annotations in the PDF
-    @State private var annotations: [(userName: String, contents: String)] = []
     /// The body of the View
     var body: some View {
         Divider()
-        AppKitUtils.PDFKitRepresentedView(data: data, annotations: $annotations)
+        AppKitUtils.PDFKitRepresentedView(data: data)
             .overlay(alignment: .top) {
                 if sceneState.preview.outdated {
                     PreviewPDFButton.UpdatePreview()

@@ -128,7 +128,7 @@ struct CreateChordView: View {
     }
 
     /// The diagram `View`
-    @MainActor @ViewBuilder func diagramView(width: Double) -> some View {
+    @ViewBuilder func diagramView(width: Double) -> some View {
         if let diagram {
             ChordDefinitionView(
                 chord: diagram,

@@ -62,7 +62,7 @@ struct ChordsView: View {
 extension ChordsView {
 
     /// Present a Sheet with chord definitions for the selected chord name
-    @MainActor @ViewBuilder var chordsSheet: some View {
+    @ViewBuilder var chordsSheet: some View {
         if let selectedChord {
             VStack {
                 Text("Chord: \(selectedChord.display)")

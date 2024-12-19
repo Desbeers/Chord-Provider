@@ -10,9 +10,7 @@ import SwiftUI
 extension EditorView {
 
     /// Menus with **ChordPro** directives
-    @ViewBuilder
-    @MainActor
-    var directiveMenus: some View {
+    @ViewBuilder var directiveMenus: some View {
         @Bindable var appState = appState
         Group {
             Menu(

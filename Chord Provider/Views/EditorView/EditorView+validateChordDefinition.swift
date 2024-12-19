@@ -11,7 +11,7 @@ extension EditorView {
 
     /// Validate the definition of the chord
     /// - Returns: True or false to show the sheet. If true, the definition will be set or else an alert will be shown
-    @MainActor func validateChordDefinition() -> Bool {
+    func validateChordDefinition() -> Bool {
         do {
             let chord = try ChordDefinition(
                 definition: sceneState.editorInternals.directiveArgument,

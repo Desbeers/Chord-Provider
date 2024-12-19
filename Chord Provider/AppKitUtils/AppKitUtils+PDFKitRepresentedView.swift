@@ -15,8 +15,6 @@ extension AppKitUtils {
     struct PDFKitRepresentedView: NSViewRepresentable {
         /// The data of the PDF
         let data: Data
-        /// The optional annotations
-        @Binding var annotations: [(userName: String, contents: String)]
         /// Make the `View`
         /// - Parameter context: The context
         /// - Returns: The PDFView
@@ -24,25 +22,8 @@ extension AppKitUtils {
             /// Create a `PDFView` and set its `PDFDocument`.
             let pdfView = PDFView()
             pdfView.document = PDFDocument(data: data)
-            /// Auto scale for macOS Ventura and higher
-            if #available(macOS 13.0, *) {
-                pdfView.autoScales = true
-            }
-            /// Set 'autoScales' at the next run for macOS Monterey
-            /// or else the PDF will scroll all the way to the bottom on init
-            Task { @MainActor in
-                if #unavailable(macOS 13.0) {
-                    pdfView.autoScales = true
-                }
-                /// Get the optional debug info
-                if let firstPage = pdfView.document?.page(at: 0) {
-                    /// Clear the annotations
-                    annotations = []
-                    for annotation in firstPage.annotations {
-                        annotations.append((annotation.userName ?? "Error", annotation.contents ?? "Error"))
-                    }
-                }
-            }
+            /// Auto scale the PDF
+            pdfView.autoScales = true
             return pdfView
         }
         /// Update the `View`

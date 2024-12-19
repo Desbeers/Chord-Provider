@@ -67,7 +67,7 @@ struct ChordProEditor: NSViewRepresentable {
     /// - Parameters:
     ///   - textView: The current ``TextView``
     ///   - range: The range to highlight
-    @MainActor func highlightText(textView: NSTextView, range: NSRange? = nil) {
+    func highlightText(textView: NSTextView, range: NSRange? = nil) {
         Editor.highlight(
             view: textView,
             settings: settings,
@@ -86,7 +86,7 @@ extension ChordProEditor {
         return editor
     }
 
-    @MainActor func runIntrospect(_ view: TextView) {
+    func runIntrospect(_ view: TextView) {
         guard let introspect = introspect else { return }
         /// Set the internals of the editor
         let internals = Internals(
