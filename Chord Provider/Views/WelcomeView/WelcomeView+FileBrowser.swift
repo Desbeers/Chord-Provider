@@ -39,10 +39,6 @@ extension WelcomeView {
                         Text("You can always select a new folder in the **Settings**.")
                             .font(.footnote)
                             .padding()
-                        Spacer()
-                        Text(.init(Help.musicPath))
-                            .font(.caption)
-                            .padding()
                     }
                     .padding()
                     .frame(maxHeight: .infinity, alignment: .top)

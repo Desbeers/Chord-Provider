@@ -25,6 +25,7 @@ extension SongExport {
     static func export(
         song: Song
     ) async throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
+        Logger.pdfBuild.info("Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         let documentInfo = PDFBuild.DocumentInfo(
             title: song.metadata.title,
             author: song.metadata.artist

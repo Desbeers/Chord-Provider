@@ -106,15 +106,16 @@ import SwiftUI
                     Text("Show Chords Database")
                 }
                 Divider()
-            }
-#if DEBUG
-            CommandMenu("Debug") {
-                DebugButtons()
                 Button {
                     appDelegate.showDebugWindow()
                 } label: {
                     Text("Show Debug Window")
                 }
+                Divider()
+            }
+#if DEBUG
+            CommandMenu("Debug") {
+                DebugButtons()
             }
 #endif
             CommandGroup(after: .importExport) {

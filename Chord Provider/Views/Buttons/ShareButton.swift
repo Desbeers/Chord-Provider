@@ -20,11 +20,14 @@ struct ShareButton: View {
         Button(
             action: {
                 Task {
-                    if await sceneState.exportSongToPDF() != nil {
+                    do {
+                        _ = try await sceneState.exportSongToPDF()
                         /// Set the export URL
                         exportURL = sceneState.exportURL
                         /// Show the share picker
                         self.showSharePicker = true
+                    } catch {
+                        sceneState.errorAlert = error.alert()
                     }
                 }
             },

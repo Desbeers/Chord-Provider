@@ -74,7 +74,7 @@ extension RenderView {
                         getDiagram()
                             .offset(x: -4)
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: settings.display.scale * 40)
+                            .frame(height: settings.display.scale * 40)
                     }
                 )
                 .buttonStyle(.plain)
@@ -93,6 +93,7 @@ extension RenderView {
                 let secondaryColor: Color = colorScheme == .dark ? .black : .white
                 var settings = settings
                 settings.diagram.showFingers = false
+                settings.diagram.showPlayButton = false
                 let renderer = ImageRenderer(
                     content:
                         ChordDefinitionView(

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 
 extension Song.Section {
 
@@ -59,9 +60,12 @@ extension Song.Section {
             } else {
                 self.warning?.insert(warning)
             }
+            let line = sourceLineNumber
+            Logger.parser.fault("**Line \(line, privacy: .public)**\n\(warning, privacy: .public)")
         }
         mutating func addWarning(_ warning: Set<String>) {
-            self.warning = warning
+            let warningLine = (["**Line \(sourceLineNumber)**"] + warning.map(\.description)).joined(separator: "\n")
+            Logger.parser.fault("\(warningLine, privacy: .public)")
         }
 
         /// - Note: grids are *optionals* so we can not just 'insert' it

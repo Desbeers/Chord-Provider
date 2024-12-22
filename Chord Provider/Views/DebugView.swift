@@ -6,29 +6,40 @@
 //
 
 import SwiftUI
+import OSLog
 
 /// SwiftUI `View` for the debug window
 struct DebugView: View {
     /// The currently selected tab
-    @State private var tab: DebugMessage = .source
+    @State private var tab: DebugMessage = .log
     /// The source of the song
     @State private var content: [(line: Int, source: Song.Section.Line)] = []
     /// The AppDelegate to bring additional Windows into the SwiftUI world
     @Bindable var  appDelegate: AppDelegateModel
     /// The currently selected line
     @State private var selectedLine: Int?
+
+    @State private var osLogMessages: [LogMessage] = []
+
+    @State private var selectedMessage: LogMessage?
+
+    // swiftlint:disable:next force_unwrapping
+    @State private var lastFetchedLogDate = Calendar.current.date(byAdding: .year, value: -1000, to: Date())!
+
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
             Divider()
             switch tab {
+            case .log:
+                log
             case .json:
                 json
             case .source:
                 source
             }
         }
-        .frame(minWidth: 400, minHeight: 600)
+        .frame(minWidth: 600, minHeight: 600)
         .frame(maxWidth: .infinity)
         .toolbar {
             Picker("Tab", selection: $tab) {
@@ -47,6 +58,36 @@ struct DebugView: View {
                 }
                 self.content = content
             }
+        }
+        .task(id: appDelegate.lastUpdate) {
+            let osLog = Task.detached {
+                do {
+                    /// Give the GUI some time to render
+                    try await Task.sleep(for: .seconds(0.5))
+                    let store = try OSLogStore(scope: .currentProcessIdentifier)
+                    let position = store.position(timeIntervalSinceLatestBoot: 1)
+                    return try store
+                        .getEntries(at: position)
+                        .compactMap { $0 as? OSLogEntryLog }
+                        .filter { $0.subsystem == Bundle.main.bundleIdentifier ?? "" }
+                        .map { line in
+                            return LogMessage(
+                                time: line.date,
+                                type: line.level,
+                                category: line.category,
+                                message: line.composedMessage
+                            )
+                        }
+                } catch {
+                    Logger.application.warning("\(error.localizedDescription, privacy: .public)")
+                    return [LogMessage()]
+                }
+            }
+
+            let newMessages = await osLog.value
+            osLogMessages.append(contentsOf: newMessages.filter { $0.time > lastFetchedLogDate })
+            lastFetchedLogDate = .now
+            selectedMessage = osLogMessages.last
         }
         .task(id: tab) {
             selectedLine = nil
@@ -96,5 +137,59 @@ struct DebugView: View {
                 Text("No song open")
             }
         }
+    }
+    var log: some View {
+        VStack {
+            ScrollView {
+                ScrollViewReader { value in
+                    VStack(spacing: 0) {
+                        ForEach(osLogMessages) { log in
+                            let line = parseLine(log)
+                            VStack(alignment: .leading, spacing: 0) {
+                                Divider()
+                                HStack(alignment: .top, spacing: 0) {
+                                    Image(systemName: "exclamationmark.bubble")
+                                        .foregroundStyle(log.type.color)
+                                        .padding(.trailing, 4)
+                                    Text(log.time.formatted(date: .omitted, time: .standard))
+                                    Text(": ")
+                                    Text(log.category)
+                                    Text(": ")
+                                    if let lineNumber = line.lineNumber {
+                                        Text("**Line \(lineNumber)**: ")
+                                    }
+                                    Text(.init(line.message))
+                                }
+                                .padding(8)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(log.type.color.opacity(0.2))
+                        }
+                        /// Just use this as anchor point to keep the scrollview at the bottom
+                        Divider()
+                            .id(1)
+                            .task {
+                                value.scrollTo(1)
+                            }
+                            .onChange(of: osLogMessages) {
+                                value.scrollTo(1)
+                            }
+                    }
+                }
+            }
+            Button("Clear Log Messages") {
+                osLogMessages = []
+            }
+            .padding(.bottom)
+        }
+    }
+    private func parseLine(_ line: LogMessage) -> LogMessage {
+        var line = line
+        let lineRegex = /(\*\*Line )(.+?)(\*\*\n)/
+        if let result = try? lineRegex.firstMatch(in: line.message) {
+            line.message = String(line.message.dropFirst(result.0.count))
+            line.lineNumber = Int(result.2)
+        }
+        return line
     }
 }

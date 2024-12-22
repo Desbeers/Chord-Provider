@@ -19,7 +19,7 @@ extension Terminal {
     /// Run a script in the shell and return its output
     /// - Parameter arguments: The arguments to pass to the shell
     /// - Returns: The output from the shell
-    @MainActor static func runInShell(arguments: [String], sceneState: SceneStateModel? = nil) async -> Output {
+    static func runInShell(arguments: [String]) async -> Output {
         /// The normal output
         var allOutput: [OutputItem] = []
         /// The error output
@@ -28,12 +28,13 @@ extension Terminal {
         for await streamedOutput in runInShell(arguments: arguments) {
             switch streamedOutput {
             case let .standardOutput(output):
-                allOutput.append(.init(time: output.time, message: output.message))
+                allOutput.append(.init(time: output.time, message: output.message, warning: false))
             case let .standardError(error):
-                if let sceneState, !error.message.isEmpty {
-                    sceneState.logMessages.append(parseChordProMessage(error, sceneState: sceneState))
+                var warning: Bool = false
+                if !error.message.isEmpty {
+                    warning = parseChordProMessage(error)
+                    allErrors.append(.init(time: error.time, message: error.message, warning: warning))
                 }
-                allErrors.append(.init(time: error.time, message: error.message))
             }
         }
         /// Return the output
@@ -69,13 +70,13 @@ extension Terminal {
                 guard let standardOutput = String(data: handler.availableData, encoding: .utf8) else {
                     return
                 }
-                continuation.yield(.standardOutput(.init(time: .now, message: standardOutput)))
+                continuation.yield(.standardOutput(.init(time: .now, message: standardOutput, warning: false)))
             }
             errorPipe.fileHandleForReading.readabilityHandler = { handler in
                 guard let errorOutput = String(data: handler.availableData, encoding: .utf8) else {
                     return
                 }
-                continuation.yield(.standardError(.init(time: .now, message: errorOutput)))
+                continuation.yield(.standardError(.init(time: .now, message: errorOutput, warning: false)))
             }
             /// Finish the stream
             task.terminationHandler = { _ in
@@ -107,6 +108,7 @@ extension Terminal {
     struct OutputItem {
         let time: Date
         let message: String
+        let warning: Bool
     }
 }
 
@@ -213,20 +215,17 @@ extension Terminal {
         /// Add the output file
         arguments.append("--output=\"\(sceneState.exportURL.path)\"")
         /// Add the process to the log
-        sceneState.logMessages = [.init(type: .notice, message: "Creating PDF preview")]
-        /// Run **ChordPro** in the shell
-        /// - Note: The output is logged
-        let output = await Terminal.runInShell(arguments: [arguments.joined(separator: " ")], sceneState: sceneState)
+        Logger.chordpro.info("Creating PDF preview with ChordPro CLI")
+        let runChordPro = Task.detached {
+            await Terminal.runInShell(arguments: [arguments.joined(separator: " ")])
+        }
+        let output = await runChordPro.value
         /// Try to get the `Data` from the created PDF
         do {
             let data = try Data(contentsOf: sceneState.exportURL.absoluteURL)
-            /// If **ChordPro** does not return any output all went well
-            if sceneState.logMessages.count == 1 {
-                sceneState.logMessages.append(.init(type: .notice, message: "No issues found"))
-            }
             /// Return the `Data` and the status of the creation as an ``AppError`
             /// - Note: That does not mean it is has an error, the status is just using the same structure
-            return (data, sceneState.logMessages.filter { $0.type == .warning }.isEmpty ? .noErrorOccurred : .createChordProPdfError)
+            return (data, output.standardError.filter { $0.warning == true }.isEmpty ? .noErrorOccurred : .createChordProPdfWarning)
         } catch {
             /// There is no data, throw an ``AppError``
             throw output.standardError.isEmpty ? AppError.emptySong : AppError.createChordProPdfError
@@ -241,10 +240,9 @@ extension Terminal {
     ///   - output: The raw outoput as read from stdError
     ///   - sceneState: The sceneState of the current document
     /// - Returns: An item for the internal log
-    @MainActor static func parseChordProMessage(_ output: Terminal.OutputItem, sceneState: SceneStateModel) -> LogMessage.Item {
+    static func parseChordProMessage(_ output: Terminal.OutputItem) -> Bool {
         /// Cleanup the message
         let message = output.message
-            .replacingOccurrences(of: sceneState.sourceURL.path, with: sceneState.sourceURL.lastPathComponent)
             .trimmingCharacters(in: .whitespacesAndNewlines)
         let lineNumberRegex = try? NSRegularExpression(pattern: "^Line (\\d+), (.*)")
         /// Check for a line number
@@ -252,21 +250,17 @@ extension Terminal {
             let match = lineNumberRegex?.firstMatch(in: message, options: [], range: NSRange(location: 0, length: message.utf16.count)),
             let lineNumber = Range(match.range(at: 1), in: message),
             let remaining = Range(match.range(at: 2), in: message) {
-            let message = LogMessage.Item(
+            let logMessage = LogMessage(
                 time: output.time,
-                type: .warning,
+                type: .fault,
                 lineNumber: Int(message[lineNumber]),
                 message: "Warning: \(String(message[remaining]))"
             )
-            return message
+            Logger.chordpro.fault("**Line \(logMessage.lineNumber ?? 0, privacy: .public)**\n\(String(message[remaining]), privacy: .public)")
+            return true
         } else {
-            return (
-                .init(
-                    time: output.time,
-                    type: .notice,
-                    message: message
-                )
-            )
+            Logger.chordpro.notice("\(message, privacy: .public)")
+            return false
         }
     }
 }

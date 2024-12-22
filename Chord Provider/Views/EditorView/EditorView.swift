@@ -13,6 +13,8 @@ struct EditorView: View {
     @Binding var document: ChordProDocument
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
+    /// The AppDelegate to bring additional Windows into the SwiftUI world
+    @Environment(AppDelegateModel.self)  var appDelegate
     /// The observable state of the scene
     @Environment(SceneStateModel.self) var sceneState
     /// Show a directive sheet
@@ -69,6 +71,12 @@ struct EditorView: View {
                 }
                 Spacer()
                 sceneState.cleanSourceButton
+                    .controlSize(.small)
+                Button {
+                    appDelegate.showDebugWindow()
+                } label: {
+                    Label("Debug Window", systemImage: "gear")
+                }
                     .controlSize(.small)
             }
             .font(.caption)

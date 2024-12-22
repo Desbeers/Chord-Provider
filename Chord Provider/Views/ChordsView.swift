@@ -43,6 +43,8 @@ struct ChordsView: View {
                             effect
                                 .scaleEffect(phase.isIdentity ? 1 : 0.6)
                         }
+                    case .unknownChord:
+                        EmptyView()
                     default:
                         ChordDiagramView(chord: chord, width: 100)
                             .scrollTransition { effect, phase in

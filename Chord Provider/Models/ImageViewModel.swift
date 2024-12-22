@@ -30,7 +30,7 @@ import OSLog
     private func loadImage(url: URL?) async {
         guard let url else { return }
         if let imageFromCache = AppStateModel.shared.getImageFromCache(from: url) {
-            Logger.application.notice("Image from cache: \(url.lastPathComponent, privacy: .public)")
+            Logger.viewBuild.notice("Image from cache: \(url.lastPathComponent, privacy: .public)")
             self.image = imageFromCache
             self.size = ChordProParser.getImageSize(image: imageFromCache, arguments: arguments)
             return
@@ -40,7 +40,6 @@ import OSLog
     }
 
     private func loadImageFromURL(url: URL) async {
-        Logger.application.notice("Loading image: \(url.lastPathComponent, privacy: .public)")
         let task = Task.detached {
             try? Data(contentsOf: url)
         }
@@ -48,13 +47,14 @@ import OSLog
             self.fallbackImage(url: url)
             return
         }
+        Logger.viewBuild.notice("Loading image: \(url.lastPathComponent, privacy: .public)")
         self.image = loadedImage
         self.size = ChordProParser.getImageSize(image: loadedImage, arguments: self.arguments)
         AppStateModel.shared.setImageCache(image: loadedImage, key: url)
     }
 
     private func fallbackImage(url: URL) {
-        Logger.application.error("Using fallback image for: \(url.lastPathComponent, privacy: .public)")
+        Logger.viewBuild.error("Missing image for **\(url.lastPathComponent, privacy: .public)**")
         // swiftlint:disable:next force_unwrapping
         let fallbackImage = NSImage(systemSymbolName: "photo", accessibilityDescription: nil)!
         self.size = CGSize(width: 100, height: 80)

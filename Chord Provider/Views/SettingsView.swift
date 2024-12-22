@@ -236,9 +236,6 @@ struct SettingsView: View {
                         .padding()
                     fileBrowser.folderSelector
                         .padding()
-                    Text(.init(Help.musicPath))
-                        .font(.caption)
-                        .padding()
                 }
                 .wrapSettingsSection(title: "The folder with your songs")
             }

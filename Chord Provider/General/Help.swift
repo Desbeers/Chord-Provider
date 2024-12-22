@@ -12,11 +12,6 @@ import Foundation
 /// Static help strings
 enum Help {
 
-    /// Static help message for the folder selector
-    static let musicPath =
-"""
-If you add a **'musicpath'**  *directive* to your ChordPro file, **Chord Provider** can play the song if it knows where to look for it. The song has to be in the same folder as your ChordPro file and within the selected folder.
-"""
     /// Static help message for the file browser
     static let fileBrowser =
 """

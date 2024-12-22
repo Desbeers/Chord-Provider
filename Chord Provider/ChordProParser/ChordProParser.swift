@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 /// The **ChordPro** file parser
 actor ChordProParser {
@@ -29,7 +30,8 @@ actor ChordProParser {
         transpose: Int,
         settings: AppSettings.Song,
         fileURL: URL?
-    ) -> Song {
+    ) async -> Song {
+        Logger.parser.info("Parsing **\(fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         /// Start with a fresh song
         var song = Song(id: id, settings: settings)
         song.metadata.fileURL = fileURL

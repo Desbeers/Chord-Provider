@@ -41,6 +41,5 @@ struct DebugButtons: View {
             }
         )
         .disabled(sceneState == nil)
-        Divider()
     }
 }

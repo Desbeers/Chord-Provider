@@ -15,6 +15,8 @@ struct PreviewPDFButton: View {
     var replacePreview: Bool = false
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
+    /// The AppDelegate to bring additional Windows into the SwiftUI world
+    @Environment(AppDelegateModel.self) private var appDelegate
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
@@ -37,11 +39,18 @@ struct PreviewPDFButton: View {
     }
     /// Show a preview of the PDF
     func showPreview() async {
-        if let pdf = await sceneState.exportSongToPDF() {
+        do {
+            let pdf = try await sceneState.exportSongToPDF()
             /// The preview is not outdated
             sceneState.preview.outdated = false
             /// Show the preview
-            sceneState.preview.data = pdf.data
+            sceneState.preview.data = pdf
+            /// Update the log
+            appDelegate.lastUpdate = .now
+        } catch {
+            sceneState.errorAlert = AlertMessage(error: error, role: .cancel) {
+                appDelegate.showDebugWindow()
+            }
         }
     }
 }

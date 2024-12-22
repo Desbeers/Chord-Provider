@@ -69,9 +69,9 @@ extension AppSettings {
     static func save(id: AppStateModel.AppStateID, settings: AppSettings) throws {
         do {
             try Cache.set(key: "ChordProviderSettings-\(id.rawValue)", object: settings)
-            Logger.application.info("\(id.rawValue, privacy: .public) saved")
+            Logger.application.info("**\(id.rawValue, privacy: .public)** saved")
         } catch {
-            Logger.application.error("Error saving ChordProvider settings")
+            Logger.application.error("Error saving **\(id.rawValue, privacy: .public)**")
             throw AppError.saveSettingsError
         }
     }

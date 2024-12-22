@@ -48,7 +48,7 @@ struct MainView: View {
         .task {
             sceneState.file = file
             sceneState.content = document.text
-            renderSong()
+            await renderSong()
             /// Always open the editor for a new file
             if document.text == appState.standardDocumentContent || document.text == appState.standardDocumentContent + "\n" {
                 sceneState.showEditor = true
@@ -57,22 +57,32 @@ struct MainView: View {
         }
         .onChange(of: document.text) {
             sceneState.content = document.text
-            renderSong()
+            Task {
+                await renderSong()
+            }
         }
         .onChange(of: sceneState.song.metadata.transpose) {
-            renderSong()
+            Task {
+                await renderSong()
+            }
         }
         .onChange(of: appState.settings.song.display.repeatWholeChorus) {
             sceneState.settings.song.display.repeatWholeChorus = appState.settings.song.display.repeatWholeChorus
-            renderSong()
+            Task {
+                await renderSong()
+            }
         }
         .onChange(of: appState.settings.song.display.lyricsOnly) {
             sceneState.settings.song.display.lyricsOnly = appState.settings.song.display.lyricsOnly
-            renderSong()
+            Task {
+                await renderSong()
+            }
         }
         .onChange(of: sceneState.settings) {
             appState.settings.song = sceneState.settings.song
-            renderSong()
+            Task {
+                await renderSong()
+            }
         }
         .animation(.default, value: sceneState.preview)
         .animation(.smooth, value: sceneState.settings)
@@ -116,8 +126,8 @@ struct MainView: View {
     }
 
     /// Render the song
-    private func renderSong() {
-        sceneState.song = ChordProParser.parse(
+    private func renderSong() async {
+        sceneState.song = await ChordProParser.parse(
             id: sceneState.song.id,
             text: document.text,
             transpose: sceneState.song.metadata.transpose,
@@ -125,6 +135,8 @@ struct MainView: View {
             fileURL: file
         )
         sceneState.getMedia()
+        appDelegate.lastUpdate = .now
+
         /// Pass the parsed song to the appDelegate
         appDelegate.song = sceneState.song
         if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == file }) {

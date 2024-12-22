@@ -35,7 +35,7 @@ extension WelcomeView {
                             NSDocumentController.shared.newDocument(nil)
                         },
                         label: {
-                            Label("Start with an Empty Song", systemImage: "doc")
+                            Label("Start with a New Song", systemImage: "doc")
                         }
                     )
                     Button(

@@ -53,7 +53,7 @@ extension FolderExport {
                         )
                     )
                     builder.elements.append(PDFBuild.PageBreak())
-                    let song = ChordProParser.parse(
+                    let song = await ChordProParser.parse(
                         id: item.id,
                         text: fileContents,
                         transpose: 0,

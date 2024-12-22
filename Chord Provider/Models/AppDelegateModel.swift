@@ -20,6 +20,8 @@ import SwiftUI
 
     var song: Song?
 
+    var lastUpdate: Date = .now
+
     /// Close all windows except the menuBarExtra
     /// - Note: Part of the `DocumentGroup` dirty hack; don't show the NSOpenPanel
     func applicationDidFinishLaunching(_ notification: Notification) {

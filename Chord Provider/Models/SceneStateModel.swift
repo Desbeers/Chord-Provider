@@ -57,7 +57,7 @@ import OSLog
     }
 
     /// Export the song to a PDF
-    func exportSongToPDF() async -> (data: Data, url: URL)? {
+    func exportSongToPDF() async throws -> Data {
         let settings = AppSettings.load(id: .mainView)
         switch settings.chordPro.useChordProCLI {
         case false:
@@ -67,21 +67,19 @@ import OSLog
                     song: song
                 )
                 try export.pdf.write(to: exportURL)
-                return (export.pdf, exportURL)
+                return export.pdf
             } catch {
-                Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
-                errorAlert = error.alert()
-                return nil
+                Logger.application.error("PDF error: \(error.localizedDescription, privacy: .public)")
+                throw error
             }
         case true:
             /// ChordPro CLI renderer
             do {
                 let export = try await Terminal.exportPDF(text: content, settings: AppSettings.load(id: .mainView), sceneState: self)
-                return (export.data, self.exportURL)
+                return export.data
             } catch {
-                Logger.application.error("Error creating export: \(error.localizedDescription, privacy: .public)")
-                errorAlert = error.alert()
-                return nil
+                Logger.application.error("ChordPro CLI error: \(error.localizedDescription, privacy: .public)")
+                throw error
             }
         }
     }
@@ -105,8 +103,6 @@ import OSLog
 
     // MARK: ChordPro integration
 
-    /// The log messages
-    var logMessages: [LogMessage.Item] = [.init()]
     /// The URL of the source file
     var sourceURL: URL {
         let fileName = "\(song.metadata.artist) - \(song.metadata.title)"

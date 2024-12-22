@@ -14,7 +14,9 @@ struct AlertMessage {
     /// The role of the button
     let role: ButtonRole?
     /// The action for the button
-    let action: (() -> Void)?
+    var action: (() -> Void)?
+
+    var debugCommand: (() -> Void)?
 }
 
 extension AlertMessage {
@@ -114,6 +116,12 @@ extension View {
             isPresented: .constant(localizedAlertError != nil),
             error: localizedAlertError,
             actions: { _ in
+                if let alert = message.wrappedValue, let command = alert.debugCommand {
+                    Button("Open Debug") {
+                        command()
+                        message.wrappedValue = nil
+                    }
+                }
                 AlertMessage.ConfirmButton(message: message, localizedAlertError: localizedAlertError)
             },
             message: { error in

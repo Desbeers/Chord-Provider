@@ -47,6 +47,8 @@ enum AppError: String, LocalizedError {
     case binaryNotFound
     /// An error when creating a PDF
     case createChordProPdfError
+    /// An warning when creating a PDF
+    case createChordProPdfWarning
 
     // MARK: Fallback
 
@@ -70,6 +72,10 @@ enum AppError: String, LocalizedError {
             "The ChordPro CLI was not found"
         case .createChordProPdfError:
             "The ChordPro CLI could not create a PDF"
+        case .createChordProPdfWarning:
+            "The ChordPro CLI created a PDF with warnings"
+        case .emptySong:
+            "The song appears to be empty"
         default:
             self.rawValue
         }
@@ -109,7 +115,7 @@ It looks like the ChordPro CLI is not installed or it is not in your $path.
 Sorry... Please use its official GUI for diagnostics.
 """
         default:
-            self.rawValue
+            nil
         }
     }
 

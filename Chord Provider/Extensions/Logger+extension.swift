@@ -21,6 +21,18 @@ extension Logger {
     static var application: Logger {
         Logger(subsystem: subsystem, category: "Application")
     }
+    /// Log parser messages
+    static var parser: Logger {
+        Logger(subsystem: subsystem, category: "Song Parser")
+    }
+    /// Song view build messages
+    static var viewBuild: Logger {
+        Logger(subsystem: subsystem, category: "View Build")
+    }
+    /// ChordPro CLI messages
+    static var chordpro: Logger {
+        Logger(subsystem: subsystem, category: "ChordPro")
+    }
     /// Log file access messages
     static var fileAccess: Logger {
         Logger(subsystem: subsystem, category: "File Access")

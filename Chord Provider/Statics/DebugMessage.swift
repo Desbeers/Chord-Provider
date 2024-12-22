@@ -8,6 +8,7 @@
 import Foundation
 
 enum DebugMessage: String, CaseIterable {
+    case log = "Log output"
     case source = "Generated Source"
     case json = "JSON output"
 }

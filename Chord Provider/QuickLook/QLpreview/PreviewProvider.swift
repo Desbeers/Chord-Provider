@@ -13,7 +13,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
     func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {
         let contentType = UTType.pdf
         let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-        let song = ChordProParser.parse(
+        let song = await ChordProParser.parse(
             id: UUID(),
             text: fileContents,
             transpose: 0,
