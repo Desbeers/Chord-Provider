@@ -13,9 +13,7 @@ struct SettingsView: View {
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    @Environment(AppDelegateModel.self) private var appDelegate
-    /// Bool if **ChordPro CLI** averrable
+    /// Bool if **ChordPro CLI** is available
     @State var haveChordProCLI: Bool = false
     /// The body of the `View`
     var body: some View {
@@ -52,12 +50,6 @@ struct SettingsView: View {
 
         VStack {
             VStack(alignment: .leading) {
-                Toggle("Show the welcome screen when creating a new document", isOn: $appState.settings.application.showWelcomeWindow)
-                Text("When enabled you can choose between a new song, a new songbook or open an existing song. When disabled, a new song will be created.")
-                    .font(.caption)
-                Toggle("Add quick access to the menu bar", isOn: $appState.settings.application.showMenuBarExtra)
-                Text("When enabled, you can access the welcome screen from the menu bar.")
-                    .font(.caption)
                 Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
                     .onChange(of: appState.settings.application.useCustomSongTemplate) {
                         /// Update the appState with the new song content

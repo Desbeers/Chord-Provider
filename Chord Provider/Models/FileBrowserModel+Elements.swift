@@ -30,20 +30,4 @@ extension FileBrowserModel {
             }
         }
     }
-
-    // MARK: Open Song URL
-
-    @MainActor func openSong(url: URL) async {
-        /// SwiftUI openDocument is very buggy; don't try to open a document when it is already open; the app will crash..
-        /// So I use the shared NSDocumentController instead
-        if let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
-            _ = persistentURL.startAccessingSecurityScopedResource()
-            do {
-                try await NSDocumentController.shared.openDocument(withContentsOf: url, display: true)
-            } catch {
-                Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
-            }
-            persistentURL.stopAccessingSecurityScopedResource()
-        }
-    }
 }

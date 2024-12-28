@@ -9,8 +9,6 @@ import SwiftUI
 
 /// SwiftUI `View` for the About Window
 struct AboutView: View {
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    let appDelegate: AppDelegateModel
     /// The body of the `View`
     var body: some View {
         VStack {
@@ -25,7 +23,7 @@ struct AboutView: View {
                 Text("Version \(Bundle.main.releaseVersionNumber)")
                     .font(.caption)
             }
-            .padding()
+            .padding(.bottom)
             VStack(spacing: 10) {
                 Text("A beautiful and **real** macOS application to view and edit [ChordPro](https://www.chordpro.org) songs on your Mac or export them to PDF files.")
                 Text("The source code is released under the **GPL3 licence** and is available on [GitHub](https://github.com/Desbeers/Chord-Provider).")
@@ -42,9 +40,5 @@ struct AboutView: View {
                 .font(.caption)
         }
         .frame(width: 240)
-        .background(.ultraThickMaterial)
-        .closeWindowModifier {
-            appDelegate.closeAboutWindow()
-        }
     }
 }

@@ -24,11 +24,6 @@ extension AppSettings {
 
     /// Settings that will change the behaviour of the application
     struct Application: Codable, Equatable {
-
-        /// Bool to show the Welcome window when creating a new document
-        var showWelcomeWindow: Bool = true
-        /// Bool to show the Welcome View as MenuBarExtra
-        var showMenuBarExtra: Bool = true
         /// Bool to use a custom song template
         var useCustomSongTemplate: Bool = false
     }
@@ -38,7 +33,6 @@ extension AppSettings {
 
     /// ChordPro integration
     struct ChordPro: Codable, Equatable {
-
         /// Bool to use the ChordPro CLI for PDF creation
         var useChordProCLI: Bool = false
         /// Bool to use a custom config instead of system

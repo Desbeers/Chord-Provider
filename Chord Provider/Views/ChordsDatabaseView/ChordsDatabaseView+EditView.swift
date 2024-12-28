@@ -13,8 +13,9 @@ extension ChordsDatabaseView {
     struct EditView: View {
         /// The chord we want to edit or the chord as starting point to add
         let chord: ChordDefinition
-        /// The AppDelegate to bring additional Windows into the SwiftUI world
-        let appDelegate: AppDelegateModel
+
+        let window: NSWindow?
+
         /// The optional flat chord when editing or adding a sharp chord
         @State var flatChord: ChordDefinition?
         /// The observable state of the scene
@@ -91,7 +92,7 @@ extension ChordsDatabaseView {
                             break
                         }
                         /// Mark the window as dirty
-                        appDelegate.chordsDatabaseViewController?.window?.isDocumentEdited = true
+                        window?.isDocumentEdited = true
                         /// Return to the root view
                         chordDatabaseState.navigationStack = []
                     } label: {

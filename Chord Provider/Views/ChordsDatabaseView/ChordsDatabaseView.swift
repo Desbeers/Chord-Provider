@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ChordsDatabaseView: View {
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    @Bindable var  appDelegate: AppDelegateModel
     /// The observable state of the application
     @State var appState = AppStateModel(id: .chordsDatabaseView)
     /// The state of the scene
@@ -20,6 +18,9 @@ struct ChordsDatabaseView: View {
     @Environment(\.colorScheme) var colorScheme
     /// The conformation dialog to delete a chord
     @State var showDeleteConfirmation = false
+
+    @State private var window: NSWindow?
+
     /// The body of the `View`
     var body: some View {
         NavigationStack(path: $chordsDatabaseState.navigationStack.animation(.smooth)) {
@@ -33,7 +34,7 @@ struct ChordsDatabaseView: View {
                     .background(.ultraThinMaterial)
             }
             .navigationDestination(for: ChordDefinition.self) { chord in
-                ChordsDatabaseView.EditView(chord: chord, appDelegate: appDelegate)
+                ChordsDatabaseView.EditView(chord: chord, window: window)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .searchable(text: $chordsDatabaseState.search, placement: .toolbar, prompt: Text("Search chords"))
                     .navigationBarBackButtonHidden()
@@ -41,6 +42,24 @@ struct ChordsDatabaseView: View {
             .searchable(text: $chordsDatabaseState.search, placement: .toolbar, prompt: Text("Search chords"))
             .opacity(chordsDatabaseState.navigationStack.isEmpty ? 1 : 0)
         }
+        .withHostingWindow { window in
+            self.window = window
+        }
+        .dismissalConfirmationDialog(
+            "The Chords Database has changed",
+            shouldPresent: window?.isDocumentEdited ?? false,
+            actions: {
+                Button("No") {
+                    window?.close()
+                }
+                Button("Yes", role: .cancel) {
+                    chordsDatabaseState.showExportSheet = true
+                }
+            },
+            message: {
+                Text("Do you want to save your database?")
+            }
+        )
         .frame(minWidth: 860, minHeight: 620)
         .background(Color(nsColor: .textBackgroundColor))
         .scaleModifier
@@ -86,20 +105,6 @@ struct ChordsDatabaseView: View {
             sceneState.instrumentPicker
                 .pickerStyle(.segmented)
         }
-        .confirmationDialog(
-            "The Chords Database has changed",
-            isPresented: $appDelegate.saveChordDatabaseDialog,
-            titleVisibility: .visible,
-            actions: {
-                Button("No", role: .cancel) {
-                    appDelegate.chordsDatabaseViewController?.close()
-                }
-                Button("Yes") {
-                    chordsDatabaseState.showExportSheet = true
-                }
-            }, message: {
-                Text("Do you want to save your database?")
-            })
         .fileExporter(
             isPresented: $chordsDatabaseState.showExportSheet,
             document: ChordsDatabaseDocument(string: chordsDatabaseState.exportData),
@@ -108,6 +113,7 @@ struct ChordsDatabaseView: View {
         ) { result in
             if case .success = result {
                 print("Success")
+                window?.isDocumentEdited = false
             } else {
                 print("Failure")
             }

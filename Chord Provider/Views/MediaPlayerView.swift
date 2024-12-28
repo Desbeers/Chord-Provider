@@ -64,12 +64,15 @@ struct MediaPlayerView: View {
 extension MediaPlayerView {
 
     struct Buttons: View {
-        /// The AppDelegate to bring additional Windows into the SwiftUI world
-        @Environment(AppDelegateModel.self) private var appDelegate
         /// The observable state of the application
         @Environment(AppStateModel.self) var appState
         /// The observable state of the scene
         @Environment(SceneStateModel.self) var sceneState
+
+        @Environment(\.openWindow) private var openWindow
+
+        @Environment(\.dismissWindow) private var dismissWindow
+
         /// The body of the `View`
         var body: some View {
             if let tempo = sceneState.song.metadata.tempo, let bpm = Float(tempo) {
@@ -92,10 +95,10 @@ extension MediaPlayerView {
                         subtitle: sceneState.song.metadata.title,
                         url: url
                     )
-                    appDelegate.showMediaPlayerWindow()
+                    openWindow(id: AppDelegateModel.WindowID.mediaPlayerView.rawValue)
                 } else {
                     appState.media = .init()
-                    appDelegate.closeMediaPlayerWindow()
+                    dismissWindow(id: AppDelegateModel.WindowID.mediaPlayerView.rawValue)
                 }
             } label: {
                 Image(systemName: kind.systemName + (appState.media.url != nil && appState.media.kind == kind ? ".fill" : ""))

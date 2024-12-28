@@ -11,57 +11,62 @@ import OSLog
 /// SwiftUI `View` for the Welcome Window
 struct WelcomeView: View {
     /// The observable state of the application
-    @State private var appState = AppStateModel.shared
+    @Environment(AppStateModel.self) var appState
     /// The observable ``FileBrowser`` class
-    @State private var fileBrowser = FileBrowserModel.shared
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    let appDelegate: AppDelegateModel
+    @State var fileBrowser = FileBrowserModel.shared
     /// The ID of the Window
     let windowID: AppDelegateModel.WindowID
     /// The currently selected tab
     @State private var selectedTab: NewTabs = .recent
+
+    /// Environment to open documents
+    @Environment(\.openDocument) private var openDocument
+
+    @Environment(\.openWindow) var openWindow
+
+    @Environment(\.dismissWindow) private var dismissWindow
+
+    @Environment(\.dismiss) var dismiss
+
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
-            CreateDocument(appDelegate: appDelegate)
+            createDocument
                 .frame(maxHeight: .infinity)
                 .padding([.leading, .bottom])
-                .background(.ultraThickMaterial)
             VStack {
-                Picker("Tabs", selection: $selectedTab) {
-                    ForEach(NewTabs.allCases) { tab in
-                        Text(tab.rawValue)
-                            .tag(tab)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .labelsHidden()
-                .padding(.top)
                 VStack {
                     switch selectedTab {
                     case .recent:
-                        RecentFiles(appDelegate: appDelegate)
+                        recentFiles
                     case .yourSongs:
-                        FileBrowser()
+                        browserFiles
                     }
                 }
                 .frame(maxHeight: .infinity)
-                    if windowID == .welcomeView {
-                        Toggle("Show this window when creating a new document", isOn: $appState.settings.application.showWelcomeWindow)
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .padding(.bottom)
-                            .controlSize(.small)
-                    }
             }
             .padding(.horizontal, 6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(nsColor: .textBackgroundColor))
             .labelStyle(.SongFile)
         }
+        .toolbar {
+            Spacer()
+            Picker("Tabs", selection: $selectedTab) {
+                ForEach(NewTabs.allCases) { tab in
+                    Text(tab.rawValue)
+                        .tag(tab)
+                }
+            }
+            .pickerStyle(.segmented)
+        }
         .buttonStyle(.plain)
         .frame(width: 640)
         .animation(.default, value: selectedTab)
+        .gesture(WindowDragGesture())
+        .task {
+            appState.recentFiles = NSDocumentController.shared.recentDocumentURLs
+        }
     }
 }
 
@@ -77,5 +82,16 @@ extension WelcomeView {
         case recent = "Recent"
         /// Songs in the file browser
         case yourSongs = "Your Songs"
+    }
+}
+
+extension WelcomeView {
+    func openSong(url: URL) async {
+        do {
+            try await openDocument(at: url)
+        } catch {
+            Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
+        }
+        dismiss()
     }
 }

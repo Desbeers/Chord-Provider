@@ -18,7 +18,10 @@ import SwiftUI
     /// The actual content for a new song
     /// - Note: This will be different than the standard when opened from the ``WelcomeView``
     var newDocumentContent: String
-
+    /// The optional current song in focus
+    var song: Song?
+    /// Last time the app state was updated
+    var lastUpdate: Date = .now
     /// The ID of the app state
     var id: AppStateID
     /// The application settings

@@ -64,12 +64,11 @@
 		D70D101D2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */; };
 		D70D10202BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */; };
 		D70D10212BD66D79006703EF /* PDFBuild+ContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */; };
-		D70D96B82CAC478400B51A14 /* CloseWindowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96B72CAC478400B51A14 /* CloseWindowModifier.swift */; };
 		D70D96BE2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96BD2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift */; };
 		D70D96C02CB1813800B51A14 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96BF2CB1813800B51A14 /* MediaPlayerView.swift */; };
-		D70D96C32CB25D6000B51A14 /* WelcomeView+RecentFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96C22CB25D6000B51A14 /* WelcomeView+RecentFiles.swift */; };
+		D70D96C32CB25D6000B51A14 /* WelcomeView+recentFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96C22CB25D6000B51A14 /* WelcomeView+recentFiles.swift */; };
 		D70D96C62CB260DD00B51A14 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96C52CB260DD00B51A14 /* Styles.swift */; };
-		D70D96C82CB26B8C00B51A14 /* WelcomeView+CreateDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96C72CB26B8C00B51A14 /* WelcomeView+CreateDocument.swift */; };
+		D70D96C82CB26B8C00B51A14 /* WelcomeView+createDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96C72CB26B8C00B51A14 /* WelcomeView+createDocument.swift */; };
 		D70D96CB2CB2868900B51A14 /* ChordPro.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96CA2CB2868900B51A14 /* ChordPro.swift */; };
 		D70D96CC2CB2874C00B51A14 /* ChordPro.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96CA2CB2868900B51A14 /* ChordPro.swift */; };
 		D70D96CE2CB2877E00B51A14 /* ChordPro+Directive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13FA72A6460B7002D875D /* ChordPro+Directive.swift */; };
@@ -301,7 +300,7 @@
 		D7F13FC12A6460B7002D875D /* Song+Section+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8A2A6460B7002D875D /* Song+Section+Line+Part.swift */; };
 		D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */; };
 		D7F13FC72A6460B7002D875D /* FileBrowserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F922A6460B7002D875D /* FileBrowserModel.swift */; };
-		D7F13FC82A6460B7002D875D /* WelcomeView+FileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F942A6460B7002D875D /* WelcomeView+FileBrowser.swift */; };
+		D7F13FC82A6460B7002D875D /* WelcomeView+browserFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F942A6460B7002D875D /* WelcomeView+browserFiles.swift */; };
 		D7F13FCD2A6460B7002D875D /* ChordProviderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F9C2A6460B7002D875D /* ChordProviderApp.swift */; };
 		D7F13FCF2A6460B7002D875D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F9E2A6460B7002D875D /* Assets.xcassets */; };
 		D7F13FD02A6460B7002D875D /* SceneStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F13F9F2A6460B7002D875D /* SceneStateModel.swift */; };
@@ -398,12 +397,11 @@
 		D70B72CC2BD54E86003C89B4 /* PDFBuild+PlainSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+PlainSection.swift"; sourceTree = "<group>"; };
 		D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TOCInfo.swift"; sourceTree = "<group>"; };
 		D70D101F2BD66D79006703EF /* PDFBuild+ContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+ContentItem.swift"; sourceTree = "<group>"; };
-		D70D96B72CAC478400B51A14 /* CloseWindowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseWindowModifier.swift; sourceTree = "<group>"; };
 		D70D96BD2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+QLPreviewRepresentedView.swift"; sourceTree = "<group>"; };
 		D70D96BF2CB1813800B51A14 /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
-		D70D96C22CB25D6000B51A14 /* WelcomeView+RecentFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView+RecentFiles.swift"; sourceTree = "<group>"; };
+		D70D96C22CB25D6000B51A14 /* WelcomeView+recentFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView+recentFiles.swift"; sourceTree = "<group>"; };
 		D70D96C52CB260DD00B51A14 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
-		D70D96C72CB26B8C00B51A14 /* WelcomeView+CreateDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView+CreateDocument.swift"; sourceTree = "<group>"; };
+		D70D96C72CB26B8C00B51A14 /* WelcomeView+createDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView+createDocument.swift"; sourceTree = "<group>"; };
 		D70D96CA2CB2868900B51A14 /* ChordPro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordPro.swift; sourceTree = "<group>"; };
 		D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordPro+Instrument.swift"; sourceTree = "<group>"; };
 		D70D96DA2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordsDatabaseDocument.swift; sourceTree = "<group>"; };
@@ -590,7 +588,7 @@
 		D7F13F8A2A6460B7002D875D /* Song+Section+Line+Part.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+Part.swift"; sourceTree = "<group>"; };
 		D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+Grid.swift"; sourceTree = "<group>"; };
 		D7F13F922A6460B7002D875D /* FileBrowserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileBrowserModel.swift; sourceTree = "<group>"; };
-		D7F13F942A6460B7002D875D /* WelcomeView+FileBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WelcomeView+FileBrowser.swift"; sourceTree = "<group>"; };
+		D7F13F942A6460B7002D875D /* WelcomeView+browserFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WelcomeView+browserFiles.swift"; sourceTree = "<group>"; };
 		D7F13F962A6460B7002D875D /* QLpreview.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = QLpreview.entitlements; sourceTree = "<group>"; };
 		D7F13F972A6460B7002D875D /* PreviewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		D7F13F982A6460B7002D875D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -677,9 +675,9 @@
 			isa = PBXGroup;
 			children = (
 				D779D3542C68F0D700380175 /* WelcomeView.swift */,
-				D70D96C72CB26B8C00B51A14 /* WelcomeView+CreateDocument.swift */,
-				D70D96C22CB25D6000B51A14 /* WelcomeView+RecentFiles.swift */,
-				D7F13F942A6460B7002D875D /* WelcomeView+FileBrowser.swift */,
+				D70D96C72CB26B8C00B51A14 /* WelcomeView+createDocument.swift */,
+				D70D96C22CB25D6000B51A14 /* WelcomeView+recentFiles.swift */,
+				D7F13F942A6460B7002D875D /* WelcomeView+browserFiles.swift */,
 			);
 			path = WelcomeView;
 			sourceTree = "<group>";
@@ -1060,7 +1058,6 @@
 			isa = PBXGroup;
 			children = (
 				D7EB791C2CA995C3004D965B /* ScaleModifier.swift */,
-				D70D96B72CAC478400B51A14 /* CloseWindowModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -1484,7 +1481,6 @@
 				D779D3552C68F0D700380175 /* WelcomeView.swift in Sources */,
 				D7972B912BCD506B00752CF9 /* SongExport.swift in Sources */,
 				D7336ACF2C26FBFF00D0AA8E /* AlertMessage.swift in Sources */,
-				D70D96B82CAC478400B51A14 /* CloseWindowModifier.swift in Sources */,
 				D70D96EB2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift in Sources */,
 				D70D96EF2CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift in Sources */,
 				D701F8792A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */,
@@ -1571,7 +1567,7 @@
 				D7F13FC02A6460B7002D875D /* Song+Section.swift in Sources */,
 				D706FD9A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift in Sources */,
 				D706FD8F2BCECC9F005DEDF6 /* PDFBuild+Background.swift in Sources */,
-				D70D96C32CB25D6000B51A14 /* WelcomeView+RecentFiles.swift in Sources */,
+				D70D96C32CB25D6000B51A14 /* WelcomeView+recentFiles.swift in Sources */,
 				D75B48A42BDFE97F001F6176 /* Song+Metadata.swift in Sources */,
 				D70B72822BD5040C003C89B4 /* PDFBuild+Comment.swift in Sources */,
 				D730BBCC2CA844C2008719F2 /* Instrument.swift in Sources */,
@@ -1586,7 +1582,7 @@
 				D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */,
 				D78819622BFA39D40033545D /* EditorView+validateChordDefinition.swift in Sources */,
 				D7EA87642C5A580A009A3D82 /* ChordProEditor+LineNumbersView.swift in Sources */,
-				D70D96C82CB26B8C00B51A14 /* WelcomeView+CreateDocument.swift in Sources */,
+				D70D96C82CB26B8C00B51A14 /* WelcomeView+createDocument.swift in Sources */,
 				D78E1ECF2AC58840001A0641 /* EditorView+directiveSheetButton.swift in Sources */,
 				D752E5902CBA991400CDE42D /* ChordPro+Directive+FormattingAttribute.swift in Sources */,
 				D7781B572D0FBA5B00EC0CCF /* ChordProParser+helpers.swift in Sources */,
@@ -1624,7 +1620,7 @@
 				D706FD902BCECC9F005DEDF6 /* PDFBuild+Clip.swift in Sources */,
 				D7C3D6242AC9EA0400909639 /* AppStateModel.swift in Sources */,
 				D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */,
-				D7F13FC82A6460B7002D875D /* WelcomeView+FileBrowser.swift in Sources */,
+				D7F13FC82A6460B7002D875D /* WelcomeView+browserFiles.swift in Sources */,
 				D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */,
 				D7781B532D0F205F00EC0CCF /* PDFBuild+arguments.swift in Sources */,
 				D70D96DB2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift in Sources */,
@@ -1780,7 +1776,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLthumbnail/QLthumbnail.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 260;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1796,8 +1792,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1813,7 +1809,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLthumbnail/QLthumbnail.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 260;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1829,8 +1825,8 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1966,7 +1962,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 260;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1991,8 +1987,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2015,7 +2011,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 260;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2040,8 +2036,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2062,7 +2058,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLpreview/QLpreview.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 260;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2075,8 +2071,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2092,7 +2088,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLpreview/QLpreview.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 250;
+				CURRENT_PROJECT_VERSION = 260;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2105,8 +2101,8 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 5.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

@@ -15,10 +15,10 @@ struct PreviewPDFButton: View {
     var replacePreview: Bool = false
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    @Environment(AppDelegateModel.self) private var appDelegate
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
+    /// Environment to open windows
+    @Environment(\.openWindow) private var openWindow
     /// The body of the `View`
     var body: some View {
         Button(
@@ -46,10 +46,10 @@ struct PreviewPDFButton: View {
             /// Show the preview
             sceneState.preview.data = pdf
             /// Update the log
-            appDelegate.lastUpdate = .now
+            appState.lastUpdate = .now
         } catch {
             sceneState.errorAlert = AlertMessage(error: error, role: .cancel) {
-                appDelegate.showDebugWindow()
+                openWindow(id: AppDelegateModel.WindowID.debugView.rawValue)
             }
         }
     }

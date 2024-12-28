@@ -10,12 +10,14 @@ import OSLog
 
 /// SwiftUI `View` for the debug window
 struct DebugView: View {
+
+    /// The observable state of the application
+    @Environment(AppStateModel.self) private var appState
+
     /// The currently selected tab
     @State private var tab: DebugMessage = .log
     /// The source of the song
     @State private var content: [(line: Int, source: Song.Section.Line)] = []
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    @Bindable var  appDelegate: AppDelegateModel
     /// The currently selected line
     @State private var selectedLine: Int?
 
@@ -42,16 +44,18 @@ struct DebugView: View {
         .frame(minWidth: 600, minHeight: 600)
         .frame(maxWidth: .infinity)
         .toolbar {
-            Picker("Tab", selection: $tab) {
-                ForEach(DebugMessage.allCases, id: \.self) { tab in
-                    Label(tab.rawValue, systemImage: "gear")
+            ToolbarItem(placement: .principal) {
+                Picker("Tab", selection: $tab) {
+                    ForEach(DebugMessage.allCases, id: \.self) { tab in
+                        Label(tab.rawValue, systemImage: "gear")
+                    }
                 }
+                .pickerStyle(.segmented)
             }
-            .pickerStyle(.segmented)
         }
         .labelStyle(.titleAndIcon)
-        .task(id: appDelegate.song) {
-            if let song = appDelegate.song {
+        .task(id: appState.song) {
+            if let song = appState.song {
                 var content: [(line: Int, source: Song.Section.Line)] = []
                 for line in song.sections.flatMap(\.lines) {
                     content.append((line: line.sourceLineNumber, source: line))
@@ -59,7 +63,7 @@ struct DebugView: View {
                 self.content = content
             }
         }
-        .task(id: appDelegate.lastUpdate) {
+        .task(id: appState.lastUpdate) {
             let osLog = Task.detached {
                 do {
                     /// Give the GUI some time to render
@@ -131,7 +135,7 @@ struct DebugView: View {
     /// The json tab of the `View`
     var json: some View {
         ScrollView {
-            if let song = appDelegate.song {
+            if let song = appState.song {
                 Text(ChordProParser.encode(song))
             } else {
                 Text("No song open")

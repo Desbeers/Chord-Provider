@@ -66,6 +66,7 @@ extension Song.Section {
         mutating func addWarning(_ warning: Set<String>) {
             let warningLine = (["**Line \(sourceLineNumber)**"] + warning.map(\.description)).joined(separator: "\n")
             Logger.parser.fault("\(warningLine, privacy: .public)")
+            self.warning = warning
         }
 
         /// - Note: grids are *optionals* so we can not just 'insert' it

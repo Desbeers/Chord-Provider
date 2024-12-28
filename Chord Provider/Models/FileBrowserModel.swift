@@ -28,8 +28,15 @@ import OSLog
     var songsFolder: URL?
     /// The status
     var status: AppError = .unknownStatus
-    /// The list of open windows
-    var openWindows: [NSWindow.WindowItem] = []
+    /// The search query
+    var search: String = ""
+    /// Tab item
+    var tabItem: TabItem = .artists
+    /// All tags
+    var allTags: [String] = []
+    /// Selected tag
+    var selectedTag: [String] = []
+
     /// Init the FileBrowser
     private init() {
         songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
@@ -38,6 +45,16 @@ import OSLog
 }
 
 extension FileBrowserModel {
+
+    /// Tab bar items
+    enum TabItem: String, CaseIterable {
+        /// Artists
+        case artists = "Artists"
+        /// Songs
+        case songs = "Songs"
+        /// Tags
+        case tags = "Tags"
+    }
 
     // MARK: Structures
 

@@ -12,8 +12,6 @@ import OSLog
 struct MainView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    @Bindable var  appDelegate: AppDelegateModel
     /// The state of the scene
     @State private var sceneState = SceneStateModel(id: .mainView)
     /// The observable ``FileBrowser`` class
@@ -135,10 +133,10 @@ struct MainView: View {
             fileURL: file
         )
         sceneState.getMedia()
-        appDelegate.lastUpdate = .now
+        appState.lastUpdate = .now
 
-        /// Pass the parsed song to the appDelegate
-        appDelegate.song = sceneState.song
+        /// Pass the parsed song to the appState
+        appState.song = sceneState.song
         if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == file }) {
             fileBrowser.songList[index].title = sceneState.song.metadata.title
             fileBrowser.songList[index].artist = sceneState.song.metadata.artist

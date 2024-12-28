@@ -10,14 +10,11 @@
 
 ## Chord Provider
 
-**Chord Provider** is written in Swift 6 and SwiftUI and needs minimum macOS Sonoma.
+**Chord Provider** is written in Swift 6 and SwiftUI and needs macOS Sequoia.
 
 ![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 
 There are many **ChordPro** parsers in this world, however, almost none are *really* native in the macOS world, it is often an afterthought... Not for me. I'm Mac user only and I don't use iStuff.
-
-SwiftUI is great and fun, however, on the mac... Not always. **Chord Provider** has awful hacks to deal with a SwiftUI `DocumentGroup` Scene. For years. While I love my Mac, in *Cupertino* it has not the highest priority...
-
 
 ### The icon
 

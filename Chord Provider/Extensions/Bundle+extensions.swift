@@ -56,7 +56,7 @@ extension Bundle {
         guard let url = self.url(forResource: file, withExtension: "chordsdb") else {
             fatalError("Failed to locate \(file) in bundle.")
         }
-        guard let data = try? String(contentsOf: url) else {
+        guard let data = try? String(contentsOf: url, encoding: .utf8) else {
             fatalError("Failed to load \(file) from bundle.")
         }
         return data
