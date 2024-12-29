@@ -2,7 +2,7 @@
 //  ChordPro+Directive+Details.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -255,7 +255,7 @@ extension ChordPro.Directive {
         case .newPage:
             Details(
                 label: "New Page",
-                icon: "doc.badge.plus",
+                icon: "document.badge.plus",
                 button: "New Page",
                 help: "This directive forces a new page to be generated at the place where it occurs in the song",
                 environment: .metadata

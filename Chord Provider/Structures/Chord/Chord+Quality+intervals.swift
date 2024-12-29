@@ -2,7 +2,7 @@
 //  Chord+Quality+intervals.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 // 0:  R:     C  Perfect Unison

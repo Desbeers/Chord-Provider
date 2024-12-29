@@ -2,7 +2,7 @@
 //  MediaPlayerView.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -34,7 +34,7 @@ struct MediaPlayerView: View {
         .id(appState.media.id)
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) { notification in
             if let window = notification.object as? NSWindow, window.identifier == NSUserInterfaceItemIdentifier(
-                AppDelegateModel.WindowID.mediaPlayerView.rawValue
+                AppDelegate.WindowID.mediaPlayerView.rawValue
             ) {
                 appState.media.url = nil
             }
@@ -93,10 +93,10 @@ extension MediaPlayerView {
                         subtitle: sceneState.song.metadata.title,
                         url: url
                     )
-                    openWindow(id: AppDelegateModel.WindowID.mediaPlayerView.rawValue)
+                    openWindow(id: AppDelegate.WindowID.mediaPlayerView.rawValue)
                 } else {
                     appState.media = .init()
-                    dismissWindow(id: AppDelegateModel.WindowID.mediaPlayerView.rawValue)
+                    dismissWindow(id: AppDelegate.WindowID.mediaPlayerView.rawValue)
                 }
             } label: {
                 Image(systemName: kind.systemName + (appState.media.url != nil && appState.media.kind == kind ? ".fill" : ""))

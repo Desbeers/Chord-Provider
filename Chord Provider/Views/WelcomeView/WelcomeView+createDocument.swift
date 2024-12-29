@@ -2,7 +2,7 @@
 //  WelcomeView+createDocument.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -38,21 +38,21 @@ extension WelcomeView {
                         }
                     },
                     label: {
-                        Label("Open a **ChordPro** Song", systemImage: "doc.badge.ellipsis")
+                        Label("Open a **ChordPro** Song", systemImage: "document.badge.ellipsis")
                     }
                 )
                 Button(
                     action: {
-                        openWindow(id: AppDelegateModel.WindowID.exportFolderView.rawValue)
+                        openWindow(id: AppDelegate.WindowID.exportFolderView.rawValue)
                         dismiss()
                     },
                     label: {
-                        Label("Export a Folder with Songs", systemImage: "doc.on.doc")
+                        Label("Export a Folder with Songs", systemImage: "document.on.document")
                     }
                 )
                 Button(
                     action: {
-                        openWindow(id: AppDelegateModel.WindowID.chordsDatabaseView.rawValue)
+                        openWindow(id: AppDelegate.WindowID.chordsDatabaseView.rawValue)
                         dismiss()
                     },
                     label: {

@@ -2,7 +2,7 @@
 //  HelpButtons.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -12,8 +12,8 @@ struct HelpButtons: View {
     @Environment(\.openWindow) private var openWindow
     /// The body of the `View`
     var body: some View {
-        Button(AppDelegateModel.WindowID.helpView.rawValue) {
-            openWindow(id: AppDelegateModel.WindowID.helpView.rawValue)
+        Button(AppDelegate.WindowID.helpView.rawValue) {
+            openWindow(id: AppDelegate.WindowID.helpView.rawValue)
         }
         Divider()
         if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {

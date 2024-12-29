@@ -2,7 +2,7 @@
 //  WelcomeView+recentFiles.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -22,7 +22,7 @@ extension WelcomeView {
                             }
                         },
                         label: {
-                            Label(url.deletingPathExtension().lastPathComponent, systemImage: "doc.badge.clock")
+                            Label(url.deletingPathExtension().lastPathComponent, systemImage: "document.badge.clock")
                         }
                     )
                 }

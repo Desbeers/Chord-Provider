@@ -2,7 +2,7 @@
 //  PreviewPDFButton.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -49,7 +49,7 @@ struct PreviewPDFButton: View {
             appState.lastUpdate = .now
         } catch {
             sceneState.errorAlert = AlertMessage(error: error, role: .cancel) {
-                openWindow(id: AppDelegateModel.WindowID.debugView.rawValue)
+                openWindow(id: AppDelegate.WindowID.debugView.rawValue)
             }
         }
     }

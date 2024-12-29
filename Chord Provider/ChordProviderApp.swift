@@ -2,7 +2,7 @@
 //  ChordProviderApp.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -15,7 +15,7 @@ import OSLog
     /// The observable state of the file browser
     @State private var fileBrowser = FileBrowserModel()
     /// The ``AppDelegate`` class  for **Chord Provider**
-    @NSApplicationDelegateAdaptor private var appDelegate: AppDelegateModel
+    @NSApplicationDelegateAdaptor private var appDelegate: AppDelegate
     /// Environment to open windows
     @Environment(\.openWindow) private var openWindow
     /// Environment to dismiss windows
@@ -34,14 +34,14 @@ import OSLog
                 .focusedSceneValue(\.document, file)
                 .task {
                     /// Close the Welcome window if open
-                    dismissWindow(id: AppDelegateModel.WindowID.welcomeView.rawValue)
+                    dismissWindow(id: AppDelegate.WindowID.welcomeView.rawValue)
                 }
         }
         .defaultLaunchBehavior(.suppressed)
         .commands {
             CommandGroup(replacing: .appInfo) {
                 Button {
-                    openWindow(id: AppDelegateModel.WindowID.aboutView.rawValue)
+                    openWindow(id: AppDelegate.WindowID.aboutView.rawValue)
                 } label: {
                     Text("About Chord Provider")
                 }
@@ -49,7 +49,7 @@ import OSLog
             CommandGroup(after: .newItem) {
                 Divider()
                 Button {
-                    openWindow(id: AppDelegateModel.WindowID.welcomeView.rawValue)
+                    openWindow(id: AppDelegate.WindowID.welcomeView.rawValue)
                 } label: {
                     Text("Browser…")
                 }
@@ -58,17 +58,17 @@ import OSLog
             CommandGroup(after: .newItem) {
                 Divider()
                 Button {
-                    openWindow(id: AppDelegateModel.WindowID.exportFolderView.rawValue)
+                    openWindow(id: AppDelegate.WindowID.exportFolderView.rawValue)
                     /// Close the Welcome window if open
-                    dismissWindow(id: AppDelegateModel.WindowID.welcomeView.rawValue)
+                    dismissWindow(id: AppDelegate.WindowID.welcomeView.rawValue)
                 } label: {
                     Text("Export Folder…")
                 }
             }
             CommandGroup(after: .toolbar) {
-                WindowVisibilityToggle(windowID: AppDelegateModel.WindowID.chordsDatabaseView.rawValue)
+                WindowVisibilityToggle(windowID: AppDelegate.WindowID.chordsDatabaseView.rawValue)
                 Divider()
-                WindowVisibilityToggle(windowID: AppDelegateModel.WindowID.debugView.rawValue)
+                WindowVisibilityToggle(windowID: AppDelegate.WindowID.debugView.rawValue)
                 Divider()
             }
 #if DEBUG
@@ -97,7 +97,7 @@ import OSLog
 
         // MARK: Welcome window
 
-        Window(AppDelegateModel.WindowID.welcomeView.rawValue, id: AppDelegateModel.WindowID.welcomeView.rawValue) {
+        Window(AppDelegate.WindowID.welcomeView.rawValue, id: AppDelegate.WindowID.welcomeView.rawValue) {
             WelcomeView()
                 .windowResizeBehavior(.disabled)
                 .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
@@ -117,7 +117,7 @@ import OSLog
 
         // MARK: About window
 
-        Window(AppDelegateModel.WindowID.aboutView.rawValue, id: AppDelegateModel.WindowID.aboutView.rawValue) {
+        Window(AppDelegate.WindowID.aboutView.rawValue, id: AppDelegate.WindowID.aboutView.rawValue) {
             AboutView()
                 .windowResizeBehavior(.disabled)
                 .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
@@ -134,7 +134,7 @@ import OSLog
 
         // MARK: Chords Database window
 
-        Window(AppDelegateModel.WindowID.chordsDatabaseView.rawValue, id: AppDelegateModel.WindowID.chordsDatabaseView.rawValue) {
+        Window(AppDelegate.WindowID.chordsDatabaseView.rawValue, id: AppDelegate.WindowID.chordsDatabaseView.rawValue) {
             ChordsDatabaseView()
         }
         .defaultLaunchBehavior(.suppressed)
@@ -142,7 +142,7 @@ import OSLog
 
         // MARK: Debug window
 
-        Window(AppDelegateModel.WindowID.debugView.rawValue, id: AppDelegateModel.WindowID.debugView.rawValue) {
+        Window(AppDelegate.WindowID.debugView.rawValue, id: AppDelegate.WindowID.debugView.rawValue) {
             DebugView()
                 .toolbar(removing: .title)
                 .environment(appState)
@@ -152,7 +152,7 @@ import OSLog
 
         // MARK: Export Folder window
 
-        Window(AppDelegateModel.WindowID.exportFolderView.rawValue, id: AppDelegateModel.WindowID.exportFolderView.rawValue) {
+        Window(AppDelegate.WindowID.exportFolderView.rawValue, id: AppDelegate.WindowID.exportFolderView.rawValue) {
             ExportFolderView()
                 .environment(fileBrowser)
         }
@@ -162,7 +162,7 @@ import OSLog
 
         // MARK: Media Player window
 
-        Window(AppDelegateModel.WindowID.mediaPlayerView.rawValue, id: AppDelegateModel.WindowID.mediaPlayerView.rawValue) {
+        Window(AppDelegate.WindowID.mediaPlayerView.rawValue, id: AppDelegate.WindowID.mediaPlayerView.rawValue) {
             MediaPlayerView()
                 .environment(appState)
         }
@@ -172,7 +172,7 @@ import OSLog
 
         // MARK: Help
 
-        UtilityWindow(AppDelegateModel.WindowID.helpView.rawValue, id: AppDelegateModel.WindowID.helpView.rawValue) {
+        UtilityWindow(AppDelegate.WindowID.helpView.rawValue, id: AppDelegate.WindowID.helpView.rawValue) {
             HelpView()
         }
         .defaultLaunchBehavior(.suppressed)

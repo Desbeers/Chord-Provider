@@ -2,7 +2,7 @@
 //  HelpView.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ struct HelpView: View {
                     .frame(width: 40, height: 40)
                 Text("Chord Provider")
                     .font(.title)
-                section("ChordPro viewer and editor", content: chordpro)
+                section("ChordPro viewer and editor", content: Help.chordpro)
                 Divider()
                 if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
                     Link(destination: url) {
@@ -47,16 +47,4 @@ struct HelpView: View {
         }
         .padding(6)
     }
-
-    /// Refer to the official **ChordPro** implementation
-    let chordpro: String =
-"""
-**ChordPro** is an open standard text format and its has its own [official reference implementation](https://www.chordpro.org/chordpro/chordpro-directives/).
-
-I contributed a lot to its [Open Source code](https://github.com/ChordPro/chordpro).
-
-While I hope you like **Chord Provider**, as *guitar player* or *macOS programmer*, it is just a hobby project for my own needs.
-
-Go [there](https://chordpro.org) for the full **Chordpro** experience.
-"""
 }

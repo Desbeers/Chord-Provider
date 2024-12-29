@@ -2,7 +2,7 @@
 //  EditorView.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -68,7 +68,7 @@ struct EditorView: View {
                         .lineLimit(1)
                 }
                 Spacer()
-                WindowVisibilityToggle(windowID: AppDelegateModel.WindowID.debugView.rawValue)
+                WindowVisibilityToggle(windowID: AppDelegate.WindowID.debugView.rawValue)
                     .controlSize(.small)
                 sceneState.cleanSourceButton
                     .controlSize(.small)

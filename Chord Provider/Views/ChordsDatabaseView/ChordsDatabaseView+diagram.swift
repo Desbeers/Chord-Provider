@@ -2,7 +2,7 @@
 //  ChordsDatabaseView+diagram.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI
@@ -69,7 +69,7 @@ extension ChordsDatabaseView {
                 chordsDatabaseState.navigationStack.append(chord)
             },
             label: {
-                Label("Duplicate", systemImage: "doc.on.doc")
+                Label("Duplicate", systemImage: "document.on.document")
             }
         )
     }

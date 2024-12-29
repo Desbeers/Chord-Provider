@@ -2,7 +2,7 @@
 //  Sequence+Extensions.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import Foundation

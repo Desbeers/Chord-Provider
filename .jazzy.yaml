@@ -10,25 +10,16 @@ build_tool_arguments:
 min_acl: private
 output: Documentation
 clean: true
-theme: apple
 
-copyright: © 2024 Nick Berendsen
-
-hide_documentation_coverage: true
+copyright: © 2025 Nick Berendsen
 
 source_host_files_url: https://github.com/desbeers/Chord-Provider/blob/main
-
-skip_undocumented: true
 
 exclude: /*/GeneratedAssetSymbols*,/*/resource_bundle_accessor*
 
 #merge_modules: extensions
 
 theme: JazzyTheme
-
-modules:
-  - module: Chord_Provider
-  - module: SwiftlyChordUtilities
 
 custom_categories:
 
@@ -56,18 +47,19 @@ custom_categories:
     - Utils
     - Analizer
     - RegexDefinitions
-    - Database
     - Midi
     - MidiPlayer
 
   - name: ChordPro parser
     children:
     - ChordPro
+    - ChordProParser
 
   - name: ChordPro editor
     children:
     - ChordProEditor
     - ChordProEditorDelegate
+    - IntrospectCallback
 
   - name: PDF builder
     children:
@@ -75,47 +67,64 @@ custom_categories:
     - FolderExport
     - PDFBuild
     - PDFElement
+    - PDFStringAttribute
 
-  - name: SwiftUI
+  - name: SwiftUI Views
     children:
+    - AboutView
+    - WelcomeView
     - ColumnsLayout
-    - TemplateView
-    - ContentView
     - MainView
     - ToolbarView
     - HeaderView
     - SongView
+    - RenderView
     - ChordsView
     - ChordDiagramView
-    - AudioPlayerView
-    - MetronomeView
     - EditorView
-    - FileBrowserView
-    - SongFolderView
-    - ExportSongView
+    - PreviewPaneView
     - ExportFolderView
-    - FileButtonView
-    - MenuButtonsView
-    - SettingsView
-    - PrintSongView
     - ChordDefinitionView
     - CreateChordView
+    - ChordsDatabaseView
+    - SettingsView
+    - MediaPlayerView
+    - HelpView
+    - DebugView
+
+  - name: SwiftUI Buttons
+    children:
+    - UserFileButton
+    - ShareButton
+    - PreviewPDFButton
+    - PrintPDFButton
+    - MetronomeButton
+    - HelpButtons
+    - FontSizeButtons
+    - ExportSongButton
+    - DebugButtons
+    - ColorPickerButton
+
+  - name: SwiftUI Other
+    children:
+    - Styles
+    - AppKitUtils
+    - ScaleModifier
 
   - name: Observable Classes
     children:
-    - AppState
-    - SceneState
-    - FileBrowser
-    - Metronome
-    - DocumentFocusedValueKey
-    - SceneFocusedValueKey
-    - FocusedValues
-    - ChordDisplayOptions
+    - AppStateModel
+    - SceneStateModel
+    - FileBrowserModel
+    - ImageViewModel
+    - MetronomeModel
+    - ChordsDatabaseStateModel
 
   - name: File Documents
     children:
     - ChordProDocument
     - ExportDocument
+    - ChordsDatabaseDocument
 
 
 # Command line for doc generation:

@@ -251,7 +251,7 @@
 		D7C3D6242AC9EA0400909639 /* AppStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C3D6232AC9EA0400909639 /* AppStateModel.swift */; };
 		D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */; };
 		D7C725CE2BFF5B49006D9C74 /* NSWindow+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */; };
-		D7C725D02BFF87C5006D9C74 /* AppDelegateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CF2BFF87C5006D9C74 /* AppDelegateModel.swift */; };
+		D7C725D02BFF87C5006D9C74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */; };
 		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
 		D7CA63272AEB397A00C6B4BB /* MetronomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */; };
@@ -540,7 +540,7 @@
 		D7C725CA2BFF5A92006D9C74 /* .jazzy.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .jazzy.yaml; sourceTree = "<group>"; };
 		D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+extension.swift"; sourceTree = "<group>"; };
-		D7C725CF2BFF87C5006D9C74 /* AppDelegateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateModel.swift; sourceTree = "<group>"; };
+		D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+strum.swift"; sourceTree = "<group>"; };
 		D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeModel.swift; sourceTree = "<group>"; };
 		D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighTick.aif; sourceTree = "<group>"; };
@@ -787,7 +787,6 @@
 		D730BB982CA6B77A008719F2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D7C725CF2BFF87C5006D9C74 /* AppDelegateModel.swift */,
 				D7C3D6232AC9EA0400909639 /* AppStateModel.swift */,
 				D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */,
 				D70D96EA2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift */,
@@ -1157,6 +1156,7 @@
 		D7F13F9B2A6460B7002D875D /* General */ = {
 			isa = PBXGroup;
 			children = (
+				D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */,
 				D7781B4E2D0C9F1E00EC0CCF /* Terminal.swift */,
 				D7EA87702C5A583B009A3D82 /* Cache.swift */,
 				D70503182D20DDA000DB897A /* ImageCache.swift */,
@@ -1506,7 +1506,7 @@
 				D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */,
 				D75B488E2BDBC417001F6176 /* FolderExport.swift in Sources */,
 				D706FD9C2BCECC9F005DEDF6 /* PDFBuild+Text.swift in Sources */,
-				D7C725D02BFF87C5006D9C74 /* AppDelegateModel.swift in Sources */,
+				D7C725D02BFF87C5006D9C74 /* AppDelegate.swift in Sources */,
 				D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D75955AF2CF9D5E500CF3590 /* DebugMessage.swift in Sources */,
 				D78819662BFB25300033545D /* Help.swift in Sources */,
