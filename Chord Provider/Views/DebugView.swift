@@ -67,7 +67,7 @@ struct DebugView: View {
             let osLog = Task.detached {
                 do {
                     /// Give the GUI some time to render
-                    try await Task.sleep(for: .seconds(0.5))
+                    try await Task.sleep(for: .seconds(1))
                     let store = try OSLogStore(scope: .currentProcessIdentifier)
                     let position = store.position(timeIntervalSinceLatestBoot: 1)
                     return try store

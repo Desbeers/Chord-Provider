@@ -12,8 +12,8 @@ import OSLog
 struct WelcomeView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
-    /// The observable ``FileBrowser`` class
-    @State var fileBrowser = FileBrowserModel.shared
+    /// The observable state of the file browser
+    @Environment(FileBrowserModel.self) var fileBrowser
     /// The ID of the Window
     let windowID: AppDelegateModel.WindowID
     /// The currently selected tab
@@ -21,6 +21,8 @@ struct WelcomeView: View {
 
     /// Environment to open documents
     @Environment(\.openDocument) private var openDocument
+
+    @Environment(\.newDocument) private var newDocument
 
     @Environment(\.openWindow) var openWindow
 
@@ -41,6 +43,8 @@ struct WelcomeView: View {
                         recentFiles
                     case .yourSongs:
                         browserFiles
+                    case .templates:
+                        templates
                     }
                 }
                 .frame(maxHeight: .infinity)
@@ -82,6 +86,8 @@ extension WelcomeView {
         case recent = "Recent"
         /// Songs in the file browser
         case yourSongs = "Your Songs"
+        /// Templates
+        case templates = "Templates"
     }
 }
 
@@ -92,6 +98,10 @@ extension WelcomeView {
         } catch {
             Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
         }
+        dismiss()
+    }
+    func newSong(text: String, template: URL? = nil) {
+        newDocument(ChordProDocument(text: text, template: template))
         dismiss()
     }
 }

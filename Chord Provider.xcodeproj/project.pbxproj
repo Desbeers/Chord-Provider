@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D701F8792A9CB92F007DACF3 /* ChordDiagramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */; };
+		D70503172D20C8E500DB897A /* WelcomeView+templates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70503162D20C8E500DB897A /* WelcomeView+templates.swift */; };
+		D70503192D20DDA000DB897A /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70503182D20DDA000DB897A /* ImageCache.swift */; };
 		D706FD8F2BCECC9F005DEDF6 /* PDFBuild+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD6F2BCECC9F005DEDF6 /* PDFBuild+Background.swift */; };
 		D706FD902BCECC9F005DEDF6 /* PDFBuild+Clip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */; };
 		D706FD912BCECC9F005DEDF6 /* PDFBuild+Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */; };
@@ -161,7 +163,6 @@
 		D730BC842CA85435008719F2 /* AppSettings+DiagramDisplayOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BC822CA85435008719F2 /* AppSettings+DiagramDisplayOptions.swift */; };
 		D7336ACF2C26FBFF00D0AA8E /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7336ACE2C26FBFF00D0AA8E /* AlertMessage.swift */; };
 		D7336AD12C27001800D0AA8E /* FontSizeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7336AD02C27001800D0AA8E /* FontSizeButtons.swift */; };
-		D7336AD42C273A9F00D0AA8E /* Swing Low Sweet Chariot.chordpro in Resources */ = {isa = PBXBuildFile; fileRef = D7336AD32C273A9F00D0AA8E /* Swing Low Sweet Chariot.chordpro */; };
 		D7336AD62C273AD700D0AA8E /* HelpButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7336AD52C273AD700D0AA8E /* HelpButtons.swift */; };
 		D733F6002B90A8AA0065D6FD /* AppStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */; };
 		D733F6022B90B1B40065D6FD /* SceneStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6012B90B1B40065D6FD /* SceneStateModel+Elements.swift */; };
@@ -371,6 +372,8 @@
 
 /* Begin PBXFileReference section */
 		D701F8782A9CB92F007DACF3 /* ChordDiagramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordDiagramView.swift; sourceTree = "<group>"; };
+		D70503162D20C8E500DB897A /* WelcomeView+templates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WelcomeView+templates.swift"; sourceTree = "<group>"; };
+		D70503182D20DDA000DB897A /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		D706FD6F2BCECC9F005DEDF6 /* PDFBuild+Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Background.swift"; sourceTree = "<group>"; };
 		D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Clip.swift"; sourceTree = "<group>"; };
 		D706FD712BCECC9F005DEDF6 /* PDFBuild+Divider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Divider.swift"; sourceTree = "<group>"; };
@@ -451,7 +454,6 @@
 		D730BC822CA85435008719F2 /* AppSettings+DiagramDisplayOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+DiagramDisplayOptions.swift"; sourceTree = "<group>"; };
 		D7336ACE2C26FBFF00D0AA8E /* AlertMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
 		D7336AD02C27001800D0AA8E /* FontSizeButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeButtons.swift; sourceTree = "<group>"; };
-		D7336AD32C273A9F00D0AA8E /* Swing Low Sweet Chariot.chordpro */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Swing Low Sweet Chariot.chordpro"; sourceTree = "<group>"; };
 		D7336AD52C273AD700D0AA8E /* HelpButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpButtons.swift; sourceTree = "<group>"; };
 		D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStateModel+Elements.swift"; sourceTree = "<group>"; };
 		D733F6012B90B1B40065D6FD /* SceneStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneStateModel+Elements.swift"; sourceTree = "<group>"; };
@@ -618,6 +620,14 @@
 		D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		D705031E2D21267500DB897A /* Samples */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Samples;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		D74072882BA20D9000DD52F0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -677,6 +687,7 @@
 				D779D3542C68F0D700380175 /* WelcomeView.swift */,
 				D70D96C72CB26B8C00B51A14 /* WelcomeView+createDocument.swift */,
 				D70D96C22CB25D6000B51A14 /* WelcomeView+recentFiles.swift */,
+				D70503162D20C8E500DB897A /* WelcomeView+templates.swift */,
 				D7F13F942A6460B7002D875D /* WelcomeView+browserFiles.swift */,
 			);
 			path = WelcomeView;
@@ -837,14 +848,6 @@
 				D730BBAB2CA844C2008719F2 /* MidiPlayer+Chord.swift */,
 			);
 			path = Midi;
-			sourceTree = "<group>";
-		};
-		D7336AD22C273A3700D0AA8E /* Samples */ = {
-			isa = PBXGroup;
-			children = (
-				D7336AD32C273A9F00D0AA8E /* Swing Low Sweet Chariot.chordpro */,
-			);
-			path = Samples;
 			sourceTree = "<group>";
 		};
 		D740728F2BA20D9000DD52F0 /* QLthumbnail */ = {
@@ -1119,7 +1122,7 @@
 				D7F13FAB2A6460B7002D875D /* Views */,
 				D7972B922BCD8E2300752CF9 /* PDFBuild */,
 				D7F13F902A6460B7002D875D /* QuickLook */,
-				D7336AD22C273A3700D0AA8E /* Samples */,
+				D705031E2D21267500DB897A /* Samples */,
 			);
 			path = "Chord Provider";
 			sourceTree = "<group>";
@@ -1160,6 +1163,7 @@
 		D7F13F9B2A6460B7002D875D /* General */ = {
 			isa = PBXGroup;
 			children = (
+				D70503182D20DDA000DB897A /* ImageCache.swift */,
 				D7781B4E2D0C9F1E00EC0CCF /* Terminal.swift */,
 				D7EA87702C5A583B009A3D82 /* Cache.swift */,
 				D7EA87712C5A583B009A3D82 /* UserFileBookmark.swift */,
@@ -1288,6 +1292,9 @@
 				D7F140052A646356002D875D /* PBXTargetDependency */,
 				D74072952BA20D9000DD52F0 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				D705031E2D21267500DB897A /* Samples */,
+			);
 			name = "Chord Provider";
 			packageProductDependencies = (
 			);
@@ -1370,7 +1377,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7336AD42C273A9F00D0AA8E /* Swing Low Sweet Chariot.chordpro in Resources */,
 				D70D96DD2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */,
 				D70D96E52CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */,
@@ -1552,6 +1558,7 @@
 				D730BBF32CA844C2008719F2 /* Utils.swift in Sources */,
 				D7F13FE12A6460B7002D875D /* HeaderView.swift in Sources */,
 				D7EA87732C5A583B009A3D82 /* UserFileBookmark.swift in Sources */,
+				D70503172D20C8E500DB897A /* WelcomeView+templates.swift in Sources */,
 				D706FDA52BCECC9F005DEDF6 /* PDFBuild+Builder.swift in Sources */,
 				D7F13FD02A6460B7002D875D /* SceneStateModel.swift in Sources */,
 				D70B72802BD50108003C89B4 /* PDFBuild+StrumSection.swift in Sources */,
@@ -1568,6 +1575,7 @@
 				D706FD9A2BCECC9F005DEDF6 /* PDFBuild+PageHeaderFooter.swift in Sources */,
 				D706FD8F2BCECC9F005DEDF6 /* PDFBuild+Background.swift in Sources */,
 				D70D96C32CB25D6000B51A14 /* WelcomeView+recentFiles.swift in Sources */,
+				D70503192D20DDA000DB897A /* ImageCache.swift in Sources */,
 				D75B48A42BDFE97F001F6176 /* Song+Metadata.swift in Sources */,
 				D70B72822BD5040C003C89B4 /* PDFBuild+Comment.swift in Sources */,
 				D730BBCC2CA844C2008719F2 /* Instrument.swift in Sources */,

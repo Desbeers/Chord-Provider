@@ -22,9 +22,16 @@ struct ChordProDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.chordProSong] }
     /// The content of the ChordPro file
     var text: String
+    /// The optional URL of the template
+    var template: URL?
     /// Init the text
-    init(text: String = newText) {
-        self.text = text
+    init(text: String = "", template: URL? = nil) {
+        if text.isEmpty {
+            self.text = ChordProDocument.getSongTemplateContent()
+        } else {
+            self.text = text
+        }
+        self.template = template
     }
     /// Init the configuration
     init(configuration: ReadConfiguration) throws {
@@ -52,7 +59,8 @@ struct ChordProDocument: FileDocument {
 
 extension ChordProDocument {
 
-    static func getSongTemplateContent(settings: AppSettings) -> String {
+    static func getSongTemplateContent() -> String {
+        let settings = AppSettings.load(id: .mainView)
         if
             settings.application.useCustomSongTemplate,
             let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.customSongTemplate) {
@@ -68,20 +76,7 @@ extension ChordProDocument {
     }
 }
 
-/// The `FocusedValueKey` for the current document
-struct DocumentFocusedValueKey: FocusedValueKey {
-    /// The `typealias` for the key
-    typealias Value = FileDocumentConfiguration<ChordProDocument>
-}
-
 extension FocusedValues {
-    /// The value of the document key
-    var document: DocumentFocusedValueKey.Value? {
-        get {
-            self[DocumentFocusedValueKey.self]
-        }
-        set {
-            self[DocumentFocusedValueKey.self] = newValue
-        }
-    }
+    /// The value of the document
+    @Entry var document: FileDocumentConfiguration<ChordProDocument>?
 }

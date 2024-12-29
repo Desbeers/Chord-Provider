@@ -45,10 +45,11 @@ struct MainView: View {
         .errorAlert(message: $sceneState.errorAlert)
         .task {
             sceneState.file = file
+            sceneState.template = document.template
             sceneState.content = document.text
             await renderSong()
-            /// Always open the editor for a new file
-            if document.text == appState.standardDocumentContent || document.text == appState.standardDocumentContent + "\n" {
+            /// Always open the editor for a new file or a template
+            if document.text == ChordProDocument.getSongTemplateContent() || document.template != nil {
                 sceneState.showEditor = true
             }
             sceneState.status = .ready

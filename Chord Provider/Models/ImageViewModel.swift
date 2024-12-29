@@ -8,7 +8,7 @@
 import AppKit
 import OSLog
 
-@Observable @MainActor class ImageViewModel {
+@Observable @MainActor final class ImageViewModel {
     var image = NSImage()
     var size = CGSize(width: 100, height: 80)
     var arguments: ChordProParser.Arguments?
@@ -29,7 +29,7 @@ import OSLog
 
     private func loadImage(url: URL?) async {
         guard let url else { return }
-        if let imageFromCache = AppStateModel.shared.getImageFromCache(from: url) {
+        if let imageFromCache = ImageCache.shared.getImageFromCache(from: url) {
             Logger.viewBuild.notice("Image from cache: \(url.lastPathComponent, privacy: .public)")
             self.image = imageFromCache
             self.size = ChordProParser.getImageSize(image: imageFromCache, arguments: arguments)
@@ -50,7 +50,7 @@ import OSLog
         Logger.viewBuild.notice("Loading image: \(url.lastPathComponent, privacy: .public)")
         self.image = loadedImage
         self.size = ChordProParser.getImageSize(image: loadedImage, arguments: self.arguments)
-        AppStateModel.shared.setImageCache(image: loadedImage, key: url)
+        ImageCache.shared.setImageCache(image: loadedImage, key: url)
     }
 
     private func fallbackImage(url: URL) {

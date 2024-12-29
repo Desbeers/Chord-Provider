@@ -8,22 +8,12 @@
 import SwiftUI
 import OSLog
 
-/// The observable file broweser state for **Chord Provider**
+/// The observable file browser state for **Chord Provider**
 @Observable @MainActor class FileBrowserModel {
-    /// The shared instance of the class
-    static let shared = FileBrowserModel()
     /// The list of songs
     var songList: [SongItem] = []
     /// The list of artists
     var artistList: [ArtistItem] = []
-    /// The name of the folder bookmark
-    static let folderBookmark: String = "SongsFolder"
-    /// The name of the export bookmark
-    static let exportBookmark: String = "ExportFolder"
-    /// The message of the folder selector
-    static let message: String = "Select the folder with your songs"
-    /// The label for the confirmation button of the folder selector
-    static let confirmationLabel = "Select"
     /// The optional songs folder
     var songsFolder: URL?
     /// The status
@@ -38,7 +28,7 @@ import OSLog
     var selectedTag: [String] = []
 
     /// Init the FileBrowser
-    private init() {
+    init() {
         songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
         getFiles()
     }

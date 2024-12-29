@@ -14,8 +14,8 @@ struct ExportFolderView: View {
     @State private var appState = AppStateModel(id: .exportFolderView)
     /// The state of the scene
     @State private var sceneState = SceneStateModel(id: .exportFolderView)
-    /// The observable ``FileBrowser`` class
-    @State private var fileBrowser = FileBrowserModel.shared
+    /// The observable state of the file browser
+    @Environment(FileBrowserModel.self) var fileBrowser
     /// The current selected folder
     @State private var currentFolder: String? = ExportFolderView.exportFolderTitle
     /// The PDF info
@@ -39,8 +39,8 @@ struct ExportFolderView: View {
                         currentFolder = ExportFolderView.exportFolderTitle
                     }
                 }
-                AppStateModel.RepeatWholeChorusToggle(appState: appState)
-                AppStateModel.LyricsOnlyToggle(appState: appState)
+                appState.repeatWholeChorusToggle
+                appState.lyricsOnlyToggle
                 sceneState.instrumentPicker
                     .pickerStyle(.segmented)
                 Section("PDF info") {
@@ -49,9 +49,9 @@ struct ExportFolderView: View {
                 }
                     .pickerStyle(.segmented)
                 Section("Diagrams") {
-                    AppStateModel.FingersToggle(appState: appState)
-                    AppStateModel.NotesToggle(appState: appState)
-                    AppStateModel.MirrorToggle(appState: appState)
+                    appState.fingersToggle
+                    appState.notesToggle
+                    appState.mirrorToggle
                 }
             }
             .formStyle(.grouped)

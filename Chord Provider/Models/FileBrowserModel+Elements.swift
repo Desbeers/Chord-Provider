@@ -15,7 +15,6 @@ extension FileBrowserModel {
     /// Folder Selector
     var folderSelector: some View {
         FolderSelector(fileBrowser: self)
-            .id(self.songsFolder)
     }
     /// Folder Selector
     private struct FolderSelector: View {
@@ -26,7 +25,9 @@ extension FileBrowserModel {
             UserFileButton(
                 userFile: UserFileItem.songsFolder
             ) {
-                fileBrowser.songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+                Task {
+                    fileBrowser.songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+                }
             }
         }
     }

@@ -47,40 +47,19 @@ struct SettingsView: View {
     /// `View` with general options
     @ViewBuilder var general: some View {
         @Bindable var appState = appState
-
-        VStack {
-            VStack(alignment: .leading) {
-                Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
-                    .onChange(of: appState.settings.application.useCustomSongTemplate) {
-                        /// Update the appState with the new song content
-                        appState.standardDocumentContent = ChordProDocument.getSongTemplateContent(settings: appState.settings)
-                        appState.newDocumentContent = appState.standardDocumentContent
-                    }
-            }
-            UserFileButton(
-                userFile: UserFileItem.customSongTemplate
-            ) {
-                /// Update the appState with the new song content
-                appState.standardDocumentContent = ChordProDocument.getSongTemplateContent(settings: appState.settings)
-                appState.newDocumentContent = appState.standardDocumentContent
-            }
-            .disabled(!appState.settings.application.useCustomSongTemplate)
-            Text("You can use your own **ChordPro** file as a starting point when you create a new song")
-                .font(.caption)
-        }
-        .wrapSettingsSection(title: "General Options")
-        .frame(maxHeight: .infinity, alignment: .top)
-    }
-
-    /// `View` with song options
-    @ViewBuilder var options: some View {
-        @Bindable var appState = appState
         ScrollView {
-            VStack(alignment: .leading) {
-                AppStateModel.RepeatWholeChorusToggle(appState: appState)
-                AppStateModel.LyricsOnlyToggle(appState: appState)
+            VStack {
+                VStack(alignment: .leading) {
+                    Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
+                }
+                UserFileButton(
+                    userFile: UserFileItem.customSongTemplate
+                ) {}
+                    .disabled(!appState.settings.application.useCustomSongTemplate)
+                Text("You can use your own **ChordPro** file as a starting point when you create a new song")
+                    .font(.caption)
             }
-            .wrapSettingsSection(title: "Display Options")
+            .wrapSettingsSection(title: "General Options")
             VStack {
                 VStack(alignment: .leading) {
                     Toggle(isOn: $appState.settings.chordPro.useChordProCLI) {
@@ -116,21 +95,34 @@ struct SettingsView: View {
         .frame(maxHeight: .infinity, alignment: .top)
     }
 
+    /// `View` with song options
+    @ViewBuilder var options: some View {
+        @Bindable var appState = appState
+        ScrollView {
+            VStack(alignment: .leading) {
+                appState.repeatWholeChorusToggle
+                appState.lyricsOnlyToggle
+            }
+            .wrapSettingsSection(title: "Display Options")
+        }
+        .frame(maxHeight: .infinity, alignment: .top)
+    }
+
     /// `View` with diagram display options
     var diagram: some View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading) {
-                    AppStateModel.FingersToggle(appState: appState)
-                    AppStateModel.NotesToggle(appState: appState)
-                    AppStateModel.MirrorToggle(appState: appState)
+                    appState.fingersToggle
+                    appState.notesToggle
+                    appState.mirrorToggle
                 }
                 .wrapSettingsSection(title: "General")
                 VStack(alignment: .leading) {
-                    AppStateModel.PlayToggle(appState: appState)
+                    appState.playToggle
                         .frame(maxWidth: .infinity, alignment: .leading)
                     if appState.settings.song.diagram.showPlayButton {
-                        AppStateModel.MidiInstrumentPicker(appState: appState)
+                        appState.midiInstrumentPicker
                             .padding([.top, .leading])
                     }
                 }

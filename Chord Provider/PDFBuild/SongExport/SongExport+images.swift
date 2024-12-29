@@ -13,7 +13,7 @@ extension SongExport {
     static func loadImage(source: String, fileURL: URL?) async -> NSImage? {
         guard let imageURL = ChordProParser.getImageSource(source, fileURL: fileURL) else { return nil }
         var image: NSImage?
-        if let imageFromCache = AppStateModel.shared.getImageFromCache(from: imageURL) {
+        if let imageFromCache = ImageCache.shared.getImageFromCache(from: imageURL) {
             image = imageFromCache
             Logger.pdfBuild.notice("Image from cache: \(imageURL.lastPathComponent, privacy: .public)")
         } else {

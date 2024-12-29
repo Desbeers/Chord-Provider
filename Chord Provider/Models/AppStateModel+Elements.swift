@@ -37,11 +37,11 @@ extension AppStateModel {
     // MARK: Repeat Whole Chorus Toggle
 
     /// SwiftUI `View` with a `Toggle` to show the whole last chorus when using a *{chorus}* directive
-//    var repeatWholeChorusToggle: some View {
-//        RepeatWholeChorusToggle(appState: self)
-//    }
+    var repeatWholeChorusToggle: some View {
+        RepeatWholeChorusToggle(appState: self)
+    }
     /// SwiftUI `View` with a `Toggle` to show the whole last chorus when using a *{chorus}* directive
-    struct RepeatWholeChorusToggle: View {
+    private struct RepeatWholeChorusToggle: View {
         /// Chord Display Options object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
@@ -55,12 +55,12 @@ extension AppStateModel {
 
     // MARK: Lyrics Only Toggle
 
-//    /// SwiftUI `View` with a `Toggle` to show only the lyrics
-//    var lyricsOnlyToggle: some View {
-//        LyricsOnlyToggle(appState: self)
-//    }
     /// SwiftUI `View` with a `Toggle` to show only the lyrics
-    struct LyricsOnlyToggle: View {
+    var lyricsOnlyToggle: some View {
+        LyricsOnlyToggle(appState: self)
+    }
+    /// SwiftUI `View` with a `Toggle` to show only the lyrics
+    private struct LyricsOnlyToggle: View {
         /// Chord Display Options object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
@@ -74,12 +74,12 @@ extension AppStateModel {
 
     // MARK: Name Toggle
 
-//    /// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
-//    var nameToggle: some View {
-//        NameToggle(appState: self)
-//    }
+    /// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
+    var nameToggle: some View {
+        NameToggle(appState: self)
+    }
     //// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
-    struct NameToggle: View {
+    private struct NameToggle: View {
         /// App State
         @Bindable var appState: AppStateModel
         /// The body of the `View`
@@ -92,12 +92,12 @@ extension AppStateModel {
 
     // MARK: Fingers Toggle
 
-//    /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
-//    var fingersToggle: some View {
-//        FingersToggle(appState: self)
-//    }
     /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
-    struct FingersToggle: View {
+    var fingersToggle: some View {
+        FingersToggle(appState: self)
+    }
+    /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
+    private struct FingersToggle: View {
         /// Chord Display Options object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
@@ -120,12 +120,12 @@ extension AppStateModel {
 
     // MARK: Notes Toggle
 
-//    /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
-//    var notesToggle: some View {
-//        NotesToggle(appState: self)
-//    }
     /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
-    struct NotesToggle: View {
+    var notesToggle: some View {
+        NotesToggle(appState: self)
+    }
+    /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
+    private struct NotesToggle: View {
         /// Chord Display Options object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
@@ -142,12 +142,12 @@ extension AppStateModel {
 
     // MARK: Mirror Toggle
 
-//    /// SwiftUI `View` with a `Toggle`  to mirror the diagram
-//    var mirrorToggle: some View {
-//        MirrorToggle(appState: self)
-//    }
     /// SwiftUI `View` with a `Toggle`  to mirror the diagram
-    struct MirrorToggle: View {
+    var mirrorToggle: some View {
+        MirrorToggle(appState: self)
+    }
+    /// SwiftUI `View` with a `Toggle`  to mirror the diagram
+    private struct MirrorToggle: View {
         /// Chord Display Options object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
@@ -164,12 +164,12 @@ extension AppStateModel {
 
     // MARK: Play Toggle
 
-//    /// SwiftUI `View` with a `Toggle` to show or hide the play button
-//    var playToggle: some View {
-//        PlayToggle(appState: self)
-//    }
+    /// SwiftUI `View` with a `Toggle` to show or hide the play button
+    var playToggle: some View {
+        PlayToggle(appState: self)
+    }
     /// SwiftUI `View` with a `Toggle`  to show or hide the play button
-    struct PlayToggle: View {
+    private struct PlayToggle: View {
         /// Chord Display Options object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
@@ -191,12 +191,12 @@ extension AppStateModel {
 
     // MARK: Midi Instrument Picker
 
-//    /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
-//    var midiInstrumentPicker: some View {
-//        MidiInstrumentPicker(appState: self)
-//    }
     /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
-    struct MidiInstrumentPicker: View {
+    var midiInstrumentPicker: some View {
+        MidiInstrumentPicker(appState: self)
+    }
+    /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
+    private struct MidiInstrumentPicker: View {
         /// Chord Display Options object
         @Bindable var appState: AppStateModel
         /// The body of the `View`

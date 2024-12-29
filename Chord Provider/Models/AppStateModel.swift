@@ -8,16 +8,9 @@
 import SwiftUI
 
 /// The observable application state for **Chord Provider**
-@Observable final class AppStateModel {
-    /// The shared instance of the class
-    nonisolated(unsafe) static let shared = AppStateModel(id: .mainView)
+@MainActor @Observable final class AppStateModel {
     /// The list with recent files
     var recentFiles: [URL] = []
-    /// The standard content for a new document
-    var standardDocumentContent: String
-    /// The actual content for a new song
-    /// - Note: This will be different than the standard when opened from the ``WelcomeView``
-    var newDocumentContent: String
     /// The optional current song in focus
     var song: Song?
     /// Last time the app state was updated
@@ -31,16 +24,6 @@ import SwiftUI
         }
     }
 
-    var imageCache: NSCache<NSURL, NSImage> = .init()
-
-    func setImageCache(image: NSImage, key: URL) {
-        imageCache.setObject(image, forKey: key as NSURL)
-    }
-
-    func getImageFromCache(from key: URL) -> NSImage? {
-        imageCache.object(forKey: key as NSURL)
-    }
-
     var media = MediaPlayerView.Item()
 
     /// Init the class; get application settings
@@ -49,10 +32,6 @@ import SwiftUI
         /// Get the application settings from the cache
         let settings = AppSettings.load(id: id)
         self.settings = settings
-        /// Set the content of a new song
-        let content = ChordProDocument.getSongTemplateContent(settings: settings)
-        self.standardDocumentContent = content
-        self.newDocumentContent = content
     }
 }
 

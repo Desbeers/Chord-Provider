@@ -12,6 +12,8 @@ import OSLog
 @MainActor @Observable final class SceneStateModel {
     /// The optional file location
     var file: URL?
+    /// The optional template location
+    var template: URL?
     /// The raw content of the document
     var content: String = ""
     /// The current ``Song``
@@ -129,6 +131,11 @@ import OSLog
             let haveConfig = FileManager.default.fileExists(atPath: localConfig.path)
             return haveConfig ? localConfig : nil
         }
+        if let template {
+            let templateConfig = template.deletingPathExtension().appendingPathExtension("json")
+            let haveConfig = FileManager.default.fileExists(atPath: templateConfig.path)
+            return haveConfig ? templateConfig : nil
+        }
         return nil
     }
 
@@ -155,20 +162,7 @@ extension SceneStateModel {
     }
 }
 
-/// The `FocusedValueKey` for the scene state
-struct SceneFocusedValueKey: FocusedValueKey {
-    /// The `typealias` for the key
-    typealias Value = SceneStateModel
-}
-
 extension FocusedValues {
-    /// The value of the scene state key
-    var sceneState: SceneFocusedValueKey.Value? {
-        get {
-            self[SceneFocusedValueKey.self]
-        }
-        set {
-            self[SceneFocusedValueKey.self] = newValue
-        }
-    }
+    /// The value of the scene state
+    @Entry var sceneState: SceneStateModel?
 }

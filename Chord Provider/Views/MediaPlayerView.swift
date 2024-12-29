@@ -9,12 +9,10 @@ import SwiftUI
 
 struct MediaPlayerView: View {
     /// The observable state of the application
-    @State private var appState = AppStateModel.shared
+    @Environment(AppStateModel.self) private var appState
 
     @State private var window: NSWindow?
 
-    /// The AppDelegate to bring additional Windows into the SwiftUI world
-    let appDelegate: AppDelegateModel
     /// The body of the `View`
     var body: some View {
         VStack {

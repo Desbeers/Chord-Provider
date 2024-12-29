@@ -10,7 +10,8 @@ import OSLog
 
 extension WelcomeView {
 
-    var browserFiles: some View {
+    @ViewBuilder var browserFiles: some View {
+        @Bindable var fileBrowser = fileBrowser
         VStack {
             switch fileBrowser.status {
             case .noSongsFolderSelectedError:

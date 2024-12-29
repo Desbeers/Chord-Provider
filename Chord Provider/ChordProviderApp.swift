@@ -10,10 +10,10 @@ import OSLog
 
 /// SwiftUI `Scene` for **Chord Provider**
 @main struct ChordProviderApp: App {
-    /// The observable ``FileBrowser`` class
-    @State private var fileBrowser = FileBrowserModel.shared
     /// The observable state of the application
-    @State private var appState = AppStateModel.shared
+    @State private var appState = AppStateModel(id: .mainView)
+    /// The observable state of the file browser
+    @State private var fileBrowser = FileBrowserModel()
     /// The ``AppDelegate`` class  for **Chord Provider**
     @NSApplicationDelegateAdaptor private var appDelegate: AppDelegateModel
     /// Environment to open windows
@@ -26,10 +26,10 @@ import OSLog
         // MARK: 'Song' document window
 
         /// The actual 'song' window
-        DocumentGroup(newDocument: ChordProDocument(text: AppStateModel.shared.standardDocumentContent)) { file in
+        DocumentGroup(newDocument: ChordProDocument()) { file in
             MainView(document: file.$document, file: file.fileURL)
-                .environment(fileBrowser)
                 .environment(appState)
+                .environment(fileBrowser)
             /// Give the scene access to the document.
                 .focusedSceneValue(\.document, file)
                 .task {
@@ -101,10 +101,11 @@ import OSLog
             WelcomeView(windowID: AppDelegateModel.WindowID.welcomeView)
                 .windowResizeBehavior(.disabled)
                 .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
-                .containerBackground(.ultraThickMaterial, for: .window)
+                .containerBackground(.thickMaterial, for: .window)
                 .toolbar(removing: .title)
                 .windowMinimizeBehavior(.disabled)
                 .environment(appState)
+                .environment(fileBrowser)
         }
         .defaultLaunchBehavior(.presented)
         .defaultWindowPlacement { content, context in
@@ -120,7 +121,7 @@ import OSLog
             AboutView()
                 .windowResizeBehavior(.disabled)
                 .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
-                .containerBackground(.ultraThickMaterial, for: .window)
+                .containerBackground(.thickMaterial, for: .window)
                 .toolbar(removing: .title)
                 .windowMinimizeBehavior(.disabled)
         }
@@ -153,6 +154,7 @@ import OSLog
 
         Window(AppDelegateModel.WindowID.exportFolderView.rawValue, id: AppDelegateModel.WindowID.exportFolderView.rawValue) {
             ExportFolderView()
+                .environment(fileBrowser)
         }
         .defaultLaunchBehavior(.suppressed)
         .windowResizability(.contentMinSize)
@@ -161,7 +163,8 @@ import OSLog
         // MARK: Media Player window
 
         Window(AppDelegateModel.WindowID.mediaPlayerView.rawValue, id: AppDelegateModel.WindowID.mediaPlayerView.rawValue) {
-            MediaPlayerView(appDelegate: appDelegate)
+            MediaPlayerView()
+                .environment(appState)
         }
         .defaultLaunchBehavior(.suppressed)
         .windowResizability(.contentMinSize)
