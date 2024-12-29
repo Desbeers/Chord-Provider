@@ -18,26 +18,21 @@ struct SettingsView: View {
     /// The body of the `View`
     var body: some View {
         TabView {
-            general
-                .tabItem {
-                    Label("General", systemImage: "gear")
-                }
-            editor
-                .tabItem {
-                    Label("Editor", systemImage: "pencil")
-                }
-            diagram
-                .tabItem {
-                    Label("Diagrams", systemImage: "guitars")
-                }
-            folder
-                .tabItem {
-                    Label("Songs", systemImage: "folder")
-                }
-            options
-                .tabItem {
-                    Label("Options", systemImage: "music.quarternote.3")
-                }
+            Tab("General", systemImage: "gear") {
+                general
+            }
+            Tab("Editor", systemImage: "pencil") {
+                editor
+            }
+            Tab("Diagrams", systemImage: "guitars") {
+                diagram
+            }
+            Tab("Songs", systemImage: "folder") {
+                folder
+            }
+            Tab("Options", systemImage: "music.quarternote.3") {
+                options
+            }
         }
         .task {
             haveChordProCLI = await checkChordProCLI()
