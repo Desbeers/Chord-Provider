@@ -47,10 +47,6 @@ struct AppSettings {
     var song = SongDisplayOptions()
 }
 
-struct ChordProEditor {
-    /// Simple substitute for the real ChordProEditor
-}
-
 extension SongExport {
 
     ///  Sandbox restriction, sandbox extension cannot load local external images

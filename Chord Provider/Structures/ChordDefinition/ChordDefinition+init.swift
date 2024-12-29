@@ -24,7 +24,7 @@ extension ChordDefinition {
         self.bass = try container.decodeIfPresent(Chord.Root.self, forKey: ChordDefinition.CodingKeys.bass)
         /// Calculated values
         self.name = "\(root.rawValue)\(quality.rawValue)"
-        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers)
         self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: .guitar)
         self.status = .standardChord
         self.instrument = .guitar
@@ -57,7 +57,7 @@ extension ChordDefinition {
         self.status = status
         /// Calculated values
         self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers)
     }
 
     // MARK: Init with a definition
@@ -100,7 +100,7 @@ extension ChordDefinition {
             }
             /// Calculated values
             self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-            self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+            self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers)
         } catch {
             throw error
         }
@@ -139,7 +139,7 @@ extension ChordDefinition {
         self.status = .standardChord
         /// Calculated values
         self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers)
     }
 
     // MARK: Init with a ChordPro JSON chord
@@ -166,7 +166,7 @@ extension ChordDefinition {
             self.status = .standardChord
             /// Calculated values
             self.components = Utils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-            self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers, baseFret: baseFret)
+            self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers)
         } catch {
             return nil
         }

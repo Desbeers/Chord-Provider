@@ -11,8 +11,6 @@ import SwiftUI
 struct ChordsView: View {
     /// The ChordPro document
     @Binding var document: ChordProDocument
-    /// The observable state of the application
-    @Environment(AppStateModel.self) private var appState
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
     /// Sheet with chords of the selected type

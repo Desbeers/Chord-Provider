@@ -8,19 +8,12 @@
 import SwiftUI
 
 struct HelpButtons: View {
-    /// The observable state of the document
-    @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
+    /// Environment to open windows
+    @Environment(\.openWindow) private var openWindow
     /// The body of the `View`
     var body: some View {
-        if let sampleSong = Bundle.main.url(forResource: "Swing Low Sweet Chariot", withExtension: "chordpro") {
-            Button("Insert a Song Example") {
-                if
-                    let document,
-                    let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-                    document.document.text = content
-                }
-            }
-            .disabled(document == nil)
+        Button(AppDelegateModel.WindowID.helpView.rawValue) {
+            openWindow(id: AppDelegateModel.WindowID.helpView.rawValue)
         }
         Divider()
         if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {

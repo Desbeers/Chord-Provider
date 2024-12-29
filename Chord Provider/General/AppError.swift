@@ -133,20 +133,4 @@ Sorry... Please use its official GUI for diagnostics.
             "OK"
         }
     }
-
-    // MARK: Custom items
-
-    /// The icon of the status
-    var icon: Image {
-        switch self {
-        case .audioFileNotDownloadedError:
-            Image(systemName: "icloud.and.arrow.down")
-        case .noSongsFolderSelectedError:
-            Image(systemName: "folder.badge.questionmark")
-        case .readyToPlay:
-            Image(systemName: "play.fill")
-        default:
-            Image(systemName: "questionmark")
-        }
-    }
 }

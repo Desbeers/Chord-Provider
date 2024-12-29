@@ -24,6 +24,6 @@ extension ChordProParser {
             source: "{\(environment.directives.open.rawValue.long)}"
         )
         currentSection.lines.append(line)
-        return "No environment set, using **\(environment.label)**"
+        return "No environment set, using **\(environment.rawValue)**"
     }
 }

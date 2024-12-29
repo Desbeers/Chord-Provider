@@ -37,8 +37,6 @@ struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
     /// The instrument of the chord
     var instrument: Instrument
 
-    /// The appended notes on the chord
-    var appended: [String] = []
     /// The base note of an optional 'slash' chord
     var bass: Chord.Root?
     /// The components of the chord definition

@@ -40,8 +40,6 @@ extension RenderView {
         }
         /// The `popover` state
         @State private var popover: String?
-        /// The 'hover' state
-        @State private var hover: Bool = false
         /// The body of the `View`
         var body: some View {
             switch settings.display.chords {

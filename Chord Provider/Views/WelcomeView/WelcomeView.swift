@@ -14,8 +14,6 @@ struct WelcomeView: View {
     @Environment(AppStateModel.self) var appState
     /// The observable state of the file browser
     @Environment(FileBrowserModel.self) var fileBrowser
-    /// The ID of the Window
-    let windowID: AppDelegateModel.WindowID
     /// The currently selected tab
     @State private var selectedTab: NewTabs = .recent
 
@@ -25,8 +23,6 @@ struct WelcomeView: View {
     @Environment(\.newDocument) private var newDocument
 
     @Environment(\.openWindow) var openWindow
-
-    @Environment(\.dismissWindow) private var dismissWindow
 
     @Environment(\.dismiss) var dismiss
 

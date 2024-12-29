@@ -22,17 +22,6 @@ struct ScaleModifier: ViewModifier {
         case inactive
         /// Magnification ongoing
         case active(scale: Double)
-        /// The current scale factor
-        var scale: Double {
-            switch self {
-            case .active(let scale): scale
-            default: 1.0
-            }
-        }
-    }
-    /// Calculate the scale within the minimum and maximum scale value
-    private var scale: Double {
-        min(max(sceneState.settings.song.display.scale * magnificationState.scale * 0.5, minScale), maxScale)
     }
     /// The `MagnifyGesture`
     private var magnifyGesture: some Gesture {

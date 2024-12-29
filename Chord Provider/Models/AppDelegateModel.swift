@@ -30,6 +30,8 @@ final class AppDelegateModel: NSObject, NSApplicationDelegate, NSWindowDelegate 
         /// The ``ChordsDatabaseView``
         case chordsDatabaseView = "Chords Database"
         /// The ``DebugView``
-        case debugView = "Debug"
+        case debugView = "Debug Info"
+        /// The ``HelpView``
+        case helpView = "Chord Provider Help"
     }
 }

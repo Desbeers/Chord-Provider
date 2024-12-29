@@ -184,7 +184,7 @@ extension WelcomeView {
         .contextMenu {
             Button(
                 action: {
-                    UserFileBookmark.openInFinder(url: song.fileURL)
+                    song.fileURL.openInFinder()
                 },
                 label: {
                     Text("Open song in Finder")

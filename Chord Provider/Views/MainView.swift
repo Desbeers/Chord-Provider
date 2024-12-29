@@ -39,7 +39,7 @@ struct MainView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(nsColor: .textBackgroundColor))
-        .toolbar {
+        .toolbar(id: "Main") {
             ToolbarView()
         }
         .errorAlert(message: $sceneState.errorAlert)

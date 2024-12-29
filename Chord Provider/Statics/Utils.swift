@@ -65,12 +65,10 @@ enum Utils {
     /// - Parameters:
     ///   - frets: The frets of the chord
     ///   - fingers: The fingers of the chord
-    ///   - baseFret: The base fret of the chord
-    /// - Returns: An array with fingers that shoud be barred
+    /// - Returns: An array with fingers that should be barred
     static func fingersToBarres(
         frets: [Int],
-        fingers: [Int],
-        baseFret: Int
+        fingers: [Int]
     ) -> [Chord.Barre] {
         var barres: [Chord.Barre] = []
         /// Map the fingers to a  key-value pair

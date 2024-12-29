@@ -12,11 +12,9 @@ extension ChordProParser {
     /// Close a section in the song
     /// - Note: This will open a new empty section as well
     /// - Parameters:
-    ///   - directive: The ``ChordPro/Directive`` to add to the line
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func closeSection(
-        directive: ChordPro.Directive,
         currentSection: inout Song.Section,
         song: inout Song
     ) {

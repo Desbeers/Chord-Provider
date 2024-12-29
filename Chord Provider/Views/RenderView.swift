@@ -93,7 +93,6 @@ struct RenderView: View {
             case .strum:
                 strumSection(section: section)
             case .image:
-                /// TODO
                 imageSection(section: section)
             case .metadata:
                 /// Don't render metadata
@@ -410,24 +409,6 @@ extension RenderView {
         }
         .frame(maxWidth: .infinity, alignment: getAlign(arguments))
         .modifier(SectionView(settings: song.settings, label: ""))
-    }
-
-    // MARK: Plain
-
-    /// SwiftUI `View` for a plain text section
-    func plainSection(section: Song.Section) -> some View {
-        VStack(alignment: .leading) {
-            ForEach(section.lines) { line in
-                if let parts = line.parts {
-                    ForEach(parts) { part in
-                        /// Init the text like this to enable markdown formatting
-                        Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
-                    }
-                }
-            }
-        }
-        .frame(idealWidth: 400 * song.settings.display.scale, maxWidth: 400 * song.settings.display.scale, alignment: .leading)
-        .modifier(SectionView(settings: song.settings, label: section.label))
     }
 
     // MARK: Parts

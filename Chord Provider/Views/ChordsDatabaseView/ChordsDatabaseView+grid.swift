@@ -41,7 +41,7 @@ extension ChordsDatabaseView {
                             chordsDatabaseState.navigationStack.append(definition)
                         }
                     } label: {
-                        Label("Add a new chord", systemImage: "plus")
+                        Label("New chord", systemImage: "plus")
                     }
                     .padding()
                 }

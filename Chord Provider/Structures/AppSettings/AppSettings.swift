@@ -37,8 +37,6 @@ extension AppSettings {
         var useChordProCLI: Bool = false
         /// Bool to use a custom config instead of system
         var useCustomConfig: Bool = false
-        /// The selected custom config
-        var customConfigURL: URL?
         /// Bool to use an additional library
         var useAdditionalLibrary: Bool = false
     }

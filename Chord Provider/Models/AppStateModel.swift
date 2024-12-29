@@ -23,7 +23,7 @@ import SwiftUI
             try? AppSettings.save(id: id, settings: settings)
         }
     }
-
+    /// The optional media next to the song
     var media = MediaPlayerView.Item()
 
     /// Init the class; get application settings

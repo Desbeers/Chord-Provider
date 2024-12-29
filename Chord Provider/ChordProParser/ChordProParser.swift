@@ -79,7 +79,6 @@ actor ChordProParser {
         if !currentSection.lines.isEmpty {
             song.lines += 1
             closeSection(
-                directive: currentSection.environment.directives.close,
                 currentSection: &currentSection,
                 song: &song
             )

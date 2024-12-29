@@ -10,24 +10,18 @@ import OSLog
 
 /// SwiftUI `View` for the debug window
 struct DebugView: View {
-
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-
     /// The currently selected tab
     @State private var tab: DebugMessage = .log
     /// The source of the song
     @State private var content: [(line: Int, source: Song.Section.Line)] = []
     /// The currently selected line
     @State private var selectedLine: Int?
-
+    /// All parsed log messages
     @State private var osLogMessages: [LogMessage] = []
-
-    @State private var selectedMessage: LogMessage?
-
-    // swiftlint:disable:next force_unwrapping
-    @State private var lastFetchedLogDate = Calendar.current.date(byAdding: .year, value: -1000, to: Date())!
-
+    /// Remember the last fetched time
+    @State private var lastFetchedLogDate = Calendar.current.date(byAdding: .year, value: -1000, to: Date()) ?? Date()
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -41,7 +35,7 @@ struct DebugView: View {
                 source
             }
         }
-        .frame(minWidth: 600, minHeight: 600)
+        .frame(minWidth: 500, minHeight: 600)
         .frame(maxWidth: .infinity)
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -91,7 +85,6 @@ struct DebugView: View {
             let newMessages = await osLog.value
             osLogMessages.append(contentsOf: newMessages.filter { $0.time > lastFetchedLogDate })
             lastFetchedLogDate = .now
-            selectedMessage = osLogMessages.last
         }
         .task(id: tab) {
             selectedLine = nil

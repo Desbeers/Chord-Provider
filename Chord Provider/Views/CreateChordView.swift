@@ -20,8 +20,6 @@ struct CreateChordView: View {
     @State private var diagram: ChordDefinition?
     /// The current color scheme
     @Environment(\.colorScheme) private var colorScheme
-    /// The chord finder result
-    @State private var chordFinder: [ChordDefinition] = []
     /// The chord components result
     @State private var chordComponents: [[Chord.Root]] = []
     /// The body of the `View`

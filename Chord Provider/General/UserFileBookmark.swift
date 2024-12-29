@@ -77,36 +77,3 @@ extension UserFileBookmark {
         }
     }
 }
-
-extension UserFileBookmark {
-
-    /// Open an URL in the Finder
-    /// - Parameter url: The URL to open
-    static func openInFinder(url: URL?) {
-        guard let url = url else {
-            return
-        }
-        NSWorkspace.shared.activateFileViewerSelecting([url])
-    }
-}
-
-extension URL {
-
-    /// Open an URL in the Finder
-    func openInFinder() {
-        NSWorkspace.shared.activateFileViewerSelecting([self])
-    }
-}
-
-extension URL {
-
-    /// Check if an URL exists
-    /// - Returns: True of false
-    func exist() -> Bool {
-        if #available(macOS 13.0, *) {
-            return FileManager.default.fileExists(atPath: self.path(percentEncoded: false))
-        } else {
-            return FileManager.default.fileExists(atPath: self.path)
-        }
-    }
-}

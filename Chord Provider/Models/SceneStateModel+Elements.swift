@@ -106,7 +106,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Pager:", selection: $sceneState.settings.song.display.paging) {
+            Picker("Pager", selection: $sceneState.settings.song.display.paging) {
                 ForEach(AppSettings.SongDisplayOptions.Paging.allCases, id: \.rawValue) { paging in
                     Label(paging.label.text, systemImage: paging.label.sfSymbol)
                         .help(paging.label.help)
@@ -128,7 +128,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Position:", selection: $sceneState.settings.song.display.chordsPosition) {
+            Picker("Position", selection: $sceneState.settings.song.display.chordsPosition) {
                 ForEach(AppSettings.SongDisplayOptions.ChordsPosition.allCases, id: \.rawValue) { value in
                     Text(value.rawValue)
                         .tag(value)
@@ -533,7 +533,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Instrument:", selection: $sceneState.settings.song.display.instrument) {
+            Picker("Instrument", selection: $sceneState.settings.song.display.instrument) {
                 ForEach(Instrument.allCases, id: \.rawValue) { value in
                     Text(value.label)
                         .tag(value)

@@ -29,7 +29,7 @@ extension ChordProParser {
             line.addWarning("**Chord Provider** does not support inline markup")
         }
         var partID: Int = 1
-        /// All the parts in the ine
+        /// All the parts in the line
         var parts: [Song.Section.Line.Part] = []
         /// Chop the line in parts
         var matches = textCopy.matches(of: RegexDefinitions.line)

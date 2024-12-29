@@ -98,7 +98,7 @@ import OSLog
         // MARK: Welcome window
 
         Window(AppDelegateModel.WindowID.welcomeView.rawValue, id: AppDelegateModel.WindowID.welcomeView.rawValue) {
-            WelcomeView(windowID: AppDelegateModel.WindowID.welcomeView)
+            WelcomeView()
                 .windowResizeBehavior(.disabled)
                 .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
                 .containerBackground(.thickMaterial, for: .window)
@@ -170,6 +170,15 @@ import OSLog
         .windowResizability(.contentMinSize)
         .commandsRemoved()
 
+        // MARK: Help
+
+        UtilityWindow(AppDelegateModel.WindowID.helpView.rawValue, id: AppDelegateModel.WindowID.helpView.rawValue) {
+            HelpView()
+        }
+        .defaultLaunchBehavior(.suppressed)
+        .windowResizability(.contentSize)
+        .commandsRemoved()
+
         // MARK: Settings
 
         /// The settings window
@@ -179,6 +188,8 @@ import OSLog
                 .environment(fileBrowser)
                 .frame(width: 340, height: 490)
         }
+
+        // MARK: Settings
     }
 
     // MARK: HELPERS

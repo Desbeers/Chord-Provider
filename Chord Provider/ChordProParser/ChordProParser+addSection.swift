@@ -35,7 +35,6 @@ extension ChordProParser {
         /// - Note: a new one will be created in that function
         if !currentSection.lines.isEmpty {
             closeSection(
-                directive: directive,
                 currentSection: &currentSection,
                 song: &song
             )
@@ -73,7 +72,6 @@ extension ChordProParser {
 
         /// Close the section
         closeSection(
-            directive: directive,
             currentSection: &currentSection,
             song: &song
         )
