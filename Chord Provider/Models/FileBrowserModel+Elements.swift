@@ -23,10 +23,10 @@ extension FileBrowserModel {
         /// The body of the `View`
         var body: some View {
             UserFileButton(
-                userFile: UserFileItem.songsFolder
+                userFile: UserFile.songsFolder
             ) {
                 Task {
-                    fileBrowser.songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+                    fileBrowser.songsFolder = UserFile.songsFolder.getBookmarkURL
                 }
             }
         }

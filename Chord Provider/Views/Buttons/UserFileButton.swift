@@ -11,9 +11,9 @@ import OSLog
 
 /// SwiftUI `View` with a button to select a file
 /// - Note: A file can be a *normal* file but also a folder
-struct UserFileButton<T: UserFile>: View {
+struct UserFileButton: View {
     /// The file to bookmark
-    let userFile: T
+    let userFile: UserFile
     /// The action when a file is selected
     let action: () -> Void
     /// The label of the button
@@ -43,7 +43,7 @@ struct UserFileButton<T: UserFile>: View {
             switch result {
             case .success(let files):
                 files.forEach { url in
-                    UserFileBookmark.setBookmarkURL(userFile, url)
+                    userFile.setBookmarkURL(url)
                     Logger.application.info("Bookmark set for '\(url.lastPathComponent, privacy: .public)'")
                     label = userFile.label
                     action()

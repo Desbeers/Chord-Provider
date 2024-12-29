@@ -15,7 +15,7 @@ extension FolderExport {
     @MainActor static func files() throws -> [FileBrowserModel.SongItem] {
         var files: [FileBrowserModel.SongItem] = []
         /// Get a list of all files
-        if let exportFolder = UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder) {
+        if let exportFolder = UserFile.exportFolder.getBookmarkURL {
             /// Get access to the URL
             _ = exportFolder.startAccessingSecurityScopedResource()
             if let items = FileManager.default.enumerator(at: exportFolder, includingPropertiesForKeys: nil) {

@@ -134,11 +134,11 @@ extension Terminal {
     static func getOptionalCustomConfig(settings: AppSettings) -> String? {
         if
             settings.chordPro.useCustomConfig,
-            let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.customChordProConfig) {
+            let persistentURL = UserFile.customChordProConfig.getBookmarkURL {
             /// Get access to the URL
             _ = persistentURL.startAccessingSecurityScopedResource()
             /// Close the access
-            UserFileBookmark.stopCustomFileAccess(persistentURL: persistentURL)
+            UserFile.customChordProConfig.stopCustomFileAccess()
             return "--config='\(persistentURL.path)'"
         }
         return nil
@@ -181,12 +181,12 @@ extension Terminal {
         /// Add the optional additional library to the environment of the shell
         if
             settings.chordPro.useAdditionalLibrary,
-            let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.customChordProLibrary) {
+            let persistentURL = UserFile.customChordProLibrary.getBookmarkURL {
             /// Get access to the URL
             _ = persistentURL.startAccessingSecurityScopedResource()
             arguments.append("CHORDPRO_LIB='\(persistentURL.path)'")
             /// Close the access
-            UserFileBookmark.stopCustomFileAccess(persistentURL: persistentURL)
+            UserFile.customChordProConfig.stopCustomFileAccess()
         }
         /// The **ChordPro** binary
         arguments.append("\"\(chordProApp.path)\"")
@@ -204,13 +204,13 @@ extension Terminal {
         if let localSystemConfigURL = sceneState.localSystemConfigURL {
             _ = localSystemConfigURL.startAccessingSecurityScopedResource()
             arguments.append("--config='\(localSystemConfigURL.path)'")
-            UserFileBookmark.stopCustomFileAccess(persistentURL: localSystemConfigURL)
+            UserFile.customChordProConfig.stopCustomFileAccess()
         }
         /// Add the optional local config that is next to a song file
         if let localSongConfigURL = sceneState.localSongConfigURL {
             _ = localSongConfigURL.startAccessingSecurityScopedResource()
             arguments.append("--config='\(localSongConfigURL.path)'")
-            UserFileBookmark.stopCustomFileAccess(persistentURL: localSongConfigURL)
+            UserFile.customChordProConfig.stopCustomFileAccess()
         }
         /// Add the output file
         arguments.append("--output=\"\(sceneState.exportURL.path)\"")

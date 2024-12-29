@@ -1,5 +1,5 @@
 //
-//  CustomFile.swift
+//  UserFile.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
@@ -9,7 +9,7 @@ import Foundation
 import UniformTypeIdentifiers
 
 /// All files that can be selected by a user
-enum UserFileItem: String, UserFile {
+enum UserFile: String {
     /// The folder with songs
     case songsFolder
     /// An export folder
@@ -41,7 +41,7 @@ enum UserFileItem: String, UserFile {
     }
     /// The optional calculated label of the file
     var label: String? {
-        return UserFileBookmark.getBookmarkURL(self)?.deletingPathExtension().lastPathComponent
+        self.getBookmarkURL?.deletingPathExtension().lastPathComponent
     }
     /// The SF icon of the file
     var icon: String {

@@ -27,7 +27,7 @@ extension FolderExport {
         let builder = PDFBuild.Builder(documentInfo: documentInfo)
         builder.pageCounter = counter
         // MARK: Render PDF content
-        if let exportFolder = UserFileBookmark.getBookmarkURL(UserFileItem.exportFolder) {
+        if let exportFolder = UserFile.exportFolder.getBookmarkURL {
             /// Get access to the URL
             _ = exportFolder.startAccessingSecurityScopedResource()
             for item in counter

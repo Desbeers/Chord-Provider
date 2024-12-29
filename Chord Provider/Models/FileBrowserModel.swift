@@ -29,7 +29,7 @@ import OSLog
 
     /// Init the FileBrowser
     init() {
-        songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder)
+        songsFolder = UserFile.songsFolder.getBookmarkURL
         getFiles()
     }
 }
@@ -87,7 +87,7 @@ extension FileBrowserModel {
     func getFiles() {
         var songs = songList
         /// Get a list of all files
-        if let songsFolder = UserFileBookmark.getBookmarkURL(UserFileItem.songsFolder) {
+        if let songsFolder = UserFile.songsFolder.getBookmarkURL {
             /// Get access to the URL
             _ = songsFolder.startAccessingSecurityScopedResource()
             status = .songsFolderIsSelected

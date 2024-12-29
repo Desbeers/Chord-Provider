@@ -63,7 +63,7 @@ extension ChordProDocument {
         let settings = AppSettings.load(id: .mainView)
         if
             settings.application.useCustomSongTemplate,
-            let persistentURL = UserFileBookmark.getBookmarkURL(UserFileItem.customSongTemplate) {
+            let persistentURL = UserFile.customSongTemplate.getBookmarkURL {
             /// Get access to the URL
             _ = persistentURL.startAccessingSecurityScopedResource()
             let data = try? String(contentsOf: persistentURL, encoding: .utf8)

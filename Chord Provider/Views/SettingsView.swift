@@ -48,7 +48,7 @@ struct SettingsView: View {
                     Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
                 }
                 UserFileButton(
-                    userFile: UserFileItem.customSongTemplate
+                    userFile: UserFile.customSongTemplate
                 ) {}
                     .disabled(!appState.settings.application.useCustomSongTemplate)
                 Text("You can use your own **ChordPro** file as a starting point when you create a new song")
@@ -68,7 +68,7 @@ struct SettingsView: View {
                     .disabled(!appState.settings.chordPro.useChordProCLI)
                 }
                 UserFileButton(
-                    userFile: UserFileItem.customChordProConfig
+                    userFile: UserFile.customChordProConfig
                 ) {}
                     .disabled(!appState.settings.chordPro.useChordProCLI || !appState.settings.chordPro.useCustomConfig)
                 VStack(alignment: .leading) {
@@ -80,7 +80,7 @@ struct SettingsView: View {
                     .disabled(!appState.settings.chordPro.useChordProCLI)
                 }
                 UserFileButton(
-                    userFile: UserFileItem.customChordProLibrary
+                    userFile: UserFile.customChordProLibrary
                 ) {}
                     .disabled(!appState.settings.chordPro.useChordProCLI || !appState.settings.chordPro.useAdditionalLibrary)
             }

@@ -1,26 +1,20 @@
 //
-//  UserFileBookmark.swift
+//  UserFile+bookmark.swift
 //  Chord Provider
 //
 //  © 2024 Nick Berendsen
 //
 
-import SwiftUI
+import Foundation
 import OSLog
-import UniformTypeIdentifiers
 
-/// Persistent user file bookmark utilities
-enum UserFileBookmark {
-    // Just a placeholder
-}
-
-extension UserFileBookmark {
+extension UserFile {
 
     /// Get an optional bookmark URL
     /// - Parameter bookmark: The ``UserFile``
     /// - Returns: An URL if found
-    static func getBookmarkURL<T: UserFile>(_ bookmark: T) -> URL? {
-        guard let bookmarkData = UserDefaults.standard.data(forKey: bookmark.id) else {
+    var getBookmarkURL: URL? {
+        guard let bookmarkData = UserDefaults.standard.data(forKey: self.id) else {
             return nil
         }
         do {
@@ -31,7 +25,7 @@ extension UserFileBookmark {
                 bookmarkDataIsStale: &bookmarkDataIsStale
             )
             if bookmarkDataIsStale {
-                setBookmarkURL(bookmark, urlForBookmark)
+                setBookmarkURL(urlForBookmark)
             }
             return urlForBookmark
         } catch {
@@ -39,22 +33,19 @@ extension UserFileBookmark {
             return nil
         }
     }
-}
-
-extension UserFileBookmark {
 
     /// Set an bookmark URL
     /// - Parameters:
     ///   - bookmark: The ``UserFile``
     ///   - selectedURL: The URL to set
-    static func setBookmarkURL<T: UserFile>(_ bookmark: T, _ selectedURL: URL) {
+    func setBookmarkURL( _ selectedURL: URL) {
         do {
             _ = selectedURL.startAccessingSecurityScopedResource()
             let bookmarkData = try selectedURL.bookmarkData(
                 includingResourceValuesForKeys: nil,
                 relativeTo: nil
             )
-            UserDefaults.standard.set(bookmarkData, forKey: bookmark.id)
+            UserDefaults.standard.set(bookmarkData, forKey: self.id)
             selectedURL.stopAccessingSecurityScopedResource()
             Logger.fileAccess.info("Bookmark set for '\(selectedURL.lastPathComponent, privacy: .public)'")
         } catch let error {
@@ -62,18 +53,18 @@ extension UserFileBookmark {
             selectedURL.stopAccessingSecurityScopedResource()
         }
     }
-}
-
-extension UserFileBookmark {
 
     /// Stop access to a persistent URL after some time
-    /// - Parameter persistentURL: The `URL` that has accessed
     /// - Note: Always call this function after you are done with the access or else Apple will be really upset!
-    static func stopCustomFileAccess(persistentURL: URL) {
-        Task {
-            try? await Task.sleep(nanoseconds: 500_000_000_000)
-            persistentURL.stopAccessingSecurityScopedResource()
-            Logger.fileAccess.info("Stopped access to '\(persistentURL.lastPathComponent, privacy: .public)'")
+    func stopCustomFileAccess() {
+        if let persistentURL = self.getBookmarkURL {
+            Task {
+                try? await Task.sleep(nanoseconds: 500_000_000_000)
+                persistentURL.stopAccessingSecurityScopedResource()
+                Logger.fileAccess.info("Stopped access to '\(persistentURL.lastPathComponent, privacy: .public)'")
+            }
+        } else {
+            Logger.fileAccess.error("Access error '\(self.rawValue, privacy: .public)'")
         }
     }
 }
