@@ -1,30 +1,30 @@
 CURRDATE := $(shell date "+%Y-%m-%d")
-TESTBUILDDIR := TestBuild
-DMGNAME :=  Chord Provider macOS ${CURRDATE}.dmg
+VERSION = $(shell xcodebuild -showBuildSettings | grep MARKETING_VERSION | tr -d 'MARKETING_VERSION =')
+DMGNAME :=  Chord Provider ${VERSION}.dmg
 MKDIR := mkdir
 
-DEST   := build
+DEST   := Build
 
-all: archive
+APPDIR := "${DEST}/Chord Provider.app"
 
-xcodebuild:
-	@echo "Building Chord Provider"
-	rm -fr "${DEST}"
-	$(MKDIR) -p "${DEST}"
-	xcodebuild \
-		-scheme "Chord Provider" \
-		-configuration Release \
-		-arch x86_64 \
-		CODE_SIGN_IDENTITY="-" \
-		CODE_SIGNING_REQUIRED=YES \
-		-derivedDataPath "${DEST}"
-		
-archive: xcodebuild
-	@echo "Archive Chord Provider"
-	$(MKDIR) -p "${DEST}/Chord Provider"
-	cp -r "${DEST}/Build/Products/Release/Chord Provider.app" "${DEST}/Chord Provider"
-	rm -f "${DEST}/${DMGNAME}"
-	hdiutil create -format UDZO -srcfolder "${DEST}/Chord Provider" "${DEST}/${DMGNAME}"
+all: package
 	
 clean:
 	rm -fr ${DEST}
+	
+package:
+	rm -f "Build/${DMGNAME}"
+	bash ./Resources/create-dmg \
+		--volname "Chord Provider" \
+		--volicon "Resources/DiskIcon.icns" \
+		--window-pos 200 120 \
+		--window-size 680 440 \
+		--icon-size 64 \
+		--icon "Chord Provider.app" 540 75 \
+		--hide-extension "Chord Provider.app" \
+		--add-file "Read me First.html" "Resources/README.html"  540 175 \
+		--hide-extension "Read me First.html" \
+		--add-file "Install.zsh" "Resources/Install.zsh" 540 275 \
+		--hide-extension "Install.zsh" \
+		--background "Resources/DiskBackground.png" \
+		"Build/${DMGNAME}" ${APPDIR}

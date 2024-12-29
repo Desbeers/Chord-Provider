@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+            <title>Read me First</title>
+            <style>
+                body {
+                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                    background-color: color-mix(in srgb, Canvas, CanvasText 2.5%);
+                    color: color-mix(in srgb, CanvasText, Canvas 15%);
+                    color-scheme: light dark;
+                }
+                h1 {
+                    color: #7A8D78;
+                }
+                h2 {
+                    color: #aea897;
+                }
+                p, li {
+                    line-height: 1.4em;
+                }
+                a {
+                    color: CanvasText;
+                }
+                code {
+                    font-size: 1.2em;
+                }
+                code::before, code::after {
+                    content: "“";
+                }
+                #content {
+                    width: 40em;
+                    margin-left: auto;
+                    margin-right: auto;
+                    padding-bottom: 2em
+                }
+            </style>
+    </head>
+    <body>
+        <div id="content">
+            <h1>Chord Provider</h1>
+
+            <h3>A <strong>ChordPro</strong> viewer, editor and PDF exporter for macOS</h3>
+
+            <h2>What is ChordPro</h2>
+
+            <blockquote>
+                <p>“A simple text format for the notation of lyrics with chords”.</p>
+            </blockquote>
+
+            <p><strong>ChordPro</strong> is an open standard text format and its has its own <a href="https://www.chordpro.org/chordpro/chordpro-directives/">official reference implementation</a>. I contributed a lot to its <a href="https://github.com/ChordPro/chordpro">Open Source code</a>.</p>
+
+            <p>While I hope you like <strong>Chord Provider</strong>, as <em>guitar player</em> or <em>macOS programmer</a>, it is just my hobby project. Go <a href="https://chordpro.org">there</a> for the full <strong>Chordpro</strong> experience.</p>
+
+            <h2>It is not just drag and drop</h2>
+
+            <p>Providing applications for the Mac platform is not as easy as it seems. For the users, its mostly just <em>drag and drop</em>. It is not that easy for developers. Apple has a <a href="https://support.apple.com/en-gb/guide/security/secf826eff27/web">lot of security</a> in place to make sure your <em>drag and drop</em> will be safe for you.</p>
+
+            <p>It needs a lot of time, effort and yeh... money for developers to provide such application for the Mac.</p>
+
+            <p><strong>Chord Provider</strong> is not a commercial product. It is an <em>Open Source</em> application made by me just for fun. You are welcome to <a href="https://github.com/ChordPro/chordpro">download the source</a>, compile it and enjoy!</p>
+
+            <p>That is not realistic for must users, especially not on the Mac. I would love to provide you the expected experience but I can’t. I don't have an Apple Developers certificate to provide you this <em>ready to go</em> experience.</p>
+
+            <h2>The Gatekeeper</h2>
+
+            <p>Your download contains an <em>almost</em> ready to go <strong>Chord Provider</strong>; except that the application is only ad-hoc signed by me and not by an approved Apple Developer with a valid certificate. So, the security system on your Mac will give an error when you double-click the application. You have met the <em>Gatekeeper</em>. Depending of the version of macOS you have a different message and have to do different additional handlings to open <strong>Chord Provider</strong>.</p>
+
+            <p>The message will be more or less like this:</p>
+
+            <blockquote>
+                <p>Apple could not verify “Chord Provider.app“ is free of malware that may harm your Mac or compromise your privacy.</p>
+            </blockquote>
+
+            <p>On macOS versions before 15 (Sequoia) it was common practice to <code>right-click</code> the application and choose <code>Open</code> from the menu. That trick will bypass the gatekeeper and let you open the application.</p>
+
+            <p>Unfortunately, that does not work anymore on Sequoia and you have to go trough System Settings:</p>
+
+            <ol>
+                <li>Try to open the application. A prompt saying “Chord Provider.app“ Not Opened' may appear.</li>
+                <li>Go to <code>System Settings -&gt; Privacy &amp; Security</code>. Scroll down to find <em>ChordPro</em>, and an option to &quot;Open Anyway&quot;.</li>
+                <li>Choose &quot;Open Anyway&quot;.</li>
+                <li>Authenticate as an administrator.</li>
+                <li><em>Chord Provider</em> will now open.</li>
+            </ol>
+
+            <h2>Install with the Terminal</h2>
+
+            <p>Your download also contains an <code>Install</code> script that can do this for you. Same as with the <code>Chord Provider.app</code>, you can not just double click to run the script. You have to run it manually in the Terminal yourself:</p>
+
+            <blockquote>
+                <p>Open the <strong>Terminal</strong> application in <code>Applications/Utilities</code> and just <em>drag and drop</em> the <code>Install</code> script into its window.</p>
+            </blockquote>
+
+            <p>It will do the following:</p>
+
+            <ul>
+                <li>Copy <em>Chord Provider</em> to your applications folder</li>
+                <li>Move <em>Chord Provider</em> out of quarantine so the Gatekeeper will let you start the application with just a double-click.</li>
+            </ul>
+
+            <p><strong>It will not do anything without your permission but by providing your administration password, you will bypass all Apple’s security measurements.</strong></p>
+
+            <h2>Enjoy!</h2>
+
+            <p>I hope you appreciate my best efforts.</p>
+
+            <p>The Mac is a beautiful platform for its users.</p>
+
+            <p>-- Nick</p>
+
+        </div>
+    </body>
+</html>
