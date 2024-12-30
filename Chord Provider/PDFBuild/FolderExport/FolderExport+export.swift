@@ -55,6 +55,7 @@ extension FolderExport {
     /// - Parameters:
     ///   - documentInfo: The document info for the PDF
     ///   - appSettings: The application settings
+    ///   - progress: The progress of the folder export
     /// - Returns: A PDFDocument if all well, else an error
     static func export(
         documentInfo: PDFBuild.DocumentInfo,

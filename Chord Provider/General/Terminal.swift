@@ -238,7 +238,6 @@ extension Terminal {
     /// Parse a **ChordPro** message
     /// - Parameters:
     ///   - output: The raw output as read from stdError
-    ///   - sceneState: The sceneState of the current document
     /// - Returns: An item for the internal log
     static func parseChordProMessage(_ output: Terminal.OutputItem) -> Bool {
         /// Cleanup the message

@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Bits and pieces to get chord definitions
+/// Utilities to get ``ChordDefinition`` arrays
 enum Chords {
     // Just a placeholder
 }
@@ -44,7 +44,8 @@ extension Chords {
     }
 
     /// Import a database with chord definitions
-    /// - Parameter database: The ``Database`` to import
+    /// - Parameter database: The ``ChordPro/Instrument`` to import
+    /// - Parameter instrument: The ``Instrument`` to use
     /// - Returns: An array of ``ChordDefinition``
     static func importDatabase(database: ChordPro.Instrument, instrument: Instrument) -> [ChordDefinition] {
         var definitions: [ChordDefinition] = []

@@ -84,8 +84,7 @@ struct SettingsView: View {
                 ) {}
                     .disabled(!appState.settings.chordPro.useChordProCLI || !appState.settings.chordPro.useAdditionalLibrary)
             }
-            .wrapSettingsSection(title: "ChordPro Integration")
-            .disabled(!haveChordProCLI)
+            .wrapSettingsSection(title: "ChordPro CLI Integration")
         }
         .frame(maxHeight: .infinity, alignment: .top)
     }

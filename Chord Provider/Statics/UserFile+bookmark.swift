@@ -35,9 +35,7 @@ extension UserFile {
     }
 
     /// Set an bookmark URL
-    /// - Parameters:
-    ///   - bookmark: The ``UserFile``
-    ///   - selectedURL: The URL to set
+    /// - Parameter selectedURL: The URL to set
     func setBookmarkURL( _ selectedURL: URL) {
         do {
             _ = selectedURL.startAccessingSecurityScopedResource()

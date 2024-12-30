@@ -46,7 +46,7 @@ extension AppSettings {
 
     /// Load the application settings
     /// - Parameter id: The ID of the settings
-    /// - Returns: The ``ChordProviderSettings``
+    /// - Returns: The ``AppSettings``
     static func load(id: AppStateModel.AppStateID) -> AppSettings {
         if let settings = try? Cache.get(key: "ChordProviderSettings-\(id.rawValue)", struct: AppSettings.self) {
             return settings
@@ -57,7 +57,7 @@ extension AppSettings {
 
     /// Save the application settings to the cache
     /// - Parameter id: The ID of the settings
-    /// - Parameter settings: The ``ChordProviderSettings``
+    /// - Parameter settings: The ``AppSettings``
     static func save(id: AppStateModel.AppStateID, settings: AppSettings) throws {
         do {
             try Cache.set(key: "ChordProviderSettings-\(id.rawValue)", object: settings)

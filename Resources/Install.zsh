@@ -14,17 +14,17 @@
 
 ## Nice colours
 
-GREEN="\e[38;5;35m"
+APP="\e[1m\e[38;5;28m"
 
-BLUE="\e[1m\e[38;5;27m"
+ACCENT="\e[1m\e[38;5;100m"
 
 RESET="\e[0m"
 
-APPLICATION="\e[1m$GREEN""Chord Provider""$RESET"
+APPLICATION="$APP""Chord Provider""$RESET"
 
 # We need administration access to run this script
 if [ $(id -u) != 0 ]; then
-   echo "\n$BLUE""This install script requires administration permission to install $APPLICATION$RESET"
+   echo "\n$ACCENT""This install script requires administration\npermission to install $APPLICATION$ACCENT on your Mac.$RESET"
    echo "
 It will do the following:
 
@@ -40,11 +40,11 @@ echo "\nCopy $APPLICATION to your Applications folder..."
 
 rm -fr "/Applications/Chord Provider.app"
 
-cp -R "${0:a:h}/ChordPro.app" /Applications/
+cp -R "${0:a:h}/Chord Provider.app" /Applications/
 
 echo "Remove the quarantine flag..."
 
-xattr -rd com.apple.quarantine /Applications/ChordPro.app
+xattr -rd com.apple.quarantine "/Applications/Chord Provider.app"
 
-echo "\n$BLUE""Done!$RESET\n\nEnjoy $APPLICATION on your Mac!\n"
+echo "\n$ACCENT""Done!$RESET\n\nEnjoy $APPLICATION on your Mac!\n"
 

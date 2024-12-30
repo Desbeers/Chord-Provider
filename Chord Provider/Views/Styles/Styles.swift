@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// SwiftUI styles
 enum Styles {
     // Just a placeholder
 }

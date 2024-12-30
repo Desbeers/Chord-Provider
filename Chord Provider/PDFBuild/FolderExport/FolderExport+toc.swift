@@ -12,7 +12,7 @@ extension FolderExport {
     /// Create a Table of Contents
     /// - Parameters:
     ///   - documentInfo: The document info for the PDF
-    ///   - tocItems: The items for the TOC
+    ///   - counter: The `page counter` class
     /// - Returns: The Table of Contents as `Data`
     static func toc(
         documentInfo: PDFBuild.DocumentInfo,

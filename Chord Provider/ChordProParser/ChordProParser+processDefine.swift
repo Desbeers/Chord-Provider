@@ -13,8 +13,9 @@ extension ChordProParser {
 
     /// Process a chord definition
     /// - Parameters:
-    ///   - text: The chord definition
-    ///   - song: The `song`
+    ///   - arguments: The directive arguments
+    ///   - currentSection: The current ``Song/Section`` of the ``Song``
+    ///   - song: The ``Song``
     static func processDefine(
         arguments: Arguments,
         currentSection: inout Song.Section,
@@ -22,11 +23,11 @@ extension ChordProParser {
     ) {
         let label = arguments[.plain] ?? ""
         do {
-        var definedChord = try ChordDefinition(
-            definition: label,
-            instrument: song.settings.display.instrument,
-            status: .unknownChord
-        )
+            var definedChord = try ChordDefinition(
+                definition: label,
+                instrument: song.settings.display.instrument,
+                status: .unknownChord
+            )
             definedChord.status = song.metadata.transpose == 0 ? definedChord.status : .customTransposedChord
             /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {

@@ -30,7 +30,7 @@ extension PDFBuild {
         var pageRect: CGRect = .zero
 
         /// Init the **builder** class
-        /// - Parameter info: The general document information
+        /// - Parameter documentInfo: The general document information
         init(documentInfo: PDFBuild.DocumentInfo) {
             self.document = documentInfo
             self.auxiliaryInfo = documentInfo.dictionary

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// SwiftUI `View` for the chords database
 struct ChordsDatabaseView: View {
     /// The observable state of the application
     @State var appState = AppStateModel(id: .chordsDatabaseView)

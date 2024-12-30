@@ -13,7 +13,7 @@ extension PDFBuild {
 
     /// A PDF **background** element
     ///
-    /// Fill a ``PDFElement`` with a ``SWIFTColor`` background
+    /// Fill a ``PDFElement`` with a `NSColor` background
     class Background: PDFElement {
 
         /// The `NSColor` for the background

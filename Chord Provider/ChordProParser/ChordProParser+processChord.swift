@@ -14,7 +14,8 @@ extension ChordProParser {
     /// Process a chord
     /// - Parameters:
     ///   - chord: The `chord` as String
-    ///   - song: The `Song`
+    ///   - line: The current line of the section
+    ///   - song: The ``Song``
     ///   - ignoreUnknown: Bool to ignore an unknown chord so it will not be added to the chord list
     /// - Returns: The processed `chord` as String
     static func processChord(

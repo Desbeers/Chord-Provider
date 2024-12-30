@@ -42,6 +42,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        ///   - pageRect: The rect of the page
         func drawHeader(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             for item in header {
                 item.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
@@ -52,6 +53,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - rect: The available rectangle
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        ///   - pageRect: The page size of the PDF document
         func drawFooter(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Calculate the footer rectangle
             let tempRect = calculateDraw(rect: rect, elements: footer, pageRect: pageRect)

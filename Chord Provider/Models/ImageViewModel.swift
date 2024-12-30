@@ -8,6 +8,7 @@
 import AppKit
 import OSLog
 
+/// The observable state for and image in a **ChordPro** song
 @Observable @MainActor final class ImageViewModel {
     var image = NSImage()
     var size = CGSize(width: 100, height: 80)

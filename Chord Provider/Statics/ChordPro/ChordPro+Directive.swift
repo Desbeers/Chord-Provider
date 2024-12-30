@@ -7,20 +7,18 @@
 
 import Foundation
 
-struct DirectiveSource: Equatable, Codable {
-    var long: String
-    var short: String
-}
-
-extension DirectiveSource: ExpressibleByStringLiteral {
-    init(stringLiteral: String) {
-        let parts = stringLiteral.split(separator: "|")
-        long = String(parts.first ?? "")
-        short = String(parts.last ?? "")
-    }
-}
-
 extension ChordPro {
+
+    struct DirectiveSource: Equatable, Codable, ExpressibleByStringLiteral {
+        var long: String
+        var short: String
+
+        init(stringLiteral: String) {
+            let parts = stringLiteral.split(separator: "|")
+            long = String(parts.first ?? "")
+            short = String(parts.last ?? "")
+        }
+    }
 
     /// All the directives we know about
     static let directives = ChordPro.Directive.allCases.map(\.rawValue.long)

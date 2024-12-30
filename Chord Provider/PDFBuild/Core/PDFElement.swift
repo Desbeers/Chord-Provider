@@ -11,7 +11,9 @@ import AppKit
 protocol PDFElement {
 
     /// Check if a ``PDFElement`` fits on the current page or if it should break
-    /// - Parameter rect: The available rectangle
+    /// - Parameters:
+    ///   - rect: The available rectangle
+    ///   - pageRect: The rect of the page
     /// - Returns: Bool if the page should break
     func shouldPageBreak(rect: CGRect, pageRect: CGRect) -> Bool
 
@@ -26,6 +28,7 @@ protocol PDFElement {
     /// - Parameters:
     ///   - rect: The available rectangle
     ///   - elements: The ``PDFElement`` array
+    ///   - pageRect: The rect of the page
     /// - Returns: The available rectangle after the drawing
     func calculateDraw(rect: CGRect, elements: [PDFElement], pageRect: CGRect) -> CGRect
 
@@ -53,7 +56,9 @@ extension PDFElement {
     }
 
     /// Check if a ``PDFElement`` fits on the current page or if it should break
-    /// - Parameter rect: The available rectangle
+    /// - Parameters:
+    ///   - rect: The available rectangle
+    ///   - pageRect: The rect of the page
     /// - Returns: Bool if the page should break
     func shouldPageBreak(rect: CGRect, pageRect: CGRect) -> Bool {
         var tempRect = rect
@@ -66,6 +71,7 @@ extension PDFElement {
     /// - Parameters:
     ///   - rect: The available rectangle
     ///   - elements: The ``PDFElement`` array
+    ///   - pageRect: The rect of the page
     /// - Returns: The available rectangle after the drawing
     func calculateDraw(rect: CGRect, elements: [PDFElement], pageRect: CGRect) -> CGRect {
         var tempRect = rect

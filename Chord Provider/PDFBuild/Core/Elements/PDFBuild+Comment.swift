@@ -22,7 +22,10 @@ extension PDFBuild {
         let backgroundColor: NSColor
 
         /// Init the **comment** element
-        /// - Parameter commentText: The text of the comment
+        /// - Parameters:
+        ///   - commentText: The text of the comment
+        ///   - backgroundColor: The background color
+        ///   - icon: The icon
         init(_ commentText: String, icon: String = "􀌲", backgroundColor: NSColor = .pdfComment) {
             self.leadingText = NSAttributedString(string: icon, attributes: .commentLabel)
             self.commentText = NSAttributedString(string: commentText, attributes: .commentLabel)

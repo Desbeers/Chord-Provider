@@ -14,11 +14,11 @@ extension PDFStringAttribute {
 
     // MARK: Merge stylings
 
-    /// Merge ``StringAttributes``
+    /// Merge ``PDFStringAttribute``'s
     /// - Parameters:
-    ///   - left: Current ``StringAttributes``
-    ///   - right: The ``StringAttributes`` to add
-    /// - Returns: The merged ``StringAttributes``
+    ///   - left: Current ``PDFStringAttribute``
+    ///   - right: The ``PDFStringAttribute`` to add
+    /// - Returns: The merged ``PDFStringAttribute``'s
     static func + (left: PDFStringAttribute, right: PDFStringAttribute) -> PDFStringAttribute {
         var left = left
         for element in right {

@@ -183,6 +183,9 @@
                 <a href="../Enums/ChordPro/Directive.html">– Directive</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/ChordPro/DirectiveSource.html">– DirectiveSource</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/ChordPro/Environment.html">– Environment</a>
               </li>
               <li class="nav-group-task">
@@ -499,6 +502,27 @@
             <a href="../SwiftUI%20Other.html">SwiftUI Other</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/Styles.html">Styles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Styles/CreateDocumentLabelStyle.html">– CreateDocumentLabelStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Styles/SongFileLabelStyle.html">– SongFileLabelStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils.html">AppKitUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils/PDFKitRepresentedView.html">– PDFKitRepresentedView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils/QLPreviewRepresentedView.html">– QLPreviewRepresentedView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils/SharingServiceRepresentedView.html">– SharingServiceRepresentedView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/ScaleModifier.html">ScaleModifier</a>
               </li>
               <li class="nav-group-task">
@@ -668,18 +692,6 @@
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils.html">AppKitUtils</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils/PDFKitRepresentedView.html">– PDFKitRepresentedView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils/QLPreviewRepresentedView.html">– QLPreviewRepresentedView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils/SharingServiceRepresentedView.html">– SharingServiceRepresentedView</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/Cache.html">Cache</a>
               </li>
               <li class="nav-group-task">
@@ -693,15 +705,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Editor/RegexType.html">– RegexType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Styles.html">Styles</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Styles/CreateDocumentLabelStyle.html">– CreateDocumentLabelStyle</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Styles/SongFileLabelStyle.html">– SongFileLabelStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Terminal.html">Terminal</a>
@@ -807,9 +810,6 @@
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/DirectiveSource.html">DirectiveSource</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Structs/LogMessage.html">LogMessage</a>
               </li>
               <li class="nav-group-task">
@@ -833,7 +833,7 @@
             <p>Chord utilities</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L11-L134">Show on GitHub</a>
+                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L11-L135">Show on GitHub</a>
               </div>
           </section>
           <section class="section task-group-section">
@@ -930,12 +930,24 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>trans</em>
+                                <em>transpose</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
                                   <p>Transpose key</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>note</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The root note</p>
                                 </div>
                               </td>
                             </tr>
@@ -955,7 +967,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L34-L37">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L35-L38">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -990,7 +1002,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L40-L62">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L41-L63">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1058,7 +1070,7 @@
                         <p>An array with fingers that should be barred</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L69-L102">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L70-L103">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1123,7 +1135,7 @@
                         <p>An array with <code><a href="../Enums/Chord/Root.html">Root</a></code> arrays</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L109-L133">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils.swift#L110-L134">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1170,6 +1182,18 @@
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>instrument</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Enums/Instrument.html">Instrument</a></code> to use</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
@@ -1178,7 +1202,7 @@
                         <p>A  <code><a href="../Structs/ChordDefinition.html">ChordDefinition</a></code> struct, if found, else an Error</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils+Define.swift#L18-L65">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils+Define.swift#L19-L66">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1216,12 +1240,24 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>define</em>
+                                <em>chord</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
                                   <p>A <strong>ChordPro</strong> JSON chord</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>instrument</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Enums/Instrument.html">Instrument</a></code> to use</p>
                                 </div>
                               </td>
                             </tr>
@@ -1233,7 +1269,7 @@
                         <p>A  <code><a href="../Structs/ChordDefinition.html">ChordDefinition</a></code> struct, if found, else an Error</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils+Define.swift#L73-L97">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/Utils+Define.swift#L76-L100">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1243,7 +1279,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>© 2024 Nick Berendsen</p>
+          <p>© 2025 Nick Berendsen</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

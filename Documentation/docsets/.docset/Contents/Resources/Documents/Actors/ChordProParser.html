@@ -183,6 +183,9 @@
                 <a href="../Enums/ChordPro/Directive.html">– Directive</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/ChordPro/DirectiveSource.html">– DirectiveSource</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/ChordPro/Environment.html">– Environment</a>
               </li>
               <li class="nav-group-task">
@@ -499,6 +502,27 @@
             <a href="../SwiftUI%20Other.html">SwiftUI Other</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Enums/Styles.html">Styles</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Styles/CreateDocumentLabelStyle.html">– CreateDocumentLabelStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Styles/SongFileLabelStyle.html">– SongFileLabelStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils.html">AppKitUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils/PDFKitRepresentedView.html">– PDFKitRepresentedView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils/QLPreviewRepresentedView.html">– QLPreviewRepresentedView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AppKitUtils/SharingServiceRepresentedView.html">– SharingServiceRepresentedView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/ScaleModifier.html">ScaleModifier</a>
               </li>
               <li class="nav-group-task">
@@ -668,18 +692,6 @@
             <a href="../Other%20Enums.html">Other Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils.html">AppKitUtils</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils/PDFKitRepresentedView.html">– PDFKitRepresentedView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils/QLPreviewRepresentedView.html">– QLPreviewRepresentedView</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/AppKitUtils/SharingServiceRepresentedView.html">– SharingServiceRepresentedView</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/Cache.html">Cache</a>
               </li>
               <li class="nav-group-task">
@@ -693,15 +705,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Editor/RegexType.html">– RegexType</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Styles.html">Styles</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Styles/CreateDocumentLabelStyle.html">– CreateDocumentLabelStyle</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/Styles/SongFileLabelStyle.html">– SongFileLabelStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/Terminal.html">Terminal</a>
@@ -806,9 +809,6 @@
           <li class="nav-group-name">
             <a href="../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Structs/DirectiveSource.html">DirectiveSource</a>
-              </li>
               <li class="nav-group-task">
                 <a href="../Structs/LogMessage.html">LogMessage</a>
               </li>
@@ -919,6 +919,18 @@
                             <tr>
                               <td>
                                 <code>
+                                <em>id</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The ID of the song</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
                                 <em>text</em>
                                 </code>
                               </td>
@@ -943,24 +955,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>id</em>
+                                <em>settings</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The ID of the song</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>instrument</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The instrument of the song</p>
+                                  <p>The settings for the song</p>
                                 </div>
                               </td>
                             </tr>
@@ -1576,6 +1576,18 @@
                             <tr>
                               <td>
                                 <code>
+                                <em>line</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current line of the section</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
                                 <em>song</em>
                                 </code>
                               </td>
@@ -1605,7 +1617,7 @@
                         <p>The processed <code>chord</code> as String</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processChord.swift#L20-L52">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processChord.swift#L21-L53">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1691,12 +1703,24 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>text</em>
+                                <em>arguments</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The chord definition</p>
+                                  <p>The directive arguments</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currentSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current <code><a href="../Structs/Song/Section.html">Section</a></code> of the <code><a href="../Structs/Song.html">Song</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -1708,7 +1732,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The <code>song</code></p>
+                                  <p>The <code><a href="../Structs/Song.html">Song</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -1716,7 +1740,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processDefine.swift#L18-L54">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processDefine.swift#L19-L55">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2359,7 +2383,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>© 2024 Nick Berendsen</p>
+          <p>© 2025 Nick Berendsen</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

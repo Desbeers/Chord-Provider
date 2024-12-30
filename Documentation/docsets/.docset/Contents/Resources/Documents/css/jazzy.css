@@ -115,7 +115,7 @@ header {
     vertical-align: -3px;
     height: 16px; }
   header a {
-    color: #F7F6F3; }
+    color: #fcfcfc; }
   header p {
     float: left;
     color: #999; }
@@ -150,7 +150,7 @@ header {
 
 .nav-groups {
   list-style-type: none;
-  background: #F7F6F3;
+  background: #fcfcfc;
   padding-left: 0; }
 
 .nav-group-name {
@@ -172,7 +172,7 @@ header {
     color: #888; }
 
 .main-content {
-  background-color: #F7F6F3;
+  background-color: #fcfcfc;
   border: 1px solid #e2e2e2;
   margin-left: 246px;
   position: absolute;
@@ -417,7 +417,7 @@ form[role=search] {
   form[role=search] .tt-menu {
     margin: 0;
     min-width: 300px;
-    background: #F7F6F3;
+    background: #fcfcfc;
     color: #333;
     border: 1px solid #e2e2e2;
     z-index: 4; }

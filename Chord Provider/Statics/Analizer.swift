@@ -32,7 +32,7 @@ enum Analizer {
 
     /// Try to validate a ``ChordDefinition``
     /// - Parameter chord: The ``ChordDefinition``
-    /// - Returns: The ``ChordValidation``
+    /// - Returns: The ``Chord/Status`` of the chord definition
     static func validateChord(chord: ChordDefinition) -> Chord.Status {
         if chord.quality == .unknown {
             return .wrongNotes

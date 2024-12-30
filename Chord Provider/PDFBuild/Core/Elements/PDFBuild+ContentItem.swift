@@ -24,7 +24,7 @@ extension PDFBuild {
 
         /// Init the **content item** element
         /// - Parameters:
-        ///   - item: Information about the item
+        ///   - tocInfo: Information about the item
         ///   - counter: The `PageCounter` class
         init(tocInfo: TOCInfo, counter: PDFBuild.PageCounter) {
             self.tocInfo = tocInfo

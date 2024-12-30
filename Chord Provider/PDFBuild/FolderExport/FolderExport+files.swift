@@ -11,7 +11,7 @@ import OSLog
 extension FolderExport {
 
     /// Get all ChordPro songs from a specific folder
-    /// - Returns: All found songs in a ``FileBrowser/SongItem`` array
+    /// - Returns: All found songs in a ``FileBrowserModel/SongItem`` array
     @MainActor static func files() throws -> [FileBrowserModel.SongItem] {
         var files: [FileBrowserModel.SongItem] = []
         /// Get a list of all files

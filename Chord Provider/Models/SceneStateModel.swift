@@ -103,7 +103,7 @@ import OSLog
         }
     }
 
-    // MARK: ChordPro integration
+    // MARK: ChordPro CLI integration
 
     /// The URL of the source file
     var sourceURL: URL {

@@ -50,10 +50,8 @@ extension Editor {
     /// Highlight the text in the editor
     /// - Parameters:
     ///   - view: The `NSTextView`
-    ///   - font: The current `NSFont`
-    ///   - range: The `NSRange` to highlight
-    ///   - directives: The known directives
-    /// - Returns: A highlighted text
+    ///   - settings: The ``Editor/Settings`` of the editor
+    ///   - range: The range in the text that needs highlighting
     @MainActor static func highlight(
         view: NSTextView,
         settings: Editor.Settings,

@@ -13,7 +13,7 @@ import SwiftUI
 struct ChordProEditor: NSViewRepresentable {
     /// The `Binding` to the text of the document
     @Binding var text: String
-    /// The ``Settings`` for the editor
+    /// The ``Editor/Settings`` for the editor
     let settings: Editor.Settings
     /// The parsed song lines
     let lines: [Song.Section.Line]
@@ -44,7 +44,7 @@ struct ChordProEditor: NSViewRepresentable {
     }
     /// Update the `View`
     /// - Parameters:
-    ///   - view: The wrapped editor
+    ///   - wrapper: The wrapped editor
     ///   - context: The context
     func updateNSView(_ wrapper: Wrapper, context: Context) {
         if wrapper.textView.lines != lines {
@@ -102,4 +102,5 @@ extension ChordProEditor {
     }
 }
 
+/// Alias for the ``ChordProEditor/Internals`` of the ``ChordProEditor`` callback
 typealias IntrospectCallback = (_ editor: ChordProEditor.Internals) -> Void

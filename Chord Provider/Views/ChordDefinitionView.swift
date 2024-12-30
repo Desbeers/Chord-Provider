@@ -36,6 +36,7 @@ struct ChordDefinitionView: View {
     /// - Parameters:
     ///   - chord: The ``ChordDefinition``
     ///   - width: The width of the diagram
+    ///   - settings: The settings of the song
     init(chord: ChordDefinition, width: Double, settings: AppSettings.Song) {
         self.chord = chord
 

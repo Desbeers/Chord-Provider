@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// SwiftUI `Buttons` for help
 struct HelpButtons: View {
     /// Environment to open windows
     @Environment(\.openWindow) private var openWindow

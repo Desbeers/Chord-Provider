@@ -20,7 +20,7 @@ extension PDFBuild {
         /// Init the **text** element
         /// - Parameters:
         ///   - text: The text as `String`
-        ///   - attributes: The ``StringAttributes`` for the text
+        ///   - attributes: The ``PDFStringAttribute`` for the text
         init(_ text: String, attributes: PDFStringAttribute = PDFStringAttribute()) {
             self.text = NSAttributedString(
                 string: text,

@@ -29,7 +29,8 @@ enum Utils {
 
     /// Transpose the chord
     /// - Parameters:
-    ///   - trans: Transpose key
+    ///   - transpose: Transpose key
+    ///   - note: The root note
     ///   - scale: Key scale
     static func transposeNote(note: Chord.Root, transpose: Int, scale: Chord.Root = .c) -> Chord.Root {
         let value = noteToValue(note: note) + transpose

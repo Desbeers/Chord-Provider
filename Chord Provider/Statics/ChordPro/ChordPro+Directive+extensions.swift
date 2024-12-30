@@ -72,7 +72,7 @@ extension ChordPro.Directive {
 
     // MARK: Grouped directives
 
-    /// Array of **Metadata** ``ChordProParser/Directive``
+    /// Array of **Metadata** ``ChordPro/Directive``
     static var metadataDirectives: [ChordPro.Directive] {
         [
             .title,
@@ -88,7 +88,7 @@ extension ChordPro.Directive {
         ]
     }
 
-    /// Array of **environment** ``ChordProParser/Directive``
+    /// Array of **environment** ``ChordPro/Directive``
     static var environmentDirectives: [ChordPro.Directive] {
         [
             .startOfVerse,

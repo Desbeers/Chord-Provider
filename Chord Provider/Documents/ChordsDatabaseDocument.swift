@@ -8,7 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// Define the **ChordPro** log as plain text
+/// The database with chords in  **ChordPro** JSON format
 struct ChordsDatabaseDocument: FileDocument {
     /// The UTType to export
     static var readableContentTypes: [UTType] { [.json] }

@@ -18,9 +18,7 @@ extension SongExport {
     // MARK: Export a single `Song` to PDF
 
     /// Export a single song to PDF
-    /// - Parameters:
-    ///   - song: The ``Song`` to export
-    ///   - appSettings: The application settings
+    /// - Parameter song: The ``Song`` to export
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
         song: Song
@@ -66,7 +64,7 @@ extension SongExport {
     /// Get all the PDF elements for a ``Song``
     /// - Parameters:
     ///   - song: The ``Song``
-    ///   - appSettings: The application settings
+    ///   - counter: The ``PDFBuild/PageCounter`` class
     /// - Returns: All the PDF elements in an array
     // swiftlint:disable:next function_body_length
     static func getSongElements(

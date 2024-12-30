@@ -48,7 +48,11 @@ struct PreviewPDFButton: View {
             /// Update the log
             appState.lastUpdate = .now
         } catch {
-            sceneState.errorAlert = AlertMessage(error: error, role: .cancel) {
+            sceneState.errorAlert = AlertMessage(
+                error: error,
+                role: nil,
+                action: nil
+            ) {
                 openWindow(id: AppDelegate.WindowID.debugView.rawValue)
             }
         }

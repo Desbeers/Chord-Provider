@@ -18,10 +18,10 @@ actor ChordProParser {
 
     /// Parse a ChordPro file
     /// - Parameters:
+    ///   - id: The ID of the song
     ///   - text: The text of the file
     ///   - transpose: The optional transpose of the song in the GUI
-    ///   - id: The ID of the song
-    ///   - instrument: The instrument of the song
+    ///   - settings: The settings for the song
     ///   - fileURL: The optional file url of the song
     /// - Returns: A ``Song`` item
     static func parse(

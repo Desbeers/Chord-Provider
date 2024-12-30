@@ -28,7 +28,7 @@ actor MidiPlayer {
     }
 
     /// Prepare a chord
-    /// - Parameter chord: The ``chord`` to play
+    /// - Parameter chord: The ``Chord`` to play
     func prepareChord(chord: Chord) {
         /// Black magic
         var data: Unmanaged<CFData>?

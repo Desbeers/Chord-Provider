@@ -14,6 +14,7 @@ extension Utils {
     ///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
     ///
     /// - Parameter define: ChordPro string definition of the chord
+    /// - Parameter instrument: The ``Instrument`` to use
     /// - Returns: A  ``ChordDefinition`` struct, if found, else an Error
     static func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
         if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
@@ -68,7 +69,9 @@ extension Utils {
     ///
     ///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
     ///
-    /// - Parameter define: A **ChordPro** JSON chord
+    /// - Parameters:
+    ///   -  chord: A **ChordPro** JSON chord
+    ///   - instrument: The ``Instrument`` to use
     /// - Returns: A  ``ChordDefinition`` struct, if found, else an Error
     static func define(from chord: ChordPro.Instrument.Chord, instrument: Instrument) throws -> ChordDefinition {
         if chord.copy == nil {

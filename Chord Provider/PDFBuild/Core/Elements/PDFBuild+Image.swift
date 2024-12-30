@@ -27,6 +27,8 @@ extension PDFBuild {
         /// - Parameters:
         ///   - image: The `NSImage` to draw
         ///   - size: the optional size of the image
+        ///   - alignment: The alignment of the image
+        ///   - offset: The offset of the image
         init(_ image: NSImage, size: CGSize? = nil, alignment: NSTextAlignment = .center, offset: CGSize = .zero) {
             self.image = image
             self.fixedSize = size

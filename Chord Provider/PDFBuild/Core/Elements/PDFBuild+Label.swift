@@ -29,7 +29,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - leadingText: The optional leading text of the label
         ///   - labelText: The text of the label
-        ///   - backgroundColor: The ``SWIFTColor`` background of the label
+        ///   - backgroundColor: The `NSColor` background of the label
         ///   - alignment: The alignment of the label
         init(
             leadingText: NSAttributedString? = nil,
