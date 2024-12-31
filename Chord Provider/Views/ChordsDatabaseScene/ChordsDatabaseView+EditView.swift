@@ -13,9 +13,8 @@ extension ChordsDatabaseView {
     struct EditView: View {
         /// The chord we want to edit or the chord as starting point to add
         let chord: ChordDefinition
-
+        /// The `NSWindow` of this `View`
         let window: NSWindow?
-
         /// The optional flat chord when editing or adding a sharp chord
         @State var flatChord: ChordDefinition?
         /// The observable state of the scene

@@ -9,6 +9,8 @@ import SwiftUI
 import OSLog
 
 extension WelcomeView {
+
+    /// Create document `View`
     var createDocument: some View {
         VStack {
             Text("Chord Provider")

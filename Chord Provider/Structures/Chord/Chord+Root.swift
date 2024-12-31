@@ -104,10 +104,12 @@ extension Chord {
             }
         }
 
+        /// Natural and sharp notes
         static var naturalAndSharp: [Chord.Root] {
             [.all, .c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b, .none]
         }
 
+        /// Display natural and sharp notes a string
         var naturalAndSharpDisplay: String {
             switch self {
             case .all:

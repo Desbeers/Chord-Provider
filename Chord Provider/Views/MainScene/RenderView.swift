@@ -159,7 +159,7 @@ extension RenderView {
                 }
             }
         }
-
+        /// The content of the section when viewed inline
         @ViewBuilder func inlineContent(content: Content) -> some View {
             if label.isEmpty {
                 content
@@ -476,6 +476,10 @@ extension RenderView {
 }
 
 extension RenderView {
+
+    /// Get flush from the arguments
+    /// - Parameter arguments: The arguments of the directive
+    /// - Returns: The flush alignment
     func getFlush(_ arguments: ChordProParser.Arguments?) -> HorizontalAlignment {
         if let flush = arguments?[.flush] {
             switch flush {
@@ -489,6 +493,11 @@ extension RenderView {
         }
         return .leading
     }
+
+
+    /// Get alignment from the arguments
+    /// - Parameter arguments: The arguments of the directive
+    /// - Returns: The alignment
     func getAlign(_ arguments: ChordProParser.Arguments?) -> Alignment {
         if let align = arguments?[.align] {
             switch align {

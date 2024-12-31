@@ -9,7 +9,12 @@ import AppKit
 
 extension ChordProParser {
 
-    static func getImageSource( _ source: String, fileURL: URL?) -> URL? {
+    /// Get the full URL of an image
+    /// - Parameters:
+    ///   - source: The image source as defined in the song
+    ///   - fileURL: The optional URL of the song file
+    /// - Returns: An optional URL of the image
+    static func getImageURL( _ source: String, fileURL: URL?) -> URL? {
         var source = source
         if source.starts(with: "http") {
             /// Internet image
@@ -26,6 +31,11 @@ extension ChordProParser {
         return URL(string: source)
     }
 
+    /// Get the size of an image
+    /// - Parameters:
+    ///   - image: The `NSImage`
+    ///   - arguments: The arguments of the image in the song
+    /// - Returns: The `CGSize` of the image
     static func getImageSize(image: NSImage, arguments: Arguments?) -> CGSize {
         var scale: Double = 1
         if let scaleArgument = arguments?[.scale], let value = Double(scaleArgument.replacingOccurrences(of: "%", with: "")) {
@@ -48,6 +58,9 @@ extension ChordProParser {
         return scaled
     }
 
+    /// Get the offset of a **ChordPro** directive
+    /// - Parameter arguments: The arguments of the directive in the song
+    /// - Returns: The offset as `CGSize`
     static func getOffset(_ arguments: ChordProParser.Arguments?) -> CGSize {
         var offset = CGSize(width: 0, height: 0)
         if let x = arguments?[.x], let value = Double(x) {

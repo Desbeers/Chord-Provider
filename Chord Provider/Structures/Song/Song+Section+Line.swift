@@ -36,7 +36,7 @@ extension Song.Section {
         var source: String = ""
 
         /// Optional warnings about the content of the line
-        private(set) var warning: Set<String>?
+        private(set) var warnings: Set<String>?
 
 
         /// The optional parts in the line
@@ -53,20 +53,23 @@ extension Song.Section {
             arguments?[.plain] ?? arguments?[.label] ?? ""
         }
 
+        /// Add a single of warning to the set of warnings
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String) {
-            if self.warning == nil {
-                self.warning = [warning]
+            if self.warnings == nil {
+                self.warnings = [warning]
             } else {
-                self.warning?.insert(warning)
+                self.warnings?.insert(warning)
             }
             let line = sourceLineNumber
             Logger.parser.fault("**Line \(line, privacy: .public)**\n\(warning, privacy: .public)")
         }
+
+        /// Add a set of warnings
         mutating func addWarning(_ warning: Set<String>) {
             let warningLine = (["**Line \(sourceLineNumber)**"] + warning.map(\.description)).joined(separator: "\n")
             Logger.parser.fault("\(warningLine, privacy: .public)")
-            self.warning = warning
+            self.warnings = warning
         }
 
         /// - Note: grids are *optionals* so we can not just 'insert' it
@@ -81,7 +84,7 @@ extension Song.Section {
 }
 
 extension Song.Section.Line {
-
+    /// :nodoc:
     enum CodingKeys: CodingKey {
         case sourceLineNumber
         case environment
@@ -93,7 +96,7 @@ extension Song.Section.Line {
         case grid
         case strum
     }
-
+    /// :nodoc:
     init(from decoder: any Decoder) throws {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -106,12 +109,12 @@ extension Song.Section.Line {
         self.arguments = try container.decodeIfPresent(ChordProParser.Arguments.self, forKey: .arguments)
 
         self.source = try container.decode(String.self, forKey: .source)
-        self.warning = try container.decodeIfPresent(Set<String>.self, forKey: .warning)
+        self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warning)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
         self.strum = try container.decodeIfPresent([String].self, forKey: .strum)
     }
-
+    /// :nodoc:
     func encode(to encoder: any Encoder) throws {
         var container: KeyedEncodingContainer<CodingKeys> = encoder.container(keyedBy: CodingKeys.self)
 
@@ -122,7 +125,7 @@ extension Song.Section.Line {
         try container.encodeIfPresent(self.arguments, forKey: .arguments)
 
         try container.encode(self.source, forKey: .source)
-        try container.encodeIfPresent(self.warning, forKey: .warning)
+        try container.encodeIfPresent(self.warnings, forKey: .warning)
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.grid, forKey: .grid)
         try container.encodeIfPresent(self.strum, forKey: .strum)

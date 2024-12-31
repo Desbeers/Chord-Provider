@@ -7,12 +7,12 @@
 
 import SwiftUI
 
+/// SwiftUI `View` for playing media that is next to a song file
 struct MediaPlayerView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
-
+    /// The `NSWindow` of this `View`
     @State private var window: NSWindow?
-
     /// The body of the `View`
     var body: some View {
         VStack {
@@ -61,16 +61,17 @@ struct MediaPlayerView: View {
 
 extension MediaPlayerView {
 
+
+    /// SwiftUI `Buttons` to play media
     struct Buttons: View {
         /// The observable state of the application
         @Environment(AppStateModel.self) var appState
         /// The observable state of the scene
         @Environment(SceneStateModel.self) var sceneState
-
+        /// Environment to open windows
         @Environment(\.openWindow) private var openWindow
-
+        /// Environment to dismiss windows
         @Environment(\.dismissWindow) private var dismissWindow
-
         /// The body of the `View`
         var body: some View {
             if let tempo = sceneState.song.metadata.tempo, let bpm = Float(tempo) {
@@ -84,6 +85,12 @@ extension MediaPlayerView {
                 mediaButton(url: videoURL, kind: .video)
             }
         }
+
+        /// Create a media button
+        /// - Parameters:
+        ///   - url: The URL of the media
+        ///   - kind: The kind of media
+        /// - Returns: A `View` with a `Button`
         private func mediaButton(url: URL, kind: Kind) -> some View {
             Button {
                 if appState.media.url == nil || appState.media.kind != kind {
@@ -107,18 +114,27 @@ extension MediaPlayerView {
 
 extension MediaPlayerView {
 
+    /// The structure of a media item
     struct Item: Identifiable {
+        /// The iD of the item
         var id = UUID()
+        /// The kind of media
         var kind: Kind = .audio
+        /// The title of the media
         var title: String = "Chord Provider"
+        /// The subtitle of the media
         var subtitle: String = "Media"
+        /// The optional URL of the media
         var url: URL?
     }
 
+    /// The kind of media
     enum Kind {
+        /// An audio file
         case audio
+        /// A video file
         case video
-
+        /// The SF symbol name of the media
         var systemName: String {
             switch self {
             case .audio: "hifispeaker"

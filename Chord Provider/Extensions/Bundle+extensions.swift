@@ -65,12 +65,15 @@ extension Bundle {
 
 extension Bundle {
 
+    /// The release version number of the bundle
     var releaseVersionNumber: String {
         return infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown Version"
     }
+    /// The build version number of the bundle
     var buildVersionNumber: String {
         return infoDictionary?["CFBundleVersion"] as? String ?? "Unknown Version"
     }
+    /// The copyright of the bundle
     var copyright: String {
         return infoDictionary?["NSHumanReadableCopyright"] as? String ?? "Unknown Copyright"
     }

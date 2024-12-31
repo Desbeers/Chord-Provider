@@ -9,39 +9,52 @@ import Foundation
 
 extension ChordPro {
 
-    // MARK: Instrument
+    /// A **ChordPro** Instrument
     struct Instrument: Codable {
+        /// The instrument
         let instrument: Instrument
+        /// The tuning of the instrument
         let tuning: [String]
+        /// The chords for the instrument
         let chords: [Chord]
+        /// PDF settings for the instrument
         let pdf: PDF
     }
 }
 
 extension ChordPro.Instrument {
 
-    // MARK: Chord
+    /// Instrument chord
     struct Chord: Codable {
+        /// Name of the chord
         let name: String
+        /// Optional display name
         let display: String?
+        /// Base fret
         let base: Int?
+        /// Frets
         let frets: [Int]?
+        /// Fingers
         let fingers: [Int]?
+        /// Optional copy of another chord
         let copy: String?
     }
 
-    // MARK: Instrument
+    /// The instrument
     struct Instrument: Codable {
+        /// The description of the instrument
         let description, type: String
     }
 
-    // MARK: PDF
+    /// PDF settings for the instrument
     struct PDF: Codable {
+        /// PDF diagram settings
         let diagrams: Diagrams
     }
 
-    // MARK: Diagrams
+    /// Diagram settings for the instrument
     struct Diagrams: Codable {
+        /// Amount of frets
         let vcells: Int
     }
 }

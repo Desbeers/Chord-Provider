@@ -40,6 +40,8 @@ extension ChordProEditor {
 
         // MARK: Override drawHashMarksAndLabels
 
+        /// Draw line numbers and symbols in the ruler of the text view
+        /// - Parameter rect: The available rect
         override func drawHashMarksAndLabels(in rect: NSRect) {
             guard
                 let textView: TextView = self.clientView as? TextView,
@@ -94,7 +96,7 @@ extension ChordProEditor {
                     /// The content of the current line
                     let line = textView.getCurrentLine(lineNumber: lineNumber)
                     /// Bool if the line contains a warning
-                    let warning: Bool = line.warning != nil
+                    let warning: Bool = line.warnings != nil
                     /// Draw the line number
                     drawLineNumber(
                         lineNumber,

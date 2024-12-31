@@ -54,7 +54,7 @@ extension EditorView {
             )
             .keyboardShortcut(.cancelAction)
         }
-
+        /// Format a directive
         private func format() {
             Editor.format(directive: directive, editorInternals: sceneState.editorInternals)
         }

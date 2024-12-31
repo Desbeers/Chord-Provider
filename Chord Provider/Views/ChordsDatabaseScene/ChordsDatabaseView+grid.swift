@@ -8,6 +8,8 @@
 import SwiftUI
 
 extension ChordsDatabaseView {
+    
+    /// View the chords in a grid
     var grid: some View {
         VStack(spacing: 0) {
             HStack {
@@ -15,7 +17,7 @@ extension ChordsDatabaseView {
                     .pickerStyle(.segmented)
                     .labelsHidden()
                     .padding()
-                sceneState.qualityPicker()
+                sceneState.qualityPicker(showAll: true)
                     .frame(maxWidth: 120)
                     .labelsHidden()
             }

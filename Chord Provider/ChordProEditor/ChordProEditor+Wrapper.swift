@@ -31,8 +31,10 @@ extension ChordProEditor {
             super.init(coder: coder)
         }
 
+        /// The delegate for the text editor
         weak var delegate: NSTextViewDelegate?
 
+        /// The scroll view of the text editor
         private lazy var scrollView: NSScrollView = {
             let scrollView = NSScrollView()
             scrollView.drawsBackground = true
@@ -48,6 +50,7 @@ extension ChordProEditor {
             return scrollView
         }()
 
+        /// The actual text view
         lazy var textView: TextView = {
             let contentSize = scrollView.contentSize
             let textStorage = NSTextStorage()
@@ -88,9 +91,10 @@ extension ChordProEditor {
             return textView
         }()
 
-        /// The `NSRulerView`
+        /// The `NSRulerView` for the line numbers
         lazy private var lineNumbers = LineNumbersView()
 
+        /// Override `viewWillDraw` to setup the editor
         override func viewWillDraw() {
             super.viewWillDraw()
 
@@ -98,6 +102,7 @@ extension ChordProEditor {
             setupTextView()
         }
 
+        /// Setup the scroll view
         func setupScrollViewConstraints() {
             lineNumbers.scrollView = scrollView
             lineNumbers.orientation = .verticalRuler
@@ -116,6 +121,7 @@ extension ChordProEditor {
             ])
         }
 
+        /// Setup the text view
         func setupTextView() {
             scrollView.documentView = textView
         }

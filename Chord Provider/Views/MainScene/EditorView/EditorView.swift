@@ -63,8 +63,8 @@ struct EditorView: View {
             Divider()
             HStack(spacing: 0) {
                 Text("Line \(sceneState.editorInternals.currentLine.sourceLineNumber)")
-                if let warning = sceneState.editorInternals.currentLine.warning {
-                    Text(.init(": \(warning.joined(separator: ", "))"))
+                if let warnings = sceneState.editorInternals.currentLine.warnings {
+                    Text(.init(": \(warnings.joined(separator: ", "))"))
                         .lineLimit(1)
                 }
                 Spacer()

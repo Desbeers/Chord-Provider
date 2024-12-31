@@ -8,7 +8,10 @@
 import SwiftUI
 
 extension ChordsDatabaseView {
-
+    
+    /// Show a chord diagram
+    /// - Parameter chord: The ``ChordDefinition``
+    /// - Returns: A `View` with the chord diagram
     func diagram(chord: ChordDefinition) -> some View {
         HStack {
             ChordDefinitionView(
@@ -25,6 +28,8 @@ extension ChordsDatabaseView {
     }
 
     /// Chord actions
+    /// - Parameter chord: The ``ChordDefinition``
+    /// - Returns: A `View` with chord actions
     private func actions(chord: ChordDefinition) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             editButton(chord: chord)

@@ -7,8 +7,12 @@
 
 import Foundation
 
+/// The debug messages in the ``DebugView``
 enum DebugMessage: String, CaseIterable {
+    /// Log messages
     case log = "Log output"
+    /// Song source messages
     case source = "Generated Source"
+    /// Generated JSON mesages
     case json = "JSON output"
 }

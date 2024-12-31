@@ -15,7 +15,7 @@ struct AlertMessage {
     let role: ButtonRole?
     /// The action for the button
     var action: (() -> Void)?
-
+    /// The command to open the ``DebugView`` in a window
     var debugCommand: (() -> Void)?
 }
 

@@ -161,6 +161,7 @@ extension SceneStateModel {
                 }
             }
         }
+        /// Root notes to show
         var cases: [Chord.Root] {
             var cases: [Chord.Root] = []
             switch hideFlats {
@@ -186,12 +187,13 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Picker("Quality:", selection: $sceneState.definition.quality) {
-                ForEach(Chord.Quality.allCases, id: \.rawValue) { value in
+                ForEach(cases, id: \.rawValue) { value in
                     Text(value == .major ? "major" : value.display)
                         .tag(value)
                 }
             }
         }
+        /// Qualities to show
         var cases: [Chord.Quality] {
             switch showAll {
             case true: Chord.Quality.allCases

@@ -10,7 +10,9 @@ import OSLog
 
 extension WelcomeView {
 
+    /// A `View` to browse files from a user selected folder
     @ViewBuilder var browserFiles: some View {
+        /// Bind the observable file browser class
         @Bindable var fileBrowser = fileBrowser
         VStack {
             switch fileBrowser.status {
@@ -147,7 +149,12 @@ extension WelcomeView {
 }
 
 extension WelcomeView {
-
+    
+    /// A `View` with a single song
+    /// - Parameters:
+    ///   - song: The song
+    ///   - showArtist: Bool if the artist should be shown in the row view
+    /// - Returns: A `View` for the song
     func songRow(song: FileBrowserModel.SongItem, showArtist: Bool = false) -> some View {
         Button(
             action: {

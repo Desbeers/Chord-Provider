@@ -9,6 +9,7 @@ import Foundation
 
 extension AppSettings {
 
+    /// Options for displaying chord diagrams
     struct DiagramDisplayOptions: Equatable, Codable, Sendable {
         /// Show the name in the chord shape
         var showName: Bool = true

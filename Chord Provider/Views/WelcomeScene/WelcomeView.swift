@@ -16,16 +16,14 @@ struct WelcomeView: View {
     @Environment(FileBrowserModel.self) var fileBrowser
     /// The currently selected tab
     @State private var selectedTab: NewTabs = .recent
-
     /// Environment to open documents
     @Environment(\.openDocument) private var openDocument
-
+    /// Environment to create new documents
     @Environment(\.newDocument) private var newDocument
-
+    /// Environment to open windows
     @Environment(\.openWindow) var openWindow
-
+    /// Environment to dismiss itself
     @Environment(\.dismiss) var dismiss
-
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
@@ -88,6 +86,9 @@ extension WelcomeView {
 }
 
 extension WelcomeView {
+
+    /// Open a song file
+    /// - Parameter url: The URL of the file
     func openSong(url: URL) async {
         do {
             try await openDocument(at: url)
@@ -96,6 +97,11 @@ extension WelcomeView {
         }
         dismiss()
     }
+
+    /// Open a new song
+    /// - Parameters:
+    ///   - text: The content of the song
+    ///   - template: The optional URL of the template
     func newSong(text: String, template: URL? = nil) {
         newDocument(ChordProDocument(text: text, template: template))
         dismiss()

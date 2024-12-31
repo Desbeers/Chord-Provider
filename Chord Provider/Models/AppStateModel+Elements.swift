@@ -17,6 +17,7 @@ extension AppStateModel {
     struct PlayButton: View {
         /// The chord to play
         let chord: ChordDefinition
+        /// The ``Midi/Instrument`` to use
         let instrument: Midi.Instrument
         /// The body of the `View`
         var body: some View {

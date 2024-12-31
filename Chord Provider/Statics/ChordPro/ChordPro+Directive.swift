@@ -9,10 +9,15 @@ import Foundation
 
 extension ChordPro {
 
+    /// The source of a directive
+    ///
+    /// The source is defined as `long|short`, eg: `start_of_chorus|soc`
     struct DirectiveSource: Equatable, Codable, ExpressibleByStringLiteral {
+        /// The long version of the directive
         var long: String
+        /// The short version of the directive
         var short: String
-
+        /// Init the directive by splitting a string into *long* and *short* version
         init(stringLiteral: String) {
             let parts = stringLiteral.split(separator: "|")
             long = String(parts.first ?? "")
@@ -27,35 +32,35 @@ extension ChordPro {
 
     /// The directives Chord Provider supports
     enum Directive: DirectiveSource, CaseIterable, Identifiable, Codable {
-
+        /// The ID of the directive
         var id: String {
             self.rawValue.long
         }
-
+        /// The label of the directive
         var label: String {
             self.details.label
         }
-
+        /// The directive as string
         var directive: String {
             self.rawValue.long
         }
-
+        /// The icon of the directive
         var icon: String {
             self.details.icon
         }
-
+        /// Bool if the directive is editable
         var editable: Bool {
             ChordPro.Directive.editableDirectives.contains(self)
         }
-
+        /// The help for the directive
         var help: String {
             self.details.help
         }
-
+        /// The button label of the directive
         var button: String {
             self.details.button
         }
-
+        /// The environment of the directive
         var environment: ChordPro.Environment {
             self.details.environment
         }

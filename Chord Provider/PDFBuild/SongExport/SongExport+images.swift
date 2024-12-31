@@ -10,8 +10,13 @@ import OSLog
 
 extension SongExport {
 
+    /// Load an image from the cache if found or else from an URL
+    /// - Parameters:
+    ///   - source: The image source as defined in the song
+    ///   - fileURL: The optional URL of the song file
+    /// - Returns: <#description#>
     static func loadImage(source: String, fileURL: URL?) async -> NSImage? {
-        guard let imageURL = ChordProParser.getImageSource(source, fileURL: fileURL) else { return nil }
+        guard let imageURL = ChordProParser.getImageURL(source, fileURL: fileURL) else { return nil }
         var image: NSImage?
         if let imageFromCache = ImageCache.shared.getImageFromCache(from: imageURL) {
             image = imageFromCache

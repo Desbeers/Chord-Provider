@@ -86,6 +86,7 @@ import OSLog
         }
     }
 
+    /// Get the optional media stored next to a song file
     func getMedia() {
         if let fileURL = song.metadata.fileURL {
             var mediaURL = fileURL.deletingPathExtension().appendingPathExtension("m4a")
@@ -155,14 +156,19 @@ import OSLog
 
 extension SceneStateModel {
 
+    /// The status of a Scene View
     enum Status {
+        /// Loading a View
         case loading
+        /// The View is ready
         case ready
+        /// The View has an error
         case error
     }
 }
 
 extension FocusedValues {
+
     /// The value of the scene state
     @Entry var sceneState: SceneStateModel?
 }

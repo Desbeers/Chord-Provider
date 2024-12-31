@@ -11,17 +11,29 @@ extension ChordPro.Directive {
 
     /// Optional formatting attributes for directives
     enum FormattingAttribute: String, Comparable, Codable {
+        /// Fallback for a simple attribute
         case plain
+        /// Label
         case label
+        /// Alignment
         case align
+        /// Flush
         case flush
+        /// Anchor
         case anchor
+        /// X
         case x
+        /// Y
         case y
+        /// Scale
         case scale
+        /// Source
         case src
+        /// Spread
         case spread
+        /// Width
         case width
+        /// height
         case height
 
         /// Implement Comparable

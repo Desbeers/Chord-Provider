@@ -14,8 +14,8 @@ extension ChordProParser {
     /// Process a chord definition
     /// - Parameters:
     ///   - arguments: The directive arguments
-    ///   - currentSection: The current ``Song/Section`` of the ``Song``
-    ///   - song: The ``Song``
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
     static func processDefine(
         arguments: Arguments,
         currentSection: inout Song.Section,

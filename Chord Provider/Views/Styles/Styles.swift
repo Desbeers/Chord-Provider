@@ -50,12 +50,16 @@ extension Styles {
 }
 
 extension LabelStyle where Self == Styles.CreateDocumentLabelStyle {
+
+    /// The style of a label to create a document
     static var createDocument: Styles.CreateDocumentLabelStyle {
         Styles.CreateDocumentLabelStyle()
     }
 }
 
 extension LabelStyle where Self == Styles.SongFileLabelStyle {
+
+    /// The style of a label for a song file
     static var SongFile: Styles.SongFileLabelStyle {
         Styles.SongFileLabelStyle()
     }

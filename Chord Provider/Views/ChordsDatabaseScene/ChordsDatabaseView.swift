@@ -19,9 +19,8 @@ struct ChordsDatabaseView: View {
     @Environment(\.colorScheme) var colorScheme
     /// The conformation dialog to delete a chord
     @State var showDeleteConfirmation = false
-
+    /// The `NSWindow` of this `View`
     @State private var window: NSWindow?
-
     /// The body of the `View`
     var body: some View {
         NavigationStack(path: $chordsDatabaseState.navigationStack.animation(.smooth)) {
@@ -124,7 +123,8 @@ struct ChordsDatabaseView: View {
         .environment(appState)
         .environment(chordsDatabaseState)
     }
-
+    
+    /// Filter the chords
     func filterChords() {
         var chords = chordsDatabaseState.allChords
 

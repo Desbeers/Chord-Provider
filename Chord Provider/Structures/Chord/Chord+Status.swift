@@ -99,6 +99,7 @@ extension Chord {
 
         // MARK: Custom
 
+        /// Bool if the chord is considered 'known'
         var knownChord: Bool {
             switch self {
             case .standardChord, .transposedChord, .customChord, .customTransposedChord, .correct:

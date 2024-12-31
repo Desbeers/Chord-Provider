@@ -9,6 +9,12 @@ import Foundation
 
 extension ChordProParser {
 
+    /// Create an automatic section in the ``Song``
+    /// - Parameters:
+    ///   - environment: The ``ChordPro/Environment`` of the section
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
+    /// - Returns: A warning as `String`
     static func autoSection(
         environment: ChordPro.Environment,
         currentSection: inout Song.Section,

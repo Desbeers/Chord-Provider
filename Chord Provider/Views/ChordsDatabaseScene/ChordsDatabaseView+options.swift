@@ -8,6 +8,8 @@
 import SwiftUI
 
 extension ChordsDatabaseView {
+    
+    /// A `View` with options for the grid
     var options: some View {
         Grid(alignment: .leading) {
             GridRow {

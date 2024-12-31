@@ -46,15 +46,15 @@ actor ChordProParser {
             switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
             case "{":
                 /// Directive
-                processDirective(text: text, song: &song, currentSection: &currentSection)
+                processDirective(text: text, currentSection: &currentSection, song: &song)
             case "|":
                 /// Tab or Grid
                 if text.starts(with: "|-") || currentSection.environment == .tab {
                     /// Tab
-                    processTab(text: text, song: &song, currentSection: &currentSection)
+                    processTab(text: text, currentSection: &currentSection, song: &song)
                 } else {
                     /// Grid
-                    processGrid(text: text, song: &song, currentSection: &currentSection)
+                    processGrid(text: text, currentSection: &currentSection, song: &song)
                 }
             case "":
                 /// Empty line
@@ -66,12 +66,12 @@ actor ChordProParser {
                 switch currentSection.environment {
                 case .tab:
                     /// A tab can start with '|--02-3-4|', but also with 'E|--2-3-4| for example
-                    processTab(text: text, song: &song, currentSection: &currentSection)
+                    processTab(text: text, currentSection: &currentSection, song: &song)
                 case .strum:
-                    processStrum(text: text, song: &song, currentSection: &currentSection)
+                    processStrum(text: text, currentSection: &currentSection, song: &song)
                 default:
                     /// Anything else
-                    processLine(text: text, song: &song, currentSection: &currentSection)
+                    processLine(text: text, currentSection: &currentSection, song: &song)
                 }
             }
         }
@@ -96,6 +96,9 @@ extension ChordProParser {
 
     // MARK: Debug stuff
 
+    /// Encode a struct
+    /// - Parameter value: The struct
+    /// - Returns: A JSON string
     static func encode<T: Codable>(_ value: T) -> String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
@@ -109,6 +112,8 @@ extension ChordProParser {
         }
     }
 
+    /// Decode a JSON encoded ``Song``
+    /// - Parameter string: The ``Song`` as JSON string
     static func decode(_ string: String) {
         let decoder = JSONDecoder()
         do {

@@ -28,8 +28,8 @@ extension ChordProParser {
         song: inout Song
     ) {
 
-        /// Preserve the optional warning in the current section
-        let warning = currentSection.warning
+        /// Preserve the optional warnings in the current section
+        let warning = currentSection.warnings
 
         /// Close the current section if it has lines
         /// - Note: a new one will be created in that function

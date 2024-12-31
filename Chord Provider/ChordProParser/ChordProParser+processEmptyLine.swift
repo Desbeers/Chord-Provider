@@ -9,6 +9,10 @@ import Foundation
 
 extension ChordProParser {
 
+    /// Process an empty line
+    /// - Parameters:
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
     static func processEmptyLine(
         currentSection: inout Song.Section,
         song: inout Song

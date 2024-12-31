@@ -36,6 +36,9 @@ extension Editor {
 
     // swiftlint:enable force_try
 
+    /// The highlight regex dictionary for the text editor
+    /// - Parameter settings: The ``Editor/Settings`` of the ``ChordProEditor``
+    /// - Returns: The highlight regex dictionary
     static func regexes(settings: Editor.Settings) -> [(regex: NSRegularExpression, color: NSColor, regexType: RegexType)] {
         return [
             (commentsRegex, NSColor(settings.commentColor), .normal),

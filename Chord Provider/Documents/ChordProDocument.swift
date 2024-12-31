@@ -59,6 +59,9 @@ struct ChordProDocument: FileDocument {
 
 extension ChordProDocument {
 
+    /// Get the content of the template for a new song
+    /// - Returns: The content as string
+    /// - Note: This can optionally from a user defined file in the settings
     static func getSongTemplateContent() -> String {
         let settings = AppSettings.load(id: .mainView)
         if

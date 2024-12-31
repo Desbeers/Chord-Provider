@@ -14,9 +14,13 @@ extension ChordProParser {
     /// Process a tab environment
     /// - Parameters:
     ///   - text: The text to process
-    ///   - song: The `Song`
-    ///   - currentSection: The current `section` of the `song`
-    static func processTab(text: String, song: inout Song, currentSection: inout Song.Section) {
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
+    static func processTab(
+        text: String,
+        currentSection: inout Song.Section,
+        song: inout Song
+    ) {
         /// Start with a fresh line
         let line = Song.Section.Line(
             sourceLineNumber: song.lines,

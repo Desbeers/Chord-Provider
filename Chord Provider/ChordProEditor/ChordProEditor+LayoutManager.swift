@@ -13,20 +13,20 @@ extension ChordProEditor {
 
     /// The layout manager for the editor
     class LayoutManager: NSLayoutManager, NSLayoutManagerDelegate {
-
+        /// The current font
         var font: NSFont {
             return self.textStorage?.font ?? NSFont.systemFont(ofSize: NSFont.systemFontSize)
         }
-
+        /// The line height of the current font
         var fontLineHeight: CGFloat {
             return self.defaultLineHeight(for: font)
         }
-
+        /// The line height
         var lineHeight: CGFloat {
             let lineHeight = fontLineHeight * Editor.lineHeightMultiple
             return lineHeight
         }
-
+        /// The nudge of the base line
         var baselineNudge: CGFloat {
             return (lineHeight - fontLineHeight) * 0.5
         }
@@ -51,6 +51,15 @@ extension ChordProEditor {
 
         // MARK: Layout Manager Delegate
 
+        /// Customise the line fragment geometry before committing to the layout cache
+        /// - Parameters:
+        ///   - layoutManager: The current layout manager
+        ///   - lineFragmentRect: The rect of the line fragment
+        ///   - lineFragmentUsedRect: The used rect of the line fragment
+        ///   - baselineOffset: The offset from the base line
+        ///   - textContainer: The current text container
+        ///   - glyphRange: The current glyp range
+        /// - Returns: True
         func layoutManager(
             _ layoutManager: NSLayoutManager,
             shouldSetLineFragmentRect lineFragmentRect: UnsafeMutablePointer<NSRect>,

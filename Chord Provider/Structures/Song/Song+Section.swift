@@ -31,21 +31,22 @@ extension Song {
         ///
         /// - Note: Automatically created sections will end with an 'newline', unlike defined sections.
         var autoCreated: Bool
-        /// Optional warning for this section
-        private(set) var warning: Set<String>?
+        /// Optional warnings for this section
+        private(set) var warnings: Set<String>?
         /// The optional arguments of the section
         var arguments: ChordProParser.Arguments?
 
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String) {
-            if self.warning == nil {
-                self.warning = [warning]
+            if self.warnings == nil {
+                self.warnings = [warning]
             } else {
-                self.warning?.insert(warning)
+                self.warnings?.insert(warning)
             }
         }
+        /// Reset all the warnings
         mutating func resetWarnings() {
-            self.warning = nil
+            self.warnings = nil
         }
     }
 }

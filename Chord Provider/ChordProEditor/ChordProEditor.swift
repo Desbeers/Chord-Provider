@@ -80,12 +80,17 @@ struct ChordProEditor: NSViewRepresentable {
 
 extension ChordProEditor {
 
+    /// Introspect for the editor
+    /// - Parameter callback: The callback function
+    /// - Returns: Itself
     func introspect(callback: @escaping IntrospectCallback) -> Self {
         var editor = self
         editor.introspect = callback
         return editor
     }
 
+    /// Run the introspect of the editor
+    /// - Parameter view: The current ``TextView``
     func runIntrospect(_ view: TextView) {
         guard let introspect = introspect else { return }
         /// Set the internals of the editor

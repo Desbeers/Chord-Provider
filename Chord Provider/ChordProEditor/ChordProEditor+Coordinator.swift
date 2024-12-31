@@ -30,6 +30,13 @@ extension ChordProEditor {
 
         // MARK: Protocol Functions
 
+        /// Allows delegate to control the context menu returned by menuForEvent
+        /// - Parameters:
+        ///   - view: The `NSTextView`
+        ///   - menu: The `NSMenu`
+        ///   - event: The event
+        ///   - charIndex:The index of the character that was right-clicked
+        /// - Returns: The altered `NSMenu`
         func textView(_ view: NSTextView, menu: NSMenu, for event: NSEvent, at charIndex: Int) -> NSMenu? {
             /// Rewrite context-menu, the original is full with useless rubbish...
             guard let textView = view as? TextView else {

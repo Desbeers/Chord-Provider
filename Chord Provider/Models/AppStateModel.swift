@@ -57,8 +57,11 @@ extension AppStateModel {
     /// The ID of the app state
     /// - Note: Used to load and save the settings in the cache
     enum AppStateID: String {
+        /// ``MainView`` settings
         case mainView = "Main Settings"
+        /// ``exportFolderView`` settings
         case exportFolderView = "Export Settings"
+        /// ``ChordsDatabaseView`` settings
         case chordsDatabaseView = "Database Settings"
     }
 }

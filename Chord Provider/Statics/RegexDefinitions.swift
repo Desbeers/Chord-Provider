@@ -159,6 +159,7 @@ enum RegexDefinitions {
         }
     }
 
+    /// The regex for formatting attributes
     nonisolated(unsafe) static let formattingAttributes = Regex {
         Capture {
             OneOrMore(.word)

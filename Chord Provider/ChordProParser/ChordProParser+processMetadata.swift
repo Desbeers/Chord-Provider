@@ -9,6 +9,12 @@ import Foundation
 
 extension ChordProParser {
 
+    /// Process meta data
+    /// - Parameters:
+    ///   - directive: The ``ChordPro/Directive`` to process
+    ///   - arguments: The optional arguments for the directive
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
     static func processMetadata(
         directive: ChordPro.Directive,
         arguments: Arguments,

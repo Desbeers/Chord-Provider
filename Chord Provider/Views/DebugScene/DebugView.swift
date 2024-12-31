@@ -100,7 +100,7 @@ struct DebugView: View {
                             .frame(width: 30, alignment: .trailing)
                             .font(
                                 .body
-                                    .weight(line.source.warning == nil ? .regular : .bold)
+                                    .weight(line.source.warnings == nil ? .regular : .bold)
                             )
                         Text(line.source.source)
                     }
@@ -135,6 +135,7 @@ struct DebugView: View {
             }
         }
     }
+    /// The log tab of the `View`
     var log: some View {
         VStack {
             ScrollView {
@@ -180,6 +181,9 @@ struct DebugView: View {
             .padding(.bottom)
         }
     }
+    /// Parse a line in the log
+    /// - Parameter line: The line to parse
+    /// - Returns: The parsed line
     private func parseLine(_ line: LogMessage) -> LogMessage {
         var line = line
         let lineRegex = /(\*\*Line )(.+?)(\*\*\n)/

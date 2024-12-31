@@ -9,6 +9,11 @@ import Foundation
 
 extension ChordProParser {
 
+    /// Process a source comment
+    /// - Parameters:
+    ///   - comment: The source comment
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
     static func processSourceComment(
         comment: String,
         currentSection: inout Song.Section,

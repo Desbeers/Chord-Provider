@@ -106,8 +106,11 @@ extension Terminal {
 
     /// The structure for an output item
     struct OutputItem {
+        /// The time of the output
         let time: Date
+        /// The message of the output
         let message: String
+        /// Bool if the output is a warning
         let warning: Bool
     }
 }

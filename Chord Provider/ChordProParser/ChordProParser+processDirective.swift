@@ -9,6 +9,9 @@ import Foundation
 
 extension ChordProParser {
 
+    /// Get the ``ChordPro/Directive`` from a `String`
+    /// - Parameter directive: The directive as string
+    /// - Returns: The optional directive with an optional warning if a 'short' directive is found
     static func getDirective(_ directive: String) -> (directive: ChordPro.Directive, warning: Bool)? {
         if let longDirective = ChordPro.Directive.allCases.first(where: { $0.rawValue.long == directive }) {
             return (longDirective, false)
@@ -24,12 +27,12 @@ extension ChordProParser {
     /// Process a directive
     /// - Parameters:
     ///   - text: The text to process
-    ///   - song: The `Song`
-    ///   - currentSection: The current `section` of the `song`
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
     static func processDirective(
         text: String,
-        song: inout Song,
-        currentSection: inout Song.Section
+        currentSection: inout Song.Section,
+        song: inout Song
     ) {
         if text.contains(/:(?!\/)/) {
             currentSection.addWarning("No need for a colon **:** in a directive")

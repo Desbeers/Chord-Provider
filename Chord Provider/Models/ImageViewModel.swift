@@ -8,26 +8,32 @@
 import AppKit
 import OSLog
 
-/// The observable state for and image in a **ChordPro** song
+/// The observable state for an image in a **ChordPro** song
 @Observable @MainActor final class ImageViewModel {
+    /// The `NSImage`
     var image = NSImage()
+    /// The size of the image
     var size = CGSize(width: 100, height: 80)
+    /// The arguments of the image from the song source
     var arguments: ChordProParser.Arguments?
+    /// The optional URL of the song file
     var fileURL: URL?
-    let scale: Double
-
-    init(arguments: ChordProParser.Arguments?, fileURL: URL?, scale: Double) {
+    /// Init the model
+    init(arguments: ChordProParser.Arguments?, fileURL: URL?) {
         self.arguments = arguments
         self.fileURL = fileURL
-        self.scale = scale
     }
 
+    /// Update the arguments of the image
+    /// - Parameter arguments: The new ``ChordProParser/Arguments``
     func updateArguments(_ arguments: ChordProParser.Arguments?) async {
         self.arguments = arguments
-        let url = ChordProParser.getImageSource(arguments?[.src] ?? "", fileURL: fileURL)
+        let url = ChordProParser.getImageURL(arguments?[.src] ?? "", fileURL: fileURL)
         await loadImage(url: url)
     }
 
+    /// Load an image from the cache if found or else from an URL
+    /// - Parameter url: The URL of the image
     private func loadImage(url: URL?) async {
         guard let url else { return }
         if let imageFromCache = ImageCache.shared.getImageFromCache(from: url) {
@@ -40,6 +46,8 @@ import OSLog
         await loadImageFromURL(url: url)
     }
 
+    /// Load an image from an URL
+    /// - Parameter url: The URL of the image
     private func loadImageFromURL(url: URL) async {
         let task = Task.detached {
             try? Data(contentsOf: url)
@@ -54,6 +62,8 @@ import OSLog
         ImageCache.shared.setImageCache(image: loadedImage, key: url)
     }
 
+    /// Create a fallback image
+    /// - Parameter url: The URL of the original image
     private func fallbackImage(url: URL) {
         Logger.viewBuild.error("Missing image for **\(url.lastPathComponent, privacy: .public)**")
         // swiftlint:disable:next force_unwrapping

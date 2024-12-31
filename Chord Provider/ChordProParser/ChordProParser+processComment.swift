@@ -9,6 +9,11 @@ import Foundation
 
 extension ChordProParser {
 
+    /// Process a comment
+    /// - Parameters:
+    ///   - arguments: The optional arguments for the directive
+    ///   - currentSection: The current ``Song/Section``
+    ///   - song: The whole ``Song``
     static func processComment(
         arguments: Arguments,
         currentSection: inout Song.Section,
@@ -24,7 +29,7 @@ extension ChordProParser {
                 arguments: [.plain: comment],
                 source: "{\(ChordPro.Directive.comment) \(comment)}"
             )
-            if let warning = currentSection.warning {
+            if let warning = currentSection.warnings {
                 line.addWarning(warning)
             }
             if comment.isEmpty {

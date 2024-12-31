@@ -17,6 +17,8 @@ exclude: /*/GeneratedAssetSymbols*,/*/resource_bundle_accessor*
 
 theme: Resources/JazzyTheme
 
+module: Chord_Provider
+
 custom_categories:
 
   - name: General
