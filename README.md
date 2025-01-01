@@ -47,7 +47,7 @@ If you have the CLI utility installed on your system, **Chord Provider** can opt
 
 I like Swift and SwiftUI but I don’t like the more and more lockdown of my beloved macOS. I don’t have a `Developer` account.
 
-Theoretically for a good reason but in practise a little bit less. I have no intension to bring **Chord Provider** to the Apple Store but I also can't provide an *easy* compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper.
+Theoretically for a good reason but in practise a little bit less. I have no intension to bring **Chord Provider** to the Apple Store but I also can't provide an *easy* compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper. The provided *release* is only ad-hoc signed. 
 
 Well, the source is free!
   
