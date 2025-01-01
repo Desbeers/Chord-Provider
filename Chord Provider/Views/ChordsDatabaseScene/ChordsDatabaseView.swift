@@ -123,7 +123,7 @@ struct ChordsDatabaseView: View {
         .environment(appState)
         .environment(chordsDatabaseState)
     }
-    
+
     /// Filter the chords
     func filterChords() {
         var chords = chordsDatabaseState.allChords

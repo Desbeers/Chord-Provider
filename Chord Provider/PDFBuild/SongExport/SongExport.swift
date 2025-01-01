@@ -245,7 +245,7 @@ extension SongExport {
                         alignment: .right
                     ),
                     labelDivider(section: section),
-                    PDFBuild.TextblockSection(section)
+                    PDFBuild.TextblockSection(section, chords: song.chords)
                 ]
             )
         }

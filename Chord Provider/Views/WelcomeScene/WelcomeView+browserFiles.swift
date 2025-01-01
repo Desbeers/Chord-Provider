@@ -149,7 +149,7 @@ extension WelcomeView {
 }
 
 extension WelcomeView {
-    
+
     /// A `View` with a single song
     /// - Parameters:
     ///   - song: The song

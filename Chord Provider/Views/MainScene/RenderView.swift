@@ -63,6 +63,7 @@ struct RenderView: View {
                 ) {
                     sections
                 }
+                .padding(song.settings.display.scale * 20)
             }
             .frame(maxHeight: .infinity)
             .font(.system(size: 14 * song.settings.display.scale))
@@ -329,9 +330,14 @@ extension RenderView {
         VStack(alignment: getFlush(section.arguments)) {
             ForEach(section.lines) { line in
                 if let parts = line.parts {
-                    ForEach(parts) { part in
-                        /// Init the text like this to enable markdown formatting
-                        Text(.init(part.text.trimmingCharacters(in: .whitespacesAndNewlines)))
+                    HStack(spacing: 0) {
+                        ForEach(parts) { part in
+                            if let chord = song.chords.first(where: { $0.id == part.chord }) {
+                                ChordView(settings: song.settings, sectionID: section.id, partID: part.id, chord: chord)
+                            }
+                            /// Init the text like this to enable markdown formatting
+                            Text(.init(part.text))
+                        }
                     }
                 }
             }

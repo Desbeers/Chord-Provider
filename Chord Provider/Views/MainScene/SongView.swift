@@ -33,6 +33,7 @@ struct SongView: View {
                                 labelStyle: .inline
                             )
                         }
+                        .padding(sceneState.settings.song.display.scale * 20)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 case .asColumns:
@@ -43,7 +44,6 @@ struct SongView: View {
                     )
                 }
             }
-            .contentMargins(.all, sceneState.settings.song.display.scale * 20, for: .scrollContent)
             .contentShape(Rectangle())
             .scaleModifier
         }

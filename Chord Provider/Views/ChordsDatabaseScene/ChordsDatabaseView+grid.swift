@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension ChordsDatabaseView {
-    
+
     /// View the chords in a grid
     var grid: some View {
         VStack(spacing: 0) {

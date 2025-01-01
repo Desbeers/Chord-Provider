@@ -224,7 +224,7 @@ struct SettingsView: View {
 }
 
 extension SettingsView {
-    
+
     /// Check if the **ChordPro** cli is found in the $PATH
     /// - Returns: True or false
     func checkChordProCLI() async -> Bool {
@@ -237,7 +237,7 @@ extension SettingsView {
 
 
 extension SettingsView {
-    
+
     /// Wrap the settings section
     struct WrapSettingsSection: ViewModifier {
         /// The title of the section

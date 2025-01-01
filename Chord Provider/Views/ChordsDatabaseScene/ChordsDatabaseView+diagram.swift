@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension ChordsDatabaseView {
-    
+
     /// Show a chord diagram
     /// - Parameter chord: The ``ChordDefinition``
     /// - Returns: A `View` with the chord diagram

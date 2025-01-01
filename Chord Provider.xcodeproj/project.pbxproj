@@ -739,7 +739,6 @@
 				D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */,
 				D706FD7B2BCECC9F005DEDF6 /* PDFBuild+Spacer.swift */,
 				D706FD7C2BCECC9F005DEDF6 /* PDFBuild+Text.swift */,
-				D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */,
 				D7AB50622BD958FF00AA797B /* PDFBuild+TOCItem.swift */,
 			);
 			path = Elements;
@@ -850,6 +849,7 @@
 				D70B72852BD50EC6003C89B4 /* PDFBuild+TabSection.swift */,
 				D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */,
 				D70B72872BD5111D003C89B4 /* PDFBuild+GridSection.swift */,
+				D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */,
 			);
 			path = SongElements;
 			sourceTree = "<group>";
@@ -994,16 +994,16 @@
 		D77DF8BD2D2406BD000A0557 /* MainScene */ = {
 			isa = PBXGroup;
 			children = (
-				D7F13FAE2A6460B7002D875D /* EditorView */,
-				D7F13FB72A6460B7002D875D /* ChordsView.swift */,
 				D7F13FB52A6460B7002D875D /* MainView.swift */,
+				D7F13FB42A6460B7002D875D /* HeaderView.swift */,
+				D7F13FAD2A6460B7002D875D /* ToolbarView.swift */,
+				D7F13FAE2A6460B7002D875D /* EditorView */,
 				D7F13FB82A6460B7002D875D /* SongView.swift */,
+				D7F13FB72A6460B7002D875D /* ChordsView.swift */,
 				D7F13F882A6460B7002D875D /* RenderView.swift */,
 				D73A03E82AC85B6100D6CD0E /* RenderView+ChordView.swift */,
 				D7781B5E2D1062B000EC0CCF /* RenderView+ImageView.swift */,
-				D7F13FAD2A6460B7002D875D /* ToolbarView.swift */,
 				D76C24E22C3AA2AA00C93D82 /* PreviewPaneView.swift */,
-				D7F13FB42A6460B7002D875D /* HeaderView.swift */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -1860,7 +1860,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -1894,7 +1894,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2056,7 +2056,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2106,7 +2106,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2143,7 +2143,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2174,7 +2174,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
