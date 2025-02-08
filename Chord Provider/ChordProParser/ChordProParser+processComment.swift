@@ -20,7 +20,20 @@ extension ChordProParser {
         song: inout Song
     ) {
         let comment = arguments[.plain] ?? ""
-        if !currentSection.lines.isEmpty && currentSection.autoCreated == false {
+        if currentSection.environment == .none || currentSection.environment == .metadata {
+            /// A  comment in its own section
+            if comment.isEmpty {
+                currentSection.addWarning("The comment is empty")
+            }
+            addSection(
+                sectionLabel: "",
+                directive: .comment,
+                arguments: arguments,
+                environment: .comment,
+                currentSection: &currentSection,
+                song: &song
+            )
+        } else {
             /// A comment inside a section
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
@@ -38,19 +51,6 @@ extension ChordProParser {
             currentSection.lines.append(line)
             /// Clear any warnings
             currentSection.resetWarnings()
-        } else {
-            /// A  comment in its own section
-            if comment.isEmpty {
-                currentSection.addWarning("The comment is empty")
-            }
-            addSection(
-                sectionLabel: "",
-                directive: .comment,
-                arguments: arguments,
-                environment: .comment,
-                currentSection: &currentSection,
-                song: &song
-            )
         }
     }
 }
