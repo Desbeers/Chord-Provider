@@ -5,3 +5,4 @@
 # 6.0.1 (---)
 
 - Fix comments inside environments
+- Fix icons in PDF song details

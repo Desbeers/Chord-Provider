@@ -31,15 +31,15 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Add the detail items
             let items = NSMutableAttributedString()
-            items.append(detailLabel(icon: "􀑭", label: song.settings.display.instrument.label))
+            items.append(detailLabel(icon: "instrument", label: song.settings.display.instrument.label))
             if let key = song.metadata.key {
-                items.append(detailLabel(icon: "􀟕", label: key.display))
+                items.append(detailLabel(icon: "key", label: key.display))
             }
             if let capo = song.metadata.capo {
-                items.append(detailLabel(icon: "􀉢", label: capo))
+                items.append(detailLabel(icon: "capo", label: capo))
             }
             if let time = song.metadata.time {
-                items.append(detailLabel(icon: "􀐱", label: time))
+                items.append(detailLabel(icon: "time", label: time))
             }
             /// Draw the details
             let textBounds = items.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
@@ -57,11 +57,13 @@ extension PDFBuild {
         ///   - label: The label as `String`
         /// - Returns: An `NSAttributedString` with icon, label and attributes
         private func detailLabel(icon: String, label: String) -> NSAttributedString {
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = NSImage(named: icon)
             let result = NSMutableAttributedString()
-            result.append(NSAttributedString(string: icon, attributes: .songDetailIcon))
+            result.append(NSAttributedString(attachment: imageAttachment, attributes: .alignment(.center)))
             result.append(NSAttributedString(string: " "))
             result.append(NSAttributedString(string: label, attributes: .songDetailLabel))
-            result.append(NSAttributedString(string: " "))
+            result.append(NSAttributedString(string: "  "))
             return result
         }
     }
@@ -70,14 +72,6 @@ extension PDFBuild {
 extension PDFStringAttribute {
 
     // MARK: Song Detail string styling
-
-    /// String attributes for a song detail icon
-    static var songDetailIcon: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.gray,
-            .font: NSFont.systemFont(ofSize: 8, weight: .regular)
-        ] + alignment(.center)
-    }
 
     /// String attributes for a song detail label
     static var songDetailLabel: PDFStringAttribute {
