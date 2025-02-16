@@ -13,6 +13,9 @@ struct Song: Equatable, Codable {
     /// The ID of the song
     var id: UUID
 
+    /// The raw content of the song
+    var content: String
+
     /// The total lines of the song
     var lines: Int = 0
 

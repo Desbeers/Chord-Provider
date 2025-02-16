@@ -138,10 +138,6 @@ extension Terminal {
         if
             settings.chordPro.useCustomConfig,
             let persistentURL = UserFile.customChordProConfig.getBookmarkURL {
-            /// Get access to the URL
-            _ = persistentURL.startAccessingSecurityScopedResource()
-            /// Close the access
-            UserFile.customChordProConfig.stopCustomFileAccess()
             return "--config='\(persistentURL.path)'"
         }
         return nil
@@ -185,11 +181,7 @@ extension Terminal {
         if
             settings.chordPro.useAdditionalLibrary,
             let persistentURL = UserFile.customChordProLibrary.getBookmarkURL {
-            /// Get access to the URL
-            _ = persistentURL.startAccessingSecurityScopedResource()
             arguments.append("CHORDPRO_LIB='\(persistentURL.path)'")
-            /// Close the access
-            UserFile.customChordProConfig.stopCustomFileAccess()
         }
         /// The **ChordPro** binary
         arguments.append("\"\(chordProApp.path)\"")
@@ -205,15 +197,11 @@ extension Terminal {
         }
         /// Add the optional local system config that is next to a song file
         if let localSystemConfigURL = sceneState.localSystemConfigURL {
-            _ = localSystemConfigURL.startAccessingSecurityScopedResource()
             arguments.append("--config='\(localSystemConfigURL.path)'")
-            UserFile.customChordProConfig.stopCustomFileAccess()
         }
         /// Add the optional local config that is next to a song file
         if let localSongConfigURL = sceneState.localSongConfigURL {
-            _ = localSongConfigURL.startAccessingSecurityScopedResource()
             arguments.append("--config='\(localSongConfigURL.path)'")
-            UserFile.customChordProConfig.stopCustomFileAccess()
         }
         /// Add the output file
         arguments.append("--output=\"\(sceneState.exportURL.path)\"")

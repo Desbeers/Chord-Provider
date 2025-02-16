@@ -19,7 +19,7 @@ actor ChordProParser {
     /// Parse a ChordPro file
     /// - Parameters:
     ///   - id: The ID of the song
-    ///   - text: The text of the file
+    ///   - text: The text of the song
     ///   - transpose: The optional transpose of the song in the GUI
     ///   - settings: The settings for the song
     ///   - fileURL: The optional file url of the song
@@ -33,7 +33,7 @@ actor ChordProParser {
     ) async -> Song {
         Logger.parser.info("Parsing **\(fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         /// Start with a fresh song
-        var song = Song(id: id, settings: settings)
+        var song = Song(id: id, content: text, settings: settings)
         song.metadata.fileURL = fileURL
         /// Add the optional transpose
         song.metadata.transpose = transpose

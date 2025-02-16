@@ -22,7 +22,8 @@ struct ChordProDocument: FileDocument {
     static var readableContentTypes: [UTType] { [.chordProSong] }
     /// The content of the ChordPro file
     var text: String
-    /// The optional URL of the template
+    /// The optional template URL
+    /// - Used to get custom configs next to the template URL (official **ChordPro** support)
     var template: URL?
     /// Init the text
     init(text: String = "", template: URL? = nil) {

@@ -51,18 +51,4 @@ extension UserFile {
             selectedURL.stopAccessingSecurityScopedResource()
         }
     }
-
-    /// Stop access to a persistent URL after some time
-    /// - Note: Always call this function after you are done with the access or else Apple will be really upset!
-    func stopCustomFileAccess() {
-        if let persistentURL = self.getBookmarkURL {
-            Task {
-                try? await Task.sleep(nanoseconds: 500_000_000_000)
-                persistentURL.stopAccessingSecurityScopedResource()
-                Logger.fileAccess.info("Stopped access to '\(persistentURL.lastPathComponent, privacy: .public)'")
-            }
-        } else {
-            Logger.fileAccess.error("Access error '\(self.rawValue, privacy: .public)'")
-        }
-    }
 }

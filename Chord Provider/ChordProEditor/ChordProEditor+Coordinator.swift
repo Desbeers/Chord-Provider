@@ -120,7 +120,9 @@ extension ChordProEditor {
                     parent.text = textView.string
                     /// Remove the task so we allow external updates of the text binding again
                     self.task = nil
-                } catch { }
+                } catch {
+                    /// The Task is canceled
+                }
             }
         }
 

@@ -46,7 +46,6 @@ struct MainView: View {
         .task {
             sceneState.file = file
             sceneState.template = document.template
-            sceneState.content = document.text
             await renderSong()
             /// Always open the editor for a new file or a template
             if document.text == ChordProDocument.getSongTemplateContent() || document.template != nil {
@@ -55,7 +54,6 @@ struct MainView: View {
             sceneState.status = .ready
         }
         .onChange(of: document.text) {
-            sceneState.content = document.text
             Task {
                 await renderSong()
             }

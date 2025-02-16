@@ -10,12 +10,11 @@ import OSLog
 
 /// The observable scene state for **Chord Provider**
 @MainActor @Observable final class SceneStateModel {
-    /// The optional file location
+    /// The optional file URL
     var file: URL?
-    /// The optional template location
+    /// The optional template URL
+    /// - Used to get custom configs next to the template URL (official **ChordPro** support)
     var template: URL?
-    /// The raw content of the document
-    var content: String = ""
     /// The current ``Song``
     var song: Song
     /// PDF preview related stuff
@@ -77,7 +76,7 @@ import OSLog
         case true:
             /// ChordPro CLI renderer
             do {
-                let export = try await Terminal.exportPDF(text: content, settings: AppSettings.load(id: .mainView), sceneState: self)
+                let export = try await Terminal.exportPDF(text: song.content, settings: AppSettings.load(id: .mainView), sceneState: self)
                 return export.data
             } catch {
                 Logger.application.error("ChordPro CLI error: \(error.localizedDescription, privacy: .public)")
@@ -150,7 +149,7 @@ import OSLog
         /// Create the temp directory
         try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
         /// Init the song with an unique ID
-        self.song = Song(id: UUID())
+        self.song = Song(id: UUID(), content: "")
     }
 }
 
