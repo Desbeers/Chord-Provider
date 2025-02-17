@@ -41,6 +41,9 @@ extension PDFBuild {
             if let time = song.metadata.time {
                 items.append(detailLabel(icon: "time", label: time))
             }
+            if let tempo = song.metadata.tempo {
+                items.append(detailLabel(icon: "tempo", label: "\(tempo) bpm"))
+            }
             /// Draw the details
             let textBounds = items.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
             if !calculationOnly {
@@ -59,11 +62,16 @@ extension PDFBuild {
         private func detailLabel(icon: String, label: String) -> NSAttributedString {
             let imageAttachment = NSTextAttachment()
             imageAttachment.image = NSImage(named: icon)
+            let imageSize = imageAttachment.image?.size ?? .init()
+            imageAttachment.bounds = CGRect(
+                x: CGFloat(0),
+                y: (NSFont.systemFont(ofSize: 8, weight: .regular).capHeight - imageSize.height) / 2,
+                width: imageSize.width,
+                height: imageSize.height
+            )
             let result = NSMutableAttributedString()
             result.append(NSAttributedString(attachment: imageAttachment, attributes: .alignment(.center)))
-            result.append(NSAttributedString(string: " "))
-            result.append(NSAttributedString(string: label, attributes: .songDetailLabel))
-            result.append(NSAttributedString(string: "  "))
+            result.append(NSAttributedString(string: " \(label)   ", attributes: .songDetailLabel))
             return result
         }
     }
