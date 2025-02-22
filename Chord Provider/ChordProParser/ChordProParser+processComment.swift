@@ -33,6 +33,8 @@ extension ChordProParser {
                 currentSection: &currentSection,
                 song: &song
             )
+            /// Set the environment to none again
+            currentSection.environment = .none
         } else {
             /// A comment inside a section
             var line = Song.Section.Line(
