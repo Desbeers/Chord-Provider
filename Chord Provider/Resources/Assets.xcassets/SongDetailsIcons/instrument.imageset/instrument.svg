@@ -4,7 +4,7 @@
    id="_x32_"
    viewBox="0 0 7 7"
    xml:space="preserve"
-   sodipodi:docname="acoustic-guitar-illustration-1-svgrepo-com.svg"
+   sodipodi:docname="instrument.svg"
    width="7"
    height="7"
    inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
@@ -21,9 +21,9 @@
    inkscape:pageopacity="0.0"
    inkscape:pagecheckerboard="0"
    inkscape:deskcolor="#d1d1d1"
-   inkscape:zoom="48.568118"
-   inkscape:cx="3.0575614"
-   inkscape:cy="4.3135293"
+   inkscape:zoom="49.349416"
+   inkscape:cx="2.5633536"
+   inkscape:cy="4.650511"
    inkscape:window-width="1224"
    inkscape:window-height="896"
    inkscape:window-x="0"
@@ -51,9 +51,10 @@
    style="stroke-width:23.10697445;stroke-dasharray:none" />
 	<polygon
    class="st0"
-   points="303.694,243.972 426.547,115.071 396.923,85.437 268.021,208.308 "
+   points="426.547,115.071 396.923,85.437 268.021,208.308 303.694,243.972 "
    id="polygon2"
-   style="stroke-width:23.10697445;stroke-dasharray:none" />
+   style="fill:#808080;fill-opacity:1;stroke:none;stroke-width:23.107;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+   transform="matrix(1,-0.06791069,0,1,0,23.584297)" />
 	<polygon
    class="st0"
    points="403.732,66.446 445.547,108.261 496.652,57.155 454.838,15.349 "
@@ -88,6 +89,6 @@
    class="st0"
    points="168.154,396.493 182.089,382.558 129.444,329.904 115.5,343.84 "
    id="polygon7"
-   style="stroke-width:23.10697445;stroke-dasharray:none" />
+   style="stroke-width:23.10697445;stroke-dasharray:none;fill:none;stroke:#808080;stroke-opacity:1;stroke-linejoin:round;fill-opacity:1" />
 </g>
 </svg>

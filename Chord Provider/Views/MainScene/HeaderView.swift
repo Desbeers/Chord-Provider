@@ -81,14 +81,28 @@ extension HeaderView {
         /// The body of the `View`
         var body: some View {
             if let key = song.metadata.key {
-                Label("\(key.display)", systemImage: "key").padding(.leading)
+                metadata(string: key.display, icon: .key)
             }
             if let capo = song.metadata.capo {
-                Label(capo, systemImage: "paperclip").padding(.leading)
+                metadata(string: capo, icon: .capo)
             }
             if let time = song.metadata.time {
-                Label(time, systemImage: "timer").padding(.leading)
+                metadata(string: time, icon: .time)
             }
+        }
+        /// Show metadata with a custom SVG icon
+        /// - Parameters:
+        ///   - string: The metadata
+        ///   - icon: The icon to use from the asset calalog
+        /// - Returns: A `View`
+        func metadata(string: String, icon: NSImage) -> some View {
+            HStack {
+                Image(nsImage: icon)
+                    .resizable()
+                    .frame(width: 12, height: 12)
+                Text(string)
+            }
+            .padding(.leading)
         }
     }
 }

@@ -8,3 +8,4 @@
 - Fix comments before unknown environments
 - Fix icons in PDF song details
 - Improve 'grid' chords highlighting
+- Use custom SVG icons for song details
