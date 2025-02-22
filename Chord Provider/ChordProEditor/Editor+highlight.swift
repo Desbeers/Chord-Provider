@@ -21,6 +21,8 @@ extension Editor {
 
     /// The regex for chords
     static let chordRegex = try! NSRegularExpression(pattern: "\\[([\\w#b\\/]+)\\]", options: .caseInsensitive)
+    /// The regex for grid
+    static let gridRegex = try! NSRegularExpression(pattern: "(?<=^|\\n)(\\|[^\\n]*)")
     /// The regex for directives
     static let directiveRegex = try! NSRegularExpression(pattern: "\\{(\\w+):?([^\\}\\n]+)?(?:\\}|\\n)")
     /// The regex for comments
@@ -30,7 +32,7 @@ extension Editor {
     /// The regex for `key=value`
     static let keyValueRegex = try! NSRegularExpression(pattern: "\"\\/?([^\"]*)\"")
     /// The regex for brackets
-    static let bracketsRegex = try! NSRegularExpression(pattern: "\\/?([\\[\\]\\{\\}\"\\<\\>/])")
+    static let bracketsRegex = try! NSRegularExpression(pattern: "\\/?([\\[\\]\\{\\}\"\\<\\>\\|/])")
     /// The regex for new lines
     static let newLineRegex = try! NSRegularExpression(pattern: "\n", options: [])
 
@@ -46,6 +48,7 @@ extension Editor {
             (markupRegex, NSColor(settings.markupColor), .normal),
             (keyValueRegex, NSColor(settings.markupColor), .normal),
             (chordRegex, NSColor(settings.chordColor), .normal),
+            (gridRegex, NSColor(settings.chordColor), .normal),
             (bracketsRegex, NSColor(settings.bracketColor), .normal)
         ]
     }
