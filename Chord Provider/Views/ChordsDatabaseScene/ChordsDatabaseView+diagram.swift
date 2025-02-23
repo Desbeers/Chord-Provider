@@ -20,7 +20,7 @@ extension ChordsDatabaseView {
                 settings: appState.settings.song
             )
             .foregroundStyle(
-                .primary,
+                chord.validate.color,
                 colorScheme == .dark ? .black : .white
             )
             actions(chord: chord)

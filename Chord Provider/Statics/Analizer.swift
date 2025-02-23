@@ -37,34 +37,46 @@ enum Analizer {
         if chord.quality == .unknown {
             return .wrongNotes
         }
-        var validation: Chord.Status = .correct
+        /// Get the lowest note of the chord
+        guard let baseNote = chord.components.filter({ $0.note != .none }) .sorted(using: KeyPathComparator(\.midi)).first?.note else {
+            return .unknownChord
+        }
+        /// Get all chord notes
         var notes = chord.components.filter { $0.note != .none } .uniqued(by: \.note).map(\.note)
+        /// Get all component combinations
         let components = Utils.getChordComponents(chord: chord, addBase: false)
-        for component in components {
-            /// Check bass note
-            if let bass = chord.bass {
-                if notes.first != bass {
-                    return .wrongBassNote
-                } else if !component.contains(bass) {
-                    notes.removeAll { $0 == bass }
-                }
+        dump(components)
+        /// Check bass note
+        if let bass = chord.bass {
+            if baseNote != bass {
+                return .wrongBassNote
             }
             /// Check root note
-            else if notes.first != chord.root {
-                validation = .wrongRootNote
+        } else if baseNote != chord.root {
+            return .wrongRootNote
+        }
+        /// Check fingers
+        for index in chord.frets.enumerated() {
+            /// Check that open frets have no finger defined
+            if chord.frets[index.offset] == -1 && chord.fingers[index.offset] != 0 {
+                return .wrongFingers
             }
-            /// Check fingers
-            else {
-                for index in chord.frets.enumerated() {
-                    if chord.frets[index.offset] == -1 && chord.fingers[index.offset] != 0 {
-                        return .wrongFingers
-                    }
-                }
-            }
-            if component.sorted() == notes.sorted() {
-                return validation
+            /// Check that a fretted note has a finger defined
+            if chord.frets[index.offset] > 0 && chord.fingers[index.offset] == 0 {
+                return .missingFingers
             }
         }
+        for component in components {
+            /// Remove the optional bass note if not part of the 'normal' chord notes
+            if let bassNote = chord.bass, !component.contains(bassNote) {
+                notes.removeAll { $0 == bassNote }
+            }
+            /// Check if we have a match
+            if component.sorted() == notes.sorted() {
+                return .correct
+            }
+        }
+        /// No match found
         return .wrongNotes
     }
 }

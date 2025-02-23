@@ -119,6 +119,7 @@ vertical_whitespace:
 
 cyclomatic_complexity:
   ignores_case_statements: true
+  warning: 12
 
 large_tuple:
     warning: 4

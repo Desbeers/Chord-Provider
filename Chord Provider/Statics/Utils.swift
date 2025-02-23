@@ -116,7 +116,7 @@ enum Utils {
         let notes = chord.quality.intervals.intervals.map(\.semitones).map { tone in
             valueToNote(value: tone + rootValue, scale: chord.root)
         }
-        /// Get a list of optional notes that can be ommited
+        /// Get a list of optional notes that can be omitted
         let optionals = chord.quality.intervals.optional.map(\.semitones).map { tone in
             valueToNote(value: tone + rootValue, scale: chord.root)
         }.combinationsWithoutRepetition
