@@ -9,3 +9,4 @@
 - Fix icons in PDF song details
 - Improve 'grid' chords highlighting
 - Use custom SVG icons for song details
+- Improve chord validation
