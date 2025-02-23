@@ -157,7 +157,7 @@ import OSLog
                 .environment(fileBrowser)
         }
         .defaultLaunchBehavior(.suppressed)
-        .windowResizability(.contentMinSize)
+        .windowResizability(.contentSize)
         .commandsRemoved()
 
         // MARK: Media Player window

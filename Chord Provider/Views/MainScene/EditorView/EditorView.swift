@@ -68,8 +68,6 @@ struct EditorView: View {
                         .lineLimit(1)
                 }
                 Spacer()
-                WindowVisibilityToggle(windowID: AppDelegate.WindowID.debugView.rawValue)
-                    .controlSize(.small)
                 sceneState.cleanSourceButton
                     .controlSize(.small)
             }

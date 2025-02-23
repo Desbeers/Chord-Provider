@@ -24,6 +24,7 @@ extension FolderExport {
                         var song = FileBrowserModel.SongItem(fileURL: item)
                         FileBrowserModel.parseSongFile(item, &song)
                         files.append(song)
+                        dump(song.sortArtist)
                     }
                 }
             }
@@ -32,6 +33,6 @@ extension FolderExport {
         } else {
             throw AppError.noAccessToSongError
         }
-        return files.sorted(using: KeyPathComparator(\.artist)).sorted(using: KeyPathComparator(\.title))
+        return files.sorted(using: KeyPathComparator(\.sortArtist)).sorted(using: KeyPathComparator(\.title))
     }
 }

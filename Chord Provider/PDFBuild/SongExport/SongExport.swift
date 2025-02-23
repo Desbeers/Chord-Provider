@@ -75,6 +75,7 @@ extension SongExport {
             id: song.id,
             title: song.metadata.title,
             subtitle: song.metadata.artist,
+            sortSubtitle: song.metadata.sortArtist,
             fileURL: song.metadata.fileURL
         )
         var subtitle: [String] = [song.metadata.artist]

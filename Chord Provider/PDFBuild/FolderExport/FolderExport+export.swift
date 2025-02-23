@@ -73,6 +73,7 @@ extension FolderExport {
                 id: UUID(),
                 title: file.title,
                 subtitle: file.artist,
+                sortSubtitle: file.sortArtist,
                 fileURL: file.fileURL
             )
         }

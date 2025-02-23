@@ -75,7 +75,7 @@ enum Editor {
         formattedDirective.append(directive.format.end)
         return formattedDirective
     }
-    
+
     /// Insert text into the editor
     /// - Parameters:
     ///   - text: The text to add

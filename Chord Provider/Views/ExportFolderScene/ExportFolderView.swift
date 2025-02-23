@@ -96,7 +96,7 @@ struct ExportFolderView: View {
             .disabled(currentFolder == nil || pdfInfo.title.isEmpty || pdfInfo.author.isEmpty || exporting)
             .padding()
         }
-        .frame(minWidth: 460, minHeight: 680)
+        .frame(width: 460, height: 680)
         .buttonStyle(.bordered)
         .fileExporter(
             isPresented: $exportFile,

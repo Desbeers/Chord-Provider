@@ -170,6 +170,8 @@ extension ChordPro {
 
         /// This directive defines a tag for the song
         case tag
+        /// This directive defines the sorting of an artist
+        case sortArtist = "sortartist"
 
         /// ### Strum
 

@@ -14,8 +14,10 @@ extension PDFBuild {
         let id: UUID
         /// The title of the TOC item
         var title: String
-        /// The subtitle of the TOC item
+        /// The subtitle of the TOC item (artist)
         var subtitle: String
+        /// The sorting of the subtitle
+        var sortSubtitle: String
         /// The page number in the PDF
         var pageNumber: Int = 0
         /// The TOC page number

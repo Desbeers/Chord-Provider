@@ -87,6 +87,10 @@ actor ChordProParser {
         if song.metadata.key == nil {
             song.metadata.key = song.chords.first
         }
+        /// Set the sort artist name if not set
+        if song.metadata.sortArtist.isEmpty {
+            song.metadata.sortArtist = song.metadata.artist.removePrefixes()
+        }
         /// All done!
         return song
     }

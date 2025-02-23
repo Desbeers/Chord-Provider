@@ -20,6 +20,8 @@ extension Song {
         var title: String = "No title"
         /// The artist
         var artist: String = "Unknown Artist"
+        /// Sorting name of the artist
+        var sortArtist: String = ""
         /// The optional subtitle
         var subtitle: String?
         /// The optional capo

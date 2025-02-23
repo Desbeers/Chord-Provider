@@ -18,6 +18,9 @@ extension FolderExport {
         documentInfo: PDFBuild.DocumentInfo,
         counter: PDFBuild.PageCounter
     ) -> Data {
+
+        var artist: String = ""
+
         let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo)
         tocBuilder.pageCounter = counter
         tocBuilder.elements.append(PDFBuild.PageBackgroundColor(color: .black))
@@ -26,11 +29,19 @@ extension FolderExport {
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
         tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle))
-        tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(20))
         for tocInfo in counter
             .tocItems
             .sorted(using: KeyPathComparator(\.title))
-            .sorted(using: KeyPathComparator(\.subtitle)) {
+            .sorted(using: KeyPathComparator(\.sortSubtitle)) {
+
+            if artist != tocInfo.subtitle {
+                print(tocInfo.subtitle)
+                /// Add a divider
+                tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(10))
+                /// Remember the artist
+                artist = tocInfo.subtitle
+            }
+
             tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter))
         }
         return tocBuilder.generatePdf()

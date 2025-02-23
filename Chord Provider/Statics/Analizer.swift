@@ -45,7 +45,6 @@ enum Analizer {
         var notes = chord.components.filter { $0.note != .none } .uniqued(by: \.note).map(\.note)
         /// Get all component combinations
         let components = Utils.getChordComponents(chord: chord, addBase: false)
-        dump(components)
         /// Check bass note
         if let bass = chord.bass {
             if baseNote != bass {

@@ -56,6 +56,8 @@ extension FileBrowserModel {
         }
         /// Name of the artist
         var artist: String = "Unknown artist"
+        /// Sorting name of the artist
+        var sortArtist: String = ""
         /// Title of the song
         var title: String = ""
         /// The optional tags
@@ -107,12 +109,12 @@ extension FileBrowserModel {
 
             /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
             let grouped = Dictionary(grouping: songs) { (occurrence: SongItem) -> String in
-                occurrence.artist
+                occurrence.sortArtist
             }
             /// We now map over the dictionary and create our artist objects.
             /// Then we want to sort them so that they are in the correct order.
-            artistList = grouped.map { artist -> ArtistItem in
-                ArtistItem(name: artist.key, songs: artist.value)
+            artistList = grouped.map { sortArtist -> ArtistItem in
+                ArtistItem(name: sortArtist.key, songs: sortArtist.value)
             }
             .sorted { $0.name < $1.name }
             songList = songs.sorted { $0.title < $1.title }
@@ -134,6 +136,10 @@ extension FileBrowserModel {
             for text in data.components(separatedBy: .newlines) where text.starts(with: "{") {
                 parseFileLine(text: text, song: &song)
             }
+            /// Set the sort artist if not defined
+            if song.sortArtist.isEmpty {
+                song.sortArtist = song.artist.removePrefixes()
+            }
         } catch {
             Logger.application.error("\(error.localizedDescription, privacy: .public)")
         }
@@ -152,6 +158,8 @@ extension FileBrowserModel {
                         song.title = label ?? "Unknown Title"
                     case .subtitle, .artist:
                         song.artist = label ?? "Unknown Artist"
+                    case .sortArtist:
+                        song.sortArtist = label ?? "Unknown Title"
                     case .tag:
                         if let label {
                             song.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))

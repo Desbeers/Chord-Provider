@@ -38,11 +38,11 @@ extension PDFBuild {
             let startRect = rect
             /// Define the TOC item with `PDFBuild` elements
             let tocItem = PDFBuild.Section(
-                columns: [.fixed(width: 30), .flexible, .flexible],
+                columns: [.flexible, .flexible, .fixed(width: 30)],
                 items: [
-                    PDFBuild.Text("\(tocInfo.pageNumber)", attributes: .alignment(.right)),
                     PDFBuild.Text("\(tocInfo.title)"),
-                    PDFBuild.Text("\(tocInfo.subtitle)")
+                    PDFBuild.Text("\(tocInfo.subtitle)"),
+                    PDFBuild.Text("\(tocInfo.pageNumber)", attributes: .alignment(.right))
                 ]
             )
             /// Draw the TOC item

@@ -6,7 +6,6 @@ disabled_rules:
   - notification_center_detachment
   - orphaned_doc_comment
   - todo
-  - unused_capture_list
   - nesting
   - void_function_in_ternary
 

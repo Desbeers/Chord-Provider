@@ -52,6 +52,14 @@ extension ChordPro.Directive {
                 help: "This directive defines an artist",
                 environment: .metadata
             )
+        case .sortArtist:
+            Details(
+                label: "Artist",
+                icon: "person",
+                button: "Artist",
+                help: "This directive defines the sorting name of artist",
+                environment: .metadata
+            )
         case .album:
             Details(
                 label: "Album",
