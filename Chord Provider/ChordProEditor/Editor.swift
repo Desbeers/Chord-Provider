@@ -75,4 +75,19 @@ enum Editor {
         formattedDirective.append(directive.format.end)
         return formattedDirective
     }
+    
+    /// Insert text into the editor
+    /// - Parameters:
+    ///   - text: The text to add
+    ///   - editorInternals: The internals of the editor
+    static func insert(
+        text: String,
+        editorInternals: ChordProEditor.Internals
+    ) {
+        Task { @MainActor in
+            if let textView = editorInternals.textView {
+                textView.insertText("\(text)\n", replacementRange: editorInternals.currentLineRange ?? textView.selectedRange())
+            }
+        }
+    }
 }

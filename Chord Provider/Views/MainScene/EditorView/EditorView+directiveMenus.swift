@@ -41,6 +41,9 @@ extension EditorView {
                 content: {
                     directiveSheetButton(directive: .define)
                         .disabled(sceneState.editorInternals.selectedRange.length != 0)
+                    chordDefinitionsButton()
+                        .disabled(sceneState.editorInternals.selectedRange.length != 0)
+                    Divider()
                     directiveButton(directive: .comment)
                 },
                 label: {

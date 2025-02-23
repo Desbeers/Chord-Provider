@@ -10,3 +10,4 @@
 - Improve 'grid' chords highlighting
 - Use custom SVG icons for song details
 - Improve chord validation
+- Add option to insert current chord definitions into the document
