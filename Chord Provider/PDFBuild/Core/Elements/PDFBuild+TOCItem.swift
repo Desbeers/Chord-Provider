@@ -40,8 +40,8 @@ extension PDFBuild {
             let tocItem = PDFBuild.Section(
                 columns: [.flexible, .flexible, .fixed(width: 30)],
                 items: [
-                    PDFBuild.Text("\(tocInfo.title)"),
-                    PDFBuild.Text("\(tocInfo.subtitle)"),
+                    PDFBuild.Text("\(tocInfo.song.metadata.title)"),
+                    PDFBuild.Text("\(tocInfo.song.metadata.artist)"),
                     PDFBuild.Text("\(tocInfo.pageNumber)", attributes: .alignment(.right))
                 ]
             )

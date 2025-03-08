@@ -21,25 +21,25 @@ actor ChordProParser {
     ///   - id: The ID of the song
     ///   - text: The text of the song
     ///   - transpose: The optional transpose of the song in the GUI
-    ///   - settings: The settings for the song
+    ///   - settings: The settings for the application
     ///   - fileURL: The optional file url of the song
     /// - Returns: A ``Song`` item
     static func parse(
         id: UUID,
         text: String,
         transpose: Int,
-        settings: AppSettings.Song,
+        settings: AppSettings,
         fileURL: URL?
     ) async -> Song {
         Logger.parser.info("Parsing **\(fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         /// Start with a fresh song
-        var song = Song(id: id, content: text, settings: settings)
+        var song = Song(id: id, content: text, settings: settings.song)
         song.metadata.fileURL = fileURL
         /// Add the optional transpose
         song.metadata.transpose = transpose
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
-        /// Parse each line of the text:
+        /// Parse each line of the text, stripping newlines at the end
         for text in text.components(separatedBy: .newlines) {
             /// Increase the line number
             song.lines += 1
@@ -87,10 +87,8 @@ actor ChordProParser {
         if song.metadata.key == nil {
             song.metadata.key = song.chords.first
         }
-        /// Set the sort artist name if not set
-        if song.metadata.sortArtist.isEmpty {
-            song.metadata.sortArtist = song.metadata.artist.removePrefixes()
-        }
+        /// Set default metadata if not defined in the song file
+        setDefaults(song: &song)
         /// All done!
         return song
     }
@@ -125,7 +123,7 @@ extension ChordProParser {
             let sections = try decoder.decode([Song.Section].self, from: data)
             dump(sections)
         } catch {
-            print(error)
+            Logger.parser.error("\(error.localizedDescription, privacy: .public)")
         }
     }
 }

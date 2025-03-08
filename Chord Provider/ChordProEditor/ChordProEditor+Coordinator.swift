@@ -116,7 +116,7 @@ extension ChordProEditor {
             self.task?.cancel()
             self.task = Task {
                 do {
-                    try await Task.sleep(for: .seconds(1))
+                    try await Task.sleep(for: .seconds(0.1))
                     parent.text = textView.string
                     /// Remove the task so we allow external updates of the text binding again
                     self.task = nil

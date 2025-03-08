@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 /// SwiftUI `View` for the chords database
 struct ChordsDatabaseView: View {
@@ -111,11 +112,11 @@ struct ChordsDatabaseView: View {
             contentTypes: [.json],
             defaultFilename: "ChordPro \(sceneState.settings.song.display.instrument) chords"
         ) { result in
-            if case .success = result {
-                print("Success")
-                window?.isDocumentEdited = false
-            } else {
-                print("Failure")
+            switch result {
+            case .success(let url):
+                Logger.fileAccess.info("Database exported to \(url, privacy: .public)")
+            case .failure(let error):
+                Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
             }
         }
         .navigationSubtitle(sceneState.settings.song.display.instrument.description)

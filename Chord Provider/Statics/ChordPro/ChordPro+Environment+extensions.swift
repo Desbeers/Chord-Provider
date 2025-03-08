@@ -31,3 +31,50 @@ extension ChordPro.Environment {
         }
     }
 }
+
+extension ChordPro.Environment {
+
+    /// The default label for the environment
+    var label: String {
+        switch self {
+        case .chorus:
+            "Chorus"
+        case .repeatChorus:
+            ""
+        case .verse:
+            "Verse"
+        case .bridge:
+            "Bridge"
+        case .comment:
+            ""
+        case .tab:
+            ""
+        case .grid:
+            ""
+        case .abc:
+            "ABC"
+        case .textblock:
+            ""
+        case .strum:
+            ""
+        case .metadata:
+            "Metadata"
+        case .image:
+            "Image"
+        case .none:
+            "None"
+        }
+    }
+}
+
+extension ChordPro.Environment {
+
+    /// Unsupported environments for the output
+    static var unsupported: [ChordPro.Environment] {
+        [
+            .metadata,
+            .abc,
+            .none
+        ]
+    }
+}

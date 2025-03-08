@@ -34,14 +34,16 @@ extension WelcomeView {
                     Text("You have no recent songs")
                 }
             }
-            if let song = fileBrowser.songList.randomElement() {
+            if let song = fileBrowser.songs.randomElement() {
                 Divider()
                 Button {
                     Task {
-                        await openSong(url: song.fileURL)
+                        if let url = song.metadata.fileURL {
+                            await openSong(url: url)
+                        }
                     }
                 } label: {
-                    Label(song.title, systemImage: "shuffle")
+                    Label(song.metadata.title, systemImage: "shuffle")
                 }
                 .help("A random song from your library")
                 .padding(.bottom, 6)

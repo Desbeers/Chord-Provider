@@ -32,10 +32,16 @@ extension ChordProParser {
 
         case .title:
             song.metadata.title = label ?? song.metadata.title
+        case .sortTitle:
+            song.metadata.sortTitle = label ?? song.metadata.sortTitle
         case .subtitle:
             song.metadata.subtitle = label
         case .artist:
             song.metadata.artist = label ?? song.metadata.artist
+        case .composer:
+            if let label {
+                song.metadata.composers.append(label)
+            }
         case .capo:
             song.metadata.capo = label
         case .time:
@@ -57,6 +63,8 @@ extension ChordProParser {
 
             // MARK: Unofficial Meta-data directives
 
+        case .sortArtist:
+            song.metadata.sortArtist = label ?? song.metadata.sortArtist
         case .tag:
             if let label {
                 song.metadata.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))

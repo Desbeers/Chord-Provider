@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 extension ChordsDatabaseView {
 
@@ -24,7 +25,7 @@ extension ChordsDatabaseView {
                         )
                         chordsDatabaseState.showExportSheet.toggle()
                     } catch {
-                        print(error)
+                        Logger.application.error("\(error.localizedDescription, privacy: .public)")
                     }
                 } label: {
                     Text("Export all \(sceneState.settings.song.display.instrument) chords")
@@ -43,7 +44,7 @@ extension ChordsDatabaseView {
                             )
                             chordsDatabaseState.showExportSheet.toggle()
                         } catch {
-                            print(error)
+                            Logger.application.error("\(error.localizedDescription, privacy: .public)")
                         }
                     } label: {
                         Text(.init("Export \(sceneState.settings.song.display.instrument) chords to **ChordPro** format"))

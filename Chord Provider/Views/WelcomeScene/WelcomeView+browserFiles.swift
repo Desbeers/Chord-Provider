@@ -58,7 +58,7 @@ extension WelcomeView {
                             }
                         } else {
                             ForEach(
-                                fileBrowser.songList.filter { $0.search.localizedCaseInsensitiveContains(fileBrowser.search) }
+                                fileBrowser.songs.filter { $0.search.localizedCaseInsensitiveContains(fileBrowser.search) }
                             ) { song in
                                 songRow(song: song, showArtist: true)
                             }
@@ -81,7 +81,7 @@ extension WelcomeView {
                                         Text("Songs with '\(tag)' tag").font(.headline)
                                     }
                             ) {
-                                ForEach(fileBrowser.songList.filter { $0.tags.contains(tag) }) { song in
+                                ForEach(fileBrowser.songs.filter { $0.metadata.tags.contains(tag) }) { song in
                                     songRow(song: song, showArtist: true)
                                 }
                             }
@@ -89,33 +89,39 @@ extension WelcomeView {
                     }
                 }
             default:
-                // swiftlint:disable:next force_unwrapping
-                Image(nsImage: NSImage(named: "AppIcon")!)
-                    .resizable()
-                    .scaledToFit()
+                ZStack {
+                    // swiftlint:disable:next force_unwrapping
+                    Image(nsImage: NSImage(named: "AppIcon")!)
+                        .resizable()
+                        .scaledToFit()
+                    ProgressView()
+                }
             }
         }
         .scrollContentBackground(.hidden)
         .animation(.default, value: fileBrowser.status)
         /// It must be 'sidebar' or else the search field will not be added
         .listStyle(.sidebar)
-        .task(id: fileBrowser.songList) {
-            fileBrowser.getFiles()
-            let tags = fileBrowser.songList.flatMap(\.tags)
+        .task(id: fileBrowser.songs) {
+            if fileBrowser.songs.isEmpty {
+                fileBrowser.getFiles()
+                appState.lastUpdate = .now
+            }
+            let tags = fileBrowser.songs.flatMap(\.metadata.tags)
             /// Make sure the tags are unique
             fileBrowser.allTags = Array(Set(tags).sorted())
         }
         .onChange(of: fileBrowser.songsFolder) {
-            fileBrowser.songList = []
+            fileBrowser.songs = []
             fileBrowser.getFiles()
-            let tags = fileBrowser.songList.flatMap(\.tags)
+            let tags = fileBrowser.songs.flatMap(\.metadata.tags)
             /// Make sure the tags are unique
             fileBrowser.allTags = Array(Set(tags).sorted())
         }
     }
     /// Artists list `View`
     var artistsList: some View {
-        ForEach(fileBrowser.artistList) { artist in
+        ForEach(fileBrowser.artists) { artist in
             Section(header: Text(artist.name).font(.headline)) {
                 ForEach(artist.songs) { song in
                     songRow(song: song)
@@ -126,7 +132,7 @@ extension WelcomeView {
     /// Songs list `View`
     var songsList: some View {
         Section(header: Text("All Songs").font(.headline)) {
-            ForEach(fileBrowser.songList) { song in
+            ForEach(fileBrowser.songs) { song in
                 songRow(song: song, showArtist: true)
             }
         }
@@ -155,11 +161,13 @@ extension WelcomeView {
     ///   - song: The song
     ///   - showArtist: Bool if the artist should be shown in the row view
     /// - Returns: A `View` for the song
-    func songRow(song: FileBrowserModel.SongItem, showArtist: Bool = false) -> some View {
+    func songRow(song: Song, showArtist: Bool = false) -> some View {
         Button(
             action: {
                 Task {
-                    await openSong(url: song.fileURL)
+                    if let url = song.metadata.fileURL {
+                        await openSong(url: url)
+                    }
                 }
             },
             label: {
@@ -167,14 +175,14 @@ extension WelcomeView {
                     title: {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text(song.title)
+                                Text(song.metadata.title)
                                     .foregroundStyle(.primary)
                                 if showArtist {
-                                    Text(song.artist)
+                                    Text(song.metadata.artist)
                                         .foregroundStyle(.secondary)
                                 }
-                                if !song.tags.isEmpty {
-                                    Text(song.tags.joined(separator: "∙"))
+                                if !song.metadata.tags.isEmpty {
+                                    Text(song.metadata.tags.joined(separator: "∙"))
                                         .foregroundStyle(.tertiary)
                                 }
                             }
@@ -191,7 +199,11 @@ extension WelcomeView {
         .contextMenu {
             Button(
                 action: {
-                    song.fileURL.openInFinder()
+                    Task {
+                        if let url = song.metadata.fileURL {
+                            await openSong(url: url)
+                        }
+                    }
                 },
                 label: {
                     Text("Open song in Finder")

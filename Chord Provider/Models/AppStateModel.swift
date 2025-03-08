@@ -15,8 +15,8 @@ import SwiftUI
     var song: Song?
     /// Last time the app state was updated
     var lastUpdate: Date = .now
-    /// The ID of the app state
-    var id: AppStateID
+    /// The ID of the app window
+    var id: AppSettings.AppWindowID
     /// The application settings
     var settings: AppSettings {
         didSet {
@@ -27,9 +27,9 @@ import SwiftUI
     var media = MediaPlayerView.Item()
 
     /// Init the class; get application settings
-    init(id: AppStateID) {
+    init(id: AppSettings.AppWindowID) {
         self.id = id
-        /// Get the application settings from the cache
+        /// Get the application window settings from the cache
         let settings = AppSettings.load(id: id)
         self.settings = settings
     }
@@ -49,19 +49,5 @@ extension AppStateModel {
         }
         /// Return the basic settings
         return arguments
-    }
-}
-
-extension AppStateModel {
-
-    /// The ID of the app state
-    /// - Note: Used to load and save the settings in the cache
-    enum AppStateID: String {
-        /// ``MainView`` settings
-        case mainView = "Main Settings"
-        /// ``exportFolderView`` settings
-        case exportFolderView = "Export Settings"
-        /// ``ChordsDatabaseView`` settings
-        case chordsDatabaseView = "Database Settings"
     }
 }

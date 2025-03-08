@@ -21,11 +21,14 @@ extension PDFBuild.LyricsSection.Line {
         /// - Note: Used by the `Line` element to define the rectangle
         let size: CGSize
 
+        let chords: [ChordDefinition]
+
         /// Init the **part** element
         /// - Parameters:
         ///   - part: The part of the lyrics line
         ///   - chords: All the chords of the song
         init(part: Song.Section.Line.Part, chords: [ChordDefinition]) {
+            self.chords = chords
             if chords.isEmpty {
                 self.text.append(
                     NSAttributedString(

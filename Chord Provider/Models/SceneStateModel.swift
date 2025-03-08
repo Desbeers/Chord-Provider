@@ -64,8 +64,9 @@ import OSLog
         case false:
             /// Default renderer
             do {
+                let appSettings = AppSettings.load(id: .mainView)
                 let export = try await SongExport.export(
-                    song: song
+                    song: song, appSettings: appSettings
                 )
                 try export.pdf.write(to: exportURL)
                 return export.pdf
@@ -142,7 +143,7 @@ import OSLog
     // MARK: Init
 
     /// Init the class
-    init(id: AppStateModel.AppStateID) {
+    init(id: AppSettings.AppWindowID = .mainView) {
         settings = AppSettings.load(id: id)
         // swiftlint:disable:next force_unwrapping
         self.definition = ChordDefinition(name: "C", instrument: .guitar)!

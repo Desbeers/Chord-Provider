@@ -13,7 +13,7 @@ struct MainView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
     /// The state of the scene
-    @State private var sceneState = SceneStateModel(id: .mainView)
+    @State private var sceneState = SceneStateModel()
     /// The observable ``FileBrowser`` class
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The ChordPro document
@@ -128,7 +128,7 @@ struct MainView: View {
             id: sceneState.song.id,
             text: document.text,
             transpose: sceneState.song.metadata.transpose,
-            settings: sceneState.settings.song,
+            settings: sceneState.settings,
             fileURL: file
         )
         sceneState.getMedia()
@@ -136,10 +136,10 @@ struct MainView: View {
 
         /// Pass the parsed song to the appState
         appState.song = sceneState.song
-        if let index = fileBrowser.songList.firstIndex(where: { $0.fileURL == file }) {
-            fileBrowser.songList[index].title = sceneState.song.metadata.title
-            fileBrowser.songList[index].artist = sceneState.song.metadata.artist
-            fileBrowser.songList[index].tags = sceneState.song.metadata.tags
+        if let index = fileBrowser.songs.firstIndex(where: { $0.metadata.fileURL == file }) {
+            fileBrowser.songs[index].metadata.title = sceneState.song.metadata.title
+            fileBrowser.songs[index].metadata.artist = sceneState.song.metadata.artist
+            fileBrowser.songs[index].metadata.tags = sceneState.song.metadata.tags
         }
     }
 }

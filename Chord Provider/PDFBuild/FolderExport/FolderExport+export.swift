@@ -64,20 +64,22 @@ extension FolderExport {
     ) async throws -> Data? {
 
         // MARK: Get the song files
-        let files = try await files()
-
+        var files = try await files()
+        /// Sort the songs
+        switch appSettings.application.songListSort {
+        case .song:
+            files.sort(using: KeyPathComparator(\.metadata.sortTitle))
+        case .artist:
+            files.sort(using: KeyPathComparator(\.metadata.sortArtist))
+        }
         /// Build the TOC to see how many pages we need
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.right))
         counter.tocItems = files.map { file in
             PDFBuild.TOCInfo(
-                id: UUID(),
-                title: file.title,
-                subtitle: file.artist,
-                sortSubtitle: file.sortArtist,
-                fileURL: file.fileURL
+                song: file
             )
         }
-        var tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter)
+        var tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter, appSettings: appSettings)
         let tocPageCount = PDFDocument(data: tocData)?.pageCount ?? 0
         /// Remove one page from the counter
         counter.pageNumber -= 1
@@ -91,7 +93,7 @@ extension FolderExport {
         )
 
         // MARK: Render Table of Contents
-        tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter)
+        tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter, appSettings: appSettings)
 
         // MARK: Convert to PDFDocument
         guard
@@ -114,7 +116,7 @@ extension FolderExport {
         newPDF.outlineRoot?.insertChild(songs, at: 1)
         /// Songs by artist
         var entryCounter: Int = 0
-        for song in toc.sorted(using: KeyPathComparator(\.subtitle)) {
+        for song in toc.sorted(using: KeyPathComparator(\.song.metadata.sortArtist)) {
             let page = song.pageNumber - tocPageCount
             guard let pdfPage = newPDF.page(at: page) else {
                 throw AppError.createPdfError
@@ -125,13 +127,13 @@ extension FolderExport {
 
             let artistEntry = PDFOutline()
             artistEntry.destination = newDest
-            artistEntry.label = "\(song.subtitle) - \(song.title)"
+            artistEntry.label = "\(song.song.metadata.artist) - \(song.song.metadata.title)"
             artists.insertChild(artistEntry, at: entryCounter)
             entryCounter += 1
         }
         /// Songs by title
         entryCounter = 0
-        for song in toc.sorted(using: KeyPathComparator(\.title)) {
+        for song in toc.sorted(using: KeyPathComparator(\.song.metadata.sortTitle)) {
             let page = song.pageNumber - tocPageCount
             guard let pdfPage = newPDF.page(at: page) else {
                 throw AppError.createPdfError
@@ -142,7 +144,7 @@ extension FolderExport {
             let newDest = PDFDestination(page: pdfPage, at: topLeft)
             let songEntry = PDFOutline()
             songEntry.destination = newDest
-            songEntry.label = "\(song.title) - \(song.subtitle)"
+            songEntry.label = "\(song.song.metadata.title) - \(song.song.metadata.artist)"
             songs.insertChild(songEntry, at: entryCounter)
             entryCounter += 1
         }

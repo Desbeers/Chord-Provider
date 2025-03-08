@@ -24,6 +24,6 @@ extension ChordProEditor {
         /// The currently selected range
         var selectedRange = NSRange()
         /// The ``textView``
-        var textView: TextView?
+        weak var textView: TextView?
     }
 }

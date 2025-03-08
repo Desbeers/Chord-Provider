@@ -27,51 +27,32 @@ extension FolderExport {
         let builder = PDFBuild.Builder(documentInfo: documentInfo)
         builder.pageCounter = counter
         // MARK: Render PDF content
-        if let exportFolder = UserFile.exportFolder.getBookmarkURL {
-            /// Get access to the URL
-            _ = exportFolder.startAccessingSecurityScopedResource()
-            for item in counter
-                .tocItems
-                .sorted(using: KeyPathComparator(\.title))
-                .sorted(using: KeyPathComparator(\.subtitle)) {
-                if let file = item.fileURL, let fileContents = try? String(contentsOf: file, encoding: .utf8) {
-                    builder.elements.append(
-                        PDFBuild.PageHeaderFooter(
-                            header: [],
-                            footer: [
-                                PDFBuild.Section(
-                                    columns: [.flexible, .flexible],
-                                    items: [
-                                        PDFBuild.Text(
-                                            "\(item.subtitle)∙\(item.title)",
-                                            attributes: .footer + .alignment(.left)
-                                        ),
-                                        counter
-                                    ]
-                                )
+        for item in counter.tocItems {
+            builder.elements.append(
+                PDFBuild.PageHeaderFooter(
+                    header: [],
+                    footer: [
+                        PDFBuild.Section(
+                            columns: [.flexible, .flexible],
+                            items: [
+                                PDFBuild.Text(
+                                    "\(item.song.metadata.artist)∙\(item.song.metadata.title)",
+                                    attributes: .footer + .alignment(.left)
+                                ),
+                                counter
                             ]
                         )
-                    )
-                    builder.elements.append(PDFBuild.PageBreak())
-                    let song = await ChordProParser.parse(
-                        id: item.id,
-                        text: fileContents,
-                        transpose: 0,
-                        settings: appSettings.song,
-                        fileURL: item.fileURL
-                    )
-                    await builder.elements.append(
-                        contentsOf: SongExport.getSongElements(
-                            song: song,
-                            counter: counter
-                        )
-                    )
-                } else {
-                    Logger.application.error("No Access to \(item.title, privacy: .public)")
-                }
-            }
-            /// Close access to the URL
-            exportFolder.stopAccessingSecurityScopedResource()
+                    ]
+                )
+            )
+            builder.elements.append(PDFBuild.PageBreak())
+            await builder.elements.append(
+                contentsOf: SongExport.getSongElements(
+                    song: item.song,
+                    counter: counter,
+                    appSettings: appSettings
+                )
+            )
         }
         /// Generate the PDF
         let content = builder.generatePdf { page in progress(page) }

@@ -39,6 +39,8 @@ struct ExportFolderView: View {
                         currentFolder = ExportFolderView.exportFolderTitle
                     }
                 }
+                appState.songSortPicker
+                    .pickerStyle(.segmented)
                 appState.repeatWholeChorusToggle
                 appState.lyricsOnlyToggle
                 sceneState.instrumentPicker
@@ -63,8 +65,8 @@ struct ExportFolderView: View {
                 action: {
                     Task {
                         do {
-                            /// Bring the sceneSate settings to the appState
-                            appState.settings.song = sceneState.settings.song
+                            /// Bring the sceneState instrument to the appState
+                            appState.settings.song.display.instrument = sceneState.settings.song.display.instrument
                             progress = 0
                             exporting = true
                             for try await status in FolderExport.export(

@@ -71,10 +71,14 @@ extension ChordPro {
 
         /// This directive defines the title of the song
         case title = "title|t"
+        /// This directive defines the sorting title of the song
+        case sortTitle = "sorttitle"
         /// This directive defines a subtitle of the song
         case subtitle = "subtitle|st"
         /// This directive defines an artist
         case artist
+        /// This directive defines a composer. Multiple composers can be specified using multiple directives
+        case composer
         /// This directive defines an album this song occurs on
         case album
         /// The year this song was first published, as a four-digit number

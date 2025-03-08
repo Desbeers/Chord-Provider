@@ -13,13 +13,15 @@ extension FolderExport {
     /// - Parameters:
     ///   - documentInfo: The document info for the PDF
     ///   - counter: The `page counter` class
+    ///   - appSettings: The application settings
     /// - Returns: The Table of Contents as `Data`
     static func toc(
         documentInfo: PDFBuild.DocumentInfo,
-        counter: PDFBuild.PageCounter
+        counter: PDFBuild.PageCounter,
+        appSettings: AppSettings
     ) -> Data {
-
-        var artist: String = ""
+        /// Divide sections by artist of first letter of title
+        var divider: String = ""
 
         let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo)
         tocBuilder.pageCounter = counter
@@ -29,17 +31,20 @@ extension FolderExport {
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
         tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle))
-        for tocInfo in counter
-            .tocItems
-            .sorted(using: KeyPathComparator(\.title))
-            .sorted(using: KeyPathComparator(\.sortSubtitle)) {
-
-            if artist != tocInfo.subtitle {
-                print(tocInfo.subtitle)
+        for tocInfo in counter.tocItems {
+            /// Add a divider between all artists when the songs are sorted by artist
+            if appSettings.application.songListSort == .artist, divider != tocInfo.song.metadata.artist {
                 /// Add a divider
                 tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(10))
                 /// Remember the artist
-                artist = tocInfo.subtitle
+                divider = tocInfo.song.metadata.artist
+            }
+            /// Add a divider between all first letter of titles when the songs are sorted by song title
+            if appSettings.application.songListSort == .song, divider != tocInfo.song.metadata.sortTitle.prefix(1).lowercased() {
+                /// Add a divider
+                tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(10))
+                /// Remember the first letter
+                divider = String(tocInfo.song.metadata.sortTitle.prefix(1).lowercased())
             }
 
             tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter))

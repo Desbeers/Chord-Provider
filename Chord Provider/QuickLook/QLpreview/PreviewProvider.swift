@@ -17,11 +17,12 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
             id: UUID(),
             text: fileContents,
             transpose: 0,
-            settings: AppSettings.Song(),
+            settings: AppSettings(),
             fileURL: request.fileURL
         )
         let songData = try await SongExport.export(
-            song: song
+            song: song,
+            appSettings: AppSettings()
         ).pdf
 
         let reply = QLPreviewReply.init(
@@ -43,8 +44,18 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
 struct AppSettings {
     /// Simple substitute for the real AppSettings
-    var diagram = DiagramDisplayOptions()
-    var song = SongDisplayOptions()
+    var application = Application()
+    var song = Song()
+}
+
+extension AppSettings {
+
+    /// Load the application settings
+    /// - Parameter id: The ID of the settings
+    /// - Returns: The default ``AppSettings``
+    static func load(id: AppSettings.AppWindowID) -> AppSettings {
+        AppSettings()
+    }
 }
 
 extension SongExport {

@@ -37,8 +37,12 @@ extension ChordsDatabaseView {
                             .padding(4)
                     }
                     Button {
-                        if var definition = chordsDatabaseState.chords.first {
-                            definition.status = .addDefinition
+                        if let definition = try? ChordDefinition(
+                            // swiftlint:disable:next line_length
+                            definition: "\(sceneState.definition.root.rawValue)\(sceneState.definition.quality.rawValue) base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0",
+                            instrument: .guitar,
+                            status: .addDefinition
+                        ) {
                             sceneState.definition = definition
                             chordsDatabaseState.navigationStack.append(definition)
                         }

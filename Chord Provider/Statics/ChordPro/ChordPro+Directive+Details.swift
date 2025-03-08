@@ -36,6 +36,14 @@ extension ChordPro.Directive {
                 help: "This directive defines the title of the song",
                 environment: .metadata
             )
+        case .sortTitle:
+            Details(
+                label: "Sorting Title",
+                icon: "music.note",
+                button: "Sorting Title",
+                help: "This directive defines the sorting title of the song",
+                environment: .metadata
+            )
         case .subtitle:
             Details(
                 label: "Subtitle",
@@ -50,6 +58,14 @@ extension ChordPro.Directive {
                 icon: "person",
                 button: "Artist",
                 help: "This directive defines an artist",
+                environment: .metadata
+            )
+        case .composer:
+            Details(
+                label: "Composer",
+                icon: "pencil.line",
+                button: "Composer",
+                help: "This directive defines a composer",
                 environment: .metadata
             )
         case .sortArtist:

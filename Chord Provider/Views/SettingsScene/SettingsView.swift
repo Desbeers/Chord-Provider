@@ -15,6 +15,8 @@ struct SettingsView: View {
     @Environment(AppStateModel.self) var appState
     /// Bool if **ChordPro CLI** is available
     @State var haveChordProCLI: Bool = false
+    /// Sort tokens
+    @State private var sortTokens: String = ""
     /// The body of the `View`
     var body: some View {
         TabView {
@@ -206,9 +208,22 @@ struct SettingsView: View {
     }
 
     /// `View` with folder selector
-    var folder: some View {
+    @ViewBuilder var folder: some View {
         VStack {
             ScrollView {
+                VStack {
+                    TextField("List of articles to ignore", text: $sortTokens, prompt: Text("the,a,de,een"))
+                    Text("Comma separated list of articles to ignore when sorting songs and artists. Case insensitive.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .wrapSettingsSection(title: "Sort songs and artists")
+                .task {
+                    sortTokens = appState.settings.application.sortTokens.joined(separator: ",")
+                }
+                .onChange(of: sortTokens) {
+                    appState.settings.application.sortTokens = sortTokens.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+                }
                 VStack {
                     Text(.init(Help.fileBrowser))
                         .padding()

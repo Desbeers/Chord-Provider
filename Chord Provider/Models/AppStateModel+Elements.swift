@@ -43,7 +43,7 @@ extension AppStateModel {
     }
     /// SwiftUI `View` with a `Toggle` to show the whole last chorus when using a *{chorus}* directive
     private struct RepeatWholeChorusToggle: View {
-        /// Chord Display Options object
+        /// AppStateModel object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
@@ -62,7 +62,7 @@ extension AppStateModel {
     }
     /// SwiftUI `View` with a `Toggle` to show only the lyrics
     private struct LyricsOnlyToggle: View {
-        /// Chord Display Options object
+        /// AppStateModel object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
@@ -99,7 +99,7 @@ extension AppStateModel {
     }
     /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram
     private struct FingersToggle: View {
-        /// Chord Display Options object
+        /// AppStateModel object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
@@ -127,7 +127,7 @@ extension AppStateModel {
     }
     /// SwiftUI `View` with a `Toggle` to show or hide the notes on the diagram
     private struct NotesToggle: View {
-        /// Chord Display Options object
+        /// AppStateModel object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
@@ -149,7 +149,7 @@ extension AppStateModel {
     }
     /// SwiftUI `View` with a `Toggle`  to mirror the diagram
     private struct MirrorToggle: View {
-        /// Chord Display Options object
+        /// AppStateModel object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
@@ -171,7 +171,7 @@ extension AppStateModel {
     }
     /// SwiftUI `View` with a `Toggle`  to show or hide the play button
     private struct PlayToggle: View {
-        /// Chord Display Options object
+        /// AppStateModel object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
@@ -198,7 +198,7 @@ extension AppStateModel {
     }
     /// SwiftUI `Picker` to select a MIDI ``Midi/Instrument`` value
     private struct MidiInstrumentPicker: View {
-        /// Chord Display Options object
+        /// AppStateModel object
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
@@ -213,6 +213,27 @@ extension AppStateModel {
                 .frame(maxWidth: 180)
                 .labelsHidden()
                 .disabled(!appState.settings.song.diagram.showPlayButton)
+            }
+        }
+    }
+
+    // MARK: Song Sort Picker
+
+    /// SwiftUI `Picker` to sort songs
+    var songSortPicker: some View {
+        SongSortPicker(appState: self)
+    }
+    /// SwiftUI `Picker` to sort songs
+    private struct SongSortPicker: View {
+        /// AppStateModel object
+        @Bindable var appState: AppStateModel
+        /// The body of the `View`
+        var body: some View {
+            Picker("Sorting of Songs", selection: $appState.settings.application.songListSort) {
+                ForEach(SongListSort.allCases) { value in
+                    Text(value.rawValue)
+                        .tag(value)
+                }
             }
         }
     }

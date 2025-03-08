@@ -45,8 +45,6 @@ struct PreviewPDFButton: View {
             sceneState.preview.outdated = false
             /// Show the preview
             sceneState.preview.data = pdf
-            /// Update the log
-            appState.lastUpdate = .now
         } catch {
             sceneState.errorAlert = AlertMessage(
                 error: error,
@@ -56,6 +54,8 @@ struct PreviewPDFButton: View {
                 openWindow(id: AppDelegate.WindowID.debugView.rawValue)
             }
         }
+        /// Update the log
+        appState.lastUpdate = .now
     }
 }
 

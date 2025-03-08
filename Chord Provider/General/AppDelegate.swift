@@ -26,7 +26,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         /// The ``MediaPlayerView
         case mediaPlayerView = "Chord Provider Media"
         /// The ``ExportFolderView``
-        case exportFolderView = "Export Songs"
+        case exportFolderView = "Export Songs Folder to PDF"
         /// The ``ChordsDatabaseView``
         case chordsDatabaseView = "Chords Database"
         /// The ``DebugView``

@@ -78,6 +78,7 @@ extension ChordPro.Directive {
             .title,
             .subtitle,
             .artist,
+            .composer,
             .album,
             .year,
             .key,

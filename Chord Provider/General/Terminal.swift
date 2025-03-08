@@ -62,7 +62,7 @@ extension Terminal {
         do {
             try task.run()
         } catch {
-            print(error.localizedDescription)
+            Logger.chordpro.error("\(error.localizedDescription, privacy: .public)")
         }
         /// Return the stream
         return AsyncStream { continuation in

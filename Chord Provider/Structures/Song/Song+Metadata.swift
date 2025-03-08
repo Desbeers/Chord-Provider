@@ -18,10 +18,14 @@ extension Song {
 
         /// The title
         var title: String = "No title"
+        /// Sorting name of the title
+        var sortTitle: String = ""
         /// The artist
         var artist: String = "Unknown Artist"
         /// Sorting name of the artist
         var sortArtist: String = ""
+        /// The composers
+        var composers: [String] = []
         /// The optional subtitle
         var subtitle: String?
         /// The optional capo

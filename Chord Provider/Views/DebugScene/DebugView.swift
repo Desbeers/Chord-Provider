@@ -69,7 +69,7 @@ struct DebugView: View {
                         .compactMap { $0 as? OSLogEntryLog }
                         .filter { $0.subsystem == Bundle.main.bundleIdentifier ?? "" }
                         .map { line in
-                            return LogMessage(
+                            LogMessage(
                                 time: line.date,
                                 type: line.level,
                                 category: line.category,
@@ -81,9 +81,12 @@ struct DebugView: View {
                     return [LogMessage()]
                 }
             }
+            /// Only get new messages, I can't get just recent logs based on time on macOS
+            let newMessages = await osLog.value.filter { $0.time > lastFetchedLogDate }.map { line in
+                parseLine(line)
+            }
 
-            let newMessages = await osLog.value
-            osLogMessages.append(contentsOf: newMessages.filter { $0.time > lastFetchedLogDate })
+            osLogMessages.append(contentsOf: newMessages)
             lastFetchedLogDate = .now
         }
         .task(id: tab) {
@@ -140,9 +143,9 @@ struct DebugView: View {
         VStack {
             ScrollView {
                 ScrollViewReader { value in
-                    VStack(spacing: 0) {
+                    LazyVStack(spacing: 0) {
+                        /// - Note: This *must* be a LazyVStack or else memory usage will go nuts
                         ForEach(osLogMessages) { log in
-                            let line = parseLine(log)
                             VStack(alignment: .leading, spacing: 0) {
                                 Divider()
                                 HStack(alignment: .top, spacing: 0) {
@@ -153,10 +156,10 @@ struct DebugView: View {
                                     Text(": ")
                                     Text(log.category)
                                     Text(": ")
-                                    if let lineNumber = line.lineNumber {
+                                    if let lineNumber = log.lineNumber {
                                         Text("**Line \(lineNumber)**: ")
                                     }
-                                    Text(.init(line.message))
+                                    Text(.init(log.message))
                                 }
                                 .padding(8)
                             }

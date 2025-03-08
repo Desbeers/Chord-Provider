@@ -11,4 +11,8 @@
 - Use custom SVG icons for song details
 - Improve chord validation
 - Add option to insert current chord definitions into the document
-- Improve songbook export
+- Add GUI option to add articles to ignore when sorting songs
+- Improve songbook export, add option to sort the songs by title or artist
+- Fix bizarre memory usage because of viewing log entries in the debug view
+- Improve chord database editor
+- Add support for 'composer' directive

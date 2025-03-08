@@ -8,7 +8,7 @@
 import Foundation
 
 /// The structure of a song as shown in **Chord Provider**
-struct Song: Equatable, Codable {
+struct Song: Equatable, Codable, Identifiable {
 
     /// The ID of the song
     var id: UUID
@@ -44,4 +44,10 @@ struct Song: Equatable, Codable {
 
     /// The chords of the song
     var chords: [ChordDefinition] = []
+
+
+    /// Search
+    var search: String {
+        "\(metadata.title) \(metadata.artist)"
+    }
 }

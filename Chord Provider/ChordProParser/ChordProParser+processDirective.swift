@@ -34,12 +34,13 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if text.contains(/:(?!\/)/) {
-            currentSection.addWarning("No need for a colon **:** in a directive")
-        }
         if let match = text.firstMatch(of: RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
+
+            if text.starts(with: "{\(parsedDirective):") {
+                currentSection.addWarning("No need for a colon **:** in a directive")
+            }
 
             let arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
 

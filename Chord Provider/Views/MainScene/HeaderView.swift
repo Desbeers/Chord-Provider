@@ -59,6 +59,9 @@ extension HeaderView {
             if let year = song.metadata.year {
                 meta.append(year)
             }
+            if !song.metadata.composers.isEmpty {
+                meta.append("\(song.metadata.composers.joined(separator: "/"))")
+            }
             return meta
         }
         /// The body of the `View`

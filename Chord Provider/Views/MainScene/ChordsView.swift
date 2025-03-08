@@ -115,7 +115,7 @@ extension ChordsView {
                                     if let range = document.text.range(of: selectedChord.define) {
                                         document.text = document.text.replacingCharacters(in: range, with: chord.define)
                                     } else {
-                                        document.text += "\n\n{define: \(chord.define)}"
+                                        document.text += "\n\n{define \(chord.define)}"
                                     }
                                 }
                                 self.defineChord = nil

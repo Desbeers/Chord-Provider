@@ -306,7 +306,7 @@ extension RenderView {
                                             )
                                         } else {
                                             Text(part.text)
-                                                .foregroundStyle(part.text == "|" ? Color.primary : Color.red)
+                                                .foregroundStyle(part.text == "|" || part.text == "." ? Color.primary : Color.red)
                                         }
                                     }
                                 }

@@ -11,13 +11,11 @@ extension PDFBuild {
     /// Information about an item for the Table of Contents
     struct TOCInfo {
         /// The ID of the TOC item
-        let id: UUID
-        /// The title of the TOC item
-        var title: String
-        /// The subtitle of the TOC item (artist)
-        var subtitle: String
-        /// The sorting of the subtitle
-        var sortSubtitle: String
+        var id: UUID {
+            song.id
+        }
+        /// The song
+        let song: Song
         /// The page number in the PDF
         var pageNumber: Int = 0
         /// The TOC page number
@@ -25,7 +23,5 @@ extension PDFBuild {
         /// The rectangle of TOC entry
         /// - Note: Used to make internal links
         var rect: CGRect = .zero
-        /// The URL of the item
-        var fileURL: URL?
     }
 }

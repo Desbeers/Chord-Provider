@@ -21,7 +21,8 @@ extension SongExport {
     /// - Parameter song: The ``Song`` to export
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
-        song: Song
+        song: Song,
+        appSettings: AppSettings
     ) async throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         Logger.pdfBuild.info("Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         let documentInfo = PDFBuild.DocumentInfo(
@@ -45,7 +46,8 @@ extension SongExport {
         await builder.elements.append(
             contentsOf: getSongElements(
                 song: song,
-                counter: counter
+                counter: counter,
+                appSettings: appSettings
             )
         )
 
@@ -65,18 +67,16 @@ extension SongExport {
     /// - Parameters:
     ///   - song: The ``Song``
     ///   - counter: The ``PDFBuild/PageCounter`` class
+    ///   - appSettings: The application settings
     /// - Returns: All the PDF elements in an array
     // swiftlint:disable:next function_body_length
     static func getSongElements(
         song: Song,
-        counter: PDFBuild.PageCounter
+        counter: PDFBuild.PageCounter,
+        appSettings: AppSettings
     ) async -> [PDFElement] {
         let tocInfo = PDFBuild.TOCInfo(
-            id: song.id,
-            title: song.metadata.title,
-            subtitle: song.metadata.artist,
-            sortSubtitle: song.metadata.sortArtist,
-            fileURL: song.metadata.fileURL
+            song: song
         )
         var subtitle: [String] = [song.metadata.artist]
         if let album = song.metadata.album {
@@ -92,7 +92,7 @@ extension SongExport {
         items.append(PDFBuild.Spacer(10))
         items.append(PDFBuild.SongDetails(song: song))
         items.append(PDFBuild.Spacer(10))
-        if !song.chords.isEmpty {
+        if !appSettings.song.display.lyricsOnly, !song.chords.isEmpty {
             items.append(PDFBuild.Chords(chords: song.chords, options: song.settings.diagram))
         }
         items.append(PDFBuild.Spacer(10))
@@ -108,11 +108,11 @@ extension SongExport {
                 attributes: .sectionLabel
             )
             let textBounds = text.boundingRect(with: PDFBuild.a4portraitPage.size, options: .usesLineFragmentOrigin)
-            labelWidth = textBounds.width + 8
+            labelWidth = textBounds.width + 14
         }
 
         /// Add all the sections, except metadata stuff
-        for section in song.sections where section.environment != .metadata {
+        for section in song.sections where !ChordPro.Environment.unsupported.contains(section.environment) {
             switch section.environment {
             case .chorus:
                 items.append(lyricsSection(section: section))
@@ -134,10 +134,7 @@ extension SongExport {
                 items.append(strumSection(section: section))
             case .image:
                 await items.append(imageSection(section: section, fileURL: song.metadata.fileURL))
-            case .abc:
-                /// Not supported
-                break
-            case .metadata, .none:
+            default:
                 break
             }
             items.append(PDFBuild.Spacer(10))

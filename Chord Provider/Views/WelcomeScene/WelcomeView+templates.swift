@@ -32,12 +32,26 @@ extension WelcomeView {
                             newSong(text: content, template: sampleSong)
                         }
                     } label: {
-                        Label("Molly Malone", systemImage: "document.badge.gearshape")
+                        Label(
+                            title: {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("Molly Malone")
+                                            .foregroundStyle(.primary)
+                                            Text("Only rendered properly with the ChordPro CLI")
+                                                .foregroundStyle(.secondary)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                            },
+                            icon: {
+                                Image(systemName: "document.badge.gearshape")
+                                    .foregroundStyle(Color.accent)
+                            }
+                        )
                     }
                 } header: {
                     Text("Official **ChordPro** examples")
-                } footer: {
-                    Text("Only rendered properly with the ChordPro CLI")
                 }
                 .listRowSeparator(.hidden)
             }

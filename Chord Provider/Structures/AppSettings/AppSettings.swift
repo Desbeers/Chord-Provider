@@ -22,15 +22,6 @@ struct AppSettings: Equatable, Codable, Sendable {
 
 extension AppSettings {
 
-    /// Settings that will change the behaviour of the application
-    struct Application: Codable, Equatable {
-        /// Bool to use a custom song template
-        var useCustomSongTemplate: Bool = false
-    }
-}
-
-extension AppSettings {
-
     /// ChordPro integration
     struct ChordPro: Codable, Equatable {
         /// Bool to use the ChordPro CLI for PDF creation
@@ -47,7 +38,7 @@ extension AppSettings {
     /// Load the application settings
     /// - Parameter id: The ID of the settings
     /// - Returns: The ``AppSettings``
-    static func load(id: AppStateModel.AppStateID) -> AppSettings {
+    static func load(id: AppSettings.AppWindowID) -> AppSettings {
         if let settings = try? Cache.get(key: "ChordProviderSettings-\(id.rawValue)", struct: AppSettings.self) {
             return settings
         }
@@ -58,7 +49,7 @@ extension AppSettings {
     /// Save the application settings to the cache
     /// - Parameter id: The ID of the settings
     /// - Parameter settings: The ``AppSettings``
-    static func save(id: AppStateModel.AppStateID, settings: AppSettings) throws {
+    static func save(id: AppSettings.AppWindowID, settings: AppSettings) throws {
         do {
             try Cache.set(key: "ChordProviderSettings-\(id.rawValue)", object: settings)
             Logger.application.info("**\(id.rawValue, privacy: .public)** saved")

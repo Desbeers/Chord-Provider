@@ -46,8 +46,8 @@ extension PDFBuild.LyricsSection {
                     height: part.size.height
                 )
                 partOffset += part.size.width
-                /// Add a bit extra width if the text ends with a `space`
-                if part.text.string.last == " " {
+                /// Add a bit extra width if the text ends with a `space` and there are chords
+                if !part.chords.isEmpty, part.text.string.last == " " {
                     partOffset += 2 * textPadding
                 }
                 part.draw(rect: &cellRect, calculationOnly: calculationOnly, pageRect: pageRect)
