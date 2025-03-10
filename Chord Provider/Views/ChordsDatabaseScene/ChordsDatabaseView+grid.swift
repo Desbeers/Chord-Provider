@@ -37,6 +37,8 @@ extension ChordsDatabaseView {
                             .padding(4)
                     }
                     Button {
+                        let root: Chord.Root = sceneState.definition.root == .all ? .c : sceneState.definition.root
+                        let quality: Chord.Quality = sceneState.definition.quality == .unknown ? .major : sceneState.definition.quality
                         var definition: String = "base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0"
                         /// Different fingering for an ukulele
                         if sceneState.settings.song.display.instrument == .ukulele {
@@ -44,7 +46,7 @@ extension ChordsDatabaseView {
                         }
 
                         if let definition = try? ChordDefinition(
-                            definition: "\(sceneState.definition.root.rawValue)\(sceneState.definition.quality.rawValue) \(definition)",
+                            definition: "\(root.rawValue)\(quality.rawValue) \(definition)",
                             instrument: sceneState.settings.song.display.instrument,
                             status: .addDefinition
                         ) {
