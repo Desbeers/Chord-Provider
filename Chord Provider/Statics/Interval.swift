@@ -85,7 +85,6 @@ struct Interval: Hashable, Sendable, CustomStringConvertible {
     /// Diminished eighth
     static let d8 = Interval(quality: .diminished, degree: 8, semitones: 11)
     /// Diminished ninth
-    /// - Note: Changed 12 to 13
     static let d9 = Interval(quality: .diminished, degree: 9, semitones: 13)
     /// Diminished tenth
     static let d10 = Interval(quality: .diminished, degree: 10, semitones: 14)

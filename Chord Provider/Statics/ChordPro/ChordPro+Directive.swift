@@ -77,6 +77,8 @@ extension ChordPro {
         case subtitle = "subtitle|st"
         /// This directive defines an artist
         case artist
+        /// This directive defines the sorting of an artist
+        case sortArtist = "sortartist"
         /// This directive defines a composer. Multiple composers can be specified using multiple directives
         case composer
         /// This directive defines an album this song occurs on
@@ -174,8 +176,6 @@ extension ChordPro {
 
         /// This directive defines a tag for the song
         case tag
-        /// This directive defines the sorting of an artist
-        case sortArtist = "sortartist"
 
         /// ### Strum
 

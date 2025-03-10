@@ -17,7 +17,6 @@ struct PreviewPaneView: View {
     @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
     /// The body of the View
     var body: some View {
-        Divider()
         AppKitUtils.PDFKitRepresentedView(data: data)
             .overlay(alignment: .top) {
                 if sceneState.preview.outdated {

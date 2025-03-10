@@ -23,7 +23,9 @@ extension ChordsDatabaseView {
                 chord.validate.color,
                 colorScheme == .dark ? .black : .white
             )
-            actions(chord: chord)
+            if Chord.Root.naturalAndSharp.contains(chord.root) {
+                actions(chord: chord)
+            }
         }
     }
 

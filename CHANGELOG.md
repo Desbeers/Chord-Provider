@@ -16,3 +16,4 @@
 - Fix bizarre memory usage because of viewing log entries in the debug view
 - Improve chord database editor
 - Add support for 'composer' directive
+- Bugfixes for chord editor

@@ -56,6 +56,8 @@ extension ChordsDatabaseView {
                     }
                     Button {
                         var chord = sceneState.definition
+                        /// Calculated values
+                        chord.addCalculatedValues(instrument: sceneState.settings.song.display.instrument)
                         /// Set the status
                         chord.status = .standardChord
                         /// Add or edit the chord
@@ -80,10 +82,12 @@ extension ChordsDatabaseView {
                                 chordDatabaseState.allChords[chordIndex] = chord
                             }
                             if let flatChord, let flatChordIndex = chordDatabaseState.allChords.firstIndex(where: { $0.id == flatChord.id }) {
-                                /// Get it the correct ID of the flat chord
+                                /// Get the correct ID of the flat chord
                                 chord.id = flatChord.id
                                 /// Swap sharp for flat
                                 chord.root = chord.root.swapSharpForFlat
+                                /// Calculated values
+                                chord.addCalculatedValues(instrument: sceneState.settings.song.display.instrument)
                                 /// Update the database
                                 chordDatabaseState.allChords[flatChordIndex] = chord
                             }
@@ -98,7 +102,7 @@ extension ChordsDatabaseView {
                         Text(sceneState.definition.status.rawValue)
                     }
                     .keyboardShortcut(.return)
-                    .disabled(chord == sceneState.definition)
+                    .disabled(chord.define == sceneState.definition.define)
                 }
             }
         }

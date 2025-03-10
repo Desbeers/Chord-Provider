@@ -105,6 +105,7 @@ struct ChordsDatabaseView: View {
         .toolbar {
             sceneState.instrumentPicker
                 .pickerStyle(.segmented)
+                .disabled(!chordsDatabaseState.navigationStack.isEmpty)
         }
         .fileExporter(
             isPresented: $chordsDatabaseState.showExportSheet,
@@ -130,7 +131,7 @@ struct ChordsDatabaseView: View {
         var chords = chordsDatabaseState.allChords
 
         if sceneState.definition.root != .all {
-            chords = chords.matching(root: sceneState.definition.root)
+            chords = chords.matching(sharpAndflatRoot: sceneState.definition.root)
         }
         if sceneState.definition.quality != .unknown {
             chords = chords.matching(quality: sceneState.definition.quality)

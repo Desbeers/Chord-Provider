@@ -32,15 +32,20 @@ extension ChordsDatabaseView {
                     ForEach(chordsDatabaseState.chords) { chord in
                         diagram(chord: chord)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(Color.accentColor.opacity(0.25))
+                            .background(Color.accentColor.opacity(Chord.Root.naturalAndSharp.contains(chord.root) ? 0.25 : 0.1))
                             .cornerRadius(6 * sceneState.settings.song.display.scale)
                             .padding(4)
                     }
                     Button {
+                        var definition: String = "base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0"
+                        /// Different fingering for an ukulele
+                        if sceneState.settings.song.display.instrument == .ukulele {
+                            definition = "base-fret 1 frets x x x x fingers 0 0 0 0"
+                        }
+
                         if let definition = try? ChordDefinition(
-                            // swiftlint:disable:next line_length
-                            definition: "\(sceneState.definition.root.rawValue)\(sceneState.definition.quality.rawValue) base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0",
-                            instrument: .guitar,
+                            definition: "\(sceneState.definition.root.rawValue)\(sceneState.definition.quality.rawValue) \(definition)",
+                            instrument: sceneState.settings.song.display.instrument,
                             status: .addDefinition
                         ) {
                             sceneState.definition = definition

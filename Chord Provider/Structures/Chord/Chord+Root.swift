@@ -125,7 +125,7 @@ extension Chord {
             case .gSharp:
                 "G♯/F♭"
             case .aSharp:
-                "A♯/G♭"
+                "A♯/B♭"
             case .dFlat, .eFlat, .gFlat, .aFlat, .bFlat:
                 self.rawValue
             case .none:

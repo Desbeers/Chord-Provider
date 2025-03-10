@@ -109,3 +109,18 @@ extension ChordDefinition {
         )
     }
 }
+
+extension ChordDefinition {
+
+    /// Add calculated values to a ``ChordDefinition``
+    /// - Parameter instrument: The ``Instrument`` to use
+    mutating func addCalculatedValues(instrument: Instrument) {
+        self.components = Utils.fretsToComponents(
+            root: root,
+            frets: frets,
+            baseFret: baseFret,
+            instrument: instrument
+        )
+        self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers)
+    }
+}
