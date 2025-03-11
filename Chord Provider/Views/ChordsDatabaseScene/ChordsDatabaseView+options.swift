@@ -34,7 +34,7 @@ extension ChordsDatabaseView {
             GridRow {
                 sceneState.scaleSlider
                     .frame(width: 120)
-                Spacer()
+                Toggle("Hide Correct Chords", isOn: $hideCorrectChords)
                 VStack {
                     Button {
                         do {

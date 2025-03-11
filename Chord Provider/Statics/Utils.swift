@@ -105,9 +105,9 @@ enum Utils {
     /// Get all possible chord notes for a ``ChordDefinition``
     /// - Parameters:
     ///   - chord: The ``ChordDefinition``
-    ///   - addBase: Bool to add the optional bass to the notes
+    ///   - addBass: Bool to add the optional bass to the notes
     /// - Returns: An array with ``Chord/Root`` arrays
-    static func getChordComponents(chord: ChordDefinition, addBase: Bool = true) -> [[Chord.Root]] {
+    static func getChordComponents(chord: ChordDefinition) -> [[Chord.Root]] {
         /// All the possible note combinations
         var result: [[Chord.Root]] = []
         /// Get the root note value
@@ -124,7 +124,7 @@ enum Utils {
         for optional in optionals {
             var components = notes.filter { !optional.contains($0) }
             /// Add the optional bass
-            if addBase, let bass = chord.bass, !components.contains(bass) {
+            if let bass = chord.bass, !components.notesToValues.contains(bass.rootToValue) {
                 components.insert(bass, at: 0)
             }
             result.append(components)

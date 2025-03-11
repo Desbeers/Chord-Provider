@@ -20,6 +20,8 @@ struct ChordsDatabaseView: View {
     @Environment(\.colorScheme) var colorScheme
     /// The conformation dialog to delete a chord
     @State var showDeleteConfirmation = false
+    /// Option to hide correct chords
+    @State var hideCorrectChords = false
     /// The `NSWindow` of this `View`
     @State private var window: NSWindow?
     /// The body of the `View`
@@ -79,12 +81,18 @@ struct ChordsDatabaseView: View {
         .onChange(of: chordsDatabaseState.allChords) {
             filterChords()
         }
+        .onChange(of: hideCorrectChords) {
+            filterChords()
+        }
         .onChange(of: chordsDatabaseState.navigationStack) {
             if chordsDatabaseState.navigationStack.isEmpty {
                 sceneState.definition.status = .standardChord
             }
         }
-        .task(id: sceneState.definition) {
+        .task(id: chordsDatabaseState.gridRoot) {
+            filterChords()
+        }
+        .task(id: chordsDatabaseState.gridQuality) {
             filterChords()
         }
         .onChange(of: chordsDatabaseState.search) {
@@ -130,11 +138,14 @@ struct ChordsDatabaseView: View {
     func filterChords() {
         var chords = chordsDatabaseState.allChords
 
-        if sceneState.definition.root != .all {
-            chords = chords.matching(sharpAndflatRoot: sceneState.definition.root)
+        if chordsDatabaseState.gridRoot != .all {
+            chords = chords.matching(sharpAndflatRoot: chordsDatabaseState.gridRoot)
         }
-        if sceneState.definition.quality != .unknown {
-            chords = chords.matching(quality: sceneState.definition.quality)
+        if chordsDatabaseState.gridQuality != .unknown {
+            chords = chords.matching(quality: chordsDatabaseState.gridQuality)
+        }
+        if hideCorrectChords {
+            chords = chords.filter { $0.validate != .correct }
         }
         chordsDatabaseState.chords = chords.sorted(using: [
             KeyPathComparator(\.root), KeyPathComparator(\.bass), KeyPathComparator(\.quality)

@@ -21,4 +21,8 @@ import Foundation
     var exportData: String = ""
     /// The Navigation stack path
     var navigationStack: [ChordDefinition] = []
+    /// Root selection
+    var gridRoot: Chord.Root = .c
+    /// Quality selection
+    var gridQuality: Chord.Quality = .major
 }

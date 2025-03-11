@@ -42,12 +42,12 @@ enum Analizer {
             return .unknownChord
         }
         /// Get all chord notes
-        var notes = chord.components.filter { $0.note != .none } .uniqued(by: \.note).map(\.note)
+        let notes = chord.components.filter { $0.note != .none } .uniqued(by: \.note).map(\.note)
         /// Get all component combinations
-        let components = Utils.getChordComponents(chord: chord, addBase: false)
+        let components = Utils.getChordComponents(chord: chord)
         /// Check bass note
         if let bass = chord.bass {
-            if baseNote != bass {
+            if Utils.noteToValue(note: baseNote) != Utils.noteToValue(note: bass) {
                 return .wrongBassNote
             }
             /// Check root note
@@ -65,15 +65,9 @@ enum Analizer {
                 return .missingFingers
             }
         }
-        for component in components {
-            /// Remove the optional bass note if not part of the 'normal' chord notes
-            if let bassNote = chord.bass, !component.contains(bassNote) {
-                notes.removeAll { $0 == bassNote }
-            }
-            /// Check if we have a match
-            if component.sorted() == notes.sorted() {
-                return .correct
-            }
+        /// Check if we have a match
+        for component in components where component.notesToValues == notes.notesToValues {
+            return .correct
         }
         /// No match found
         return .wrongNotes

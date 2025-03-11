@@ -13,13 +13,23 @@ extension ChordsDatabaseView {
     var grid: some View {
         VStack(spacing: 0) {
             HStack {
-                sceneState.rootPicker(showAllOption: true, hideFlats: true)
-                    .pickerStyle(.segmented)
-                    .labelsHidden()
-                    .padding()
-                sceneState.qualityPicker(showAll: true)
-                    .frame(maxWidth: 120)
-                    .labelsHidden()
+                Picker("Root:", selection: $chordsDatabaseState.gridRoot) {
+                    ForEach(Chord.Root.naturalAndSharp.dropLast(), id: \.rawValue) { value in
+                        Text(value.naturalAndSharpDisplay)
+                            .tag(value)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .labelsHidden()
+                .padding()
+                Picker("Quality:", selection: $chordsDatabaseState.gridQuality) {
+                    ForEach(Chord.Quality.allCases, id: \.rawValue) { value in
+                        Text(value == .major ? "major" : value.display)
+                            .tag(value)
+                    }
+                }
+                .frame(maxWidth: 120)
+                .labelsHidden()
             }
             .disabled(!chordsDatabaseState.search.isEmpty)
             ScrollView {
