@@ -42,11 +42,11 @@ extension Array where Element == ChordDefinition {
         self.filter { $0.quality == quality }
     }
 
-    /// Find all chord definitions matching a bass note
-    /// - Parameter bass: Te bass note
+    /// Find all chord definitions matching a slash bass note
+    /// - Parameter slash: The slash note
     /// - Returns: All matching chord definitions
-    func matching(bass: Chord.Root?) -> [ChordDefinition] {
-        return self.filter { $0.bass == bass }
+    func matching(slash: Chord.Root?) -> [ChordDefinition] {
+        return self.filter { $0.slash == slash }
     }
 
     /// Find all chord definitions matching a base fret

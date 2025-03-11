@@ -102,8 +102,8 @@ extension Chords {
             copy.root = chord.root.swapSharpForFlat
             /// Change the name
             copy.name = "\(copy.root.rawValue)\(chord.quality.rawValue)"
-            if let bass = chord.bass {
-                copy.name += "/\(bass.rawValue)"
+            if let slash = chord.slash {
+                copy.name += "/\(slash.rawValue)"
             }
             return ChordPro.Instrument.Chord(
                 name: copy.name,

@@ -231,33 +231,33 @@ extension SceneStateModel {
         }
     }
 
-    // MARK: Bass Picker
+    // MARK: Slash Picker
 
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as bass note
-    var bassPicker: some View {
-        BassPicker(sceneState: self)
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as slash bass note
+    var slashPicker: some View {
+        SlashPicker(sceneState: self)
     }
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as bass note
-    struct BassPicker: View {
+    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as slash bass note
+    struct SlashPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
         /// The selected bass note
-        @State private var bass: Chord.Root = .none
+        @State private var slash: Chord.Root = .none
         /// The body of the `View`
         var body: some View {
-            Picker("Bass:", selection: $bass) {
+            Picker("Bass:", selection: $slash) {
                 ForEach(Chord.Root.allCases) { value in
                     Text(value.rawValue)
                         .tag(value)
                 }
             }
             .task {
-                if let bassNote = sceneState.definition.bass {
-                    bass = bassNote
+                if let slashNote = sceneState.definition.slash {
+                    slash = slashNote
                 }
             }
-            .task(id: bass) {
-                sceneState.definition.bass = bass == .none ? nil : bass
+            .task(id: slash) {
+                sceneState.definition.slash = slash == .none ? nil : slash
             }
         }
     }

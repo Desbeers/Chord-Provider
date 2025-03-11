@@ -21,7 +21,7 @@ extension ChordDefinition {
         self.baseFret = try container.decode(Int.self, forKey: ChordDefinition.CodingKeys.baseFret)
         self.root = try container.decode(Chord.Root.self, forKey: ChordDefinition.CodingKeys.root)
         self.quality = try container.decode(Chord.Quality.self, forKey: ChordDefinition.CodingKeys.quality)
-        self.bass = try container.decodeIfPresent(Chord.Root.self, forKey: ChordDefinition.CodingKeys.bass)
+        self.slash = try container.decodeIfPresent(Chord.Root.self, forKey: ChordDefinition.CodingKeys.slash)
         /// Calculated values
         self.name = "\(root.rawValue)\(quality.rawValue)"
         self.barres = Utils.fingersToBarres(frets: frets, fingers: fingers)
@@ -41,7 +41,7 @@ extension ChordDefinition {
         baseFret: Int,
         root: Chord.Root,
         quality: Chord.Quality,
-        bass: Chord.Root?,
+        slash: Chord.Root?,
         instrument: Instrument,
         status: Chord.Status = .customChord
     ) {
@@ -51,7 +51,7 @@ extension ChordDefinition {
         self.baseFret = baseFret
         self.root = root
         self.quality = quality
-        self.bass = bass
+        self.slash = slash
         self.name = name
         self.instrument = instrument
         self.status = status
@@ -82,7 +82,7 @@ extension ChordDefinition {
             self.root = definition.root
             self.quality = definition.quality
             self.name = definition.name
-            self.bass = definition.bass
+            self.slash = definition.slash
             self.instrument = instrument
             self.status = status
             if status == .unknownChord {
@@ -90,7 +90,7 @@ extension ChordDefinition {
                 let chords = Chords.getAllChordsForInstrument(instrument: instrument)
                     .matching(root: definition.root)
                     .matching(quality: definition.quality)
-                    .matching(bass: definition.bass)
+                    .matching(slash: definition.slash)
                 /// See if we can find it
                 if chords.firstIndex(where: { $0.frets == definition.frets && $0.baseFret == definition.baseFret }) != nil {
                     self.status = .standardChord
@@ -122,7 +122,7 @@ extension ChordDefinition {
         guard
             let root = elements.root,
             let quality = elements.quality,
-            let chord = chords.matching(root: root).matching(quality: quality).matching(bass: elements.bass).first
+            let chord = chords.matching(root: root).matching(quality: quality).matching(slash: elements.slash).first
         else {
             return nil
         }
@@ -133,7 +133,7 @@ extension ChordDefinition {
         self.baseFret = chord.baseFret
         self.root = chord.root
         self.quality = chord.quality
-        self.bass = elements.bass
+        self.slash = elements.slash
         self.name = name
         self.instrument = instrument
         self.status = .standardChord
@@ -160,7 +160,7 @@ extension ChordDefinition {
             self.baseFret = definition.baseFret
             self.root = definition.root
             self.quality = definition.quality
-            self.bass = definition.bass
+            self.slash = definition.slash
             self.name = definition.name
             self.instrument = definition.instrument
             self.status = .standardChord
@@ -187,7 +187,7 @@ extension ChordDefinition {
         self.baseFret = 0
         self.root = .c
         self.quality = .major
-        self.bass = nil
+        self.slash = nil
         self.name = unknown
         self.instrument = instrument
         self.status = .unknownChord

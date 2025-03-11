@@ -102,7 +102,7 @@ struct ChordsDatabaseView: View {
                 chordsDatabaseState.chords = chordsDatabaseState.allChords.filter { $0.name.localizedCaseInsensitiveContains(chordsDatabaseState.search) }
                     .sorted(
                         using: [
-                            KeyPathComparator(\.root), KeyPathComparator(\.bass), KeyPathComparator(\.quality)
+                            KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
                         ]
                     )
             }
@@ -148,7 +148,7 @@ struct ChordsDatabaseView: View {
             chords = chords.filter { $0.validate != .correct }
         }
         chordsDatabaseState.chords = chords.sorted(using: [
-            KeyPathComparator(\.root), KeyPathComparator(\.bass), KeyPathComparator(\.quality)
+            KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
         ])
     }
 }

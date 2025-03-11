@@ -13,8 +13,8 @@ extension ChordDefinition {
     /// - Returns: A string with the name of the chord
     var getName: String {
         var name = self.root.rawValue + self.quality.rawValue
-        if let bass = self.bass {
-            name += "/\(bass.rawValue)"
+        if let slash = self.slash {
+            name += "/\(slash.rawValue)"
         }
         return name
     }
@@ -28,8 +28,8 @@ extension ChordDefinition {
             name = self.name
         } else {
             name = self.root.display + self.quality.display
-            if let bass = self.bass {
-                name += "/\(bass.display)"
+            if let slash = self.slash {
+                name += "/\(slash.display)"
             }
         }
         return name
@@ -44,8 +44,8 @@ extension ChordDefinition {
             name = self.name
         } else {
             name = self.root.swapSharpForFlat.display + self.quality.display
-            if let bass = self.bass {
-                name += "/\(bass.display)"
+            if let slash = self.slash {
+                name += "/\(slash.display)"
             }
         }
         return name
@@ -66,8 +66,8 @@ extension ChordDefinition {
     var define: String {
         var define = root.rawValue
         define += quality.rawValue
-        if let bass {
-            define += "/\(bass.rawValue)"
+        if let slash {
+            define += "/\(slash.rawValue)"
         }
         define += " base-fret "
         define += baseFret.description

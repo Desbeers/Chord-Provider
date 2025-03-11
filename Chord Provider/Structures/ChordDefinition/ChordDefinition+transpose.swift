@@ -20,7 +20,7 @@ extension ChordDefinition {
             /// Get the chords for the instrument
             let chords = Chords.getAllChordsForInstrument(instrument: instrument)
             let root = Utils.transposeNote(note: self.root, transpose: transpose, scale: scale)
-            if let chord = chords.matching(root: root).matching(quality: self.quality).matching(bass: self.bass).first {
+            if let chord = chords.matching(root: root).matching(quality: self.quality).matching(slash: self.slash).first {
                 self = chord
                 self.status = .transposedChord
             } else {

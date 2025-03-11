@@ -56,7 +56,7 @@ struct CreateChordView: View {
                     })
                     .frame(maxWidth: 150)
                     LabeledContent(content: {
-                        sceneState.bassPicker
+                        sceneState.slashPicker
                             .labelsHidden()
                     }, label: {
                         Text("Optional bass:")
@@ -116,7 +116,7 @@ struct CreateChordView: View {
                 baseFret: sceneState.definition.baseFret,
                 root: sceneState.definition.root,
                 quality: sceneState.definition.quality,
-                bass: sceneState.definition.bass,
+                slash: sceneState.definition.slash,
                 instrument: sceneState.definition.instrument,
                 status: .standardChord
             )

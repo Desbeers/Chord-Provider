@@ -13,11 +13,11 @@ enum Analizer {
 
     /// Find the root, quality and optional bass of a named chord
     /// - Parameter chord: The name of the chord
-    /// - Returns: The root and quality
-    static func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?, bass: Chord.Root?) {
+    /// - Returns: The root, quality and optional slash
+    static func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?, slash: Chord.Root?) {
         var root: Chord.Root?
         var quality: Chord.Quality?
-        var bass: Chord.Root?
+        var slash: Chord.Root?
         if let match = chord.wholeMatch(of: RegexDefinitions.chordName) {
             root = match.1
             if let qualityMatch = match.2 {
@@ -25,9 +25,9 @@ enum Analizer {
             } else {
                 quality = Chord.Quality.major
             }
-            bass = match.3
+            slash = match.3
         }
-        return (root, quality, bass)
+        return (root, quality, slash)
     }
 
     /// Try to validate a ``ChordDefinition``
@@ -45,9 +45,9 @@ enum Analizer {
         let notes = chord.components.filter { $0.note != .none } .uniqued(by: \.note).map(\.note)
         /// Get all component combinations
         let components = Utils.getChordComponents(chord: chord)
-        /// Check bass note
-        if let bass = chord.bass {
-            if Utils.noteToValue(note: baseNote) != Utils.noteToValue(note: bass) {
+        /// Check slash note
+        if let slash = chord.slash {
+            if Utils.noteToValue(note: baseNote) != Utils.noteToValue(note: slash) {
                 return .wrongBassNote
             }
             /// Check root note

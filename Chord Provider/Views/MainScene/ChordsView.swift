@@ -145,7 +145,7 @@ extension ChordsView {
         return allChords
             .matching(root: selectedChord.root)
             .matching(quality: selectedChord.quality)
-            .matching(bass: selectedChord.bass)
+            .matching(slash: selectedChord.slash)
     }
 
     /// Check of a chord in the sheet is the currrent selected chord

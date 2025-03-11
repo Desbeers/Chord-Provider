@@ -57,7 +57,7 @@ extension Utils {
                 baseFret: definition.2 ?? 1,
                 root: root,
                 quality: quality,
-                bass: elements.bass,
+                slash: elements.slash,
                 instrument: instrument
             )
             return chordDefinition
@@ -90,7 +90,7 @@ extension Utils {
                 baseFret: chord.base ?? 1,
                 root: root,
                 quality: quality,
-                bass: elements.bass,
+                slash: elements.slash,
                 instrument: instrument
             )
             return chordDefinition

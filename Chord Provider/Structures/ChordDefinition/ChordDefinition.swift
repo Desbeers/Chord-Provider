@@ -37,8 +37,8 @@ struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
     /// The instrument of the chord
     var instrument: Instrument
 
-    /// The base note of an optional 'slash' chord
-    var bass: Chord.Root?
+    /// The note of an optional 'slash' chord
+    var slash: Chord.Root?
     /// The components of the chord definition
     var components: [Chord.Component] = []
     /// The status of the chord
@@ -61,8 +61,8 @@ struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
         case root
         /// The quality of the chord
         case quality
-        /// The optional bass note of the chord
-        case bass
+        /// The note of an optional 'slash' chord
+        case slash
     }
 
     /// Custom encoder for the ``ChordDefinition``
@@ -75,6 +75,6 @@ struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
         try container.encode(self.baseFret, forKey: .baseFret)
         try container.encode(self.root, forKey: .root)
         try container.encode(self.quality, forKey: .quality)
-        try container.encode(self.bass, forKey: .bass)
+        try container.encode(self.slash, forKey: .slash)
     }
 }
