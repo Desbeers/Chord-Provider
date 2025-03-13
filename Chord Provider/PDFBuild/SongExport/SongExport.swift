@@ -234,15 +234,9 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func textblockSection(section: Song.Section) -> PDFBuild.Section {
             return PDFBuild.Section(
-                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: labelWidth + 20), .flexible],
                 items: [
-                    PDFBuild.Label(
-                        leadingText: nil,
-                        labelText: NSAttributedString(string: section.label, attributes: .sectionLabel),
-                        backgroundColor: .clear,
-                        alignment: .right
-                    ),
-                    labelDivider(section: section),
+                    PDFBuild.Spacer(),
                     PDFBuild.TextblockSection(section, chords: song.chords)
                 ]
             )

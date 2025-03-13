@@ -9,18 +9,6 @@ import Foundation
 
 extension Array where Element == ChordDefinition {
 
-    /// Get all roots
-    /// - Returns: All the roots
-    func roots() -> [Chord.Root] {
-        return self.map(\.root)
-    }
-
-    /// Get all qualities
-    /// - Returns: All the qualities
-    func qualities() -> [Chord.Quality] {
-        return self.map(\.quality)
-    }
-
     /// Find all chord definitions matching a root note
     /// - Parameter root: The root note
     /// - Returns: All matching chord definitions

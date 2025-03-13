@@ -168,24 +168,16 @@ extension Chord.Root {
 
 extension Chord.Root {
 
-    /// Convert a `Root` Enum to a note value
-    var rootToValue: Int {
+    /// Convert a ``Chord/Root`` Enum to a note value
+    var value: Int {
         Utils.noteToValue(note: self)
-    }
-}
-
-extension String {
-
-    /// Convert a `Root` string to a `Root` enum
-    var rootEnumValue: Chord.Root? {
-        Chord.Root(rawValue: self)
     }
 }
 
 extension Array where Element == Chord.Root {
 
-    /// Convert a `Root` notes to note values
-    var notesToValues: [Int] {
+    /// Convert an array of ``Chord/Root`` notes to a sorted array of note values
+    var values: [Int] {
         self.map { Utils.noteToValue(note: $0) }.sorted()
     }
 }

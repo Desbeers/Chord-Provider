@@ -90,15 +90,15 @@ import OSLog
     func getMedia() {
         if let fileURL = song.metadata.fileURL {
             var mediaURL = fileURL.deletingPathExtension().appendingPathExtension("m4a")
-            if mediaURL.exist() {
+            if mediaURL.exist {
                 song.metadata.audioURL = mediaURL
             }
             mediaURL = fileURL.deletingPathExtension().appendingPathExtension("mp3")
-            if mediaURL.exist() {
+            if mediaURL.exist {
                 song.metadata.audioURL = mediaURL
             }
             mediaURL = fileURL.deletingPathExtension().appendingPathExtension("mp4")
-            if mediaURL.exist() {
+            if mediaURL.exist {
                 song.metadata.videoURL = mediaURL
             }
         }

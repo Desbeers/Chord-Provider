@@ -47,8 +47,8 @@ extension ChordsDatabaseView {
                             .padding(4)
                     }
                     Button {
-                        let root: Chord.Root = sceneState.definition.root == .all ? .c : sceneState.definition.root
-                        let quality: Chord.Quality = sceneState.definition.quality == .unknown ? .major : sceneState.definition.quality
+                        let root: Chord.Root = chordsDatabaseState.gridRoot == .all ? .c : chordsDatabaseState.gridRoot
+                        let quality: Chord.Quality = chordsDatabaseState.gridQuality == .unknown ? .major : chordsDatabaseState.gridQuality
                         var definition: String = "base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0"
                         /// Different fingering for an ukulele
                         if sceneState.settings.song.display.instrument == .ukulele {

@@ -329,6 +329,10 @@ extension RenderView {
     /// SwiftUI `View` for a plain text section
     func textblockSection(section: Song.Section) -> some View {
         VStack(alignment: getFlush(section.arguments)) {
+            if !section.label.isEmpty {
+                Text(section.label).foregroundStyle(.primary)
+                Divider()
+            }
             ForEach(section.lines) { line in
                 if let parts = line.parts {
                     HStack(spacing: 0) {
@@ -348,7 +352,8 @@ extension RenderView {
         .modifier(
             SectionView(
                 settings: song.settings,
-                label: section.label
+                /// A textblock will always render the optional label on top
+                label: ""
             )
         )
     }

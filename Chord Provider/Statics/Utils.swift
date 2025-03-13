@@ -124,7 +124,7 @@ enum Utils {
         for optional in optionals {
             var components = notes.filter { !optional.contains($0) }
             /// Add the optional slash bass
-            if let slash = chord.slash, !components.notesToValues.contains(slash.rootToValue) {
+            if let slash = chord.slash, !components.values.contains(slash.value) {
                 components.insert(slash, at: 0)
             }
             result.append(components)

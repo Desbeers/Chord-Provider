@@ -66,7 +66,7 @@ enum Analizer {
             }
         }
         /// Check if we have a match
-        for component in components where component.notesToValues == notes.notesToValues {
+        for component in components where component.values == notes.values {
             return .correct
         }
         /// No match found

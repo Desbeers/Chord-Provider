@@ -8763,6 +8763,27 @@
     },
     {
       "base" : 1,
+      "display" : "Am⁷\/G",
+      "fingers" : [
+        3,
+        0,
+        2,
+        0,
+        1,
+        0
+      ],
+      "frets" : [
+        3,
+        0,
+        2,
+        0,
+        1,
+        0
+      ],
+      "name" : "Am7\/G"
+    },
+    {
+      "base" : 1,
       "display" : "Am⁷♭⁵",
       "fingers" : [
         0,

@@ -34,9 +34,14 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
+            /// In **ChordPro**, the attribute 'flush' is the actual alignment of the text; *not* the placement in the page
+            let flush = getFlush(section.arguments)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = flush
+            paragraphStyle.lineSpacing = 4
+            let text = NSMutableAttributedString()
             for line in section.lines {
                 if let parts = line.parts {
-                    let text = NSMutableAttributedString()
                     for part in parts {
                         if let chord = chords.first(where: { $0.id == part.chord }) {
                             text.append(
@@ -52,15 +57,50 @@ extension PDFBuild {
                             attributes: .textblockLine)
                         )
                     }
-                    let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
-                    if !calculationOnly {
-                        text.draw(with: rect, options: textDrawingOptions, context: nil)
+                    if line != section.lines.last {
+                        text.append(NSAttributedString(string: "\n"))
                     }
-                    let height = textBounds.height + 2 * textPadding
-                    rect.origin.y += height
-                    rect.size.height -= height
                 }
             }
+            text.addAttributes([.paragraphStyle: paragraphStyle], range: NSRange(location: 0, length: text.length))
+            let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+
+            /// Align the textblock with the optional 'align' attribute
+            var tmpRect = rect
+            tmpRect.size.width = textBounds.width
+            let align = getAlign(section.arguments)
+            switch align {
+            case .left:
+                tmpRect.size.width = textBounds.width
+            case .center:
+                let offset = (pageRect.width - textBounds.width) / 2
+                tmpRect.origin.x = offset
+            case .right:
+                let offset = rect.width - textBounds.width
+                tmpRect.origin.x += offset
+            default:
+                /// Nothing to alter
+                break
+            }
+            /// Add the optional label
+            var labelRect = tmpRect
+            if !section.label.isEmpty {
+                let label = PDFBuild.Text(section.label, attributes: .sectionLabel + .alignment(flush))
+                label.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
+                let divider = PDFBuild.Divider(direction: .horizontal)
+                divider.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
+            }
+            /// Add the label height
+            let labelHeight = rect.height - labelRect.height
+            tmpRect.origin.y += labelHeight
+            tmpRect.size.height -= labelHeight
+            /// Draw the content of the textblock
+            if !calculationOnly {
+                text.draw(with: tmpRect, options: textDrawingOptions, context: nil)
+            }
+            let height = (textBounds.height + 2 * textPadding) + labelHeight
+            rect.origin.y += height
+            rect.size.height -= height
         }
     }
 }
@@ -72,7 +112,8 @@ extension PDFStringAttribute {
     /// String attributes for a textblock  line
     static var textblockLine: PDFStringAttribute {
         [
-            .foregroundColor: NSColor.gray
+            .foregroundColor: NSColor.gray,
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 }

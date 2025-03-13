@@ -19,7 +19,7 @@ extension URL {
 
     /// Check if an URL exists
     /// - Returns: True of false
-    func exist() -> Bool {
+    var exist: Bool {
         FileManager.default.fileExists(atPath: self.path(percentEncoded: false))
     }
 }
