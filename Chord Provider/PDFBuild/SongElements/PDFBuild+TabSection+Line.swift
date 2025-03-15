@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 extension PDFBuild.TabSection {
 
@@ -16,11 +16,16 @@ extension PDFBuild.TabSection {
 
         /// The line with the tab
         let tab: String
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **tab** item
-        /// - Parameter tab: The line with the tab
-        init(_ tab: String) {
+        /// - Parameters:
+        ///   - tab: The line with the tab
+        ///   - settings: The PDF settings
+        init(_ tab: String, settings: AppSettings.PDF) {
             self.tab = tab
+            self.settings = settings
         }
 
         /// Draw the **line** element
@@ -35,7 +40,7 @@ extension PDFBuild.TabSection {
             let fontSize = min(textRect.width / (Double(characters) * 0.7), 10)
             let text = NSAttributedString(
                 string: tab,
-                attributes: .tabLine(fontSize: fontSize)
+                attributes: .tabLine(fontSize: fontSize, settings: settings)
             )
             let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
             if !calculationOnly {
@@ -53,9 +58,9 @@ extension PDFStringAttribute {
     // MARK: Tab line string styling
 
     /// Style attributes for the line of a tab
-    static func tabLine(fontSize: CGFloat) -> PDFStringAttribute {
+    static func tabLine(fontSize: CGFloat, settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
+            .foregroundColor: NSColor(Color(settings.theme.foreground)),
             .font: NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
         ]
     }

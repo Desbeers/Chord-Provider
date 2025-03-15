@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 /// Alias for a `NSAttributedString` key and value
 typealias PDFStringAttribute = [NSAttributedString.Key: Any]
@@ -48,17 +48,17 @@ extension PDFStringAttribute {
     }
 
     /// Style attributes for the title of the PDF
-    static var pdfTitle: PDFStringAttribute {
+    static func pdfTitle(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
+            .foregroundColor: NSColor(Color(settings.theme.foreground)),
             .font: NSFont.systemFont(ofSize: 14, weight: .semibold)
         ] + .alignment(.center)
     }
 
     /// Style attributes for the subtitle of the PDF
-    static var pdfSubtitle: PDFStringAttribute {
+    static func pdfSubtitle(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.gray,
+            .foregroundColor: NSColor(Color(settings.theme.foregroundMedium)),
             .font: NSFont.systemFont(ofSize: 12, weight: .regular)
         ] + .alignment(.center)
     }
@@ -100,5 +100,32 @@ extension PDFStringAttribute {
             )
             .withDesign(.serif)
         return [.font: NSFont(descriptor: descriptor ?? NSFontDescriptor(), size: 10) ?? [:]]
+    }
+}
+
+extension PDFStringAttribute {
+
+    static func foregroundColor(settings: AppSettings.PDF) -> PDFStringAttribute {
+        [
+            .foregroundColor: NSColor(Color(settings.theme.foreground))
+        ]
+    }
+
+    static func mediumForegroundColor(settings: AppSettings.PDF) -> PDFStringAttribute {
+        [
+            .foregroundColor: NSColor(Color(settings.theme.foregroundMedium))
+        ]
+    }
+
+    static func backgroundColor(settings: AppSettings.PDF) -> PDFStringAttribute {
+        [
+            .foregroundColor: NSColor(Color(settings.theme.background))
+        ]
+    }
+
+    static func defaultFont(settings: AppSettings.PDF) -> PDFStringAttribute {
+        [
+            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
+        ]
     }
 }

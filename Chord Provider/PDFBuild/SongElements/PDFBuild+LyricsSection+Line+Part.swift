@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 extension PDFBuild.LyricsSection.Line {
 
@@ -27,32 +27,31 @@ extension PDFBuild.LyricsSection.Line {
         /// - Parameters:
         ///   - part: The part of the lyrics line
         ///   - chords: All the chords of the song
-        init(part: Song.Section.Line.Part, chords: [ChordDefinition]) {
+        ///   - settings: The PDF settings
+        init(part: Song.Section.Line.Part, chords: [ChordDefinition], settings: AppSettings.PDF) {
             self.chords = chords
             if chords.isEmpty {
                 self.text.append(
                     NSAttributedString(
                         string: "\(part.text)",
-                        attributes: .partLyric
+                        attributes: .foregroundColor(settings: settings) + .defaultFont(settings: settings)
                     )
                 )
             } else {
                 var chordString: String = " "
-                var chordStatus: Chord.Status = .unknownChord
                 if let chord = chords.first(where: { $0.id == part.chord }) {
                     chordString = chord.display
-                    chordStatus = chord.status
                 }
                 self.text.append(
                     NSAttributedString(
                         /// Add a space behind the chord-name so two chords will never 'stick' together
                         string: "\(chordString) \n",
-                        attributes: .partChord(chordStatus)
+                        attributes: .partChord(settings: settings)
                     )
                 )
                 self.text.append(NSAttributedString(
                     string: "\(part.text)",
-                    attributes: .partLyric)
+                    attributes: .foregroundColor(settings: settings) + .defaultFont(settings: settings))
                 )
             }
             self.size = text.size()
@@ -80,18 +79,18 @@ extension PDFStringAttribute {
     // MARK: Part string styling
 
     /// Style attributes for the chord of the part
-    static func partChord(_ status: Chord.Status) -> PDFStringAttribute {
+    static func partChord(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: status == .unknownChord ? NSColor.red : NSColor.gray,
+            .foregroundColor: NSColor(Color(settings.fonts.chord.color)),
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
-    /// Style attributes for the lyric of the part
-    static var partLyric: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.black,
-            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
-        ]
-    }
+//    /// Style attributes for the lyric of the part
+//    static func partLyric(settings: AppSettings.PDF) -> PDFStringAttribute {
+//        [
+//            .foregroundColor: NSColor(Color(settings.theme.foreground)),
+//            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
+//        ]
+//    }
 }

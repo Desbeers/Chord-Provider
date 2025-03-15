@@ -18,14 +18,18 @@ extension PDFBuild {
         let section: Song.Section
         /// All the chords of the song
         let chords: [ChordDefinition]
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **textblock section** element
         /// - Parameters:
         ///   - section: The section with textblock
         ///   - chords: All the chords of the song
-        init(_ section: Song.Section, chords: [ChordDefinition]) {
+        ///   - settings: The PDF settings
+        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings.PDF) {
             self.section = section
             self.chords = chords
+            self.settings = settings
         }
 
         /// Draw the **textblock section** element
@@ -48,13 +52,13 @@ extension PDFBuild {
                                 NSAttributedString(
                                     /// Add a space behind the chord-name so two chords will never 'stick' together
                                     string: "\(chord.display)",
-                                    attributes: .partChord(chord.status)
+                                    attributes: .partChord(settings: settings)
                                 )
                             )
                         }
                         text.append(NSAttributedString(
                             string: "\(part.text)",
-                            attributes: .textblockLine)
+                            attributes: .textblockLine + .mediumForegroundColor(settings: settings))
                         )
                     }
                     if line != section.lines.last {
@@ -85,7 +89,7 @@ extension PDFBuild {
             /// Add the optional label
             var labelRect = tmpRect
             if !section.label.isEmpty {
-                let label = PDFBuild.Text(section.label, attributes: .sectionLabel + .alignment(flush))
+                let label = PDFBuild.Text(section.label, attributes: .foregroundColor(settings: settings) + .defaultFont(settings: settings) + .alignment(flush))
                 label.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 let divider = PDFBuild.Divider(direction: .horizontal)
                 divider.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)

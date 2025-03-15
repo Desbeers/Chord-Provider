@@ -118,6 +118,10 @@ struct ExportFolderView: View {
             }
         )
         .scrollContentBackground(.hidden)
+        .task {
+            let settings = AppSettings.load(id: .mainView)
+            appState.settings.pdf = settings.pdf
+        }
         .task(id: currentFolder) {
             pdfInfo.title = currentFolder ?? ""
         }

@@ -46,6 +46,7 @@ struct AppSettings {
     /// Simple substitute for the real AppSettings
     var application = Application()
     var song = Song()
+    var pdf = PDF()
 }
 
 extension AppSettings {

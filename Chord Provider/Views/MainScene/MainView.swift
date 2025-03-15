@@ -81,6 +81,11 @@ struct MainView: View {
                 await renderSong()
             }
         }
+        .onChange(of: appState.settings.pdf) {
+            if sceneState.preview.data != nil {
+                sceneState.preview.outdated = true
+            }
+        }
         .animation(.default, value: sceneState.preview)
         .animation(.smooth, value: sceneState.settings)
         .animation(.default, value: sceneState.song.metadata)

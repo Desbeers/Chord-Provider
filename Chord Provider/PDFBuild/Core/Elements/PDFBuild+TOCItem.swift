@@ -18,14 +18,18 @@ extension PDFBuild {
         var tocInfo: PDFBuild.TOCInfo
         /// The `PageCounter` class
         var counter: PDFBuild.PageCounter
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **TOC item** element
         /// - Parameters:
         ///   - tocInfo: Information about the item
         ///   - counter: The `PageCounter` class
-        init(tocInfo: PDFBuild.TOCInfo, counter: PDFBuild.PageCounter) {
+        ///   - settings: The PDF settings
+        init(tocInfo: PDFBuild.TOCInfo, counter: PDFBuild.PageCounter, settings: AppSettings.PDF) {
             self.tocInfo = tocInfo
             self.counter = counter
+            self.settings = settings
         }
 
         /// Draw the **TOC item** element
@@ -40,9 +44,9 @@ extension PDFBuild {
             let tocItem = PDFBuild.Section(
                 columns: [.flexible, .flexible, .fixed(width: 30)],
                 items: [
-                    PDFBuild.Text("\(tocInfo.song.metadata.title)"),
-                    PDFBuild.Text("\(tocInfo.song.metadata.artist)"),
-                    PDFBuild.Text("\(tocInfo.pageNumber)", attributes: .alignment(.right))
+                    PDFBuild.Text("\(tocInfo.song.metadata.title)", attributes: .foregroundColor(settings: settings)),
+                    PDFBuild.Text("\(tocInfo.song.metadata.artist)", attributes: .foregroundColor(settings: settings)),
+                    PDFBuild.Text("\(tocInfo.pageNumber)", attributes: .alignment(.right) + .foregroundColor(settings: settings))
                 ]
             )
             /// Draw the TOC item

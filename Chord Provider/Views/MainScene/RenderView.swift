@@ -442,6 +442,9 @@ extension RenderView {
                     VStack(alignment: .leading) {
                         if !settings.display.lyricsOnly, let chord = chords.first(where: { $0.id == part.chord }) {
                             ChordView(settings: settings, sectionID: sectionID, partID: part.id, chord: chord)
+                        } else if !settings.display.lyricsOnly {
+                            /// A line without a chord
+                            Text(" ")
                         }
                         /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
                         /// for the funny stuff added to the string...

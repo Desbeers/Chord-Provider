@@ -23,14 +23,14 @@ extension FolderExport {
         /// Divide sections by artist of first letter of title
         var divider: String = ""
 
-        let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo)
+        let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings.pdf)
         tocBuilder.pageCounter = counter
         tocBuilder.elements.append(PDFBuild.PageBackgroundColor(color: .black))
         tocBuilder.elements.append(PDFBuild.Text(documentInfo.title, attributes: .exportTitle))
         tocBuilder.elements.append(PDFBuild.Text(documentInfo.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
-        tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle))
+        tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle(settings: appSettings.pdf)))
         for tocInfo in counter.tocItems {
             /// Add a divider between all artists when the songs are sorted by artist
             if appSettings.application.songListSort == .artist, divider != tocInfo.song.metadata.artist {
@@ -47,7 +47,7 @@ extension FolderExport {
                 divider = String(tocInfo.song.metadata.sortTitle.prefix(1).lowercased())
             }
 
-            tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter))
+            tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter, settings: appSettings.pdf))
         }
         return tocBuilder.generatePdf()
     }

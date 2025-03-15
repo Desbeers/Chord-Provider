@@ -20,16 +20,20 @@ extension PDFBuild {
         let chords: [ChordDefinition]
         /// The chord display options
         let options: AppSettings.DiagramDisplayOptions
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **chords** element
         /// - Parameters:
         ///   - chords: All the chords from the song
         ///   - options: The chord display options
-        init(chords: [ChordDefinition], options: AppSettings.DiagramDisplayOptions) {
+        ///   - settings: The PDF settings
+        init(chords: [ChordDefinition], options: AppSettings.DiagramDisplayOptions, settings: AppSettings.PDF) {
             self.chords = chords
                 .sorted(using: KeyPathComparator(\.root))
                 .sorted(using: KeyPathComparator(\.quality))
             self.options = options
+            self.settings = settings
         }
 
         /// Draw the **chords** element as a `Section` element
@@ -41,7 +45,7 @@ extension PDFBuild {
             let chords = chords.filter { $0.status != .unknownChord } .sorted(using: KeyPathComparator(\.name))
             var items: [PDFElement] = []
             for chord in chords {
-                items.append(Diagram(chord: chord, options: options))
+                items.append(Diagram(chord: chord, options: options, settings: settings))
             }
             /// Spread the chords evenly over multiple lines
             let chordsCount = chords.count

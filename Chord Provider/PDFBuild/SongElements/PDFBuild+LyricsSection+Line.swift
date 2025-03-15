@@ -22,10 +22,11 @@ extension PDFBuild.LyricsSection {
         /// - Parameters:
         ///   - parts: The parts of the line
         ///   - chords: All the chords from the song
-        init(parts: [Song.Section.Line.Part], chords: [ChordDefinition]) {
+        ///   - settings: The PDF settings
+        init(parts: [Song.Section.Line.Part], chords: [ChordDefinition], settings: AppSettings.PDF) {
             var items: [Part] = []
             for part in parts {
-                items.append(Part(part: part, chords: chords))
+                items.append(Part(part: part, chords: chords, settings: settings))
             }
             self.parts = items
             self.height = items.first?.size.height ?? 0

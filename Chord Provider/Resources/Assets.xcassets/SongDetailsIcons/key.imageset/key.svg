@@ -32,10 +32,10 @@
    id="defs7" />
 <path
    d="M 3.638349,3.0555325 0.4261529,5.9019458 1.1982035,6.5866086 M 1.5842296,4.8749534 2.3562809,5.5596172 M 6.6025622,1.9651387 c 0,0.8507884 -0.7777266,1.5404903 -1.737118,1.5404903 -0.9593913,0 -1.7371152,-0.6897019 -1.7371152,-1.5404903 0,-0.8507883 0.7777261,-1.5404902 1.7371152,-1.5404902 0.9593914,0 1.737118,0.6897019 1.737118,1.5404902 z"
-   stroke="#808080"
+   stroke="#000000"
    stroke-width="0.4"
    stroke-linecap="round"
    stroke-linejoin="round"
    id="path1-8"
-   style="fill:none;fill-opacity:1;stroke:#808080;stroke-width:0.110849;stroke-dasharray:none;stroke-opacity:1" />/&gt;
+   style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.110849;stroke-dasharray:none;stroke-opacity:1" />/&gt;
 </svg>

@@ -18,14 +18,18 @@ extension PDFBuild {
         let section: Song.Section
         /// All the chords from the song
         let chords: [ChordDefinition]
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **lyrics section** element
         /// - Parameters:
         ///   - section: The section with lyrics
         ///   - chords: All the chords from the song
-        init(_ section: Song.Section, chords: [ChordDefinition]) {
+        ///   - settings: The PDF settings
+        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings.PDF) {
             self.section = section
             self.chords = chords
+            self.settings = settings
         }
 
         /// Draw the **lyrics section** element
@@ -38,11 +42,11 @@ extension PDFBuild {
                 switch line.directive {
                 case .environmentLine:
                     if let parts = line.parts {
-                        let line = Line(parts: parts, chords: chords)
+                        let line = Line(parts: parts, chords: chords, settings: settings)
                         line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }
                 case .comment:
-                    let comment = PDFBuild.Comment(line.label).padding(6)
+                    let comment = PDFBuild.Comment(line.label, settings: settings).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break

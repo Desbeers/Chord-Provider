@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 extension PDFBuild {
 
@@ -18,14 +18,17 @@ extension PDFBuild {
         let section: Song.Section
         /// All the chords from the song
         let chords: [ChordDefinition]
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **grid section** element
         /// - Parameters:
         ///   - section: The section with grids
         ///   - chords: All the chords from the song
-        init(_ section: Song.Section, chords: [ChordDefinition]) {
+        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings.PDF) {
             self.section = section
             self.chords = chords
+            self.settings = settings
         }
 
         /// Draw the **grid section** element
@@ -49,7 +52,7 @@ extension PDFBuild {
                             elements[column].append(
                                 NSAttributedString(
                                     string: "\(first.display)" + (line == lines.last ? "" : "\n"),
-                                    attributes: .gridChord
+                                    attributes: .gridChord(settings: settings)
                                 )
                             )
                         }
@@ -57,7 +60,7 @@ extension PDFBuild {
                             elements[column].append(
                                 NSAttributedString(
                                     string: "\(part.text)" + (line == lines.last ? "" : "\n"),
-                                    attributes: .gridText
+                                    attributes: .gridText(settings: settings)
                                 )
                             )
                         }
@@ -66,7 +69,7 @@ extension PDFBuild {
                                 elements[index].append(
                                     NSAttributedString(
                                         string: "\n",
-                                        attributes: .gridText
+                                        attributes: .gridText(settings: settings)
                                     )
                                 )
                             }
@@ -97,16 +100,16 @@ extension PDFStringAttribute {
     // MARK: Grid string styling
 
     /// String attributes for a grid line
-    static var gridText: PDFStringAttribute {
+    static func gridText(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
+            .foregroundColor: NSColor(Color(settings.theme.foreground)),
             .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
         ]
     }
     /// String attributes for a grid chord
-    static var gridChord: PDFStringAttribute {
+    static func gridChord(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.gray,
+            .foregroundColor: NSColor(Color(settings.fonts.chord.color)),
             .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
         ]
     }

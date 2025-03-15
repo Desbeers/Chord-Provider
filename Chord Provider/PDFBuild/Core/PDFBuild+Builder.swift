@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 extension PDFBuild {
 
@@ -28,12 +28,15 @@ extension PDFBuild {
         var pdfContext: CGContext?
         /// The page size of the PDF document
         var pageRect: CGRect = .zero
+        /// The PDF settings
+        var settings: AppSettings.PDF
 
         /// Init the **builder** class
         /// - Parameter documentInfo: The general document information
-        init(documentInfo: PDFBuild.DocumentInfo) {
+        init(documentInfo: PDFBuild.DocumentInfo, settings: AppSettings.PDF) {
             self.document = documentInfo
             self.auxiliaryInfo = documentInfo.dictionary
+            self.settings = settings
         }
 
         /// Generate a PDF document with all the added elements
@@ -82,6 +85,9 @@ extension PDFBuild {
             }
             var page = document.pageRect.insetBy(dx: document.pagePadding, dy: document.pagePadding)
             pageHeaderFooter?.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
+            let background = PDFBuild.PageBackgroundColor(color: NSColor(Color(settings.theme.background)))
+            background.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
+
             return page
         }
 

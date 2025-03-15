@@ -34,7 +34,7 @@
      inkscape:current-layer="svg3" />
   <path
      d="m 3.511852,6.7141653 c 1.7686016,0 3.2023128,-1.4347681 3.2023128,-3.2046736 0,-1.7698912 -1.4337112,-3.20467321 -3.2023128,-3.20467321 -1.7685876,0 -3.20231288,1.43478201 -3.20231288,3.20467321 0,1.7699055 1.43372528,3.2046736 3.20231288,3.2046736 z"
-     stroke="#808080"
+     stroke="#000000"
      stroke-width="0.4"
      stroke-linecap="round"
      stroke-linejoin="round"
@@ -42,7 +42,7 @@
      style="stroke-width:0.1;stroke-dasharray:none" />
   <path
      d="M 3.511852,1.3730429 V 3.5094917"
-     stroke="#808080"
+     stroke="#000000"
      stroke-width="0.4"
      stroke-linecap="round"
      stroke-linejoin="round"
@@ -50,7 +50,7 @@
      style="stroke-width:0.1;stroke-dasharray:none" />
   <path
      d="M 5.020497,5.0192491 3.511852,3.5094917"
-     stroke="#808080"
+     stroke="#000000"
      stroke-width="0.4"
      stroke-linecap="round"
      stroke-linejoin="round"

@@ -16,11 +16,16 @@ extension PDFBuild {
 
         /// The section with tabs
         let section: Song.Section
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **tab section** element
-        /// - Parameter section: The section with tabs
-        init(_ section: Song.Section) {
+        /// - Parameters:
+        ///    - section: The section with tabs
+        ///    - settings: The PDF settings
+        init(_ section: Song.Section, settings: AppSettings.PDF) {
             self.section = section
+            self.settings = settings
         }
 
         /// Draw the **lyrics section** element
@@ -32,10 +37,10 @@ extension PDFBuild {
             for line in section.lines {
                 switch line.directive {
                 case .environmentLine:
-                    let line = PDFBuild.TabSection.Line(line.label)
+                    let line = PDFBuild.TabSection.Line(line.label, settings: settings)
                     line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 case .comment:
-                    let comment = PDFBuild.Comment(line.label).padding(6)
+                    let comment = PDFBuild.Comment(line.label, settings: settings).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break

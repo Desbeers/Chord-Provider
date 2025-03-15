@@ -96,16 +96,17 @@ extension HeaderView {
         /// Show metadata with a custom SVG icon
         /// - Parameters:
         ///   - string: The metadata
-        ///   - icon: The icon to use from the asset calalog
+        ///   - icon: The icon to use from the asset catalog
         /// - Returns: A `View`
-        func metadata(string: String, icon: NSImage) -> some View {
+        func metadata(string: String, icon: SVGIcon) -> some View {
             HStack {
-                Image(nsImage: icon)
+                // swiftlint:disable:next force_unwrapping
+                Image(nsImage: NSImage(data: icon.data(color: .white))!)
                     .resizable()
                     .frame(width: 12, height: 12)
                 Text(string)
             }
-            .padding(.leading)
+            .padding(.leading, 4)
         }
     }
 }

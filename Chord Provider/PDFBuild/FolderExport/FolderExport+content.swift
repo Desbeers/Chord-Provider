@@ -24,7 +24,7 @@ extension FolderExport {
         appSettings: AppSettings,
         progress: @escaping (Double) -> Void
     ) async -> Data {
-        let builder = PDFBuild.Builder(documentInfo: documentInfo)
+        let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings.pdf)
         builder.pageCounter = counter
         // MARK: Render PDF content
         for item in counter.tocItems {

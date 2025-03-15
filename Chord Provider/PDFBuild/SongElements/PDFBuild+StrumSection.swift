@@ -16,11 +16,14 @@ extension PDFBuild {
 
         /// The section with strumming
         let section: Song.Section
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **strum section** element
         /// - Parameter section: The section with strumming
-        init(_ section: Song.Section) {
+        init(_ section: Song.Section, settings: AppSettings.PDF) {
             self.section = section
+            self.settings = settings
         }
 
         /// Draw the **strum section** element
@@ -39,7 +42,7 @@ extension PDFBuild {
                         }
                     }
                 case .comment:
-                    let comment = PDFBuild.Comment(line.label).padding(6)
+                    let comment = PDFBuild.Comment(line.label, settings: settings).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break

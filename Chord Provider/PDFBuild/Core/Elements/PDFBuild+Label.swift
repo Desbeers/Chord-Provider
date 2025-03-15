@@ -24,6 +24,8 @@ extension PDFBuild {
         let alignment: NSTextAlignment
         /// The corner radius of the label
         let cornerRadius: CGFloat = 3
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **label** element
         /// - Parameters:
@@ -31,16 +33,19 @@ extension PDFBuild {
         ///   - labelText: The text of the label
         ///   - backgroundColor: The `NSColor` background of the label
         ///   - alignment: The alignment of the label
+        ///   - settings: The PDF settings
         init(
             leadingText: NSAttributedString? = nil,
             labelText: NSAttributedString,
             backgroundColor: NSColor,
-            alignment: NSTextAlignment
+            alignment: NSTextAlignment,
+            settings: AppSettings.PDF
         ) {
             self.leadingText = leadingText
             self.labelText = labelText
             self.backgroundColor = backgroundColor
             self.alignment = alignment
+            self.settings = settings
         }
 
         /// Draw the **label** element
@@ -110,18 +115,5 @@ extension PDFBuild {
             rect.origin.y += height
             rect.size.height -= height
         }
-    }
-}
-
-extension PDFStringAttribute {
-
-    // MARK: Label string styling
-
-    /// Style attributes for the section label
-    static var sectionLabel: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.black,
-            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
-        ]
     }
 }

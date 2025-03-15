@@ -32,6 +32,9 @@ struct SettingsView: View {
             Tab("Songs", systemImage: "folder") {
                 folder
             }
+            Tab("PDF", systemImage: "text.document") {
+                pdf
+            }
             Tab("Options", systemImage: "music.quarternote.3") {
                 options
             }
@@ -235,6 +238,58 @@ struct SettingsView: View {
         }
         .padding(.bottom)
         .frame(maxWidth: .infinity)
+    }
+
+    /// `View` with PDF settings
+    @ViewBuilder var pdf: some View {
+        @Bindable var appState = appState
+        VStack {
+            ScrollView {
+                VStack {
+                    HStack {
+                        Button("Light") {
+                            appState.settings.pdf = AppSettings.PDF.Preset.light.settings
+                        }
+                        .disabled(appState.settings.pdf == AppSettings.PDF.Preset.light.settings)
+                        Button("Dark") {
+                            appState.settings.pdf = AppSettings.PDF.Preset.dark.settings
+                        }
+                            .disabled(appState.settings.pdf == AppSettings.PDF.Preset.dark.settings)
+                    }
+                    ColorPickerButton(
+                        selectedColor: $appState.settings.pdf.theme.foreground,
+                        label: "Foreground Color"
+                    )
+                    ColorPickerButton(
+                        selectedColor: $appState.settings.pdf.theme.foregroundMedium,
+                        label: "Secondary foreground Color"
+                    )
+                    ColorPickerButton(
+                        selectedColor: $appState.settings.pdf.theme.background,
+                        label: "Background Color"
+                    )
+                }
+                .wrapSettingsSection(title: "PDF settings")
+                VStack {
+                    ColorPickerButton(
+                        selectedColor: $appState.settings.pdf.fonts.chord.color,
+                        label: "Chord Color"
+                    )
+                }
+                .wrapSettingsSection(title: "Fonts")
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .top)
+        Button(
+            action: {
+                appState.settings.pdf = AppSettings.PDF.Preset.light.settings
+            },
+            label: {
+                Text("Reset to defaults")
+            }
+        )
+        .padding(.bottom)
+        .disabled(appState.settings.pdf == AppSettings.PDF.Preset.light.settings)
     }
 }
 

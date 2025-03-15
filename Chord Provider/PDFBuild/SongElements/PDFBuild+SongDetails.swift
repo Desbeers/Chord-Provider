@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 extension PDFBuild {
 
@@ -16,11 +16,16 @@ extension PDFBuild {
 
         /// The ``Song``
         let song: Song
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         /// Init the **song details** element
-        /// - Parameter song: The ``Song``
-        init(song: Song) {
+        /// - Parameters:
+        ///   - song: The ``Song``
+        ///   - settings: The PDF settings
+        init(song: Song, settings: AppSettings.PDF) {
             self.song = song
+            self.settings = settings
         }
 
         /// Draw the **song details** element
@@ -31,18 +36,18 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Add the detail items
             let items = NSMutableAttributedString()
-            items.append(detailLabel(icon: "instrument", label: song.settings.display.instrument.label))
+            items.append(detailLabel(icon: .instrument, label: song.settings.display.instrument.label))
             if let key = song.metadata.key {
-                items.append(detailLabel(icon: "key", label: key.display))
+                items.append(detailLabel(icon: .key, label: key.display))
             }
             if let capo = song.metadata.capo {
-                items.append(detailLabel(icon: "capo", label: capo))
+                items.append(detailLabel(icon: .capo, label: capo))
             }
             if let time = song.metadata.time {
-                items.append(detailLabel(icon: "time", label: time))
+                items.append(detailLabel(icon: .time, label: time))
             }
             if let tempo = song.metadata.tempo {
-                items.append(detailLabel(icon: "tempo", label: "\(tempo) bpm"))
+                items.append(detailLabel(icon: .tempo, label: "\(tempo) bpm"))
             }
             /// Draw the details
             let textBounds = items.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
@@ -59,9 +64,13 @@ extension PDFBuild {
         ///   - icon: The icon as `String`
         ///   - label: The label as `String`
         /// - Returns: An `NSAttributedString` with icon, label and attributes
-        private func detailLabel(icon: String, label: String) -> NSAttributedString {
+        private func detailLabel(icon: SVGIcon, label: String) -> NSAttributedString {
+            guard let image = NSImage(data: icon.data(color: settings.theme.foregroundMedium)) else {
+                return NSAttributedString()
+            }
+            image.isTemplate = true
             let imageAttachment = NSTextAttachment()
-            imageAttachment.image = NSImage(named: icon)
+            imageAttachment.image = image
             let imageSize = imageAttachment.image?.size ?? .init()
             imageAttachment.bounds = CGRect(
                 x: CGFloat(0),
@@ -71,7 +80,7 @@ extension PDFBuild {
             )
             let result = NSMutableAttributedString()
             result.append(NSAttributedString(attachment: imageAttachment, attributes: .alignment(.center)))
-            result.append(NSAttributedString(string: " \(label)   ", attributes: .songDetailLabel))
+            result.append(NSAttributedString(string: " \(label)   ", attributes: .songDetailLabel(settings: settings)))
             return result
         }
     }
@@ -82,9 +91,9 @@ extension PDFStringAttribute {
     // MARK: Song Detail string styling
 
     /// String attributes for a song detail label
-    static var songDetailLabel: PDFStringAttribute {
+    static func songDetailLabel(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
+            .foregroundColor: NSColor(Color(settings.theme.foreground)),
             .font: NSFont.systemFont(ofSize: 8, weight: .regular)
         ] + alignment(.center)
     }

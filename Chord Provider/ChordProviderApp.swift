@@ -186,7 +186,7 @@ import OSLog
             SettingsView()
                 .environment(appState)
                 .environment(fileBrowser)
-                .frame(width: 340, height: 490)
+                .frame(width: 360, height: 490)
         }
 
         // MARK: Settings

@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 extension PDFBuild.Chords {
 
@@ -22,6 +22,8 @@ extension PDFBuild.Chords {
         let chord: ChordDefinition
         /// The chord display options
         let options: AppSettings.DiagramDisplayOptions
+        /// The PDF settings
+        let settings: AppSettings.PDF
 
         // MARK: Calculated constants
 
@@ -49,7 +51,8 @@ extension PDFBuild.Chords {
         /// - Parameters:
         ///   - chord: The chord to display in a diagram
         ///   - options: The chord display options
-        init(chord: ChordDefinition, options: AppSettings.DiagramDisplayOptions) {
+        ///   - settings: The PDF settings
+        init(chord: ChordDefinition, options: AppSettings.DiagramDisplayOptions, settings: AppSettings.PDF) {
             self.chord = chord
             self.options = options
             self.columns = (chord.instrument.strings.count) - 1
@@ -59,6 +62,7 @@ extension PDFBuild.Chords {
             self.ySpacing = height / 5
             self.frets = options.mirrorDiagram ? chord.frets.reversed() : chord.frets
             self.fingers = options.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
+            self.settings = settings
         }
 
         /// Draw the **chords** element as a `Section` element
@@ -112,7 +116,7 @@ extension PDFBuild.Chords {
                     height: rect.height
                 )
                 let chord = chord.display
-                let name = PDFBuild.Text(chord, attributes: .diagramChordName + .alignment(.center))
+                let name = PDFBuild.Text(chord, attributes: .diagramChordName(settings: settings) + .alignment(.center))
                 name.draw(rect: &nameRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 /// Add this item to the total height
                 currentDiagramHeight += (nameRect.origin.y - rect.origin.y) * 0.8
@@ -141,7 +145,7 @@ extension PDFBuild.Chords {
                     default:
                         string = " "
                     }
-                    let symbol = PDFBuild.Text(string, attributes: .diagramTopBar)
+                    let symbol = PDFBuild.Text(string, attributes: .diagramTopBar(settings: settings))
                     var tmpRect = topBarRect
                     symbol.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                     height = tmpRect.origin.y - rect.origin.y
@@ -166,7 +170,7 @@ extension PDFBuild.Chords {
                         height: ySpacing / 5
                     )
                     if chord.baseFret == 1, let context = NSGraphicsContext.current?.cgContext {
-                        context.setFillColor(NSColor.black.cgColor)
+                        context.setFillColor(NSColor(Color(settings.theme.foreground)).cgColor)
                         context.fill(nutRect)
                     }
                 }
@@ -185,7 +189,7 @@ extension PDFBuild.Chords {
                     width: gridSize.width,
                     height: rect.height
                 )
-                let name = PDFBuild.Text("\(chord.baseFret)", attributes: .diagramBaseFret + .alignment(.left))
+                let name = PDFBuild.Text("\(chord.baseFret)", attributes: .diagramBaseFret(settings: settings) + .alignment(.left))
                 name.draw(rect: &baseFretRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
 
@@ -217,7 +221,7 @@ extension PDFBuild.Chords {
                             context.addLine(to: CGPoint(x: start.x + gridSize.width, y: start.y))
                             start.y += ySpacing
                         }
-                        context.setStrokeColor(NSColor.black.cgColor)
+                        context.setStrokeColor(NSColor(Color(settings.theme.foreground)).cgColor)
                         context.setLineWidth(0.2)
                         context.setLineCap(.round)
                         context.strokePath()
@@ -249,8 +253,8 @@ extension PDFBuild.Chords {
                         if frets[string] == fret {
                             let finger = options.showFingers && fingers[string] != 0 ?
                             "\(fingers[string])" : " "
-                            let text = PDFBuild.Text(finger, attributes: .diagramFinger)
-                            let background = PDFBuild.Background(color: .gray, text)
+                            let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
+                            let background = PDFBuild.Background(color: NSColor(Color(settings.theme.foregroundMedium)), text)
                             let shape = PDFBuild.Clip(.circle, background)
                             var tmpRect = dotRect
                             shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
@@ -286,8 +290,8 @@ extension PDFBuild.Chords {
                         /// Mirror for left-handed if needed
                         barre = options.mirrorDiagram ? chord.mirrorBarre(barre) : barre
                         let finger = options.showFingers ? "\(barre.finger)" : " "
-                        let text = PDFBuild.Text(finger, attributes: .diagramFinger)
-                        let background = PDFBuild.Background(color: .gray, text)
+                        let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
+                        let background = PDFBuild.Background(color: NSColor(Color(settings.theme.foregroundMedium)), text)
                         let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
                         var tmpRect = CGRect(
                             x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing) + xOffset,
@@ -321,7 +325,7 @@ extension PDFBuild.Chords {
                         break
                     default:
                         let string = ("\(note.note.display)")
-                        let note = PDFBuild.Text(string, attributes: .diagramBottomBar)
+                        let note = PDFBuild.Text(string, attributes: .diagramBottomBar(settings: settings))
                         var tmpRect = notesBarRect
                         note.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                         height = tmpRect.origin.y - rect.origin.y
@@ -340,42 +344,38 @@ extension PDFStringAttribute {
     // MARK: Diagram string styling
 
     /// Style attributes for the diagram chord name
-    static var diagramChordName: PDFStringAttribute {
+    static func diagramChordName(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.gray,
+            .foregroundColor: NSColor(Color(settings.fonts.chord.color)),
             .font: NSFont.systemFont(ofSize: 10, weight: .regular)
         ]
     }
 
     /// Style attributes for the diagram finger
-    static var diagramFinger: PDFStringAttribute {
+    static func diagramFinger(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.white,
             .font: NSFont.systemFont(ofSize: 6, weight: .regular)
-        ] + .alignment(.center)
+        ] + .alignment(.center) + .backgroundColor(settings: settings)
     }
 
     /// Style attributes for the diagram top bar
-    static var diagramTopBar: PDFStringAttribute {
+    static func diagramTopBar(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 4, weight: .regular)
-        ] + .alignment(.center)
+        ] + .alignment(.center) + .foregroundColor(settings: settings)
     }
 
     /// Style attributes for the diagram base fret
-    static var diagramBaseFret: PDFStringAttribute {
+    static func diagramBaseFret(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 4, weight: .regular)
-        ] + .alignment(.left)
+        ] + .alignment(.left) + .foregroundColor(settings: settings)
     }
 
-    /// Style attributes for the diagram top bar
-    static var diagramBottomBar: PDFStringAttribute {
+    /// Style attributes for the diagram bottom bar
+    static func diagramBottomBar(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
             .font: NSFont.systemFont(ofSize: 4, weight: .regular)
-        ] + .alignment(.center)
+        ] + .alignment(.center) + .foregroundColor(settings: settings)
     }
 }
