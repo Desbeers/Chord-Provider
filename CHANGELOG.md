@@ -17,4 +17,4 @@
 - Improve chord database editor
 - Add support for 'composer' directive
 - Bugfixes for chord editor
-- Add color options to PDF export
+- Add color and font options to PDF export
