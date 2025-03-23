@@ -1,6 +1,6 @@
 //
-//  ChordsDatabaseDocument.swift
-//  Chords Database
+//  JSONDocument.swift
+//  Chord Provider
 //
 //  © 2025 Nick Berendsen
 //
@@ -8,8 +8,8 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// The database with chords in  **ChordPro** JSON format
-struct ChordsDatabaseDocument: FileDocument {
+/// A document in JSON format
+struct JSONDocument: FileDocument {
     /// The UTType to export
     static var readableContentTypes: [UTType] { [.json] }
     /// The log to export

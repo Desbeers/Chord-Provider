@@ -81,7 +81,7 @@ struct MainView: View {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings.pdf) {
+        .onChange(of: appState.settings) {
             if sceneState.preview.data != nil {
                 sceneState.preview.outdated = true
             }

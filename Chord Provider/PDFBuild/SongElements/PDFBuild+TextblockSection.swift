@@ -58,7 +58,7 @@ extension PDFBuild {
                         }
                         text.append(NSAttributedString(
                             string: "\(part.text)",
-                            attributes: .textblockLine + .mediumForegroundColor(settings: settings))
+                            attributes: .textblockLine(settings: settings))
                         )
                     }
                     if line != section.lines.last {
@@ -89,7 +89,7 @@ extension PDFBuild {
             /// Add the optional label
             var labelRect = tmpRect
             if !section.label.isEmpty {
-                let label = PDFBuild.Text(section.label, attributes: .foregroundColor(settings: settings) + .defaultFont(settings: settings) + .alignment(flush))
+                let label = PDFBuild.Text(section.label, attributes: .attributes(.text, settings: settings) + .alignment(flush))
                 label.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 let divider = PDFBuild.Divider(direction: .horizontal)
                 divider.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
@@ -114,10 +114,10 @@ extension PDFStringAttribute {
     // MARK: Textblock string styling
 
     /// String attributes for a textblock  line
-    static var textblockLine: PDFStringAttribute {
+    static func textblockLine(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.gray,
-            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
+            .foregroundColor: NSColor(settings.theme.foregroundMedium),
+            .font: NSFont.systemFont(ofSize: settings.fonts.text.size, weight: .regular)
         ]
     }
 }

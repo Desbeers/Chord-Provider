@@ -65,6 +65,8 @@ struct ExportFolderView: View {
                 action: {
                     Task {
                         do {
+                            let settings = AppSettings.load(id: .mainView)
+                            appState.settings.pdf = settings.pdf
                             /// Bring the sceneState instrument to the appState
                             appState.settings.song.display.instrument = sceneState.settings.song.display.instrument
                             progress = 0

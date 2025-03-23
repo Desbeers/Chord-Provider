@@ -37,7 +37,7 @@ extension PDFBuild.TabSection {
             let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
             let characters = tab.count
             /// Calculate the font size so the line will not wrap
-            let fontSize = min(textRect.width / (Double(characters) * 0.7), 10)
+            let fontSize = min(textRect.width / (Double(characters) * 0.7), settings.fonts.text.size)
             let text = NSAttributedString(
                 string: tab,
                 attributes: .tabLine(fontSize: fontSize, settings: settings)
@@ -60,7 +60,7 @@ extension PDFStringAttribute {
     /// Style attributes for the line of a tab
     static func tabLine(fontSize: CGFloat, settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(Color(settings.theme.foreground)),
+            .foregroundColor: NSColor(settings.theme.foreground),
             .font: NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
         ]
     }

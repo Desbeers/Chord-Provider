@@ -11,18 +11,34 @@ import Quartz
 class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
     func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {
+
+        var settings = AppSettings()
+
+        var inDarkMode: Bool {
+            let mode = UserDefaults.standard.string(forKey: "AppleInterfaceStyle")
+            return mode == "Dark"
+        }
+
+        switch inDarkMode {
+
+        case true:
+            settings.pdf = AppSettings.PDF.Preset.dark.presets(settings: settings.pdf)
+        case false:
+            settings.pdf = AppSettings.PDF.Preset.light.presets(settings: settings.pdf)
+        }
+
         let contentType = UTType.pdf
         let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
         let song = await ChordProParser.parse(
             id: UUID(),
             text: fileContents,
             transpose: 0,
-            settings: AppSettings(),
+            settings: settings,
             fileURL: request.fileURL
         )
         let songData = try await SongExport.export(
             song: song,
-            appSettings: AppSettings()
+            appSettings: settings
         ).pdf
 
         let reply = QLPreviewReply.init(

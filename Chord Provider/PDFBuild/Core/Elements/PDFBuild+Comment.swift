@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 extension PDFBuild {
 
@@ -30,8 +30,8 @@ extension PDFBuild {
         ///   - icon: The icon
         ///   - settings: The PDF settings
         init(_ commentText: String, icon: String = "􀌲", backgroundColor: NSColor = .pdfComment, settings: AppSettings.PDF) {
-            self.leadingText = NSAttributedString(string: icon, attributes: .commentLabel)
-            self.commentText = NSAttributedString(string: commentText, attributes: .commentLabel)
+            self.leadingText = NSAttributedString(string: icon, attributes: .attributes(.comment, settings: settings))
+            self.commentText = NSAttributedString(string: commentText, attributes: .attributes(.comment, settings: settings))
             self.backgroundColor = backgroundColor
             self.settings = settings
         }
@@ -45,7 +45,7 @@ extension PDFBuild {
             let label = PDFBuild.Label(
                 leadingText: leadingText,
                 labelText: commentText,
-                backgroundColor: backgroundColor,
+                backgroundColor: NSColor(settings.fonts.comment.background),
                 alignment: .left,
                 settings: settings
             )

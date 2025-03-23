@@ -32,12 +32,12 @@ extension PDFStringAttribute {
     /// - Note: Element specific styling is in its own file
 
     /// Style attributes for the default font
-    static var defaultFont: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.black,
-            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
-        ]
-    }
+//    static var defaultFont: PDFStringAttribute {
+//        [
+//            .foregroundColor: NSColor.black,
+//            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
+//        ]
+//    }
 
     /// Style attributes for the small font
     static var smallFont: PDFStringAttribute {
@@ -50,7 +50,7 @@ extension PDFStringAttribute {
     /// Style attributes for the title of the PDF
     static func pdfTitle(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(Color(settings.theme.foreground)),
+            .foregroundColor: NSColor(settings.theme.foreground),
             .font: NSFont.systemFont(ofSize: 14, weight: .semibold)
         ] + .alignment(.center)
     }
@@ -58,7 +58,7 @@ extension PDFStringAttribute {
     /// Style attributes for the subtitle of the PDF
     static func pdfSubtitle(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(Color(settings.theme.foregroundMedium)),
+            .foregroundColor: NSColor(settings.theme.foregroundMedium),
             .font: NSFont.systemFont(ofSize: 12, weight: .regular)
         ] + .alignment(.center)
     }
@@ -83,23 +83,11 @@ extension PDFStringAttribute {
 
     /// Style attributes for alignment of a paragraph
     /// - Parameter alignment: The alignment
-    /// - Returns: A paragraph aligment style
+    /// - Returns: A paragraph alignment style
     static func alignment(_ alignment: NSTextAlignment) -> PDFStringAttribute {
         let style = NSMutableParagraphStyle()
         style.alignment = alignment
         return [.paragraphStyle: style]
-    }
-
-    // MARK: Serif font string styling
-
-    /// Style attributes for a *serif* font style
-    static var serifFont: PDFStringAttribute {
-        let descriptor = NSFontDescriptor
-            .preferredFontDescriptor(
-                forTextStyle: .body
-            )
-            .withDesign(.serif)
-        return [.font: NSFont(descriptor: descriptor ?? NSFontDescriptor(), size: 10) ?? [:]]
     }
 }
 
@@ -107,25 +95,37 @@ extension PDFStringAttribute {
 
     static func foregroundColor(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(Color(settings.theme.foreground))
+            .foregroundColor: NSColor(settings.theme.foreground)
         ]
     }
 
-    static func mediumForegroundColor(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(Color(settings.theme.foregroundMedium))
-        ]
-    }
 
-    static func backgroundColor(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(Color(settings.theme.background))
-        ]
-    }
-
-    static func defaultFont(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
+    static func attributes(_ config: ChordPro.FontConfig, settings: AppSettings.PDF) -> PDFStringAttribute {
+        var font = NSFont()
+        var color = NSColor()
+        switch config {
+        case .title:
+            font = settings.fonts.title.nsFont
+            color = NSColor(settings.theme.foreground)
+        case .subtitle:
+            font = settings.fonts.subtitle.nsFont
+            color = NSColor(settings.theme.foregroundMedium)
+        case .text:
+            font = settings.fonts.text.nsFont
+            color = NSColor(settings.theme.foreground)
+        case .chord:
+            font = settings.fonts.chord.nsFont
+            color = NSColor(settings.fonts.chord.color)
+        case .label:
+            font = settings.fonts.label.nsFont
+            color = NSColor(settings.fonts.label.color)
+        case .comment:
+            font = settings.fonts.comment.nsFont
+            color = NSColor(settings.fonts.comment.color)
+        }
+        return [
+            .font: font,
+            .foregroundColor: color
         ]
     }
 }

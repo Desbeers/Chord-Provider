@@ -85,7 +85,7 @@ extension PDFBuild {
             }
             var page = document.pageRect.insetBy(dx: document.pagePadding, dy: document.pagePadding)
             pageHeaderFooter?.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
-            let background = PDFBuild.PageBackgroundColor(color: NSColor(Color(settings.theme.background)))
+            let background = PDFBuild.PageBackgroundColor(color: NSColor(settings.theme.background))
             background.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
 
             return page

@@ -19,7 +19,7 @@ struct AppSettings: Equatable, Codable, Sendable {
     /// ChordPro integration
     var chordPro: ChordPro = .init()
     /// PDF output
-    var pdf: PDF = AppSettings.PDF.Preset.light.settings
+    var pdf: PDF = AppSettings.PDF.Preset.light.presets(settings: .init())
 }
 
 extension AppSettings {

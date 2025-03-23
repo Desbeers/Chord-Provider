@@ -23,11 +23,13 @@ extension Editor {
         var fontSize: Double = 14
 
         /// The font style of the editor
-        var fontStyle: FontStyle = .monospaced
+        var fontStyle: ConfigOptions.FontStyle = .monospaced
 
         /// The calculated font for the editor
         var font: NSFont {
-            return fontStyle.nsFont(size: fontSize)
+            return ConfigOptions.FontOptions(
+                size: fontSize
+            ).nsFont
         }
 
         // MARK: Colors (codable with an extension)
@@ -44,45 +46,5 @@ extension Editor {
         var markupColor: Color = .teal
         /// The color for comments
         var commentColor: Color = .gray
-    }
-}
-
-extension Editor.Settings {
-
-    /// The editor font-style
-    enum FontStyle: String, CaseIterable, Codable, Sendable {
-        /// Use a monospaced font
-        case monospaced = "Monospaced"
-        /// Use a serif font
-        case serif = "Serif"
-        /// Use a sans-serif font
-        case sansSerif = "Sans Serif"
-        /// The calculated font for the `EditorView`
-        func nsFont(size: Double) -> NSFont {
-            var descriptor: NSFontDescriptor?
-            switch self {
-            case .monospaced:
-                descriptor = NSFont.systemFont(ofSize: size).fontDescriptor.addingAttributes().withDesign(.monospaced)
-            case .serif:
-                descriptor = NSFont.systemFont(ofSize: size).fontDescriptor.addingAttributes().withDesign(.serif)
-            case .sansSerif:
-                descriptor = NSFont.systemFont(ofSize: size).fontDescriptor.addingAttributes().withDesign(.default)
-            }
-            if let descriptor, let font = NSFont(descriptor: descriptor, size: size) {
-                return font
-            }
-            return NSFont.monospacedSystemFont(ofSize: size, weight: .regular)
-        }
-        /// The calculated font for the `SettingsView`
-        func font() -> Font {
-            switch self {
-            case .monospaced:
-                return .system(.body, design: .monospaced)
-            case .serif:
-                return .system(.body, design: .serif)
-            case .sansSerif:
-                return .system(.body, design: .default)
-            }
-        }
     }
 }

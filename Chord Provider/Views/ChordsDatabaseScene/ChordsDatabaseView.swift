@@ -117,7 +117,7 @@ struct ChordsDatabaseView: View {
         }
         .fileExporter(
             isPresented: $chordsDatabaseState.showExportSheet,
-            document: ChordsDatabaseDocument(string: chordsDatabaseState.exportData),
+            document: JSONDocument(string: chordsDatabaseState.exportData),
             contentTypes: [.json],
             defaultFilename: "ChordPro \(sceneState.settings.song.display.instrument) chords"
         ) { result in

@@ -34,7 +34,7 @@ extension PDFBuild.LyricsSection.Line {
                 self.text.append(
                     NSAttributedString(
                         string: "\(part.text)",
-                        attributes: .foregroundColor(settings: settings) + .defaultFont(settings: settings)
+                        attributes: .attributes(.text, settings: settings)
                     )
                 )
             } else {
@@ -49,9 +49,11 @@ extension PDFBuild.LyricsSection.Line {
                         attributes: .partChord(settings: settings)
                     )
                 )
-                self.text.append(NSAttributedString(
-                    string: "\(part.text)",
-                    attributes: .foregroundColor(settings: settings) + .defaultFont(settings: settings))
+                self.text.append(
+                    NSAttributedString(
+                        string: "\(part.text)",
+                        attributes: .attributes(.text, settings: settings)
+                    )
                 )
             }
             self.size = text.size()
@@ -80,16 +82,17 @@ extension PDFStringAttribute {
 
     /// Style attributes for the chord of the part
     static func partChord(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(Color(settings.fonts.chord.color)),
-            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
+        let font = settings.fonts.chord.nsFont
+        return [
+            .foregroundColor: NSColor(settings.fonts.chord.color),
+            .font: font
         ]
     }
 
 //    /// Style attributes for the lyric of the part
 //    static func partLyric(settings: AppSettings.PDF) -> PDFStringAttribute {
 //        [
-//            .foregroundColor: NSColor(Color(settings.theme.foreground)),
+//            .foregroundColor: NSColor(settings.theme.foreground),
 //            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
 //        ]
 //    }

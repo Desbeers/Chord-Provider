@@ -13,6 +13,8 @@ struct ColorPickerButton: View {
     @Binding var selectedColor: Color
     /// The label that goes in front of the button
     let label: String
+    /// Show dynamic colors
+    var showDynamicColors: Bool = true
     /// Bool to show the popup
     @State private var showPopup: Bool = false
     /// All the available dynamic colors
@@ -56,12 +58,14 @@ struct ColorPickerButton: View {
             .popover(isPresented: $showPopup) {
                 ScrollView(.horizontal) {
                     VStack {
-                        HStack {
-                            ForEach(dynamicColors, id: \.self) { color in
-                                label(color: color)
+                        if showDynamicColors {
+                            HStack {
+                                ForEach(dynamicColors, id: \.self) { color in
+                                    label(color: color)
+                                }
                             }
+                            Divider()
                         }
-                        Divider()
                         HStack {
                             ForEach(systemColors, id: \.self) { color in
                                 label(color: color)

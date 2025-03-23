@@ -25,6 +25,13 @@ enum AppError: String, LocalizedError {
     /// The song is empty
     case emptySong
 
+    // MARK: Settings related
+
+    /// The theme could not be imported
+    case importThemeError
+    /// The theme could not be exported
+    case exportThemeError
+
     // MARK: Songs folder
 
     /// There is no folder with songs selected
@@ -76,6 +83,8 @@ enum AppError: String, LocalizedError {
             "The ChordPro CLI created a PDF with warnings"
         case .emptySong:
             "The song appears to be empty"
+        case .importThemeError:
+            "The theme settings could not be imported"
         default:
             self.rawValue
         }
@@ -90,6 +99,8 @@ enum AppError: String, LocalizedError {
     /// The recovery suggestion of the status
     var recoverySuggestion: String? {
         switch self {
+        case .importThemeError:
+            "The JSON file seems not correct"
         case .audioFileNotFoundError:
 """
 You have defined a song but it was not found.

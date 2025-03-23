@@ -9,45 +9,78 @@ import SwiftUI
 
 extension Color: Codable {
 
+    /// Override equatable confirmation is a little bit less strict version
+    static func == (lhs: Color, rhs: Color) -> Bool {
+        lhs.toHex == rhs.toHex
+    }
+
     /// Make `Color` encodable
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        let nsColor = NSColor(self)
-        let data = try NSKeyedArchiver.archivedData(
-            withRootObject: nsColor,
-            requiringSecureCoding: true
-        )
-        try container.encode(data)
+        let hexColor = self.toHex
+        try container.encode(hexColor)
     }
 
     /// Make `Color` decodable
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        let data = try container.decode(Data.self)
-        guard let nsColor = try NSKeyedUnarchiver
-            .unarchivedObject(ofClass: NSColor.self, from: data)
-        else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid decoding of archived data")
+        let string = try container.decode(String.self)
+        if let result = Color(hex: string) {
+            self.init(result)
+        } else {
+            self.init(Color.primary)
         }
-        self.init(nsColor: nsColor)
     }
 
     /// Generate a random dark Color
     static var randomDark: Color {
         return Color(
-            red: .random(in: 0...0.6),
-            green: .random(in: 0...0.6),
-            blue: .random(in: 0...0.6)
+            red: .random(in: 0...0.5),
+            green: .random(in: 0...0.5),
+            blue: .random(in: 0...0.5)
         )
     }
 
     /// Generate a random light Color
     static var randomLight: Color {
         return Color(
-            red: .random(in: 0.6...1),
-            green: .random(in: 0.6...1),
-            blue: .random(in: 0.6...1)
+            red: .random(in: 0.7...1),
+            green: .random(in: 0.7...1),
+            blue: .random(in: 0.7...1)
         )
+    }
+}
+
+extension Color {
+    init?(hex: String) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+
+        var rgb: UInt64 = 0
+        // swiftlint:disable identifier_name
+        var r: CGFloat = 0.0
+        var g: CGFloat = 0.0
+        var b: CGFloat = 0.0
+        var a: CGFloat = 1.0
+        // swiftlint:enable identifier_name
+        let length = hexSanitized.count
+
+        guard Scanner(string: hexSanitized).scanHexInt64(&rgb) else { return nil }
+
+        if length == 6 {
+            r = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+            g = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+            b = CGFloat(rgb & 0x0000FF) / 255.0
+        } else if length == 8 {
+            r = CGFloat((rgb & 0xFF000000) >> 24) / 255.0
+            g = CGFloat((rgb & 0x00FF0000) >> 16) / 255.0
+            b = CGFloat((rgb & 0x0000FF00) >> 8) / 255.0
+            a = CGFloat(rgb & 0x000000FF) / 255.0
+        } else {
+            return nil
+        }
+
+        self.init(red: r, green: g, blue: b, opacity: a)
     }
 }
 

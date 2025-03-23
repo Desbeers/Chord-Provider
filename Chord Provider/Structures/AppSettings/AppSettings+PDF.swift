@@ -11,45 +11,57 @@ extension AppSettings.PDF {
     enum Preset {
         case light
         case dark
-        var settings: AppSettings.PDF {
+        case random
+        func presets(settings: AppSettings.PDF) -> AppSettings.PDF {
+            var appSettings = settings
             switch self {
             case .light:
-                AppSettings
-                    .PDF(
-                        theme:
-                            Theme(
-                                foreground: .black,
-                                foregroundLight: .gray,
-                                foregroundMedium: .gray,
-                                background: .white
-                            ),
-                        fonts:
-                            Fonts(
-                                chord: AppSettings.PDF.Fonts.Font(
-                                    size: 10,
-                                    color: .accent
-                                )
-                            )
-                    )
+                appSettings.theme.foreground = .black
+                appSettings.theme.foregroundMedium = .gray
+                appSettings.theme.background = .white
+                appSettings.fonts.title.color = .black
+                appSettings.fonts.subtitle.color = .gray
+                appSettings.fonts.chord.color = .accent
+                appSettings.fonts.label.color = .black
+                appSettings.fonts.label.background = .gray
+                appSettings.fonts.comment.color = .black
+                appSettings.fonts.comment.background = .pdfComment
             case .dark:
-                AppSettings
-                    .PDF(
-                        theme:
-                            Theme(
-                                foreground: .white,
-                                foregroundLight: .gray,
-                                foregroundMedium: .gray,
-                                background: .black
-                            ),
-                        fonts:
-                            Fonts(
-                                chord: AppSettings.PDF.Fonts.Font(
-                                    size: 10,
-                                    color: .red
-                                )
-                            )
-                    )
+                appSettings.theme.foreground = .white
+                appSettings.theme.foregroundMedium = .gray
+                appSettings.theme.background = .black
+                appSettings.fonts.title.color = .white
+                appSettings.fonts.subtitle.color = .gray
+                appSettings.fonts.chord.color = .red
+                appSettings.fonts.label.color = .white
+                appSettings.fonts.label.background = .gray
+                appSettings.fonts.comment.color = .black
+                appSettings.fonts.comment.background = .orange
+            case .random:
+                appSettings.theme.foreground = .randomDark
+                appSettings.theme.foregroundMedium = .randomDark
+                appSettings.theme.background = .randomLight
+                appSettings.fonts.title.color = .randomDark
+                appSettings.fonts.subtitle.color = .randomDark
+                appSettings.fonts.label.color = .randomDark
+                appSettings.fonts.label.background = .randomLight
+                appSettings.fonts.chord.color = .randomDark
+                appSettings.fonts.comment.color = .randomDark
+                appSettings.fonts.comment.background = .randomLight
             }
+            return appSettings
+        }
+    }
+
+    var exportToJSON: String {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        do {
+            let encodedData = try encoder.encode(self)
+            return String(data: encodedData, encoding: .utf8) ?? "error"
+        } catch {
+            /// This should not happen
+            return "error"
         }
     }
 }
@@ -69,8 +81,8 @@ extension AppSettings.PDF {
 
     struct Theme: Codable, Equatable {
         var foreground: Color = .black
-        var foregroundLight: Color = .secondary
-        var foregroundMedium: Color = .secondary
+        var foregroundLight: Color = .gray
+        var foregroundMedium: Color = .gray
         var background: Color = .white
     }
 }
@@ -78,13 +90,12 @@ extension AppSettings.PDF {
 extension AppSettings.PDF {
 
     struct Fonts: Codable, Equatable {
-        var chord: Font = Font(color: .accent)
-    }
-}
 
-extension AppSettings.PDF.Fonts {
-    struct Font: Codable, Equatable {
-        var size: Double = 10
-        var color: Color = .primary
+        var title: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 18)
+        var subtitle: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 16)
+        var text: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 12)
+        var chord: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .accent)
+        var label: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, background: .gray)
+        var comment: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .pdfComment)
     }
 }

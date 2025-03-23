@@ -101,16 +101,18 @@ extension PDFStringAttribute {
 
     /// String attributes for a grid line
     static func gridText(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(Color(settings.theme.foreground)),
-            .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+        let font = NSFont(name: settings.fonts.text.font, size: settings.fonts.chord.size) ?? .systemFont(ofSize: settings.fonts.chord.size)
+        return [
+            .foregroundColor: NSColor(settings.theme.foreground),
+            .font: font
         ]
     }
     /// String attributes for a grid chord
     static func gridChord(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(Color(settings.fonts.chord.color)),
-            .font: NSFont.monospacedSystemFont(ofSize: 10, weight: .regular)
+        let font = settings.fonts.chord.nsFont
+        return [
+            .foregroundColor: NSColor(settings.fonts.chord.color),
+            .font: font
         ]
     }
 }

@@ -6,17 +6,30 @@
 //
 
 import SwiftUI
+import OSLog
 
 /// SwiftUI `View` for the settings
 struct SettingsView: View {
     /// The observable ``FileBrowser`` class
-    @Environment(FileBrowserModel.self) private var fileBrowser
+    @Environment(FileBrowserModel.self) var fileBrowser
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
     /// Bool if **ChordPro CLI** is available
     @State var haveChordProCLI: Bool = false
     /// Sort tokens
-    @State private var sortTokens: String = ""
+    @State var sortTokens: String = ""
+    /// JSON export string
+    @State var jsonExportString: String = ""
+    /// JSON export dialog
+    @State var showJsonExportDialog: Bool = false
+    /// JSON import dialog
+    @State var showJsonImportDialog: Bool = false
+    /// Show an `Alert` if we have an error
+    @State var errorAlert: AlertMessage?
+
+
+    @State var font: NSFont = .systemFont(ofSize: 10)
+
     /// The body of the `View`
     var body: some View {
         TabView {
@@ -39,257 +52,45 @@ struct SettingsView: View {
                 options
             }
         }
+        .errorAlert(message: $errorAlert)
+        .fileExporter(
+            isPresented: $showJsonExportDialog,
+            document: JSONDocument(string: jsonExportString),
+            contentTypes: [.json],
+            defaultFilename: "Theme"
+        ) { result in
+            switch result {
+            case .success(let url):
+                Logger.fileAccess.info("Database exported to \(url, privacy: .public)")
+            case .failure(let error):
+                Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
+            }
+        }
+        .fileImporter(
+            isPresented: $showJsonImportDialog,
+            allowedContentTypes: [.json],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let files):
+                do {
+                    try files.forEach { url in
+                        let text = try Data(contentsOf: url)
+                        appState.settings.pdf = try JSONDecoder().decode(AppSettings.PDF.self, from: text)
+                        Logger.fileAccess.info("Theme imported from \(url, privacy: .public)")
+                    }
+                } catch {
+                    Logger.fileAccess.error("Import failed: \(error.localizedDescription, privacy: .public)")
+                    errorAlert = AppError.importThemeError.alert()
+                }
+            case .failure(let error):
+                Logger.fileAccess.error("Import failed: \(error.localizedDescription, privacy: .public)")
+                errorAlert = AppError.importThemeError.alert()
+            }
+        }
         .task {
             haveChordProCLI = await checkChordProCLI()
         }
-    }
-
-    /// `View` with general options
-    @ViewBuilder var general: some View {
-        @Bindable var appState = appState
-        ScrollView {
-            VStack {
-                VStack(alignment: .leading) {
-                    Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
-                }
-                UserFileButton(
-                    userFile: UserFile.customSongTemplate
-                ) {}
-                    .disabled(!appState.settings.application.useCustomSongTemplate)
-                Text("You can use your own **ChordPro** file as a starting point when you create a new song")
-                    .font(.caption)
-            }
-            .wrapSettingsSection(title: "General Options")
-            VStack {
-                VStack(alignment: .leading) {
-                    Toggle(isOn: $appState.settings.chordPro.useChordProCLI) {
-                        Text("Use the official ChordPro to create a PDF")
-                        Text("When enabled, PDF's will be rendered with the official ChordPro reference implementation.")
-                    }
-                    Toggle(isOn: $appState.settings.chordPro.useCustomConfig) {
-                        Text("Use a custom ChordPro configuration")
-                        Text("When enabled, ChordPro will use your own configuration.")
-                    }
-                    .disabled(!appState.settings.chordPro.useChordProCLI)
-                }
-                UserFileButton(
-                    userFile: UserFile.customChordProConfig
-                ) {}
-                    .disabled(!appState.settings.chordPro.useChordProCLI || !appState.settings.chordPro.useCustomConfig)
-                VStack(alignment: .leading) {
-                    Toggle(isOn: $appState.settings.chordPro.useAdditionalLibrary) {
-                        Text("Add a custom library")
-                        // swiftlint:disable:next line_length
-                        Text("**ChordPro** has a built-in library with configs and other data. With *custom library* you can add an additional location where to look for data.")
-                    }
-                    .disabled(!appState.settings.chordPro.useChordProCLI)
-                }
-                UserFileButton(
-                    userFile: UserFile.customChordProLibrary
-                ) {}
-                    .disabled(!appState.settings.chordPro.useChordProCLI || !appState.settings.chordPro.useAdditionalLibrary)
-            }
-            .wrapSettingsSection(title: "ChordPro CLI Integration")
-        }
-        .frame(maxHeight: .infinity, alignment: .top)
-    }
-
-    /// `View` with song options
-    @ViewBuilder var options: some View {
-        @Bindable var appState = appState
-        ScrollView {
-            VStack(alignment: .leading) {
-                appState.repeatWholeChorusToggle
-                appState.lyricsOnlyToggle
-            }
-            .wrapSettingsSection(title: "Display Options")
-        }
-        .frame(maxHeight: .infinity, alignment: .top)
-    }
-
-    /// `View` with diagram display options
-    var diagram: some View {
-        VStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    appState.fingersToggle
-                    appState.notesToggle
-                    appState.mirrorToggle
-                }
-                .wrapSettingsSection(title: "General")
-                VStack(alignment: .leading) {
-                    appState.playToggle
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    if appState.settings.song.diagram.showPlayButton {
-                        appState.midiInstrumentPicker
-                            .padding([.top, .leading])
-                    }
-                }
-                .wrapSettingsSection(title: "MIDI")
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-            Button(
-                action: {
-                    appState.settings.song.diagram = AppSettings.DiagramDisplayOptions()
-                },
-                label: {
-                    Text("Reset to defaults")
-                }
-            )
-            .disabled(appState.settings.song.diagram == AppSettings.DiagramDisplayOptions())
-            .padding(.bottom)
-        }
-        .animation(.default, value: appState.settings.song.diagram.showPlayButton)
-    }
-
-    /// `View` with editor settings
-    @ViewBuilder var `editor`: some View {
-        @Bindable var appState = appState
-        VStack {
-            ScrollView {
-                VStack {
-                    HStack {
-                        Text("A")
-                            .font(.system(size: Editor.Settings.fontSizeRange.lowerBound))
-                        Slider(
-                            value: $appState.settings.editor.fontSize,
-                            in: Editor.Settings.fontSizeRange,
-                            step: 1
-                        )
-                        Text("A")
-                            .font(.system(size: Editor.Settings.fontSizeRange.upperBound))
-                    }
-                    .foregroundColor(.secondary)
-                    Picker("Font style", selection: $appState.settings.editor.fontStyle) {
-                        ForEach(Editor.Settings.FontStyle.allCases, id: \.self) { font in
-                            Text("\(font.rawValue)")
-                                .font(font.font())
-                        }
-                    }
-                }
-                .wrapSettingsSection(title: "Editor Font")
-                VStack {
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.editor.chordColor,
-                        label: "Color for **chords**"
-                    )
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.editor.directiveColor,
-                        label: "Color for **directives**"
-                    )
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.editor.argumentColor,
-                        label: "Color for **arguments**"
-                    )
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.editor.markupColor,
-                        label: "Color for **markup**"
-                    )
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.editor.bracketColor,
-                        label: "Color for **brackets**"
-                    )
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.editor.commentColor,
-                        label: "Color for **comments**"
-                    )
-                }
-                .wrapSettingsSection(title: "Highlight Colors")
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-            Button(
-                action: {
-                    appState.settings.editor = Editor.Settings()
-                },
-                label: {
-                    Text("Reset to defaults")
-                }
-            )
-            .padding(.bottom)
-            .disabled(appState.settings.editor == Editor.Settings())
-        }
-    }
-
-    /// `View` with folder selector
-    @ViewBuilder var folder: some View {
-        VStack {
-            ScrollView {
-                VStack {
-                    TextField("List of articles to ignore", text: $sortTokens, prompt: Text("the,a,de,een"))
-                    Text("Comma separated list of articles to ignore when sorting songs and artists. Case insensitive.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                .wrapSettingsSection(title: "Sort songs and artists")
-                .task {
-                    sortTokens = appState.settings.application.sortTokens.joined(separator: ",")
-                }
-                .onChange(of: sortTokens) {
-                    appState.settings.application.sortTokens = sortTokens.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
-                }
-                VStack {
-                    Text(.init(Help.fileBrowser))
-                        .padding()
-                    fileBrowser.folderSelector
-                        .padding()
-                }
-                .wrapSettingsSection(title: "The folder with your songs")
-            }
-        }
-        .padding(.bottom)
-        .frame(maxWidth: .infinity)
-    }
-
-    /// `View` with PDF settings
-    @ViewBuilder var pdf: some View {
-        @Bindable var appState = appState
-        VStack {
-            ScrollView {
-                VStack {
-                    HStack {
-                        Button("Light") {
-                            appState.settings.pdf = AppSettings.PDF.Preset.light.settings
-                        }
-                        .disabled(appState.settings.pdf == AppSettings.PDF.Preset.light.settings)
-                        Button("Dark") {
-                            appState.settings.pdf = AppSettings.PDF.Preset.dark.settings
-                        }
-                            .disabled(appState.settings.pdf == AppSettings.PDF.Preset.dark.settings)
-                    }
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.pdf.theme.foreground,
-                        label: "Foreground Color"
-                    )
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.pdf.theme.foregroundMedium,
-                        label: "Secondary foreground Color"
-                    )
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.pdf.theme.background,
-                        label: "Background Color"
-                    )
-                }
-                .wrapSettingsSection(title: "PDF settings")
-                VStack {
-                    ColorPickerButton(
-                        selectedColor: $appState.settings.pdf.fonts.chord.color,
-                        label: "Chord Color"
-                    )
-                }
-                .wrapSettingsSection(title: "Fonts")
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .top)
-        Button(
-            action: {
-                appState.settings.pdf = AppSettings.PDF.Preset.light.settings
-            },
-            label: {
-                Text("Reset to defaults")
-            }
-        )
-        .padding(.bottom)
-        .disabled(appState.settings.pdf == AppSettings.PDF.Preset.light.settings)
     }
 }
 
