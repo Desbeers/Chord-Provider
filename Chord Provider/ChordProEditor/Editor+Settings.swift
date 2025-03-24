@@ -22,14 +22,9 @@ extension Editor {
         /// The size of the font
         var fontSize: Double = 14
 
-        /// The font style of the editor
-        var fontStyle: ConfigOptions.FontStyle = .monospaced
-
         /// The calculated font for the editor
         var font: NSFont {
-            return ConfigOptions.FontOptions(
-                size: fontSize
-            ).nsFont
+            NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
         }
 
         // MARK: Colors (codable with an extension)

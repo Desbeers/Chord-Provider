@@ -20,7 +20,6 @@ extension SettingsView {
                         range: Editor.Settings.fontSizeRange,
                         label: .symbol
                     )
-                    FontStylePicker(style: $appState.settings.editor.fontStyle)
                 }
                 .wrapSettingsSection(title: "Editor Font")
                 VStack {
