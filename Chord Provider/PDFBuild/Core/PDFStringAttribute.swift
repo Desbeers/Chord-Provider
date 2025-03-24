@@ -63,22 +63,6 @@ extension PDFStringAttribute {
         ] + .alignment(.center)
     }
 
-    /// Style attributes for the export title
-    static var exportTitle: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.white,
-            .font: NSFont.systemFont(ofSize: 28, weight: .semibold)
-        ] + .alignment(.center)
-    }
-
-    /// Style attributes for the export author
-    static var exportAuthor: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.gray,
-            .font: NSFont.systemFont(ofSize: 24, weight: .regular)
-        ] + .alignment(.center)
-    }
-
     // MARK: String alignment styling
 
     /// Style attributes for alignment of a paragraph

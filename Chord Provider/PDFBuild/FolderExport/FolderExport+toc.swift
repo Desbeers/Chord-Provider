@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 extension FolderExport {
 
@@ -26,8 +26,15 @@ extension FolderExport {
         let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings.pdf)
         tocBuilder.pageCounter = counter
         tocBuilder.elements.append(PDFBuild.PageBackgroundColor(color: .black))
-        tocBuilder.elements.append(PDFBuild.Text(documentInfo.title, attributes: .exportTitle))
-        tocBuilder.elements.append(PDFBuild.Text(documentInfo.author, attributes: .exportAuthor).padding(PDFBuild.pagePadding))
+        tocBuilder.elements.append(PDFBuild.Text(
+            documentInfo.title,
+            attributes: .exportTitle(settings: appSettings.pdf))
+        )
+        tocBuilder.elements.append(PDFBuild.Text(
+            documentInfo.author,
+            attributes: .exportAuthor(settings: appSettings.pdf)
+        )
+            .padding(PDFBuild.pagePadding))
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
         tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle(settings: appSettings.pdf)))
@@ -50,5 +57,26 @@ extension FolderExport {
             tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter, settings: appSettings.pdf))
         }
         return tocBuilder.generatePdf()
+    }
+}
+
+extension PDFStringAttribute {
+
+    /// Style attributes for the export title
+    static func exportTitle(settings: AppSettings.PDF) -> PDFStringAttribute {
+        let font = NSFont(name: settings.fonts.title.font, size: 28) ?? NSFont.systemFont(ofSize: 28)
+        return [
+            .foregroundColor: NSColor.white,
+            .font: font
+        ] + .alignment(.center)
+    }
+
+    /// Style attributes for the export author
+    static func exportAuthor(settings: AppSettings.PDF) -> PDFStringAttribute {
+        let font = NSFont(name: settings.fonts.subtitle.font, size: 24) ?? NSFont.systemFont(ofSize: 28)
+        return [
+            .foregroundColor: NSColor.gray,
+            .font: font
+        ] + .alignment(.center)
     }
 }
