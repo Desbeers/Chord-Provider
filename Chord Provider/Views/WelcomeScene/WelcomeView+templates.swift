@@ -14,6 +14,18 @@ extension WelcomeView {
     var templates: some View {
         VStack {
             List {
+
+                Button {
+                    if
+                        let sampleSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
+                        let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+                        newSong(text: content, template: sampleSong)
+                    }
+                } label: {
+                    Label("The Help document in ChordPro format", systemImage: "document.badge.gearshape")
+                }
+                .listRowSeparator(.hidden)
+
                 Section {
                     Button {
                         if

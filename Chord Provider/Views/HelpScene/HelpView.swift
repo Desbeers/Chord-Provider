@@ -9,42 +9,50 @@ import SwiftUI
 
 /// SwiftUI `View` for help
 struct HelpView: View {
+    /// The optional PDF data
+    @State private var data: Data?
+    /// Check the color scheme
+    @Environment(\.colorScheme) var colorScheme
     /// The body of the `View`
     var body: some View {
-        ScrollView {
-            VStack {
-                // swiftlint:disable:next force_unwrapping
-                Image(nsImage: NSImage(named: "AppIcon")!)
-                    .resizable()
-                    .frame(width: 40, height: 40)
-                Text("Chord Provider")
-                    .font(.title)
-                section("ChordPro viewer and editor", content: Help.chordpro)
-                Divider()
-                if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
-                    Link(destination: url) {
-                        Text("Chord Provider on GitHub")
-                    }
-                    .buttonStyle(.bordered)
+        VStack {
+            if let data {
+                AppKitUtils.PDFKitRepresentedView(data: data)
+            } else {
+                ProgressView()
+            }
+            Divider()
+            if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
+                Link(destination: url) {
+                    Text("Chord Provider on GitHub")
+                }
+                .buttonStyle(.bordered)
+                .padding(.bottom)
+            }
+        }
+        .frame(width: 800)
+        .frame(height: 800, alignment: .top)
+        .task(id: colorScheme) {
+            if
+                let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
+                let content = try? String(contentsOf: helpSong, encoding: .utf8) {
+                var settings = AppSettings()
+
+                switch colorScheme {
+
+                case .dark:
+                    settings.pdf = AppSettings.PDF.Preset.dark.presets(settings: settings.pdf)
+                default:
+                    settings.pdf = AppSettings.PDF.Preset.light.presets(settings: settings.pdf)
+                }
+
+                let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: nil)
+                if let export = try? await SongExport.export(
+                    song: song, appSettings: settings
+                ) {
+                    data = export.pdf
                 }
             }
-            .padding()
         }
-        .frame(width: 300)
-        .frame(height: 440, alignment: .top)
-        .background(Color(nsColor: .textBackgroundColor))
-    }
-
-    /// Wrap a chapter in a section
-    /// - Parameters:
-    ///   - header: The header
-    ///   - content: The content
-    /// - Returns: A `Section view`
-    func section(_ header: String, content: String) -> some View {
-        Section(header: Text(header).font(.title3)) {
-            Text(.init(content))
-                .multilineTextAlignment(.center)
-        }
-        .padding(6)
     }
 }
