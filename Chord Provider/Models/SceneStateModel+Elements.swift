@@ -212,8 +212,6 @@ extension SceneStateModel {
     struct BaseFretPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
-        /// The selected bass note
-        @State private var bass: Chord.Root = .none
         /// The body of the `View`
         var body: some View {
             Picker("Base fret:", selection: $sceneState.definition.baseFret) {

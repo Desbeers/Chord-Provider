@@ -62,25 +62,12 @@ extension PDFBuild {
             var bottomRect = rect
             bottomRect.origin.y += move
             bottomRect.size.height -= move
-            /// Reduce the height of the available retangle
+            /// Reduce the height of the available rectangle
             rect.size.height -= contentHeight
             /// Draw footer items
             for item in footer {
                 item.draw(rect: &bottomRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
         }
-    }
-}
-
-extension PDFStringAttribute {
-
-    // MARK: Footer string styling
-
-    /// Style attributes for the footer
-    static var footer: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.gray,
-            .font: NSFont.systemFont(ofSize: 8, weight: .regular)
-        ]
     }
 }

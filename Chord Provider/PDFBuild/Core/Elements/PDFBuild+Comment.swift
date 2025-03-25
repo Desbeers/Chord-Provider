@@ -18,8 +18,6 @@ extension PDFBuild {
         let leadingText: NSAttributedString
         /// The comment text
         let commentText: NSAttributedString
-        /// Background color
-        let backgroundColor: NSColor
         /// The PDF settings
         let settings: AppSettings.PDF
 
@@ -29,10 +27,9 @@ extension PDFBuild {
         ///   - backgroundColor: The background color
         ///   - icon: The icon
         ///   - settings: The PDF settings
-        init(_ commentText: String, icon: String = "􀌲", backgroundColor: NSColor = .pdfComment, settings: AppSettings.PDF) {
+        init(_ commentText: String, icon: String = "􀌲", settings: AppSettings.PDF) {
             self.leadingText = NSAttributedString(string: icon, attributes: .attributes(.comment, settings: settings))
             self.commentText = NSAttributedString(string: commentText, attributes: .attributes(.comment, settings: settings))
-            self.backgroundColor = backgroundColor
             self.settings = settings
         }
 
@@ -46,23 +43,9 @@ extension PDFBuild {
                 leadingText: leadingText,
                 labelText: commentText,
                 backgroundColor: NSColor(settings.fonts.comment.background),
-                alignment: .left,
-                settings: settings
+                alignment: .left
             )
             label.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }
-    }
-}
-
-extension PDFStringAttribute {
-
-    // MARK: Command string styling
-
-    /// Style attributes for a comment
-    static var commentLabel: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.black,
-            .font: NSFont.systemFont(ofSize: 8, weight: .regular)
-        ]
     }
 }

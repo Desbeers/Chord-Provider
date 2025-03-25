@@ -84,10 +84,9 @@ extension PDFBuild {
                 pageCounter.pageNumber += 1
             }
             var page = document.pageRect.insetBy(dx: document.pagePadding, dy: document.pagePadding)
-            pageHeaderFooter?.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
             let background = PDFBuild.PageBackgroundColor(color: NSColor(settings.theme.background))
             background.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
-
+            pageHeaderFooter?.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
             return page
         }
 

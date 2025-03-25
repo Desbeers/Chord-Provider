@@ -74,27 +74,14 @@ extension PDFBuild {
             let imageSize = imageAttachment.image?.size ?? .init()
             imageAttachment.bounds = CGRect(
                 x: CGFloat(0),
-                y: (NSFont.systemFont(ofSize: settings.fonts.text.size * 0.6, weight: .regular).capHeight - imageSize.height) / 2,
+                y: (NSFont.systemFont(ofSize: settings.fonts.text.size * 0.8, weight: .regular).capHeight - imageSize.height) / 2,
                 width: imageSize.width,
                 height: imageSize.height
             )
             let result = NSMutableAttributedString()
             result.append(NSAttributedString(attachment: imageAttachment, attributes: .alignment(.center)))
-            result.append(NSAttributedString(string: " \(label)   ", attributes: .songDetailLabel(settings: settings)))
+            result.append(NSAttributedString(string: " \(label)   ", attributes: .smallTextFont(settings: settings) + .alignment(.center)))
             return result
         }
-    }
-}
-
-extension PDFStringAttribute {
-
-    // MARK: Song Detail string styling
-
-    /// String attributes for a song detail label
-    static func songDetailLabel(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(settings.theme.foreground),
-            .font: NSFont.systemFont(ofSize: settings.fonts.text.size * 0.6, weight: .regular)
-        ] + alignment(.center)
     }
 }

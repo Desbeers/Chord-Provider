@@ -17,8 +17,6 @@ extension PDFBuild {
     /// - Drawing of the **page counter**
     class PageCounter: PDFElement {
 
-        /// The number of the first page
-        let firstPage: Int
         /// The current page number
         var pageNumber: Int
         /// The attributes for the page counter string
@@ -29,10 +27,8 @@ extension PDFBuild {
 
         /// Init the **page counter** element
         /// - Parameters:
-        ///   - firstPage: The number of the first page
         ///   - attributes: The attributes for the page counter string
-        init(firstPage: Int, attributes: PDFStringAttribute = PDFStringAttribute()) {
-            self.firstPage = firstPage
+        init(firstPage: Int, attributes: PDFStringAttribute) {
             self.pageNumber = firstPage
             self.attributes = attributes
         }

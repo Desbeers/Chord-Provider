@@ -73,24 +73,6 @@ extension AppStateModel {
         }
     }
 
-    // MARK: Name Toggle
-
-    /// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
-    var nameToggle: some View {
-        NameToggle(appState: self)
-    }
-    //// SwiftUI `View` with a `Toggle` to show or hide the name on the diagram
-    private struct NameToggle: View {
-        /// App State
-        @Bindable var appState: AppStateModel
-        /// The body of the `View`
-        var body: some View {
-            Toggle(isOn: $appState.settings.song.diagram.showName) {
-                Label("Show name", systemImage: appState.settings.song.diagram.showName ? "a.square.fill" : "a.square")
-            }
-        }
-    }
-
     // MARK: Fingers Toggle
 
     /// SwiftUI `View` with a `Toggle` to show or hide the fingers on the diagram

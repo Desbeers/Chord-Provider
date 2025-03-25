@@ -31,36 +31,12 @@ extension PDFStringAttribute {
 
     /// - Note: Element specific styling is in its own file
 
-    /// Style attributes for the default font
-//    static var defaultFont: PDFStringAttribute {
-//        [
-//            .foregroundColor: NSColor.black,
-//            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
-//        ]
-//    }
-
-    /// Style attributes for the small font
-    static var smallFont: PDFStringAttribute {
-        [
-            .foregroundColor: NSColor.black,
-            .font: NSFont.systemFont(ofSize: 6, weight: .regular)
-        ]
-    }
-
-    /// Style attributes for the title of the PDF
-    static func pdfTitle(settings: AppSettings.PDF) -> PDFStringAttribute {
+    /// Style attributes for a slightly smaller text font
+    static func smallTextFont(settings: AppSettings.PDF) -> PDFStringAttribute {
         [
             .foregroundColor: NSColor(settings.theme.foreground),
-            .font: NSFont.systemFont(ofSize: 14, weight: .semibold)
-        ] + .alignment(.center)
-    }
-
-    /// Style attributes for the subtitle of the PDF
-    static func pdfSubtitle(settings: AppSettings.PDF) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(settings.theme.foregroundMedium),
-            .font: NSFont.systemFont(ofSize: 12, weight: .regular)
-        ] + .alignment(.center)
+            .font: NSFont(name: settings.fonts.text.font, size: settings.fonts.text.size * 0.8) ?? NSFont.systemFont(ofSize: 8)
+        ]
     }
 
     // MARK: String alignment styling

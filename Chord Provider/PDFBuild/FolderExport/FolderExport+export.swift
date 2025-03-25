@@ -73,7 +73,7 @@ extension FolderExport {
             files.sort(using: KeyPathComparator(\.metadata.sortArtist))
         }
         /// Build the TOC to see how many pages we need
-        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.right))
+        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .smallTextFont(settings: appSettings.pdf) + .alignment(.right))
         counter.tocItems = files.map { file in
             PDFBuild.TOCInfo(
                 song: file

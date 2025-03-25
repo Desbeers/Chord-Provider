@@ -40,8 +40,6 @@ extension Song {
         var year: String?
         /// The optional album
         var album: String?
-        /// The optional tuning
-        var tuning: String?
         /// The optional URL to the audio file
         var audioURL: URL?
         /// The optional URL to the video file

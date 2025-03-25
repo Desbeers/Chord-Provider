@@ -28,29 +28,15 @@ extension PDFBuild {
             tagRect.size.width -= pagePadding
             tagRect.origin.y += pagePadding
             for tag in tags {
-                let text = NSAttributedString(string: tag, attributes: .tagLine(settings: settings))
+                let text = NSAttributedString(string: tag, attributes: .smallTextFont(settings: settings))
                 let render = PDFBuild.Label(
                     labelText: text,
                     backgroundColor: NSColor(settings.fonts.label.background).withAlphaComponent(0.3),
-                    alignment: .right,
-                    settings: settings
+                    alignment: .right
                 )
                     .padding(4)
                 render.draw(rect: &tagRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
         }
-    }
-}
-
-extension PDFStringAttribute {
-
-    // MARK: Tag string styling
-
-    /// String attributes for a tag  line
-    static func tagLine(settings: AppSettings.PDF) -> PDFStringAttribute {
-        return [
-            .font: NSFont.systemFont(ofSize: 6, weight: .regular),
-            .foregroundColor: NSColor(settings.theme.foreground)
-        ]
     }
 }

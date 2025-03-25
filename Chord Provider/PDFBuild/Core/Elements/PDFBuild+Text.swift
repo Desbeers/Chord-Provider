@@ -28,12 +28,6 @@ extension PDFBuild {
             )
         }
 
-        /// Init the **text** element
-        /// - Parameter text: The text as `NSAttributedString`
-        init(_ text: NSAttributedString) {
-            self.text = text
-        }
-
         /// Draw the **text**
         /// - Parameters:
         ///   - rect: The available rectangle

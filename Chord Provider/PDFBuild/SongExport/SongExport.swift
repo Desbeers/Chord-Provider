@@ -30,7 +30,7 @@ extension SongExport {
             author: song.metadata.artist
         )
         let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings.pdf)
-        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .footer + .alignment(.center))
+        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .smallTextFont(settings: appSettings.pdf) + .alignment(.center))
         builder.pageCounter = counter
 
         // MARK: Add PDF elements
@@ -161,8 +161,7 @@ extension SongExport {
                             attributes: .attributes(.label, settings: appSettings.pdf)
                         ),
                         backgroundColor: section.environment == .chorus ? NSColor(appSettings.pdf.fonts.label.background).withAlphaComponent(0.3) : .clear,
-                        alignment: .right,
-                        settings: appSettings.pdf
+                        alignment: .right
                     ),
                     PDFBuild.Divider(direction: .vertical),
                     PDFBuild.LyricsSection(section, chords: song.settings.display.lyricsOnly ? [] : song.chords, settings: appSettings.pdf)
@@ -186,8 +185,7 @@ extension SongExport {
                             attributes: .attributes(.label, settings: appSettings.pdf)
                         ),
                         backgroundColor: .clear,
-                        alignment: .right,
-                        settings: appSettings.pdf
+                        alignment: .right
                     ),
                     labelDivider(section: section),
                     PDFBuild.TabSection(section, settings: appSettings.pdf)
@@ -211,8 +209,7 @@ extension SongExport {
                             attributes: .attributes(.label, settings: appSettings.pdf)
                         ),
                         backgroundColor: .clear,
-                        alignment: .right,
-                        settings: appSettings.pdf
+                        alignment: .right
                     ),
                     labelDivider(section: section),
                     PDFBuild.GridSection(section, chords: song.chords, settings: appSettings.pdf)
@@ -234,8 +231,7 @@ extension SongExport {
                         leadingText: nil,
                         labelText: label,
                         backgroundColor: .clear,
-                        alignment: .right,
-                        settings: appSettings.pdf
+                        alignment: .right
                     ),
                     labelDivider(section: section),
                     PDFBuild.StrumSection(section, settings: appSettings.pdf)
@@ -315,8 +311,7 @@ extension SongExport {
                             leadingText: leadingText,
                             labelText: labelText,
                             backgroundColor: NSColor(appSettings.pdf.fonts.label.background).withAlphaComponent(0.3),
-                            alignment: .left,
-                            settings: appSettings.pdf
+                            alignment: .left
                         )
                     ]
                 )
@@ -352,7 +347,7 @@ extension SongExport {
                 columns: [.fixed(width: labelWidth + 10), .flexible],
                 items: [
                     PDFBuild.Spacer(),
-                    PDFBuild.Comment("Image not available", icon: "􀏅", backgroundColor: .pdfTelecaster, settings: appSettings.pdf)
+                    PDFBuild.Comment("Image not available", icon: "􀏅", settings: appSettings.pdf)
                 ]
             )
         }

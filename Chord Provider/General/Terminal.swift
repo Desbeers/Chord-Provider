@@ -158,10 +158,7 @@ extension Terminal {
     @MainActor static func exportPDF(
         text: String,
         settings: AppSettings,
-        sceneState: SceneStateModel,
-        fileList: Bool = false,
-        title: String = "",
-        subtitle: String = ""
+        sceneState: SceneStateModel
     ) async throws -> (data: Data, status: AppError) {
         /// Get the **ChordPro** binary
         let chordProApp = try await getChordProBinary()

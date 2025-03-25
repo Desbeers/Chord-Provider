@@ -37,7 +37,7 @@ extension FolderExport {
                             items: [
                                 PDFBuild.Text(
                                     "\(item.song.metadata.artist)∙\(item.song.metadata.title)",
-                                    attributes: .footer + .alignment(.left)
+                                    attributes: .smallTextFont(settings: appSettings.pdf) + .alignment(.left)
                                 ),
                                 counter
                             ]

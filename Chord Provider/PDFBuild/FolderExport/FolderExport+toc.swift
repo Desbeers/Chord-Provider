@@ -37,7 +37,12 @@ extension FolderExport {
             .padding(PDFBuild.pagePadding))
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
         tocBuilder.elements.append(PDFBuild.PageBreak())
-        tocBuilder.elements.append(PDFBuild.Text("Table of Contents", attributes: .pdfTitle(settings: appSettings.pdf)))
+        tocBuilder.elements.append(
+            PDFBuild.Text(
+                "Table of Contents",
+                attributes: .attributes(.title, settings: appSettings.pdf) + .alignment(.center)
+            )
+        )
         for tocInfo in counter.tocItems {
             /// Add a divider between all artists when the songs are sorted by artist
             if appSettings.application.songListSort == .artist, divider != tocInfo.song.metadata.artist {
