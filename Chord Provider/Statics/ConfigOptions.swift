@@ -14,7 +14,8 @@ enum ConfigOptions {
 extension ConfigOptions {
 
     struct FontOptions: Codable, Equatable {
-        var font: String = "SF Pro"
+        var fontFamily: String = "SF Pro"
+        var font: String = "SFPro-Regular"
         var size: Double = 10
         var color: Color = .primary
         var background: Color = .white

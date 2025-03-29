@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+extension AppSettings {
+
+    /// Settings for displaying a PDF
+    struct PDF: Codable, Equatable {
+        /// Theme
+        var theme: Theme = Theme()
+        /// Fonts
+        var fonts: Fonts = Fonts()
+    }
+}
+
 extension AppSettings.PDF {
     enum Preset {
         case light
@@ -23,7 +34,7 @@ extension AppSettings.PDF {
                 appSettings.fonts.subtitle.color = .gray
                 appSettings.fonts.chord.color = .accent
                 appSettings.fonts.label.color = .black
-                appSettings.fonts.label.background = .gray
+                appSettings.fonts.label.background = .gray.opacity(0.3)
                 appSettings.fonts.comment.color = .black
                 appSettings.fonts.comment.background = .pdfComment
             case .dark:
@@ -66,17 +77,6 @@ extension AppSettings.PDF {
     }
 }
 
-extension AppSettings {
-
-    /// Settings for displaying a PDF
-    struct PDF: Codable, Equatable {
-        /// Theme
-        var theme: Theme = Theme()
-        /// Fonts
-        var fonts: Fonts = Fonts()
-    }
-}
-
 extension AppSettings.PDF {
 
     struct Theme: Codable, Equatable {
@@ -95,7 +95,7 @@ extension AppSettings.PDF {
         var subtitle: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 16)
         var text: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 12)
         var chord: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .accent)
-        var label: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, background: .gray)
+        var label: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, background: .gray.opacity(0.3))
         var comment: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .pdfComment)
     }
 }

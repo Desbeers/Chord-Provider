@@ -60,7 +60,7 @@ extension PDFStringAttribute {
     }
 
 
-    static func attributes(_ config: ChordPro.FontConfig, settings: AppSettings.PDF) -> PDFStringAttribute {
+    static func attributes(_ config: FontConfig, settings: AppSettings.PDF) -> PDFStringAttribute {
         var font = NSFont()
         var color = NSColor()
         switch config {

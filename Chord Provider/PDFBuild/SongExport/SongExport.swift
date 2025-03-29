@@ -160,7 +160,7 @@ extension SongExport {
                             string: section.label,
                             attributes: .attributes(.label, settings: appSettings.pdf)
                         ),
-                        backgroundColor: section.environment == .chorus ? NSColor(appSettings.pdf.fonts.label.background).withAlphaComponent(0.3) : .clear,
+                        backgroundColor: section.environment == .chorus ? NSColor(appSettings.pdf.fonts.label.background) : .clear,
                         alignment: .right
                     ),
                     PDFBuild.Divider(direction: .vertical),

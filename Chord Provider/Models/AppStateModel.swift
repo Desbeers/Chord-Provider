@@ -26,6 +26,8 @@ import SwiftUI
     /// The optional media next to the song
     var media = MediaPlayerView.Item()
 
+    let fontFamilies = NSFontManager.shared.availableFontFamilies.sorted()
+
     /// Init the class; get application settings
     init(id: AppSettings.AppWindowID) {
         self.id = id

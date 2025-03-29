@@ -31,7 +31,7 @@ extension PDFBuild {
                 let text = NSAttributedString(string: tag, attributes: .smallTextFont(settings: settings))
                 let render = PDFBuild.Label(
                     labelText: text,
-                    backgroundColor: NSColor(settings.fonts.label.background).withAlphaComponent(0.3),
+                    backgroundColor: NSColor(settings.fonts.label.background),
                     alignment: .right
                 )
                     .padding(4)

@@ -1,5 +1,5 @@
 //
-//  ChordPro+FontConfig.swift
+//  FontConfig.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-extension ChordPro {
-
+    /// Configuration options for a font
     enum FontConfig: String, CaseIterable {
         case title = "Title"
         case subtitle = "Subtitle"
@@ -16,8 +15,8 @@ extension ChordPro {
         case chord = "Chords"
         case label = "Labels"
         case comment = "Comments"
-
-        var options: [FontOptions] {
+        /// The available options for a
+        var options: [Options] {
             switch self {
             case .title:
                 [.font, .size]
@@ -33,24 +32,26 @@ extension ChordPro {
                 [.font, .size, .color, .background]
             }
         }
-
-        func color(settings: AppSettings.PDF) -> Color {
+        /// Get the color for a ``ChordPro/FontConfig``
+        /// - Parameter settings: The application settings
+        /// - Returns: a SwiftUI Color
+        func color(settings: AppSettings) -> Color {
             switch self {
             case .title:
-                settings.theme.foreground
+                settings.pdf.theme.foreground
             case .subtitle:
-                settings.theme.foregroundMedium
+                settings.pdf.theme.foregroundMedium
             case .text:
-                settings.theme.foreground
+                settings.pdf.theme.foreground
             case .chord:
-                settings.fonts.chord.color
+                settings.pdf.fonts.chord.color
             case .label:
-                settings.fonts.label.color
+                settings.pdf.fonts.label.color
             case .comment:
-                settings.fonts.comment.color
+                settings.pdf.fonts.comment.color
             }
         }
-
+        /// An optional 'help' for the config
         var help: String? {
             switch self {
             case .title:
@@ -67,10 +68,17 @@ extension ChordPro {
         }
     }
 
-    enum FontOptions {
+extension FontConfig {
+
+    /// The options a font config can have
+    enum Options {
+        /// The font
         case font
+        /// The size of the font
         case size
+        /// The foreground color of the font
         case color
+        /// The background color of the font
         case background
     }
 }

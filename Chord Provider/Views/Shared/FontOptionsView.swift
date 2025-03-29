@@ -7,24 +7,72 @@
 
 import SwiftUI
 
+/// SwiftUI `View` to set font options
 struct FontOptionsView: View {
-    @Binding var settings: AppSettings.PDF
+    /// The application settings
+    @Binding var settings: AppSettings
+    /// The body of the `View`
     var body: some View {
-        ForEach(ChordPro.FontConfig.allCases, id: \.self) { config in
+        ForEach(FontConfig.allCases, id: \.self) { config in
             VStack {
                 switch config {
                 case .title:
-                    Options(settings: settings, config: config, options: $settings.fonts.title)
+                    Options(settings: settings, config: config, options: $settings.pdf.fonts.title)
                 case .subtitle:
-                    Options(settings: settings, config: config, options: $settings.fonts.subtitle)
+                    Options(settings: settings, config: config, options: $settings.pdf.fonts.subtitle)
                 case .text:
-                    Options(settings: settings, config: config, options: $settings.fonts.text)
+                    Options(settings: settings, config: config, options: $settings.pdf.fonts.text)
                 case .chord:
-                    Options(settings: settings, config: config, options: $settings.fonts.chord)
+                    Options(settings: settings, config: config, options: $settings.pdf.fonts.chord)
                 case .label:
-                    Options(settings: settings, config: config, options: $settings.fonts.label)
+                    Options(settings: settings, config: config, options: $settings.pdf.fonts.label)
                 case .comment:
-                    Options(settings: settings, config: config, options: $settings.fonts.comment)
+                    Options(settings: settings, config: config, options: $settings.pdf.fonts.comment)
+                }
+            }
+            .wrapSettingsSection(title: config.rawValue)
+        }
+    }
+}
+
+extension FontOptionsView {
+
+    /// SwiftUI `View` with the available font options
+    struct Options: View {
+        /// The application settings
+        let settings: AppSettings
+        /// The available configuration options for the font
+        let config: FontConfig
+        /// The options
+        @Binding var options: ConfigOptions.FontOptions
+        /// The body of the `View`
+        var body: some View {
+            VStack {
+                /// - Note: Fonts
+                HStack {
+                    ForEach(config.options, id: \.self) { option in
+                        switch option {
+                        case .font:
+                            FontPickerButton(options: $options)
+                        case .size:
+                            FontSizeSlider(fontSize: $options.size, label: .symbol)
+                        default:
+                            EmptyView()
+                        }
+                    }
+                }
+                /// - Note: Colors
+                HStack {
+                    ForEach(config.options, id: \.self) { option in
+                        switch option {
+                        case .color:
+                            ColorPicker("Foreground", selection: $options.color, supportsOpacity: true)
+                        case .background:
+                            ColorPicker("Background", selection: $options.background, supportsOpacity: true)
+                        default:
+                            EmptyView()
+                        }
+                    }
                 }
                 if let help = config.help {
                     LabeledContent {
@@ -35,30 +83,22 @@ struct FontOptionsView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top)
                 }
-            }
-            .wrapSettingsSection(title: config.rawValue)
-        }
-    }
-}
-
-extension FontOptionsView {
-
-    struct Options: View {
-        let settings: AppSettings.PDF
-        let config: ChordPro.FontConfig
-        @Binding var options: ConfigOptions.FontOptions
-        var body: some View {
-            ForEach(config.options, id: \.self) { option in
-                switch option {
-                case .font:
-                    FontPickerView(config: config, options: $options, settings: settings)
-                case .size:
-                    FontSizeSlider(fontSize: $options.size, label: .symbol)
-                case .color:
-                    ColorPicker("Foreground Color", selection: $options.color, supportsOpacity: false)
-                case .background:
-                    ColorPicker("Background Color", selection: $options.background, supportsOpacity: false)
+                Divider()
+                /// - Note: Preview
+                ZStack {
+                    Color(settings.pdf.theme.background)
+                        .frame(maxWidth: .infinity)
+                    Text(options.nsFont.familyName ?? config.rawValue)
+                        .font(.custom(options.font, size: options.size * 1.2))
+                        .padding(6)
+                        .foregroundStyle(config.color(settings: settings))
+                        .background(
+                            config.options.contains(.background) ? Color(options.background) : Color.clear
+                        )
+                        .cornerRadius(3)
+                        .padding(3)
                 }
             }
         }

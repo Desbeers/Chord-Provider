@@ -40,10 +40,11 @@ extension SettingsView {
                         .formStyle(.columns)
                     }
                     .wrapSettingsSection(title: "General")
-                    FontOptionsView(settings: $appState.settings.pdf)
+                    FontOptionsView(settings: $appState.settings)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .top)
+            .animation(.default, value: appState.settings.pdf)
             HStack {
                 Button(
                     action: {
