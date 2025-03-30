@@ -37,8 +37,8 @@ struct HeaderView: View {
                 .disabled(sceneState.preview.active)
         }
         .frame(minHeight: 45)
-        .background(Color.accentColor.saturation(0.6))
-        .foregroundStyle(.white)
+        .background(appState.settings.style.theme.foregroundMedium)
+        .foregroundStyle(appState.settings.style.theme.background)
         .buttonStyle(.bordered)
     }
 }
@@ -79,6 +79,8 @@ extension HeaderView {
 
     /// SwiftUI `View` with details
     struct Details: View {
+        /// The observable state of the application
+        @Environment(AppStateModel.self) private var appState
         /// The ``Song``
         let song: Song
         /// The body of the `View`
@@ -101,7 +103,7 @@ extension HeaderView {
         func metadata(string: String, icon: SVGIcon) -> some View {
             HStack {
                 // swiftlint:disable:next force_unwrapping
-                Image(nsImage: NSImage(data: icon.data(color: .white))!)
+                Image(nsImage: NSImage(data: icon.data(color: appState.settings.style.theme.background))!)
                     .resizable()
                     .frame(width: 12, height: 12)
                 Text(string)

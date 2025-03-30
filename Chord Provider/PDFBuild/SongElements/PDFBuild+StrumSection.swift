@@ -16,12 +16,12 @@ extension PDFBuild {
 
         /// The section with strumming
         let section: Song.Section
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **strum section** element
         /// - Parameter section: The section with strumming
-        init(_ section: Song.Section, settings: AppSettings.PDF) {
+        init(_ section: Song.Section, settings: AppSettings) {
             self.section = section
             self.settings = settings
         }

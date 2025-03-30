@@ -22,13 +22,23 @@ struct HelpView: View {
                 ProgressView()
             }
             Divider()
-            if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
-                Link(destination: url) {
-                    Text("Chord Provider on GitHub")
+            HStack {
+                Button {
+                    Task {
+                        await random()
+                    }
+                } label: {
+                    Text("Random Colors")
                 }
-                .buttonStyle(.bordered)
-                .padding(.bottom)
+                Spacer()
+                if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
+                    Link(destination: url) {
+                        Text("Chord Provider on GitHub")
+                    }
+                    .buttonStyle(.bordered)
+                }
             }
+            .padding([.horizontal, .bottom])
         }
         .frame(width: 800)
         .frame(height: 800, alignment: .top)
@@ -37,13 +47,11 @@ struct HelpView: View {
                 let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
                 let content = try? String(contentsOf: helpSong, encoding: .utf8) {
                 var settings = AppSettings()
-
                 switch colorScheme {
-
                 case .dark:
-                    settings.pdf = AppSettings.PDF.Preset.dark.presets(settings: settings.pdf)
+                    settings.style = AppSettings.Style.Preset.dark.presets(style: settings.style)
                 default:
-                    settings.pdf = AppSettings.PDF.Preset.light.presets(settings: settings.pdf)
+                    settings.style = AppSettings.Style.Preset.light.presets(style: settings.style)
                 }
 
                 let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: nil)
@@ -52,6 +60,23 @@ struct HelpView: View {
                 ) {
                     data = export.pdf
                 }
+            }
+        }
+    }
+
+    func random() async {
+        if
+            let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
+            let content = try? String(contentsOf: helpSong, encoding: .utf8) {
+            var settings = AppSettings()
+
+            settings.style = AppSettings.Style.Preset.random.presets(style: settings.style)
+
+            let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: nil)
+            if let export = try? await SongExport.export(
+                song: song, appSettings: settings
+            ) {
+                data = export.pdf
             }
         }
     }

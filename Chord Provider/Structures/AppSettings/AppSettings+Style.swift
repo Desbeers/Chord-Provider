@@ -1,5 +1,5 @@
 //
-//  AppSettings+PDF.swift
+//  AppSettings+Style.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -9,8 +9,8 @@ import SwiftUI
 
 extension AppSettings {
 
-    /// Settings for displaying a PDF
-    struct PDF: Codable, Equatable {
+    /// Settings for displaying a song
+    struct Style: Codable, Equatable {
         /// Theme
         var theme: Theme = Theme()
         /// Fonts
@@ -18,13 +18,15 @@ extension AppSettings {
     }
 }
 
-extension AppSettings.PDF {
+extension AppSettings.Style {
     enum Preset {
         case light
         case dark
         case random
-        func presets(settings: AppSettings.PDF) -> AppSettings.PDF {
-            var appSettings = settings
+        func presets(style: AppSettings.Style) -> AppSettings.Style {
+
+            var appSettings = style
+
             switch self {
             case .light:
                 appSettings.theme.foreground = .black
@@ -37,6 +39,8 @@ extension AppSettings.PDF {
                 appSettings.fonts.label.background = .gray.opacity(0.3)
                 appSettings.fonts.comment.color = .black
                 appSettings.fonts.comment.background = .pdfComment
+                appSettings.fonts.tag.color = .white
+                appSettings.fonts.tag.background = .red.opacity(0.3)
             case .dark:
                 appSettings.theme.foreground = .white
                 appSettings.theme.foregroundMedium = .gray
@@ -48,6 +52,8 @@ extension AppSettings.PDF {
                 appSettings.fonts.label.background = .gray
                 appSettings.fonts.comment.color = .black
                 appSettings.fonts.comment.background = .orange
+                appSettings.fonts.tag.color = .white
+                appSettings.fonts.tag.background = .red.opacity(0.5)
             case .random:
                 appSettings.theme.foreground = .randomDark
                 appSettings.theme.foregroundMedium = .randomDark
@@ -59,6 +65,8 @@ extension AppSettings.PDF {
                 appSettings.fonts.chord.color = .randomDark
                 appSettings.fonts.comment.color = .randomDark
                 appSettings.fonts.comment.background = .randomLight
+                appSettings.fonts.tag.color = .randomDark
+                appSettings.fonts.tag.background = .randomLight
             }
             return appSettings
         }
@@ -77,7 +85,7 @@ extension AppSettings.PDF {
     }
 }
 
-extension AppSettings.PDF {
+extension AppSettings.Style {
 
     struct Theme: Codable, Equatable {
         var foreground: Color = .black
@@ -87,7 +95,7 @@ extension AppSettings.PDF {
     }
 }
 
-extension AppSettings.PDF {
+extension AppSettings.Style {
 
     struct Fonts: Codable, Equatable {
 
@@ -97,5 +105,7 @@ extension AppSettings.PDF {
         var chord: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .accent)
         var label: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, background: .gray.opacity(0.3))
         var comment: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .pdfComment)
+        var tag: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .red.opacity(0.3))
+        var textblock: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .gray)
     }
 }

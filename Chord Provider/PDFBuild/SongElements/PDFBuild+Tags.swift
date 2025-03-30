@@ -16,9 +16,9 @@ extension PDFBuild {
 
         let tags: [String]
 
-        let settings: AppSettings.PDF
+        let settings: AppSettings
 
-        init(song: Song, settings: AppSettings.PDF) {
+        init(song: Song, settings: AppSettings) {
             self.tags = song.metadata.tags
             self.settings = settings
         }
@@ -28,10 +28,10 @@ extension PDFBuild {
             tagRect.size.width -= pagePadding
             tagRect.origin.y += pagePadding
             for tag in tags {
-                let text = NSAttributedString(string: tag, attributes: .smallTextFont(settings: settings))
+                let text = NSAttributedString(string: tag, attributes: .attributes(.tag, settings: settings))
                 let render = PDFBuild.Label(
                     labelText: text,
-                    backgroundColor: NSColor(settings.fonts.label.background),
+                    backgroundColor: NSColor(settings.style.fonts.tag.background),
                     alignment: .right
                 )
                     .padding(4)

@@ -27,8 +27,8 @@ extension PDFBuild.LyricsSection.Line {
         /// - Parameters:
         ///   - part: The part of the lyrics line
         ///   - chords: All the chords of the song
-        ///   - settings: The PDF settings
-        init(part: Song.Section.Line.Part, chords: [ChordDefinition], settings: AppSettings.PDF) {
+        ///   - settings: The application settings
+        init(part: Song.Section.Line.Part, chords: [ChordDefinition], settings: AppSettings) {
             self.chords = chords
             if chords.isEmpty {
                 self.text.append(
@@ -78,22 +78,14 @@ extension PDFBuild.LyricsSection.Line {
 
 extension PDFStringAttribute {
 
-    // MARK: Part string styling
+    // MARK: Part chord styling
 
     /// Style attributes for the chord of the part
-    static func partChord(settings: AppSettings.PDF) -> PDFStringAttribute {
-        let font = settings.fonts.chord.nsFont
+    static func partChord(settings: AppSettings) -> PDFStringAttribute {
+        let font = settings.style.fonts.chord.nsFont
         return [
-            .foregroundColor: NSColor(settings.fonts.chord.color),
+            .foregroundColor: NSColor(settings.style.fonts.chord.color),
             .font: font
         ]
     }
-
-//    /// Style attributes for the lyric of the part
-//    static func partLyric(settings: AppSettings.PDF) -> PDFStringAttribute {
-//        [
-//            .foregroundColor: NSColor(settings.theme.foreground),
-//            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
-//        ]
-//    }
 }

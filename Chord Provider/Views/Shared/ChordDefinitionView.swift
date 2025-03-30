@@ -10,6 +10,8 @@ import SwiftUI
 /// SwiftUI `View` for a ``ChordDefinition``
 
 struct ChordDefinitionView: View {
+    /// The observable state of the application
+    @Environment(AppStateModel.self) private var appState
     /// The chord to display in a diagram
     let chord: ChordDefinition
     /// The width of the diagram
@@ -70,6 +72,7 @@ struct ChordDefinitionView: View {
                 Text(chord.display)
                     .font(.system(size: lineHeight, weight: .semibold, design: .default))
                     .padding(lineHeight / 4)
+                    .foregroundStyle(appState.settings.style.fonts.chord.color)
             }
             switch chord.status {
             case .standardChord, .transposedChord, .customChord:
@@ -183,7 +186,7 @@ struct ChordDefinitionView: View {
                                         default:
                                             Image(systemName: "\(fingers[string]).circle.fill")
                                             .resizable()
-                                                .foregroundStyle(.secondary, .primary)
+                                            .foregroundStyle(appState.settings.style.theme.background, appState.settings.style.theme.foregroundMedium)
                                         }
                                     }
                                     .aspectRatio(contentMode: .fit)
@@ -226,12 +229,13 @@ struct ChordDefinitionView: View {
                                 .padding(.horizontal, xOffset * 2)
                                 .frame(height: lineHeight)
                                 .frame(width: cellWidth * Double(barre.length))
+                                .foregroundStyle(appState.settings.style.theme.foregroundMedium)
                             if diagramDisplayOptions.showFingers {
                                 Image(systemName: "\(barre.finger).circle")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .symbolRenderingMode(.palette)
-                                    .foregroundStyle(.secondary, .clear)
+                                    .foregroundStyle(appState.settings.style.theme.background, .clear)
                                     .frame(height: lineHeight)
                             }
                         }

@@ -28,12 +28,12 @@ extension PDFBuild {
         var pdfContext: CGContext?
         /// The page size of the PDF document
         var pageRect: CGRect = .zero
-        /// The PDF settings
-        var settings: AppSettings.PDF
+        /// The application settings
+        var settings: AppSettings
 
         /// Init the **builder** class
         /// - Parameter documentInfo: The general document information
-        init(documentInfo: PDFBuild.DocumentInfo, settings: AppSettings.PDF) {
+        init(documentInfo: PDFBuild.DocumentInfo, settings: AppSettings) {
             self.document = documentInfo
             self.auxiliaryInfo = documentInfo.dictionary
             self.settings = settings
@@ -84,7 +84,7 @@ extension PDFBuild {
                 pageCounter.pageNumber += 1
             }
             var page = document.pageRect.insetBy(dx: document.pagePadding, dy: document.pagePadding)
-            let background = PDFBuild.PageBackgroundColor(color: NSColor(settings.theme.background))
+            let background = PDFBuild.PageBackgroundColor(color: NSColor(settings.style.theme.background))
             background.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
             pageHeaderFooter?.draw(rect: &page, calculationOnly: false, pageRect: pageRect)
             return page

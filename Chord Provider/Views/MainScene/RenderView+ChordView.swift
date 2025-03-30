@@ -15,6 +15,9 @@ extension RenderView {
     /// SwiftUI `View` for a chord as part of a line
     struct ChordView: View {
 
+        /// The observable state of the application
+        @Environment(AppStateModel.self) private var appState
+
         /// The display options
         let settings: AppSettings.Song
         /// The ID of the section
@@ -35,7 +38,7 @@ extension RenderView {
             case .unknownChord, .customTransposedChord, .transposedUnknownChord:
                 Color.red
             default:
-                Color.accentColor
+                appState.settings.style.fonts.chord.color
             }
         }
         /// The `popover` state
@@ -61,6 +64,7 @@ extension RenderView {
                             NSCursor.pop()
                         }
                     }
+                    .font(appState.settings.style.fonts.chord.swiftUIFont(scale: settings.display.scale))
             case .asDiagram:
                 Button(
                     action: {

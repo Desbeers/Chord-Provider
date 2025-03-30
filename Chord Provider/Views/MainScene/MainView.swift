@@ -114,17 +114,20 @@ struct MainView: View {
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     SongView()
-                        .background(Color(nsColor: .textBackgroundColor))
+                        .background(Color(appState.settings.style.theme.background))
+                        .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
                     if sceneState.settings.song.display.showChords {
                         Divider()
                         ChordsView(document: $document)
-                            .background(Color(nsColor: .textBackgroundColor))
+                            .background(Color(appState.settings.style.theme.background))
+                            .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
                             .shadow(color: .secondary.opacity(0.25), radius: 60)
                     }
                 }
             }
         }
         .frame(maxHeight: .infinity)
+        .animation(.default, value: appState.settings.style)
     }
 
     /// Render the song

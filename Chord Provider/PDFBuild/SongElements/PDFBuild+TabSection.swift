@@ -16,14 +16,14 @@ extension PDFBuild {
 
         /// The section with tabs
         let section: Song.Section
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **tab section** element
         /// - Parameters:
         ///    - section: The section with tabs
         ///    - settings: The PDF settings
-        init(_ section: Song.Section, settings: AppSettings.PDF) {
+        init(_ section: Song.Section, settings: AppSettings) {
             self.section = section
             self.settings = settings
         }

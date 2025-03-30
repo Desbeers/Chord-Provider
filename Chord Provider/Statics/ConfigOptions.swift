@@ -24,6 +24,11 @@ extension ConfigOptions {
         var nsFont: NSFont {
             NSFont(name: font, size: size) ?? NSFont.systemFont(ofSize: size)
         }
+
+        /// The calculated `Font`
+        func swiftUIFont(scale: Double) -> Font {
+            Font(NSFont(name: font, size: size * scale) ?? .systemFont(ofSize: size * scale))
+        }
     }
 }
 

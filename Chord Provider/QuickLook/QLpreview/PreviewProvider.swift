@@ -22,9 +22,9 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
         switch inDarkMode {
 
         case true:
-            settings.pdf = AppSettings.PDF.Preset.dark.presets(settings: settings.pdf)
+            settings.style = AppSettings.Style.Preset.dark.presets(style: settings.style)
         case false:
-            settings.pdf = AppSettings.PDF.Preset.light.presets(settings: settings.pdf)
+            settings.style = AppSettings.Style.Preset.light.presets(style: settings.style)
         }
 
         let contentType = UTType.pdf
@@ -62,7 +62,7 @@ struct AppSettings {
     /// Simple substitute for the real AppSettings
     var application = Application()
     var song = Song()
-    var pdf = PDF()
+    var style = Style()
 }
 
 extension AppSettings {

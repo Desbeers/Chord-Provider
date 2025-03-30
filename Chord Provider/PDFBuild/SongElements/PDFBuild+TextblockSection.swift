@@ -18,15 +18,15 @@ extension PDFBuild {
         let section: Song.Section
         /// All the chords of the song
         let chords: [ChordDefinition]
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **textblock section** element
         /// - Parameters:
         ///   - section: The section with textblock
         ///   - chords: All the chords of the song
-        ///   - settings: The PDF settings
-        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings.PDF) {
+        ///   - settings: The application settings
+        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings) {
             self.section = section
             self.chords = chords
             self.settings = settings
@@ -45,25 +45,34 @@ extension PDFBuild {
             paragraphStyle.lineSpacing = 4
             let text = NSMutableAttributedString()
             for line in section.lines {
-                if let parts = line.parts {
-                    for part in parts {
-                        if let chord = chords.first(where: { $0.id == part.chord }) {
-                            text.append(
-                                NSAttributedString(
-                                    /// Add a space behind the chord-name so two chords will never 'stick' together
-                                    string: "\(chord.display)",
-                                    attributes: .partChord(settings: settings)
+
+
+                switch line.directive {
+                case .environmentLine:
+                    if let parts = line.parts {
+                        for part in parts {
+                            if let chord = chords.first(where: { $0.id == part.chord }) {
+                                text.append(
+                                    NSAttributedString(
+                                        /// Add a space behind the chord-name so two chords will never 'stick' together
+                                        string: "\(chord.display)",
+                                        attributes: .partChord(settings: settings)
+                                    )
                                 )
+                            }
+                            text.append(NSAttributedString(
+                                string: "\(part.text)",
+                                attributes: .textblockLine(settings: settings))
                             )
                         }
-                        text.append(NSAttributedString(
-                            string: "\(part.text)",
-                            attributes: .textblockLine(settings: settings))
-                        )
+                        if line != section.lines.last {
+                            text.append(NSAttributedString(string: "\n"))
+                        }
                     }
-                    if line != section.lines.last {
-                        text.append(NSAttributedString(string: "\n"))
-                    }
+                case .comment:
+                    text.append(NSAttributedString(string: "􀌲 \(line.label)\n", attributes: .attributes(.comment, settings: settings)))
+                default:
+                    break
                 }
             }
             text.addAttributes([.paragraphStyle: paragraphStyle], range: NSRange(location: 0, length: text.length))
@@ -89,7 +98,7 @@ extension PDFBuild {
             /// Add the optional label
             var labelRect = tmpRect
             if !section.label.isEmpty {
-                let label = PDFBuild.Text(section.label, attributes: .attributes(.text, settings: settings) + .alignment(flush))
+                let label = PDFBuild.Text(section.label, attributes: .attributes(.label, settings: settings) + .alignment(flush))
                 label.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 let divider = PDFBuild.Divider(direction: .horizontal)
                 divider.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
@@ -114,10 +123,10 @@ extension PDFStringAttribute {
     // MARK: Textblock string styling
 
     /// String attributes for a textblock  line
-    static func textblockLine(settings: AppSettings.PDF) -> PDFStringAttribute {
+    static func textblockLine(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.theme.foregroundMedium),
-            .font: NSFont.systemFont(ofSize: settings.fonts.text.size, weight: .regular)
+            .foregroundColor: NSColor(settings.style.fonts.textblock.color),
+            .font: NSFont.systemFont(ofSize: settings.style.fonts.textblock.size)
         ]
     }
 }

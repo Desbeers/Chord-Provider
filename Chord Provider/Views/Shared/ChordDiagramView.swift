@@ -24,10 +24,6 @@ struct ChordDiagramView: View {
             width: width,
             settings: appState.settings.song
         )
-        .foregroundStyle(
-            .primary,
-            colorScheme == .dark ? .black : .white
-        )
         .animation(.default, value: appState.settings.song.diagram)
     }
 }

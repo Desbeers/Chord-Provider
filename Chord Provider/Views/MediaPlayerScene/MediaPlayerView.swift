@@ -107,6 +107,7 @@ extension MediaPlayerView {
                 }
             } label: {
                 Image(systemName: kind.systemName + (appState.media.url != nil && appState.media.kind == kind ? ".fill" : ""))
+                    .foregroundStyle(.black)
             }
         }
     }

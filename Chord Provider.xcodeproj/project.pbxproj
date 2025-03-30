@@ -99,8 +99,8 @@
 		D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
 		D71F864C2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */; };
 		D71F864D2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */; };
-		D71F864F2D843F1900BA57BD /* AppSettings+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+PDF.swift */; };
-		D71F86502D843F1900BA57BD /* AppSettings+PDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+PDF.swift */; };
+		D71F864F2D843F1900BA57BD /* AppSettings+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */; };
+		D71F86502D843F1900BA57BD /* AppSettings+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */; };
 		D71F86512D84412200BA57BD /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876C2C5A581E009A3D82 /* Color+extension.swift */; };
 		D71F86532D8593B500BA57BD /* SVGIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* SVGIcon.swift */; };
 		D71F86542D8593B500BA57BD /* SVGIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* SVGIcon.swift */; };
@@ -227,11 +227,12 @@
 		D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622B462ABF0B04008CAC63 /* SettingsView.swift */; };
 		D7641BF22D96CC44009472D3 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7641BF12D96CC44009472D3 /* FontPicker.swift */; };
 		D7641BFC2D97F8D0009472D3 /* FontPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */; };
+		D7641BFE2D9824CF009472D3 /* RenderView+ProminentLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7641BFD2D9824CF009472D3 /* RenderView+ProminentLabel.swift */; };
 		D76C24E12C3A99C000C93D82 /* ShareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C24E02C3A99C000C93D82 /* ShareButton.swift */; };
 		D76C24E32C3AA2AA00C93D82 /* PreviewPaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76C24E22C3AA2AA00C93D82 /* PreviewPaneView.swift */; };
 		D770846B2D8D95DD002530F7 /* SettingsView+general.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770846A2D8D95DD002530F7 /* SettingsView+general.swift */; };
 		D770846D2D8D962C002530F7 /* SettingsView+options.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770846C2D8D962C002530F7 /* SettingsView+options.swift */; };
-		D770846F2D8D9683002530F7 /* SettingsView+pdf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770846E2D8D9683002530F7 /* SettingsView+pdf.swift */; };
+		D770846F2D8D9683002530F7 /* SettingsView+style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770846E2D8D9683002530F7 /* SettingsView+style.swift */; };
 		D77084712D8D96C4002530F7 /* SettingsView+folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77084702D8D96C4002530F7 /* SettingsView+folder.swift */; };
 		D77084732D8D9755002530F7 /* SettingsView+diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77084722D8D9755002530F7 /* SettingsView+diagram.swift */; };
 		D77084752D8D978B002530F7 /* SettingsView+editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77084742D8D978B002530F7 /* SettingsView+editor.swift */; };
@@ -474,7 +475,7 @@
 		D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Section.swift"; sourceTree = "<group>"; };
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
 		D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Tags.swift"; sourceTree = "<group>"; };
-		D71F864E2D843F1900BA57BD /* AppSettings+PDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+PDF.swift"; sourceTree = "<group>"; };
+		D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Style.swift"; sourceTree = "<group>"; };
 		D71F86522D8593B500BA57BD /* SVGIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGIcon.swift; sourceTree = "<group>"; };
 		D72B610F2C16E4170027B235 /* UserFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFile.swift; sourceTree = "<group>"; };
 		D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive+Details.swift"; sourceTree = "<group>"; };
@@ -555,11 +556,12 @@
 		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D7641BF12D96CC44009472D3 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerButton.swift; sourceTree = "<group>"; };
+		D7641BFD2D9824CF009472D3 /* RenderView+ProminentLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+ProminentLabel.swift"; sourceTree = "<group>"; };
 		D76C24E02C3A99C000C93D82 /* ShareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareButton.swift; sourceTree = "<group>"; };
 		D76C24E22C3AA2AA00C93D82 /* PreviewPaneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewPaneView.swift; sourceTree = "<group>"; };
 		D770846A2D8D95DD002530F7 /* SettingsView+general.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+general.swift"; sourceTree = "<group>"; };
 		D770846C2D8D962C002530F7 /* SettingsView+options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+options.swift"; sourceTree = "<group>"; };
-		D770846E2D8D9683002530F7 /* SettingsView+pdf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+pdf.swift"; sourceTree = "<group>"; };
+		D770846E2D8D9683002530F7 /* SettingsView+style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+style.swift"; sourceTree = "<group>"; };
 		D77084702D8D96C4002530F7 /* SettingsView+folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+folder.swift"; sourceTree = "<group>"; };
 		D77084722D8D9755002530F7 /* SettingsView+diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+diagram.swift"; sourceTree = "<group>"; };
 		D77084742D8D978B002530F7 /* SettingsView+editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+editor.swift"; sourceTree = "<group>"; };
@@ -854,7 +856,7 @@
 			isa = PBXGroup;
 			children = (
 				D7C3D6202AC9E52600909639 /* AppSettings.swift */,
-				D71F864E2D843F1900BA57BD /* AppSettings+PDF.swift */,
+				D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */,
 				D79932E22D71E95C0003F502 /* AppSettings+Application.swift */,
 				D79932E52D71EB940003F502 /* AppSettings+AppWindowID.swift */,
 				D7496DEB2CF0B84900C8FFA8 /* AppSettings+Song.swift */,
@@ -1089,6 +1091,7 @@
 				D7F13FB82A6460B7002D875D /* SongView.swift */,
 				D7F13FB72A6460B7002D875D /* ChordsView.swift */,
 				D7F13F882A6460B7002D875D /* RenderView.swift */,
+				D7641BFD2D9824CF009472D3 /* RenderView+ProminentLabel.swift */,
 				D73A03E82AC85B6100D6CD0E /* RenderView+ChordView.swift */,
 				D7781B5E2D1062B000EC0CCF /* RenderView+ImageView.swift */,
 				D76C24E22C3AA2AA00C93D82 /* PreviewPaneView.swift */,
@@ -1120,7 +1123,7 @@
 				D77084742D8D978B002530F7 /* SettingsView+editor.swift */,
 				D77084722D8D9755002530F7 /* SettingsView+diagram.swift */,
 				D77084702D8D96C4002530F7 /* SettingsView+folder.swift */,
-				D770846E2D8D9683002530F7 /* SettingsView+pdf.swift */,
+				D770846E2D8D9683002530F7 /* SettingsView+style.swift */,
 				D770846C2D8D962C002530F7 /* SettingsView+options.swift */,
 			);
 			path = SettingsScene;
@@ -1693,6 +1696,7 @@
 				D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D75955AF2CF9D5E500CF3590 /* DebugMessage.swift in Sources */,
 				D78819662BFB25300033545D /* Help.swift in Sources */,
+				D7641BFE2D9824CF009472D3 /* RenderView+ProminentLabel.swift in Sources */,
 				D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D75141572C60C5B40011D9A4 /* DebugButtons.swift in Sources */,
 				D7496DE02CEF661E00C8FFA8 /* ChordProParser+processEmptyLine.swift in Sources */,
@@ -1774,7 +1778,7 @@
 				D7EA87632C5A580A009A3D82 /* ChordProEditor+LayoutManager.swift in Sources */,
 				D70D96C62CB260DD00B51A14 /* Styles.swift in Sources */,
 				D7AB50632BD958FF00AA797B /* PDFBuild+TOCItem.swift in Sources */,
-				D71F86502D843F1900BA57BD /* AppSettings+PDF.swift in Sources */,
+				D71F86502D843F1900BA57BD /* AppSettings+Style.swift in Sources */,
 				D752E5B82CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift in Sources */,
 				D7EA875E2C5A580A009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift in Sources */,
 				D7F13FE52A6460B7002D875D /* SongView.swift in Sources */,
@@ -1813,7 +1817,7 @@
 				D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */,
 				D7781B532D0F205F00EC0CCF /* PDFBuild+arguments.swift in Sources */,
 				D70503282D21532B00DB897A /* HelpView.swift in Sources */,
-				D770846F2D8D9683002530F7 /* SettingsView+pdf.swift in Sources */,
+				D770846F2D8D9683002530F7 /* SettingsView+style.swift in Sources */,
 				D70D96DB2CB2ACAE00B51A14 /* ChordsDatabaseDocument.swift in Sources */,
 				D75955B32CF9D65A00CF3590 /* DebugView.swift in Sources */,
 				D7336AD62C273AD700D0AA8E /* HelpButtons.swift in Sources */,
@@ -1840,7 +1844,7 @@
 				D7F056952CEBB45E00E422AA /* ChordProParser+processSourceComment.swift in Sources */,
 				D7F140132A64647D002D875D /* Song.swift in Sources */,
 				D7F1400F2A64646E002D875D /* ChordProParser.swift in Sources */,
-				D71F864F2D843F1900BA57BD /* AppSettings+PDF.swift in Sources */,
+				D71F864F2D843F1900BA57BD /* AppSettings+Style.swift in Sources */,
 				D7F344092CECBED700205A90 /* ChordProParser+openSection.swift in Sources */,
 				D7F140172A64647D002D875D /* Song+Section+Line.swift in Sources */,
 				D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,

@@ -18,15 +18,15 @@ extension PDFBuild {
         var tocInfo: PDFBuild.TOCInfo
         /// The `PageCounter` class
         var counter: PDFBuild.PageCounter
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **TOC item** element
         /// - Parameters:
         ///   - tocInfo: Information about the item
         ///   - counter: The `PageCounter` class
         ///   - settings: The PDF settings
-        init(tocInfo: PDFBuild.TOCInfo, counter: PDFBuild.PageCounter, settings: AppSettings.PDF) {
+        init(tocInfo: PDFBuild.TOCInfo, counter: PDFBuild.PageCounter, settings: AppSettings) {
             self.tocInfo = tocInfo
             self.counter = counter
             self.settings = settings

@@ -20,15 +20,15 @@ extension PDFBuild {
         let chords: [ChordDefinition]
         /// The chord display options
         let options: AppSettings.DiagramDisplayOptions
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **chords** element
         /// - Parameters:
         ///   - chords: All the chords from the song
         ///   - options: The chord display options
-        ///   - settings: The PDF settings
-        init(chords: [ChordDefinition], options: AppSettings.DiagramDisplayOptions, settings: AppSettings.PDF) {
+        ///   - settings: The application settings
+        init(chords: [ChordDefinition], options: AppSettings.DiagramDisplayOptions, settings: AppSettings) {
             self.chords = chords
                 .sorted(using: KeyPathComparator(\.root))
                 .sorted(using: KeyPathComparator(\.quality))

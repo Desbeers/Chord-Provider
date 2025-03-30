@@ -18,15 +18,15 @@ extension PDFBuild {
         let section: Song.Section
         /// All the chords from the song
         let chords: [ChordDefinition]
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **lyrics section** element
         /// - Parameters:
         ///   - section: The section with lyrics
         ///   - chords: All the chords from the song
         ///   - settings: The PDF settings
-        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings.PDF) {
+        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings) {
             self.section = section
             self.chords = chords
             self.settings = settings

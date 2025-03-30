@@ -17,17 +17,21 @@ struct FontOptionsView: View {
             VStack {
                 switch config {
                 case .title:
-                    Options(settings: settings, config: config, options: $settings.pdf.fonts.title)
+                    Options(settings: settings, config: config, options: $settings.style.fonts.title)
                 case .subtitle:
-                    Options(settings: settings, config: config, options: $settings.pdf.fonts.subtitle)
+                    Options(settings: settings, config: config, options: $settings.style.fonts.subtitle)
                 case .text:
-                    Options(settings: settings, config: config, options: $settings.pdf.fonts.text)
+                    Options(settings: settings, config: config, options: $settings.style.fonts.text)
                 case .chord:
-                    Options(settings: settings, config: config, options: $settings.pdf.fonts.chord)
+                    Options(settings: settings, config: config, options: $settings.style.fonts.chord)
                 case .label:
-                    Options(settings: settings, config: config, options: $settings.pdf.fonts.label)
+                    Options(settings: settings, config: config, options: $settings.style.fonts.label)
                 case .comment:
-                    Options(settings: settings, config: config, options: $settings.pdf.fonts.comment)
+                    Options(settings: settings, config: config, options: $settings.style.fonts.comment)
+                case .tag:
+                    Options(settings: settings, config: config, options: $settings.style.fonts.tag)
+                case .textblock:
+                    Options(settings: settings, config: config, options: $settings.style.fonts.textblock)
                 }
             }
             .wrapSettingsSection(title: config.rawValue)
@@ -88,7 +92,7 @@ extension FontOptionsView {
                 Divider()
                 /// - Note: Preview
                 ZStack {
-                    Color(settings.pdf.theme.background)
+                    Color(settings.style.theme.background)
                         .frame(maxWidth: .infinity)
                     Text(options.nsFont.familyName ?? config.rawValue)
                         .font(.custom(options.font, size: options.size * 1.2))

@@ -32,10 +32,10 @@ extension PDFStringAttribute {
     /// - Note: Element specific styling is in its own file
 
     /// Style attributes for a slightly smaller text font
-    static func smallTextFont(settings: AppSettings.PDF) -> PDFStringAttribute {
+    static func smallTextFont(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.theme.foreground),
-            .font: NSFont(name: settings.fonts.text.font, size: settings.fonts.text.size * 0.8) ?? NSFont.systemFont(ofSize: 8)
+            .foregroundColor: NSColor(settings.style.theme.foreground),
+            .font: NSFont(name: settings.style.fonts.text.font, size: settings.style.fonts.text.size * 0.8) ?? NSFont.systemFont(ofSize: 8)
         ]
     }
 
@@ -53,16 +53,17 @@ extension PDFStringAttribute {
 
 extension PDFStringAttribute {
 
-    static func foregroundColor(settings: AppSettings.PDF) -> PDFStringAttribute {
+    static func foregroundColor(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.theme.foreground)
+            .foregroundColor: NSColor(settings.style.theme.foreground)
         ]
     }
 
 
-    static func attributes(_ config: FontConfig, settings: AppSettings.PDF) -> PDFStringAttribute {
+    static func attributes(_ config: FontConfig, settings: AppSettings) -> PDFStringAttribute {
         var font = NSFont()
         var color = NSColor()
+        let settings = settings.style
         switch config {
         case .title:
             font = settings.fonts.title.nsFont
@@ -82,6 +83,12 @@ extension PDFStringAttribute {
         case .comment:
             font = settings.fonts.comment.nsFont
             color = NSColor(settings.fonts.comment.color)
+        case .tag:
+            font = settings.fonts.tag.nsFont
+            color = NSColor(settings.fonts.tag.color)
+        case .textblock:
+            font = settings.fonts.textblock.nsFont
+            color = NSColor(settings.fonts.textblock.color)
         }
         return [
             .font: font,

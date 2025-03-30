@@ -24,7 +24,7 @@ extension FolderExport {
         appSettings: AppSettings,
         progress: @escaping (Double) -> Void
     ) async -> Data {
-        let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings.pdf)
+        let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings)
         builder.pageCounter = counter
         // MARK: Render PDF content
         for item in counter.tocItems {
@@ -37,7 +37,7 @@ extension FolderExport {
                             items: [
                                 PDFBuild.Text(
                                     "\(item.song.metadata.artist)∙\(item.song.metadata.title)",
-                                    attributes: .smallTextFont(settings: appSettings.pdf) + .alignment(.left)
+                                    attributes: .smallTextFont(settings: appSettings) + .alignment(.left)
                                 ),
                                 counter
                             ]

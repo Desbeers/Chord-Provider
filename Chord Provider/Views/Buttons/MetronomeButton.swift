@@ -9,6 +9,8 @@ import SwiftUI
 
 /// SwiftUI `View` for the metronome button
 struct MetronomeButton: View {
+    /// The observable state of the application
+    @Environment(AppStateModel.self) private var appState
     /// The time signature
     let time: String
     /// The bpm
@@ -31,6 +33,7 @@ struct MetronomeButton: View {
                             .scaleEffect(x: metronome.flip ? -1 : 1, y: 1)
                     }
                 )
+                .foregroundStyle(.black)
             }
         )
         .labelStyle(.titleAndIcon)

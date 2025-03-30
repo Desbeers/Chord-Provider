@@ -66,7 +66,7 @@ struct ExportFolderView: View {
                     Task {
                         do {
                             let settings = AppSettings.load(id: .mainView)
-                            appState.settings.pdf = settings.pdf
+                            appState.settings.style = settings.style
                             /// Bring the sceneState instrument to the appState
                             appState.settings.song.display.instrument = sceneState.settings.song.display.instrument
                             progress = 0
@@ -122,7 +122,7 @@ struct ExportFolderView: View {
         .scrollContentBackground(.hidden)
         .task {
             let settings = AppSettings.load(id: .mainView)
-            appState.settings.pdf = settings.pdf
+            appState.settings.style = settings.style
         }
         .task(id: currentFolder) {
             pdfInfo.title = currentFolder ?? ""

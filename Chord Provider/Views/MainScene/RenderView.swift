@@ -15,6 +15,9 @@ struct RenderView: View {
     /// The ``Song``
     let song: Song
 
+    /// The observable state of the application
+    @Environment(AppStateModel.self) private var appState
+
     /// Init the `View`
     /// - Parameters:
     ///   - song: The ``Song
@@ -54,7 +57,7 @@ struct RenderView: View {
                     .fixedSize(horizontal: true, vertical: false)
                 }
             }
-            .font(.system(size: 14 * song.settings.display.scale))
+            .font(appState.settings.style.fonts.text.swiftUIFont(scale: song.settings.display.scale))
         case .asColumns:
             ScrollView(.horizontal) {
                 ColumnsLayout(
@@ -66,7 +69,7 @@ struct RenderView: View {
                 .padding(song.settings.display.scale * 20)
             }
             .frame(maxHeight: .infinity)
-            .font(.system(size: 14 * song.settings.display.scale))
+            .font(appState.settings.style.fonts.text.swiftUIFont(scale: song.settings.display.scale))
         }
     }
 
@@ -110,13 +113,20 @@ extension RenderView {
 
     /// Wrapper around a section
     struct SectionView: ViewModifier {
+        /// The observable state of the application
+        @Environment(AppStateModel.self) private var appState
         /// The display options
         let settings: AppSettings.Song
         /// The optional label
         var label: String = ""
         /// Bool if the section is prominent (chorus for example)
         var prominent: Bool = false
-
+        /// Scale
+        let scale: Double
+        /// The calculated font
+        var font: Font {
+            appState.settings.style.fonts.label.swiftUIFont(scale: scale)
+        }
         /// The body of the `ViewModifier`
         /// - Parameter content: The content of the section
         /// - Returns: A `View` with the wrapped section
@@ -138,21 +148,29 @@ extension RenderView {
                 }
             case .grid:
                 GridRow {
-                    Text(label)
-                        .padding(.all, prominent ? 10 : 0)
-                        .background(
-                            prominent ? Color.accentColor.opacity(0.3) : Color.clear,
-                            in: RoundedRectangle(cornerRadius: 4)
-                        )
-                        .frame(minWidth: 100, alignment: .trailing)
-                        .gridColumnAlignment(.trailing)
+                    Group {
+                        switch prominent {
+                        case true:
+                            ProminentLabel(
+                                settings: settings,
+                                label: label,
+                                font: font
+                            )
+                        case false:
+                            Text(label)
+                                .font(font)
+                        }
+                    }
+                    .foregroundStyle(appState.settings.style.fonts.label.color, appState.settings.style.fonts.label.background)
+                    .frame(minWidth: 100, alignment: .trailing)
+                    .gridColumnAlignment(.trailing)
                     content
                         .padding(.leading)
                         .overlay(
                             Rectangle()
                                 .frame(width: 1, height: nil, alignment: .leading)
                                 .foregroundStyle(
-                                    prominent || !label.isEmpty ? Color.secondary.opacity(0.3) : Color.clear
+                                    prominent || !label.isEmpty ? appState.settings.style.theme.foregroundMedium.opacity(0.3) : Color.clear
                                 ),
                             alignment: .leading
                         )
@@ -170,10 +188,13 @@ extension RenderView {
                 case true:
                     ProminentLabel(
                         settings: settings,
-                        label: label
+                        label: label,
+                        font: font
                     )
+                    .foregroundStyle(appState.settings.style.fonts.label.color, appState.settings.style.fonts.label.background)
                 case false:
                     Text(label)
+                        .font(font)
                 }
                 Divider()
                 content
@@ -208,7 +229,9 @@ extension RenderView {
         .modifier(
             SectionView(
                 settings: song.settings,
-                label: section.label)
+                label: section.label,
+                scale: song.settings.display.scale
+            )
         )
     }
 
@@ -239,7 +262,8 @@ extension RenderView {
             SectionView(
                 settings: song.settings,
                 label: section.label.isEmpty ? "Chorus" : section.label,
-                prominent: true
+                prominent: true,
+                scale: song.settings.display.scale
             )
         )
     }
@@ -254,10 +278,12 @@ extension RenderView {
             ProminentLabel(
                 settings: song.settings,
                 label: section.label.isEmpty ? "Repeat Chorus" : section.label,
-                icon: "arrow.triangle.2.circlepath"
+                icon: "arrow.triangle.2.circlepath",
+                font: appState.settings.style.fonts.label.swiftUIFont(scale: song.settings.display.scale)
             )
+            .foregroundStyle(appState.settings.style.fonts.label.color, appState.settings.style.fonts.label.background)
             .frame(alignment: .leading)
-            .modifier(SectionView(settings: song.settings))
+            .modifier(SectionView(settings: song.settings, scale: song.settings.display.scale))
         }
     }
 
@@ -281,7 +307,7 @@ extension RenderView {
             }
         }
         .padding(.vertical, song.settings.display.scale)
-        .modifier(SectionView(settings: song.settings, label: section.label))
+        .modifier(SectionView(settings: song.settings, label: section.label, scale: song.settings.display.scale))
     }
 
     // MARK: Grid
@@ -321,7 +347,7 @@ extension RenderView {
             }
         }
         .padding(.vertical, song.settings.display.scale)
-        .modifier(SectionView(settings: song.settings, label: section.label))
+        .modifier(SectionView(settings: song.settings, label: section.label, scale: song.settings.display.scale))
     }
 
     // MARK: Textblock
@@ -330,21 +356,50 @@ extension RenderView {
     func textblockSection(section: Song.Section) -> some View {
         VStack(alignment: getFlush(section.arguments)) {
             if !section.label.isEmpty {
-                Text(section.label).foregroundStyle(.primary)
+                Text(section.label)
+                    .foregroundStyle(appState.settings.style.fonts.label.color)
+                    .font(appState.settings.style.fonts.label.swiftUIFont(scale: song.settings.display.scale))
                 Divider()
             }
             ForEach(section.lines) { line in
-                if let parts = line.parts {
-                    HStack(spacing: 0) {
-                        ForEach(parts) { part in
-                            if let chord = song.chords.first(where: { $0.id == part.chord }) {
-                                ChordView(settings: song.settings, sectionID: section.id, partID: part.id, chord: chord)
+
+
+                switch line.directive {
+                case .environmentLine:
+                    if let parts = line.parts {
+                        HStack(spacing: 0) {
+                            ForEach(parts) { part in
+                                if let chord = song.chords.first(where: { $0.id == part.chord }) {
+                                    ChordView(settings: song.settings, sectionID: section.id, partID: part.id, chord: chord)
+                                }
+                                /// Init the text like this to enable markdown formatting
+                                Text(.init(part.text))
                             }
-                            /// Init the text like this to enable markdown formatting
-                            Text(.init(part.text))
                         }
+                        .foregroundStyle(appState.settings.style.fonts.textblock.color)
+                        .font(appState.settings.style.fonts.textblock.swiftUIFont(scale: song.settings.display.scale))
                     }
+                case .comment:
+                    Label(line.label, systemImage: "text.bubble")
+                        .font(appState.settings.style.fonts.comment.swiftUIFont(scale: song.settings.display.scale))
+                        .foregroundStyle(appState.settings.style.fonts.comment.color)
+                default:
+                    EmptyView()
                 }
+
+//                if let parts = line.parts {
+//                    HStack(spacing: 0) {
+//                        ForEach(parts) { part in
+//                            if let chord = song.chords.first(where: { $0.id == part.chord }) {
+//                                ChordView(settings: song.settings, sectionID: section.id, partID: part.id, chord: chord)
+//                            }
+//                            /// Init the text like this to enable markdown formatting
+//                            Text(.init(part.text))
+//                        }
+//                    }
+//                    .foregroundStyle(appState.settings.style.fonts.textblock.color)
+//                    .font(appState.settings.style.fonts.textblock.swiftUIFont(scale: song.settings.display.scale))
+//                }
             }
         }
         .foregroundStyle(.secondary)
@@ -353,7 +408,8 @@ extension RenderView {
             SectionView(
                 settings: song.settings,
                 /// A textblock will always render the optional label on top
-                label: ""
+                label: "",
+                scale: song.settings.display.scale
             )
         )
     }
@@ -363,7 +419,7 @@ extension RenderView {
     /// SwiftUI `View` for a comment in its own section
     func commentSection(section: Song.Section) -> some View {
         commentLabel(comment: section.lines.first?.label ?? "")
-            .modifier(SectionView(settings: song.settings))
+            .modifier(SectionView(settings: song.settings, scale: song.settings.display.scale))
     }
 
     /// SwiftUI `View` for a comment label
@@ -372,8 +428,9 @@ extension RenderView {
             settings: song.settings,
             label: comment,
             icon: "text.bubble",
-            color: .comment
+            font: appState.settings.style.fonts.comment.swiftUIFont(scale: song.settings.display.scale)
         )
+        .foregroundStyle(appState.settings.style.fonts.comment.color, appState.settings.style.fonts.comment.background)
         .frame(alignment: .leading)
     }
 
@@ -391,7 +448,6 @@ extension RenderView {
                         }
                         .tracking(2 * song.settings.display.scale)
                         .monospaced()
-                        .font(.system(size: 16 * song.settings.display.scale))
                     }
                 case .comment:
                     commentLabel(comment: line.label)
@@ -400,7 +456,7 @@ extension RenderView {
                 }
             }
         }
-        .modifier(SectionView(settings: song.settings, label: section.label))
+        .modifier(SectionView(settings: song.settings, label: section.label, scale: song.settings.display.scale))
     }
 
     // MARK: Image
@@ -420,13 +476,15 @@ extension RenderView {
             )
         }
         .frame(maxWidth: .infinity, alignment: getAlign(arguments))
-        .modifier(SectionView(settings: song.settings, label: ""))
+        .modifier(SectionView(settings: song.settings, label: "", scale: song.settings.display.scale))
     }
 
     // MARK: Parts
 
     /// SwiftUI `View` for parts of a line
     struct PartsView: View {
+        /// The observable state of the application
+        @Environment(AppStateModel.self) private var appState
         /// The display options
         let settings: AppSettings.Song
         /// The ID of the section
@@ -445,6 +503,7 @@ extension RenderView {
                         } else if !settings.display.lyricsOnly {
                             /// A line without a chord
                             Text(" ")
+                                .font(appState.settings.style.fonts.chord.swiftUIFont(scale: settings.display.scale))
                         }
                         /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
                         /// for the funny stuff added to the string...
@@ -454,38 +513,6 @@ extension RenderView {
                     .padding(.vertical, settings.display.scale)
                 }
             }
-        }
-    }
-
-    /// SwiftUI `View` for a prominent label
-    struct ProminentLabel: View {
-        /// The display options
-        let settings: AppSettings.Song
-        /// The label
-        let label: String
-        /// The optional icon
-        var icon: String?
-        /// The color of the label
-        var color: Color = .accentColor.opacity(0.3)
-        /// The body of the `View`
-        var body: some View {
-            VStack {
-                if let icon {
-                    Label(
-                        title: {
-                            /// Init the text like this to enable markdown formatting
-                            Text(.init(label))
-                        },
-                        icon: {
-                            Image(systemName: icon)
-                        }
-                    )
-                } else {
-                    Text(.init(label))
-                }
-            }
-            .padding(settings.display.scale * 6)
-            .background(color, in: RoundedRectangle(cornerRadius: 6))
         }
     }
 }
@@ -508,7 +535,6 @@ extension RenderView {
         }
         return .leading
     }
-
 
     /// Get alignment from the arguments
     /// - Parameter arguments: The arguments of the directive

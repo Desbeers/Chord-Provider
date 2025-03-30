@@ -15,6 +15,8 @@ import SwiftUI
         case chord = "Chords"
         case label = "Labels"
         case comment = "Comments"
+        case tag = "Tags"
+        case textblock = "Text Blocks"
         /// The available options for a
         var options: [Options] {
             switch self {
@@ -30,6 +32,10 @@ import SwiftUI
                 [.font, .size, .color, .background]
             case .comment:
                 [.font, .size, .color, .background]
+            case .tag:
+                [.font, .size, .color, .background]
+            case .textblock:
+                [.font, .size, .color]
             }
         }
         /// Get the color for a ``ChordPro/FontConfig``
@@ -38,17 +44,21 @@ import SwiftUI
         func color(settings: AppSettings) -> Color {
             switch self {
             case .title:
-                settings.pdf.theme.foreground
+                settings.style.theme.foreground
             case .subtitle:
-                settings.pdf.theme.foregroundMedium
+                settings.style.theme.foregroundMedium
             case .text:
-                settings.pdf.theme.foreground
+                settings.style.theme.foreground
             case .chord:
-                settings.pdf.fonts.chord.color
+                settings.style.fonts.chord.color
             case .label:
-                settings.pdf.fonts.label.color
+                settings.style.fonts.label.color
             case .comment:
-                settings.pdf.fonts.comment.color
+                settings.style.fonts.comment.color
+            case .tag:
+                settings.style.fonts.tag.color
+            case .textblock:
+                settings.style.fonts.textblock.color
             }
         }
         /// An optional 'help' for the config

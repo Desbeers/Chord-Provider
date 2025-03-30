@@ -1,5 +1,5 @@
 //
-//  SettingsView+pdf.swift
+//  SettingsView+style.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -9,8 +9,8 @@ import SwiftUI
 
 extension SettingsView {
 
-    /// `View` with PDF settings
-    @ViewBuilder var pdf: some View {
+    /// `View` with style settings
+    @ViewBuilder var style: some View {
         @Bindable var appState = appState
         VStack {
             VStack {
@@ -18,24 +18,24 @@ extension SettingsView {
                     VStack {
                         HStack {
                             Button("Light") {
-                                appState.settings.pdf = AppSettings.PDF.Preset.light.presets(settings: appState.settings.pdf)
+                                appState.settings.style = AppSettings.Style.Preset.light.presets(style: appState.settings.style)
                             }
-                            .disabled(appState.settings.pdf == AppSettings.PDF.Preset.light.presets(settings: appState.settings.pdf))
+                            .disabled(appState.settings.style == AppSettings.Style.Preset.light.presets(style: appState.settings.style))
                             Button("Dark") {
-                                appState.settings.pdf = AppSettings.PDF.Preset.dark.presets(settings: appState.settings.pdf)
+                                appState.settings.style = AppSettings.Style.Preset.dark.presets(style: appState.settings.style)
                             }
-                            .disabled(appState.settings.pdf == AppSettings.PDF.Preset.dark.presets(settings: appState.settings.pdf))
+                            .disabled(appState.settings.style == AppSettings.Style.Preset.dark.presets(style: appState.settings.style))
                             Button("Random") {
-                                appState.settings.pdf = AppSettings.PDF.Preset.random.presets(settings: appState.settings.pdf)
+                                appState.settings.style = AppSettings.Style.Preset.random.presets(style: appState.settings.style)
                             }
                         }
                     }
                     .wrapSettingsSection(title: "Color Templates")
                     VStack {
                         Form {
-                            ColorPicker("Foreground Color", selection: $appState.settings.pdf.theme.foreground, supportsOpacity: false)
-                            ColorPicker("Secondary Foreground Color", selection: $appState.settings.pdf.theme.foregroundMedium, supportsOpacity: false)
-                            ColorPicker("Background Color", selection: $appState.settings.pdf.theme.background, supportsOpacity: false)
+                            ColorPicker("Foreground Color", selection: $appState.settings.style.theme.foreground, supportsOpacity: false)
+                            ColorPicker("Secondary Foreground Color", selection: $appState.settings.style.theme.foregroundMedium, supportsOpacity: false)
+                            ColorPicker("Background Color", selection: $appState.settings.style.theme.background, supportsOpacity: false)
                         }
                         .formStyle(.columns)
                     }
@@ -44,7 +44,7 @@ extension SettingsView {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .top)
-            .animation(.default, value: appState.settings.pdf)
+            .animation(.default, value: appState.settings.style)
             HStack {
                 Button(
                     action: {
@@ -56,7 +56,7 @@ extension SettingsView {
                 )
                 Button(
                     action: {
-                        jsonExportString = appState.settings.pdf.exportToJSON
+                        jsonExportString = appState.settings.style.exportToJSON
                         showJsonExportDialog = true
                     },
                     label: {
@@ -66,14 +66,14 @@ extension SettingsView {
             }
             Button(
                 action: {
-                    appState.settings.pdf = AppSettings.PDF()
+                    appState.settings.style = AppSettings.Style()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
             .padding(.bottom)
-            .disabled(appState.settings.pdf == AppSettings.PDF())
+            .disabled(appState.settings.style == AppSettings.Style())
         }
     }
 }

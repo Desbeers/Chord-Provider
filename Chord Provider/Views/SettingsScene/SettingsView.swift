@@ -45,8 +45,8 @@ struct SettingsView: View {
             Tab("Songs", systemImage: "folder") {
                 folder
             }
-            Tab("PDF", systemImage: "text.document") {
-                pdf
+            Tab("Style", systemImage: "text.document") {
+                style
             }
             Tab("Options", systemImage: "music.quarternote.3") {
                 options
@@ -76,7 +76,7 @@ struct SettingsView: View {
                 do {
                     try files.forEach { url in
                         let text = try Data(contentsOf: url)
-                        appState.settings.pdf = try JSONDecoder().decode(AppSettings.PDF.self, from: text)
+                        appState.settings.style = try JSONDecoder().decode(AppSettings.Style.self, from: text)
                         Logger.fileAccess.info("Theme imported from \(url, privacy: .public)")
                     }
                 } catch {

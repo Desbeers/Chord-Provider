@@ -17,10 +17,12 @@ Chord Provider can do the following:
 • It will view and/or edit ChordPro files.
 • It can export your song to a PDF document.
 • It can also export a whole folder with ChordPro songs to a PDF
+• You can [C]configure its [C]colors and [F]fonts.
+• It also have a [D]database with a lot of [C]chords.
 {end_of_verse}
 
 {start_of_chorus Directives}
-Not all official directives are supported, but most.
+Not all official directives are supported, but most are.
 You can add [G7]chords to a verse or [C]chorus.
 {comment In the standard view you can click on a chord to see its diagram}
 {end_of_chorus}
@@ -38,7 +40,31 @@ E|-------------|
 | G7 G7 . C | Am . . Am |
 {end_of_grid}
 
+{start_of_textblock label="Just a Text Block" align="right" flush="right"}
+This is just a block with text.
+It is using the {start_of_textblock} environment.
+You can align it to your liking
+and style it in the 'Settings'.
+
+It does reconize chords like '[G7]' for example,
+but they are not above the text.
+
+{comment This implementation is not according the standard}
+
+I use this directive to add some info about the song.
+{end_of_textblock}
+
 {start_of_chorus This is a song}
-This help file is actualy a ChordPro song rendered as a PDF.
-You can open this song from the 'examples' tab on the welcome screen.
+This help [F]file is actualy a [C]ChordPro song rendered as a PDF.
+You can open this song [F]from the 'examples' tab on the welcome screen.
 {end_of_chorus}
+
+{chorus}
+
+{start_of_textblock label="Style and Colors" align="center"}
+If you look at this help, it looks plain and boring.
+Give it a try with the 'Random Colors' button below!
+
+{comment You can set colors and fonts in the 'settings' yourself.}
+
+{end_of_textblock}

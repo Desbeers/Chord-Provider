@@ -16,14 +16,14 @@ extension PDFBuild {
 
         /// The ``Song``
         let song: Song
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **song details** element
         /// - Parameters:
         ///   - song: The ``Song``
-        ///   - settings: The PDF settings
-        init(song: Song, settings: AppSettings.PDF) {
+        ///   - settings: The application settings
+        init(song: Song, settings: AppSettings) {
             self.song = song
             self.settings = settings
         }
@@ -65,7 +65,7 @@ extension PDFBuild {
         ///   - label: The label as `String`
         /// - Returns: An `NSAttributedString` with icon, label and attributes
         private func detailLabel(icon: SVGIcon, label: String) -> NSAttributedString {
-            guard let image = NSImage(data: icon.data(color: settings.theme.foregroundMedium)) else {
+            guard let image = NSImage(data: icon.data(color: settings.style.theme.foregroundMedium)) else {
                 return NSAttributedString()
             }
             image.isTemplate = true
@@ -74,7 +74,7 @@ extension PDFBuild {
             let imageSize = imageAttachment.image?.size ?? .init()
             imageAttachment.bounds = CGRect(
                 x: CGFloat(0),
-                y: (NSFont.systemFont(ofSize: settings.fonts.text.size * 0.8, weight: .regular).capHeight - imageSize.height) / 2,
+                y: (NSFont.systemFont(ofSize: settings.style.fonts.text.size * 0.8, weight: .regular).capHeight - imageSize.height) / 2,
                 width: imageSize.width,
                 height: imageSize.height
             )

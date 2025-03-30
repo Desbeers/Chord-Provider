@@ -18,14 +18,14 @@ extension PDFBuild {
         let section: Song.Section
         /// All the chords from the song
         let chords: [ChordDefinition]
-        /// The PDF settings
-        let settings: AppSettings.PDF
+        /// The application settings
+        let settings: AppSettings
 
         /// Init the **grid section** element
         /// - Parameters:
         ///   - section: The section with grids
         ///   - chords: All the chords from the song
-        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings.PDF) {
+        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings) {
             self.section = section
             self.chords = chords
             self.settings = settings
@@ -100,18 +100,21 @@ extension PDFStringAttribute {
     // MARK: Grid string styling
 
     /// String attributes for a grid line
-    static func gridText(settings: AppSettings.PDF) -> PDFStringAttribute {
-        let font = NSFont(name: settings.fonts.text.font, size: settings.fonts.chord.size) ?? .systemFont(ofSize: settings.fonts.chord.size)
+    static func gridText(settings: AppSettings) -> PDFStringAttribute {
+        let font = NSFont(
+            name: settings.style.fonts.text.font,
+            size: settings.style.fonts.chord.size
+        ) ?? .systemFont(ofSize: settings.style.fonts.chord.size)
         return [
-            .foregroundColor: NSColor(settings.theme.foreground),
+            .foregroundColor: NSColor(settings.style.theme.foreground),
             .font: font
         ]
     }
     /// String attributes for a grid chord
-    static func gridChord(settings: AppSettings.PDF) -> PDFStringAttribute {
-        let font = settings.fonts.chord.nsFont
+    static func gridChord(settings: AppSettings) -> PDFStringAttribute {
+        let font = settings.style.fonts.chord.nsFont
         return [
-            .foregroundColor: NSColor(settings.fonts.chord.color),
+            .foregroundColor: NSColor(settings.style.fonts.chord.color),
             .font: font
         ]
     }

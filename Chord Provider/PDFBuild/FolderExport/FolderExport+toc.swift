@@ -23,16 +23,16 @@ extension FolderExport {
         /// Divide sections by artist of first letter of title
         var divider: String = ""
 
-        let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings.pdf)
+        let tocBuilder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings)
         tocBuilder.pageCounter = counter
         tocBuilder.elements.append(PDFBuild.PageBackgroundColor(color: .black))
         tocBuilder.elements.append(PDFBuild.Text(
             documentInfo.title,
-            attributes: .exportTitle(settings: appSettings.pdf))
+            attributes: .exportTitle(settings: appSettings))
         )
         tocBuilder.elements.append(PDFBuild.Text(
             documentInfo.author,
-            attributes: .exportAuthor(settings: appSettings.pdf)
+            attributes: .exportAuthor(settings: appSettings)
         )
             .padding(PDFBuild.pagePadding))
         tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
@@ -40,7 +40,7 @@ extension FolderExport {
         tocBuilder.elements.append(
             PDFBuild.Text(
                 "Table of Contents",
-                attributes: .attributes(.title, settings: appSettings.pdf) + .alignment(.center)
+                attributes: .attributes(.title, settings: appSettings) + .alignment(.center)
             )
         )
         for tocInfo in counter.tocItems {
@@ -59,7 +59,7 @@ extension FolderExport {
                 divider = String(tocInfo.song.metadata.sortTitle.prefix(1).lowercased())
             }
 
-            tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter, settings: appSettings.pdf))
+            tocBuilder.elements.append(PDFBuild.TOCItem(tocInfo: tocInfo, counter: counter, settings: appSettings))
         }
         return tocBuilder.generatePdf()
     }
@@ -68,8 +68,8 @@ extension FolderExport {
 extension PDFStringAttribute {
 
     /// Style attributes for the export title
-    static func exportTitle(settings: AppSettings.PDF) -> PDFStringAttribute {
-        let font = NSFont(name: settings.fonts.title.font, size: 28) ?? NSFont.systemFont(ofSize: 28)
+    static func exportTitle(settings: AppSettings) -> PDFStringAttribute {
+        let font = NSFont(name: settings.style.fonts.title.font, size: 28) ?? NSFont.systemFont(ofSize: 28)
         return [
             .foregroundColor: NSColor.white,
             .font: font
@@ -77,8 +77,8 @@ extension PDFStringAttribute {
     }
 
     /// Style attributes for the export author
-    static func exportAuthor(settings: AppSettings.PDF) -> PDFStringAttribute {
-        let font = NSFont(name: settings.fonts.subtitle.font, size: 24) ?? NSFont.systemFont(ofSize: 28)
+    static func exportAuthor(settings: AppSettings) -> PDFStringAttribute {
+        let font = NSFont(name: settings.style.fonts.subtitle.font, size: 24) ?? NSFont.systemFont(ofSize: 28)
         return [
             .foregroundColor: NSColor.gray,
             .font: font
