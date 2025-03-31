@@ -1205,13 +1205,6 @@
 			path = ChordProEditor;
 			sourceTree = "<group>";
 		};
-		D7EA87762C5A5861009A3D82 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		D7EA877A2C5A587A009A3D82 /* Structures */ = {
 			isa = PBXGroup;
 			children = (
@@ -1282,7 +1275,6 @@
 				D730BB982CA6B77A008719F2 /* Models */,
 				D730BBA22CA844C2008719F2 /* Statics */,
 				D7EA877A2C5A587A009A3D82 /* Structures */,
-				D7EA87762C5A5861009A3D82 /* Protocols */,
 				D77979262BED7FA200BE165A /* Extensions */,
 				D76C24E62C3AFFC700C93D82 /* Documents */,
 				D7EA87582C5A580A009A3D82 /* ChordProEditor */,
