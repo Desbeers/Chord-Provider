@@ -66,5 +66,16 @@ If you look at this help, it looks plain and boring.
 Give it a try with the 'Random Colors' button below!
 
 {comment You can set colors and fonts in the 'settings' yourself.}
-
 {end_of_textblock}
+
+{image src="IconPreview.png" align="left"}
+
+{comment Images are supported as wel}
+
+{start_of_verse Finder}
+In the [F]Finder; [C]ChordPro files will have a custom icon
+with the title of the song; just eyecandy!
+[C]Chord Provider also supports 'quickview'; press 'space'
+when you have a song selected [Am]and it wil render it for you.
+{end_of_verse}
+

@@ -114,7 +114,6 @@ struct MainView: View {
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     SongView()
-                        .background(Color(appState.settings.style.theme.background))
                         .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
                     if sceneState.settings.song.display.showChords {
                         Divider()
@@ -126,6 +125,7 @@ struct MainView: View {
                 }
             }
         }
+        .background(Color(appState.settings.style.theme.background))
         .frame(maxHeight: .infinity)
         .animation(.default, value: appState.settings.style)
     }

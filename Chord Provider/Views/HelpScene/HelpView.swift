@@ -54,7 +54,7 @@ struct HelpView: View {
                     settings.style = AppSettings.Style.Preset.light.presets(style: settings.style)
                 }
 
-                let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: nil)
+                let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: helpSong)
                 if let export = try? await SongExport.export(
                     song: song, appSettings: settings
                 ) {
@@ -72,7 +72,7 @@ struct HelpView: View {
 
             settings.style = AppSettings.Style.Preset.random.presets(style: settings.style)
 
-            let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: nil)
+            let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: helpSong)
             if let export = try? await SongExport.export(
                 song: song, appSettings: settings
             ) {

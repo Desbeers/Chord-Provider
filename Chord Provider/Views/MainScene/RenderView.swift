@@ -362,8 +362,6 @@ extension RenderView {
                 Divider()
             }
             ForEach(section.lines) { line in
-
-
                 switch line.directive {
                 case .environmentLine:
                     if let parts = line.parts {
@@ -386,20 +384,6 @@ extension RenderView {
                 default:
                     EmptyView()
                 }
-
-//                if let parts = line.parts {
-//                    HStack(spacing: 0) {
-//                        ForEach(parts) { part in
-//                            if let chord = song.chords.first(where: { $0.id == part.chord }) {
-//                                ChordView(settings: song.settings, sectionID: section.id, partID: part.id, chord: chord)
-//                            }
-//                            /// Init the text like this to enable markdown formatting
-//                            Text(.init(part.text))
-//                        }
-//                    }
-//                    .foregroundStyle(appState.settings.style.fonts.textblock.color)
-//                    .font(appState.settings.style.fonts.textblock.swiftUIFont(scale: song.settings.display.scale))
-//                }
             }
         }
         .foregroundStyle(.secondary)

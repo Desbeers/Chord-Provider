@@ -39,7 +39,7 @@ extension AppSettings.Style {
                 appSettings.fonts.label.background = .gray.opacity(0.3)
                 appSettings.fonts.comment.color = .black
                 appSettings.fonts.comment.background = .pdfComment
-                appSettings.fonts.tag.color = .white
+                appSettings.fonts.tag.color = .black
                 appSettings.fonts.tag.background = .red.opacity(0.3)
             case .dark:
                 appSettings.theme.foreground = .white

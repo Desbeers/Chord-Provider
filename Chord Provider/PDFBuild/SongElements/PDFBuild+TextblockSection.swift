@@ -45,8 +45,6 @@ extension PDFBuild {
             paragraphStyle.lineSpacing = 4
             let text = NSMutableAttributedString()
             for line in section.lines {
-
-
                 switch line.directive {
                 case .environmentLine:
                     if let parts = line.parts {
