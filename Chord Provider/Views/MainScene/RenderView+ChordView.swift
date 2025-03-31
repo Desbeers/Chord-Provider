@@ -104,6 +104,7 @@ extension RenderView {
                             settings: settings
                         )
                         .foregroundStyle(primaryColor, secondaryColor)
+                        .environment(appState)
                 )
                 renderer.scale = 2
                 let image = renderer.nsImage

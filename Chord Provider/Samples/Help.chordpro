@@ -61,12 +61,12 @@ You can open this song [F]from the 'examples' tab on the welcome screen.
 
 {chorus}
 
-{start_of_textblock label="Style and Colors" align="center"}
-If you look at this help, it looks plain and boring.
-Give it a try with the 'Random Colors' button below!
-
-{comment You can set colors and fonts in the 'settings' yourself.}
-{end_of_textblock}
+{start_of_verse Repeat}
+The above directive indicates that the Chorus
+must be repeated. In the Settings you can select
+'Repeat whole chorus' and then the 'repeat' label
+will be replaced by the whole Chorus with the same label.
+{end_of_verse}
 
 {image src="IconPreview.png" align="left"}
 
@@ -79,3 +79,9 @@ with the title of the song; just eyecandy!
 when you have a song selected [Am]and it wil render it for you.
 {end_of_verse}
 
+{start_of_textblock label="Style and Colors" align="center"}
+If you look at this help, it looks plain and boring.
+Give it a try with the 'Random Colors' button below!
+
+{comment You can set colors and fonts in the 'settings' yourself.}
+{end_of_textblock}

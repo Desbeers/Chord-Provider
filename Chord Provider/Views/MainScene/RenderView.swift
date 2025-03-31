@@ -277,7 +277,7 @@ extension RenderView {
         } else {
             ProminentLabel(
                 settings: song.settings,
-                label: section.label.isEmpty ? "Repeat Chorus" : section.label,
+                label: section.label,
                 icon: "arrow.triangle.2.circlepath",
                 font: appState.settings.style.fonts.label.swiftUIFont(scale: song.settings.display.scale)
             )
