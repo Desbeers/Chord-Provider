@@ -125,8 +125,8 @@ struct MainView: View {
                 }
             }
         }
-        .background(Color(appState.settings.style.theme.background))
         .frame(maxHeight: .infinity)
+        .background(Color(appState.settings.style.theme.background))
         .animation(.default, value: appState.settings.style)
     }
 

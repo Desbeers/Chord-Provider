@@ -184,18 +184,20 @@ extension RenderView {
                 content
                     .padding(.leading)
             } else {
-                switch prominent {
-                case true:
-                    ProminentLabel(
-                        settings: settings,
-                        label: label,
-                        font: font
-                    )
-                    .foregroundStyle(appState.settings.style.fonts.label.color, appState.settings.style.fonts.label.background)
-                case false:
-                    Text(label)
-                        .font(font)
+                Group {
+                    switch prominent {
+                    case true:
+                        ProminentLabel(
+                            settings: settings,
+                            label: label,
+                            font: font
+                        )
+                    case false:
+                        Text(label)
+                            .font(font)
+                    }
                 }
+                .foregroundStyle(appState.settings.style.fonts.label.color, appState.settings.style.fonts.label.background)
                 Divider()
                 content
                     .padding(.leading)
