@@ -68,7 +68,7 @@ extension AppStateModel {
         var body: some View {
             Toggle(isOn: $appState.settings.song.display.lyricsOnly) {
                 Text("Show only lyrics")
-                Text("This option will hide all chords.")
+                Text("This option will hide all chords, tabs and grids.")
             }
         }
     }

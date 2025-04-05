@@ -95,12 +95,13 @@ extension SongExport {
         items.append(PDFBuild.Tags(song: song, settings: appSettings))
 
         items.append(PDFBuild.Spacer(10))
-        items.append(PDFBuild.SongDetails(song: song, settings: appSettings))
-        items.append(PDFBuild.Spacer(10))
+
         if !appSettings.song.display.lyricsOnly, !song.chords.isEmpty {
+            items.append(PDFBuild.SongDetails(song: song, settings: appSettings))
+            items.append(PDFBuild.Spacer(10))
             items.append(PDFBuild.Chords(chords: song.chords, options: appSettings.song.diagram, settings: appSettings))
+            items.append(PDFBuild.Spacer(10))
         }
-        items.append(PDFBuild.Spacer(10))
 
         // MARK: Calculate label size
 
