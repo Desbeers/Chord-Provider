@@ -48,10 +48,12 @@ extension PDFBuild {
                 items.append(Diagram(chord: chord, options: options, settings: settings))
             }
             /// Spread the chords evenly over multiple lines
+            /// The diagram is about 60 points wide
+            let row = Int((pageRect.width - (settings.pdf.pagePadding * 2)) / 65)
             let chordsCount = chords.count
-            let lines = Int((chordsCount - 1) / 7) + 1
+            let lines = Int((chordsCount - 1) / row) + 1
             let lineItems = Int((chordsCount - 1) / lines) + 1
-            let diagramWidth = rect.width / 7
+            let diagramWidth = rect.width / Double(row)
             let diagrams = PDFBuild.Section(
                 columns: .init(repeating: .fixed(width: diagramWidth), count: lineItems),
                 items: items
@@ -59,7 +61,7 @@ extension PDFBuild {
             /// Keep the original X value
             let tempOriginX = rect.origin.x
             /// Move the diagrams if we have less than 7 in a row
-            let extraX = (Double(7 - lineItems) / 2) * diagramWidth
+            let extraX = (Double(row - lineItems) / 2) * diagramWidth
             rect.origin.x += extraX
             diagrams.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
             /// Restore the original X value
