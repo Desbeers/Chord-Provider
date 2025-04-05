@@ -57,9 +57,11 @@ struct FontPicker: View {
         }
         .animation(.default, value: options.nsFont)
     }
-
+    /// Structure of a font style
     private struct FontStyle {
+        /// The postscript name
         let postScriptName: String
+        /// The style, *italic* for example
         let style: String
     }
 }

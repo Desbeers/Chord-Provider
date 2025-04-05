@@ -53,6 +53,9 @@ extension PDFStringAttribute {
 
 extension PDFStringAttribute {
 
+    /// Style attribute for the selected foreground color
+    /// - Parameter settings: The ``AppSettings``
+    /// - Returns: The ``PDFStringAttribute`` with the foreground color
     static func foregroundColor(settings: AppSettings) -> PDFStringAttribute {
         [
             .foregroundColor: NSColor(settings.style.theme.foreground)
@@ -60,6 +63,11 @@ extension PDFStringAttribute {
     }
 
 
+    /// Style attributes for a ``FontConfig``
+    /// - Parameters:
+    ///   - config: The ``FontConfig``
+    ///   - settings: The ``AppSettings``
+    /// - Returns: The ``PDFStringAttribute`` with the font and color
     static func attributes(_ config: FontConfig, settings: AppSettings) -> PDFStringAttribute {
         var font = NSFont()
         var color = NSColor()

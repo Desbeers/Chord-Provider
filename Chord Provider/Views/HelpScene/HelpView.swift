@@ -49,9 +49,9 @@ struct HelpView: View {
                 var settings = AppSettings()
                 switch colorScheme {
                 case .dark:
-                    settings.style = AppSettings.Style.Preset.dark.presets(style: settings.style)
+                    settings.style = AppSettings.Style.ColorPreset.dark.presets(style: settings.style)
                 default:
-                    settings.style = AppSettings.Style.Preset.light.presets(style: settings.style)
+                    settings.style = AppSettings.Style.ColorPreset.light.presets(style: settings.style)
                 }
 
                 let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: helpSong)
@@ -63,14 +63,15 @@ struct HelpView: View {
             }
         }
     }
-
+    
+    /// Show help with random colours
     func random() async {
         if
             let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
             let content = try? String(contentsOf: helpSong, encoding: .utf8) {
             var settings = AppSettings()
 
-            settings.style = AppSettings.Style.Preset.random.presets(style: settings.style)
+            settings.style = AppSettings.Style.ColorPreset.random.presets(style: settings.style)
 
             let song = await ChordProParser.parse(id: UUID(), text: content, transpose: 0, settings: settings, fileURL: helpSong)
             if let export = try? await SongExport.export(

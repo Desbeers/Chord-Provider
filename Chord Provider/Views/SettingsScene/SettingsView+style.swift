@@ -17,16 +17,11 @@ extension SettingsView {
                 ScrollView {
                     VStack {
                         HStack {
-                            Button("Light") {
-                                appState.settings.style = AppSettings.Style.Preset.light.presets(style: appState.settings.style)
-                            }
-                            .disabled(appState.settings.style == AppSettings.Style.Preset.light.presets(style: appState.settings.style))
-                            Button("Dark") {
-                                appState.settings.style = AppSettings.Style.Preset.dark.presets(style: appState.settings.style)
-                            }
-                            .disabled(appState.settings.style == AppSettings.Style.Preset.dark.presets(style: appState.settings.style))
-                            Button("Random") {
-                                appState.settings.style = AppSettings.Style.Preset.random.presets(style: appState.settings.style)
+                            ForEach(AppSettings.Style.ColorPreset.allCases, id: \.self) { preset in
+                                Button(preset.rawValue) {
+                                    appState.settings.style = preset.presets(style: appState.settings.style)
+                                }
+                                .disabled(appState.settings.style == preset.presets(style: appState.settings.style))
                             }
                         }
                     }

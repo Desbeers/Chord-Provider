@@ -13,7 +13,8 @@ copyright: © 2025 Nick Berendsen
 
 source_host_files_url: https://github.com/desbeers/Chord-Provider/blob/main
 
-exclude: /*/GeneratedAssetSymbols*,/*/resource_bundle_accessor*
+exclude: /*/GeneratedAssetSymbols*
+exclude: /*/Internal* 
 
 theme: Resources/JazzyTheme
 

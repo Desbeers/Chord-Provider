@@ -7,6 +7,8 @@
 
 import Foundation
 
+/// Options to sort a song by artist of title
+/// - Note: Used in PDF folder output
 enum SongListSort: String, CaseIterable, Codable, Identifiable {
     /// Identifiable protocol
     var id: String {

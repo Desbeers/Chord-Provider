@@ -10,6 +10,7 @@ import SwiftUI
 extension AppSettings {
 
     /// Settings for displaying a song
+    /// - Note: Following more or less the config of the official **ChordPro** reference implementation
     struct Style: Codable, Equatable {
         /// Theme
         var theme: Theme = Theme()
@@ -19,10 +20,19 @@ extension AppSettings {
 }
 
 extension AppSettings.Style {
-    enum Preset {
-        case light
-        case dark
-        case random
+
+    /// Color Presets
+    enum ColorPreset: String, CaseIterable {
+        /// The *light* theme
+        case light = "Light"
+        /// The *dark* theme
+        case dark = "Dark"
+        /// Just for fun; random colours!
+        case random = "Random"
+
+        /// Add colours to the style settings
+        /// - Parameter style: The current style
+        /// - Returns: An updated style
         func presets(style: AppSettings.Style) -> AppSettings.Style {
 
             var appSettings = style
@@ -71,7 +81,8 @@ extension AppSettings.Style {
             return appSettings
         }
     }
-
+    
+    /// Export the style to JSON
     var exportToJSON: String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
@@ -86,26 +97,39 @@ extension AppSettings.Style {
 }
 
 extension AppSettings.Style {
-
+    
+    /// The theme structure
     struct Theme: Codable, Equatable {
+        /// The foreground color
         var foreground: Color = .black
+        /// The light foreground color
         var foregroundLight: Color = .gray
+        /// The medium foreground color
         var foregroundMedium: Color = .gray
+        /// The background color
         var background: Color = .white
     }
 }
 
 extension AppSettings.Style {
-
+    
+    /// The fonts structure
     struct Fonts: Codable, Equatable {
-
+        /// {title ...}
         var title: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 18)
+        /// {subtitle ...}
         var subtitle: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 16)
+        /// General text inside verse, chorus etc...
         var text: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 12)
+        /// The chords, like [G7] for example
         var chord: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .accent)
+        /// The label in front of an ``ChordPro/Environment``
         var label: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, background: .gray.opacity(0.3))
+        /// {comment ...}
         var comment: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .pdfComment)
+        /// {tag ...}
         var tag: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .red.opacity(0.3))
+        /// {textblock} environment
         var textblock: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .gray)
     }
 }

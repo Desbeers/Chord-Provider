@@ -20,7 +20,7 @@ extension PDFBuild.LyricsSection.Line {
         /// The size of the part
         /// - Note: Used by the `Line` element to define the rectangle
         let size: CGSize
-
+        /// All the chords of the ``Song``
         let chords: [ChordDefinition]
 
         /// Init the **part** element

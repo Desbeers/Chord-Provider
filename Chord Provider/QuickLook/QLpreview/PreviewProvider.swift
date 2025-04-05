@@ -22,9 +22,9 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
         switch inDarkMode {
 
         case true:
-            settings.style = AppSettings.Style.Preset.dark.presets(style: settings.style)
+            settings.style = AppSettings.Style.ColorPreset.dark.presets(style: settings.style)
         case false:
-            settings.style = AppSettings.Style.Preset.light.presets(style: settings.style)
+            settings.style = AppSettings.Style.ColorPreset.light.presets(style: settings.style)
         }
 
         let contentType = UTType.pdf

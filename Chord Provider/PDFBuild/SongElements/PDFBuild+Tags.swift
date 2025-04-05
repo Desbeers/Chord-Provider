@@ -13,16 +13,23 @@ extension PDFBuild {
 
     /// A PDF **tags** element
     class Tags: PDFElement {
-
+        /// The array of tags
         let tags: [String]
-
+        /// The ``AppSettings``
         let settings: AppSettings
-
+        /// Init the **tags** element
+        /// - Parameters:
+        ///   - song: The whole `Song`
+        ///   - settings: The ``AppSettings``
         init(song: Song, settings: AppSettings) {
             self.tags = song.metadata.tags
             self.settings = settings
         }
-
+        /// Draw the **tags** element
+        /// - Parameters:
+        ///   - rect: The available rectangle
+        ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
+        ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             var tagRect = pageRect
             tagRect.size.width -= pagePadding

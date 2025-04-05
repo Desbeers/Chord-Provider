@@ -52,6 +52,9 @@ extension Color: Codable {
 }
 
 extension Color {
+
+    /// Init a `Color` with an hex value
+    /// - Parameter hex: The hex value
     init?(hex: String) {
         var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
         hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
@@ -85,6 +88,8 @@ extension Color {
 }
 
 extension Color {
+
+    /// Convert a `Color` to ha hex value as `String`
     var toHex: String {
         let uic = NSColor(self)
         guard let components = uic.cgColor.components, components.count >= 3 else {
@@ -102,8 +107,10 @@ extension Color {
         }
 
         if a != Float(1.0) {
+            /// - Note: With transparency
             return string + String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
         } else {
+            /// - Note: Without transparency
             return string + String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
         }
     }

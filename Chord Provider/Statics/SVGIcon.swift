@@ -7,30 +7,45 @@
 
 import SwiftUI
 
+/// SVG icons for song details
 enum SVGIcon {
+    /// The *capo* icon
     case capo
+    /// The *instrument* icon
     case instrument
+    /// The *key* icon
     case key
+    /// The *tempo* icon
     case tempo
+    /// The *time* icon
     case time
 
+    /// Covert a SVG icon to `Data` with a custom color
+    /// - Parameter color: The SwiftUI `Color` to use
+    /// - Returns: The coloured SVG icon
     func data(color: Color) -> Data {
         switch self {
         case .instrument:
-            return process(data: SVGIcon.instrumentData, color: color)
+            return process(icon: SVGIcon.instrumentData, color: color)
         case .key:
-            return process(data: SVGIcon.keyData, color: color)
+            return process(icon: SVGIcon.keyData, color: color)
         case .capo:
-            return process(data: SVGIcon.capoData, color: color)
+            return process(icon: SVGIcon.capoData, color: color)
         case .tempo:
-            return process(data: SVGIcon.tempoData, color: color)
+            return process(icon: SVGIcon.tempoData, color: color)
         case .time:
-            return process(data: SVGIcon.timeData, color: color)
+            return process(icon: SVGIcon.timeData, color: color)
         }
     }
 
-    private func process(data: String, color: Color) -> Data {
-        data.replacingOccurrences(of: "#000", with: color.toHex).data(using: .utf8) ?? Data()
+    /// Covert a SVG icon to `Data` with a custom color
+    /// - Parameters:
+    ///   - icon: The SVG icon as `String`
+    ///   - color: The SwiftUI `Color` to use
+    /// - Returns: The coloured SVG icon as `Data`
+    /// - Note: This does *not* support transparency
+    private func process(icon: String, color: Color) -> Data {
+        return icon.replacingOccurrences(of: "#000", with: color.toHex.prefix(7)).data(using: .utf8) ?? Data()
     }
 }
 
@@ -38,6 +53,7 @@ enum SVGIcon {
 
 extension SVGIcon {
 
+    /// The *instrument* icon
     static let instrumentData =
 """
 <svg version="1.1" id="_x32_" xml:space="preserve" width="7" height="7" xmlns="http://www.w3.org/2000/svg">
@@ -60,6 +76,8 @@ extension SVGIcon {
 }
 
 extension SVGIcon {
+
+    /// The *key* icon
     static let keyData =
 """
 <svg xml:space="preserve" width="7" height="7" xmlns="http://www.w3.org/2000/svg">
@@ -71,6 +89,7 @@ extension SVGIcon {
 
 extension SVGIcon {
 
+    /// The *capo* icon
     static let capoData =
 """
 <svg width="7" height="7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -81,6 +100,7 @@ extension SVGIcon {
 
 extension SVGIcon {
 
+    /// The *tempo* icon
     static let tempoData =
 """
 <svg version="1.1" id="Icons" xml:space="preserve" width="7" height="7" xmlns="http://www.w3.org/2000/svg">
@@ -99,6 +119,7 @@ extension SVGIcon {
 
 extension SVGIcon {
 
+    /// The *time* icon
     static let timeData =
 """
 <svg width="7" height="7" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -8,6 +8,7 @@
 import Foundation
 import OSLog
 
+/// Utilities to deal with a song file
 enum SongFileUtils {
     // Just a placeholder
 }

@@ -33,7 +33,6 @@ struct MetronomeButton: View {
                             .scaleEffect(x: metronome.flip ? -1 : 1, y: 1)
                     }
                 )
-                .foregroundStyle(.black)
             }
         )
         .labelStyle(.titleAndIcon)

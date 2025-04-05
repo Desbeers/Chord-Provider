@@ -37,8 +37,7 @@ struct HeaderView: View {
                 .disabled(sceneState.preview.active)
         }
         .frame(minHeight: 45)
-        .background(appState.settings.style.theme.foregroundMedium)
-        .foregroundStyle(appState.settings.style.theme.background)
+        .background(Color.secondary.opacity(0.2))
         .buttonStyle(.bordered)
     }
 }
@@ -103,7 +102,7 @@ extension HeaderView {
         func metadata(string: String, icon: SVGIcon) -> some View {
             HStack {
                 // swiftlint:disable:next force_unwrapping
-                Image(nsImage: NSImage(data: icon.data(color: appState.settings.style.theme.background))!)
+                Image(nsImage: NSImage(data: icon.data(color: Color.primary))!)
                     .resizable()
                     .frame(width: 12, height: 12)
                 Text(string)

@@ -27,7 +27,9 @@ struct MainView: View {
             case .loading:
                 ProgressView()
             case .ready:
-                HeaderView()
+                if sceneState.preview.data == nil {
+                    HeaderView()
+                }
                 main
             case .error:
                 ContentUnavailableView(
@@ -38,7 +40,6 @@ struct MainView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(nsColor: .textBackgroundColor))
         .toolbar(id: "Main") {
             ToolbarView()
         }
@@ -113,20 +114,22 @@ struct MainView: View {
                 let layout = sceneState.settings.song.display.chordsPosition == .right ?
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
-                    SongView()
-                        .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
-                    if sceneState.settings.song.display.showChords {
-                        Divider()
-                        ChordsView(document: $document)
-                            .background(Color(appState.settings.style.theme.background))
+                    Group {
+                        SongView()
                             .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
-                            .shadow(color: .secondary.opacity(0.25), radius: 60)
+                        if sceneState.settings.song.display.showChords {
+                            Divider()
+                            ChordsView(document: $document)
+                                .background(Color(appState.settings.style.theme.background))
+                                .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
+                                .shadow(color: .secondary.opacity(0.25), radius: 60)
+                        }
                     }
+                    .background(Color(appState.settings.style.theme.background))
                 }
             }
         }
         .frame(maxHeight: .infinity)
-        .background(Color(appState.settings.style.theme.background))
         .animation(.default, value: appState.settings.style)
     }
 

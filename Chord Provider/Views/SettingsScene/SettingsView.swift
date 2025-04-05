@@ -26,10 +26,6 @@ struct SettingsView: View {
     @State var showJsonImportDialog: Bool = false
     /// Show an `Alert` if we have an error
     @State var errorAlert: AlertMessage?
-
-
-    @State var font: NSFont = .systemFont(ofSize: 10)
-
     /// The body of the `View`
     var body: some View {
         TabView {

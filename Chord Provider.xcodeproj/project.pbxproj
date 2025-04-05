@@ -239,8 +239,6 @@
 		D77084782D8DAF2B002530F7 /* FontSizeSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77084772D8DAF2B002530F7 /* FontSizeSlider.swift */; };
 		D770847A2D8DC33A002530F7 /* ConfigOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77084792D8DC33A002530F7 /* ConfigOptions.swift */; };
 		D770847B2D8DC33A002530F7 /* ConfigOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77084792D8DC33A002530F7 /* ConfigOptions.swift */; };
-		D770847E2D8DCB82002530F7 /* FontStylePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770847D2D8DCB82002530F7 /* FontStylePicker.swift */; };
-		D77084802D8DD49B002530F7 /* FontWeightPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D770847F2D8DD49B002530F7 /* FontWeightPicker.swift */; };
 		D7781B4F2D0C9F1E00EC0CCF /* Terminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7781B4E2D0C9F1E00EC0CCF /* Terminal.swift */; };
 		D7781B512D0CA06900EC0CCF /* LogMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7781B502D0CA06900EC0CCF /* LogMessage.swift */; };
 		D7781B532D0F205F00EC0CCF /* PDFBuild+arguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7781B522D0F205F00EC0CCF /* PDFBuild+arguments.swift */; };
@@ -567,8 +565,6 @@
 		D77084742D8D978B002530F7 /* SettingsView+editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView+editor.swift"; sourceTree = "<group>"; };
 		D77084772D8DAF2B002530F7 /* FontSizeSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeSlider.swift; sourceTree = "<group>"; };
 		D77084792D8DC33A002530F7 /* ConfigOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigOptions.swift; sourceTree = "<group>"; };
-		D770847D2D8DCB82002530F7 /* FontStylePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStylePicker.swift; sourceTree = "<group>"; };
-		D770847F2D8DD49B002530F7 /* FontWeightPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontWeightPicker.swift; sourceTree = "<group>"; };
 		D7781B4D2D0C94E100EC0CCF /* ChordProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChordProvider.entitlements; sourceTree = "<group>"; };
 		D7781B4E2D0C9F1E00EC0CCF /* Terminal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Terminal.swift; sourceTree = "<group>"; };
 		D7781B502D0CA06900EC0CCF /* LogMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogMessage.swift; sourceTree = "<group>"; };
@@ -1056,8 +1052,6 @@
 		D770847C2D8DCB61002530F7 /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
-				D770847D2D8DCB82002530F7 /* FontStylePicker.swift */,
-				D770847F2D8DD49B002530F7 /* FontWeightPicker.swift */,
 				D7641BF12D96CC44009472D3 /* FontPicker.swift */,
 			);
 			path = Pickers;
@@ -1605,7 +1599,6 @@
 				D75B48912BDBD3A2001F6176 /* FolderExport+toc.swift in Sources */,
 				D752E5A02CBC2FE200CDE42D /* ChordProParser+processTab.swift in Sources */,
 				D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */,
-				D77084802D8DD49B002530F7 /* FontWeightPicker.swift in Sources */,
 				D7496DEC2CF0B84900C8FFA8 /* AppSettings+Song.swift in Sources */,
 				D706FDA92BCECC9F005DEDF6 /* PDFStringAttribute.swift in Sources */,
 				D730BBE12CA844C2008719F2 /* Collection+extensions.swift in Sources */,
@@ -1726,7 +1719,6 @@
 				D706FD982BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift in Sources */,
 				D752E59C2CBC2FBA00CDE42D /* ChordProParser+processDefine.swift in Sources */,
 				D730BBF32CA844C2008719F2 /* Utils.swift in Sources */,
-				D770847E2D8DCB82002530F7 /* FontStylePicker.swift in Sources */,
 				D7F13FE12A6460B7002D875D /* HeaderView.swift in Sources */,
 				D70503172D20C8E500DB897A /* WelcomeView+templates.swift in Sources */,
 				D70503262D2145CE00DB897A /* URL+extensions.swift in Sources */,
