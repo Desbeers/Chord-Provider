@@ -186,10 +186,8 @@ import OSLog
             SettingsView()
                 .environment(appState)
                 .environment(fileBrowser)
-                .frame(width: 360, height: 490)
+                .frame(width: 400, height: 490)
         }
-
-        // MARK: Settings
     }
 
     // MARK: HELPERS

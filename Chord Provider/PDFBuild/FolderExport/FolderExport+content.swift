@@ -33,7 +33,7 @@ extension FolderExport {
                     header: [],
                     footer: [
                         PDFBuild.Section(
-                            columns: [.flexible, .flexible],
+                            columns: [.flexible, .fixed(width: 20)],
                             items: [
                                 PDFBuild.Text(
                                     "\(item.song.metadata.artist)∙\(item.song.metadata.title)",

@@ -81,7 +81,7 @@ extension AppSettings.Style {
             return appSettings
         }
     }
-    
+
     /// Export the style to JSON
     var exportToJSON: String {
         let encoder = JSONEncoder()
@@ -97,7 +97,7 @@ extension AppSettings.Style {
 }
 
 extension AppSettings.Style {
-    
+
     /// The theme structure
     struct Theme: Codable, Equatable {
         /// The foreground color
@@ -112,7 +112,7 @@ extension AppSettings.Style {
 }
 
 extension AppSettings.Style {
-    
+
     /// The fonts structure
     struct Fonts: Codable, Equatable {
         /// {title ...}

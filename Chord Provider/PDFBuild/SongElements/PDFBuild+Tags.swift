@@ -32,8 +32,8 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             var tagRect = pageRect
-            tagRect.size.width -= pagePadding
-            tagRect.origin.y += pagePadding
+            tagRect.size.width -= settings.pdf.pagePadding
+            tagRect.origin.y += settings.pdf.pagePadding
             for tag in tags {
                 let text = NSAttributedString(string: tag, attributes: .attributes(.tag, settings: settings))
                 let render = PDFBuild.Label(

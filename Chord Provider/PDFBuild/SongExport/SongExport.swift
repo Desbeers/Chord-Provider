@@ -27,7 +27,9 @@ extension SongExport {
         Logger.pdfBuild.info("Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         let documentInfo = PDFBuild.DocumentInfo(
             title: song.metadata.title,
-            author: song.metadata.artist
+            author: song.metadata.artist,
+            pageRect: appSettings.pdf.pageSize.rect(appSettings: appSettings),
+            pagePadding: appSettings.pdf.pagePadding
         )
         let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings)
         let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .smallTextFont(settings: appSettings) + .alignment(.center))
@@ -110,7 +112,10 @@ extension SongExport {
                 string: max,
                 attributes: .attributes(.label, settings: appSettings)
             )
-            let textBounds = text.boundingRect(with: PDFBuild.a4portraitPage.size, options: .usesLineFragmentOrigin)
+            let textBounds = text.boundingRect(
+                with: appSettings.pdf.pageSize.rect(appSettings: appSettings).size,
+                options: .usesLineFragmentOrigin
+            )
             labelWidth = textBounds.width + 14
         }
 

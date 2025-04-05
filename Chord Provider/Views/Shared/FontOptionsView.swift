@@ -59,7 +59,7 @@ extension FontOptionsView {
                         case .font:
                             FontPickerButton(options: $options)
                         case .size:
-                            FontSizeSlider(fontSize: $options.size, label: .symbol)
+                            SizeSlider(fontSize: $options.size, label: .symbol)
                         default:
                             EmptyView()
                         }

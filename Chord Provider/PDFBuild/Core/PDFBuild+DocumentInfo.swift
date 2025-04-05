@@ -22,9 +22,9 @@ extension PDFBuild {
         /// The creator of the PDF document
         var pdfCreator: String = "Chord Provider"
         /// The page size of the PDF document
-        let pageRect: CGRect = PDFBuild.a4portraitPage
+        var pageRect: CGRect = CGRect()
         /// The page padding of the PDF document
-        let pagePadding: CGFloat = PDFBuild.pagePadding
+        var pagePadding: CGFloat = 36
         /// Metadata info for the PDF document
         var dictionary: [CFString: String] {
             [

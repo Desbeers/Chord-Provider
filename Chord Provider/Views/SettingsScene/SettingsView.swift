@@ -29,9 +29,6 @@ struct SettingsView: View {
     /// The body of the `View`
     var body: some View {
         TabView {
-            Tab("General", systemImage: "gear") {
-                general
-            }
             Tab("Editor", systemImage: "pencil") {
                 editor
             }
@@ -41,11 +38,14 @@ struct SettingsView: View {
             Tab("Songs", systemImage: "folder") {
                 folder
             }
-            Tab("Style", systemImage: "text.document") {
+            Tab("Style", systemImage: "paintpalette") {
                 style
             }
             Tab("Options", systemImage: "music.quarternote.3") {
                 options
+            }
+            Tab("PDF", systemImage: "text.document") {
+                pdf
             }
         }
         .errorAlert(message: $errorAlert)

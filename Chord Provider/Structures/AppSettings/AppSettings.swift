@@ -20,6 +20,8 @@ struct AppSettings: Equatable, Codable, Sendable {
     var chordPro: ChordPro = .init()
     /// Style settings
     var style: Style = .init()
+    /// PDF settings
+    var pdf = AppSettings.PDF()
 }
 
 extension AppSettings {

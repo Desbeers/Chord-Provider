@@ -63,7 +63,7 @@ struct HelpView: View {
             }
         }
     }
-    
+
     /// Show help with random colours
     func random() async {
         if

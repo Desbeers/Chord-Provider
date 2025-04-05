@@ -18,3 +18,4 @@
 - Add support for 'composer' directive
 - Bugfixes for chord editor
 - Add color and font options for viewing the song
+- Add PDF options for size and padding

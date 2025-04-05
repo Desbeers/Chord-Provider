@@ -15,7 +15,19 @@ extension SettingsView {
         VStack {
             ScrollView {
                 VStack {
-                    FontSizeSlider(
+                    VStack(alignment: .leading) {
+                        Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
+                    }
+                    UserFileButton(
+                        userFile: UserFile.customSongTemplate
+                    ) {}
+                        .disabled(!appState.settings.application.useCustomSongTemplate)
+                    Text("You can use your own **ChordPro** file as a starting point when you create a new song")
+                        .font(.caption)
+                }
+                .wrapSettingsSection(title: "Song Template")
+                VStack {
+                    SizeSlider(
                         fontSize: $appState.settings.editor.fontSize,
                         range: Editor.Settings.fontSizeRange,
                         label: .symbol

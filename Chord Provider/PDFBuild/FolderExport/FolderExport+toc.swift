@@ -34,8 +34,10 @@ extension FolderExport {
             documentInfo.author,
             attributes: .exportAuthor(settings: appSettings)
         )
-            .padding(PDFBuild.pagePadding))
-        tocBuilder.elements.append(PDFBuild.Image(.launchIcon))
+            .padding(appSettings.pdf.pagePadding))
+        /// Add **Chord Provider** icon
+        let size = documentInfo.pageRect.height / 2
+        tocBuilder.elements.append(PDFBuild.Image(.launchIcon, size: CGSize(width: size, height: size)))
         tocBuilder.elements.append(PDFBuild.PageBreak())
         tocBuilder.elements.append(
             PDFBuild.Text(
