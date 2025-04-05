@@ -108,6 +108,13 @@ extension AppSettings.Style {
         var foregroundMedium: Color = .gray
         /// The background color
         var background: Color = .white
+        /// Coding keys
+        enum CodingKeys: String, CodingKey {
+            case foreground
+            case foregroundLight = "foreground-light"
+            case foregroundMedium = "foreground-medium"
+            case background
+        }
     }
 }
 

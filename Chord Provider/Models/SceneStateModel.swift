@@ -113,6 +113,20 @@ import OSLog
         return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .chordProSong)
     }
 
+    /// The URL of the default config file
+    var defaultConfigURL: URL {
+        let fileName = "ChordProviderDefaults"
+        /// Create an export URL
+        return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .json)
+    }
+
+    /// The URL of the config file with details
+    var configURL: URL {
+        let fileName = "ChordProvider"
+        /// Create an export URL
+        return temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .json)
+    }
+
     /// The optional local configuration (a config named `chordpro.json` next to a song)
     var localSystemConfigURL: URL? {
         if let file {

@@ -40,16 +40,21 @@ import SwiftUI
 extension AppStateModel {
 
     /// Add the user settings as arguments to **ChordPro** for the Terminal action
-    /// - Parameter settings: The ``AppSettings``
+    /// - Parameter config: The ``AppSettings``
     /// - Returns: An array with arguments
-    static func getUserSettings(settings: AppSettings) -> [String] {
-        /// Start with an empty array
-        var arguments: [String] = []
+    static func applyUserSettings(config: String, settings: AppSettings) -> String {
+        var config = config
         /// Optional show only the lyrics
         if settings.song.display.lyricsOnly {
-            arguments.append("--lyrics-only")
+            config = config.replacingOccurrences(of: "settings.lyrics-only : false", with: "settings.lyrics-only : true")
         }
-        /// Return the basic settings
-        return arguments
+        if settings.song.display.repeatWholeChorus {
+            config = config.replacingOccurrences(of: "pdf.chorus.recall.quote : false", with: "pdf.chorus.recall.quote : true")
+        }
+        if settings.song.diagram.showFingers {
+            config = config.replacingOccurrences(of: "pdf.diagrams.fingers : false", with: "pdf.diagrams.fingers : true")
+        }
+        /// Return the config
+        return config
     }
 }
