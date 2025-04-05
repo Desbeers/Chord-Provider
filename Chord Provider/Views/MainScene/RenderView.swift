@@ -84,9 +84,13 @@ struct RenderView: View {
             case .repeatChorus:
                 repeatChorusSection(section: section)
             case .tab:
-                tabSection(section: section)
+                if !appState.settings.song.display.lyricsOnly {
+                    tabSection(section: section)
+                }
             case .grid:
-                gridSection(section: section)
+                if !appState.settings.song.display.lyricsOnly {
+                    gridSection(section: section)
+                }
             case .textblock:
                 textblockSection(section: section)
             case .abc:
@@ -95,7 +99,9 @@ struct RenderView: View {
             case .comment:
                 commentSection(section: section)
             case .strum:
-                strumSection(section: section)
+                if !appState.settings.song.display.lyricsOnly {
+                    strumSection(section: section)
+                }
             case .image:
                 imageSection(section: section)
             case .metadata:

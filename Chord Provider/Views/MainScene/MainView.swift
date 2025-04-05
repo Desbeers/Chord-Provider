@@ -88,7 +88,7 @@ struct MainView: View {
             }
         }
         .animation(.default, value: sceneState.preview)
-        .animation(.smooth, value: sceneState.settings)
+        .animation(.default, value: appState.settings.song.display.lyricsOnly)
         .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.status)
         /// Give the menubar access to the Scene State

@@ -133,13 +133,19 @@ extension SongExport {
             case .comment:
                 items.append(commentSection(section: section))
             case .tab:
-                items.append(tabSection(section: section))
+                if !appSettings.song.display.lyricsOnly {
+                    items.append(tabSection(section: section))
+                }
             case .grid:
-                items.append(gridSection(section: section))
+                if !appSettings.song.display.lyricsOnly {
+                    items.append(gridSection(section: section))
+                }
             case .textblock:
                 items.append(textblockSection(section: section))
             case .strum:
-                items.append(strumSection(section: section))
+                if !appSettings.song.display.lyricsOnly {
+                    items.append(strumSection(section: section))
+                }
             case .image:
                 await items.append(imageSection(section: section, fileURL: song.metadata.fileURL))
             default:
