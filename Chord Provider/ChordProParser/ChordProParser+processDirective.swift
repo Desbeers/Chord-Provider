@@ -122,6 +122,7 @@ extension ChordProParser {
                             currentSection: &currentSection,
                             song: &song
                         )
+                        currentSection.environment = .none
 
                     case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfStrum:
                         /// Add the directive as a single line in a section; this will close the current section
@@ -131,6 +132,7 @@ extension ChordProParser {
                             currentSection: &currentSection,
                             song: &song
                         )
+                        currentSection.environment = .none
 
                         // MARK: Chord diagrams
 

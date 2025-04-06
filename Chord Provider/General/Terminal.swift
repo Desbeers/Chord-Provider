@@ -164,26 +164,10 @@ extension Terminal {
         let chordProApp = try await getChordProBinary()
         /// Remove previous export (if any)
         try? FileManager.default.removeItem(atPath: sceneState.exportURL.path)
-        /// Get the **Chord Provider** settings
-
-        /// Add the **Chord Provider** config
-        let jsonSettings = settings.exportToChordProJSON(chords: sceneState.song.chords)
-        if let config = Bundle.main.url(forResource: "ChordProviderConfig", withExtension: "json") {
-            do {
-                var config = try String(contentsOf: config, encoding: .utf8)
-
-                config = AppStateModel.applyUserSettings(config: config, settings: settings)
-
-                try config.write(to: sceneState.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
-            } catch {
-                Logger.application.error("\(error.localizedDescription, privacy: .public)")
-            }
-        }
         /// Write the song and settings to the source URL
         /// - Note: We don't read the file URL directly because it might not be saved yet
         do {
             try text.write(to: sceneState.sourceURL, atomically: true, encoding: String.Encoding.utf8)
-            try jsonSettings.write(to: sceneState.configURL, atomically: true, encoding: String.Encoding.utf8)
         } catch {
             throw AppError.writeDocumentError
         }
@@ -202,14 +186,26 @@ extension Terminal {
         arguments.append("--define diagnostics.format='Line %n, %m'")
         /// Add the source file
         arguments.append("\"\(sceneState.sourceURL.path)\"")
-//        /// Get the user settings that are simple and do not need sandbox help
-//        arguments.append(contentsOf: AppStateModel.getUserSettings(settings: settings))
         /// Add the optional custom config file
         if settings.chordPro.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: settings) {
             arguments.append(customConfig)
         }
-        arguments.append("--config='\(sceneState.defaultConfigURL.path)'")
-        arguments.append("--config='\(sceneState.configURL.path)'")
+        /// Add the **Chord Provider** config
+        if settings.chordPro.useChordProviderSettings {
+            let jsonSettings = settings.exportToChordProJSON(chords: sceneState.song.chords)
+            if let config = Bundle.main.url(forResource: "ChordProviderConfig", withExtension: "json") {
+                do {
+                    var config = try String(contentsOf: config, encoding: .utf8)
+                    config = AppStateModel.applyUserSettings(config: config, settings: settings)
+                    try config.write(to: sceneState.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
+                    try jsonSettings.write(to: sceneState.configURL, atomically: true, encoding: String.Encoding.utf8)
+                } catch {
+                    Logger.application.error("\(error.localizedDescription, privacy: .public)")
+                }
+            }
+            arguments.append("--config='\(sceneState.defaultConfigURL.path)'")
+            arguments.append("--config='\(sceneState.configURL.path)'")
+        }
         /// Add the optional local system config that is next to a song file
         if let localSystemConfigURL = sceneState.localSystemConfigURL {
             arguments.append("--config='\(localSystemConfigURL.path)'")

@@ -17,6 +17,8 @@ struct RenderView: View {
 
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
+    /// The max width of the `View`
+    @State private var maxWidth: Double = 340
 
     /// Init the `View`
     /// - Parameters:
@@ -44,9 +46,20 @@ struct RenderView: View {
 
     /// The body of the `View`
     var body: some View {
+
         switch song.settings.display.paging {
         case .asList:
             VStack {
+                /// Get the max size
+                Text(song.metadata.longestLine)
+                    .onGeometryChange(for: CGSize.self) { proxy in
+                        proxy.size
+                    } action: { newValue in
+                        if newValue.width > maxWidth {
+                            maxWidth = newValue.width
+                        }
+                    }
+                    .hidden()
                 switch song.settings.display.labelStyle {
                 case .inline:
                     sections
@@ -54,7 +67,6 @@ struct RenderView: View {
                     Grid(alignment: .topTrailing, verticalSpacing: 20 * song.settings.display.scale) {
                         sections
                     }
-                    .fixedSize(horizontal: true, vertical: false)
                 }
             }
             .font(appState.settings.style.fonts.text.swiftUIFont(scale: song.settings.display.scale))
@@ -64,6 +76,16 @@ struct RenderView: View {
                     columnSpacing: song.settings.display.scale * 40,
                     rowSpacing: song.settings.display.scale * 10
                 ) {
+                    /// Get the max size
+                    Text(song.metadata.longestLine)
+                        .onGeometryChange(for: CGSize.self) { proxy in
+                            proxy.size
+                        } action: { newValue in
+                            if newValue.width > maxWidth {
+                                maxWidth = newValue.width
+                            }
+                        }
+                        .hidden()
                     sections
                 }
                 .padding(song.settings.display.scale * 20)
@@ -228,7 +250,7 @@ extension RenderView {
                         )
                     }
                 case .comment:
-                    commentLabel(comment: line.label)
+                    commentLabel(comment: line.plain)
                 default:
                     EmptyView()
                 }
@@ -260,7 +282,7 @@ extension RenderView {
                         )
                     }
                 case .comment:
-                    commentLabel(comment: line.label)
+                    commentLabel(comment: line.plain)
                 default:
                     EmptyView()
                 }
@@ -303,18 +325,19 @@ extension RenderView {
             ForEach(section.lines) { line in
                 switch line.directive {
                 case .environmentLine:
-                    Text(line.label)
+                    Text(line.plain)
                         .lineLimit(1)
                         .monospaced()
                         .minimumScaleFactor(0.1)
                 case .comment:
-                    commentLabel(comment: line.label)
+                    commentLabel(comment: line.plain)
                 default:
                     EmptyView()
                 }
             }
         }
         .padding(.vertical, song.settings.display.scale)
+        .frame(maxWidth: maxWidth, alignment: .leading)
         .modifier(SectionView(settings: song.settings, label: section.label, scale: song.settings.display.scale))
     }
 
@@ -347,7 +370,7 @@ extension RenderView {
                             }
                         }
                     case .comment:
-                        commentLabel(comment: line.label)
+                        commentLabel(comment: line.plain)
                     default:
                         EmptyView()
                     }
@@ -395,7 +418,9 @@ extension RenderView {
             }
         }
         .foregroundStyle(.secondary)
-        .frame(maxWidth: .infinity, alignment: getAlign(section.arguments))
+        .fixedSize(horizontal: false, vertical: true)
+        .multilineTextAlignment(getTextFlush(section.arguments))
+        .frame(maxWidth: maxWidth, maxHeight: .infinity, alignment: getAlign(section.arguments))
         .modifier(
             SectionView(
                 settings: song.settings,
@@ -410,7 +435,7 @@ extension RenderView {
 
     /// SwiftUI `View` for a comment in its own section
     func commentSection(section: Song.Section) -> some View {
-        commentLabel(comment: section.lines.first?.label ?? "")
+        commentLabel(comment: section.lines.first?.plain ?? "")
             .modifier(SectionView(settings: song.settings, scale: song.settings.display.scale))
     }
 
@@ -423,7 +448,8 @@ extension RenderView {
             font: appState.settings.style.fonts.comment.swiftUIFont(scale: song.settings.display.scale)
         )
         .foregroundStyle(appState.settings.style.fonts.comment.color, appState.settings.style.fonts.comment.background)
-        .frame(alignment: .leading)
+        .frame(maxWidth: maxWidth, alignment: .leading)
+        .fixedSize(horizontal: false, vertical: true)
     }
 
     // MARK: Strum
@@ -442,7 +468,7 @@ extension RenderView {
                         .monospaced()
                     }
                 case .comment:
-                    commentLabel(comment: line.label)
+                    commentLabel(comment: line.plain)
                 default:
                     EmptyView()
                 }
@@ -464,10 +490,11 @@ extension RenderView {
             ImageView(
                 fileURL: song.metadata.fileURL,
                 arguments: arguments,
-                scale: song.settings.display.scale
+                scale: song.settings.display.scale,
+                maxWidth: maxWidth
             )
         }
-        .frame(maxWidth: .infinity, alignment: getAlign(arguments))
+        .frame(maxWidth: maxWidth, alignment: getAlign(arguments))
         .modifier(SectionView(settings: song.settings, label: "", scale: song.settings.display.scale))
     }
 
@@ -534,6 +561,23 @@ extension RenderView {
     func getAlign(_ arguments: ChordProParser.Arguments?) -> Alignment {
         if let align = arguments?[.align] {
             switch align {
+            case "center":
+                return .center
+            case "right":
+                return .trailing
+            default:
+                return .leading
+            }
+        }
+        return .leading
+    }
+
+    /// Get text flush from the arguments
+    /// - Parameter arguments: The arguments of the directive
+    /// - Returns: The text flush alignment
+    func getTextFlush(_ arguments: ChordProParser.Arguments?) -> TextAlignment {
+        if let flush = arguments?[.flush] {
+            switch flush {
             case "center":
                 return .center
             case "right":

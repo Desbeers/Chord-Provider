@@ -43,6 +43,12 @@ extension ChordProParser {
         /// Update the current section
         currentSection.environment = environment
         currentSection.label = sectionLabel ?? arguments[.plain] ?? arguments[.label] ?? directive.environment.label
+        /// Remember the longest label
+        /// - Note: Used in PDF output to calculate label offset
+        if currentSection.label.count > song.metadata.longestLabel.count {
+            song.metadata.longestLabel = currentSection.label
+        }
+
         /// Set the arguments
         currentSection.arguments = arguments
 
@@ -59,7 +65,8 @@ extension ChordProParser {
             environment: directive.environment,
             directive: directive,
             arguments: arguments.isEmpty ? nil : arguments,
-            source: calculatedSource
+            source: calculatedSource,
+            plain: arguments[.plain] ?? ""
         )
 
         /// Add the optional warnings

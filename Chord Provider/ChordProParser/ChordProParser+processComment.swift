@@ -41,8 +41,8 @@ extension ChordProParser {
                 sourceLineNumber: song.lines,
                 environment: currentSection.environment,
                 directive: .comment,
-                arguments: [.plain: comment],
-                source: "{\(ChordPro.Directive.comment) \(comment)}"
+                source: "{\(ChordPro.Directive.comment) \(comment)}",
+                plain: comment
             )
             if let warning = currentSection.warnings {
                 line.addWarning(warning)

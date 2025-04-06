@@ -19,5 +19,13 @@ extension AppSettings {
         var customWidth: Double = 1920
         /// Custom height
         var customHeight: Double = 1080
+        /// Bool to center content
+        var centerContent: Bool = true
+        /// Bool to show tags
+        var showTags: Bool = true
+        /// Bool to scale fonts
+        var scaleFonts: Bool = true
+        /// Scale factor
+        var scale: Double = 1
     }
 }

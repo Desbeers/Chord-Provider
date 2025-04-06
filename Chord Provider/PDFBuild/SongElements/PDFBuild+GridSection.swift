@@ -112,7 +112,7 @@ extension PDFStringAttribute {
     }
     /// String attributes for a grid chord
     static func gridChord(settings: AppSettings) -> PDFStringAttribute {
-        let font = settings.style.fonts.chord.nsFont
+        let font = settings.style.fonts.chord.nsFont(scale: 1)
         return [
             .foregroundColor: NSColor(settings.style.fonts.chord.color),
             .font: font

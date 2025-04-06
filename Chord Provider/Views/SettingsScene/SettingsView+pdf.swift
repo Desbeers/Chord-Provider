@@ -41,6 +41,18 @@ extension SettingsView {
                             .font(.caption)
                     }
                 }
+                Toggle(isOn: $appState.settings.pdf.centerContent) {
+                    Text("Center main content")
+                    Text("When enabled, the main content will be centred based on the longest lyrics line.")
+                }
+                Toggle(isOn: $appState.settings.pdf.showTags) {
+                    Text("Show tags")
+                    Text("When enabled, the optional tags will be added to the PDF.")
+                }
+                Toggle(isOn: $appState.settings.pdf.scaleFonts) {
+                    Text("Scale fonts")
+                    Text("When enabled, fonts will be scaled if content does not fit.")
+                }
             }
             .wrapSettingsSection(title: "PDF Options")
             VStack(alignment: .leading) {
@@ -49,6 +61,10 @@ extension SettingsView {
                     Text("When enabled, PDF's will be rendered with the official ChordPro reference implementation.")
                 }
                 if appState.settings.chordPro.useChordProCLI {
+                    Toggle(isOn: $appState.settings.chordPro.useChordProviderSettings) {
+                        Text("Use the **Chord Provider** settings")
+                        Text("When enabled, some style and options from the settings will be used by the CLI. Fonts are not supported.")
+                    }
                     Toggle(isOn: $appState.settings.chordPro.useCustomConfig) {
                         Text("Use a custom ChordPro configuration")
                         Text("When enabled, ChordPro will use your own configuration.")

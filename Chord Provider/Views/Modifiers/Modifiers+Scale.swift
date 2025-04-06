@@ -39,9 +39,7 @@ extension Modifiers {
         /// The `TapGesture`
         private var doubleTapGesture: some Gesture {
             TapGesture(count: 2).onEnded {
-                withAnimation {
-                    sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale + 0.2, minScale), maxScale)
-                }
+                sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale + 0.2, minScale), maxScale)
             }
         }
 
@@ -49,9 +47,7 @@ extension Modifiers {
             content
                 .gesture(ExclusiveGesture(magnifyGesture, doubleTapGesture))
                 .onLongPressGesture(minimumDuration: 1) {
-                    withAnimation {
-                        sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale - 0.2, minScale), maxScale)
-                    }
+                    sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale - 0.2, minScale), maxScale)
                 }
         }
     }

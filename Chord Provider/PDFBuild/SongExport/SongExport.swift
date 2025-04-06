@@ -77,6 +77,7 @@ extension SongExport {
         counter: PDFBuild.PageCounter,
         appSettings: AppSettings
     ) async -> [PDFElement] {
+        var appSettings = appSettings
         let tocInfo = PDFBuild.TOCInfo(
             song: song
         )
@@ -92,7 +93,9 @@ extension SongExport {
         items.append(PDFBuild.Text("\(song.metadata.title)", attributes: .attributes(.title, settings: appSettings) + .alignment(.center)))
         items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .attributes(.subtitle, settings: appSettings) + .alignment(.center)))
 
-        items.append(PDFBuild.Tags(song: song, settings: appSettings))
+        if appSettings.pdf.showTags {
+            items.append(PDFBuild.Tags(song: song, settings: appSettings))
+        }
 
         items.append(PDFBuild.Spacer(10))
 
@@ -105,19 +108,47 @@ extension SongExport {
 
         // MARK: Calculate label size
 
-        /// Default value
-        var labelWidth: Double = 100
-        let labels = song.sections.map(\.label)
-        if let max = labels.max(by: { $1.count > $0.count }) {
-            let text = NSAttributedString(
-                string: max,
-                attributes: .attributes(.label, settings: appSettings)
-            )
-            let textBounds = text.boundingRect(
-                with: appSettings.pdf.pageSize.rect(appSettings: appSettings).size,
-                options: .usesLineFragmentOrigin
-            )
-            labelWidth = textBounds.width + 14
+        let longestLabel = NSAttributedString(
+            string: song.metadata.longestLabel,
+            attributes: .attributes(.label, settings: appSettings)
+        )
+        let longestLabelBounds = longestLabel.boundingRect(
+            with: appSettings.pdf.pageSize.rect(appSettings: appSettings).size,
+            options: .usesLineFragmentOrigin
+        )
+        let labelWidth = longestLabelBounds.width + 14
+
+        // MARK: Calculate longest line
+
+        let longestLine = NSAttributedString(
+            string: song.metadata.longestLine,
+            attributes: .attributes(.text, settings: appSettings)
+        )
+        let longestLineBounds = longestLine.boundingRect(
+            with: appSettings.pdf.pageSize.rect(appSettings: appSettings).size,
+            options: .usesLineFragmentOrigin
+        )
+
+        // MARK: Calculate scale
+
+        let availableWidth = appSettings.pdf.pageSize.rect(
+            appSettings: appSettings
+        ).width - labelWidth - (appSettings.pdf.pagePadding * 2) - 60
+
+        if availableWidth < longestLineBounds.width {
+            if appSettings.pdf.scaleFonts {
+                appSettings.pdf.scale = availableWidth / longestLineBounds.width
+            }
+            Logger.pdfBuild.warning("Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)** does not fit")
+        }
+
+        // MARK: Calculate offset
+
+        var offset: Double = 0
+        let pagePadding = availableWidth - longestLineBounds.width
+        if appSettings.pdf.centerContent {
+            /// When the longest line does not fit on the page, use 0 as offset
+            offset = pagePadding > 0 ? pagePadding / 2 : 0
         }
 
         /// Add all the sections, except metadata stuff
@@ -164,8 +195,9 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func lyricsSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
+                    PDFBuild.Spacer(),
                     PDFBuild.Label(
                         leadingText: nil,
                         labelText: NSAttributedString(
@@ -188,8 +220,9 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func tabSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
+                    PDFBuild.Spacer(),
                     PDFBuild.Label(
                         leadingText: nil,
                         labelText: NSAttributedString(
@@ -212,8 +245,9 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func gridSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
+                    PDFBuild.Spacer(),
                     PDFBuild.Label(
                         leadingText: nil,
                         labelText: NSAttributedString(
@@ -237,8 +271,9 @@ extension SongExport {
         func strumSection(section: Song.Section) -> PDFBuild.Section {
             let label = NSAttributedString(string: section.label, attributes: .attributes(.text, settings: appSettings))
             return PDFBuild.Section(
-                columns: [.fixed(width: labelWidth), .fixed(width: 20), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
+                    PDFBuild.Spacer(),
                     PDFBuild.Label(
                         leadingText: nil,
                         labelText: label,
@@ -258,8 +293,9 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func textblockSection(section: Song.Section) -> PDFBuild.Section {
             return PDFBuild.Section(
-                columns: [.fixed(width: labelWidth + 20), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: labelWidth + 20), .flexible],
                 items: [
+                    PDFBuild.Spacer(),
                     PDFBuild.Spacer(),
                     PDFBuild.TextblockSection(section, chords: song.chords, settings: appSettings)
                 ]
@@ -273,8 +309,9 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func plainSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: 110), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: 110), .flexible],
                 items: [
+                    PDFBuild.Spacer(),
                     PDFBuild.Spacer(),
                     PDFBuild.PlainSection(section)
                 ]
@@ -288,10 +325,11 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func commentSection(section: Song.Section) -> PDFBuild.Section {
             PDFBuild.Section(
-                columns: [.fixed(width: labelWidth + 26), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: labelWidth + 26), .flexible],
                 items: [
                     PDFBuild.Spacer(),
-                    PDFBuild.Comment(section.lines.first?.label ?? "Empty comment", settings: appSettings)
+                    PDFBuild.Spacer(),
+                    PDFBuild.Comment(section.lines.first?.plain ?? "Empty comment", settings: appSettings)
                 ]
             )
         }
@@ -316,8 +354,9 @@ extension SongExport {
                     attributes: .attributes(.label, settings: appSettings)
                 )
                 return PDFBuild.Section(
-                    columns: [.fixed(width: labelWidth + 26), .flexible],
+                    columns: [.fixed(width: offset), .fixed(width: labelWidth + 26), .flexible],
                     items: [
+                        PDFBuild.Spacer(),
                         PDFBuild.Spacer(),
                         PDFBuild.Label(
                             leadingText: leadingText,
@@ -343,8 +382,9 @@ extension SongExport {
             }
             if let source = arguments?[.src], let image = await loadImage(source: source, fileURL: fileURL) {
                 return PDFBuild.Section(
-                    columns: [.fixed(width: labelWidth + 10), .flexible],
+                    columns: [.fixed(width: offset), .fixed(width: labelWidth + 10), .flexible],
                     items: [
+                        PDFBuild.Spacer(),
                         PDFBuild.Spacer(),
                         PDFBuild.Image(
                             image,
@@ -356,8 +396,9 @@ extension SongExport {
                 )
             }
             return PDFBuild.Section(
-                columns: [.fixed(width: labelWidth + 10), .flexible],
+                columns: [.fixed(width: offset), .fixed(width: labelWidth + 10), .flexible],
                 items: [
+                    PDFBuild.Spacer(),
                     PDFBuild.Spacer(),
                     PDFBuild.Comment("Image not available", icon: "􀏅", settings: appSettings)
                 ]

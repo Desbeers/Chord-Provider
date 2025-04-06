@@ -68,34 +68,34 @@ extension PDFStringAttribute {
     ///   - config: The ``FontConfig``
     ///   - settings: The ``AppSettings``
     /// - Returns: The ``PDFStringAttribute`` with the font and color
-    static func attributes(_ config: FontConfig, settings: AppSettings) -> PDFStringAttribute {
+    static func attributes(_ config: FontConfig, settings: AppSettings, scale: Double = 1) -> PDFStringAttribute {
         var font = NSFont()
         var color = NSColor()
         let settings = settings.style
         switch config {
         case .title:
-            font = settings.fonts.title.nsFont
+            font = settings.fonts.title.nsFont(scale: scale)
             color = NSColor(settings.theme.foreground)
         case .subtitle:
-            font = settings.fonts.subtitle.nsFont
+            font = settings.fonts.subtitle.nsFont(scale: scale)
             color = NSColor(settings.theme.foregroundMedium)
         case .text:
-            font = settings.fonts.text.nsFont
+            font = settings.fonts.text.nsFont(scale: scale)
             color = NSColor(settings.theme.foreground)
         case .chord:
-            font = settings.fonts.chord.nsFont
+            font = settings.fonts.chord.nsFont(scale: scale)
             color = NSColor(settings.fonts.chord.color)
         case .label:
-            font = settings.fonts.label.nsFont
+            font = settings.fonts.label.nsFont(scale: scale)
             color = NSColor(settings.fonts.label.color)
         case .comment:
-            font = settings.fonts.comment.nsFont
+            font = settings.fonts.comment.nsFont(scale: scale)
             color = NSColor(settings.fonts.comment.color)
         case .tag:
-            font = settings.fonts.tag.nsFont
+            font = settings.fonts.tag.nsFont(scale: scale)
             color = NSColor(settings.fonts.tag.color)
         case .textblock:
-            font = settings.fonts.textblock.nsFont
+            font = settings.fonts.textblock.nsFont(scale: scale)
             color = NSColor(settings.fonts.textblock.color)
         }
         return [

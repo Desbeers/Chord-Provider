@@ -31,8 +31,8 @@ extension ConfigOptions {
         var background: Color = .white
 
         /// The calculated `NSFont`
-        var nsFont: NSFont {
-            NSFont(name: font, size: size) ?? NSFont.systemFont(ofSize: size)
+        func nsFont(scale: Double = 1) -> NSFont {
+            NSFont(name: font, size: size * scale) ?? NSFont.systemFont(ofSize: size)
         }
 
         /// The calculated `Font`

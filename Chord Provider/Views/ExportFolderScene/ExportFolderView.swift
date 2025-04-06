@@ -67,6 +67,7 @@ struct ExportFolderView: View {
                         do {
                             let settings = AppSettings.load(id: .mainView)
                             appState.settings.style = settings.style
+                            appState.settings.pdf = settings.pdf
                             pdfInfo.pageRect = settings.pdf.pageSize.rect(appSettings: settings)
                             pdfInfo.pagePadding = settings.pdf.pagePadding
                             /// Bring the sceneState instrument to the appState

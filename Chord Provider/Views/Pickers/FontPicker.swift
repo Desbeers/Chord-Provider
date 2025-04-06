@@ -55,7 +55,7 @@ struct FontPicker: View {
                 }
             }
         }
-        .animation(.default, value: options.nsFont)
+        .animation(.default, value: options.nsFont(scale: 1))
     }
     /// Structure of a font style
     private struct FontStyle {

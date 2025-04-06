@@ -52,7 +52,7 @@ extension PDFBuild.LyricsSection.Line {
                 self.text.append(
                     NSAttributedString(
                         string: "\(part.text)",
-                        attributes: .attributes(.text, settings: settings)
+                        attributes: .attributes(.text, settings: settings, scale: settings.pdf.scale)
                     )
                 )
             }
@@ -82,7 +82,7 @@ extension PDFStringAttribute {
 
     /// Style attributes for the chord of the part
     static func partChord(settings: AppSettings) -> PDFStringAttribute {
-        let font = settings.style.fonts.chord.nsFont
+        let font = settings.style.fonts.chord.nsFont(scale: settings.pdf.scale)
         return [
             .foregroundColor: NSColor(settings.style.fonts.chord.color),
             .font: font

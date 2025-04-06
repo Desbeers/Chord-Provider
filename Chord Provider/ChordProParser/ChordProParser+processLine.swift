@@ -62,6 +62,8 @@ extension ChordProParser {
             }
             if let lyric {
                 part.text = String(lyric)
+                /// Add the lyrics to the 'plain' text
+                line.plain += part.text
             }
             if part.hasContent {
                 partID += 1
@@ -81,6 +83,12 @@ extension ChordProParser {
         }
         /// Set the correct environment
         line.environment = currentSection.environment
+        /// Remember the longest line in the song
+        if currentSection.environment == .chorus || currentSection.environment == .verse {
+            if line.plain.count > song.metadata.longestLine.count {
+                song.metadata.longestLine = line.plain
+            }
+        }
         /// Add the line
         currentSection.lines.append(line)
     }

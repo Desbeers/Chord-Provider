@@ -46,7 +46,7 @@ extension PDFBuild {
                         line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }
                 case .comment:
-                    let comment = PDFBuild.Comment(line.label, settings: settings).padding(6)
+                    let comment = PDFBuild.Comment(line.plain, settings: settings).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break

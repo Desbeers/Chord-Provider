@@ -52,6 +52,12 @@ extension Song {
         /// The optional file URL
         var fileURL: URL?
 
+        /// The longest label in the song
+        /// - Note: Used in PDF output to calculate label offset
+        var longestLabel: String = ""
+        /// The longest line the song
+        var longestLine: String = ""
+
         // MARK: Song export
 
         /// The default name for the export

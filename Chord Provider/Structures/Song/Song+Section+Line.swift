@@ -22,7 +22,6 @@ extension Song.Section {
         /// The line number in the **ChordPro** document
         var sourceLineNumber: Int = 0
 
-
         /// The `Environment` of the line
         var environment: ChordPro.Environment = .none
 
@@ -38,7 +37,6 @@ extension Song.Section {
         /// Optional warnings about the content of the line
         private(set) var warnings: Set<String>?
 
-
         /// The optional parts in the line
         ///
         /// A part mostly consist of some text with a chord
@@ -52,6 +50,10 @@ extension Song.Section {
         var label: String {
             arguments?[.plain] ?? arguments?[.label] ?? ""
         }
+
+        /// An plain text version of the line
+        /// - Note: The lyrics of a line or a tab for example
+        var plain: String = ""
 
         /// Add a single of warning to the set of warnings
         /// - Note: warnings are *optionals* so we can not just 'insert' it
@@ -95,6 +97,7 @@ extension Song.Section.Line {
         case parts
         case grid
         case strum
+        case plain
     }
     /// :nodoc:
     init(from decoder: any Decoder) throws {
@@ -113,6 +116,7 @@ extension Song.Section.Line {
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
         self.strum = try container.decodeIfPresent([String].self, forKey: .strum)
+        self.plain = try container.decode(String.self, forKey: .plain)
     }
     /// :nodoc:
     func encode(to encoder: any Encoder) throws {
@@ -129,5 +133,6 @@ extension Song.Section.Line {
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.grid, forKey: .grid)
         try container.encodeIfPresent(self.strum, forKey: .strum)
+        try container.encode(self.plain, forKey: .plain)
     }
 }

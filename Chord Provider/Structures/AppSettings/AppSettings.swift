@@ -30,6 +30,8 @@ extension AppSettings {
     struct ChordPro: Codable, Equatable {
         /// Bool to use the ChordPro CLI for PDF creation
         var useChordProCLI: Bool = false
+        /// Bool to use **Chord Provider** settings
+        var useChordProviderSettings: Bool = true
         /// Bool to use a custom config instead of system
         var useCustomConfig: Bool = false
         /// Bool to use an additional library
