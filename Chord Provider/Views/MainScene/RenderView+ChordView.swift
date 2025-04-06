@@ -14,10 +14,10 @@ extension RenderView {
 
     /// SwiftUI `View` for a chord as part of a line
     struct ChordView: View {
-
         /// The observable state of the application
         @Environment(AppStateModel.self) private var appState
-
+        /// The observable state of the scene
+        @Environment(SceneStateModel.self) private var sceneState
         /// The display options
         let settings: AppSettings.Song
         /// The ID of the section
@@ -64,7 +64,7 @@ extension RenderView {
                             NSCursor.pop()
                         }
                     }
-                    .font(appState.settings.style.fonts.chord.swiftUIFont(scale: settings.display.scale))
+                    .font(appState.settings.style.fonts.chord.swiftUIFont(scale: sceneState.song.scale))
             case .asDiagram:
                 Button(
                     action: {
@@ -76,7 +76,7 @@ extension RenderView {
                         getDiagram()
                             .offset(x: -4)
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: settings.display.scale * 40)
+                            .frame(height: sceneState.song.scale * 40)
                     }
                 )
                 .buttonStyle(.plain)

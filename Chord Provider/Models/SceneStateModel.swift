@@ -60,7 +60,6 @@ import OSLog
     /// Export the song to a PDF
     func exportSongToPDF() async throws -> Data {
         let settings = AppSettings.load(id: .mainView)
-        dump(settings.pdf)
         switch settings.chordPro.useChordProCLI {
         case false:
             /// Default renderer

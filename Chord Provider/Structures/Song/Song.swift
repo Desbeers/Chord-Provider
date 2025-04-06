@@ -45,6 +45,14 @@ struct Song: Equatable, Codable, Identifiable {
     /// The chords of the song
     var chords: [ChordDefinition] = []
 
+    // MARK: Scaling
+
+    /// Max width of the `View`
+    var maxWidth: Double = 340
+    /// Scale magnifier
+    var scale: Double = 1
+
+    // MARK: Search
 
     /// Search
     var search: String {

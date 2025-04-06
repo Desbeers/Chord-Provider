@@ -11,8 +11,8 @@ extension RenderView {
 
     /// SwiftUI `View` for a prominent label
     struct ProminentLabel: View {
-        /// The display options
-        let settings: AppSettings.Song
+        /// The ``Song``
+        let song: Song
         /// The label
         let label: String
         /// The optional icon
@@ -38,7 +38,7 @@ extension RenderView {
                 }
             }
             .font(font)
-            .padding(settings.display.scale * 6)
+            .padding(song.scale * 6)
             .background(.secondary, in: RoundedRectangle(cornerRadius: 6))
         }
     }

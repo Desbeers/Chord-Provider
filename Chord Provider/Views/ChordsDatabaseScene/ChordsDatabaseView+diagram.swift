@@ -16,7 +16,7 @@ extension ChordsDatabaseView {
         HStack {
             ChordDefinitionView(
                 chord: chord,
-                width: 100 * sceneState.settings.song.display.scale,
+                width: 100 * sceneState.song.scale,
                 settings: appState.settings.song
             )
             .foregroundStyle(

@@ -19,8 +19,6 @@ extension AppSettings {
         var paging: Paging = .asList
         /// The label style of the song
         var labelStyle: LabelStyle = .grid
-        /// The scale factor of the song
-        var scale: Double = 1
         /// The style of the chords display
         var chords: Chord = .asName
         /// The instrument for the song

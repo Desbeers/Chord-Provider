@@ -33,13 +33,17 @@ extension Modifiers {
                     state = .active(scale: value.magnification)
                 }
                 .onEnded { value in
-                    sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale * value.magnification, minScale), maxScale)
+                    withAnimation {
+                        sceneState.song.scale = min(max(sceneState.song.scale * value.magnification, minScale), maxScale)
+                    }
                 }
         }
         /// The `TapGesture`
         private var doubleTapGesture: some Gesture {
             TapGesture(count: 2).onEnded {
-                sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale + 0.2, minScale), maxScale)
+                withAnimation {
+                    sceneState.song.scale = min(max(sceneState.song.scale + 0.2, minScale), maxScale)
+                }
             }
         }
 
@@ -47,7 +51,9 @@ extension Modifiers {
             content
                 .gesture(ExclusiveGesture(magnifyGesture, doubleTapGesture))
                 .onLongPressGesture(minimumDuration: 1) {
-                    sceneState.settings.song.display.scale = min(max(sceneState.settings.song.display.scale - 0.2, minScale), maxScale)
+                    withAnimation {
+                        sceneState.song.scale = min(max(sceneState.song.scale - 0.2, minScale), maxScale)
+                    }
                 }
         }
     }
