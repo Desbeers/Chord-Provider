@@ -37,7 +37,7 @@ extension RenderView {
                         .font(song.settings.style.fonts.textblock.swiftUIFont(scale: song.settings.scale))
                     }
                 case .comment:
-                    Label(line.label, systemImage: "text.bubble")
+                    Label(line.plain, systemImage: "text.bubble")
                         .font(song.settings.style.fonts.comment.swiftUIFont(scale: song.settings.scale))
                         .foregroundStyle(song.settings.style.fonts.comment.color)
                 default:

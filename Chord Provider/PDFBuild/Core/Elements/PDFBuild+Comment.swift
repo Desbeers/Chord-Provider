@@ -38,8 +38,10 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let label = PDFBuild.Label(
                 labelText: commentText,
+                sfIcon: "text.bubble",
                 backgroundColor: NSColor(settings.style.fonts.comment.background),
-                alignment: .left
+                alignment: .left,
+                fontOptions: settings.style.fonts.comment
             )
             label.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
         }

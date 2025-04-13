@@ -43,7 +43,8 @@ extension PDFBuild {
                 let render = PDFBuild.Label(
                     labelText: text,
                     backgroundColor: NSColor(settings.style.fonts.tag.background),
-                    alignment: .right
+                    alignment: .right,
+                    fontOptions: settings.style.fonts.tag
                 )
                     .padding(4)
                 render.draw(rect: &tagRect, calculationOnly: calculationOnly, pageRect: pageRect)

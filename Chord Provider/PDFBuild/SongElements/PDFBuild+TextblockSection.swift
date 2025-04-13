@@ -70,7 +70,7 @@ extension PDFBuild {
                         }
                     }
                 case .comment:
-                    text.append(NSAttributedString(string: "􀌲 \(line.label)\n", attributes: .attributes(.comment, settings: settings)))
+                    text.append(NSAttributedString(string: "\u{270d} \(line.plain)\n", attributes: .attributes(.comment, settings: settings)))
                 default:
                     break
                 }

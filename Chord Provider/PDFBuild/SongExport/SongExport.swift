@@ -201,7 +201,8 @@ extension SongExport {
                             attributes: .attributes(.label, settings: settings)
                         ),
                         backgroundColor: section.environment == .chorus ? NSColor(settings.style.fonts.label.background) : .clear,
-                        alignment: .right
+                        alignment: .right,
+                        fontOptions: settings.style.fonts.label
                     ),
                     PDFBuild.Divider(direction: .vertical),
                     PDFBuild.LyricsSection(section, chords: song.settings.shared.lyricsOnly ? [] : song.chords, settings: settings)
@@ -225,7 +226,8 @@ extension SongExport {
                             attributes: .attributes(.label, settings: settings)
                         ),
                         backgroundColor: .clear,
-                        alignment: .right
+                        alignment: .right,
+                        fontOptions: settings.style.fonts.label
                     ),
                     labelDivider(section: section),
                     PDFBuild.TabSection(section, settings: settings)
@@ -249,7 +251,8 @@ extension SongExport {
                             attributes: .attributes(.label, settings: settings)
                         ),
                         backgroundColor: .clear,
-                        alignment: .right
+                        alignment: .right,
+                        fontOptions: settings.style.fonts.label
                     ),
                     labelDivider(section: section),
                     PDFBuild.GridSection(section, chords: song.chords, settings: settings)
@@ -271,7 +274,8 @@ extension SongExport {
                     PDFBuild.Label(
                         labelText: label,
                         backgroundColor: .clear,
-                        alignment: .right
+                        alignment: .right,
+                        fontOptions: settings.style.fonts.label
                     ),
                     labelDivider(section: section),
                     PDFBuild.StrumSection(section, settings: settings)
@@ -349,8 +353,10 @@ extension SongExport {
                         PDFBuild.Spacer(),
                         PDFBuild.Label(
                             labelText: labelText,
+                            sfIcon: "arrow.trianglehead.2.clockwise.rotate.90",
                             backgroundColor: NSColor(settings.style.fonts.label.background),
-                            alignment: .left
+                            alignment: .left,
+                            fontOptions: settings.style.fonts.label
                         )
                     ]
                 )
