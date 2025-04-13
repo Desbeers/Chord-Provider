@@ -12,6 +12,8 @@ extension PDFBuild.TabSection {
     // MARK: A PDF **line** element for a `TabSection`
 
     /// A PDF **line** element for a `TabSection`
+    ///
+    /// Display line of a tab section of the song
     class Line: PDFElement {
 
         /// The line with the tab

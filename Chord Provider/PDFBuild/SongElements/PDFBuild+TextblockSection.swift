@@ -12,6 +12,8 @@ extension PDFBuild {
     // MARK: A PDF **textblock section** element
 
     /// A PDF **textblock section** element
+    ///
+    /// Display a textblock section of the song
     class TextblockSection: PDFElement {
 
         /// The section with textblock

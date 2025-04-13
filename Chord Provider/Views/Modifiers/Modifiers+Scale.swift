@@ -34,7 +34,7 @@ extension Modifiers {
                 }
                 .onEnded { value in
                     withAnimation {
-                        sceneState.song.scale = min(max(sceneState.song.scale * value.magnification, minScale), maxScale)
+                        sceneState.song.settings.scale = min(max(sceneState.song.settings.scale * value.magnification, minScale), maxScale)
                     }
                 }
         }
@@ -42,7 +42,7 @@ extension Modifiers {
         private var doubleTapGesture: some Gesture {
             TapGesture(count: 2).onEnded {
                 withAnimation {
-                    sceneState.song.scale = min(max(sceneState.song.scale + 0.2, minScale), maxScale)
+                    sceneState.song.settings.scale = min(max(sceneState.song.settings.scale + 0.2, minScale), maxScale)
                 }
             }
         }
@@ -52,7 +52,7 @@ extension Modifiers {
                 .gesture(ExclusiveGesture(magnifyGesture, doubleTapGesture))
                 .onLongPressGesture(minimumDuration: 1) {
                     withAnimation {
-                        sceneState.song.scale = min(max(sceneState.song.scale - 0.2, minScale), maxScale)
+                        sceneState.song.settings.scale = min(max(sceneState.song.settings.scale - 0.2, minScale), maxScale)
                     }
                 }
         }
@@ -61,9 +61,7 @@ extension Modifiers {
 
 extension View {
 
-    /// Shortcut to the `WrapSettingsSection` modifier
-    /// - Parameter title: The title
-    /// - Returns: A modified `View`
+    /// Shortcut to ``Modifiers/Scale``
     var scaleModifier: some View {
         modifier(Modifiers.Scale())
     }

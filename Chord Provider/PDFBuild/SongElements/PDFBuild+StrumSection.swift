@@ -12,6 +12,8 @@ extension PDFBuild {
     // MARK: A PDF **strum section** element
 
     /// A PDF **strum section** element
+    ///
+    /// Display a strum section of the song
     class StrumSection: PDFElement {
 
         /// The section with strumming
@@ -20,7 +22,9 @@ extension PDFBuild {
         let settings: AppSettings
 
         /// Init the **strum section** element
-        /// - Parameter section: The section with strumming
+        /// - Parameters:
+        ///   - song: The ``Song``
+        ///   - settings: The application settings
         init(_ section: Song.Section, settings: AppSettings) {
             self.section = section
             self.settings = settings

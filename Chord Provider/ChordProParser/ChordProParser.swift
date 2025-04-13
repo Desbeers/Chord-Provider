@@ -18,29 +18,20 @@ actor ChordProParser {
 
     /// Parse a ChordPro file
     /// - Parameters:
-    ///   - id: The ID of the song
-    ///   - text: The text of the song
-    ///   - transpose: The optional transpose of the song in the GUI
-    ///   - settings: The settings for the application
-    ///   - fileURL: The optional file url of the song
+    ///   - song: The ``Song``
     /// - Returns: A ``Song`` item
-    static func parse(
-        id: UUID,
-        text: String,
-        transpose: Int,
-        settings: AppSettings,
-        fileURL: URL?
-    ) async -> Song {
-        Logger.parser.info("Parsing **\(fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
+    static func parse(song: Song) async -> Song {
+        let old = song
+        Logger.parser.info("Parsing **\(old.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         /// Start with a fresh song
-        var song = Song(id: id, content: text, settings: settings.song)
-        song.metadata.fileURL = fileURL
+        var song = Song(id: song.id, content: old.content, settings: old.settings)
+        song.metadata.fileURL = old.metadata.fileURL
         /// Add the optional transpose
-        song.metadata.transpose = transpose
+        song.metadata.transpose = old.metadata.transpose
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
         /// Parse each line of the text, stripping newlines at the end
-        for text in text.components(separatedBy: .newlines) {
+        for text in song.content.components(separatedBy: .newlines) {
             /// Increase the line number
             song.lines += 1
             switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
@@ -89,6 +80,8 @@ actor ChordProParser {
         }
         /// Set default metadata if not defined in the song file
         setDefaults(song: &song)
+        /// Sort the chords
+        song.chords = song.chords.sorted(using: KeyPathComparator(\.display))
         /// All done!
         return song
     }

@@ -12,8 +12,12 @@ import OSLog
 struct AppSettings: Equatable, Codable, Sendable {
     /// Settings that will change the behaviour of the application
     var application = Application()
+    /// Settings shared by all scenes
+    var shared = Shared()
     /// The options for displaying a ``Song``
-    var song = Song()
+    var display = Display()
+    /// The options for displaying a ``ChordDefinition``
+    var diagram = Diagram()
     /// The options for the ``ChordProEditor``
     var editor: Editor.Settings = .init()
     /// ChordPro integration
@@ -22,6 +26,13 @@ struct AppSettings: Equatable, Codable, Sendable {
     var style: Style = .init()
     /// PDF settings
     var pdf = AppSettings.PDF()
+
+    // MARK: Scaling
+
+    /// Max width of the `View`
+    var maxWidth: Double = 340
+    /// Scale magnifier
+    var scale: Double = 1
 }
 
 extension AppSettings {

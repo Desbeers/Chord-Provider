@@ -15,16 +15,16 @@ extension FolderExport {
     /// - Parameters:
     ///   - documentInfo: The document info for the PDF
     ///   - counter: The `PDFBuild.PageCounter` class
-    ///   - appSettings: The application settings
+    ///   - settings: The application settings
     ///   - progress: A closure to observe the progress of PDF creation
     /// - Returns: The PDF as `Data` and the `PageCounter` class with TOC info
     static func content(
         documentInfo: PDFBuild.DocumentInfo,
         counter: PDFBuild.PageCounter,
-        appSettings: AppSettings,
+        settings: AppSettings,
         progress: @escaping (Double) -> Void
     ) async -> Data {
-        let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: appSettings)
+        let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: settings)
         builder.pageCounter = counter
         // MARK: Render PDF content
         for item in counter.tocItems {
@@ -37,7 +37,7 @@ extension FolderExport {
                             items: [
                                 PDFBuild.Text(
                                     "\(item.song.metadata.artist)∙\(item.song.metadata.title)",
-                                    attributes: .smallTextFont(settings: appSettings) + .alignment(.left)
+                                    attributes: .smallTextFont(settings: settings) + .alignment(.left)
                                 ),
                                 counter
                             ]
@@ -49,8 +49,7 @@ extension FolderExport {
             await builder.elements.append(
                 contentsOf: SongExport.getSongElements(
                     song: item.song,
-                    counter: counter,
-                    appSettings: appSettings
+                    counter: counter
                 )
             )
         }

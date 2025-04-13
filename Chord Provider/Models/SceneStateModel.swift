@@ -10,8 +10,6 @@ import OSLog
 
 /// The observable scene state for **Chord Provider**
 @MainActor @Observable final class SceneStateModel {
-    /// The optional file URL
-    var file: URL?
     /// The optional template URL
     /// - Used to get custom configs next to the template URL (official **ChordPro** support)
     var template: URL?
@@ -21,8 +19,6 @@ import OSLog
     var preview = PreviewState()
     /// The internals of the **Chord Provider** editor
     var editorInternals = ChordProEditor.Internals()
-    /// The settings for the scene
-    var settings: AppSettings
     /// The status of the View
     var status: Status = .loading
     /// Show an `Alert` if we have an error
@@ -64,9 +60,8 @@ import OSLog
         case false:
             /// Default renderer
             do {
-                let appSettings = AppSettings.load(id: .mainView)
                 let export = try await SongExport.export(
-                    song: song, appSettings: appSettings
+                    song: song
                 )
                 try export.pdf.write(to: exportURL)
                 return export.pdf
@@ -77,7 +72,9 @@ import OSLog
         case true:
             /// ChordPro CLI renderer
             do {
-                let export = try await Terminal.exportPDF(text: song.content, settings: AppSettings.load(id: .mainView), sceneState: self)
+                let export = try await Terminal.exportPDF(
+                    sceneState: self
+                )
                 return export.data
             } catch {
                 Logger.application.error("ChordPro CLI error: \(error.localizedDescription, privacy: .public)")
@@ -129,7 +126,7 @@ import OSLog
 
     /// The optional local configuration (a config named `chordpro.json` next to a song)
     var localSystemConfigURL: URL? {
-        if let file {
+        if let file = self.song.metadata.fileURL {
             let systemConfig = file.deletingLastPathComponent().appendingPathComponent("chordpro", conformingTo: .json)
             if FileManager.default.fileExists(atPath: systemConfig.path) {
                 return systemConfig
@@ -141,7 +138,7 @@ import OSLog
 
     /// The optional local configuration (a config with the same base-name next to a song)
     var localSongConfigURL: URL? {
-        if let file {
+        if let file = self.song.metadata.fileURL {
             let localConfig = file.deletingPathExtension().appendingPathExtension("json")
             let haveConfig = FileManager.default.fileExists(atPath: localConfig.path)
             return haveConfig ? localConfig : nil
@@ -158,13 +155,15 @@ import OSLog
 
     /// Init the class
     init(id: AppSettings.AppWindowID = .mainView) {
-        settings = AppSettings.load(id: id)
         // swiftlint:disable:next force_unwrapping
         self.definition = ChordDefinition(name: "C", instrument: .guitar)!
         /// Create the temp directory
         try? FileManager.default.createDirectory(at: temporaryDirectoryURL, withIntermediateDirectories: true)
         /// Init the song with an unique ID
         self.song = Song(id: UUID(), content: "")
+        /// Add the last used settings
+        let settings = AppSettings.load(id: id)
+        self.song.settings = settings
     }
 }
 

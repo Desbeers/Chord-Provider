@@ -14,8 +14,6 @@ extension PDFBuild {
     /// A PDF **comment** element
     class Comment: PDFElement {
 
-        /// The leading text of the comment
-        let leadingText: NSAttributedString
         /// The comment text
         let commentText: NSAttributedString
         /// The application settings
@@ -28,7 +26,6 @@ extension PDFBuild {
         ///   - icon: The icon
         ///   - settings: The application settings
         init(_ commentText: String, icon: String = "􀌲", settings: AppSettings) {
-            self.leadingText = NSAttributedString(string: icon, attributes: .attributes(.comment, settings: settings))
             self.commentText = NSAttributedString(string: commentText, attributes: .attributes(.comment, settings: settings))
             self.settings = settings
         }
@@ -40,7 +37,6 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let label = PDFBuild.Label(
-                leadingText: leadingText,
                 labelText: commentText,
                 backgroundColor: NSColor(settings.style.fonts.comment.background),
                 alignment: .left

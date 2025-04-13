@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import Foundation
+import AppKit
 
 /// A collection of bits and pieces to create a PDF
 enum PDFBuild {

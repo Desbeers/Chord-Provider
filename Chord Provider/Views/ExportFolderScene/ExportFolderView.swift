@@ -68,15 +68,15 @@ struct ExportFolderView: View {
                             let settings = AppSettings.load(id: .mainView)
                             appState.settings.style = settings.style
                             appState.settings.pdf = settings.pdf
-                            pdfInfo.pageRect = settings.pdf.pageSize.rect(appSettings: settings)
+                            pdfInfo.pageRect = settings.pdf.pageSize.rect(settings: settings)
                             pdfInfo.pagePadding = settings.pdf.pagePadding
                             /// Bring the sceneState instrument to the appState
-                            appState.settings.song.display.instrument = sceneState.settings.song.display.instrument
+                            appState.settings.display.instrument = sceneState.song.settings.display.instrument
                             progress = 0
                             exporting = true
                             for try await status in FolderExport.export(
                                 documentInfo: pdfInfo,
-                                appSettings: appState.settings
+                                settings: appState.settings
                             ) {
                                 switch status {
                                 case .progress(let progress):

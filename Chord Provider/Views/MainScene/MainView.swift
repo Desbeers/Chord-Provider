@@ -18,14 +18,14 @@ struct MainView: View {
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
-    /// The optional file location
-    let file: URL?
+    /// The optional file URL of the song
+    let fileURL: URL?
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
             switch sceneState.status {
             case .loading:
-                ProgressView()
+                progress
             case .ready:
                 if sceneState.preview.data == nil {
                     HeaderView()
@@ -45,7 +45,7 @@ struct MainView: View {
         }
         .errorAlert(message: $sceneState.errorAlert)
         .task {
-            sceneState.file = file
+            sceneState.song.metadata.fileURL = fileURL
             sceneState.template = document.template
             await renderSong()
             /// Always open the editor for a new file or a template
@@ -64,20 +64,31 @@ struct MainView: View {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings.song.display.repeatWholeChorus) {
-            sceneState.settings.song.display.repeatWholeChorus = appState.settings.song.display.repeatWholeChorus
+        .onChange(of: appState.settings.shared) {
+            sceneState.song.settings.shared = appState.settings.shared
             Task {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings.song.display.lyricsOnly) {
-            sceneState.settings.song.display.lyricsOnly = appState.settings.song.display.lyricsOnly
+        .onChange(of: appState.settings.style) {
+            /// Reset chord cache; the theme might have changed
+            RenderView.diagramCache.removeAllObjects()
+            sceneState.song.settings.style = appState.settings.style
             Task {
                 await renderSong()
             }
         }
-        .onChange(of: sceneState.settings) {
-            appState.settings.song = sceneState.settings.song
+        .onChange(of: appState.settings.diagram) {
+            /// Reset chord cache; the theme might have changed
+            RenderView.diagramCache.removeAllObjects()
+            sceneState.song.settings.diagram = appState.settings.diagram
+            Task {
+                await renderSong()
+            }
+        }
+        .onChange(of: sceneState.song.settings.display) {
+            /// Store is in `appState` so it will be the defaults for the next song
+            appState.settings.display = sceneState.song.settings.display
             Task {
                 await renderSong()
             }
@@ -88,8 +99,9 @@ struct MainView: View {
             }
         }
         .animation(.default, value: sceneState.preview)
-        .animation(.default, value: appState.settings.song.display.lyricsOnly)
+        .animation(.default, value: appState.settings)
         .animation(.default, value: sceneState.song.metadata)
+        .animation(.default, value: sceneState.song.settings.display)
         .animation(.default, value: sceneState.status)
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)
@@ -108,20 +120,21 @@ struct MainView: View {
                 PreviewPaneView(data: data)
                     .transition(.move(edge: .trailing))
             } else if sceneState.isAnimating {
-                ProgressView()
-                    .frame(maxWidth: .infinity)
+                progress
             } else {
-                let layout = sceneState.settings.song.display.chordsPosition == .right ?
+                let layout = sceneState.song.settings.display.chordsPosition == .right ?
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     Group {
                         SongView()
-                            .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
-                        if sceneState.settings.song.display.showChords {
+                            .foregroundStyle(
+                                appState.settings.style.theme.foreground,
+                                appState.settings.style.theme.foregroundMedium
+                            )
+                        if sceneState.song.settings.display.showChords {
                             Divider()
                             ChordsView(document: $document)
                                 .background(Color(appState.settings.style.theme.background))
-                                .foregroundStyle(appState.settings.style.theme.foreground, appState.settings.style.theme.foregroundMedium)
                                 .shadow(color: .secondary.opacity(0.25), radius: 60)
                         }
                     }
@@ -130,24 +143,26 @@ struct MainView: View {
             }
         }
         .frame(maxHeight: .infinity)
-        .animation(.default, value: appState.settings.style)
     }
 
+    /// Progress of the `View`
+    var progress: some View {
+        ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .foregroundStyle(appState.settings.style.theme.foreground)
+            .background(Color(appState.settings.style.theme.background))
+    }
     /// Render the song
     private func renderSong() async {
-        sceneState.song = await ChordProParser.parse(
-            id: sceneState.song.id,
-            text: document.text,
-            transpose: sceneState.song.metadata.transpose,
-            settings: sceneState.settings,
-            fileURL: file
-        )
+        sceneState.song.content = document.text
+        sceneState.song.metadata.fileURL = fileURL
+        sceneState.song = await ChordProParser.parse(song: sceneState.song)
         sceneState.getMedia()
         appState.lastUpdate = .now
 
         /// Pass the parsed song to the appState
         appState.song = sceneState.song
-        if let index = fileBrowser.songs.firstIndex(where: { $0.metadata.fileURL == file }) {
+        if let index = fileBrowser.songs.firstIndex(where: { $0.metadata.fileURL == fileURL }) {
             fileBrowser.songs[index].metadata.title = sceneState.song.metadata.title
             fileBrowser.songs[index].metadata.artist = sceneState.song.metadata.artist
             fileBrowser.songs[index].metadata.tags = sceneState.song.metadata.tags

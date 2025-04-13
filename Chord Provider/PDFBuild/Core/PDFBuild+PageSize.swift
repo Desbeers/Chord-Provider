@@ -22,7 +22,9 @@ extension PDFBuild {
         /// Custom size
         case custom = "Custom Size"
         /// The page size as `CGRect
-        func rect(appSettings: AppSettings) -> CGRect {
+        /// - Parameter settings: The application settings
+        /// - Returns: The page size as `CGRect`
+        func rect(settings: AppSettings) -> CGRect {
             switch self {
             case .a4portrait:
                 CGRect(x: 0, y: 0, width: 595, height: 842)
@@ -33,7 +35,7 @@ extension PDFBuild {
             case .a5landscape:
                 CGRect(x: 0, y: 0, width: 595, height: 420)
             case .custom:
-                CGRect(x: 0, y: 0, width: appSettings.pdf.customWidth, height: appSettings.pdf.customHeight)
+                CGRect(x: 0, y: 0, width: settings.pdf.customWidth, height: settings.pdf.customHeight)
             }
         }
     }

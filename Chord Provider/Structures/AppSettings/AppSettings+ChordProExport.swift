@@ -2,7 +2,7 @@
 //  AppSettings+ChordProExport.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 05/04/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation

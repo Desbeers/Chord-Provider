@@ -15,7 +15,7 @@ extension EditorView {
         do {
             let chord = try ChordDefinition(
                 definition: sceneState.editorInternals.directiveArgument,
-                instrument: sceneState.settings.song.display.instrument,
+                instrument: sceneState.song.settings.display.instrument,
                 status: .unknownChord
             )
             /// Set the definition

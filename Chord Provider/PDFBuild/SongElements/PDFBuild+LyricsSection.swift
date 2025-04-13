@@ -12,6 +12,8 @@ extension PDFBuild {
     // MARK: A PDF **lyrics section** element
 
     /// A PDF **lyrics section** element
+    ///
+    /// Display a lyrics section of the song
     class LyricsSection: PDFElement {
 
         /// The section with lyrics

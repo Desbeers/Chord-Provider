@@ -19,9 +19,9 @@ extension ConfigOptions {
     struct FontOptions: Codable, Equatable {
         /// The font family
         /// - Note: Only used for the GUI to select a font
-        var fontFamily: String = "SF Pro"
+        var fontFamily: String = "Helvetica"
         /// The actual font as `String`
-        var font: String = "SFPro-Regular"
+        var font: String = "Helvetica"
         /// The size of the font
         var size: Double = 10
         /// The color of the font

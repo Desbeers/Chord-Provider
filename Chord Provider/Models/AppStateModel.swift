@@ -45,13 +45,13 @@ extension AppStateModel {
     static func applyUserSettings(config: String, settings: AppSettings) -> String {
         var config = config
         /// Optional show only the lyrics
-        if settings.song.display.lyricsOnly {
+        if settings.shared.lyricsOnly {
             config = config.replacingOccurrences(of: "settings.lyrics-only : false", with: "settings.lyrics-only : true")
         }
-        if settings.song.display.repeatWholeChorus {
+        if settings.shared.repeatWholeChorus {
             config = config.replacingOccurrences(of: "pdf.chorus.recall.quote : false", with: "pdf.chorus.recall.quote : true")
         }
-        if settings.song.diagram.showFingers {
+        if settings.diagram.showFingers {
             config = config.replacingOccurrences(of: "pdf.diagrams.fingers : false", with: "pdf.diagrams.fingers : true")
         }
         /// Return the config

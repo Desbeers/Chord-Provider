@@ -29,16 +29,9 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
         let contentType = UTType.pdf
         let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-        let song = await ChordProParser.parse(
-            id: UUID(),
-            text: fileContents,
-            transpose: 0,
-            settings: settings,
-            fileURL: request.fileURL
-        )
+        let song = await ChordProParser.parse(song: Song(id: UUID(), content: fileContents))
         let songData = try await SongExport.export(
-            song: song,
-            appSettings: settings
+            song: song
         ).pdf
 
         let reply = QLPreviewReply.init(
@@ -58,10 +51,12 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
 // MARK: Substitutes
 
-struct AppSettings {
-    /// Simple substitute for the real AppSettings
+/// Simple substitute for the real AppSettings
+struct AppSettings: Equatable, Codable {
     var application = Application()
-    var song = Song()
+    var shared = Shared()
+    var display = Display()
+    var diagram = Diagram()
     var style = Style()
     var pdf = AppSettings.PDF()
 }

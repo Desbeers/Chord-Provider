@@ -20,8 +20,6 @@ extension PDFBuild.Chords {
 
         /// The chord to display in a diagram
         let chord: ChordDefinition
-        /// The chord display options
-        let options: AppSettings.DiagramDisplayOptions
         /// The application settings
         let settings: AppSettings
 
@@ -50,18 +48,16 @@ extension PDFBuild.Chords {
         /// Init the **chord diagram** element
         /// - Parameters:
         ///   - chord: The chord to display in a diagram
-        ///   - options: The chord display options
         ///   - settings: The PDF settings
-        init(chord: ChordDefinition, options: AppSettings.DiagramDisplayOptions, settings: AppSettings) {
+        init(chord: ChordDefinition, settings: AppSettings) {
             self.chord = chord
-            self.options = options
             self.columns = (chord.instrument.strings.count) - 1
             self.width = gridSize.width
             self.height = gridSize.height
             self.xSpacing = width / Double(columns)
             self.ySpacing = height / 5
-            self.frets = options.mirrorDiagram ? chord.frets.reversed() : chord.frets
-            self.fingers = options.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
+            self.frets = settings.diagram.mirrorDiagram ? chord.frets.reversed() : chord.frets
+            self.fingers = settings.diagram.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
             self.settings = settings
         }
 
@@ -94,7 +90,7 @@ extension PDFBuild.Chords {
             }
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
             rect.size.height = initialRect.size.height - currentDiagramHeight
-            if options.showNotes {
+            if settings.diagram.showNotes {
                 drawNotesBar(rect: &rect)
                 rect.origin.y = initialRect.origin.y + currentDiagramHeight
                 rect.size.height = initialRect.size.height - currentDiagramHeight
@@ -139,9 +135,9 @@ extension PDFBuild.Chords {
                     let fret = frets[index]
                     switch fret {
                     case -1:
-                        string = "􀆄"
+                        string = "X"
                     case 0:
-                        string = "􀀀"
+                        string = "O"
                     default:
                         string = " "
                     }
@@ -186,10 +182,10 @@ extension PDFBuild.Chords {
                 var baseFretRect = CGRect(
                     x: rect.origin.x + xSpacing / 2.5,
                     y: rect.origin.y + ySpacing / 8,
-                    width: gridSize.width,
+                    width: 12,
                     height: rect.height
                 )
-                let name = PDFBuild.Text("\(chord.baseFret)", attributes: .diagramBaseFret(settings: settings) + .alignment(.left))
+                let name = PDFBuild.Text("\(chord.baseFret)", attributes: .diagramBaseFret(settings: settings))
                 name.draw(rect: &baseFretRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
 
@@ -251,7 +247,7 @@ extension PDFBuild.Chords {
                 for fret in 1...5 {
                     for string in chord.instrument.strings {
                         if frets[string] == fret {
-                            let finger = options.showFingers && fingers[string] != 0 ?
+                            let finger = settings.diagram.showFingers && fingers[string] != 0 ?
                             "\(fingers[string])" : " "
                             let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
                             let background = PDFBuild.Background(color: NSColor(settings.style.theme.foregroundMedium), text)
@@ -288,8 +284,8 @@ extension PDFBuild.Chords {
                 for fret in 1...5 {
                     if var barre = chord.barres.first(where: { $0.fret == fret }) {
                         /// Mirror for left-handed if needed
-                        barre = options.mirrorDiagram ? chord.mirrorBarre(barre) : barre
-                        let finger = options.showFingers ? "\(barre.finger)" : " "
+                        barre = settings.diagram.mirrorDiagram ? chord.mirrorBarre(barre) : barre
+                        let finger = settings.diagram.showFingers ? "\(barre.finger)" : " "
                         let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
                         let background = PDFBuild.Background(color: NSColor(settings.style.theme.foregroundMedium), text)
                         let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
@@ -311,7 +307,7 @@ extension PDFBuild.Chords {
             /// Draw the notes bar underneath the grid
             /// - Parameter rect: The available rect
             func drawNotesBar(rect: inout CGRect) {
-                let notes = options.mirrorDiagram ? chord.components.reversed() : chord.components
+                let notes = settings.diagram.mirrorDiagram ? chord.components.reversed() : chord.components
                 var notesBarRect = CGRect(
                     x: rect.origin.x + xSpacing,
                     y: rect.origin.y,
@@ -362,7 +358,7 @@ extension PDFStringAttribute {
     /// Style attributes for the diagram top bar
     static func diagramTopBar(settings: AppSettings) -> PDFStringAttribute {
         [
-            .font: NSFont.systemFont(ofSize: 4, weight: .regular),
+            .font: NSFont.systemFont(ofSize: 5, weight: .semibold),
             .foregroundColor: NSColor(settings.style.theme.foreground)
         ] + .alignment(.center)
     }
@@ -372,7 +368,7 @@ extension PDFStringAttribute {
         [
             .font: NSFont.systemFont(ofSize: 4, weight: .regular),
             .foregroundColor: NSColor(settings.style.theme.foreground)
-        ] + .alignment(.left)
+        ] + .alignment(.right)
     }
 
     /// Style attributes for the diagram bottom bar

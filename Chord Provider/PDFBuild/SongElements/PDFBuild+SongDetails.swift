@@ -12,6 +12,8 @@ extension PDFBuild {
     // MARK: A PDF **song details** element
 
     /// A PDF **song details** element
+    ///
+    /// Display metadata details of the song
     class SongDetails: PDFElement {
 
         /// The ``Song``

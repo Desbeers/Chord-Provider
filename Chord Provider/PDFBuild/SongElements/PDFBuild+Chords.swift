@@ -18,8 +18,6 @@ extension PDFBuild {
 
         /// All the chords from the song
         let chords: [ChordDefinition]
-        /// The chord display options
-        let options: AppSettings.DiagramDisplayOptions
         /// The application settings
         let settings: AppSettings
 
@@ -28,11 +26,10 @@ extension PDFBuild {
         ///   - chords: All the chords from the song
         ///   - options: The chord display options
         ///   - settings: The application settings
-        init(chords: [ChordDefinition], options: AppSettings.DiagramDisplayOptions, settings: AppSettings) {
+        init(chords: [ChordDefinition], settings: AppSettings) {
             self.chords = chords
                 .sorted(using: KeyPathComparator(\.root))
                 .sorted(using: KeyPathComparator(\.quality))
-            self.options = options
             self.settings = settings
         }
 
@@ -45,7 +42,7 @@ extension PDFBuild {
             let chords = chords.filter { $0.status != .unknownChord } .sorted(using: KeyPathComparator(\.name))
             var items: [PDFElement] = []
             for chord in chords {
-                items.append(Diagram(chord: chord, options: options, settings: settings))
+                items.append(Diagram(chord: chord, settings: settings))
             }
             /// Spread the chords evenly over multiple lines
             /// The diagram is about 60 points wide

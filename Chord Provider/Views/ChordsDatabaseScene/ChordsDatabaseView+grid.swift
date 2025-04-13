@@ -34,7 +34,7 @@ extension ChordsDatabaseView {
             .disabled(!chordsDatabaseState.search.isEmpty)
             ScrollView {
                 LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 100 * sceneState.song.scale + 40), spacing: 0)],
+                    columns: [GridItem(.adaptive(minimum: 100 * sceneState.song.settings.scale + 40), spacing: 0)],
                     alignment: .center,
                     spacing: 0,
                     pinnedViews: [.sectionHeaders, .sectionFooters]
@@ -43,7 +43,7 @@ extension ChordsDatabaseView {
                         diagram(chord: chord)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(Color.accentColor.opacity(Chord.Root.naturalAndSharp.contains(chord.root) ? 0.25 : 0.1))
-                            .cornerRadius(6 * sceneState.song.scale)
+                            .cornerRadius(6 * sceneState.song.settings.scale)
                             .padding(4)
                     }
                     Button {
@@ -51,13 +51,13 @@ extension ChordsDatabaseView {
                         let quality: Chord.Quality = chordsDatabaseState.gridQuality == .unknown ? .major : chordsDatabaseState.gridQuality
                         var definition: String = "base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0"
                         /// Different fingering for an ukulele
-                        if sceneState.settings.song.display.instrument == .ukulele {
+                        if sceneState.song.settings.display.instrument == .ukulele {
                             definition = "base-fret 1 frets x x x x fingers 0 0 0 0"
                         }
 
                         if let definition = try? ChordDefinition(
                             definition: "\(root.rawValue)\(quality.rawValue) \(definition)",
-                            instrument: sceneState.settings.song.display.instrument,
+                            instrument: sceneState.song.settings.display.instrument,
                             status: .addDefinition
                         ) {
                             sceneState.definition = definition

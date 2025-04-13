@@ -19,11 +19,11 @@ struct ChordsView: View {
     @State var defineChord: ChordDefinition?
     /// The body of the `View`
     var body: some View {
-        let layout = sceneState.settings.song.display.chordsPosition == .bottom ?
+        let layout = sceneState.song.settings.display.chordsPosition == .bottom ?
         AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-        ScrollView([sceneState.settings.song.display.chordsPosition == .bottom ? .horizontal : .vertical]) {
+        ScrollView([sceneState.song.settings.display.chordsPosition == .bottom ? .horizontal : .vertical]) {
             layout {
-                ForEach(sceneState.song.chords.sorted(using: KeyPathComparator(\.display))) { chord in
+                ForEach(sceneState.song.chords) { chord in
                     switch chord.status {
                     case .standardChord, .transposedChord:
                         Button(
@@ -32,7 +32,7 @@ struct ChordsView: View {
                             },
                             label: {
                                 VStack(spacing: 0) {
-                                    ChordDiagramView(chord: chord, width: 100)
+                                    ChordDefinitionView(chord: chord, width: 100, settings: sceneState.song.settings)
                                 }
                             }
                         )
@@ -44,7 +44,7 @@ struct ChordsView: View {
                     case .unknownChord:
                         EmptyView()
                     default:
-                        ChordDiagramView(chord: chord, width: 100)
+                        ChordDefinitionView(chord: chord, width: 100, settings: sceneState.song.settings)
                             .scrollTransition { effect, phase in
                                 effect
                                     .scaleEffect(phase.isIdentity ? 1 : 0.6)
@@ -83,7 +83,7 @@ extension ChordsView {
                             Button(action: {
                                 self.defineChord = selected(chord: chord) ? nil : chord
                             }, label: {
-                                ChordDiagramView(chord: chord, width: 140)
+                                ChordDefinitionView(chord: chord, width: 140, settings: sceneState.song.settings)
                             })
                             .buttonStyle(.plain)
                             .padding(.horizontal)

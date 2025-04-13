@@ -12,11 +12,14 @@ extension PDFBuild {
     // MARK: A PDF **tags** element
 
     /// A PDF **tags** element
+    ///
+    /// Display all tags of the song
     class Tags: PDFElement {
         /// The array of tags
         let tags: [String]
-        /// The ``AppSettings``
+        /// The application settings
         let settings: AppSettings
+
         /// Init the **tags** element
         /// - Parameters:
         ///   - song: The whole `Song`
@@ -25,6 +28,7 @@ extension PDFBuild {
             self.tags = song.metadata.tags
             self.settings = settings
         }
+
         /// Draw the **tags** element
         /// - Parameters:
         ///   - rect: The available rectangle

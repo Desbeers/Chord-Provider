@@ -148,18 +148,13 @@ extension Terminal {
 
     /// Export a document or folder with the **ChordPro** binary to a PDF
     /// - Parameters:
-    ///   - text: The current text of the document
-    ///   - settings: The current ``AppSettings``
-    ///   - sceneState: The current ``SceneStateModel``
-    ///   - fileList: The optional list of files (for a songbook)
-    ///   - title: The title of the export
-    ///   - subtitle: The optional subtitle of the export
+    ///   - sceneState: The current scene state
     /// - Returns: The PDF as `Data` and the status as ``AppError``
     @MainActor static func exportPDF(
-        text: String,
-        settings: AppSettings,
         sceneState: SceneStateModel
     ) async throws -> (data: Data, status: AppError) {
+        /// Shortcut
+        let song = sceneState.song
         /// Get the **ChordPro** binary
         let chordProApp = try await getChordProBinary()
         /// Remove previous export (if any)
@@ -167,7 +162,7 @@ extension Terminal {
         /// Write the song and settings to the source URL
         /// - Note: We don't read the file URL directly because it might not be saved yet
         do {
-            try text.write(to: sceneState.sourceURL, atomically: true, encoding: String.Encoding.utf8)
+            try song.content.write(to: sceneState.sourceURL, atomically: true, encoding: String.Encoding.utf8)
         } catch {
             throw AppError.writeDocumentError
         }
@@ -176,7 +171,7 @@ extension Terminal {
 
         /// Add the optional additional library to the environment of the shell
         if
-            settings.chordPro.useAdditionalLibrary,
+            song.settings.chordPro.useAdditionalLibrary,
             let persistentURL = UserFile.customChordProLibrary.getBookmarkURL {
             arguments.append("CHORDPRO_LIB='\(persistentURL.path)'")
         }
@@ -187,16 +182,16 @@ extension Terminal {
         /// Add the source file
         arguments.append("\"\(sceneState.sourceURL.path)\"")
         /// Add the optional custom config file
-        if settings.chordPro.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: settings) {
+        if song.settings.chordPro.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: song.settings) {
             arguments.append(customConfig)
         }
         /// Add the **Chord Provider** config
-        if settings.chordPro.useChordProviderSettings {
-            let jsonSettings = settings.exportToChordProJSON(chords: sceneState.song.chords)
+        if song.settings.chordPro.useChordProviderSettings {
+            let jsonSettings = song.settings.exportToChordProJSON(chords: song.chords)
             if let config = Bundle.main.url(forResource: "ChordProviderConfig", withExtension: "json") {
                 do {
                     var config = try String(contentsOf: config, encoding: .utf8)
-                    config = AppStateModel.applyUserSettings(config: config, settings: settings)
+                    config = AppStateModel.applyUserSettings(config: config, settings: song.settings)
                     try config.write(to: sceneState.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
                     try jsonSettings.write(to: sceneState.configURL, atomically: true, encoding: String.Encoding.utf8)
                 } catch {

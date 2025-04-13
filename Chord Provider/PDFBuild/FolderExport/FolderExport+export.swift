@@ -22,18 +22,18 @@ extension FolderExport {
     /// Export a folder with ChordPro songs
     /// - Parameters:
     ///   - documentInfo: The document info for the PDF
-    ///   - appSettings: The application settings
+    ///   - settings: The application settings
     /// - Returns: A stream with progress indication and a document when finished
     static func export(
         documentInfo: PDFBuild.DocumentInfo,
-        appSettings: AppSettings
+        settings: AppSettings
     ) -> AsyncThrowingStream<Status, Error> {
         AsyncThrowingStream { continuation in
             Task {
                 do {
                     let render = try await FolderExport.export(
                         documentInfo: documentInfo,
-                        appSettings: appSettings
+                        settings: settings
                     ) { page in
                         continuation.yield(Status.progress(page))
                     }
@@ -54,32 +54,32 @@ extension FolderExport {
     /// Export a folder with ChordPro songs
     /// - Parameters:
     ///   - documentInfo: The document info for the PDF
-    ///   - appSettings: The application settings
+    ///   - settings: The application settings
     ///   - progress: The progress of the folder export
     /// - Returns: A PDFDocument if all well, else an error
     static func export(
         documentInfo: PDFBuild.DocumentInfo,
-        appSettings: AppSettings,
+        settings: AppSettings,
         progress: @escaping (Double) -> Void
     ) async throws -> Data? {
 
         // MARK: Get the song files
         var files = try await files()
         /// Sort the songs
-        switch appSettings.application.songListSort {
+        switch settings.application.songListSort {
         case .song:
             files.sort(using: KeyPathComparator(\.metadata.sortTitle))
         case .artist:
             files.sort(using: KeyPathComparator(\.metadata.sortArtist))
         }
         /// Build the TOC to see how many pages we need
-        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .smallTextFont(settings: appSettings) + .alignment(.right))
+        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .smallTextFont(settings: settings) + .alignment(.right))
         counter.tocItems = files.map { file in
             PDFBuild.TOCInfo(
                 song: file
             )
         }
-        var tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter, appSettings: appSettings)
+        var tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter, settings: settings)
         let tocPageCount = PDFDocument(data: tocData)?.pageCount ?? 0
         /// Remove one page from the counter
         counter.pageNumber -= 1
@@ -88,12 +88,16 @@ extension FolderExport {
         let contentData = await FolderExport.content(
             documentInfo: documentInfo,
             counter: counter,
-            appSettings: appSettings,
+            settings: settings,
             progress: progress
         )
 
         // MARK: Render Table of Contents
-        tocData = FolderExport.toc(documentInfo: documentInfo, counter: counter, appSettings: appSettings)
+        tocData = FolderExport.toc(
+            documentInfo: documentInfo,
+            counter: counter,
+            settings: settings
+        )
 
         // MARK: Convert to PDFDocument
         guard

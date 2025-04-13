@@ -69,14 +69,14 @@ struct ChordsDatabaseView: View {
         .animation(.default, value: chordsDatabaseState.navigationStack)
         .animation(.default, value: chordsDatabaseState.chords)
         .animation(.smooth, value: appState.settings)
-        .animation(.smooth, value: sceneState.settings)
-        .task(id: sceneState.settings.song.display.instrument) {
-            chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.settings.song.display.instrument)
+        .animation(.smooth, value: sceneState.song.settings)
+        .task(id: sceneState.song.settings.display.instrument) {
+            chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.song.settings.display.instrument)
         }
         .task {
             /// Set defaults
-            sceneState.settings.song.diagram.showNotes = true
-            sceneState.settings.song.diagram.showPlayButton = true
+            sceneState.song.settings.diagram.showNotes = true
+            sceneState.song.settings.diagram.showPlayButton = true
         }
         .onChange(of: chordsDatabaseState.allChords) {
             filterChords()
@@ -107,8 +107,8 @@ struct ChordsDatabaseView: View {
                     )
             }
         }
-        .onChange(of: sceneState.settings) {
-            appState.settings.song = sceneState.settings.song
+        .onChange(of: sceneState.song.settings.display) {
+            appState.settings.display = sceneState.song.settings.display
         }
         .toolbar {
             sceneState.instrumentPicker
@@ -119,7 +119,7 @@ struct ChordsDatabaseView: View {
             isPresented: $chordsDatabaseState.showExportSheet,
             document: JSONDocument(string: chordsDatabaseState.exportData),
             contentTypes: [.json],
-            defaultFilename: "ChordPro \(sceneState.settings.song.display.instrument) chords"
+            defaultFilename: "ChordPro \(sceneState.song.settings.display.instrument) chords"
         ) { result in
             switch result {
             case .success(let url):
@@ -128,7 +128,7 @@ struct ChordsDatabaseView: View {
                 Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
             }
         }
-        .navigationSubtitle(sceneState.settings.song.display.instrument.description)
+        .navigationSubtitle(sceneState.song.settings.display.instrument.description)
         .environment(sceneState)
         .environment(appState)
         .environment(chordsDatabaseState)

@@ -14,15 +14,15 @@ struct Song: Equatable, Codable, Identifiable {
     var id: UUID
 
     /// The raw content of the song
-    var content: String
+    var content: String = ""
 
     /// The total lines of the song
     var lines: Int = 0
 
     // MARK: Display options
 
-    /// The settings for the ``Song`` in the Document
-    var settings = AppSettings.Song()
+    /// The application settings
+    var settings = AppSettings()
 
     // MARK: Metadata directives
 
@@ -44,13 +44,6 @@ struct Song: Equatable, Codable, Identifiable {
 
     /// The chords of the song
     var chords: [ChordDefinition] = []
-
-    // MARK: Scaling
-
-    /// Max width of the `View`
-    var maxWidth: Double = 340
-    /// Scale magnifier
-    var scale: Double = 1
 
     // MARK: Search
 

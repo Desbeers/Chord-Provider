@@ -25,7 +25,9 @@ extension SongFileUtils {
         var artists: [Artist] = []
         if let items = FileManager.default.enumerator(at: url, includingPropertiesForKeys: nil) {
             while let item = items.nextObject() as? URL {
-                if ChordProDocument.fileExtension.contains(item.pathExtension), let song = try? await parseSongFile(item, settings: settings) {
+                if
+                    ChordProDocument.fileExtension.contains(item.pathExtension),
+                    let song = try? await parseSongFile(fileURL: item, settings: settings) {
                     songs.append(song)
                 }
             }
@@ -50,13 +52,16 @@ extension SongFileUtils {
 
     /// Parse the song file
     /// - Parameters:
-    ///   - file: The URL of the file
+    ///   - fileURL: The URL of the file
     ///   - settings: The ``AppSettings``
     /// - Returns: The parsed ``Song``
-    static func parseSongFile(_ file: URL, settings: AppSettings) async throws -> Song {
+    static func parseSongFile(fileURL: URL, settings: AppSettings) async throws -> Song {
         do {
-            let text = try String(contentsOf: file, encoding: .utf8)
-            return await ChordProParser.parse(id: UUID(), text: text, transpose: 0, settings: settings, fileURL: file)
+            let content = try String(contentsOf: fileURL, encoding: .utf8)
+            var song = Song(id: UUID(), content: content)
+            song.metadata.fileURL = fileURL
+            song.settings = settings
+            return await ChordProParser.parse(song: song)
         } catch {
             Logger.application.error("\(error.localizedDescription, privacy: .public)")
             throw AppError.noAccessToSongError

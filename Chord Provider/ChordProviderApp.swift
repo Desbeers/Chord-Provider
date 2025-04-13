@@ -27,7 +27,7 @@ import OSLog
 
         /// The actual 'song' window
         DocumentGroup(newDocument: ChordProDocument()) { file in
-            MainView(document: file.$document, file: file.fileURL)
+            MainView(document: file.$document, fileURL: file.fileURL)
                 .environment(appState)
                 .environment(fileBrowser)
             /// Give the scene access to the document.

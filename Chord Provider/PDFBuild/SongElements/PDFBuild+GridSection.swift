@@ -12,6 +12,8 @@ extension PDFBuild {
     // MARK: A PDF **grid section** element
 
     /// A PDF **grid section** element
+    ///
+    /// Display a grid section of the song
     class GridSection: PDFElement {
 
         /// The section with grids
@@ -25,6 +27,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - section: The section with grids
         ///   - chords: All the chords from the song
+        ///   - settings: The application settings
         init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings) {
             self.section = section
             self.chords = chords

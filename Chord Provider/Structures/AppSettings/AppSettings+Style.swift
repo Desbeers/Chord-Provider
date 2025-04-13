@@ -35,50 +35,50 @@ extension AppSettings.Style {
         /// - Returns: An updated style
         func presets(style: AppSettings.Style) -> AppSettings.Style {
 
-            var appSettings = style
+            var style = style
 
             switch self {
             case .light:
-                appSettings.theme.foreground = .black
-                appSettings.theme.foregroundMedium = .gray
-                appSettings.theme.background = .white
-                appSettings.fonts.title.color = .black
-                appSettings.fonts.subtitle.color = .gray
-                appSettings.fonts.chord.color = .accent
-                appSettings.fonts.label.color = .black
-                appSettings.fonts.label.background = .gray.opacity(0.3)
-                appSettings.fonts.comment.color = .black
-                appSettings.fonts.comment.background = .pdfComment
-                appSettings.fonts.tag.color = .black
-                appSettings.fonts.tag.background = .red.opacity(0.3)
+                style.theme.foreground = .black
+                style.theme.foregroundMedium = .gray
+                style.theme.background = .white
+                style.fonts.title.color = .black
+                style.fonts.subtitle.color = .gray
+                style.fonts.chord.color = .accent
+                style.fonts.label.color = .black
+                style.fonts.label.background = .gray.opacity(0.3)
+                style.fonts.comment.color = .black
+                style.fonts.comment.background = .pdfComment
+                style.fonts.tag.color = .black
+                style.fonts.tag.background = .red.opacity(0.3)
             case .dark:
-                appSettings.theme.foreground = .white
-                appSettings.theme.foregroundMedium = .gray
-                appSettings.theme.background = .black
-                appSettings.fonts.title.color = .white
-                appSettings.fonts.subtitle.color = .gray
-                appSettings.fonts.chord.color = .red
-                appSettings.fonts.label.color = .white
-                appSettings.fonts.label.background = .gray
-                appSettings.fonts.comment.color = .black
-                appSettings.fonts.comment.background = .orange
-                appSettings.fonts.tag.color = .white
-                appSettings.fonts.tag.background = .red.opacity(0.5)
+                style.theme.foreground = .white
+                style.theme.foregroundMedium = .gray
+                style.theme.background = .black
+                style.fonts.title.color = .white
+                style.fonts.subtitle.color = .gray
+                style.fonts.chord.color = .red
+                style.fonts.label.color = .white
+                style.fonts.label.background = .gray
+                style.fonts.comment.color = .black
+                style.fonts.comment.background = .orange
+                style.fonts.tag.color = .white
+                style.fonts.tag.background = .red.opacity(0.5)
             case .random:
-                appSettings.theme.foreground = .randomDark
-                appSettings.theme.foregroundMedium = .randomDark
-                appSettings.theme.background = .randomLight
-                appSettings.fonts.title.color = .randomDark
-                appSettings.fonts.subtitle.color = .randomDark
-                appSettings.fonts.label.color = .randomDark
-                appSettings.fonts.label.background = .randomLight
-                appSettings.fonts.chord.color = .randomDark
-                appSettings.fonts.comment.color = .randomDark
-                appSettings.fonts.comment.background = .randomLight
-                appSettings.fonts.tag.color = .randomDark
-                appSettings.fonts.tag.background = .randomLight
+                style.theme.foreground = .randomDark
+                style.theme.foregroundMedium = .randomDark
+                style.theme.background = .randomLight
+                style.fonts.title.color = .randomDark
+                style.fonts.subtitle.color = .randomDark
+                style.fonts.label.color = .randomDark
+                style.fonts.label.background = .randomLight
+                style.fonts.chord.color = .randomDark
+                style.fonts.comment.color = .randomDark
+                style.fonts.comment.background = .randomLight
+                style.fonts.tag.color = .randomDark
+                style.fonts.tag.background = .randomLight
             }
-            return appSettings
+            return style
         }
     }
 

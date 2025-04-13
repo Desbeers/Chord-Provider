@@ -129,7 +129,7 @@ extension SettingsView {
 
 extension View {
 
-    /// Shortcut to the `WrapSettingsSection` modifier
+    /// Shortcut to the ``SettingsView/WrapSettingsSection`` modifier
     /// - Parameter title: The title
     /// - Returns: A modified `View`
     func wrapSettingsSection(title: String) -> some View {

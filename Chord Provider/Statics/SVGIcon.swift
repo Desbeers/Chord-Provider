@@ -26,15 +26,15 @@ enum SVGIcon {
     func data(color: Color) -> Data {
         switch self {
         case .instrument:
-            return process(icon: SVGIcon.instrumentData, color: color)
+            process(icon: SVGIcon.instrumentData, color: color)
         case .key:
-            return process(icon: SVGIcon.keyData, color: color)
+            process(icon: SVGIcon.keyData, color: color)
         case .capo:
-            return process(icon: SVGIcon.capoData, color: color)
+            process(icon: SVGIcon.capoData, color: color)
         case .tempo:
-            return process(icon: SVGIcon.tempoData, color: color)
+            process(icon: SVGIcon.tempoData, color: color)
         case .time:
-            return process(icon: SVGIcon.timeData, color: color)
+            process(icon: SVGIcon.timeData, color: color)
         }
     }
 

@@ -10,8 +10,6 @@ import SwiftUI
 /// SwiftUI `View` for a ``ChordDefinition``
 
 struct ChordDefinitionView: View {
-    /// The observable state of the application
-    @Environment(AppStateModel.self) private var appState
     /// The chord to display in a diagram
     let chord: ChordDefinition
     /// The width of the diagram
@@ -31,16 +29,19 @@ struct ChordDefinitionView: View {
     /// The offset for an instrument with less than 6 strings
     /// - Note: Used to give a barre some padding
     let xOffset: Double
+    /// The application settings
+    let settings: AppSettings
     /// The display options for the diagram
-    let diagramDisplayOptions: AppSettings.DiagramDisplayOptions
+    let diagramDisplayOptions: AppSettings.Diagram
 
     /// Init the `View`
     /// - Parameters:
     ///   - chord: The ``ChordDefinition``
     ///   - width: The width of the diagram
-    ///   - settings: The settings of the song
-    init(chord: ChordDefinition, width: Double, settings: AppSettings.Song) {
+    ///   - settings: The application
+    init(chord: ChordDefinition, width: Double, settings: AppSettings) {
         self.chord = chord
+        self.settings = settings
 
         self.diagramDisplayOptions = settings.diagram
 
@@ -72,7 +73,7 @@ struct ChordDefinitionView: View {
                 Text(chord.display)
                     .font(.system(size: lineHeight, weight: .semibold, design: .default))
                     .padding(lineHeight / 4)
-                    .foregroundStyle(appState.settings.style.fonts.chord.color)
+                    .foregroundStyle(settings.style.fonts.chord.color)
             }
             switch chord.status {
             case .standardChord, .transposedChord, .customChord:
@@ -82,6 +83,10 @@ struct ChordDefinitionView: View {
                     .multilineTextAlignment(.center)
             }
         }
+        .foregroundStyle(
+            settings.style.theme.foreground,
+            settings.style.theme.foregroundMedium
+        )
         .overlay(alignment: .topLeading) {
             if diagramDisplayOptions.showPlayButton, chord.status.knownChord {
                 AppStateModel.PlayButton(chord: chord, instrument: diagramDisplayOptions.midiInstrument)
@@ -116,7 +121,7 @@ struct ChordDefinitionView: View {
             if chord.baseFret != 1 {
                 Text("\(chord.baseFret)")
                     .font(.system(size: lineHeight * 0.6, weight: .regular, design: .default))
-                    .frame(height: gridHeight / 5)
+                    .frame(width: 12, height: gridHeight / 5, alignment: .trailing)
             }
             fretsGrid
             if !chord.barres.isEmpty {
@@ -182,11 +187,15 @@ struct ChordDefinitionView: View {
                                         case 0:
                                             /// Hide a 'zero' finger
                                             Image(systemName: "circle.fill")
-                                            .resizable()
+                                                .resizable()
+                                                .foregroundStyle(settings.style.theme.foregroundMedium)
                                         default:
                                             Image(systemName: "\(fingers[string]).circle.fill")
-                                            .resizable()
-                                            .foregroundStyle(appState.settings.style.theme.background, appState.settings.style.theme.foregroundMedium)
+                                                .resizable()
+                                                .foregroundStyle(
+                                                    settings.style.theme.background,
+                                                    settings.style.theme.foregroundMedium
+                                                )
                                         }
                                     }
                                     .aspectRatio(contentMode: .fit)
@@ -195,6 +204,7 @@ struct ChordDefinitionView: View {
                                     Image(systemName: "circle.fill")
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
+                                        .foregroundStyle(settings.style.theme.foregroundMedium)
                                         .symbolRenderingMode(.palette)
                                 }
                             }
@@ -229,13 +239,13 @@ struct ChordDefinitionView: View {
                                 .padding(.horizontal, xOffset * 2)
                                 .frame(height: lineHeight)
                                 .frame(width: cellWidth * Double(barre.length))
-                                .foregroundStyle(appState.settings.style.theme.foregroundMedium)
+                                .foregroundStyle(settings.style.theme.foregroundMedium)
                             if diagramDisplayOptions.showFingers {
                                 Image(systemName: "\(barre.finger).circle")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .symbolRenderingMode(.palette)
-                                    .foregroundStyle(appState.settings.style.theme.background, .clear)
+                                    .foregroundStyle(settings.style.theme.background, .clear)
                                     .frame(height: lineHeight)
                             }
                         }

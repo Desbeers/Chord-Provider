@@ -90,6 +90,7 @@ extension SettingsView {
                         .disabled(!appState.settings.chordPro.useAdditionalLibrary)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             .wrapSettingsSection(title: "ChordPro CLI Integration")
         }
         .animation(.default, value: appState.settings.pdf.pageSize)

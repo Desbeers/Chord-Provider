@@ -26,34 +26,32 @@ struct SongView: View {
                         proxy.size
                     } action: { newValue in
                         if newValue.width + 40 > 340 {
-                            sceneState.song.maxWidth = newValue.width + 40
+                            sceneState.song.settings.maxWidth = newValue.width + 40
                         }
                     }
-                    .font(appState.settings.style.fonts.text.swiftUIFont(scale: sceneState.song.scale))
+                    .font(appState.settings.style.fonts.text.swiftUIFont(scale: sceneState.song.settings.scale))
                     .hidden()
                 VStack {
-                    switch sceneState.settings.song.display.paging {
+                    switch sceneState.song.settings.display.paging {
                     case .asList:
                         ScrollView {
+                            /// - Note: Try if a *grid* label will fit; else show it inline
                             ViewThatFits {
                                 RenderView(
                                     song: sceneState.song,
-                                    paging: .asList,
                                     labelStyle: .grid
                                 )
                                 RenderView(
                                     song: sceneState.song,
-                                    paging: .asList,
                                     labelStyle: .inline
                                 )
                             }
-                            .padding(sceneState.song.scale * 20)
+                            .padding(sceneState.song.settings.scale * 20)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
                     case .asColumns:
                         RenderView(
                             song: sceneState.song,
-                            paging: .asColumns,
                             labelStyle: .inline
                         )
                     }

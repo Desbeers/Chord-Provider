@@ -12,6 +12,8 @@ extension PDFBuild {
     // MARK: A PDF **tab section** element
 
     /// A PDF **tab section** element
+    ///
+    /// Display a tab section of the song
     class TabSection: PDFElement {
 
         /// The section with tabs
@@ -22,7 +24,7 @@ extension PDFBuild {
         /// Init the **tab section** element
         /// - Parameters:
         ///    - section: The section with tabs
-        ///    - settings: The PDF settings
+        ///    - settings: The application settings
         init(_ section: Song.Section, settings: AppSettings) {
             self.section = section
             self.settings = settings

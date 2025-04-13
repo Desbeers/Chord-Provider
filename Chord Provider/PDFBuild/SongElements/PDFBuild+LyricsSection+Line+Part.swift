@@ -12,6 +12,8 @@ extension PDFBuild.LyricsSection.Line {
     // MARK: A PDF **part** element for a `Line` in a `LyricsSection`
 
     /// A PDF **part** element for a `Line` in a `LyricsSection`
+    ///
+    /// Display a part of a line of a lyrics section of the song
     class Part: PDFElement {
 
         /// The text of the part
