@@ -65,6 +65,7 @@ extension RenderView {
                     .popover(item: $popover) { _ in
                         ChordDefinitionView(chord: chord, width: 140, settings: settings)
                             .padding()
+                            .background(settings.style.theme.background)
                     }
                     .onHover { hovering in
                         if hovering {

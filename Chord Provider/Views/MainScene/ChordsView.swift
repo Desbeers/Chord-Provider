@@ -131,6 +131,8 @@ extension ChordsView {
             }
             .padding()
             .frame(minWidth: 600, idealWidth: 600, minHeight: 600, idealHeight: 600)
+            .foregroundStyle(sceneState.song.settings.style.theme.foreground)
+            .background(sceneState.song.settings.style.theme.background)
             .animation(.default, value: self.defineChord)
         }
     }

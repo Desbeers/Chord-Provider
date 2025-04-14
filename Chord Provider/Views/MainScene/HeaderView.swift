@@ -37,7 +37,8 @@ struct HeaderView: View {
                 .disabled(sceneState.preview.active)
         }
         .frame(minHeight: 45)
-        .background(Color.secondary.opacity(0.2))
+        .background(.regularMaterial)
+        .background(appState.settings.style.theme.background)
         .buttonStyle(.bordered)
     }
 }

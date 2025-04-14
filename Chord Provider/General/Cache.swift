@@ -29,7 +29,9 @@ enum Cache {
     /// - Throws: an error if it can't be saved
     static func set<T: Codable>(key: String, object: T) throws {
         let file = try self.path(for: key)
-        let archivedValue = try JSONEncoder().encode(object)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        let archivedValue = try encoder.encode(object)
         try archivedValue.write(to: file)
     }
 

@@ -35,19 +35,22 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            var tagRect = pageRect
-            tagRect.size.width -= settings.pdf.pagePadding
-            tagRect.origin.y += settings.pdf.pagePadding
-            for tag in tags {
-                let text = NSAttributedString(string: tag, attributes: .attributes(.tag, settings: settings))
-                let render = PDFBuild.Label(
-                    labelText: text,
-                    backgroundColor: NSColor(settings.style.fonts.tag.background),
-                    alignment: .right,
-                    fontOptions: settings.style.fonts.tag
-                )
-                    .padding(4)
-                render.draw(rect: &tagRect, calculationOnly: calculationOnly, pageRect: pageRect)
+            if !calculationOnly {
+                var tagRect = pageRect
+                tagRect.size.width -= settings.pdf.pagePadding
+                tagRect.origin.y += settings.pdf.pagePadding
+                for tag in tags {
+                    let text = NSAttributedString(string: tag, attributes: .attributes(.tag, settings: settings))
+                    let render = PDFBuild.Label(
+                        labelText: text,
+                        sfSymbol: "tag",
+                        drawBackground: true,
+                        alignment: .right,
+                        fontOptions: settings.style.fonts.tag
+                    )
+                        .padding(4)
+                    render.draw(rect: &tagRect, calculationOnly: calculationOnly, pageRect: pageRect)
+                }
             }
         }
     }

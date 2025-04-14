@@ -200,7 +200,7 @@ extension SongExport {
                             string: section.label,
                             attributes: .attributes(.label, settings: settings)
                         ),
-                        backgroundColor: section.environment == .chorus ? NSColor(settings.style.fonts.label.background) : .clear,
+                        drawBackground: section.environment == .chorus ? true : false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
                     ),
@@ -225,7 +225,7 @@ extension SongExport {
                             string: section.label,
                             attributes: .attributes(.label, settings: settings)
                         ),
-                        backgroundColor: .clear,
+                        drawBackground: false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
                     ),
@@ -250,7 +250,7 @@ extension SongExport {
                             string: section.label,
                             attributes: .attributes(.label, settings: settings)
                         ),
-                        backgroundColor: .clear,
+                        drawBackground: false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
                     ),
@@ -273,7 +273,7 @@ extension SongExport {
                     PDFBuild.Spacer(),
                     PDFBuild.Label(
                         labelText: label,
-                        backgroundColor: .clear,
+                        drawBackground: false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
                     ),
@@ -353,8 +353,8 @@ extension SongExport {
                         PDFBuild.Spacer(),
                         PDFBuild.Label(
                             labelText: labelText,
-                            sfIcon: "arrow.trianglehead.2.clockwise.rotate.90",
-                            backgroundColor: NSColor(settings.style.fonts.label.background),
+                            sfSymbol: "arrow.trianglehead.2.clockwise.rotate.90",
+                            drawBackground: true,
                             alignment: .left,
                             fontOptions: settings.style.fonts.label
                         )
