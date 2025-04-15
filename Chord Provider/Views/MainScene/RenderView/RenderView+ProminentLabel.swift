@@ -13,8 +13,8 @@ extension RenderView {
     struct ProminentLabel: View {
         /// The label
         let label: String
-        /// The optional icon
-        var sfIcon: String?
+        /// The optional SF symbol
+        var sfSymbol: String?
         /// The font
         let font: Font
         /// The application settings
@@ -22,14 +22,14 @@ extension RenderView {
         /// The body of the `View`
         var body: some View {
             VStack {
-                if let sfIcon {
+                if let sfSymbol {
                     Label(
                         title: {
                             /// Init the text like this to enable markdown formatting
                             Text(.init(label))
                         },
                         icon: {
-                            Image(systemName: sfIcon)
+                            Image(systemName: sfSymbol)
                                 .foregroundStyle(.primary, .primary)
                         }
                     )

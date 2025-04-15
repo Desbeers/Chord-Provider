@@ -394,7 +394,7 @@ extension SongExport {
                 items: [
                     PDFBuild.Spacer(),
                     PDFBuild.Spacer(),
-                    PDFBuild.Comment("Image not available", icon: "􀏅", settings: settings)
+                    PDFBuild.Comment("Image not available", settings: settings)
                 ]
             )
         }

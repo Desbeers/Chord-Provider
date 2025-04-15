@@ -22,7 +22,7 @@ extension RenderView {
             /// Show a ``RenderView/ProminentLabel`` with an icon and the label
             ProminentLabel(
                 label: section.label,
-                sfIcon: "arrow.trianglehead.2.clockwise.rotate.90",
+                sfSymbol: "arrow.trianglehead.2.clockwise.rotate.90",
                 font: song.settings.style.fonts.label.swiftUIFont(scale: song.settings.scale),
                 settings: song.settings
             )

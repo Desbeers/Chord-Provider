@@ -23,7 +23,7 @@ extension RenderView {
     @ViewBuilder func commentLabel(comment: String) -> some View {
         ProminentLabel(
             label: comment,
-            sfIcon: "text.bubble",
+            sfSymbol: "text.bubble",
             font: song.settings.style.fonts.comment.swiftUIFont(scale: song.settings.scale),
             settings: song.settings
         )

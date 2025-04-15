@@ -22,10 +22,8 @@ extension PDFBuild {
         /// Init the **comment** element
         /// - Parameters:
         ///   - commentText: The text of the comment
-        ///   - backgroundColor: The background color
-        ///   - icon: The icon
         ///   - settings: The application settings
-        init(_ commentText: String, icon: String = "􀌲", settings: AppSettings) {
+        init(_ commentText: String, settings: AppSettings) {
             self.commentText = NSAttributedString(string: commentText, attributes: .attributes(.comment, settings: settings))
             self.settings = settings
         }
