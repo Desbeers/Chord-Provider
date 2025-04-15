@@ -20,7 +20,7 @@ enum SFSymbol: String {
     /// The *time* icon
     case time = "timer"
     /// The *comment*icon
-    case comment = "SFSymbol"
+    case comment = "text.bubble"
     /// The *repeat chorus* icon
     case repeatChorus = "arrow.trianglehead.2.clockwise.rotate.90"
     /// The *tag* icon
