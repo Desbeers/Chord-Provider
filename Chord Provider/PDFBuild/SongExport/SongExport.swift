@@ -353,7 +353,7 @@ extension SongExport {
                         PDFBuild.Spacer(),
                         PDFBuild.Label(
                             labelText: labelText,
-                            sfSymbol: "arrow.trianglehead.2.clockwise.rotate.90",
+                            sfSymbol: .repeatChorus,
                             drawBackground: true,
                             alignment: .left,
                             fontOptions: settings.style.fonts.label

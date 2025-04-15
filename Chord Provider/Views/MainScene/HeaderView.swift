@@ -86,29 +86,23 @@ extension HeaderView {
         /// The body of the `View`
         var body: some View {
             if let key = song.metadata.key {
-                metadata(string: key.display, icon: .key)
+                metadata(string: key.display, sfSymbol: .key)
             }
             if let capo = song.metadata.capo {
-                metadata(string: capo, icon: .capo)
+                metadata(string: capo, sfSymbol: .capo)
             }
             if let time = song.metadata.time {
-                metadata(string: time, icon: .time)
+                metadata(string: time, sfSymbol: .time)
             }
         }
         /// Show metadata with a custom SVG icon
         /// - Parameters:
         ///   - string: The metadata
-        ///   - icon: The icon to use from the asset catalog
+        ///   - sfSymbol: The SF symbol
         /// - Returns: A `View`
-        func metadata(string: String, icon: SVGIcon) -> some View {
-            HStack {
-                // swiftlint:disable:next force_unwrapping
-                Image(nsImage: NSImage(data: icon.data(color: Color.primary))!)
-                    .resizable()
-                    .frame(width: 12, height: 12)
-                Text(string)
-            }
-            .padding(.leading, 4)
+        func metadata(string: String, sfSymbol: SFSymbol) -> some View {
+            Label(string, systemImage: sfSymbol.rawValue)
+                .padding(.leading, 4)
         }
     }
 }

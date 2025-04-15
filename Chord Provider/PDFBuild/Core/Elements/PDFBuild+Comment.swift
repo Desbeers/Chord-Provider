@@ -36,7 +36,7 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let label = PDFBuild.Label(
                 labelText: commentText,
-                sfSymbol: "text.bubble",
+                sfSymbol: .comment,
                 drawBackground: true,
                 alignment: .left,
                 fontOptions: settings.style.fonts.comment

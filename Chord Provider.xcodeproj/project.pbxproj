@@ -103,8 +103,8 @@
 		D71F864F2D843F1900BA57BD /* AppSettings+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */; };
 		D71F86502D843F1900BA57BD /* AppSettings+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */; };
 		D71F86512D84412200BA57BD /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876C2C5A581E009A3D82 /* Color+extension.swift */; };
-		D71F86532D8593B500BA57BD /* SVGIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* SVGIcon.swift */; };
-		D71F86542D8593B500BA57BD /* SVGIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* SVGIcon.swift */; };
+		D71F86532D8593B500BA57BD /* SFSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* SFSymbol.swift */; };
+		D71F86542D8593B500BA57BD /* SFSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* SFSymbol.swift */; };
 		D72B61102C16E4170027B235 /* UserFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B610F2C16E4170027B235 /* UserFile.swift */; };
 		D72EDE3E2BF789EE00624827 /* ChordPro+Directive+Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */; };
 		D730BBCC2CA844C2008719F2 /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BB9D2CA844C2008719F2 /* Instrument.swift */; };
@@ -235,6 +235,8 @@
 		D75E6C692DABB0960065F1D2 /* RenderView+strumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E6C682DABB0960065F1D2 /* RenderView+strumSection.swift */; };
 		D75E6C6B2DABB0BC0065F1D2 /* RenderView+imageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E6C6A2DABB0BC0065F1D2 /* RenderView+imageSection.swift */; };
 		D75E6C6D2DABB0E30065F1D2 /* RenderView+PartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E6C6C2DABB0E30065F1D2 /* RenderView+PartsView.swift */; };
+		D7607B0B2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */; };
+		D7607B0C2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */; };
 		D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622B462ABF0B04008CAC63 /* SettingsView.swift */; };
 		D7641BF22D96CC44009472D3 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7641BF12D96CC44009472D3 /* FontPicker.swift */; };
 		D7641BFC2D97F8D0009472D3 /* FontPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */; };
@@ -492,7 +494,7 @@
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
 		D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Tags.swift"; sourceTree = "<group>"; };
 		D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Style.swift"; sourceTree = "<group>"; };
-		D71F86522D8593B500BA57BD /* SVGIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGIcon.swift; sourceTree = "<group>"; };
+		D71F86522D8593B500BA57BD /* SFSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbol.swift; sourceTree = "<group>"; };
 		D72B610F2C16E4170027B235 /* UserFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserFile.swift; sourceTree = "<group>"; };
 		D72EDE3D2BF789EE00624827 /* ChordPro+Directive+Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordPro+Directive+Details.swift"; sourceTree = "<group>"; };
 		D730BB9D2CA844C2008719F2 /* Instrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 		D75E6C682DABB0960065F1D2 /* RenderView+strumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+strumSection.swift"; sourceTree = "<group>"; };
 		D75E6C6A2DABB0BC0065F1D2 /* RenderView+imageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+imageSection.swift"; sourceTree = "<group>"; };
 		D75E6C6C2DABB0E30065F1D2 /* RenderView+PartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+PartsView.swift"; sourceTree = "<group>"; };
+		D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+sfSymbol.swift"; sourceTree = "<group>"; };
 		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D7641BF12D96CC44009472D3 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerButton.swift; sourceTree = "<group>"; };
@@ -924,8 +927,9 @@
 			children = (
 				D706FD7E2BCECC9F005DEDF6 /* Elements */,
 				D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */,
-				D7C47CC42DA131D30037CC00 /* PDFBuild+PageSize.swift */,
+				D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */,
 				D7781B522D0F205F00EC0CCF /* PDFBuild+arguments.swift */,
+				D7C47CC42DA131D30037CC00 /* PDFBuild+PageSize.swift */,
 				D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */,
 				D70D101B2BD66C87006703EF /* PDFBuild+TOCInfo.swift */,
 				D706FD892BCECC9F005DEDF6 /* PDFBuild+Builder.swift */,
@@ -990,7 +994,7 @@
 				D705032F2D2179A400DB897A /* UserFile+bookmark.swift */,
 				D730BBAC2CA844C2008719F2 /* Utils.swift */,
 				D730BBAD2CA844C2008719F2 /* Utils+Define.swift */,
-				D71F86522D8593B500BA57BD /* SVGIcon.swift */,
+				D71F86522D8593B500BA57BD /* SFSymbol.swift */,
 				D77084792D8DC33A002530F7 /* ConfigOptions.swift */,
 			);
 			path = Statics;
@@ -1756,7 +1760,7 @@
 				D7F13FE32A6460B7002D875D /* PrintPDFButton.swift in Sources */,
 				D7F13FE72A6460B7002D875D /* ExportSongButton.swift in Sources */,
 				D7EA87622C5A580A009A3D82 /* ChordProEditor+Internals.swift in Sources */,
-				D71F86532D8593B500BA57BD /* SVGIcon.swift in Sources */,
+				D71F86532D8593B500BA57BD /* SFSymbol.swift in Sources */,
 				D70D96C02CB1813800B51A14 /* MediaPlayerView.swift in Sources */,
 				D7EA877E2C5A5888009A3D82 /* UserFileButton.swift in Sources */,
 				D7FA7F412C2CA9320031E1E8 /* ExportDocument.swift in Sources */,
@@ -1848,6 +1852,7 @@
 				D7EA87672C5A580A009A3D82 /* ChordProEditor+TextView.swift in Sources */,
 				D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */,
 				D730BBF62CA844C2008719F2 /* Utils+Define.swift in Sources */,
+				D7607B0B2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */,
 				D70D96BE2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift in Sources */,
 				D7EB791D2CA995C3004D965B /* Modifiers+Scale.swift in Sources */,
 				D7EB791A2CA97BA5004D965B /* ChordsDatabaseView.swift in Sources */,
@@ -1970,6 +1975,7 @@
 				D7496DE52CEF868500C8FFA8 /* ChordProParser+autoSection.swift in Sources */,
 				D730BC6A2CA849C6008719F2 /* Chord+Status.swift in Sources */,
 				D7F056912CEBA7D000E422AA /* ChordProParser+processMetadata.swift in Sources */,
+				D7607B0C2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */,
 				D730BC6B2CA849C6008719F2 /* Chord+Quality.swift in Sources */,
 				D730BC6C2CA849C6008719F2 /* ChordDefinition+init.swift in Sources */,
 				D7EF99662BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
@@ -1990,7 +1996,7 @@
 				D730BBDF2CA844C2008719F2 /* Bundle+extensions.swift in Sources */,
 				D70B72AB2BD52A9B003C89B4 /* PDFBuild+Section.swift in Sources */,
 				D70B72AC2BD52A9B003C89B4 /* PDFBuild+Clip.swift in Sources */,
-				D71F86542D8593B500BA57BD /* SVGIcon.swift in Sources */,
+				D71F86542D8593B500BA57BD /* SFSymbol.swift in Sources */,
 				D70B72AD2BD52A9B003C89B4 /* PDFBuild+PageCounter.swift in Sources */,
 				D730BBD32CA844C2008719F2 /* Midi.swift in Sources */,
 				D70B72AE2BD52A9B003C89B4 /* PDFBuild+Comment.swift in Sources */,

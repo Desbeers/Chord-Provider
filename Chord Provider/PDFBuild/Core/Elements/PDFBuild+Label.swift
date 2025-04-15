@@ -17,7 +17,7 @@ extension PDFBuild {
         /// The text of the label
         let labelText: NSAttributedString
         /// Optional SF Symbol icon
-        let sfSymbol: String?
+        let sfSymbol: SFSymbol?
         /// Bool to draw a background or not
         let drawBackground: Bool
         /// The alignment of the label
@@ -36,7 +36,7 @@ extension PDFBuild {
         ///   - fontOptions: The font options
         init(
             labelText: NSAttributedString,
-            sfSymbol: String? = nil,
+            sfSymbol: SFSymbol? = nil,
             drawBackground: Bool,
             alignment: NSTextAlignment,
             fontOptions: ConfigOptions.FontOptions
@@ -53,38 +53,33 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            var cgImage: CGImage?
-            var imageOffset: Double = 0
-            var textRect = rect.insetBy(dx: 2 * textPadding, dy: 2 * textPadding)
-            var imageRect = textRect
-            /// Prepair the optional `SF symbol`
+            let text = NSMutableAttributedString()
             if let sfSymbol {
-                var config = NSImage.SymbolConfiguration(pointSize: fontOptions.size * 10, weight: .medium, scale: .medium)
-                config = config.applying(.init(paletteColors: [NSColor(fontOptions.color)]))
-                if let sfImage = NSImage(systemSymbolName: sfSymbol, accessibilityDescription: nil)?.withSymbolConfiguration(config) {
-                    cgImage = sfImage.cgImage(forProposedRect: nil, context: nil, hints: nil)
-                    imageRect.size.width = sfImage.size.width / 10
-                    imageRect.size.height = sfImage.size.height / 10
-                    imageOffset = imageRect.size.width + (2 * textPadding)
-                    /// Move the text rect
-                    textRect.origin.x += imageOffset
-                    textRect.size.width -= imageOffset
-                }
+                let imageAttachment = PDFBuild.sfSymbol(
+                    sfSymbol: sfSymbol,
+                    fontSize: fontOptions.size,
+                    nsColor: NSColor(fontOptions.color)
+                )
+                text.append(NSAttributedString(attachment: imageAttachment))
+                let attributes = labelText.fontAttributes(in: .init(location: 0, length: labelText.length))
+                text.append(NSAttributedString(string: " ", attributes: attributes))
             }
-            let labelBounds = labelText.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
+            text.append(labelText)
+            var textRect = rect.insetBy(dx: 2 * textPadding, dy: 2 * textPadding)
+            let labelBounds = text.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
             let width = labelBounds.width + (4 * textPadding)
             let height = labelBounds.height + (4 * textPadding)
             var fillRect = CGRect(
                 x: rect.origin.x,
                 y: rect.origin.y,
-                width: width + imageOffset,
+                width: width,
                 height: height
             )
             /// Calculate `X` based on alignment
             var xOffset: CGFloat = 0
             switch alignment {
             case .left:
-                xOffset -= 4 * textPadding
+                xOffset -= 2 * textPadding
             case .center:
                 let offset = (rect.width - width) / 2
                 xOffset += offset
@@ -100,7 +95,6 @@ extension PDFBuild {
             }
             /// Move all the rects
             fillRect.origin.x += xOffset
-            imageRect.origin.x += xOffset
             textRect.origin.x += xOffset
             /// Draw the label
             if !calculationOnly, let context = NSGraphicsContext.current?.cgContext {
@@ -111,12 +105,8 @@ extension PDFBuild {
                     context.setFillColor(NSColor(fontOptions.background).cgColor)
                     context.fill(fillRect)
                 }
-                /// Draw the optional SF symbol
-                if let cgImage {
-                    context.drawFlipped(cgImage, in: imageRect)
-                }
-                /// Draw the label text
-                labelText.draw(with: textRect, options: textDrawingOptions, context: nil)
+                /// Draw the text
+                text.draw(with: textRect, options: textDrawingOptions, context: nil)
                 /// Reset the clip
                 context.resetClip()
             }

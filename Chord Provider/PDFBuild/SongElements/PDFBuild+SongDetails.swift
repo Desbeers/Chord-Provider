@@ -38,18 +38,18 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Add the detail items
             let items = NSMutableAttributedString()
-            items.append(detailLabel(icon: .instrument, label: song.settings.display.instrument.label))
+            items.append(detailLabel(sfSymbol: .instrument, label: song.settings.display.instrument.label))
             if let key = song.metadata.key {
-                items.append(detailLabel(icon: .key, label: key.display))
+                items.append(detailLabel(sfSymbol: .key, label: key.display))
             }
             if let capo = song.metadata.capo {
-                items.append(detailLabel(icon: .capo, label: capo))
+                items.append(detailLabel(sfSymbol: .capo, label: capo))
             }
             if let time = song.metadata.time {
-                items.append(detailLabel(icon: .time, label: time))
+                items.append(detailLabel(sfSymbol: .time, label: time))
             }
             if let tempo = song.metadata.tempo {
-                items.append(detailLabel(icon: .tempo, label: "\(tempo) bpm"))
+                items.append(detailLabel(sfSymbol: .tempo, label: "\(tempo) bpm"))
             }
             /// Draw the details
             let textBounds = items.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
@@ -63,26 +63,18 @@ extension PDFBuild {
 
         /// Make a detail label
         /// - Parameters:
-        ///   - icon: The icon as `String`
+        ///   - sfSymbol: The SF symbol as `String`
         ///   - label: The label as `String`
         /// - Returns: An `NSAttributedString` with icon, label and attributes
-        private func detailLabel(icon: SVGIcon, label: String) -> NSAttributedString {
-            guard let image = NSImage(data: icon.data(color: settings.style.theme.foregroundMedium)) else {
-                return NSAttributedString()
-            }
-            image.isTemplate = true
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = image
-            let imageSize = imageAttachment.image?.size ?? .init()
-            imageAttachment.bounds = CGRect(
-                x: CGFloat(0),
-                y: (NSFont.systemFont(ofSize: settings.style.fonts.text.size * 0.8, weight: .regular).capHeight - imageSize.height) / 2,
-                width: imageSize.width,
-                height: imageSize.height
+        private func detailLabel(sfSymbol: SFSymbol, label: String) -> NSAttributedString {
+            let imageAttachment = PDFBuild.sfSymbol(
+                sfSymbol: sfSymbol,
+                fontSize: settings.style.fonts.text.size * 0.8,
+                nsColor: NSColor(settings.style.theme.foregroundLight)
             )
             let result = NSMutableAttributedString()
             result.append(NSAttributedString(attachment: imageAttachment, attributes: .alignment(.center)))
-            result.append(NSAttributedString(string: " \(label)   ", attributes: .smallTextFont(settings: settings) + .alignment(.center)))
+            result.append(NSAttributedString(string: " \(label)   ", attributes: .smallTextFont(settings: settings)))
             return result
         }
     }

@@ -49,13 +49,6 @@ extension PDFStringAttribute {
         style.alignment = alignment
         return [.paragraphStyle: style]
     }
-
-    static func iconFont(icon: SVGIcon, font: ConfigOptions.FontOptions) -> PDFStringAttribute {
-        [
-            .foregroundColor: NSColor(font.color),
-            .font: NSFont.systemFont(ofSize: font.size)
-        ]
-    }
 }
 
 extension PDFStringAttribute {

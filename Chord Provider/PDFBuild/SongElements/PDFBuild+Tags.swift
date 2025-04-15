@@ -43,7 +43,7 @@ extension PDFBuild {
                     let text = NSAttributedString(string: tag, attributes: .attributes(.tag, settings: settings))
                     let render = PDFBuild.Label(
                         labelText: text,
-                        sfSymbol: "tag",
+                        sfSymbol: .tag,
                         drawBackground: true,
                         alignment: .right,
                         fontOptions: settings.style.fonts.tag
