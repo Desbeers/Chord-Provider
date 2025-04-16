@@ -66,9 +66,18 @@ extension PDFBuild {
             }
             text.append(labelText)
             var textRect = rect.insetBy(dx: 2 * textPadding, dy: 2 * textPadding)
-            let labelBounds = text.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
-            let width = labelBounds.width + (4 * textPadding)
+            let labelBounds = labelText.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
+            let textBounds = text.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
+
+            let width = textBounds.width + (4 * textPadding)
             let height = labelBounds.height + (4 * textPadding)
+
+            /// Move the textRect
+            /// - Note: An SF symbol does not like to be less than 14...
+            let yOffset = (textBounds.height - labelBounds.height) / 1.3
+            textRect.origin.y -= yOffset
+            textRect.size.height = textBounds.height
+
             var fillRect = CGRect(
                 x: rect.origin.x,
                 y: rect.origin.y,
