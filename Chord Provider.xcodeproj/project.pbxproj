@@ -316,7 +316,8 @@
 		D7E22D882DB2842C004AA103 /* FontItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontItem.swift */; };
 		D7E22D892DB2844E004AA103 /* FontItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontItem.swift */; };
 		D7E22D912DB3BE23004AA103 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D902DB3BE23004AA103 /* FontUtils.swift */; };
-		D7E22D922DB3BE23004AA103 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D902DB3BE23004AA103 /* FontUtils.swift */; };
+		D7E22D952DB3C1DC004AA103 /* stripttc.c in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D942DB3C1DC004AA103 /* stripttc.c */; };
+		D7E22D9A2DB3C2DF004AA103 /* stripttc.h in Headers */ = {isa = PBXBuildFile; fileRef = D7E22D972DB3C1E9004AA103 /* stripttc.h */; };
 		D7EA87592C5A580A009A3D82 /* AppKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */; };
 		D7EA875B2C5A580A009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */; };
 		D7EA875C2C5A580A009A3D82 /* AppKitUtils+printDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */; };
@@ -649,6 +650,8 @@
 		D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeButton.swift; sourceTree = "<group>"; };
 		D7E22D872DB2842C004AA103 /* FontItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontItem.swift; sourceTree = "<group>"; };
 		D7E22D902DB3BE23004AA103 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
+		D7E22D942DB3C1DC004AA103 /* stripttc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stripttc.c; sourceTree = "<group>"; };
+		D7E22D972DB3C1E9004AA103 /* stripttc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stripttc.h; sourceTree = "<group>"; };
 		D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitUtils.swift; sourceTree = "<group>"; };
 		D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+PDFKitRepresentedView.swift"; sourceTree = "<group>"; };
 		D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+printDialog.swift"; sourceTree = "<group>"; };
@@ -1237,6 +1240,16 @@
 			path = PDFBuild;
 			sourceTree = "<group>";
 		};
+		D7E22D932DB3C195004AA103 /* FontUtils */ = {
+			isa = PBXGroup;
+			children = (
+				D7E22D902DB3BE23004AA103 /* FontUtils.swift */,
+				D7E22D942DB3C1DC004AA103 /* stripttc.c */,
+				D7E22D972DB3C1E9004AA103 /* stripttc.h */,
+			);
+			path = FontUtils;
+			sourceTree = "<group>";
+		};
 		D7EA874C2C5A5809009A3D82 /* AppKitUtils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1343,6 +1356,7 @@
 				D7EA87582C5A580A009A3D82 /* ChordProEditor */,
 				D7F13FA22A6460B7002D875D /* ChordProParser */,
 				D7EA874C2C5A5809009A3D82 /* AppKitUtils */,
+				D7E22D932DB3C195004AA103 /* FontUtils */,
 				D730BC442CA847E7008719F2 /* Midi */,
 				D7F13FAB2A6460B7002D875D /* Views */,
 				D730BBB32CA844C2008719F2 /* Resources */,
@@ -1394,7 +1408,6 @@
 				D7EA87702C5A583B009A3D82 /* Cache.swift */,
 				D70503182D20DDA000DB897A /* ImageCache.swift */,
 				D77CDB192D73323100943462 /* SongFileUtils.swift */,
-				D7E22D902DB3BE23004AA103 /* FontUtils.swift */,
 				D78819652BFB25300033545D /* Help.swift */,
 				D7F13F7A2A645FED002D875D /* Info.plist */,
 				D7781B4D2D0C94E100EC0CCF /* ChordProvider.entitlements */,
@@ -1476,6 +1489,17 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		D7E22D992DB3C2CC004AA103 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7E22D9A2DB3C2DF004AA103 /* stripttc.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		D740728A2BA20D9000DD52F0 /* ChordPro Thumbnail */ = {
 			isa = PBXNativeTarget;
@@ -1500,6 +1524,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7F13F812A645FED002D875D /* Build configuration list for PBXNativeTarget "Chord Provider" */;
 			buildPhases = (
+				D7E22D992DB3C2CC004AA103 /* Headers */,
 				D7F13F6B2A645FEC002D875D /* Sources */,
 				D7F13F6C2A645FEC002D875D /* Frameworks */,
 				D7F13F6D2A645FEC002D875D /* Resources */,
@@ -1556,9 +1581,11 @@
 					};
 					D7F13F6E2A645FEC002D875D = {
 						CreatedOnToolsVersion = 14.3.1;
+						LastSwiftMigration = 1620;
 					};
 					D7F13FF52A646356002D875D = {
 						CreatedOnToolsVersion = 14.3.1;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -1801,6 +1828,7 @@
 				D706FD982BCECC9F005DEDF6 /* PDFBuild+PageBreak.swift in Sources */,
 				D752E59C2CBC2FBA00CDE42D /* ChordProParser+processDefine.swift in Sources */,
 				D730BBF32CA844C2008719F2 /* Utils.swift in Sources */,
+				D7E22D952DB3C1DC004AA103 /* stripttc.c in Sources */,
 				D7F13FE12A6460B7002D875D /* HeaderView.swift in Sources */,
 				D70503172D20C8E500DB897A /* WelcomeView+templates.swift in Sources */,
 				D70503262D2145CE00DB897A /* URL+extensions.swift in Sources */,
@@ -1991,7 +2019,6 @@
 				D730BC6C2CA849C6008719F2 /* ChordDefinition+init.swift in Sources */,
 				D7EF99662BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
 				D7EF996A2BDADC2E0058E1CB /* AppError.swift in Sources */,
-				D7E22D922DB3BE23004AA103 /* FontUtils.swift in Sources */,
 				D70B72A42BD52A9B003C89B4 /* PDFBuild+PageBreak.swift in Sources */,
 				D70B72A52BD52A9B003C89B4 /* PDFBuild+Divider.swift in Sources */,
 				D70B72A62BD52A9B003C89B4 /* PDFBuild+LyricsSection.swift in Sources */,
@@ -2244,6 +2271,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -2285,6 +2313,8 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Chord Provider/FontUtils/stripttc.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;
 			};
@@ -2295,6 +2325,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -2335,6 +2366,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Chord Provider/FontUtils/stripttc.h";
 				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 6.0;
 			};
@@ -2343,6 +2375,7 @@
 		D7F140082A646356002D875D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLpreview/QLpreview.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
@@ -2367,6 +2400,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
@@ -2374,6 +2408,7 @@
 		D7F140092A646356002D875D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLpreview/QLpreview.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";

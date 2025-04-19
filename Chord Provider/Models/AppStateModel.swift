@@ -37,7 +37,7 @@ import SwiftUI
         let settings = AppSettings.load(id: id)
         self.settings = settings
         /// Get all fonts
-        let allFonts = FontUtils.getAllFonts(includingTTCfonts: false)
+        let allFonts = FontUtils.getAllFonts()
         self.fonts = allFonts.fonts
         self.fontFamilies = allFonts.families
     }
@@ -50,6 +50,9 @@ extension AppStateModel {
     /// - Returns: An array with arguments
     static func applyUserSettings(config: String, settings: AppSettings) -> String {
         var config = config
+        /// Paper size
+        let paperSize = settings.pdf.pageSize.rect(settings: settings)
+        config = config.replacingOccurrences(of: "pdf.papersize : a4", with: "pdf.papersize : [\(paperSize.width), \(paperSize.height)]")
         /// Optional show only the lyrics
         if settings.shared.lyricsOnly {
             config = config.replacingOccurrences(of: "settings.lyrics-only : false", with: "settings.lyrics-only : true")

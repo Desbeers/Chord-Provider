@@ -146,7 +146,7 @@ settings.lyrics-only : false
 # diagrams.show : all
 
 // Sorts the diagrams by key. Default is order of appearance.
-# diagrams.sorted : false
+diagrams.sorted : true
 
 // Chords (names) that will not generate diagrams, e.g. if they
 // are considered trivial.
@@ -170,7 +170,7 @@ settings.lyrics-only : false
 # pdf.info.keywords : ""
 
 // Output paper size, e.g. "a4" or [595,842].
-# pdf.papersize : a4
+pdf.papersize : a4
 
 // Theme
 
@@ -484,7 +484,7 @@ pdf.diagrams.fingers : false
 # pdf.formats.title.title : [ "" "%{title}" "" ]
 
 // Three-part title format specification, left, center, right.
-# pdf.formats.title.subtitle : [ "" "%{subtitle}" "" ]
+pdf.formats.title.subtitle : [ "" "%{artist}" "" ]
 
 // Three-part title format specification, left, center, right.
 # pdf.formats.title.footer : [ "" "" "%{page}" ]

@@ -63,7 +63,7 @@ extension SettingsView {
                 if appState.settings.chordPro.useChordProCLI {
                     Toggle(isOn: $appState.settings.chordPro.useChordProviderSettings) {
                         Text("Use the **Chord Provider** settings")
-                        Text("When enabled, some style and options from the settings will be used by the CLI. Fonts are not supported.")
+                        Text("When enabled, some style and options from the settings will be used by the CLI.")
                     }
                     Toggle(isOn: $appState.settings.chordPro.useCustomConfig) {
                         Text("Use a custom ChordPro configuration")

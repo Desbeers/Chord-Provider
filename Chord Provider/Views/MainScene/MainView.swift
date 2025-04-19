@@ -70,6 +70,18 @@ struct MainView: View {
                 await renderSong()
             }
         }
+        .onChange(of: appState.settings.chordPro) {
+            sceneState.song.settings.chordPro = appState.settings.chordPro
+            Task {
+                await renderSong()
+            }
+        }
+        .onChange(of: appState.settings.pdf) {
+            sceneState.song.settings.pdf = appState.settings.pdf
+            Task {
+                await renderSong()
+            }
+        }
         .onChange(of: appState.settings.style) {
             /// Reset chord cache; the theme might have changed
             RenderView.diagramCache.removeAllObjects()

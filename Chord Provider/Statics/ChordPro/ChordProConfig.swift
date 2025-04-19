@@ -17,7 +17,6 @@ extension ChordProConfig {
     struct PDF: Codable {
         var theme = AppSettings.Style.Theme()
         var fonts: [String: FontOptions] = [:]
-        var fontdir = ["/Library/Fonts", "/System/Library/Fonts", "~/Fonts"]
         var fontconfig: [String: String] = [:]
     }
 

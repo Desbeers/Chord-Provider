@@ -185,6 +185,9 @@ extension Terminal {
         if song.settings.chordPro.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: song.settings) {
             arguments.append(customConfig)
         }
+
+        dump(song.settings.chordPro.useChordProviderSettings)
+
         /// Add the **Chord Provider** config
         if song.settings.chordPro.useChordProviderSettings {
             let jsonSettings = song.settings.exportToChordProJSON(chords: song.chords)
