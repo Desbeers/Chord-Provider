@@ -94,8 +94,8 @@ extension FontOptionsView {
                 ZStack {
                     Color(settings.style.theme.background)
                         .frame(maxWidth: .infinity)
-                    Text(options.nsFont(scale: 1).familyName ?? config.rawValue)
-                        .font(.custom(options.font, size: options.size * 1.2))
+                    Text(options.nsFont(scale: 1).displayName ?? config.rawValue)
+                        .font(.custom(options.font.postScriptName, size: options.size * 1.2))
                         .padding(6)
                         .foregroundStyle(config.color(settings: settings))
                         .background(

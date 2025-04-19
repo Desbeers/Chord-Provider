@@ -20,39 +20,45 @@ extension AppSettings {
             switch config {
 
             case .title:
-                settings.pdf.fontconfig["\(fonts.title.fontFamily)."] = fonts.title.font
+                settings.pdf.fontconfig["\(fonts.title.font.familyName)."] = fonts.title.font.postScriptName
                 settings.pdf.fonts["title"] = .init(
+                    file: fonts.title.font.url.path(percentEncoded: false),
                     color: config.color(settings: self).toHex,
                     size: Int(fonts.title.size)
                 )
             case .subtitle:
-                settings.pdf.fontconfig["\(fonts.subtitle.fontFamily)."] = fonts.subtitle.font
+                settings.pdf.fontconfig["\(fonts.subtitle.font.familyName)."] = fonts.subtitle.font.postScriptName
                 settings.pdf.fonts["subtitle"] = .init(
+                    file: fonts.subtitle.font.url.path(percentEncoded: false),
                     color: config.color(settings: self).toHex,
                     size: Int(fonts.subtitle.size)
                 )
             case .text:
-                settings.pdf.fontconfig["\(fonts.text.fontFamily)."] = fonts.text.font
+                settings.pdf.fontconfig["\(fonts.text.font.familyName)."] = fonts.text.font.postScriptName
                 settings.pdf.fonts["text"] = .init(
+                    file: fonts.text.font.url.path(percentEncoded: false),
                     color: config.color(settings: self).toHex,
                     size: Int(fonts.text.size)
                 )
             case .chord:
-                settings.pdf.fontconfig["\(fonts.chord.fontFamily)."] = fonts.chord.font
+                settings.pdf.fontconfig["\(fonts.chord.font.familyName)."] = fonts.chord.font.postScriptName
                 settings.pdf.fonts["chord"] = .init(
+                    file: fonts.chord.font.url.path(percentEncoded: false),
                     color: config.color(settings: self).toHex,
                     size: Int(fonts.chord.size)
                 )
             case .label:
-                settings.pdf.fontconfig["\(fonts.label.fontFamily)."] = fonts.label.font
+                settings.pdf.fontconfig["\(fonts.label.font.familyName)."] = fonts.label.font.postScriptName
                 settings.pdf.fonts["label"] = .init(
+                    file: fonts.label.font.url.path(percentEncoded: false),
                     color: config.color(settings: self).toHex,
                     background: fonts.label.background.toHex,
                     size: Int(fonts.label.size)
                 )
             case .comment:
-                settings.pdf.fontconfig["\(fonts.comment.fontFamily)."] = fonts.comment.font
+                settings.pdf.fontconfig["\(fonts.comment.font.familyName)."] = fonts.comment.font.postScriptName
                 settings.pdf.fonts["comment"] = .init(
+                    file: fonts.comment.font.url.path(percentEncoded: false),
                     color: config.color(settings: self).toHex,
                     background: fonts.comment.background.toHex,
                     size: Int(fonts.comment.size)

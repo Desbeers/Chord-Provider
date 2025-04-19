@@ -313,6 +313,10 @@
 		D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */; };
 		D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */; };
 		D7CA63312AED3D4E00C6B4BB /* MetronomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */; };
+		D7E22D882DB2842C004AA103 /* FontItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontItem.swift */; };
+		D7E22D892DB2844E004AA103 /* FontItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontItem.swift */; };
+		D7E22D912DB3BE23004AA103 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D902DB3BE23004AA103 /* FontUtils.swift */; };
+		D7E22D922DB3BE23004AA103 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D902DB3BE23004AA103 /* FontUtils.swift */; };
 		D7EA87592C5A580A009A3D82 /* AppKitUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */; };
 		D7EA875B2C5A580A009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */; };
 		D7EA875C2C5A580A009A3D82 /* AppKitUtils+printDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */; };
@@ -643,6 +647,8 @@
 		D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighTick.aif; sourceTree = "<group>"; };
 		D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = LowTick.aif; sourceTree = "<group>"; };
 		D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeButton.swift; sourceTree = "<group>"; };
+		D7E22D872DB2842C004AA103 /* FontItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontItem.swift; sourceTree = "<group>"; };
+		D7E22D902DB3BE23004AA103 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
 		D7EA87462C5A5809009A3D82 /* AppKitUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppKitUtils.swift; sourceTree = "<group>"; };
 		D7EA87482C5A5809009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+PDFKitRepresentedView.swift"; sourceTree = "<group>"; };
 		D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+printDialog.swift"; sourceTree = "<group>"; };
@@ -1264,6 +1270,7 @@
 		D7EA877A2C5A587A009A3D82 /* Structures */ = {
 			isa = PBXGroup;
 			children = (
+				D7E22D872DB2842C004AA103 /* FontItem.swift */,
 				D7336ACE2C26FBFF00D0AA8E /* AlertMessage.swift */,
 				D7781B502D0CA06900EC0CCF /* LogMessage.swift */,
 				D70D96D72CB28B8200B51A14 /* AppSettings */,
@@ -1387,6 +1394,7 @@
 				D7EA87702C5A583B009A3D82 /* Cache.swift */,
 				D70503182D20DDA000DB897A /* ImageCache.swift */,
 				D77CDB192D73323100943462 /* SongFileUtils.swift */,
+				D7E22D902DB3BE23004AA103 /* FontUtils.swift */,
 				D78819652BFB25300033545D /* Help.swift */,
 				D7F13F7A2A645FED002D875D /* Info.plist */,
 				D7781B4D2D0C94E100EC0CCF /* ChordProvider.entitlements */,
@@ -1684,6 +1692,7 @@
 				D72EDE3E2BF789EE00624827 /* ChordPro+Directive+Details.swift in Sources */,
 				D7A283832C3476A300E2F0BB /* PreviewPDFButton.swift in Sources */,
 				D733F6002B90A8AA0065D6FD /* AppStateModel+Elements.swift in Sources */,
+				D7E22D912DB3BE23004AA103 /* FontUtils.swift in Sources */,
 				D7EA87612C5A580A009A3D82 /* Editor+highlight.swift in Sources */,
 				D7CA63272AEB397A00C6B4BB /* MetronomeModel.swift in Sources */,
 				D7EC28A12BF690FE00F220A1 /* String+extensions.swift in Sources */,
@@ -1749,6 +1758,7 @@
 				D706FD9C2BCECC9F005DEDF6 /* PDFBuild+Text.swift in Sources */,
 				D7C47CC32DA1310B0037CC00 /* AppSettings+PDF.swift in Sources */,
 				D7C725D02BFF87C5006D9C74 /* AppDelegate.swift in Sources */,
+				D7E22D882DB2842C004AA103 /* FontItem.swift in Sources */,
 				D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */,
 				D75955AF2CF9D5E500CF3590 /* DebugMessage.swift in Sources */,
 				D78819662BFB25300033545D /* Help.swift in Sources */,
@@ -1972,6 +1982,7 @@
 				D70D96D22CB2878700B51A14 /* ChordPro+Directive+extensions.swift in Sources */,
 				D77CDB1E2D73417300943462 /* Artist.swift in Sources */,
 				D730BC682CA849C6008719F2 /* Chord+Root.swift in Sources */,
+				D7E22D892DB2844E004AA103 /* FontItem.swift in Sources */,
 				D7496DE52CEF868500C8FFA8 /* ChordProParser+autoSection.swift in Sources */,
 				D730BC6A2CA849C6008719F2 /* Chord+Status.swift in Sources */,
 				D7F056912CEBA7D000E422AA /* ChordProParser+processMetadata.swift in Sources */,
@@ -1980,6 +1991,7 @@
 				D730BC6C2CA849C6008719F2 /* ChordDefinition+init.swift in Sources */,
 				D7EF99662BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
 				D7EF996A2BDADC2E0058E1CB /* AppError.swift in Sources */,
+				D7E22D922DB3BE23004AA103 /* FontUtils.swift in Sources */,
 				D70B72A42BD52A9B003C89B4 /* PDFBuild+PageBreak.swift in Sources */,
 				D70B72A52BD52A9B003C89B4 /* PDFBuild+Divider.swift in Sources */,
 				D70B72A62BD52A9B003C89B4 /* PDFBuild+LyricsSection.swift in Sources */,

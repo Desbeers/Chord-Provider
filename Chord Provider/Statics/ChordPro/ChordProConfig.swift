@@ -22,6 +22,7 @@ extension ChordProConfig {
     }
 
     struct FontOptions: Codable {
+        var file: String
         var color: String = "#000000"
         var background: String?
         var size: Int = 10

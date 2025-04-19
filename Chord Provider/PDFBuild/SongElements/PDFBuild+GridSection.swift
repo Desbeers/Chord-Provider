@@ -105,7 +105,7 @@ extension PDFStringAttribute {
     /// String attributes for a grid line
     static func gridText(settings: AppSettings) -> PDFStringAttribute {
         let font = NSFont(
-            name: settings.style.fonts.text.font,
+            name: settings.style.fonts.text.font.postScriptName,
             size: settings.style.fonts.chord.size
         ) ?? .systemFont(ofSize: settings.style.fonts.chord.size)
         return [

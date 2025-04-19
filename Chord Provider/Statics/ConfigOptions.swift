@@ -17,11 +17,7 @@ extension ConfigOptions {
     /// Options for a *font* in **ChordPro**
     /// - Note: a *font* is not like a `Font`; it is more like a *directive font* like `title`
     struct FontOptions: Codable, Equatable {
-        /// The font family
-        /// - Note: Only used for the GUI to select a font
-        var fontFamily: String = "Helvetica"
-        /// The actual font as `String`
-        var font: String = "Helvetica"
+        var font: FontItem = FontItem()
         /// The size of the font
         var size: Double = 10
         /// The color of the font
@@ -32,12 +28,12 @@ extension ConfigOptions {
 
         /// The calculated `NSFont`
         func nsFont(scale: Double = 1) -> NSFont {
-            NSFont(name: font, size: size * scale) ?? NSFont.systemFont(ofSize: size)
+            NSFont(name: font.postScriptName, size: size * scale) ?? NSFont.systemFont(ofSize: size)
         }
 
         /// The calculated `Font`
         func swiftUIFont(scale: Double) -> Font {
-            Font(NSFont(name: font, size: size * scale) ?? .systemFont(ofSize: size * scale))
+            Font(NSFont(name: font.postScriptName, size: size * scale) ?? .systemFont(ofSize: size * scale))
         }
     }
 }

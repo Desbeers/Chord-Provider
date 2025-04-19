@@ -71,7 +71,7 @@ extension PDFStringAttribute {
 
     /// Style attributes for the export title
     static func exportTitle(settings: AppSettings) -> PDFStringAttribute {
-        let font = NSFont(name: settings.style.fonts.title.font, size: 28) ?? NSFont.systemFont(ofSize: 28)
+        let font = NSFont(name: settings.style.fonts.title.font.postScriptName, size: 28) ?? NSFont.systemFont(ofSize: 28)
         return [
             .foregroundColor: NSColor.white,
             .font: font
@@ -80,7 +80,7 @@ extension PDFStringAttribute {
 
     /// Style attributes for the export author
     static func exportAuthor(settings: AppSettings) -> PDFStringAttribute {
-        let font = NSFont(name: settings.style.fonts.subtitle.font, size: 24) ?? NSFont.systemFont(ofSize: 28)
+        let font = NSFont(name: settings.style.fonts.subtitle.font.postScriptName, size: 24) ?? NSFont.systemFont(ofSize: 28)
         return [
             .foregroundColor: NSColor.gray,
             .font: font

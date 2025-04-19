@@ -8,7 +8,7 @@
 import AppKit
 
 extension PDFBuild {
-    
+
     /// Add an SF Symbol as `NSTextAttachment`
     /// - Parameters:
     ///   - sfSymbol: The ``SFSymbol`` to use

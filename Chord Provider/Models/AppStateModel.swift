@@ -26,7 +26,9 @@ import SwiftUI
     /// The optional media next to the song
     var media = MediaPlayerView.Item()
     /// All available font families
-    let fontFamilies = NSFontManager.shared.availableFontFamilies.sorted()
+    var fontFamilies: [String] = []
+    /// All available fonts
+    var fonts: [FontItem] = []
 
     /// Init the class; get application settings
     init(id: AppSettings.AppWindowID) {
@@ -34,6 +36,10 @@ import SwiftUI
         /// Get the application window settings from the cache
         let settings = AppSettings.load(id: id)
         self.settings = settings
+        /// Get all fonts
+        let allFonts = FontUtils.getAllFonts(includingTTCfonts: false)
+        self.fonts = allFonts.fonts
+        self.fontFamilies = allFonts.families
     }
 }
 

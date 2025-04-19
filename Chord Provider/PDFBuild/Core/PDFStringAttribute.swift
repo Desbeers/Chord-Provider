@@ -35,7 +35,7 @@ extension PDFStringAttribute {
     static func smallTextFont(settings: AppSettings) -> PDFStringAttribute {
         [
             .foregroundColor: NSColor(settings.style.theme.foreground),
-            .font: NSFont(name: settings.style.fonts.text.font, size: settings.style.fonts.text.size * 0.8) ?? NSFont.systemFont(ofSize: 8)
+            .font: NSFont(name: settings.style.fonts.text.font.postScriptName, size: settings.style.fonts.text.size * 0.8) ?? NSFont.systemFont(ofSize: 8)
         ]
     }
 
