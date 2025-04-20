@@ -1,5 +1,5 @@
 //
-//  Song+Section+Line+strum.swift
+//  Song+Section+Line+Strum.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen

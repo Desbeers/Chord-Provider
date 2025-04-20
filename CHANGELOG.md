@@ -2,13 +2,12 @@
 
 - First binary release, only *ad-hoc* signed
 
-# 6.x.x (---)
+# 6.1.0 (2025-04-20)
 
 - Fix comments inside environments
 - Fix comments before unknown environments
 - Fix icons in PDF song details
 - Improve 'grid' chords highlighting
-- Use custom SVG icons for song details
 - Improve chord validation
 - Add option to insert current chord definitions into the document
 - Add GUI option to add articles to ignore when sorting songs

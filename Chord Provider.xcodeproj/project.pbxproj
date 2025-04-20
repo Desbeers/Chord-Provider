@@ -307,8 +307,8 @@
 		D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */; };
 		D7C725CE2BFF5B49006D9C74 /* NSWindow+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */; };
 		D7C725D02BFF87C5006D9C74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */; };
-		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
-		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */; };
+		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */; };
+		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */; };
 		D7CA63272AEB397A00C6B4BB /* MetronomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */; };
 		D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */; };
 		D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */; };
@@ -643,7 +643,7 @@
 		D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+extension.swift"; sourceTree = "<group>"; };
 		D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+strum.swift"; sourceTree = "<group>"; };
+		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+Strum.swift"; sourceTree = "<group>"; };
 		D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeModel.swift; sourceTree = "<group>"; };
 		D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighTick.aif; sourceTree = "<group>"; };
 		D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = LowTick.aif; sourceTree = "<group>"; };
@@ -1376,7 +1376,7 @@
 				D7F13F852A6460B7002D875D /* Song+Section+Line.swift */,
 				D7F13F8A2A6460B7002D875D /* Song+Section+Line+Part.swift */,
 				D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */,
-				D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift */,
+				D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */,
 			);
 			path = Song;
 			sourceTree = "<group>";
@@ -1742,7 +1742,7 @@
 				D730BC142CA844C2008719F2 /* Chord+Quality+name.swift in Sources */,
 				D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */,
 				D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */,
-				D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,
+				D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */,
 				D730BBD52CA844C2008719F2 /* RegexDefinitions.swift in Sources */,
 				D779D3552C68F0D700380175 /* WelcomeView.swift in Sources */,
 				D7972B912BCD506B00752CF9 /* SongExport.swift in Sources */,
@@ -1948,7 +1948,7 @@
 				D71F864F2D843F1900BA57BD /* AppSettings+Style.swift in Sources */,
 				D7F344092CECBED700205A90 /* ChordProParser+openSection.swift in Sources */,
 				D7F140172A64647D002D875D /* Song+Section+Line.swift in Sources */,
-				D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+strum.swift in Sources */,
+				D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */,
 				D7C47CC62DA131D30037CC00 /* PDFBuild+PageSize.swift in Sources */,
 				D70C4C752DA4469D00FAF2FF /* AppSettings+Shared.swift in Sources */,
 				D70D96E82CB2B62500B51A14 /* ChordPro+Instrument.swift in Sources */,
