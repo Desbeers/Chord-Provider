@@ -54,6 +54,7 @@ struct DebugView: View {
                 for line in song.sections.flatMap(\.lines) {
                     content.append((line: line.sourceLineNumber, source: line))
                 }
+                self.content = content
             }
         }
         .task(id: appState.lastUpdate) {
