@@ -70,7 +70,16 @@ extension PDFBuild {
                         }
                     }
                 case .comment:
-                    text.append(NSAttributedString(string: "\u{270d} \(line.plain)\n", attributes: .attributes(.comment, settings: settings)))
+                    let imageAttachment = PDFBuild.sfSymbol(
+                        sfSymbol: .comment,
+                        fontSize: settings.style.fonts.comment.size,
+                        nsColor: NSColor(settings.style.fonts.comment.color)
+                    )
+                    text.append(NSAttributedString(attachment: imageAttachment))
+                    text.append(NSAttributedString(
+                        string: "\(line.plain)\n",
+                        attributes: .attributes(.comment, settings: settings))
+                    )
                 default:
                     break
                 }

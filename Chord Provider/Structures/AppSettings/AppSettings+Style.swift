@@ -41,6 +41,7 @@ extension AppSettings.Style {
             case .light:
                 style.theme.foreground = .black
                 style.theme.foregroundMedium = .gray
+                style.theme.foregroundLight = .gray.opacity(0.8)
                 style.theme.background = .white
                 style.fonts.title.color = .black
                 style.fonts.subtitle.color = .gray
@@ -54,6 +55,7 @@ extension AppSettings.Style {
             case .dark:
                 style.theme.foreground = .white
                 style.theme.foregroundMedium = .gray
+                style.theme.foregroundLight = .gray.opacity(0.8)
                 style.theme.background = .black
                 style.fonts.title.color = .white
                 style.fonts.subtitle.color = .gray
@@ -67,6 +69,7 @@ extension AppSettings.Style {
             case .random:
                 style.theme.foreground = .randomDark
                 style.theme.foregroundMedium = .randomDark
+                style.theme.foregroundLight = .randomDark
                 style.theme.background = .randomLight
                 style.fonts.title.color = .randomDark
                 style.fonts.subtitle.color = .randomDark
@@ -103,7 +106,7 @@ extension AppSettings.Style {
         /// The foreground color
         var foreground: Color = .black
         /// The light foreground color
-        var foregroundLight: Color = .gray
+        var foregroundLight: Color = .gray.opacity(0.8)
         /// The medium foreground color
         var foregroundMedium: Color = .gray
         /// The background color

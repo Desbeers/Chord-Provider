@@ -125,16 +125,3 @@ extension PDFBuild {
         }
     }
 }
-
-
-extension CGContext {
-
-    /// Draw `image` flipped vertically, positioned and scaled inside `rect`.
-    public func drawFlipped(_ image: CGImage, in rect: CGRect) {
-        self.saveGState()
-        self.translateBy(x: 0, y: rect.origin.y + rect.height)
-        self.scaleBy(x: 1.0, y: -1.0)
-        self.draw(image, in: CGRect(origin: CGPoint(x: rect.origin.x, y: 0), size: rect.size))
-        self.restoreGState()
-    }
-}

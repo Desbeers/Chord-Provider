@@ -28,8 +28,9 @@ extension SettingsView {
                     .wrapSettingsSection(title: "Color Templates")
                     VStack {
                         Form {
-                            ColorPicker("Foreground Color", selection: $appState.settings.style.theme.foreground, supportsOpacity: false)
-                            ColorPicker("Secondary Foreground Color", selection: $appState.settings.style.theme.foregroundMedium, supportsOpacity: false)
+                            ColorPicker("Foreground Color", selection: $appState.settings.style.theme.foreground, supportsOpacity: true)
+                            ColorPicker("Medium Foreground Color", selection: $appState.settings.style.theme.foregroundMedium, supportsOpacity: true)
+                            ColorPicker("Light Foreground Color", selection: $appState.settings.style.theme.foregroundLight, supportsOpacity: true)
                             ColorPicker("Background Color", selection: $appState.settings.style.theme.background, supportsOpacity: false)
                         }
                         .formStyle(.columns)
