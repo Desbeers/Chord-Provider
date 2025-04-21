@@ -61,7 +61,7 @@ extension PDFStringAttribute {
     /// String attributes for a strum line
     static func strumLine(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.style.theme.foreground),
+            .foregroundColor: settings.style.theme.foreground.nsColor,
             .font: NSFont.monospacedSystemFont(ofSize: settings.style.fonts.text.size, weight: .regular)
         ]
     }
@@ -69,7 +69,7 @@ extension PDFStringAttribute {
     /// String attributes for a strum line beat
     static func strumLineBeat(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.style.theme.foregroundMedium),
+            .foregroundColor: settings.style.theme.foregroundMedium.nsColor,
             .font: NSFont.monospacedSystemFont(ofSize: settings.style.fonts.text.size * 0.8, weight: .regular)
         ]
     }

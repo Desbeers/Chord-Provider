@@ -50,7 +50,7 @@ extension FolderExport {
             if settings.application.songListSort == .artist, divider != tocInfo.song.metadata.artist {
                 /// Add a divider
                 tocBuilder.elements.append(
-                    PDFBuild.Divider(direction: .horizontal, color: NSColor(settings.style.theme.foregroundLight))
+                    PDFBuild.Divider(direction: .horizontal, color: settings.style.theme.foregroundLight.nsColor)
                         .padding(10)
                 )
                 /// Remember the artist
@@ -60,7 +60,7 @@ extension FolderExport {
             if settings.application.songListSort == .song, divider != tocInfo.song.metadata.sortTitle.prefix(1).lowercased() {
                 /// Add a divider
                 tocBuilder.elements.append(
-                    PDFBuild.Divider(direction: .horizontal, color: NSColor(settings.style.theme.foregroundLight))
+                    PDFBuild.Divider(direction: .horizontal, color: settings.style.theme.foregroundLight.nsColor)
                         .padding(10)
                 )
                 /// Remember the first letter

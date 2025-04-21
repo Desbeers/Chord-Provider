@@ -166,7 +166,7 @@ extension PDFBuild.Chords {
                         height: ySpacing / 5
                     )
                     if chord.baseFret == 1, let context = NSGraphicsContext.current?.cgContext {
-                        context.setFillColor(NSColor(settings.style.theme.foreground).cgColor)
+                        context.setFillColor(settings.style.theme.foreground.nsColor.cgColor)
                         context.fill(nutRect)
                     }
                 }
@@ -217,7 +217,7 @@ extension PDFBuild.Chords {
                             context.addLine(to: CGPoint(x: start.x + gridSize.width, y: start.y))
                             start.y += ySpacing
                         }
-                        context.setStrokeColor(NSColor(settings.style.theme.foreground).cgColor)
+                        context.setStrokeColor(settings.style.theme.foreground.nsColor.cgColor)
                         context.setLineWidth(0.2)
                         context.setLineCap(.round)
                         context.strokePath()
@@ -250,7 +250,7 @@ extension PDFBuild.Chords {
                             let finger = settings.diagram.showFingers && fingers[string] != 0 ?
                             "\(fingers[string])" : " "
                             let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
-                            let background = PDFBuild.Background(color: NSColor(settings.style.theme.foregroundMedium), text)
+                            let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, text)
                             let shape = PDFBuild.Clip(.circle, background)
                             var tmpRect = dotRect
                             shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
@@ -287,7 +287,7 @@ extension PDFBuild.Chords {
                         barre = settings.diagram.mirrorDiagram ? chord.mirrorBarre(barre) : barre
                         let finger = settings.diagram.showFingers ? "\(barre.finger)" : " "
                         let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
-                        let background = PDFBuild.Background(color: NSColor(settings.style.theme.foregroundMedium), text)
+                        let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, text)
                         let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
                         var tmpRect = CGRect(
                             x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing) + xOffset,
@@ -337,21 +337,11 @@ extension PDFBuild.Chords {
 
 extension PDFStringAttribute {
 
-    // MARK: Diagram string styling
-
-//    /// Style attributes for the diagram chord name
-//    static func diagramChordName(settings: AppSettings.PDF) -> PDFStringAttribute {
-//        [
-//            .foregroundColor: NSColor(settings.fonts.chord.color),
-//            .font: NSFont.systemFont(ofSize: 10, weight: .regular)
-//        ]
-//    }
-
     /// Style attributes for the diagram finger
     static func diagramFinger(settings: AppSettings) -> PDFStringAttribute {
         [
             .font: NSFont.systemFont(ofSize: 6, weight: .regular),
-            .foregroundColor: NSColor(settings.style.theme.background)
+            .foregroundColor: settings.style.theme.background.nsColor
         ] + .alignment(.center)
     }
 
@@ -359,7 +349,7 @@ extension PDFStringAttribute {
     static func diagramTopBar(settings: AppSettings) -> PDFStringAttribute {
         [
             .font: NSFont.systemFont(ofSize: 5, weight: .semibold),
-            .foregroundColor: NSColor(settings.style.theme.foreground)
+            .foregroundColor: settings.style.theme.foreground.nsColor
         ] + .alignment(.center)
     }
 
@@ -367,7 +357,7 @@ extension PDFStringAttribute {
     static func diagramBaseFret(settings: AppSettings) -> PDFStringAttribute {
         [
             .font: NSFont.systemFont(ofSize: 4, weight: .regular),
-            .foregroundColor: NSColor(settings.style.theme.foreground)
+            .foregroundColor: settings.style.theme.foreground.nsColor
         ] + .alignment(.right)
     }
 
@@ -375,7 +365,7 @@ extension PDFStringAttribute {
     static func diagramBottomBar(settings: AppSettings) -> PDFStringAttribute {
         [
             .font: NSFont.systemFont(ofSize: 4, weight: .regular),
-            .foregroundColor: NSColor(settings.style.theme.foreground)
+            .foregroundColor: settings.style.theme.foreground.nsColor
         ] + .alignment(.center)
     }
 }

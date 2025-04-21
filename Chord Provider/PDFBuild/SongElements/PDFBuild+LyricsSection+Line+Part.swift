@@ -86,7 +86,7 @@ extension PDFStringAttribute {
     static func partChord(settings: AppSettings) -> PDFStringAttribute {
         let font = settings.style.fonts.chord.nsFont(scale: settings.pdf.scale)
         return [
-            .foregroundColor: NSColor(settings.style.fonts.chord.color),
+            .foregroundColor: settings.style.fonts.chord.color.nsColor,
             .font: font
         ]
     }

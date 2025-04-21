@@ -34,7 +34,7 @@ extension PDFStringAttribute {
     /// Style attributes for a slightly smaller text font
     static func smallTextFont(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.style.theme.foreground),
+            .foregroundColor: settings.style.theme.foreground.nsColor,
             .font: NSFont(name: settings.style.fonts.text.font.postScriptName, size: settings.style.fonts.text.size * 0.8) ?? NSFont.systemFont(ofSize: 8)
         ]
     }
@@ -58,7 +58,7 @@ extension PDFStringAttribute {
     /// - Returns: The ``PDFStringAttribute`` with the foreground color
     static func foregroundColor(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.style.theme.foreground)
+            .foregroundColor: settings.style.theme.foreground.nsColor
         ]
     }
 
@@ -75,28 +75,28 @@ extension PDFStringAttribute {
         switch config {
         case .title:
             font = settings.fonts.title.nsFont(scale: scale)
-            color = NSColor(settings.theme.foreground)
+            color = settings.theme.foreground.nsColor
         case .subtitle:
             font = settings.fonts.subtitle.nsFont(scale: scale)
-            color = NSColor(settings.theme.foregroundMedium)
+            color = settings.theme.foregroundMedium.nsColor
         case .text:
             font = settings.fonts.text.nsFont(scale: scale)
-            color = NSColor(settings.theme.foreground)
+            color = settings.theme.foreground.nsColor
         case .chord:
             font = settings.fonts.chord.nsFont(scale: scale)
-            color = NSColor(settings.fonts.chord.color)
+            color = settings.fonts.chord.color.nsColor
         case .label:
             font = settings.fonts.label.nsFont(scale: scale)
-            color = NSColor(settings.fonts.label.color)
+            color = settings.fonts.label.color.nsColor
         case .comment:
             font = settings.fonts.comment.nsFont(scale: scale)
-            color = NSColor(settings.fonts.comment.color)
+            color = settings.fonts.comment.color.nsColor
         case .tag:
             font = settings.fonts.tag.nsFont(scale: scale)
-            color = NSColor(settings.fonts.tag.color)
+            color = settings.fonts.tag.color.nsColor
         case .textblock:
             font = settings.fonts.textblock.nsFont(scale: scale)
-            color = NSColor(settings.fonts.textblock.color)
+            color = settings.fonts.textblock.color.nsColor
         }
         return [
             .font: font,

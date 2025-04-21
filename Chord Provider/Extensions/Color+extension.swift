@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Color: Codable {
 
-    /// Override equatable confirmation is a little bit less strict version
+    /// Override equatable confirmation in a little bit less strict version
     static func == (lhs: Color, rhs: Color) -> Bool {
         lhs.toHex == rhs.toHex
     }
@@ -48,6 +48,11 @@ extension Color: Codable {
             green: .random(in: 0.7...1),
             blue: .random(in: 0.7...1)
         )
+    }
+
+    /// Convert Color to NSColor
+    var nsColor: NSColor {
+        NSColor(self)
     }
 }
 

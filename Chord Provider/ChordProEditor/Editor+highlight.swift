@@ -43,13 +43,13 @@ extension Editor {
     /// - Returns: The highlight regex dictionary
     static func regexes(settings: Editor.Settings) -> [(regex: NSRegularExpression, color: NSColor, regexType: RegexType)] {
         return [
-            (commentsRegex, NSColor(settings.commentColor), .normal),
-            (directiveRegex, NSColor(settings.directiveColor), .directive),
-            (markupRegex, NSColor(settings.markupColor), .normal),
-            (keyValueRegex, NSColor(settings.markupColor), .normal),
-            (chordRegex, NSColor(settings.chordColor), .normal),
-            (gridRegex, NSColor(settings.chordColor), .normal),
-            (bracketsRegex, NSColor(settings.bracketColor), .normal)
+            (commentsRegex, settings.commentColor.nsColor, .normal),
+            (directiveRegex, settings.directiveColor.nsColor, .directive),
+            (markupRegex, settings.markupColor.nsColor, .normal),
+            (keyValueRegex, settings.markupColor.nsColor, .normal),
+            (chordRegex, settings.chordColor.nsColor, .normal),
+            (gridRegex, settings.chordColor.nsColor, .normal),
+            (bracketsRegex, settings.bracketColor.nsColor, .normal)
         ]
     }
 
@@ -106,7 +106,7 @@ extension Editor {
                     /// There is an argument
                     view.textStorage?.addAttribute(
                         .foregroundColor,
-                        value: NSColor(settings.argumentColor),
+                        value: settings.argumentColor.nsColor,
                         range: match.range(at: 2)
                     )
                 }

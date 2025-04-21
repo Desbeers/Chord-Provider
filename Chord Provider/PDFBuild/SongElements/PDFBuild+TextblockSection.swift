@@ -73,7 +73,7 @@ extension PDFBuild {
                     let imageAttachment = PDFBuild.sfSymbol(
                         sfSymbol: .comment,
                         fontSize: settings.style.fonts.comment.size,
-                        nsColor: NSColor(settings.style.fonts.comment.color)
+                        nsColor: settings.style.fonts.comment.color.nsColor
                     )
                     text.append(NSAttributedString(attachment: imageAttachment))
                     text.append(NSAttributedString(
@@ -109,7 +109,7 @@ extension PDFBuild {
             if !section.label.isEmpty {
                 let label = PDFBuild.Text(section.label, attributes: .attributes(.label, settings: settings) + .alignment(flush))
                 label.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
-                let divider = PDFBuild.Divider(direction: .horizontal, color: NSColor(settings.style.theme.foregroundLight))
+                let divider = PDFBuild.Divider(direction: .horizontal, color: settings.style.theme.foregroundLight.nsColor)
                 divider.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
             /// Add the label height
@@ -134,7 +134,7 @@ extension PDFStringAttribute {
     /// String attributes for a textblock  line
     static func textblockLine(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.style.fonts.textblock.color),
+            .foregroundColor: settings.style.fonts.textblock.color.nsColor,
             .font: NSFont.systemFont(ofSize: settings.style.fonts.textblock.size)
         ]
     }

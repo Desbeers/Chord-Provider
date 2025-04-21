@@ -58,7 +58,7 @@ extension PDFBuild {
                 let imageAttachment = PDFBuild.sfSymbol(
                     sfSymbol: sfSymbol,
                     fontSize: fontOptions.size,
-                    nsColor: NSColor(fontOptions.color)
+                    nsColor: fontOptions.color.nsColor
                 )
                 text.append(NSAttributedString(attachment: imageAttachment))
                 let attributes = labelText.fontAttributes(in: .init(location: 0, length: labelText.length))
@@ -111,7 +111,7 @@ extension PDFBuild {
                 NSBezierPath(roundedRect: fillRect, xRadius: cornerRadius, yRadius: cornerRadius).addClip()
                 /// Draw the optional background
                 if drawBackground {
-                    context.setFillColor(NSColor(fontOptions.background).cgColor)
+                    context.setFillColor(fontOptions.background.nsColor.cgColor)
                     context.fill(fillRect)
                 }
                 /// Draw the text

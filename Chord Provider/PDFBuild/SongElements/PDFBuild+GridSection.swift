@@ -109,7 +109,7 @@ extension PDFStringAttribute {
             size: settings.style.fonts.chord.size
         ) ?? .systemFont(ofSize: settings.style.fonts.chord.size)
         return [
-            .foregroundColor: NSColor(settings.style.theme.foreground),
+            .foregroundColor: settings.style.theme.foreground.nsColor,
             .font: font
         ]
     }
@@ -117,7 +117,7 @@ extension PDFStringAttribute {
     static func gridChord(settings: AppSettings) -> PDFStringAttribute {
         let font = settings.style.fonts.chord.nsFont(scale: 1)
         return [
-            .foregroundColor: NSColor(settings.style.fonts.chord.color),
+            .foregroundColor: settings.style.fonts.chord.color.nsColor,
             .font: font
         ]
     }

@@ -62,7 +62,7 @@ extension PDFStringAttribute {
     /// Style attributes for the line of a tab
     static func tabLine(fontSize: CGFloat, settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor(settings.style.theme.foreground),
+            .foregroundColor: settings.style.theme.foreground.nsColor,
             .font: NSFont.monospacedSystemFont(ofSize: fontSize, weight: .regular)
         ]
     }

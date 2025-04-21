@@ -70,7 +70,7 @@ extension PDFBuild {
             let imageAttachment = PDFBuild.sfSymbol(
                 sfSymbol: sfSymbol,
                 fontSize: settings.style.fonts.text.size * 0.8,
-                nsColor: NSColor(settings.style.theme.foregroundMedium)
+                nsColor: settings.style.theme.foregroundMedium.nsColor
             )
             let result = NSMutableAttributedString()
             result.append(NSAttributedString(attachment: imageAttachment, attributes: .alignment(.center)))

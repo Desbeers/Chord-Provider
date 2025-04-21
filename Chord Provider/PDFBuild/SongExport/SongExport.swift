@@ -204,7 +204,7 @@ extension SongExport {
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
                     ),
-                    PDFBuild.Divider(direction: .vertical, color: NSColor(settings.style.theme.foregroundLight)),
+                    PDFBuild.Divider(direction: .vertical, color: settings.style.theme.foregroundLight.nsColor),
                     PDFBuild.LyricsSection(section, chords: song.settings.shared.lyricsOnly ? [] : song.chords, settings: settings)
                 ]
             )
@@ -406,7 +406,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Spacer`` or a ``PDFBuild/Divider``
         /// - Note: If the label is empty, a spacer is returned, else a divider
         func labelDivider(section: Song.Section) -> PDFElement {
-            section.label.isEmpty ? PDFBuild.Spacer() : PDFBuild.Divider(direction: .vertical, color: NSColor(settings.style.theme.foregroundLight))
+            section.label.isEmpty ? PDFBuild.Spacer() : PDFBuild.Divider(direction: .vertical, color: settings.style.theme.foregroundLight.nsColor)
         }
     }
 }
