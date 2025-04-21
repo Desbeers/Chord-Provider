@@ -18,11 +18,23 @@ extension RenderView {
                 switch line.directive {
                 case .environmentLine:
                     if let strums = line.strum {
-                        ForEach(strums) {strum in
-                            Text(strum)
+                        HStack {
+                            ForEach(strums, id: \.self) {strumPart in
+                                HStack(spacing: 0) {
+                                    ForEach(strumPart) { strum in
+                                        VStack {
+                                            Text(strum.strum)
+                                                .font(song.settings.style.fonts.text.swiftUIFont(scale: song.settings.scale))
+                                            Text(strum.beat.isEmpty ? strum.tuplet : strum.beat)
+                                                .foregroundStyle(song.settings.style.theme.foregroundMedium)
+                                                .font(song.settings.style.fonts.text.swiftUIFont(scale: song.settings.scale * 0.6))
+                                        }
+                                    }
+                                    Text(" ")
+                                }
+                            }
                         }
                         .tracking(2 * song.settings.scale)
-                        .monospaced()
                     }
                 case .comment:
                     commentLabel(comment: line.plain)

@@ -113,6 +113,10 @@ extension View {
     ///   - settings: The application settings
     /// - Returns: A modified `View`
     func wrapSongSection(label: String? = nil, prominent: Bool = false, settings: AppSettings) -> some View {
-        modifier(RenderView.SectionViewModifier(label: label, prominent: prominent, settings: settings))
+        var optionalLabel: String?
+        if let label, !label.isEmpty {
+            optionalLabel = label
+        }
+        return modifier(RenderView.SectionViewModifier(label: optionalLabel, prominent: prominent, settings: settings))
     }
 }

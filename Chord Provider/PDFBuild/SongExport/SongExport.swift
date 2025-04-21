@@ -266,7 +266,7 @@ extension SongExport {
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
         func strumSection(section: Song.Section) -> PDFBuild.Section {
-            let label = NSAttributedString(string: section.label, attributes: .attributes(.text, settings: settings))
+            let label = NSAttributedString(string: section.label, attributes: .attributes(.label, settings: settings))
             return PDFBuild.Section(
                 columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [

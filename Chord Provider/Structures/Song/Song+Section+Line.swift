@@ -44,7 +44,7 @@ extension Song.Section {
         /// The  optional grid in the line
         private(set) var grid: [Grid]?
         /// The optional strum pattern in the line
-        var strum: [String]?
+        var strum: [[Strum]]?
 
         /// The calculated label of the directive
         var label: String {
@@ -115,7 +115,7 @@ extension Song.Section.Line {
         self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warning)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
-        self.strum = try container.decodeIfPresent([String].self, forKey: .strum)
+        self.strum = try container.decodeIfPresent([[Strum]].self, forKey: .strum)
         self.plain = try container.decode(String.self, forKey: .plain)
     }
     /// :nodoc:

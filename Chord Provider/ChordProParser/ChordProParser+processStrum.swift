@@ -21,6 +21,12 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
+        let tuplet = Int(currentSection.arguments?[.tuplet] ?? "1") ?? 1
+        let timeSignature = (Int(song.metadata.time?.prefix(1) ?? "4") ?? 4)
+        var beat = 0
+        var group = 0
+        var strums: [Song.Section.Line.Strum] = []
+
         /// Start with a fresh line
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
@@ -29,24 +35,31 @@ extension ChordProParser {
             source: text
         )
 
-        var pattern = ""
-        var bottom = ""
-
-        var strum: [String] = []
+        var result: [[Song.Section.Line.Strum]] = []
 
         for(index, character) in text.trimmingCharacters(in: .whitespacesAndNewlines).enumerated() {
             let value = Song.Section.Line.strumCharacterDict[String(character)]
-            pattern += value ?? String(character)
-            if (index % 2) == 0 {
-                bottom += "=="
+            var strum = Song.Section.Line.Strum()
+            strum.id = index
+            strum.strum = value ?? String(character)
+
+            if index % tuplet == 0 {
+                beat = beat == timeSignature ? 1 : beat + 1
+                strum.beat = "\(beat)"
+                group += 1
             } else {
-                pattern += " "
-                bottom += " "
+                strum.tuplet = "﹠"
+                group += 1
+            }
+            strums.append(strum)
+
+            if timeSignature * tuplet == group {
+                result.append(strums)
+                strums = []
+                group = 0
             }
         }
-        strum.append(pattern)
-        strum.append(bottom)
-        line.strum = strum
+        line.strum = result
         currentSection.lines.append(line)
     }
 }

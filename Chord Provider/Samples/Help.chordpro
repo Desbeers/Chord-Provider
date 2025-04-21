@@ -40,6 +40,11 @@ E|-------------|
 | G7 G7 . C | Am . . Am |
 {end_of_grid}
 
+{start_of_strum label="Strum Me!" tuplet="2"}
+d.dud.dududu.udu
+{comment Basic strumming pattern is supported as well}
+{end_of_strum}
+
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}
 This is just a block with text.
 It is using the {start_of_textblock} environment.

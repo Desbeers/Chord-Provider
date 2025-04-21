@@ -35,6 +35,8 @@ extension ChordPro.Directive {
         case width
         /// height
         case height
+        /// tuplet
+        case tuplet
 
         /// Implement Comparable
         static func < (lhs: FormattingAttribute, rhs: FormattingAttribute) -> Bool {
@@ -56,6 +58,7 @@ extension ChordPro.Directive {
             case .spread: 10
             case .width: 11
             case .height: 12
+            case .tuplet: 13
             }
         }
     }

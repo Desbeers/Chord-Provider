@@ -40,10 +40,8 @@ extension PDFBuild {
                 switch line.directive {
                 case .environmentLine:
                     if let strums = line.strum {
-                        for strum in strums {
-                            let line = PDFBuild.Text(strum, attributes: .strumLine)
-                            line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
-                        }
+                        let line = Line(strums: strums, settings: settings)
+                        line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }
                 case .comment:
                     let comment = PDFBuild.Comment(line.plain, settings: settings).padding(6)
@@ -61,10 +59,18 @@ extension PDFStringAttribute {
     // MARK: Strum string styling
 
     /// String attributes for a strum line
-    static var strumLine: PDFStringAttribute {
+    static func strumLine(settings: AppSettings) -> PDFStringAttribute {
         [
-            .foregroundColor: NSColor.black,
-            .font: NSFont.monospacedSystemFont(ofSize: 8, weight: .regular)
+            .foregroundColor: NSColor(settings.style.theme.foreground),
+            .font: NSFont.monospacedSystemFont(ofSize: settings.style.fonts.text.size, weight: .regular)
+        ]
+    }
+
+    /// String attributes for a strum line beat
+    static func strumLineBeat(settings: AppSettings) -> PDFStringAttribute {
+        [
+            .foregroundColor: NSColor(settings.style.theme.foregroundMedium),
+            .font: NSFont.monospacedSystemFont(ofSize: settings.style.fonts.text.size * 0.8, weight: .regular)
         ]
     }
 }
