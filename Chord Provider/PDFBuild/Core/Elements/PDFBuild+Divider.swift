@@ -18,12 +18,15 @@ extension PDFBuild {
         /// The line with of the divider
         let lineWidth: CGFloat = 0.6
         /// The color of the divider
-        let strokeColor = NSColor.lightGray.cgColor
+        let strokeColor: CGColor
 
         /// Init the **divider** element
-        /// - Parameter direction: The direction of the `divider`
-        init(direction: Direction = .vertical) {
+        /// - Parameters:
+        ///   - direction: The direction of the `divider`
+        ///   - color: The color of the `divider`
+        init(direction: Direction = .vertical, color: NSColor) {
             self.direction = direction
+            self.strokeColor = color.cgColor
         }
 
         /// Draw the **divider**

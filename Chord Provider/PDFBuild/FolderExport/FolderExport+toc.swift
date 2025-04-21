@@ -49,14 +49,20 @@ extension FolderExport {
             /// Add a divider between all artists when the songs are sorted by artist
             if settings.application.songListSort == .artist, divider != tocInfo.song.metadata.artist {
                 /// Add a divider
-                tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(10))
+                tocBuilder.elements.append(
+                    PDFBuild.Divider(direction: .horizontal, color: NSColor(settings.style.theme.foregroundLight))
+                        .padding(10)
+                )
                 /// Remember the artist
                 divider = tocInfo.song.metadata.artist
             }
             /// Add a divider between all first letter of titles when the songs are sorted by song title
             if settings.application.songListSort == .song, divider != tocInfo.song.metadata.sortTitle.prefix(1).lowercased() {
                 /// Add a divider
-                tocBuilder.elements.append(PDFBuild.Divider(direction: .horizontal).padding(10))
+                tocBuilder.elements.append(
+                    PDFBuild.Divider(direction: .horizontal, color: NSColor(settings.style.theme.foregroundLight))
+                        .padding(10)
+                )
                 /// Remember the first letter
                 divider = String(tocInfo.song.metadata.sortTitle.prefix(1).lowercased())
             }

@@ -67,7 +67,7 @@ extension RenderView {
                             Rectangle()
                                 .frame(width: 1, height: nil, alignment: .leading)
                                 .foregroundStyle(
-                                    prominent || label != nil ? settings.style.theme.foregroundMedium.opacity(0.3) : Color.clear
+                                    prominent || label != nil ? settings.style.theme.foregroundLight : Color.clear
                                 ),
                             alignment: .leading
                         )

@@ -109,7 +109,7 @@ extension PDFBuild {
             if !section.label.isEmpty {
                 let label = PDFBuild.Text(section.label, attributes: .attributes(.label, settings: settings) + .alignment(flush))
                 label.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
-                let divider = PDFBuild.Divider(direction: .horizontal)
+                let divider = PDFBuild.Divider(direction: .horizontal, color: NSColor(settings.style.theme.foregroundLight))
                 divider.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
             /// Add the label height

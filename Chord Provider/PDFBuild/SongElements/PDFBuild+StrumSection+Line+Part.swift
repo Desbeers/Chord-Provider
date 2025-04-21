@@ -32,7 +32,6 @@ extension PDFBuild.StrumSection.Line {
         init(part: Song.Section.Line.Strum, settings: AppSettings) {
             self.text.append(
                 NSAttributedString(
-                    /// Add a space behind the chord-name so two chords will never 'stick' together
                     string: "\(part.strum)\n",
                     attributes: .strumLine(settings: settings)
                 )
@@ -61,6 +60,5 @@ extension PDFBuild.StrumSection.Line {
             rect.origin.y += height
             rect.size.height -= height
         }
-
     }
 }
