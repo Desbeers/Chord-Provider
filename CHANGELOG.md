@@ -19,7 +19,8 @@
 - Add color and font options for viewing the song
 - Add PDF options for size and padding
 
-# 6.x.x (---)
+# 6.2.0 (2025-04-27)
 
 - Improve strum environment
 - Improve textblock environment with markdown support
+- Refine song rendering
