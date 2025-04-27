@@ -80,7 +80,6 @@ extension RenderView {
             let label = label ?? ""
             if label.isEmpty {
                 content
-                    .padding(.leading)
             } else {
                 Group {
                     switch prominent {
@@ -98,7 +97,6 @@ extension RenderView {
                 .foregroundStyle(settings.style.fonts.label.color, settings.style.fonts.label.background)
                 Divider()
                 content
-                    .padding(.leading)
             }
         }
     }
