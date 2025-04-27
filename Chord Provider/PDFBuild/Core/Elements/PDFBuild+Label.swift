@@ -15,7 +15,7 @@ extension PDFBuild {
     class Label: PDFElement {
 
         /// The text of the label
-        let labelText: NSAttributedString
+        let labelText: String
         /// Optional SF Symbol icon
         let sfSymbol: SFSymbol?
         /// Bool to draw a background or not
@@ -35,7 +35,7 @@ extension PDFBuild {
         ///   - alignment: The alignment of the label
         ///   - fontOptions: The font options
         init(
-            labelText: NSAttributedString,
+            labelText: String,
             sfSymbol: SFSymbol? = nil,
             drawBackground: Bool,
             alignment: NSTextAlignment,
@@ -53,6 +53,7 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
+            let label = NSAttributedString(labelText.toMarkdown(fontOptions: fontOptions, scale: 1))
             let text = NSMutableAttributedString()
             if let sfSymbol {
                 let imageAttachment = PDFBuild.sfSymbol(
@@ -61,12 +62,12 @@ extension PDFBuild {
                     nsColor: fontOptions.color.nsColor
                 )
                 text.append(NSAttributedString(attachment: imageAttachment))
-                let attributes = labelText.fontAttributes(in: .init(location: 0, length: labelText.length))
+                let attributes = label.fontAttributes(in: .init(location: 0, length: label.length))
                 text.append(NSAttributedString(string: " ", attributes: attributes))
             }
-            text.append(labelText)
+            text.append(label)
             var textRect = rect.insetBy(dx: 2 * textPadding, dy: 2 * textPadding)
-            let labelBounds = labelText.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
+            let labelBounds = label.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
             let textBounds = text.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
 
             let width = textBounds.width + (4 * textPadding)

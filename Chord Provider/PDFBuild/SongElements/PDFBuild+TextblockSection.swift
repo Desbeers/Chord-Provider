@@ -18,20 +18,20 @@ extension PDFBuild {
 
         /// The section with textblock
         let section: Song.Section
-        /// All the chords of the song
-        let chords: [ChordDefinition]
         /// The application settings
         let settings: AppSettings
+        /// The available width of the textblock
+        let availableWidth: Double
 
         /// Init the **textblock section** element
         /// - Parameters:
         ///   - section: The section with textblock
-        ///   - chords: All the chords of the song
+        ///   - availableWidth: The available width of the textblock
         ///   - settings: The application settings
-        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings) {
+        init(_ section: Song.Section, availableWidth: Double, settings: AppSettings) {
             self.section = section
-            self.chords = chords
             self.settings = settings
+            self.availableWidth = availableWidth
         }
 
         /// Draw the **textblock section** element
@@ -40,89 +40,60 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
+
+            var tmpRect = rect
+            tmpRect.size.width = availableWidth
+
+            var maxSize: Double = 0
+
             /// In **ChordPro**, the attribute 'flush' is the actual alignment of the text; *not* the placement in the page
             let flush = getFlush(section.arguments)
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.alignment = flush
-            paragraphStyle.lineSpacing = 4
-            let text = NSMutableAttributedString()
+            let align = getAlign(section.arguments)
+            var elements: [PDFElement] = []
             for line in section.lines {
                 switch line.directive {
                 case .environmentLine:
-                    if let parts = line.parts {
-                        for part in parts {
-                            if let chord = chords.first(where: { $0.id == part.chord }) {
-                                text.append(
-                                    NSAttributedString(
-                                        /// Add a space behind the chord-name so two chords will never 'stick' together
-                                        string: "\(chord.display)",
-                                        attributes: .partChord(settings: settings)
-                                    )
-                                )
-                            }
-                            text.append(NSAttributedString(
-                                string: "\(part.text)",
-                                attributes: .textblockLine(settings: settings))
-                            )
-                        }
-                        if line != section.lines.last {
-                            text.append(NSAttributedString(string: "\n"))
-                        }
-                    }
+                    var string = line.plain.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: 1)
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineHeightMultiple = 1.1
+                    paragraphStyle.alignment = flush
+                    var attributes = AttributeContainer()
+                    attributes.paragraphStyle = paragraphStyle
+                    string.mergeAttributes(attributes, mergePolicy: .keepNew)
+                    /// Convert to a `NSMutableAttributedString`
+                    let line = NSMutableAttributedString(string)
+                    /// Remember the longest line
+                    maxSize = max(maxSize, line.boundingRect(with: tmpRect.size).width)
+                    elements.append(PDFBuild.Text(line))
                 case .comment:
-                    let imageAttachment = PDFBuild.sfSymbol(
-                        sfSymbol: .comment,
-                        fontSize: settings.style.fonts.comment.size,
-                        nsColor: settings.style.fonts.comment.color.nsColor
-                    )
-                    text.append(NSAttributedString(attachment: imageAttachment))
-                    text.append(NSAttributedString(
-                        string: "\(line.plain)\n",
-                        attributes: .attributes(.comment, settings: settings))
-                    )
+                    let comment = PDFBuild.Comment(line.plain, settings: settings, alignment: flush).padding(6)
+                    elements.append(comment)
                 default:
                     break
                 }
             }
-            text.addAttributes([.paragraphStyle: paragraphStyle], range: NSRange(location: 0, length: text.length))
-            let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
-
             /// Align the textblock with the optional 'align' attribute
-            var tmpRect = rect
-            tmpRect.size.width = textBounds.width
-            let align = getAlign(section.arguments)
+            tmpRect.size.width = maxSize + (textPadding * 2)
+            let offset = availableWidth - maxSize
             switch align {
             case .left:
-                tmpRect.size.width = textBounds.width
+                /// Nothing to alter
+                break
             case .center:
-                let offset = (pageRect.width - textBounds.width) / 2
-                tmpRect.origin.x = offset
+                tmpRect.origin.x += offset / 2
             case .right:
-                let offset = rect.width - textBounds.width
                 tmpRect.origin.x += offset
             default:
                 /// Nothing to alter
                 break
             }
-            /// Add the optional label
-            var labelRect = tmpRect
-            if !section.label.isEmpty {
-                let label = PDFBuild.Text(section.label, attributes: .attributes(.label, settings: settings) + .alignment(flush))
-                label.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
-                let divider = PDFBuild.Divider(direction: .horizontal, color: settings.style.theme.foregroundLight.nsColor)
-                divider.draw(rect: &labelRect, calculationOnly: calculationOnly, pageRect: pageRect)
+            /// Draw the elements
+            for element in elements {
+                element.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
-            /// Add the label height
-            let labelHeight = rect.height - labelRect.height
-            tmpRect.origin.y += labelHeight
-            tmpRect.size.height -= labelHeight
-            /// Draw the content of the textblock
-            if !calculationOnly {
-                text.draw(with: tmpRect, options: textDrawingOptions, context: nil)
-            }
-            let height = (textBounds.height + 2 * textPadding) + labelHeight
-            rect.origin.y += height
-            rect.size.height -= height
+            /// Set the sizes
+            rect.size.height = tmpRect.size.height
+            rect.origin.y = tmpRect.origin.y
         }
     }
 }

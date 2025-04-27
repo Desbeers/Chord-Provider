@@ -15,17 +15,20 @@ extension PDFBuild {
     class Comment: PDFElement {
 
         /// The comment text
-        let commentText: NSAttributedString
+        let commentText: String
         /// The application settings
         let settings: AppSettings
+        /// The alignment:
+        let alignment: NSTextAlignment
 
         /// Init the **comment** element
         /// - Parameters:
         ///   - commentText: The text of the comment
         ///   - settings: The application settings
-        init(_ commentText: String, settings: AppSettings) {
-            self.commentText = NSAttributedString(string: commentText, attributes: .attributes(.comment, settings: settings))
+        init(_ commentText: String, settings: AppSettings, alignment: NSTextAlignment = .left) {
+            self.commentText = commentText
             self.settings = settings
+            self.alignment = alignment
         }
 
         /// Draw the **comment** element as a `Label` element
@@ -38,7 +41,7 @@ extension PDFBuild {
                 labelText: commentText,
                 sfSymbol: .comment,
                 drawBackground: true,
-                alignment: .left,
+                alignment: alignment,
                 fontOptions: settings.style.fonts.comment
             )
             label.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)

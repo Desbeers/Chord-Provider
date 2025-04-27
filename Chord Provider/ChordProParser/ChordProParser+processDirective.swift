@@ -149,6 +149,7 @@ extension ChordProParser {
                             currentSection: &currentSection,
                             song: &song
                         )
+
                         // MARK: Unsupported directives
 
                     default:

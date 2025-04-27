@@ -31,11 +31,6 @@ protocol PDFElement {
     ///   - pageRect: The rect of the page
     /// - Returns: The available rectangle after the drawing
     func calculateDraw(rect: CGRect, elements: [PDFElement], pageRect: CGRect) -> CGRect
-
-    /// Convert a string into Markdown
-    /// - Parameter text: The text as String
-    /// - Returns: The Markdown text as `NSAttributedString`
-    func stringToMarkdown(_ text: String) -> NSAttributedString
 }
 
 extension PDFElement {
@@ -79,17 +74,6 @@ extension PDFElement {
             item.draw(rect: &tempRect, calculationOnly: true, pageRect: pageRect)
         }
         return tempRect
-    }
-
-    /// Convert a string into Markdown
-    /// - Parameter text: The text as String
-    /// - Returns: The Markdown text as `NSAttributedString`
-    func stringToMarkdown(_ text: String) -> NSAttributedString {
-        do {
-            return try NSAttributedString(markdown: text)
-        } catch {
-            return NSAttributedString(string: text)
-        }
     }
 
     /// Draw the ``PDFElement``

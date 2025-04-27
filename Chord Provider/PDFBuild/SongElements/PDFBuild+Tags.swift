@@ -40,9 +40,8 @@ extension PDFBuild {
                 tagRect.size.width -= settings.pdf.pagePadding
                 tagRect.origin.y += settings.pdf.pagePadding
                 for tag in tags {
-                    let text = NSAttributedString(string: tag, attributes: .attributes(.tag, settings: settings))
                     let render = PDFBuild.Label(
-                        labelText: text,
+                        labelText: tag,
                         sfSymbol: .tag,
                         drawBackground: true,
                         alignment: .right,

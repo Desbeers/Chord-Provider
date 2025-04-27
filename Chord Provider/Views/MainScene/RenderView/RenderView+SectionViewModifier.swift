@@ -53,7 +53,7 @@ extension RenderView {
                                 settings: settings
                             )
                         case false:
-                            Text(label ?? "")
+                            Text(.init(label ?? ""))
                                 .font(font)
                         }
                     }
@@ -91,7 +91,7 @@ extension RenderView {
                             settings: settings
                         )
                     case false:
-                        Text(label)
+                        Text(.init(label))
                             .font(font)
                     }
                 }

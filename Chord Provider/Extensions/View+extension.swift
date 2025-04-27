@@ -2,7 +2,8 @@
 //  View+extension.swift
 //  Chord Provider
 //
-//  © 2025 Nick Berendsen//
+//  © 2025 Nick Berendsen
+//
 
 import SwiftUI
 

@@ -22,3 +22,4 @@
 # 6.x.x (---)
 
 - Improve strum environment
+- Improve textblock environment with markdown support

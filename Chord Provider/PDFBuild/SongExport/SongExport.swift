@@ -148,6 +148,10 @@ extension SongExport {
             offset = pagePadding > 0 ? pagePadding / 2 : 0
         }
 
+        // MARK: Calculate maximum content size
+
+        let content = availableWidth - offset + 40
+
         /// Add all the sections, except metadata stuff
         for section in song.sections where !ChordPro.Environment.unsupported.contains(section.environment) {
             switch section.environment {
@@ -196,10 +200,7 @@ extension SongExport {
                 items: [
                     PDFBuild.Spacer(),
                     PDFBuild.Label(
-                        labelText: NSAttributedString(
-                            string: section.label,
-                            attributes: .attributes(.label, settings: settings)
-                        ),
+                        labelText: section.label,
                         drawBackground: section.environment == .chorus ? true : false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
@@ -221,10 +222,7 @@ extension SongExport {
                 items: [
                     PDFBuild.Spacer(),
                     PDFBuild.Label(
-                        labelText: NSAttributedString(
-                            string: section.label,
-                            attributes: .attributes(.label, settings: settings)
-                        ),
+                        labelText: section.label,
                         drawBackground: false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
@@ -246,10 +244,7 @@ extension SongExport {
                 items: [
                     PDFBuild.Spacer(),
                     PDFBuild.Label(
-                        labelText: NSAttributedString(
-                            string: section.label,
-                            attributes: .attributes(.label, settings: settings)
-                        ),
+                        labelText: section.label,
                         drawBackground: false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
@@ -266,13 +261,12 @@ extension SongExport {
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
         func strumSection(section: Song.Section) -> PDFBuild.Section {
-            let label = NSAttributedString(string: section.label, attributes: .attributes(.label, settings: settings))
             return PDFBuild.Section(
                 columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Spacer(),
                     PDFBuild.Label(
-                        labelText: label,
+                        labelText: section.label,
                         drawBackground: false,
                         alignment: .right,
                         fontOptions: settings.style.fonts.label
@@ -289,12 +283,18 @@ extension SongExport {
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
         func textblockSection(section: Song.Section) -> PDFBuild.Section {
-            return PDFBuild.Section(
-                columns: [.fixed(width: offset), .fixed(width: labelWidth + 20), .flexible],
+            PDFBuild.Section(
+                columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                 items: [
                     PDFBuild.Spacer(),
-                    PDFBuild.Spacer(),
-                    PDFBuild.TextblockSection(section, chords: song.chords, settings: settings)
+                    PDFBuild.Label(
+                        labelText: section.label,
+                        drawBackground: false,
+                        alignment: .right,
+                        fontOptions: settings.style.fonts.label
+                    ),
+                    labelDivider(section: section),
+                    PDFBuild.TextblockSection(section, availableWidth: content, settings: settings)
                 ]
             )
         }
@@ -342,17 +342,13 @@ extension SongExport {
                 let lastChorus = song.sections.last(where: { $0.environment == .chorus && $0.label == section.label }) {
                 return lyricsSection(section: lastChorus)
             } else {
-                let labelText = NSAttributedString(
-                    string: section.label,
-                    attributes: .attributes(.label, settings: settings)
-                )
                 return PDFBuild.Section(
                     columns: [.fixed(width: offset), .fixed(width: labelWidth + 26), .flexible],
                     items: [
                         PDFBuild.Spacer(),
                         PDFBuild.Spacer(),
                         PDFBuild.Label(
-                            labelText: labelText,
+                            labelText: section.label,
                             sfSymbol: .repeatChorus,
                             drawBackground: true,
                             alignment: .left,

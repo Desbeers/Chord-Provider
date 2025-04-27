@@ -52,6 +52,7 @@ extension AppSettings.Style {
                 style.fonts.comment.background = .pdfComment
                 style.fonts.tag.color = .black
                 style.fonts.tag.background = .red.opacity(0.3)
+                style.fonts.textblock.color = .black
             case .dark:
                 style.theme.foreground = .white
                 style.theme.foregroundMedium = .gray
@@ -66,6 +67,7 @@ extension AppSettings.Style {
                 style.fonts.comment.background = .orange
                 style.fonts.tag.color = .white
                 style.fonts.tag.background = .red.opacity(0.5)
+                style.fonts.textblock.color = .white
             case .random:
                 style.theme.foreground = .randomDark
                 style.theme.foregroundMedium = .randomDark
@@ -80,6 +82,7 @@ extension AppSettings.Style {
                 style.fonts.comment.background = .randomLight
                 style.fonts.tag.color = .randomDark
                 style.fonts.tag.background = .randomLight
+                style.fonts.textblock.color = .randomDark
             }
             return style
         }
@@ -140,6 +143,6 @@ extension AppSettings.Style {
         /// {tag ...}
         var tag: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .red.opacity(0.3))
         /// {textblock} environment
-        var textblock: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .gray)
+        var textblock: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 11, color: .black)
     }
 }

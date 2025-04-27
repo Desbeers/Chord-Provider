@@ -51,19 +51,14 @@ actor ChordProParser {
                 /// Empty line
                 processEmptyLine(currentSection: &currentSection, song: &song)
             case "#":
-                /// A source comment
-                processSourceComment(comment: text, currentSection: &currentSection, song: &song)
-            default:
-                switch currentSection.environment {
-                case .tab:
-                    /// A tab can start with '|--02-3-4|', but also with 'E|--2-3-4| for example
-                    processTab(text: text, currentSection: &currentSection, song: &song)
-                case .strum:
-                    processStrum(text: text, currentSection: &currentSection, song: &song)
-                default:
-                    /// Anything else
-                    processLine(text: text, currentSection: &currentSection, song: &song)
+                if currentSection.environment == .none {
+                    /// A source comment
+                    processSourceComment(comment: text, currentSection: &currentSection, song: &song)
+                } else {
+                    processEnvironment(text: text, currentSection: &currentSection, song: &song)
                 }
+            default:
+                processEnvironment(text: text, currentSection: &currentSection, song: &song)
             }
         }
         /// Close the last section if needed

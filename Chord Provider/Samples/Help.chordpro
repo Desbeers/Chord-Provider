@@ -1,25 +1,23 @@
 {title Chord Provider Help}
 {artist ChordPro viewer and editor}
 
-{start_of_verse Introduction}
-'ChordPro' is an open standard text format,
-a simple text format for the notation of lyrics with chords
+{start_of_textblock label="Introduction" align="center" flush="left"}
+**ChordPro** is an open standard text format, a simple text format for the notation of lyrics with chords.
 
-While I hope you like 'Chord Provider', it is just my hobby project
-and not a complete implementation of the standard.
+While I hope you like **Chord Provider**, it is just my hobby project and not a complete implementation of the standard.
 
-Please visit the official ChordPro website for the full experience:
+Please visit the official **ChordPro** website for the full experience:
 {comment https://www.chordpro.org/}
-{end_of_verse}
+{end_of_textblock}
 
-{start_of_verse Functionality}
-Chord Provider can do the following:
-• It will view and/or edit ChordPro files.
-• It can export your song to a PDF document.
-• It can also export a whole folder with ChordPro songs to a PDF
-• You can [C]configure its [C]colors and [F]fonts.
-• It also have a [D]database with a lot of [C]chords.
-{end_of_verse}
+{start_of_textblock Functionality}
+**Chord Provider** can do the following:
+- It will view and/or edit *ChordPro* files.
+- It can export your song to a PDF document.
+- It can also export a whole folder with *ChordPro* songs to a PDF
+- You can configure its colors and fonts.
+- It also have a database with a lot of chords.
+{end_of_textblock}
 
 {start_of_chorus Directives}
 Not all official directives are supported, but most are.
@@ -51,42 +49,53 @@ It is using the {start_of_textblock} environment.
 You can align it to your liking
 and style it in the 'Settings'.
 
-It does reconize chords like '[G7]' for example,
-but they are not above the text.
+You can use *italic* and **bold** markdown formats!
 
-{comment This implementation is not according the standard}
+{comment This implementation is only partly according the standard}
 
 I use this directive to add some info about the song.
 {end_of_textblock}
 
-{start_of_chorus This is a song}
-This help [F]file is actualy a [C]ChordPro song rendered as a PDF.
-You can open this song [F]from the 'examples' tab on the welcome screen.
-{end_of_chorus}
+{start_of_verse This is a song}
+This help [F]file is actually a ChordPro song rendered as a PDF.
+You can open this song from the 'examples' tab on the welcome screen.
+{end_of_verse}
 
 {chorus}
 
-{start_of_verse Repeat}
-The above directive indicates that the Chorus
-must be repeated. In the Settings you can select
-'Repeat whole chorus' and then the 'repeat' label
-will be replaced by the whole Chorus with the same label.
-{end_of_verse}
+{start_of_textblock Repeat}
+The above directive indicates that the Chorus must be repeated. In the Settings you can select 'Repeat whole chorus' and then the **Chorus** label will be replaced by the whole Chorus with the same label.
+{end_of_textblock}
 
 {image src="IconPreview.png" align="left"}
 
-{comment Images are supported as wel}
+{comment Images are supported as well}
 
 {start_of_verse Finder}
 In the [F]Finder; [C]ChordPro files will have a custom icon
 with the title of the song; just eyecandy!
 [C]Chord Provider also supports 'quickview'; press 'space'
-when you have a song selected [Am]and it wil render it for you.
+when you have a song selected [Am]and it will render it for you.
 {end_of_verse}
 
-{start_of_textblock label="Style and Colors" align="center"}
-If you look at this help, it looks plain and boring.
+{start_of_textblock label="Markdown" align="center" flush="left"}
+# Yes, markdown! This is a heading!
+
+Markdown feels natural to the **ChordPro** text format and has basic support in **Chord Provider**.
+
+- This is a list
+- Text that is **Bold**
+- Text that is *Italic*
+- Text that is ~Strikethrough~
+- Links [Github](https://github.com/Desbeers/Chord-Provider)
+- Headers
+
+You can use it in comments, labels and text blocks.
+{end_of_textblock}
+
+{start_of_textblock label="Style and Colors" align="center" flush="center"}
+If you look at this help, it looks *plain* and **boring**.
 Give it a try with the 'Random Colors' button below!
 
-{comment You can set colors and fonts in the 'settings' yourself.}
+{comment You can set **colors** and **fonts** in the 'settings' yourself.}
 {end_of_textblock}
