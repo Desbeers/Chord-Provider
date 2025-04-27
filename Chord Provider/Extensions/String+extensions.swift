@@ -50,26 +50,17 @@ extension String {
         }
 
         let nsFont = fontOptions.nsFont(scale: scale)
+
+        var attributes = [NSAttributedString.Key: Any]()
+        attributes[.font] = nsFont
+        let listBullet = " •  "
+        let headIndent = (listBullet as NSString).size(withAttributes: attributes).width
+
         /// Set the defaults
         output.font = nsFont
         output.foregroundColor = fontOptions.color.nsColor
 
-        // MARK: Block Intents
-
-        for (intentBlock, intentRange) in output.runs[AttributeScopes.FoundationAttributes.PresentationIntentAttribute.self].reversed() {
-            guard let intentBlock = intentBlock else { continue }
-            for intent in intentBlock.components {
-                switch intent.kind {
-                case .header(let level):
-                    let scale: Double = (Double(10 + (7 - level)) / 10) * scale
-                    output[intentRange].appKit.font = fontOptions.nsFont(scale: scale)
-                case .unorderedList:
-                    output.characters.insert(contentsOf: " •  ", at: intentRange.lowerBound)
-                default:
-                    break
-                }
-            }
-        }
+        var isList: Bool = false
 
         for run in output.runs {
 
@@ -103,6 +94,34 @@ extension String {
                 attributeContainer.swiftUI.foregroundColor = Color(NSColor.linkColor)
                 output[run.range].mergeAttributes(attributeContainer, mergePolicy: .keepNew)
             }
+        }
+
+        // MARK: Block Intents
+
+        for (intentBlock, intentRange) in output.runs[AttributeScopes.FoundationAttributes.PresentationIntentAttribute.self].reversed() {
+            guard let intentBlock = intentBlock else { continue }
+            for intent in intentBlock.components {
+                switch intent.kind {
+                case .header(let level):
+                    let scale: Double = (Double(10 + (7 - level)) / 10) * scale
+                    output[intentRange].appKit.font = fontOptions.nsFont(scale: scale)
+                case .unorderedList:
+                    var string = AttributedString(listBullet)
+                    string.appKit.foregroundColor = fontOptions.color.nsColor
+                    output.insert(string, at: intentRange.lowerBound)
+                    isList = true
+                default:
+                    break
+                }
+            }
+        }
+
+        if isList {
+            /// - Note: This only works for the PDF, *not* in the SwiftUI View
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.headIndent = headIndent
+            paragraphStyle.firstLineHeadIndent = 0
+            output.paragraphStyle = paragraphStyle
         }
         return output
     }

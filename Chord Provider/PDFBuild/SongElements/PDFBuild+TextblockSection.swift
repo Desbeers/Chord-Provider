@@ -54,7 +54,7 @@ extension PDFBuild {
                 switch line.directive {
                 case .environmentLine:
                     var string = line.plain.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: 1)
-                    let paragraphStyle = NSMutableParagraphStyle()
+                    let paragraphStyle = string.paragraphStyle as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
                     paragraphStyle.lineHeightMultiple = 1.1
                     paragraphStyle.alignment = flush
                     var attributes = AttributeContainer()
