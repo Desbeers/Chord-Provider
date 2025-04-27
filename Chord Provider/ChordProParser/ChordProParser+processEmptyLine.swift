@@ -22,12 +22,12 @@ extension ChordProParser {
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 environment: currentSection.environment,
-                directive: .environmentLine,
+                directive: .emptyLine,
                 source: ""
             )
             /// Add an empty part
             /// - Note: Use a 'space' as text
-            let part = Song.Section.Line.Part(id: 1, chord: nil, text: " ")
+            let part = Song.Section.Line.Part(id: 1, chord: nil, text: "EMPTY")
             line.parts = [part]
             currentSection.lines.append(line)
         } else {

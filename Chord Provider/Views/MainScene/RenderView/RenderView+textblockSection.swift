@@ -19,6 +19,9 @@ extension RenderView {
                 case .environmentLine:
                     /// Init the text like this to enable markdown formatting
                     Text(line.plain.toMarkdown(fontOptions: song.settings.style.fonts.textblock, scale: song.settings.scale))
+                case .emptyLine:
+                    Color.clear
+                        .frame(height: song.settings.style.fonts.textblock.size)
                 case .comment:
                     commentLabel(comment: line.plain)
                 default:

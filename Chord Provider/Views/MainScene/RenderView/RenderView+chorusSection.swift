@@ -25,6 +25,9 @@ extension RenderView {
                             chords: song.chords
                         )
                     }
+                case .emptyLine:
+                    Color.clear
+                        .frame(height: song.settings.style.fonts.text.size)
                 case .comment:
                     commentLabel(comment: line.plain)
                 default:

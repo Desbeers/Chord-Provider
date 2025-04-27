@@ -47,6 +47,10 @@ extension PDFBuild {
                         let line = Line(parts: parts, chords: chords, settings: settings)
                         line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }
+                case .emptyLine:
+                    /// Just move the rect
+                    rect.origin.y += settings.style.fonts.text.size
+                    rect.size.height -= settings.style.fonts.text.size
                 case .comment:
                     let comment = PDFBuild.Comment(line.plain, settings: settings).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)

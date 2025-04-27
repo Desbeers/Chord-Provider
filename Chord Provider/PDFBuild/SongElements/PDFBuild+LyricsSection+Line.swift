@@ -55,8 +55,8 @@ extension PDFBuild.LyricsSection {
                 }
                 part.draw(rect: &cellRect, calculationOnly: calculationOnly, pageRect: pageRect)
             }
-            rect.origin.y += height
-            rect.size.height -= height
+            rect.origin.y += height + 2 * textPadding
+            rect.size.height -= height + 2 * textPadding
         }
     }
 }
