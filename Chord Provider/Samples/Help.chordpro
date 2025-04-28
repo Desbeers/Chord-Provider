@@ -20,7 +20,7 @@ Please visit the official **ChordPro** website for the full experience:
 {end_of_textblock}
 
 {start_of_chorus Directives}
-Not all official directives are supported, but most are.
+Not all official [D]directives are supported, [B]but most are.
 You can add [G7]chords to a verse or [C]chorus.
 {comment In the standard view you can click on a chord to see its diagram}
 {end_of_chorus}
@@ -36,6 +36,8 @@ E|-------------|
 
 {start_of_grid Griddy Grid!}
 | G7 G7 . C | Am . . Am |
+| G7 G7 . C | Asus4 . . Am |
+{comment This is not really a nice melody, I know!}
 {end_of_grid}
 
 {start_of_strum label="Strum Me!" tuplet="2"}
@@ -45,20 +47,18 @@ d.dud.dududu.udu
 
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}
 This is just a block with text.
-It is using the {start_of_textblock} environment.
+It is using the `{start_of_textblock}` environment.
 You can align it to your liking
 and style it in the 'Settings'.
 
 You can use *italic* and **bold** markdown formats!
-
 {comment This implementation is only partly according the standard}
-
-I use this directive to add some info about the song.
 {end_of_textblock}
 
 {start_of_verse This is a song}
 This help [F]file is actually a ChordPro song rendered as a PDF.
-You can open this song from the 'examples' tab on the welcome screen.
+You [C]can open this song from the *examples* tab on the 
+welcome screen and s[E]ee it in plain text.
 {end_of_verse}
 
 {chorus}
@@ -66,6 +66,13 @@ You can open this song from the 'examples' tab on the welcome screen.
 {start_of_textblock Repeat}
 The above directive indicates that the Chorus must be repeated. In the Settings you can select 'Repeat whole chorus' and then the **Chorus** label will be replaced by the whole Chorus with the same label.
 {end_of_textblock}
+
+{define G7 base-fret 1 frets 2 4 5 5 4 2 fingers 1 2 4 4 3 1}
+
+{start_of_verse Custom Chords}
+You cannot s[E]ee it in the output, [B]but I just
+redefined my favorite [G7]G7 Chord!
+{end_of_verse}
 
 {image src="IconPreview.png" align="left"}
 
@@ -89,6 +96,7 @@ Markdown feels natural to the **ChordPro** text format and has basic support in 
 - Text that is ~Strikethrough~
 - Links [Github](https://github.com/Desbeers/Chord-Provider)
 - Headers
+- And some `{code}`
 
 You can use it in comments, labels and text blocks.
 {end_of_textblock}

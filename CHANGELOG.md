@@ -28,3 +28,4 @@
 # 6.x.x (---)
 
 - Show comments in PDF grid sections
+- Add markdown support for verse text
