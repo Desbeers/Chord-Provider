@@ -40,60 +40,65 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            let lines = section.lines.filter { $0.directive == .environmentLine }
-            let maxColumns = lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
+            let maxColumns = section.lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
                 let elements = grids.flatMap { $0.parts }.count
                 return max(accumulator, elements)
             }
+            /// Find the  column width
             let elements: [NSMutableAttributedString] = (0 ..< maxColumns).map { _ in NSMutableAttributedString() }
-
-            for line in lines {
+            var columnWidth: [Double] = (0 ..< maxColumns).map { _ in Double() }
+            var lineHeight: Double = 0
+            for line in section.lines where line.environment == .grid {
                 if let grid = line.grid {
                     let parts = grid.flatMap { $0.parts }
                     for (column, part) in parts.enumerated() {
-                        if let chord = part.chord, let first = chords.first(where: { $0.id == chord }) {
-                            elements[column].append(
-                                NSAttributedString(
-                                    string: "\(first.display)" + (line == lines.last ? "" : "\n"),
-                                    attributes: .gridChord(settings: settings)
-                                )
+                        elements[column].append(
+                            NSAttributedString(
+                                string: "\(part.text)\n",
+                                attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                             )
-                        }
-                        if !part.text.isEmpty {
-                            elements[column].append(
-                                NSAttributedString(
-                                    string: "\(part.text)" + (line == lines.last ? "" : "\n"),
-                                    attributes: .gridText(settings: settings)
-                                )
-                            )
-                        }
-                        if line != lines.last, part == parts.last, column < maxColumns {
-                            for index in (column + 1)..<maxColumns {
-                                elements[index].append(
-                                    NSAttributedString(
-                                        string: "\n",
-                                        attributes: .gridText(settings: settings)
-                                    )
-                                )
-                            }
-                        }
+                        )
+                        let textBounds = elements[column].boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+                        columnWidth[column] = textBounds.width
                     }
                 }
             }
-            var height: Double = 0.0
-            for element in elements {
-                let textRect = rect.insetBy(dx: textPadding, dy: textPadding)
-                let textBounds = element.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
-                height = max(height, textBounds.height + 2 * textPadding)
-                if !calculationOnly {
-                    element.draw(with: textRect, options: textDrawingOptions, context: nil)
+            /// Draw the elements
+            for line in section.lines {
+                switch line.directive {
+                case .environmentLine:
+                    if let grid = line.grid {
+
+                        var partRect = rect
+
+                        let parts = grid.flatMap { $0.parts }
+                        for (column, part) in parts.enumerated() {
+
+                            let string = NSAttributedString(
+                                string: "\(part.text)",
+                                attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
+                            )
+                            let textBounds = string.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+                            lineHeight = max(lineHeight, textBounds.height)
+                            if !calculationOnly {
+                                string.draw(in: partRect)
+                                partRect.origin.y = rect.origin.y
+                                partRect.origin.x += columnWidth[column] + 2 * textPadding
+                            }
+                        }
+                        rect.origin.y += lineHeight
+                        rect.size.height -= lineHeight
+                    }
+                case .emptyLine:
+                    let spacer = PDFBuild.Spacer(settings.style.fonts.textblock.size)
+                    spacer.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                case .comment:
+                    let comment = PDFBuild.Comment(line.plain, settings: settings).padding(6)
+                    comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                default:
+                    break
                 }
-                let width = textBounds.width + 2 * textPadding
-                rect.origin.x += width
-                rect.size.width -= width
             }
-            rect.origin.y += height
-            rect.size.height -= height
         }
     }
 }

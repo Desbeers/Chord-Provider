@@ -48,7 +48,7 @@ extension ChordProParser {
                 if result.status == .unknownChord {
                     grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: text))
                 } else {
-                    grid.parts.append(Song.Section.Line.Part(id: partID, chord: result.id))
+                    grid.parts.append(Song.Section.Line.Part(id: partID, chord: result.id, text: result.display))
                 }
             }
             partID += 1

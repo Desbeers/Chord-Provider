@@ -24,3 +24,7 @@
 - Improve strum environment
 - Improve textblock environment with markdown support
 - Refine song rendering
+
+# 6.x.x (---)
+
+- Show comments in PDF grid sections
