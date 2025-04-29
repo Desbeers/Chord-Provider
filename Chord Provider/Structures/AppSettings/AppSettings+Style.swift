@@ -16,6 +16,71 @@ extension AppSettings {
         var theme: Theme = Theme()
         /// Fonts
         var fonts: Fonts = Fonts()
+        /// Default style
+        func defaults() -> Style {
+            AppSettings.Style.ColorPreset.light.presets(style: AppSettings.Style())
+        }
+    }
+}
+
+extension AppSettings.Style {
+
+    /// Font Presets
+    enum FontPreset: String, CaseIterable {
+        /// Sans
+        case sans = "Sans"
+        /// Serif
+        case serif = "Serif"
+        /// Just for fun; random fonts
+        case random = "Random"
+
+        /// Add fonts to the style settings
+        /// - Parameter style: The current style
+        /// - Returns: An updated style
+        func presets(style: AppSettings.Style, fonts: [FontItem]) -> AppSettings.Style {
+
+            var style = style
+
+            guard
+                let sans = fonts.first(where: { $0.postScriptName == "HelveticaNeue" }),
+                let serif = fonts.first(where: { $0.postScriptName == "TimesNewRomanPSMT" })
+            else {
+                return style
+            }
+
+            switch self {
+
+            case .sans:
+                style.fonts.title.font = sans
+                style.fonts.subtitle.font = sans
+                style.fonts.text.font = sans
+                style.fonts.chord.font = sans
+                style.fonts.label.font = sans
+                style.fonts.comment.font = sans
+                style.fonts.tag.font = sans
+                style.fonts.textblock.font = sans
+            case .serif:
+                style.fonts.title.font = serif
+                style.fonts.subtitle.font = serif
+                style.fonts.text.font = serif
+                style.fonts.chord.font = serif
+                style.fonts.label.font = serif
+                style.fonts.comment.font = serif
+                style.fonts.tag.font = serif
+                style.fonts.textblock.font = serif
+            case .random:
+                style.fonts.title.font = fonts.randomElement() ?? sans
+                style.fonts.subtitle.font = fonts.randomElement() ?? sans
+                style.fonts.text.font = fonts.randomElement() ?? sans
+                style.fonts.chord.font = fonts.randomElement() ?? sans
+                style.fonts.label.font = fonts.randomElement() ?? sans
+                style.fonts.comment.font = fonts.randomElement() ?? sans
+                style.fonts.tag.font = fonts.randomElement() ?? sans
+                style.fonts.textblock.font = fonts.randomElement() ?? sans
+            }
+
+            return style
+        }
     }
 }
 
@@ -47,11 +112,11 @@ extension AppSettings.Style {
                 style.fonts.subtitle.color = .gray
                 style.fonts.chord.color = .accent
                 style.fonts.label.color = .black
-                style.fonts.label.background = .gray.opacity(0.3)
+                style.fonts.label.background = Color(red: 0.867, green: 0.867, blue: 0.867)
                 style.fonts.comment.color = .black
-                style.fonts.comment.background = .pdfComment
+                style.fonts.comment.background = Color(red: 0.941, green: 0.91, blue: 0.788)
                 style.fonts.tag.color = .black
-                style.fonts.tag.background = .red.opacity(0.3)
+                style.fonts.tag.background = Color(red: 1, green: 0.78, blue: 0.765)
                 style.fonts.textblock.color = .black
             case .dark:
                 style.theme.foreground = .white
@@ -66,7 +131,7 @@ extension AppSettings.Style {
                 style.fonts.comment.color = .black
                 style.fonts.comment.background = .orange
                 style.fonts.tag.color = .white
-                style.fonts.tag.background = .red.opacity(0.5)
+                style.fonts.tag.background = Color(red: 0.498, green: 0.122, blue: 0.098)
                 style.fonts.textblock.color = .white
             case .random:
                 style.theme.foreground = .randomDark
@@ -135,14 +200,14 @@ extension AppSettings.Style {
         /// General text inside verse, chorus etc...
         var text: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 12)
         /// The chords, like [G7] for example
-        var chord: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, color: .accent)
+        var chord: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10)
         /// The label in front of an ``ChordPro/Environment``
-        var label: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10, background: .gray.opacity(0.3))
+        var label: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 10)
         /// {comment ...}
-        var comment: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .pdfComment)
+        var comment: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8)
         /// {tag ...}
-        var tag: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8, background: .red.opacity(0.3))
+        var tag: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 8)
         /// {textblock} environment
-        var textblock: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 11, color: .black)
+        var textblock: ConfigOptions.FontOptions = ConfigOptions.FontOptions(size: 11)
     }
 }

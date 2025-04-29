@@ -15,17 +15,29 @@ extension SettingsView {
         VStack {
             VStack {
                 ScrollView {
-                    VStack {
-                        HStack {
-                            ForEach(AppSettings.Style.ColorPreset.allCases, id: \.self) { preset in
-                                Button(preset.rawValue) {
-                                    appState.settings.style = preset.presets(style: appState.settings.style)
+                    Form {
+                        LabeledContent("Fonts:") {
+                            HStack {
+                                ForEach(AppSettings.Style.FontPreset.allCases, id: \.self) { preset in
+                                    Button(preset.rawValue) {
+                                        appState.settings.style = preset.presets(style: appState.settings.style, fonts: appState.fonts)
+                                    }
+                                    .disabled(appState.settings.style == preset.presets(style: appState.settings.style, fonts: appState.fonts))
                                 }
-                                .disabled(appState.settings.style == preset.presets(style: appState.settings.style))
+                            }
+                        }
+                        LabeledContent("Colors:") {
+                            HStack {
+                                ForEach(AppSettings.Style.ColorPreset.allCases, id: \.self) { preset in
+                                    Button(preset.rawValue) {
+                                        appState.settings.style = preset.presets(style: appState.settings.style)
+                                    }
+                                    .disabled(appState.settings.style == preset.presets(style: appState.settings.style))
+                                }
                             }
                         }
                     }
-                    .wrapSettingsSection(title: "Color Templates")
+                    .wrapSettingsSection(title: "Templates")
                     VStack {
                         Form {
                             ColorPicker("Foreground Color", selection: $appState.settings.style.theme.foreground, supportsOpacity: true)
@@ -62,14 +74,14 @@ extension SettingsView {
             }
             Button(
                 action: {
-                    appState.settings.style = AppSettings.Style()
+                    appState.settings.style = appState.settings.style.defaults()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
             .padding(.bottom)
-            .disabled(appState.settings.style == AppSettings.Style())
+            .disabled(appState.settings.style == appState.settings.style.defaults())
         }
     }
 }

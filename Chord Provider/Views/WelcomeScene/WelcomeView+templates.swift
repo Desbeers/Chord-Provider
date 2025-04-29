@@ -26,6 +26,17 @@ extension WelcomeView {
                 }
                 .listRowSeparator(.hidden)
 
+                Button {
+                    if
+                        let sampleSong = Bundle.main.url(forResource: "Markdown", withExtension: "chordpro"),
+                        let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+                        newSong(text: content, template: sampleSong)
+                    }
+                } label: {
+                    Label("Markdown formatting", systemImage: "document.badge.gearshape")
+                }
+                .listRowSeparator(.hidden)
+
                 Section {
                     Button {
                         if

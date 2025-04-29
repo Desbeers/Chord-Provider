@@ -1,0 +1,37 @@
+{title Markdown Formatting}
+{artist Nick Berendsen}
+
+{start_of_textblock align="left" flush="center"}
+Support for basic markdown formatting in the chordpro specification seems natural to me. It shares the same simplicity. 
+https://github.com/Desbeers/Chord-Provider supports it.
+{end_of_textblock}
+{start_of_textblock Markdown}
+# Markdown is nice!
+I just added some basic support...
+
+## Support
+- **Bold text**
+- *Italic* text
+- ~Stricketrough~ text
+- `Coding` text
+- Headings
+- This is a list...
+{end_of_textblock}
+
+{start_of_verse This is a verse}
+I wrote a song in *Word*, [A]adding al the [C]**chords**
+{comment With *markup*...}
+Then I found-out [C]**Chordpro**; so much [B]*better*
+{comment http://chordpro.org}
+So my songs in *Word* [Am]are over...
+Wor[D]d is ~great for my songs~
+[C]*ChordPro* is **great for my songs**!
+
+{end_of_verse}
+
+{start_of_textblock label="Issues" align="right" flush="right"}
+### Nothing is easy
+An `{# comment}` can also be a heading; so, when an `#` is inside a environment it is treaded as a header; else as a comment.
+{end_of_textblock}
+
+
