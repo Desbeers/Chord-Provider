@@ -44,6 +44,9 @@ extension PDFBuild {
                 case .comment:
                     let comment = PDFBuild.Comment(line.plain, settings: settings).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+                case .emptyLine:
+                    let spacer = PDFBuild.Spacer(settings.style.fonts.text.size / 2)
+                    spacer.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break
                 }

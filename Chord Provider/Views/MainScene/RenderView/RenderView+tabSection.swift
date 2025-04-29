@@ -23,6 +23,9 @@ extension RenderView {
                         .minimumScaleFactor(0.1)
                 case .comment:
                     commentLabel(comment: line.plain)
+                case .emptyLine:
+                    Color.clear
+                        .frame(height: song.settings.style.fonts.text.size / 2)
                 default:
                     EmptyView()
                 }

@@ -58,7 +58,7 @@ extension PDFElement {
     func shouldPageBreak(rect: CGRect, pageRect: CGRect) -> Bool {
         var tempRect = rect
         draw(rect: &tempRect, calculationOnly: true, pageRect: pageRect)
-        let breakPage = tempRect.origin.y > rect.maxY || rect.height < 10
+        let breakPage = tempRect.origin.y > rect.maxY
         return breakPage
     }
 
