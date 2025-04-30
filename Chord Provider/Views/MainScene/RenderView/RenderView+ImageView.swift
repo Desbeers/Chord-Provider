@@ -17,9 +17,9 @@ extension RenderView {
         let arguments: ChordProParser.Arguments?
         /// The scale of the image
         let scale: Double
-
+        /// The maximum width for the image
         let maxWidth: Double
-
+        /// The calculated image size
         var size: CGSize {
             var size = CGSize(width: imageView.size.width * scale, height: imageView.size.height * scale)
             if size.width > maxWidth {
@@ -43,7 +43,7 @@ extension RenderView {
         var body: some View {
             Image(nsImage: imageView.image)
                 .resizable()
-                .frame(width: size.width * scale, height: size.height * scale)
+                .frame(width: size.width, height: size.height)
                 .offset(x: offset.width, y: offset.height)
                 .task(id: arguments) {
                     offset = ChordProParser.getOffset(arguments)

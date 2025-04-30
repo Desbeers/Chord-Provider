@@ -57,7 +57,6 @@ struct HelpView: View {
             if
                 let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
                 let content = try? String(contentsOf: helpSong, encoding: .utf8) {
-                //var settings = AppSettings()
                 switch colorScheme {
                 case .dark:
                     settings.style = AppSettings.Style.ColorPreset.dark.presets(style: settings.style)
@@ -82,8 +81,6 @@ struct HelpView: View {
         if
             let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
             let content = try? String(contentsOf: helpSong, encoding: .utf8) {
-            //var settings = AppSettings()
-
             settings.style = AppSettings.Style.ColorPreset.random.presets(style: settings.style)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = helpSong
@@ -102,8 +99,6 @@ struct HelpView: View {
         if
             let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
             let content = try? String(contentsOf: helpSong, encoding: .utf8) {
-            //var settings = AppSettings()
-
             settings.style = AppSettings.Style.FontPreset.random.presets(style: settings.style, fonts: appState.fonts)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = helpSong
