@@ -13,7 +13,7 @@ extension RenderView {
 
     /// SwiftUI `View` for a plain text section
     func textblockSection(section: Song.Section) -> some View {
-        VStack(alignment: getFlush(section.arguments)) {
+        VStack(alignment: getFlush(section.arguments), spacing: 0) {
             ForEach(section.lines) { line in
                 switch line.directive {
                 case .environmentLine:
@@ -21,9 +21,10 @@ extension RenderView {
                     Text(line.plain.toMarkdown(fontOptions: song.settings.style.fonts.textblock, scale: song.settings.scale))
                 case .emptyLine:
                     Color.clear
-                        .frame(height: song.settings.style.fonts.textblock.size)
+                        .frame(height: song.settings.style.fonts.textblock.size / 2 * song.settings.scale)
                 case .comment:
                     commentLabel(comment: line.plain)
+                        .padding(.vertical, song.settings.style.fonts.textblock.size * song.settings.scale / 2)
                 default:
                     EmptyView()
                 }

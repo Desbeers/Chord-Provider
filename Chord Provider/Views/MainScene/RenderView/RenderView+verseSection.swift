@@ -13,7 +13,7 @@ extension RenderView {
 
     /// SwiftUI `View` for a verse section
     func verseSection(section: Song.Section) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             ForEach(section.lines) { line in
                 switch line.directive {
                 case .environmentLine:
@@ -27,9 +27,10 @@ extension RenderView {
                     }
                 case .emptyLine:
                     Color.clear
-                        .frame(height: song.settings.style.fonts.text.size)
+                        .frame(height: song.settings.style.fonts.text.size * song.settings.scale)
                 case .comment:
                     commentLabel(comment: line.plain)
+                        .padding(.vertical, song.settings.style.fonts.text.size * song.settings.scale / 2)
                 default:
                     EmptyView()
                 }

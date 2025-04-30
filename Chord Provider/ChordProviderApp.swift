@@ -174,6 +174,7 @@ import OSLog
 
         UtilityWindow(AppDelegate.WindowID.helpView.rawValue, id: AppDelegate.WindowID.helpView.rawValue) {
             HelpView()
+                .environment(appState)
         }
         .defaultLaunchBehavior(.suppressed)
         .windowResizability(.contentSize)

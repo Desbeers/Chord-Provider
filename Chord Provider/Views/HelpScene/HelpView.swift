@@ -9,6 +9,10 @@ import SwiftUI
 
 /// SwiftUI `View` for help
 struct HelpView: View {
+    /// The observable state of the application
+    @Environment(AppStateModel.self) private var appState
+    /// The settings
+    @State var settings = AppSettings()
     /// The optional PDF data
     @State private var data: Data?
     /// Check the color scheme
@@ -25,10 +29,17 @@ struct HelpView: View {
             HStack {
                 Button {
                     Task {
-                        await random()
+                        await randomColors()
                     }
                 } label: {
                     Text("Random Colors")
+                }
+                Button {
+                    Task {
+                        await randomFonts()
+                    }
+                } label: {
+                    Text("Random Fonts")
                 }
                 Spacer()
                 if let url = URL(string: "https://github.com/Desbeers/Chord-Provider") {
@@ -46,7 +57,7 @@ struct HelpView: View {
             if
                 let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
                 let content = try? String(contentsOf: helpSong, encoding: .utf8) {
-                var settings = AppSettings()
+                //var settings = AppSettings()
                 switch colorScheme {
                 case .dark:
                     settings.style = AppSettings.Style.ColorPreset.dark.presets(style: settings.style)
@@ -67,13 +78,33 @@ struct HelpView: View {
     }
 
     /// Show help with random colours
-    func random() async {
+    func randomColors() async {
         if
             let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
             let content = try? String(contentsOf: helpSong, encoding: .utf8) {
-            var settings = AppSettings()
+            //var settings = AppSettings()
 
             settings.style = AppSettings.Style.ColorPreset.random.presets(style: settings.style)
+            var song = Song(id: UUID(), content: content)
+            song.metadata.fileURL = helpSong
+            song.settings = settings
+            song = await ChordProParser.parse(song: song)
+            if let export = try? await SongExport.export(
+                song: song
+            ) {
+                data = export.pdf
+            }
+        }
+    }
+
+    /// Show help with random fonts
+    func randomFonts() async {
+        if
+            let helpSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
+            let content = try? String(contentsOf: helpSong, encoding: .utf8) {
+            //var settings = AppSettings()
+
+            settings.style = AppSettings.Style.FontPreset.random.presets(style: settings.style, fonts: appState.fonts)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = helpSong
             song.settings = settings

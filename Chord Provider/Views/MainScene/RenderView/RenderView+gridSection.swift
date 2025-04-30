@@ -14,7 +14,7 @@ extension RenderView {
     /// SwiftUI `View` for a grid section
     func gridSection(section: Song.Section) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Grid(alignment: .leading) {
+            Grid(alignment: .leading, horizontalSpacing: 0, verticalSpacing: 0) {
                 ForEach(section.lines) { line in
                     switch line.directive {
                     case .environmentLine:
@@ -37,8 +37,13 @@ extension RenderView {
                                 }
                             }
                         }
+                    case .emptyLine:
+                        Color.clear
+                            .frame(height: song.settings.style.fonts.text.size / 2 * song.settings.scale)
+                            .gridCellUnsizedAxes(.horizontal)
                     case .comment:
                         commentLabel(comment: line.plain)
+                            .padding(.vertical, song.settings.style.fonts.text.size * song.settings.scale / 2)
                     default:
                         EmptyView()
                     }

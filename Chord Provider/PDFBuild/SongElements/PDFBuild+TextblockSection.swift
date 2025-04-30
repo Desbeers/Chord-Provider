@@ -55,7 +55,7 @@ extension PDFBuild {
                 case .environmentLine:
                     var string = line.plain.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: 1)
                     let paragraphStyle = string.paragraphStyle as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
-                    paragraphStyle.lineHeightMultiple = 1.4
+                    paragraphStyle.lineHeightMultiple = 1.2
                     paragraphStyle.alignment = flush
                     var attributes = AttributeContainer()
                     attributes.paragraphStyle = paragraphStyle
@@ -66,7 +66,7 @@ extension PDFBuild {
                     maxSize = max(maxSize, line.boundingRect(with: tmpRect.size).width)
                     elements.append(PDFBuild.Text(line))
                 case .emptyLine:
-                    let spacer = PDFBuild.Spacer(settings.style.fonts.textblock.size)
+                    let spacer = PDFBuild.Spacer(settings.style.fonts.textblock.size / 2)
                     elements.append(spacer)
                 case .comment:
                     let comment = PDFBuild.Comment(line.plain, settings: settings, alignment: flush).padding(6)

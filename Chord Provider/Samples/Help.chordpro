@@ -34,14 +34,14 @@ A|-------------|
 E|-------------|
 {end_of_tab}
 
-{start_of_grid Griddy Grid!}
+{start_of_grid label="Griddy Grid!"}
 | G7 G7 . C | Am . . Am |
 | G7 G7 . C | Asus4 . . Am |
 {comment This is not really a nice melody, I know!}
 {end_of_grid}
 
 {start_of_strum label="Strum Me!" tuplet="2"}
-d.dud.dududu.udu
+d dud dududu udu
 {comment Basic strumming pattern is supported as well}
 {end_of_strum}
 
@@ -49,7 +49,7 @@ d.dud.dududu.udu
 This is just a block with text.
 It is using the `{start_of_textblock}` environment.
 You can align it to your liking
-and style it in the 'Settings'.
+and style it in the `Settings`.
 
 You can use *italic* and **bold** markdown formats!
 {comment This implementation is only partly according the standard}
@@ -69,27 +69,30 @@ The above directive indicates that the Chorus must be repeated. In the Settings 
 
 {define G7 base-fret 1 frets 2 4 5 5 4 2 fingers 1 2 4 4 3 1}
 
+{start_of_verse Finder}
+In the [F]Finder; [C]ChordPro files will have a custom icon
+with the title of the song; just [E]eyecandy!
+[C]Chord Provider also supports *quickview*; press `space`
+when you have a song selected [Am]and it will render it for you.
+{end_of_verse}
+
+{image src="IconPreview.png" width="100" align="center"}
+
+{comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song!}
+
 {start_of_verse Custom Chords}
 You cannot s[E]ee it in the output, [B]but I just
 redefined my favorite [G7]G7 Chord!
 {end_of_verse}
 
-{image src="IconPreview.png" align="left"}
+{image src="ChordDefine.png" width="400" align="center"}
 
-{comment Images are supported as well}
-
-{start_of_verse Finder}
-In the [F]Finder; [C]ChordPro files will have a custom icon
-with the title of the song; just eyecandy!
-[C]Chord Provider also supports 'quickview'; press 'space'
-when you have a song selected [Am]and it will render it for you.
-{end_of_verse}
+{comment Define chords to your liking...}
 
 {start_of_textblock label="Markdown" align="center" flush="left"}
 # Yes, markdown! This is a heading!
 
 Markdown feels natural to the **ChordPro** text format and has basic support in **Chord Provider**.
-
 - This is a list
 - Text that is **Bold**
 - Text that is *Italic*
@@ -97,13 +100,42 @@ Markdown feels natural to the **ChordPro** text format and has basic support in 
 - Links [Github](https://github.com/Desbeers/Chord-Provider)
 - Headers
 - And some `{code}`
-
 You can use it in comments, labels and text blocks.
 {end_of_textblock}
 
+{start_of_textblock label="About me" align="right" flush="right"}
+### I'm not a musician; I'm not a programmer
+
+I'm just a hobbyist who enjoys both!
+
+Learned programming way back on the `Commodore 64`
+but I never made it my work.
+
+*If you make your hobby your work it is not your hobby anymore...*
+
+So, I didn’t...
+
+I play guitar for more than 20 years; strumming my chords on a beautiful Telecaster. Never got really good at it but I don’t care. I enjoy it!
+{end_of_textblock}
+
+{start_of_textblock}
+**Chord Provider** is the result of both hobbies and it serves me well.
+- Sometimes I just play the songs in my songbook; sometimes I see that there is something wrong in the book so I solve it.
+- Sometimes I just give myself a challenge to add something to the application because its like a crossword challenge
+- I do contribute to the official **ChordPro** implementation because I believe in *Open Source software* and standards. While **Chord Provider** is *macOS* only, a closed system, my code is not. I just like *macOS* and especially `Swift` as programming language.
+{end_of_textblock}
+
+{comment https://github.com/Desbeers/Chord-Provider}
+
+{start_of_verse Bugs}
+[B]Bugs are for free; no subscription in [C]**Chord Provider** [F]for [A]additional [F]features!
+However; If you realy don't like the [B]bug, report it...
+{comment https://github.com/Desbeers/Chord-Provider/issues/new}
+{end_of_verse}
+
 {start_of_textblock label="Style and Colors" align="center" flush="center"}
 If you look at this help, it looks *plain* and **boring**.
-Give it a try with the 'Random Colors' button below!
+Give it a try with the **Random Colors** and **Random Fonts** buttons below!
 
-{comment You can set **colors** and **fonts** in the 'settings' yourself.}
+{comment You can set **colors** and **fonts** in the `settings` yourself.}
 {end_of_textblock}

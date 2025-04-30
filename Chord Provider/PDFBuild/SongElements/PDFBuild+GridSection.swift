@@ -90,7 +90,7 @@ extension PDFBuild {
                         rect.size.height -= lineHeight
                     }
                 case .emptyLine:
-                    let spacer = PDFBuild.Spacer(settings.style.fonts.textblock.size)
+                    let spacer = PDFBuild.Spacer(settings.style.fonts.chord.size / 2)
                     spacer.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 case .comment:
                     let comment = PDFBuild.Comment(line.plain, settings: settings).padding(6)
