@@ -120,8 +120,8 @@ extension AppSettings.Style {
                 style.fonts.textblock.color = .black
             case .dark:
                 style.theme.foreground = .white
-                style.theme.foregroundMedium = .gray
-                style.theme.foregroundLight = Color(red: 0.24, green: 0.24, blue: 0.24)
+                style.theme.foregroundMedium = Color(red: 0.875, green: 0.875, blue: 0.875)
+                style.theme.foregroundLight = Color(red: 0.714, green: 0.714, blue: 0.714)
                 style.theme.background = .black
                 style.fonts.title.color = .white
                 style.fonts.subtitle.color = .gray

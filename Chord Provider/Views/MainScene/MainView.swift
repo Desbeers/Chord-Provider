@@ -139,7 +139,7 @@ struct MainView: View {
                     Group {
                         SongView()
                             .foregroundStyle(
-                                appState.settings.style.theme.foreground,
+                                appState.settings.style.fonts.text.color,
                                 appState.settings.style.theme.foregroundMedium
                             )
                         if sceneState.song.settings.display.showChords {

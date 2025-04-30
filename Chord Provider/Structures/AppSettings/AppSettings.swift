@@ -23,7 +23,14 @@ struct AppSettings: Equatable, Codable, Sendable {
     /// ChordPro integration
     var chordPro: ChordPro = .init()
     /// Style settings
-    var style: Style = .init()
+    var style: Style = .init() {
+        didSet {
+            print("DIDSET")
+            style.fonts.title.color = style.theme.foreground
+            style.fonts.subtitle.color = style.theme.foregroundMedium
+            style.fonts.text.color = style.theme.foreground
+        }
+    }
     /// PDF settings
     var pdf = AppSettings.PDF()
 

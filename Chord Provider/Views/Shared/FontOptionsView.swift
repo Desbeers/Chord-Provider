@@ -97,7 +97,7 @@ extension FontOptionsView {
                     Text(options.nsFont(scale: 1).displayName ?? config.rawValue)
                         .font(.custom(options.font.postScriptName, size: options.size * 1.2))
                         .padding(6)
-                        .foregroundStyle(config.color(settings: settings))
+                        .foregroundStyle(options.color)
                         .background(
                             config.options.contains(.background) ? Color(options.background) : Color.clear
                         )

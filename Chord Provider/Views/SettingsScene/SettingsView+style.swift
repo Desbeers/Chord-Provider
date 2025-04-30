@@ -17,23 +17,31 @@ extension SettingsView {
                 ScrollView {
                     Form {
                         LabeledContent("Fonts:") {
-                            HStack {
-                                ForEach(AppSettings.Style.FontPreset.allCases, id: \.self) { preset in
-                                    Button(preset.rawValue) {
-                                        appState.settings.style = preset.presets(style: appState.settings.style, fonts: appState.fonts)
+                            VStack {
+                                HStack {
+                                    ForEach(AppSettings.Style.FontPreset.allCases, id: \.self) { preset in
+                                        Button(preset.rawValue) {
+                                            appState.settings.style = preset.presets(style: appState.settings.style, fonts: appState.fonts)
+                                        }
+                                        .disabled(appState.settings.style == preset.presets(style: appState.settings.style, fonts: appState.fonts))
                                     }
-                                    .disabled(appState.settings.style == preset.presets(style: appState.settings.style, fonts: appState.fonts))
                                 }
+                                Text("**Random** just picks fonts from your catalog;\nit may or may not look good.")
+                                    .font(.caption)
                             }
                         }
                         LabeledContent("Colors:") {
-                            HStack {
-                                ForEach(AppSettings.Style.ColorPreset.allCases, id: \.self) { preset in
-                                    Button(preset.rawValue) {
-                                        appState.settings.style = preset.presets(style: appState.settings.style)
+                            VStack {
+                                HStack {
+                                    ForEach(AppSettings.Style.ColorPreset.allCases, id: \.self) { preset in
+                                        Button(preset.rawValue) {
+                                            appState.settings.style = preset.presets(style: appState.settings.style)
+                                        }
+                                        .disabled(appState.settings.style == preset.presets(style: appState.settings.style))
                                     }
-                                    .disabled(appState.settings.style == preset.presets(style: appState.settings.style))
                                 }
+                                Text("**Random** just gives you some inspirations;\nit might look awful.")
+                                    .font(.caption)
                             }
                         }
                     }

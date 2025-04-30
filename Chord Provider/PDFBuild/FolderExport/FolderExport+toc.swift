@@ -42,7 +42,7 @@ extension FolderExport {
         tocBuilder.elements.append(
             PDFBuild.Text(
                 "Table of Contents",
-                attributes: .attributes(.title, settings: settings) + .alignment(.center)
+                attributes: .attributes(settings.style.fonts.title) + .alignment(.center)
             )
         )
         for tocInfo in counter.tocItems {

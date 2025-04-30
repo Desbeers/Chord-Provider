@@ -91,7 +91,7 @@ struct ChordDefinitionView: View {
             if diagramDisplayOptions.showPlayButton, chord.status.knownChord {
                 AppStateModel.PlayButton(chord: chord, instrument: diagramDisplayOptions.midiInstrument)
                     .font(.body)
-                    .foregroundStyle(settings.style.theme.foreground)
+                    .foregroundStyle(Color.accentColor)
                     .padding(.top, lineHeight / 2)
                     .padding(.leading, horizontalPadding)
                     .labelStyle(.iconOnly)
@@ -154,6 +154,7 @@ struct ChordDefinitionView: View {
                         Color.clear
                     }
                 }
+                .foregroundStyle(settings.style.theme.foregroundMedium)
                 .font(.system(size: lineHeight * 0.6, weight: .semibold, design: .default))
                 .frame(maxWidth: .infinity)
                 .frame(height: lineHeight)

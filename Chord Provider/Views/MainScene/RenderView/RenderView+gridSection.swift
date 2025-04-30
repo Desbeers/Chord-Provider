@@ -30,8 +30,9 @@ extension RenderView {
                                                 chord: chord
                                             )
                                         } else {
-                                            Text(part.text)
-                                                .foregroundStyle(part.text == "|" || part.text == "." ? Color.primary : Color.red)
+                                            Text(" \(part.text) ")
+                                                .foregroundStyle(part.text == "|" || part.text == "." ? song.settings.style.fonts.text.color : Color.red)
+                                                .font(song.settings.style.fonts.chord.swiftUIFont(scale: song.settings.scale))
                                         }
                                     }
                                 }

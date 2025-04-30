@@ -24,6 +24,7 @@ extension RenderView {
                                     ForEach(strumPart) { strum in
                                         VStack {
                                             Text(strum.strum)
+                                                .foregroundStyle(song.settings.style.fonts.text.color)
                                                 .font(song.settings.style.fonts.text.swiftUIFont(scale: song.settings.scale))
                                             Text(strum.beat.isEmpty ? strum.tuplet : strum.beat)
                                                 .foregroundStyle(song.settings.style.theme.foregroundMedium)

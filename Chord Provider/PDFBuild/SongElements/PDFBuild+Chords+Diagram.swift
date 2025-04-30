@@ -112,7 +112,7 @@ extension PDFBuild.Chords {
                     height: rect.height
                 )
                 let chord = chord.display
-                let name = PDFBuild.Text(chord, attributes: .attributes(.chord, settings: settings) + .alignment(.center))
+                let name = PDFBuild.Text(chord, attributes: .attributes(settings.style.fonts.chord) + .alignment(.center))
                 name.draw(rect: &nameRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 /// Add this item to the total height
                 currentDiagramHeight += (nameRect.origin.y - rect.origin.y) * 0.8
@@ -349,7 +349,7 @@ extension PDFStringAttribute {
     static func diagramTopBar(settings: AppSettings) -> PDFStringAttribute {
         [
             .font: NSFont.systemFont(ofSize: 5, weight: .semibold),
-            .foregroundColor: settings.style.theme.foreground.nsColor
+            .foregroundColor: settings.style.theme.foregroundMedium.nsColor
         ] + .alignment(.center)
     }
 

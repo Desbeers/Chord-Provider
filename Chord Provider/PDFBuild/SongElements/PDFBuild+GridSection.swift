@@ -54,7 +54,7 @@ extension PDFBuild {
                     for (column, part) in parts.enumerated() {
                         elements[column].append(
                             NSAttributedString(
-                                string: "\(part.text)\n",
+                                string: " \(part.text) \n",
                                 attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                             )
                         )
@@ -75,7 +75,7 @@ extension PDFBuild {
                         for (column, part) in parts.enumerated() {
 
                             let string = NSAttributedString(
-                                string: "\(part.text)",
+                                string: " \(part.text) \u{200c}",
                                 attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                             )
                             let textBounds = string.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
@@ -114,7 +114,7 @@ extension PDFStringAttribute {
             size: settings.style.fonts.chord.size
         ) ?? .systemFont(ofSize: settings.style.fonts.chord.size)
         return [
-            .foregroundColor: settings.style.theme.foreground.nsColor,
+            .foregroundColor: settings.style.fonts.text.color.nsColor,
             .font: font
         ]
     }

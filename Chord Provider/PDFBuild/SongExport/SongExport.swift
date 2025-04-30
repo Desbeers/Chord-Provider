@@ -87,8 +87,8 @@ extension SongExport {
         }
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))
-        items.append(PDFBuild.Text("\(song.metadata.title)", attributes: .attributes(.title, settings: settings) + .alignment(.center)))
-        items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .attributes(.subtitle, settings: settings) + .alignment(.center)))
+        items.append(PDFBuild.Text("\(song.metadata.title)", attributes: .attributes(settings.style.fonts.title) + .alignment(.center)))
+        items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .attributes(settings.style.fonts.subtitle) + .alignment(.center)))
 
         if settings.pdf.showTags {
             items.append(PDFBuild.Tags(song: song, settings: settings))
@@ -107,7 +107,7 @@ extension SongExport {
 
         let longestLabel = NSAttributedString(
             string: song.metadata.longestLabel,
-            attributes: .attributes(.label, settings: settings)
+            attributes: .attributes(settings.style.fonts.label)
         )
         let longestLabelBounds = longestLabel.boundingRect(
             with: settings.pdf.pageSize.rect(settings: settings).size,
@@ -119,7 +119,7 @@ extension SongExport {
 
         let longestLine = NSAttributedString(
             string: song.metadata.longestLine,
-            attributes: .attributes(.text, settings: settings)
+            attributes: .attributes(settings.style.fonts.text)
         )
         let longestLineBounds = longestLine.boundingRect(
             with: settings.pdf.pageSize.rect(settings: settings).size,

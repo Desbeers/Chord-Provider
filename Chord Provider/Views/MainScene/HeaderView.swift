@@ -27,19 +27,16 @@ struct HeaderView: View {
             sceneState.chordsAsDiagramToggle
                 .frame(maxWidth: 110, maxHeight: 30)
                 .padding(.leading)
-                .disabled(sceneState.preview.active)
         }
         .padding(.trailing, 110)
         .overlay(alignment: .trailing) {
             sceneState.scaleSlider
                 .frame(width: 100)
                 .padding(.trailing)
-                .disabled(sceneState.preview.active)
         }
         .frame(minHeight: 45)
-        .background(.regularMaterial)
-        .background(appState.settings.style.theme.background)
-        .buttonStyle(.bordered)
+        .background(.ultraThinMaterial)
+        .background(appState.settings.style.theme.background.opacity(0.4))
     }
 }
 
@@ -72,6 +69,7 @@ extension HeaderView {
                         .font(.headline)
                 }
                 Text(metaData.joined(separator: "∙"))
+                    .foregroundStyle(.secondary)
                     .font(.subheadline)
             }
         }
@@ -101,8 +99,13 @@ extension HeaderView {
         ///   - sfSymbol: The SF symbol
         /// - Returns: A `View`
         func metadata(string: String, sfSymbol: SFSymbol) -> some View {
-            Label(string, systemImage: sfSymbol.rawValue)
-                .padding(.leading, 4)
+            Label {
+                Text(string)
+            } icon: {
+                Image(systemName: sfSymbol.rawValue)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.leading, 4)
         }
     }
 }

@@ -47,29 +47,6 @@ enum FontConfig: String, CaseIterable {
             [.font, .size, .color]
         }
     }
-    /// Get the color for a ``ChordPro/FontConfig``
-    /// - Parameter settings: The application settings
-    /// - Returns: a SwiftUI Color
-    func color(settings: AppSettings) -> Color {
-        switch self {
-        case .title:
-            settings.style.theme.foreground
-        case .subtitle:
-            settings.style.theme.foregroundMedium
-        case .text:
-            settings.style.theme.foreground
-        case .chord:
-            settings.style.fonts.chord.color
-        case .label:
-            settings.style.fonts.label.color
-        case .comment:
-            settings.style.fonts.comment.color
-        case .tag:
-            settings.style.fonts.tag.color
-        case .textblock:
-            settings.style.fonts.textblock.color
-        }
-    }
     /// An optional 'help' for the config
     var help: String? {
         switch self {

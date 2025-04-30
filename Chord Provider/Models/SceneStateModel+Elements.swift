@@ -82,8 +82,9 @@ extension SceneStateModel {
             Toggle(isOn: $sceneState.song.settings.display.showInlineDiagrams) {
                 Text("Chords as Diagram")
                     .font(.caption)
-                    .foregroundStyle(.secondary)
+                    //.foregroundStyle(sceneState.song.settings.style.theme.foreground)
             }
+            //.tint(sceneState.song.settings.style.theme.foregroundMedium)
             .toggleStyle(.switch)
             .minimumScaleFactor(0.1)
         }
