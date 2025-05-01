@@ -60,6 +60,7 @@ Well, the source is free!
 ###  Install script
 
 There is an `Install` script in the download if you want to bypass the almighty gatekeeper.
+
 Up to you if you want to use it.
   
 ## Limitations
