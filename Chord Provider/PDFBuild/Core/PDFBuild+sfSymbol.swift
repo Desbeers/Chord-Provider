@@ -16,11 +16,15 @@ extension PDFBuild {
     ///   - nsColor: The color of the icon
     /// - Returns: An `NSTextAttachment`
     static func sfSymbol(sfSymbol: SFSymbol, fontSize: Double, nsColor: NSColor) -> NSTextAttachment {
+        return PDFBuild.sfSymbol(sfSymbol: sfSymbol.rawValue, fontSize: fontSize, nsColors: [nsColor])
+    }
+
+    static func sfSymbol(sfSymbol: String, fontSize: Double, nsColors: [NSColor]) -> NSTextAttachment {
         /// Get a large SF symbol and scale it back to expected size or else it will be super blurry
         var config = NSImage.SymbolConfiguration(pointSize: fontSize * 3, weight: .medium, scale: .medium)
-        config = config.applying(.init(paletteColors: [nsColor]))
+        config = config.applying(.init(paletteColors: nsColors))
         guard
-            let sfImage = NSImage(systemSymbolName: sfSymbol.rawValue, accessibilityDescription: nil)?.withSymbolConfiguration(config),
+            let sfImage = NSImage(systemSymbolName: sfSymbol, accessibilityDescription: nil)?.withSymbolConfiguration(config),
             let cgImage = sfImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
             return NSTextAttachment()
         }

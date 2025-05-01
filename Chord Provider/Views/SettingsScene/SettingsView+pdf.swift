@@ -41,6 +41,13 @@ extension SettingsView {
                             .font(.caption)
                     }
                 }
+                LabeledContent("Diagram Width") {
+                    VStack {
+                        SizeSlider(fontSize: $appState.settings.pdf.diagramWidth, range: 20...120, label: .symbol)
+                        Text("The diagram will be \(Int(appState.settings.pdf.diagramWidth)) points wide")
+                            .font(.caption)
+                    }
+                }
                 Toggle(isOn: $appState.settings.pdf.centerContent) {
                     Text("Center main content")
                     Text("When enabled, the main content will be centred based on the longest lyrics line.")

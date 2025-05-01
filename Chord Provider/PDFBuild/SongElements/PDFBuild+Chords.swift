@@ -46,7 +46,7 @@ extension PDFBuild {
             }
             /// Spread the chords evenly over multiple lines
             /// The diagram is about 60 points wide
-            let row = Int((pageRect.width - (settings.pdf.pagePadding * 2)) / 65)
+            let row = Int((pageRect.width - (settings.pdf.pagePadding * 2)) / (settings.pdf.diagramWidth * 1.2))
             let chordsCount = chords.count
             let lines = Int((chordsCount - 1) / row) + 1
             let lineItems = Int((chordsCount - 1) / lines) + 1

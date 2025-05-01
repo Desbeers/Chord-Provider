@@ -39,17 +39,24 @@ extension PDFBuild.Chords {
         let frets: [Int]
         /// The fingers of the chord; adjusted for left-handed if needed
         let fingers: [Int]
-
-        // MARK: Fixed constants
-
         /// The size of the grid
-        let gridSize = CGSize(width: 50, height: 60)
+        let gridSize: CGSize
+
+        // MARK: Frets and bars
+
+        /// The radius of the fret circle
+        let circleRadius: Double
+        /// Below should be 0 for a six string instrument
+        let xOffset: Double
+        /// The colors for the fingers
+        let fretColors: [NSColor]
 
         /// Init the **chord diagram** element
         /// - Parameters:
         ///   - chord: The chord to display in a diagram
         ///   - settings: The PDF settings
         init(chord: ChordDefinition, settings: AppSettings) {
+            self.gridSize = CGSize(width: settings.pdf.diagramWidth / 1.2, height: settings.pdf.diagramWidth)
             self.chord = chord
             self.columns = (chord.instrument.strings.count) - 1
             self.width = gridSize.width
@@ -58,6 +65,11 @@ extension PDFBuild.Chords {
             self.ySpacing = height / 5
             self.frets = settings.diagram.mirrorDiagram ? chord.frets.reversed() : chord.frets
             self.fingers = settings.diagram.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
+
+            self.circleRadius = gridSize.width / 5.5
+            self.xOffset = (xSpacing - circleRadius) / 2
+            self.fretColors = [settings.style.theme.background.nsColor, settings.style.theme.foregroundMedium.nsColor]
+
             self.settings = settings
         }
 
@@ -95,6 +107,8 @@ extension PDFBuild.Chords {
                 rect.origin.y = initialRect.origin.y + currentDiagramHeight
                 rect.size.height = initialRect.size.height - currentDiagramHeight
             }
+            /// Add some padding at the bottom
+            currentDiagramHeight += ySpacing * 0.5
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
             rect.size.height = initialRect.size.height - currentDiagramHeight
             rect.origin.x += gridSize.width + 3 * xSpacing
@@ -112,7 +126,7 @@ extension PDFBuild.Chords {
                     height: rect.height
                 )
                 let chord = chord.display
-                let name = PDFBuild.Text(chord, attributes: .attributes(settings.style.fonts.chord) + .alignment(.center))
+                let name = PDFBuild.Text(chord, attributes: .diagramChordName(settings: settings))
                 name.draw(rect: &nameRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 /// Add this item to the total height
                 currentDiagramHeight += (nameRect.origin.y - rect.origin.y) * 0.8
@@ -123,32 +137,34 @@ extension PDFBuild.Chords {
             /// Draw the top bar of the chord
             /// - Parameter rect: The available rect
             func drawTopBar(rect: inout CGRect) {
-                var topBarRect = CGRect(
-                    x: rect.origin.x + xSpacing,
-                    y: rect.origin.y,
-                    width: xSpacing,
-                    height: ySpacing
-                )
-                var string = ""
-                var height: CGFloat = 0
-                for index in chord.frets.indices {
-                    let fret = frets[index]
-                    switch fret {
-                    case -1:
-                        string = "X"
-                    case 0:
-                        string = "O"
-                    default:
-                        string = " "
+                let size = circleRadius * 0.6
+                if !calculationOnly {
+                    var topBarRect = CGRect(
+                        x: rect.origin.x + xSpacing + ((xSpacing - size) / 2),
+                        y: rect.origin.y + ((ySpacing - size) / 2),
+                        width: size,
+                        height: size
+                    )
+                    for index in chord.frets.indices {
+                        var string: String?
+                        let fret = frets[index]
+                        switch fret {
+                        case -1:
+                            string = "xmark"
+                        case 0:
+                            string = "circle"
+                        default:
+                            break
+                        }
+                        if let string {
+                            let symbol = PDFBuild.sfSymbol(sfSymbol: string, fontSize: size, nsColors: [settings.style.theme.foregroundMedium.nsColor])
+                            symbol.image?.draw(in: topBarRect)
+                        }
+                        topBarRect.origin.x += xSpacing
                     }
-                    let symbol = PDFBuild.Text(string, attributes: .diagramTopBar(settings: settings))
-                    var tmpRect = topBarRect
-                    symbol.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
-                    height = tmpRect.origin.y - rect.origin.y
-                    topBarRect.origin.x += xSpacing
                 }
                 /// Add this item to the total height
-                currentDiagramHeight += height
+                currentDiagramHeight += size * 2
             }
 
             // MARK: Nut
@@ -179,14 +195,17 @@ extension PDFBuild.Chords {
             /// Draw the base fret of the chord
             /// - Parameter rect: The available rect
             func drawBaseFret(rect: inout CGRect) {
-                var baseFretRect = CGRect(
-                    x: rect.origin.x + xSpacing / 2.5,
-                    y: rect.origin.y + ySpacing / 8,
-                    width: 12,
-                    height: rect.height
-                )
-                let name = PDFBuild.Text("\(chord.baseFret)", attributes: .diagramBaseFret(settings: settings))
-                name.draw(rect: &baseFretRect, calculationOnly: calculationOnly, pageRect: pageRect)
+                if !calculationOnly {
+                    let baseFretRect = CGRect(
+                        x: rect.origin.x + xOffset + (xSpacing * 0.2),
+                        y: rect.origin.y + ((ySpacing - circleRadius) / 2),
+                        width: circleRadius,
+                        height: circleRadius
+                    )
+                    let colors = [settings.style.theme.foreground.nsColor, settings.style.theme.background.nsColor]
+                    let symbol = PDFBuild.sfSymbol(sfSymbol: "\(chord.baseFret).circle.fill", fontSize: circleRadius, nsColors: colors)
+                    symbol.image?.draw(in: baseFretRect)
+                }
             }
 
             // MARK: Grid
@@ -233,27 +252,26 @@ extension PDFBuild.Chords {
             /// - Parameters:
             ///   - rect: The available rect
             func drawFrets(rect: inout CGRect) {
-                /// The circle radius is the same for every instrument
-                let circleRadius = gridSize.width / 5
-                /// Below should be 0 for a six string instrument
-                let xOffset = (xSpacing - circleRadius) / 2
                 /// Set the rect for the grid
                 var dotRect = CGRect(
                     x: rect.origin.x + xSpacing + xOffset,
-                    y: rect.origin.y,
+                    y: rect.origin.y + ((ySpacing - circleRadius) / 2),
                     width: circleRadius,
-                    height: ySpacing
+                    height: circleRadius
                 )
                 for fret in 1...5 {
                     for string in chord.instrument.strings {
                         if frets[string] == fret {
-                            let finger = settings.diagram.showFingers && fingers[string] != 0 ?
-                            "\(fingers[string])" : " "
-                            let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
-                            let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, text)
+                            let spacer = PDFBuild.Spacer(circleRadius)
+                            let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, spacer)
                             let shape = PDFBuild.Clip(.circle, background)
                             var tmpRect = dotRect
                             shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
+                            /// Draw the optional finger
+                            if settings.diagram.showFingers && fingers[string] != 0 {
+                                let symbol = PDFBuild.sfSymbol(sfSymbol: "\(fingers[string]).circle.fill", fontSize: circleRadius, nsColors: fretColors)
+                                symbol.image?.draw(in: dotRect)
+                            }
                         }
                         /// Move X one string to the right
                         dotRect.origin.x += xSpacing
@@ -270,32 +288,38 @@ extension PDFBuild.Chords {
             /// Draw the barres in the grid
             /// - Parameter rect: The available rect
             func drawBarres(rect: inout CGRect) {
-                /// The circle radius is the same for every instrument
-                let circleRadius = gridSize.width / 5
-                /// Below should be 0 for a six string instrument
-                let xOffset = (xSpacing - circleRadius) / 2
                 /// Set the rect for the grid
                 var barresRect = CGRect(
                     x: rect.origin.x + xSpacing,
-                    y: rect.origin.y,
-                    width: xSpacing,
-                    height: ySpacing
+                    y: rect.origin.y + ((ySpacing - circleRadius) / 2),
+                    width: circleRadius,
+                    height: circleRadius
                 )
                 for fret in 1...5 {
                     if var barre = chord.barres.first(where: { $0.fret == fret }) {
                         /// Mirror for left-handed if needed
                         barre = settings.diagram.mirrorDiagram ? chord.mirrorBarre(barre) : barre
-                        let finger = settings.diagram.showFingers ? "\(barre.finger)" : " "
-                        let text = PDFBuild.Text(finger, attributes: .diagramFinger(settings: settings))
-                        let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, text)
+                        let spacer = PDFBuild.Spacer(circleRadius)
+                        let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, spacer)
                         let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
                         var tmpRect = CGRect(
                             x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing) + xOffset,
                             y: barresRect.origin.y,
                             width: (CGFloat(barre.length) * xSpacing) - (2 * xOffset),
-                            height: ySpacing
+                            height: circleRadius
                         )
+                        /// Preserve the rect for the optional finger
+                        var symbolRect = tmpRect
+                        /// Draw the bar
                         shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
+                        /// Draw the optional finger
+                        if settings.diagram.showFingers && barre.finger != 0 {
+                            let symbol = PDFBuild.sfSymbol(sfSymbol: "\(barre.finger).circle.fill", fontSize: circleRadius, nsColors: fretColors)
+                            /// Center the finger in the rect
+                            symbolRect.size.width = circleRadius
+                            symbolRect.origin.x += (tmpRect.width - circleRadius) / 2
+                            symbol.image?.draw(in: symbolRect)
+                        }
                     }
                     /// Move Y one fret down
                     barresRect.origin.y += ySpacing
@@ -308,28 +332,29 @@ extension PDFBuild.Chords {
             /// - Parameter rect: The available rect
             func drawNotesBar(rect: inout CGRect) {
                 let notes = settings.diagram.mirrorDiagram ? chord.components.reversed() : chord.components
+                var fontSize: Double {
+                    settings.pdf.diagramWidth / 14
+                }
                 var notesBarRect = CGRect(
                     x: rect.origin.x + xSpacing,
-                    y: rect.origin.y,
+                    y: rect.origin.y + (fontSize * 0.2),
                     width: xSpacing,
                     height: ySpacing
                 )
-                var height: CGFloat = 0
                 for note in notes {
                     switch note.note {
                     case .none:
                         break
                     default:
-                        let string = ("\(note.note.display)")
-                        let note = PDFBuild.Text(string, attributes: .diagramBottomBar(settings: settings))
-                        var tmpRect = notesBarRect
-                        note.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
-                        height = tmpRect.origin.y - rect.origin.y
+                        let string = NSAttributedString(string: "\(note.note.display)", attributes: .diagramBottomBar(settings: settings, fontSize: fontSize))
+                        if !calculationOnly {
+                            string.draw(in: notesBarRect)
+                        }
                     }
                     notesBarRect.origin.x += xSpacing
                 }
                 /// Add this item to the total height
-                currentDiagramHeight += height
+                currentDiagramHeight += fontSize * 1.2
             }
         }
     }
@@ -337,34 +362,22 @@ extension PDFBuild.Chords {
 
 extension PDFStringAttribute {
 
-    /// Style attributes for the diagram finger
-    static func diagramFinger(settings: AppSettings) -> PDFStringAttribute {
-        [
-            .font: NSFont.systemFont(ofSize: 6, weight: .regular),
-            .foregroundColor: settings.style.theme.background.nsColor
+    /// Style attributes for the diagram chord name
+    static func diagramChordName(settings: AppSettings) -> PDFStringAttribute {
+        /// Calculate the font size; it should never be bigger than the default chord size
+        let defaultSize = settings.style.fonts.chord.size
+        let diagramSize = settings.pdf.diagramWidth / 6
+        let fontSize = diagramSize < defaultSize ? diagramSize : defaultSize
+        return [
+            .font: NSFont(name: settings.style.fonts.text.font.postScriptName, size: fontSize) ?? NSFont.systemFont(ofSize: fontSize),
+            .foregroundColor: settings.style.fonts.chord.color.nsColor
         ] + .alignment(.center)
-    }
-
-    /// Style attributes for the diagram top bar
-    static func diagramTopBar(settings: AppSettings) -> PDFStringAttribute {
-        [
-            .font: NSFont.systemFont(ofSize: 5, weight: .semibold),
-            .foregroundColor: settings.style.theme.foregroundMedium.nsColor
-        ] + .alignment(.center)
-    }
-
-    /// Style attributes for the diagram base fret
-    static func diagramBaseFret(settings: AppSettings) -> PDFStringAttribute {
-        [
-            .font: NSFont.systemFont(ofSize: 4, weight: .regular),
-            .foregroundColor: settings.style.theme.foreground.nsColor
-        ] + .alignment(.right)
     }
 
     /// Style attributes for the diagram bottom bar
-    static func diagramBottomBar(settings: AppSettings) -> PDFStringAttribute {
+    static func diagramBottomBar(settings: AppSettings, fontSize: Double) -> PDFStringAttribute {
         [
-            .font: NSFont.systemFont(ofSize: 4, weight: .regular),
+            .font: NSFont.systemFont(ofSize: fontSize, weight: .regular),
             .foregroundColor: settings.style.theme.foreground.nsColor
         ] + .alignment(.center)
     }

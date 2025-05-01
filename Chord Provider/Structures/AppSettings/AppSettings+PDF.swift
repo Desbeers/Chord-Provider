@@ -27,5 +27,7 @@ extension AppSettings {
         var scaleFonts: Bool = true
         /// Scale factor
         var scale: Double = 1
+        /// Diagram width
+        var diagramWidth: Double = 40
     }
 }
