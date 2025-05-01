@@ -17,7 +17,7 @@ extension ChordsDatabaseView {
             ChordDefinitionView(
                 chord: chord,
                 width: 100 * sceneState.song.settings.scale,
-                settings: appState.settings
+                settings: sceneState.song.settings
             )
             .foregroundStyle(
                 chord.validate.color,
