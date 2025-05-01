@@ -41,6 +41,8 @@ extension PDFBuild.Chords {
         let fingers: [Int]
         /// The size of the grid
         let gridSize: CGSize
+        /// The height of the nut
+        let nutHeight: Double
 
         // MARK: Frets and bars
 
@@ -70,6 +72,7 @@ extension PDFBuild.Chords {
             self.xOffset = (xSpacing - circleRadius) / 2
             self.fretColors = [settings.style.theme.background.nsColor, settings.style.theme.foregroundMedium.nsColor]
 
+            self.nutHeight = ySpacing / 5
             self.settings = settings
         }
 
@@ -129,7 +132,7 @@ extension PDFBuild.Chords {
                 let name = PDFBuild.Text(chord, attributes: .diagramChordName(settings: settings))
                 name.draw(rect: &nameRect, calculationOnly: calculationOnly, pageRect: pageRect)
                 /// Add this item to the total height
-                currentDiagramHeight += (nameRect.origin.y - rect.origin.y) * 0.8
+                currentDiagramHeight += (nameRect.origin.y - rect.origin.y)
             }
 
             // MARK: Top Bar
@@ -141,7 +144,7 @@ extension PDFBuild.Chords {
                 if !calculationOnly {
                     var topBarRect = CGRect(
                         x: rect.origin.x + xSpacing + ((xSpacing - size) / 2),
-                        y: rect.origin.y + ((ySpacing - size) / 2),
+                        y: rect.origin.y,
                         width: size,
                         height: size
                     )
@@ -164,7 +167,7 @@ extension PDFBuild.Chords {
                     }
                 }
                 /// Add this item to the total height
-                currentDiagramHeight += size * 2
+                currentDiagramHeight += size * 1.1
             }
 
             // MARK: Nut
@@ -179,7 +182,7 @@ extension PDFBuild.Chords {
                         x: rect.origin.x + xSpacing * 1.25,
                         y: rect.origin.y,
                         width: gridSize.width + xSpacing * 0.55,
-                        height: ySpacing / 5
+                        height: nutHeight
                     )
                     if chord.baseFret == 1, let context = NSGraphicsContext.current?.cgContext {
                         context.setFillColor(settings.style.theme.foreground.nsColor.cgColor)
@@ -187,7 +190,7 @@ extension PDFBuild.Chords {
                     }
                 }
                 /// Add this item to the total height
-                currentDiagramHeight += ySpacing / 5
+                currentDiagramHeight += nutHeight
             }
 
             // MARK: Base Fret
@@ -218,18 +221,19 @@ extension PDFBuild.Chords {
                 if !calculationOnly {
                     let gridPoint = CGPoint(
                         x: rect.origin.x + (xSpacing * 1.5),
-                        y: rect.origin.y
+                        y: rect.origin.y - nutHeight
                     )
                     var start = gridPoint
                     if let context = NSGraphicsContext.current?.cgContext {
                         /// Draw the strings
                         for _ in 0...columns {
                             context.move(to: start)
-                            context.addLine(to: CGPoint(x: start.x, y: start.y + gridSize.height))
+                            context.addLine(to: CGPoint(x: start.x, y: start.y + gridSize.height + nutHeight))
                             start.x += xSpacing
                         }
                         /// Move start back to the gridpoint
                         start = gridPoint
+                        start.y += nutHeight
                         /// Draw the frets
                         for _ in 0...5 {
                             context.move(to: start)

@@ -14,6 +14,8 @@ struct ChordDefinitionView: View {
     let chord: ChordDefinition
     /// The width of the diagram
     let width: Double
+    /// The width of the grid
+    let gridWidth: Double
     /// The height of the grid
     let gridHeight: Double
     /// The height of a line
@@ -29,6 +31,8 @@ struct ChordDefinitionView: View {
     /// The offset for an instrument with less than 6 strings
     /// - Note: Used to give a barre some padding
     let xOffset: Double
+    /// The height of the nut
+    let nutHeight: Double
     /// The application settings
     let settings: AppSettings
     /// The display options for the diagram
@@ -42,15 +46,15 @@ struct ChordDefinitionView: View {
     init(chord: ChordDefinition, width: Double, settings: AppSettings) {
         self.chord = chord
         self.settings = settings
-
         self.diagramDisplayOptions = settings.diagram
-
         self.width = width
-        self.lineHeight = width / 8
+        self.gridWidth = width * 0.8
+        self.nutHeight = gridWidth / 25
+        self.lineHeight = gridWidth / 8
         /// This looks nice to me
-        self.gridHeight = width * 0.9
+        self.gridHeight = gridWidth * 0.9
         /// Calculate the cell width
-        self.cellWidth = width / Double(chord.instrument.strings.count + 1)
+        self.cellWidth = gridWidth / Double(chord.instrument.strings.count + 1)
         /// Calculate the horizontal padding
         self.horizontalPadding = cellWidth / 2
         /// The frets of the chord
@@ -58,7 +62,7 @@ struct ChordDefinitionView: View {
         /// The fingers of the chord
         self.fingers = diagramDisplayOptions.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
         /// The circle radius is the same for every instrument
-        let circleRadius = width / 7
+        let circleRadius = gridWidth / 7
         /// Below should be 0 for a six string instrument
         self.xOffset = (cellWidth - circleRadius) / 2
     }
@@ -98,6 +102,7 @@ struct ChordDefinitionView: View {
                     .buttonStyle(.plain)
             }
         }
+        .padding(.horizontal, (width - gridWidth) / 2)
         .padding(.bottom, lineHeight / 2)
         /// Make the whole diagram clickable if needed
         .contentShape(Rectangle())
@@ -108,21 +113,20 @@ struct ChordDefinitionView: View {
 
     /// The diagram `View`
     @ViewBuilder var diagram: some View {
-        if frets.contains(-1) || frets.contains(0) {
-            topBar
-        }
-        if chord.baseFret == 1 {
-            Rectangle()
-                .padding(.horizontal, cellWidth / 1.2)
-                .frame(height: width / 25)
-                .offset(x: 0, y: 1)
-        }
+        topBar
+        Rectangle()
+            .padding(.horizontal, cellWidth / 1.2)
+            .frame(height: nutHeight)
+            .foregroundStyle(chord.baseFret == 1 ? Color.primary : Color.clear)
         ZStack(alignment: .topLeading) {
             grid
+                .offset(y: -nutHeight)
             if chord.baseFret != 1 {
+                let offset = (width - gridWidth) / 2
                 Text("\(chord.baseFret)")
                     .font(.system(size: lineHeight * 0.6, weight: .regular, design: .default))
-                    .frame(width: 12, height: gridHeight / 5, alignment: .trailing)
+                    .frame(width: offset, height: gridHeight / 5, alignment: .trailing)
+                    .offset(x: -(offset / 2))
             }
             fretsGrid
             if !chord.barres.isEmpty {
@@ -263,7 +267,7 @@ struct ChordDefinitionView: View {
             }
         }
         .padding(.horizontal, horizontalPadding)
-        .frame(width: width, height: gridHeight)
+        .frame(width: gridWidth, height: gridHeight)
     }
 
     // MARK: Notes Bar
@@ -304,14 +308,17 @@ extension ChordDefinitionView {
             let height = rect.height
             let xSpacing = width / Double(columns)
             let ySpacing = height / 5
+            let nutHeight = ySpacing / 5
             var path = Path()
+            /// Draw the strings
             for index in 0...columns {
                 let vOffset: CGFloat = CGFloat(index) * xSpacing
                 path.move(to: CGPoint(x: vOffset, y: 0))
-                path.addLine(to: CGPoint(x: vOffset, y: height))
+                path.addLine(to: CGPoint(x: vOffset, y: height + nutHeight))
             }
+            /// Draw the frets
             for index in 0...5 {
-                let hOffset: CGFloat = CGFloat(index) * ySpacing
+                let hOffset: CGFloat = CGFloat(index) * ySpacing + nutHeight
                 path.move(to: CGPoint(x: 0, y: hOffset))
                 path.addLine(to: CGPoint(x: width, y: hOffset))
             }
