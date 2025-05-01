@@ -21,12 +21,13 @@ struct SongView: View {
         } else {
             ZStack {
                 /// Get the max size
+                /// - Note: This is not perfect but seems well enough for normal songs
                 Text(sceneState.song.metadata.longestLine)
                     .onGeometryChange(for: CGSize.self) { proxy in
                         proxy.size
                     } action: { newValue in
-                        if newValue.width + 40 > 340 {
-                            sceneState.song.settings.maxWidth = newValue.width + 40
+                        if newValue.width + (40 * sceneState.song.settings.scale) > 340 {
+                            sceneState.song.settings.maxWidth = newValue.width + (40 * sceneState.song.settings.scale)
                         }
                     }
                     .font(appState.settings.style.fonts.text.swiftUIFont(scale: sceneState.song.settings.scale))
