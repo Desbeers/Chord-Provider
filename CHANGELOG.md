@@ -30,3 +30,4 @@
 - Show comments in PDF grid sections
 - Add markdown support for verse text
 - Add font templates to the settings
+- Make PDF chord diagrams resizable
