@@ -14,11 +14,11 @@
 
 ![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 
-There are many **ChordPro** parsers in this world, however, almost none are *really* native in the macOS world, it is often an afterthought... Not for me. I'm Mac user only and I don't use iStuff.
+There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native in the *macOS* world, it is often an afterthought... Not for me. I'm *Mac* user only and I don't use *iStuff*.
 
 ### The icon
 
-A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An 'Olympic White'. That is the color of the shape. The background is a suitable modification of her 'plate'.
+A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An *Olympic White*. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
 ### What can **Chord Provider** do?
 
