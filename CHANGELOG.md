@@ -32,4 +32,8 @@
 - Add font templates to the settings
 - Make PDF chord diagrams resizable
 
+# 6.3.1 (2025-05-02)
+
+- Fix colours in quickview
+
 # 6.x.x (---)
