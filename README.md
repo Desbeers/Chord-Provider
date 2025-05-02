@@ -51,11 +51,17 @@ While I studied a lot of code from other projects to learn; in the end, its all 
 
 ## Binaries
 
-I like `Swift` and `SwiftUI` but I don’t like the more and more lockdown of my beloved *macOS*. I don’t have a Developer` account.
+I like `Swift` and `SwiftUI` but I don’t like the more and more lockdown of my beloved *macOS*. I don’t have a `Developer` account but that should't be needed to bring an *Open Source* applications to the mac.
 
-Theoretically for a good reason but in practise a little bit less. I have no intension to bring **Chord Provider** to the Apple Store but I also can't provide an *easy* compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper. The provided *release* is only *ad-hoc* signed.
+> Apple loved *Open Source* when it needed it. Not anymore.
+
+I have no intension to bring **Chord Provider** to the Apple Store but I also can't provide an *easy* compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper. The provided *release* is only *ad-hoc* signed.
 
 Well, the source is free!
+
+> *Open Source* software projects should get a free account.
+
+Please read the **README**.
 
 ###  Install script
 
