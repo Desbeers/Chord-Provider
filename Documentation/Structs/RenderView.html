@@ -17,7 +17,7 @@
     <a title="RenderView Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (98% documented)</p>
+        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -408,13 +408,13 @@
                 <a href="../Structs/RenderView/ImageView.html">– ImageView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/RenderView/ProminentLabel.html">– ProminentLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RenderView/SectionViewModifier.html">– SectionViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ChordsView.html">ChordsView</a>
@@ -719,7 +719,10 @@
                 <a href="../Enums/FontConfig/Options.html">– Options</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SVGIcon.html">SVGIcon</a>
+                <a href="../Enums/FontUtils.html">FontUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SFSymbol.html">SFSymbol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/SongFileUtils.html">SongFileUtils</a>
@@ -787,6 +790,12 @@
                 <a href="../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSFont">NSFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -843,6 +852,9 @@
                 <a href="../Structs/ChordProConfig/FontOptions.html">– FontOptions</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/FontItem.html">FontItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/FontOptionsView.html">FontOptionsView</a>
               </li>
               <li class="nav-group-task">
@@ -850,9 +862,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPicker.html">FontPicker</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/FontPicker/FontStyle.html">– FontStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPickerButton.html">FontPickerButton</a>
@@ -890,7 +899,7 @@
             <p>Render a <code><a href="../Structs/Song.html">Song</a></code> structure into a SwiftUI <code>View</code></p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L13-L66">Show on GitHub</a>
+                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L13-L64">Show on GitHub</a>
               </div>
           </section>
           <section class="section task-group-section">
@@ -929,9 +938,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10RenderViewV4song6paging10labelStyleAcA4SongV_AA11AppSettingsV7DisplayV6PagingOAL05LabelH0Otcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(song:paging:labelStyle:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV4song6paging10labelStyleAcA4SongV_AA11AppSettingsV7DisplayV6PagingOAL05LabelH0Otcfc">init(song:<wbr>paging:<wbr>labelStyle:<wbr>)</a>
+                    <a name="/s:14Chord_Provider10RenderViewV4song10labelStyleAcA4SongV_AA11AppSettingsV7DisplayV05LabelG0Otcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(song:labelStyle:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV4song10labelStyleAcA4SongV_AA11AppSettingsV7DisplayV05LabelG0Otcfc">init(song:<wbr>labelStyle:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -941,7 +950,8 @@
                       <div class="abstract">
                         <p>Init the <code>View</code></p>
 
-<p><strong>Paging</strong> is a <em>setting</em>, the <strong>labelStyle</strong> can depend on the available space in the window</p>
+<p>The <strong>labelStyle</strong> can depend on the available space when viewing as a list.
+It is using a <code>ViewThatFits</code> for that in <code><a href="../Structs/SongView.html">SongView</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -950,7 +960,6 @@
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
     <span class="nv">song</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="p">,</span>
-    <span class="nv">paging</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="o">.</span><span class="kt">Display</span><span class="o">.</span><span class="kt">Paging</span><span class="p">,</span>
     <span class="nv">labelStyle</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="o">.</span><span class="kt">Display</span><span class="o">.</span><span class="kt">LabelStyle</span>
 <span class="p">)</span></code></pre>
 
@@ -975,18 +984,6 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>paging</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The option for the paging of the song</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
                                 <em>labelStyle</em>
                                 </code>
                               </td>
@@ -1000,7 +997,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L25-L34">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L25-L32">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1030,7 +1027,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L37-L65">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L35-L63">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1091,7 +1088,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+ChordView.swift#L16-L110">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+ChordView.swift#L16-L111">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1127,6 +1124,50 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Parts"></a>
+                <a name="//apple_ref/swift/Section/Parts" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Parts"></a>
+                  <h3 class="section-name"><span>Parts</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10RenderViewV05PartsD0V"></a>
+                    <a name="//apple_ref/swift/Struct/PartsView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV05PartsD0V">PartsView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI <code>View</code> for parts of a line</p>
+
+                        <a href="../Structs/RenderView/PartsView.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">PartsView</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+PartsView.swift#L15-L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1153,7 +1194,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+ProminentLabel.swift#L13-L44">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+ProminentLabel.swift#L13-L46">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1184,7 +1225,209 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+SectionViewModifier.swift#L13-L103">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+SectionViewModifier.swift#L13-L102">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Chorus"></a>
+                <a name="//apple_ref/swift/Section/Chorus" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Chorus"></a>
+                  <h3 class="section-name"><span>Chorus</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10RenderViewV13chorusSection7sectionQrAA4SongV0F0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/chorusSection(section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV13chorusSection7sectionQrAA4SongV0F0V_tF">chorusSection(section:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI <code>View</code> for a chorus section</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">chorusSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+chorusSection.swift#L15-L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Comment"></a>
+                <a name="//apple_ref/swift/Section/Comment" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Comment"></a>
+                  <h3 class="section-name"><span>Comment</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10RenderViewV14commentSection7sectionQrAA4SongV0F0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/commentSection(section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV14commentSection7sectionQrAA4SongV0F0V_tF">commentSection(section:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI <code>View</code> for a comment in its own section</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">commentSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+commentSection.swift#L15-L20">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10RenderViewV12commentLabel0E0QrSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/commentLabel(comment:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV12commentLabel0E0QrSS_tF">commentLabel(comment:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI <code>View</code> for a comment label</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">commentLabel</span><span class="p">(</span><span class="nv">comment</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+commentSection.swift#L23-L32">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Grid"></a>
+                <a name="//apple_ref/swift/Section/Grid" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Grid"></a>
+                  <h3 class="section-name"><span>Grid</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10RenderViewV11gridSection7sectionQrAA4SongV0F0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/gridSection(section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV11gridSection7sectionQrAA4SongV0F0V_tF">gridSection(section:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI <code>View</code> for a grid section</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">gridSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+gridSection.swift#L15-L59">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Image"></a>
+                <a name="//apple_ref/swift/Section/Image" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Image"></a>
+                  <h3 class="section-name"><span>Image</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10RenderViewV12imageSection7sectionQrAA4SongV0F0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/imageSection(section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV12imageSection7sectionQrAA4SongV0F0V_tF">imageSection(section:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI <code>View</code> for an image</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">imageSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+imageSection.swift#L15-L34">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1237,7 +1480,7 @@
                         <p>A <code>View</code> for the <em>{chorus..}</em> directive</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+repeatChorusSection.swift#L15-L37">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+repeatChorusSection.swift#L15-L35">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1268,294 +1511,6 @@
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+sections.swift#L13-L51">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Verse"></a>
-                <a name="//apple_ref/swift/Section/Verse" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Verse"></a>
-                  <h3 class="section-name"><span>Verse</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10RenderViewV12verseSection7sectionQrAA4SongV0F0V_tF"></a>
-                    <a name="//apple_ref/swift/Method/verseSection(section:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV12verseSection7sectionQrAA4SongV0F0V_tF">verseSection(section:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>SwiftUI <code>View</code> for a verse section</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">verseSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L73-L94">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Chorus"></a>
-                <a name="//apple_ref/swift/Section/Chorus" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Chorus"></a>
-                  <h3 class="section-name"><span>Chorus</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10RenderViewV13chorusSection7sectionQrAA4SongV0F0V_tF"></a>
-                    <a name="//apple_ref/swift/Method/chorusSection(section:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV13chorusSection7sectionQrAA4SongV0F0V_tF">chorusSection(section:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>SwiftUI <code>View</code> for a chorus section</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">chorusSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L99-L124">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Tab"></a>
-                <a name="//apple_ref/swift/Section/Tab" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Tab"></a>
-                  <h3 class="section-name"><span>Tab</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10RenderViewV10tabSection7sectionQrAA4SongV0F0V_tF"></a>
-                    <a name="//apple_ref/swift/Method/tabSection(section:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV10tabSection7sectionQrAA4SongV0F0V_tF">tabSection(section:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>SwiftUI <code>View</code> for a tab section</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tabSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L131-L152">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Grid"></a>
-                <a name="//apple_ref/swift/Section/Grid" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Grid"></a>
-                  <h3 class="section-name"><span>Grid</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10RenderViewV11gridSection7sectionQrAA4SongV0F0V_tF"></a>
-                    <a name="//apple_ref/swift/Method/gridSection(section:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV11gridSection7sectionQrAA4SongV0F0V_tF">gridSection(section:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>SwiftUI <code>View</code> for a grid section</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">gridSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L157-L195">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Textblock"></a>
-                <a name="//apple_ref/swift/Section/Textblock" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Textblock"></a>
-                  <h3 class="section-name"><span>Textblock</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10RenderViewV16textblockSection7sectionQrAA4SongV0F0V_tF"></a>
-                    <a name="//apple_ref/swift/Method/textblockSection(section:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV16textblockSection7sectionQrAA4SongV0F0V_tF">textblockSection(section:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>SwiftUI <code>View</code> for a plain text section</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">textblockSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L200-L241">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Comment"></a>
-                <a name="//apple_ref/swift/Section/Comment" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Comment"></a>
-                  <h3 class="section-name"><span>Comment</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10RenderViewV14commentSection7sectionQrAA4SongV0F0V_tF"></a>
-                    <a name="//apple_ref/swift/Method/commentSection(section:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV14commentSection7sectionQrAA4SongV0F0V_tF">commentSection(section:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>SwiftUI <code>View</code> for a comment in its own section</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">commentSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L246-L252">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider10RenderViewV12commentLabel0E0QrSS_tF"></a>
-                    <a name="//apple_ref/swift/Method/commentLabel(comment:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV12commentLabel0E0QrSS_tF">commentLabel(comment:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>SwiftUI <code>View</code> for a comment label</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">commentLabel</span><span class="p">(</span><span class="nv">comment</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L255-L264">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1598,7 +1553,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L269-L292">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+strumSection.swift#L15-L51">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1607,11 +1562,11 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Image"></a>
-                <a name="//apple_ref/swift/Section/Image" class="dashAnchor"></a>
+                <a name="/Tab"></a>
+                <a name="//apple_ref/swift/Section/Tab" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Image"></a>
-                  <h3 class="section-name"><span>Image</span>
+                  <a class="section-name-link" href="#/Tab"></a>
+                  <h3 class="section-name"><span>Tab</span>
 </h3>
                 </div>
               </div>
@@ -1619,9 +1574,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10RenderViewV12imageSection7sectionQrAA4SongV0F0V_tF"></a>
-                    <a name="//apple_ref/swift/Method/imageSection(section:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV12imageSection7sectionQrAA4SongV0F0V_tF">imageSection(section:<wbr>)</a>
+                    <a name="/s:14Chord_Provider10RenderViewV10tabSection7sectionQrAA4SongV0F0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/tabSection(section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV10tabSection7sectionQrAA4SongV0F0V_tF">tabSection(section:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1629,19 +1584,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>SwiftUI <code>View</code> for an image</p>
+                        <p>SwiftUI <code>View</code> for a tab section</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">imageSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">tabSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L297-L316">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+tabSection.swift#L15-L40">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1650,11 +1605,11 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Parts"></a>
-                <a name="//apple_ref/swift/Section/Parts" class="dashAnchor"></a>
+                <a name="/Textblock"></a>
+                <a name="//apple_ref/swift/Section/Textblock" class="dashAnchor"></a>
                 <div class="section-name-container">
-                  <a class="section-name-link" href="#/Parts"></a>
-                  <h3 class="section-name"><span>Parts</span>
+                  <a class="section-name-link" href="#/Textblock"></a>
+                  <h3 class="section-name"><span>Textblock</span>
 </h3>
                 </div>
               </div>
@@ -1662,9 +1617,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider10RenderViewV05PartsD0V"></a>
-                    <a name="//apple_ref/swift/Struct/PartsView" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider10RenderViewV05PartsD0V">PartsView</a>
+                    <a name="/s:14Chord_Provider10RenderViewV16textblockSection7sectionQrAA4SongV0F0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/textblockSection(section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV16textblockSection7sectionQrAA4SongV0F0V_tF">textblockSection(section:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1672,20 +1627,62 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>SwiftUI <code>View</code> for parts of a line</p>
+                        <p>SwiftUI <code>View</code> for a plain text section</p>
 
-                        <a href="../Structs/RenderView/PartsView.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">PartsView</span><span class="p">:</span> <span class="kt">View</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">textblockSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L321-L351">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+textblockSection.swift#L15-L40">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Verse"></a>
+                <a name="//apple_ref/swift/Section/Verse" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Verse"></a>
+                  <h3 class="section-name"><span>Verse</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider10RenderViewV12verseSection7sectionQrAA4SongV0F0V_tF"></a>
+                    <a name="//apple_ref/swift/Method/verseSection(section:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider10RenderViewV12verseSection7sectionQrAA4SongV0F0V_tF">verseSection(section:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>SwiftUI <code>View</code> for a verse section</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">verseSection</span><span class="p">(</span><span class="nv">section</span><span class="p">:</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kd">some</span> <span class="kt">View</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView+verseSection.swift#L15-L43">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1751,7 +1748,7 @@
                         <p>The flush alignment</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L359-L371">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L71-L83">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1804,7 +1801,7 @@
                         <p>The alignment</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L376-L388">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L88-L100">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1857,7 +1854,7 @@
                         <p>The text flush alignment</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L393-L405">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Views/MainScene/RenderView/RenderView.swift#L105-L117">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

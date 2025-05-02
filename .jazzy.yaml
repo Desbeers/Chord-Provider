@@ -79,7 +79,6 @@ custom_categories:
     - SongView
     - RenderView
     - ChordsView
-    - ChordDiagramView
     - EditorView
     - PreviewPaneView
     - ExportFolderView
@@ -123,7 +122,6 @@ custom_categories:
     children:
     - ChordProDocument
     - ExportDocument
-    - ChordsDatabaseDocument
 
 
 # Command line for doc generation:

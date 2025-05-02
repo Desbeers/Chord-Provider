@@ -1,146 +1,6 @@
 {
   "warnings": [
     {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 10,
-      "symbol": "ChordProConfig",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 11,
-      "symbol": "ChordProConfig.pdf",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 12,
-      "symbol": "ChordProConfig.chords",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 15,
-      "symbol": "ChordProConfig",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 17,
-      "symbol": "ChordProConfig.PDF",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 18,
-      "symbol": "ChordProConfig.PDF.theme",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 19,
-      "symbol": "ChordProConfig.PDF.fonts",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 20,
-      "symbol": "ChordProConfig.PDF.fontdir",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 21,
-      "symbol": "ChordProConfig.PDF.fontconfig",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 24,
-      "symbol": "ChordProConfig.FontOptions",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 25,
-      "symbol": "ChordProConfig.FontOptions.color",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 26,
-      "symbol": "ChordProConfig.FontOptions.background",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Statics/ChordPro/ChordProConfig.swift",
-      "line": 27,
-      "symbol": "ChordProConfig.FontOptions.size",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Structures/AppSettings/AppSettings+ChordProExport.swift",
-      "line": 12,
-      "symbol": "AppSettings.exportToChordProJSON(chords:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Structures/AppSettings/AppSettings+Style.swift",
-      "line": 113,
-      "symbol": "AppSettings.Style.Theme.CodingKeys.foreground",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Structures/AppSettings/AppSettings+Style.swift",
-      "line": 114,
-      "symbol": "AppSettings.Style.Theme.CodingKeys.foregroundLight",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Structures/AppSettings/AppSettings+Style.swift",
-      "line": 115,
-      "symbol": "AppSettings.Style.Theme.CodingKeys.foregroundMedium",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Structures/AppSettings/AppSettings+Style.swift",
-      "line": 116,
-      "symbol": "AppSettings.Style.Theme.CodingKeys.background",
-      "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Views/MainScene/RenderView/RenderView+ImageView.swift",
-      "line": 21,
-      "symbol": "RenderView.ImageView.maxWidth",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Views/MainScene/RenderView/RenderView+ImageView.swift",
-      "line": 23,
-      "symbol": "RenderView.ImageView.size",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
       "line": 18,
       "symbol": "ResourceBundleClass",
@@ -156,42 +16,42 @@
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 267,
+      "line": 159,
       "symbol": "DeveloperToolsSupport.ColorResource.init(thinnableName:bundle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 292,
+      "line": 184,
       "symbol": "AppKit.NSColor.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 331,
+      "line": 223,
       "symbol": "SwiftUI.Color.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 344,
+      "line": 236,
       "symbol": "SwiftUI.ShapeStyle.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 359,
+      "line": 251,
       "symbol": "DeveloperToolsSupport.ImageResource.init(thinnableName:bundle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 384,
+      "line": 276,
       "symbol": "AppKit.NSImage.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

@@ -9,6 +9,9 @@ import Foundation
 
 extension AppSettings {
 
+    /// Export **Chord Provider** settings to **ChordPro** format
+    /// - Parameter chords: All the chords in a song
+    /// - Returns: The settings in JSON format
     func exportToChordProJSON(chords: [ChordDefinition]) -> String {
 
         var settings = ChordProConfig()

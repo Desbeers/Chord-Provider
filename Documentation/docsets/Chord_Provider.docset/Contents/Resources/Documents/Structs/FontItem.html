@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>SVGIcon Enumeration Reference</title>
+    <title>FontItem Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,11 +13,11 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/SVGIcon" class="dashAnchor"></a>
-    <a title="SVGIcon Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Struct/FontItem" class="dashAnchor"></a>
+    <a title="FontItem Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (98% documented)</p>
+        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -30,9 +30,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">Chord Provider</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Other%20Enums.html">Other Enumerations</a>
+        <a href="../Other%20Structs.html">Other Structures</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        SVGIcon Enumeration Reference
+        FontItem Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -408,13 +408,13 @@
                 <a href="../Structs/RenderView/ImageView.html">– ImageView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/RenderView/ProminentLabel.html">– ProminentLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RenderView/SectionViewModifier.html">– SectionViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ChordsView.html">ChordsView</a>
@@ -719,7 +719,10 @@
                 <a href="../Enums/FontConfig/Options.html">– Options</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SVGIcon.html">SVGIcon</a>
+                <a href="../Enums/FontUtils.html">FontUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SFSymbol.html">SFSymbol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/SongFileUtils.html">SongFileUtils</a>
@@ -787,6 +790,12 @@
                 <a href="../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSFont">NSFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -843,6 +852,9 @@
                 <a href="../Structs/ChordProConfig/FontOptions.html">– FontOptions</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/FontItem.html">FontItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/FontOptionsView.html">FontOptionsView</a>
               </li>
               <li class="nav-group-task">
@@ -850,9 +862,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPicker.html">FontPicker</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/FontPicker/FontStyle.html">– FontStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPickerButton.html">FontPickerButton</a>
@@ -879,18 +888,18 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>SVGIcon</h1>
+            <h1>FontItem</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">SVGIcon</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">FontItem</span><span class="p">:</span> <span class="kt">Codable</span><span class="p">,</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Hashable</span></code></pre>
 
                 </div>
               </div>
-            <p>SVG icons for song details</p>
+            <p>Structure of a font item</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L11-L50">Show on GitHub</a>
+                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/FontItem.swift#L11-L22">Show on GitHub</a>
               </div>
           </section>
           <section class="section task-group-section">
@@ -899,9 +908,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider7SVGIconO4capoyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/capo" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO4capoyA2CmF">capo</a>
+                    <a name="/s:14Chord_Provider8FontItemV14postScriptNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/postScriptName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider8FontItemV14postScriptNameSSvp">postScriptName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -909,19 +918,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>capo</em> icon</p>
+                        <p>The postscript name</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">capo</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">postScriptName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"HelveticaNeue"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L13">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/FontItem.swift#L13">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -929,9 +938,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider7SVGIconO10instrumentyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/instrument" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO10instrumentyA2CmF">instrument</a>
+                    <a name="/s:14Chord_Provider8FontItemV11displayNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/displayName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider8FontItemV11displayNameSSvp">displayName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -939,19 +948,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>instrument</em> icon</p>
+                        <p>The display name</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">instrument</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">displayName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"Helvetica Neue"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L15">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/FontItem.swift#L15">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -959,9 +968,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider7SVGIconO3keyyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/key" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO3keyyA2CmF">key</a>
+                    <a name="/s:14Chord_Provider8FontItemV10familyNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/familyName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider8FontItemV10familyNameSSvp">familyName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -969,19 +978,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>key</em> icon</p>
+                        <p>The style name</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">key</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">familyName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"Helvetica Neue"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L17">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/FontItem.swift#L17">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -989,9 +998,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider7SVGIconO5tempoyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/tempo" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO5tempoyA2CmF">tempo</a>
+                    <a name="/s:14Chord_Provider8FontItemV9styleNameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/styleName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider8FontItemV9styleNameSSvp">styleName</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -999,19 +1008,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>tempo</em> icon</p>
+                        <p>The style, <em>italic</em> for example</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">tempo</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">styleName</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"Regular"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L19">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/FontItem.swift#L19">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1019,9 +1028,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider7SVGIconO4timeyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/time" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO4timeyA2CmF">time</a>
+                    <a name="/s:14Chord_Provider8FontItemV3url10Foundation3URLVvp"></a>
+                    <a name="//apple_ref/swift/Property/url" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider8FontItemV3url10Foundation3URLVvp">url</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1029,339 +1038,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <em>time</em> icon</p>
+                        <p>The font url</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">time</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span> <span class="o">=</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">fileURLWithPath</span><span class="p">:</span> <span class="s">"/System/Library/Fonts/HelveticaNeue.ttc"</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L21">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider7SVGIconO4data5color10Foundation4DataV7SwiftUI5ColorV_tF"></a>
-                    <a name="//apple_ref/swift/Method/data(color:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO4data5color10Foundation4DataV7SwiftUI5ColorV_tF">data(color:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Covert a SVG icon to <code>Data</code> with a custom color</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">data</span><span class="p">(</span><span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>color</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The SwiftUI <code>Color</code> to use</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The coloured SVG icon</p>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L26-L39">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider7SVGIconO7process33_68A248653B0A052DFA8557DD487B915CLL4icon5color10Foundation4DataVSS_7SwiftUI5ColorVtF"></a>
-                    <a name="//apple_ref/swift/Method/process(icon:color:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO7process33_68A248653B0A052DFA8557DD487B915CLL4icon5color10Foundation4DataVSS_7SwiftUI5ColorVtF">process(icon:<wbr>color:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Covert a SVG icon to <code>Data</code> with a custom color</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    This does <em>not</em> support transparency
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">func</span> <span class="nf">process</span><span class="p">(</span><span class="nv">icon</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Data</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>icon</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The SVG icon as <code>String</code></p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>color</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The SwiftUI <code>Color</code> to use</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The coloured SVG icon as <code>Data</code></p>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L47-L49">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider7SVGIconO14instrumentDataSSvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/instrumentData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO14instrumentDataSSvpZ">instrumentData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <em>instrument</em> icon</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">instrumentData</span> <span class="o">=</span>
-<span class="s">"""
-&lt;svg version="</span><span class="mf">1.1</span><span class="s">" id="</span><span class="n">_x32_</span><span class="s">" xml:space="</span><span class="n">preserve</span><span class="s">" width="</span><span class="mi">7</span><span class="s">" height="</span><span class="mi">7</span><span class="s">" xmlns="</span><span class="nv">http</span><span class="p">:</span><span class="c1">//www.w3.org/2000/svg"&gt;</span>
-    <span class="o">&lt;</span><span class="n">style</span> <span class="n">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="n">id</span><span class="o">=</span><span class="s">"style1"</span><span class="o">&gt;</span>
-        <span class="o">.</span><span class="n">st0</span><span class="p">{</span><span class="nv">fill</span><span class="p">:</span><span class="err">#</span><span class="mo">000</span><span class="p">}</span>
-    <span class="o">&lt;/</span><span class="n">style</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">g</span> <span class="n">id</span><span class="o">=</span><span class="s">"g7"</span> <span class="n">transform</span><span class="o">=</span><span class="s">"matrix(.01358 0 0 .0136 .042 .012)"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none"</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M207.882 304.111c18.384 18.392 48.197 18.392 66.589 0 18.384-18.384 18.384-48.196 0-66.581-18.392-18.392-48.206-18.392-66.589 0-18.393 18.385-18.393 48.198 0 66.581z"</span> <span class="n">id</span><span class="o">=</span><span class="s">"path1"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">d</span><span class="o">=</span><span class="s">"m364.346 218.42-18.136 19.034 7.674 7.665c8.708 8.708 13.002 20.001 13.011 31.404-.009 11.404-4.312 22.696-13.011 31.414-6.802 6.954-19.317 12.994-30.139 16.801-11.839 4.268-22.652 10.471-31.215 19.017-7.324 7.297-12.953 16.493-15.382 27.093-3.533 15.544-5.056 32.825-9.008 49.121-3.91 16.331-9.95 31.08-21.232 42.346a62.467 62.467 0 0 1-4.748 4.286c-9.384 7.648-19.137 13.122-29.42 16.219-15.433 4.552-32.388 4.192-53.27-4.14-20.814-8.35-45.245-25.082-73.151-53.005-37.281-37.23-54.433-68.181-58.788-92.81-2.207-12.371-1.42-23.294 1.652-33.603 3.088-10.291 8.572-20.044 16.219-29.428a62.722 62.722 0 0 1 4.303-4.764c11.258-11.275 25.989-17.315 42.32-21.224 16.305-3.943 33.577-5.466 49.121-8.999 10.6-2.438 19.805-8.058 27.102-15.373 8.538-8.572 14.731-19.368 19.008-31.224 3.815-10.831 9.83-23.338 16.793-30.147 8.708-8.7 20.001-13.003 31.412-13.012 11.412.009 22.696 4.303 31.404 13.012l7.682 7.682 19.026-18.136-8.127-8.127c-27.615-27.615-72.364-27.615-99.978 0-11.831 11.977-18.392 27.434-22.944 39.822-3.216 8.974-7.734 16.433-12.866 21.54-4.414 4.406-9.119 7.118-14.432 8.359-12.789 2.993-30.668 4.61-49.318 9.051-18.615 4.465-38.598 12.01-54.792 28.196a87.233 87.233 0 0 0-6.091 6.75c-9.377 11.506-16.776 24.304-21.02 38.488-6.441 21.266-5.337 45.305 4.928 70.61 10.249 25.382 29.232 52.338 58.805 81.92 39.42 39.377 74.28 60.164 106.746 66.076 16.185 2.926 31.635 1.916 45.793-2.344 14.175-4.243 26.973-11.635 38.496-21.027a86.041 86.041 0 0 0 6.715-6.066c16.186-16.202 23.748-36.178 28.206-54.793 4.44-18.658 6.065-36.546 9.068-49.352 1.24-5.295 3.944-9.983 8.35-14.414 5.115-5.132 12.575-9.649 21.532-12.874 12.413-4.543 27.845-11.121 39.822-22.944 27.614-27.623 27.614-72.363 0-99.978z"</span> <span class="n">id</span><span class="o">=</span><span class="s">"path2"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">id</span><span class="o">=</span><span class="s">"polygon2"</span> <span class="n">style</span><span class="o">=</span><span class="s">"fill:#000;fill-opacity:1;stroke:none;stroke-width:23.107;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"</span> <span class="n">transform</span><span class="o">=</span><span class="s">"matrix(1 -.06791 0 1 0 23.584)"</span> <span class="n">d</span><span class="o">=</span><span class="s">"m426.547 115.071-29.624-29.634-128.902 122.871 35.673 35.664z"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">id</span><span class="o">=</span><span class="s">"polygon3"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none"</span> <span class="n">d</span><span class="o">=</span><span class="s">"m403.732 66.446 41.815 41.815 51.105-51.106-41.814-41.806z"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">id</span><span class="o">=</span><span class="s">"polygon4"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M436.753.002 420.114 16.64l10.198 10.198 16.647-16.639z"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">id</span><span class="o">=</span><span class="s">"polygon5"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none"</span> <span class="n">d</span><span class="o">=</span><span class="s">"m405.032 31.722-16.639 16.639 10.198 10.197 16.647-16.638z"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">id</span><span class="o">=</span><span class="s">"polygon6"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none"</span> <span class="n">d</span><span class="o">=</span><span class="s">"m485.155 81.682 10.197 10.197L512 75.24l-10.206-10.197z"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="n">transform</span><span class="o">=</span><span class="s">"rotate(-134.999 466.855 110.183)"</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">id</span><span class="o">=</span><span class="s">"rect6"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10719605;stroke-dasharray:none"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M459.642 98.416h14.422v23.531h-14.422z"</span><span class="o">/&gt;</span>
-        <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st0"</span> <span class="n">id</span><span class="o">=</span><span class="s">"polygon7"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:23.10697445;stroke-dasharray:none;fill:none;stroke:#000;stroke-opacity:1;stroke-linejoin:round;fill-opacity:1"</span> <span class="n">d</span><span class="o">=</span><span class="s">"m168.154 396.493 13.935-13.935-52.645-52.654L115.5 343.84z"</span><span class="o">/&gt;</span>
-    <span class="o">&lt;/</span><span class="n">g</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">svg</span><span class="o">&gt;</span>
-<span class="s">"""</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L57">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider7SVGIconO7keyDataSSvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/keyData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO7keyDataSSvpZ">keyData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <em>key</em> icon</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">keyData</span> <span class="o">=</span>
-<span class="s">"""
-&lt;svg xml:space="</span><span class="n">preserve</span><span class="s">" width="</span><span class="mi">7</span><span class="s">" height="</span><span class="mi">7</span><span class="s">" xmlns="</span><span class="nv">http</span><span class="p">:</span><span class="c1">//www.w3.org/2000/svg"&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="n">d</span><span class="o">=</span><span class="s">"M3.638 3.056.426 5.902l.772.685m.386-1.712.772.685m4.247-3.595c0 .85-.778 1.54-1.738 1.54-.959 0-1.737-.69-1.737-1.54 0-.85.778-1.54 1.737-1.54.96 0 1.738.69 1.738 1.54z"</span> <span class="n">stroke</span><span class="o">=</span><span class="s">"#000"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">=</span><span class="s">".4"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">linecap</span><span class="o">=</span><span class="s">"round"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">linejoin</span><span class="o">=</span><span class="s">"round"</span> <span class="n">style</span><span class="o">=</span><span class="s">"fill:none;fill-opacity:1;stroke:#000;stroke-width:.110849;stroke-dasharray:none;stroke-opacity:1"</span><span class="o">/&gt;</span>
-    <span class="o">/&amp;</span><span class="n">gt</span><span class="p">;</span>
-<span class="o">&lt;/</span><span class="n">svg</span><span class="o">&gt;</span>
-<span class="s">"""</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L81">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider7SVGIconO8capoDataSSvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/capoData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO8capoDataSSvpZ">capoData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <em>capo</em> icon</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">capoData</span> <span class="o">=</span>
-<span class="s">"""
-&lt;svg width="</span><span class="mi">7</span><span class="s">" height="</span><span class="mi">7</span><span class="s">" fill="</span><span class="k">none</span><span class="s">" xmlns="</span><span class="nv">http</span><span class="p">:</span><span class="c1">//www.w3.org/2000/svg"&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="n">d</span><span class="o">=</span><span class="s">"M6.814 3.326 3.803 6.199a2.187 2.187 0 0 1-2.99 0 1.953 1.953 0 0 1 0-2.854L3.702.587a1.458 1.458 0 0 1 1.994 0c.55.525.55 1.377 0 1.902L2.81 5.243a.729.729 0 0 1-.997 0 .651.651 0 0 1 0-.95l2.63-2.511"</span> <span class="n">stroke</span><span class="o">=</span><span class="s">"#000"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">=</span><span class="s">".4"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">linecap</span><span class="o">=</span><span class="s">"round"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">linejoin</span><span class="o">=</span><span class="s">"round"</span> <span class="n">style</span><span class="o">=</span><span class="s">"fill:none;fill-opacity:1;stroke-width:.0987548;stroke-dasharray:none"</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">svg</span><span class="o">&gt;</span>
-<span class="s">"""</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L93">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider7SVGIconO9tempoDataSSvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/tempoData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO9tempoDataSSvpZ">tempoData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <em>tempo</em> icon</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">tempoData</span> <span class="o">=</span>
-<span class="s">"""
-&lt;svg version="</span><span class="mf">1.1</span><span class="s">" id="</span><span class="kt">Icons</span><span class="s">" xml:space="</span><span class="n">preserve</span><span class="s">" width="</span><span class="mi">7</span><span class="s">" height="</span><span class="mi">7</span><span class="s">" xmlns="</span><span class="nv">http</span><span class="p">:</span><span class="c1">//www.w3.org/2000/svg"&gt;</span>
-    <span class="o">&lt;</span><span class="n">style</span> <span class="n">type</span><span class="o">=</span><span class="s">"text/css"</span> <span class="n">id</span><span class="o">=</span><span class="s">"style1"</span><span class="o">&gt;</span>
-        <span class="o">.</span><span class="n">st1</span><span class="p">{</span><span class="nv">fill</span><span class="p">:</span><span class="k">none</span><span class="p">;</span><span class="nv">stroke</span><span class="p">:</span><span class="err">#</span><span class="mo">000</span><span class="p">;</span><span class="n">stroke</span><span class="o">-</span><span class="nv">width</span><span class="p">:</span><span class="mi">2</span><span class="p">;</span><span class="n">stroke</span><span class="o">-</span><span class="nv">linecap</span><span class="p">:</span><span class="n">round</span><span class="p">;</span><span class="n">stroke</span><span class="o">-</span><span class="nv">linejoin</span><span class="p">:</span><span class="n">round</span><span class="p">;</span><span class="n">stroke</span><span class="o">-</span><span class="nv">miterlimit</span><span class="p">:</span><span class="mi">10</span><span class="p">}</span>
-    <span class="o">&lt;/</span><span class="n">style</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st1"</span> <span class="n">id</span><span class="o">=</span><span class="s">"line1"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:.337055;stroke-dasharray:none;stroke:#000;stroke-opacity:1"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M2.994 4.534 6.823.21"</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st1"</span> <span class="n">id</span><span class="o">=</span><span class="s">"line2"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:.337055;stroke-dasharray:none;stroke:#000;stroke-opacity:1"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M2.7 1.228h.589"</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st1"</span> <span class="n">id</span><span class="o">=</span><span class="s">"line3"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:.337055;stroke-dasharray:none;stroke:#000;stroke-opacity:1"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M2.7 1.991h.589"</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st1"</span> <span class="n">id</span><span class="o">=</span><span class="s">"line4"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:.337055;stroke-dasharray:none;stroke:#000;stroke-opacity:1"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M2.7 2.754h.589"</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st1"</span> <span class="n">d</span><span class="o">=</span><span class="s">"m4.968 3.517.736 2.467c.118.432-.236.84-.766.84H1.021c-.5 0-.884-.408-.766-.815L1.639.795C1.757.44 2.111.21 2.493.21h1.002c.412 0 .736.255.825.585l.412 1.78"</span> <span class="n">id</span><span class="o">=</span><span class="s">"path4"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:.337055;stroke-dasharray:none;stroke:#000;stroke-opacity:1"</span><span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="kd">class</span><span class="o">=</span><span class="s">"st1"</span> <span class="n">id</span><span class="o">=</span><span class="s">"line5"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:.337055;stroke-dasharray:none;stroke:#000;stroke-opacity:1"</span> <span class="n">d</span><span class="o">=</span><span class="s">"M.461 5.297H5.35"</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">svg</span><span class="o">&gt;</span>
-<span class="s">"""</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L104">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14Chord_Provider7SVGIconO8timeDataSSvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/timeData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider7SVGIconO8timeDataSSvpZ">timeData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <em>time</em> icon</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">timeData</span> <span class="o">=</span>
-<span class="s">"""
-&lt;svg width="</span><span class="mi">7</span><span class="s">" height="</span><span class="mi">7</span><span class="s">" fill="</span><span class="k">none</span><span class="s">" xmlns="</span><span class="nv">http</span><span class="p">:</span><span class="c1">//www.w3.org/2000/svg"&gt;</span>
-    <span class="o">&lt;</span><span class="n">path</span> <span class="n">d</span><span class="o">=</span><span class="s">"M3.512 6.714A3.203 3.203 0 0 0 6.714 3.51a3.203 3.203 0 1 0-3.202 3.205zM3.512 1.373v2.136M5.02 5.02 3.512 3.51"</span> <span class="n">stroke</span><span class="o">=</span><span class="s">"#000"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">width</span><span class="o">=</span><span class="s">".4"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">linecap</span><span class="o">=</span><span class="s">"round"</span> <span class="n">stroke</span><span class="o">-</span><span class="n">linejoin</span><span class="o">=</span><span class="s">"round"</span> <span class="n">style</span><span class="o">=</span><span class="s">"stroke-width:.1;stroke-dasharray:none"</span><span class="o">/&gt;</span>
-<span class="o">&lt;/</span><span class="n">svg</span><span class="o">&gt;</span>
-<span class="s">"""</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Statics/SVGIcon.swift#L123">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/FontItem.swift#L21">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

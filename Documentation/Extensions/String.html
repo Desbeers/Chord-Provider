@@ -17,7 +17,7 @@
     <a title="String Extension Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (98% documented)</p>
+        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -408,13 +408,13 @@
                 <a href="../Structs/RenderView/ImageView.html">– ImageView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/RenderView/ProminentLabel.html">– ProminentLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RenderView/SectionViewModifier.html">– SectionViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ChordsView.html">ChordsView</a>
@@ -719,7 +719,10 @@
                 <a href="../Enums/FontConfig/Options.html">– Options</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SVGIcon.html">SVGIcon</a>
+                <a href="../Enums/FontUtils.html">FontUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SFSymbol.html">SFSymbol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/SongFileUtils.html">SongFileUtils</a>
@@ -787,6 +790,12 @@
                 <a href="../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSFont">NSFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -843,6 +852,9 @@
                 <a href="../Structs/ChordProConfig/FontOptions.html">– FontOptions</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/FontItem.html">FontItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/FontOptionsView.html">FontOptionsView</a>
               </li>
               <li class="nav-group-task">
@@ -850,9 +862,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPicker.html">FontPicker</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/FontPicker/FontStyle.html">– FontStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPickerButton.html">FontPickerButton</a>
@@ -971,6 +980,71 @@
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Extensions/String+extensions.swift#L23-L30">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SS14Chord_ProviderE10toMarkdown11fontOptions5scale10Foundation16AttributedStringVAA06ConfigF0O04FontF0V_SdtF"></a>
+                    <a name="//apple_ref/swift/Method/toMarkdown(fontOptions:scale:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SS14Chord_ProviderE10toMarkdown11fontOptions5scale10Foundation16AttributedStringVAA06ConfigF0O04FontF0V_SdtF">toMarkdown(fontOptions:<wbr>scale:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Convert a String to Markdown</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">toMarkdown</span><span class="p">(</span><span class="nv">fontOptions</span><span class="p">:</span> <span class="kt"><a href="../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AttributedString</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fontOptions</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The font options</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>scale</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The scale of the font</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A formatted <code>AttributedString</code></p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Extensions/String+extensions.swift#L40-L127">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

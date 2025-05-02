@@ -25,9 +25,11 @@
 - Improve textblock environment with markdown support
 - Refine song rendering
 
-# 6.x.x (---)
+# 6.3.0 (2025-05-02)
 
 - Show comments in PDF grid sections
 - Add markdown support for verse text
 - Add font templates to the settings
 - Make PDF chord diagrams resizable
+
+# 6.x.x (---)

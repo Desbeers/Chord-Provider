@@ -15,6 +15,8 @@ enum FontUtils {
 
 extension FontUtils {
 
+    /// Get all the fonts from the system
+    /// - Returns: All fonts on the system
     static func getAllFonts() -> (families: [String], fonts: [FontItem]) {
         var fonts: [FontItem] = []
         let fontFamilies = NSFontManager.shared.availableFontFamilies.sorted()
@@ -55,28 +57,23 @@ extension FontUtils {
 
 extension FontUtils {
 
+    /// Get `ttf` fonts from a `ttc` font
+    /// - Parameter font: The `ttc` font
+    /// - Returns: The path of the extracted `ttf` font
     static func getTTFfont(font: FontItem) -> String {
         /// Only deal with *ttc* fonts
         if font.url.pathExtension == "ttc" {
-
             let fontsFolderURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
                 .appendingPathComponent("ChordProviderTMP", isDirectory: true)
-
             let manager = FileManager.default
-
             var result: String = fontsFolderURL.appending(path: "\(font.postScriptName).ttf").path()
-
             if !manager.fileExists(atPath: result) {
                 manager.changeCurrentDirectoryPath(fontsFolderURL.path())
-
                 let file = NSString(string: font.url.path(percentEncoded: false))
-
                 let unsafePointerOfFilename = file.utf8String
                 // swiftlint:disable:next force_unwrapping
                 let unsafeMutablePointerOfFilename: UnsafeMutablePointer<Int8> = UnsafeMutablePointer<Int8>(mutating: unsafePointerOfFilename!)
-
                 _ = handlefile(unsafeMutablePointerOfFilename)
-
                 do {
                     let items = try manager.contentsOfDirectory(atPath: fontsFolderURL.path())
 

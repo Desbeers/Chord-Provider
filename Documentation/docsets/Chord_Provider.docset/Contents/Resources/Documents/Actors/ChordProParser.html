@@ -17,7 +17,7 @@
     <a title="ChordProParser Actor Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (98% documented)</p>
+        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -408,13 +408,13 @@
                 <a href="../Structs/RenderView/ImageView.html">– ImageView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/RenderView/ProminentLabel.html">– ProminentLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RenderView/SectionViewModifier.html">– SectionViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ChordsView.html">ChordsView</a>
@@ -719,7 +719,10 @@
                 <a href="../Enums/FontConfig/Options.html">– Options</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SVGIcon.html">SVGIcon</a>
+                <a href="../Enums/FontUtils.html">FontUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SFSymbol.html">SFSymbol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/SongFileUtils.html">SongFileUtils</a>
@@ -787,6 +790,12 @@
                 <a href="../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSFont">NSFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -843,6 +852,9 @@
                 <a href="../Structs/ChordProConfig/FontOptions.html">– FontOptions</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/FontItem.html">FontItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/FontOptionsView.html">FontOptionsView</a>
               </li>
               <li class="nav-group-task">
@@ -850,9 +862,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPicker.html">FontPicker</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/FontPicker/FontStyle.html">– FontStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPickerButton.html">FontPickerButton</a>
@@ -890,7 +899,7 @@
             <p>The <strong>ChordPro</strong> file parser</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L12-L88">Show on GitHub</a>
+                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L12-L83">Show on GitHub</a>
               </div>
           </section>
           <section class="section task-group-section">
@@ -987,7 +996,7 @@
                         <p>A <code><a href="../Structs/Song.html">Song</a></code> item</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L23-L87">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L23-L82">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2074,7 +2083,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processDirective.swift#L32-L193">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processDirective.swift#L32-L194">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2139,6 +2148,96 @@
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processEmptyLine.swift#L16-L45">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Process%20an%20environment"></a>
+                <a name="//apple_ref/swift/Section/Process an environment" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Process%20an%20environment"></a>
+                  <h3 class="section-name"><span>Process an environment</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0A9ProParserC18processEnvironment4text14currentSection4songySS_AA4SongV0I0VzAIztFZ"></a>
+                    <a name="//apple_ref/swift/Method/processEnvironment(text:currentSection:song:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A9ProParserC18processEnvironment4text14currentSection4songySS_AA4SongV0I0VzAIztFZ">processEnvironment(text:<wbr>currentSection:<wbr>song:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Process an environment</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">processEnvironment</span><span class="p">(</span>
+    <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">currentSection</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">,</span>
+    <span class="nv">song</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>text</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The text to process</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currentSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current <code><a href="../Structs/Song/Section.html">Section</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>song</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The whole <code><a href="../Structs/Song.html">Song</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processEnvironment.swift#L19-L36">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2575,7 +2674,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processStrum.swift#L19-L51">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processStrum.swift#L19-L64">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2666,6 +2765,96 @@
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processTab.swift#L19-L38">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Process%20a%20texblock%20environment"></a>
+                <a name="//apple_ref/swift/Section/Process a texblock environment" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Process%20a%20texblock%20environment"></a>
+                  <h3 class="section-name"><span>Process a texblock environment</span>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider0A9ProParserC16processTextblock4text14currentSection4songySS_AA4SongV0I0VzAIztFZ"></a>
+                    <a name="//apple_ref/swift/Method/processTextblock(text:currentSection:song:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider0A9ProParserC16processTextblock4text14currentSection4songySS_AA4SongV0I0VzAIztFZ">processTextblock(text:<wbr>currentSection:<wbr>song:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Process a texblock environment</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">processTextblock</span><span class="p">(</span>
+    <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nv">currentSection</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span><span class="o">.</span><span class="kt">Section</span><span class="p">,</span>
+    <span class="nv">song</span><span class="p">:</span> <span class="k">inout</span> <span class="kt"><a href="../Structs/Song.html">Song</a></span>
+<span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>text</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The text to process</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currentSection</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current <code><a href="../Structs/Song/Section.html">Section</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>song</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The whole <code><a href="../Structs/Song.html">Song</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser+processTextblock.swift#L19-L33">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2780,7 +2969,7 @@
                         <p>A JSON string</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L97-L108">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L92-L103">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2829,7 +3018,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L112-L121">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/ChordProParser/ChordProParser.swift#L107-L116">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

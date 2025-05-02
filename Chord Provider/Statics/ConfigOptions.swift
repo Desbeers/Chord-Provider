@@ -17,6 +17,7 @@ extension ConfigOptions {
     /// Options for a *font* in **ChordPro**
     /// - Note: a *font* is not like a `Font`; it is more like a *directive font* like `title`
     struct FontOptions: Codable, Equatable {
+        /// The details of the font
         var font: FontItem = FontItem()
         /// The size of the font
         var size: Double = 10

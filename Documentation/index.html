@@ -16,7 +16,7 @@
     <a title="Chord_Provider  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><img src="img/Icon-macOS-128.png" alt="Chord Provider"/><a href="index.html">Chord Provider</a> (98% documented)</p>
+        <p><img src="img/Icon-macOS-128.png" alt="Chord Provider"/><a href="index.html">Chord Provider</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="search.json">
@@ -403,13 +403,13 @@
                 <a href="Structs/RenderView/ImageView.html">– ImageView</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/RenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/RenderView/ProminentLabel.html">– ProminentLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/RenderView/SectionViewModifier.html">– SectionViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/RenderView/PartsView.html">– PartsView</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ChordsView.html">ChordsView</a>
@@ -714,7 +714,10 @@
                 <a href="Enums/FontConfig/Options.html">– Options</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/SVGIcon.html">SVGIcon</a>
+                <a href="Enums/FontUtils.html">FontUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/SFSymbol.html">SFSymbol</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/SongFileUtils.html">SongFileUtils</a>
@@ -782,6 +785,12 @@
                 <a href="Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="Other%20Extensions.html#/c:objc(cs)NSFont">NSFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -838,6 +847,9 @@
                 <a href="Structs/ChordProConfig/FontOptions.html">– FontOptions</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/FontItem.html">FontItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/FontOptionsView.html">FontOptionsView</a>
               </li>
               <li class="nav-group-task">
@@ -845,9 +857,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/FontPicker.html">FontPicker</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/FontPicker/FontStyle.html">– FontStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/FontPickerButton.html">FontPickerButton</a>
@@ -881,54 +890,66 @@
 <p><img src="https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png" alt="Icon"></p>
 <h2 id='chordpro' class='heading'>ChordPro</h2>
 
-<p><strong>ChordPro</strong> is an open standard text format and its has its own <a href="https://www.chordpro.org/chordpro/chordpro-directives/">official reference implementation</a>. I contributed a lot to its <a href="https://github.com/ChordPro/chordpro">Open Source code</a>. While I hope you like <strong>Chord Provider</strong>, as <em>guitar player</em> or <em>macOS programmer</em>, it is just my hobby project. Go <a href="https://chordpro.org">there</a> for the full <strong>Chordpro</strong> experience.</p>
+<p><strong>ChordPro</strong> is an open standard text format and its has an <a href="https://www.chordpro.org/chordpro/chordpro-directives/">official reference implementation</a>. While I hope you like <strong>Chord Provider</strong>, as <em>guitar player</em> or <em>macOS programmer</em>, it is just my hobby project.</p>
 <h2 id='chord-provider' class='heading'>Chord Provider</h2>
 
 <p><strong>Chord Provider</strong> is written in Swift 6 and SwiftUI and needs macOS Sequoia.</p>
 
 <p><img src="https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg" alt="Chord Provider"></p>
 
-<p>There are many <strong>ChordPro</strong> parsers in this world, however, almost none are <em>really</em> native in the macOS world, it is often an afterthought&hellip; Not for me. I&rsquo;m Mac user only and I don&rsquo;t use iStuff.</p>
+<p>There are many <a href="https://www.chordpro.org">ChordPro</a> parsers in this world, however, almost none are <em>really</em> native in the <em>macOS</em> world, it is often an afterthought&hellip; Not for me. I&rsquo;m <em>Mac</em> user only and I don&rsquo;t use <em>iStuff</em>.</p>
 <h3 id='the-icon' class='heading'>The icon</h3>
 
-<p>A Telecaster shape, of course! In mid 2016 I felt in love with a guitar. An &lsquo;Olympic White&rsquo;. That is the color of the shape. The background is a suitable modification of her &lsquo;plate&rsquo;.</p>
+<p>A <strong>Telecaster</strong> shape, of course! In mid 2016, I felt in love with a guitar. An <em>Olympic White</em>. That is the color of the shape. The background is a suitable modification of her &lsquo;plate&rsquo;.</p>
 <h3 id='what-can-strong-chord-provider-strong-do' class='heading'>What can <strong>Chord Provider</strong> do?</h3>
 
 <ul>
-<li>It will view and/or edit <strong>ChordPro</strong> files.</li>
-<li>It can export your song to a PDF document.</li>
-<li>It can also export a whole folder with <strong>ChordPro</strong> songs to a PDF with a <em>Table of Contents</em>.</li>
-<li>It has an editor that highlights your chords and directives with colours you can change in the settings and you can edit a directive by double-clicking on it.</li>
-<li>It knows most of the <strong>ChordPro</strong> directives, but not all and my implementation is not always according the <a href="https://www.chordpro.org/chordpro/chordpro-directives/">official reference implementation</a>.</li>
-<li>It can show diagrams for the guitar, guitalele and ukulele.</li>
-<li>You can click on a chord diagram and it will open a Sheet with all known versions.</li>
-<li>It can transpose a song; however, only in the View. The document will not be changed and that&rsquo;s on purpose.</li>
-<li>You can &lsquo;define&rsquo; a Capo but that will not change any notes in the document; again on purpose.</li>
-<li>It can play chords with MIDI with a guitar instrument that you can select in the settings.</li>
-<li>It can play audio songs or videos when stored next to the <strong>ChordPro</strong> file,</li>
-<li>Full &lsquo;left-handed&rsquo; chords support.</li>
-<li>It has a &lsquo;quicklook&rsquo; plugin for <strong>ChordPro</strong> files. Select a song in the <code>Finder</code> and press <code>space</code>. Images are not supported in the preview.</li>
-<li>It makes thumbnails for your <strong>ChordPro</strong> files.</li>
+<li>It will view your <strong>ChordPro</strong> files.</li>
+<li>It can export your song as a PDF document or a whole folder with <strong>ChordPro</strong> songs to a PDF with a <em>Table of Contents</em></li>
+<li>It has a fancy editor to edit your songs</li>
+<li>It can play the chords with MIDI with a guitar instrument that you can select in the <code>settings</code></li>
+<li>It can play audio songs or videos when stored next to the <strong>ChordPro</strong> file</li>
+<li>It has a <em>database</em> with a lot of chords.</li>
+<li><em>left-handed</em> chords support</li>
 </ul>
 <h3 id='optional-use-the-strong-chordpro-cli-reference-implementation-strong-for-pdf-creation' class='heading'>Optional use the <strong>ChordPro CLI reference implementation</strong> for PDF creation</h3>
 
 <p>The <a href="https://www.chordpro.org/">official reference implementation</a> of the <strong>ChordPro</strong> format is <em>much</em> more powerful to create PDF&rsquo;s.</p>
 
 <p>If you have the CLI utility installed on your system, <strong>Chord Provider</strong> can optional use it for creating PDF&rsquo;s.</p>
+<h2 id='a-em-true-em-macos-application' class='heading'>A <em>true</em> macOS application</h2>
+
+<ul>
+<li>It has a <em>quicklook</em> plugin for <strong>ChordPro</strong> files. Select a song in the <em>Finder</em> and press <code>space</code>.</li>
+<li>It makes <em>thumbnails</em> for your <strong>ChordPro</strong> files with the <strong>Chord Provider</strong> icon and the name on the song below. True eye candy!</li>
+</ul>
+
+<p>Besides that; its an interesting project for <em>macOS</em> programmers. It renders PDF&rsquo;s; use the <code>ViewThatFits</code> magic to show a song in columns, playing MIDI with <em>CoreAudio</em> and deals with the <code>DocumentGroup</code> beast&hellip;</p>
+
+<p>It&rsquo;s editor is written from scratch; in <code>AppKit</code>.</p>
+
+<p>While I studied a lot of code from other projects to learn; in the end, its all included. I don&rsquo;t like dependencies!</p>
+
+<p><em>Yes, I dealt with the concurrency challenge!</em></p>
 <h2 id='binaries' class='heading'>Binaries</h2>
 
-<p>I like Swift and SwiftUI but I don’t like the more and more lockdown of my beloved macOS. I don’t have a <code>Developer</code> account.</p>
+<p>I like <code>Swift</code> and <code>SwiftUI</code> but I don’t like the more and more lockdown of my beloved <em>macOS</em>. I don’t have a Developer` account.</p>
 
-<p>Theoretically for a good reason but in practise a little bit less. I have no intension to bring <strong>Chord Provider</strong> to the Apple Store but I also can&rsquo;t provide an <em>easy</em> compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper. The provided <em>release</em> is only ad-hoc signed. </p>
+<p>Theoretically for a good reason but in practise a little bit less. I have no intension to bring <strong>Chord Provider</strong> to the Apple Store but I also can&rsquo;t provide an <em>easy</em> compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper. The provided <em>release</em> is only <em>ad-hoc</em> signed.</p>
 
 <p>Well, the source is free!</p>
+<h3 id='install-script' class='heading'>Install script</h3>
+
+<p>There is an <code>Install</code> script in the download if you want to bypass the almighty gatekeeper.</p>
+
+<p>Up to you if you want to use it.</p>
 <h2 id='limitations' class='heading'>Limitations</h2>
 
 <p>Some other guitar applications claim the <em>ownership</em> of <strong>ChordPro</strong> files and then the <em>quicklook</em> does not work anymore. <strong>Chord Provider</strong> does not own them; nobody should&hellip;</p>
 
 <p>Not all chords in the database are correct; especially the more complicated chords. Feel free to contribute!</p>
 
-<p>It is not a complete implementation of the <strong>ChordPro</strong> standard. Again, this is my <em>hobby project</em> for my own needs. The <a href="https://www.chordpro.org/">official ChordPro implementation</a> might serve you better.</p>
+<p>It is not a complete implementation of the <strong>ChordPro</strong> standard. Again, this is my <em>hobby project</em> for my own needs. The <a href="https://www.chordpro.org/">official ChordPro implementation</a> might serve you better. I contributed a lot to its <a href="https://github.com/ChordPro/chordpro">Open Source code</a>.</p>
 <h2 id='thanks' class='heading'>Thanks</h2>
 
 <p>Stole code (and ideas) from:</p>
@@ -941,6 +962,19 @@
 <li><a href="https://github.com/kyle-n/HighlightedTextEditor">HighlightedTextEditor</a></li>
 <li><a href="https://github.com/JonWorms/LNTextView">LNTextView</a></li>
 </ul>
+
+<p>Learned a lot from Swift mailing lists:</p>
+
+<ul>
+<li><a href="https://fatbobman.com/en/">Fatbobman</a></li>
+<li><a href="https://www.avanderlee.com">SwiftLee</a></li>
+<li><a href="https://swiftwithmajid.com">Swift with Majid</a></li>
+</ul>
+
+<p>I hope you learn something from my project as well!</p>
+<h2 id='ai' class='heading'>AI</h2>
+
+<p>None of my code is generated by AI. AI is <em>stealing</em> in my opinion. Programming is <em>art</em>.</p>
 <h2 id='how-to-compile' class='heading'>How to compile</h2>
 
 <p>Xcode 16 is required.</p>

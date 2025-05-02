@@ -9,10 +9,15 @@ import Foundation
 
 extension Song.Section.Line {
 
+    /// The structure of a strum
     struct Strum: Equatable, Codable, Identifiable, Hashable {
+        /// The ID
         var id: Int = 0
+        /// The strum symbol
         var strum: String = ""
+        /// The beat symbol
         var beat: String = ""
+        /// The tuplet symbol
         var tuplet: String = ""
     }
 

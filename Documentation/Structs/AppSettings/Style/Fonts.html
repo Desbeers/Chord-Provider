@@ -17,7 +17,7 @@
     <a title="Fonts Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><img src="../../../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../../../index.html">Chord Provider</a> (98% documented)</p>
+        <p><img src="../../../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../../../index.html">Chord Provider</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../../../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../../../search.json">
@@ -412,13 +412,13 @@
                 <a href="../../../Structs/RenderView/ImageView.html">– ImageView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../../Structs/RenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../Structs/RenderView/ProminentLabel.html">– ProminentLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../../Structs/RenderView/SectionViewModifier.html">– SectionViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../../Structs/RenderView/PartsView.html">– PartsView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../../Structs/ChordsView.html">ChordsView</a>
@@ -723,7 +723,10 @@
                 <a href="../../../Enums/FontConfig/Options.html">– Options</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../../Enums/SVGIcon.html">SVGIcon</a>
+                <a href="../../../Enums/FontUtils.html">FontUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Enums/SFSymbol.html">SFSymbol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../../Enums/SongFileUtils.html">SongFileUtils</a>
@@ -791,6 +794,12 @@
                 <a href="../../../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../../Other%20Extensions.html#/c:objc(cs)NSFont">NSFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -847,6 +856,9 @@
                 <a href="../../../Structs/ChordProConfig/FontOptions.html">– FontOptions</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../../Structs/FontItem.html">FontItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../Structs/FontOptionsView.html">FontOptionsView</a>
               </li>
               <li class="nav-group-task">
@@ -854,9 +866,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../../Structs/FontPicker.html">FontPicker</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../../Structs/FontPicker/FontStyle.html">– FontStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../../Structs/FontPickerButton.html">FontPickerButton</a>
@@ -894,7 +903,7 @@
             <p>The fonts structure</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L124-L141">Show on GitHub</a>
+                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L199-L216">Show on GitHub</a>
               </div>
           </section>
           <section class="section task-group-section">
@@ -925,7 +934,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L126">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L201">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -955,7 +964,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L128">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L203">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -985,7 +994,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L130">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L205">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1010,12 +1019,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">chord</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nv">color</span><span class="p">:</span> <span class="o">.</span><span class="n">accent</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">chord</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">10</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L132">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L207">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1040,12 +1049,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">label</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nv">background</span><span class="p">:</span> <span class="o">.</span><span class="n">gray</span><span class="o">.</span><span class="nf">opacity</span><span class="p">(</span><span class="mf">0.3</span><span class="p">))</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">label</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">10</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L134">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L209">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1070,12 +1079,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">comment</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nv">background</span><span class="p">:</span> <span class="o">.</span><span class="n">pdfComment</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">comment</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">8</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L136">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L211">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1100,12 +1109,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="nv">background</span><span class="p">:</span> <span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="nf">opacity</span><span class="p">(</span><span class="mf">0.3</span><span class="p">))</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">8</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L138">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L213">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1130,12 +1139,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">textblock</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nv">color</span><span class="p">:</span> <span class="o">.</span><span class="n">gray</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">textblock</span><span class="p">:</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span> <span class="o">=</span> <span class="kt"><a href="../../../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="mi">11</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L140">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/AppSettings/AppSettings+Style.swift#L215">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

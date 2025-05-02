@@ -17,7 +17,7 @@
     <a title="PDFStringAttribute Extension Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (98% documented)</p>
+        <p><img src="../img/Icon-macOS-128.png" alt="Chord Provider"/><a href="../index.html">Chord Provider</a> (99% documented)</p>
         <p class="header-right"><a href="https://github.com/desbeers/Chord-Provider/"><img src="../img/gh.png" alt="GitHub"/>View on GitHub</a></p>
         <div class="header-right">
           <form role="search" action="../search.json">
@@ -408,13 +408,13 @@
                 <a href="../Structs/RenderView/ImageView.html">– ImageView</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/RenderView/ProminentLabel.html">– ProminentLabel</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/RenderView/SectionViewModifier.html">– SectionViewModifier</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/RenderView/PartsView.html">– PartsView</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ChordsView.html">ChordsView</a>
@@ -719,7 +719,10 @@
                 <a href="../Enums/FontConfig/Options.html">– Options</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/SVGIcon.html">SVGIcon</a>
+                <a href="../Enums/FontUtils.html">FontUtils</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SFSymbol.html">SFSymbol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/SongFileUtils.html">SongFileUtils</a>
@@ -787,6 +790,12 @@
                 <a href="../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSFont">NSFont</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Extensions/NSWindow.html">NSWindow</a>
               </li>
               <li class="nav-group-task">
@@ -843,6 +852,9 @@
                 <a href="../Structs/ChordProConfig/FontOptions.html">– FontOptions</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/FontItem.html">FontItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/FontOptionsView.html">FontOptionsView</a>
               </li>
               <li class="nav-group-task">
@@ -850,9 +862,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPicker.html">FontPicker</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/FontPicker/FontStyle.html">– FontStyle</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/FontPickerButton.html">FontPickerButton</a>
@@ -1182,9 +1191,9 @@ Style attributes for a slightly smaller text font
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE10attributes_8settings5scaleSDyACypGAA10FontConfigO_AA11AppSettingsVSdtFZ"></a>
-                    <a name="//apple_ref/swift/Method/attributes(_:settings:scale:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE10attributes_8settings5scaleSDyACypGAA10FontConfigO_AA11AppSettingsVSdtFZ">attributes(_:<wbr>settings:<wbr>scale:<wbr>)</a>
+                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE10attributes_5scaleSDyACypGAA13ConfigOptionsO04FontI0V_SdtFZ"></a>
+                    <a name="//apple_ref/swift/Method/attributes(_:scale:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE10attributes_5scaleSDyACypGAA13ConfigOptionsO04FontI0V_SdtFZ">attributes(_:<wbr>scale:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1199,7 +1208,7 @@ Style attributes for a slightly smaller text font
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">attributes</span><span class="p">(</span><span class="n">_</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Enums/FontConfig.html">FontConfig</a></span><span class="p">,</span> <span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">attributes</span><span class="p">(</span><span class="n">_</span> <span class="nv">config</span><span class="p">:</span> <span class="kt"><a href="../Enums/ConfigOptions.html">ConfigOptions</a></span><span class="o">.</span><span class="kt">FontOptions</span><span class="p">,</span> <span class="nv">scale</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
 
                         </div>
                       </div>
@@ -1215,19 +1224,7 @@ Style attributes for a slightly smaller text font
                               </td>
                               <td>
                                 <div>
-                                  <p>The <code><a href="../Enums/FontConfig.html">FontConfig</a></code></p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>settings</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The <code><a href="../Structs/AppSettings.html">AppSettings</a></code></p>
+                                  <p>The options for the font</p>
                                 </div>
                               </td>
                             </tr>
@@ -1239,7 +1236,7 @@ Style attributes for a slightly smaller text font
                         <p>The <code><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></code> with the font and color</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/Core/PDFStringAttribute.swift#L71-L105">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/Core/PDFStringAttribute.swift#L69-L74">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1269,7 +1266,7 @@ Style attributes for a slightly smaller text font
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/FolderExport/FolderExport+toc.swift#L73-L79">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/FolderExport/FolderExport+toc.swift#L79-L85">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1299,30 +1296,17 @@ Style attributes for a slightly smaller text font
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/FolderExport/FolderExport+toc.swift#L82-L88">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/FolderExport/FolderExport+toc.swift#L88-L94">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Diagram%20string%20styling"></a>
-                <a name="//apple_ref/swift/Section/Diagram string styling" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Diagram%20string%20styling"></a>
-                  <h3 class="section-name"><span>Diagram string styling</span>
-</h3>
-                </div>
-              </div>
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE13diagramFinger8settingsSDyACypGAA11AppSettingsV_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/diagramFinger(settings:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE13diagramFinger8settingsSDyACypGAA11AppSettingsV_tFZ">diagramFinger(settings:<wbr>)</a>
+                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE07diagramA4Name8settingsSDyACypGAA11AppSettingsV_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/diagramChordName(settings:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE07diagramA4Name8settingsSDyACypGAA11AppSettingsV_tFZ">diagramChordName(settings:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1330,19 +1314,19 @@ Style attributes for a slightly smaller text font
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Style attributes for the diagram finger</p>
+                        <p>Style attributes for the diagram chord name</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">diagramFinger</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">diagramChordName</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+Chords+Diagram.swift#L351-L356">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+Chords+Diagram.swift#L370-L379">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1350,69 +1334,9 @@ Style attributes for a slightly smaller text font
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE13diagramTopBar8settingsSDyACypGAA11AppSettingsV_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/diagramTopBar(settings:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE13diagramTopBar8settingsSDyACypGAA11AppSettingsV_tFZ">diagramTopBar(settings:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Style attributes for the diagram top bar</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">diagramTopBar</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+Chords+Diagram.swift#L359-L364">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE15diagramBaseFret8settingsSDyACypGAA11AppSettingsV_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/diagramBaseFret(settings:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE15diagramBaseFret8settingsSDyACypGAA11AppSettingsV_tFZ">diagramBaseFret(settings:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Style attributes for the diagram base fret</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">diagramBaseFret</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+Chords+Diagram.swift#L367-L372">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE16diagramBottomBar8settingsSDyACypGAA11AppSettingsV_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/diagramBottomBar(settings:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE16diagramBottomBar8settingsSDyACypGAA11AppSettingsV_tFZ">diagramBottomBar(settings:<wbr>)</a>
+                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE16diagramBottomBar8settings8fontSizeSDyACypGAA11AppSettingsV_SdtFZ"></a>
+                    <a name="//apple_ref/swift/Method/diagramBottomBar(settings:fontSize:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE16diagramBottomBar8settings8fontSizeSDyACypGAA11AppSettingsV_SdtFZ">diagramBottomBar(settings:<wbr>fontSize:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1427,12 +1351,12 @@ Style attributes for a slightly smaller text font
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">diagramBottomBar</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">diagramBottomBar</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">,</span> <span class="nv">fontSize</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+Chords+Diagram.swift#L375-L380">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+Chords+Diagram.swift#L382-L387">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1475,7 +1399,7 @@ Style attributes for a slightly smaller text font
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+GridSection.swift#L106-L115">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+GridSection.swift#L111-L120">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1505,50 +1429,7 @@ Style attributes for a slightly smaller text font
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+GridSection.swift#L117-L123">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Part%20chord%20styling"></a>
-                <a name="//apple_ref/swift/Section/Part chord styling" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Part%20chord%20styling"></a>
-                  <h3 class="section-name"><span>Part chord styling</span>
-</h3>
-                </div>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE04partA08settingsSDyACypGAA11AppSettingsV_tFZ"></a>
-                    <a name="//apple_ref/swift/Method/partChord(settings:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE04partA08settingsSDyACypGAA11AppSettingsV_tFZ">partChord(settings:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Style attributes for the chord of the part</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">partChord</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+LyricsSection+Line+Part.swift#L86-L92">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+GridSection.swift#L122-L128">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1569,9 +1450,9 @@ Style attributes for a slightly smaller text font
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE9strumLineSDyACypGvpZ"></a>
-                    <a name="//apple_ref/swift/Variable/strumLine" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE9strumLineSDyACypGvpZ">strumLine</a>
+                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE9strumLine8settingsSDyACypGAA11AppSettingsV_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/strumLine(settings:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE9strumLine8settingsSDyACypGAA11AppSettingsV_tFZ">strumLine(settings:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1586,12 +1467,42 @@ Style attributes for a slightly smaller text font
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">var</span> <span class="nv">strumLine</span><span class="p">:</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">strumLine</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+StrumSection.swift#L64-L69">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+StrumSection.swift#L62-L67">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE13strumLineBeat8settingsSDyACypGAA11AppSettingsV_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/strumLineBeat(settings:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:SD14Chord_ProviderSo21NSAttributedStringKeyaRszypRs_rlE13strumLineBeat8settingsSDyACypGAA11AppSettingsV_tFZ">strumLineBeat(settings:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>String attributes for a strum line beat</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">strumLineBeat</span><span class="p">(</span><span class="nv">settings</span><span class="p">:</span> <span class="kt"><a href="../Structs/AppSettings.html">AppSettings</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../PDF%20builder.html#/s:14Chord_Provider18PDFStringAttributea">PDFStringAttribute</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+StrumSection.swift#L70-L75">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1677,7 +1588,7 @@ Style attributes for a slightly smaller text font
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+TextblockSection.swift#L126-L131">Show on GitHub</a>
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/PDFBuild/SongElements/PDFBuild+TextblockSection.swift#L109-L114">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
