@@ -68,7 +68,7 @@ static unsigned int filecheck(FILE *file) {
 }
 
 static void copytable(FILE *ttf,FILE *ttc,int offset,int length) {
-    int i, ch;
+    int i, ch = 0;
     
     fseek(ttc,offset,SEEK_SET);
     for ( i=0; i<length && (ch=getc(ttc))!=EOF ; ++i )
@@ -90,7 +90,7 @@ static int handlefont(char *filename,int which,FILE *ttc,int offset) {
     int i, cnt, *offsets, *lengths, head, tag, pos, headpos;
     
     char cwd[2000];
-    getcwd(&cwd, sizeof(cwd));
+    getcwd(cwd, sizeof(cwd));
     
     snprintf(outfile, sizeof(outfile), "%s/%s", cwd, basename(filename));
     
@@ -127,7 +127,7 @@ static int handlefont(char *filename,int which,FILE *ttc,int offset) {
     }
     headpos = -1;
     for ( i=0; i<cnt; ++i ) {
-        pos = ftell(ttf);
+        pos = (int)ftell(ttf);
         copytable(ttf,ttc,offsets[i],lengths[i]);
         if ( i==head ) {
             fseek(ttf,pos+8,SEEK_SET);
