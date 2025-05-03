@@ -36,4 +36,9 @@
 
 - Fix colours in quickview
 
+# 6.3.2 (2025-05-03)
+
+- Fix disabled check of style buttons in Settings
+- Improve PDF labels
+
 # 6.x.x (---)
