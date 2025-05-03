@@ -149,6 +149,9 @@ extension AppSettings.Style {
                 style.fonts.tag.background = .randomLight
                 style.fonts.textblock.color = .randomDark
             }
+            style.fonts.title.color = style.theme.foreground
+            style.fonts.subtitle.color = style.theme.foregroundMedium
+            style.fonts.text.color = style.theme.foreground
             return style
         }
     }
