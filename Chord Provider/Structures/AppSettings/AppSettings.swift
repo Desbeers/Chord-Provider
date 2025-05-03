@@ -25,7 +25,6 @@ struct AppSettings: Equatable, Codable, Sendable {
     /// Style settings
     var style: Style = .init() {
         didSet {
-            print("DIDSET")
             style.fonts.title.color = style.theme.foreground
             style.fonts.subtitle.color = style.theme.foregroundMedium
             style.fonts.text.color = style.theme.foreground
