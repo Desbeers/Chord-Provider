@@ -67,10 +67,10 @@ extension PDFBuild {
         ///   - label: The label as `String`
         /// - Returns: An `NSAttributedString` with icon, label and attributes
         private func detailLabel(sfSymbol: SFSymbol, label: String) -> NSAttributedString {
-            let imageAttachment = PDFBuild.sfSymbol(
-                sfSymbol: sfSymbol,
+            let imageAttachment = NSTextAttachment().sfSymbol(
+                sfSymbol: sfSymbol.rawValue,
                 fontSize: settings.style.fonts.text.size * 0.8,
-                nsColor: settings.style.theme.foregroundMedium.nsColor
+                colors: [settings.style.theme.foregroundMedium.nsColor]
             )
             let result = NSMutableAttributedString()
             result.append(NSAttributedString(attachment: imageAttachment, attributes: .alignment(.center)))

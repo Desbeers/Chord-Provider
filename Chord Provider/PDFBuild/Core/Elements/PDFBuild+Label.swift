@@ -53,76 +53,76 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
+
+            // MARK: Calculated results
+
+            var section: PDFBuild.Section?
+            var result: (any PDFElement)?
+            var labelWidth: Double = 0
+
             let label = NSAttributedString(labelText.toMarkdown(fontOptions: fontOptions, scale: 1))
-            let text = NSMutableAttributedString()
+
             if let sfSymbol {
-                let imageAttachment = PDFBuild.sfSymbol(
-                    sfSymbol: sfSymbol,
-                    fontSize: fontOptions.size,
-                    nsColor: fontOptions.color.nsColor
+                let image = PDFBuild.Image(sfSymbol, fontSize: fontOptions.size, colors: [fontOptions.color.nsColor])
+                result = PDFBuild.Section(
+                    columns: [.fixed(width: image.image.size.width + 2 * textPadding), .flexible],
+                    items: [
+                        image.padding(textPadding * 2),
+                        PDFBuild.Text(label).padding(textPadding)
+                    ]
                 )
-                text.append(NSAttributedString(attachment: imageAttachment))
-                let attributes = label.fontAttributes(in: .init(location: 0, length: label.length))
-                text.append(NSAttributedString(string: " ", attributes: attributes))
+                /// Calculate the total label width
+                var labelRect = rect
+                labelRect.size.width -= image.image.size.width + 4 * textPadding
+                let bounds = label.boundingRect(with: labelRect.size, options: .usesLineFragmentOrigin)
+                labelWidth = (8 * textPadding) + bounds.width + image.image.size.width
+            } else {
+                /// The label is text only
+                let bounds = label.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+                labelWidth = (4 * textPadding) + bounds.width
+                result = PDFBuild.Text(label).padding(textPadding)
             }
-            text.append(label)
-            var textRect = rect.insetBy(dx: 2 * textPadding, dy: 2 * textPadding)
-            let labelBounds = label.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
-            let textBounds = text.boundingRect(with: textRect.size, options: .usesLineFragmentOrigin)
 
-            let width = textBounds.width + (4 * textPadding)
-            let height = labelBounds.height + (4 * textPadding)
+            if let result {
 
-            /// Move the textRect
-            /// - Note: An SF symbol does not like to be less than 14...
-            let yOffset = (textBounds.height - labelBounds.height) / 1.3
-            textRect.origin.y -= yOffset
-            textRect.size.height = textBounds.height
+                var content = result
 
-            var fillRect = CGRect(
-                x: rect.origin.x,
-                y: rect.origin.y,
-                width: width,
-                height: height
-            )
-            /// Calculate `X` based on alignment
-            var xOffset: CGFloat = 0
-            switch alignment {
-            case .left:
-                xOffset -= 2 * textPadding
-            case .center:
-                let offset = (rect.width - width) / 2
-                xOffset += offset
-            case .right:
-                let offset = rect.width - width
-                xOffset += offset
-            case .justified:
-                break
-            case .natural:
-                break
-            @unknown default:
-                break
-            }
-            /// Move all the rects
-            fillRect.origin.x += xOffset
-            textRect.origin.x += xOffset
-            /// Draw the label
-            if !calculationOnly, let context = NSGraphicsContext.current?.cgContext {
-                /// Add clip
-                NSBezierPath(roundedRect: fillRect, xRadius: cornerRadius, yRadius: cornerRadius).addClip()
-                /// Draw the optional background
                 if drawBackground {
-                    context.setFillColor(fontOptions.background.nsColor.cgColor)
-                    context.fill(fillRect)
+                    content = PDFBuild.Background(color: fontOptions.background.nsColor, result).clip(.cornerRect(cornerRadius: cornerRadius))
                 }
-                /// Draw the text
-                text.draw(with: textRect, options: textDrawingOptions, context: nil)
-                /// Reset the clip
-                context.resetClip()
+
+                switch alignment {
+                case .center:
+                    section = PDFBuild.Section(
+                        columns: [.flexible, .fixed(width: labelWidth), .flexible],
+                        items: [
+                            PDFBuild.Spacer(),
+                            content,
+                            PDFBuild.Spacer()
+                        ]
+                    )
+                case .right:
+                    section = PDFBuild.Section(
+                        columns: [.flexible, .fixed(width: labelWidth)],
+                        items: [
+                            PDFBuild.Spacer(),
+                            content
+                        ]
+                    )
+                default:
+                    section = PDFBuild.Section(
+                        columns: [.fixed(width: labelWidth), .flexible],
+                        items: [
+                            content,
+                            PDFBuild.Spacer()
+                        ]
+                    )
+                }
             }
-            /// Set the new rect size
-            rect.origin.y += height
-            rect.size.height -= height
+            /// There should always be a section...
+            if let section {
+                section.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+            }
         }
     }
 }

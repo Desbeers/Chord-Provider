@@ -36,37 +36,41 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the size should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            /// Clipping will not use any rectangle space, so nothing to calculate
-            if !calculationOnly {
-                let tempRect = calculateDraw(rect: rect, elements: [element], pageRect: pageRect)
-                var fillRect = rect
-                fillRect.size.height = rect.height - tempRect.height
-                let context = NSGraphicsContext.current?.cgContext
-                switch shape {
-                case .circle:
-                    let clipRect = AVMakeRect(
-                        aspectRatio: CGSize(width: 1, height: 1),
-                        insideRect: fillRect
-                    )
-                    NSBezierPath(
-                        roundedRect: clipRect,
-                        xRadius: clipRect.width / 2,
-                        yRadius: clipRect.width / 2
-                    )
-                    .addClip()
-                case .roundedRect(let radius):
-                    fillRect.size.height = 2 * radius
-                    fillRect.origin.y += (rect.size.height - fillRect.size.height) / 2
-                    NSBezierPath(
-                        roundedRect: fillRect,
-                        xRadius: radius,
-                        yRadius: radius
-                    )
-                    .addClip()
-                }
-                element.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
-                context?.resetClip()
+            let tempRect = calculateDraw(rect: rect, elements: [element], pageRect: pageRect)
+            var fillRect = rect
+            fillRect.size.height = rect.height - tempRect.height
+            let context = NSGraphicsContext.current?.cgContext
+            switch shape {
+            case .circle:
+                let clipRect = AVMakeRect(
+                    aspectRatio: CGSize(width: 1, height: 1),
+                    insideRect: fillRect
+                )
+                NSBezierPath(
+                    roundedRect: clipRect,
+                    xRadius: clipRect.width / 2,
+                    yRadius: clipRect.width / 2
+                )
+                .addClip()
+            case .roundedRect(let radius):
+                fillRect.size.height = 2 * radius
+                fillRect.origin.y += (rect.size.height - fillRect.size.height) / 2
+                NSBezierPath(
+                    roundedRect: fillRect,
+                    xRadius: radius,
+                    yRadius: radius
+                )
+                .addClip()
+            case .cornerRect(let cornerRadius):
+                NSBezierPath(
+                    roundedRect: fillRect,
+                    xRadius: cornerRadius,
+                    yRadius: cornerRadius
+                )
+                .addClip()
             }
+            element.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
+            context?.resetClip()
         }
     }
 
@@ -74,7 +78,9 @@ extension PDFBuild {
     enum ShapeStyle {
         /// A circle shape
         case circle
-        /// A rounded retangle shape
+        /// A rounded rectangle shape
         case roundedRect(radius: CGFloat)
+        /// A cornered shape
+        case cornerRect(cornerRadius: CGFloat)
     }
 }

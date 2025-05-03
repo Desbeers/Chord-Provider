@@ -160,8 +160,8 @@ extension PDFBuild.Chords {
                             break
                         }
                         if let string {
-                            let symbol = PDFBuild.sfSymbol(sfSymbol: string, fontSize: size, nsColors: [settings.style.theme.foregroundMedium.nsColor])
-                            symbol.image?.draw(in: topBarRect)
+                            let symbol = PDFBuild.Image(string, fontSize: size, colors: [settings.style.theme.foregroundMedium.nsColor])
+                            symbol.image.draw(in: topBarRect)
                         }
                         topBarRect.origin.x += xSpacing
                     }
@@ -206,8 +206,8 @@ extension PDFBuild.Chords {
                         height: circleRadius
                     )
                     let colors = [settings.style.theme.foreground.nsColor, settings.style.theme.background.nsColor]
-                    let symbol = PDFBuild.sfSymbol(sfSymbol: "\(chord.baseFret).circle.fill", fontSize: circleRadius, nsColors: colors)
-                    symbol.image?.draw(in: baseFretRect)
+                    let symbol = PDFBuild.Image("\(chord.baseFret).circle.fill", fontSize: circleRadius, colors: colors)
+                    symbol.image.draw(in: baseFretRect)
                 }
             }
 
@@ -273,8 +273,8 @@ extension PDFBuild.Chords {
                             shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                             /// Draw the optional finger
                             if settings.diagram.showFingers && fingers[string] != 0 {
-                                let symbol = PDFBuild.sfSymbol(sfSymbol: "\(fingers[string]).circle.fill", fontSize: circleRadius, nsColors: fretColors)
-                                symbol.image?.draw(in: dotRect)
+                                let symbol = PDFBuild.Image("\(fingers[string]).circle.fill", fontSize: circleRadius, colors: fretColors)
+                                symbol.image.draw(in: dotRect)
                             }
                         }
                         /// Move X one string to the right
@@ -318,11 +318,11 @@ extension PDFBuild.Chords {
                         shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                         /// Draw the optional finger
                         if settings.diagram.showFingers && barre.finger != 0 {
-                            let symbol = PDFBuild.sfSymbol(sfSymbol: "\(barre.finger).circle.fill", fontSize: circleRadius, nsColors: fretColors)
+                            let symbol = PDFBuild.Image("\(barre.finger).circle.fill", fontSize: circleRadius, colors: fretColors)
                             /// Center the finger in the rect
                             symbolRect.size.width = circleRadius
                             symbolRect.origin.x += (tmpRect.width - circleRadius) / 2
-                            symbol.image?.draw(in: symbolRect)
+                            symbol.image.draw(in: symbolRect)
                         }
                     }
                     /// Move Y one fret down

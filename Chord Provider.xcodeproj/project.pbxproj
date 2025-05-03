@@ -239,8 +239,6 @@
 		D75E6C692DABB0960065F1D2 /* RenderView+strumSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E6C682DABB0960065F1D2 /* RenderView+strumSection.swift */; };
 		D75E6C6B2DABB0BC0065F1D2 /* RenderView+imageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E6C6A2DABB0BC0065F1D2 /* RenderView+imageSection.swift */; };
 		D75E6C6D2DABB0E30065F1D2 /* RenderView+PartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75E6C6C2DABB0E30065F1D2 /* RenderView+PartsView.swift */; };
-		D7607B0B2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */; };
-		D7607B0C2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */; };
 		D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7622B462ABF0B04008CAC63 /* SettingsView.swift */; };
 		D7641BF22D96CC44009472D3 /* FontPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7641BF12D96CC44009472D3 /* FontPicker.swift */; };
 		D7641BFC2D97F8D0009472D3 /* FontPickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */; };
@@ -319,6 +317,8 @@
 		D7C78DF92DBCB08200CD4CBB /* NSFont+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C78DF72DBCB08200CD4CBB /* NSFont+extension.swift */; };
 		D7C78DFB2DBCB12B00CD4CBB /* NSParagraphStyle+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C78DFA2DBCB12B00CD4CBB /* NSParagraphStyle+extension.swift */; };
 		D7C78DFC2DBCB12B00CD4CBB /* NSParagraphStyle+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C78DFA2DBCB12B00CD4CBB /* NSParagraphStyle+extension.swift */; };
+		D7C8C1FE2DC6305E00E6F8FC /* NSTextAttachment+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8C1FD2DC6305E00E6F8FC /* NSTextAttachment+extension.swift */; };
+		D7C8C1FF2DC6305E00E6F8FC /* NSTextAttachment+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8C1FD2DC6305E00E6F8FC /* NSTextAttachment+extension.swift */; };
 		D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */; };
 		D7CA63202AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */; };
 		D7CA63272AEB397A00C6B4BB /* MetronomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */; };
@@ -602,7 +602,6 @@
 		D75E6C682DABB0960065F1D2 /* RenderView+strumSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+strumSection.swift"; sourceTree = "<group>"; };
 		D75E6C6A2DABB0BC0065F1D2 /* RenderView+imageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+imageSection.swift"; sourceTree = "<group>"; };
 		D75E6C6C2DABB0E30065F1D2 /* RenderView+PartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+PartsView.swift"; sourceTree = "<group>"; };
-		D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+sfSymbol.swift"; sourceTree = "<group>"; };
 		D7622B462ABF0B04008CAC63 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D7641BF12D96CC44009472D3 /* FontPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPicker.swift; sourceTree = "<group>"; };
 		D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontPickerButton.swift; sourceTree = "<group>"; };
@@ -662,6 +661,7 @@
 		D7C78DF42DBBA61E00CD4CBB /* ChordProParser+processTextblock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+processTextblock.swift"; sourceTree = "<group>"; };
 		D7C78DF72DBCB08200CD4CBB /* NSFont+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFont+extension.swift"; sourceTree = "<group>"; };
 		D7C78DFA2DBCB12B00CD4CBB /* NSParagraphStyle+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSParagraphStyle+extension.swift"; sourceTree = "<group>"; };
+		D7C8C1FD2DC6305E00E6F8FC /* NSTextAttachment+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextAttachment+extension.swift"; sourceTree = "<group>"; };
 		D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Song+Section+Line+Strum.swift"; sourceTree = "<group>"; };
 		D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeModel.swift; sourceTree = "<group>"; };
 		D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighTick.aif; sourceTree = "<group>"; };
@@ -955,7 +955,6 @@
 			children = (
 				D706FD7E2BCECC9F005DEDF6 /* Elements */,
 				D7972BDC2BCE80DB00752CF9 /* PDFBuild.swift */,
-				D7607B0A2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift */,
 				D7781B522D0F205F00EC0CCF /* PDFBuild+arguments.swift */,
 				D7C47CC42DA131D30037CC00 /* PDFBuild+PageSize.swift */,
 				D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */,
@@ -1169,6 +1168,7 @@
 				D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */,
 				D7C78DF72DBCB08200CD4CBB /* NSFont+extension.swift */,
 				D7C78DFA2DBCB12B00CD4CBB /* NSParagraphStyle+extension.swift */,
+				D7C8C1FD2DC6305E00E6F8FC /* NSTextAttachment+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1807,6 +1807,7 @@
 				D75B48982BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */,
 				D77084752D8D978B002530F7 /* SettingsView+editor.swift in Sources */,
 				D737F8582D8ED7D7001F1DC5 /* FontOptionsView.swift in Sources */,
+				D7C8C1FF2DC6305E00E6F8FC /* NSTextAttachment+extension.swift in Sources */,
 				D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */,
 				D75B488E2BDBC417001F6176 /* FolderExport.swift in Sources */,
 				D706FD9C2BCECC9F005DEDF6 /* PDFBuild+Text.swift in Sources */,
@@ -1920,7 +1921,6 @@
 				D7EA87672C5A580A009A3D82 /* ChordProEditor+TextView.swift in Sources */,
 				D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */,
 				D730BBF62CA844C2008719F2 /* Utils+Define.swift in Sources */,
-				D7607B0B2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */,
 				D70D96BE2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift in Sources */,
 				D7EB791D2CA995C3004D965B /* Modifiers+Scale.swift in Sources */,
 				D7EB791A2CA97BA5004D965B /* ChordsDatabaseView.swift in Sources */,
@@ -2048,7 +2048,6 @@
 				D7496DE52CEF868500C8FFA8 /* ChordProParser+autoSection.swift in Sources */,
 				D730BC6A2CA849C6008719F2 /* Chord+Status.swift in Sources */,
 				D7F056912CEBA7D000E422AA /* ChordProParser+processMetadata.swift in Sources */,
-				D7607B0C2DAEDA1C002E1E31 /* PDFBuild+sfSymbol.swift in Sources */,
 				D730BC6B2CA849C6008719F2 /* Chord+Quality.swift in Sources */,
 				D730BC6C2CA849C6008719F2 /* ChordDefinition+init.swift in Sources */,
 				D7EF99662BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
@@ -2065,6 +2064,7 @@
 				D70B72A92BD52A9B003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
 				D71F864C2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */,
 				D75B48A52BDFE97F001F6176 /* Song+Metadata.swift in Sources */,
+				D7C8C1FE2DC6305E00E6F8FC /* NSTextAttachment+extension.swift in Sources */,
 				D7C47CC22DA1310B0037CC00 /* AppSettings+PDF.swift in Sources */,
 				D730BBDF2CA844C2008719F2 /* Bundle+extensions.swift in Sources */,
 				D70B72AB2BD52A9B003C89B4 /* PDFBuild+Section.swift in Sources */,

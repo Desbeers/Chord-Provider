@@ -22,11 +22,13 @@ extension PDFBuild {
         let alignment: NSTextAlignment
         /// The optional offset
         let offset: CGSize
+        /// Bool if the image should be resized if it does not fit
+        let resizeImage: Bool
 
         /// Init the **image** element
         /// - Parameters:
         ///   - image: The `NSImage` to draw
-        ///   - size: the optional size of the image
+        ///   - size: The optional size of the image
         ///   - alignment: The alignment of the image
         ///   - offset: The offset of the image
         init(_ image: NSImage, size: CGSize? = nil, alignment: NSTextAlignment = .center, offset: CGSize = .zero) {
@@ -34,6 +36,40 @@ extension PDFBuild {
             self.fixedSize = size
             self.alignment = alignment
             self.offset = offset
+            self.resizeImage = true
+        }
+
+        /// Init the **image** element with an SF symbol
+        /// - Parameters:
+        ///   - sfSymbol: The `SF Symbol`as `String` to draw
+        ///   - fontSize: The font size for the symbol
+        ///   - colors: The colors for the symbol
+        init(_ sfSymbol: String, fontSize: Double, colors: [NSColor]) {
+            self.alignment = .left
+            self.offset = .zero
+            /// Never resize SF symbols
+            self.resizeImage = false
+            var config = NSImage.SymbolConfiguration(pointSize: fontSize * 3, weight: .medium, scale: .medium)
+            config = config.applying(.init(paletteColors: colors))
+            if
+                let sfImage = NSImage(systemSymbolName: sfSymbol, accessibilityDescription: nil)?.withSymbolConfiguration(config),
+                let cgImage = sfImage.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+                /// Add the image
+                self.fixedSize = NSSize(width: sfImage.size.width / 3, height: sfImage.size.height / 3)
+                self.image = NSImage(cgImage: cgImage, size: fixedSize ?? .zero)
+            } else {
+                self.image = NSImage(size: .zero)
+                self.fixedSize = nil
+            }
+        }
+
+        /// Init the **image** element with an SF symbol
+        /// - Parameters:
+        ///   - sfSymbol: The `SF Symbol`as ``SFSymbol`` to draw
+        ///   - fontSize: The font size for the symbol
+        ///   - colors: The colors for the symbol
+        convenience init(_ sfSymbol: SFSymbol, fontSize: Double, colors: [NSColor]) {
+            self.init(sfSymbol.rawValue, fontSize: fontSize, colors: colors)
         }
 
         /// Draw the **image**
@@ -51,7 +87,7 @@ extension PDFBuild {
                 )
             }
             /// Make sure images always fit
-            if size.width > rect.width {
+            if resizeImage, size.width > rect.width {
                 size.width = rect.width
                 size.height = rect.width / image.size.width * image.size.height
             }
