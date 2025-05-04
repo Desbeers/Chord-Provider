@@ -23,7 +23,7 @@ extension PDFBuild {
 
         /// Init the **strum section** element
         /// - Parameters:
-        ///   - song: The ``Song``
+        ///   - section: The section with strumming
         ///   - settings: The application settings
         init(_ section: Song.Section, settings: AppSettings) {
             self.section = section

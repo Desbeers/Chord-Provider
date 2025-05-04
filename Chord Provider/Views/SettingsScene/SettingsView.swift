@@ -10,7 +10,7 @@ import OSLog
 
 /// SwiftUI `View` for the settings
 struct SettingsView: View {
-    /// The observable ``FileBrowser`` class
+    /// The observable ``FileBrowserModel`` class
     @Environment(FileBrowserModel.self) var fileBrowser
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState

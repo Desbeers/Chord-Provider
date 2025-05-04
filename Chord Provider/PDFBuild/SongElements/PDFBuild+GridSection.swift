@@ -24,7 +24,6 @@ extension PDFBuild {
         /// Init the **grid section** element
         /// - Parameters:
         ///   - section: The section with grids
-        ///   - chords: All the chords from the song
         ///   - settings: The application settings
         init(_ section: Song.Section, settings: AppSettings) {
             self.section = section

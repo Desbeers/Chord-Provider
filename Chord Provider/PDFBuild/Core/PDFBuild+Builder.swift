@@ -32,7 +32,9 @@ extension PDFBuild {
         var settings: AppSettings
 
         /// Init the **builder** class
-        /// - Parameter documentInfo: The general document information
+        /// - Parameters:
+        ///   - documentInfo: The general document information
+        ///   - settings: The application settings
         init(documentInfo: PDFBuild.DocumentInfo, settings: AppSettings) {
             self.document = documentInfo
             self.auxiliaryInfo = documentInfo.dictionary

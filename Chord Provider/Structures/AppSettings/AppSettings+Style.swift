@@ -35,8 +35,10 @@ extension AppSettings.Style {
         case random = "Random"
 
         /// Add fonts to the style settings
-        /// - Parameter style: The current style
         /// - Returns: An updated style
+        /// - Parameters:
+        ///   - style: The current style
+        ///   - fonts: All the available fonts
         func presets(style: AppSettings.Style, fonts: [FontItem]) -> AppSettings.Style {
 
             var style = style

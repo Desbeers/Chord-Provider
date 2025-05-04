@@ -22,8 +22,7 @@ extension PDFBuild.StrumSection {
 
         /// Init the **line** element
         /// - Parameters:
-        ///   - parts: The parts of the line
-        ///   - chords: All the chords from the song
+        ///   - strums: The strums in the line
         ///   - settings: The application settings
         init(strums: [[Song.Section.Line.Strum]], settings: AppSettings) {
             var items: [Part] = []

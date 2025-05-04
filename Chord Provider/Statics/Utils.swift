@@ -103,9 +103,7 @@ enum Utils {
     }
 
     /// Get all possible chord notes for a ``ChordDefinition``
-    /// - Parameters:
-    ///   - chord: The ``ChordDefinition``
-    ///   - addBass: Bool to add the optional bass to the notes
+    /// - Parameters chord: The ``ChordDefinition``
     /// - Returns: An array with ``Chord/Root`` arrays
     static func getChordComponents(chord: ChordDefinition) -> [[Chord.Root]] {
         /// All the possible note combinations

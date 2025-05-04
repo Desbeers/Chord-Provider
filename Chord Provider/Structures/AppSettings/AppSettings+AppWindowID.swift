@@ -12,11 +12,11 @@ extension AppSettings {
     /// The ID of the app window
     /// - Note: Used to load and save the settings in the cache
     enum AppWindowID: String {
-        /// ``MainView`` settings
+        /// `MainView` settings
         case mainView = "Main Settings"
-        /// ``exportFolderView`` settings
+        /// `ExportFolderView` settings
         case exportFolderView = "Export Settings"
-        /// ``ChordsDatabaseView`` settings
+        /// `ChordsDatabaseView` settings
         case chordsDatabaseView = "Database Settings"
     }
 }

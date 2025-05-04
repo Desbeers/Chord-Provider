@@ -24,7 +24,6 @@ extension PDFBuild {
         /// Init the **chords** element
         /// - Parameters:
         ///   - chords: All the chords from the song
-        ///   - options: The chord display options
         ///   - settings: The application settings
         init(chords: [ChordDefinition], settings: AppSettings) {
             self.chords = chords

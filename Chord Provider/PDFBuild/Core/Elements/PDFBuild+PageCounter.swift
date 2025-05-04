@@ -27,6 +27,7 @@ extension PDFBuild {
 
         /// Init the **page counter** element
         /// - Parameters:
+        ///   - firstPage:The number of the first page
         ///   - attributes: The attributes for the page counter string
         init(firstPage: Int, attributes: PDFStringAttribute) {
             self.pageNumber = firstPage

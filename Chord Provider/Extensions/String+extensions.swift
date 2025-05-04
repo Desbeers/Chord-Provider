@@ -18,7 +18,6 @@ extension String: @retroactive Identifiable {
 extension String {
 
     /// Remove prefixes from a String
-    /// - Parameter prefixes: An array of prefixes
     /// - Returns: A String with al optional prefixes removed
     func removePrefixes() -> String {
         let prefixes = AppSettings.load(id: .mainView).application.sortTokens

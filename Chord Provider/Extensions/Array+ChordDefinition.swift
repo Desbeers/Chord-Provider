@@ -17,7 +17,7 @@ extension Array where Element == ChordDefinition {
     }
 
     /// Find all chord definitions matching sharp and flat versions of a root note
-    /// - Parameter root: The root note
+    /// - Parameter sharpAndflatRoot: The root note
     /// - Returns: All matching chord definitions
     func matching(sharpAndflatRoot: Chord.Root) -> [ChordDefinition] {
         self.filter { $0.root == sharpAndflatRoot || $0.root == sharpAndflatRoot.swapSharpForFlat }

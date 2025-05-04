@@ -25,6 +25,7 @@ extension PDFBuild {
         /// - Parameters:
         ///   - commentText: The text of the comment
         ///   - settings: The application settings
+        ///   - alignment: The alignment of the comment
         init(_ commentText: String, settings: AppSettings, alignment: NSTextAlignment = .left) {
             self.commentText = commentText
             self.settings = settings

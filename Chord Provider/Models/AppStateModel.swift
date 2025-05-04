@@ -46,8 +46,10 @@ import SwiftUI
 extension AppStateModel {
 
     /// Add the user settings as arguments to **ChordPro** for the Terminal action
-    /// - Parameter config: The ``AppSettings``
     /// - Returns: An array with arguments
+    /// - Parameters:
+    ///   - config: The **ChordPro** config template
+    ///   - settings: Te ``AppSettings``
     static func applyUserSettings(config: String, settings: AppSettings) -> String {
         var config = config
         /// Paper size
