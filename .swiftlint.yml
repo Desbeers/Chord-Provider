@@ -67,13 +67,8 @@ opt_in_rules:
 #    - "@main"
 #    - "@objc"
 
-file_length:
-    warning: 500
-
 force_cast: warning
 force_try: warning
-function_body_length:
-    warning: 120
 
 legacy_hashing: error
 

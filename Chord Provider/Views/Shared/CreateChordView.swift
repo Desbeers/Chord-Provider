@@ -12,8 +12,6 @@ struct CreateChordView: View {
     let showAllOption: Bool
     /// Bool to hide the flats
     let hideFlats: Bool
-    /// The observable state of the application
-    @Environment(AppStateModel.self) private var appState
     /// The binding to the observable state of the scene
     @Bindable var sceneState: SceneStateModel
     /// The chord diagram

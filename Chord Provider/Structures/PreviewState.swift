@@ -13,8 +13,4 @@ struct PreviewState: Equatable {
     var data: Data?
     /// Bool if the preview is outdated
     var outdated: Bool = false
-    /// Bool if the preview is active
-    var active: Bool {
-        return data != nil
-    }
 }

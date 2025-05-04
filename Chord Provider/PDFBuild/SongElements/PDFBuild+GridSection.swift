@@ -18,8 +18,6 @@ extension PDFBuild {
 
         /// The section with grids
         let section: Song.Section
-        /// All the chords from the song
-        let chords: [ChordDefinition]
         /// The application settings
         let settings: AppSettings
 
@@ -28,9 +26,8 @@ extension PDFBuild {
         ///   - section: The section with grids
         ///   - chords: All the chords from the song
         ///   - settings: The application settings
-        init(_ section: Song.Section, chords: [ChordDefinition], settings: AppSettings) {
+        init(_ section: Song.Section, settings: AppSettings) {
             self.section = section
-            self.chords = chords
             self.settings = settings
         }
 

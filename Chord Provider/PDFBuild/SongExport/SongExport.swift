@@ -250,7 +250,7 @@ extension SongExport {
                         fontOptions: settings.style.fonts.label
                     ),
                     labelDivider(section: section),
-                    PDFBuild.GridSection(section, chords: song.chords, settings: settings)
+                    PDFBuild.GridSection(section, settings: settings)
                 ]
             )
         }

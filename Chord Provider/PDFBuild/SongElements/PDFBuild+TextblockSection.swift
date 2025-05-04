@@ -100,16 +100,3 @@ extension PDFBuild {
         }
     }
 }
-
-extension PDFStringAttribute {
-
-    // MARK: Textblock string styling
-
-    /// String attributes for a textblock  line
-    static func textblockLine(settings: AppSettings) -> PDFStringAttribute {
-        [
-            .foregroundColor: settings.style.fonts.textblock.color.nsColor,
-            .font: NSFont.systemFont(ofSize: settings.style.fonts.textblock.size)
-        ]
-    }
-}
