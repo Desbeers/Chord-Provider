@@ -52,7 +52,7 @@ extension PDFBuild {
                 items.append(detailLabel(sfSymbol: .tempo, label: "\(tempo) bpm"))
             }
             /// Draw the details
-            let textBounds = items.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+            let textBounds = items.boundingRect(with: rect.size)
             if !calculationOnly {
                 items.draw(with: rect, options: textDrawingOptions, context: nil)
             }

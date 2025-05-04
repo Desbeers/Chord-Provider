@@ -74,11 +74,11 @@ extension PDFBuild {
                 /// Calculate the total label width
                 var labelRect = rect
                 labelRect.size.width -= image.image.size.width + 4 * textPadding
-                let bounds = label.boundingRect(with: labelRect.size, options: [])
+                let bounds = label.boundingRect(with: labelRect.size)
                 labelWidth = (8 * textPadding) + bounds.width + image.image.size.width
             } else {
                 /// The label is text only
-                let bounds = label.boundingRect(with: rect.size, options: [])
+                let bounds = label.boundingRect(with: rect.size)
                 labelWidth = (4 * textPadding) + bounds.width
                 result = PDFBuild.Text(label).padding(textPadding)
             }

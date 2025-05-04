@@ -63,7 +63,7 @@ extension PDFBuild {
                     /// Convert to a `NSMutableAttributedString`
                     let line = NSMutableAttributedString(string)
                     /// Remember the longest line
-                    maxSize = max(maxSize, line.boundingRect(with: tmpRect.size).width)
+                    maxSize = max(maxSize, line.boundingRect(with: tmpRect.size, options: .usesLineFragmentOrigin).width)
                     elements.append(PDFBuild.Text(line))
                 case .emptyLine:
                     let spacer = PDFBuild.Spacer(settings.style.fonts.textblock.size / 2)

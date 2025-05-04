@@ -110,8 +110,7 @@ extension SongExport {
             attributes: .attributes(settings.style.fonts.label)
         )
         let longestLabelBounds = longestLabel.boundingRect(
-            with: settings.pdf.pageSize.rect(settings: settings).size,
-            options: .usesLineFragmentOrigin
+            with: settings.pdf.pageSize.rect(settings: settings).size
         )
         let labelWidth = longestLabelBounds.width + 14
 
@@ -122,8 +121,7 @@ extension SongExport {
             attributes: .attributes(settings.style.fonts.text)
         )
         let longestLineBounds = longestLine.boundingRect(
-            with: settings.pdf.pageSize.rect(settings: settings).size,
-            options: .usesLineFragmentOrigin
+            with: settings.pdf.pageSize.rect(settings: settings).size
         )
 
         // MARK: Calculate scale

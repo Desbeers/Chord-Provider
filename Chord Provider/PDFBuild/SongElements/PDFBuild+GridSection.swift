@@ -54,7 +54,7 @@ extension PDFBuild {
                                 attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                             )
                         )
-                        let textBounds = elements[column].boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+                        let textBounds = elements[column].boundingRect(with: rect.size)
                         columnWidth[column] = textBounds.width
                     }
                 }
@@ -74,7 +74,7 @@ extension PDFBuild {
                                 string: " \(part.text) \u{200c}",
                                 attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                             )
-                            let textBounds = string.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+                            let textBounds = string.boundingRect(with: rect.size)
                             lineHeight = max(lineHeight, textBounds.height)
                             if !calculationOnly {
                                 string.draw(in: partRect)

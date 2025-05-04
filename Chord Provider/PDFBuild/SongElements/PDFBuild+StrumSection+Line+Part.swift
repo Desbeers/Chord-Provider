@@ -52,7 +52,7 @@ extension PDFBuild.StrumSection.Line {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            let textBounds = text.boundingRect(with: rect.size, options: .usesLineFragmentOrigin)
+            let textBounds = text.boundingRect(with: rect.size)
             if !calculationOnly {
                 text.draw(with: rect, options: textDrawingOptions, context: nil)
             }
