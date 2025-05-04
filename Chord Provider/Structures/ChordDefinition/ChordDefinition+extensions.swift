@@ -85,17 +85,6 @@ extension ChordDefinition {
 
 extension ChordDefinition {
 
-    /// Play a ``ChordDefinition`` with MIDI
-    /// - Parameter instrument: The `instrument` to use
-    func play(instrument: Midi.Instrument = .acousticNylonGuitar) {
-        Task {
-            await MidiPlayer.shared.playChord(notes: self.components.compactMap(\.midi), instrument: instrument)
-        }
-    }
-}
-
-extension ChordDefinition {
-
     /// Mirror a `Barre` for a left-handed chord
     /// - Parameter barre: The original barre
     /// - Returns: The left-handed barre

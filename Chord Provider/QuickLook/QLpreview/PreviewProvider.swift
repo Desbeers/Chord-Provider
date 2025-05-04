@@ -8,6 +8,7 @@
 import Cocoa
 import Quartz
 
+/// Create a PDF preview for a **ChordPro** file
 class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
     func providePreview(for request: QLFilePreviewRequest) async throws -> QLPreviewReply {

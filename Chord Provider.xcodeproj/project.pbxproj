@@ -87,14 +87,9 @@
 		D70D96DD2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */; };
 		D70D96DE2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */; };
 		D70D96E22CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */; };
-		D70D96E32CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */; };
 		D70D96E52CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
-		D70D96E62CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */ = {isa = PBXBuildFile; fileRef = D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */; };
 		D70D96E82CB2B62500B51A14 /* ChordPro+Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */; };
 		D70D96EB2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96EA2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift */; };
-		D70D96EC2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96EA2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift */; };
-		D70D96EF2CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96EE2CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift */; };
-		D70D96F02CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70D96EE2CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift */; };
 		D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711737F2BD279D80075325C /* PDFBuild+Label.swift */; };
 		D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
@@ -129,9 +124,7 @@
 		D730BBE82CA844C2008719F2 /* Sequence+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBA72CA844C2008719F2 /* Sequence+extensions.swift */; };
 		D730BBEA2CA844C2008719F2 /* Analizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBA92CA844C2008719F2 /* Analizer.swift */; };
 		D730BBED2CA844C2008719F2 /* MidiPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBAA2CA844C2008719F2 /* MidiPlayer.swift */; };
-		D730BBEE2CA844C2008719F2 /* MidiPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBAA2CA844C2008719F2 /* MidiPlayer.swift */; };
 		D730BBF02CA844C2008719F2 /* MidiPlayer+Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBAB2CA844C2008719F2 /* MidiPlayer+Chord.swift */; };
-		D730BBF12CA844C2008719F2 /* MidiPlayer+Chord.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBAB2CA844C2008719F2 /* MidiPlayer+Chord.swift */; };
 		D730BBF32CA844C2008719F2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBAC2CA844C2008719F2 /* Utils.swift */; };
 		D730BBF62CA844C2008719F2 /* Utils+Define.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BBAD2CA844C2008719F2 /* Utils+Define.swift */; };
 		D730BBFC2CA844C2008719F2 /* GuitarSoundFont.sf2 in Resources */ = {isa = PBXBuildFile; fileRef = D730BBB02CA844C2008719F2 /* GuitarSoundFont.sf2 */; };
@@ -215,6 +208,8 @@
 		D752E5B62CC3684100CDE42D /* ChordsDatabaseView+options.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752E5B52CC3684100CDE42D /* ChordsDatabaseView+options.swift */; };
 		D752E5B82CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752E5B72CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift */; };
 		D752E5BA2CC3D4A100CDE42D /* ChordsDatabaseView+EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D752E5B92CC3D4A100CDE42D /* ChordsDatabaseView+EditView.swift */; };
+		D75350552DC7977100CC310A /* ChordDefinition+play.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75350532DC7970E00CC310A /* ChordDefinition+play.swift */; };
+		D75350562DC79BD300CC310A /* SongListSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB1F2D73422C00943462 /* SongListSort.swift */; };
 		D7593A522DA9506C0037952B /* RenderView+sections.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7593A512DA9506C0037952B /* RenderView+sections.swift */; };
 		D7593A542DA952800037952B /* RenderView+SectionViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7593A532DA952800037952B /* RenderView+SectionViewModifier.swift */; };
 		D7593A562DA95FA40037952B /* RenderView+repeatChorusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7593A552DA95FA40037952B /* RenderView+repeatChorusSection.swift */; };
@@ -266,7 +261,6 @@
 		D77CDB1C2D7334E300943462 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB1B2D7334E300943462 /* Artist.swift */; };
 		D77CDB1E2D73417300943462 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB1B2D7334E300943462 /* Artist.swift */; };
 		D77CDB202D73422C00943462 /* SongListSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB1F2D73422C00943462 /* SongListSort.swift */; };
-		D77CDB212D73422C00943462 /* SongListSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB1F2D73422C00943462 /* SongListSort.swift */; };
 		D77DF8C72D24084A000A0557 /* ExportFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77DF8C52D24084A000A0557 /* ExportFolderView.swift */; };
 		D78580792CA8971F000FB5F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F9E2A6460B7002D875D /* Assets.xcassets */; };
 		D78819622BFA39D40033545D /* EditorView+validateChordDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78819612BFA39D40033545D /* EditorView+validateChordDefinition.swift */; };
@@ -505,7 +499,6 @@
 		D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = UkuleleStandardGTuning.json; sourceTree = "<group>"; };
 		D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = GuitaleleStandardATuning.json; sourceTree = "<group>"; };
 		D70D96EA2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordsDatabaseStateModel.swift; sourceTree = "<group>"; };
-		D70D96EE2CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordsDatabaseStateModel+Elements.swift"; sourceTree = "<group>"; };
 		D711737F2BD279D80075325C /* PDFBuild+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Label.swift"; sourceTree = "<group>"; };
 		D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Section.swift"; sourceTree = "<group>"; };
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
@@ -581,6 +574,7 @@
 		D752E5B52CC3684100CDE42D /* ChordsDatabaseView+options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordsDatabaseView+options.swift"; sourceTree = "<group>"; };
 		D752E5B72CC3D02100CDE42D /* ChordsDatabaseView+diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordsDatabaseView+diagram.swift"; sourceTree = "<group>"; };
 		D752E5B92CC3D4A100CDE42D /* ChordsDatabaseView+EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordsDatabaseView+EditView.swift"; sourceTree = "<group>"; };
+		D75350532DC7970E00CC310A /* ChordDefinition+play.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordDefinition+play.swift"; sourceTree = "<group>"; };
 		D7593A512DA9506C0037952B /* RenderView+sections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+sections.swift"; sourceTree = "<group>"; };
 		D7593A532DA952800037952B /* RenderView+SectionViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+SectionViewModifier.swift"; sourceTree = "<group>"; };
 		D7593A552DA95FA40037952B /* RenderView+repeatChorusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+repeatChorusSection.swift"; sourceTree = "<group>"; };
@@ -910,6 +904,7 @@
 				D730BBBE2CA844C2008719F2 /* ChordDefinition+extensions.swift */,
 				D730BBBF2CA844C2008719F2 /* ChordDefinition+init.swift */,
 				D730BBC02CA844C2008719F2 /* ChordDefinition+transpose.swift */,
+				D75350532DC7970E00CC310A /* ChordDefinition+play.swift */,
 			);
 			path = ChordDefinition;
 			sourceTree = "<group>";
@@ -993,7 +988,6 @@
 				D7C3D6232AC9EA0400909639 /* AppStateModel.swift */,
 				D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */,
 				D70D96EA2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift */,
-				D70D96EE2CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift */,
 				D7F13F922A6460B7002D875D /* FileBrowserModel.swift */,
 				D733F6032B90CC1C0065D6FD /* FileBrowserModel+Elements.swift */,
 				D7CA63262AEB397A00C6B4BB /* MetronomeModel.swift */,
@@ -1600,7 +1594,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1620;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					D740728A2BA20D9000DD52F0 = {
 						CreatedOnToolsVersion = 15.3;
@@ -1665,10 +1659,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D70D96E62CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */,
 				D70D96DE2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D78580792CA8971F000FB5F8 /* Assets.xcassets in Resources */,
-				D70D96E32CB2B40E00B51A14 /* UkuleleStandardGTuning.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1774,7 +1766,6 @@
 				D7972B912BCD506B00752CF9 /* SongExport.swift in Sources */,
 				D7336ACF2C26FBFF00D0AA8E /* AlertMessage.swift in Sources */,
 				D70D96EB2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift in Sources */,
-				D70D96EF2CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift in Sources */,
 				D79932E32D71E95C0003F502 /* AppSettings+Application.swift in Sources */,
 				D730BC0B2CA844C2008719F2 /* Chord+Component.swift in Sources */,
 				D730BBD82CA844C2008719F2 /* Scales.swift in Sources */,
@@ -1827,6 +1818,7 @@
 				D7EA87622C5A580A009A3D82 /* ChordProEditor+Internals.swift in Sources */,
 				D71F86532D8593B500BA57BD /* SFSymbol.swift in Sources */,
 				D70D96C02CB1813800B51A14 /* MediaPlayerView.swift in Sources */,
+				D75350552DC7977100CC310A /* ChordDefinition+play.swift in Sources */,
 				D7EA877E2C5A5888009A3D82 /* UserFileButton.swift in Sources */,
 				D7FA7F412C2CA9320031E1E8 /* ExportDocument.swift in Sources */,
 				D7EA87592C5A580A009A3D82 /* AppKitUtils.swift in Sources */,
@@ -1972,7 +1964,6 @@
 				D730BBD62CA844C2008719F2 /* RegexDefinitions.swift in Sources */,
 				D7B319E42BD5833C006A173A /* PDFBuild+DocumentInfo.swift in Sources */,
 				D770847A2D8DC33A002530F7 /* ConfigOptions.swift in Sources */,
-				D77CDB212D73422C00943462 /* SongListSort.swift in Sources */,
 				D7496DD12CEE3DE000C8FFA8 /* ChordProParser+processComment.swift in Sources */,
 				D7F056952CEBB45E00E422AA /* ChordProParser+processSourceComment.swift in Sources */,
 				D7F140132A64647D002D875D /* Song.swift in Sources */,
@@ -1997,7 +1988,6 @@
 				D70B72922BD52A93003C89B4 /* PDFElement.swift in Sources */,
 				D730BBD92CA844C2008719F2 /* Scales.swift in Sources */,
 				D730BC742CA849E1008719F2 /* Utils.swift in Sources */,
-				D70D96F02CB2F8AB00B51A14 /* ChordsDatabaseStateModel+Elements.swift in Sources */,
 				D7496DE92CEF8BC700C8FFA8 /* ChordPro+Environment+extensions.swift in Sources */,
 				D730BC802CA85396008719F2 /* AppSettings+Display.swift in Sources */,
 				D730BC752CA849E1008719F2 /* Analizer.swift in Sources */,
@@ -2010,15 +2000,12 @@
 				D752E5AD2CBC306500CDE42D /* ChordProParser+processLine.swift in Sources */,
 				D70B729C2BD52A9B003C89B4 /* PDFBuild+GridSection.swift in Sources */,
 				D75B489B2BDD4BDC001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */,
-				D70D96EC2CB2F64F00B51A14 /* ChordsDatabaseStateModel.swift in Sources */,
 				D70D101D2BD66C87006703EF /* PDFBuild+TOCInfo.swift in Sources */,
-				D730BBEE2CA844C2008719F2 /* MidiPlayer.swift in Sources */,
 				D70B729D2BD52A9B003C89B4 /* PDFBuild+Background.swift in Sources */,
 				D70B729E2BD52A9B003C89B4 /* PDFBuild+Padding.swift in Sources */,
 				D7C78DFB2DBCB12B00CD4CBB /* NSParagraphStyle+extension.swift in Sources */,
 				D730BBE22CA844C2008719F2 /* Collection+extensions.swift in Sources */,
 				D70D96D42CB2878D00B51A14 /* ChordPro+Environment.swift in Sources */,
-				D730BBF12CA844C2008719F2 /* MidiPlayer+Chord.swift in Sources */,
 				D737F8562D8ED633001F1DC5 /* FontConfig.swift in Sources */,
 				D70B729F2BD52A9B003C89B4 /* PDFBuild+Spacer.swift in Sources */,
 				D70B72A02BD52A9B003C89B4 /* PDFBuild+Chords.swift in Sources */,
@@ -2037,6 +2024,7 @@
 				D752E5B12CBC308F00CDE42D /* ChordProParser+processChord.swift in Sources */,
 				D7F3440D2CECBEE400205A90 /* ChordProParser+closeSection.swift in Sources */,
 				D730BC632CA849C6008719F2 /* Chord.swift in Sources */,
+				D75350562DC79BD300CC310A /* SongListSort.swift in Sources */,
 				D70D96CE2CB2877E00B51A14 /* ChordPro+Directive.swift in Sources */,
 				D730BC642CA849C6008719F2 /* ChordDefinition+transpose.swift in Sources */,
 				D730BC662CA849C6008719F2 /* Chord+Quality+intervals.swift in Sources */,
@@ -2126,8 +2114,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 286;
-				DEVELOPMENT_TEAM = FHPCJ7396C;
+				CURRENT_PROJECT_VERSION = 288;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -2143,7 +2130,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.3.2;
+				MARKETING_VERSION = 6.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2160,8 +2147,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLthumbnail/QLthumbnail.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 286;
-				DEVELOPMENT_TEAM = FHPCJ7396C;
+				CURRENT_PROJECT_VERSION = 288;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -2177,7 +2163,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.3.2;
+				MARKETING_VERSION = 6.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2223,6 +2209,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2285,6 +2272,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -2314,9 +2302,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 286;
+				CURRENT_PROJECT_VERSION = 288;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2340,7 +2327,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.3.2;
+				MARKETING_VERSION = 6.3.3;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2367,9 +2354,8 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 286;
+				CURRENT_PROJECT_VERSION = 288;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2393,7 +2379,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.3.2;
+				MARKETING_VERSION = 6.3.3;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2418,9 +2404,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 286;
+				CURRENT_PROJECT_VERSION = 288;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/QuickLook/QLpreview/Info.plist";
@@ -2432,7 +2417,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.3.2;
+				MARKETING_VERSION = 6.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2451,9 +2436,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 286;
+				CURRENT_PROJECT_VERSION = 288;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = FHPCJ7396C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Chord Provider/QuickLook/QLpreview/Info.plist";
@@ -2465,7 +2449,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.3.2;
+				MARKETING_VERSION = 6.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
