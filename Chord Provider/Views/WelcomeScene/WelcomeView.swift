@@ -24,6 +24,8 @@ struct WelcomeView: View {
     @Environment(\.openWindow) var openWindow
     /// Environment to dismiss itself
     @Environment(\.dismiss) var dismiss
+    /// A random song from the library
+    @State var randomSong: Song?
     /// The body of the `View`
     var body: some View {
         HStack(spacing: 0) {
@@ -64,6 +66,9 @@ struct WelcomeView: View {
         .gesture(WindowDragGesture())
         .task {
             appState.recentFiles = NSDocumentController.shared.recentDocumentURLs
+        }
+        .task(id: fileBrowser.songs) {
+            randomSong = fileBrowser.songs.randomElement()
         }
     }
 }

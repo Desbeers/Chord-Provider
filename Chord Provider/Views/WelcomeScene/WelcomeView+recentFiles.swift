@@ -34,20 +34,28 @@ extension WelcomeView {
                     Text("You have no recent songs")
                 }
             }
-            if let song = fileBrowser.songs.randomElement() {
+            if let randomSong {
                 Divider()
-                Button {
-                    Task {
-                        if let url = song.metadata.fileURL {
-                            await openSong(url: url)
-                        }
+                HStack {
+                    Button {
+                        self.randomSong = fileBrowser.songs.randomElement()
+                    } label: {
+                        Image(systemName: "shuffle")
                     }
-                } label: {
-                    Label(song.metadata.title, systemImage: "shuffle")
+                    .help("Another random song from your library")
+                    Button {
+                        Task {
+                            if let url = randomSong.metadata.fileURL {
+                                await openSong(url: url)
+                            }
+                        }
+                    } label: {
+                        Text(randomSong.metadata.title)
+                    }
+                    .help("A random song from your library")
                 }
-                .help("A random song from your library")
                 .padding(.bottom, 6)
-                .labelStyle(.titleAndIcon)
+                .animation(.default, value: randomSong)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

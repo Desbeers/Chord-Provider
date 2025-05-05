@@ -46,3 +46,5 @@
 - Bugfixes for PDF text wrapping
 
 # 6.x.x (---)
+
+- Random song button in WelcomeView
