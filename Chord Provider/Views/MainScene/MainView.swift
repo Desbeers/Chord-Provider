@@ -158,9 +158,12 @@ struct MainView: View {
 
     /// Progress of the `View`
     var progress: some View {
-        ProgressView()
+        /// - Note: A ProgressView spinner cannot be styled on macOS
+        Image(systemName: "music.quarternote.3")
+            .symbolEffect(.bounce, options: .repeat(.continuous))
+            .font(.largeTitle)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .foregroundStyle(appState.settings.style.theme.foreground)
+            .foregroundStyle(appState.settings.style.theme.foregroundMedium)
             .background(Color(appState.settings.style.theme.background))
     }
     /// Render the song
