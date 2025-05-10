@@ -124,8 +124,10 @@ struct MainView: View {
             if sceneState.showEditor {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
+                    .frame(width: (sceneState.windowWidth / 2) + sceneState.editorOffset)
                     .transition(.opacity)
-                Divider()
+                SplitterView()
+                    .transition(.scale)
             }
             if let data = sceneState.preview.data {
                 PreviewPaneView(data: data)
@@ -150,10 +152,18 @@ struct MainView: View {
                         }
                     }
                     .background(Color(appState.settings.style.theme.background))
+                    /// - Note: Make sure we don't see the splitter cursor here
+                    .pointerStyle(.default)
                 }
             }
         }
         .frame(maxHeight: .infinity)
+        /// Remember the size of the whole window
+        .onGeometryChange(for: CGSize.self) { proxy in
+            proxy.size
+        } action: { newValue in
+            sceneState.windowWidth = newValue.width
+        }
     }
 
     /// Progress of the `View`

@@ -396,6 +396,7 @@
 		D7F3440D2CECBEE400205A90 /* ChordProParser+closeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3440B2CECBEE400205A90 /* ChordProParser+closeSection.swift */; };
 		D7F344102CECC0C600205A90 /* ChordProParser+addSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3440F2CECC0C600205A90 /* ChordProParser+addSection.swift */; };
 		D7F344112CECC0C600205A90 /* ChordProParser+addSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3440F2CECC0C600205A90 /* ChordProParser+addSection.swift */; };
+		D7F884722DCF63D1007A4BA4 /* SplitterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F884712DCF63D1007A4BA4 /* SplitterView.swift */; };
 		D7FA7F402C2CA9320031E1E8 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */; };
 		D7FA7F412C2CA9320031E1E8 /* ExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */; };
 /* End PBXBuildFile section */
@@ -729,6 +730,7 @@
 		D7F344072CECBED700205A90 /* ChordProParser+openSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+openSection.swift"; sourceTree = "<group>"; };
 		D7F3440B2CECBEE400205A90 /* ChordProParser+closeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+closeSection.swift"; sourceTree = "<group>"; };
 		D7F3440F2CECC0C600205A90 /* ChordProParser+addSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+addSection.swift"; sourceTree = "<group>"; };
+		D7F884712DCF63D1007A4BA4 /* SplitterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitterView.swift; sourceTree = "<group>"; };
 		D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProDocument.swift; sourceTree = "<group>"; };
 		D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1171,6 +1173,7 @@
 			isa = PBXGroup;
 			children = (
 				D7F13FB52A6460B7002D875D /* MainView.swift */,
+				D7F884712DCF63D1007A4BA4 /* SplitterView.swift */,
 				D7F13FB42A6460B7002D875D /* HeaderView.swift */,
 				D7F13FAD2A6460B7002D875D /* ToolbarView.swift */,
 				D7F13FAE2A6460B7002D875D /* EditorView */,
@@ -1810,6 +1813,7 @@
 				D78819662BFB25300033545D /* Help.swift in Sources */,
 				D7641BFE2D9824CF009472D3 /* RenderView+ProminentLabel.swift in Sources */,
 				D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
+				D7F884722DCF63D1007A4BA4 /* SplitterView.swift in Sources */,
 				D75141572C60C5B40011D9A4 /* DebugButtons.swift in Sources */,
 				D7496DE02CEF661E00C8FFA8 /* ChordProParser+processEmptyLine.swift in Sources */,
 				D7593A542DA952800037952B /* RenderView+SectionViewModifier.swift in Sources */,

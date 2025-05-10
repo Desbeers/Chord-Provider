@@ -39,6 +39,10 @@ import OSLog
     var definition: ChordDefinition
     /// Bool to show the `clean` confirmation dialog
     var cleanConfirmation = false
+    /// The total width of the window
+    var windowWidth: Double = 0
+    /// The offset from centre for the text editor
+    var editorOffset: Double = 0
 
     // MARK: Export Stuff
 

@@ -73,7 +73,7 @@ struct EditorView: View {
             }
             .font(.caption)
             .padding(.leading)
-            .padding([.vertical], 4)
+            .padding([.vertical, .trailing], 4)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
     }

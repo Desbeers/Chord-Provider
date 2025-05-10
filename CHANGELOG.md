@@ -48,3 +48,4 @@
 # 6.x.x (---)
 
 - Random song button in WelcomeView
+- Make the editor width resizable
