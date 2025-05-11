@@ -29,14 +29,14 @@ extension EditorView {
         var body: some View {
             VStack {
                 switch directive {
-                case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid:
+                case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge:
                     Items(items: [.label], directive: directive)
+                case .startOfStrum:
+                    Items(items: [.label, .tuplet], directive: directive)
                 case .startOfTextblock:
                     Items(items: [.label, .align, .flush], directive: directive)
                 case .image:
-                    Items(items: [.src, .width, .align], directive: directive)
-                case .comment:
-                    Items(items: [.plain], directive: directive)
+                    Items(items: [.src, .width, .height, .align], directive: directive)
                 case .key:
                     keyView
                 case .define:
@@ -44,9 +44,9 @@ extension EditorView {
                 case .tempo:
                     sliderView(start: 60, end: 240)
                 case .year:
-                    sliderView(start: 1900, end: 2024)
+                    sliderView(start: 1900, end: 2030)
                 default:
-                    defaultView
+                    Items(items: [.plain], directive: directive)
                 }
             }
             .padding()

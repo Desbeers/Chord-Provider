@@ -15,7 +15,9 @@ extension EditorView.DirectiveSheet {
         var align: String = ""
         var flush: String = ""
         var width: Double = 0
+        var height: Double = 0
         var src: String = ""
+        var tuplet: Int = 0
     }
 
     struct Header: View {
@@ -67,6 +69,24 @@ extension EditorView.DirectiveSheet {
         }
     }
 
+    struct NumberPicker: View {
+        let label: String
+        let start: Int
+        let end: Int
+        @Binding var value: Int
+        var body: some View {
+            Picker(label, selection: $value) {
+                Text("Default")
+                    .tag(0)
+                ForEach(start...end, id: \.self) {number in
+                    Text("\(number)")
+                        .tag(number)
+                }
+            }
+            .pickerStyle(.segmented)
+        }
+    }
+
     struct SizeSlider: View {
         let label: String
         let start: Double
@@ -75,12 +95,12 @@ extension EditorView.DirectiveSheet {
         var body: some View {
 
             LabeledContent(label) {
-                VStack {
-                    Slider(value: $value, in: start...end, step: 1)
+                HStack {
+                    Slider(value: $value, in: start...end)
                     Text(verbatim: "\(Int(value))")
                         .font(.caption)
+                        .frame(width: 30)
                 }
-                .padding()
             }
         }
     }
@@ -111,7 +131,7 @@ extension EditorView.DirectiveSheet {
                 ForEach(items, id: \.self) { item in
                     switch item {
                     case .plain:
-                        PlainField(label: "Content", prompt: directive.details.button, value: $formState.plain)
+                        PlainField(label: directive.details.button, prompt: directive.details.button, value: $formState.plain)
                     case .label:
                         PlainField(label: "Label", prompt: directive.details.button, value: $formState.label)
                     case .align:
@@ -122,6 +142,14 @@ extension EditorView.DirectiveSheet {
                         PlainField(label: "Source", prompt: directive.details.button, value: $formState.src)
                     case .width:
                         SizeSlider(label: "Width", start: 0, end: 1000, value: $formState.width)
+                        Text("When the width is 0; the original width will be used")
+                            .font(.caption)
+                    case .height:
+                        SizeSlider(label: "Height", start: 0, end: 1000, value: $formState.height)
+                        Text("When the height is 0; the original height will be used")
+                            .font(.caption)
+                    case .tuplet:
+                        NumberPicker(label: "Tuplet", start: 2, end: 4, value: $formState.tuplet)
                     default:
                         EmptyView()
                     }
@@ -151,6 +179,7 @@ extension EditorView.DirectiveSheet {
                             directiveArguments[.flush] = formState.flush.isEmpty ? nil : formState.flush
                             directiveArguments[.src] = formState.src.isEmpty ? nil : formState.src
                             directiveArguments[.width] = formState.width == 0 ? nil : String(Int(formState.width))
+                            directiveArguments[.tuplet] = formState.tuplet == 0 ? nil : String(formState.tuplet)
 
                             let result = ChordProParser.argumentsToString(directiveArguments)
                             sceneState.editorInternals.directiveArgument = result ?? ""
@@ -170,6 +199,7 @@ extension EditorView.DirectiveSheet {
                 formState.flush = arguments[.flush] ?? ""
                 formState.width = Double(arguments[.width] ?? "0") ?? 0
                 formState.src = arguments[.src] ?? ""
+                formState.tuplet = Int(arguments[.tuplet] ?? "0") ?? 0
             }
         }
     }

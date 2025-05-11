@@ -95,6 +95,8 @@ extension ChordPro {
         case capo
         /// This directive specifies the instrument setting for the song
         case instrument
+        /// This directive defines a tag for the song
+        case tag
 
         /// # Formatting directives
 
@@ -142,6 +144,13 @@ extension ChordPro {
         /// This directive indicates the end of the grid
         case endOfGrid = "end_of_grid|eog"
 
+        /// ### Strum
+
+        /// This directive indicates that the lines that follow defines a strum pattern
+        case startOfStrum = "start_of_strum|sos"
+        /// This directive indicates the end of the strum
+        case endOfStrum = "end_of_strum|eos"
+
         /// # Delegated environment directives
 
         /// ## ABC
@@ -171,18 +180,6 @@ extension ChordPro {
 
         /// When printing songs in multiple columns, this directive forces printing to continue in the next column
         case columnBreak = "column_break|colb"
-
-        // MARK: Custom directives
-
-        /// This directive defines a tag for the song
-        case tag
-
-        /// ### Strum
-
-        /// This directive indicates that the lines that follow defines a strum pattern
-        case startOfStrum = "start_of_strum|sos"
-        /// This directive indicates the end of the strum
-        case endOfStrum = "end_of_strum|eos"
 
         // MARK: Custom metadata directives
 
