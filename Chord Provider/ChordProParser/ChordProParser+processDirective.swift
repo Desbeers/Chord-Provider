@@ -72,7 +72,12 @@ extension ChordProParser {
 
                         /// ## Start of Chorus, Verse, Bridge, Tab, Grid, Textblock, Strum
                     case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .startOfStrum:
+                        var source: String?
+                        if let plain = arguments[.plain] {
+                            source = "{\(directive.rawValue.long) label=\"\(plain)\"}"
+                        }
                         openSection(
+                            source: source,
                             directive: directive,
                             arguments: arguments,
                             currentSection: &currentSection,
@@ -82,9 +87,16 @@ extension ChordProParser {
                         /// ## Repeat Chorus
                     case .chorus:
                         /// Add the directive as a single line in a section
+                        var label = arguments[.label] ?? ChordPro.Environment.chorus.label
+                        var source: String?
+                        if let plain = arguments[.plain] {
+                            source = "{\(directive.rawValue.long) label=\"\(plain)\"}"
+                            label = plain
+                        }
                         addSection(
+                            source: source,
                             /// - Note: Use the 'normal' chorus label because this directive can be replaced by a whole chorus with the same name
-                            sectionLabel: arguments[.plain] ?? ChordPro.Environment.chorus.label,
+                            sectionLabel: label,
                             directive: .chorus,
                             arguments: arguments,
                             environment: .repeatChorus,

@@ -108,7 +108,8 @@ extension ChordPro.Directive {
         metadataDirectives + environmentDirectives + [
             .subtitle,
             .comment,
-            .define
+            .define,
+            .image
         ]
     }
 }

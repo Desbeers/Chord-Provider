@@ -11,11 +11,13 @@ extension ChordProParser {
 
     /// Open a new section in the song
     /// - Parameters:
+    ///   - source: The optional generated source
     ///   - directive: The ``ChordPro/Directive`` to add to the line
     ///   - arguments: The optional arguments for the directive
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func openSection(
+        source: String? = nil,
         directive: ChordPro.Directive,
         arguments: Arguments,
         currentSection: inout Song.Section,
@@ -24,6 +26,7 @@ extension ChordProParser {
 
         /// Add the directive in its own section
         addSection(
+            source: source,
             directive: directive,
             arguments: arguments,
             currentSection: &currentSection,

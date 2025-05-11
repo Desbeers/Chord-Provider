@@ -21,12 +21,22 @@ extension EditorView {
         }
         /// The value for a slider
         @State private var sliderValue: Double = 0
+        /// The value of a string
+        @State private var string: String = ""
         /// The dismiss environment
         @Environment(\.dismiss) var dismiss
         /// The body of the `View`
         var body: some View {
             VStack {
                 switch directive {
+                case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid:
+                    Items(items: [.label], directive: directive)
+                case .startOfTextblock:
+                    Items(items: [.label, .align, .flush], directive: directive)
+                case .image:
+                    Items(items: [.src, .width, .align], directive: directive)
+                case .comment:
+                    Items(items: [.plain], directive: directive)
                 case .key:
                     keyView
                 case .define:
@@ -62,24 +72,11 @@ extension EditorView {
 }
 
 extension EditorView.DirectiveSheet {
-
-    /// `View` of the directive sheet title
-    @ViewBuilder var directiveTitleView: some View {
-        Text(directive.details.label)
-            .font(.title)
-            .padding(.bottom, 4)
-        Text(directive.details.help)
-            .foregroundStyle(.secondary)
-            .padding(.bottom)
-    }
-}
-
-extension EditorView.DirectiveSheet {
     /// The default `View` when there is no specific `View` for the ``ChordPro/Directive``
     @ViewBuilder var defaultView: some View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState = sceneState
-        directiveTitleView
+        Header(directive: directive)
         TextField(
             text: $sceneState.editorInternals.directiveArgument,
             prompt: Text(directive.details.label)
@@ -132,7 +129,7 @@ extension EditorView.DirectiveSheet {
 
     /// `View` to define the 'slider' for a number directive
     @ViewBuilder func sliderView(start: Double, end: Double) -> some View {
-        directiveTitleView
+        Header(directive: directive)
         VStack {
             Slider(value: $sliderValue, in: start...end, step: 1)
             Text(verbatim: "\(Int(sliderValue))")
@@ -163,7 +160,7 @@ extension EditorView.DirectiveSheet {
 
     /// `View` to define the 'key' of the song
     @ViewBuilder var keyView: some View {
-        directiveTitleView
+        Header(directive: directive)
         HStack {
             sceneState.rootPicker(showAllOption: false, hideFlats: false)
             sceneState.qualityPicker()

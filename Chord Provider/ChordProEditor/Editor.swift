@@ -45,7 +45,9 @@ enum Editor {
                 var text = ""
                 switch editorInternals.clickedDirective {
                 case true:
-                    text = "{\(directive.rawValue.long) \(editorInternals.directiveArgument)}"
+                    /// Make space for optional arguments
+                    let spacer = editorInternals.directiveArgument.isEmpty ? "" : " "
+                    text = "{\(directive.rawValue.long)\(spacer)\(editorInternals.directiveArgument)}"
                 case false:
                     let selectedText = editorInternals.directiveArgument.isEmpty ?
                     textView.selectedText : editorInternals.directiveArgument
