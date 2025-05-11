@@ -38,6 +38,15 @@ extension ChordPro.Directive {
         /// tuplet
         case tuplet
 
+        // MARK: For internal use
+
+        /// Numeric
+        case numeric
+        /// Define
+        case define
+        /// Key
+        case key
+
         /// Implement Comparable
         static func < (lhs: FormattingAttribute, rhs: FormattingAttribute) -> Bool {
             lhs.order < rhs.order
@@ -59,6 +68,9 @@ extension ChordPro.Directive {
             case .width: 11
             case .height: 12
             case .tuplet: 13
+            case .numeric: 14
+            case .define: 15
+            case .key: 16
             }
         }
     }

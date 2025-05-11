@@ -41,6 +41,7 @@ extension ChordProParser {
                 sourceLineNumber: song.lines,
                 environment: currentSection.environment,
                 directive: .comment,
+                arguments: arguments,
                 source: "{\(ChordPro.Directive.comment) \(comment)}",
                 plain: comment
             )
