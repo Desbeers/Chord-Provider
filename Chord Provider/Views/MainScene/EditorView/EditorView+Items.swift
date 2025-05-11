@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension EditorView.DirectiveSheet {
-    
+
     @Observable final class FormStateModel {
         var plain: String = ""
         var label: String = ""
@@ -17,7 +17,7 @@ extension EditorView.DirectiveSheet {
         var width: Double = 0
         var src: String = ""
     }
-    
+
     struct Header: View {
         /// The directive
         let directive: ChordPro.Directive
@@ -30,7 +30,7 @@ extension EditorView.DirectiveSheet {
                 .padding(.bottom)
         }
     }
-    
+
     struct PlainField: View {
         let label: String
         let prompt: String
@@ -44,12 +44,11 @@ extension EditorView.DirectiveSheet {
                 ) {
                     Text(label)
                 }
-                //.labelsHidden()
             }
         }
     }
-    
-    
+
+
     struct AlignPicker: View {
         let label: String
         @Binding var value: String
@@ -67,14 +66,14 @@ extension EditorView.DirectiveSheet {
             .pickerStyle(.segmented)
         }
     }
-    
+
     struct SizeSlider: View {
         let label: String
         let start: Double
         let end: Double
         @Binding var value: Double
         var body: some View {
-            
+
             LabeledContent(label) {
                 VStack {
                     Slider(value: $value, in: start...end, step: 1)
@@ -85,27 +84,27 @@ extension EditorView.DirectiveSheet {
             }
         }
     }
-    
+
     struct Items: View {
-        
+
         let items: [ChordPro.Directive.FormattingAttribute]
-        
+
         /// The directive
         let directive: ChordPro.Directive
-        
+
         /// The observable state of the scene
         @Environment(SceneStateModel.self) var sceneState
-        
+
         @State private var formState = FormStateModel()
-        
+
         /// The dismiss environment
         @Environment(\.dismiss) var dismiss
-        
+
         /// The label for the action button
         var actionLabel: String {
             sceneState.editorInternals.clickedDirective ? "Edit" : "Add"
         }
-        
+
         var body: some View {
             VStack {
                 Header(directive: directive)
@@ -128,7 +127,7 @@ extension EditorView.DirectiveSheet {
                     }
                 }
                 HStack {
-                    
+
                     Button(
                         action: {
                             dismiss()
@@ -138,13 +137,13 @@ extension EditorView.DirectiveSheet {
                         }
                     )
                     .keyboardShortcut(.cancelAction)
-                    
+
                     Button("\(actionLabel) Directive") {
-                        
+
                         if items.contains(.plain) {
                             sceneState.editorInternals.directiveArgument = formState.plain
                         } else {
-                            
+
                             var directiveArguments = sceneState.editorInternals.directiveArguments
                             directiveArguments[.plain] = nil
                             directiveArguments[.label] = formState.label.isEmpty ? nil : formState.label
@@ -152,7 +151,7 @@ extension EditorView.DirectiveSheet {
                             directiveArguments[.flush] = formState.flush.isEmpty ? nil : formState.flush
                             directiveArguments[.src] = formState.src.isEmpty ? nil : formState.src
                             directiveArguments[.width] = formState.width == 0 ? nil : String(Int(formState.width))
-                            
+
                             let result = ChordProParser.argumentsToString(directiveArguments)
                             sceneState.editorInternals.directiveArgument = result ?? ""
                         }

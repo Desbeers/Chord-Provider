@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 extension SettingsView {
 
@@ -90,6 +91,41 @@ extension SettingsView {
             )
             .padding(.bottom)
             .disabled(appState.settings.style == appState.settings.style.defaults())
+        }
+        .fileExporter(
+            isPresented: $showJsonExportDialog,
+            document: JSONDocument(string: jsonExportString),
+            contentTypes: [.json],
+            defaultFilename: "Theme"
+        ) { result in
+            switch result {
+            case .success(let url):
+                Logger.fileAccess.info("Theme exported to \(url, privacy: .public)")
+            case .failure(let error):
+                Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
+            }
+        }
+        .fileImporter(
+            isPresented: $showJsonImportDialog,
+            allowedContentTypes: [.json],
+            allowsMultipleSelection: false
+        ) { result in
+            switch result {
+            case .success(let files):
+                do {
+                    try files.forEach { url in
+                        let text = try Data(contentsOf: url)
+                        appState.settings.style = try JSONDecoder().decode(AppSettings.Style.self, from: text)
+                        Logger.fileAccess.info("Theme imported from \(url, privacy: .public)")
+                    }
+                } catch {
+                    Logger.fileAccess.error("Import failed: \(error.localizedDescription, privacy: .public)")
+                    errorAlert = AppError.importThemeError.alert()
+                }
+            case .failure(let error):
+                Logger.fileAccess.error("Import failed: \(error.localizedDescription, privacy: .public)")
+                errorAlert = AppError.importThemeError.alert()
+            }
         }
     }
 }

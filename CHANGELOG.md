@@ -49,3 +49,5 @@
 
 - Random song button in WelcomeView
 - Make the editor width resizable
+- Improve editor
+- Fix song folder selector

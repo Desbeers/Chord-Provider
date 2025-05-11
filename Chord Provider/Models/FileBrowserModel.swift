@@ -44,6 +44,9 @@ extension FileBrowserModel {
                 songs = content.songs
                 artists = content.artists
                 status = .songsFolderIsSelected
+            } else {
+                /// There is no folder selected
+                status = .noSongsFolderSelectedError
             }
         }
     }
