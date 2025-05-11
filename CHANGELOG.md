@@ -45,9 +45,11 @@
 
 - Bugfixes for PDF text wrapping
 
-# 6.x.x (---)
+# 6.4.0 (2025-05-11)
 
 - Random song button in WelcomeView
 - Make the editor width resizable
 - Improve editor
 - Fix song folder selector
+
+# 6.x.x (---)
