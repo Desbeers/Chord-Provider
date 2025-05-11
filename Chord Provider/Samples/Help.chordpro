@@ -10,7 +10,7 @@ Please visit the official **ChordPro** website for the full experience:
 {comment https://www.chordpro.org/}
 {end_of_textblock}
 
-{start_of_textblock label="Functionality!!!!!" align="center" flush="right"}
+{start_of_textblock Functionality}
 **Chord Provider** can do the following:
 - It will view and/or edit *ChordPro* files.
 - It can export your song to a PDF document.
@@ -19,10 +19,10 @@ Please visit the official **ChordPro** website for the full experience:
 - It also have a database with a lot of chords.
 {end_of_textblock}
 
-{start_of_chorus label="Label"}
+{start_of_chorus Directives}
 Not all official [D]directives are supported, [B]but most are.
 You can add [G7]chords to a verse or [C]chorus.
-{comment In the standard view you can click on a chord to see its diagram....}
+{comment In the standard view you can click on a chord to see its diagram}
 {end_of_chorus}
 
 {start_of_tab Tab Tab Tab!}
@@ -34,7 +34,7 @@ A|-------------|
 E|-------------|
 {end_of_tab}
 
-{start_of_grid label="Griddy Grid!!!!"}
+{start_of_grid label="Griddy Grid!"}
 | G7 G7 . C | Am . . Am |
 | G7 G7 . C | Asus4 . . Am |
 {comment This is not really a nice melody, I know!}
@@ -45,7 +45,7 @@ d dud dududu udu
 {comment Basic strumming pattern is supported as well}
 {end_of_strum}
 
-{start_of_textblock label="Just a Text Block!!!!" align="right" flush="right"}
+{start_of_textblock label="Just a Text Block" align="right" flush="right"}
 This is just a block with text.
 It is using the `{start_of_textblock}` environment.
 You can align it to your liking
@@ -76,7 +76,7 @@ with the title of the song; just [E]eyecandy!
 when you have a song selected [Am]and it will render it for you.
 {end_of_verse}
 
-{image align="center" src="IconPreview.png" width="100"}
+{image src="IconPreview.png" width="100" align="center"}
 
 {comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song!}
 
