@@ -23,6 +23,8 @@ extension ChordPro.Directive {
         var help: String
         /// The optional environment
         var environment: ChordPro.Environment
+        /// Additional info
+        var info: String?
     }
 
     /// The details of a directive
@@ -146,7 +148,8 @@ extension ChordPro.Directive {
                 icon: "photo",
                 button: "Image",
                 help: "Specifies the name of the file containing the image",
-                environment: .metadata
+                environment: .metadata,
+                info: "Aspect ratio will be kept. A size of zero means using the original size."
             )
         case .startOfChorus:
             Details(

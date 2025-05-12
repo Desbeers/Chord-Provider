@@ -16,6 +16,8 @@ enum UserFile: String {
     case exportFolder
     /// A custom song template
     case customSongTemplate
+    /// An image
+    case image
     /// A custom configuration for the ChordPro CLI
     case customChordProConfig
     /// A custom configuration for the ChordPro CLI
@@ -33,6 +35,8 @@ enum UserFile: String {
             [UTType.folder]
         case .customSongTemplate:
             [UTType.chordProSong]
+        case .image:
+            [UTType.image]
         case .customChordProConfig:
             [UTType.json]
         case .customChordProLibrary:
@@ -52,6 +56,8 @@ enum UserFile: String {
             "folder"
         case .customSongTemplate:
             "music.note.list"
+        case .image:
+            "photo"
         case .customChordProConfig:
             "gear"
         case .customChordProLibrary:
@@ -67,6 +73,8 @@ enum UserFile: String {
             "Select the folder with the songs to export"
         case .customSongTemplate:
             "Select your custom template"
+        case .image:
+            "Select an image"
         case .customChordProConfig:
             "Select your custom ChordPro template"
         case .customChordProLibrary:

@@ -14,6 +14,8 @@ import OSLog
 struct UserFileButton: View {
     /// The file to bookmark
     let userFile: UserFile
+    /// Bool to show the selection as label
+    var showSelection: Bool = true
     /// The action when a file is selected
     let action: () -> Void
     /// The label of the button
@@ -33,7 +35,9 @@ struct UserFileButton: View {
         )
         .help(userFile.message)
         .task {
-            label = userFile.label
+            if showSelection {
+                label = userFile.label
+            }
         }
         .fileImporter(
             isPresented: $presentImportDialog,
@@ -45,7 +49,9 @@ struct UserFileButton: View {
                 files.forEach { url in
                     userFile.setBookmarkURL(url)
                     Logger.application.info("Bookmark set for '\(url.lastPathComponent, privacy: .public)'")
-                    label = userFile.label
+                    if showSelection {
+                        label = userFile.label
+                    }
                     action()
                 }
             case .failure(let error):

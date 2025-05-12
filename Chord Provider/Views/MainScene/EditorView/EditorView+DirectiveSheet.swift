@@ -17,23 +17,20 @@ extension EditorView {
         var body: some View {
             VStack {
                 switch directive {
-                case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge:
+                case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge, .chorus:
                     Items(items: [.label], directive: directive)
                 case .startOfStrum:
                     Items(items: [.label, .tuplet], directive: directive)
                 case .startOfTextblock:
                     Items(items: [.label, .align, .flush], directive: directive)
                 case .image:
-                    Items(items: [.src, .width, .height, .align], directive: directive)
-                    Text("Aspect ratio will be kept. A value of 0 means using the original value")
-                        .padding(.top)
-                        .font(.caption)
+                    Items(items: [.src, .width, .height, .scale, .align], directive: directive)
                 case .key:
                     Items(items: [.key], directive: directive)
                 case .define:
                     Items(items: [.define], directive: directive)
                 case .tempo:
-                    Items(items: [.numeric], directive: directive, start: 60, end: 240)
+                    Items(items: [.numeric], directive: directive, start: 60, end: 240, suffix: " bpm")
                 case .year:
                     Items(items: [.numeric], directive: directive, start: 1900, end: 2030)
                 default:

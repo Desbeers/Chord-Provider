@@ -17,7 +17,7 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if !currentSection.lines.isEmpty && currentSection.autoCreated == false {
+        if currentSection.autoCreated == false {
             /// Add an empty line to the section
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
@@ -27,7 +27,7 @@ extension ChordProParser {
             )
             /// Add an empty part
             /// - Note: Use a 'space' as text
-            let part = Song.Section.Line.Part(id: 1, chord: nil, text: "EMPTY")
+            let part = Song.Section.Line.Part(id: 1, chord: nil, text: "")
             line.parts = [part]
             currentSection.lines.append(line)
         } else {

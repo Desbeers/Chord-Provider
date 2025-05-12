@@ -19,6 +19,8 @@ extension EditorView.DirectiveSheet {
         var start: Double = 0
         /// Start value (for sliders)
         var end: Double = 0
+        /// Optional suffix for the value
+        var suffix: String = ""
         /// The observable state of the scene
         @Environment(SceneStateModel.self) private var sceneState
         /// The state of the form
@@ -46,15 +48,17 @@ extension EditorView.DirectiveSheet {
                     case .flush:
                         AlignPicker(label: "Flush", value: $formState.flush)
                     case .src:
-                        PlainField(label: "Source", prompt: directive.details.button, value: $formState.src)
+                        ImageSelector(value: $formState.src)
                     case .width:
-                        NumberSlider(label: "Width", start: 0, end: 1000, value: $formState.width)
+                        NumberSlider(label: "Width", start: 0, end: 1000, suffix: " points", value: $formState.width)
                     case .height:
-                        NumberSlider(label: "Height", start: 0, end: 1000, value: $formState.height)
+                        NumberSlider(label: "Height", start: 0, end: 1000, suffix: " points", value: $formState.height)
+                    case .scale:
+                        NumberSlider(label: "Scale", start: 0, end: 200, suffix: "%", value: $formState.scale)
                     case .tuplet:
                         NumberPicker(label: "Tuplet", start: 2, end: 4, value: $formState.tuplet)
                     case .numeric:
-                        NumberSlider(label: directive.details.button, start: start, end: end, value: $formState.numeric)
+                        NumberSlider(label: directive.details.button, start: start, end: end, suffix: suffix, value: $formState.numeric)
                     case .key:
                         HStack {
                             sceneState.rootPicker(showAllOption: false, hideFlats: false)
@@ -62,6 +66,7 @@ extension EditorView.DirectiveSheet {
                         }
                     case .define:
                         CreateChordView(showAllOption: false, hideFlats: false, sceneState: sceneState)
+                            .labeledContentStyle(.automatic)
                     default:
                         EmptyView()
                     }
@@ -77,36 +82,7 @@ extension EditorView.DirectiveSheet {
                     )
                     .keyboardShortcut(.cancelAction)
                     Button("\(actionLabel) Directive") {
-                        switch items.first {
-                        case .plain:
-                            /// Just plain text
-                            sceneState.editorInternals.directiveArgument = formState.plain
-                        case .numeric:
-                            /// Just a plain number
-                            sceneState.editorInternals.directiveArgument = String(Int(formState.numeric))
-                        case .key:
-                            /// The key of the song
-                            sceneState.editorInternals.directiveArgument =
-                            "\(sceneState.definition.root.rawValue)" +
-                            "\(sceneState.definition.quality.rawValue)"
-                        case .define:
-                            /// A chord definition
-                            sceneState.editorInternals.directiveArgument = sceneState.definition.define
-                        default:
-                            /// Anything else
-                            var directiveArguments = sceneState.editorInternals.directiveArguments
-                            directiveArguments[.plain] = nil
-                            directiveArguments[.label] = formState.label.isEmpty ? nil : formState.label
-                            directiveArguments[.align] = formState.align.isEmpty ? nil : formState.align
-                            directiveArguments[.flush] = formState.flush.isEmpty ? nil : formState.flush
-                            directiveArguments[.src] = formState.src.isEmpty ? nil : formState.src
-                            directiveArguments[.width] = formState.width == 0 ? nil : String(Int(formState.width))
-                            directiveArguments[.height] = formState.height == 0 ? nil : String(Int(formState.height))
-                            directiveArguments[.tuplet] = formState.tuplet == 0 ? nil : String(formState.tuplet)
-                            let result = ChordProParser.argumentsToString(directiveArguments)
-                            sceneState.editorInternals.directiveArgument = result ?? ""
-                        }
-                        Editor.format(directive: directive, editorInternals: sceneState.editorInternals)
+                        update()
                         dismiss()
                     }
                     .keyboardShortcut(.defaultAction)
@@ -125,11 +101,48 @@ extension EditorView.DirectiveSheet {
                 formState.src = arguments[.src] ?? ""
                 formState.tuplet = Int(arguments[.tuplet] ?? "0") ?? 0
                 formState.numeric = Double(arguments[.plain] ?? "\(start)") ?? 0
+                if let scaleArgument = arguments[.scale], let value = Double(scaleArgument.replacingOccurrences(of: "%", with: "")) {
+                    formState.scale = value
+                }
             }
+        }
+        /// Update the values
+        private func update() {
+            switch items.first {
+            case .plain:
+                /// Just plain text
+                sceneState.editorInternals.directiveArgument = formState.plain
+            case .numeric:
+                /// Just a plain number
+                sceneState.editorInternals.directiveArgument = String(Int(formState.numeric))
+            case .key:
+                /// The key of the song
+                sceneState.editorInternals.directiveArgument =
+                "\(sceneState.definition.root.rawValue)" +
+                "\(sceneState.definition.quality.rawValue)"
+            case .define:
+                /// A chord definition
+                sceneState.editorInternals.directiveArgument = sceneState.definition.define
+            default:
+                /// Anything else
+                var directiveArguments = sceneState.editorInternals.directiveArguments
+                directiveArguments[.plain] = nil
+                directiveArguments[.label] = formState.label.isEmpty ? nil : formState.label
+                directiveArguments[.align] = formState.align.isEmpty ? nil : formState.align
+                directiveArguments[.flush] = formState.flush.isEmpty ? nil : formState.flush
+                directiveArguments[.src] = formState.src.isEmpty ? nil : formState.src
+                directiveArguments[.width] = formState.width == 0 ? nil : String(Int(formState.width))
+                directiveArguments[.height] = formState.height == 0 ? nil : String(Int(formState.height))
+                directiveArguments[.tuplet] = formState.tuplet == 0 ? nil : String(formState.tuplet)
+                directiveArguments[.scale] = formState.scale == 0 ? nil : String("\(Int(formState.scale))%")
+                let result = ChordProParser.argumentsToString(directiveArguments)
+                sceneState.editorInternals.directiveArgument = result ?? ""
+            }
+            Editor.format(directive: directive, editorInternals: sceneState.editorInternals)
         }
     }
 
-    @Observable final class FormStateModel {
+    struct FormStateModel: Equatable {
         var plain: String = ""
         var label: String = ""
         var align: String = ""
@@ -139,23 +152,30 @@ extension EditorView.DirectiveSheet {
         var src: String = ""
         var tuplet: Int = 0
         var numeric: Double = 0
+        var scale: Double = 0
     }
 
     struct Header: View {
         /// The directive
         let directive: ChordPro.Directive
         var body: some View {
-            Label {
-                Text(directive.details.label)
-            } icon: {
-                Image(systemName: directive.details.icon)
-                    .foregroundStyle(.secondary)
-            }
+            VStack {
+                Label {
+                    Text(directive.details.label)
+                } icon: {
+                    Image(systemName: directive.details.icon)
+                        .foregroundStyle(.secondary)
+                }
                 .font(.title)
                 .padding(.bottom, 4)
-            Text(directive.details.help)
-                .foregroundStyle(.secondary)
-                .padding(.bottom)
+                Text(directive.details.help)
+                    .foregroundStyle(.secondary)
+                if let info = directive.details.info {
+                    Text(info)
+                        .font(.caption)
+                }
+            }
+            .padding(.bottom)
         }
     }
 
@@ -171,6 +191,27 @@ extension EditorView.DirectiveSheet {
                     axis: .vertical
                 ) {
                     Text(label)
+                }
+            }
+        }
+    }
+
+    struct ImageSelector: View {
+        @Binding var value: String
+        var body: some View {
+            LabeledContent("Image:") {
+                HStack {
+                    TextField(
+                        text: $value,
+                        prompt: Text("Image path")
+                    ) {
+                        Text("Image")
+                    }
+                    UserFileButton(userFile: .image, showSelection: false) {
+                        if let url = UserFile.image.getBookmarkURL {
+                            value = url.path(percentEncoded: false)
+                        }
+                    }
                 }
             }
         }
@@ -216,15 +257,14 @@ extension EditorView.DirectiveSheet {
         let label: String
         let start: Double
         let end: Double
+        let suffix: String
         @Binding var value: Double
         var body: some View {
-
             LabeledContent("\(label):") {
                 HStack {
                     Slider(value: $value, in: start...end)
-                    Text(verbatim: "\(Int(value))")
-                        .font(.caption)
-                        .frame(width: 30)
+                    Text(verbatim: "\(Int(value))\(suffix)")
+                        .frame(width: 80, alignment: .trailing)
                 }
             }
         }
