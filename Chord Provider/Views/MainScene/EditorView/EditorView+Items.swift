@@ -24,7 +24,7 @@ extension EditorView.DirectiveSheet {
         /// The observable state of the scene
         @Environment(SceneStateModel.self) private var sceneState
         /// The state of the form
-        @State private var formState = FormStateModel()
+        @State private var formState = FormState()
         /// The dismiss environment
         @Environment(\.dismiss) private var dismiss
         /// The label for the action button
@@ -142,22 +142,37 @@ extension EditorView.DirectiveSheet {
         }
     }
 
-    struct FormStateModel: Equatable {
+    /// The structure of the form items
+    struct FormState: Equatable {
+        /// Plain text
         var plain: String = ""
+        /// A label
         var label: String = ""
+        /// Alignment of item
         var align: String = ""
+        /// Flush of item
         var flush: String = ""
+        /// Width of item
         var width: Double = 0
+        /// Height of item
         var height: Double = 0
+        /// Source of an image
         var src: String = ""
+        /// The tuplet for a strum
         var tuplet: Int = 0
+        /// Plain numeric text
         var numeric: Double = 0
+        /// The scale of an item
         var scale: Double = 0
     }
 
+    // MARK: Form elements
+
+    /// SwiftUI `View` for the header of the form
     struct Header: View {
         /// The directive
         let directive: ChordPro.Directive
+        /// The body of the `View`
         var body: some View {
             VStack {
                 Label {
@@ -179,10 +194,15 @@ extension EditorView.DirectiveSheet {
         }
     }
 
+    /// SwiftUI `View` for a plain text field
     struct PlainField: View {
+        /// The label of the text field
         let label: String
+        /// The prompt of the text field
         let prompt: String
+        /// The value of the text field
         @Binding var value: String
+        /// The body of the `View`
         var body: some View {
             LabeledContent("\(label):") {
                 TextField(
@@ -196,8 +216,11 @@ extension EditorView.DirectiveSheet {
         }
     }
 
+    /// SwiftUI `View` to select an image
     struct ImageSelector: View {
+        /// The value of the selection
         @Binding var value: String
+        /// The body of the `View`
         var body: some View {
             LabeledContent("Image:") {
                 HStack {
@@ -217,9 +240,13 @@ extension EditorView.DirectiveSheet {
         }
     }
 
+    /// SwiftUI `View` to select an alignment
     struct AlignPicker: View {
+        /// The label for the picker
         let label: String
+        /// The selected value
         @Binding var value: String
+        /// The body of the `View`
         var body: some View {
             Picker("\(label):", selection: $value) {
                 Text("Default")
@@ -235,11 +262,17 @@ extension EditorView.DirectiveSheet {
         }
     }
 
+    /// SwiftUI `View` to pick a number
     struct NumberPicker: View {
+        /// The label for the picker
         let label: String
+        /// Start
         let start: Int
+        // End
         let end: Int
+        /// The selected value
         @Binding var value: Int
+        /// The body of the `View`
         var body: some View {
             Picker("\(label):", selection: $value) {
                 Text("Default")
@@ -253,12 +286,19 @@ extension EditorView.DirectiveSheet {
         }
     }
 
+    /// SwiftUI `View` slider to select a number
     struct NumberSlider: View {
+        /// The label for the slider
         let label: String
+        /// Start
         let start: Double
+        /// End
         let end: Double
+        /// The suffix for the displayed value
         let suffix: String
+        /// The selected value
         @Binding var value: Double
+        /// The body of the `View`
         var body: some View {
             LabeledContent("\(label):") {
                 HStack {
@@ -269,20 +309,4 @@ extension EditorView.DirectiveSheet {
             }
         }
     }
-}
-
-
-struct EditorLabeledContentStyle: LabeledContentStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(alignment: .center) {
-            configuration.label
-                .bold()
-                .frame(width: 70, alignment: .trailing)
-            configuration.content
-        }
-    }
-}
-
-extension LabeledContentStyle where Self == EditorLabeledContentStyle {
-    static var editor: EditorLabeledContentStyle { .init() }
 }

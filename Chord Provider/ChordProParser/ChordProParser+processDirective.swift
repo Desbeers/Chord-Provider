@@ -103,6 +103,7 @@ extension ChordProParser {
                             currentSection: &currentSection,
                             song: &song
                         )
+                        currentSection.environment = .none
 
                         /// ## Start of ABC
                     case .startOfABC:
