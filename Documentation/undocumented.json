@@ -1,6 +1,20 @@
 {
   "warnings": [
     {
+      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Structures/Song/Song+Section+Line+strum.swift",
+      "line": 56,
+      "symbol": "Song.Section.Line.Strum.Action",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Desbeers/Github/Applications/Chord-Provider/Chord Provider/Views/MainScene/EditorView/EditorView+Items.swift",
+      "line": 273,
+      "symbol": "EditorView.DirectiveSheet.NumberPicker.end",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
       "line": 18,
       "symbol": "ResourceBundleClass",
@@ -16,42 +30,42 @@
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 159,
+      "line": 138,
       "symbol": "DeveloperToolsSupport.ColorResource.init(thinnableName:bundle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 184,
+      "line": 163,
       "symbol": "AppKit.NSColor.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 223,
+      "line": 202,
       "symbol": "SwiftUI.Color.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 236,
+      "line": 215,
       "symbol": "SwiftUI.ShapeStyle.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 251,
+      "line": 230,
       "symbol": "DeveloperToolsSupport.ImageResource.init(thinnableName:bundle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/Desbeers/Library/Developer/Xcode/DerivedData/Chord_Provider-buqxxxpywtzjmfeklgtfsdegprtq/Build/Intermediates.noindex/Chord Provider.build/Debug/Chord Provider.build/DerivedSources/GeneratedAssetSymbols.swift",
-      "line": 276,
+      "line": 255,
       "symbol": "AppKit.NSImage.init(thinnableResource:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

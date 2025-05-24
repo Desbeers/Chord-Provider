@@ -309,7 +309,8 @@ extension ChordPro.Directive {
                 icon: "arrow.up.arrow.down",
                 button: "Strum",
                 help: "This directive indicates that the lines that follow defines a strum pattern",
-                environment: .strum
+                environment: .strum,
+                info: "**Tuplet** is a generic term that describes a grouping of notes that would not normally occur within a beat."
             )
         case .endOfStrum:
             Details(

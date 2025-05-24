@@ -36,21 +36,19 @@ extension ChordProParser {
         )
 
         var result: [[Song.Section.Line.Strum]] = []
+        let parts = text.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ")
+        for(index, character) in parts.enumerated() {
 
-        for(index, character) in text.trimmingCharacters(in: .whitespacesAndNewlines).enumerated() {
             let value = Song.Section.Line.strumCharacterDict[String(character)]
             var strum = Song.Section.Line.Strum()
             strum.id = index
-            strum.strum = value ?? String(character)
+            strum.action = value ?? .none
 
             if index % tuplet == 0 {
                 beat = beat == timeSignature ? 1 : beat + 1
                 strum.beat = "\(beat)"
-                group += 1
-            } else {
-                strum.tuplet = "﹠"
-                group += 1
             }
+            group += 1
             strums.append(strum)
 
             if timeSignature * tuplet == group {
@@ -58,6 +56,9 @@ extension ChordProParser {
                 strums = []
                 group = 0
             }
+        }
+        if !strums.isEmpty {
+            result.append(strums)
         }
         line.strum = result
         currentSection.lines.append(line)

@@ -74,9 +74,10 @@ legacy_hashing: error
 
 identifier_name:
   excluded:
-    - id
     - x
     - y
+    - up
+    - id
 
 indentation_width:
   indentation_width: 4

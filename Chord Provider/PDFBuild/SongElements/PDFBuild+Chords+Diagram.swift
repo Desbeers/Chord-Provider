@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import SwiftUI
+import AppKit
 
 extension PDFBuild.Chords {
 

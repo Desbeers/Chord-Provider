@@ -71,6 +71,11 @@ extension EditorView.DirectiveSheet {
                         EmptyView()
                     }
                 }
+                if let info = directive.details.info {
+                    Label(.init(info), systemImage: "info.circle.fill")
+                        .padding(.top)
+                        .font(.caption)
+                }
                 HStack {
                     Button(
                         action: {
@@ -185,10 +190,6 @@ extension EditorView.DirectiveSheet {
                 .padding(.bottom, 4)
                 Text(directive.details.help)
                     .foregroundStyle(.secondary)
-                if let info = directive.details.info {
-                    Text(info)
-                        .font(.caption)
-                }
             }
             .padding(.bottom)
         }
@@ -204,7 +205,7 @@ extension EditorView.DirectiveSheet {
         @Binding var value: String
         /// The body of the `View`
         var body: some View {
-            LabeledContent("\(label):") {
+            LabeledContent("\(label)") {
                 TextField(
                     text: $value,
                     prompt: Text(prompt),
@@ -222,7 +223,7 @@ extension EditorView.DirectiveSheet {
         @Binding var value: String
         /// The body of the `View`
         var body: some View {
-            LabeledContent("Image:") {
+            LabeledContent("Image") {
                 HStack {
                     TextField(
                         text: $value,
@@ -248,7 +249,7 @@ extension EditorView.DirectiveSheet {
         @Binding var value: String
         /// The body of the `View`
         var body: some View {
-            Picker("\(label):", selection: $value) {
+            Picker("\(label)", selection: $value) {
                 Text("Default")
                     .tag("")
                 Text("Left")
@@ -268,13 +269,13 @@ extension EditorView.DirectiveSheet {
         let label: String
         /// Start
         let start: Int
-        // End
+        /// End
         let end: Int
         /// The selected value
         @Binding var value: Int
         /// The body of the `View`
         var body: some View {
-            Picker("\(label):", selection: $value) {
+            Picker("\(label)", selection: $value) {
                 Text("Default")
                     .tag(0)
                 ForEach(start...end, id: \.self) {number in
@@ -300,7 +301,7 @@ extension EditorView.DirectiveSheet {
         @Binding var value: Double
         /// The body of the `View`
         var body: some View {
-            LabeledContent("\(label):") {
+            LabeledContent("\(label)") {
                 HStack {
                     Slider(value: $value, in: start...end)
                     Text(verbatim: "\(Int(value))\(suffix)")

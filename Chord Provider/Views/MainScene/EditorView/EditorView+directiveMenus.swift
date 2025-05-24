@@ -44,7 +44,11 @@ extension EditorView {
                     chordDefinitionsButton()
                         .disabled(sceneState.editorInternals.selectedRange.length != 0)
                     Divider()
-                    directiveButton(directive: .comment)
+                    if sceneState.editorInternals.selectedRange.length == 0 {
+                        directiveSheetButton(directive: .comment)
+                    } else {
+                        directiveButton(directive: .comment)
+                    }
                 },
                 label: {
                     Label("More...", systemImage: "pencil")

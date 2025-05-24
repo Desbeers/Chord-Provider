@@ -529,6 +529,9 @@
                 <a href="../../../../Enums/Styles/SongFileLabelStyle.html">– SongFileLabelStyle</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../../../Enums/Styles/EditorLabeledContentStyle.html">– EditorLabeledContentStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../../Enums/Modifiers.html">Modifiers</a>
               </li>
               <li class="nav-group-task">
@@ -793,6 +796,9 @@
                 <a href="../../../../Extensions/LabelStyle.html">LabelStyle</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../../../Extensions/LabeledContentStyle.html">LabeledContentStyle</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../../Extensions/Logger.html">Logger</a>
               </li>
               <li class="nav-group-task">
@@ -800,6 +806,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../../../Other%20Extensions.html#/c:objc(cs)NSParagraphStyle">NSParagraphStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../../../Extensions/NSTextAttachment.html">NSTextAttachment</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../../../Extensions/NSWindow.html">NSWindow</a>
@@ -846,6 +855,9 @@
             <a href="../../../../Other%20Structs.html">Other Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../../../../Structs/ArrowView.html">ArrowView</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../../../Structs/Artist.html">Artist</a>
               </li>
               <li class="nav-group-task">
@@ -887,6 +899,9 @@
               <li class="nav-group-task">
                 <a href="../../../../Structs/SizeSlider/SizeLabel.html">– SizeLabel</a>
               </li>
+              <li class="nav-group-task">
+                <a href="../../../../Structs/SplitterView.html">SplitterView</a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -905,7 +920,7 @@
             <p>The structure of a strum</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/Song/Song+Section+Line+strum.swift#L13-L22">Show on GitHub</a>
+                <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/Song/Song+Section+Line+strum.swift#L13-L33">Show on GitHub</a>
               </div>
           </section>
           <section class="section task-group-section">
@@ -944,9 +959,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14Chord_Provider4SongV7SectionV4LineV5StrumV5strumSSvp"></a>
-                    <a name="//apple_ref/swift/Property/strum" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14Chord_Provider4SongV7SectionV4LineV5StrumV5strumSSvp">strum</a>
+                    <a name="/s:14Chord_Provider4SongV7SectionV4LineV5StrumV6actionAI6ActionOvp"></a>
+                    <a name="//apple_ref/swift/Property/action" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider4SongV7SectionV4LineV5StrumV6actionAI6ActionOvp">action</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -954,14 +969,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The strum symbol</p>
+                        <p>The strum action</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">strum</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">action</span><span class="p">:</span> <span class="kt">Action</span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span></code></pre>
 
                         </div>
                       </div>
@@ -1021,12 +1036,42 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tuplet</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">tuplet</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"&amp;"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
                         <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/Song/Song+Section+Line+strum.swift#L21">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14Chord_Provider4SongV7SectionV4LineV5StrumV9topSymbolSSvp"></a>
+                    <a name="//apple_ref/swift/Property/topSymbol" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14Chord_Provider4SongV7SectionV4LineV5StrumV9topSymbolSSvp">topSymbol</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Optional top symbol</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">topSymbol</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/desbeers/Chord-Provider/blob/main/Chord Provider/Structures/Song/Song+Section+Line+strum.swift#L23-L32">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

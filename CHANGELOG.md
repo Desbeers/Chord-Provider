@@ -53,3 +53,5 @@
 - Fix song folder selector
 
 # 6.x.x (---)
+
+- Improve strum environment

@@ -302,6 +302,7 @@
 		D7C47CCC2DA15F210037CC00 /* ChordProConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C47CCA2DA15F210037CC00 /* ChordProConfig.swift */; };
 		D7C47CCE2DA15FE40037CC00 /* AppSettings+ChordProExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C47CCD2DA15FE40037CC00 /* AppSettings+ChordProExport.swift */; };
 		D7C47CD12DA1A0430037CC00 /* ChordProviderConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = D7C47CD02DA1A0430037CC00 /* ChordProviderConfig.json */; };
+		D7C655A32DE07A8800FA605F /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C655A22DE07A8800FA605F /* ArrowView.swift */; };
 		D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */; };
 		D7C725CE2BFF5B49006D9C74 /* NSWindow+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */; };
 		D7C725D02BFF87C5006D9C74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C725CF2BFF87C5006D9C74 /* AppDelegate.swift */; };
@@ -650,6 +651,7 @@
 		D7C47CCA2DA15F210037CC00 /* ChordProConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordProConfig.swift; sourceTree = "<group>"; };
 		D7C47CCD2DA15FE40037CC00 /* AppSettings+ChordProExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+ChordProExport.swift"; sourceTree = "<group>"; };
 		D7C47CD02DA1A0430037CC00 /* ChordProviderConfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ChordProviderConfig.json; sourceTree = "<group>"; };
+		D7C655A22DE07A8800FA605F /* ArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
 		D7C725CA2BFF5A92006D9C74 /* .jazzy.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .jazzy.yaml; sourceTree = "<group>"; };
 		D7C725CB2BFF5B3A006D9C74 /* View+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+extension.swift"; sourceTree = "<group>"; };
 		D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSWindow+extension.swift"; sourceTree = "<group>"; };
@@ -1239,6 +1241,7 @@
 				D730BBC42CA844C2008719F2 /* ChordDefinitionView.swift */,
 				D730BBC92CA844C2008719F2 /* CreateChordView.swift */,
 				D737F8572D8ED7D7001F1DC5 /* FontOptionsView.swift */,
+				D7C655A22DE07A8800FA605F /* ArrowView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1871,6 +1874,7 @@
 				D7EA877B2C5A587A009A3D82 /* PreviewState.swift in Sources */,
 				D7EA87682C5A580A009A3D82 /* ChordProEditor+Wrapper.swift in Sources */,
 				D7F13FD32A6460B7002D875D /* ChordProParser.swift in Sources */,
+				D7C655A32DE07A8800FA605F /* ArrowView.swift in Sources */,
 				D70B72862BD50EC6003C89B4 /* PDFBuild+TabSection.swift in Sources */,
 				D77CDB1A2D73323100943462 /* SongFileUtils.swift in Sources */,
 				D70B72792BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */,
@@ -2122,7 +2126,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -2138,7 +2142,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.4.0;
+				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2155,7 +2159,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/QuickLook/QLthumbnail/QLthumbnail.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -2171,7 +2175,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.4.0;
+				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2310,7 +2314,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -2335,7 +2339,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.4.0;
+				MARKETING_VERSION = 6.5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2362,7 +2366,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Chord Provider/General/ChordProvider.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -2387,7 +2391,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.4.0;
+				MARKETING_VERSION = 6.5.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2412,7 +2416,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2425,7 +2429,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.4.0;
+				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2444,7 +2448,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 290;
+				CURRENT_PROJECT_VERSION = 291;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2457,7 +2461,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 6.4.0;
+				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
