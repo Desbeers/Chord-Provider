@@ -9,7 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 import OSLog
 
-/// Terminal utilities to run the official **ChordPro** CLI
+/// Terminal utilities to run the official **ChordPro** CLI to create a PDF
 enum ChordProCLI {
     // Just a placeholder
 }

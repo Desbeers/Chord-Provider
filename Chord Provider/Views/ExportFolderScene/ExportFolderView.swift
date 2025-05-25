@@ -8,25 +8,26 @@
 import SwiftUI
 import OSLog
 
-/// SwiftUI `View` for a folder export
+/// SwiftUI `View` to export a folder with **ChordPro** songs to a PDF
+/// with a Table of Content and a cover page
 struct ExportFolderView: View {
     /// The observable state of the application
     @State private var appState = AppStateModel(id: .exportFolderView)
-    /// The state of the scene
+    /// The observable state of the scene
     @State private var sceneState = SceneStateModel(id: .exportFolderView)
     /// The observable state of the file browser
-    @Environment(FileBrowserModel.self) var fileBrowser
+    @Environment(FileBrowserModel.self) private var fileBrowser
     /// The current selected folder
     @State private var currentFolder: String? = ExportFolderView.exportFolderTitle
-    /// The PDF info
+    /// The PDF information
     @State private var pdfInfo = PDFBuild.DocumentInfo()
-    /// Present an export dialog
+    /// Bool if we present an export dialog
     @State private var exportFile: Bool = false
-    /// Bool if we are exporting
+    /// Bool if we are exporting the folderr
     @State private var exporting: Bool = false
-    /// Progress
+    /// The progress indicator
     @State private var progress: Double = 0
-    /// The library as PDF
+    /// The folder as PDF
     @State private var pdf: Data?
     /// The body of the `View`
     var body: some View {
@@ -131,7 +132,7 @@ struct ExportFolderView: View {
             pdfInfo.title = currentFolder ?? ""
         }
     }
-    /// Get the current selected export folder
+    /// Get the current selected export folder title
     private static var exportFolderTitle: String? {
         UserFileUtils.Selection.exportFolder.getBookmarkURL?.lastPathComponent
     }

@@ -2,7 +2,7 @@
 //  RegexDefinitions.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -11,18 +11,18 @@ import RegexBuilder
 /// Regex definitions to parse a chord
 enum RegexDefinitions {
 
-    // MARK: Regex to parse a chord name
+    // MARK: Regex to parse a chord string
 
-    /// The regex for a `chord` string
+    /// The regex to parse a `chord` string
     ///
-    /// It will parse the chord to find the `root` and optional `quality`
+    /// It will parse the chord to find the `root` and optional `quality` and `bass`
     ///
     ///     /// ## Examples
     ///
     ///     Am -> root: Am, quality: m
     ///     Dsus4 -> root: D, quality: sus4
     ///
-    nonisolated(unsafe) static let chordName = Regex {
+    nonisolated(unsafe) static let chordString = Regex {
         /// The root
         chordRoot
         /// The optional quality
@@ -50,9 +50,9 @@ enum RegexDefinitions {
         }
     }
 
-    // MARK: Regex to parse a define
+    // MARK: The regex to parse a **ChordPro** chord definition
 
-    /// The regex for a chord definition
+    /// The regex to parse a **ChordPro** chord definition
     nonisolated(unsafe) static let chordDefine = Regex {
         /// Capture the name
         Capture {
@@ -183,7 +183,7 @@ enum RegexDefinitions {
     }
 
 
-    /// The regex for a *normal*  line with optional`chords` and/or `lyrics`
+    /// The regex for a *normal*  line with optional `chords` and/or `lyrics`
     ///
     ///     /// ## Example
     ///
@@ -206,7 +206,7 @@ enum RegexDefinitions {
         }
     }
 
-    /// Regex for a chord
+    /// The regex for a chord
     nonisolated(unsafe) static let chord = Regex {
         Regex {
             "["

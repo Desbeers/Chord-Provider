@@ -50,11 +50,11 @@ enum AppError: String, LocalizedError {
 
     // MARK: ChordPro integration
 
-    /// A binary error if **ChordPro** is not found
+    /// An error if the  **ChordPro** CLI binary is not found
     case binaryNotFound
     /// An error when creating a PDF
     case createChordProPdfError
-    /// An warning when creating a PDF
+    /// A warning when creating a PDF
     case createChordProPdfWarning
 
     // MARK: Fallback

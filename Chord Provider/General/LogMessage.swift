@@ -10,17 +10,17 @@ import OSLog
 
 /// The structure for a log message
 struct LogMessage: Equatable, Identifiable {
-    /// Give it an unique ID
+    /// The unique ID of the log message
     var id: UUID = UUID()
-    /// The date and time of the log item
+    /// The date and time of the log message
     var time: Date = .now
     /// The type of log message
     var type: OSLogEntryLog.Level = .notice
-    /// The optional line number of the source
+    /// The optional line number of the **ChordPro** source
     var lineNumber: Int?
-    /// The category of the log
+    /// The category of the log message
     var category: String = "Unknown"
-    /// The log message
+    /// The log message itself
     var message: String = "There are currently no messages"
 }
 

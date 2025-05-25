@@ -19,7 +19,7 @@ enum SFSymbol: String {
     case tempo = "metronome"
     /// The *time* icon
     case time = "timer"
-    /// The *comment*icon
+    /// The *comment* icon
     case comment = "text.bubble"
     /// The *repeat chorus* icon
     case repeatChorus = "arrow.trianglehead.2.clockwise.rotate.90"

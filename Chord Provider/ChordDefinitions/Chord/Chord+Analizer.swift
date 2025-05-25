@@ -13,13 +13,13 @@ extension Chord {
     enum Analizer {
 
         /// Find the root, quality and optional bass of a named chord
-        /// - Parameter chord: The name of the chord
+        /// - Parameter chord: The name of the chord as `String`
         /// - Returns: The root, quality and optional slash
         static func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?, slash: Chord.Root?) {
             var root: Chord.Root?
             var quality: Chord.Quality?
             var slash: Chord.Root?
-            if let match = chord.wholeMatch(of: RegexDefinitions.chordName) {
+            if let match = chord.wholeMatch(of: RegexDefinitions.chordString) {
                 root = match.1
                 if let qualityMatch = match.2 {
                     quality = qualityMatch

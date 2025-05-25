@@ -8,6 +8,10 @@
 import SwiftUI
 
 /// SwiftUI `View` with a font picker
+///
+/// I wrote my own picker because the *standard* macOS picker is horrible
+///
+/// The fonts are collected at the start of the application and stored in the ``AppStateModel``
 struct FontPicker: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState

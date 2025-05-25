@@ -64,6 +64,13 @@ While I studied a lot of code from other projects to learn; in the end, its all 
 
 All the file types **Chord Provider** can handle
 
+Obviously, **Chord Provider** can open and save **ChordPro** files.
+
+It can also import and export JSON configuration files. Official **ChordPro** configurations
+as well *themes* used in **Chord Provider**.
+
+The *export document* is a PDF with either a song or a whole folder with songs.
+
 - ``ChordProDocument``
 - ``JSONDocument``
 - ``ExportDocument``
@@ -87,6 +94,10 @@ All files needed for parsing a **ChordPro** song
 - ``Instrument``
 
 ### **ChordPro** editor
+
+The **ChordPro** editor is written in `AppKit`. SwiftUI's editor is simply too limited. It does *highlight* directives and chords and you can edit them in a sheet by *double click* on them.
+
+While working well for *normal* songs it will be a bit sluggish on long documents. It is written in *textkit 1* for now but a *textkit 2* version is in development.
 
 - ``ChordProEditor``
 - ``ChordProEditorDelegate``
@@ -131,6 +142,8 @@ Models used by the SwiftUI Views
 
 ### SwiftUI General
 
+**Chord Provider** is mostly written in SwiftUI. For some parts I have to fall-back to `AppKit` but over the years less and less. SwiftUI on macOS is pretty ok nowadays.
+
 - ``ChordProviderApp``
 - ``AppDelegate``
 - ``AppKitUtils``
@@ -149,13 +162,19 @@ Models used by the SwiftUI Views
 
 ### SwiftUI About Scene
 
+The *standard* About Window sucks. I know how to style it a bit but it does not fit in the SwiftUI world. I just added another `scene` to make it modern.
+
 - ``AboutView``
 
 ### SwiftUI Welcome Scene
 
+Fortunately, I can add a *Welcome Scene* with macOS Sequoia now for a *document based application*. Still some dirty hacks needed the *dismiss* its Window. But its getting better!
+
 - ``WelcomeView``
 
 ### SwiftUI Chords Database Scene
+
+While not a *document* View; it *does* let you alter the database so I have to apply some `AppKit` magic to track the state of the database.
 
 - ``ChordsDatabaseView``
 
@@ -165,17 +184,25 @@ Models used by the SwiftUI Views
 
 ### SwiftUI Media Player Scene
 
+When you have an audio or video file next to your **ChordPro** song with the same base name, **Chord Provider** can play it. One of the reasons **Chord Provider** is *not* sandboxed...
+
 - ``MediaPlayerView``
 
 ### SwiftUI Settings Scene
+
+Just a *native* SwiftUI Settings View; as you would expect.
 
 - ``SettingsView``
 
 ### SwiftUI Help Scene
 
+To get a *native* macOS Help, you have to compile a *Help Book*. While I did that in the past, I gave up... Its horrible and does not fit well with the declarative nature of SwiftUI. So, I just added another `Scene` for it, showing a song with *help* in PDF format. With fancy buttons to change its appearance.
+
 - ``HelpView``
 
 ### SwiftUI Debug Scene
+
+**Chord Provider** parses the **ChordPro** file into a ``Song`` structure and logs its progress. The *Debug Scene* let you view the result and logs.
 
 - ``DebugView``
 

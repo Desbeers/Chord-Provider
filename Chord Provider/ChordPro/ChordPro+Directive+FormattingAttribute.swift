@@ -27,15 +27,15 @@ extension ChordPro.Directive {
         case y
         /// Scale
         case scale
-        /// Source
+        /// Source; used in an *{image}* directive
         case src
         /// Spread
         case spread
         /// Width
         case width
-        /// height
+        /// Height
         case height
-        /// tuplet
+        /// Tuplet; used in a *{start_of_strum}* environment
         case tuplet
 
         // MARK: For internal use
