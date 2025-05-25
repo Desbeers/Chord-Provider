@@ -64,6 +64,10 @@ struct AppSettings: Equatable, Codable {
     var pdf = AppSettings.PDF()
 }
 
+enum FontUtils {
+    // Just a placeholder
+}
+
 extension AppSettings {
 
     /// Load the application settings

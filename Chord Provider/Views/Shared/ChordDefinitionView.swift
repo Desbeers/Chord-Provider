@@ -93,13 +93,16 @@ struct ChordDefinitionView: View {
         )
         .overlay(alignment: .topLeading) {
             if diagramDisplayOptions.showPlayButton, chord.status.knownChord {
-                AppStateModel.PlayButton(chord: chord, instrument: diagramDisplayOptions.midiInstrument)
-                    .font(.body)
-                    .foregroundStyle(Color.accentColor)
-                    .padding(.top, lineHeight / 2)
-                    .padding(.leading, horizontalPadding)
-                    .labelStyle(.iconOnly)
-                    .buttonStyle(.plain)
+                PlayChordButton(
+                    chord: chord,
+                    instrument: diagramDisplayOptions.midiInstrument
+                )
+                .font(.body)
+                .foregroundStyle(Color.accentColor)
+                .padding(.top, lineHeight / 2)
+                .padding(.leading, horizontalPadding)
+                .labelStyle(.iconOnly)
+                .buttonStyle(.plain)
             }
         }
         .padding(.horizontal, (width - gridWidth) / 2)

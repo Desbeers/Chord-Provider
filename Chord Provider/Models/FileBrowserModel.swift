@@ -38,7 +38,7 @@ extension FileBrowserModel {
     /// Get all songs from the selected folder
     func getFiles() {
         Task { @MainActor in
-            if let songsFolder = UserFile.songsFolder.getBookmarkURL {
+            if let songsFolder = UserFileUtils.Selection.songsFolder.getBookmarkURL {
                 let settings = AppSettings.load(id: .mainView)
                 let content = await SongFileUtils.getSongsFromFolder(url: songsFolder, settings: settings)
                 songs = content.songs

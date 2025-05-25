@@ -36,7 +36,7 @@ extension String {
     ///   - fontOptions: The font options
     ///   - scale: The scale of the font
     /// - Returns: A formatted `AttributedString`
-    func toMarkdown(fontOptions: ConfigOptions.FontOptions, scale: Double) -> AttributedString {
+    func toMarkdown(fontOptions: FontUtils.Options, scale: Double) -> AttributedString {
         guard var output = try? AttributedString(
             markdown: self,
             options: .init(

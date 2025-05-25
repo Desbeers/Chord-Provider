@@ -232,7 +232,7 @@ extension EditorView.DirectiveSheet {
                         Text("Image")
                     }
                     UserFileButton(userFile: .image, showSelection: false) {
-                        if let url = UserFile.image.getBookmarkURL {
+                        if let url = UserFileUtils.Selection.image.getBookmarkURL {
                             value = url.path(percentEncoded: false)
                         }
                     }

@@ -12,9 +12,9 @@ struct FontPicker: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
     /// The font options
-    @Binding var options: ConfigOptions.FontOptions
+    @Binding var options: FontUtils.Options
     /// The available fonts of a font-family
-    @State private var fontStyles: [FontItem] = []
+    @State private var fontStyles: [FontUtils.Item] = []
     /// The currently selected family name
     @State private var familyName: String = ""
     /// The body of the `View`

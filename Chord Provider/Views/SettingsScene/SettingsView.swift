@@ -60,7 +60,7 @@ extension SettingsView {
     /// Check if the **ChordPro** cli is found in the $PATH
     /// - Returns: True or false
     func checkChordProCLI() async -> Bool {
-        if (try? await Terminal.getChordProBinary()) != nil {
+        if (try? await ChordProCLI.getChordProBinary()) != nil {
             return true
         }
         return false

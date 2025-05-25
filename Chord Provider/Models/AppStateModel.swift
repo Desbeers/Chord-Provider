@@ -28,7 +28,7 @@ import SwiftUI
     /// All available font families
     var fontFamilies: [String] = []
     /// All available fonts
-    var fonts: [FontItem] = []
+    var fonts: [FontUtils.Item] = []
 
     /// Init the class; get application settings
     init(id: AppSettings.AppWindowID) {
@@ -40,32 +40,5 @@ import SwiftUI
         let allFonts = FontUtils.getAllFonts()
         self.fonts = allFonts.fonts
         self.fontFamilies = allFonts.families
-    }
-}
-
-extension AppStateModel {
-
-    /// Add the user settings as arguments to **ChordPro** for the Terminal action
-    /// - Returns: An array with arguments
-    /// - Parameters:
-    ///   - config: The **ChordPro** config template
-    ///   - settings: Te ``AppSettings``
-    static func applyUserSettings(config: String, settings: AppSettings) -> String {
-        var config = config
-        /// Paper size
-        let paperSize = settings.pdf.pageSize.rect(settings: settings)
-        config = config.replacingOccurrences(of: "pdf.papersize : a4", with: "pdf.papersize : [\(paperSize.width), \(paperSize.height)]")
-        /// Optional show only the lyrics
-        if settings.shared.lyricsOnly {
-            config = config.replacingOccurrences(of: "settings.lyrics-only : false", with: "settings.lyrics-only : true")
-        }
-        if settings.shared.repeatWholeChorus {
-            config = config.replacingOccurrences(of: "pdf.chorus.recall.quote : false", with: "pdf.chorus.recall.quote : true")
-        }
-        if settings.diagram.showFingers {
-            config = config.replacingOccurrences(of: "pdf.diagrams.fingers : false", with: "pdf.diagrams.fingers : true")
-        }
-        /// Return the config
-        return config
     }
 }

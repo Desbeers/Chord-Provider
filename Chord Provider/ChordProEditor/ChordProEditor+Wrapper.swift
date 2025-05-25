@@ -11,7 +11,7 @@ extension ChordProEditor {
 
     // MARK: The wrapper for the editor
 
-    /// A wrapper for
+    /// A wrapper for the elements of the editor
     /// - `NSScrollView`
     /// - `NSTextView`
     /// - `NSRulerView`

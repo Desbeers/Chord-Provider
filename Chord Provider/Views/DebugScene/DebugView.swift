@@ -13,7 +13,7 @@ struct DebugView: View {
     /// The observable state of the application
     @Environment(AppStateModel.self) private var appState
     /// The currently selected tab
-    @State private var tab: DebugMessage = .log
+    @State private var tab: Message = .log
     /// The source of the song
     @State private var content: [(line: Int, source: Song.Section.Line)] = []
     /// The currently selected line
@@ -40,7 +40,7 @@ struct DebugView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Picker("Tab", selection: $tab) {
-                    ForEach(DebugMessage.allCases, id: \.self) { tab in
+                    ForEach(Message.allCases, id: \.self) { tab in
                         Label(tab.rawValue, systemImage: "gear")
                     }
                 }

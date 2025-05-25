@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-// MARK: Buttons
-
-extension AppStateModel {
-
-    // MARK: Play Button
-
-    /// SwiftUI `Button` to play the chord with MIDI
-    struct PlayButton: View {
-        /// The chord to play
-        let chord: ChordDefinition
-        /// The ``Midi/Instrument`` to use
-        let instrument: Midi.Instrument
-        /// The body of the `View`
-        var body: some View {
-            Button(action: {
-                chord.play(instrument: instrument)
-            }, label: {
-                Label("Play", systemImage: "play.fill")
-            })
-            .disabled(chord.frets.isEmpty)
-        }
-    }
-}
-
 // MARK: Toggles
 
 extension AppStateModel {
@@ -211,7 +187,7 @@ extension AppStateModel {
         /// The body of the `View`
         var body: some View {
             Picker("Sorting of Songs", selection: $appState.settings.application.songListSort) {
-                ForEach(SongListSort.allCases) { value in
+                ForEach(AppSettings.SongListSort.allCases) { value in
                     Text(value.rawValue)
                         .tag(value)
                 }

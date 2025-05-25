@@ -119,7 +119,7 @@ struct CreateChordView: View {
                 status: .standardChord
             )
             self.diagram = diagram
-            chordComponents = Utils.getChordComponents(chord: diagram)
+            chordComponents = ChordUtils.getChordComponents(chord: diagram)
         }
     }
 

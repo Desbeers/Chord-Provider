@@ -62,13 +62,12 @@ extension PDFStringAttribute {
         ]
     }
 
-
-    /// Style attributes for a ``FontConfig``
+    /// Style attributes for a font
     /// - Parameters:
     ///   - config: The options for the font
     ///   - scale: The scale factor of the font
     /// - Returns: The ``PDFStringAttribute`` with the font and color
-    static func attributes(_ config: ConfigOptions.FontOptions, scale: Double = 1) -> PDFStringAttribute {
+    static func attributes(_ config: FontUtils.Options, scale: Double = 1) -> PDFStringAttribute {
         [
             .font: config.nsFont(scale: scale),
             .foregroundColor: config.color.nsColor

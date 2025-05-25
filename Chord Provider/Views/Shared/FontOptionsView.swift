@@ -13,7 +13,7 @@ struct FontOptionsView: View {
     @Binding var settings: AppSettings
     /// The body of the `View`
     var body: some View {
-        ForEach(FontConfig.allCases, id: \.self) { config in
+        ForEach(FontUtils.Config.allCases, id: \.self) { config in
             VStack {
                 switch config {
                 case .title:
@@ -46,9 +46,9 @@ extension FontOptionsView {
         /// The application settings
         let settings: AppSettings
         /// The available configuration options for the font
-        let config: FontConfig
+        let config: FontUtils.Config
         /// The options
-        @Binding var options: ConfigOptions.FontOptions
+        @Binding var options: FontUtils.Options
         /// The body of the `View`
         var body: some View {
             VStack {

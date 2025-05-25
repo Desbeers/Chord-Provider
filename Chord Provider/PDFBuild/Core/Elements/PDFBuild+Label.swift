@@ -25,7 +25,7 @@ extension PDFBuild {
         /// The corner radius of the label
         let cornerRadius: CGFloat = 3
         /// The font options
-        let fontOptions: ConfigOptions.FontOptions
+        let fontOptions: FontUtils.Options
 
         /// Init the **label** element
         /// - Parameters:
@@ -39,7 +39,7 @@ extension PDFBuild {
             sfSymbol: SFSymbol? = nil,
             drawBackground: Bool,
             alignment: NSTextAlignment,
-            fontOptions: ConfigOptions.FontOptions
+            fontOptions: FontUtils.Options
         ) {
             self.labelText = labelText
             self.sfSymbol = sfSymbol

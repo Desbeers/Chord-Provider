@@ -8,7 +8,8 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// Define the exported  'ChordProviderDocument'
+/// An exported **ChordPro** file in PDF format
+/// - Note: I cannot name this `PDFDocument` because that is already in use
 struct ExportDocument: FileDocument {
     /// The type of image to export
     static var readableContentTypes: [UTType] { [.pdf] }

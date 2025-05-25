@@ -16,7 +16,7 @@ import OSLog
     /// The current ``Song``
     var song: Song
     /// PDF preview related stuff
-    var preview = PreviewState()
+    var preview = Preview()
     /// The internals of the **Chord Provider** editor
     var editorInternals = ChordProEditor.Internals()
     /// The status of the View
@@ -76,7 +76,7 @@ import OSLog
         case true:
             /// ChordPro CLI renderer
             do {
-                let export = try await Terminal.exportPDF(
+                let export = try await ChordProCLI.exportPDF(
                     sceneState: self
                 )
                 return export.data

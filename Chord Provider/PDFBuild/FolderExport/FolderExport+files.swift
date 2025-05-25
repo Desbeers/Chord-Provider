@@ -14,7 +14,7 @@ extension FolderExport {
     /// - Returns: All found songs in a ``Song`` array
     @MainActor static func files() async throws -> [Song] {
         /// Get a list of all files
-        if let exportFolder = UserFile.exportFolder.getBookmarkURL {
+        if let exportFolder = UserFileUtils.Selection.exportFolder.getBookmarkURL {
             let settings = AppSettings.load(id: .exportFolderView)
             let content = await SongFileUtils.getSongsFromFolder(url: exportFolder, settings: settings)
             return content.songs

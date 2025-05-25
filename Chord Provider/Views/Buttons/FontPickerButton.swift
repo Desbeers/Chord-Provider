@@ -10,7 +10,7 @@ import SwiftUI
 /// SwiftUI `View` with a button to open the font picker in a popup
 struct FontPickerButton: View {
     /// The options for the font
-    @Binding var options: ConfigOptions.FontOptions
+    @Binding var options: FontUtils.Options
     /// Bool to show the popup
     @State private var showPopup: Bool = false
     /// The body of the `View`

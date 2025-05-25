@@ -78,7 +78,7 @@ extension SettingsView {
                     }
                     .disabled(!appState.settings.chordPro.useChordProCLI)
                     UserFileButton(
-                        userFile: UserFile.customChordProConfig
+                        userFile: UserFileUtils.Selection.customChordProConfig
                     ) {}
                         .frame(maxWidth: .infinity)
                         .disabled(!appState.settings.chordPro.useCustomConfig)
@@ -91,7 +91,7 @@ extension SettingsView {
                         .disabled(!appState.settings.chordPro.useChordProCLI)
                     }
                     UserFileButton(
-                        userFile: UserFile.customChordProLibrary
+                        userFile: UserFileUtils.Selection.customChordProLibrary
                     ) {}
                         .frame(maxWidth: .infinity)
                         .disabled(!appState.settings.chordPro.useAdditionalLibrary)

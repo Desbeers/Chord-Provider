@@ -19,7 +19,7 @@ extension SettingsView {
                         Toggle("Use a custom template for a new song", isOn: $appState.settings.application.useCustomSongTemplate)
                     }
                     UserFileButton(
-                        userFile: UserFile.customSongTemplate
+                        userFile: UserFileUtils.Selection.customSongTemplate
                     ) {}
                         .disabled(!appState.settings.application.useCustomSongTemplate)
                     Text("You can use your own **ChordPro** file as a starting point when you create a new song")

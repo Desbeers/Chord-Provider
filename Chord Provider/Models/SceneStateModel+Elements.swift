@@ -295,7 +295,7 @@ extension SceneStateModel {
                                     .definition
                                     .instrument.offset[fret] + (value == 0 ? 1 : sceneState.definition.baseFret) + 40 + value
                                 /// Convert the fret to a label
-                                let label = Utils.valueToNote(value: fret, scale: sceneState.definition.root)
+                                let label = ChordUtils.valueToNote(value: fret, scale: sceneState.definition.root)
                                 Text(label.display)
                                     .tag(value)
                             }

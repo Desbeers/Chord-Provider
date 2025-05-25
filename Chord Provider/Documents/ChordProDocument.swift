@@ -8,7 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// The ChordProDocument for **Chord Provider**
+/// A document in **ChordPro** format, a simple text format for the notation of lyrics with chords
 struct ChordProDocument: FileDocument {
     /// The title for a new song
     static let newTitle: String = "A new song"
@@ -67,7 +67,7 @@ extension ChordProDocument {
         let settings = AppSettings.load(id: .mainView)
         if
             settings.application.useCustomSongTemplate,
-            let persistentURL = UserFile.customSongTemplate.getBookmarkURL {
+            let persistentURL = UserFileUtils.Selection.customSongTemplate.getBookmarkURL {
             /// Get access to the URL
             _ = persistentURL.startAccessingSecurityScopedResource()
             let data = try? String(contentsOf: persistentURL, encoding: .utf8)

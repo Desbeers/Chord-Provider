@@ -35,7 +35,7 @@ struct ExportFolderView: View {
             Form {
                 Section("Export a folder with your **ChordPro** Songs to a single PDF") {}
                 LabeledContent("The folder with songs") {
-                    UserFileButton(userFile: UserFile.exportFolder) {
+                    UserFileButton(userFile: UserFileUtils.Selection.exportFolder) {
                         currentFolder = ExportFolderView.exportFolderTitle
                     }
                 }
@@ -133,6 +133,6 @@ struct ExportFolderView: View {
     }
     /// Get the current selected export folder
     private static var exportFolderTitle: String? {
-        UserFile.exportFolder.getBookmarkURL?.lastPathComponent
+        UserFileUtils.Selection.exportFolder.getBookmarkURL?.lastPathComponent
     }
 }

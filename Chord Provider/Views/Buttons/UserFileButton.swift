@@ -13,7 +13,7 @@ import OSLog
 /// - Note: A file can be a *normal* file but also a folder
 struct UserFileButton: View {
     /// The file to bookmark
-    let userFile: UserFile
+    let userFile: UserFileUtils.Selection
     /// Bool to show the selection as label
     var showSelection: Bool = true
     /// The action when a file is selected

@@ -20,8 +20,8 @@ struct DebugButtons: View {
                     UserDefaults.standard.removePersistentDomain(forName: bundleID)
                 }
                 /// Delete the settings
-                try? Cache.delete(key: "ChordProviderSettings-Main")
-                try? Cache.delete(key: "ChordProviderSettings-FolderExport")
+                try? SettingsCache.delete(key: "ChordProviderSettings-Main")
+                try? SettingsCache.delete(key: "ChordProviderSettings-FolderExport")
                 /// Terminate the application
                 NSApp.terminate(nil)
             },
