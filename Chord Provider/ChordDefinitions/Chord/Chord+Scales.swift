@@ -2,7 +2,7 @@
 //  Chord+Scales.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import Foundation

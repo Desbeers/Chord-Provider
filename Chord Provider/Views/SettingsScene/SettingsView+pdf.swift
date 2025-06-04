@@ -63,57 +63,57 @@ extension SettingsView {
             }
             .wrapSettingsSection(title: "PDF Options")
             VStack(alignment: .leading) {
-                Toggle(isOn: $appState.settings.chordPro.useChordProCLI) {
+                Toggle(isOn: $appState.settings.chordProCLI.useChordProCLI) {
                     Text("Use the official ChordPro to create a PDF")
                     Text("When enabled, PDF's will be rendered with the official ChordPro reference implementation.")
                 }
-                if appState.settings.chordPro.useChordProCLI {
-                    Toggle(isOn: $appState.settings.chordPro.useChordProviderSettings) {
+                if appState.settings.chordProCLI.useChordProCLI {
+                    Toggle(isOn: $appState.settings.chordProCLI.useChordProviderSettings) {
                         Text("Use the **Chord Provider** settings")
                         Text("When enabled, some style and options from the settings will be used by the CLI.")
                     }
-                    Toggle(isOn: $appState.settings.chordPro.useCustomConfig) {
+                    Toggle(isOn: $appState.settings.chordProCLI.useCustomConfig) {
                         Text("Use a custom ChordPro configuration")
                         Text("When enabled, ChordPro will use your own configuration.")
                     }
-                    .disabled(!appState.settings.chordPro.useChordProCLI)
+                    .disabled(!appState.settings.chordProCLI.useChordProCLI)
                     UserFileButton(
                         userFile: UserFileUtils.Selection.customChordProConfig
                     ) {}
                         .frame(maxWidth: .infinity)
-                        .disabled(!appState.settings.chordPro.useCustomConfig)
+                        .disabled(!appState.settings.chordProCLI.useCustomConfig)
                     VStack(alignment: .leading) {
-                        Toggle(isOn: $appState.settings.chordPro.useAdditionalLibrary) {
+                        Toggle(isOn: $appState.settings.chordProCLI.useAdditionalLibrary) {
                             Text("Add a custom library")
                             // swiftlint:disable:next line_length
                             Text("**ChordPro** has a built-in library with configs and other data. With *custom library* you can add an additional location where to look for data.")
                         }
-                        .disabled(!appState.settings.chordPro.useChordProCLI)
+                        .disabled(!appState.settings.chordProCLI.useChordProCLI)
                     }
                     UserFileButton(
                         userFile: UserFileUtils.Selection.customChordProLibrary
                     ) {}
                         .frame(maxWidth: .infinity)
-                        .disabled(!appState.settings.chordPro.useAdditionalLibrary)
+                        .disabled(!appState.settings.chordProCLI.useAdditionalLibrary)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .wrapSettingsSection(title: "ChordPro CLI Integration")
         }
         .animation(.default, value: appState.settings.pdf.pageSize)
-        .animation(.default, value: appState.settings.chordPro.useChordProCLI)
+        .animation(.default, value: appState.settings.chordProCLI.useChordProCLI)
         .formStyle(.columns)
         .frame(maxHeight: .infinity, alignment: .top)
         Button(
             action: {
                 appState.settings.pdf = AppSettings.PDF()
-                appState.settings.chordPro.useChordProCLI = false
+                appState.settings.chordProCLI.useChordProCLI = false
             },
             label: {
                 Text("Reset to defaults")
             }
         )
         .padding(.bottom)
-        .disabled(appState.settings.pdf == AppSettings.PDF() && appState.settings.chordPro.useChordProCLI == false)
+        .disabled(appState.settings.pdf == AppSettings.PDF() && appState.settings.chordProCLI.useChordProCLI == false)
     }
 }

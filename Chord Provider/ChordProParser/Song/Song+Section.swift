@@ -34,7 +34,7 @@ extension Song {
         /// Optional warnings for this section
         private(set) var warnings: Set<String>?
         /// The optional arguments of the section
-        var arguments: ChordProParser.Arguments?
+        var arguments: ChordProParser.DirectiveArguments?
 
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String) {

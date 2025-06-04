@@ -15,7 +15,7 @@ extension ChordProParser {
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func processComment(
-        arguments: Arguments,
+        arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {

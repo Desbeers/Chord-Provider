@@ -108,7 +108,7 @@ extension ChordProEditor {
                     if highlight {
                         /// Set the current line of the cursor
                         textView.currentLine = line
-                        textView.currentDirectiveArguments = line.arguments ?? ChordProParser.Arguments()
+                        textView.currentDirectiveArguments = line.arguments ?? ChordProParser.DirectiveArguments()
                     }
                     lineNumber += 1
                 }
@@ -161,7 +161,7 @@ extension ChordProEditor {
                 string.addAttributes(attributes, range: NSRange(location: 0, length: string.length))
                 string.draw(in: stringRect)
                 /// Draw the directive icon
-                if let image = NSImage(systemSymbolName: directive.icon, accessibilityDescription: directive.label) {
+                if let image = NSImage(systemSymbolName: directive.details.icon, accessibilityDescription: directive.details.label) {
                     let imageConfiguration = NSImage.SymbolConfiguration(pointSize: font.pointSize * 0.7, weight: .regular)
                     let imageAttachment = NSTextAttachment()
                     imageAttachment.image = image.withSymbolConfiguration(imageConfiguration)

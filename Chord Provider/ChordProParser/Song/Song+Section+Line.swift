@@ -29,7 +29,7 @@ extension Song.Section {
         var directive: ChordPro.Directive = .unknown
 
         /// The optional arguments of the directive
-        var arguments: ChordProParser.Arguments?
+        var arguments: ChordProParser.DirectiveArguments?
 
         /// The source of the line
         var source: String = ""
@@ -109,7 +109,7 @@ extension Song.Section.Line {
         let directive = try container.decode(String.self, forKey: .directive)
         self.directive = ChordProParser.getDirective(directive)?.directive ?? .unknown
 
-        self.arguments = try container.decodeIfPresent(ChordProParser.Arguments.self, forKey: .arguments)
+        self.arguments = try container.decodeIfPresent(ChordProParser.DirectiveArguments.self, forKey: .arguments)
 
         self.source = try container.decode(String.self, forKey: .source)
         self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warning)

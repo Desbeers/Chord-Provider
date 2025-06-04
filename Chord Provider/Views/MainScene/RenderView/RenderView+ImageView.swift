@@ -14,7 +14,7 @@ extension RenderView {
         /// The observable state of the image
         @State private var imageView: ImageViewModel
         /// The arguments for the image
-        let arguments: ChordProParser.Arguments?
+        let arguments: ChordProParser.DirectiveArguments?
         /// The scale of the image
         let scale: Double
         /// The maximum width for the image
@@ -32,7 +32,7 @@ extension RenderView {
         /// The offset of the image
         @State private var offset: CGSize
         /// Init the image
-        init(fileURL: URL?, arguments: ChordProParser.Arguments?, scale: Double, maxWidth: Double) {
+        init(fileURL: URL?, arguments: ChordProParser.DirectiveArguments?, scale: Double, maxWidth: Double) {
             self.arguments = arguments
             self.scale = scale
             self.offset = ChordProParser.getOffset(arguments)

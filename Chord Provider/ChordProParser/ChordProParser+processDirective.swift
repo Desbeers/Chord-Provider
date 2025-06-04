@@ -34,7 +34,7 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if let match = text.firstMatch(of: RegexDefinitions.directive) {
+        if let match = text.firstMatch(of: Chord.RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
 
@@ -48,7 +48,7 @@ extension ChordProParser {
             if let directive = getDirective(parsedDirective.lowercased()) {
 
                 if directive.warning {
-                    currentSection.addWarning("Short directive for **\(directive.directive.label)**")
+                    currentSection.addWarning("Short directive for **\(directive.directive.details.label)**")
                 }
                 /// Always use long directives
                 let directive = directive.directive
@@ -145,7 +145,6 @@ extension ChordProParser {
                             currentSection: &currentSection,
                             song: &song
                         )
-                        currentSection.environment = .none
 
                         // MARK: Chord diagrams
 
@@ -199,7 +198,7 @@ extension ChordProParser {
             addSection(
                 source: text,
                 directive: .unknown,
-                arguments: Arguments(),
+                arguments: DirectiveArguments(),
                 currentSection: &currentSection,
                 song: &song
             )

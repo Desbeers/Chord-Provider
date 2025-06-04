@@ -71,7 +71,7 @@ struct ChordsDatabaseView: View {
         .animation(.smooth, value: appState.settings)
         .animation(.smooth, value: sceneState.song.settings)
         .task(id: sceneState.song.settings.display.instrument) {
-            chordsDatabaseState.allChords = Chords.getAllChordsForInstrument(instrument: sceneState.song.settings.display.instrument)
+            chordsDatabaseState.allChords = ChordUtils.getAllChordsForInstrument(instrument: sceneState.song.settings.display.instrument)
         }
         .task {
             /// Set defaults

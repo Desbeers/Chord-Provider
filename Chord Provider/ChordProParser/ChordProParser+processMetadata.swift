@@ -17,7 +17,7 @@ extension ChordProParser {
     ///   - song: The whole ``Song``
     static func processMetadata(
         directive: ChordPro.Directive,
-        arguments: Arguments,
+        arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
@@ -77,6 +77,7 @@ extension ChordProParser {
             sectionLabel: "",
             directive: directive,
             arguments: arguments,
+            environment: .metadata,
             currentSection: &currentSection,
             song: &song
         )

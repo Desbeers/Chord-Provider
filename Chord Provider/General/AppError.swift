@@ -39,23 +39,14 @@ enum AppError: String, LocalizedError {
     /// There is a songs folder selected
     case songsFolderIsSelected
 
-    // MARK: Audio
-
-    /// The audio file was not found
-    case audioFileNotFoundError
-    /// The audio file is not yet downloaded
-    case audioFileNotDownloadedError
-    /// The audio file is ready to play
-    case readyToPlay
-
     // MARK: ChordPro integration
 
     /// An error if the  **ChordPro** CLI binary is not found
-    case binaryNotFound
-    /// An error when creating a PDF
-    case createChordProPdfError
-    /// A warning when creating a PDF
-    case createChordProPdfWarning
+    case chordProCLINotFound
+    /// An error when creating a PDF with the **ChordPro** CLI
+    case createChordProCLIError
+    /// A warning when creating a PDF with the **ChordPro** CLI
+    case createChordProCLIWarning
 
     // MARK: Fallback
 
@@ -69,17 +60,13 @@ enum AppError: String, LocalizedError {
     /// The description of the status
     var description: String {
         switch self {
-        case .audioFileNotFoundError:
-            "The song was not found"
-        case .audioFileNotDownloadedError:
-            "The song is not downloaded"
         case .noSongsFolderSelectedError:
             "No songs folder selected"
-        case .binaryNotFound:
+        case .chordProCLINotFound:
             "The ChordPro CLI was not found"
-        case .createChordProPdfError:
+        case .createChordProCLIError:
             "The ChordPro CLI could not create a PDF"
-        case .createChordProPdfWarning:
+        case .createChordProCLIWarning:
             "The ChordPro CLI created a PDF with warnings"
         case .emptySong:
             "The song appears to be empty"
@@ -101,27 +88,17 @@ enum AppError: String, LocalizedError {
         switch self {
         case .importThemeError:
             "The JSON file seems not correct"
-        case .audioFileNotFoundError:
-"""
-You have defined a song but it was not found.
-
-It has to be in the same folder as your ChordPro file to be playable.
-
-Both have to be in the selected 'songs folder'.
-"""
-        case .audioFileNotDownloadedError:
-            "This song is not yet downloaded from your iCloud and can not be played."
         case .noSongsFolderSelectedError:
 """
 You have defined a song but it was not found.
 
 You have not selected a folder with your songs. Chord Provider needs to know where your songs are to be able to play it.
 """
-        case .binaryNotFound:
+        case .chordProCLINotFound:
 """
 It looks like the ChordPro CLI is not installed or it is not in your $path.
 """
-        case .createChordProPdfError:
+        case .createChordProCLIError:
 """
 Sorry... Please use its official GUI for diagnostics.
 """
@@ -136,9 +113,7 @@ Sorry... Please use its official GUI for diagnostics.
     /// - Note: Used as the label button for an alert or confirmation dialog
     var helpAnchor: String? {
         switch self {
-        case .audioFileNotDownloadedError:
-            "Download"
-        case .noSongsFolderSelectedError, .audioFileNotFoundError:
+        case .noSongsFolderSelectedError:
             "Select Folder"
         default:
             "OK"

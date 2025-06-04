@@ -18,15 +18,16 @@ extension ChordPro {
         /// The short version of the directive
         var short: String
         /// Init the directive by splitting a string into *long* and *short* version
-        init(stringLiteral: String) {
-            let parts = stringLiteral.split(separator: "|")
+        init(stringLiteral directive: String) {
+            let parts = directive.split(separator: "|")
             long = String(parts.first ?? "")
             short = String(parts.last ?? "")
         }
     }
 
     /// All the directives we know about
-    static let directives = ChordPro.Directive.allCases.map(\.rawValue.long)
+    /// - Note: **ChordPro** has more official directives
+    static let knownDirectives = ChordPro.Directive.allCases.map(\.rawValue.long)
 
     // MARK: 'ChordPro' directives
 
@@ -36,33 +37,9 @@ extension ChordPro {
         var id: String {
             self.rawValue.long
         }
-        /// The label of the directive
-        var label: String {
-            self.details.label
-        }
-        /// The directive as string
-        var directive: String {
-            self.rawValue.long
-        }
-        /// The icon of the directive
-        var icon: String {
-            self.details.icon
-        }
         /// Bool if the directive is editable
         var editable: Bool {
             ChordPro.Directive.editableDirectives.contains(self)
-        }
-        /// The help for the directive
-        var help: String {
-            self.details.help
-        }
-        /// The button label of the directive
-        var button: String {
-            self.details.button
-        }
-        /// The environment of the directive
-        var environment: ChordPro.Environment {
-            self.details.environment
         }
 
         // MARK: Official directives

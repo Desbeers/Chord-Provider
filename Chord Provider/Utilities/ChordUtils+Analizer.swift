@@ -1,15 +1,18 @@
 //
-//  Chord+Analizer.swift
+//  ChordUtils+Analizer.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 
-extension Chord {
+extension ChordUtils {
 
     /// Analize a chord
+    ///
+    /// - Find the root, quality and optional slash of a chord
+    /// - Try to validate a chord
     enum Analizer {
 
         /// Find the root, quality and optional bass of a named chord
@@ -19,7 +22,7 @@ extension Chord {
             var root: Chord.Root?
             var quality: Chord.Quality?
             var slash: Chord.Root?
-            if let match = chord.wholeMatch(of: RegexDefinitions.chordString) {
+            if let match = chord.wholeMatch(of: Chord.RegexDefinitions.chordString) {
                 root = match.1
                 if let qualityMatch = match.2 {
                     quality = qualityMatch
@@ -33,8 +36,8 @@ extension Chord {
 
         /// Try to validate a ``ChordDefinition``
         /// - Parameter chord: The ``ChordDefinition``
-        /// - Returns: The ``Chord/Status`` of the chord definition
-        static func validateChord(chord: ChordDefinition) -> Chord.Status {
+        /// - Returns: The ``ChordDefinition/Status`` of the chord definition
+        static func validateChord(chord: ChordDefinition) -> ChordDefinition.Status {
             if chord.quality == .unknown {
                 return .wrongNotes
             }

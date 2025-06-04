@@ -42,8 +42,8 @@ extension ChordDefinition {
         root: Chord.Root,
         quality: Chord.Quality,
         slash: Chord.Root?,
-        instrument: Instrument,
-        status: Chord.Status = .customChord
+        instrument: Chord.Instrument,
+        status: Status = .customChord
     ) {
         self.id = id
         self.frets = frets
@@ -68,12 +68,12 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - definition: The **ChordPro** definition
-    ///   - instrument: The ``Instrument``
-    ///   - status: The ``Chord/Status``
-    init(definition: String, instrument: Instrument, status: Chord.Status) throws {
+    ///   - instrument: The ``Chord/Instrument``
+    ///   - status: The ``Status`` of the chord definition
+    init(definition: String, instrument: Chord.Instrument, status: Status) throws {
         /// Parse the chord definition
         do {
-            let definition = try ChordUtils.define(from: definition, instrument: instrument)
+            let definition = try ChordDefinition.define(from: definition, instrument: instrument)
             /// Set the properties
             self.id = UUID()
             self.frets = definition.frets
@@ -87,7 +87,7 @@ extension ChordDefinition {
             self.status = status
             if status == .unknownChord {
                 /// Get the optional matching chords
-                let chords = Chords.getAllChordsForInstrument(instrument: instrument)
+                let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument)
                     .matching(root: definition.root)
                     .matching(quality: definition.quality)
                     .matching(slash: definition.slash)
@@ -112,12 +112,12 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - name: The name of the chord, e.g 'Am7'
-    ///   - instrument: The ``Instrument``
-    init?(name: String, instrument: Instrument) {
+    ///   - instrument: The ``Chord/Instrument``
+    init?(name: String, instrument: Chord.Instrument) {
         /// Parse the chord name
-        let elements = Chord.Analizer.findChordElements(chord: name)
+        let elements = ChordUtils.Analizer.findChordElements(chord: name)
         /// Get the chords for the instrument
-        let chords = Chords.getAllChordsForInstrument(instrument: instrument)
+        let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument)
         /// See if we can find it
         guard
             let root = elements.root,
@@ -148,11 +148,11 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - chord: The **ChordPro** JSON chord
-    ///   - instrument: The ``Instrument``
-    init?(chord: ChordPro.Instrument.Chord, instrument: Instrument) {
+    ///   - instrument: The ``Chord/Instrument``
+    init?(chord: ChordPro.Instrument.Chord, instrument: Chord.Instrument) {
         /// Parse the JSON chord definition
         do {
-            let definition = try ChordUtils.define(from: chord, instrument: instrument)
+            let definition = try ChordDefinition.define(from: chord, instrument: instrument)
             /// Set the properties
             self.id = definition.id
             self.frets = definition.frets
@@ -178,8 +178,8 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - unknown: The name of the unknown chord
-    ///   - instrument: The ``Instrument``
-    init(unknown: String, instrument: Instrument) {
+    ///   - instrument: The ``Chord/Instrument``
+    init(unknown: String, instrument: Chord.Instrument) {
         /// Set the properties
         self.id = UUID()
         self.frets = []

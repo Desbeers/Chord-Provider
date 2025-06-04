@@ -17,7 +17,7 @@ extension PDFBuild {
         /// The text of the label
         let labelText: String
         /// Optional SF Symbol icon
-        let sfSymbol: SFSymbol?
+        let sfSymbol: FontUtils.SFSymbol?
         /// Bool to draw a background or not
         let drawBackground: Bool
         /// The alignment of the label
@@ -36,7 +36,7 @@ extension PDFBuild {
         ///   - fontOptions: The font options
         init(
             labelText: String,
-            sfSymbol: SFSymbol? = nil,
+            sfSymbol: FontUtils.SFSymbol? = nil,
             drawBackground: Bool,
             alignment: NSTextAlignment,
             fontOptions: FontUtils.Options

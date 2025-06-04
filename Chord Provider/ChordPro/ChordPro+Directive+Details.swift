@@ -146,9 +146,9 @@ extension ChordPro.Directive {
             Details(
                 label: "Image",
                 icon: "photo",
-                button: "Image",
+                button: "Insert Image",
                 help: "Specifies the name of the file containing the image",
-                environment: .metadata,
+                environment: .image,
                 info: "Aspect ratio will be kept. A size of zero means using the original size."
             )
         case .startOfChorus:

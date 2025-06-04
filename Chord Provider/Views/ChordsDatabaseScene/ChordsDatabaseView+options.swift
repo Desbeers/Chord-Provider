@@ -19,7 +19,7 @@ extension ChordsDatabaseView {
                     .frame(maxWidth: 220)
                 Button {
                     do {
-                        chordsDatabaseState.exportData = try Chords.exportToJSON(
+                        chordsDatabaseState.exportData = try ChordUtils.exportToJSON(
                             definitions: chordsDatabaseState.allChords,
                             uniqueNames: false
                         )
@@ -38,7 +38,7 @@ extension ChordsDatabaseView {
                 VStack {
                     Button {
                         do {
-                            chordsDatabaseState.exportData = try Chords.exportToJSON(
+                            chordsDatabaseState.exportData = try ChordUtils.exportToJSON(
                                 definitions: chordsDatabaseState.allChords,
                                 uniqueNames: true
                             )

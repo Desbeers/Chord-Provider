@@ -9,7 +9,7 @@ import SwiftUI
 
 extension AppSettings {
 
-    /// Settings for displaying a song
+    /// Settings for the colors and fonts for displaying a song
     /// - Note: Following more or less the config of the official **ChordPro** reference implementation
     struct Style: Codable, Equatable {
         /// Theme

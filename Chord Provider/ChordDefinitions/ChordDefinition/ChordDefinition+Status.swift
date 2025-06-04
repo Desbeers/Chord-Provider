@@ -1,5 +1,5 @@
 //
-//  Chord+Status.swift
+//  ChordDefinition+Status.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-extension Chord {
+extension ChordDefinition {
 
-    // MARK: Status of a `ChordDefinition`
+    // MARK: The status of a `ChordDefinition`
 
-    /// Status of the ``ChordDefinition``
+    /// The status of the ``ChordDefinition``
     enum Status: String, LocalizedError {
 
         /// A standard chord from the database

@@ -359,7 +359,7 @@ extension SongExport {
 
         // MARK: Image Section
 
-        /// Add a Comment Section
+        /// Add an Image Section
         /// - Parameter section: The current section
         /// - Returns: A ``PDFBuild/Section`` element
         func imageSection(section: Song.Section, fileURL: URL?) async -> PDFBuild.Section {
@@ -370,13 +370,19 @@ extension SongExport {
             }
             if let source = arguments?[.src], let image = await loadImage(source: source, fileURL: fileURL) {
                 return PDFBuild.Section(
-                    columns: [.fixed(width: offset), .fixed(width: labelWidth + 10), .flexible],
+                    columns: [.fixed(width: offset), .fixed(width: labelWidth), .fixed(width: 20), .flexible],
                     items: [
                         PDFBuild.Spacer(),
-                        PDFBuild.Spacer(),
+                        PDFBuild.Label(
+                            labelText: section.label,
+                            drawBackground: false,
+                            alignment: .right,
+                            fontOptions: settings.style.fonts.label
+                        ),
+                        labelDivider(section: section),
                         PDFBuild.Image(
                             image,
-                            size: ChordProParser.getImageSize(image: image, arguments: arguments),
+                            size: ImageUtils.getImageSize(image: image, arguments: arguments),
                             alignment: PDFBuild.getAlign(arguments),
                             offset: ChordProParser.getOffset(arguments)
                         )

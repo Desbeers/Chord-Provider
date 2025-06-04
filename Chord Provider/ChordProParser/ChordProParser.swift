@@ -5,22 +5,29 @@
 //  © 2025 Nick Berendsen
 //
 
-import SwiftUI
+import Foundation
 import OSLog
 
 /// The **ChordPro** file parser
 actor ChordProParser {
 
     /// A dictionary with optional arguments for a directive
-    typealias Arguments = [ChordPro.Directive.FormattingAttribute: String]
+    ///
+    /// Examples:
+    /// ```swift
+    /// {start_of_verse label="First Verse"}
+    /// {start_of_textblock label="Introduction" align="center" flush="left"}
+    /// ```
+    typealias DirectiveArguments = [ChordPro.Directive.FormattingAttribute: String]
 
     // MARK: Parse a 'ChordPro' file
 
-    /// Parse a ChordPro file
+    /// Parse a **ChordPro** file into a ``Song`` structure
     /// - Parameters:
-    ///   - song: The ``Song``
-    /// - Returns: A ``Song`` item
+    ///   - song: The current ``Song``
+    /// - Returns: An updated ``Song`` item
     static func parse(song: Song) async -> Song {
+        /// Store the values of the current song
         let old = song
         Logger.parser.info("Parsing **\(old.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         /// Start with a fresh song

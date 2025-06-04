@@ -10,9 +10,9 @@ import AppKit
 extension PDFBuild {
 
     /// Get the optional alignment from directive arguments
-    /// - Parameter arguments: The ``ChordProParser/Arguments``
+    /// - Parameter arguments: The ``ChordProParser/DirectiveArguments``
     /// - Returns: The alignment, `.left` if not set
-    static func getAlign(_ arguments: ChordProParser.Arguments?) -> NSTextAlignment {
+    static func getAlign(_ arguments: ChordProParser.DirectiveArguments?) -> NSTextAlignment {
         if let align = arguments?[.align] {
             switch align {
             case "center":
@@ -29,7 +29,7 @@ extension PDFBuild {
     /// Get the optional flush from the arguments
     /// - Parameter arguments: The arguments of the directive
     /// - Returns: The flush
-    static func getFlush(_ arguments: ChordProParser.Arguments?) -> NSTextAlignment {
+    static func getFlush(_ arguments: ChordProParser.DirectiveArguments?) -> NSTextAlignment {
         if let flush = arguments?[.flush] {
             switch flush {
             case "center":

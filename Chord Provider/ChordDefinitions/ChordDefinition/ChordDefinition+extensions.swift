@@ -55,8 +55,8 @@ extension ChordDefinition {
 extension ChordDefinition {
 
     /// Try to validate a ``ChordDefinition``
-    var validate: Chord.Status {
-        Chord.Analizer.validateChord(chord: self)
+    var validate: ChordDefinition.Status {
+        ChordUtils.Analizer.validateChord(chord: self)
     }
 }
 
@@ -102,8 +102,8 @@ extension ChordDefinition {
 extension ChordDefinition {
 
     /// Add calculated values to a ``ChordDefinition``
-    /// - Parameter instrument: The ``Instrument`` to use
-    mutating func addCalculatedValues(instrument: Instrument) {
+    /// - Parameter instrument: The ``Chord/Instrument`` to use
+    mutating func addCalculatedValues(instrument: Chord.Instrument) {
         self.components = ChordUtils.fretsToComponents(
             root: root,
             frets: frets,

@@ -35,14 +35,14 @@ struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
     var barres: [Chord.Barre]
 
     /// The instrument of the chord
-    var instrument: Instrument
+    var instrument: Chord.Instrument
 
     /// The note of an optional 'slash' chord
     var slash: Chord.Root?
     /// The components of the chord definition
     var components: [Chord.Component] = []
-    /// The status of the chord
-    var status: Chord.Status
+    /// The status of the chord definition
+    var status: Status
 
     // MARK: Coding keys
 

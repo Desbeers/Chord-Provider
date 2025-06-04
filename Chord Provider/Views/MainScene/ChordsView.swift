@@ -144,7 +144,7 @@ extension ChordsView {
         guard let selectedChord else {
             return []
         }
-        let allChords = Chords.getAllChordsForInstrument(instrument: selectedChord.instrument)
+        let allChords = ChordUtils.getAllChordsForInstrument(instrument: selectedChord.instrument)
         return allChords
             .matching(root: selectedChord.root)
             .matching(quality: selectedChord.quality)

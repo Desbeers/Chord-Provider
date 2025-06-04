@@ -34,7 +34,7 @@ extension ChordProParser {
                 /// - Note: add the raw source here, or else it will be calculated with a directive
                 source: comment,
                 directive: .sourceComment,
-                arguments: Arguments(),
+                arguments: DirectiveArguments(),
                 environment: .none,
                 currentSection: &currentSection,
                 song: &song

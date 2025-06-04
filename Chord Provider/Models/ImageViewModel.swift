@@ -15,18 +15,18 @@ import OSLog
     /// The size of the image
     var size = CGSize(width: 100, height: 80)
     /// The arguments of the image from the song source
-    var arguments: ChordProParser.Arguments?
+    var arguments: ChordProParser.DirectiveArguments?
     /// The optional URL of the song file
     var fileURL: URL?
     /// Init the model
-    init(arguments: ChordProParser.Arguments?, fileURL: URL?) {
+    init(arguments: ChordProParser.DirectiveArguments?, fileURL: URL?) {
         self.arguments = arguments
         self.fileURL = fileURL
     }
 
     /// Update the arguments of the image
-    /// - Parameter arguments: The new ``ChordProParser/Arguments``
-    func updateArguments(_ arguments: ChordProParser.Arguments?) async {
+    /// - Parameter arguments: The new ``ChordProParser/DirectiveArguments``
+    func updateArguments(_ arguments: ChordProParser.DirectiveArguments?) async {
         self.arguments = arguments
         let url = ChordProParser.getImageURL(arguments?[.src] ?? "", fileURL: fileURL)
         await loadImage(url: url)
@@ -39,7 +39,7 @@ import OSLog
         if let imageFromCache = ImageCache.shared.getImageFromCache(from: url) {
             Logger.viewBuild.notice("Image from cache: \(url.lastPathComponent, privacy: .public)")
             self.image = imageFromCache
-            self.size = ChordProParser.getImageSize(image: imageFromCache, arguments: arguments)
+            self.size = ImageUtils.getImageSize(image: imageFromCache, arguments: arguments)
             return
         }
 
@@ -58,7 +58,7 @@ import OSLog
         }
         Logger.viewBuild.notice("Loading image: \(url.lastPathComponent, privacy: .public)")
         self.image = loadedImage
-        self.size = ChordProParser.getImageSize(image: loadedImage, arguments: self.arguments)
+        self.size = ImageUtils.getImageSize(image: loadedImage, arguments: self.arguments)
         ImageCache.shared.setImageCache(image: loadedImage, key: url)
     }
 

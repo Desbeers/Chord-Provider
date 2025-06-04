@@ -70,8 +70,8 @@ struct MainView: View {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings.chordPro) {
-            sceneState.song.settings.chordPro = appState.settings.chordPro
+        .onChange(of: appState.settings.chordProCLI) {
+            sceneState.song.settings.chordProCLI = appState.settings.chordProCLI
             Task {
                 await renderSong()
             }

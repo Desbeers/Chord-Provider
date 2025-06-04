@@ -22,8 +22,8 @@ extension ChordProParser {
         source: String? = nil,
         sectionLabel: String? = nil,
         directive: ChordPro.Directive,
-        arguments: Arguments,
-        environment: ChordPro.Environment = .metadata,
+        arguments: DirectiveArguments,
+        environment: ChordPro.Environment = .none,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
@@ -42,7 +42,7 @@ extension ChordProParser {
 
         /// Update the current section
         currentSection.environment = environment
-        currentSection.label = sectionLabel ?? arguments[.plain] ?? arguments[.label] ?? directive.environment.label
+        currentSection.label = sectionLabel ?? arguments[.plain] ?? arguments[.label] ?? directive.details.environment.label
         /// Remember the longest label
         /// - Note: Used in PDF output to calculate label offset
         if currentSection.label.count > song.metadata.longestLabel.count {
@@ -62,7 +62,7 @@ extension ChordProParser {
         /// Add the single line
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            environment: directive.environment,
+            environment: directive.details.environment,
             directive: directive,
             arguments: arguments.isEmpty ? nil : arguments,
             source: calculatedSource,
@@ -83,9 +83,9 @@ extension ChordProParser {
             song: &song
         )
 
-        /// Set the environment
-        currentSection.environment = directive.environment
-        /// Set the arguments
-        currentSection.arguments = arguments
+//        /// Set the environment
+//        currentSection.environment = directive.details.environment
+//        /// Set the arguments
+//        currentSection.arguments = arguments
     }
 }

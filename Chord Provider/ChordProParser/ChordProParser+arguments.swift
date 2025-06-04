@@ -2,7 +2,6 @@
 //  ChordProParser+arguments.swift
 //  Chord Provider
 //
-//
 //  © 2025 Nick Berendsen
 //
 
@@ -13,7 +12,7 @@ extension ChordProParser {
     /// Convert arguments to a single string
     /// - Parameter arguments: The arguments dictionary
     /// - Returns: A single string with arguments
-    static func argumentsToString(_ arguments: ChordProParser.Arguments) -> String? {
+    static func argumentsToString(_ arguments: ChordProParser.DirectiveArguments) -> String? {
         /// Return a simple argument (no `key=value` as a plain string
         if let plain = arguments[.plain] {
             return "\(plain)"
@@ -31,13 +30,13 @@ extension ChordProParser {
     ///   - parsedArgument: The parsed argument string
     ///   - currentSection: The current section of the song; this is to add optional warnings
     /// - Returns: The arguments in a dictionary
-    static func stringToArguments(_ parsedArgument: String?, currentSection: inout Song.Section) -> ChordProParser.Arguments {
-        var arguments = Arguments()
+    static func stringToArguments(_ parsedArgument: String?, currentSection: inout Song.Section) -> ChordProParser.DirectiveArguments {
+        var arguments = DirectiveArguments()
         /// Check if the label contains formatting attributes
         if let parsedArgument, parsedArgument.contains("="), !parsedArgument.starts(with: "http") {
-            let attributes = parsedArgument.matches(of: RegexDefinitions.formattingAttributes)
+            let attributes = parsedArgument.matches(of: Chord.RegexDefinitions.formattingAttributes)
             /// Map the attributes in a dictionary
-            arguments = attributes.reduce(into: Arguments()) {
+            arguments = attributes.reduce(into: DirectiveArguments()) {
                 if let argument = ChordPro.Directive.FormattingAttribute(rawValue: $1.1.lowercased()) {
                     var value = $1.2
                     if value.components(separatedBy: "\"").count < 3 {

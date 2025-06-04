@@ -57,13 +57,13 @@ extension ChordPro.Directive {
         }
     }
 
-    /// The kind of directive (block or inline)
+    /// The kind of directive (block, inline or optional label)
     enum Kind {
-        /// The directive is wrapped around text; e.g. **{start_of_chorus}Lalala!{end_of_chorus}**
+        /// The directive is wrapped around text; e.g. **{start_of_chorus}[G7]Lalala!{end_of_chorus}**
         case block
-        /// The directive is inline, e.g. **{comment: Hello World!}**
+        /// The directive is inline, e.g. **{comment Hello World!}**
         case inline
-        /// The directive can have an optional label; e.g.**{chorus: Repeat}** or just **{chorus}**
+        /// The directive can have an optional label; e.g.**{chorus Repeat}** or just **{chorus}**
         case optionalLabel
     }
 }

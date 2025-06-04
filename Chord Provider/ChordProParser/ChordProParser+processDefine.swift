@@ -17,7 +17,7 @@ extension ChordProParser {
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func processDefine(
-        arguments: Arguments,
+        arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
@@ -49,6 +49,7 @@ extension ChordProParser {
             sectionLabel: "",
             directive: .define,
             arguments: arguments,
+            environment: .metadata,
             currentSection: &currentSection,
             song: &song
         )

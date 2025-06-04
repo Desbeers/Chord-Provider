@@ -8,7 +8,7 @@
 import Foundation
 import OSLog
 
-/// All the settings for the application
+/// All the settings for **Chord Provider**
 struct AppSettings: Equatable, Codable, Sendable {
     /// Settings that will change the behaviour of the application
     var application = Application()
@@ -20,17 +20,18 @@ struct AppSettings: Equatable, Codable, Sendable {
     var diagram = Diagram()
     /// The options for the ``ChordProEditor``
     var editor: Editor.Settings = .init()
-    /// ChordPro integration
-    var chordPro: ChordPro = .init()
-    /// Style settings
+    /// Settings for the official **ChordPro** CLI integration
+    var chordProCLI: ChordProCLI = .init()
+    /// Settings for the colors and fonts for displaying a song
     var style: Style = .init() {
         didSet {
+            /// Set some styles based on foreground colors
             style.fonts.title.color = style.theme.foreground
             style.fonts.subtitle.color = style.theme.foregroundMedium
             style.fonts.text.color = style.theme.foreground
         }
     }
-    /// PDF settings
+    /// Settings for PDF song or folder export
     var pdf = AppSettings.PDF()
 
     // MARK: Scaling
@@ -39,21 +40,6 @@ struct AppSettings: Equatable, Codable, Sendable {
     var maxWidth: Double = 340
     /// Scale magnifier
     var scale: Double = 1
-}
-
-extension AppSettings {
-
-    /// ChordPro integration
-    struct ChordPro: Codable, Equatable {
-        /// Bool to use the ChordPro CLI for PDF creation
-        var useChordProCLI: Bool = false
-        /// Bool to use **Chord Provider** settings
-        var useChordProviderSettings: Bool = true
-        /// Bool to use a custom config instead of system
-        var useCustomConfig: Bool = false
-        /// Bool to use an additional library
-        var useAdditionalLibrary: Bool = false
-    }
 }
 
 extension AppSettings {

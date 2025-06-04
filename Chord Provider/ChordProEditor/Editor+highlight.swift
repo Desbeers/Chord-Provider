@@ -124,7 +124,7 @@ extension Editor {
             guard let swiftRange = Range(range, in: text) else {
                 return false
             }
-            return ChordPro.directives.contains(String(text[swiftRange]))
+            return ChordPro.knownDirectives.contains(String(text[swiftRange]))
         }
     }
 }

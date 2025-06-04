@@ -36,7 +36,7 @@ extension ChordProParser {
         /// All the parts in the line
         var parts: [Song.Section.Line.Part] = []
         /// Chop the line in parts
-        var matches = textCopy.matches(of: RegexDefinitions.line)
+        var matches = textCopy.matches(of: Chord.RegexDefinitions.line)
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {

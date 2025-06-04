@@ -1,35 +1,40 @@
 //
-//  ChordUtils+Define.swift
+//  ChordDefinition+define.swift
 //  Chord Provider
 //
-//  © 2022 Nick Berendsen
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 
-extension ChordUtils {
+extension ChordDefinition {
 
-    /// Create a `ChordDefinition` struct from a string which defines a Chord with a ChordPro *define* directive
+    /// Create a ``ChordDefinition`` structure from a **ChordPro** *{define}* directive
     ///
-    ///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
+    /// *{define}* example:
+    /// ```swift
+    /// {define G base-fret 1 frets 3 2 0 0 0 3 fingers 2 1 0 0 0 3}
+    /// ```
+    /// For more information about the *{define}* directive, see [Directives: define](https://www.chordpro.org/chordpro/directives-define/)
     ///
     /// - Parameter define: ChordPro string definition of the chord
-    /// - Parameter instrument: The ``Instrument`` to use
-    /// - Returns: A  ``ChordDefinition`` struct, if found, else an Error
-    static func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
-        if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
+    /// - Parameter instrument: The ``Chord/Instrument`` to use
+    /// - Throws: An ``ChordDefinition/Status/unknownChord`` error when the string cannot be parsed
+    /// - Returns: A  ``ChordDefinition`` structure
+    static func define(from define: String, instrument: Chord.Instrument) throws -> ChordDefinition {
+        if let definition = define.firstMatch(of: Chord.RegexDefinitions.chordDefine) {
 
             let positions = instrument.strings.count
 
             var frets: [Int] = []
             var fingers: [Int] = []
 
-            let elements = Chord.Analizer.findChordElements(chord: definition.1)
+            let elements = ChordUtils.Analizer.findChordElements(chord: definition.1)
             guard
                 let root = elements.root,
                 let quality = elements.quality
             else {
-                throw Chord.Status.unknownChord
+                throw ChordDefinition.Status.unknownChord
             }
 
             if let fretsDefinition = definition.3 {
@@ -43,10 +48,10 @@ extension ChordUtils {
             while fingers.count < instrument.strings.count { fingers.append(0) }
             /// Throw an error if the defined frets does not mach the instrument
             if frets.count < positions {
-                throw Chord.Status.notEnoughFrets
+                throw ChordDefinition.Status.notEnoughFrets
             }
             if frets.count > positions {
-                throw Chord.Status.toManyFrets
+                throw ChordDefinition.Status.toManyFrets
             }
 
             let chordDefinition = ChordDefinition(
@@ -62,25 +67,36 @@ extension ChordUtils {
             )
             return chordDefinition
         }
-        throw Chord.Status.unknownChord
+        throw ChordDefinition.Status.unknownChord
     }
 
-    /// Create a `ChordDefinition` structure from a **ChordPro** JSON chord
+    /// Create a ``ChordDefinition`` structure from a **ChordPro** JSON chord
     ///
-    ///  For more information about the layout, have a look at https://www.chordpro.org/chordpro/directives-define/
+    /// *JSON* example:
+    /// ```json
+    /// {
+    ///     "base" : 1,
+    ///     "fingers" : [0, 0, 1, 2, 3, 0],
+    ///     "frets" : [-1, 0, 2, 2, 2, 0],
+    ///     "name" : "A"
+    /// }
+    ///  ```
     ///
     /// - Parameters:
     ///   -  chord: A **ChordPro** JSON chord
-    ///   - instrument: The ``Instrument`` to use
-    /// - Returns: A  ``ChordDefinition`` struct, if found, else an Error
-    static func define(from chord: ChordPro.Instrument.Chord, instrument: Instrument) throws -> ChordDefinition {
+    ///   - instrument: The ``Chord/Instrument`` to use
+    /// - Throws: An ``ChordDefinition/Status/chordIsCopy`` error when the chord is a copy of another chord
+    /// - Returns: A  ``ChordDefinition`` structure
+    ///
+    /// - Note: The chords in the  **Chord Provider** database are in the same JSON format as used in the official **ChordPro** implementation.
+    static func define(from chord: ChordPro.Instrument.Chord, instrument: Chord.Instrument) throws -> ChordDefinition {
         if chord.copy == nil {
-            let elements = Chord.Analizer.findChordElements(chord: chord.name)
+            let elements = ChordUtils.Analizer.findChordElements(chord: chord.name)
             guard
                 let root = elements.root,
                 let quality = elements.quality
             else {
-                throw Chord.Status.unknownChord
+                throw ChordDefinition.Status.unknownChord
             }
             let chordDefinition = ChordDefinition(
                 id: UUID(),
@@ -95,7 +111,7 @@ extension ChordUtils {
             )
             return chordDefinition
         } else {
-            throw Chord.Status.chordIsCopy
+            throw ChordDefinition.Status.chordIsCopy
         }
     }
 }

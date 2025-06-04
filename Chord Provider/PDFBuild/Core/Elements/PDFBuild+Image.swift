@@ -65,10 +65,10 @@ extension PDFBuild {
 
         /// Init the **image** element with an SF symbol
         /// - Parameters:
-        ///   - sfSymbol: The `SF Symbol`as ``SFSymbol`` to draw
+        ///   - sfSymbol: The `SF Symbol`as ``FontUtils/SFSymbol`` to draw
         ///   - fontSize: The font size for the symbol
         ///   - colors: The colors for the symbol
-        convenience init(_ sfSymbol: SFSymbol, fontSize: Double, colors: [NSColor]) {
+        convenience init(_ sfSymbol: FontUtils.SFSymbol, fontSize: Double, colors: [NSColor]) {
             self.init(sfSymbol.rawValue, fontSize: fontSize, colors: colors)
         }
 

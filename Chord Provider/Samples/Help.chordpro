@@ -89,7 +89,7 @@ with the title of the song; just [E]eyecandy!
 when you have a song selected [Am]and it will render it for you.
 {end_of_verse}
 
-{image src="IconPreview.png" width="100" align="center"}
+{image align="center" src="IconPreview.png" width="100"}
 
 {comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song!}
 

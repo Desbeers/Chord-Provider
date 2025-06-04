@@ -24,7 +24,7 @@ extension EditorView {
                 case .startOfTextblock:
                     Items(items: [.label, .align, .flush], directive: directive)
                 case .image:
-                    Items(items: [.src, .width, .height, .scale, .align], directive: directive)
+                    Items(items: [.label, .src, .width, .height, .scale, .align], directive: directive)
                 case .key:
                     Items(items: [.key], directive: directive)
                 case .define:

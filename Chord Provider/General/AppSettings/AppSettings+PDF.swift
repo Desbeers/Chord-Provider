@@ -9,7 +9,7 @@ import SwiftUI
 
 extension AppSettings {
 
-    /// Settings for PDF
+    /// Settings for PDF song or folder export
     struct PDF: Codable, Equatable {
         /// Page size
         var pageSize: PDFBuild.PageSize = .a4portrait

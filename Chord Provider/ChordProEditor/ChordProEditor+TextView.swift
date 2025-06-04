@@ -22,7 +22,7 @@ extension ChordProEditor {
         /// The current line at the cursor
         var currentLine = Song.Section.Line()
         /// The optional arguments of the current directive
-        var currentDirectiveArguments = ChordProParser.Arguments()
+        var currentDirectiveArguments = ChordProParser.DirectiveArguments()
         /// The range of the current line
         var currentLineRange: NSRange = .init()
         /// The rect of the current paragraph

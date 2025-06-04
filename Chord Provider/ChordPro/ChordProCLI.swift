@@ -126,7 +126,7 @@ extension ChordProCLI {
             which.contains("/chordpro") {
             return URL(filePath: which)
         } else {
-            throw AppError.binaryNotFound
+            throw AppError.chordProCLINotFound
         }
     }
 }
@@ -136,7 +136,7 @@ extension ChordProCLI {
     /// Get access to the optional custom config
     static func getOptionalCustomConfig(settings: AppSettings) -> String? {
         if
-            settings.chordPro.useCustomConfig,
+            settings.chordProCLI.useCustomConfig,
             let persistentURL = UserFileUtils.Selection.customChordProConfig.getBookmarkURL {
             return "--config='\(persistentURL.path)'"
         }
@@ -171,7 +171,7 @@ extension ChordProCLI {
 
         /// Add the optional additional library to the environment of the shell
         if
-            song.settings.chordPro.useAdditionalLibrary,
+            song.settings.chordProCLI.useAdditionalLibrary,
             let persistentURL = UserFileUtils.Selection.customChordProLibrary.getBookmarkURL {
             arguments.append("CHORDPRO_LIB='\(persistentURL.path)'")
         }
@@ -182,11 +182,11 @@ extension ChordProCLI {
         /// Add the source file
         arguments.append("\"\(sceneState.sourceURL.path)\"")
         /// Add the optional custom config file
-        if song.settings.chordPro.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: song.settings) {
+        if song.settings.chordProCLI.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: song.settings) {
             arguments.append(customConfig)
         }
         /// Add the **Chord Provider** config
-        if song.settings.chordPro.useChordProviderSettings {
+        if song.settings.chordProCLI.useChordProviderSettings {
             let jsonSettings = song.settings.exportToChordProJSON(chords: song.chords)
             if let config = Bundle.main.url(forResource: "ChordProviderConfig", withExtension: "json") {
                 do {
@@ -222,10 +222,10 @@ extension ChordProCLI {
             let data = try Data(contentsOf: sceneState.exportURL.absoluteURL)
             /// Return the `Data` and the status of the creation as an ``AppError`
             /// - Note: That does not mean it is has an error, the status is just using the same structure
-            return (data, output.standardError.filter { $0.warning == true }.isEmpty ? .noErrorOccurred : .createChordProPdfWarning)
+            return (data, output.standardError.filter { $0.warning == true }.isEmpty ? .noErrorOccurred : .createChordProCLIWarning)
         } catch {
             /// There is no data, throw an ``AppError``
-            throw output.standardError.isEmpty ? AppError.emptySong : AppError.createChordProPdfError
+            throw output.standardError.isEmpty ? AppError.emptySong : AppError.createChordProCLIError
         }
     }
 }

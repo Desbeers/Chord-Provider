@@ -58,7 +58,7 @@ actor MidiPlayer {
     /// Play a chord with its MIDI values
     /// - Parameters:
     ///   - notes: The notes to play
-    ///   - instrument: The ``Instrument`` to use
+    ///   - instrument: The ``Chord/Instrument`` to use
     func playChord(notes: [Int], instrument: Midi.Instrument = .acousticNylonGuitar) async {
         let composer = Chord()
         let chord = composer.compose(notes: notes, instrument: instrument)

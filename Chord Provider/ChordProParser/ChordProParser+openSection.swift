@@ -19,7 +19,7 @@ extension ChordProParser {
     static func openSection(
         source: String? = nil,
         directive: ChordPro.Directive,
-        arguments: Arguments,
+        arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
@@ -34,7 +34,7 @@ extension ChordProParser {
         )
 
         /// Update the current section
-        currentSection.environment = directive.environment
-        currentSection.label = arguments[.plain] ?? arguments[.label] ?? directive.environment.label
+        currentSection.environment = directive.details.environment
+        currentSection.label = arguments[.plain] ?? arguments[.label] ?? directive.details.environment.label
     }
 }

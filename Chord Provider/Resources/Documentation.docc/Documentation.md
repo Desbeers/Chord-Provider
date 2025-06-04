@@ -58,7 +58,6 @@ While I studied a lot of code from other projects to learn; in the end, its all 
 - ``AppSettings``
 - ``Help``
 - ``LogMessage``
-- ``SFSymbol``
 
 ### Documents
 
@@ -90,8 +89,6 @@ All files needed for parsing a **ChordPro** song
 
 - ``ChordProParser``
 - ``Song``
-- ``Artist``
-- ``Instrument``
 
 ### **ChordPro** editor
 
@@ -106,14 +103,13 @@ While working well for *normal* songs it will be a bit sluggish on long document
 ### Chord Definitions
 
 - ``Chord``
-- ``Chords``
 - ``ChordDefinition``
-- ``RegexDefinitions``
 
 ### Utilities
 
 - ``ChordUtils``
 - ``FontUtils``
+- ``ImageUtils``
 - ``SongFileUtils``
 - ``UserFileUtils``
 

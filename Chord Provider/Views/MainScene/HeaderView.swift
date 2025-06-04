@@ -93,12 +93,12 @@ extension HeaderView {
                 metadata(string: time, sfSymbol: .time)
             }
         }
-        /// Show metadata with a custom SVG icon
+        /// Show metadata with a SF symbol
         /// - Parameters:
         ///   - string: The metadata
-        ///   - sfSymbol: The SF symbol
+        ///   - sfSymbol: The ``FontUtils/SFSymbol``
         /// - Returns: A `View`
-        func metadata(string: String, sfSymbol: SFSymbol) -> some View {
+        func metadata(string: String, sfSymbol: FontUtils.SFSymbol) -> some View {
             Label {
                 Text(string)
             } icon: {

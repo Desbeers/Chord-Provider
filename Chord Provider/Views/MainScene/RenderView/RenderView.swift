@@ -68,7 +68,7 @@ extension RenderView {
     /// Get flush from the arguments
     /// - Parameter arguments: The arguments of the directive
     /// - Returns: The flush alignment
-    func getFlush(_ arguments: ChordProParser.Arguments?) -> HorizontalAlignment {
+    func getFlush(_ arguments: ChordProParser.DirectiveArguments?) -> HorizontalAlignment {
         if let flush = arguments?[.flush] {
             switch flush {
             case "center":
@@ -85,7 +85,7 @@ extension RenderView {
     /// Get alignment from the arguments
     /// - Parameter arguments: The arguments of the directive
     /// - Returns: The alignment
-    func getAlign(_ arguments: ChordProParser.Arguments?) -> Alignment {
+    func getAlign(_ arguments: ChordProParser.DirectiveArguments?) -> Alignment {
         if let align = arguments?[.align] {
             switch align {
             case "center":
@@ -102,7 +102,7 @@ extension RenderView {
     /// Get text flush from the arguments
     /// - Parameter arguments: The arguments of the directive
     /// - Returns: The text flush alignment
-    func getTextFlush(_ arguments: ChordProParser.Arguments?) -> TextAlignment {
+    func getTextFlush(_ arguments: ChordProParser.DirectiveArguments?) -> TextAlignment {
         if let flush = arguments?[.flush] {
             switch flush {
             case "center":

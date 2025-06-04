@@ -63,10 +63,10 @@ extension PDFBuild {
 
         /// Make a detail label
         /// - Parameters:
-        ///   - sfSymbol: The SF symbol as `String`
+        ///   - sfSymbol: The ``FontUtils/SFSymbol``
         ///   - label: The label as `String`
         /// - Returns: An `NSAttributedString` with icon, label and attributes
-        private func detailLabel(sfSymbol: SFSymbol, label: String) -> NSAttributedString {
+        private func detailLabel(sfSymbol: FontUtils.SFSymbol, label: String) -> NSAttributedString {
             let imageAttachment = NSTextAttachment().sfSymbol(
                 sfSymbol: sfSymbol.rawValue,
                 fontSize: settings.style.fonts.text.size * 0.8,

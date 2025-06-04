@@ -13,7 +13,7 @@ import OSLog
     /// The list of songs
     var songs: [Song] = []
     /// The list of artists
-    var artists: [Artist] = []
+    var artists: [SongFileUtils.Artist] = []
     /// The optional songs folder
     var songsFolder: URL?
     /// The status
