@@ -83,9 +83,7 @@ extension ChordProParser {
             song: &song
         )
 
-//        /// Set the environment
-//        currentSection.environment = directive.details.environment
-//        /// Set the arguments
-//        currentSection.arguments = arguments
+        /// Set the arguments
+        currentSection.arguments = arguments
     }
 }
