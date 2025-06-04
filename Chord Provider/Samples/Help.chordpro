@@ -7,6 +7,7 @@
 While I hope you like **Chord Provider**, it is just my hobby project and not a complete implementation of the standard.
 
 Please visit the official **ChordPro** website for the full experience:
+{comment Simple links are clickable:}
 {comment https://www.chordpro.org/}
 {end_of_textblock}
 
@@ -82,16 +83,16 @@ The above directive indicates that the Chorus must be repeated. In the Settings 
 
 {define G7 base-fret 1 frets 2 4 5 5 4 2 fingers 1 2 4 4 3 1}
 
-{start_of_verse Finder}
-In the [F]Finder; [C]ChordPro files will have a custom icon
-with the title of the song; just [E]eyecandy!
-[C]Chord Provider also supports *quickview*; press `space`
-when you have a song selected [Am]and it will render it for you.
-{end_of_verse}
+{start_of_textblock Finder}
+In the `Finder`; **ChordPro** files will have a custom icon
+with the title of the song; just eyecandy!
+**Chord Provider** also supports *quickview*; press `space`
+when you have a song selected and it will render it for you.
+{end_of_textblock}
 
-{image align="center" src="IconPreview.png" width="100"}
+{image label="Fancy Icons!" align="left" scale="30%" src="IconPreview.png"}
 
-{comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song!}
+{comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song as badge.}
 
 {start_of_verse Custom Chords}
 You cannot s[E]ee it in the output, [B]but I just
