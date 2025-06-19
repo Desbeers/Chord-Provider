@@ -22,9 +22,6 @@ extension Song.Section {
         /// The line number in the **ChordPro** document
         var sourceLineNumber: Int = 0
 
-        /// The `Environment` of the line
-        var environment: ChordPro.Environment = .none
-
         /// The `Directive` of the section
         var directive: ChordPro.Directive = .unknown
 
@@ -51,11 +48,11 @@ extension Song.Section {
             arguments?[.plain] ?? arguments?[.label] ?? ""
         }
 
-        /// An plain text version of the line
-        /// - Note: The lyrics of a line or a tab for example
-        var plain: String = ""
+        /// A plain text version of the line
+        /// - Note: The lyrics of a line, a comment or a tab for example
+        var plain: String?
 
-        /// Add a single of warning to the set of warnings
+        /// Add a single warning to the set of warnings
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String) {
             if self.warnings == nil {
@@ -89,11 +86,10 @@ extension Song.Section.Line {
     /// :nodoc:
     enum CodingKeys: CodingKey {
         case sourceLineNumber
-        case environment
         case directive
         case arguments
         case source
-        case warning
+        case warnings
         case parts
         case grid
         case strum
@@ -104,15 +100,11 @@ extension Song.Section.Line {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
         self.sourceLineNumber = try container.decode(Int.self, forKey: .sourceLineNumber)
-        self.environment = try container.decode(ChordPro.Environment.self, forKey: .environment)
-
         let directive = try container.decode(String.self, forKey: .directive)
         self.directive = ChordProParser.getDirective(directive)?.directive ?? .unknown
-
         self.arguments = try container.decodeIfPresent(ChordProParser.DirectiveArguments.self, forKey: .arguments)
-
         self.source = try container.decode(String.self, forKey: .source)
-        self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warning)
+        self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warnings)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
         self.strum = try container.decodeIfPresent([[Strum]].self, forKey: .strum)
@@ -123,13 +115,10 @@ extension Song.Section.Line {
         var container: KeyedEncodingContainer<CodingKeys> = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(self.sourceLineNumber, forKey: .sourceLineNumber)
-        try container.encode(self.environment, forKey: .environment)
         try container.encode(self.directive.rawValue.long, forKey: .directive)
-
         try container.encodeIfPresent(self.arguments, forKey: .arguments)
-
         try container.encode(self.source, forKey: .source)
-        try container.encodeIfPresent(self.warnings, forKey: .warning)
+        try container.encodeIfPresent(self.warnings, forKey: .warnings)
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.grid, forKey: .grid)
         try container.encodeIfPresent(self.strum, forKey: .strum)

@@ -65,7 +65,7 @@ extension RenderView {
                         }
                     }
                 case .comment:
-                    commentLabel(comment: line.plain)
+                    commentLabel(comment: line.plain ?? "")
                 default:
                     EmptyView()
                 }

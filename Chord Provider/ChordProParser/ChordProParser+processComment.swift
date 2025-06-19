@@ -26,10 +26,8 @@ extension ChordProParser {
                 currentSection.addWarning("The comment is empty")
             }
             addSection(
-                sectionLabel: "",
                 directive: .comment,
                 arguments: arguments,
-                environment: .comment,
                 currentSection: &currentSection,
                 song: &song
             )
@@ -39,7 +37,6 @@ extension ChordProParser {
             /// A comment inside a section
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
-                environment: currentSection.environment,
                 directive: .comment,
                 arguments: arguments,
                 source: "{\(ChordPro.Directive.comment) \(comment)}",

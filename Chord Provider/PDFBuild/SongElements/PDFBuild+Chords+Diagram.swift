@@ -292,41 +292,43 @@ extension PDFBuild.Chords {
             /// Draw the barres in the grid
             /// - Parameter rect: The available rect
             func drawBarres(rect: inout CGRect) {
-                /// Set the rect for the grid
-                var barresRect = CGRect(
-                    x: rect.origin.x + xSpacing,
-                    y: rect.origin.y + ((ySpacing - circleRadius) / 2),
-                    width: circleRadius,
-                    height: circleRadius
-                )
-                for fret in 1...5 {
-                    if var barre = chord.barres.first(where: { $0.fret == fret }) {
-                        /// Mirror for left-handed if needed
-                        barre = settings.diagram.mirrorDiagram ? chord.mirrorBarre(barre) : barre
-                        let spacer = PDFBuild.Spacer(circleRadius)
-                        let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, spacer)
-                        let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
-                        var tmpRect = CGRect(
-                            x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing) + xOffset,
-                            y: barresRect.origin.y,
-                            width: (CGFloat(barre.length) * xSpacing) - (2 * xOffset),
-                            height: circleRadius
-                        )
-                        /// Preserve the rect for the optional finger
-                        var symbolRect = tmpRect
-                        /// Draw the bar
-                        shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
-                        /// Draw the optional finger
-                        if settings.diagram.showFingers && barre.finger != 0 {
-                            let symbol = PDFBuild.Image("\(barre.finger).circle.fill", fontSize: circleRadius, colors: fretColors)
-                            /// Center the finger in the rect
-                            symbolRect.size.width = circleRadius
-                            symbolRect.origin.x += (tmpRect.width - circleRadius) / 2
-                            symbol.image.draw(in: symbolRect)
+                if let barres = chord.barres {
+                    /// Set the rect for the grid
+                    var barresRect = CGRect(
+                        x: rect.origin.x + xSpacing,
+                        y: rect.origin.y + ((ySpacing - circleRadius) / 2),
+                        width: circleRadius,
+                        height: circleRadius
+                    )
+                    for fret in 1...5 {
+                        if var barre = barres.first(where: { $0.fret == fret }) {
+                            /// Mirror for left-handed if needed
+                            barre = settings.diagram.mirrorDiagram ? chord.mirrorBarre(barre) : barre
+                            let spacer = PDFBuild.Spacer(circleRadius)
+                            let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, spacer)
+                            let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
+                            var tmpRect = CGRect(
+                                x: barresRect.origin.x + (CGFloat(barre.startIndex) * xSpacing) + xOffset,
+                                y: barresRect.origin.y,
+                                width: (CGFloat(barre.length) * xSpacing) - (2 * xOffset),
+                                height: circleRadius
+                            )
+                            /// Preserve the rect for the optional finger
+                            var symbolRect = tmpRect
+                            /// Draw the bar
+                            shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
+                            /// Draw the optional finger
+                            if settings.diagram.showFingers && barre.finger != 0 {
+                                let symbol = PDFBuild.Image("\(barre.finger).circle.fill", fontSize: circleRadius, colors: fretColors)
+                                /// Center the finger in the rect
+                                symbolRect.size.width = circleRadius
+                                symbolRect.origin.x += (tmpRect.width - circleRadius) / 2
+                                symbol.image.draw(in: symbolRect)
+                            }
                         }
+                        /// Move Y one fret down
+                        barresRect.origin.y += ySpacing
                     }
-                    /// Move Y one fret down
-                    barresRect.origin.y += ySpacing
                 }
             }
 

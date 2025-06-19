@@ -24,7 +24,6 @@ extension ChordProParser {
         /// Start with a fresh line:
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            environment: .grid,
             directive: .environmentLine,
             source: text
         )
@@ -54,16 +53,14 @@ extension ChordProParser {
             partID += 1
             line.addGrid(grid)
         }
+        currentSection.lines.append(line)
         /// Mark the section as Grid if not set
         if currentSection.environment == .none {
-            line.addWarning(
-                autoSection(
-                    environment: .grid,
-                    currentSection: &currentSection,
-                    song: &song
-                )
+            autoSection(
+                environment: .grid,
+                currentSection: &currentSection,
+                song: &song
             )
         }
-        currentSection.lines.append(line)
     }
 }

@@ -72,9 +72,9 @@ extension ChordPro.Directive {
             )
         case .sortArtist:
             Details(
-                label: "Artist",
+                label: "Sorting Artist",
                 icon: "person",
-                button: "Artist",
+                button: "Sorting Artist",
                 help: "This directive defines the sorting name of artist",
                 environment: .metadata
             )
@@ -342,7 +342,7 @@ extension ChordPro.Directive {
                 icon: "pause",
                 button: "None",
                 help: "An empty line in the source",
-                environment: .none
+                environment: .emptyLine
             )
         case .unknown:
             Details(

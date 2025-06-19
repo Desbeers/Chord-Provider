@@ -34,6 +34,9 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
+        /// Keep the current text as source when we cannot handle the directive
+        let sourceArgument: DirectiveArguments = [.source: text]
+
         if let match = text.firstMatch(of: Chord.RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
@@ -42,10 +45,10 @@ extension ChordProParser {
                 currentSection.addWarning("No need for a colon **:** in a directive")
             }
 
-            let arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
-
             /// Handle known directives
             if let directive = getDirective(parsedDirective.lowercased()) {
+
+                let arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
 
                 if directive.warning {
                     currentSection.addWarning("Short directive for **\(directive.directive.details.label)**")
@@ -72,12 +75,7 @@ extension ChordProParser {
 
                         /// ## Start of Chorus, Verse, Bridge, Tab, Grid, Textblock, Strum
                     case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .startOfStrum:
-                        var source: String?
-                        if let plain = arguments[.plain] {
-                            source = "{\(directive.rawValue.long) label=\"\(plain)\"}"
-                        }
                         openSection(
-                            source: source,
                             directive: directive,
                             arguments: arguments,
                             currentSection: &currentSection,
@@ -86,24 +84,12 @@ extension ChordProParser {
 
                         /// ## Repeat Chorus
                     case .chorus:
-                        /// Add the directive as a single line in a section
-                        var label = arguments[.label] ?? ChordPro.Environment.chorus.label
-                        var source: String?
-                        if let plain = arguments[.plain] {
-                            source = "{\(directive.rawValue.long) label=\"\(plain)\"}"
-                            label = plain
-                        }
                         addSection(
-                            source: source,
-                            /// - Note: Use the 'normal' chorus label because this directive can be replaced by a whole chorus with the same name
-                            sectionLabel: label,
-                            directive: .chorus,
+                            directive: directive,
                             arguments: arguments,
-                            environment: .repeatChorus,
                             currentSection: &currentSection,
                             song: &song
                         )
-                        currentSection.environment = .none
 
                         /// ## Start of ABC
                     case .startOfABC:
@@ -123,28 +109,15 @@ extension ChordProParser {
                             return element?[.plain] ?? "error"
                         }
                         if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
-                            for index in currentSection.lines.indices {
+                            for index in currentSection.lines.indices where currentSection.lines[index].directive == .environmentLine {
                                 let adjustedString = tabs[index] + String(repeating: " ", count: maxLength - tabs[index].count)
                                 currentSection.lines[index].arguments?[.plain] = adjustedString
                             }
                         }
-                        /// Add the directive as a single line in a section; this will close the current section
-                        addSection(
-                            directive: directive,
-                            arguments: arguments,
-                            currentSection: &currentSection,
-                            song: &song
-                        )
-                        currentSection.environment = .none
+                        closeSection(directive: directive, currentSection: &currentSection, song: &song)
 
                     case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfStrum:
-                        /// Add the directive as a single line in a section; this will close the current section
-                        addSection(
-                            directive: directive,
-                            arguments: arguments,
-                            currentSection: &currentSection,
-                            song: &song
-                        )
+                        closeSection(directive: directive, currentSection: &currentSection, song: &song)
 
                         // MARK: Chord diagrams
 
@@ -154,13 +127,7 @@ extension ChordProParser {
                         // MARK: Images
 
                     case .image:
-                        addSection(
-                            directive: directive,
-                            arguments: arguments,
-                            environment: .image,
-                            currentSection: &currentSection,
-                            song: &song
-                        )
+                        processImage(arguments: arguments, currentSection: &currentSection, song: &song)
 
                         // MARK: Unsupported directives
 
@@ -180,11 +147,10 @@ extension ChordProParser {
                 // MARK: Unknown directive
 
                 /// Add the unknown directive as a single line in a section
-                currentSection.addWarning("Unknown directive")
+                currentSection.addWarning("This is an unknown directive")
                 addSection(
-                    source: text,
                     directive: .unknown,
-                    arguments: arguments,
+                    arguments: sourceArgument,
                     currentSection: &currentSection,
                     song: &song
                 )
@@ -194,11 +160,10 @@ extension ChordProParser {
             // MARK: Not a (complete) directive
 
             /// Add the unknown directive as a single line in a section
-            currentSection.addWarning("Not a complete directive")
+            currentSection.addWarning("This is not a complete directive")
             addSection(
-                source: text,
                 directive: .unknown,
-                arguments: DirectiveArguments(),
+                arguments: sourceArgument,
                 currentSection: &currentSection,
                 song: &song
             )

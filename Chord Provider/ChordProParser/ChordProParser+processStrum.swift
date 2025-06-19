@@ -30,7 +30,6 @@ extension ChordProParser {
         /// Start with a fresh line
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            environment: .strum,
             directive: .environmentLine,
             source: text
         )
@@ -60,7 +59,12 @@ extension ChordProParser {
         if !strums.isEmpty {
             result.append(strums)
         }
-        line.strum = result
+        if strums.count == 1, strums.first?.action == Song.Section.Line.Strum.Action.none {
+            /// It looks like the strum is not in a valid format, add a warning
+            line.addWarning("The strum pattern does not look valid")
+        } else {
+            line.strum = result
+        }
         currentSection.lines.append(line)
     }
 }

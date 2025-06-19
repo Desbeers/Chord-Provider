@@ -59,6 +59,19 @@ extension Styles {
             }
         }
     }
+
+    /// The style for a labeled debug item
+    struct DebugLabeledContentStyle: LabeledContentStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            HStack(alignment: .top) {
+                configuration.label
+                    .font(.title2)
+                    .frame(width: 200, alignment: .trailing)
+                configuration.content
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
 }
 
 extension LabelStyle where Self == Styles.CreateDocumentLabelStyle {
@@ -77,4 +90,10 @@ extension LabeledContentStyle where Self == Styles.EditorLabeledContentStyle {
 
     /// The style for a labeled editor item
     static var editor: Styles.EditorLabeledContentStyle { .init() }
+}
+
+extension LabeledContentStyle where Self == Styles.DebugLabeledContentStyle {
+
+    /// The style for a labeled debug item
+    static var debug: Styles.DebugLabeledContentStyle { .init() }
 }

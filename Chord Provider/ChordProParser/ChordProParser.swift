@@ -47,23 +47,20 @@ actor ChordProParser {
                 processDirective(text: text, currentSection: &currentSection, song: &song)
             case "|":
                 /// Tab or Grid
-                if text.starts(with: "|-") || currentSection.environment == .tab {
-                    /// Tab
-                    processTab(text: text, currentSection: &currentSection, song: &song)
-                } else {
+                if text.starts(with: "| ") || currentSection.environment == .grid {
                     /// Grid
                     processGrid(text: text, currentSection: &currentSection, song: &song)
+                } else {
+                    /// Tab
+                    processTab(text: text, currentSection: &currentSection, song: &song)
                 }
             case "":
                 /// Empty line
                 processEmptyLine(currentSection: &currentSection, song: &song)
             case "#":
-                if currentSection.environment == .none {
-                    /// A source comment
-                    processSourceComment(comment: text, currentSection: &currentSection, song: &song)
-                } else {
-                    processEnvironment(text: text, currentSection: &currentSection, song: &song)
-                }
+                /// Source comment or a Markdown header
+                /// - Note: Headers are only supported in textblocks
+                processSourceComment(comment: text, currentSection: &currentSection, song: &song)
             default:
                 processEnvironment(text: text, currentSection: &currentSection, song: &song)
             }
@@ -72,6 +69,7 @@ actor ChordProParser {
         if !currentSection.lines.isEmpty {
             song.lines += 1
             closeSection(
+                directive: currentSection.environment.directives.close,
                 currentSection: &currentSection,
                 song: &song
             )
@@ -106,19 +104,6 @@ extension ChordProParser {
             return content
         } catch {
             return error.localizedDescription
-        }
-    }
-
-    /// Decode a JSON encoded ``Song``
-    /// - Parameter string: The ``Song`` as JSON string
-    static func decode(_ string: String) {
-        let decoder = JSONDecoder()
-        do {
-            let data = Data(string.utf8)
-            let sections = try decoder.decode([Song.Section].self, from: data)
-            dump(sections)
-        } catch {
-            Logger.parser.error("\(error.localizedDescription, privacy: .public)")
         }
     }
 }

@@ -17,7 +17,7 @@ extension WelcomeView {
 
                 Button {
                     if
-                        let sampleSong = Bundle.main.url(forResource: "Help", withExtension: "chordpro"),
+                        let sampleSong = Bundle.main.url(forResource: Samples.help.rawValue, withExtension: "chordpro"),
                         let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
                         newSong(text: content, template: sampleSong)
                     }
@@ -28,7 +28,7 @@ extension WelcomeView {
 
                 Button {
                     if
-                        let sampleSong = Bundle.main.url(forResource: "Markdown", withExtension: "chordpro"),
+                        let sampleSong = Bundle.main.url(forResource: Samples.markdown.rawValue, withExtension: "chordpro"),
                         let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
                         newSong(text: content, template: sampleSong)
                     }
@@ -40,7 +40,7 @@ extension WelcomeView {
                 Section {
                     Button {
                         if
-                            let sampleSong = Bundle.main.url(forResource: "Swing Low Sweet Chariot", withExtension: "chordpro"),
+                            let sampleSong = Bundle.main.url(forResource: Samples.swingLowSweetChariot.rawValue, withExtension: "chordpro"),
                             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
                             newSong(text: content, template: sampleSong)
                         }
@@ -50,7 +50,7 @@ extension WelcomeView {
 
                     Button {
                         if
-                            let sampleSong = Bundle.main.url(forResource: "Molly Malone", withExtension: "chordpro"),
+                            let sampleSong = Bundle.main.url(forResource: Samples.mollyMalone.rawValue, withExtension: "chordpro"),
                             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
                             newSong(text: content, template: sampleSong)
                         }
@@ -77,6 +77,24 @@ extension WelcomeView {
                     Text("Official **ChordPro** examples")
                 }
                 .listRowSeparator(.hidden)
+#if DEBUG
+                Section {
+                    ForEach(Samples.debug, id: \.self) { debug in
+                        Button {
+                            if
+                                let debug = Bundle.main.url(forResource: debug.rawValue, withExtension: "chordpro"),
+                                let content = try? String(contentsOf: debug, encoding: .utf8) {
+                                newSong(text: content, template: debug)
+                            }
+                        } label: {
+                            Label(debug.rawValue, systemImage: "document.badge.gearshape")
+                        }
+                    }
+                } header: {
+                    Text("Debug")
+                }
+                .listRowSeparator(.hidden)
+#endif
             }
             .scrollContentBackground(.hidden)
         }

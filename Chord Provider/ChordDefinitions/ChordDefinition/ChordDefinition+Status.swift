@@ -12,7 +12,7 @@ extension ChordDefinition {
     // MARK: The status of a `ChordDefinition`
 
     /// The status of the ``ChordDefinition``
-    enum Status: String, LocalizedError {
+    enum Status: String, LocalizedError, Codable {
 
         /// A standard chord from the database
         case standardChord

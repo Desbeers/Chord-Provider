@@ -9,27 +9,6 @@ import Foundation
 
 extension ChordDefinition {
 
-    // MARK: Init from the decoder
-
-    /// Init the ``ChordDefinition`` from the decoder
-    init(from decoder: Decoder) throws {
-        let container: KeyedDecodingContainer<ChordDefinition.CodingKeys> = try decoder.container(keyedBy: ChordDefinition.CodingKeys.self)
-        /// Database values
-        self.id = try container.decode(UUID.self, forKey: ChordDefinition.CodingKeys.id)
-        self.frets = try container.decode([Int].self, forKey: ChordDefinition.CodingKeys.frets)
-        self.fingers = try container.decode([Int].self, forKey: ChordDefinition.CodingKeys.fingers)
-        self.baseFret = try container.decode(Int.self, forKey: ChordDefinition.CodingKeys.baseFret)
-        self.root = try container.decode(Chord.Root.self, forKey: ChordDefinition.CodingKeys.root)
-        self.quality = try container.decode(Chord.Quality.self, forKey: ChordDefinition.CodingKeys.quality)
-        self.slash = try container.decodeIfPresent(Chord.Root.self, forKey: ChordDefinition.CodingKeys.slash)
-        /// Calculated values
-        self.name = "\(root.rawValue)\(quality.rawValue)"
-        self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
-        self.components = ChordUtils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: .guitar)
-        self.status = .standardChord
-        self.instrument = .guitar
-    }
-
     // MARK: Init with all known values
 
     /// Init the ``ChordDefinition`` with all known values

@@ -16,7 +16,7 @@ extension PDFBuild {
     /// Display all tags of the song
     class Tags: PDFElement {
         /// The array of tags
-        let tags: [String]
+        let tags: [String]?
         /// The application settings
         let settings: AppSettings
 
@@ -35,7 +35,7 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            if !calculationOnly {
+            if !calculationOnly, let tags {
                 var tagRect = pageRect
                 tagRect.size.width -= settings.pdf.pagePadding
                 tagRect.origin.y += settings.pdf.pagePadding

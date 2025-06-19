@@ -177,12 +177,12 @@ enum ChordUtils {
                 var fret = frets[string]
                 /// Don't bother with ignored frets
                 if fret == -1 {
-                    components.append(Chord.Component(note: .none, midi: nil))
+                    components.append(Chord.Component(id: string, note: .none, midi: nil))
                 } else {
                     /// Add base fret if the fret is not 0 and the offset
                     fret += instrument.offset[string] + (fret == 0 ? 1 : baseFret) + 40
                     let key = valueToNote(value: fret, scale: root)
-                    components.append(Chord.Component(note: key, midi: fret))
+                    components.append(Chord.Component(id: string, note: key, midi: fret))
                 }
             }
         }
@@ -197,7 +197,7 @@ enum ChordUtils {
     static func fingersToBarres(
         frets: [Int],
         fingers: [Int]
-    ) -> [Chord.Barre] {
+    ) -> [Chord.Barre]? {
         var barres: [Chord.Barre] = []
         /// Map the fingers to a  key-value pair
         let mappedItems = fingers.map { finger -> (finger: Int, count: Int) in
@@ -212,7 +212,7 @@ enum ChordUtils {
                 let lastFinger = fingers.lastIndex(of: finger),
                 let fret = frets[safe: firstFinger]
             else {
-                break
+                return nil
             }
             let barre = Chord.Barre(
                 finger: finger,
@@ -226,7 +226,7 @@ enum ChordUtils {
             }
         }
         /// Return the fingers that should be barred
-        return barres
+        return barres.isEmpty ? nil : barres
     }
 
     /// Get all possible chord notes for a ``ChordDefinition``

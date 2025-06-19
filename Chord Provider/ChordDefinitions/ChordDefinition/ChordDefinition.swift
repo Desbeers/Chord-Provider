@@ -32,7 +32,7 @@ struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
 
     /// The fingers you have to bar for the chord
     /// - Note: A calculated value by the init
-    var barres: [Chord.Barre]
+    var barres: [Chord.Barre]?
 
     /// The instrument of the chord
     var instrument: Chord.Instrument
@@ -43,38 +43,4 @@ struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
     var components: [Chord.Component] = []
     /// The status of the chord definition
     var status: Status
-
-    // MARK: Coding keys
-
-    /// The coding keys
-    /// - Note: Only those items will be in the database
-    enum CodingKeys: CodingKey {
-        /// The ID of the chord
-        case id
-        /// The frets of the chord
-        case frets
-        /// The fingers of the chord
-        case fingers
-        /// The base fret of the chord
-        case baseFret
-        /// The root of the chord
-        case root
-        /// The quality of the chord
-        case quality
-        /// The note of an optional 'slash' chord
-        case slash
-    }
-
-    /// Custom encoder for the ``ChordDefinition``
-    func encode(to encoder: Encoder) throws {
-        var container: KeyedEncodingContainer<ChordDefinition.CodingKeys> = encoder.container(keyedBy: CodingKeys.self)
-
-        try container.encode(self.id, forKey: .id)
-        try container.encode(self.frets, forKey: .frets)
-        try container.encode(self.fingers, forKey: .fingers)
-        try container.encode(self.baseFret, forKey: .baseFret)
-        try container.encode(self.root, forKey: .root)
-        try container.encode(self.quality, forKey: .quality)
-        try container.encode(self.slash, forKey: .slash)
-    }
 }

@@ -43,7 +43,7 @@ extension RenderView {
                             .frame(height: song.settings.style.fonts.text.size / 2 * song.settings.scale)
                             .gridCellUnsizedAxes(.horizontal)
                     case .comment:
-                        commentLabel(comment: line.plain)
+                        commentLabel(comment: line.plain ?? "")
                             .padding(.vertical, song.settings.style.fonts.text.size * song.settings.scale / 2)
                     default:
                         EmptyView()

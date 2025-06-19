@@ -44,7 +44,7 @@ extension PDFBuild {
             let elements: [NSMutableAttributedString] = (0 ..< maxColumns).map { _ in NSMutableAttributedString() }
             var columnWidth: [Double] = (0 ..< maxColumns).map { _ in Double() }
             var lineHeight: Double = 0
-            for line in section.lines where line.environment == .grid {
+            for line in section.lines where line.directive == .environmentLine {
                 if let grid = line.grid {
                     let parts = grid.flatMap { $0.parts }
                     for (column, part) in parts.enumerated() {
@@ -89,7 +89,7 @@ extension PDFBuild {
                     let spacer = PDFBuild.Spacer(settings.style.fonts.chord.size / 2)
                     spacer.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 case .comment:
-                    let comment = PDFBuild.Comment(line.plain, settings: settings).padding(6)
+                    let comment = PDFBuild.Comment(line.plain ?? "", settings: settings).padding(6)
                     comment.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                 default:
                     break

@@ -24,7 +24,6 @@ extension ChordProParser {
         /// Start with a fresh line
         let line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            environment: .tab,
             directive: .environmentLine,
             source: text.trimmingCharacters(in: .whitespacesAndNewlines),
             plain: text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -32,8 +31,11 @@ extension ChordProParser {
         currentSection.lines.append(line)
         /// Mark the section as Tab if not set
         if currentSection.environment == .none {
-            currentSection.environment = .tab
-            currentSection.label = ChordPro.Environment.tab.label
+            autoSection(
+                environment: .tab,
+                currentSection: &currentSection,
+                song: &song
+            )
         }
     }
 }

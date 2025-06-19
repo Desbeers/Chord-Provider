@@ -16,14 +16,14 @@ extension RenderView {
         VStack(alignment: getFlush(section.arguments), spacing: 0) {
             ForEach(section.lines) { line in
                 switch line.directive {
-                case .environmentLine:
+                case .environmentLine, .sourceComment:
                     /// Init the text like this to enable markdown formatting
-                    Text(line.plain.toMarkdown(fontOptions: song.settings.style.fonts.textblock, scale: song.settings.scale))
+                    Text(line.plain?.toMarkdown(fontOptions: song.settings.style.fonts.textblock, scale: song.settings.scale) ?? "")
                 case .emptyLine:
                     Color.clear
                         .frame(height: song.settings.style.fonts.textblock.size / 2 * song.settings.scale)
                 case .comment:
-                    commentLabel(comment: line.plain)
+                    commentLabel(comment: line.plain ?? "")
                         .padding(.vertical, song.settings.style.fonts.textblock.size * song.settings.scale / 2)
                 default:
                     EmptyView()

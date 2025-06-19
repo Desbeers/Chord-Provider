@@ -9,9 +9,9 @@ import Foundation
 extension Chord {
 
     /// The structure of a chord component
-    struct Component: Identifiable, Hashable, Sendable {
+    struct Component: Identifiable, Hashable, Sendable, Codable {
         /// The unique ID
-        var id = UUID()
+        var id: Int
         /// The note
         let note: Chord.Root
         /// The MIDI note value

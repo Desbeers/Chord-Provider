@@ -43,6 +43,9 @@ extension RenderView {
             case .metadata:
                 /// Don't render metadata
                 EmptyView()
+            case .emptyLine:
+                /// Don't render empty lines when not in an evironment
+                EmptyView()
             case .none:
                 /// Not an environment
                 EmptyView()

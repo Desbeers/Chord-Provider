@@ -37,6 +37,7 @@ struct DebugView: View {
         }
         .frame(minWidth: 500, minHeight: 600)
         .frame(maxWidth: .infinity)
+        .background(Color(NSColor.windowBackgroundColor))
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Picker("Tab", selection: $tab) {
@@ -105,7 +106,21 @@ struct DebugView: View {
                                 .body
                                     .weight(line.source.warnings == nil ? .regular : .bold)
                             )
-                        Text(line.source.source)
+                        VStack(alignment: .leading) {
+                            Text(line.source.source)
+                            if let warnings = line.source.warnings {
+                                Text(.init("\(warnings.joined(separator: ", "))"))
+                                    .foregroundStyle(.red)
+                                    .font(.caption)
+                            }
+                            if line.source.sourceLineNumber < 1 {
+                                Text("The directive is added by the parser")
+                                    .foregroundStyle(.green)
+                                    .font(.caption)
+                            }
+                            Text("Environment: **\(line.source.directive.details.environment.rawValue)**")
+                                .foregroundStyle(.gray)
+                        }
                     }
                     .tag(line.line)
                     if line.line == selectedLine {
@@ -131,12 +146,38 @@ struct DebugView: View {
     /// The json tab of the `View`
     var json: some View {
         ScrollView {
-            if let song = appState.song {
-                Text(ChordProParser.encode(song))
-            } else {
-                Text("No song open")
+            Form {
+                LazyVStack {
+                    if let song = appState.song {
+                        let metadata = ChordProParser.encode(song.metadata)
+                        jsonPart(label: "Meta Data", content: metadata)
+
+                        ForEach(song.sections) { section in
+                            Divider()
+                            let content = ChordProParser.encode(section)
+                            jsonPart(label: "Section \(section.environment.rawValue)", content: content)
+                        }
+                        let chords = ChordProParser.encode(song.chords)
+                        jsonPart(label: "Chords", content: chords)
+                    } else {
+                        Text("No song open")
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+        }
+        .labeledContentStyle(.debug)
+    }
+    func jsonPart(label: String, content: String) -> some View {
+        Section {
+            LabeledContent {
+                Text(content)
+            } label: {
+                Text(label)
             }
         }
+        .padding()
     }
     /// The log tab of the `View`
     var log: some View {

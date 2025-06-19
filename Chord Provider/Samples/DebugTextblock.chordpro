@@ -1,0 +1,47 @@
+{title: Debug Textblock}
+{artist Nick Berendsen}
+
+# An image in a textblock; should not break the environment
+{start_of_textblock label="Image" align="center" flush="center"}
+An image??
+{image align="right" anchor="page" x="100%" y="100%" scale="80%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dublin_-_Molly_Malone.jpg/270px-Dublin_-_Molly_Malone.jpg"}
+In the middle of a textblock... Should be ignored...
+{end_of_textblock}
+
+{image align="right" anchor="page" x="100%" y="100%" scale="80%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Dublin_-_Molly_Malone.jpg/270px-Dublin_-_Molly_Malone.jpg"}
+
+{start_of_textblock}
+Just a simple textblock,
+no label
+
+Some Markdown:
+# Hello
+`code_stuff...`
+{end_of_textblock}
+
+{start_of_textblock With Label}
+Just a simple textblock with a simple label
+{end_of_textblock}
+
+{start_of_textblock label="Right Aligned" align="right" flush="center"}
+Just a simple textblock with a simple label
+that is right aligned
+{comment: Inline comment}
+{end_of_textblock}
+
+{start_of_textblock label="Right Aligned" align="right" flush="right"}
+Just a simple textblock with a labeled label
+that is right aligned and the text flushed to the right
+{end_of_textblock}
+
+{start_of_textblock label="Center Aligned" align="center" flush="center"}
+Just a simple textblock with a simple label
+that is center aligned and the text also flushed to the center
+{end_of_textblock}
+
+{start_of_textblock label="Mark**down**" align="center" flush="center"}\
+# Markdown
+## Second header
+Just a *textblock* with a simple label with Markdown
+that is center aligned and the text flushed to the center
+{end_of_textblock}

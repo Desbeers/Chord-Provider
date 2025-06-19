@@ -16,14 +16,23 @@ extension Song {
         /// The unique ID of the section
         var id: Int
         /// The label of the section
-        var label: String = ""
+        var label: String {
+            arguments?[.label] ?? arguments?[.plain] ?? ""
+        }
         /// The `Environment type` of the section
         var environment: ChordPro.Environment = .none
+        /// The optional ``ChordPro/Directive`` as string when the section contains only one line
+        ///
+        /// Examples:
+        /// ```swift
+        /// {title}
+        /// {define}
+        /// ```
         /// The lines in the section
         var lines: [Line] = []
         /// Boolean if the section is automatic created
         ///
-        /// This happens mostly for lines with test and chords that is not surrounded by a `{start_of_verse}` and `{end_of_verse}`
+        /// This happens mostly for lines with text and chords that are not surrounded by a `{start_of_verse}` and `{end_of_verse}`
         ///
         /// But also for a `Tab` or `Grid` when a line starts with an '|'
         ///
@@ -31,11 +40,15 @@ extension Song {
         ///
         /// - Note: Automatically created sections will end with an 'newline', unlike defined sections.
         var autoCreated: Bool
+        /// The optional arguments of the section; taken from the first line of the section
+        var arguments: ChordProParser.DirectiveArguments? {
+            if let firstLine = lines.first {
+                return firstLine.arguments
+            }
+            return nil
+        }
         /// Optional warnings for this section
         private(set) var warnings: Set<String>?
-        /// The optional arguments of the section
-        var arguments: ChordProParser.DirectiveArguments?
-
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String) {
             if self.warnings == nil {

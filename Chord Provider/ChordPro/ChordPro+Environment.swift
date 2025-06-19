@@ -50,6 +50,9 @@ extension ChordPro {
         /// Image environment
         case image
 
+        /// An empty line in the source
+        case emptyLine
+
         /// Not an environment
         /// - Note: A source comment or an empty line for example
         case none

@@ -29,12 +29,6 @@ struct Song: Equatable, Codable, Identifiable {
     /// The metadata about the ``Song``
     var metadata = Metadata()
 
-    // MARK: Meta data directives that are defined
-
-    /// An array of defined directives that only should be set once
-    /// - Note: Used in the directive menus to disable *once only* directives
-    var definedMetaData: [ChordPro.Directive] = []
-
     // MARK: All the sections in the song
 
     /// The sections of the song

@@ -17,9 +17,9 @@ extension ChordProParser {
         if let plain = arguments[.plain] {
             return "\(plain)"
         }
-        /// Go to all `key=value` items, skipping .plain
+        /// Go to all `key=value` items, skipping .plain and source
         var string: [String] = []
-        for key in arguments.keys.sorted(by: <) where key != .plain {
+        for key in arguments.keys.sorted(by: <) where key != .plain && key != .source {
             string.append("\(key)=\"\(arguments[key] ?? "Empty")\"")
         }
         return string.isEmpty ? nil : "\(string.joined(separator: " "))"
@@ -48,7 +48,7 @@ extension ChordProParser {
                     currentSection.addWarning("Unknown *key*: **\($1.1)**")
                 }
             }
-        } else if let parsedArgument {
+        } else {
             /// Set the default argument
             arguments[.plain] = parsedArgument
         }

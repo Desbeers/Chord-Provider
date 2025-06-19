@@ -53,7 +53,7 @@ extension PDFBuild {
             for line in section.lines {
                 switch line.directive {
                 case .environmentLine:
-                    var string = line.plain.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: 1)
+                    var string = line.plain?.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: 1) ?? AttributedString()
                     let paragraphStyle = string.paragraphStyle as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
                     paragraphStyle.lineHeightMultiple = 1.2
                     paragraphStyle.alignment = flush
@@ -69,7 +69,7 @@ extension PDFBuild {
                     let spacer = PDFBuild.Spacer(settings.style.fonts.textblock.size / 2)
                     elements.append(spacer)
                 case .comment:
-                    let comment = PDFBuild.Comment(line.plain, settings: settings, alignment: flush).padding(6)
+                    let comment = PDFBuild.Comment(line.plain ?? "", settings: settings, alignment: flush).padding(6)
                     elements.append(comment)
                 default:
                     break

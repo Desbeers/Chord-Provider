@@ -76,8 +76,10 @@ extension ChordPro.Directive {
     static var metadataDirectives: [ChordPro.Directive] {
         [
             .title,
+            .sortTitle,
             .subtitle,
             .artist,
+            .sortArtist,
             .composer,
             .album,
             .year,

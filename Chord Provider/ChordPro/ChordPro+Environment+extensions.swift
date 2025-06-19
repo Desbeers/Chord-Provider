@@ -26,6 +26,8 @@ extension ChordPro.Environment {
             (.startOfABC, .endOfABC)
         case .textblock:
             (.startOfTextblock, .endOfTextblock)
+        case .strum:
+            (.startOfStrum, .endOfStrum)
         default:
             (.unknown, .unknown)
         }
@@ -40,7 +42,7 @@ extension ChordPro.Environment {
         case .chorus:
             "Chorus"
         case .repeatChorus:
-            ""
+            "Chorus"
         case .verse:
             "Verse"
         case .bridge:
@@ -61,8 +63,10 @@ extension ChordPro.Environment {
             "Metadata"
         case .image:
             ""
+        case .emptyLine:
+            ""
         case .none:
-            "None"
+            ""
         }
     }
 }

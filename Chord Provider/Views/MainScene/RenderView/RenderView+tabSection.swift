@@ -17,7 +17,7 @@ extension RenderView {
             ForEach(section.lines) { line in
                 switch line.directive {
                 case .environmentLine:
-                    Text(line.plain)
+                    Text(line.plain ?? "")
                         .lineLimit(1)
                         .monospaced()
                         .minimumScaleFactor(0.1)
@@ -25,7 +25,7 @@ extension RenderView {
                     Color.clear
                         .frame(height: song.settings.style.fonts.text.size / 2 * song.settings.scale)
                 case .comment:
-                    commentLabel(comment: line.plain)
+                    commentLabel(comment: line.plain ?? "")
                         .padding(.vertical, song.settings.style.fonts.text.size * song.settings.scale / 2)
                 default:
                     EmptyView()

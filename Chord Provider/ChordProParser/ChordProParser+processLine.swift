@@ -21,6 +21,8 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
+        /// Check if we have chords, if so, set the environment to Verse if not yet set.
+        var haveChords: Bool = false
         /// Start with a fresh line:
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
@@ -49,21 +51,13 @@ extension ChordProParser {
                     song: &song
                 ).id
                 part.text = " "
-                /// Because it has a chord; it should be at least a verse
-                if currentSection.environment == .none {
-                    line.addWarning(
-                        autoSection(
-                            environment: .verse,
-                            currentSection: &currentSection,
-                            song: &song
-                        )
-                    )
-                }
+                /// Because it has a chord; the section should be at least a verse
+                haveChords = true
             }
             if let lyric {
                 part.text = String(lyric)
                 /// Add the lyrics to the 'plain' text
-                line.plain += part.text
+                line.plain = (line.plain ?? "") + part.text
             }
             if part.hasContent {
                 partID += 1
@@ -71,25 +65,21 @@ extension ChordProParser {
             }
         }
         line.parts = parts
-        /// If we still don't know whet environment it is, make it a textblock
-        if currentSection.environment == .none {
-            line.addWarning(
-                autoSection(
-                    environment: .textblock,
-                    currentSection: &currentSection,
-                    song: &song
-                )
-            )
-        }
-        /// Set the correct environment
-        line.environment = currentSection.environment
         /// Remember the longest line in the song
         if currentSection.environment == .chorus || currentSection.environment == .verse {
-            if line.plain.count > song.metadata.longestLine.count {
-                song.metadata.longestLine = line.plain
+            if line.plain?.count ?? 0 > song.metadata.longestLine.count {
+                song.metadata.longestLine = line.plain ?? ""
             }
         }
-        /// Add the line
+        /// Add the line"
         currentSection.lines.append(line)
+        /// Set the environment to Verse if not yet set and we have chords, else to Textblock
+        if currentSection.environment == .none {
+            autoSection(
+                environment: haveChords ? .verse : .textblock,
+                currentSection: &currentSection,
+                song: &song
+            )
+        }
     }
 }

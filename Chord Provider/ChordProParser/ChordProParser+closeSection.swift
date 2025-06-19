@@ -12,31 +12,46 @@ extension ChordProParser {
     /// Close a section in the song
     /// - Note: This will open a new empty section as well
     /// - Parameters:
+    ///   - directive: The closing directive
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
+    ///   - warning: Bool to add a warning that the section is not properly closed
     static func closeSection(
+        directive: ChordPro.Directive,
         currentSection: inout Song.Section,
-        song: inout Song
+        song: inout Song,
+        warning: Bool = false
     ) {
-
-        /// Add the closing directive for an automatic created environment
-        if currentSection.autoCreated {
+        let closingDirective = currentSection.environment.directives.close
+        /// Add the closing directive for an automatic created environment or if a environment is not properly closed
+        if currentSection.autoCreated || warning, let lastLineIndex = currentSection.lines.lastIndex(where: { $0.directive != .emptyLine }) {
             let line = Song.Section.Line(
-                sourceLineNumber: -song.lines,
-                environment: currentSection.environment,
-                directive: currentSection.environment.directives.close,
-                source: "{\(currentSection.environment.directives.close.rawValue.long)}"
+                sourceLineNumber: -(currentSection.lines[lastLineIndex].sourceLineNumber + 1),
+                directive: closingDirective,
+                source: "{\(closingDirective.rawValue.long)}"
             )
+            if warning {
+                currentSection.lines[lastLineIndex].addWarning("The section is not properly closed with **{\(closingDirective.rawValue.long)}**")
+            }
+            currentSection.lines.insert(line, at: lastLineIndex + 1)
+        } else {
+            /// Just add the closing line
+            var line = Song.Section.Line(
+                sourceLineNumber: song.lines,
+                directive: closingDirective,
+                source: "{\(closingDirective.rawValue.long)}"
+            )
+            if directive != closingDirective {
+                line.addWarning("Wrong closing directive, it should be **{\(closingDirective.rawValue.long)}**")
+            }
             currentSection.lines.append(line)
         }
 
         /// Clear any warnings in the section; they should be handled now
         currentSection.resetWarnings()
 
-        /// Close the current section if it has lines
-        if !currentSection.lines.isEmpty {
-            song.sections.append(currentSection)
-            currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
-        }
+        /// Close the current section
+        song.sections.append(currentSection)
+        currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
     }
 }

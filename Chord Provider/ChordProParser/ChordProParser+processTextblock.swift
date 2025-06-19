@@ -24,7 +24,6 @@ extension ChordProParser {
         /// Start with a fresh line
         let line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            environment: .textblock,
             directive: .environmentLine,
             source: text.trimmingCharacters(in: .whitespacesAndNewlines),
             plain: text.trimmingCharacters(in: .whitespacesAndNewlines)

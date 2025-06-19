@@ -81,7 +81,7 @@ extension WelcomeView {
                                         Text("Songs with '\(tag)' tag").font(.headline)
                                     }
                             ) {
-                                ForEach(fileBrowser.songs.filter { $0.metadata.tags.contains(tag) }) { song in
+                                ForEach(fileBrowser.songs.filter { $0.metadata.tags?.contains(tag) ?? false }) { song in
                                     songRow(song: song, showArtist: true)
                                 }
                             }
@@ -107,14 +107,14 @@ extension WelcomeView {
                 fileBrowser.getFiles()
                 appState.lastUpdate = .now
             }
-            let tags = fileBrowser.songs.flatMap(\.metadata.tags)
+            let tags = fileBrowser.songs.compactMap(\.metadata.tags).flatMap { $0 }
             /// Make sure the tags are unique
             fileBrowser.allTags = Array(Set(tags).sorted())
         }
         .onChange(of: fileBrowser.songsFolder) {
             fileBrowser.songs = []
             fileBrowser.getFiles()
-            let tags = fileBrowser.songs.flatMap(\.metadata.tags)
+            let tags = fileBrowser.songs.compactMap(\.metadata.tags).flatMap { $0 }
             /// Make sure the tags are unique
             fileBrowser.allTags = Array(Set(tags).sorted())
         }
@@ -181,8 +181,8 @@ extension WelcomeView {
                                     Text(song.metadata.artist)
                                         .foregroundStyle(.secondary)
                                 }
-                                if !song.metadata.tags.isEmpty {
-                                    Text(song.metadata.tags.joined(separator: "∙"))
+                                if let tags = song.metadata.tags {
+                                    Text(tags.joined(separator: "∙"))
                                         .foregroundStyle(.tertiary)
                                 }
                             }

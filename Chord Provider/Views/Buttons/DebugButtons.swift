@@ -13,6 +13,9 @@ struct DebugButtons: View {
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The body of the `View`
     var body: some View {
+        ExportJSONButton()
+            .disabled(sceneState == nil)
+        Divider()
         Button(
             action: {
                 /// Remove user defaults

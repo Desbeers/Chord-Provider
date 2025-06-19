@@ -22,7 +22,7 @@ extension ChordProParser {
         song: inout Song
     ) {
         /// Set this metadata as defined
-        song.definedMetaData.append(directive)
+        song.metadata.defined.insert(directive.rawValue.long)
         /// Get the label
         let label = arguments[.plain]
         /// Add the metadata to the song
@@ -40,7 +40,9 @@ extension ChordProParser {
             song.metadata.artist = label ?? song.metadata.artist
         case .composer:
             if let label {
-                song.metadata.composers.append(label)
+                if (song.metadata.composers?.append(label)) == nil {
+                    song.metadata.composers = [label]
+                }
             }
         case .capo:
             song.metadata.capo = label
@@ -67,17 +69,17 @@ extension ChordProParser {
             song.metadata.sortArtist = label ?? song.metadata.sortArtist
         case .tag:
             if let label {
-                song.metadata.tags.append(label.trimmingCharacters(in: .whitespacesAndNewlines))
+                if (song.metadata.tags?.append(label)) == nil {
+                    song.metadata.tags = [label]
+                }
             }
 
         default:
             break
         }
         addSection(
-            sectionLabel: "",
             directive: directive,
             arguments: arguments,
-            environment: .metadata,
             currentSection: &currentSection,
             song: &song
         )

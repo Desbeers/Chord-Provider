@@ -87,9 +87,22 @@ extension SongExport {
         }
         var items: [PDFElement] = []
         items.append(PDFBuild.ContentItem(tocInfo: tocInfo, counter: counter))
-        items.append(PDFBuild.Text("\(song.metadata.title)", attributes: .attributes(settings.style.fonts.title) + .alignment(.center)))
-        items.append(PDFBuild.Text("\(subtitle.joined(separator: "・"))", attributes: .attributes(settings.style.fonts.subtitle) + .alignment(.center)))
-
+        items.append(PDFBuild.Text(
+            "\(song.metadata.title)",
+            attributes: .attributes(settings.style.fonts.title) + .alignment(.center))
+        )
+        items.append(PDFBuild.Text(
+            "\(subtitle.joined(separator: "・"))",
+            attributes: .attributes(settings.style.fonts.subtitle) + .alignment(.center))
+        )
+        /// Add optional composers
+        if let composers = song.metadata.composers {
+            items.append(PDFBuild.Text(
+                "\(composers.joined(separator: "/"))",
+                attributes: .attributes(settings.style.fonts.subtitle, scale: 0.6) + .alignment(.center))
+            )
+        }
+        /// Add optional tags
         if settings.pdf.showTags {
             items.append(PDFBuild.Tags(song: song, settings: settings))
         }

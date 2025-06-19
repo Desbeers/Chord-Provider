@@ -1,0 +1,97 @@
+{t: Debug Warnings}
+{st: Nick Berendsen}
+
+{start_of_textblock label="Check"}
+# Warnings in the editor
+ 
+## Directives
+- Short directives
+- Directives with an `:`
+- Unsupported directives
+- Incomplete directives
+- Unknown directives
+
+## Environments
+- Auto created environments
+- Environments that are not properly closed
+- Environment with wrong closing tag
+
+## Chords
+- Unknown chords
+- Wrong chord definitions
+{end_of_textblock}
+
+{comment: Normal sections}
+
+{start_of_verse}
+Swing [D]low, sweet [G]chari[D]ot,
+
+{comment Emty lines are only supported in a defined environment; like here.}
+
+#Spaces
+
+Comin’ for to carry me [A7]home.
+{end_of_verse}
+
+{start_of_chorus}
+Swing [D]low, sweet [G]chari[D]ot,
+Comin’ for to carry me [A7]home.
+{end_of_chorus}
+
+{comment Wrong closing...}
+
+{start_of_verse}
+Swing [D]low, sweet [G]chari[D]ot,
+Comin’ for to carry me [A7]home.
+{end_of_chorus}
+
+# Unsupported directive
+{column_break}
+# Incomplete directive
+{tag Not complete...
+# Unknown directive
+{something Not a known directive}
+
+{comment: Not a closed section; the closing tag should be added for the Verse}
+
+{start_of_verse}
+Swing [D]low, sweet [G]chari[D]ot,
+Comin’ for to carry me [A7]home.
+
+{start_of_chorus}
+Swing [D]low, sweet [G]chari[D]ot,
+Comin’ for to carry me [A7]home.
+{end_of_chorus}
+
+{comment: Auto generated sections}
+# This should be a Textblock because it has no chords in the first line
+Swing low, sweet chariot,
+Comin’ for to carry me [A7]home.
+# This should also be a Verse
+Swing [D]low, sweet [G]chari[D]ot,
+Comin’ for to carry me [A7]home.
+# This should be a Textblock because it has no chords
+Swing low, sweet chariot,
+Comin’ for to carry me home.
+# This should be a Tab
+|-0-1-2-3-4-|
+|-5-6-7-8-9-|
+# And another Verse
+Swing [D]low, sweet [G]chari[D]ot,
+Comin’ for to carry me [A7]home.
+# This should be a Grid
+| A B C D |
+| E F G A |
+# And a Textblock
+Swing low, sweet chariot,
+Comin’ for to carry me home.
+
+{comment Check chords}
+
+Swing low, [S]sweet chariot,
+Comin’ for to carry me home.
+# A correct chord; double click to open a sheet 
+{define A base-fret 1 frets x 0 2 2 2 0 fingers 0 0 1 2 3 0}
+# Wrong chords
+{define S base-fret 1 frets x 0 2 2 2 0 fingers 0 0 1 2 3 0}
+{define A base-fret 1 frets 0 2 2 2 0}

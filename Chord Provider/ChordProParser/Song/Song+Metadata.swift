@@ -24,8 +24,8 @@ extension Song {
         var artist: String = "Unknown Artist"
         /// Sorting name of the artist
         var sortArtist: String = ""
-        /// The composers
-        var composers: [String] = []
+        /// The optional composers
+        var composers: [String]?
         /// The optional subtitle
         var subtitle: String?
         /// The optional capo
@@ -45,7 +45,7 @@ extension Song {
         /// The optional URL to the video file
         var videoURL: URL?
         /// The optional tag(s)
-        var tags: [String] = []
+        var tags: [String]?
         /// The optional transpose
         var transpose: Int = 0
 
@@ -57,6 +57,12 @@ extension Song {
         var longestLabel: String = ""
         /// The longest line the song
         var longestLine: String = ""
+
+        // MARK: Meta data directives that are defined
+
+        /// An set of defined directives that only should be set once
+        /// - Note: Used in the directive menus to disable *once only* directives
+        var defined: Set<String> = []
 
         // MARK: Song export
 

@@ -23,19 +23,17 @@ extension ChordProParser {
             /// A source comment inside a section
             let line = Song.Section.Line(
                 sourceLineNumber: song.lines,
-                environment: currentSection.environment,
                 directive: .sourceComment,
                 source: comment
             )
             currentSection.lines.append(line)
         } else {
             /// A source comment in its own section
+            var arguments = DirectiveArguments()
+            arguments[.source] = comment
             addSection(
-                /// - Note: add the raw source here, or else it will be calculated with a directive
-                source: comment,
                 directive: .sourceComment,
-                arguments: DirectiveArguments(),
-                environment: .none,
+                arguments: arguments,
                 currentSection: &currentSection,
                 song: &song
             )

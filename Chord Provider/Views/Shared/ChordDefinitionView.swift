@@ -132,7 +132,7 @@ struct ChordDefinitionView: View {
                     .offset(x: -(offset / 2))
             }
             fretsGrid
-            if !chord.barres.isEmpty {
+            if chord.barres != nil {
                 barresGrid
             }
         }
@@ -232,45 +232,47 @@ struct ChordDefinitionView: View {
     // MARK: Barre Grid
 
     /// The barres grid `View`
-    var barresGrid: some View {
-        VStack(spacing: 0) {
-            ForEach((1...5), id: \.self) { fret in
-                if let barre = chord.barres.first(where: { $0.fret == fret }) {
-                    /// Mirror for left-handed if needed
-                    let barre = diagramDisplayOptions.mirrorDiagram ? chord.mirrorBarre(barre) : barre
-                    HStack(spacing: 0) {
-                        if barre.startIndex != 0 {
-                            Color.clear
-                                .frame(width: cellWidth * Double(barre.startIndex))
-                        }
-                        ZStack {
-                            RoundedRectangle(cornerSize: .init(width: lineHeight, height: lineHeight))
-                                .padding(.horizontal, xOffset * 2)
-                                .frame(height: lineHeight)
-                                .frame(width: cellWidth * Double(barre.length))
-                                .foregroundStyle(settings.style.theme.foregroundMedium)
-                            if diagramDisplayOptions.showFingers {
-                                Image(systemName: "\(barre.finger).circle")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(settings.style.theme.background, .clear)
+    @ViewBuilder var barresGrid: some View {
+        if let barres = chord.barres {
+            VStack(spacing: 0) {
+                ForEach((1...5), id: \.self) { fret in
+                    if let barre = barres.first(where: { $0.fret == fret }) {
+                        /// Mirror for left-handed if needed
+                        let barre = diagramDisplayOptions.mirrorDiagram ? chord.mirrorBarre(barre) : barre
+                        HStack(spacing: 0) {
+                            if barre.startIndex != 0 {
+                                Color.clear
+                                    .frame(width: cellWidth * Double(barre.startIndex))
+                            }
+                            ZStack {
+                                RoundedRectangle(cornerSize: .init(width: lineHeight, height: lineHeight))
+                                    .padding(.horizontal, xOffset * 2)
                                     .frame(height: lineHeight)
+                                    .frame(width: cellWidth * Double(barre.length))
+                                    .foregroundStyle(settings.style.theme.foregroundMedium)
+                                if diagramDisplayOptions.showFingers {
+                                    Image(systemName: "\(barre.finger).circle")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(settings.style.theme.background, .clear)
+                                        .frame(height: lineHeight)
+                                }
+                            }
+                            if barre.endIndex < chord.instrument.strings.count {
+                                Color.clear
+                                    .frame(width: cellWidth * Double(chord.instrument.strings.count - barre.endIndex))
                             }
                         }
-                        if barre.endIndex < chord.instrument.strings.count {
-                            Color.clear
-                                .frame(width: cellWidth * Double(chord.instrument.strings.count - barre.endIndex))
-                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    } else {
+                        Color.clear
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    Color.clear
                 }
             }
+            .padding(.horizontal, horizontalPadding)
+            .frame(width: gridWidth, height: gridHeight)
         }
-        .padding(.horizontal, horizontalPadding)
-        .frame(width: gridWidth, height: gridHeight)
     }
 
     // MARK: Notes Bar

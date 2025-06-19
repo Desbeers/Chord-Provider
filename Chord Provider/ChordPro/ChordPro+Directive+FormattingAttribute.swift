@@ -46,6 +46,8 @@ extension ChordPro.Directive {
         case define
         /// Key
         case key
+        /// Source
+        case source
 
         /// Implement Comparable
         static func < (lhs: FormattingAttribute, rhs: FormattingAttribute) -> Bool {
@@ -71,6 +73,7 @@ extension ChordPro.Directive {
             case .numeric: 14
             case .define: 15
             case .key: 16
+            case .source: 17
             }
         }
     }

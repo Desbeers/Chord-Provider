@@ -29,7 +29,7 @@ extension RenderView {
                     Color.clear
                         .frame(height: song.settings.style.fonts.text.size * song.settings.scale)
                 case .comment:
-                    commentLabel(comment: line.plain)
+                    commentLabel(comment: line.plain ?? "")
                         .padding(.vertical, song.settings.style.fonts.text.size * song.settings.scale / 2)
                 default:
                     EmptyView()
