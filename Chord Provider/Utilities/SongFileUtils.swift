@@ -19,15 +19,20 @@ extension SongFileUtils {
     /// - Parameters:
     ///   - url: The URL of the folder
     ///   - settings: The ``AppSettings``
+    ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: All songs by title and artists
-    static func getSongsFromFolder(url: URL, settings: AppSettings) async -> (songs: [Song], artists: [Artist]) {
+    static func getSongsFromFolder(
+        url: URL,
+        settings: AppSettings,
+        getOnlyMetadata: Bool = false
+    ) async -> (songs: [Song], artists: [Artist]) {
         var songs: [Song] = []
         var artists: [Artist] = []
         if let items = FileManager.default.enumerator(at: url, includingPropertiesForKeys: nil) {
             while let item = items.nextObject() as? URL {
                 if
                     ChordProDocument.fileExtension.contains(item.pathExtension),
-                    let song = try? await parseSongFile(fileURL: item, settings: settings) {
+                    let song = try? await parseSongFile(fileURL: item, settings: settings, getOnlyMetadata: getOnlyMetadata) {
                     songs.append(song)
                 }
             }
@@ -54,14 +59,19 @@ extension SongFileUtils {
     /// - Parameters:
     ///   - fileURL: The URL of the file
     ///   - settings: The ``AppSettings``
+    ///   - getOnlyMetadata: Bool to get only metadata of the song
     /// - Returns: The parsed ``Song``
-    static func parseSongFile(fileURL: URL, settings: AppSettings) async throws -> Song {
+    static func parseSongFile(
+        fileURL: URL,
+        settings: AppSettings,
+        getOnlyMetadata: Bool
+    ) async throws -> Song {
         do {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = fileURL
             song.settings = settings
-            return await ChordProParser.parse(song: song)
+            return await ChordProParser.parse(song: song, getOnlyMetadata: getOnlyMetadata)
         } catch {
             Logger.application.error("\(error.localizedDescription, privacy: .public)")
             throw AppError.noAccessToSongError

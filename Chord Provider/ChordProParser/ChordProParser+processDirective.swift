@@ -29,10 +29,12 @@ extension ChordProParser {
     ///   - text: The text to process
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
+    ///   - getOnlyMetadata: Bool to get only metadata of the song
     static func processDirective(
         text: String,
         currentSection: inout Song.Section,
-        song: inout Song
+        song: inout Song,
+        getOnlyMetadata: Bool
     ) {
         /// Keep the current text as source when we cannot handle the directive
         let sourceArgument: DirectiveArguments = [.source: text]
@@ -62,7 +64,7 @@ extension ChordProParser {
 
                     /// Process metadata
                     processMetadata(directive: directive, arguments: arguments, currentSection: &currentSection, song: &song)
-                } else {
+                } else if !getOnlyMetadata {
                     /// All other directives
                     switch directive {
 

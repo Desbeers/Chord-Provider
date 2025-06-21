@@ -25,11 +25,12 @@ actor ChordProParser {
     /// Parse a **ChordPro** file into a ``Song`` structure
     /// - Parameters:
     ///   - song: The current ``Song``
+    ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: An updated ``Song`` item
-    static func parse(song: Song) async -> Song {
+    static func parse(song: Song, getOnlyMetadata: Bool = false) async -> Song {
         /// Store the values of the current song
         let old = song
-        Logger.parser.info("Parsing **\(old.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
+        Logger.parser.info("Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         /// Start with a fresh song
         var song = Song(id: song.id, content: old.content, settings: old.settings)
         song.metadata.fileURL = old.metadata.fileURL
@@ -41,28 +42,46 @@ actor ChordProParser {
         for text in song.content.components(separatedBy: .newlines) {
             /// Increase the line number
             song.lines += 1
-            switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
-            case "{":
+            /// Parse only metadata
+            /// - Note: Used in file browser
+            if getOnlyMetadata, text.trimmingCharacters(in: .whitespaces).prefix(1) == "{" {
                 /// Directive
-                processDirective(text: text, currentSection: &currentSection, song: &song)
-            case "|":
-                /// Tab or Grid
-                if text.starts(with: "| ") || currentSection.environment == .grid {
-                    /// Grid
-                    processGrid(text: text, currentSection: &currentSection, song: &song)
-                } else {
-                    /// Tab
-                    processTab(text: text, currentSection: &currentSection, song: &song)
+                processDirective(
+                    text: text,
+                    currentSection: &currentSection,
+                    song: &song,
+                    getOnlyMetadata: getOnlyMetadata
+                )
+            } else if !getOnlyMetadata {
+
+                switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
+                case "{":
+                    /// Directive
+                    processDirective(
+                        text: text,
+                        currentSection: &currentSection,
+                        song: &song,
+                        getOnlyMetadata: getOnlyMetadata
+                    )
+                case "|":
+                    /// Tab or Grid
+                    if text.starts(with: "| ") || currentSection.environment == .grid {
+                        /// Grid
+                        processGrid(text: text, currentSection: &currentSection, song: &song)
+                    } else {
+                        /// Tab
+                        processTab(text: text, currentSection: &currentSection, song: &song)
+                    }
+                case "":
+                    /// Empty line
+                    processEmptyLine(currentSection: &currentSection, song: &song)
+                case "#":
+                    /// Source comment or a Markdown header
+                    /// - Note: Headers are only supported in textblocks
+                    processSourceComment(comment: text, currentSection: &currentSection, song: &song)
+                default:
+                    processEnvironment(text: text, currentSection: &currentSection, song: &song)
                 }
-            case "":
-                /// Empty line
-                processEmptyLine(currentSection: &currentSection, song: &song)
-            case "#":
-                /// Source comment or a Markdown header
-                /// - Note: Headers are only supported in textblocks
-                processSourceComment(comment: text, currentSection: &currentSection, song: &song)
-            default:
-                processEnvironment(text: text, currentSection: &currentSection, song: &song)
             }
         }
         /// Close the last section if needed

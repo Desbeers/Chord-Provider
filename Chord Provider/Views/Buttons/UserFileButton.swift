@@ -48,7 +48,6 @@ struct UserFileButton: View {
             case .success(let files):
                 files.forEach { url in
                     userFile.setBookmarkURL(url)
-                    Logger.application.info("Bookmark set for '\(url.lastPathComponent, privacy: .public)'")
                     if showSelection {
                         label = userFile.label
                     }
