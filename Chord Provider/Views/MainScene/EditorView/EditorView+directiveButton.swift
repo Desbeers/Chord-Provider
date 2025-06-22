@@ -20,6 +20,6 @@ extension EditorView {
                 Label("\(directive.details.button)…", systemImage: directive.details.icon)
             }
         )
-        .disabled(sceneState.song.metadata.defined.contains(directive.rawValue.long))
+        .disabled(sceneState.song.metadata.definedMetadata.contains(directive.rawValue.long))
     }
 }

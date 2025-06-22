@@ -43,6 +43,10 @@ struct PreviewPDFButton: View {
             let pdf = try await sceneState.exportSongToPDF()
             /// The preview is not outdated
             sceneState.preview.outdated = false
+            /// Set the preview URL
+            sceneState.preview.previewURL = sceneState.song.metadata.exportURL
+            /// Set the export name
+            sceneState.preview.exportName = sceneState.song.metadata.exportName
             /// Show the preview
             sceneState.preview.data = pdf
         } catch {

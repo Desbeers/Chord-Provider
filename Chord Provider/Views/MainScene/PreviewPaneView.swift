@@ -13,8 +13,6 @@ struct PreviewPaneView: View {
     let data: Data
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
-    /// The observable state of the document
-    @FocusedValue(\.document) private var document: FileDocumentConfiguration<ChordProDocument>?
     /// The body of the View
     var body: some View {
         AppKitUtils.PDFKitRepresentedView(data: data)
@@ -23,7 +21,15 @@ struct PreviewPaneView: View {
                     PreviewPDFButton.UpdatePreview()
                 }
             }
-            .onChange(of: document?.document.text) {
+            .overlay(alignment: .topLeading) {
+                Image(systemName: "text.document")
+                    .help("Drag me to export")
+                    .foregroundStyle(sceneState.song.settings.style.theme.foregroundMedium)
+                    .font(.largeTitle)
+                    .padding()
+                    .draggable(sceneState.preview)
+            }
+            .onChange(of: sceneState.song.content) {
                 sceneState.preview.outdated = true
             }
     }

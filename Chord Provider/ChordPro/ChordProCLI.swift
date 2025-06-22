@@ -151,21 +151,12 @@ extension ChordProCLI {
     ///   - sceneState: The current scene state
     /// - Returns: The PDF as `Data` and the status as ``AppError``
     @MainActor static func exportPDF(
-        sceneState: SceneStateModel
+        song: Song
     ) async throws -> (data: Data, status: AppError) {
-        /// Shortcut
-        let song = sceneState.song
         /// Get the **ChordPro** binary
         let chordProApp = try await getChordProBinary()
         /// Remove previous export (if any)
-        try? FileManager.default.removeItem(atPath: sceneState.exportURL.path)
-        /// Write the song and settings to the source URL
-        /// - Note: We don't read the file URL directly because it might not be saved yet
-        do {
-            try song.content.write(to: sceneState.sourceURL, atomically: true, encoding: String.Encoding.utf8)
-        } catch {
-            throw AppError.writeDocumentError
-        }
+        try? FileManager.default.removeItem(atPath: song.metadata.exportURL.path)
         /// Build the arguments to pass to the shell
         var arguments: [String] = []
 
@@ -180,7 +171,7 @@ extension ChordProCLI {
         /// Define the warning messages
         arguments.append("--define diagnostics.format='Line %n, %m'")
         /// Add the source file
-        arguments.append("\"\(sceneState.sourceURL.path)\"")
+        arguments.append("\"\(song.metadata.sourceURL.path)\"")
         /// Add the optional custom config file
         if song.settings.chordProCLI.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: song.settings) {
             arguments.append(customConfig)
@@ -192,25 +183,25 @@ extension ChordProCLI {
                 do {
                     var config = try String(contentsOf: config, encoding: .utf8)
                     config = ChordProCLI.applyUserSettings(config: config, settings: song.settings)
-                    try config.write(to: sceneState.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
-                    try jsonSettings.write(to: sceneState.configURL, atomically: true, encoding: String.Encoding.utf8)
+                    try config.write(to: song.metadata.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
+                    try jsonSettings.write(to: song.metadata.configURL, atomically: true, encoding: String.Encoding.utf8)
                 } catch {
                     Logger.application.error("\(error.localizedDescription, privacy: .public)")
                 }
             }
-            arguments.append("--config='\(sceneState.defaultConfigURL.path)'")
-            arguments.append("--config='\(sceneState.configURL.path)'")
+            arguments.append("--config='\(song.metadata.defaultConfigURL.path)'")
+            arguments.append("--config='\(song.metadata.configURL.path)'")
         }
         /// Add the optional local system config that is next to a song file
-        if let localSystemConfigURL = sceneState.localSystemConfigURL {
+        if let localSystemConfigURL = song.metadata.localSystemConfigURL {
             arguments.append("--config='\(localSystemConfigURL.path)'")
         }
         /// Add the optional local config that is next to a song file
-        if let localSongConfigURL = sceneState.localSongConfigURL {
+        if let localSongConfigURL = song.metadata.localSongConfigURL {
             arguments.append("--config='\(localSongConfigURL.path)'")
         }
         /// Add the output file
-        arguments.append("--output=\"\(sceneState.exportURL.path)\"")
+        arguments.append("--output=\"\(song.metadata.exportURL.path)\"")
         /// Add the process to the log
         Logger.chordpro.info("Creating PDF preview with ChordPro CLI")
         let runChordPro = Task.detached {
@@ -219,7 +210,7 @@ extension ChordProCLI {
         let output = await runChordPro.value
         /// Try to get the `Data` from the created PDF
         do {
-            let data = try Data(contentsOf: sceneState.exportURL.absoluteURL)
+            let data = try Data(contentsOf: song.metadata.exportURL.absoluteURL)
             /// Return the `Data` and the status of the creation as an ``AppError`
             /// - Note: That does not mean it is has an error, the status is just using the same structure
             return (data, output.standardError.filter { $0.warning == true }.isEmpty ? .noErrorOccurred : .createChordProCLIWarning)

@@ -43,10 +43,6 @@ extension ChordProParser {
             let parsedDirective = match.1
             let parsedArgument = match.2
 
-            if text.starts(with: "{\(parsedDirective):") {
-                currentSection.addWarning("No need for a colon **:** in a directive")
-            }
-
             /// Handle known directives
             if let directive = getDirective(parsedDirective.lowercased()) {
 
@@ -57,6 +53,10 @@ extension ChordProParser {
                 }
                 /// Always use long directives
                 let directive = directive.directive
+
+                if arguments[.plain] != nil, text.starts(with: "{\(parsedDirective):") {
+                    currentSection.addWarning("No need for a colon **:** for a simple argument")
+                }
 
                 if ChordPro.Directive.metadataDirectives.contains(directive) {
 

@@ -21,7 +21,7 @@ struct PrintPDFButton: View {
                     if let sceneState {
                         do {
                             _ = try await sceneState.exportSongToPDF()
-                            AppKitUtils.printDialog(exportURL: sceneState.exportURL)
+                            AppKitUtils.printDialog(exportURL: sceneState.song.metadata.exportURL)
                         } catch {
                             sceneState.errorAlert = error.alert()
                         }

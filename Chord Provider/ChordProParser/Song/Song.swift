@@ -19,7 +19,7 @@ struct Song: Equatable, Codable, Identifiable {
     /// The total lines of the song
     var lines: Int = 0
 
-    // MARK: Display options
+    // MARK: Settings
 
     /// The application settings
     var settings = AppSettings()

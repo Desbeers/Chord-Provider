@@ -14,7 +14,7 @@ extension AppKitUtils {
         /// Bool to show the sharing picker
         @Binding var isPresented: Bool
         /// The URL of the document to share
-        @Binding var url: URL?
+        @Binding var urls: [URL]?
         /// Make the `View`
         func makeNSView(context: Context) -> NSView {
             let view = NSView()
@@ -22,8 +22,8 @@ extension AppKitUtils {
         }
         /// Update the `View`
         func updateNSView(_ nsView: NSView, context: Context) {
-            if isPresented, let url {
-                let picker = NSSharingServicePicker(items: [url])
+            if isPresented, let urls, let file = urls.first {
+                let picker = NSSharingServicePicker(items: [file])
                 picker.delegate = context.coordinator
                 Task {
                     picker.show(relativeTo: .zero, of: nsView, preferredEdge: .minY)
@@ -55,9 +55,9 @@ extension AppKitUtils {
                 var share = proposedServices
                 /// Add a **print** service to the share-menu
                 if
-                    let url = parent.url,
+                    let url = parent.urls?.last,
                     let image = NSImage(systemSymbolName: "printer", accessibilityDescription: "Printer") {
-                    let printService = NSSharingService(title: "Print PDF", image: image, alternateImage: image) {
+                    let printService = NSSharingService(title: "Print as PDF", image: image, alternateImage: image) {
                         AppKitUtils.printDialog(exportURL: url)
                     }
                     share.insert(printService, at: 0)

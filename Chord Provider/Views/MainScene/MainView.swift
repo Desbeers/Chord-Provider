@@ -46,10 +46,10 @@ struct MainView: View {
         .errorAlert(message: $sceneState.errorAlert)
         .task {
             sceneState.song.metadata.fileURL = fileURL
-            sceneState.template = document.template
+            sceneState.song.metadata.templateURL = document.templateURL
             await renderSong()
             /// Always open the editor for a new file or a template
-            if document.text == ChordProDocument.getSongTemplateContent() || document.template != nil {
+            if document.text == ChordProDocument.getSongTemplateContent() || document.templateURL != nil {
                 sceneState.showEditor = true
             }
             sceneState.status = .ready
@@ -144,6 +144,20 @@ struct MainView: View {
                                 appState.settings.style.fonts.text.color,
                                 appState.settings.style.theme.foregroundMedium
                             )
+                            .background(Color(appState.settings.style.theme.background))
+                            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 7))
+                            .draggable(sceneState.song) {
+                                VStack {
+                                    Text(sceneState.song.metadata.title)
+                                        .font(.title2)
+                                    // swiftlint:disable:next force_unwrapping
+                                    Image(nsImage: NSImage(named: "AppIcon")!)
+                                    Text("You are dragging the content of your song")
+                                        .font(.caption)
+                                }
+                                .padding()
+                                .background(.regularMaterial)
+                            }
                         if sceneState.song.settings.display.showChords {
                             Divider()
                             ChordsView(document: $document)
@@ -183,6 +197,8 @@ struct MainView: View {
         sceneState.song = await ChordProParser.parse(song: sceneState.song)
         sceneState.getMedia()
         appState.lastUpdate = .now
+        /// Save the song to disk for sharing
+        try? sceneState.song.content.write(to: sceneState.song.metadata.sourceURL, atomically: true, encoding: String.Encoding.utf8)
 
         /// Pass the parsed song to the appState
         appState.song = sceneState.song

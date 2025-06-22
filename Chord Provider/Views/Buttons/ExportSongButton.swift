@@ -21,10 +21,17 @@ struct ExportSongButton: View {
         Button(
             action: {
                 if let sceneState {
-                    /// Get the PDF
-                    pdf = try? Data(contentsOf: sceneState.exportURL)
-                    /// Show the export dialog
-                    exportFile = true
+                    Task {
+                        do {
+                            _ = try await sceneState.exportSongToPDF()
+                            /// Get the PDF
+                            pdf = try? Data(contentsOf: sceneState.song.metadata.exportURL)
+                            /// Show the export dialog
+                            exportFile = true
+                        } catch {
+                            sceneState.errorAlert = error.alert()
+                        }
+                    }
                 }
             },
             label: {

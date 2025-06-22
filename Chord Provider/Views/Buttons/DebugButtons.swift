@@ -36,7 +36,7 @@ struct DebugButtons: View {
             action: {
                 /// Open the **ChordPro** temporary folder
                 if let sceneState {
-                    NSWorkspace.shared.open(sceneState.temporaryDirectoryURL)
+                    NSWorkspace.shared.open(sceneState.song.metadata.temporaryDirectoryURL)
                 }
             },
             label: {

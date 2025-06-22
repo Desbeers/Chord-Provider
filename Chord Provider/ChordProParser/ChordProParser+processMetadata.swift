@@ -22,7 +22,7 @@ extension ChordProParser {
         song: inout Song
     ) {
         /// Set this metadata as defined
-        song.metadata.defined.insert(directive.rawValue.long)
+        song.metadata.definedMetadata.insert(directive.rawValue.long)
         /// Get the label
         let label = arguments[.plain]
         /// Add the metadata to the song

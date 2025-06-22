@@ -38,6 +38,7 @@ struct ToolbarView: CustomizableToolbarContent {
             PreviewPDFButton(label: "Preview PDF")
         }
         ToolbarItem(id: "share") {
+            /// `SwiftUI ShareLink` sucks on macOS
             ShareButton()
         }
     }

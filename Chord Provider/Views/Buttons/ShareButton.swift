@@ -14,7 +14,7 @@ struct ShareButton: View {
     /// Bool to show the share picker
     @State private var showSharePicker: Bool = false
     /// The export URL
-    @State private var exportURL: URL?
+    @State private var exportURLS: [URL]?
     /// The body of the `View`
     var body: some View {
         Button(
@@ -23,7 +23,7 @@ struct ShareButton: View {
                     do {
                         _ = try await sceneState.exportSongToPDF()
                         /// Set the export URL
-                        exportURL = sceneState.exportURL
+                        exportURLS = [sceneState.song.metadata.sourceURL, sceneState.song.metadata.exportURL]
                         /// Show the share picker
                         self.showSharePicker = true
                     } catch {
@@ -39,7 +39,7 @@ struct ShareButton: View {
         .background(
             AppKitUtils.SharingServiceRepresentedView(
                 isPresented: $showSharePicker,
-                url: $exportURL
+                urls: $exportURLS
             )
         )
     }

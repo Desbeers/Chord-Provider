@@ -23,8 +23,7 @@ struct ChordProDocument: FileDocument {
     /// The content of the ChordPro file
     var text: String
     /// The optional template URL
-    /// - Used to get custom configs next to the template URL (official **ChordPro** support)
-    var template: URL?
+    var templateURL: URL?
     /// Init the text
     init(text: String = "", template: URL? = nil) {
         if text.isEmpty {
@@ -32,7 +31,7 @@ struct ChordProDocument: FileDocument {
         } else {
             self.text = text
         }
-        self.template = template
+        self.templateURL = template
     }
     /// Init the configuration
     init(configuration: ReadConfiguration) throws {
