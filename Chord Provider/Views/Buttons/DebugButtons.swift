@@ -13,8 +13,7 @@ struct DebugButtons: View {
     @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
     /// The body of the `View`
     var body: some View {
-        ExportJSONButton()
-            .disabled(sceneState == nil)
+        ExportJSONButton(song: sceneState?.song)
         Divider()
         Button(
             action: {
@@ -23,9 +22,11 @@ struct DebugButtons: View {
                     UserDefaults.standard.removePersistentDomain(forName: bundleID)
                 }
                 /// Delete the settings
-                try? SettingsCache.delete(key: "ChordProviderSettings-Main")
-                try? SettingsCache.delete(key: "ChordProviderSettings-FolderExport")
+                for setting in AppSettings.AppWindowID.allCases {
+                    try? SettingsCache.delete(id: setting)
+                }
                 /// Terminate the application
+                /// - Note: This will also clean the temporarily files
                 NSApp.terminate(nil)
             },
             label: {
@@ -34,15 +35,12 @@ struct DebugButtons: View {
         )
         Button(
             action: {
-                /// Open the **ChordPro** temporary folder
-                if let sceneState {
-                    NSWorkspace.shared.open(sceneState.song.metadata.temporaryDirectoryURL)
-                }
+                /// Open the **Chord Provider** temporary folder
+                NSWorkspace.shared.open(Song.temporaryDirectoryURL)
             },
             label: {
                 Text("Open temporary folder")
             }
         )
-        .disabled(sceneState == nil)
     }
 }

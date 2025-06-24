@@ -40,9 +40,7 @@ extension ChordProParser {
         /// - Note: Used in PDF output to calculate label offset
         if ChordPro.Directive.environmentDirectives.contains(directive) {
             let label = arguments[.label] ?? arguments[.plain] ?? directive.details.environment.label
-            if label.count > song.metadata.longestLabel.count {
-                song.metadata.longestLabel = label
-            }
+            setLongestLabel(label: label, song: &song)
         }
 
         /// Calculate the source if not set

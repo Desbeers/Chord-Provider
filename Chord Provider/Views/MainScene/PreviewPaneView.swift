@@ -13,6 +13,7 @@ struct PreviewPaneView: View {
     let data: Data
     /// The observable state of the scene
     @Environment(SceneStateModel.self) private var sceneState
+    @State private var isHovering: Bool = false
     /// The body of the View
     var body: some View {
         AppKitUtils.PDFKitRepresentedView(data: data)
@@ -24,11 +25,16 @@ struct PreviewPaneView: View {
             .overlay(alignment: .topLeading) {
                 Image(systemName: "text.document")
                     .help("Drag me to export")
-                    .foregroundStyle(sceneState.song.settings.style.theme.foregroundMedium)
-                    .font(.largeTitle)
+                    .foregroundStyle(sceneState.song.settings.style.fonts.label.color)
+                    .font(.system(size: 20))
                     .padding()
+                    .opacity(isHovering ? 1 : 0.1)
                     .draggable(sceneState.preview)
+                    .onHover { hover in
+                        isHovering = hover
+                    }
             }
+            .animation(.default, value: isHovering)
             .onChange(of: sceneState.song.content) {
                 sceneState.preview.outdated = true
             }

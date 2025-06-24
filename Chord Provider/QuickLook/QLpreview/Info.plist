@@ -10,7 +10,7 @@
 			<true/>
 			<key>QLSupportedContentTypes</key>
 			<array>
-				<string>org.chordpro</string>
+				<string>org.chordpro.chordpro</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

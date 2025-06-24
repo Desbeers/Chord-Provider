@@ -45,8 +45,7 @@ import OSLog
 
     /// Export the song to a PDF
     func exportSongToPDF() async throws -> Data {
-        let settings = AppSettings.load(id: .mainView)
-        switch settings.chordProCLI.useChordProCLI {
+        switch song.settings.chordProCLI.useChordProCLI {
         case false:
             /// Default renderer
             do {
@@ -99,8 +98,6 @@ import OSLog
         self.definition = ChordDefinition(name: "C", instrument: .guitar)!
         /// Init the song with an unique ID
         self.song = Song(id: UUID(), content: "")
-        /// Create the temp directory
-        try? FileManager.default.createDirectory(at: song.metadata.temporaryDirectoryURL, withIntermediateDirectories: true)
         /// Add the last used settings
         let settings = AppSettings.load(id: id)
         self.song.settings = settings

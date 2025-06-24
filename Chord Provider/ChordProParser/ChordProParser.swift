@@ -101,6 +101,11 @@ actor ChordProParser {
         setDefaults(song: &song)
         /// Sort the chords
         song.chords = song.chords.sorted(using: KeyPathComparator(\.display))
+        /// Check if the song has actual content
+        let sections = song.sections.uniqued(by: \.environment).map(\.environment)
+        if Set(sections).isDisjoint(with: ChordPro.Environment.content) {
+            song.hasContent = false
+        }
         /// All done!
         return song
     }

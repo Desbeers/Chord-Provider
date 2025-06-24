@@ -10,11 +10,17 @@ import Foundation
 /// The structure of a song as shown in **Chord Provider**
 struct Song: Equatable, Codable, Identifiable {
 
+    static let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        .appendingPathComponent(Bundle.main.bundleIdentifier ?? "nl.desbeers.chordprovider", isDirectory: true)
+
     /// The ID of the song
     var id: UUID
 
     /// The raw content of the song
     var content: String = ""
+
+    /// Bool if the song has actual content
+    var hasContent: Bool = true
 
     /// The total lines of the song
     var lines: Int = 0

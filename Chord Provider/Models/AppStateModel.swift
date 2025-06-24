@@ -32,6 +32,8 @@ import SwiftUI
 
     /// Init the class; get application settings
     init(id: AppSettings.AppWindowID) {
+        /// Create the temporarily directory
+        try? FileManager.default.createDirectory(at: Song.temporaryDirectoryURL, withIntermediateDirectories: true)
         self.id = id
         /// Get the application window settings from the cache
         let settings = AppSettings.load(id: id)

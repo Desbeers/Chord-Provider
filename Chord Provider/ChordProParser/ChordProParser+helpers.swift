@@ -44,4 +44,12 @@ extension ChordProParser {
         }
         return offset
     }
+
+    /// Remember the longest label for an environment
+    /// - Note: Used in PDF output to calculate label offset
+    static func setLongestLabel(label: String, song: inout Song) {
+        if label.count > song.metadata.longestLabel.count {
+            song.metadata.longestLabel = label
+        }
+    }
 }

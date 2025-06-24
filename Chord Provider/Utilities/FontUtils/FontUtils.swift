@@ -63,8 +63,7 @@ extension FontUtils {
     static func getTTFfont(font: FontUtils.Item) -> String {
         /// Only deal with *ttc* fonts
         if font.url.pathExtension == "ttc" {
-            let fontsFolderURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-                .appendingPathComponent("ChordProviderTMP", isDirectory: true)
+            let fontsFolderURL = Song.temporaryDirectoryURL
             let manager = FileManager.default
             var result: String = fontsFolderURL.appending(path: "\(font.postScriptName).ttf").path()
             if !manager.fileExists(atPath: result) {

@@ -30,6 +30,10 @@ extension ChordPro {
         case tab
         /// Grid environment
         case grid
+        /// Strum environment
+        case strum
+        /// Image environment
+        case image
 
         // MARK: Official delegated environment directives
 
@@ -41,20 +45,16 @@ extension ChordPro {
 
         // MARK: Custom environments
 
-        /// Strum environment
-        case strum
-
         /// The environment contains metadata
         case metadata
 
-        /// Image environment
-        case image
-
         /// An empty line in the source
-        case emptyLine
+        case emptyLine = "empty_line"
+
+        /// A source comment
+        case sourceComment = "source_comment"
 
         /// Not an environment
-        /// - Note: A source comment or an empty line for example
         case none
     }
 }

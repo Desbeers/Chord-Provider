@@ -148,7 +148,7 @@ extension ChordProCLI {
 
     /// Export a document or folder with the **ChordPro** binary to a PDF
     /// - Parameters:
-    ///   - sceneState: The current scene state
+    ///   - song: The current ``Song``
     /// - Returns: The PDF as `Data` and the status as ``AppError``
     @MainActor static func exportPDF(
         song: Song

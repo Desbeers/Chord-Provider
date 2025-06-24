@@ -11,7 +11,7 @@ extension AppSettings {
 
     /// The ID of the app window
     /// - Note: Used to load and save the settings in the cache
-    enum AppWindowID: String {
+    enum AppWindowID: String, CaseIterable {
         /// `MainView` settings
         case mainView = "Main Settings"
         /// `ExportFolderView` settings

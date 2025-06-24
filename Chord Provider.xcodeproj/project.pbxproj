@@ -167,6 +167,9 @@
 		D733F6002B90A8AA0065D6FD /* AppStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */; };
 		D733F6022B90B1B40065D6FD /* SceneStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6012B90B1B40065D6FD /* SceneStateModel+Elements.swift */; };
 		D733F6042B90CC1C0065D6FD /* FileBrowserModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6032B90CC1C0065D6FD /* FileBrowserModel+Elements.swift */; };
+		D7349E192E09893E002821D3 /* DebugView+log.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E182E09893E002821D3 /* DebugView+log.swift */; };
+		D7349E1B2E098980002821D3 /* DebugView+json.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E1A2E098980002821D3 /* DebugView+json.swift */; };
+		D7349E1D2E0989BC002821D3 /* DebugView+source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E1C2E0989BC002821D3 /* DebugView+source.swift */; };
 		D737F8552D8ED633001F1DC5 /* FontUtils+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D737F8542D8ED633001F1DC5 /* FontUtils+Config.swift */; };
 		D737F8562D8ED633001F1DC5 /* FontUtils+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D737F8542D8ED633001F1DC5 /* FontUtils+Config.swift */; };
 		D737F8582D8ED7D7001F1DC5 /* FontOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D737F8572D8ED7D7001F1DC5 /* FontOptionsView.swift */; };
@@ -561,6 +564,9 @@
 		D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStateModel+Elements.swift"; sourceTree = "<group>"; };
 		D733F6012B90B1B40065D6FD /* SceneStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneStateModel+Elements.swift"; sourceTree = "<group>"; };
 		D733F6032B90CC1C0065D6FD /* FileBrowserModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBrowserModel+Elements.swift"; sourceTree = "<group>"; };
+		D7349E182E09893E002821D3 /* DebugView+log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+log.swift"; sourceTree = "<group>"; };
+		D7349E1A2E098980002821D3 /* DebugView+json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+json.swift"; sourceTree = "<group>"; };
+		D7349E1C2E0989BC002821D3 /* DebugView+source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+source.swift"; sourceTree = "<group>"; };
 		D737F8542D8ED633001F1DC5 /* FontUtils+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontUtils+Config.swift"; sourceTree = "<group>"; };
 		D737F8572D8ED7D7001F1DC5 /* FontOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontOptionsView.swift; sourceTree = "<group>"; };
 		D73A03E82AC85B6100D6CD0E /* RenderView+ChordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+ChordView.swift"; sourceTree = "<group>"; };
@@ -1190,6 +1196,9 @@
 			isa = PBXGroup;
 			children = (
 				D75955B22CF9D65A00CF3590 /* DebugView.swift */,
+				D7349E1C2E0989BC002821D3 /* DebugView+source.swift */,
+				D7349E1A2E098980002821D3 /* DebugView+json.swift */,
+				D7349E182E09893E002821D3 /* DebugView+log.swift */,
 				D75955AE2CF9D5E500CF3590 /* DebugView+Message.swift */,
 			);
 			path = DebugScene;
@@ -1755,6 +1764,7 @@
 				D70B72742BD3CD2F003C89B4 /* PDFBuild+Chords.swift in Sources */,
 				D752E5B42CC3677600CDE42D /* ChordsDatabaseView+grid.swift in Sources */,
 				D770847B2D8DC33A002530F7 /* FontUtils+Options.swift in Sources */,
+				D7349E192E09893E002821D3 /* DebugView+log.swift in Sources */,
 				D76C24E32C3AA2AA00C93D82 /* PreviewPaneView.swift in Sources */,
 				D74C86D12BD6CF2C00003828 /* FolderExport+export.swift in Sources */,
 				D72EDE3E2BF789EE00624827 /* ChordPro+Directive+Details.swift in Sources */,
@@ -1977,6 +1987,7 @@
 				D7781B532D0F205F00EC0CCF /* PDFBuild+arguments.swift in Sources */,
 				D70503282D21532B00DB897A /* HelpView.swift in Sources */,
 				D770846F2D8D9683002530F7 /* SettingsView+style.swift in Sources */,
+				D7349E1B2E098980002821D3 /* DebugView+json.swift in Sources */,
 				D70D96DB2CB2ACAE00B51A14 /* JSONDocument.swift in Sources */,
 				D75955B32CF9D65A00CF3590 /* DebugView.swift in Sources */,
 				D7336AD62C273AD700D0AA8E /* HelpButtons.swift in Sources */,
@@ -1989,6 +2000,7 @@
 				D75E6C632DABB02E0065F1D2 /* RenderView+gridSection.swift in Sources */,
 				D7EF99692BDADC2E0058E1CB /* AppError.swift in Sources */,
 				D75B48952BDD2291001F6176 /* FolderExport+files.swift in Sources */,
+				D7349E1D2E0989BC002821D3 /* DebugView+source.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2167,7 +2179,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2200,7 +2212,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlthumbnail;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2456,7 +2468,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2488,7 +2500,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 6.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = nl.desbeers.chordprovider.qlpreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";

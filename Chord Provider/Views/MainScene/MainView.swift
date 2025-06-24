@@ -18,6 +18,9 @@ struct MainView: View {
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
+
+    @Environment(\.appearsActive) var appearsActive
+
     /// The optional file URL of the song
     let fileURL: URL?
     /// The body of the `View`
@@ -110,6 +113,12 @@ struct MainView: View {
                 sceneState.preview.outdated = true
             }
         }
+        .onChange(of: appearsActive) { _, newValue in
+            if newValue {
+                /// Pass the song to the application state for the debug view because it has the focus
+                appState.song = sceneState.song
+            }
+        }
         .animation(.default, value: sceneState.preview)
         .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.song.settings)
@@ -177,6 +186,13 @@ struct MainView: View {
             proxy.size
         } action: { newValue in
             sceneState.windowWidth = newValue.width
+        }
+        .onDisappear {
+            /// Remove this song from the Debug View if active
+            if sceneState.song.id == appState.song?.id {
+                appState.song = nil
+                appState.lastUpdate = .now
+            }
         }
     }
 

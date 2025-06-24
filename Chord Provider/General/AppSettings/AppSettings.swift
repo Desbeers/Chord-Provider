@@ -48,11 +48,14 @@ extension AppSettings {
     /// - Parameter id: The ID of the settings
     /// - Returns: The ``AppSettings``
     static func load(id: AppSettings.AppWindowID) -> AppSettings {
-        if let settings = try? SettingsCache.get(key: "ChordProviderSettings-\(id.rawValue)", struct: AppSettings.self) {
+        if let settings = try? SettingsCache.get(id: id, struct: AppSettings.self) {
             return settings
         }
         /// No settings found; return defaults
-        return AppSettings()
+        Logger.application.info("No **\(id.rawValue, privacy: .public)** found; using defaults")
+        var appSettings = AppSettings()
+        appSettings.style = AppSettings.Style().defaults()
+        return appSettings
     }
 
     /// Save the application settings to the cache
@@ -60,7 +63,7 @@ extension AppSettings {
     /// - Parameter settings: The ``AppSettings``
     static func save(id: AppSettings.AppWindowID, settings: AppSettings) throws {
         do {
-            try SettingsCache.set(key: "ChordProviderSettings-\(id.rawValue)", object: settings)
+            try SettingsCache.set(id: id, object: settings)
             Logger.application.info("**\(id.rawValue, privacy: .public)** saved")
         } catch {
             Logger.application.error("Error saving **\(id.rawValue, privacy: .public)**")

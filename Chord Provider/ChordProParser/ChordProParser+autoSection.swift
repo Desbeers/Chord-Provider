@@ -34,6 +34,9 @@ extension ChordProParser {
             currentSection.lines[firstLineIndex].addWarning("No environment set, using **\(environment.rawValue)**")
             /// Add the opening directive at the start
             currentSection.lines.insert(line, at: 0)
+            /// Remember the longest label for an environment
+            /// - Note: Used in PDF output to calculate label offset
+            setLongestLabel(label: environment.label, song: &song)
         }
     }
 }

@@ -17,7 +17,7 @@ struct ChordProDocument: FileDocument {
     /// The document text for a new song
     static let newText: String = "{title \(newTitle)}\n{artist \(newArtist)}\n\n"
     /// The file extensions Chord Provider can open
-    static let fileExtension: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
+    static let fileExtension: [String] = UTType.chordProSong.tags[.filenameExtension] ?? [""]
     /// The `UTType` for a ChordPro document
     static var readableContentTypes: [UTType] { [.chordProSong] }
     /// The content of the ChordPro file

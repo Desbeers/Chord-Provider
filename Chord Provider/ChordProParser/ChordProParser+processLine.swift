@@ -65,12 +65,6 @@ extension ChordProParser {
             }
         }
         line.parts = parts
-        /// Remember the longest line in the song
-        if currentSection.environment == .chorus || currentSection.environment == .verse {
-            if line.plain?.count ?? 0 > song.metadata.longestLine.count {
-                song.metadata.longestLine = line.plain ?? ""
-            }
-        }
         /// Add the line"
         currentSection.lines.append(line)
         /// Set the environment to Verse if not yet set and we have chords, else to Textblock
@@ -80,6 +74,12 @@ extension ChordProParser {
                 currentSection: &currentSection,
                 song: &song
             )
+        }
+        /// Remember the longest line in the song
+        if currentSection.environment == .chorus || currentSection.environment == .verse {
+            if line.plain?.count ?? 0 > song.metadata.longestLine.count {
+                song.metadata.longestLine = line.plain ?? ""
+            }
         }
     }
 }

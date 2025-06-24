@@ -57,21 +57,14 @@ extension Song {
         /// The optional template URL
         var templateURL: URL?
 
-        /// The temporary directory URL for processing files
-        /// - Note: In its own directory so easier to debug
-        var temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-            .appendingPathComponent("ChordProviderTMP", isDirectory: true)
-
         /// The URL of the source file
         var sourceURL: URL {
-            /// Create a source URL
-            return temporaryDirectoryURL.appendingPathComponent(exportName, conformingTo: .chordProSong)
+            temporaryDirectoryURL.appendingPathComponent(exportName, conformingTo: .chordProSong)
         }
 
         /// The URL of the export PDF
         var exportURL: URL {
-            /// Create an export URL
-            return temporaryDirectoryURL.appendingPathComponent(exportName, conformingTo: .pdf)
+            temporaryDirectoryURL.appendingPathComponent(exportName, conformingTo: .pdf)
         }
 
         /// The longest label in the song

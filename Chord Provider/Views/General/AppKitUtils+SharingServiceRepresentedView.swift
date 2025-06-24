@@ -13,7 +13,9 @@ extension AppKitUtils {
     struct SharingServiceRepresentedView: NSViewRepresentable {
         /// Bool to show the sharing picker
         @Binding var isPresented: Bool
-        /// The URL of the document to share
+        /// The URLs of the document to share
+        ///  - First is the source
+        ///  - Last is the PDF
         @Binding var urls: [URL]?
         /// Make the `View`
         func makeNSView(context: Context) -> NSView {
@@ -64,7 +66,7 @@ extension AppKitUtils {
                 }
                 return share
             }
-            /// Tells the delegate that the person selected a sharing service for the current item
+            /// Tells the delegate that the user selected a sharing service for the current item
             func sharingServicePicker(
                 _ sharingServicePicker: NSSharingServicePicker,
                 didChoose service: NSSharingService?

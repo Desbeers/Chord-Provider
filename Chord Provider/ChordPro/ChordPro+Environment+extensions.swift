@@ -65,6 +65,8 @@ extension ChordPro.Environment {
             ""
         case .emptyLine:
             ""
+        case .sourceComment:
+            ""
         case .none:
             ""
         }
@@ -78,7 +80,23 @@ extension ChordPro.Environment {
         [
             .metadata,
             .abc,
+            .sourceComment,
             .none
+        ]
+    }
+
+    /// Environments with song content
+    static var content: [ChordPro.Environment] {
+        [
+            .chorus,
+            .repeatChorus,
+            .verse,
+            .bridge,
+            .tab,
+            .grid,
+            .strum,
+            .textblock,
+            .comment
         ]
     }
 }

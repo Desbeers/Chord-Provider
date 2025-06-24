@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import OSLog
 
 /// The application delegate for **Chord Provider**
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -13,6 +14,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     /// Don't terminate when the last **Chord Provider** window is closed
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return false
+    }
+
+    /// Cleanup the temporarily files on exit
+    func applicationWillTerminate(_ notification: Notification) {
+        Logger.application.info("Removing temporarily files")
+        try? FileManager.default.removeItem(at: Song.temporaryDirectoryURL)
     }
 
     // MARK: App Window ID's

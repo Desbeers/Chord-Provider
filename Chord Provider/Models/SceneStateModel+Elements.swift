@@ -33,6 +33,7 @@ extension SceneStateModel {
                 sceneState.chordsPositionPicker
                     .pickerStyle(.inline)
             }
+            .menuIndicator(.hidden)
         }
     }
 }

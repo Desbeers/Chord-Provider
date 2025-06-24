@@ -73,6 +73,7 @@ The *export document* is a PDF with either a song or a whole folder with songs.
 - ``ChordProDocument``
 - ``JSONDocument``
 - ``ExportDocument``
+- ``Samples``
 
 ### ChordPro
 
@@ -230,6 +231,7 @@ SwiftUI buttons used all around the application
 - ``HelpButtons``
 - ``FontPickerButton``
 - ``PlayChordButton``
+- ``ExportJSONButton``
 
 ### SwiftUI Slider Views
 

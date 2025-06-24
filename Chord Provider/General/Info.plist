@@ -13,10 +13,10 @@
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.chordpro</string>
+				<string>org.chordpro.chordpro</string>
 			</array>
 			<key>NSUbiquitousDocumentUserActivityType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).chordpro</string>
+			<string>org.chordpro.chordpro</string>
 		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
@@ -31,7 +31,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>org.chordpro</string>
+			<string>org.chordpro.chordpro</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

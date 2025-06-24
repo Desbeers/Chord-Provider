@@ -326,7 +326,7 @@ extension ChordPro.Directive {
                 icon: "bubble",
                 button: "None",
                 help: "Ignored in the Output",
-                environment: .none
+                environment: .sourceComment
             )
         case .environmentLine:
             Details(

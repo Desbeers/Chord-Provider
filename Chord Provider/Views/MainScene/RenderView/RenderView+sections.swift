@@ -44,9 +44,9 @@ extension RenderView {
                 /// Don't render metadata
                 EmptyView()
             case .emptyLine:
-                /// Don't render empty lines when not in an evironment
+                /// Don't render empty lines when not in an environment
                 EmptyView()
-            case .none:
+            case .sourceComment, .none:
                 /// Not an environment
                 EmptyView()
             }

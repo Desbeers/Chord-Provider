@@ -22,7 +22,7 @@ struct ShareButton: View {
                 Task {
                     do {
                         _ = try await sceneState.exportSongToPDF()
-                        /// Set the export URL
+                        /// Set the export URLs. First is the source, second the PDF
                         exportURLS = [sceneState.song.metadata.sourceURL, sceneState.song.metadata.exportURL]
                         /// Show the share picker
                         self.showSharePicker = true

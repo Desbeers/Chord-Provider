@@ -15,10 +15,7 @@ struct SongView: View {
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
     var body: some View {
-        if sceneState.song.sections.isEmpty {
-            ContentUnavailableView("The Song is Empty", systemImage: "music.quarternote.3")
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        } else {
+        if sceneState.song.hasContent {
             ZStack {
                 /// Get the max size
                 /// - Note: This is not perfect but seems well enough for normal songs
@@ -60,6 +57,9 @@ struct SongView: View {
                 .contentShape(Rectangle())
                 .scaleModifier
             }
+        } else {
+            ContentUnavailableView("The song has no content", systemImage: "music.quarternote.3")
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 }

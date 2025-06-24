@@ -11,15 +11,15 @@ import OSLog
 /// SwiftUI `View` for the debug window
 struct DebugView: View {
     /// The observable state of the application
-    @Environment(AppStateModel.self) private var appState
+    @Environment(AppStateModel.self) var appState
     /// The currently selected tab
     @State private var tab: Message = .log
     /// The source of the song
-    @State private var content: [(line: Int, source: Song.Section.Line)] = []
+    @State var content: [(line: Int, source: Song.Section.Line)] = []
     /// The currently selected line
-    @State private var selectedLine: Int?
+    @State var selectedLine: Int?
     /// All parsed log messages
-    @State private var osLogMessages: [LogMessage] = []
+    @State var osLogMessages: [LogMessage] = []
     /// Remember the last fetched time
     @State private var lastFetchedLogDate = Calendar.current.date(byAdding: .year, value: -1000, to: Date()) ?? Date()
     /// The body of the `View`
@@ -37,7 +37,7 @@ struct DebugView: View {
         }
         .frame(minWidth: 500, minHeight: 600)
         .frame(maxWidth: .infinity)
-        .background(Color(NSColor.windowBackgroundColor))
+        .background(Color(NSColor.textBackgroundColor))
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Picker("Tab", selection: $tab) {
@@ -49,6 +49,8 @@ struct DebugView: View {
             }
         }
         .labelStyle(.titleAndIcon)
+        .animation(.default, value: appState.song)
+        .animation(.default, value: tab)
         .task(id: appState.song) {
             if let song = appState.song {
                 var content: [(line: Int, source: Song.Section.Line)] = []
@@ -56,6 +58,8 @@ struct DebugView: View {
                     content.append((line: line.sourceLineNumber, source: line))
                 }
                 self.content = content
+            } else {
+                self.content = []
             }
         }
         .task(id: appState.lastUpdate) {
@@ -94,136 +98,11 @@ struct DebugView: View {
             selectedLine = nil
         }
     }
-    /// The source tab of the `View`
-    @ViewBuilder var source: some View {
-        List(selection: $selectedLine) {
-            ForEach(content, id: \.line) { line in
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("\(line.line)")
-                            .frame(width: 30, alignment: .trailing)
-                            .font(
-                                .body
-                                    .weight(line.source.warnings == nil ? .regular : .bold)
-                            )
-                        VStack(alignment: .leading) {
-                            Text(line.source.source)
-                            if let warnings = line.source.warnings {
-                                Text(.init("\(warnings.joined(separator: ", "))"))
-                                    .foregroundStyle(.red)
-                                    .font(.caption)
-                            }
-                            if line.source.sourceLineNumber < 1 {
-                                Text("The directive is added by the parser")
-                                    .foregroundStyle(.green)
-                                    .font(.caption)
-                            }
-                            Text("Environment: **\(line.source.directive.details.environment.rawValue)**")
-                                .foregroundStyle(.gray)
-                        }
-                    }
-                    .tag(line.line)
-                    if line.line == selectedLine {
-                        Text(ChordProParser.encode(line.source))
-                            .padding(4)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(Color(nsColor: .textBackgroundColor))
-                            .foregroundStyle(Color(nsColor: .textColor))
-                            .padding(.horizontal, 30)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        }
-        VStack(alignment: .leading) {
-            Label("A negative line number means the line is added by the *parser* and is not part of the current document", systemImage: "info.circle")
-            Label("A **bold** line number means the *source line* has warnings that the parser will try to resolve", systemImage: "exclamationmark.triangle")
-        }
-        .font(.caption)
-        .padding()
-        .foregroundStyle(.secondary)
-    }
-    /// The json tab of the `View`
-    var json: some View {
-        ScrollView {
-            Form {
-                LazyVStack {
-                    if let song = appState.song {
-                        let metadata = ChordProParser.encode(song.metadata)
-                        jsonPart(label: "Meta Data", content: metadata)
 
-                        ForEach(song.sections) { section in
-                            Divider()
-                            let content = ChordProParser.encode(section)
-                            jsonPart(label: "Section \(section.environment.rawValue)", content: content)
-                        }
-                        let chords = ChordProParser.encode(song.chords)
-                        jsonPart(label: "Chords", content: chords)
-                    } else {
-                        Text("No song open")
-                    }
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding()
-        }
-        .labeledContentStyle(.debug)
-    }
-    func jsonPart(label: String, content: String) -> some View {
-        Section {
-            LabeledContent {
-                Text(content)
-            } label: {
-                Text(label)
-            }
-        }
-        .padding()
-    }
-    /// The log tab of the `View`
-    var log: some View {
-        VStack {
-            ScrollView {
-                ScrollViewReader { value in
-                    LazyVStack(spacing: 0) {
-                        /// - Note: This *must* be a LazyVStack or else memory usage will go nuts
-                        ForEach(osLogMessages) { log in
-                            VStack(alignment: .leading, spacing: 0) {
-                                Divider()
-                                HStack(alignment: .top, spacing: 0) {
-                                    Image(systemName: "exclamationmark.bubble")
-                                        .foregroundStyle(log.type.color)
-                                        .padding(.trailing, 4)
-                                    Text(log.time.formatted(date: .omitted, time: .standard))
-                                    Text(": ")
-                                    Text(log.category)
-                                    Text(": ")
-                                    if let lineNumber = log.lineNumber {
-                                        Text("**Line \(lineNumber)**: ")
-                                    }
-                                    Text(.init(log.message))
-                                }
-                                .padding(8)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(log.type.color.opacity(0.2))
-                        }
-                        /// Just use this as anchor point to keep the scrollview at the bottom
-                        Divider()
-                            .id(1)
-                            .task {
-                                value.scrollTo(1)
-                            }
-                            .onChange(of: osLogMessages) {
-                                value.scrollTo(1)
-                            }
-                    }
-                }
-            }
-            Button("Clear Log Messages") {
-                osLogMessages = []
-            }
-            .padding(.bottom)
-        }
+    /// No song View
+    var noSong: some View {
+        ContentUnavailableView("No song open", systemImage: "music.quarternote.3")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     /// Parse a line in the log
     /// - Parameter line: The line to parse

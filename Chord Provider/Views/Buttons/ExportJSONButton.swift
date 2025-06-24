@@ -10,8 +10,8 @@ import OSLog
 
 /// SwiftUI `View` with a button for a ``Song`` in JSON export
 struct ExportJSONButton: View {
-    /// The observable state of the scene
-    @FocusedValue(\.sceneState) private var sceneState: SceneStateModel?
+    /// The current song
+    let song: Song?
     /// Present an export dialog
     @State private var exportFile = false
     /// The song as JSON
@@ -20,9 +20,9 @@ struct ExportJSONButton: View {
     var body: some View {
         Button(
             action: {
-                if let sceneState {
+                if let song {
                     /// Get the JSON
-                    json = ChordProParser.encode(sceneState.song)
+                    json = ChordProParser.encode(song)
                     /// Show the export dialog
                     exportFile = true
                 }
@@ -32,12 +32,12 @@ struct ExportJSONButton: View {
             }
         )
         .help("Export your song as JSON")
-        .disabled(sceneState == nil)
+        .disabled(song == nil)
         .fileExporter(
             isPresented: $exportFile,
             document: JSONDocument(string: json ?? ""),
             contentTypes: [.json],
-            defaultFilename: sceneState?.song.metadata.exportName,
+            defaultFilename: song?.metadata.exportName,
             onCompletion: { result in
                 switch result {
                 case .success(let url):
