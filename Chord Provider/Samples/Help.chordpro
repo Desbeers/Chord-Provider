@@ -107,6 +107,7 @@ redefined my favorite [G7]G7 Chord!
 # Yes, markdown! This is a heading!
 
 Markdown feels natural to the **ChordPro** text format and has basic support in **Chord Provider**.
+
 - This is a list
 - Text that is **Bold**
 - Text that is *Italic*
@@ -114,11 +115,12 @@ Markdown feels natural to the **ChordPro** text format and has basic support in 
 - Links [Github](https://github.com/Desbeers/Chord-Provider)
 - Headers
 - And some `{code}`
+
 You can use it in comments, labels and text blocks.
 {end_of_textblock}
 
 {start_of_textblock label="About me" align="right" flush="right"}
-### I'm not a musician; I'm not a programmer
+I'm not a musician; I'm not a programmer
 
 I'm just a hobbyist who enjoys both!
 

@@ -77,8 +77,8 @@ extension ChordProParser {
         }
         /// Remember the longest line in the song
         if currentSection.environment == .chorus || currentSection.environment == .verse {
-            if line.plain?.count ?? 0 > song.metadata.longestLine.count {
-                song.metadata.longestLine = line.plain ?? ""
+            if line.source.count > song.metadata.longestLine.source.count {
+                song.metadata.longestLine = line
             }
         }
     }

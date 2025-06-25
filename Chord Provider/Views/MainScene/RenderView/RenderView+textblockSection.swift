@@ -32,7 +32,11 @@ extension RenderView {
         }
         .fixedSize(horizontal: false, vertical: true)
         .multilineTextAlignment(getTextFlush(section.arguments))
-        .frame(minWidth: song.settings.maxWidth, idealWidth: song.settings.maxWidth, maxWidth: song.settings.maxWidth, alignment: getAlign(section.arguments))
+        .frame(
+            idealWidth: song.settings.maxWidth,
+            maxWidth: song.settings.maxWidth,
+            alignment: getAlign(section.arguments)
+        )
         .wrapSongSection(
             label: section.label,
             settings: song.settings

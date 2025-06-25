@@ -17,18 +17,23 @@ extension PDFBuild.LyricsSection {
     class Line: PDFElement {
         /// The parts in the line
         let parts: [Part]
+        /// Bool if the width of the line should we deducted from the rect
+        /// - Note: Used to calculate the widest line
+        let deductWidthFromRect: Bool
 
         /// Init the **line** element
         /// - Parameters:
         ///   - parts: The parts of the line
         ///   - chords: All the chords from the song
         ///   - settings: The application settings
-        init(parts: [Song.Section.Line.Part], chords: [ChordDefinition], settings: AppSettings) {
+        ///   - deductWidthFromRect: Bool if the width of the line should we deducted from the rect
+        init(parts: [Song.Section.Line.Part], chords: [ChordDefinition], settings: AppSettings, deductWidthFromRect: Bool = false) {
             var items: [Part] = []
             for part in parts {
                 items.append(Part(part: part, chords: chords, settings: settings))
             }
             self.parts = items
+            self.deductWidthFromRect = deductWidthFromRect
         }
 
         /// Draw the **line** element
@@ -50,6 +55,9 @@ extension PDFBuild.LyricsSection {
             }
             rect.origin.y += maxHeight
             rect.size.height -= maxHeight
+            if deductWidthFromRect {
+                rect.size.width = cellRect.size.width
+            }
         }
     }
 }

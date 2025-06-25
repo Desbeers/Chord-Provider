@@ -17,18 +17,20 @@ struct SongView: View {
     var body: some View {
         if sceneState.song.hasContent {
             ZStack {
-                /// Get the max size
+                /// Get the size of the longest song line
                 /// - Note: This is not perfect but seems well enough for normal songs
-                Text(sceneState.song.metadata.longestLine)
-                    .onGeometryChange(for: CGSize.self) { proxy in
-                        proxy.size
-                    } action: { newValue in
-                        if newValue.width + (40 * sceneState.song.settings.scale) > 340 {
-                            sceneState.song.settings.maxWidth = newValue.width + (40 * sceneState.song.settings.scale)
-                        }
-                    }
-                    .font(appState.settings.style.fonts.text.swiftUIFont(scale: sceneState.song.settings.scale))
-                    .hidden()
+                RenderView.PartsView(
+                    song: sceneState.song,
+                    sectionID: -100,
+                    parts: sceneState.song.metadata.longestLine.parts ?? [],
+                    chords: sceneState.song.chords
+                )
+                .onGeometryChange(for: CGSize.self) { proxy in
+                    proxy.size
+                } action: { newValue in
+                    sceneState.song.settings.maxWidth = newValue.width > 340 ? newValue.width : 340
+                }
+                .hidden()
                 VStack {
                     switch sceneState.song.settings.display.paging {
                     case .asList:

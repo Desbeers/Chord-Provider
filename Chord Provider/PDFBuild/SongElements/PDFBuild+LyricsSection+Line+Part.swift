@@ -47,7 +47,7 @@ extension PDFBuild.LyricsSection.Line {
                 self.chord = NSAttributedString(
                     /// Add a space behind the chord-name so two chords will never 'stick' together
                     string: "\(chordString) ",
-                    attributes: .attributes(settings.style.fonts.chord)
+                    attributes: .attributes(settings.style.fonts.chord, scale: settings.pdf.scale)
                 )
             } else {
                 self.chord = nil

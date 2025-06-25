@@ -35,9 +35,9 @@ struct SplitterView: View {
                         offset = gesture.translation
                     }
                     .onEnded { _ in
+                        sceneState.isAnimating = true
                         /// Hide the editor when its too small
                         if (sceneState.windowWidth / 2) + sceneState.editorOffset + offset.width < 300 {
-                            sceneState.isAnimating = true
                             withAnimation {
                                 sceneState.showEditor.toggle()
                             } completion: {
@@ -46,6 +46,8 @@ struct SplitterView: View {
                         } else {
                             withAnimation {
                                 sceneState.editorOffset += offset.width
+                            } completion: {
+                                sceneState.isAnimating = false
                             }
                         }
                         isDragging = false

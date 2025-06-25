@@ -71,7 +71,8 @@ extension Song {
         /// - Note: Used in PDF output to calculate label offset
         var longestLabel: String = ""
         /// The longest line the song
-        var longestLine: String = ""
+        /// - Note: Used in the PDF and SwiftUI output
+        var longestLine = Song.Section.Line()
 
         // MARK: Meta data directives that are defined
 

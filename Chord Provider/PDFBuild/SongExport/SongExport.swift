@@ -125,27 +125,30 @@ extension SongExport {
         let longestLabelBounds = longestLabel.boundingRect(
             with: settings.pdf.pageSize.rect(settings: settings).size
         )
-        let labelWidth = longestLabelBounds.width + 14
+        let labelWidth = longestLabelBounds.width + 8
 
         // MARK: Calculate longest line
 
-        let longestLine = NSAttributedString(
-            string: song.metadata.longestLine,
-            attributes: .attributes(settings.style.fonts.text)
+        let line = PDFBuild.LyricsSection.Line(
+            parts: song.metadata.longestLine.parts ?? [],
+            chords: song.chords,
+            settings: song.settings,
+            deductWidthFromRect: true
         )
-        let longestLineBounds = longestLine.boundingRect(
-            with: settings.pdf.pageSize.rect(settings: settings).size
-        )
+        let pageRect = CGRect(x: 0, y: 0, width: 10000, height: 1000)
+        var rect = pageRect
+        line.draw(rect: &rect, calculationOnly: true, pageRect: pageRect)
+        let longestLineWidth = pageRect.width - rect.width
 
         // MARK: Calculate scale
 
         let availableWidth = settings.pdf.pageSize.rect(
             settings: settings
-        ).width - labelWidth - (settings.pdf.pagePadding * 2) - 60
+        ).width - labelWidth - (settings.pdf.pagePadding * 2) - 20
 
-        if availableWidth < longestLineBounds.width {
+        if availableWidth < longestLineWidth {
             if settings.pdf.scaleFonts {
-                settings.pdf.scale = availableWidth / longestLineBounds.width
+                settings.pdf.scale = availableWidth / longestLineWidth
             }
             Logger.pdfBuild.warning("Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)** does not fit")
         }
@@ -153,7 +156,7 @@ extension SongExport {
         // MARK: Calculate offset
 
         var offset: Double = 0
-        let pagePadding = availableWidth - longestLineBounds.width
+        let pagePadding = availableWidth - longestLineWidth
         if settings.pdf.centerContent {
             /// When the longest line does not fit on the page, use 0 as offset
             offset = pagePadding > 0 ? pagePadding / 2 : 0
@@ -161,7 +164,7 @@ extension SongExport {
 
         // MARK: Calculate maximum content size
 
-        let content = availableWidth - offset + 40
+        let content = availableWidth - offset
 
         /// Add all the sections, except metadata stuff
         for section in song.sections where !ChordPro.Environment.unsupported.contains(section.environment) {
