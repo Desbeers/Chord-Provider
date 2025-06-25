@@ -66,40 +66,34 @@
 
             <p>Your download contains an <em>almost</em> ready to go <strong>Chord Provider</strong>; except that the application is only ad-hoc signed by me and not by an approved Apple Developer with a valid certificate. So, the security system on your Mac will give an error when you double-click the application. You have met the <em>Gatekeeper</em>. Depending of the version of macOS you have a different message and have to do different additional handlings to open <strong>Chord Provider</strong>.</p>
 
-            <p>The message will be more or less like this:</p>
+            <ol>
+                <li>Drag the application to your <code>Applications</code> folder.
+                <li>Open the application by <em>double-clicking</em> on it.
+            </ol>
+
+            <p>A prompt saying '“<strong>Chord Provider</strong>“ Not Opened' will appear.</p>
+
+            <p>The message will be more or less like this, depending on your macOS version:</p>
 
             <blockquote>
                 <p>Apple could not verify “Chord Provider.app“ is free of malware that may harm your Mac or compromise your privacy.</p>
             </blockquote>
 
+            <p><em>There is a small 'questionmark' button at the right top of the dialog that opens the 'Mac User Guide' with more information.</em></p>
+
             <p>On macOS versions before 15 (Sequoia) it was common practice to <code>right-click</code> the application and choose <code>Open</code> from the menu. That trick will bypass the gatekeeper and let you open the application.</p>
 
-            <p>Unfortunately, that does not work anymore on Sequoia and you have to go trough System Settings:</p>
+            <p>Unfortunately, that does not work anymore on Sequoia and you have to go trough <code>System Settings</code>:</p>
 
-            <ol>
-                <li>Try to open the application. A prompt saying “Chord Provider.app“ Not Opened' may appear.</li>
-                <li>Go to <code>System Settings -&gt; Privacy &amp; Security</code>. Scroll down to find <em>ChordPro</em>, and an option to &quot;Open Anyway&quot;.</li>
+            <ol start="3">
+                <li>Go to <code>System Settings -&gt; Privacy &amp; Security</code>.</li>
+                <li>Scroll down to find <strong>Chord Provider</strong>, and an option to &quot;Open Anyway&quot;.</li>
                 <li>Choose &quot;Open Anyway&quot;.</li>
                 <li>Authenticate as an administrator.</li>
-                <li><em>Chord Provider</em> will now open.</li>
+                <li><strong>Chord Provider</strong> will now open.</li>
             </ol>
 
-            <h2>Install with the Terminal</h2>
-
-            <p>Your download also contains an <code>Install</code> script that can do this for you. Same as with the <code>Chord Provider.app</code>, you can not just double click to run the script. You have to run it manually in the Terminal yourself:</p>
-
-            <blockquote>
-                <p>Open the <strong>Terminal</strong> application in <code>Applications/Utilities</code> and just <em>drag and drop</em> the <code>Install</code> script into its window.</p>
-            </blockquote>
-
-            <p>It will do the following:</p>
-
-            <ul>
-                <li>Copy <em>Chord Provider</em> to your applications folder</li>
-                <li>Move <em>Chord Provider</em> out of quarantine so the Gatekeeper will let you start the application with just a double-click.</li>
-            </ul>
-
-            <p><strong>It will not do anything without your permission but by providing your administration password, you will bypass all Apple’s security measurements.</strong></p>
+            <p><strong>Chord Provider</strong> is saved as an exception to your security settings and you can open it in the future by double-clicking it, just as you can with any other application.</p>
 
             <h2>Enjoy!</h2>
 

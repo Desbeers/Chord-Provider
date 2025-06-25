@@ -20,12 +20,10 @@ package:
 		--window-pos 200 120 \
 		--window-size 680 440 \
 		--icon-size 64 \
-		--icon "Chord Provider.app" 540 75 \
+		--icon "Chord Provider.app" 540 125 \
 		--hide-extension "Chord Provider.app" \
-		--add-file "Read me First.html" "../Resources/README.html"  540 175 \
+		--add-file "Read me First.html" "../Resources/README.html"  540 250 \
 		--hide-extension "Read me First.html" \
-		--add-file "Install.zsh" "../Resources/Install.zsh" 540 275 \
-		--hide-extension "Install.zsh" \
 		--background "../Resources/DiskBackground.png" \
 		"../Build/${DMGNAME}" ${APPDIR}
 
