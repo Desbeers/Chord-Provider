@@ -1,0 +1,106 @@
+{
+  "fonts" : {
+    "chord" : {
+      "background" : "#FFFFFF",
+      "color" : "#FF9300",
+      "font" : {
+        "displayName" : "Phosphate Solid",
+        "familyName" : "Phosphate",
+        "postScriptName" : "Phosphate-Solid",
+        "styleName" : "Solid",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Phosphate.ttc"
+      },
+      "size" : 14.137325310559007
+    },
+    "comment" : {
+      "background" : "#DECECE",
+      "color" : "#581575",
+      "font" : {
+        "displayName" : "Noteworthy Light",
+        "familyName" : "Noteworthy",
+        "postScriptName" : "Noteworthy-Light",
+        "styleName" : "Light",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Noteworthy.ttc"
+      },
+      "size" : 8
+    },
+    "label" : {
+      "background" : "#EFE0C3",
+      "color" : "#7B5926",
+      "font" : {
+        "displayName" : "Shree Devanagari 714 Italic",
+        "familyName" : "Shree Devanagari 714",
+        "postScriptName" : "ShreeDev0714-Italic",
+        "styleName" : "Italic",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Shree714.ttc"
+      },
+      "size" : 15.592779503105591
+    },
+    "subtitle" : {
+      "background" : "#FFFFFF",
+      "color" : "#744A71",
+      "font" : {
+        "displayName" : "Helvetica Neue Medium",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue-Medium",
+        "styleName" : "Medium",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 16
+    },
+    "tag" : {
+      "background" : "#BDCDC4",
+      "color" : "#222054",
+      "font" : {
+        "displayName" : "Helvetica Neue Condensed Black",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue-CondensedBlack",
+        "styleName" : "Condensed Black",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 8
+    },
+    "text" : {
+      "background" : "#FFFFFF",
+      "color" : "#38063A",
+      "font" : {
+        "displayName" : "Rockwell Bold Italic",
+        "familyName" : "Rockwell",
+        "postScriptName" : "Rockwell-BoldItalic",
+        "styleName" : "Bold Italic",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Rockwell.ttc"
+      },
+      "size" : 12
+    },
+    "textblock" : {
+      "background" : "#FFFFFF",
+      "color" : "#0C7236",
+      "font" : {
+        "displayName" : "ITF Devanagari Medium",
+        "familyName" : "ITF Devanagari",
+        "postScriptName" : "ITFDevanagari-Medium",
+        "styleName" : "Medium",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/ITFDevanagari.ttc"
+      },
+      "size" : 11
+    },
+    "title" : {
+      "background" : "#FFFFFF",
+      "color" : "#38063A",
+      "font" : {
+        "displayName" : "Hoefler Text",
+        "familyName" : "Hoefler Text",
+        "postScriptName" : "HoeflerText-Regular",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Hoefler%20Text.ttc"
+      },
+      "size" : 18
+    }
+  },
+  "theme" : {
+    "background" : "#DCD9C7",
+    "foreground" : "#38063A",
+    "foreground-light" : "#1A4C79",
+    "foreground-medium" : "#744A71"
+  }
+}

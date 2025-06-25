@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Sample song and theme files in the package
 enum Samples: String {
     case help = "Help"
     case markdown = "Markdown"
@@ -15,10 +16,20 @@ enum Samples: String {
     case mollyMalone = "Molly Malone"
     case swingLowSweetChariot = "Swing Low Sweet Chariot"
 
+    case olympicWhite = "Olympic White"
+    case totalChaos = "Total Chaos"
+
     static var debug: [Samples] {
         [
             .debugTextblock,
             .debugWarnings
+        ]
+    }
+
+    static var theme: [Samples] {
+        [
+            .olympicWhite,
+            .totalChaos
         ]
     }
 }

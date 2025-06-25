@@ -11,7 +11,7 @@ extension SettingsView {
 
     /// `View` with folder selector
     @ViewBuilder var folder: some View {
-        VStack {
+        VStack(spacing: 0) {
             ScrollView {
                 VStack {
                     TextField("List of articles to ignore", text: $sortTokens, prompt: Text("the,a,de,een"))
@@ -33,6 +33,7 @@ extension SettingsView {
                         .padding()
                 }
                 .wrapSettingsSection(title: "The folder with your songs")
+                .padding(.bottom)
             }
         }
         .padding(.bottom)

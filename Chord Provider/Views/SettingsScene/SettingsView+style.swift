@@ -13,7 +13,7 @@ extension SettingsView {
     /// `View` with style settings
     @ViewBuilder var style: some View {
         @Bindable var appState = appState
-        VStack {
+        VStack(spacing: 0) {
             VStack {
                 ScrollView {
                     Form {
@@ -45,6 +45,23 @@ extension SettingsView {
                                     .font(.caption)
                             }
                         }
+                        LabeledContent("Templates:") {
+                            Menu("Select a template") {
+                                ForEach(Samples.theme, id: \.self) { theme in
+                                    Button(theme.rawValue) {
+                                        if let themeURL = Bundle.main.url(forResource: theme.rawValue, withExtension: "json") {
+                                            do {
+                                                let text = try Data(contentsOf: themeURL)
+                                                let style = try JSONDecoder().decode(AppSettings.Style.self, from: text)
+                                                appState.settings.style = style
+                                            } catch {
+                                                Logger.fileAccess.error("Theme import failed: \(error.localizedDescription, privacy: .public)")
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     .wrapSettingsSection(title: "Templates")
                     VStack {
@@ -58,38 +75,42 @@ extension SettingsView {
                     }
                     .wrapSettingsSection(title: "General")
                     FontOptionsView(settings: $appState.settings)
+                        .padding(.bottom)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .top)
             .animation(.default, value: appState.settings.style)
-            HStack {
+            Divider()
+            VStack {
+                HStack {
+                    Button(
+                        action: {
+                            showJsonImportDialog = true
+                        },
+                        label: {
+                            Text("Import Theme")
+                        }
+                    )
+                    Button(
+                        action: {
+                            jsonExportString = appState.settings.style.exportToJSON
+                            showJsonExportDialog = true
+                        },
+                        label: {
+                            Text("Export Theme")
+                        }
+                    )
+                }
                 Button(
                     action: {
-                        showJsonImportDialog = true
+                        appState.settings.style = appState.settings.style.defaults()
                     },
                     label: {
-                        Text("Import Theme")
-                    }
-                )
-                Button(
-                    action: {
-                        jsonExportString = appState.settings.style.exportToJSON
-                        showJsonExportDialog = true
-                    },
-                    label: {
-                        Text("Export Theme")
+                        Text("Reset to defaults")
                     }
                 )
             }
-            Button(
-                action: {
-                    appState.settings.style = appState.settings.style.defaults()
-                },
-                label: {
-                    Text("Reset to defaults")
-                }
-            )
-            .padding(.bottom)
+            .padding()
             .disabled(appState.settings.style == appState.settings.style.defaults())
         }
         .fileExporter(

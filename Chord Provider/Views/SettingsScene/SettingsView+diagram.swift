@@ -11,7 +11,7 @@ extension SettingsView {
 
     /// `View` with diagram display options
     var diagram: some View {
-        VStack {
+        VStack(spacing: 0) {
             ScrollView {
                 VStack(alignment: .leading) {
                     appState.fingersToggle
@@ -28,8 +28,10 @@ extension SettingsView {
                     }
                 }
                 .wrapSettingsSection(title: "MIDI")
+                .padding(.bottom)
             }
             .frame(maxHeight: .infinity, alignment: .top)
+            Divider()
             Button(
                 action: {
                     appState.settings.diagram = AppSettings.Diagram()
@@ -39,7 +41,7 @@ extension SettingsView {
                 }
             )
             .disabled(appState.settings.diagram == AppSettings.Diagram())
-            .padding(.bottom)
+            .padding()
         }
         .animation(.default, value: appState.settings.diagram.showPlayButton)
     }

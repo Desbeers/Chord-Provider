@@ -1,0 +1,106 @@
+{
+  "fonts" : {
+    "chord" : {
+      "background" : "#FFFFFF",
+      "color" : "#780E03",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 10
+    },
+    "comment" : {
+      "background" : "#FCEBD7",
+      "color" : "#660351",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 8
+    },
+    "label" : {
+      "background" : "#C8D3CA",
+      "color" : "#1B1C34",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 10
+    },
+    "subtitle" : {
+      "background" : "#FFFFFF",
+      "color" : "#6C4D50",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 16
+    },
+    "tag" : {
+      "background" : "#E2F0DA",
+      "color" : "#2E065C",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 8
+    },
+    "text" : {
+      "background" : "#FFFFFF",
+      "color" : "#120750",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 12
+    },
+    "textblock" : {
+      "background" : "#FFFFFF",
+      "color" : "#5B2760",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 11
+    },
+    "title" : {
+      "background" : "#FFFFFF",
+      "color" : "#120750",
+      "font" : {
+        "displayName" : "Helvetica Neue",
+        "familyName" : "Helvetica Neue",
+        "postScriptName" : "HelveticaNeue",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/HelveticaNeue.ttc"
+      },
+      "size" : 18
+    }
+  },
+  "theme" : {
+    "background" : "#FDFEFB",
+    "foreground" : "#120750",
+    "foreground-light" : "#653358",
+    "foreground-medium" : "#6C4D50"
+  }
+}

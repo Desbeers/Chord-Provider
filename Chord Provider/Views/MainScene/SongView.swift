@@ -25,6 +25,8 @@ struct SongView: View {
                     parts: sceneState.song.metadata.longestLine.parts ?? [],
                     chords: sceneState.song.chords
                 )
+                /// Use the correct scaled font
+                .font(sceneState.song.settings.style.fonts.text.swiftUIFont(scale: sceneState.song.settings.scale))
                 .onGeometryChange(for: CGSize.self) { proxy in
                     proxy.size
                 } action: { newValue in

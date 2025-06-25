@@ -1208,12 +1208,12 @@
 			isa = PBXGroup;
 			children = (
 				D7622B462ABF0B04008CAC63 /* SettingsView.swift */,
-				D7C47CC72DA133110037CC00 /* SettingsView+pdf.swift */,
 				D77084742D8D978B002530F7 /* SettingsView+editor.swift */,
 				D77084722D8D9755002530F7 /* SettingsView+diagram.swift */,
 				D77084702D8D96C4002530F7 /* SettingsView+folder.swift */,
 				D770846E2D8D9683002530F7 /* SettingsView+style.swift */,
 				D770846C2D8D962C002530F7 /* SettingsView+options.swift */,
+				D7C47CC72DA133110037CC00 /* SettingsView+pdf.swift */,
 			);
 			path = SettingsScene;
 			sourceTree = "<group>";

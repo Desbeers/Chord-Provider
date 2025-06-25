@@ -12,7 +12,7 @@ extension SettingsView {
     /// `View` with editor settings
     @ViewBuilder var `editor`: some View {
         @Bindable var appState = appState
-        VStack {
+        VStack(spacing: 0) {
             ScrollView {
                 VStack {
                     VStack(alignment: .leading) {
@@ -61,8 +61,10 @@ extension SettingsView {
                     )
                 }
                 .wrapSettingsSection(title: "Highlight Colors")
+                .padding(.bottom)
             }
             .frame(maxHeight: .infinity, alignment: .top)
+            Divider()
             Button(
                 action: {
                     appState.settings.editor = Editor.Settings()
@@ -71,7 +73,7 @@ extension SettingsView {
                     Text("Reset to defaults")
                 }
             )
-            .padding(.bottom)
+            .padding()
             .disabled(appState.settings.editor == Editor.Settings())
         }
     }
