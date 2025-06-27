@@ -8,7 +8,7 @@
 import Foundation
 import CoreTransferable
 
-extension Song: Transferable {
+extension Song: @unchecked Sendable, Transferable {
 
     /// Transfer protocol
     static var transferRepresentation: some TransferRepresentation {

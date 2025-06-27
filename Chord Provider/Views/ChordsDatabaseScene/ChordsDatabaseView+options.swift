@@ -28,7 +28,7 @@ extension ChordsDatabaseView {
                         Logger.application.error("\(error.localizedDescription, privacy: .public)")
                     }
                 } label: {
-                    Text("Export all \(sceneState.song.settings.display.instrument) chords")
+                    Text("Export all \(sceneState.song.settings.display.instrument.label) chords")
                 }
             }
             GridRow {

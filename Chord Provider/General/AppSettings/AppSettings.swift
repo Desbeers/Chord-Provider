@@ -55,6 +55,8 @@ extension AppSettings {
         Logger.application.info("No **\(id.rawValue, privacy: .public)** found; using defaults")
         var appSettings = AppSettings()
         appSettings.style = AppSettings.Style().defaults()
+        /// Save settings
+        try? save(id: id, settings: appSettings)
         return appSettings
     }
 

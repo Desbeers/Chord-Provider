@@ -51,7 +51,7 @@ import OSLog
                 Button {
                     openWindow(id: AppDelegate.WindowID.welcomeView.rawValue)
                 } label: {
-                    Text("Browser…")
+                    Label("Browser…", systemImage: "folder")
                 }
                 .keyboardShortcut("b")
             }
@@ -62,7 +62,7 @@ import OSLog
                     /// Close the Welcome window if open
                     dismissWindow(id: AppDelegate.WindowID.welcomeView.rawValue)
                 } label: {
-                    Text("Export Folder…")
+                    Label("Export Folder…", systemImage: "square.and.arrow.up")
                 }
             }
             CommandGroup(after: .toolbar) {

@@ -22,14 +22,14 @@ struct FontSizeButtons: View {
             Button {
                 appState.settings.editor.fontSize += 1
             } label: {
-                Text("Increase Editor Font")
+                Label("Increase Editor Font", systemImage: "plus")
             }
             .keyboardShortcut("+")
             .disabled(appState.settings.editor.fontSize == fontSizeRange.upperBound)
             Button {
                 appState.settings.editor.fontSize -= 1
             } label: {
-                Text("Decrease Editor Font")
+                Label("Decrease Editor Font", systemImage: "minus")
             }
             .keyboardShortcut("-")
             .disabled(appState.settings.editor.fontSize == fontSizeRange.lowerBound)
