@@ -129,7 +129,8 @@ struct CreateChordView: View {
             ChordDefinitionView(
                 chord: diagram,
                 width: width,
-                settings: sceneState.song.settings
+                settings: sceneState.song.settings,
+                useDefaultColors: true
             )
                 .foregroundStyle(.primary, colorScheme == .light ? .white : .black)
         } else {

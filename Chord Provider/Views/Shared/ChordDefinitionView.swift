@@ -34,7 +34,7 @@ struct ChordDefinitionView: View {
     /// The height of the nut
     let nutHeight: Double
     /// The application settings
-    let settings: AppSettings
+    var settings: AppSettings
     /// The display options for the diagram
     let diagramDisplayOptions: AppSettings.Diagram
 
@@ -43,7 +43,8 @@ struct ChordDefinitionView: View {
     ///   - chord: The ``ChordDefinition``
     ///   - width: The width of the diagram
     ///   - settings: The application
-    init(chord: ChordDefinition, width: Double, settings: AppSettings) {
+    ///   - useDefaultColors: Bool to use the default colors for the diagram
+    init(chord: ChordDefinition, width: Double, settings: AppSettings, useDefaultColors: Bool = false) {
         self.chord = chord
         self.settings = settings
         self.diagramDisplayOptions = settings.diagram
@@ -65,6 +66,19 @@ struct ChordDefinitionView: View {
         let circleRadius = gridWidth / 7
         /// Below should be 0 for a six string instrument
         self.xOffset = (cellWidth - circleRadius) / 2
+        /// Get the default colors if asked
+        if useDefaultColors {
+            var inDarkMode: Bool {
+                let mode = UserDefaults.standard.string(forKey: "AppleInterfaceStyle")
+                return mode == "Dark"
+            }
+            switch inDarkMode {
+            case true:
+                self.settings.style = AppSettings.Style.ColorPreset.dark.presets(style: settings.style)
+            case false:
+                self.settings.style = AppSettings.Style.ColorPreset.light.presets(style: settings.style)
+            }
+        }
     }
 
 

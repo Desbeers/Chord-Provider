@@ -72,7 +72,6 @@ extension ChordsView {
                         Text(interval.description)
                     }
                 }
-                .foregroundStyle(sceneState.song.settings.style.fonts.subtitle.color)
                 ScrollView {
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 140))],
@@ -84,7 +83,12 @@ extension ChordsView {
                             Button(action: {
                                 self.defineChord = selected(chord: chord) ? nil : chord
                             }, label: {
-                                ChordDefinitionView(chord: chord, width: 140, settings: sceneState.song.settings)
+                                ChordDefinitionView(
+                                    chord: chord,
+                                    width: 140,
+                                    settings: sceneState.song.settings,
+                                    useDefaultColors: true
+                                )
                             })
                             .buttonStyle(.plain)
                             .padding(.horizontal)
@@ -132,8 +136,6 @@ extension ChordsView {
             }
             .padding()
             .frame(minWidth: 600, idealWidth: 600, minHeight: 600, idealHeight: 600)
-            .foregroundStyle(sceneState.song.settings.style.fonts.text.color)
-            .background(sceneState.song.settings.style.theme.background)
             .animation(.default, value: self.defineChord)
         }
     }
