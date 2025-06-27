@@ -48,7 +48,7 @@ struct WelcomeView: View {
             .padding(.horizontal, 6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(nsColor: .textBackgroundColor))
-            .labelStyle(.SongFile)
+            .labelStyle(.songFile)
         }
         .toolbar {
             Spacer()

@@ -43,7 +43,7 @@ extension Styles {
             .padding(.leading)
             .padding(.vertical, 4)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color(nsColor: .windowBackgroundColor).opacity(0.5))
+            .background(.ultraThinMaterial.opacity(0.5))
             .cornerRadius(6)
         }
     }
@@ -70,7 +70,7 @@ extension LabelStyle where Self == Styles.CreateDocumentLabelStyle {
 extension LabelStyle where Self == Styles.SongFileLabelStyle {
 
     /// The style of a label for a song file
-    static var SongFile: Styles.SongFileLabelStyle { .init() }
+    static var songFile: Styles.SongFileLabelStyle { .init() }
 }
 
 extension LabeledContentStyle where Self == Styles.EditorLabeledContentStyle {
