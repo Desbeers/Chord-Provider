@@ -42,33 +42,16 @@ extension AppKitUtils {
                 return
             }
             /// Save the view parameters
-            let position = PDFParameters(
-                pageIndex: document.index(for: page),
-                zoom: currentDestination.zoom,
-                location: currentDestination.point
-            )
+            let pageIndex = document.index(for: page)
+            let point = currentDestination.point
             /// Update the document
             pdfView.document = PDFDocument(data: data)
             /// Restore the view parameters
-            if let restoredPage = document.page(at: position.pageIndex) {
-                let restoredDestination = PDFDestination(page: restoredPage, at: position.location)
-                restoredDestination.zoom = position.zoom
+            if let restoredPage = pdfView.document?.page(at: pageIndex) {
+                let restoredDestination = PDFDestination(page: restoredPage, at: point)
                 pdfView.go(to: restoredDestination)
             }
             pdfView.animator().isHidden = false
         }
-    }
-}
-
-extension AppKitUtils.PDFKitRepresentedView {
-
-    /// The view parameters of a PDF
-    struct PDFParameters {
-        /// The page index
-        let pageIndex: Int
-        /// The zoom factor
-        let zoom: CGFloat
-        /// The location on the page
-        let location: NSPoint
     }
 }
