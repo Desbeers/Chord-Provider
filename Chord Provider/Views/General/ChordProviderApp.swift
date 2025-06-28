@@ -100,8 +100,6 @@ import OSLog
         Window(AppDelegate.WindowID.welcomeView.rawValue, id: AppDelegate.WindowID.welcomeView.rawValue) {
             WelcomeView()
                 .windowResizeBehavior(.disabled)
-                .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
-                .containerBackground(.thickMaterial, for: .window)
                 .toolbar(removing: .title)
                 .windowMinimizeBehavior(.disabled)
                 .environment(appState)

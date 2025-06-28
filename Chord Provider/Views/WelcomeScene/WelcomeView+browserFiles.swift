@@ -41,6 +41,7 @@ extension WelcomeView {
                 }
                 .pickerStyle(.segmented)
                 .labelsHidden()
+                .padding(.top)
                 .disabled(!fileBrowser.search.isEmpty)
                 .task(id: fileBrowser.tabItem) {
                     fileBrowser.selectedTag = []
@@ -64,7 +65,7 @@ extension WelcomeView {
                             }
                         }
                     }
-                    .searchable(text: $fileBrowser.search, placement: .sidebar)
+                    .searchable(text: $fileBrowser.search)
                     .opacity(fileBrowser.selectedTag.isEmpty ? 1 : 0)
                     .navigationDestination(for: String.self) { tag in
                         List {
@@ -100,8 +101,6 @@ extension WelcomeView {
         }
         .scrollContentBackground(.hidden)
         .animation(.default, value: fileBrowser.status)
-        /// It must be 'sidebar' or else the search field will not be added
-        .listStyle(.sidebar)
         .task(id: fileBrowser.songs) {
             if fileBrowser.songs.isEmpty {
                 fileBrowser.getFiles()
@@ -196,6 +195,7 @@ extension WelcomeView {
                 )
             }
         )
+        .listRowSeparator(.hidden)
         .contextMenu {
             Button(
                 action: {

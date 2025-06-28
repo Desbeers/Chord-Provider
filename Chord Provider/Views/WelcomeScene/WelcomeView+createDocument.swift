@@ -13,9 +13,6 @@ extension WelcomeView {
     /// Create document `View`
     var createDocument: some View {
         VStack {
-            Text("Chord Provider")
-                .font(.title)
-                .bold()
             // swiftlint:disable:next force_unwrapping
             Image(nsImage: NSImage(named: "AppIcon")!)
                 .resizable()

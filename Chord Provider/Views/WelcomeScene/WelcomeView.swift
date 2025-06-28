@@ -28,37 +28,38 @@ struct WelcomeView: View {
     @State var randomSong: Song?
     /// The body of the `View`
     var body: some View {
+        @Bindable var fileBrowser = fileBrowser
         HStack(spacing: 0) {
             createDocument
                 .frame(maxHeight: .infinity)
                 .padding([.leading, .bottom])
+                .padding()
+            Divider()
             VStack {
-                VStack {
-                    switch selectedTab {
-                    case .recent:
-                        recentFiles
-                    case .yourSongs:
-                        browserFiles
-                    case .templates:
-                        templates
-                    }
+                switch selectedTab {
+                case .recent:
+                    recentFiles
+                case .yourSongs:
+                    browserFiles
+                case .templates:
+                    templates
                 }
-                .frame(maxHeight: .infinity)
             }
             .padding(.horizontal, 6)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(nsColor: .textBackgroundColor))
             .labelStyle(.songFile)
         }
+        .background(Color(nsColor: .textBackgroundColor))
         .toolbar {
-            Spacer()
-            Picker("Tabs", selection: $selectedTab) {
-                ForEach(NewTabs.allCases) { tab in
-                    Text(tab.rawValue)
-                        .tag(tab)
+            ToolbarItem(placement: .principal) {
+                Picker("Tabs", selection: $selectedTab) {
+                    ForEach(NewTabs.allCases) { tab in
+                        Text(tab.rawValue)
+                            .tag(tab)
+                    }
                 }
+                .pickerStyle(.segmented)
             }
-            .pickerStyle(.segmented)
         }
         .buttonStyle(.plain)
         .frame(width: 640)

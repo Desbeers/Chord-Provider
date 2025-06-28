@@ -14,29 +14,31 @@ extension WelcomeView {
     var templates: some View {
         VStack {
             List {
-
-                Button {
-                    if
-                        let sampleSong = Bundle.main.url(forResource: Samples.help.rawValue, withExtension: "chordpro"),
-                        let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-                        newSong(text: content, template: sampleSong)
+                Section {
+                    Button {
+                        if
+                            let sampleSong = Bundle.main.url(forResource: Samples.help.rawValue, withExtension: "chordpro"),
+                            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+                            newSong(text: content, template: sampleSong)
+                        }
+                    } label: {
+                        Label("The Help document in ChordPro format", systemImage: "document.badge.gearshape")
                     }
-                } label: {
-                    Label("The Help document in ChordPro format", systemImage: "document.badge.gearshape")
-                }
-                .listRowSeparator(.hidden)
+                    .listRowSeparator(.hidden)
 
-                Button {
-                    if
-                        let sampleSong = Bundle.main.url(forResource: Samples.markdown.rawValue, withExtension: "chordpro"),
-                        let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-                        newSong(text: content, template: sampleSong)
+                    Button {
+                        if
+                            let sampleSong = Bundle.main.url(forResource: Samples.markdown.rawValue, withExtension: "chordpro"),
+                            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+                            newSong(text: content, template: sampleSong)
+                        }
+                    } label: {
+                        Label("Markdown formatting", systemImage: "document.badge.gearshape")
                     }
-                } label: {
-                    Label("Markdown formatting", systemImage: "document.badge.gearshape")
+                    .listRowSeparator(.hidden)
+                } header: {
+                    Text("Help songs").font(.headline)
                 }
-                .listRowSeparator(.hidden)
-
                 Section {
                     Button {
                         if
@@ -74,7 +76,7 @@ extension WelcomeView {
                         )
                     }
                 } header: {
-                    Text("Official **ChordPro** examples")
+                    Text("Official **ChordPro** examples").font(.headline)
                 }
                 .listRowSeparator(.hidden)
 #if DEBUG
@@ -91,7 +93,7 @@ extension WelcomeView {
                         }
                     }
                 } header: {
-                    Text("Debug")
+                    Text("Debug").font(.headline)
                 }
                 .listRowSeparator(.hidden)
 #endif

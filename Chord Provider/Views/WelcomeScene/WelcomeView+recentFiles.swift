@@ -14,24 +14,27 @@ extension WelcomeView {
     var recentFiles: some View {
         VStack {
             List {
-                ForEach(appState.recentFiles, id: \.self) { url in
-                    Button(
-                        action: {
-                            Task {
-                                await openSong(url: url)
+                Section(header: Text("Your recent songs").font(.headline)) {
+                    ForEach(appState.recentFiles, id: \.self) { url in
+                        Button(
+                            action: {
+                                Task {
+                                    await openSong(url: url)
+                                }
+                            },
+                            label: {
+                                Label(url.deletingPathExtension().lastPathComponent, systemImage: "document.badge.clock")
                             }
-                        },
-                        label: {
-                            Label(url.deletingPathExtension().lastPathComponent, systemImage: "document.badge.clock")
-                        }
-                    )
+                        )
+                    }
+                    .listRowSeparator(.hidden)
                 }
-                .listRowSeparator(.hidden)
             }
             .scrollContentBackground(.hidden)
-            .overlay {
+            .overlay(alignment: .top) {
                 if appState.recentFiles.isEmpty {
-                    Text("You have no recent songs")
+                    ContentUnavailableView("You have no recent songs", systemImage: "clock")
+                        .padding()
                 }
             }
             if let randomSong {

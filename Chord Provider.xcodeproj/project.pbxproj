@@ -900,8 +900,8 @@
 				D779D3542C68F0D700380175 /* WelcomeView.swift */,
 				D70D96C72CB26B8C00B51A14 /* WelcomeView+createDocument.swift */,
 				D70D96C22CB25D6000B51A14 /* WelcomeView+recentFiles.swift */,
-				D70503162D20C8E500DB897A /* WelcomeView+templates.swift */,
 				D7F13F942A6460B7002D875D /* WelcomeView+browserFiles.swift */,
+				D70503162D20C8E500DB897A /* WelcomeView+templates.swift */,
 			);
 			path = WelcomeScene;
 			sourceTree = "<group>";
