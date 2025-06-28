@@ -112,7 +112,7 @@ struct ChordDefinitionView: View {
                     instrument: diagramDisplayOptions.midiInstrument
                 )
                 .font(.body)
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(settings.style.theme.foregroundLight)
                 .padding(.top, lineHeight / 2)
                 .padding(.leading, horizontalPadding)
                 .labelStyle(.iconOnly)
