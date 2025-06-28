@@ -134,7 +134,7 @@ struct ChordDefinitionView: View {
         Rectangle()
             .padding(.horizontal, cellWidth / 1.2)
             .frame(height: nutHeight)
-            .foregroundStyle(chord.baseFret == 1 ? Color.primary : Color.clear)
+            .foregroundStyle(chord.baseFret == 1 ? settings.style.theme.foreground : Color.clear)
         ZStack(alignment: .topLeading) {
             grid
                 .offset(y: -nutHeight)
@@ -189,7 +189,7 @@ struct ChordDefinitionView: View {
     /// The grid `View`
     var grid: some View {
         GridShape(instrument: chord.instrument)
-            .stroke(.primary, style: StrokeStyle(lineWidth: 0.4, lineCap: .round, lineJoin: .round))
+            .stroke(settings.style.theme.foreground, style: StrokeStyle(lineWidth: 0.4, lineCap: .round, lineJoin: .round))
             .padding(.horizontal, cellWidth)
     }
 
