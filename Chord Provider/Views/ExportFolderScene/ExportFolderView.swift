@@ -105,6 +105,7 @@ struct ExportFolderView: View {
             .padding()
         }
         .frame(width: 460, height: 680)
+        .background(Color(nsColor: .textBackgroundColor))
         .buttonStyle(.bordered)
         .fileExporter(
             isPresented: $exportFile,

@@ -20,12 +20,17 @@ extension ChordsDatabaseView {
                 settings: sceneState.song.settings,
                 useDefaultColors: true
             )
-            .foregroundStyle(
-                chord.validate.color,
-                colorScheme == .dark ? .black : .white
-            )
             if Chord.Root.naturalAndSharp.contains(chord.root) {
                 actions(chord: chord)
+            }
+        }
+        .overlay(alignment: .leading) {
+            if chord.validate != .correct {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundStyle(
+                        chord.validate.color
+                    )
+                    .help(chord.validate.description)
             }
         }
     }
@@ -101,6 +106,7 @@ extension ChordsDatabaseView {
             action: {
                 if let chordIndex = chordsDatabaseState.allChords.firstIndex(where: { $0.id == chord.id }) {
                     chordsDatabaseState.allChords.remove(at: chordIndex)
+                    window?.isDocumentEdited = true
                 }
             },
             label: {

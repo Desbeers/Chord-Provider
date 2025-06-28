@@ -30,7 +30,6 @@ extension ChordsDatabaseView {
                 buttons
                     .frame(maxWidth: .infinity)
                     .frame(height: 100)
-                    .background(.ultraThinMaterial)
             }
             .task(id: chord) {
                 flatChord = chordDatabaseState.allChords.first {

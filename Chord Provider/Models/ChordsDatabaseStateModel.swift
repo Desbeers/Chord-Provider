@@ -17,6 +17,12 @@ import Foundation
     var search: String = ""
     /// Bool to show the file exporter dialog
     var showExportSheet: Bool = false
+    /// Bool to close the window after saving
+    var closeWindowAfterSaving: Bool = false
+    /// Bool to load a new instrument after saving
+    var loadInstrumentAfterSaving: Bool = false
+    /// Bool to save the database on change of instrument
+    var saveDatabaseConfirmation: Bool = false
     /// The JSON data of the chord definitions
     var exportData: String = ""
     /// The Navigation stack path

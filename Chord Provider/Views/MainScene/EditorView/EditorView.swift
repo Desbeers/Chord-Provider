@@ -24,10 +24,13 @@ struct EditorView: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState = sceneState
         VStack(spacing: 0) {
+            Divider()
             HStack {
                 directiveMenus
             }
-            .padding()
+            .padding(6)
+            .frame(maxWidth: .infinity)
+            .background(Color(nsColor: Editor.highlightedBackgroundColor))
             editor
         }
         /// Show a sheet to add or edit a directive

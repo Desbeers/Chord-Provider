@@ -25,6 +25,7 @@ struct ToolbarView: CustomizableToolbarContent {
             sceneState.instrumentPicker
                 .pickerStyle(.segmented)
                 .disabled(sceneState.preview.data != nil)
+                .backport.glassEffect()
         }
         ToolbarItem(id: "transpose") {
             sceneState.transposeMenu

@@ -36,7 +36,6 @@ struct HeaderView: View {
         }
         .frame(minHeight: 45)
         .background(.ultraThinMaterial)
-        .background(appState.settings.style.theme.background.opacity(0.4))
     }
 }
 

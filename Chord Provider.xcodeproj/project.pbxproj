@@ -416,6 +416,7 @@
 		D7FA29662DF0461700B5CBE9 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */; };
 		D7FA7F402C2CA9320031E1E8 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */; };
 		D7FA7F412C2CA9320031E1E8 /* ExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */; };
+		D7FC62DF2E100AD400382DC2 /* Backport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FC62DE2E100AD400382DC2 /* Backport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -764,6 +765,7 @@
 		D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
 		D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProDocument.swift; sourceTree = "<group>"; };
 		D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
+		D7FC62DE2E100AD400382DC2 /* Backport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1294,6 +1296,7 @@
 				D7EA87492C5A5809009A3D82 /* AppKitUtils+printDialog.swift */,
 				D7EA874B2C5A5809009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift */,
 				D70D96BD2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift */,
+				D7FC62DE2E100AD400382DC2 /* Backport.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1863,6 +1866,7 @@
 				D7EA87592C5A580A009A3D82 /* AppKitUtils.swift in Sources */,
 				D75955B52CFF425400CF3590 /* ChordProParser+arguments.swift in Sources */,
 				D7F13FBC2A6460B7002D875D /* Song+Section+Line.swift in Sources */,
+				D7FC62DF2E100AD400382DC2 /* Backport.swift in Sources */,
 				D7EB79182CA97421004D965B /* AboutView.swift in Sources */,
 				D7C655A92DE1E0DB00FA605F /* PlayButton.swift in Sources */,
 				D77DF8C72D24084A000A0557 /* ExportFolderView.swift in Sources */,

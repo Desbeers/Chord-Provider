@@ -59,6 +59,7 @@ struct WelcomeView: View {
                     }
                 }
                 .pickerStyle(.segmented)
+                .backport.glassEffect()
             }
         }
         .buttonStyle(.plain)

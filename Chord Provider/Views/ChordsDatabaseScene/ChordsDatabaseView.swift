@@ -16,14 +16,14 @@ struct ChordsDatabaseView: View {
     @State var sceneState = SceneStateModel(id: .chordsDatabaseView)
     /// The observable state of the chords database
     @State var chordsDatabaseState = ChordsDatabaseStateModel()
-    /// The current color scheme
-    @Environment(\.colorScheme) var colorScheme
     /// The conformation dialog to delete a chord
     @State var showDeleteConfirmation = false
     /// Option to hide correct chords
     @State var hideCorrectChords = false
     /// The `NSWindow` of this `View`
-    @State private var window: NSWindow?
+    @State var window: NSWindow?
+    /// The current instrument
+    @State var currentInstrument: Chord.Instrument = .guitar
     /// The body of the `View`
     var body: some View {
         NavigationStack(path: $chordsDatabaseState.navigationStack.animation(.smooth)) {
@@ -33,8 +33,6 @@ struct ChordsDatabaseView: View {
                 Divider()
                 options
                     .frame(maxWidth: .infinity)
-                    .frame(height: 100)
-                    .background(.ultraThinMaterial)
             }
             .navigationDestination(for: ChordDefinition.self) { chord in
                 ChordsDatabaseView.EditView(chord: chord, window: window)
@@ -45,6 +43,13 @@ struct ChordsDatabaseView: View {
             .searchable(text: $chordsDatabaseState.search, placement: .toolbar, prompt: Text("Search chords"))
             .opacity(chordsDatabaseState.navigationStack.isEmpty ? 1 : 0)
         }
+        .frame(minWidth: 860, minHeight: 620)
+        .background(Color(nsColor: .textBackgroundColor))
+        .scaleModifier
+        .animation(.default, value: chordsDatabaseState.navigationStack)
+        .animation(.default, value: chordsDatabaseState.chords)
+        .animation(.smooth, value: appState.settings)
+        .animation(.smooth, value: sceneState.song.settings)
         .withHostingWindow { window in
             self.window = window
         }
@@ -53,9 +58,11 @@ struct ChordsDatabaseView: View {
             shouldPresent: window?.isDocumentEdited ?? false,
             actions: {
                 Button("No") {
+                    window?.isDocumentEdited = false
                     window?.close()
                 }
                 Button("Yes", role: .cancel) {
+                    chordsDatabaseState.closeWindowAfterSaving = true
                     chordsDatabaseState.showExportSheet = true
                 }
             },
@@ -63,20 +70,32 @@ struct ChordsDatabaseView: View {
                 Text("Do you want to save your database?")
             }
         )
-        .frame(minWidth: 860, minHeight: 620)
-        .background(Color(nsColor: .textBackgroundColor))
-        .scaleModifier
-        .animation(.default, value: chordsDatabaseState.navigationStack)
-        .animation(.default, value: chordsDatabaseState.chords)
-        .animation(.smooth, value: appState.settings)
-        .animation(.smooth, value: sceneState.song.settings)
+        .confirmationDialog(
+            "The Chords Database has changed",
+            isPresented: $chordsDatabaseState.saveDatabaseConfirmation
+        ) {
+            Button("Yes") {
+                chordsDatabaseState.loadInstrumentAfterSaving = true
+                chordsDatabaseState.showExportSheet = true
+            }
+            Button("No", role: .cancel) {
+                window?.isDocumentEdited = false
+                getAllChords()
+            }
+        } message: {
+            Text("Do you want to save the database before loading another instrument?")
+        }
         .task(id: sceneState.song.settings.display.instrument) {
-            chordsDatabaseState.allChords = ChordUtils.getAllChordsForInstrument(instrument: sceneState.song.settings.display.instrument)
+            if window?.isDocumentEdited ?? false {
+                chordsDatabaseState.saveDatabaseConfirmation = true
+            } else {
+                getAllChords()
+            }
         }
         .task {
             /// Set defaults
-            sceneState.song.settings.diagram.showNotes = true
-            sceneState.song.settings.diagram.showPlayButton = true
+            appState.settings.diagram.showNotes = true
+            appState.settings.diagram.showPlayButton = true
         }
         .onChange(of: chordsDatabaseState.allChords) {
             filterChords()
@@ -107,31 +126,74 @@ struct ChordsDatabaseView: View {
                     )
             }
         }
+        .onChange(of: appState.settings.diagram) {
+            sceneState.song.settings.diagram = appState.settings.diagram
+        }
         .onChange(of: sceneState.song.settings.display) {
             appState.settings.display = sceneState.song.settings.display
+        }
+        /// Create the JSON before showing the export sheet
+        .onChange(of: chordsDatabaseState.showExportSheet) {
+            if chordsDatabaseState.showExportSheet {
+                do {
+                    chordsDatabaseState.exportData = try ChordUtils.exportToJSON(
+                        definitions: chordsDatabaseState.allChords,
+                        uniqueNames: false
+                    )
+                } catch {
+                    Logger.application.error("\(error.localizedDescription, privacy: .public)")
+                }
+            }
         }
         .toolbar {
             sceneState.instrumentPicker
                 .pickerStyle(.segmented)
                 .disabled(!chordsDatabaseState.navigationStack.isEmpty)
+                .backport.glassEffect()
         }
         .fileExporter(
             isPresented: $chordsDatabaseState.showExportSheet,
             document: JSONDocument(string: chordsDatabaseState.exportData),
             contentTypes: [.json],
-            defaultFilename: "ChordPro \(sceneState.song.settings.display.instrument) chords"
-        ) { result in
-            switch result {
-            case .success(let url):
-                Logger.fileAccess.info("Database exported to \(url, privacy: .public)")
-            case .failure(let error):
-                Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
+            defaultFilename: "ChordPro \(currentInstrument.label) chords",
+            onCompletion: { result in
+                switch result {
+                case .success(let url):
+                    Logger.fileAccess.info("Database exported to \(url, privacy: .public)")
+                case .failure(let error):
+                    Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
+                }
+                if chordsDatabaseState.closeWindowAfterSaving {
+                    chordsDatabaseState.closeWindowAfterSaving = false
+                    window?.isDocumentEdited = false
+                    window?.close()
+                }
+                if chordsDatabaseState.loadInstrumentAfterSaving {
+                    chordsDatabaseState.loadInstrumentAfterSaving = false
+                    window?.isDocumentEdited = false
+                    getAllChords()
+                }
+            },
+            onCancellation: {
+                chordsDatabaseState.closeWindowAfterSaving = false
+                chordsDatabaseState.loadInstrumentAfterSaving = false
+                chordsDatabaseState.showExportSheet = false
+                chordsDatabaseState.saveDatabaseConfirmation = false
+                sceneState.song.settings.display.instrument = currentInstrument
             }
-        }
-        .navigationSubtitle(sceneState.song.settings.display.instrument.description)
+        )
+        .navigationSubtitle(currentInstrument.description)
         .environment(sceneState)
         .environment(appState)
         .environment(chordsDatabaseState)
+    }
+
+    /// Get all the chords for an instrument
+    func getAllChords() {
+        currentInstrument = sceneState.song.settings.display.instrument
+        chordsDatabaseState
+            .allChords = ChordUtils
+            .getAllChordsForInstrument(instrument: currentInstrument)
     }
 
     /// Filter the chords

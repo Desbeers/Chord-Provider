@@ -18,17 +18,9 @@ extension ChordsDatabaseView {
                 appState.midiInstrumentPicker
                     .frame(maxWidth: 220)
                 Button {
-                    do {
-                        chordsDatabaseState.exportData = try ChordUtils.exportToJSON(
-                            definitions: chordsDatabaseState.allChords,
-                            uniqueNames: false
-                        )
-                        chordsDatabaseState.showExportSheet.toggle()
-                    } catch {
-                        Logger.application.error("\(error.localizedDescription, privacy: .public)")
-                    }
+                    chordsDatabaseState.showExportSheet.toggle()
                 } label: {
-                    Text("Export all \(sceneState.song.settings.display.instrument.label) chords")
+                    Text("Export all \(currentInstrument.label) chords")
                 }
             }
             GridRow {
@@ -37,17 +29,9 @@ extension ChordsDatabaseView {
                 Toggle("Hide Correct Chords", isOn: $hideCorrectChords)
                 VStack {
                     Button {
-                        do {
-                            chordsDatabaseState.exportData = try ChordUtils.exportToJSON(
-                                definitions: chordsDatabaseState.allChords,
-                                uniqueNames: true
-                            )
-                            chordsDatabaseState.showExportSheet.toggle()
-                        } catch {
-                            Logger.application.error("\(error.localizedDescription, privacy: .public)")
-                        }
+                        chordsDatabaseState.showExportSheet.toggle()
                     } label: {
-                        Text(.init("Export \(sceneState.song.settings.display.instrument) chords to **ChordPro** format"))
+                        Text(.init("Export \(currentInstrument.label) chords to **ChordPro** format"))
                     }
                     Text("Only the first definition of a chord will be exported")
                         .font(.caption)

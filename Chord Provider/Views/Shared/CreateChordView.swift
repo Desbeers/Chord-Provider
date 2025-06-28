@@ -16,8 +16,6 @@ struct CreateChordView: View {
     @Bindable var sceneState: SceneStateModel
     /// The chord diagram
     @State private var diagram: ChordDefinition?
-    /// The current color scheme
-    @Environment(\.colorScheme) private var colorScheme
     /// The chord components result
     @State private var chordComponents: [[Chord.Root]] = []
     /// The body of the `View`
@@ -132,7 +130,6 @@ struct CreateChordView: View {
                 settings: sceneState.song.settings,
                 useDefaultColors: true
             )
-                .foregroundStyle(.primary, colorScheme == .light ? .white : .black)
         } else {
             ProgressView()
         }
