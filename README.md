@@ -20,6 +20,8 @@ There are many [ChordPro](https://www.chordpro.org) parsers in this world, howev
 
 A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An *Olympic White*. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
+On macOS *Tahoe*, the application icon is not allowed to go out of its squarish boundary anymore; another lost of macOS identity... Now it has its own ugly *glass* icon, sorry for that...
+
 ### What can **Chord Provider** do?
 
 - It will view your **ChordPro** files.
@@ -47,8 +49,6 @@ It's editor is written from scratch; in `AppKit`.
 
 While I studied a lot of code from other projects to learn; in the end, its all included. I don't like dependencies!
 
-*Yes, I dealt with the concurrency challenge!*
-
 ## Binaries
 
 I like `Swift` and `SwiftUI` but I don’t like the more and more lockdown of my beloved *macOS*. I don’t have a `Developer` account but that should't be needed to bring an *Open Source* applications to the Mac.
@@ -61,13 +61,7 @@ Well, the source is free!
 
 > *Open Source* software projects should get a free account.
 
-Please read the **README**.
-
-###  Install script
-
-There is an `Install` script in the download if you want to bypass the almighty gatekeeper.
-
-Up to you if you want to use it.
+Please read the **Read me First**.
   
 ## Limitations
 

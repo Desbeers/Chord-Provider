@@ -1,5 +1,7 @@
 # 6.x.x (---)
 
+# 6.5.0 (2025-06-29)
+
 - Improve strum environment
 - Improve song parser
 - Improve Chords Database View
@@ -8,6 +10,8 @@
 - Removed `install` script from packaging, it does not work anymore
 - More drag & drop, you can drag the song and the PDF preview out of the window
 - Code cleanup and small bug fixes
+- New 'Welcome' screen
+- Fresh application icons
 
 
 # 6.4.0 (2025-05-11)
