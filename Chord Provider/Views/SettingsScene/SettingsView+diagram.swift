@@ -24,7 +24,7 @@ extension SettingsView {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     if appState.settings.diagram.showPlayButton {
                         appState.midiInstrumentPicker
-                            .padding([.top, .leading])
+                            .padding(.leading)
                     }
                 }
                 .wrapSettingsSection(title: "MIDI")

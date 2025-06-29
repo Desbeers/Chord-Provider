@@ -13,8 +13,7 @@ extension WelcomeView {
     /// Create document `View`
     var createDocument: some View {
         VStack {
-            // swiftlint:disable:next force_unwrapping
-            Image(nsImage: NSImage(named: "AppIcon")!)
+            ImageUtils.applicationIcon()
                 .resizable()
                 .frame(width: 240, height: 240)
             VStack(alignment: .leading) {

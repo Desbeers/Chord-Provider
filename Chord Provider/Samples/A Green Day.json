@@ -1,0 +1,106 @@
+{
+  "fonts" : {
+    "chord" : {
+      "background" : "#FFFFFF",
+      "color" : "#53584E",
+      "font" : {
+        "displayName" : "Lao MN",
+        "familyName" : "Lao MN",
+        "postScriptName" : "LaoMN",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Lao%20MN.ttc"
+      },
+      "size" : 14.137325310559007
+    },
+    "comment" : {
+      "background" : "#F2B9C9",
+      "color" : "#696705",
+      "font" : {
+        "displayName" : "Verdana Bold Italic",
+        "familyName" : "Verdana",
+        "postScriptName" : "Verdana-BoldItalic",
+        "styleName" : "Bold Italic",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Verdana%20Bold%20Italic.ttf"
+      },
+      "size" : 8
+    },
+    "label" : {
+      "background" : "#D8FFEB",
+      "color" : "#355E2F",
+      "font" : {
+        "displayName" : "Cochin",
+        "familyName" : "Cochin",
+        "postScriptName" : "Cochin",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Cochin.ttc"
+      },
+      "size" : 15.592779503105591
+    },
+    "subtitle" : {
+      "background" : "#FFFFFF",
+      "color" : "#454054",
+      "font" : {
+        "displayName" : "Trattatello",
+        "familyName" : "Trattatello",
+        "postScriptName" : "Trattatello",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Trattatello.ttf"
+      },
+      "size" : 16
+    },
+    "tag" : {
+      "background" : "#9091A7",
+      "color" : "#FFFFFF",
+      "font" : {
+        "displayName" : "Songti SC Regular",
+        "familyName" : "Songti SC",
+        "postScriptName" : "STSongti-SC-Regular",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Songti.ttc"
+      },
+      "size" : 8
+    },
+    "text" : {
+      "background" : "#FFFFFF",
+      "color" : "#196178",
+      "font" : {
+        "displayName" : "Kohinoor Telugu Light",
+        "familyName" : "Kohinoor Telugu",
+        "postScriptName" : "KohinoorTelugu-Light",
+        "styleName" : "Light",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/KohinoorTelugu.ttc"
+      },
+      "size" : 14.851222826086957
+    },
+    "textblock" : {
+      "background" : "#FFFFFF",
+      "color" : "#444E54",
+      "font" : {
+        "displayName" : "Songti SC Regular",
+        "familyName" : "Songti SC",
+        "postScriptName" : "STSongti-SC-Regular",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Songti.ttc"
+      },
+      "size" : 11
+    },
+    "title" : {
+      "background" : "#FFFFFF",
+      "color" : "#196178",
+      "font" : {
+        "displayName" : "Hoefler Text",
+        "familyName" : "Hoefler Text",
+        "postScriptName" : "HoeflerText-Regular",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Hoefler%20Text.ttc"
+      },
+      "size" : 18
+    }
+  },
+  "theme" : {
+    "background" : "#D4F3EA",
+    "foreground" : "#196178",
+    "foreground-light" : "#33281A",
+    "foreground-medium" : "#454054"
+  }
+}

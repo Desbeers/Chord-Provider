@@ -13,8 +13,7 @@ struct AboutView: View {
     var body: some View {
         VStack {
             VStack {
-                // swiftlint:disable:next force_unwrapping
-                Image(nsImage: NSImage(named: "AppIcon")!)
+                ImageUtils.applicationIcon()
                     .resizable()
                     .frame(width: 140, height: 140)
                 Text("Chord Provider")

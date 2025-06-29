@@ -18,6 +18,7 @@ enum Samples: String {
 
     case olympicWhite = "Olympic White"
     case totalChaos = "Total Chaos"
+    case aGreenDay = "A Green Day"
 
     static var debug: [Samples] {
         [
@@ -29,7 +30,8 @@ enum Samples: String {
     static var theme: [Samples] {
         [
             .olympicWhite,
-            .totalChaos
+            .totalChaos,
+            .aGreenDay
         ]
     }
 }

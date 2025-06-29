@@ -93,6 +93,7 @@
 		D71173802BD279D80075325C /* PDFBuild+Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711737F2BD279D80075325C /* PDFBuild+Label.swift */; };
 		D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */; };
 		D711FCFE2AD05B8C00176FDC /* ColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */; };
+		D71CA4392E1138FB001C9860 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = D71CA4382E1138FB001C9860 /* AppIcon.icon */; };
 		D71E96F32DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F22DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift */; };
 		D71E96F42DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F22DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift */; };
 		D71E96F62DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F52DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift */; };
@@ -521,6 +522,7 @@
 		D711737F2BD279D80075325C /* PDFBuild+Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Label.swift"; sourceTree = "<group>"; };
 		D71173812BD2FB0D0075325C /* PDFBuild+Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Section.swift"; sourceTree = "<group>"; };
 		D711FCFD2AD05B8C00176FDC /* ColumnsLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsLayout.swift; sourceTree = "<group>"; };
+		D71CA4382E1138FB001C9860 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		D71E96F22DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+StrumSection+Line.swift"; sourceTree = "<group>"; };
 		D71E96F52DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+StrumSection+Line+Part.swift"; sourceTree = "<group>"; };
 		D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Tags.swift"; sourceTree = "<group>"; };
@@ -1026,6 +1028,7 @@
 		D730BBB32CA844C2008719F2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D71CA4382E1138FB001C9860 /* AppIcon.icon */,
 				D7C47CD02DA1A0430037CC00 /* ChordProviderConfig.json */,
 				D7F13F9E2A6460B7002D875D /* Assets.xcassets */,
 				D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */,
@@ -1680,6 +1683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D70D96DD2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
+				D71CA4392E1138FB001C9860 /* AppIcon.icon in Resources */,
 				D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */,
 				D70D96E52CB2B40E00B51A14 /* GuitaleleStandardATuning.json in Resources */,
 				D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */,

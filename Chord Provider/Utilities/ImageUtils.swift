@@ -5,7 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import AppKit
+import SwiftUI
 
 /// Utilities to deal with images
 enum ImageUtils {
@@ -39,5 +39,13 @@ extension ImageUtils {
         }
         let scaled = CGSize(width: size.width * scale, height: size.height * scale)
         return scaled
+    }
+}
+
+extension ImageUtils {
+
+    /// Get the application icon
+    static func applicationIcon() -> Image {
+        Image(nsImage: NSImage(named: "AppIcon") ?? NSImage())
     }
 }

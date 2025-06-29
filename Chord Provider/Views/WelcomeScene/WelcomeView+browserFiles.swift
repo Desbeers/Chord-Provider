@@ -91,8 +91,7 @@ extension WelcomeView {
                 }
             default:
                 ZStack {
-                    // swiftlint:disable:next force_unwrapping
-                    Image(nsImage: NSImage(named: "AppIcon")!)
+                    ImageUtils.applicationIcon()
                         .resizable()
                         .scaledToFit()
                     ProgressView()

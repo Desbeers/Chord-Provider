@@ -159,8 +159,7 @@ struct MainView: View {
                                 VStack {
                                     Text(sceneState.song.metadata.title)
                                         .font(.title2)
-                                    // swiftlint:disable:next force_unwrapping
-                                    Image(nsImage: NSImage(named: "AppIcon")!)
+                                    ImageUtils.applicationIcon()
                                     Text("You are dragging the content of your song")
                                         .font(.caption)
                                 }
@@ -170,8 +169,8 @@ struct MainView: View {
                         if sceneState.song.settings.display.showChords {
                             Divider()
                             ChordsView(document: $document)
-                                .background(Color(appState.settings.style.theme.background))
-                                .shadow(color: .secondary.opacity(0.25), radius: 60)
+                                .background(appState.settings.style.theme.background)
+                                .shadow(color: appState.settings.style.theme.foreground.opacity(0.25), radius: 60)
                         }
                     }
                     .background(Color(appState.settings.style.theme.background))

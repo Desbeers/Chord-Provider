@@ -37,8 +37,10 @@ extension FolderExport {
             .padding(settings.pdf.pagePadding))
         /// Add **Chord Provider** icon
         let size = documentInfo.pageRect.height / 2
-        // swiftlint:disable:next force_unwrapping
-        tocBuilder.elements.append(PDFBuild.Image(NSImage(named: "AppIcon")!, size: CGSize(width: size, height: size)))
+
+        if let image = NSImage(named: "AppIcon") {
+            tocBuilder.elements.append(PDFBuild.Image(image, size: CGSize(width: size, height: size)))
+        }
         tocBuilder.elements.append(PDFBuild.PageBreak())
         tocBuilder.elements.append(
             PDFBuild.Text(
