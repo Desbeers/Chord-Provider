@@ -45,11 +45,12 @@ extension ChordProParser {
             let (_, chord, lyric) = match.output
             var part = Song.Section.Line.Part(id: partID)
             if let chord {
-                part.chord = processChord(
+                part.chordDefinition = processChord(
                     chord: String(chord),
                     line: &line,
                     song: &song
-                ).id
+                )
+                part.chord = part.chordDefinition?.id
                 part.text = " "
                 /// Because it has a chord; the section should be at least a verse
                 haveChords = true

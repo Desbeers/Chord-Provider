@@ -16,23 +16,26 @@ extension RenderView {
     struct ChordView: View {
         /// The application settings
         let settings: AppSettings
-        /// The ID of the section
-        let sectionID: Int
-        /// The ID of the part
-        let partID: Int
+//        /// The ID of the section
+//        let sectionID: Int
+//        /// The ID of the part
+//        let partID: Int
         /// The  chord
         let chord: ChordDefinition
-        /// The calculated ID of this `View`
-        var popoverID: String {
-            "\(sectionID)-\(partID)-\(chord.name)"
-        }
+        /// The ID of the popover
+        let popoverID: String
         /// The color of a chord
-        var color: Color {
+        let color: Color
+        /// Init
+        init(chord: ChordDefinition, settings: AppSettings) {
+            self.settings = settings
+            self.chord = chord
+            self.popoverID = UUID().uuidString
             switch chord.status {
             case .unknownChord, .customTransposedChord, .transposedUnknownChord:
-                Color.red
+                self.color = .red
             default:
-                settings.style.fonts.chord.color
+                self.color = settings.style.fonts.chord.color
             }
         }
         /// The `popover` state

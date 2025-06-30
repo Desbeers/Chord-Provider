@@ -91,7 +91,7 @@ with the title of the song; just eyecandy!
 when you have a song selected and it will render it for you.
 {end_of_textblock}
 
-{image label="Fancy Icons!" align="left" scale="30%" src="IconPreview.png"}
+{image label="Fancy Icons!" align="right" scale="30%" src="IconPreview.png"}
 
 {comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song as badge.}
 
@@ -154,5 +154,5 @@ However; If you realy don't like the [B]bug, report it...
 If you look at this help, it looks *plain* and **boring**.
 Give it a try with the **Random Colors** and **Random Fonts** buttons below!
 
-{comment You can set **colors** and **fonts** in the `settings` yourself.}
+{comment You can set **colors** and **fonts** in the `settings` yourself}
 {end_of_textblock}

@@ -15,6 +15,8 @@ extension Song.Section.Line {
         var id: Int
         /// The optional chord ID
         var chord: ChordDefinition.ID?
+        /// The optional chord definition
+        var chordDefinition: ChordDefinition?
         /// The optional text
         var text: String = ""
         /// Bool if the part has content, so at least a chord or some text

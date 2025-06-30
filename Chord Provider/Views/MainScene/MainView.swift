@@ -138,48 +138,56 @@ struct MainView: View {
                 SplitterView()
                     .transition(.scale)
             }
-            if let data = sceneState.preview.data {
-                PreviewPaneView(data: data)
-                    .transition(.move(edge: .trailing))
-            } else if sceneState.isAnimating {
-                progress
-            } else {
-                let layout = sceneState.song.settings.display.chordsPosition == .right ?
-                AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-                layout {
-                    Group {
-                        SongView()
-                            .foregroundStyle(
-                                appState.settings.style.fonts.text.color,
-                                appState.settings.style.theme.foregroundMedium
-                            )
-                            .background(Color(appState.settings.style.theme.background))
-                            .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 7))
-                            .draggable(sceneState.song) {
-                                VStack {
-                                    Text(sceneState.song.metadata.title)
-                                        .font(.title2)
-                                    ImageUtils.applicationIcon()
-                                    Text("You are dragging the content of your song")
-                                        .font(.caption)
+            Group {
+                if let data = sceneState.preview.data {
+                    PreviewPaneView(data: data)
+                        .transition(.move(edge: .trailing))
+                } else if sceneState.isAnimating {
+                    progress
+                } else if sceneState.song.hasContent {
+                    let layout = sceneState.song.settings.display.chordsPosition == .right ?
+                    AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
+                    layout {
+                        Group {
+                            SongView(song: sceneState.song)
+
+                            //.background(Color(appState.settings.style.theme.background))
+                                .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 7))
+                                .draggable(sceneState.song) {
+                                    VStack {
+                                        Text(sceneState.song.metadata.title)
+                                            .font(.title2)
+                                        ImageUtils.applicationIcon()
+                                        Text("You are dragging the content of your song")
+                                            .font(.caption)
+                                    }
+                                    .padding()
+                                    .background(.regularMaterial)
                                 }
-                                .padding()
-                                .background(.regularMaterial)
+                            if sceneState.song.settings.display.showChords {
+                                Divider()
+                                ChordsView(document: $document)
+                                    .background(appState.settings.style.theme.background)
+                                    .shadow(color: appState.settings.style.theme.foreground.opacity(0.25), radius: 60)
                             }
-                        if sceneState.song.settings.display.showChords {
-                            Divider()
-                            ChordsView(document: $document)
-                                .background(appState.settings.style.theme.background)
-                                .shadow(color: appState.settings.style.theme.foreground.opacity(0.25), radius: 60)
                         }
+                        //.background(Color(appState.settings.style.theme.background))
+                        /// - Note: Make sure we don't see the splitter cursor here
+                        .pointerStyle(.default)
                     }
-                    .background(Color(appState.settings.style.theme.background))
-                    /// - Note: Make sure we don't see the splitter cursor here
-                    .pointerStyle(.default)
+                } else {
+                    ContentUnavailableView("The song has no content", systemImage: "music.quarternote.3")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .foregroundStyle(
+                            appState.settings.style.fonts.text.color,
+                            appState.settings.style.theme.foregroundMedium
+                        )
                 }
             }
+            .background(Color(appState.settings.style.theme.background))
         }
         .frame(maxHeight: .infinity)
+
         /// Remember the size of the whole window
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size
