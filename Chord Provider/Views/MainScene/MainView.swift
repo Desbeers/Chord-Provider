@@ -25,22 +25,55 @@ struct MainView: View {
     let fileURL: URL?
     /// The body of the `View`
     var body: some View {
-        VStack(spacing: 0) {
-            switch sceneState.status {
-            case .loading:
-                progress
-            case .ready:
-                if sceneState.preview.data == nil {
-                    HeaderView()
+        ZStack {
+            VStack(spacing: 0) {
+                switch sceneState.status {
+                case .loading:
+                    progress
+                case .ready:
+                    if sceneState.preview.data == nil {
+                        HeaderView()
+                    }
+                    main
+                case .error:
+                    ContentUnavailableView(
+                        "Ooops",
+                        systemImage: "exclamationmark.triangle",
+                        description: Text("Something went wrong")
+                    )
                 }
-                main
-            case .error:
-                ContentUnavailableView(
-                    "Ooops",
-                    systemImage: "exclamationmark.triangle",
-                    description: Text("Something went wrong")
-                )
             }
+
+            // MARK: Get sizes
+
+            /// Get the size of the longest song line
+            /// - Note: This is not perfect but seems well enough for normal songs
+            RenderView.PartsView(
+                parts: sceneState.song.metadata.longestLine.parts ?? [],
+                settings: sceneState.song.settings
+            )
+            /// Set the standard scaled font
+            .font(sceneState.song.settings.style.fonts.text.swiftUIFont(scale: sceneState.scale.scale))
+            .onGeometryChange(for: CGSize.self) { proxy in
+                proxy.size
+            } action: { newValue in
+                sceneState.scale.maxSongLineWidth = newValue.width > 340 ? newValue.width : 340
+            }
+            .hidden()
+            /// Get the size of the longest label line
+            /// - Note: This is not perfect but seems well enough for normal songs
+            RenderView.ProminentLabel(
+                label: sceneState.song.metadata.longestLabel,
+                font: sceneState.song.settings.style.fonts.label.swiftUIFont(scale: sceneState.scale.scale),
+                settings: sceneState.song.settings
+            )
+            .onGeometryChange(for: CGSize.self) { proxy in
+                proxy.size
+            } action: { newValue in
+                sceneState.scale.maxSongLabelWidth = newValue.width > 100 ? newValue.width : 100
+            }
+            .hidden()
+
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .toolbar(id: "Main") {
@@ -133,7 +166,7 @@ struct MainView: View {
             if sceneState.showEditor {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
-                    .frame(width: (sceneState.windowWidth / 2) + sceneState.editorOffset)
+                    .frame(width: sceneState.editorWidth)
                     .transition(.opacity)
                 SplitterView()
                     .transition(.scale)
@@ -149,7 +182,13 @@ struct MainView: View {
                     AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                     layout {
                         Group {
-                            SongView(song: sceneState.song)
+                            SongView()
+                            /// Remember the size of the whole window
+                            .onGeometryChange(for: CGSize.self) { proxy in
+                                proxy.size
+                            } action: { newValue in
+                                sceneState.scale.maxSongWidth = newValue.width
+                            }
 
                             //.background(Color(appState.settings.style.theme.background))
                                 .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 7))

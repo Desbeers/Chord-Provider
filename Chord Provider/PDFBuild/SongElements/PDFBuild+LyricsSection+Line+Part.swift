@@ -41,7 +41,7 @@ extension PDFBuild.LyricsSection.Line {
 
             if !chords.isEmpty {
                 var chordString: String = " "
-                if let chord = chords.first(where: { $0.id == part.chord }) {
+                if let chord = part.chordDefinition {
                     chordString = chord.display
                 }
                 self.chord = NSAttributedString(

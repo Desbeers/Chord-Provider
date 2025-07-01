@@ -10,16 +10,12 @@ import SwiftUI
 extension RenderView {
 
     /// Store diagrams in a memory cache for performance
-    static let diagramCache = NSCache<NSString, NSImage>()
+    @MainActor static let diagramCache = NSCache<NSString, NSImage>()
 
     /// SwiftUI `View` for a chord as part of a line
     struct ChordView: View {
         /// The application settings
         let settings: AppSettings
-//        /// The ID of the section
-//        let sectionID: Int
-//        /// The ID of the part
-//        let partID: Int
         /// The  chord
         let chord: ChordDefinition
         /// The ID of the popover
@@ -54,7 +50,7 @@ extension RenderView {
                         getDiagram()
                             .offset(x: -4)
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: settings.scale * 40)
+                            .frame(height: settings.scale.scale * 40)
                     }
                 )
                 .buttonStyle(.plain)
@@ -76,7 +72,7 @@ extension RenderView {
                             NSCursor.pop()
                         }
                     }
-                    .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale))
+                    .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.scale))
             }
         }
         /// Get the diagram

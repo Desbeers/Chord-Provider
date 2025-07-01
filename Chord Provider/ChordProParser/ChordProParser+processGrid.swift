@@ -36,7 +36,7 @@ extension ChordProParser {
             var grid = Song.Section.Line.Grid(id: partID)
             switch text {
             case "|", ".":
-                grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: text))
+                grid.parts.append(Song.Section.Line.Part(id: partID, text: text))
             default:
                 let result = processChord(
                     chord: String(text),
@@ -45,12 +45,11 @@ extension ChordProParser {
                     ignoreUnknown: true
                 )
                 if result.status == .unknownChord {
-                    grid.parts.append(Song.Section.Line.Part(id: partID, chord: nil, text: text))
+                    grid.parts.append(Song.Section.Line.Part(id: partID, text: text))
                 } else {
                     grid.parts.append(
                         Song.Section.Line.Part(
                             id: partID,
-                            chord: result.id,
                             chordDefinition: result,
                             text: result.display
                         )

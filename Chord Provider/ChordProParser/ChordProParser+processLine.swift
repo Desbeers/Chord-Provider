@@ -50,7 +50,6 @@ extension ChordProParser {
                     line: &line,
                     song: &song
                 )
-                part.chord = part.chordDefinition?.id
                 part.text = " "
                 /// Because it has a chord; the section should be at least a verse
                 haveChords = true
@@ -60,10 +59,10 @@ extension ChordProParser {
                 /// Add the lyrics to the 'plain' text
                 line.plain = (line.plain ?? "") + part.text
             }
-            if part.hasContent {
-                partID += 1
-                parts.append(part)
-            }
+            /// Add the part
+            parts.append(part)
+            /// Increase te ID
+            partID += 1
         }
         line.parts = parts
         /// Add the line"

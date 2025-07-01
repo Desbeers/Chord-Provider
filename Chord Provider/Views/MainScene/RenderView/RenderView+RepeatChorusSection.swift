@@ -1,5 +1,5 @@
 //
-//  RenderView+repeatChorusSection.swift
+//  RenderView+RepeatChorusSection.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension RenderView2 {
+extension RenderView {
 
     struct RepeatChorusSection: View {
         /// The current section of the song
@@ -35,7 +35,7 @@ extension RenderView2 {
                 RenderView.ProminentLabel(
                     label: section.label,
                     sfSymbol: "arrow.trianglehead.2.clockwise.rotate.90",
-                    font: settings.style.fonts.label.swiftUIFont(scale: settings.scale),
+                    font: settings.style.fonts.label.swiftUIFont(scale: settings.scale.scale),
                     settings: settings
                 )
                 .foregroundStyle(settings.style.fonts.label.color, settings.style.fonts.label.background)
@@ -47,34 +47,6 @@ extension RenderView2 {
                 /// Repeat the whole last chorus
                 ChorusSection(section: section, settings: settings)
             }
-        }
-    }
-}
-
-extension RenderView {
-
-    /// SwiftUI `View` for a chorus repeat
-    /// - Parameter section: The current ``Song/Section``
-    /// - Returns: A `View` for the *{chorus..}* directive
-    @ViewBuilder func repeatChorusSection(section: Song.Section) -> some View {
-        if
-            song.settings.shared.repeatWholeChorus,
-            let lastChorus = song.sections.last(where: { $0.environment == .chorus && $0.label == section.label }) {
-            /// Repeat the whole last chorus with the same label
-            chorusSection(section: lastChorus)
-        } else {
-            /// Show a ``RenderView/ProminentLabel`` with an icon and the label
-            ProminentLabel(
-                label: section.label,
-                sfSymbol: "arrow.trianglehead.2.clockwise.rotate.90",
-                font: song.settings.style.fonts.label.swiftUIFont(scale: song.settings.scale),
-                settings: song.settings
-            )
-            .foregroundStyle(song.settings.style.fonts.label.color, song.settings.style.fonts.label.background)
-            .frame(alignment: .leading)
-            .wrapSongSection(
-                settings: song.settings
-            )
         }
     }
 }

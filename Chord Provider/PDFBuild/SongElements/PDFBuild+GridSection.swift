@@ -51,7 +51,7 @@ extension PDFBuild {
                         elements[column].append(
                             NSAttributedString(
                                 string: " \(part.text) \n",
-                                attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
+                                attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                             )
                         )
                         let textBounds = elements[column].boundingRect(with: rect.size)
@@ -72,7 +72,7 @@ extension PDFBuild {
 
                             let string = NSAttributedString(
                                 string: " \(part.text) \u{200c}",
-                                attributes: part.chord == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
+                                attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                             )
                             let textBounds = string.boundingRect(with: rect.size)
                             lineHeight = max(lineHeight, textBounds.height)

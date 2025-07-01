@@ -33,13 +33,8 @@ struct AppSettings: Equatable, Codable, Sendable {
     }
     /// Settings for PDF song or folder export
     var pdf = AppSettings.PDF()
-
-    // MARK: Scaling
-
-    /// Max width of the `View`
-    var maxWidth: Double = 340
-    /// Scale magnifier
-    var scale: Double = 1
+    /// Scaling
+    var scale = Scale()
 }
 
 extension AppSettings {
