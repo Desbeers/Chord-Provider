@@ -25,14 +25,13 @@ extension RenderView {
         /// - Parameter content: The content of the section
         /// - Returns: A `View` with the wrapped section
         func body(content: Content) -> some View {
-
             switch settings.display.labelStyle {
             case .inline:
                 if let label {
                     sectionLabel(label)
                 }
                 Rectangle()
-                    .frame(width: nil, height: 1)
+                    .frame(width: settings.scale.maxSongLineWidth, height: 1)
                     .foregroundStyle(
                         prominent || label != nil ? settings.style.theme.foregroundLight : Color.clear
                     )
@@ -50,113 +49,11 @@ extension RenderView {
                     )
                 content
             }
-
-                //.background(Color.randomLight)
-            //Spacer()
-
-//            let _ = print(settings.display.labelStyle)
-//            switch settings.display.paging {
-//            case .asList:
-//
-//                switch settings.display.labelStyle {
-//                case .grid:
-//                    GridRow {
-//                        //VStack {
-//                            Text(label ?? "NO LABEL")
-//                            content
-//                        //}
-//                    }
-//                case .inline:
-//                    GridRow {
-//                        Text(label ?? "NO LABEL")
-//                            .font(.title)
-//                    }
-//                    GridRow {
-//                        content
-//                    }
-//                }
-//            case .asColumns:
-//                VStack {
-//                    Text(label ?? "NO LABEL")
-//                    content
-//                }
-//            }
-
-            //content
         }
-//            switch settings.display.labelStyle {
-//            case .inline:
-//                content
-//                    .background(Color.randomLight)
-////                Section(content: {
-////                    content
-////                        .background(Color.randomLight)
-////                        .listRowSeparator(.hidden)
-////                        .frame(idealWidth: settings.maxWidth, maxWidth: settings.maxWidth, alignment: .leading)
-////
-////                }, header: {
-////                    Text(label ?? "ERROR")
-////                })
-////                .listSectionSeparator(.hidden)
-//
-////                VStack(alignment: .leading) {
-////                    inlineContent(content: content)
-////                }
-////                .listRowSeparator(.visible)
-////                .background(Color.randomLight)
-////                Group {
-////                    /// - Note: For best performance, use `LazyVStack` for  the list view
-////                    switch settings.display.paging {
-////                    case .asList:
-////                        LazyVStack(alignment: .leading) {
-////                            inlineContent(content: content)
-////                        }
-////                    case .asColumns:
-////                        VStack(alignment: .leading) {
-////                            inlineContent(content: content)
-////                        }
-////                    }
-////                }
-//                .padding(.top)
-//                .frame(idealWidth: settings.maxWidth, maxWidth: settings.maxWidth, alignment: .leading)
-//            case .grid:
-//                GridRow {
-//                    Group {
-//                        switch prominent {
-//                        case true:
-//                            ProminentLabel(
-//                                label: label ?? "error",
-//                                font: font,
-//                                settings: settings
-//                            )
-//                        case false:
-//                            Text(.init(label ?? ""))
-//                                .font(font)
-//                        }
-//                    }
-//                    .foregroundStyle(settings.style.fonts.label.color, settings.style.fonts.label.background)
-//                    .frame(minWidth: 100, alignment: .trailing)
-//                    .gridColumnAlignment(.trailing)
-//                    content
-//                        .frame(idealWidth: settings.maxWidth, maxWidth: settings.maxWidth, alignment: .leading)
-//                        .background(Color.randomLight)
-//                        .padding(.leading)
-//                        .overlay(
-//                            Rectangle()
-//                                .frame(width: 1, height: nil, alignment: .leading)
-//                                .foregroundStyle(
-//                                    prominent || label != nil ? settings.style.theme.foregroundLight : Color.clear
-//                                ),
-//                            alignment: .leading
-//                        )
-//                        .gridColumnAlignment(.leading)
-//                }
-//            }
-//        }
-        /// The content of the section when viewed inline
-
-
-        @ViewBuilder func sectionLabel(_ label: String) -> some View {
+        /// Render a label section
+        /// - Parameter label: The label
+        /// - Returns: A `View`
+        func sectionLabel(_ label: String) -> some View {
             VStack {
                 switch prominent {
                 case true:
@@ -171,31 +68,6 @@ extension RenderView {
                 }
             }
             .foregroundStyle(settings.style.fonts.label.color, settings.style.fonts.label.background)
-            //.frame(maxWidth: .infinity, alignment: settings.display.paging == .asList ? .leading : .trailing)
-        }
-
-        @ViewBuilder func inlineContent(content: Content) -> some View {
-            let label = label ?? ""
-            if label.isEmpty {
-                content
-            } else {
-                Group {
-                    switch prominent {
-                    case true:
-                        ProminentLabel(
-                            label: label,
-                            font: font,
-                            settings: settings
-                        )
-                    case false:
-                        Text(.init(label))
-                            .font(font)
-                    }
-                }
-                .foregroundStyle(settings.style.fonts.label.color, settings.style.fonts.label.background)
-                Divider()
-                content
-            }
         }
     }
 }

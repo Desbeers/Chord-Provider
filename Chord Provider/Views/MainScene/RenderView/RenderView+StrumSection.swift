@@ -75,8 +75,7 @@ extension RenderView {
                             }
                         }
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "", settings: settings)
-                            .padding(.vertical, settings.style.fonts.text.size * settings.scale.scale / 2)
+                        CommentLabel(comment: line.plain, inline: true, settings: settings)
                     default:
                         EmptyView()
                     }

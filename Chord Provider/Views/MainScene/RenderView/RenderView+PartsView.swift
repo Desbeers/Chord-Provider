@@ -24,15 +24,12 @@ extension RenderView {
                     VStack(alignment: .leading) {
                         if !settings.shared.lyricsOnly, let chord = part.chordDefinition {
                             RenderView.ChordView(chord: chord, settings: settings)
-                        } else if !settings.shared.lyricsOnly {
-                            /// A line without a chord
-                            Text(" ")
-                                .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.scale))
                         }
                         /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
                         /// for the funny stuff added to the string...
                         Text(.init("\(part.text)\u{200c}"))
                     }
+                    .padding(.vertical, 2)
                 }
             }
         }

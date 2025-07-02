@@ -36,7 +36,7 @@ enum SettingsCache {
     }
 
     /// Delete a struct from the cache
-    /// - Parameter key: id: The ID of the settings
+    /// - Parameter id: The ID of the settings
     /// - Throws: an error if it can't be saved
     static func delete(id: AppSettings.AppWindowID) throws {
         let file = try self.path(for: id)

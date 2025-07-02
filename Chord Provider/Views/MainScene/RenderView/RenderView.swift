@@ -15,82 +15,67 @@ extension RenderView {
 
     /// Render a ``Song`` structure into a SwiftUI `View`
     struct MainView: View {
-
         /// The ``Song``
         let song: Song
-
+        /// The calculated spacing between sections
+        let spacing: Double
         /// Init the `View`
         /// - Parameters:
         ///   - song: The ``Song`` to view
-        ///   - labelStyle: The option for the label style of the song
         ///   - scale: The scale of the `View`
-        ///
-        /// The **labelStyle** can depend on the available space when viewing as a list.
-        /// It is using a `ViewThatFits` for that in ``SongView``.
         init(
             song: Song,
-            //labelStyle: AppSettings.Display.LabelStyle,
             scale: AppSettings.Scale
         ) {
-            print("INIT MAINSONG!!!")
-            print(scale.maxSongWidth)
-            print(scale.maxSongLabelWidth + scale.maxSongLineWidth)
-
+            self.spacing = 20 * scale.scale
             var song = song
             song.settings.scale = scale
-            //song.settings.display.labelStyle = labelStyle
-
+            /// Calculate label style
             switch song.settings.display.paging {
             case .asColumns:
                 song.settings.display.labelStyle = .inline
             case .asList:
-
-                song.settings.display.labelStyle = scale.maxSongWidth < (scale.maxSongLabelWidth + scale.maxSongLineWidth) ? .inline : .grid
+                let neededWidth = (scale.maxSongLabelWidth + scale.maxSongLineWidth) + (2 * self.spacing) + 20
+                song.settings.display.labelStyle = scale.maxSongWidth < neededWidth ? .inline : .grid
             }
-
-
             self.song = song
         }
-
         /// The body of the `View`
         var body: some View {
             switch song.settings.display.paging {
             case .asList:
+                ScrollView(.vertical) {
                     switch song.settings.display.labelStyle {
                     case .grid:
                         LazyVGrid(
                             columns: [
-
                                 GridItem(.fixed(song.settings.scale.maxSongLabelWidth), alignment: .topTrailing),
                                 GridItem(.fixed(10), alignment: .center),
-                                GridItem(.flexible(minimum: 100, maximum: song.settings.scale.maxSongLineWidth), alignment: .topLeading),
-
-//                                GridItem(.fixed(song.settings.scale.maxSongLabelWidth)),
-//                                GridItem(.fixed(song.settings.scale.maxSongLineWidth)),
+                                GridItem(.flexible(minimum: 100, maximum: song.settings.scale.maxSongLineWidth), alignment: .topLeading)
                             ],
                             alignment: .center,
-                            spacing: 10
+                            spacing: spacing
                         ) {
                             RenderView.Sections(sections: song.sections, chords: song.chords, settings: song.settings)
                         }
-                        //.background(Color.randomLight)
+                        .padding(.vertical, spacing)
                     case .inline:
                         LazyVStack(alignment: .leading) {
                             RenderView.Sections(sections: song.sections, chords: song.chords, settings: song.settings)
                         }
-                        .padding(song.settings.scale.scale * 20)
+                        .padding(spacing)
                     }
+                }
             case .asColumns:
                 ScrollView(.horizontal) {
                     ColumnsLayout(
-                        columnSpacing: song.settings.scale.scale * 40,
-                        rowSpacing: song.settings.scale.scale * 10
+                        columnSpacing: spacing * 2,
+                        rowSpacing: spacing * 0.5
                     ) {
                         RenderView.Sections(sections: song.sections, chords: song.chords, settings: song.settings)
                     }
-                    .padding(song.settings.scale.scale * 20)
+                    .padding(spacing)
                 }
-                .frame(maxHeight: .infinity)
             }
         }
     }

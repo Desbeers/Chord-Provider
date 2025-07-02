@@ -38,9 +38,7 @@ extension RenderView {
                 }
             }
             .font(font)
-            .padding(.top, settings.scale.scale * 6)
-            .padding(.horizontal, settings.scale.scale * 6)
-            .padding(.bottom, settings.scale.scale * 5)
+            .padding(6)
             .background(.secondary, in: RoundedRectangle(cornerRadius: 6))
         }
     }

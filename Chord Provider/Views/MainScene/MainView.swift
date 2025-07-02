@@ -44,7 +44,7 @@ struct MainView: View {
                 }
             }
 
-            // MARK: Get sizes
+            // MARK: Calculate song item sizes
 
             /// Get the size of the longest song line
             /// - Note: This is not perfect but seems well enough for normal songs
@@ -73,7 +73,6 @@ struct MainView: View {
                 sceneState.scale.maxSongLabelWidth = newValue.width > 100 ? newValue.width : 100
             }
             .hidden()
-
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .toolbar(id: "Main") {
@@ -182,27 +181,13 @@ struct MainView: View {
                     AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                     layout {
                         Group {
-                            SongView()
+                            SongView(song: sceneState.song, scale: sceneState.scale)
                             /// Remember the size of the whole window
                             .onGeometryChange(for: CGSize.self) { proxy in
                                 proxy.size
                             } action: { newValue in
                                 sceneState.scale.maxSongWidth = newValue.width
                             }
-
-                            //.background(Color(appState.settings.style.theme.background))
-                                .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 7))
-                                .draggable(sceneState.song) {
-                                    VStack {
-                                        Text(sceneState.song.metadata.title)
-                                            .font(.title2)
-                                        ImageUtils.applicationIcon()
-                                        Text("You are dragging the content of your song")
-                                            .font(.caption)
-                                    }
-                                    .padding()
-                                    .background(.regularMaterial)
-                                }
                             if sceneState.song.settings.display.showChords {
                                 Divider()
                                 ChordsView(document: $document)
@@ -210,7 +195,6 @@ struct MainView: View {
                                     .shadow(color: appState.settings.style.theme.foreground.opacity(0.25), radius: 60)
                             }
                         }
-                        //.background(Color(appState.settings.style.theme.background))
                         /// - Note: Make sure we don't see the splitter cursor here
                         .pointerStyle(.default)
                     }
@@ -226,7 +210,6 @@ struct MainView: View {
             .background(Color(appState.settings.style.theme.background))
         }
         .frame(maxHeight: .infinity)
-
         /// Remember the size of the whole window
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size

@@ -40,12 +40,10 @@ extension RenderView {
                                 }
                             }
                         case .emptyLine:
-                            Color.clear
-                                .frame(height: settings.style.fonts.text.size / 2 * settings.scale.scale)
+                            EmptyLine(settings: settings)
                                 .gridCellUnsizedAxes(.horizontal)
                         case .comment:
-                            CommentLabel(comment: line.plain ?? "", settings: settings)
-                                .padding(.vertical, settings.style.fonts.text.size * settings.scale.scale / 2)
+                            CommentLabel(comment: line.plain, inline: true, settings: settings)
                         default:
                             EmptyView()
                         }

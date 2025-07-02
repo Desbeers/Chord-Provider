@@ -38,7 +38,7 @@
     },
     "subtitle" : {
       "background" : "#FFFFFF",
-      "color" : "#6C4D50",
+      "color" : "#7C5E61",
       "font" : {
         "displayName" : "Helvetica Neue",
         "familyName" : "Helvetica Neue",
@@ -100,7 +100,7 @@
   "theme" : {
     "background" : "#FDFEFB",
     "foreground" : "#120750",
-    "foreground-light" : "#653358",
-    "foreground-medium" : "#6C4D50"
+    "foreground-light" : "#B48B8D",
+    "foreground-medium" : "#7C5E61"
   }
 }
