@@ -20,11 +20,11 @@ extension RenderView {
         init(section: Song.Section, settings: AppSettings) {
             self.section = section
             self.settings = settings
-            self.width = settings.style.fonts.text.size * settings.scale.scale
+            self.width = settings.style.fonts.text.size * settings.scale.magnifier
         }
         /// The body of the `View`
         var body: some View {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing:  0) {
                 ForEach(section.lines) { line in
                     switch line.directive {
                     case .environmentLine:
@@ -37,7 +37,7 @@ extension RenderView {
                                             VStack(spacing: 2) {
                                                 Text(strum.topSymbol)
                                                     .foregroundStyle(settings.style.theme.foregroundMedium)
-                                                    .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.scale * 0.6))
+                                                    .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.magnifier * 0.6))
                                                 Group {
                                                     switch strum.action {
                                                     case .down, .accentedDown, .mutedDown, .slowDown:
@@ -57,7 +57,7 @@ extension RenderView {
                                                     case .palmMute:
                                                         Text("x")
                                                             .foregroundStyle(settings.style.theme.foregroundMedium)
-                                                            .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.scale * 0.6))
+                                                            .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.magnifier * 0.6))
                                                             .help("Mute")
                                                     default:
                                                         Color.clear
@@ -66,7 +66,7 @@ extension RenderView {
                                                 .frame(width: width + 1, height: width * 2, alignment: .bottom)
                                                 Text(strum.beat.isEmpty ? strum.tuplet : strum.beat)
                                                     .foregroundStyle(settings.style.theme.foregroundMedium)
-                                                    .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.scale * 0.6))
+                                                    .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.magnifier * 0.6))
                                             }
                                         }
                                         Text(" ")

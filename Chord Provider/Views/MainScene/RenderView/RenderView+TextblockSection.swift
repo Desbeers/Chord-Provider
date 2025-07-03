@@ -35,7 +35,7 @@ extension RenderView {
                     switch line.directive {
                     case .environmentLine, .sourceComment:
                         /// Init the text like this to enable markdown formatting
-                        Text(line.plain?.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: settings.scale.scale) ?? "")
+                        Text(line.plain?.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: settings.scale.magnifier) ?? "")
                     case .emptyLine:
                         EmptyLine(settings: settings)
                     case .comment:

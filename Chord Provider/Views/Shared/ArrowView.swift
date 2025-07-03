@@ -41,7 +41,7 @@ struct ArrowView: View {
         let vTip = (x: (start.y - end.y) / vlen, y: (end.x - start.x) / vlen)
         let tip1vert = (x: tipBase.x + tipWidth * vTip.x, y: tipBase.y + tipWidth * vTip.y)
         let tip2vert = (x: tipBase.x - tipWidth * vTip.x, y: tipBase.y - tipWidth * vTip.y)
-        let dash: [CGFloat] = dash ? [2 * sceneState.song.settings.scale.scale] : []
+        let dash: [CGFloat] = dash ? [2 * sceneState.song.settings.scale.magnifier] : []
         ZStack {
             Path { path in
                 path.move(to: CGPoint(x: start.x, y: start.y))

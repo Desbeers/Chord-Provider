@@ -20,6 +20,8 @@ extension RenderView {
         let chord: ChordDefinition
         /// The ID of the popover
         let popoverID: String
+        /// The font for a chord
+        let font: Font
         /// The color of a chord
         let color: Color
         /// Init
@@ -27,6 +29,7 @@ extension RenderView {
             self.settings = settings
             self.chord = chord
             self.popoverID = UUID().uuidString
+            self.font = settings.style.fonts.chord.swiftUIFont(scale: settings.scale.magnifier)
             switch chord.status {
             case .unknownChord, .customTransposedChord, .transposedUnknownChord:
                 self.color = .red
@@ -50,7 +53,7 @@ extension RenderView {
                         getDiagram()
                             .offset(x: -4)
                             .aspectRatio(contentMode: .fit)
-                            .frame(height: settings.scale.scale * 40)
+                            .frame(height: settings.scale.magnifier * 40)
                     }
                 )
                 .buttonStyle(.plain)
@@ -72,7 +75,7 @@ extension RenderView {
                             NSCursor.pop()
                         }
                     }
-                    .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.scale))
+                    .font(font)
             }
         }
         /// Get the diagram

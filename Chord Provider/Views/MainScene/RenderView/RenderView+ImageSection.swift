@@ -37,7 +37,7 @@ extension RenderView {
                 RenderView.ImageView(
                     fileURL: document?.fileURL,
                     arguments: arguments,
-                    scale: settings.scale.scale,
+                    scale: settings.scale.magnifier,
                     maxWidth: settings.scale.maxSongLineWidth
                 )
             }

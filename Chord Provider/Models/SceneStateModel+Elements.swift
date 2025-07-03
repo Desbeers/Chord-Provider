@@ -368,7 +368,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Slider(value: $sceneState.scale.scale, in: 0.8...2.0) {
+            Slider(value: $sceneState.scale.magnifier, in: 0.8...2.0) {
                 Label("Zoom", systemImage: "magnifyingglass")
             }
             .labelStyle(.iconOnly)

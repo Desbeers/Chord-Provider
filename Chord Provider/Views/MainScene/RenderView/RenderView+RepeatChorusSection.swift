@@ -35,7 +35,7 @@ extension RenderView {
                 RenderView.ProminentLabel(
                     label: section.label,
                     sfSymbol: "arrow.trianglehead.2.clockwise.rotate.90",
-                    font: settings.style.fonts.label.swiftUIFont(scale: settings.scale.scale),
+                    font: settings.style.fonts.label.swiftUIFont(scale: settings.scale.magnifier),
                     settings: settings
                 )
                 .foregroundStyle(settings.style.fonts.label.color, settings.style.fonts.label.background)

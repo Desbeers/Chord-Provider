@@ -16,7 +16,7 @@ extension RenderView {
         /// The body of the `View`
         var body: some View {
             Color.clear
-                .frame(height: settings.style.fonts.text.size * settings.scale.scale)
+                .frame(height: settings.style.fonts.text.size * settings.scale.magnifier)
         }
     }
 }

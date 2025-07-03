@@ -23,7 +23,7 @@ struct SongView: View {
         .scaleModifier
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         /// Set the standard scaled font
-        .font(song.settings.style.fonts.text.swiftUIFont(scale: scale.scale))
+        .font(song.settings.style.fonts.text.swiftUIFont(scale: scale.magnifier))
         .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 8))
         .draggable(song) {
             VStack {

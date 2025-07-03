@@ -19,7 +19,7 @@ extension RenderView {
         let settings: AppSettings
         /// The calculated font
         var font: Font {
-            settings.style.fonts.label.swiftUIFont(scale: settings.scale.scale)
+            settings.style.fonts.label.swiftUIFont(scale: settings.scale.magnifier)
         }
         /// The body of the `ViewModifier`
         /// - Parameter content: The content of the section
@@ -36,6 +36,7 @@ extension RenderView {
                         prominent || label != nil ? settings.style.theme.foregroundLight : Color.clear
                     )
                 content
+                    .frame(maxWidth: settings.scale.maxSongLineWidth)
             case .grid:
                 if let label {
                     sectionLabel(label)

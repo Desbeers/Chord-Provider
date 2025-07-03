@@ -27,7 +27,7 @@ extension RenderView {
             song: Song,
             scale: AppSettings.Scale
         ) {
-            self.spacing = 20 * scale.scale
+            self.spacing = 20 * scale.magnifier
             var song = song
             song.settings.scale = scale
             /// Calculate label style

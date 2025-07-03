@@ -53,7 +53,7 @@ struct MainView: View {
                 settings: sceneState.song.settings
             )
             /// Set the standard scaled font
-            .font(sceneState.song.settings.style.fonts.text.swiftUIFont(scale: sceneState.scale.scale))
+            .font(sceneState.song.settings.style.fonts.text.swiftUIFont(scale: sceneState.scale.magnifier))
             .onGeometryChange(for: CGSize.self) { proxy in
                 proxy.size
             } action: { newValue in
@@ -64,7 +64,7 @@ struct MainView: View {
             /// - Note: This is not perfect but seems well enough for normal songs
             RenderView.ProminentLabel(
                 label: sceneState.song.metadata.longestLabel,
-                font: sceneState.song.settings.style.fonts.label.swiftUIFont(scale: sceneState.scale.scale),
+                font: sceneState.song.settings.style.fonts.label.swiftUIFont(scale: sceneState.scale.magnifier),
                 settings: sceneState.song.settings
             )
             .onGeometryChange(for: CGSize.self) { proxy in
@@ -155,6 +155,7 @@ struct MainView: View {
         .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.song.settings)
         .animation(.default, value: sceneState.status)
+        //.animation(.default, value: sceneState.isAnimating)
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)
         .environment(sceneState)
@@ -192,7 +193,7 @@ struct MainView: View {
                                 Divider()
                                 ChordsView(document: $document)
                                     .background(appState.settings.style.theme.background)
-                                    .shadow(color: appState.settings.style.theme.foreground.opacity(0.25), radius: 60)
+                                    .shadow(color: appState.settings.style.theme.foreground.opacity(0.1), radius: 50)
                             }
                         }
                         /// - Note: Make sure we don't see the splitter cursor here
@@ -207,9 +208,9 @@ struct MainView: View {
                         )
                 }
             }
-            .background(Color(appState.settings.style.theme.background))
         }
         .frame(maxHeight: .infinity)
+        .background(appState.settings.style.theme.background)
         /// Remember the size of the whole window
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size
@@ -233,7 +234,7 @@ struct MainView: View {
             .font(.largeTitle)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .foregroundStyle(appState.settings.style.theme.foregroundMedium)
-            .background(Color(appState.settings.style.theme.background))
+            .background(appState.settings.style.theme.background)
     }
     /// Render the song
     private func renderSong() async {

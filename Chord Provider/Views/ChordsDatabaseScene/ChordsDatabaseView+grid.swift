@@ -34,7 +34,7 @@ extension ChordsDatabaseView {
             .disabled(!chordsDatabaseState.search.isEmpty)
             ScrollView {
                 LazyVGrid(
-                    columns: [GridItem(.adaptive(minimum: 100 * sceneState.song.settings.scale.scale + 40), spacing: 0)],
+                    columns: [GridItem(.adaptive(minimum: 100 * sceneState.song.settings.scale.magnifier + 40), spacing: 0)],
                     alignment: .center,
                     spacing: 0,
                     pinnedViews: [.sectionHeaders, .sectionFooters]
@@ -43,7 +43,7 @@ extension ChordsDatabaseView {
                         diagram(chord: chord)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(Color.accentColor.opacity(Chord.Root.naturalAndSharp.contains(chord.root) ? 0.25 : 0.1))
-                            .cornerRadius(6 * sceneState.song.settings.scale.scale)
+                            .cornerRadius(6 * sceneState.song.settings.scale.magnifier)
                             .padding(4)
                     }
                     Button {

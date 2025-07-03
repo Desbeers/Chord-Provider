@@ -38,7 +38,7 @@ extension RenderView {
             self.comment = comment ?? "Empty Comment"
             self.settings = settings
             if inline {
-                self.padding = settings.style.fonts.text.size * settings.scale.scale / 2
+                self.padding = settings.style.fonts.text.size * settings.scale.magnifier / 2
             }
         }
         /// The body of the `View`
@@ -46,7 +46,7 @@ extension RenderView {
             RenderView.ProminentLabel(
                 label: comment,
                 sfSymbol: "text.bubble",
-                font: settings.style.fonts.comment.swiftUIFont(scale: settings.scale.scale),
+                font: settings.style.fonts.comment.swiftUIFont(scale: settings.scale.magnifier),
                 settings: settings
             )
             .foregroundStyle(settings.style.fonts.comment.color, settings.style.fonts.comment.background)

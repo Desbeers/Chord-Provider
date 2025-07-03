@@ -33,6 +33,7 @@ struct EditorView: View {
             .background(Color(nsColor: Editor.highlightedBackgroundColor))
             editor
         }
+        .background(Color(nsColor: .windowBackgroundColor))
         /// Show a sheet to add or edit a directive
         .sheet(item: $editDirective) { directive in
             DirectiveSheet(directive: directive)

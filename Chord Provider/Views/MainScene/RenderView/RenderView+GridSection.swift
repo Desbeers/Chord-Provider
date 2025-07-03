@@ -33,7 +33,7 @@ extension RenderView {
                                             } else {
                                                 Text(" \(part.text) ")
                                                     .foregroundStyle(part.text == "|" || part.text == "." ? settings.style.fonts.text.color : Color.red)
-                                                    .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.scale))
+                                                    .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.magnifier))
                                             }
                                         }
                                     }
