@@ -37,7 +37,7 @@ actor ChordProParser {
         /// Add the optional transpose
         song.metadata.transpose = old.metadata.transpose
         /// And add the first section
-        var currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
+        var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text, stripping newlines at the end
         for text in song.content.components(separatedBy: .newlines) {
             /// Increase the line number
@@ -128,6 +128,19 @@ extension ChordProParser {
             return content
         } catch {
             return error.localizedDescription
+        }
+    }
+
+    /// Decode a JSON encoded ``Song/Section``
+    /// - Parameter string: The ``Song/Section`` as JSON string
+    static func decode(_ string: String) {
+        let decoder = JSONDecoder()
+        do {
+            let data = Data(string.utf8)
+            let sections = try decoder.decode(Song.Section.self, from: data)
+            dump(sections)
+        } catch {
+            Logger.parser.error("\(error.localizedDescription, privacy: .public)")
         }
     }
 }

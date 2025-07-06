@@ -14,12 +14,17 @@ extension DebugView {
         if appState.song != nil {
             List {
                 if let song = appState.song {
-                    let metadata = ChordProParser.encode(song.metadata)
-                    jsonPart(label: "Metadata of the Song", content: metadata)
                     ForEach(song.sections) { section in
                         let content = ChordProParser.encode(section)
                         jsonPart(label: "Section \(section.environment.rawValue)", content: content)
+#if DEBUG
+                        Button("Decode") {
+                            ChordProParser.decode(content)
+                        }
+#endif
                     }
+                    let metadata = ChordProParser.encode(song.metadata)
+                    jsonPart(label: "Metadata of the Song", content: metadata)
                     let chords = ChordProParser.encode(song.chords)
                     jsonPart(label: "Chords", content: chords)
                     let settings = ChordProParser.encode(song.settings)

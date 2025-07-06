@@ -13,10 +13,6 @@ extension ChordProEditor {
     struct Internals: Sendable {
         /// The current line of the cursor
         var currentLine = Song.Section.Line()
-        /// The optional directive arguments in the current paragraph
-        var directiveArguments = ChordProParser.DirectiveArguments()
-        /// All arguments as a single string
-        var directiveArgument: String = ""
         /// The range of the current paragraph
         var currentLineRange: NSRange?
         /// Bool if the directive is double-clicked

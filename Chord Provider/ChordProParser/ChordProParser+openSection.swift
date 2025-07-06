@@ -29,7 +29,7 @@ extension ChordProParser {
                 directive: currentSection.environment.directives.close,
                 currentSection: &currentSection,
                 song: &song,
-                warning: currentSection.autoCreated ? false : true
+                warning: currentSection.autoCreated ?? false ? false : true
             )
         }
 
@@ -43,19 +43,19 @@ extension ChordProParser {
             setLongestLabel(label: label, song: &song)
         }
 
-        /// Calculate the source if not set
-        var source = arguments[.source]
-        if source == nil {
-            let argumentsString: String = argumentsToString(arguments) ?? ""
-            source = "{\(directive.rawValue.long)\(argumentsString.isEmpty ? "" : " \(argumentsString)")}"
-        }
-
+        /// Set arguments
         var arguments = arguments
-        /// Clear the (optional) passed source to avoid confusion with 'real' arguments
+
+        /// Set the source
+        let source = arguments[.source]
+        /// Clear the passed source to avoid confusion with 'real' arguments
         arguments[.source] = nil
-        /// Set the default label (if not empty) if there are no arguments
-        if arguments.isEmpty, !directive.details.environment.label.isEmpty {
-            arguments[.plain] = directive.details.environment.label
+
+        /// Make a plain argument just plain
+        var plain: String?
+        if let plainArgument = arguments[.plain] {
+            plain = plainArgument
+            arguments[.plain] = nil
         }
 
         /// Add the single line
@@ -63,9 +63,15 @@ extension ChordProParser {
             sourceLineNumber: song.lines,
             directive: directive,
             arguments: arguments.isEmpty ? nil : arguments,
-            source: source ?? "",
-            plain: arguments[.plain] ?? ""
+            source: source ?? "ERROR, NO SOURCE GIVEN",
+            plain: plain
         )
+        if source == nil {
+            line.addWarning("**CHORD PROVIDER** ERROR, NO SOURCE GIVEN")
+        }
+        /// Calculate the source
+        line.calculateSource()
+
 
         /// Add optional warnings
         if let warnings = currentSection.warnings {
@@ -76,5 +82,8 @@ extension ChordProParser {
 
         /// Append the line
         currentSection.lines.append(line)
+
+        /// Reset the warnings, there are handled now
+        currentSection.resetWarnings()
     }
 }

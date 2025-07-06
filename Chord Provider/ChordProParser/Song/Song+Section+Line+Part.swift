@@ -16,6 +16,6 @@ extension Song.Section.Line {
         /// The optional chord definition
         var chordDefinition: ChordDefinition?
         /// The optional text
-        var text: String = ""
+        var text: String?
     }
 }

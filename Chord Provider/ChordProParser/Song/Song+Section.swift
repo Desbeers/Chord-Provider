@@ -17,7 +17,7 @@ extension Song {
         var id: Int
         /// The label of the section
         var label: String {
-            arguments?[.label] ?? arguments?[.plain] ?? ""
+            arguments?[.label] ?? arguments?[.plain] ?? environment.label
         }
         /// The `Environment type` of the section
         var environment: ChordPro.Environment = .none
@@ -39,7 +39,7 @@ extension Song {
         /// The editor will show a warning when the section is automatically created with an assumed ``ChordPro/Environment``.
         ///
         /// - Note: Automatically created sections will end with an 'newline', unlike defined sections.
-        var autoCreated: Bool
+        var autoCreated: Bool?
         /// The optional arguments of the section; taken from the first line of the section
         var arguments: ChordProParser.DirectiveArguments? {
             if let firstLine = lines.first {

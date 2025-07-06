@@ -96,9 +96,9 @@ extension EditorView.DirectiveSheet {
             }
             .labeledContentStyle(.editor)
             .task {
-                formState.plain = sceneState.editorInternals.directiveArgument
-                let arguments = sceneState.editorInternals.directiveArguments
-                formState.label = arguments[.plain] ?? arguments[.label] ?? ""
+                formState.plain = sceneState.editorInternals.currentLine.plain ?? ""
+                let arguments = sceneState.editorInternals.currentLine.arguments ?? [:]
+                formState.label = arguments[.label] ?? ""
                 formState.align = arguments[.align] ?? ""
                 formState.flush = arguments[.flush] ?? ""
                 formState.width = Double(arguments[.width] ?? "0") ?? 0
@@ -116,32 +116,30 @@ extension EditorView.DirectiveSheet {
             switch items.first {
             case .plain:
                 /// Just plain text
-                sceneState.editorInternals.directiveArgument = formState.plain
+                sceneState.editorInternals.currentLine.plain = formState.plain
             case .numeric:
                 /// Just a plain number
-                sceneState.editorInternals.directiveArgument = String(Int(formState.numeric))
+                sceneState.editorInternals.currentLine.plain = String(Int(formState.numeric))
             case .key:
                 /// The key of the song
-                sceneState.editorInternals.directiveArgument =
+                sceneState.editorInternals.currentLine.plain =
                 "\(sceneState.definition.root.rawValue)" +
                 "\(sceneState.definition.quality.rawValue)"
             case .define:
                 /// A chord definition
-                sceneState.editorInternals.directiveArgument = sceneState.definition.define
+                sceneState.editorInternals.currentLine.plain = sceneState.definition.define
             default:
                 /// Anything else
-                var directiveArguments = sceneState.editorInternals.directiveArguments
-                directiveArguments[.plain] = nil
-                directiveArguments[.label] = formState.label.isEmpty ? nil : formState.label
-                directiveArguments[.align] = formState.align.isEmpty ? nil : formState.align
-                directiveArguments[.flush] = formState.flush.isEmpty ? nil : formState.flush
-                directiveArguments[.src] = formState.src.isEmpty ? nil : formState.src
-                directiveArguments[.width] = formState.width == 0 ? nil : String(Int(formState.width))
-                directiveArguments[.height] = formState.height == 0 ? nil : String(Int(formState.height))
-                directiveArguments[.tuplet] = formState.tuplet == 0 ? nil : String(formState.tuplet)
-                directiveArguments[.scale] = formState.scale == 0 ? nil : String("\(Int(formState.scale))%")
-                let result = ChordProParser.argumentsToString(directiveArguments)
-                sceneState.editorInternals.directiveArgument = result ?? ""
+                var arguments = sceneState.editorInternals.currentLine.arguments ?? [:]
+                arguments[.label] = formState.label.isEmpty ? nil : formState.label
+                arguments[.align] = formState.align.isEmpty ? nil : formState.align
+                arguments[.flush] = formState.flush.isEmpty ? nil : formState.flush
+                arguments[.src] = formState.src.isEmpty ? nil : formState.src
+                arguments[.width] = formState.width == 0 ? nil : String(Int(formState.width))
+                arguments[.height] = formState.height == 0 ? nil : String(Int(formState.height))
+                arguments[.tuplet] = formState.tuplet == 0 ? nil : String(formState.tuplet)
+                arguments[.scale] = formState.scale == 0 ? nil : String("\(Int(formState.scale))%")
+                sceneState.editorInternals.currentLine.arguments = arguments
             }
             Editor.format(directive: directive, editorInternals: sceneState.editorInternals)
         }

@@ -31,7 +31,8 @@ extension ChordProParser {
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
             directive: .environmentLine,
-            source: text
+            source: text,
+            sourceParsed: text.trimmingCharacters(in: .whitespaces)
         )
 
         var result: [[Song.Section.Line.Strum]] = []

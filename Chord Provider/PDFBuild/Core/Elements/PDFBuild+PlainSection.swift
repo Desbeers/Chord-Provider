@@ -32,7 +32,7 @@ extension PDFBuild {
             for line in section.lines {
                 if let parts = line.parts {
                     for part in parts {
-                        let line = PDFBuild.Text(part.text, attributes: .plainLine)
+                        let line = PDFBuild.Text(part.text ?? " ", attributes: .plainLine)
                         line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }
                 }

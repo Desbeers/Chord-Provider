@@ -27,7 +27,7 @@ extension RenderView {
                         }
                         /// See https://stackoverflow.com/questions/31534742/space-characters-being-removed-from-end-of-string-uilabel-swift
                         /// for the funny stuff added to the string...
-                        Text(.init("\(part.text)\u{200c}"))
+                        Text(.init("\(part.text ?? " ")\u{200c}"))
                     }
                     .padding(.vertical, 2)
                 }

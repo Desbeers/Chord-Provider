@@ -24,11 +24,12 @@ extension ChordProParser {
     ) {
         let closingDirective = currentSection.environment.directives.close
         /// Add the closing directive for an automatic created environment or if a environment is not properly closed
-        if currentSection.autoCreated || warning, let lastLineIndex = currentSection.lines.lastIndex(where: { $0.directive != .emptyLine }) {
+        if currentSection.autoCreated ?? false || warning, let lastLineIndex = currentSection.lines.lastIndex(where: { $0.directive != .emptyLine }) {
             let line = Song.Section.Line(
                 sourceLineNumber: -(currentSection.lines[lastLineIndex].sourceLineNumber + 1),
                 directive: closingDirective,
-                source: "{\(closingDirective.rawValue.long)}"
+                source: "{\(directive.rawValue.long)}",
+                sourceParsed: "{\(closingDirective.rawValue.long)}"
             )
             if warning {
                 currentSection.lines[lastLineIndex].addWarning("The section is not properly closed with **{\(closingDirective.rawValue.long)}**")
@@ -39,8 +40,15 @@ extension ChordProParser {
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 directive: closingDirective,
-                source: "{\(closingDirective.rawValue.long)}"
+                source: "{\(directive.rawValue.long)}",
+                sourceParsed: "{\(closingDirective.rawValue.long)}"
             )
+            /// Add optional warnings
+            if let warnings = currentSection.warnings {
+                for warning in warnings {
+                    line.addWarning(warning)
+                }
+            }
             if directive != closingDirective {
                 line.addWarning("Wrong closing directive, it should be **{\(closingDirective.rawValue.long)}**")
             }

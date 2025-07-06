@@ -96,8 +96,6 @@ extension ChordProEditor {
         /// Set the internals of the editor
         let internals = Internals(
             currentLine: view.currentLine,
-            directiveArguments: view.currentDirectiveArguments,
-            directiveArgument: ChordProParser.argumentsToString(view.currentDirectiveArguments) ?? "",
             currentLineRange: view.currentLineRange,
             clickedDirective: view.clickedDirective,
             selectedRange: view.selectedRange(),

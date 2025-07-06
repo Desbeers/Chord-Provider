@@ -435,7 +435,7 @@ extension SceneStateModel {
                 actions: {
                     Button("Clean") {
                         if let document {
-                            let content = sceneState.song.sections.flatMap(\.lines).map(\.source).joined(separator: "\n")
+                            let content = sceneState.song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                             document.document.text = content
                         }
                     }

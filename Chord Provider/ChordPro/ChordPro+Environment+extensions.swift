@@ -60,7 +60,7 @@ extension ChordPro.Environment {
         case .strum:
             ""
         case .metadata:
-            "Metadata"
+            ""
         case .image:
             ""
         case .emptyLine:

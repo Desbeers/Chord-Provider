@@ -155,7 +155,6 @@ struct MainView: View {
         .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.song.settings)
         .animation(.default, value: sceneState.status)
-        //.animation(.default, value: sceneState.isAnimating)
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)
         .environment(sceneState)

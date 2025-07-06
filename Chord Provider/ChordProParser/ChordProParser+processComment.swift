@@ -38,8 +38,9 @@ extension ChordProParser {
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 directive: .comment,
-                arguments: arguments,
+                arguments: nil,
                 source: "{\(ChordPro.Directive.comment) \(comment)}",
+                sourceParsed: "{\(ChordPro.Directive.comment) \(comment.trimmingCharacters(in: .whitespaces))}",
                 plain: comment
             )
             if let warning = currentSection.warnings {

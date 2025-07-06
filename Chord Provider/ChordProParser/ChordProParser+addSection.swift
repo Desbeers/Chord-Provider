@@ -28,6 +28,6 @@ extension ChordProParser {
             song: &song
         )
         song.sections.append(currentSection)
-        currentSection = Song.Section(id: song.sections.count + 1, autoCreated: false)
+        currentSection = Song.Section(id: song.sections.count + 1)
     }
 }

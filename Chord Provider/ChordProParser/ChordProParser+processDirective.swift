@@ -46,7 +46,7 @@ extension ChordProParser {
             /// Handle known directives
             if let directive = getDirective(parsedDirective.lowercased()) {
 
-                let arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
+                var arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
 
                 if directive.warning {
                     currentSection.addWarning("Short directive for **\(directive.directive.details.label)**")
@@ -57,6 +57,8 @@ extension ChordProParser {
                 if arguments[.plain] != nil, text.starts(with: "{\(parsedDirective):") {
                     currentSection.addWarning("No need for a colon **:** for a simple argument")
                 }
+                /// Keep the original source
+                arguments[.source] = text
 
                 if ChordPro.Directive.metadataDirectives.contains(directive) {
 
@@ -77,6 +79,11 @@ extension ChordProParser {
 
                         /// ## Start of Chorus, Verse, Bridge, Tab, Grid, Textblock, Strum
                     case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .startOfStrum:
+
+                        if let label = arguments[.plain] {
+                            arguments[.label] = label
+                            arguments[.plain] = nil
+                        }
                         openSection(
                             directive: directive,
                             arguments: arguments,

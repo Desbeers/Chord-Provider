@@ -17,11 +17,14 @@ extension DebugView {
                     VStack(alignment: .leading) {
                         HStack {
                             Text("\(line.line)")
+                                .monospaced()
                                 .frame(width: 30, alignment: .trailing)
                                 .font(
                                     .body
                                         .weight(line.source.warnings == nil ? .regular : .bold)
                                 )
+                            Image(systemName: line.source.directive.details.icon)
+                                .font(.caption)
                             VStack(alignment: .leading) {
                                 Text(line.source.source)
                                 if let warnings = line.source.warnings {

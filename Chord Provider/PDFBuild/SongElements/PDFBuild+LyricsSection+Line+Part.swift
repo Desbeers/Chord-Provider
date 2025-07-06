@@ -35,7 +35,7 @@ extension PDFBuild.LyricsSection.Line {
 
             self.chords = chords
             /// Preserve spaces in the drawing
-            let lyrics = "\u{200c}\(part.text)\u{200c}"
+            let lyrics = "\u{200c}\(part.text ?? " ")\u{200c}"
             let text = lyrics.toMarkdown(fontOptions: fontOptions, scale: settings.pdf.scale)
             self.text = NSAttributedString(text)
 

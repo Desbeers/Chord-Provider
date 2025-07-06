@@ -27,7 +27,8 @@ extension ChordProParser {
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
             directive: .environmentLine,
-            source: text
+            source: text,
+            sourceParsed: text.trimmingCharacters(in: .whitespaces)
         )
         /// Remove markup, if any, **Chord Provider** does not support it
         let textCopy = text.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
@@ -50,18 +51,17 @@ extension ChordProParser {
                     line: &line,
                     song: &song
                 )
-                part.text = " "
                 /// Because it has a chord; the section should be at least a verse
                 haveChords = true
             }
             if let lyric {
                 part.text = String(lyric)
                 /// Add the lyrics to the 'plain' text
-                line.plain = (line.plain ?? "") + part.text
+                line.plain = (line.plain ?? "") + lyric
             }
             /// Add the part
             parts.append(part)
-            /// Increase te ID
+            /// Increase the ID
             partID += 1
         }
         line.parts = parts

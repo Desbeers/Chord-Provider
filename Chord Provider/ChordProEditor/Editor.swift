@@ -43,14 +43,15 @@ enum Editor {
         Task { @MainActor in
             if let textView = editorInternals.textView {
                 var text = ""
+                let directiveArgument = ChordProParser.argumentsToString(editorInternals.currentLine) ?? ""
                 switch editorInternals.clickedDirective {
                 case true:
                     /// Make space for optional arguments
-                    let spacer = editorInternals.directiveArgument.isEmpty ? "" : " "
-                    text = "{\(directive.rawValue.long)\(spacer)\(editorInternals.directiveArgument)}"
+                    let spacer = directiveArgument.isEmpty ? "" : " "
+                    text = "{\(directive.rawValue.long)\(spacer)\(directiveArgument)}"
                 case false:
-                    let selectedText = editorInternals.directiveArgument.isEmpty ?
-                    textView.selectedText : editorInternals.directiveArgument
+                    let selectedText = directiveArgument.isEmpty ?
+                    textView.selectedText : directiveArgument
                     text = format(directive: directive, argument: selectedText)
                 }
                 textView.insertText("\(text)\n", replacementRange: editorInternals.currentLineRange ?? textView.selectedRange())

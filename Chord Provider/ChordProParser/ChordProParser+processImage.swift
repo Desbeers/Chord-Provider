@@ -19,17 +19,16 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if !currentSection.lines.isEmpty && currentSection.autoCreated == false {
+        if !currentSection.lines.isEmpty && currentSection.autoCreated ?? false == false {
             /// An image inside a section, **Chord Provider** does not support that
-            let argumentsString: String = argumentsToString(arguments) ?? ""
-            let source = "{\(ChordPro.Directive.image.rawValue.long)\(argumentsString.isEmpty ? "" : " \(argumentsString)")}"
+            let source = arguments[.source] ?? "ERROR"
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 directive: .image,
                 arguments: arguments,
-                source: source,
-                plain: ""
+                source: source
             )
+            line.calculateSource()
             line.addWarning("Images inside a \(currentSection.environment.rawValue) is not supported")
             currentSection.lines.append(line)
         } else {

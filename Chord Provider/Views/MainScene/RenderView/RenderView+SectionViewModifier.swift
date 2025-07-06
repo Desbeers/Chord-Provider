@@ -36,7 +36,7 @@ extension RenderView {
                         prominent || label != nil ? settings.style.theme.foregroundLight : Color.clear
                     )
                 content
-                    .frame(maxWidth: settings.scale.maxSongLineWidth)
+                    .frame(maxWidth: settings.scale.maxSongLineWidth, alignment: .leading)
             case .grid:
                 if let label {
                     sectionLabel(label)
@@ -66,6 +66,8 @@ extension RenderView {
                 case false:
                     Text(.init(label))
                         .font(font)
+                        .padding(.top, 6)
+                        .padding(.bottom, 3)
                 }
             }
             .foregroundStyle(settings.style.fonts.label.color, settings.style.fonts.label.background)

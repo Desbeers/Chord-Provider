@@ -114,4 +114,14 @@ extension ChordPro.Directive {
             .image
         ]
     }
+
+    /// Array of  custom **environment** ``ChordPro/Directive``
+    static var customDirectives: [ChordPro.Directive] {
+        [
+            .sourceComment,
+            .environmentLine,
+            .emptyLine,
+            .unknown
+        ]
+    }
 }

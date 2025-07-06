@@ -19,17 +19,19 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if !currentSection.lines.isEmpty && currentSection.autoCreated == false {
+        var arguments: ChordProParser.DirectiveArguments = [.plain: comment]
+        if !currentSection.lines.isEmpty && currentSection.autoCreated ?? false == false {
             /// A source comment inside a section
             let line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 directive: .sourceComment,
-                source: comment
+                source: comment,
+                sourceParsed: comment.trimmingCharacters(in: .whitespaces),
+                plain: comment.trimmingCharacters(in: .whitespaces)
             )
             currentSection.lines.append(line)
         } else {
             /// A source comment in its own section
-            var arguments = DirectiveArguments()
             arguments[.source] = comment
             addSection(
                 directive: .sourceComment,

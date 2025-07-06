@@ -17,7 +17,7 @@ extension EditorView {
         var body: some View {
             VStack {
                 switch directive {
-                case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge, .chorus:
+                case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge:
                     Items(items: [.label], directive: directive)
                 case .startOfStrum:
                     Items(items: [.label, .tuplet], directive: directive)

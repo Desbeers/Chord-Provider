@@ -17,12 +17,13 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if currentSection.environment != .none && currentSection.autoCreated == false {
+        if currentSection.environment != .none && currentSection.autoCreated ?? false == false {
             /// Add an empty line to the section
             let line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 directive: .emptyLine,
-                source: ""
+                source: "",
+                sourceParsed: ""
             )
             currentSection.lines.append(line)
         } else {

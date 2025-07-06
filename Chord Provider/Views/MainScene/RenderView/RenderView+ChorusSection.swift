@@ -36,7 +36,7 @@ extension RenderView {
                 }
             }
             .wrapSongSection(
-                label: section.label.isEmpty ? "Chorus" : section.label,
+                label: section.label,
                 prominent: true,
                 settings: settings
             )

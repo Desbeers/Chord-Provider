@@ -33,7 +33,7 @@ extension RenderView {
             case .repeatChorus:
                 /// Show a ``RenderView/ProminentLabel`` with an icon and the label
                 RenderView.ProminentLabel(
-                    label: section.label,
+                    label: section.lines.first?.plain ?? section.label,
                     sfSymbol: "arrow.trianglehead.2.clockwise.rotate.90",
                     font: settings.style.fonts.label.swiftUIFont(scale: settings.scale.magnifier),
                     settings: settings

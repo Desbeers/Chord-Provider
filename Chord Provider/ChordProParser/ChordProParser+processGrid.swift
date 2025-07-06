@@ -25,7 +25,8 @@ extension ChordProParser {
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
             directive: .environmentLine,
-            source: text
+            source: text,
+            sourceParsed: text.trimmingCharacters(in: .whitespaces)
         )
         /// Give the structs an ID
         var partID: Int = 1

@@ -30,6 +30,8 @@ extension Song.Section {
 
         /// The source of the line
         var source: String = ""
+        /// The parsed source
+        var sourceParsed: String = ""
 
         /// Optional warnings about the content of the line
         private(set) var warnings: Set<String>?
@@ -79,6 +81,18 @@ extension Song.Section {
                 self.grid?.append(grid)
             }
         }
+
+        mutating func calculateSource() {
+            if ChordPro.Directive.customDirectives.contains(directive) {
+                /// Just use the current source; its internal stuff and not a real directive
+                sourceParsed = source.trimmingCharacters(in: .whitespaces)
+            } else if let arguments = ChordProParser.argumentsToString(self) {
+                sourceParsed = "{\(self.directive.rawValue.long) \(arguments)}"
+            } else {
+                /// Only a directive
+                sourceParsed = "{\(self.directive.rawValue.long)}"
+            }
+        }
     }
 }
 
@@ -89,6 +103,7 @@ extension Song.Section.Line {
         case directive
         case arguments
         case source
+        case sourceParsed
         case warnings
         case parts
         case grid
@@ -99,29 +114,57 @@ extension Song.Section.Line {
     init(from decoder: any Decoder) throws {
         let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.sourceLineNumber = try container.decode(Int.self, forKey: .sourceLineNumber)
+        /// Decode a directive string to a ``ChordPro/Directive``
         let directive = try container.decode(String.self, forKey: .directive)
         self.directive = ChordProParser.getDirective(directive)?.directive ?? .unknown
-        self.arguments = try container.decodeIfPresent(ChordProParser.DirectiveArguments.self, forKey: .arguments)
+
+        /// Decode the arguments dictionary into `[String: String]`
+        if let stringDictionary = try container.decodeIfPresent([String: String].self, forKey: .arguments) {
+            var enumDictionary: [ChordPro.Directive.FormattingAttribute: String] = [:]
+            for (stringKey, value) in stringDictionary {
+                guard let key = ChordPro.Directive.FormattingAttribute(rawValue: stringKey) else {
+                    return
+                }
+                enumDictionary[key] = value
+            }
+            self.arguments = enumDictionary
+        } else {
+            self.arguments = nil
+        }
+
+        self.sourceLineNumber = try container.decode(Int.self, forKey: .sourceLineNumber)
         self.source = try container.decode(String.self, forKey: .source)
+        self.sourceParsed = try container.decode(String.self, forKey: .sourceParsed)
         self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warnings)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
         self.strum = try container.decodeIfPresent([[Strum]].self, forKey: .strum)
-        self.plain = try container.decode(String.self, forKey: .plain)
+        self.plain = try container.decodeIfPresent(String.self, forKey: .plain)
     }
     /// :nodoc:
     func encode(to encoder: any Encoder) throws {
         var container: KeyedEncodingContainer<CodingKeys> = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(self.sourceLineNumber, forKey: .sourceLineNumber)
+
+        /// Encode a directive ``ChordPro/Directive`` to a String
         try container.encode(self.directive.rawValue.long, forKey: .directive)
-        try container.encodeIfPresent(self.arguments, forKey: .arguments)
+
+        /// Encode arguments into a ``ChordProParser/DirectiveArguments`` dictionary
+        var stringDictionary: [String: String]?
+        if let arguments = self.arguments {
+            stringDictionary = Dictionary(
+                uniqueKeysWithValues: arguments.map { ($0.rawValue, $1) }
+            )
+        }
+
+        try container.encodeIfPresent(stringDictionary, forKey: .arguments)
         try container.encode(self.source, forKey: .source)
+        try container.encode(self.sourceParsed, forKey: .sourceParsed)
         try container.encodeIfPresent(self.warnings, forKey: .warnings)
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.grid, forKey: .grid)
         try container.encodeIfPresent(self.strum, forKey: .strum)
-        try container.encode(self.plain, forKey: .plain)
+        try container.encodeIfPresent(self.plain, forKey: .plain)
     }
 }

@@ -12,17 +12,20 @@ extension ChordProParser {
     /// Convert arguments to a single string
     /// - Parameter arguments: The arguments dictionary
     /// - Returns: A single string with arguments
-    static func argumentsToString(_ arguments: ChordProParser.DirectiveArguments) -> String? {
+    static func argumentsToString(_ line: Song.Section.Line) -> String? {
         /// Return a simple argument (no `key=value` as a plain string
-        if let plain = arguments[.plain] {
+        if let plain = line.plain {
             return "\(plain)"
+        } else if let arguments = line.arguments {
+            /// Go to all `key=value` items, skipping .plain and source (that should not be there anyway)
+            var string: [String] = []
+            for key in arguments.keys.sorted(by: <) where key != .plain && key != .source {
+                string.append("\(key)=\"\(arguments[key] ?? "Empty")\"")
+            }
+            return string.isEmpty ? nil : "\(string.joined(separator: " "))"
         }
-        /// Go to all `key=value` items, skipping .plain and source
-        var string: [String] = []
-        for key in arguments.keys.sorted(by: <) where key != .plain && key != .source {
-            string.append("\(key)=\"\(arguments[key] ?? "Empty")\"")
-        }
-        return string.isEmpty ? nil : "\(string.joined(separator: " "))"
+        /// Nothing found
+        return nil
     }
 
     /// Convert an argument string into arguments
@@ -30,7 +33,10 @@ extension ChordProParser {
     ///   - parsedArgument: The parsed argument string
     ///   - currentSection: The current section of the song; this is to add optional warnings
     /// - Returns: The arguments in a dictionary
-    static func stringToArguments(_ parsedArgument: String?, currentSection: inout Song.Section) -> ChordProParser.DirectiveArguments {
+    static func stringToArguments(
+        _ parsedArgument: String?,
+        currentSection: inout Song.Section
+    ) -> ChordProParser.DirectiveArguments {
         var arguments = DirectiveArguments()
         /// Check if the label contains formatting attributes
         if let parsedArgument, parsedArgument.contains("="), !parsedArgument.starts(with: "http") {
@@ -49,7 +55,8 @@ extension ChordProParser {
                 }
             }
         } else {
-            /// Set the default argument
+            /// Set the argument as simply *plain*
+            /// - Note: Later, this will be moved to its own part of a line because it is not a *real* argument
             arguments[.plain] = parsedArgument
         }
         return arguments

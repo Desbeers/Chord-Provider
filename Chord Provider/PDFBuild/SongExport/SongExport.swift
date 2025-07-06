@@ -362,7 +362,7 @@ extension SongExport {
                         PDFBuild.Spacer(),
                         PDFBuild.Spacer(),
                         PDFBuild.Label(
-                            labelText: section.label,
+                            labelText: section.lines.first?.plain ?? section.label,
                             sfSymbol: .repeatChorus,
                             drawBackground: true,
                             alignment: .left,
