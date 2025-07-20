@@ -11,19 +11,14 @@ import SwiftUI
 struct SongView: View {
     /// The ``Song``
     let song: Song
-    /// The scaling of the `View`
-    let scale: AppSettings.Scale
     /// The body of the `View`
     var body: some View {
-        RenderView.MainView(
-            song: song,
-            scale: scale
-        )
+        RenderView.MainView(song: song)
         .contentShape(Rectangle())
         .scaleModifier
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         /// Set the standard scaled font
-        .font(song.settings.style.fonts.text.swiftUIFont(scale: scale.magnifier))
+        .font(song.settings.style.fonts.text.swiftUIFont(scale: song.settings.scale.magnifier))
         .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 8))
         .draggable(song) {
             VStack {

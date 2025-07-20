@@ -21,8 +21,10 @@ extension ChordPro.Directive {
         var button: String
         /// The help text for the directive
         var help: String
-        /// The optional environment
+        /// The environment
         var environment: ChordPro.Environment
+        /// The line type
+        var lineType: ChordPro.LineType = .metadata
         /// Additional info
         var info: String?
     }
@@ -36,7 +38,7 @@ extension ChordPro.Directive {
                 icon: "music.note",
                 button: "Title",
                 help: "This directive defines the title of the song",
-                environment: .metadata
+                environment: .metadata,
             )
         case .sortTitle:
             Details(
@@ -140,7 +142,8 @@ extension ChordPro.Directive {
                 icon: "text.bubble",
                 button: "Comment",
                 help: "This directive introduce a comment line",
-                environment: .comment
+                environment: .comment,
+                lineType: .comment
             )
         case .image:
             Details(
@@ -149,6 +152,7 @@ extension ChordPro.Directive {
                 button: "Insert Image",
                 help: "Specifies the name of the file containing the image",
                 environment: .image,
+                lineType: .environmentDirective,
                 info: "Aspect ratio will be kept. A size of zero means using the original size."
             )
         case .startOfChorus:
@@ -157,7 +161,8 @@ extension ChordPro.Directive {
                 icon: "music.note.list",
                 button: "Chorus",
                 help: "This directive indicates that the lines that follow form the song’s chorus",
-                environment: .chorus
+                environment: .chorus,
+                lineType: .environmentDirective
             )
         case .endOfChorus:
             Details(
@@ -165,7 +170,8 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "Chorus",
                 help: "This directive indicates the end of the chorus",
-                environment: .chorus
+                environment: .chorus,
+                lineType: .environmentDirective
             )
         case .chorus:
             Details(
@@ -173,7 +179,8 @@ extension ChordPro.Directive {
                 icon: "repeat",
                 button: "Repeat Chorus",
                 help: "his directive indicates that the song chorus must be played here",
-                environment: .repeatChorus
+                environment: .repeatChorus,
+                lineType: .environmentDirective
             )
         case .startOfVerse:
             Details(
@@ -181,7 +188,8 @@ extension ChordPro.Directive {
                 icon: "list.star",
                 button: "Verse",
                 help: "Specifies that the following lines form a verse of the song",
-                environment: .verse
+                environment: .verse,
+                lineType: .environmentDirective
             )
         case .endOfVerse:
             Details(
@@ -189,7 +197,8 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "Verse",
                 help: "Specifies the end of the verse",
-                environment: .verse
+                environment: .verse,
+                lineType: .environmentDirective
             )
         case .startOfBridge:
             Details(
@@ -197,7 +206,8 @@ extension ChordPro.Directive {
                 icon: "list.bullet.indent",
                 button: "Bridge",
                 help: "Specifies that the following lines form a bridge of the song",
-                environment: .bridge
+                environment: .bridge,
+                lineType: .environmentDirective
             )
         case .endOfBridge:
             Details(
@@ -205,7 +215,8 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "Bridge",
                 help: "Specifies the end of the bridge",
-                environment: .bridge
+                environment: .bridge,
+                lineType: .environmentDirective
             )
         case .startOfTab:
             Details(
@@ -213,7 +224,8 @@ extension ChordPro.Directive {
                 icon: "tablecells",
                 button: "Tab",
                 help: "This directive indicates that the lines that follow form a section of guitar TAB instructions",
-                environment: .tab
+                environment: .tab,
+                lineType: .environmentDirective
             )
         case .endOfTab:
             Details(
@@ -221,7 +233,8 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "Tab",
                 help: "This directive indicates the end of the tab",
-                environment: .tab
+                environment: .tab,
+                lineType: .environmentDirective
             )
         case .startOfGrid:
             Details(
@@ -229,7 +242,8 @@ extension ChordPro.Directive {
                 icon: "square.grid.2x2",
                 button: "Grid",
                 help: "This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles",
-                environment: .grid
+                environment: .grid,
+                lineType: .environmentDirective
             )
         case .endOfGrid:
             Details(
@@ -237,7 +251,8 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "Grid",
                 help: "This directive indicates the end of the grid",
-                environment: .grid
+                environment: .grid,
+                lineType: .environmentDirective
             )
         case .startOfABC:
             Details(
@@ -245,7 +260,8 @@ extension ChordPro.Directive {
                 icon: "textformat.abc",
                 button: "ABC",
                 help: "This directive indicates that the lines that follow define a piece of music written in ABC music notation",
-                environment: .abc
+                environment: .abc,
+                lineType: .environmentDirective
             )
         case .endOfABC:
             Details(
@@ -253,7 +269,8 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "ABC",
                 help: "This directive indicates the end of the ABC",
-                environment: .abc
+                environment: .abc,
+                lineType: .environmentDirective
             )
         case .startOfTextblock:
             Details(
@@ -261,7 +278,8 @@ extension ChordPro.Directive {
                 icon: "textformat",
                 button: "Textblock",
                 help: "This directive indicates that the lines that follow define a piece of text that is combined into a single object",
-                environment: .textblock
+                environment: .textblock,
+                lineType: .environmentDirective
             )
         case .endOfTextblock:
             Details(
@@ -269,7 +287,8 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "Textblock",
                 help: "This directive indicates the end of the textblock",
-                environment: .textblock
+                environment: .textblock,
+                lineType: .environmentDirective
             )
         case .define:
             Details(
@@ -310,6 +329,7 @@ extension ChordPro.Directive {
                 button: "Strum",
                 help: "This directive indicates that the lines that follow defines a strum pattern",
                 environment: .strum,
+                lineType: .environmentDirective,
                 info: "**Tuplet** is a generic term that describes a grouping of notes that would not normally occur within a beat."
             )
         case .endOfStrum:
@@ -318,23 +338,20 @@ extension ChordPro.Directive {
                 icon: "chart.line.flattrend.xyaxis",
                 button: "Strum",
                 help: "This directive indicates the end of the strum",
-                environment: .strum
+                environment: .strum,
+                lineType: .environmentDirective
             )
+
+            // MARK: Custom directives
+
         case .sourceComment:
             Details(
                 label: "Source Comment",
                 icon: "bubble",
                 button: "None",
                 help: "Ignored in the Output",
-                environment: .sourceComment
-            )
-        case .environmentLine:
-            Details(
-                label: "Inside Environment Block",
-                icon: "lines.measurement.vertical",
-                button: "None",
-                help: "Inside Environment Block",
-                environment: .none
+                environment: .sourceComment,
+                lineType: .sourceComment
             )
         case .emptyLine:
             Details(
@@ -342,7 +359,8 @@ extension ChordPro.Directive {
                 icon: "pause",
                 button: "None",
                 help: "An empty line in the source",
-                environment: .emptyLine
+                environment: .emptyLine,
+                lineType: .emptyLine
             )
         case .unknown:
             Details(

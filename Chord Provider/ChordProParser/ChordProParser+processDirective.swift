@@ -118,7 +118,7 @@ extension ChordProParser {
                             return element?[.plain] ?? "error"
                         }
                         if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
-                            for index in currentSection.lines.indices where currentSection.lines[index].directive == .environmentLine {
+                            for index in currentSection.lines.indices where currentSection.lines[index].type == .songLine {
                                 let adjustedString = tabs[index] + String(repeating: " ", count: maxLength - tabs[index].count)
                                 currentSection.lines[index].arguments?[.plain] = adjustedString
                             }

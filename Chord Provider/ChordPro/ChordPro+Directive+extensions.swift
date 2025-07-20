@@ -119,7 +119,6 @@ extension ChordPro.Directive {
     static var customDirectives: [ChordPro.Directive] {
         [
             .sourceComment,
-            .environmentLine,
             .emptyLine,
             .unknown
         ]

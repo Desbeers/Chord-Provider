@@ -41,8 +41,8 @@ extension PDFBuild {
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             for line in section.lines {
-                switch line.directive {
-                case .environmentLine:
+                switch line.type {
+                case .songLine:
                     if let parts = line.parts {
                         let line = Line(parts: parts, chords: chords, settings: settings)
                         line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)

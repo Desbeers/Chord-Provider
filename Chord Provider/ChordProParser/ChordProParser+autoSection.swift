@@ -21,16 +21,19 @@ extension ChordProParser {
     ) {
         currentSection.environment = environment
         currentSection.autoCreated = true
-        if let firstLineIndex = currentSection.lines.firstIndex(where: { $0.directive == .environmentLine }) {
+        if let firstLineIndex = currentSection.lines.firstIndex(where: { $0.type == .songLine }) {
             let line = Song.Section.Line(
                 sourceLineNumber: -currentSection.lines[firstLineIndex].sourceLineNumber,
+                source: "{\(environment.directives.open.rawValue.long)}",
+                sourceParsed: "{\(environment.directives.open.rawValue.long)}",
                 directive: environment.directives.open,
                 arguments: nil,
-                source: "{\(environment.directives.open.rawValue.long)}",
-                sourceParsed: "{\(environment.directives.open.rawValue.long)}"
+                type: .environmentDirective
             )
             /// Add a warning to the first line
             currentSection.lines[firstLineIndex].addWarning("No environment set, using **\(environment.rawValue)**")
+            /// Set the new context
+            currentSection.lines[firstLineIndex].context = environment
             /// Add the opening directive at the start
             currentSection.lines.insert(line, at: 0)
             /// Remember the longest label for an environment

@@ -61,7 +61,7 @@ extension ChordProEditor {
         /// - Parameter event: The mouse click event
         override func mouseDown(with event: NSEvent) {
             setFragmentInformation(selectedRange: selectedRange())
-            if event.clickCount == 2, currentLine.directive.editable == true {
+            if event.clickCount == 2, currentLine.directive?.editable == true {
                 clickedDirective = true
                 parent?.runIntrospect(self)
             } else {

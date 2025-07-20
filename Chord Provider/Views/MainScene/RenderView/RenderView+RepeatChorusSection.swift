@@ -19,8 +19,9 @@ extension RenderView {
             self.settings = settings
             /// Check if we have to repeat the whole chorus
             if
-                settings.shared.repeatWholeChorus,
-                let lastChorus = sections.last(where: { $0.environment == .chorus && $0.label == section.label }) {
+                settings.application.repeatWholeChorus,
+                let plainLabel = section.lines.first?.plain,
+                let lastChorus = sections.last(where: { $0.environment == .chorus && $0.label == plainLabel }) {
                 /// Repeat the whole last chorus with the same label
                 self.section = lastChorus
             } else {
@@ -45,7 +46,7 @@ extension RenderView {
                 )
             default:
                 /// Repeat the whole last chorus
-                ChorusSection(section: section, settings: settings)
+                LyricsSection(section: section, settings: settings)
             }
         }
     }

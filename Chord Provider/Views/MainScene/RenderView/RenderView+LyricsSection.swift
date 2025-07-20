@@ -1,5 +1,5 @@
 //
-//  RenderView+ChorusSection.swift
+//  RenderView+LyricsSection.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -9,7 +9,7 @@ import SwiftUI
 
 extension RenderView {
 
-    struct ChorusSection: View {
+    struct LyricsSection: View {
         /// The section of the song
         let section: Song.Section
         /// The settings for the song
@@ -18,8 +18,8 @@ extension RenderView {
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 ForEach(section.lines) { line in
-                    switch line.directive {
-                    case .environmentLine:
+                    switch line.type {
+                    case .songLine:
                         if let parts = line.parts {
                             PartsView(
                                 parts: parts,
@@ -37,7 +37,7 @@ extension RenderView {
             }
             .wrapSongSection(
                 label: section.label,
-                prominent: true,
+                prominent: section.environment == .chorus ? true : false,
                 settings: settings
             )
         }

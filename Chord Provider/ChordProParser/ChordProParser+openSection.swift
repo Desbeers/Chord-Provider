@@ -61,9 +61,10 @@ extension ChordProParser {
         /// Add the single line
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            directive: directive,
-            arguments: arguments.isEmpty ? nil : arguments,
             source: source ?? "ERROR, NO SOURCE GIVEN",
+            directive: ChordPro.Directive.customDirectives.contains(directive) ? nil : directive,
+            arguments: arguments.isEmpty ? nil : arguments,
+            type: directive.details.lineType,
             plain: plain
         )
         if source == nil {

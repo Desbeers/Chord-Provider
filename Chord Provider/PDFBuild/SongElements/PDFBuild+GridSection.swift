@@ -44,7 +44,7 @@ extension PDFBuild {
             let elements: [NSMutableAttributedString] = (0 ..< maxColumns).map { _ in NSMutableAttributedString() }
             var columnWidth: [Double] = (0 ..< maxColumns).map { _ in Double() }
             var lineHeight: Double = 0
-            for line in section.lines where line.directive == .environmentLine {
+            for line in section.lines where line.type == .songLine {
                 if let grid = line.grid {
                     let parts = grid.flatMap { $0.parts }
                     for (column, part) in parts.enumerated() {
@@ -61,8 +61,8 @@ extension PDFBuild {
             }
             /// Draw the elements
             for line in section.lines {
-                switch line.directive {
-                case .environmentLine:
+                switch line.type {
+                case .songLine:
                     if let grid = line.grid {
 
                         var partRect = rect

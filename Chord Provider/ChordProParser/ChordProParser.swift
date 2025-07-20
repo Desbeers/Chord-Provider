@@ -121,7 +121,6 @@ extension ChordProParser {
     static func encode<T: Codable>(_ value: T) -> String {
         let encoder = JSONEncoder()
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        //  encoder.keyEncodingStrategy = .convertToSnakeCase
         do {
             let encodedData = try encoder.encode(value)
             let content = String(data: encodedData, encoding: .utf8) ?? "error"

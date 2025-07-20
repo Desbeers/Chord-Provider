@@ -24,9 +24,9 @@ extension ChordProParser {
             let source = arguments[.source] ?? "ERROR"
             var line = Song.Section.Line(
                 sourceLineNumber: song.lines,
+                source: source,
                 directive: .image,
                 arguments: arguments,
-                source: source
             )
             line.calculateSource()
             line.addWarning("Images inside a \(currentSection.environment.rawValue) is not supported")

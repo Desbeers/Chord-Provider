@@ -27,16 +27,18 @@ extension RenderView {
         func body(content: Content) -> some View {
             switch settings.display.labelStyle {
             case .inline:
-                if let label {
-                    sectionLabel(label)
+                VStack(alignment: .leading) {
+                    if let label {
+                        sectionLabel(label)
+                    }
+                    Rectangle()
+                        .frame(width: settings.scale.maxSongLineWidth, height: 1)
+                        .foregroundStyle(
+                            prominent || label != nil ? settings.style.theme.foregroundLight : Color.clear
+                        )
+                    content
+                        .frame(maxWidth: settings.scale.maxSongLineWidth, alignment: .leading)
                 }
-                Rectangle()
-                    .frame(width: settings.scale.maxSongLineWidth, height: 1)
-                    .foregroundStyle(
-                        prominent || label != nil ? settings.style.theme.foregroundLight : Color.clear
-                    )
-                content
-                    .frame(maxWidth: settings.scale.maxSongLineWidth, alignment: .leading)
             case .grid:
                 if let label {
                     sectionLabel(label)

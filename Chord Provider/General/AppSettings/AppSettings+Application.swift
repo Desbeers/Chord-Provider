@@ -17,5 +17,9 @@ extension AppSettings {
         var sortTokens: [String] = ["the", "a", "de", "een", "’t"]
         /// Sorting of song lists
         var songListSort: SongListSort = .artist
+        /// Repeat the whole last chorus when using a *{chorus}* directive
+        var repeatWholeChorus: Bool = false
+        /// Show only lyrics
+        var lyricsOnly: Bool = false
     }
 }

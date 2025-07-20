@@ -23,7 +23,7 @@ extension AppStateModel {
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $appState.settings.shared.repeatWholeChorus) {
+            Toggle(isOn: $appState.settings.application.repeatWholeChorus) {
                 Text("Repeat whole chorus")
                 Text("When enabled, the **{chorus}** directive will be replaced by the whole last found chorus with the same label.")
             }
@@ -42,7 +42,7 @@ extension AppStateModel {
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $appState.settings.shared.lyricsOnly) {
+            Toggle(isOn: $appState.settings.application.lyricsOnly) {
                 Text("Show only lyrics")
                 Text("This option will hide all chords, tabs and grids.")
             }

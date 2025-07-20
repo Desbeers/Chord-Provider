@@ -18,9 +18,8 @@ struct MainView: View {
     @Environment(FileBrowserModel.self) private var fileBrowser
     /// The ChordPro document
     @Binding var document: ChordProDocument
-
+    /// Bool if the window is active
     @Environment(\.appearsActive) var appearsActive
-
     /// The optional file URL of the song
     let fileURL: URL?
     /// The body of the `View`
@@ -53,24 +52,24 @@ struct MainView: View {
                 settings: sceneState.song.settings
             )
             /// Set the standard scaled font
-            .font(sceneState.song.settings.style.fonts.text.swiftUIFont(scale: sceneState.scale.magnifier))
+            .font(sceneState.song.settings.style.fonts.text.swiftUIFont(scale: sceneState.song.settings.scale.magnifier))
             .onGeometryChange(for: CGSize.self) { proxy in
                 proxy.size
             } action: { newValue in
-                sceneState.scale.maxSongLineWidth = newValue.width > 340 ? newValue.width : 340
+                sceneState.song.settings.scale.maxSongLineWidth = newValue.width > 340 ? newValue.width : 340
             }
             .hidden()
             /// Get the size of the longest label line
             /// - Note: This is not perfect but seems well enough for normal songs
             RenderView.ProminentLabel(
                 label: sceneState.song.metadata.longestLabel,
-                font: sceneState.song.settings.style.fonts.label.swiftUIFont(scale: sceneState.scale.magnifier),
+                font: sceneState.song.settings.style.fonts.label.swiftUIFont(scale: sceneState.song.settings.scale.magnifier),
                 settings: sceneState.song.settings
             )
             .onGeometryChange(for: CGSize.self) { proxy in
                 proxy.size
             } action: { newValue in
-                sceneState.scale.maxSongLabelWidth = newValue.width > 100 ? newValue.width : 100
+                sceneState.song.settings.scale.maxSongLabelWidth = newValue.width > 100 ? newValue.width : 100
             }
             .hidden()
         }
@@ -99,8 +98,8 @@ struct MainView: View {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings.shared) {
-            sceneState.song.settings.shared = appState.settings.shared
+        .onChange(of: appState.settings.application) {
+            sceneState.song.settings.application = appState.settings.application
             Task {
                 await renderSong()
             }
@@ -181,12 +180,12 @@ struct MainView: View {
                     AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                     layout {
                         Group {
-                            SongView(song: sceneState.song, scale: sceneState.scale)
-                            /// Remember the size of the whole window
+                            SongView(song: sceneState.song)
+                            /// Remember the size of the song part
                             .onGeometryChange(for: CGSize.self) { proxy in
                                 proxy.size
                             } action: { newValue in
-                                sceneState.scale.maxSongWidth = newValue.width
+                                sceneState.song.settings.scale.maxSongWidth = newValue.width
                             }
                             if sceneState.song.settings.display.showChords {
                                 Divider()

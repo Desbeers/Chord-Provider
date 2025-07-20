@@ -103,7 +103,7 @@ extension ChordProEditor {
                         inRect: markerRect,
                         highlight: highlight,
                         warning: warning,
-                        directive: line.directive
+                        icon: line.directive?.details.icon ?? line.type.icon
                     )
                     if highlight {
                         /// Set the current line of the cursor
@@ -125,7 +125,13 @@ extension ChordProEditor {
                 )
                 /// Bool if the line should be highlighted
                 let highlight = layoutManager.extraLineFragmentRect.minY == textView.currentParagraphRect?.minY
-                drawLineNumber(lineNumber, inRect: markerRect, highlight: highlight, warning: false, directive: .emptyLine)
+                drawLineNumber(
+                    lineNumber,
+                    inRect: markerRect,
+                    highlight: highlight,
+                    warning: false,
+                    icon: ChordPro.Directive.emptyLine.details.icon
+                )
                 if highlight {
                     /// Set the current line of the cursor
                     textView.currentLine = Song.Section.Line(sourceLineNumber: lineNumber)
@@ -135,7 +141,13 @@ extension ChordProEditor {
             textView.parent?.runIntrospect(textView)
 
             /// Draw the number of the line
-            func drawLineNumber(_ number: Int, inRect rect: NSRect, highlight: Bool, warning: Bool, directive: ChordPro.Directive) {
+            func drawLineNumber(
+                _ number: Int,
+                inRect rect: NSRect,
+                highlight: Bool,
+                warning: Bool,
+                icon: String
+            ) {
                 var attributes = Editor.rulerNumberStyle
                 attributes[NSAttributedString.Key.font] = font
                 switch highlight {
@@ -161,7 +173,7 @@ extension ChordProEditor {
                 string.addAttributes(attributes, range: NSRange(location: 0, length: string.length))
                 string.draw(in: stringRect)
                 /// Draw the directive icon
-                if let image = NSImage(systemSymbolName: directive.details.icon, accessibilityDescription: directive.details.label) {
+                if let image = NSImage(systemSymbolName: icon, accessibilityDescription: "") {
                     let imageConfiguration = NSImage.SymbolConfiguration(pointSize: font.pointSize * 0.7, weight: .regular)
                     let imageAttachment = NSTextAttachment()
                     imageAttachment.image = image.withSymbolConfiguration(imageConfiguration)

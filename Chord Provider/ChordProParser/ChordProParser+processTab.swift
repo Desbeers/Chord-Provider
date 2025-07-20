@@ -22,13 +22,16 @@ extension ChordProParser {
         song: inout Song
     ) {
         /// Start with a fresh line
-        let line = Song.Section.Line(
+        var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            directive: .environmentLine,
             source: text,
             sourceParsed: text.trimmingCharacters(in: .whitespaces),
+            type: .songLine,
             plain: text.trimmingCharacters(in: .whitespaces)
         )
+        /// Set the context
+        line.context = currentSection.environment
+        /// Add the line"
         currentSection.lines.append(line)
         /// Mark the section as Tab if not set
         if currentSection.environment == .none {

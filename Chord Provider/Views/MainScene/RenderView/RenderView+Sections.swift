@@ -20,10 +20,8 @@ extension RenderView {
         var body: some View {
             ForEach(sections) { section in
                 switch section.environment {
-                case .verse, .bridge:
-                    VerseSection(section: section, settings: settings)
-                case .chorus:
-                    ChorusSection(section: section, settings: settings)
+                case .verse, .bridge, .chorus:
+                    LyricsSection(section: section, settings: settings)
                 case .repeatChorus:
                     RepeatChorusSection(
                         section: section,
@@ -31,11 +29,11 @@ extension RenderView {
                         settings: settings
                     )
                 case .tab:
-                    if !settings.shared.lyricsOnly {
+                    if !settings.application.lyricsOnly {
                         TabSection(section: section, settings: settings)
                     }
                 case .grid:
-                    if !settings.shared.lyricsOnly {
+                    if !settings.application.lyricsOnly {
                         GridSection(section: section, settings: settings)
                     }
                 case .textblock:
@@ -43,7 +41,7 @@ extension RenderView {
                 case .comment:
                     CommentSection(section: section, settings: settings)
                 case .strum:
-                    if !settings.shared.lyricsOnly {
+                    if !settings.application.lyricsOnly {
                         StrumSection(section: section, settings: settings)
                     }
                 case .image:

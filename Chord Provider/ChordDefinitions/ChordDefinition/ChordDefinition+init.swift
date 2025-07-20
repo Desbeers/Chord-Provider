@@ -39,7 +39,7 @@ extension ChordDefinition {
         self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
     }
 
-    // MARK: Init with a definition
+    // MARK: Init with a **ChordPro** definition
 
     /// Init the ``ChordDefinition`` with a **ChordPro** definition
     ///

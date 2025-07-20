@@ -49,31 +49,6 @@ import OSLog
         (windowWidth / 2) + editorOffset
     }
 
-    var scale = AppSettings.Scale()
-
-//    /// The total width of the window
-//    var windowWidth: Double = 0
-//
-//    /// The available with for the song
-//    var songWidth: Double {
-//        switch showEditor {
-//        case true:
-//            return ((windowWidth / 2) + editorOffset) * 0.9
-//        case false:
-//            return windowWidth * 0.9
-//        }
-//    }
-//    /// Max with of a song label
-//    var songLabelStyle: AppSettings.Display.LabelStyle {
-//        songWidth < (maxSongLabelWidth + maxSongLineWidth) ? .inline : .grid
-//    }
-//    /// Max width of a song line
-//    var maxSongLineWidth: Double = 340
-//    /// Max width of a song line
-//    var maxSongLabelWidth: Double = 10
-//    /// Scale magnifier
-//    var scale: Double = 1
-
     // MARK: Export Stuff
 
     /// Export the song to a PDF

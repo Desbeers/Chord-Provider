@@ -164,8 +164,6 @@ extension ChordPro {
 
         /// A comment in the source
         case sourceComment = "source_comment"
-        /// A line that is inside an environment
-        case environmentLine = "environment_line"
         /// An empty line
         case emptyLine = "empty_line"
         /// An unknown directive

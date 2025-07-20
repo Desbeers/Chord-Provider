@@ -19,8 +19,8 @@ extension RenderView {
             VStack(alignment: .leading, spacing: 0) {
                 Grid(alignment: .leading, horizontalSpacing: 0, verticalSpacing: 0) {
                     ForEach(section.lines) { line in
-                        switch line.directive {
-                        case .environmentLine:
+                        switch line.type {
+                        case .songLine:
                             if let grids = line.grid {
                                 GridRow {
                                     ForEach(grids) { grid in

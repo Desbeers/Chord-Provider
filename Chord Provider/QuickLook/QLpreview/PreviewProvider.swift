@@ -57,7 +57,6 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 /// Simple substitute for the real AppSettings
 struct AppSettings: Equatable, Codable {
     var application = Application()
-    var shared = Shared()
     var display = Display()
     var diagram = Diagram()
     var style = Style()

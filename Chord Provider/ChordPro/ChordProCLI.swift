@@ -265,10 +265,10 @@ extension ChordProCLI {
         let paperSize = settings.pdf.pageSize.rect(settings: settings)
         config = config.replacingOccurrences(of: "pdf.papersize : a4", with: "pdf.papersize : [\(paperSize.width), \(paperSize.height)]")
         /// Optional show only the lyrics
-        if settings.shared.lyricsOnly {
+        if settings.application.lyricsOnly {
             config = config.replacingOccurrences(of: "settings.lyrics-only : false", with: "settings.lyrics-only : true")
         }
-        if settings.shared.repeatWholeChorus {
+        if settings.application.repeatWholeChorus {
             config = config.replacingOccurrences(of: "pdf.chorus.recall.quote : false", with: "pdf.chorus.recall.quote : true")
         }
         if settings.diagram.showFingers {

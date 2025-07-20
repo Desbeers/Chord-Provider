@@ -23,10 +23,11 @@ extension DebugView {
                                     .body
                                         .weight(line.source.warnings == nil ? .regular : .bold)
                                 )
-                            Image(systemName: line.source.directive.details.icon)
+                            Image(systemName: line.source.directive?.details.icon ?? line.source.type.icon)
                                 .font(.caption)
                             VStack(alignment: .leading) {
                                 Text(line.source.source)
+                                    .monospaced()
                                 if let warnings = line.source.warnings {
                                     Text(.init("\(warnings.joined(separator: ", "))"))
                                         .foregroundStyle(.red)

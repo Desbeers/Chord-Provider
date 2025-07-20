@@ -30,9 +30,10 @@ extension ChordProParser {
         /// Start with a fresh line
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            directive: .environmentLine,
             source: text,
-            sourceParsed: text.trimmingCharacters(in: .whitespaces)
+            sourceParsed: text.trimmingCharacters(in: .whitespaces),
+            type: .songLine,
+            context: .strum
         )
 
         var result: [[Song.Section.Line.Strum]] = []

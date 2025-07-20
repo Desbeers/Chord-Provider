@@ -15,7 +15,19 @@ extension Song.Section.Line {
         var id: Int
         /// The optional chord definition
         var chordDefinition: ChordDefinition?
+        /// The optional chord definition in **ChordPro** format
+        var chord: ChordPro.Instrument.Chord?
         /// The optional text
         var text: String?
+    }
+}
+
+extension Song.Section.Line.Part {
+
+    enum CodingKeys: String, CodingKey {
+        case id
+        case chordDefinition
+        // case chord
+        case text
     }
 }

@@ -109,7 +109,7 @@ extension SongExport {
 
         items.append(PDFBuild.Spacer(10))
 
-        if !settings.shared.lyricsOnly, !song.chords.isEmpty {
+        if !settings.application.lyricsOnly, !song.chords.isEmpty {
             items.append(PDFBuild.SongDetails(song: song, settings: settings))
             items.append(PDFBuild.Spacer(10))
             items.append(PDFBuild.Chords(chords: song.chords, settings: settings))
@@ -180,17 +180,17 @@ extension SongExport {
             case .comment:
                 items.append(commentSection(section: section))
             case .tab:
-                if !settings.shared.lyricsOnly {
+                if !settings.application.lyricsOnly {
                     items.append(tabSection(section: section))
                 }
             case .grid:
-                if !settings.shared.lyricsOnly {
+                if !settings.application.lyricsOnly {
                     items.append(gridSection(section: section))
                 }
             case .textblock:
                 items.append(textblockSection(section: section))
             case .strum:
-                if !settings.shared.lyricsOnly {
+                if !settings.application.lyricsOnly {
                     items.append(strumSection(section: section))
                 }
             case .image:
@@ -220,7 +220,7 @@ extension SongExport {
                         fontOptions: settings.style.fonts.label
                     ),
                     PDFBuild.Divider(direction: .vertical, color: settings.style.theme.foregroundLight.nsColor),
-                    PDFBuild.LyricsSection(section, chords: song.settings.shared.lyricsOnly ? [] : song.chords, settings: settings)
+                    PDFBuild.LyricsSection(section, chords: song.settings.application.lyricsOnly ? [] : song.chords, settings: settings)
                 ]
             )
         }
@@ -313,22 +313,6 @@ extension SongExport {
             )
         }
 
-        // MARK: Plain Section
-
-        /// Add a Plain Section
-        /// - Parameter section: The current section
-        /// - Returns: A ``PDFBuild/Section`` element
-        func plainSection(section: Song.Section) -> PDFBuild.Section {
-            PDFBuild.Section(
-                columns: [.fixed(width: offset), .fixed(width: 110), .flexible],
-                items: [
-                    PDFBuild.Spacer(),
-                    PDFBuild.Spacer(),
-                    PDFBuild.PlainSection(section)
-                ]
-            )
-        }
-
         // MARK: Comment Section
 
         /// Add a Comment Section
@@ -352,7 +336,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if
-                song.settings.shared.repeatWholeChorus,
+                song.settings.application.repeatWholeChorus,
                 let lastChorus = song.sections.last(where: { $0.environment == .chorus && $0.label == section.label }) {
                 return lyricsSection(section: lastChorus)
             } else {

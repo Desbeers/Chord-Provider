@@ -18,8 +18,8 @@ extension RenderView {
         var body: some View {
             VStack(alignment: .leading, spacing: 0) {
                 ForEach(section.lines) { line in
-                    switch line.directive {
-                    case .environmentLine:
+                    switch line.type {
+                    case .songLine:
                         Text(line.plain ?? "")
                             .lineLimit(1)
                             .monospaced()

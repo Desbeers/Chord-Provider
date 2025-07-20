@@ -12,8 +12,6 @@ import OSLog
 struct AppSettings: Equatable, Codable, Sendable {
     /// Settings that will change the behaviour of the application
     var application = Application()
-    /// Settings shared by all scenes
-    var shared = Shared()
     /// The options for displaying a ``Song``
     var display = Display()
     /// The options for displaying a ``ChordDefinition``

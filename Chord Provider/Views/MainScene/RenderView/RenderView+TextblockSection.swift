@@ -32,8 +32,8 @@ extension RenderView {
         var body: some View {
             VStack(alignment: flush, spacing: 0) {
                 ForEach(section.lines) { line in
-                    switch line.directive {
-                    case .environmentLine, .sourceComment:
+                    switch line.type {
+                    case .songLine, .sourceComment:
                         /// Init the text like this to enable markdown formatting
                         Text(line.plain?.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: settings.scale.magnifier) ?? "")
                     case .emptyLine:

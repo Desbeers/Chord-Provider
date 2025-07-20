@@ -20,6 +20,8 @@ struct DebugView: View {
     @State var selectedLine: Int?
     /// All parsed log messages
     @State var osLogMessages: [LogMessage] = []
+    /// JSON part
+    @State var jsonPart: Part = .metadata
     /// Remember the last fetched time
     @State private var lastFetchedLogDate = Calendar.current.date(byAdding: .year, value: -1000, to: Date()) ?? Date()
     /// The body of the `View`

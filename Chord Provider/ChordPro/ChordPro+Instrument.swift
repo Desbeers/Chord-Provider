@@ -25,7 +25,7 @@ extension ChordPro {
 extension ChordPro.Instrument {
 
     /// Instrument chord
-    struct Chord: Codable {
+    struct Chord: Equatable, Codable {
         /// Name of the chord
         let name: String
         /// Optional display name

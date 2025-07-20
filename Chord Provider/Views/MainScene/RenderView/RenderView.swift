@@ -20,23 +20,17 @@ extension RenderView {
         /// The calculated spacing between sections
         let spacing: Double
         /// Init the `View`
-        /// - Parameters:
-        ///   - song: The ``Song`` to view
-        ///   - scale: The scale of the `View`
-        init(
-            song: Song,
-            scale: AppSettings.Scale
-        ) {
-            self.spacing = 20 * scale.magnifier
+        /// - Parameter song: The ``Song`` to view
+        init(song: Song) {
+            self.spacing = 20 * song.settings.scale.magnifier
             var song = song
-            song.settings.scale = scale
             /// Calculate label style
             switch song.settings.display.paging {
             case .asColumns:
                 song.settings.display.labelStyle = .inline
             case .asList:
-                let neededWidth = (scale.maxSongLabelWidth + scale.maxSongLineWidth) + (2 * self.spacing) + 20
-                song.settings.display.labelStyle = scale.maxSongWidth < neededWidth ? .inline : .grid
+                let neededWidth = (song.settings.scale.maxSongLabelWidth + song.settings.scale.maxSongLineWidth) + (2 * self.spacing) + 20
+                song.settings.display.labelStyle = song.settings.scale.maxSongWidth < neededWidth ? .inline : .grid
             }
             self.song = song
         }

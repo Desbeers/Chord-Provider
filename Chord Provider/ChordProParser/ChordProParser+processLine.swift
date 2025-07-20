@@ -26,9 +26,9 @@ extension ChordProParser {
         /// Start with a fresh line:
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
-            directive: .environmentLine,
             source: text,
-            sourceParsed: text.trimmingCharacters(in: .whitespaces)
+            sourceParsed: text.trimmingCharacters(in: .whitespaces),
+            type: .songLine
         )
         /// Remove markup, if any, **Chord Provider** does not support it
         let textCopy = text.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
@@ -53,11 +53,16 @@ extension ChordProParser {
                 )
                 /// Because it has a chord; the section should be at least a verse
                 haveChords = true
+                /// Official **ChordPro** compatibility
+                part.chord = part.chordDefinition?.chordProJSON
             }
             if let lyric {
                 part.text = String(lyric)
                 /// Add the lyrics to the 'plain' text
                 line.plain = (line.plain ?? "") + lyric
+                line.lineLength += String(lyric)
+            } else if let chord {
+                line.lineLength += " \(String(chord)) "
             }
             /// Add the part
             parts.append(part)
@@ -65,7 +70,9 @@ extension ChordProParser {
             partID += 1
         }
         line.parts = parts
-        /// Add the line"
+        /// Set the context
+        line.context = currentSection.environment
+        /// Add the line
         currentSection.lines.append(line)
         /// Set the environment to Verse if not yet set and we have chords, else to Textblock
         if currentSection.environment == .none {
@@ -77,7 +84,7 @@ extension ChordProParser {
         }
         /// Remember the longest line in the song
         if currentSection.environment == .chorus || currentSection.environment == .verse {
-            if line.source.count > song.metadata.longestLine.source.count {
+            if line.lineLength.count > song.metadata.longestLine.lineLength.count {
                 song.metadata.longestLine = line
             }
         }
