@@ -394,6 +394,8 @@ extension SceneStateModel {
                 sceneState.isAnimating = true
                 withAnimation {
                     sceneState.showEditor.toggle()
+                    /// Hide the song display by settings its width to zero
+                    sceneState.song.settings.scale.maxSongWidth = 0
                 } completion: {
                     sceneState.isAnimating = false
                 }
