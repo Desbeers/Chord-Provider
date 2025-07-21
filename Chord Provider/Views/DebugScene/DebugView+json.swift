@@ -26,24 +26,25 @@ extension DebugView {
 
                         switch jsonPart {
                         case .metadata:
-                            let metadata = ChordProParser.encode(song.metadata)
-                            jsonPart(label: "Metadata of the Song", content: metadata)
+                            let metadata = try? JSONUtils.encode(song.metadata)
+                            JSONPart(label: "Metadata of the Song", content: metadata)
                         case .sections:
                             ForEach(song.sections) { section in
-                                let content = ChordProParser.encode(section)
-                                jsonPart(label: "Section \(section.environment.rawValue)", content: content)
+                                let content = try? JSONUtils.encode(section)
+                                JSONPart(label: "Section \(section.environment.rawValue)", content: content)
     #if DEBUG
                                 Button("Decode") {
-                                    ChordProParser.decode(content)
+                                    let decoded = try? JSONUtils.decode(content ?? "error", struct: Song.Section.self)
+                                    dump(decoded)
                                 }
     #endif
                             }
                         case .chords:
-                            let chords = ChordProParser.encode(song.chords)
-                            jsonPart(label: "Chords", content: chords)
+                            let chords = try? JSONUtils.encode(song.chords)
+                            JSONPart(label: "Chords", content: chords)
                         case .settings:
-                            let settings = ChordProParser.encode(song.settings)
-                            jsonPart(label: "Application Settings", content: settings)
+                            let settings = try? JSONUtils.encode(song.settings)
+                            JSONPart(label: "Application Settings", content: settings)
                         }
                     }
                 }
@@ -61,14 +62,35 @@ extension DebugView {
     ///   - label: The label
     ///   - content: The content
     /// - Returns: A `View`
-    func jsonPart(label: String, content: String) -> some View {
-        Section {
-            Text(content)
-                .monospaced()
-                .padding(.bottom)
-        } header: {
-            Text(label)
-                .font(.title)
+    struct JSONPart: View {
+        let label: String
+        let content: String?
+        @State private var isExpanded: Bool = true
+        /// The observable state of the application
+        @Environment(AppStateModel.self) var appState
+        var body: some View {
+            Section(isExpanded: $isExpanded) {
+                Text(JSONUtils.highlight(code: content ?? "error", editorSettings: appState.settings.editor))
+                    .monospaced()
+                    .padding(.bottom)
+            } header: {
+                HStack {
+                    Button {
+                        withAnimation {
+                            isExpanded.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "chevron.right")
+                            .rotationEffect(
+                                !isExpanded ? Angle(degrees: 0) : Angle(degrees: 90)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                    Text(label)
+                        .font(.title)
+                }
+            }
+            .animation(.default, value: isExpanded)
         }
     }
 }

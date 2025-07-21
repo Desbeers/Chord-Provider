@@ -33,7 +33,7 @@ extension RenderView {
             VStack(alignment: flush, spacing: 0) {
                 ForEach(section.lines) { line in
                     switch line.type {
-                    case .songLine, .sourceComment:
+                    case .songLine:
                         /// Init the text like this to enable markdown formatting
                         Text(line.plain?.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: settings.scale.magnifier) ?? "")
                     case .emptyLine:

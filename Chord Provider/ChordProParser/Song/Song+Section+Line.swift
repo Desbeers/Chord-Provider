@@ -26,7 +26,8 @@ extension Song.Section {
         /// The parsed source
         var sourceParsed: String = ""
         /// The length of the line, the lyrics and loose chords
-        var lineLength: String = ""
+        /// - Note: Used for rendering
+        var lineLength: String?
 
         /// The optional `Directive` of the section
         var directive: ChordPro.Directive?
@@ -160,7 +161,7 @@ extension Song.Section.Line {
         self.sourceLineNumber = try container.decode(Int.self, forKey: .sourceLineNumber)
         self.source = try container.decode(String.self, forKey: .source)
         self.sourceParsed = try container.decode(String.self, forKey: .sourceParsed)
-        self.lineLength = try container.decode(String.self, forKey: .lineLength)
+        self.lineLength = try container.decodeIfPresent(String.self, forKey: .lineLength)
         self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warnings)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
@@ -193,7 +194,7 @@ extension Song.Section.Line {
 
         try container.encode(self.source, forKey: .source)
         try container.encode(self.sourceParsed, forKey: .sourceParsed)
-        try container.encode(self.lineLength, forKey: .lineLength)
+        try container.encodeIfPresent(self.lineLength, forKey: .lineLength)
         try container.encodeIfPresent(self.warnings, forKey: .warnings)
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.grid, forKey: .grid)

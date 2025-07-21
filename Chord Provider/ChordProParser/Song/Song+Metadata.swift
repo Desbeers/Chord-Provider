@@ -88,6 +88,3 @@ extension Song {
         }
     }
 }
-
-extension Song.Metadata {
-}

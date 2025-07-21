@@ -22,7 +22,7 @@ struct ExportJSONButton: View {
             action: {
                 if let song {
                     /// Get the JSON
-                    json = ChordProParser.encode(song)
+                    json = try? JSONUtils.encode(song)
                     /// Show the export dialog
                     exportFile = true
                 }

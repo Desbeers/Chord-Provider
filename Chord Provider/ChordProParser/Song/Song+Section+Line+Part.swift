@@ -21,13 +21,3 @@ extension Song.Section.Line {
         var text: String?
     }
 }
-
-extension Song.Section.Line.Part {
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case chordDefinition
-        // case chord
-        case text
-    }
-}

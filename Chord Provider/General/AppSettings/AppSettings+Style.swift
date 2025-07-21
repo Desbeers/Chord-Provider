@@ -157,19 +157,6 @@ extension AppSettings.Style {
             return style
         }
     }
-
-    /// Export the style to JSON
-    var exportToJSON: String {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        do {
-            let encodedData = try encoder.encode(self)
-            return String(data: encodedData, encoding: .utf8) ?? "error"
-        } catch {
-            /// This should not happen
-            return "error"
-        }
-    }
 }
 
 extension AppSettings.Style {

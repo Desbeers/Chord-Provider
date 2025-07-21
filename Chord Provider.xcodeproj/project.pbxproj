@@ -404,6 +404,9 @@
 		D7F3440D2CECBEE400205A90 /* ChordProParser+closeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3440B2CECBEE400205A90 /* ChordProParser+closeSection.swift */; };
 		D7F344102CECC0C600205A90 /* ChordProParser+addSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3440F2CECC0C600205A90 /* ChordProParser+addSection.swift */; };
 		D7F344112CECC0C600205A90 /* ChordProParser+addSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3440F2CECC0C600205A90 /* ChordProParser+addSection.swift */; };
+		D7F372372E2E57C20075C8E4 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372362E2E57C20075C8E4 /* JSONUtils.swift */; };
+		D7F3723A2E2E6B0A0075C8E4 /* JSONUtils+highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */; };
+		D7F3723B2E2E6B410075C8E4 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372362E2E57C20075C8E4 /* JSONUtils.swift */; };
 		D7F80D892E1403B6004865FE /* AppSettings+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */; };
 		D7F80D8A2E1403B6004865FE /* AppSettings+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */; };
 		D7F80D8C2E143AA5004865FE /* RenderView+EmptyLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D8B2E143AA5004865FE /* RenderView+EmptyLine.swift */; };
@@ -758,6 +761,8 @@
 		D7F344072CECBED700205A90 /* ChordProParser+openSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+openSection.swift"; sourceTree = "<group>"; };
 		D7F3440B2CECBEE400205A90 /* ChordProParser+closeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+closeSection.swift"; sourceTree = "<group>"; };
 		D7F3440F2CECC0C600205A90 /* ChordProParser+addSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+addSection.swift"; sourceTree = "<group>"; };
+		D7F372362E2E57C20075C8E4 /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
+		D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONUtils+highlight.swift"; sourceTree = "<group>"; };
 		D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Scale.swift"; sourceTree = "<group>"; };
 		D7F80D8B2E143AA5004865FE /* RenderView+EmptyLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+EmptyLine.swift"; sourceTree = "<group>"; };
 		D7F884712DCF63D1007A4BA4 /* SplitterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitterView.swift; sourceTree = "<group>"; };
@@ -1280,6 +1285,8 @@
 				D730BBA92CA844C2008719F2 /* ChordUtils+Analizer.swift */,
 				D7E22D932DB3C195004AA103 /* FontUtils */,
 				D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */,
+				D7F372362E2E57C20075C8E4 /* JSONUtils.swift */,
+				D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */,
 				D77CDB192D73323100943462 /* SongFileUtils.swift */,
 				D77CDB1B2D7334E300943462 /* SongFileUtils+Artist.swift */,
 				D7C655AE2DE31AB400FA605F /* UserFileUtils.swift */,
@@ -1757,6 +1764,7 @@
 				D7C655A72DE1BD2700FA605F /* Documentation.docc in Sources */,
 				D75B48912BDBD3A2001F6176 /* FolderExport+toc.swift in Sources */,
 				D752E5A02CBC2FE200CDE42D /* ChordProParser+processTab.swift in Sources */,
+				D7F3723A2E2E6B0A0075C8E4 /* JSONUtils+highlight.swift in Sources */,
 				D7F13FC22A6460B7002D875D /* Song+Section+Line+Grid.swift in Sources */,
 				D706FDA92BCECC9F005DEDF6 /* PDFStringAttribute.swift in Sources */,
 				D730BBE12CA844C2008719F2 /* Collection+extensions.swift in Sources */,
@@ -1795,6 +1803,7 @@
 				D76E7D362DF5E7150068A6D0 /* ExportJSONButton.swift in Sources */,
 				D737F8552D8ED633001F1DC5 /* FontUtils+Config.swift in Sources */,
 				D77CDB202D73422C00943462 /* AppSettings+SongListSort.swift in Sources */,
+				D7F372372E2E57C20075C8E4 /* JSONUtils.swift in Sources */,
 				D730BC112CA844C2008719F2 /* Chord+Quality+intervals.swift in Sources */,
 				D76C24E12C3A99C000C93D82 /* ShareButton.swift in Sources */,
 				D7AA50C12E08176B003D731A /* Song+Metadata+chordProCLI.swift in Sources */,
@@ -2098,6 +2107,7 @@
 				D70B72A42BD52A9B003C89B4 /* PDFBuild+PageBreak.swift in Sources */,
 				D70B72A52BD52A9B003C89B4 /* PDFBuild+Divider.swift in Sources */,
 				D70B72A62BD52A9B003C89B4 /* PDFBuild+LyricsSection.swift in Sources */,
+				D7F3723B2E2E6B410075C8E4 /* JSONUtils.swift in Sources */,
 				D70B72A72BD52A9B003C89B4 /* PDFBuild+LyricsSection+Line.swift in Sources */,
 				D7AA50BE2E080A18003D731A /* UTType+extension.swift in Sources */,
 				D752E5952CBA9E1300CDE42D /* ChordProParser+processDirective.swift in Sources */,

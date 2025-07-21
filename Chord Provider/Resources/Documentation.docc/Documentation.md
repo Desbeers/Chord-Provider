@@ -111,6 +111,7 @@ While working well for *normal* songs it will be a bit sluggish on long document
 - ``ChordUtils``
 - ``FontUtils``
 - ``ImageUtils``
+- ``JSONUtils``
 - ``SongFileUtils``
 - ``UserFileUtils``
 

@@ -18,8 +18,8 @@ enum SettingsCache {
     /// - Returns: decoded cache item
     static func get<T: Codable>(id: AppSettings.AppWindowID, struct: T.Type) throws -> T {
         let file = try self.path(for: id)
-        let data = try Data(contentsOf: file)
-        return try JSONDecoder().decode(T.self, from: data)
+        let data = try String(contentsOf: file, encoding: .utf8)
+        return try JSONUtils.decode(data, struct: T.self)
     }
 
     /// Save a struct into the cache
@@ -29,10 +29,8 @@ enum SettingsCache {
     /// - Throws: an error if it can't be saved
     static func set<T: Codable>(id: AppSettings.AppWindowID, object: T) throws {
         let file = try self.path(for: id)
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        let archivedValue = try encoder.encode(object)
-        try archivedValue.write(to: file)
+        let archivedValue = try JSONUtils.encode(object)
+        try archivedValue.write(to: file, atomically: true, encoding: .utf8)
     }
 
     /// Delete a struct from the cache

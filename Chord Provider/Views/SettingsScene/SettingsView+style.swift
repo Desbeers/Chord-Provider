@@ -51,11 +51,12 @@ extension SettingsView {
                                     Button(theme.rawValue) {
                                         if let themeURL = Bundle.main.url(forResource: theme.rawValue, withExtension: "json") {
                                             do {
-                                                let text = try Data(contentsOf: themeURL)
-                                                let style = try JSONDecoder().decode(AppSettings.Style.self, from: text)
+                                                let text = try String(contentsOf: themeURL, encoding: .utf8)
+                                                let style = try JSONUtils.decode(text, struct: AppSettings.Style.self)
                                                 appState.settings.style = style
                                             } catch {
                                                 Logger.fileAccess.error("Theme import failed: \(error.localizedDescription, privacy: .public)")
+                                                errorAlert = AppError.importThemeError.alert()
                                             }
                                         }
                                     }
@@ -93,8 +94,13 @@ extension SettingsView {
                     )
                     Button(
                         action: {
-                            jsonExportString = appState.settings.style.exportToJSON
-                            showJsonExportDialog = true
+                            do {
+                                jsonExportString = try JSONUtils.encode(appState.settings.style)
+                                showJsonExportDialog = true
+                            } catch {
+                                /// This should not happen
+                                Logger.parser.error("\(error.localizedDescription, privacy: .public)")
+                            }
                         },
                         label: {
                             Text("Export Theme")
@@ -109,9 +115,9 @@ extension SettingsView {
                         Text("Reset to defaults")
                     }
                 )
+                .disabled(appState.settings.style == appState.settings.style.defaults())
             }
             .padding()
-            .disabled(appState.settings.style == appState.settings.style.defaults())
         }
         .fileExporter(
             isPresented: $showJsonExportDialog,
@@ -135,8 +141,8 @@ extension SettingsView {
             case .success(let files):
                 do {
                     try files.forEach { url in
-                        let text = try Data(contentsOf: url)
-                        appState.settings.style = try JSONDecoder().decode(AppSettings.Style.self, from: text)
+                        let text = try String(contentsOf: url, encoding: .utf8)
+                        appState.settings.style = try JSONUtils.decode(text, struct: AppSettings.Style.self)
                         Logger.fileAccess.info("Theme imported from \(url, privacy: .public)")
                     }
                 } catch {

@@ -10,7 +10,7 @@ import Foundation
 extension ChordProParser {
 
     /// Convert arguments to a single string
-    /// - Parameter arguments: The arguments dictionary
+    /// - Parameter line: The line with arguments
     /// - Returns: A single string with arguments
     static func argumentsToString(_ line: Song.Section.Line) -> String? {
         /// Return a simple argument (no `key=value` as a plain string

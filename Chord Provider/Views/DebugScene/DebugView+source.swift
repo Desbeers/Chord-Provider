@@ -12,7 +12,7 @@ extension DebugView {
     /// The source tab of the `View`
     @ViewBuilder var source: some View {
         if appState.song != nil {
-            List(selection: $selectedLine) {
+            List {
                 ForEach(content, id: \.line) { line in
                     VStack(alignment: .leading) {
                         HStack {
@@ -26,7 +26,7 @@ extension DebugView {
                             Image(systemName: line.source.directive?.details.icon ?? line.source.type.icon)
                                 .font(.caption)
                             VStack(alignment: .leading) {
-                                Text(line.source.source)
+                                Text(JSONUtils.highlight(code: line.source.source, editorSettings: appState.settings.editor))
                                     .monospaced()
                                 if let warnings = line.source.warnings {
                                     Text(.init("\(warnings.joined(separator: ", "))"))
@@ -42,15 +42,22 @@ extension DebugView {
                         }
                         .tag(line.line)
                         if line.line == selectedLine {
-                            Text(ChordProParser.encode(line.source))
+                            let content = try? JSONUtils.encode(line.source)
+                            Text(JSONUtils.highlight(code: content ?? "error", editorSettings: appState.settings.editor))
                                 .padding(4)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .background(Color(nsColor: .textBackgroundColor))
+                                .background(Color.accentColor.opacity(0.2))
                                 .foregroundStyle(Color(nsColor: .textColor))
                                 .padding(.horizontal, 30)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        withAnimation {
+                            selectedLine = selectedLine == line.line ? nil : line.line
+                        }
+                    }
                 }
             }
         } else {
@@ -64,5 +71,6 @@ extension DebugView {
         .frame(height: 50, alignment: .center)
         .font(.caption)
         .foregroundStyle(.secondary)
+        .animation(.default, value: selectedLine)
     }
 }

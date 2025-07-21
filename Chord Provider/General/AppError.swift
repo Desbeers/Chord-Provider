@@ -48,6 +48,11 @@ enum AppError: String, LocalizedError {
     /// A warning when creating a PDF with the **ChordPro** CLI
     case createChordProCLIWarning
 
+    // MARK: JSON
+
+    /// DecoderError
+    case jsonDecoderError
+
     // MARK: Fallback
 
     /// An unknown status

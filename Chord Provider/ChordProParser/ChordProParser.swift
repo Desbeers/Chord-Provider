@@ -110,36 +110,3 @@ actor ChordProParser {
         return song
     }
 }
-
-extension ChordProParser {
-
-    // MARK: Debug stuff
-
-    /// Encode a struct
-    /// - Parameter value: The struct
-    /// - Returns: A JSON string
-    static func encode<T: Codable>(_ value: T) -> String {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-        do {
-            let encodedData = try encoder.encode(value)
-            let content = String(data: encodedData, encoding: .utf8) ?? "error"
-            return content
-        } catch {
-            return error.localizedDescription
-        }
-    }
-
-    /// Decode a JSON encoded ``Song/Section``
-    /// - Parameter string: The ``Song/Section`` as JSON string
-    static func decode(_ string: String) {
-        let decoder = JSONDecoder()
-        do {
-            let data = Data(string.utf8)
-            let sections = try decoder.decode(Song.Section.self, from: data)
-            dump(sections)
-        } catch {
-            Logger.parser.error("\(error.localizedDescription, privacy: .public)")
-        }
-    }
-}

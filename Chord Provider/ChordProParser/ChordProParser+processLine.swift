@@ -60,9 +60,9 @@ extension ChordProParser {
                 part.text = String(lyric)
                 /// Add the lyrics to the 'plain' text
                 line.plain = (line.plain ?? "") + lyric
-                line.lineLength += String(lyric)
+                line.lineLength = (line.lineLength ?? "") + String(lyric)
             } else if let chord {
-                line.lineLength += " \(String(chord)) "
+                line.lineLength = (line.lineLength ?? "") + " \(String(chord)) "
             }
             /// Add the part
             parts.append(part)
@@ -84,7 +84,7 @@ extension ChordProParser {
         }
         /// Remember the longest line in the song
         if currentSection.environment == .chorus || currentSection.environment == .verse {
-            if line.lineLength.count > song.metadata.longestLine.lineLength.count {
+            if line.lineLength?.count ?? 0 > song.metadata.longestLine.lineLength?.count ?? 0 {
                 song.metadata.longestLine = line
             }
         }
