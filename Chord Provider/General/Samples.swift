@@ -19,6 +19,7 @@ enum Samples: String {
     case olympicWhite = "Olympic White"
     case totalChaos = "Total Chaos"
     case aGreenDay = "A Green Day"
+    case deliciousDonuts = "Delicious Donuts"
 
     static var debug: [Samples] {
         [
@@ -31,7 +32,8 @@ enum Samples: String {
         [
             .olympicWhite,
             .totalChaos,
-            .aGreenDay
+            .aGreenDay,
+            .deliciousDonuts
         ]
     }
 }

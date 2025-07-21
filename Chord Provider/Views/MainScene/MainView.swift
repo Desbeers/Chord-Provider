@@ -191,7 +191,7 @@ struct MainView: View {
                                 Divider()
                                 ChordsView(document: $document)
                                     .background(appState.settings.style.theme.background)
-                                    .shadow(color: appState.settings.style.theme.foreground.opacity(0.1), radius: 50)
+                                    .shadow(color: appState.settings.style.theme.foreground.opacity(0.2), radius: 50)
                             }
                         }
                         /// - Note: Make sure we don't see the splitter cursor here

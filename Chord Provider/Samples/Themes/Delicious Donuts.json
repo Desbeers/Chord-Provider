@@ -1,0 +1,106 @@
+{
+  "fonts" : {
+    "chord" : {
+      "background" : "#FFFFFF",
+      "color" : "#491A4C",
+      "font" : {
+        "displayName" : "Noto Sans Kannada SemiBold",
+        "familyName" : "Noto Sans Kannada",
+        "postScriptName" : "NotoSansKannada-SemiBold",
+        "styleName" : "SemiBold",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/NotoSansKannada.ttc"
+      },
+      "size" : 10
+    },
+    "comment" : {
+      "background" : "#EFC3DC",
+      "color" : "#4F4829",
+      "font" : {
+        "displayName" : "Baskerville SemiBold",
+        "familyName" : "Baskerville",
+        "postScriptName" : "Baskerville-SemiBold",
+        "styleName" : "SemiBold",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Baskerville.ttc"
+      },
+      "size" : 8
+    },
+    "label" : {
+      "background" : "#F7DBD0",
+      "color" : "#574C06",
+      "font" : {
+        "displayName" : "Chalkduster",
+        "familyName" : "Chalkduster",
+        "postScriptName" : "Chalkduster",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Chalkduster.ttf"
+      },
+      "size" : 12.524068322981368
+    },
+    "subtitle" : {
+      "background" : "#FFFFFF",
+      "color" : "#7B6656",
+      "font" : {
+        "displayName" : "Noto Serif Myanmar ExtraBold",
+        "familyName" : "Noto Serif Myanmar",
+        "postScriptName" : "NotoSerifMyanmar-ExtraBold",
+        "styleName" : "ExtraBold",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/NotoSerifMyanmar.ttc"
+      },
+      "size" : 16
+    },
+    "tag" : {
+      "background" : "#C0E5BB",
+      "color" : "#791B36",
+      "font" : {
+        "displayName" : "Cochin Italic",
+        "familyName" : "Cochin",
+        "postScriptName" : "Cochin-Italic",
+        "styleName" : "Italic",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Cochin.ttc"
+      },
+      "size" : 8
+    },
+    "text" : {
+      "background" : "#FFFFFF",
+      "color" : "#2C212A",
+      "font" : {
+        "displayName" : "Andale Mono",
+        "familyName" : "Andale Mono",
+        "postScriptName" : "AndaleMono",
+        "styleName" : "Regular",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Supplemental\/Andale%20Mono.ttf"
+      },
+      "size" : 12
+    },
+    "textblock" : {
+      "background" : "#FFFFFF",
+      "color" : "#251064",
+      "font" : {
+        "displayName" : "Noto Sans Kannada Medium",
+        "familyName" : "Noto Sans Kannada",
+        "postScriptName" : "NotoSansKannada-Medium",
+        "styleName" : "Medium",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/NotoSansKannada.ttc"
+      },
+      "size" : 11
+    },
+    "title" : {
+      "background" : "#FFFFFF",
+      "color" : "#2C212A",
+      "font" : {
+        "displayName" : "Avenir Heavy",
+        "familyName" : "Avenir",
+        "postScriptName" : "Avenir-Heavy",
+        "styleName" : "Heavy",
+        "url" : "file:\/\/\/System\/Library\/Fonts\/Avenir.ttc"
+      },
+      "size" : 18
+    }
+  },
+  "theme" : {
+    "background" : "#FAE9D5",
+    "foreground" : "#2C212A",
+    "foreground-light" : "#B681AC",
+    "foreground-medium" : "#7B6656"
+  }
+}
