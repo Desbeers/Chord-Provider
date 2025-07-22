@@ -35,19 +35,21 @@ struct SplitterView: View {
                         offset = gesture.translation
                     }
                     .onEnded { _ in
-                        sceneState.isAnimating = true
+                        /// Remember the current song renderer
+                        let renderer = sceneState.songRender
+                        sceneState.songRender = .animating
                         /// Hide the editor when its too small
                         if (sceneState.windowWidth / 2) + sceneState.editorOffset + offset.width < 300 {
                             withAnimation {
                                 sceneState.showEditor.toggle()
                             } completion: {
-                                sceneState.isAnimating = false
+                                sceneState.songRender = renderer
                             }
                         } else {
                             withAnimation {
                                 sceneState.editorOffset += offset.width
                             } completion: {
-                                sceneState.isAnimating = false
+                                sceneState.songRender = renderer
                             }
                         }
                         isDragging = false

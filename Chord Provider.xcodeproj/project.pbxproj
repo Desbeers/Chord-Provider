@@ -407,6 +407,8 @@
 		D7F372372E2E57C20075C8E4 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372362E2E57C20075C8E4 /* JSONUtils.swift */; };
 		D7F3723A2E2E6B0A0075C8E4 /* JSONUtils+highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */; };
 		D7F3723B2E2E6B410075C8E4 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372362E2E57C20075C8E4 /* JSONUtils.swift */; };
+		D7F372412E2EAF950075C8E4 /* C64View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372402E2EAF950075C8E4 /* C64View.swift */; };
+		D7F3725F2E2FB36E0075C8E4 /* C64Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3725E2E2FB36E0075C8E4 /* C64Button.swift */; };
 		D7F80D892E1403B6004865FE /* AppSettings+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */; };
 		D7F80D8A2E1403B6004865FE /* AppSettings+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */; };
 		D7F80D8C2E143AA5004865FE /* RenderView+EmptyLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D8B2E143AA5004865FE /* RenderView+EmptyLine.swift */; };
@@ -763,6 +765,8 @@
 		D7F3440F2CECC0C600205A90 /* ChordProParser+addSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+addSection.swift"; sourceTree = "<group>"; };
 		D7F372362E2E57C20075C8E4 /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONUtils+highlight.swift"; sourceTree = "<group>"; };
+		D7F372402E2EAF950075C8E4 /* C64View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C64View.swift; sourceTree = "<group>"; };
+		D7F3725E2E2FB36E0075C8E4 /* C64Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C64Button.swift; sourceTree = "<group>"; };
 		D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Scale.swift"; sourceTree = "<group>"; };
 		D7F80D8B2E143AA5004865FE /* RenderView+EmptyLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+EmptyLine.swift"; sourceTree = "<group>"; };
 		D7F884712DCF63D1007A4BA4 /* SplitterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitterView.swift; sourceTree = "<group>"; };
@@ -1127,6 +1131,7 @@
 				D76C24E02C3A99C000C93D82 /* ShareButton.swift */,
 				D7336AD52C273AD700D0AA8E /* HelpButtons.swift */,
 				D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */,
+				D7F3725E2E2FB36E0075C8E4 /* C64Button.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1251,6 +1256,7 @@
 				D730BBC42CA844C2008719F2 /* ChordDefinitionView.swift */,
 				D730BBC92CA844C2008719F2 /* CreateChordView.swift */,
 				D737F8572D8ED7D7001F1DC5 /* FontOptionsView.swift */,
+				D7F372402E2EAF950075C8E4 /* C64View.swift */,
 				D7C655A22DE07A8800FA605F /* ArrowView.swift */,
 				D70D96C52CB260DD00B51A14 /* Styles.swift */,
 				D70503592D23250200DB897A /* Modifiers.swift */,
@@ -1809,6 +1815,7 @@
 				D7AA50C12E08176B003D731A /* Song+Metadata+chordProCLI.swift in Sources */,
 				D730BC142CA844C2008719F2 /* Chord+Quality+name.swift in Sources */,
 				D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */,
+				D7F372412E2EAF950075C8E4 /* C64View.swift in Sources */,
 				D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */,
 				D7F884742DD084C6007A4BA4 /* EditorView+Items.swift in Sources */,
 				D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */,
@@ -1847,6 +1854,7 @@
 				D730BC292CA844C2008719F2 /* ChordDefinition+transpose.swift in Sources */,
 				D7F056942CEBB45E00E422AA /* ChordProParser+processSourceComment.swift in Sources */,
 				D770846D2D8D962C002530F7 /* SettingsView+options.swift in Sources */,
+				D7F3725F2E2FB36E0075C8E4 /* C64Button.swift in Sources */,
 				D75B48982BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */,
 				D7C655AF2DE31AB400FA605F /* UserFileUtils.swift in Sources */,
 				D77084752D8D978B002530F7 /* SettingsView+editor.swift in Sources */,

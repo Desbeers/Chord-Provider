@@ -15,7 +15,9 @@ extension DebugView {
         case log = "Log output"
         /// Song source messages
         case source = "Generated Source"
-        /// Generated JSON mesages
+        /// Generated JSON messages
         case json = "JSON output"
+        /// Commodore 64
+        case commodore64 = "Commodore 64"
     }
 }

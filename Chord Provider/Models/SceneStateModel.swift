@@ -25,9 +25,8 @@ import OSLog
 
     /// Bool to show the editor or not
     var showEditor: Bool = false
-    /// Bool that some animation is ongoing
-    /// - Note: Used to hide the ``SongView`` during animation because of performance
-    var isAnimating: Bool = false
+    /// The song renderer
+    var songRender: SongRender = .standard
 
     // MARK: Editor stuff
 
@@ -122,6 +121,20 @@ extension SceneStateModel {
         case ready
         /// The View has an error
         case error
+    }
+
+    /// The style of a Song View
+    enum SongRender {
+        /// Standard View
+        case standard
+        /// PDF View
+        case pdf
+        /// Commodore 64 View
+        case c64
+        /// Animating
+        case animating
+        /// No content
+        case noContent
     }
 }
 

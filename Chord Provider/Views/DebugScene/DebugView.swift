@@ -35,6 +35,8 @@ struct DebugView: View {
                 json
             case .source:
                 source
+            case .commodore64:
+                C64View(lines: content.map(\.source))
             }
         }
         .frame(minWidth: 500, minHeight: 600)

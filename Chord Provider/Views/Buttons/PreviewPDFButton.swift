@@ -26,9 +26,11 @@ struct PreviewPDFButton: View {
                 if sceneState.preview.data == nil || replacePreview {
                     Task {
                         await showPreview()
+                        sceneState.songRender = .pdf
                     }
                 } else {
                     sceneState.preview.data = nil
+                    sceneState.songRender = .standard
                 }
             },
             label: {

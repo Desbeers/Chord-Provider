@@ -22,6 +22,7 @@ extension ChordDefinition {
             let root = ChordUtils.transposeNote(note: self.root, transpose: transpose, scale: scale)
             if let chord = chords.matching(root: root).matching(quality: self.quality).matching(slash: self.slash).first {
                 self = chord
+                self.name = self.getName
                 self.status = .transposedChord
             } else {
                 self.root = root

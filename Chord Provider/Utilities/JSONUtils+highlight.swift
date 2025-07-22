@@ -9,7 +9,7 @@ import Foundation
 import RegexBuilder
 
 extension JSONUtils {
-    
+
     /// Highlight a JSON string
     /// - Parameters:
     ///   - code: The JSON code

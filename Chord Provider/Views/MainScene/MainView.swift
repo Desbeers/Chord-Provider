@@ -30,7 +30,7 @@ struct MainView: View {
                 case .loading:
                     progress
                 case .ready:
-                    if sceneState.preview.data == nil {
+                    if sceneState.preview.data == nil && sceneState.songRender != .c64 {
                         HeaderView()
                     }
                     main
@@ -150,7 +150,7 @@ struct MainView: View {
                 appState.song = sceneState.song
             }
         }
-        .animation(.default, value: sceneState.preview)
+        .animation(.default, value: sceneState.songRender)
         .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.song.settings)
         .animation(.default, value: sceneState.status)
@@ -169,46 +169,55 @@ struct MainView: View {
                 SplitterView()
                     .transition(.scale)
             }
-            Group {
-                if let data = sceneState.preview.data {
-                    PreviewPaneView(data: data)
-                        .transition(.move(edge: .trailing))
-                } else if sceneState.isAnimating {
-                    progress
-                } else if sceneState.song.hasContent {
-                    let layout = sceneState.song.settings.display.chordsPosition == .right ?
-                    AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-                    layout {
-                        Group {
-                            SongView(song: sceneState.song)
-                            /// Remember the size of the song part
+
+            switch sceneState.songRender {
+            case .standard:
+                let layout = sceneState.song.settings.display.chordsPosition == .right ?
+                AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
+                layout {
+                    Group {
+                        SongView(song: sceneState.song)
+                        /// Remember the size of the song part
                             .onGeometryChange(for: CGSize.self) { proxy in
                                 proxy.size
                             } action: { newValue in
                                 sceneState.song.settings.scale.maxSongWidth = newValue.width
                             }
-                            if sceneState.song.settings.display.showChords {
-                                Divider()
-                                ChordsView(document: $document)
-                                    .background(appState.settings.style.theme.background)
-                                    .shadow(color: appState.settings.style.theme.foreground.opacity(0.2), radius: 50)
-                            }
+                        if sceneState.song.settings.display.showChords {
+                            Divider()
+                            ChordsView(document: $document)
+                                .background(appState.settings.style.theme.background)
+                                .shadow(color: appState.settings.style.theme.foreground.opacity(0.2), radius: 50)
                         }
-                        /// - Note: Make sure we don't see the splitter cursor here
-                        .pointerStyle(.default)
                     }
-                } else {
-                    ContentUnavailableView("The song has no content", systemImage: "music.quarternote.3")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .foregroundStyle(
-                            appState.settings.style.fonts.text.color,
-                            appState.settings.style.theme.foregroundMedium
-                        )
+                    /// - Note: Make sure we don't see the splitter cursor here
+                    .pointerStyle(.default)
                 }
+            case .pdf:
+                if let data = sceneState.preview.data {
+                    PreviewPaneView(data: data)
+                        .transition(.move(edge: .trailing))
+                } else {
+                    progress
+                }
+            case .c64:
+                C64View(lines: sceneState.song.sections.flatMap(\.lines))
+                    .transition(.move(edge: .trailing))
+            case .animating:
+                progress
+            case .noContent:
+                ContentUnavailableView("The song has no content", systemImage: "music.quarternote.3")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .foregroundStyle(
+                        appState.settings.style.fonts.text.color,
+                        appState.settings.style.theme.foregroundMedium
+                    )
             }
         }
         .frame(maxHeight: .infinity)
-        .background(appState.settings.style.theme.background)
+        .background(
+            appState.settings.style.theme.background
+        )
         /// Remember the size of the whole window
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size
@@ -231,8 +240,12 @@ struct MainView: View {
             .symbolEffect(.bounce, options: .repeat(.continuous))
             .font(.largeTitle)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .foregroundStyle(appState.settings.style.theme.foregroundMedium)
-            .background(appState.settings.style.theme.background)
+            .foregroundStyle(
+                appState.settings.style.theme.foregroundMedium
+            )
+            .background(
+                appState.settings.style.theme.background
+            )
     }
     /// Render the song
     private func renderSong() async {

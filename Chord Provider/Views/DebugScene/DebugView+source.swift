@@ -2,7 +2,7 @@
 //  DebugView+source.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 23/06/2025.
+//  © 2025 Nick Berendsen
 //
 
 import SwiftUI

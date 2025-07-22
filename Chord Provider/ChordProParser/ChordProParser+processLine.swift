@@ -54,7 +54,7 @@ extension ChordProParser {
                 /// Because it has a chord; the section should be at least a verse
                 haveChords = true
                 /// Official **ChordPro** compatibility
-                part.chord = part.chordDefinition?.chordProJSON
+                // part.chord = part.chordDefinition?.chordProJSON
             }
             if let lyric {
                 part.text = String(lyric)
@@ -69,6 +69,20 @@ extension ChordProParser {
             /// Increase the ID
             partID += 1
         }
+
+        /// Calculate the source
+//        line.sourceParsed = parts.map { part in
+//            var string = ""
+//            if let chord = part.chordDefinition {
+//                string += "[\(chord.getName)]"
+//            }
+//            if let text = part.text {
+//                string += text
+//            }
+//            return string
+//        }
+//        .joined()
+
         line.parts = parts
         /// Set the context
         line.context = currentSection.environment

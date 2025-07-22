@@ -212,6 +212,7 @@ SwiftUI Views used all around the application
 - ``ChordDefinitionView``
 - ``CreateChordView``
 - ``FontOptionsView``
+- ``C64View``
 - ``ArrowView``
 - ``Styles``
 - ``Modifiers``
@@ -233,6 +234,7 @@ SwiftUI buttons used all around the application
 - ``FontPickerButton``
 - ``PlayChordButton``
 - ``ExportJSONButton``
+- ``C64Button``
 
 ### SwiftUI Slider Views
 

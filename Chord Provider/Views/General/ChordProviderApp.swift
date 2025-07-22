@@ -70,6 +70,8 @@ import OSLog
                 Divider()
                 WindowVisibilityToggle(windowID: AppDelegate.WindowID.debugView.rawValue)
                 Divider()
+                C64Button()
+                Divider()
             }
 #if DEBUG
             CommandMenu("Debug") {
