@@ -12,34 +12,44 @@ struct C64View: View {
     let lines: [Song.Section.Line]
     @State private var output: [Output] = []
     @State private var run: Bool = false
+    @State private var status: SceneStateModel.Status = .loading
     /// The body of the `View`
     var body: some View {
         VStack {
-            ScrollView {
-                VStack {
-                    Text("**** COMMODORE 64 BASIC V2 ****")
-                    Text("64K RAM SYSTEM 38911 BASIC BYTES FREE")
-                        .padding(.bottom)
-                    VStack(alignment: .leading) {
-                        ForEach(output) { line in
-                            Text(line.code)
+
+            switch status {
+            case .loading:
+                Text("Loading \"song\",8,1")
+                    .font(.system(size: 18, weight: .semibold, design: .monospaced))
+            case .ready:
+                ScrollView {
+                    VStack {
+                        Text("**** COMMODORE 64 BASIC V2 ****")
+                        Text("64K RAM SYSTEM 38911 BASIC BYTES FREE")
+                            .padding(.bottom)
+                        VStack(alignment: .leading) {
+                            ForEach(output) { line in
+                                Text(line.code)
+                            }
+                            Text("READY.")
+                                .padding(.top)
+                            Image(systemName: "square.fill")
+                                .symbolEffect(.pulse, options: .repeat(.continuous))
                         }
-                        Text("READY.")
-                            .padding(.top)
-                        Image(systemName: "square.fill")
-                            .symbolEffect(.pulse, options: .repeat(.continuous))
                     }
+                    .padding()
+                    .background(C64Color.blue.swiftColor)
                 }
-                .padding()
-                .background(C64Color.blue.swiftColor)
-            }
-            .font(.system(size: 18, weight: .semibold, design: .monospaced))
-            Button {
-                withAnimation {
-                    run.toggle()
+                .font(.system(size: 18, weight: .semibold, design: .monospaced))
+                Button {
+                    withAnimation {
+                        run.toggle()
+                    }
+                } label: {
+                    Text(run ? "Stop" : "Run")
                 }
-            } label: {
-                Text(run ? "Stop" : "Run")
+            case .error:
+                Text("Something went wrong...")
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -47,8 +57,10 @@ struct C64View: View {
         .background(C64Color.lightBlue.swiftColor)
         .foregroundStyle(C64Color.lightBlue.swiftColor)
         .animation(.default, value: run)
+        .animation(.default, value: status)
         .task(id: lines) {
             addOutput()
+            status = .ready
         }
         .overlay {
             if run {
@@ -250,6 +262,7 @@ extension C64View {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                 .background(C64Color.black.swiftColor)
             }
             .padding(40)

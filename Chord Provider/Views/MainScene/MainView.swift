@@ -30,8 +30,9 @@ struct MainView: View {
                 case .loading:
                     progress
                 case .ready:
-                    if sceneState.preview.data == nil && sceneState.songRender != .c64 {
+                    if sceneState.preview.data == nil {
                         HeaderView()
+                            .disabled(sceneState.songRender == .c64 )
                     }
                     main
                 case .error:
@@ -150,7 +151,7 @@ struct MainView: View {
                 appState.song = sceneState.song
             }
         }
-        .animation(.default, value: sceneState.songRender)
+        .animation(.default, value: sceneState.preview)
         .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.song.settings)
         .animation(.default, value: sceneState.status)

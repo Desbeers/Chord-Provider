@@ -21,6 +21,8 @@ struct C64Button: View {
                             sceneState.songRender = .standard
                         } else {
                             sceneState.songRender = .c64
+                            /// Make sure there is no preview open
+                            sceneState.preview.data = nil
                         }
                     }
                 }
