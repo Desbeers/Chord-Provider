@@ -67,6 +67,16 @@ extension Song {
             temporaryDirectoryURL.appendingPathComponent(exportName, conformingTo: .pdf)
         }
 
+        /// The URL of the basic file
+        var basicURL: URL {
+            temporaryDirectoryURL.appendingPathComponent("basic", conformingTo: .plainText)
+        }
+
+        /// The URL of the basic file in prg format
+        var basicProgramURL: URL {
+            temporaryDirectoryURL.appendingPathComponent("basic.prg")
+        }
+
         /// The longest label in the song
         /// - Note: Used in PDF output to calculate label offset
         var longestLabel: String = ""

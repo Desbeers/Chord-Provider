@@ -77,6 +77,34 @@ ready.
                     } label: {
                         Text("Copy BASIC Code to Clipboard")
                     }
+#if DEBUG
+                    Button {
+                        if let song = appState.song {
+                            Task {
+                                let basic = output.map(\.code).joined(separator: "\n")
+                                try? basic.write(to: song.metadata.basicURL, atomically: true, encoding: String.Encoding.utf8)
+                                let command = "petcat -w2 -nc -o ~/Desktop/song.prg -- '\(song.metadata.basicURL.path)'"
+                                _ = await ChordProCLI.runInShell(arguments: [command])
+                            }
+                        }
+                    } label: {
+                        Text("Make disk")
+                    }
+                    Button {
+                        if let song = appState.song {
+                            Task {
+                                let basic = output.map(\.code).joined(separator: "\n")
+                                try? basic.write(to: song.metadata.basicURL, atomically: true, encoding: String.Encoding.utf8)
+                                let convert = "petcat -w2 -nc -o '\(song.metadata.basicProgramURL.path)' -- '\(song.metadata.basicURL.path)'"
+                                _ = await ChordProCLI.runInShell(arguments: [convert])
+                                let command = "x64 -autostart '\(song.metadata.basicProgramURL.path)'"
+                                _ = await ChordProCLI.runInShell(arguments: [command])
+                            }
+                        }
+                    } label: {
+                        Text("Run in Vice")
+                    }
+#endif
                 }
                 .disabled(appState.song == nil)
                 .buttonStyle(.bordered)
