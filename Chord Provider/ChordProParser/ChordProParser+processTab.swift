@@ -27,7 +27,8 @@ extension ChordProParser {
             source: text,
             sourceParsed: text.trimmingCharacters(in: .whitespaces),
             type: .songLine,
-            plain: text.trimmingCharacters(in: .whitespaces)
+            context: .tab,
+            plain: text.trimmingCharacters(in: .whitespaces),
         )
         /// Set the context
         line.context = currentSection.environment

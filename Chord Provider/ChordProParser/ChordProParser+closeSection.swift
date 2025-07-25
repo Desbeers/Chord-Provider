@@ -30,7 +30,8 @@ extension ChordProParser {
                 source: "{\(directive.rawValue.long)}",
                 sourceParsed: "{\(closingDirective.rawValue.long)}",
                 directive: closingDirective,
-                type: .environmentDirective
+                type: .environmentDirective,
+                context: currentSection.environment
             )
             if warning {
                 currentSection.lines[lastLineIndex].addWarning("The section is not properly closed with **{\(closingDirective.rawValue.long)}**")
@@ -43,7 +44,8 @@ extension ChordProParser {
                 source: "{\(directive.rawValue.long)}",
                 sourceParsed: "{\(closingDirective.rawValue.long)}",
                 directive: closingDirective,
-                type: .environmentDirective
+                type: .environmentDirective,
+                context: currentSection.environment
             )
             /// Add optional warnings
             if let warnings = currentSection.warnings {

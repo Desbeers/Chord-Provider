@@ -36,7 +36,7 @@ extension Song.Section {
         /// The type of the line
         var type: ChordPro.LineType = .unknown
         /// The context of the line
-        var context: ChordPro.Environment?
+        var context: ChordPro.Environment = .none
 
         /// Optional warnings about the content of the line
         private(set) var warnings: Set<String>?
@@ -56,7 +56,7 @@ extension Song.Section {
 
         /// The calculated label of the directive
         var label: String {
-            arguments?[.plain] ?? arguments?[.label] ?? plain ?? context?.label ?? ""
+            arguments?[.plain] ?? arguments?[.label] ?? plain ?? context.label
         }
 
         /// Add a single warning to the set of warnings
@@ -133,12 +133,9 @@ extension Song.Section.Line {
             self.directive = nil
         }
 
-        /// Decode an optional context string to a ``ChordPro/Environment``
-        if let context = try container.decodeIfPresent(String.self, forKey: .context) {
-            self.context = ChordPro.Environment(rawValue: context)
-        } else {
-            self.context = nil
-        }
+        /// Decode the context string to a ``ChordPro/Environment``
+        let context = try container.decode(String.self, forKey: .context)
+        self.context = ChordPro.Environment(rawValue: context) ?? .none
 
         /// Decode a type string to a ``Song/Section/Line/LineType``
         let type = try container.decode(String.self, forKey: .type)
@@ -190,7 +187,7 @@ extension Song.Section.Line {
         try container.encodeIfPresent(stringDictionary, forKey: .arguments)
 
         /// Encode an optional context ``ChordPro/Environment`` to a String
-        try container.encodeIfPresent(self.context?.rawValue, forKey: .context)
+        try container.encode(self.context.rawValue, forKey: .context)
 
         try container.encode(self.source, forKey: .source)
         try container.encode(self.sourceParsed, forKey: .sourceParsed)

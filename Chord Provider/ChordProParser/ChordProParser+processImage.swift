@@ -27,6 +27,7 @@ extension ChordProParser {
                 source: source,
                 directive: .image,
                 arguments: arguments,
+                context: .image
             )
             line.calculateSource()
             line.addWarning("Images inside a \(currentSection.environment.rawValue) is not supported")

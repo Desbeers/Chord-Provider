@@ -28,7 +28,7 @@ extension ChordProParser {
                 sourceParsed: comment.trimmingCharacters(in: .whitespaces),
                 directive: currentSection.environment == .textblock ? nil : .sourceComment,
                 type: currentSection.environment == .textblock ? .songLine : .sourceComment,
-                context: currentSection.environment == .textblock ? .textblock : nil,
+                context: currentSection.environment == .textblock ? .textblock : .sourceComment,
                 plain: comment.trimmingCharacters(in: .whitespaces)
             )
             currentSection.lines.append(line)
