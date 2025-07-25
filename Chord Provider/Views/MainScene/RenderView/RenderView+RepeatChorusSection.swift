@@ -20,8 +20,9 @@ extension RenderView {
             /// Check if we have to repeat the whole chorus
             if
                 settings.application.repeatWholeChorus,
-                let plainLabel = section.lines.first?.plain,
-                let lastChorus = sections.last(where: { $0.environment == .chorus && $0.label == plainLabel }) {
+                let lastChorus = sections.last(
+                    where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
+                ) {
                 /// Repeat the whole last chorus with the same label
                 self.section = lastChorus
             } else {

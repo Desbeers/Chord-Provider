@@ -26,7 +26,7 @@ import OSLog
     /// Bool to show the editor or not
     var showEditor: Bool = false
     /// The song renderer
-    var songRender: SongRender = .standard
+    var songRenderer: SongRenderer = .standard
 
     // MARK: Editor stuff
 
@@ -123,18 +123,14 @@ extension SceneStateModel {
         case error
     }
 
-    /// The style of a Song View
-    enum SongRender {
+    /// The renderer of a Song View
+    enum SongRenderer {
         /// Standard View
         case standard
         /// PDF View
         case pdf
-        /// Commodore 64 View
-        case c64
         /// Animating
         case animating
-        /// No content
-        case noContent
     }
 }
 

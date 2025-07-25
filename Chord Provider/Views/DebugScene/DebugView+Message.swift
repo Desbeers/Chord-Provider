@@ -17,7 +17,5 @@ extension DebugView {
         case source = "Generated Source"
         /// Generated JSON messages
         case json = "JSON output"
-        /// Commodore 64
-        case commodore64 = "Commodore 64"
     }
 }

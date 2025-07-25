@@ -36,20 +36,20 @@ struct SplitterView: View {
                     }
                     .onEnded { _ in
                         /// Remember the current song renderer
-                        let renderer = sceneState.songRender
-                        sceneState.songRender = .animating
+                        let renderer = sceneState.songRenderer
+                        sceneState.songRenderer = .animating
                         /// Hide the editor when its too small
                         if (sceneState.windowWidth / 2) + sceneState.editorOffset + offset.width < 300 {
                             withAnimation {
                                 sceneState.showEditor.toggle()
                             } completion: {
-                                sceneState.songRender = renderer
+                                sceneState.songRenderer = renderer
                             }
                         } else {
                             withAnimation {
                                 sceneState.editorOffset += offset.width
                             } completion: {
-                                sceneState.songRender = renderer
+                                sceneState.songRenderer = renderer
                             }
                         }
                         isDragging = false

@@ -1,5 +1,5 @@
 //
-//  DebugView+log.swift
+//  DebugView+logView.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -10,7 +10,7 @@ import SwiftUI
 extension DebugView {
 
     /// The log tab of the `View`
-    @ViewBuilder var log: some View {
+    @ViewBuilder var logView: some View {
         ScrollView {
             ScrollViewReader { value in
                 LazyVStack(spacing: 0) {

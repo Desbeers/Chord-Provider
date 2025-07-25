@@ -125,3 +125,36 @@ extension String {
         return output
     }
 }
+
+extension String {
+
+    /// Split a string at a space  by a length
+    /// - Parameter length: The maximum lenght
+    /// - Returns: An array of strings
+    func split(by length: Int) -> [String] {
+        var result = [String]()
+        var collectedWords = [String]()
+        collectedWords.reserveCapacity(length)
+        var count = 0
+        let words = self.components(separatedBy: " ")
+
+        for word in words {
+            count += word.count + 1
+            if count > length {
+                /// Reached the desired length
+                result.append(collectedWords.map { String($0) }.joined(separator: " ") )
+                collectedWords.removeAll(keepingCapacity: true)
+                count = word.count
+                collectedWords.append(word)
+            } else {
+                collectedWords.append(word)
+            }
+        }
+        /// Append the remainder
+        if !collectedWords.isEmpty {
+            result.append(collectedWords.map { String($0) }.joined(separator: " "))
+        }
+
+        return result
+    }
+}

@@ -65,6 +65,7 @@ extension ChordProParser {
             directive: ChordPro.Directive.customDirectives.contains(directive) ? nil : directive,
             arguments: arguments.isEmpty ? nil : arguments,
             type: directive.details.lineType,
+            context: directive.details.environment,
             plain: plain
         )
         if source == nil {

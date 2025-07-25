@@ -50,14 +50,14 @@ extension Song.Section {
         /// The optional strum pattern in the line
         var strum: [[Strum]]?
 
-        /// The calculated label of the directive
-        var label: String {
-            arguments?[.plain] ?? arguments?[.label] ?? ""
-        }
-
         /// A plain text version of the line
         /// - Note: The lyrics of a line, a comment or a tab for example
         var plain: String?
+
+        /// The calculated label of the directive
+        var label: String {
+            arguments?[.plain] ?? arguments?[.label] ?? plain ?? context?.label ?? ""
+        }
 
         /// Add a single warning to the set of warnings
         /// - Note: warnings are *optionals* so we can not just 'insert' it

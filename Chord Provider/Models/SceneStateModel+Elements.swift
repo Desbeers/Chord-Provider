@@ -392,14 +392,12 @@ extension SceneStateModel {
         var body: some View {
             Button {
                 /// Remember the current song renderer
-                let renderer = sceneState.songRender
-                sceneState.songRender = .animating
+                let renderer = sceneState.songRenderer
+                sceneState.songRenderer = renderer == .standard ? .animating : renderer
                 withAnimation {
                     sceneState.showEditor.toggle()
-                    /// Hide the song display by settings its width to zero
-                    sceneState.song.settings.scale.maxSongWidth = 0
                 } completion: {
-                    sceneState.songRender = renderer
+                    sceneState.songRenderer = renderer
                 }
             } label: {
                 Label("Edit", systemImage: sceneState.showEditor ? "pencil.circle.fill" : "pencil.circle")

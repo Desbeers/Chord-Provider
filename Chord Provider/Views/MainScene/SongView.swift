@@ -41,13 +41,18 @@ struct SongView: View {
                     .background(.regularMaterial)
                 }
             case .error:
-                Text("error")
+                ContentUnavailableView("The song has no content", systemImage: "music.quarternote.3")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .foregroundStyle(
+                        song.settings.style.fonts.text.color,
+                        song.settings.style.theme.foregroundMedium
+                    )
             }
         }
         .animation(.default, value: status)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .task(id: song.settings.scale.maxSongWidth) {
-            status = song.settings.scale.maxSongWidth > 0 ? .ready : .loading
+        .task(id: song.hasContent) {
+            status = song.hasContent ? .ready : .error
         }
     }
 }

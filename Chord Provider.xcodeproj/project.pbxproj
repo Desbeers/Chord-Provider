@@ -164,9 +164,9 @@
 		D733F6002B90A8AA0065D6FD /* AppStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */; };
 		D733F6022B90B1B40065D6FD /* SceneStateModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6012B90B1B40065D6FD /* SceneStateModel+Elements.swift */; };
 		D733F6042B90CC1C0065D6FD /* FileBrowserModel+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = D733F6032B90CC1C0065D6FD /* FileBrowserModel+Elements.swift */; };
-		D7349E192E09893E002821D3 /* DebugView+log.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E182E09893E002821D3 /* DebugView+log.swift */; };
-		D7349E1B2E098980002821D3 /* DebugView+json.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E1A2E098980002821D3 /* DebugView+json.swift */; };
-		D7349E1D2E0989BC002821D3 /* DebugView+source.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E1C2E0989BC002821D3 /* DebugView+source.swift */; };
+		D7349E192E09893E002821D3 /* DebugView+logView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E182E09893E002821D3 /* DebugView+logView.swift */; };
+		D7349E1B2E098980002821D3 /* DebugView+jsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E1A2E098980002821D3 /* DebugView+jsonView.swift */; };
+		D7349E1D2E0989BC002821D3 /* DebugView+sourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7349E1C2E0989BC002821D3 /* DebugView+sourceView.swift */; };
 		D737F8552D8ED633001F1DC5 /* FontUtils+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D737F8542D8ED633001F1DC5 /* FontUtils+Config.swift */; };
 		D737F8562D8ED633001F1DC5 /* FontUtils+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = D737F8542D8ED633001F1DC5 /* FontUtils+Config.swift */; };
 		D737F8582D8ED7D7001F1DC5 /* FontOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D737F8572D8ED7D7001F1DC5 /* FontOptionsView.swift */; };
@@ -408,7 +408,12 @@
 		D7F3723A2E2E6B0A0075C8E4 /* JSONUtils+highlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */; };
 		D7F3723B2E2E6B410075C8E4 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372362E2E57C20075C8E4 /* JSONUtils.swift */; };
 		D7F372412E2EAF950075C8E4 /* C64View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372402E2EAF950075C8E4 /* C64View.swift */; };
-		D7F3725F2E2FB36E0075C8E4 /* C64Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3725E2E2FB36E0075C8E4 /* C64Button.swift */; };
+		D7F372632E311BAA0075C8E4 /* C64View+runView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372622E311BAA0075C8E4 /* C64View+runView.swift */; };
+		D7F3726A2E31268E0075C8E4 /* C64Font.otf in CopyFiles */ = {isa = PBXBuildFile; fileRef = D7F372682E3126660075C8E4 /* C64Font.otf */; };
+		D7F3726C2E3252B10075C8E4 /* C64View+functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3726B2E3252B10075C8E4 /* C64View+functions.swift */; };
+		D7F3726E2E32531A0075C8E4 /* C64View+structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3726D2E32531A0075C8E4 /* C64View+structures.swift */; };
+		D7F372702E325DBF0075C8E4 /* C64View+sourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F3726F2E325DBF0075C8E4 /* C64View+sourceView.swift */; };
+		D7F372722E33A2270075C8E4 /* DebugView+functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F372712E33A2270075C8E4 /* DebugView+functions.swift */; };
 		D7F80D892E1403B6004865FE /* AppSettings+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */; };
 		D7F80D8A2E1403B6004865FE /* AppSettings+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */; };
 		D7F80D8C2E143AA5004865FE /* RenderView+EmptyLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F80D8B2E143AA5004865FE /* RenderView+EmptyLine.swift */; };
@@ -453,6 +458,16 @@
 				D7F140062A646356002D875D /* ChordPro Preview.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D7F372692E31267F0075C8E4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				D7F3726A2E31268E0075C8E4 /* C64Font.otf in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -570,9 +585,9 @@
 		D733F5FF2B90A8AA0065D6FD /* AppStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppStateModel+Elements.swift"; sourceTree = "<group>"; };
 		D733F6012B90B1B40065D6FD /* SceneStateModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneStateModel+Elements.swift"; sourceTree = "<group>"; };
 		D733F6032B90CC1C0065D6FD /* FileBrowserModel+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileBrowserModel+Elements.swift"; sourceTree = "<group>"; };
-		D7349E182E09893E002821D3 /* DebugView+log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+log.swift"; sourceTree = "<group>"; };
-		D7349E1A2E098980002821D3 /* DebugView+json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+json.swift"; sourceTree = "<group>"; };
-		D7349E1C2E0989BC002821D3 /* DebugView+source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+source.swift"; sourceTree = "<group>"; };
+		D7349E182E09893E002821D3 /* DebugView+logView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+logView.swift"; sourceTree = "<group>"; };
+		D7349E1A2E098980002821D3 /* DebugView+jsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+jsonView.swift"; sourceTree = "<group>"; };
+		D7349E1C2E0989BC002821D3 /* DebugView+sourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+sourceView.swift"; sourceTree = "<group>"; };
 		D737F8542D8ED633001F1DC5 /* FontUtils+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontUtils+Config.swift"; sourceTree = "<group>"; };
 		D737F8572D8ED7D7001F1DC5 /* FontOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontOptionsView.swift; sourceTree = "<group>"; };
 		D73A03E82AC85B6100D6CD0E /* RenderView+ChordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+ChordView.swift"; sourceTree = "<group>"; };
@@ -766,7 +781,12 @@
 		D7F372362E2E57C20075C8E4 /* JSONUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONUtils+highlight.swift"; sourceTree = "<group>"; };
 		D7F372402E2EAF950075C8E4 /* C64View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C64View.swift; sourceTree = "<group>"; };
-		D7F3725E2E2FB36E0075C8E4 /* C64Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = C64Button.swift; sourceTree = "<group>"; };
+		D7F372622E311BAA0075C8E4 /* C64View+runView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C64View+runView.swift"; sourceTree = "<group>"; };
+		D7F372682E3126660075C8E4 /* C64Font.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = C64Font.otf; sourceTree = "<group>"; };
+		D7F3726B2E3252B10075C8E4 /* C64View+functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C64View+functions.swift"; sourceTree = "<group>"; };
+		D7F3726D2E32531A0075C8E4 /* C64View+structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C64View+structures.swift"; sourceTree = "<group>"; };
+		D7F3726F2E325DBF0075C8E4 /* C64View+sourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "C64View+sourceView.swift"; sourceTree = "<group>"; };
+		D7F372712E33A2270075C8E4 /* DebugView+functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DebugView+functions.swift"; sourceTree = "<group>"; };
 		D7F80D882E1403B6004865FE /* AppSettings+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Scale.swift"; sourceTree = "<group>"; };
 		D7F80D8B2E143AA5004865FE /* RenderView+EmptyLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+EmptyLine.swift"; sourceTree = "<group>"; };
 		D7F884712DCF63D1007A4BA4 /* SplitterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitterView.swift; sourceTree = "<group>"; };
@@ -1131,7 +1151,6 @@
 				D76C24E02C3A99C000C93D82 /* ShareButton.swift */,
 				D7336AD52C273AD700D0AA8E /* HelpButtons.swift */,
 				D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */,
-				D7F3725E2E2FB36E0075C8E4 /* C64Button.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1211,9 +1230,10 @@
 			isa = PBXGroup;
 			children = (
 				D75955B22CF9D65A00CF3590 /* DebugView.swift */,
-				D7349E1C2E0989BC002821D3 /* DebugView+source.swift */,
-				D7349E1A2E098980002821D3 /* DebugView+json.swift */,
-				D7349E182E09893E002821D3 /* DebugView+log.swift */,
+				D7349E182E09893E002821D3 /* DebugView+logView.swift */,
+				D7349E1C2E0989BC002821D3 /* DebugView+sourceView.swift */,
+				D7349E1A2E098980002821D3 /* DebugView+jsonView.swift */,
+				D7F372712E33A2270075C8E4 /* DebugView+functions.swift */,
 				D75955AE2CF9D5E500CF3590 /* DebugView+Message.swift */,
 			);
 			path = DebugScene;
@@ -1256,7 +1276,6 @@
 				D730BBC42CA844C2008719F2 /* ChordDefinitionView.swift */,
 				D730BBC92CA844C2008719F2 /* CreateChordView.swift */,
 				D737F8572D8ED7D7001F1DC5 /* FontOptionsView.swift */,
-				D7F372402E2EAF950075C8E4 /* C64View.swift */,
 				D7C655A22DE07A8800FA605F /* ArrowView.swift */,
 				D70D96C52CB260DD00B51A14 /* Styles.swift */,
 				D70503592D23250200DB897A /* Modifiers.swift */,
@@ -1428,6 +1447,7 @@
 				D77979262BED7FA200BE165A /* Extensions */,
 				D730BBB32CA844C2008719F2 /* Resources */,
 				D7F13F902A6460B7002D875D /* QuickLook */,
+				D7F372672E31264A0075C8E4 /* Fonts */,
 				D705031E2D21267500DB897A /* Samples */,
 			);
 			path = "Chord Provider";
@@ -1525,6 +1545,7 @@
 				D77DF8C12D2407A2000A0557 /* MediaPlayerScene */,
 				D77DF8C02D240791000A0557 /* SettingsScene */,
 				D77DF8C22D2407B4000A0557 /* HelpScene */,
+				D7F372612E3119A40075C8E4 /* C64Scene */,
 				D77DF8BF2D2406EF000A0557 /* DebugScene */,
 				D77DF8C32D2407D2000A0557 /* Shared */,
 				D7650DB12C5ABC3A0085949E /* Buttons */,
@@ -1556,6 +1577,26 @@
 				D740728C2BA20D9000DD52F0 /* QuickLookThumbnailing.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D7F372612E3119A40075C8E4 /* C64Scene */ = {
+			isa = PBXGroup;
+			children = (
+				D7F372402E2EAF950075C8E4 /* C64View.swift */,
+				D7F3726F2E325DBF0075C8E4 /* C64View+sourceView.swift */,
+				D7F372622E311BAA0075C8E4 /* C64View+runView.swift */,
+				D7F3726D2E32531A0075C8E4 /* C64View+structures.swift */,
+				D7F3726B2E3252B10075C8E4 /* C64View+functions.swift */,
+			);
+			path = C64Scene;
+			sourceTree = "<group>";
+		};
+		D7F372672E31264A0075C8E4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D7F372682E3126660075C8E4 /* C64Font.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1601,6 +1642,7 @@
 				D7F13F6D2A645FEC002D875D /* Resources */,
 				D7F1400A2A646356002D875D /* Embed Foundation Extensions */,
 				D7F1401A2A646B78002D875D /* Run SwiftLint */,
+				D7F372692E31267F0075C8E4 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -1766,6 +1808,7 @@
 				D7C47CCE2DA15FE40037CC00 /* AppSettings+ChordProExport.swift in Sources */,
 				D7CA63312AED3D4E00C6B4BB /* MetronomeButton.swift in Sources */,
 				D730BC1A2CA844C2008719F2 /* ChordDefinition+Status.swift in Sources */,
+				D7F3726E2E32531A0075C8E4 /* C64View+structures.swift in Sources */,
 				D730BBDE2CA844C2008719F2 /* Bundle+extensions.swift in Sources */,
 				D7C655A72DE1BD2700FA605F /* Documentation.docc in Sources */,
 				D75B48912BDBD3A2001F6176 /* FolderExport+toc.swift in Sources */,
@@ -1784,7 +1827,7 @@
 				D70B72742BD3CD2F003C89B4 /* PDFBuild+Chords.swift in Sources */,
 				D752E5B42CC3677600CDE42D /* ChordsDatabaseView+grid.swift in Sources */,
 				D770847B2D8DC33A002530F7 /* FontUtils+Options.swift in Sources */,
-				D7349E192E09893E002821D3 /* DebugView+log.swift in Sources */,
+				D7349E192E09893E002821D3 /* DebugView+logView.swift in Sources */,
 				D76C24E32C3AA2AA00C93D82 /* PreviewPaneView.swift in Sources */,
 				D74C86D12BD6CF2C00003828 /* FolderExport+export.swift in Sources */,
 				D72EDE3E2BF789EE00624827 /* ChordPro+Directive+Details.swift in Sources */,
@@ -1794,6 +1837,7 @@
 				D7EA87612C5A580A009A3D82 /* Editor+highlight.swift in Sources */,
 				D7CA63272AEB397A00C6B4BB /* MetronomeModel.swift in Sources */,
 				D7EC28A12BF690FE00F220A1 /* String+extensions.swift in Sources */,
+				D7F372632E311BAA0075C8E4 /* C64View+runView.swift in Sources */,
 				D75E6C652DABB0530065F1D2 /* RenderView+TextblockSection.swift in Sources */,
 				D7496DD02CEE3DE000C8FFA8 /* ChordProParser+processComment.swift in Sources */,
 				D77CDB1C2D7334E300943462 /* SongFileUtils+Artist.swift in Sources */,
@@ -1816,6 +1860,7 @@
 				D730BC142CA844C2008719F2 /* Chord+Quality+name.swift in Sources */,
 				D78E1ECD2AC57E89001A0641 /* EditorView+DirectiveSheet.swift in Sources */,
 				D7F372412E2EAF950075C8E4 /* C64View.swift in Sources */,
+				D7F372722E33A2270075C8E4 /* DebugView+functions.swift in Sources */,
 				D7F13FD72A6460B7002D875D /* ChordPro+Directive.swift in Sources */,
 				D7F884742DD084C6007A4BA4 /* EditorView+Items.swift in Sources */,
 				D7CA631F2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift in Sources */,
@@ -1854,7 +1899,6 @@
 				D730BC292CA844C2008719F2 /* ChordDefinition+transpose.swift in Sources */,
 				D7F056942CEBB45E00E422AA /* ChordProParser+processSourceComment.swift in Sources */,
 				D770846D2D8D962C002530F7 /* SettingsView+options.swift in Sources */,
-				D7F3725F2E2FB36E0075C8E4 /* C64Button.swift in Sources */,
 				D75B48982BDD4A5A001F6176 /* PDFBuild+PageBackgroundColor.swift in Sources */,
 				D7C655AF2DE31AB400FA605F /* UserFileUtils.swift in Sources */,
 				D77084752D8D978B002530F7 /* SettingsView+editor.swift in Sources */,
@@ -1897,6 +1941,7 @@
 				D7EF99652BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
 				D733F6022B90B1B40065D6FD /* SceneStateModel+Elements.swift in Sources */,
 				D752E5AC2CBC306500CDE42D /* ChordProParser+processLine.swift in Sources */,
+				D7F3726C2E3252B10075C8E4 /* C64View+functions.swift in Sources */,
 				D7C78DF52DBBA61E00CD4CBB /* ChordProParser+processTextblock.swift in Sources */,
 				D706FD962BCECC9F005DEDF6 /* PDFBuild+Padding.swift in Sources */,
 				D730BBED2CA844C2008719F2 /* MidiPlayer.swift in Sources */,
@@ -1941,6 +1986,7 @@
 				D70B72822BD5040C003C89B4 /* PDFBuild+Comment.swift in Sources */,
 				D730BBCC2CA844C2008719F2 /* Chord+Instrument.swift in Sources */,
 				D730BC052CA844C2008719F2 /* Chord.swift in Sources */,
+				D7F372702E325DBF0075C8E4 /* C64View+sourceView.swift in Sources */,
 				D70B72882BD5111D003C89B4 /* PDFBuild+GridSection.swift in Sources */,
 				D7F13FC72A6460B7002D875D /* FileBrowserModel.swift in Sources */,
 				D730BC7F2CA85396008719F2 /* AppSettings+Display.swift in Sources */,
@@ -2012,7 +2058,7 @@
 				D7781B532D0F205F00EC0CCF /* PDFBuild+arguments.swift in Sources */,
 				D70503282D21532B00DB897A /* HelpView.swift in Sources */,
 				D770846F2D8D9683002530F7 /* SettingsView+style.swift in Sources */,
-				D7349E1B2E098980002821D3 /* DebugView+json.swift in Sources */,
+				D7349E1B2E098980002821D3 /* DebugView+jsonView.swift in Sources */,
 				D70D96DB2CB2ACAE00B51A14 /* JSONDocument.swift in Sources */,
 				D75955B32CF9D65A00CF3590 /* DebugView.swift in Sources */,
 				D7336AD62C273AD700D0AA8E /* HelpButtons.swift in Sources */,
@@ -2025,7 +2071,7 @@
 				D75E6C632DABB02E0065F1D2 /* RenderView+GridSection.swift in Sources */,
 				D7EF99692BDADC2E0058E1CB /* AppError.swift in Sources */,
 				D75B48952BDD2291001F6176 /* FolderExport+files.swift in Sources */,
-				D7349E1D2E0989BC002821D3 /* DebugView+source.swift in Sources */,
+				D7349E1D2E0989BC002821D3 /* DebugView+sourceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

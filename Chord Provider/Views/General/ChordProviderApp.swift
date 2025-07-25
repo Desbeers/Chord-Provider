@@ -70,7 +70,7 @@ import OSLog
                 Divider()
                 WindowVisibilityToggle(windowID: AppDelegate.WindowID.debugView.rawValue)
                 Divider()
-                C64Button()
+                WindowVisibilityToggle(windowID: AppDelegate.WindowID.c64View.rawValue)
                 Divider()
             }
 #if DEBUG
@@ -148,6 +148,17 @@ import OSLog
                 .environment(appState)
         }
         .defaultLaunchBehavior(.suppressed)
+        .commandsRemoved()
+
+        // MARK: C64 window
+
+        Window(AppDelegate.WindowID.c64View.rawValue, id: AppDelegate.WindowID.c64View.rawValue) {
+            C64View()
+                .environment(appState)
+        }
+        .defaultLaunchBehavior(.suppressed)
+        .defaultSize(width: 640, height: 480)
+        .windowResizability(.contentSize)
         .commandsRemoved()
 
         // MARK: Export Folder window

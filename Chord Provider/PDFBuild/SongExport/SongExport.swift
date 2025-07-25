@@ -337,7 +337,9 @@ extension SongExport {
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if
                 song.settings.application.repeatWholeChorus,
-                let lastChorus = song.sections.last(where: { $0.environment == .chorus && $0.label == section.label }) {
+                let lastChorus = song.sections.last(
+                    where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
+                ) {
                 return lyricsSection(section: lastChorus)
             } else {
                 return PDFBuild.Section(

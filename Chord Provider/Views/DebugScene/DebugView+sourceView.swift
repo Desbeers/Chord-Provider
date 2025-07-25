@@ -1,5 +1,5 @@
 //
-//  DebugView+source.swift
+//  DebugView+sourceView.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -10,10 +10,10 @@ import SwiftUI
 extension DebugView {
 
     /// The source tab of the `View`
-    @ViewBuilder var source: some View {
+    @ViewBuilder var sourceView: some View {
         if appState.song != nil {
             List {
-                ForEach(content, id: \.line) { line in
+                ForEach(source, id: \.line) { line in
                     VStack(alignment: .leading) {
                         HStack {
                             Text("\(line.line)")

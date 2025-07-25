@@ -25,14 +25,18 @@ struct MainView: View {
     /// The body of the `View`
     var body: some View {
         ZStack {
+            Rectangle()
+                .fill(
+                    appState.settings.style.theme.background
+                )
             VStack(spacing: 0) {
                 switch sceneState.status {
                 case .loading:
                     progress
                 case .ready:
-                    if sceneState.preview.data == nil {
+                    if sceneState.songRenderer != .pdf {
                         HeaderView()
-                            .disabled(sceneState.songRender == .c64 )
+                            .transition(.move(edge: .top))
                     }
                     main
                 case .error:
@@ -91,7 +95,7 @@ struct MainView: View {
         }
         .onChange(of: document.text) {
             Task {
-                await renderSong()
+                await renderSong(updatePreview: false)
             }
         }
         .onChange(of: sceneState.song.metadata.transpose) {
@@ -140,18 +144,13 @@ struct MainView: View {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings) {
-            if sceneState.preview.data != nil {
-                sceneState.preview.outdated = true
-            }
-        }
         .onChange(of: appearsActive) { _, newValue in
             if newValue {
                 /// Pass the song to the application state for the debug view because it has the focus
                 appState.song = sceneState.song
             }
         }
-        .animation(.default, value: sceneState.preview)
+        .animation(.easeInOut, value: sceneState.songRenderer)
         .animation(.default, value: sceneState.song.metadata)
         .animation(.default, value: sceneState.song.settings)
         .animation(.default, value: sceneState.status)
@@ -166,12 +165,9 @@ struct MainView: View {
                 EditorView(document: $document)
                     .frame(minWidth: 300)
                     .frame(width: sceneState.editorWidth)
-                    .transition(.opacity)
-                SplitterView()
-                    .transition(.scale)
+                    .transition(.move(edge: .leading))
             }
-
-            switch sceneState.songRender {
+            switch sceneState.songRenderer {
             case .standard:
                 let layout = sceneState.song.settings.display.chordsPosition == .right ?
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
@@ -195,30 +191,13 @@ struct MainView: View {
                     .pointerStyle(.default)
                 }
             case .pdf:
-                if let data = sceneState.preview.data {
-                    PreviewPaneView(data: data)
-                        .transition(.move(edge: .trailing))
-                } else {
-                    progress
-                }
-            case .c64:
-                C64View(lines: sceneState.song.sections.flatMap(\.lines))
+                PreviewPaneView()
                     .transition(.move(edge: .trailing))
             case .animating:
                 progress
-            case .noContent:
-                ContentUnavailableView("The song has no content", systemImage: "music.quarternote.3")
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .foregroundStyle(
-                        appState.settings.style.fonts.text.color,
-                        appState.settings.style.theme.foregroundMedium
-                    )
             }
         }
         .frame(maxHeight: .infinity)
-        .background(
-            appState.settings.style.theme.background
-        )
         /// Remember the size of the whole window
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size
@@ -244,17 +223,24 @@ struct MainView: View {
             .foregroundStyle(
                 appState.settings.style.theme.foregroundMedium
             )
-            .background(
-                appState.settings.style.theme.background
-            )
     }
     /// Render the song
-    private func renderSong() async {
+    private func renderSong(updatePreview: Bool = true) async {
         sceneState.song.content = document.text
         sceneState.song.metadata.fileURL = fileURL
         sceneState.song = await ChordProParser.parse(song: sceneState.song)
         sceneState.getMedia()
         appState.lastUpdate = .now
+
+        /// Optional update the PDF preview
+        if updatePreview, sceneState.songRenderer == .pdf {
+            /// Render a new PDF
+            if let pdf = try? await sceneState.exportSongToPDF() {
+                /// Show the updated preview
+                sceneState.preview.data = pdf
+            }
+        }
+
         /// Save the song to disk for sharing
         try? sceneState.song.content.write(to: sceneState.song.metadata.sourceURL, atomically: true, encoding: String.Encoding.utf8)
 

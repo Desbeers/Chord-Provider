@@ -70,19 +70,6 @@ extension ChordProParser {
             partID += 1
         }
 
-        /// Calculate the source
-//        line.sourceParsed = parts.map { part in
-//            var string = ""
-//            if let chord = part.chordDefinition {
-//                string += "[\(chord.getName)]"
-//            }
-//            if let text = part.text {
-//                string += text
-//            }
-//            return string
-//        }
-//        .joined()
-
         line.parts = parts
         /// Set the context
         line.context = currentSection.environment

@@ -28,7 +28,8 @@ extension ChordProParser {
                 sourceParsed: "{\(environment.directives.open.rawValue.long)}",
                 directive: environment.directives.open,
                 arguments: nil,
-                type: .environmentDirective
+                type: .environmentDirective,
+                context: environment
             )
             /// Add a warning to the first line
             currentSection.lines[firstLineIndex].addWarning("No environment set, using **\(environment.rawValue)**")

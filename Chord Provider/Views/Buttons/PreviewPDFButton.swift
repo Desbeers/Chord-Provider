@@ -26,11 +26,15 @@ struct PreviewPDFButton: View {
                 if sceneState.preview.data == nil || replacePreview {
                     Task {
                         await showPreview()
-                        sceneState.songRender = .pdf
+                        sceneState.songRenderer = .pdf
                     }
                 } else {
-                    sceneState.preview.data = nil
-                    sceneState.songRender = .standard
+                    Task {
+                        sceneState.songRenderer = .animating
+                        sceneState.preview.data = nil
+                        try? await Task.sleep(for: .milliseconds(400))
+                        sceneState.songRenderer = .standard
+                    }
                 }
             },
             label: {

@@ -1,5 +1,5 @@
 //
-//  DebugView+json.swift
+//  DebugView+jsonView.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -10,7 +10,7 @@ import SwiftUI
 extension DebugView {
 
     /// The json tab of the `View`
-    @ViewBuilder var json: some View {
+    @ViewBuilder var jsonView: some View {
         HStack {
             List(selection: $jsonPart) {
                 ForEach(Part.allCases, id: \.self) { part in

@@ -23,15 +23,18 @@ struct EditorView: View {
     var body: some View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState = sceneState
-        VStack(spacing: 0) {
-            Divider()
-            HStack {
-                directiveMenus
+        HStack(spacing: 0) {
+            VStack(spacing: 0) {
+                Divider()
+                HStack {
+                    directiveMenus
+                }
+                .padding(6)
+                .frame(maxWidth: .infinity)
+                .background(Color(nsColor: Editor.highlightedBackgroundColor))
+                editor
             }
-            .padding(6)
-            .frame(maxWidth: .infinity)
-            .background(Color(nsColor: Editor.highlightedBackgroundColor))
-            editor
+            SplitterView()
         }
         .background(Color(nsColor: .windowBackgroundColor))
         /// Show a sheet to add or edit a directive

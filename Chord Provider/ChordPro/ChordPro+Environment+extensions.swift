@@ -42,7 +42,7 @@ extension ChordPro.Environment {
         case .chorus:
             "Chorus"
         case .repeatChorus:
-            "Chorus"
+            "Repeat Chorus"
         case .verse:
             "Verse"
         case .bridge:
