@@ -1,4 +1,10 @@
-# 6.x.x (---)
+# 6.6.0 (2025-06-28)
+
+- Lots of code cleanup and small bug fixes
+- Improved SwiftUI song renderer
+- Improve drag/drop of song content and PDF
+- Fixes for macOS Tahoe
+- Added a useless Commodore 64 Window just for fun. Your song in BASIC!
 
 # 6.5.0 (2025-06-29)
 

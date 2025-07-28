@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension Color: Codable {
+extension Color: @retroactive Codable {
 
     /// Override equatable confirmation in a little bit less strict version
     static func == (lhs: Color, rhs: Color) -> Bool {

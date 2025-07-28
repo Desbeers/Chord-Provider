@@ -130,7 +130,6 @@ ready.
         .animation(.default, value: run)
         .animation(.default, value: status)
         .task(id: appState.song) {
-            print("C64 SONG TASK!!!")
             if scenePhase == .active {
                 await addOutput()
                 status = .ready
