@@ -111,8 +111,8 @@ struct ChordDefinitionView: View {
                     chord: chord,
                     instrument: diagramDisplayOptions.midiInstrument
                 )
-                .font(.body)
-                .foregroundStyle(settings.style.theme.foregroundLight)
+                .foregroundStyle(settings.style.fonts.chord.color)
+                .font(.caption)
                 .padding(.top, lineHeight / 2)
                 .padding(.leading, horizontalPadding)
                 .labelStyle(.iconOnly)
