@@ -327,6 +327,8 @@
 		D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */; };
 		D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */; };
 		D7CA63312AED3D4E00C6B4BB /* MetronomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */; };
+		D7DC9D7E2E3E747700D0D3F6 /* ExportBasicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DC9D7D2E3E747700D0D3F6 /* ExportBasicButton.swift */; };
+		D7DC9D802E3E7A1500D0D3F6 /* BASICDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DC9D7F2E3E7A1500D0D3F6 /* BASICDocument.swift */; };
 		D7E22D882DB2842C004AA103 /* FontUtils+Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontUtils+Item.swift */; };
 		D7E22D892DB2844E004AA103 /* FontUtils+Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontUtils+Item.swift */; };
 		D7E22D912DB3BE23004AA103 /* FontUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D902DB3BE23004AA103 /* FontUtils.swift */; };
@@ -710,6 +712,8 @@
 		D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighTick.aif; sourceTree = "<group>"; };
 		D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = LowTick.aif; sourceTree = "<group>"; };
 		D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeButton.swift; sourceTree = "<group>"; };
+		D7DC9D7D2E3E747700D0D3F6 /* ExportBasicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBasicButton.swift; sourceTree = "<group>"; };
+		D7DC9D7F2E3E7A1500D0D3F6 /* BASICDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BASICDocument.swift; sourceTree = "<group>"; };
 		D7E22D872DB2842C004AA103 /* FontUtils+Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontUtils+Item.swift"; sourceTree = "<group>"; };
 		D7E22D902DB3BE23004AA103 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
 		D7E22D942DB3C1DC004AA103 /* stripttc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stripttc.c; sourceTree = "<group>"; };
@@ -1151,6 +1155,7 @@
 				D76C24E02C3A99C000C93D82 /* ShareButton.swift */,
 				D7336AD52C273AD700D0AA8E /* HelpButtons.swift */,
 				D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */,
+				D7DC9D7D2E3E747700D0D3F6 /* ExportBasicButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1161,6 +1166,7 @@
 				D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */,
 				D70D96DA2CB2ACAE00B51A14 /* JSONDocument.swift */,
 				D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */,
+				D7DC9D7F2E3E7A1500D0D3F6 /* BASICDocument.swift */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -1887,6 +1893,7 @@
 				D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */,
 				D7593A522DA9506C0037952B /* RenderView+Sections.swift in Sources */,
 				D75E6C672DABB0760065F1D2 /* RenderView+CommentSection.swift in Sources */,
+				D7DC9D7E2E3E747700D0D3F6 /* ExportBasicButton.swift in Sources */,
 				D7EA875B2C5A580A009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift in Sources */,
 				D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */,
 				D70D96D92CB291DF00B51A14 /* ChordPro+Instrument.swift in Sources */,
@@ -1905,6 +1912,7 @@
 				D737F8582D8ED7D7001F1DC5 /* FontOptionsView.swift in Sources */,
 				D7C8C1FF2DC6305E00E6F8FC /* NSTextAttachment+extension.swift in Sources */,
 				D7622B472ABF0B04008CAC63 /* SettingsView.swift in Sources */,
+				D7DC9D802E3E7A1500D0D3F6 /* BASICDocument.swift in Sources */,
 				D77209742DF331BD00B58648 /* Samples.swift in Sources */,
 				D75B488E2BDBC417001F6176 /* FolderExport.swift in Sources */,
 				D706FD9C2BCECC9F005DEDF6 /* PDFBuild+Text.swift in Sources */,

@@ -11,11 +11,12 @@ extension C64View {
 
     /// The run view
     var runView: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             ForEach(pageContent) {line in
                 if line.command == .print {
                     Text(line.text)
                         .foregroundStyle(line.color?.swiftColor ?? .white)
+                        .frame(height: fontSize)
                 }
             }
         }

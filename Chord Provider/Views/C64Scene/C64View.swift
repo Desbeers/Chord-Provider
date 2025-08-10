@@ -20,8 +20,7 @@ struct C64View: View {
     @State var status: SceneStateModel.Status = .loading
 
     @State var windowSize: CGSize = .zero
-    @State private var fontSize: Double = 18
-
+    @State var fontSize: Double = 18
 
     @State var page: Int = 0
     @State var totalPages: Int = 0
@@ -55,9 +54,9 @@ ready.
                         runView
                     }
                 }
-                .frame(width: windowSize.width, height: windowSize.height)
                 .font(.custom("C64 Pro Mono", size: fontSize))
                 .foregroundStyle(C64Color.lightBlue.swiftColor)
+                .frame(width: windowSize.width, height: windowSize.height)
                 HStack {
                     Button {
                         withAnimation {
@@ -75,7 +74,7 @@ ready.
                         pasteboard.clearContents()
                         pasteboard.setString(string, forType: .string)
                     } label: {
-                        Text("Copy BASIC Code to Clipboard")
+                        Text("Copy BASIC to Clipboard")
                     }
 #if DEBUG
                     Button {
@@ -97,7 +96,7 @@ ready.
                                 try? basic.write(to: song.metadata.basicURL, atomically: true, encoding: String.Encoding.utf8)
                                 let convert = "petcat -w2 -nc -o '\(song.metadata.basicProgramURL.path)' -- '\(song.metadata.basicURL.path)'"
                                 _ = await ChordProCLI.runInShell(arguments: [convert])
-                                let command = "x64 -autostart '\(song.metadata.basicProgramURL.path)'"
+                                let command = "x64 -autostart '\(song.metadata.basicProgramURL.path)' &&"
                                 _ = await ChordProCLI.runInShell(arguments: [command])
                             }
                         }
@@ -129,6 +128,11 @@ ready.
         .navigationSubtitle(appState.song?.metadata.title ?? "No song open")
         .animation(.default, value: run)
         .animation(.default, value: status)
+        .toolbar(id: "c64toolbar") {
+            ToolbarItem(id: "exportBasic") {
+                ExportBasicButton(output: output, name: appState.song?.metadata.title ?? "My Song")
+            }
+        }
         .task(id: appState.song) {
             if scenePhase == .active {
                 await addOutput()
@@ -150,29 +154,32 @@ ready.
         .onGeometryChange(for: CGSize.self) { proxy in
             proxy.size
         } action: { newValue in
-
-            let screenWidth = min(newValue.width - 20, newValue.height - 20)
+            var screenWidth = (min(newValue.width - 20, newValue.height - 20))
+            screenWidth = (screenWidth / 40).rounded(.down) * 40
             let screenHeight = screenWidth * 0.625
-
+            fontSize = (screenHeight / 25)
             windowSize = CGSize(width: screenWidth, height: screenHeight)
-            fontSize = screenWidth / 40.5
         }
         .focusable()
         .onMoveCommand { direction in
             if run, !loadingPage {
+                /// On the C64, UP/DOWN is just one key
                 switch direction {
-                case .up:
-                    page = max(page - 1, 0)
-                case .down:
-                    page = min(page + 1, totalPages - 1)
-                case .left:
-                    break
-                case .right:
+                case .up, .down:
+                    page = page == totalPages - 1 ? 0 : min(page + 1, totalPages - 1)
+                case .left, .right:
                     break
                 @unknown default:
                     break
                 }
             }
+        }
+        .onKeyPress(.space) {
+            if run, !loadingPage, page == totalPages - 1 {
+                run = false
+                page = 0
+            }
+            return .handled
         }
     }
 }

@@ -51,6 +51,32 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>BASIC song</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>BASIC</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>nl.desbeers.chordprovider.basic</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>basic</string>
+				</array>
+				<key>public.mime-type</key>
+				<array>
+					<string>text-plain</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

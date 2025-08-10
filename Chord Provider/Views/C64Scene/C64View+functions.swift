@@ -50,6 +50,9 @@ extension C64View {
                         for line in lines {
                             addLine("\(line)", color: .lightBlue, lineNumber: &lineNumber)
                         }
+                    case .tab:
+                        /// Just show the first part, it will not be wrapped...
+                        addLine("\(line.source)", color: .lightBlue, lineNumber: &lineNumber)
                     default:
                         addLine("\(line.source)", lineNumber: &lineNumber)
                     }
@@ -69,7 +72,7 @@ extension C64View {
                 case .sourceComment:
                     addLine("\(line.source)", command: .rem, lineNumber: &lineNumber)
                 case .environmentDirective:
-                    if ChordPro.Directive.environmentDirectives.contains(line.directive ?? .unknown) {
+                    if ChordPro.Directive.environmentDirectives.contains(line.directive ?? .unknown), !line.label.isEmpty {
                         addLine(" ", lineNumber: &lineNumber)
                         addLine("-- \(line.label) --", color: .green, lineNumber: &lineNumber)
                     }
@@ -118,6 +121,8 @@ extension C64View {
 
     func addLine(_ content: String, command: Command = .print, color: C64Color? = nil, lineNumber: inout Int) {
 
+        let content = String(content.replacing("|", with: ":").replacing("’", with: "'").prefix(39))
+
         var code = ""
         var command: Command = command
         switch command {
@@ -129,7 +134,7 @@ extension C64View {
             code = "poke \(content),\(color?.code ?? 0)"
         case .rem:
             let comment = content.dropFirst().trimmingCharacters(in: .whitespaces)
-            code = "rem \(comment)"
+            code = "rem \"\(comment)"
         case .scroller:
             code = "print \"\(content)\""
             command = .print
