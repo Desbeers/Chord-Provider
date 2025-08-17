@@ -5,6 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 import SwiftUI
+import ChordProviderCore
 
 /// SwiftUI `View` to create a ``ChordDefinition`` with pickers
 struct CreateChordView: View {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProviderCore
 
 /// SwiftUI `View` with a button for a ``Song`` in JSON export
 struct ExportJSONButton: View {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProviderCore
 
 /// SwiftUI `View` for the main content
 struct MainView: View {
@@ -228,7 +229,11 @@ struct MainView: View {
     private func renderSong(updatePreview: Bool = true) async {
         sceneState.song.content = document.text
         sceneState.song.metadata.fileURL = fileURL
-        sceneState.song = await ChordProParser.parse(song: sceneState.song, instrument: sceneState.settings.display.instrument)
+        sceneState.song = await ChordProParser.parse(
+            song: sceneState.song,
+            instrument: sceneState.settings.display.instrument,
+            prefixes: appState.settings.application.sortTokens
+        )
         sceneState.getMedia()
         appState.lastUpdate = .now
 

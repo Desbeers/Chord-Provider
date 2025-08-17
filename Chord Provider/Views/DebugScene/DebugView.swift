@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProviderCore
 
 /// SwiftUI `View` for the debug window
 struct DebugView: View {

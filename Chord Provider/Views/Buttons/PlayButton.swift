@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProviderCore
 
 /// SwiftUI `Button` to play the chord with MIDI
 struct PlayChordButton: View {

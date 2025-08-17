@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProviderCore
 
 /// Utilities to deal with images
 enum ImageUtils {

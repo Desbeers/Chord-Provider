@@ -7,6 +7,7 @@
 
 import Cocoa
 import Quartz
+import ChordProviderCore
 
 /// Create a PDF preview for a **ChordPro** file
 class PreviewProvider: QLPreviewProvider, QLPreviewingController {
@@ -30,7 +31,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
         let contentType = UTType.pdf
         let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-        let song = await ChordProParser.parse(song: Song(id: UUID(), content: fileContents), instrument: .guitar)
+        let song = await ChordProParser.parse(song: Song(id: UUID(), content: fileContents), instrument: .guitar, prefixes: [])
         let songData = try await SongExport.export(
             song: song,
             settings: settings

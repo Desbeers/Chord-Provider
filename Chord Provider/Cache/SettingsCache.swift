@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 
 /// Get and set ``AppSettings`` to the cache directory
 /// - Note: This is used to get and save the application settings

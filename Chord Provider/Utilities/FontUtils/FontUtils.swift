@@ -7,6 +7,7 @@
 
 import AppKit
 import os
+import ChordProviderCore
 
 /// Utilities to deal with fonts
 enum FontUtils {

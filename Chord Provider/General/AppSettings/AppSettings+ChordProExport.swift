@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 
 extension AppSettings {
 
@@ -74,7 +75,7 @@ extension AppSettings {
         }
 
         settings.chords = chords.map { chord in
-            Chord_Provider.ChordPro.Instrument.Chord(
+            ChordProviderCore.ChordPro.Instrument.Chord(
                 name: chord.name,
                 display: chord.display,
                 base: chord.baseFret,

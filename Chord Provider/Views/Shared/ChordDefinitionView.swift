@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProviderCore
 
 /// SwiftUI `View` for a ``ChordDefinition``
 

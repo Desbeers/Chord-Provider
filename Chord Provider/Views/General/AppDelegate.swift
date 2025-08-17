@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProviderCore
 
 /// The application delegate for **Chord Provider**
 final class AppDelegate: NSObject, NSApplicationDelegate {

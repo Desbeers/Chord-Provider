@@ -7,6 +7,7 @@
 
 import Foundation
 import OSLog
+import ChordProviderCore
 
 /// Terminal utilities to run the official **ChordPro** CLI to create a PDF
 enum ChordProCLI {

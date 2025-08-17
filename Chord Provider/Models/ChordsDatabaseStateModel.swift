@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 
 /// The observable chords database state for **Chord Provider**
 @Observable final class ChordsDatabaseStateModel {

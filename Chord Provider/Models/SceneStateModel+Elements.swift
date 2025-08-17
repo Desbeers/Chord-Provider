@@ -7,6 +7,7 @@
 
 import SwiftUI
 import QuickLook
+import ChordProviderCore
 
 // MARK: Menus
 

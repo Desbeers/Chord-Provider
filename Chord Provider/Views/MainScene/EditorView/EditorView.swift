@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProviderCore
 
 /// SwiftUI `View` for the ``ChordProEditor``
 struct EditorView: View {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 
 /// The structure of an official **ChordPro** configuration
 struct ChordProConfig: Codable {

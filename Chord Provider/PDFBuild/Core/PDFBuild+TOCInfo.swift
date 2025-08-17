@@ -3,6 +3,7 @@
 //  Chord Provider
 
 import Foundation
+import ChordProviderCore
 
 extension PDFBuild {
 

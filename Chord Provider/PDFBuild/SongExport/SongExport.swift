@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProviderCore
 
 /// Export a single ``Song`` to a PDF
 enum SongExport {

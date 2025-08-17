@@ -7,6 +7,7 @@
 
 import AppKit
 import OSLog
+import ChordProviderCore
 
 /// The observable state for an image in a **ChordPro** song
 @Observable @MainActor final class ImageViewModel {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProviderCore
 
 /// The observable scene state for **Chord Provider**
 @MainActor @Observable final class SceneStateModel {

@@ -6,6 +6,7 @@
 //
 
 import AppKit
+import ChordProviderCore
 
 /// Static settings and functions for the editor
 enum Editor {

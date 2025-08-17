@@ -21,10 +21,6 @@ extension Logger {
     static var application: Logger {
         Logger(subsystem: subsystem, category: "Application")
     }
-    /// Log parser messages
-    static var parser: Logger {
-        Logger(subsystem: subsystem, category: "Song Parser")
-    }
     /// Song view build messages
     static var viewBuild: Logger {
         Logger(subsystem: subsystem, category: "View Build")
@@ -36,5 +32,9 @@ extension Logger {
     /// Log file access messages
     static var fileAccess: Logger {
         Logger(subsystem: subsystem, category: "File Access")
+    }
+    /// Log JSON messages
+    static var json: Logger {
+        Logger(subsystem: subsystem, category: "JSON")
     }
 }

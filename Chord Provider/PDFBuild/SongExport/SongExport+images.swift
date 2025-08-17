@@ -7,6 +7,7 @@
 
 import AppKit
 import OSLog
+import ChordProviderCore
 
 extension SongExport {
 

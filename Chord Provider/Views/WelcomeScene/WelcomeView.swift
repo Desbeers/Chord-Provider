@@ -7,6 +7,7 @@
 
 import SwiftUI
 import OSLog
+import ChordProviderCore
 
 /// SwiftUI `View` for the Welcome Window
 struct WelcomeView: View {

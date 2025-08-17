@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 
 extension SongFileUtils {
 

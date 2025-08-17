@@ -5,7 +5,8 @@
 //  © 2025 Nick Berendsen
 //
 
-import SwiftUI
+import AppKit
+import ChordProviderCore
 
 extension PDFBuild.LyricsSection.Line {
 

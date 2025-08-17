@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProviderCore
 
 /// The observable application state for **Chord Provider**
 @MainActor @Observable final class AppStateModel {

@@ -7,11 +7,12 @@
 
 import Foundation
 import CoreTransferable
+import ChordProviderCore
 
 extension Song: @unchecked Sendable, Transferable {
 
     /// Transfer protocol
-    static var transferRepresentation: some TransferRepresentation {
+    public static var transferRepresentation: some TransferRepresentation {
 
         /// Export the source of the song as file
         /// - Works fine in Finder
