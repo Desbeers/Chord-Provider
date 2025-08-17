@@ -127,7 +127,7 @@ struct CreateChordView: View {
             ChordDefinitionView(
                 chord: diagram,
                 width: width,
-                settings: sceneState.song.settings,
+                settings: sceneState.settings,
                 useDefaultColors: true
             )
         } else {

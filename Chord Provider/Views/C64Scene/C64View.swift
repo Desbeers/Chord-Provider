@@ -130,7 +130,7 @@ ready.
         .animation(.default, value: status)
         .toolbar(id: "c64toolbar") {
             ToolbarItem(id: "exportBasic") {
-                ExportBasicButton(output: output, name: appState.song?.metadata.title ?? "My Song")
+                ExportBASICButton(output: output, name: appState.song?.metadata.title ?? "My Song")
             }
         }
         .task(id: appState.song) {

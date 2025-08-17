@@ -16,8 +16,8 @@ extension ChordsDatabaseView {
         HStack {
             ChordDefinitionView(
                 chord: chord,
-                width: 100 * sceneState.song.settings.scale.magnifier,
-                settings: sceneState.song.settings,
+                width: 100 * sceneState.settings.scale.magnifier,
+                settings: sceneState.settings,
                 useDefaultColors: true
             )
             if Chord.Root.naturalAndSharp.contains(chord.root) {

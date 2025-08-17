@@ -5,7 +5,6 @@
 //  © 2025 Nick Berendsen
 //
 
-
 import Foundation
 
 extension Chord {

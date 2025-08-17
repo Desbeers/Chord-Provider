@@ -5,8 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
-import SwiftUI
-import UniformTypeIdentifiers
+import Foundation
 import OSLog
 
 /// Terminal utilities to run the official **ChordPro** CLI to create a PDF
@@ -149,9 +148,11 @@ extension ChordProCLI {
     /// Export a document or folder with the **ChordPro** binary to a PDF
     /// - Parameters:
     ///   - song: The current ``Song``
+    ///   - settings: The ``AppSettings``
     /// - Returns: The PDF as `Data` and the status as ``AppError``
     @MainActor static func exportPDF(
-        song: Song
+        song: Song,
+        settings: AppSettings
     ) async throws -> (data: Data, status: AppError) {
         /// Get the **ChordPro** binary
         let chordProApp = try await getChordProBinary()
@@ -162,7 +163,7 @@ extension ChordProCLI {
 
         /// Add the optional additional library to the environment of the shell
         if
-            song.settings.chordProCLI.useAdditionalLibrary,
+            settings.chordProCLI.useAdditionalLibrary,
             let persistentURL = UserFileUtils.Selection.customChordProLibrary.getBookmarkURL {
             arguments.append("CHORDPRO_LIB='\(persistentURL.path)'")
         }
@@ -173,16 +174,16 @@ extension ChordProCLI {
         /// Add the source file
         arguments.append("\"\(song.metadata.sourceURL.path)\"")
         /// Add the optional custom config file
-        if song.settings.chordProCLI.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: song.settings) {
+        if settings.chordProCLI.useCustomConfig, let customConfig = getOptionalCustomConfig(settings: settings) {
             arguments.append(customConfig)
         }
         /// Add the **Chord Provider** config
-        if song.settings.chordProCLI.useChordProviderSettings {
-            let jsonSettings = song.settings.exportToChordProJSON(chords: song.chords)
+        if settings.chordProCLI.useChordProviderSettings {
+            let jsonSettings = settings.exportToChordProJSON(chords: song.chords)
             if let config = Bundle.main.url(forResource: "ChordProviderConfig", withExtension: "json") {
                 do {
                     var config = try String(contentsOf: config, encoding: .utf8)
-                    config = ChordProCLI.applyUserSettings(config: config, settings: song.settings)
+                    config = ChordProCLI.applyUserSettings(config: config, settings: settings)
                     try config.write(to: song.metadata.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
                     try jsonSettings.write(to: song.metadata.configURL, atomically: true, encoding: String.Encoding.utf8)
                 } catch {

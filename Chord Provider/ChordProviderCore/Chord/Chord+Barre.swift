@@ -3,6 +3,7 @@
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
+//
 
 import Foundation
 

@@ -34,7 +34,7 @@ extension Modifiers {
                 }
                 .onEnded { value in
                     withAnimation {
-                        sceneState.song.settings.scale.magnifier = min(max(sceneState.song.settings.scale.magnifier * value.magnification, minScale), maxScale)
+                        sceneState.settings.scale.magnifier = min(max(sceneState.settings.scale.magnifier * value.magnification, minScale), maxScale)
                     }
                 }
         }
@@ -42,7 +42,7 @@ extension Modifiers {
         private var doubleTapGesture: some Gesture {
             TapGesture(count: 2).onEnded {
                 withAnimation {
-                    sceneState.song.settings.scale.magnifier = min(max(sceneState.song.settings.scale.magnifier + 0.2, minScale), maxScale)
+                    sceneState.settings.scale.magnifier = min(max(sceneState.settings.scale.magnifier + 0.2, minScale), maxScale)
                 }
             }
         }
@@ -52,7 +52,7 @@ extension Modifiers {
                 .gesture(ExclusiveGesture(magnifyGesture, doubleTapGesture))
                 .onLongPressGesture(minimumDuration: 1) {
                     withAnimation {
-                        sceneState.song.settings.scale.magnifier = min(max(sceneState.song.settings.scale.magnifier - 0.2, minScale), maxScale)
+                        sceneState.settings.scale.magnifier = min(max(sceneState.settings.scale.magnifier - 0.2, minScale), maxScale)
                     }
                 }
         }

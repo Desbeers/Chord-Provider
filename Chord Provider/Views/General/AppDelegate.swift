@@ -42,7 +42,5 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         case helpView = "Chord Provider Help"
         /// The ``C64View``
         case c64View = "Commodore 64"
-        /// The ``TestView``
-        case testView = "Test View"
     }
 }

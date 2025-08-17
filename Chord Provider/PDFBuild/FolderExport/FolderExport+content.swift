@@ -49,6 +49,7 @@ extension FolderExport {
             await builder.elements.append(
                 contentsOf: SongExport.getSongElements(
                     song: item.song,
+                    settings: settings,
                     counter: counter
                 )
             )

@@ -54,27 +54,27 @@ struct MainView: View {
             /// - Note: This is not perfect but seems well enough for normal songs
             RenderView.PartsView(
                 parts: sceneState.song.metadata.longestLine.parts ?? [],
-                settings: sceneState.song.settings
+                settings: sceneState.settings
             )
             /// Set the standard scaled font
-            .font(sceneState.song.settings.style.fonts.text.swiftUIFont(scale: sceneState.song.settings.scale.magnifier))
+            .font(sceneState.settings.style.fonts.text.swiftUIFont(scale: sceneState.settings.scale.magnifier))
             .onGeometryChange(for: CGSize.self) { proxy in
                 proxy.size
             } action: { newValue in
-                sceneState.song.settings.scale.maxSongLineWidth = newValue.width > 340 ? newValue.width : 340
+                sceneState.settings.scale.maxSongLineWidth = newValue.width > 340 ? newValue.width : 340
             }
             .hidden()
             /// Get the size of the longest label line
             /// - Note: This is not perfect but seems well enough for normal songs
             RenderView.ProminentLabel(
                 label: sceneState.song.metadata.longestLabel,
-                font: sceneState.song.settings.style.fonts.label.swiftUIFont(scale: sceneState.song.settings.scale.magnifier),
-                settings: sceneState.song.settings
+                font: sceneState.settings.style.fonts.label.swiftUIFont(scale: sceneState.settings.scale.magnifier),
+                settings: sceneState.settings
             )
             .onGeometryChange(for: CGSize.self) { proxy in
                 proxy.size
             } action: { newValue in
-                sceneState.song.settings.scale.maxSongLabelWidth = newValue.width > 100 ? newValue.width : 100
+                sceneState.settings.scale.maxSongLabelWidth = newValue.width > 100 ? newValue.width : 100
             }
             .hidden()
         }
@@ -104,19 +104,19 @@ struct MainView: View {
             }
         }
         .onChange(of: appState.settings.application) {
-            sceneState.song.settings.application = appState.settings.application
+            sceneState.settings.application = appState.settings.application
             Task {
                 await renderSong()
             }
         }
         .onChange(of: appState.settings.chordProCLI) {
-            sceneState.song.settings.chordProCLI = appState.settings.chordProCLI
+            sceneState.settings.chordProCLI = appState.settings.chordProCLI
             Task {
                 await renderSong()
             }
         }
         .onChange(of: appState.settings.pdf) {
-            sceneState.song.settings.pdf = appState.settings.pdf
+            sceneState.settings.pdf = appState.settings.pdf
             Task {
                 await renderSong()
             }
@@ -124,7 +124,7 @@ struct MainView: View {
         .onChange(of: appState.settings.style) {
             /// Reset chord cache; the theme might have changed
             RenderView.diagramCache.removeAllObjects()
-            sceneState.song.settings.style = appState.settings.style
+            sceneState.settings.style = appState.settings.style
             Task {
                 await renderSong()
             }
@@ -132,14 +132,14 @@ struct MainView: View {
         .onChange(of: appState.settings.diagram) {
             /// Reset chord cache; the theme might have changed
             RenderView.diagramCache.removeAllObjects()
-            sceneState.song.settings.diagram = appState.settings.diagram
+            sceneState.settings.diagram = appState.settings.diagram
             Task {
                 await renderSong()
             }
         }
-        .onChange(of: sceneState.song.settings.display) {
+        .onChange(of: sceneState.settings.display) {
             /// Store is in `appState` so it will be the defaults for the next song
-            appState.settings.display = sceneState.song.settings.display
+            appState.settings.display = sceneState.settings.display
             Task {
                 await renderSong()
             }
@@ -152,7 +152,7 @@ struct MainView: View {
         }
         .animation(.easeInOut, value: sceneState.songRenderer)
         .animation(.default, value: sceneState.song.metadata)
-        .animation(.default, value: sceneState.song.settings)
+        .animation(.default, value: sceneState.settings)
         .animation(.default, value: sceneState.status)
         /// Give the menubar access to the Scene State
         .focusedSceneValue(\.sceneState, sceneState)
@@ -169,18 +169,18 @@ struct MainView: View {
             }
             switch sceneState.songRenderer {
             case .standard:
-                let layout = sceneState.song.settings.display.chordsPosition == .right ?
+                let layout = sceneState.settings.display.chordsPosition == .right ?
                 AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
                 layout {
                     Group {
-                        SongView(song: sceneState.song)
+                        SongView(song: sceneState.song, settings: sceneState.settings)
                         /// Remember the size of the song part
                             .onGeometryChange(for: CGSize.self) { proxy in
                                 proxy.size
                             } action: { newValue in
-                                sceneState.song.settings.scale.maxSongWidth = newValue.width
+                                sceneState.settings.scale.maxSongWidth = newValue.width
                             }
-                        if sceneState.song.settings.display.showChords {
+                        if sceneState.settings.display.showChords {
                             Divider()
                             ChordsView(document: $document)
                                 .background(appState.settings.style.theme.background)
@@ -228,7 +228,7 @@ struct MainView: View {
     private func renderSong(updatePreview: Bool = true) async {
         sceneState.song.content = document.text
         sceneState.song.metadata.fileURL = fileURL
-        sceneState.song = await ChordProParser.parse(song: sceneState.song)
+        sceneState.song = await ChordProParser.parse(song: sceneState.song, instrument: sceneState.settings.display.instrument)
         sceneState.getMedia()
         appState.lastUpdate = .now
 

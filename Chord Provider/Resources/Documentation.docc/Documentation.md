@@ -58,6 +58,7 @@ While I studied a lot of code from other projects to learn; in the end, its all 
 - ``AppSettings``
 - ``Help``
 - ``LogMessage``
+- ``Backport``
 
 ### Documents
 
@@ -73,6 +74,7 @@ The *export document* is a PDF with either a song or a whole folder with songs.
 - ``ChordProDocument``
 - ``JSONDocument``
 - ``ExportDocument``
+- ``BASICDocument``
 - ``Samples``
 
 ### ChordPro
@@ -234,7 +236,7 @@ SwiftUI buttons used all around the application
 - ``FontPickerButton``
 - ``PlayChordButton``
 - ``ExportJSONButton``
-- ``C64Button``
+- ``ExportBASICButton``
 
 ### SwiftUI Slider Views
 

@@ -33,7 +33,7 @@ extension ChordProParser {
             return match
         }
         /// Try to find it in the database
-        if var databaseChord = ChordDefinition(name: chord, instrument: song.settings.display.instrument) {
+        if var databaseChord = ChordDefinition(name: chord, instrument: song.metadata.instrument) {
             if song.metadata.transpose != 0 {
                 databaseChord.transpose(transpose: song.metadata.transpose, scale: song.metadata.key?.root ?? .c)
                 /// Keep the original name
@@ -42,7 +42,7 @@ extension ChordProParser {
             song.chords.append(databaseChord)
             return databaseChord
         }
-        let unknownChord = ChordDefinition(unknown: chord, instrument: song.settings.display.instrument)
+        let unknownChord = ChordDefinition(unknown: chord, instrument: song.metadata.instrument)
         if !ignoreUnknown {
             song.chords.append(unknownChord)
         }

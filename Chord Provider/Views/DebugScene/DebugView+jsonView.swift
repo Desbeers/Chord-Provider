@@ -43,7 +43,7 @@ extension DebugView {
                             let chords = try? JSONUtils.encode(song.chords)
                             JSONPart(label: "Chords", content: chords)
                         case .settings:
-                            let settings = try? JSONUtils.encode(song.settings)
+                            let settings = try? JSONUtils.encode(appState.settings)
                             JSONPart(label: "Application Settings", content: settings)
                         }
                     }

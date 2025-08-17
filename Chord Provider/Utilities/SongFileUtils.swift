@@ -70,8 +70,7 @@ extension SongFileUtils {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = fileURL
-            song.settings = settings
-            return await ChordProParser.parse(song: song, getOnlyMetadata: getOnlyMetadata)
+            return await ChordProParser.parse(song: song, instrument: settings.display.instrument, getOnlyMetadata: getOnlyMetadata)
         } catch {
             Logger.application.error("\(error.localizedDescription, privacy: .public)")
             throw AppError.noAccessToSongError

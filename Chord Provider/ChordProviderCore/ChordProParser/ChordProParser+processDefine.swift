@@ -25,7 +25,7 @@ extension ChordProParser {
         do {
             var definedChord = try ChordDefinition(
                 definition: label,
-                instrument: song.settings.display.instrument,
+                instrument: song.metadata.instrument,
                 status: .unknownChord
             )
             definedChord.status = song.metadata.transpose == 0 ? definedChord.status : .customTransposedChord

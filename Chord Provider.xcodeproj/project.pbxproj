@@ -255,6 +255,10 @@
 		D7781B582D0FBA5B00EC0CCF /* ChordProParser+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7781B562D0FBA5B00EC0CCF /* ChordProParser+helpers.swift */; };
 		D7781B5B2D10307400EC0CCF /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7781B5A2D10307400EC0CCF /* ImageViewModel.swift */; };
 		D7781B5F2D1062B000EC0CCF /* RenderView+ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7781B5E2D1062B000EC0CCF /* RenderView+ImageView.swift */; };
+		D778F3232E51C2BA007CA66E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D778F3222E51C2BA007CA66E /* README.md */; };
+		D778F3242E51C2BA007CA66E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D778F3222E51C2BA007CA66E /* README.md */; };
+		D778F32B2E51C850007CA66E /* ChordDefinition+Status+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778F32A2E51C850007CA66E /* ChordDefinition+Status+color.swift */; };
+		D778F32C2E51C850007CA66E /* ChordDefinition+Status+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778F32A2E51C850007CA66E /* ChordDefinition+Status+color.swift */; };
 		D779D3552C68F0D700380175 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D779D3542C68F0D700380175 /* WelcomeView.swift */; };
 		D77CDB1A2D73323100943462 /* SongFileUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB192D73323100943462 /* SongFileUtils.swift */; };
 		D77CDB1C2D7334E300943462 /* SongFileUtils+Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB1B2D7334E300943462 /* SongFileUtils+Artist.swift */; };
@@ -327,7 +331,7 @@
 		D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */; };
 		D7CA632F2AEB60CA00C6B4BB /* LowTick.aif in Resources */ = {isa = PBXBuildFile; fileRef = D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */; };
 		D7CA63312AED3D4E00C6B4BB /* MetronomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */; };
-		D7DC9D7E2E3E747700D0D3F6 /* ExportBasicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DC9D7D2E3E747700D0D3F6 /* ExportBasicButton.swift */; };
+		D7DC9D7E2E3E747700D0D3F6 /* ExportBASICButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DC9D7D2E3E747700D0D3F6 /* ExportBASICButton.swift */; };
 		D7DC9D802E3E7A1500D0D3F6 /* BASICDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7DC9D7F2E3E7A1500D0D3F6 /* BASICDocument.swift */; };
 		D7E22D882DB2842C004AA103 /* FontUtils+Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontUtils+Item.swift */; };
 		D7E22D892DB2844E004AA103 /* FontUtils+Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E22D872DB2842C004AA103 /* FontUtils+Item.swift */; };
@@ -660,6 +664,11 @@
 		D7781B562D0FBA5B00EC0CCF /* ChordProParser+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordProParser+helpers.swift"; sourceTree = "<group>"; };
 		D7781B5A2D10307400EC0CCF /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
 		D7781B5E2D1062B000EC0CCF /* RenderView+ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RenderView+ImageView.swift"; sourceTree = "<group>"; };
+		D778F31C2E51C086007CA66E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D778F3202E51C248007CA66E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D778F3222E51C2BA007CA66E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D778F3262E51C358007CA66E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D778F32A2E51C850007CA66E /* ChordDefinition+Status+color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChordDefinition+Status+color.swift"; sourceTree = "<group>"; };
 		D779D3542C68F0D700380175 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D77CDB192D73323100943462 /* SongFileUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongFileUtils.swift; sourceTree = "<group>"; };
 		D77CDB1B2D7334E300943462 /* SongFileUtils+Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SongFileUtils+Artist.swift"; sourceTree = "<group>"; };
@@ -712,7 +721,7 @@
 		D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = HighTick.aif; sourceTree = "<group>"; };
 		D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = LowTick.aif; sourceTree = "<group>"; };
 		D7CA63302AED3D4E00C6B4BB /* MetronomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeButton.swift; sourceTree = "<group>"; };
-		D7DC9D7D2E3E747700D0D3F6 /* ExportBasicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBasicButton.swift; sourceTree = "<group>"; };
+		D7DC9D7D2E3E747700D0D3F6 /* ExportBASICButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportBASICButton.swift; sourceTree = "<group>"; };
 		D7DC9D7F2E3E7A1500D0D3F6 /* BASICDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BASICDocument.swift; sourceTree = "<group>"; };
 		D7E22D872DB2842C004AA103 /* FontUtils+Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontUtils+Item.swift"; sourceTree = "<group>"; };
 		D7E22D902DB3BE23004AA103 /* FontUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontUtils.swift; sourceTree = "<group>"; };
@@ -954,8 +963,6 @@
 				D7496DE72CEF8BC700C8FFA8 /* ChordPro+Environment+extensions.swift */,
 				D70D96D82CB291DF00B51A14 /* ChordPro+Instrument.swift */,
 				D786DD7F2E1A8F6100709015 /* ChordPro+LineType.swift */,
-				D7781B4E2D0C9F1E00EC0CCF /* ChordProCLI.swift */,
-				D7C47CCA2DA15F210037CC00 /* ChordProConfig.swift */,
 			);
 			path = ChordPro;
 			sourceTree = "<group>";
@@ -1064,9 +1071,6 @@
 				D71CA4382E1138FB001C9860 /* AppIcon.icon */,
 				D7C47CD02DA1A0430037CC00 /* ChordProviderConfig.json */,
 				D7F13F9E2A6460B7002D875D /* Assets.xcassets */,
-				D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */,
-				D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */,
-				D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */,
 				D730BBB02CA844C2008719F2 /* GuitarSoundFont.sf2 */,
 				D7CA632C2AEB60CA00C6B4BB /* HighTick.aif */,
 				D7CA632D2AEB60CA00C6B4BB /* LowTick.aif */,
@@ -1155,7 +1159,7 @@
 				D76C24E02C3A99C000C93D82 /* ShareButton.swift */,
 				D7336AD52C273AD700D0AA8E /* HelpButtons.swift */,
 				D7641BFB2D97F8D0009472D3 /* FontPickerButton.swift */,
-				D7DC9D7D2E3E747700D0D3F6 /* ExportBasicButton.swift */,
+				D7DC9D7D2E3E747700D0D3F6 /* ExportBASICButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -1187,11 +1191,98 @@
 			path = Pickers;
 			sourceTree = "<group>";
 		};
+		D778F31B2E51C06D007CA66E /* ChordProviderCore */ = {
+			isa = PBXGroup;
+			children = (
+				D7EB791E2CA9B980004D965B /* Chord */,
+				D70D96D62CB28B6F00B51A14 /* ChordDefinition */,
+				D778F32E2E51CA55007CA66E /* ChordDefinitions */,
+				D70D96C92CB2867600B51A14 /* ChordPro */,
+				D7F13FA22A6460B7002D875D /* ChordProParser */,
+				D778F32D2E51C96E007CA66E /* ChordUtils */,
+				D778F32F2E51CD0D007CA66E /* Extensions */,
+				D778F31C2E51C086007CA66E /* README.md */,
+				D7F13F842A6460B7002D875D /* Song */,
+			);
+			path = ChordProviderCore;
+			sourceTree = "<group>";
+		};
+		D778F31E2E51C19C007CA66E /* ChordProviderMac */ = {
+			isa = PBXGroup;
+			children = (
+				D778F3292E51C814007CA66E /* ChordDefinition */,
+				D778F3252E51C333007CA66E /* Song */,
+				D778F3262E51C358007CA66E /* README.md */,
+			);
+			path = ChordProviderMac;
+			sourceTree = "<group>";
+		};
+		D778F31F2E51C233007CA66E /* ChordProCLI */ = {
+			isa = PBXGroup;
+			children = (
+				D778F3282E51C5A9007CA66E /* Song */,
+				D7781B4E2D0C9F1E00EC0CCF /* ChordProCLI.swift */,
+				D7C47CCA2DA15F210037CC00 /* ChordProConfig.swift */,
+				D778F3202E51C248007CA66E /* README.md */,
+			);
+			path = ChordProCLI;
+			sourceTree = "<group>";
+		};
+		D778F3252E51C333007CA66E /* Song */ = {
+			isa = PBXGroup;
+			children = (
+				D7AA50A92E07EAAE003D731A /* Song+transferable.swift */,
+			);
+			path = Song;
+			sourceTree = "<group>";
+		};
+		D778F3282E51C5A9007CA66E /* Song */ = {
+			isa = PBXGroup;
+			children = (
+				D7AA50BF2E08176B003D731A /* Song+Metadata+chordProCLI.swift */,
+			);
+			path = Song;
+			sourceTree = "<group>";
+		};
+		D778F3292E51C814007CA66E /* ChordDefinition */ = {
+			isa = PBXGroup;
+			children = (
+				D778F32A2E51C850007CA66E /* ChordDefinition+Status+color.swift */,
+			);
+			path = ChordDefinition;
+			sourceTree = "<group>";
+		};
+		D778F32D2E51C96E007CA66E /* ChordUtils */ = {
+			isa = PBXGroup;
+			children = (
+				D730BBAC2CA844C2008719F2 /* ChordUtils.swift */,
+				D730BBA92CA844C2008719F2 /* ChordUtils+Analizer.swift */,
+			);
+			path = ChordUtils;
+			sourceTree = "<group>";
+		};
+		D778F32E2E51CA55007CA66E /* ChordDefinitions */ = {
+			isa = PBXGroup;
+			children = (
+				D70D96DC2CB2B39A00B51A14 /* GuitarStandardETuning.json */,
+				D70D96E12CB2B40E00B51A14 /* GuitaleleStandardATuning.json */,
+				D70D96E02CB2B40D00B51A14 /* UkuleleStandardGTuning.json */,
+			);
+			path = ChordDefinitions;
+			sourceTree = "<group>";
+		};
+		D778F32F2E51CD0D007CA66E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D730BBA42CA844C2008719F2 /* Bundle+extensions.swift */,
+				D730BBA32CA844C2008719F2 /* Array+ChordDefinition.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D77979262BED7FA200BE165A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				D730BBA32CA844C2008719F2 /* Array+ChordDefinition.swift */,
-				D730BBA42CA844C2008719F2 /* Bundle+extensions.swift */,
 				D730BBA52CA844C2008719F2 /* Collection+extensions.swift */,
 				D7EA876C2C5A581E009A3D82 /* Color+extension.swift */,
 				D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */,
@@ -1312,8 +1403,6 @@
 		D7C655AA2DE1FE3900FA605F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D730BBAC2CA844C2008719F2 /* ChordUtils.swift */,
-				D730BBA92CA844C2008719F2 /* ChordUtils+Analizer.swift */,
 				D7E22D932DB3C195004AA103 /* FontUtils */,
 				D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */,
 				D7F372362E2E57C20075C8E4 /* JSONUtils.swift */,
@@ -1349,15 +1438,6 @@
 				D70503182D20DDA000DB897A /* ImageCache.swift */,
 			);
 			path = Cache;
-			sourceTree = "<group>";
-		};
-		D7C655AD2DE3103A00FA605F /* ChordDefinitions */ = {
-			isa = PBXGroup;
-			children = (
-				D7EB791E2CA9B980004D965B /* Chord */,
-				D70D96D62CB28B6F00B51A14 /* ChordDefinition */,
-			);
-			path = ChordDefinitions;
 			sourceTree = "<group>";
 		};
 		D7E22D932DB3C195004AA103 /* FontUtils */ = {
@@ -1438,12 +1518,12 @@
 		D7F13F712A645FEC002D875D /* Chord Provider */ = {
 			isa = PBXGroup;
 			children = (
+				D778F31F2E51C233007CA66E /* ChordProCLI */,
+				D778F31E2E51C19C007CA66E /* ChordProviderMac */,
+				D778F31B2E51C06D007CA66E /* ChordProviderCore */,
 				D7F13F9B2A6460B7002D875D /* General */,
 				D76C24E62C3AFFC700C93D82 /* Documents */,
-				D70D96C92CB2867600B51A14 /* ChordPro */,
-				D7F13FA22A6460B7002D875D /* ChordProParser */,
 				D7EA87582C5A580A009A3D82 /* ChordProEditor */,
-				D7C655AD2DE3103A00FA605F /* ChordDefinitions */,
 				D7C655AA2DE1FE3900FA605F /* Utilities */,
 				D7C655AC2DE3045D00FA605F /* Cache */,
 				D730BC442CA847E7008719F2 /* Midi */,
@@ -1464,13 +1544,12 @@
 			children = (
 				D7F13F862A6460B7002D875D /* Song.swift */,
 				D75B48A32BDFE97F001F6176 /* Song+Metadata.swift */,
-				D7AA50BF2E08176B003D731A /* Song+Metadata+chordProCLI.swift */,
 				D7F13F892A6460B7002D875D /* Song+Section.swift */,
 				D7F13F852A6460B7002D875D /* Song+Section+Line.swift */,
 				D7F13F8A2A6460B7002D875D /* Song+Section+Line+Part.swift */,
 				D7F13F8B2A6460B7002D875D /* Song+Section+Line+Grid.swift */,
 				D7CA631E2AEA5EB800C6B4BB /* Song+Section+Line+Strum.swift */,
-				D7AA50A92E07EAAE003D731A /* Song+transferable.swift */,
+				D778F3222E51C2BA007CA66E /* README.md */,
 			);
 			path = Song;
 			sourceTree = "<group>";
@@ -1534,7 +1613,6 @@
 				D752E59F2CBC2FE200CDE42D /* ChordProParser+processTab.swift */,
 				D7C78DF42DBBA61E00CD4CBB /* ChordProParser+processTextblock.swift */,
 				D79932E82D7211760003F502 /* ChordProParser+setDefaults.swift */,
-				D7F13F842A6460B7002D875D /* Song */,
 			);
 			path = ChordProParser;
 			sourceTree = "<group>";
@@ -1743,6 +1821,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D778F3242E51C2BA007CA66E /* README.md in Resources */,
 				D70D96DD2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D71CA4392E1138FB001C9860 /* AppIcon.icon in Resources */,
 				D7CA632E2AEB60CA00C6B4BB /* HighTick.aif in Resources */,
@@ -1759,6 +1838,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D778F3232E51C2BA007CA66E /* README.md in Resources */,
 				D70D96DE2CB2B39A00B51A14 /* GuitarStandardETuning.json in Resources */,
 				D78580792CA8971F000FB5F8 /* Assets.xcassets in Resources */,
 			);
@@ -1893,7 +1973,7 @@
 				D7F13FDF2A6460B7002D875D /* EditorView.swift in Sources */,
 				D7593A522DA9506C0037952B /* RenderView+Sections.swift in Sources */,
 				D75E6C672DABB0760065F1D2 /* RenderView+CommentSection.swift in Sources */,
-				D7DC9D7E2E3E747700D0D3F6 /* ExportBasicButton.swift in Sources */,
+				D7DC9D7E2E3E747700D0D3F6 /* ExportBASICButton.swift in Sources */,
 				D7EA875B2C5A580A009A3D82 /* AppKitUtils+PDFKitRepresentedView.swift in Sources */,
 				D71173822BD2FB0D0075325C /* PDFBuild+Section.swift in Sources */,
 				D70D96D92CB291DF00B51A14 /* ChordPro+Instrument.swift in Sources */,
@@ -2024,6 +2104,7 @@
 				D7781B5F2D1062B000EC0CCF /* RenderView+ImageView.swift in Sources */,
 				D7F13FCD2A6460B7002D875D /* ChordProviderApp.swift in Sources */,
 				D772097F2DF5B5C000B58648 /* ChordProParser+processImage.swift in Sources */,
+				D778F32B2E51C850007CA66E /* ChordDefinition+Status+color.swift in Sources */,
 				D7EA87602C5A580A009A3D82 /* ChordProEditor+Coordinator.swift in Sources */,
 				D72B61102C16E4170027B235 /* UserFileUtils+Selection.swift in Sources */,
 				D7781B5B2D10307400EC0CCF /* ImageViewModel.swift in Sources */,
@@ -2166,6 +2247,7 @@
 				D730BC6C2CA849C6008719F2 /* ChordDefinition+init.swift in Sources */,
 				D7EF99662BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
 				D7EF996A2BDADC2E0058E1CB /* AppError.swift in Sources */,
+				D778F32C2E51C850007CA66E /* ChordDefinition+Status+color.swift in Sources */,
 				D70B72A42BD52A9B003C89B4 /* PDFBuild+PageBreak.swift in Sources */,
 				D70B72A52BD52A9B003C89B4 /* PDFBuild+Divider.swift in Sources */,
 				D70B72A62BD52A9B003C89B4 /* PDFBuild+LyricsSection.swift in Sources */,

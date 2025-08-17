@@ -20,6 +20,8 @@ import OSLog
     var status: Status = .loading
     /// Show an `Alert` if we have an error
     var errorAlert: AlertMessage?
+    /// The settings of the scene
+    var settings: AppSettings
 
     // MARK: Song View options
 
@@ -52,12 +54,13 @@ import OSLog
 
     /// Export the song to a PDF
     func exportSongToPDF() async throws -> Data {
-        switch song.settings.chordProCLI.useChordProCLI {
+        switch settings.chordProCLI.useChordProCLI {
         case false:
             /// Default renderer
             do {
                 let export = try await SongExport.export(
-                    song: song
+                    song: song,
+                    settings: settings
                 )
                 try export.pdf.write(to: song.metadata.exportURL)
                 return export.pdf
@@ -69,7 +72,8 @@ import OSLog
             /// ChordPro CLI renderer
             do {
                 let export = try await ChordProCLI.exportPDF(
-                    song: self.song
+                    song: self.song,
+                    settings: settings
                 )
                 return export.data
             } catch {
@@ -107,7 +111,7 @@ import OSLog
         self.song = Song(id: UUID(), content: "")
         /// Add the last used settings
         let settings = AppSettings.load(id: id)
-        self.song.settings = settings
+        self.settings = settings
     }
 }
 

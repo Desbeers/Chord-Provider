@@ -30,11 +30,10 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
         let contentType = UTType.pdf
         let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-        var song = await ChordProParser.parse(song: Song(id: UUID(), content: fileContents))
-        /// Pass the application settings to the song
-        song.settings = settings
+        let song = await ChordProParser.parse(song: Song(id: UUID(), content: fileContents), instrument: .guitar)
         let songData = try await SongExport.export(
-            song: song
+            song: song,
+            settings: settings
         ).pdf
 
         let reply = QLPreviewReply.init(

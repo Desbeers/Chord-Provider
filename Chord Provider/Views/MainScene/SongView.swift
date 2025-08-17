@@ -11,6 +11,8 @@ import SwiftUI
 struct SongView: View {
     /// The ``Song``
     let song: Song
+    /// The ``AppSettings``
+    let settings: AppSettings
     /// The state of the song
     @State private var status: SceneStateModel.Status = .loading
     /// The body of the `View`
@@ -20,14 +22,14 @@ struct SongView: View {
             case .loading:
                 EmptyView()
             case .ready:
-                RenderView.MainView(song: song)
+                RenderView.MainView(song: song, settings: settings)
                 .contentShape(Rectangle())
                 .scaleModifier
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 /// Set the standard scaled font
-                .font(song.settings.style.fonts.text.swiftUIFont(scale: song.settings.scale.magnifier))
+                .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.magnifier))
                 /// Set the standard color
-                .foregroundStyle(song.settings.style.theme.foreground)
+                .foregroundStyle(settings.style.theme.foreground)
                 .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 8))
                 .draggable(song) {
                     VStack {
@@ -44,8 +46,8 @@ struct SongView: View {
                 ContentUnavailableView("The song has no content", systemImage: "music.quarternote.3")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundStyle(
-                        song.settings.style.fonts.text.color,
-                        song.settings.style.theme.foregroundMedium
+                        settings.style.fonts.text.color,
+                        settings.style.theme.foregroundMedium
                     )
             }
         }

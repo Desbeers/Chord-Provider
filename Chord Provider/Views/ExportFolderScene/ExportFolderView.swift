@@ -72,7 +72,7 @@ struct ExportFolderView: View {
                             pdfInfo.pageRect = settings.pdf.pageSize.rect(settings: settings)
                             pdfInfo.pagePadding = settings.pdf.pagePadding
                             /// Bring the sceneState instrument to the appState
-                            appState.settings.display.instrument = sceneState.song.settings.display.instrument
+                            appState.settings.display.instrument = sceneState.settings.display.instrument
                             progress = 0
                             exporting = true
                             for try await status in FolderExport.export(

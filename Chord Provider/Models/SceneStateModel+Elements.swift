@@ -26,7 +26,7 @@ extension SceneStateModel {
         var body: some View {
             Menu(
                 "Chords",
-                systemImage: sceneState.song.settings.display.showChords ? "number.circle.fill" : "number.circle"
+                systemImage: sceneState.settings.display.showChords ? "number.circle.fill" : "number.circle"
             ) {
                 sceneState.showChordsButton
                 Divider()
@@ -55,9 +55,9 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Button {
-                sceneState.song.settings.display.showChords.toggle()
+                sceneState.settings.display.showChords.toggle()
             } label: {
-                Text(sceneState.song.settings.display.showChords ? "Hide Chords" : "Show Chords")
+                Text(sceneState.settings.display.showChords ? "Hide Chords" : "Show Chords")
             }
         }
     }
@@ -80,7 +80,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $sceneState.song.settings.display.showInlineDiagrams) {
+            Toggle(isOn: $sceneState.settings.display.showInlineDiagrams) {
                 Text("Chords as Diagram")
                     .font(.caption)
             }
@@ -106,7 +106,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Pager", selection: $sceneState.song.settings.display.paging) {
+            Picker("Pager", selection: $sceneState.settings.display.paging) {
                 ForEach(AppSettings.Display.Paging.allCases, id: \.rawValue) { paging in
                     Label(paging.label.text, systemImage: paging.label.sfSymbol)
                         .help(paging.label.help)
@@ -128,13 +128,13 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Position", selection: $sceneState.song.settings.display.chordsPosition) {
+            Picker("Position", selection: $sceneState.settings.display.chordsPosition) {
                 ForEach(AppSettings.Display.ChordsPosition.allCases, id: \.rawValue) { value in
                     Text(value.rawValue)
                         .tag(value)
                 }
             }
-            .disabled(sceneState.song.settings.display.showChords == false)
+            .disabled(sceneState.settings.display.showChords == false)
         }
     }
 
@@ -266,7 +266,7 @@ extension SceneStateModel {
     var fretsPicker: some View {
         FretsPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: self.song.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            guitarTuningOrder: self.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
             sceneState: self
         )
     }
@@ -317,7 +317,7 @@ extension SceneStateModel {
     var fingersPicker: some View {
         FingersPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: self.song.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            guitarTuningOrder: self.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
             sceneState: self
         )
     }
@@ -368,7 +368,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Slider(value: $sceneState.song.settings.scale.magnifier, in: 0.8...2.0) {
+            Slider(value: $sceneState.settings.scale.magnifier, in: 0.8...2.0) {
                 Label("Zoom", systemImage: "magnifyingglass")
             }
             .labelStyle(.iconOnly)
@@ -535,7 +535,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Instrument", selection: $sceneState.song.settings.display.instrument) {
+            Picker("Instrument", selection: $sceneState.settings.display.instrument) {
                 ForEach(Chord.Instrument.allCases, id: \.rawValue) { value in
                     Text(value.label)
                         .tag(value)

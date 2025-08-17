@@ -1,5 +1,5 @@
 //
-//  ExportBasicButton.swift
+//  ExportBASICButton.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -9,7 +9,7 @@ import SwiftUI
 import OSLog
 
 /// SwiftUI `View` with a button for a ``Song`` in BASIC export
-struct ExportBasicButton: View {
+struct ExportBASICButton: View {
     /// The current song
     let output: [C64View.Output]
     /// The name of the song

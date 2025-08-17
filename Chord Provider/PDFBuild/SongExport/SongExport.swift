@@ -20,19 +20,21 @@ extension SongExport {
     /// Export a single song to PDF
     /// - Parameters:
     ///   - song: The ``Song`` to export
+    ///   - settings: The ``AppSettings``
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
-        song: Song
+        song: Song,
+        settings: AppSettings
     ) async throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         Logger.pdfBuild.info("Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         let documentInfo = PDFBuild.DocumentInfo(
             title: song.metadata.title,
             author: song.metadata.artist,
-            pageRect: song.settings.pdf.pageSize.rect(settings: song.settings),
-            pagePadding: song.settings.pdf.pagePadding
+            pageRect: settings.pdf.pageSize.rect(settings: settings),
+            pagePadding: settings.pdf.pagePadding
         )
-        let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: song.settings)
-        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .smallTextFont(settings: song.settings) + .alignment(.center))
+        let builder = PDFBuild.Builder(documentInfo: documentInfo, settings: settings)
+        let counter = PDFBuild.PageCounter(firstPage: 0, attributes: .smallTextFont(settings: settings) + .alignment(.center))
         builder.pageCounter = counter
 
         // MARK: Add PDF elements
@@ -48,6 +50,7 @@ extension SongExport {
         await builder.elements.append(
             contentsOf: getSongElements(
                 song: song,
+                settings: settings,
                 counter: counter
             )
         )
@@ -67,14 +70,16 @@ extension SongExport {
     /// Get all the PDF elements for a ``Song``
     /// - Parameters:
     ///   - song: The ``Song``
+    ///   - settings: The ``AppSettings``
     ///   - counter: The ``PDFBuild/PageCounter`` class
     /// - Returns: All the PDF elements in an array
     // swiftlint:disable:next function_body_length
     static func getSongElements(
         song: Song,
+        settings: AppSettings,
         counter: PDFBuild.PageCounter
     ) async -> [PDFElement] {
-        var settings = song.settings
+        var settings = settings
         let tocInfo = PDFBuild.TOCInfo(
             song: song
         )
@@ -132,7 +137,7 @@ extension SongExport {
         let line = PDFBuild.LyricsSection.Line(
             parts: song.metadata.longestLine.parts ?? [],
             chords: song.chords,
-            settings: song.settings,
+            settings: settings,
             deductWidthFromRect: true
         )
         let pageRect = CGRect(x: 0, y: 0, width: 10000, height: 1000)
@@ -220,7 +225,7 @@ extension SongExport {
                         fontOptions: settings.style.fonts.label
                     ),
                     PDFBuild.Divider(direction: .vertical, color: settings.style.theme.foregroundLight.nsColor),
-                    PDFBuild.LyricsSection(section, chords: song.settings.application.lyricsOnly ? [] : song.chords, settings: settings)
+                    PDFBuild.LyricsSection(section, chords: settings.application.lyricsOnly ? [] : song.chords, settings: settings)
                 ]
             )
         }
@@ -336,7 +341,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if
-                song.settings.application.repeatWholeChorus,
+                settings.application.repeatWholeChorus,
                 let lastChorus = song.sections.last(
                     where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
                 ) {

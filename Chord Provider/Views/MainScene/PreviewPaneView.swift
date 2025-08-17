@@ -28,7 +28,7 @@ struct PreviewPaneView: View {
                     .overlay(alignment: .topLeading) {
                         Image(systemName: "text.document")
                             .help("Drag me to export")
-                            .foregroundStyle(sceneState.song.settings.style.fonts.label.color)
+                            .foregroundStyle(sceneState.settings.style.fonts.label.color)
                             .font(.system(size: 20))
                             .padding()
                             .opacity(isHovering ? 1 : 0.1)
@@ -38,7 +38,7 @@ struct PreviewPaneView: View {
                             }
                     }
             } else {
-                Color(sceneState.song.settings.style.theme.background)
+                Color(sceneState.settings.style.theme.background)
             }
         }
         .animation(.default, value: isHovering)

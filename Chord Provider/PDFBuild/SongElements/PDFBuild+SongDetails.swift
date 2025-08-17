@@ -38,7 +38,7 @@ extension PDFBuild {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             /// Add the detail items
             let items = NSMutableAttributedString()
-            items.append(detailLabel(sfSymbol: .instrument, label: song.settings.display.instrument.label))
+            items.append(detailLabel(sfSymbol: .instrument, label: song.metadata.instrument.label))
             if let key = song.metadata.key {
                 items.append(detailLabel(sfSymbol: .key, label: key.display))
             }

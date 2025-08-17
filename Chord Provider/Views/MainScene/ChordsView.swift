@@ -19,9 +19,9 @@ struct ChordsView: View {
     @State var defineChord: ChordDefinition?
     /// The body of the `View`
     var body: some View {
-        let layout = sceneState.song.settings.display.chordsPosition == .bottom ?
+        let layout = sceneState.settings.display.chordsPosition == .bottom ?
         AnyLayout(HStackLayout(spacing: 0)) : AnyLayout(VStackLayout(spacing: 0))
-        ScrollView([sceneState.song.settings.display.chordsPosition == .bottom ? .horizontal : .vertical]) {
+        ScrollView([sceneState.settings.display.chordsPosition == .bottom ? .horizontal : .vertical]) {
             layout {
                 ForEach(sceneState.song.chords) { chord in
                     switch chord.status {
@@ -32,7 +32,7 @@ struct ChordsView: View {
                             },
                             label: {
                                 VStack(spacing: 0) {
-                                    ChordDefinitionView(chord: chord, width: 100, settings: sceneState.song.settings)
+                                    ChordDefinitionView(chord: chord, width: 100, settings: sceneState.settings)
                                 }
                             }
                         )
@@ -44,7 +44,7 @@ struct ChordsView: View {
                     case .unknownChord:
                         EmptyView()
                     default:
-                        ChordDefinitionView(chord: chord, width: 100, settings: sceneState.song.settings)
+                        ChordDefinitionView(chord: chord, width: 100, settings: sceneState.settings)
                             .scrollTransition { effect, phase in
                                 effect
                                     .scaleEffect(phase.isIdentity ? 1 : 0.6)
@@ -86,7 +86,7 @@ extension ChordsView {
                                 ChordDefinitionView(
                                     chord: chord,
                                     width: 140,
-                                    settings: sceneState.song.settings,
+                                    settings: sceneState.settings,
                                     useDefaultColors: true
                                 )
                             })

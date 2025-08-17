@@ -5,7 +5,6 @@
 //  © 2025 Nick Berendsen
 //
 
-
 extension ChordDefinition {
 
     /// Play a ``ChordDefinition`` with MIDI

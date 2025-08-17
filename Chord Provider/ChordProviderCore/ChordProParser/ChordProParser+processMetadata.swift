@@ -49,7 +49,7 @@ extension ChordProParser {
         case .time:
             song.metadata.time = label
         case .key:
-            if let label, var chord = ChordDefinition(name: label, instrument: song.settings.display.instrument) {
+            if let label, var chord = ChordDefinition(name: label, instrument: song.metadata.instrument) {
                 /// Transpose the key if needed
                 if song.metadata.transpose != 0 {
                     chord.transpose(transpose: song.metadata.transpose, scale: chord.root)

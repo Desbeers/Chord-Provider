@@ -48,6 +48,8 @@ extension Song {
         var tags: [String]?
         /// The optional transpose
         var transpose: Int = 0
+        /// The instrument for the song
+        var instrument: Chord.Instrument = .guitar
 
         // MARK: URL's
 

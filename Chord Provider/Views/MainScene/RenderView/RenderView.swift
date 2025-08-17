@@ -17,45 +17,50 @@ extension RenderView {
     struct MainView: View {
         /// The ``Song``
         let song: Song
+        /// The ``AppSettings``
+        let settings: AppSettings
         /// The calculated spacing between sections
         let spacing: Double
         /// Init the `View`
-        /// - Parameter song: The ``Song`` to view
-        init(song: Song) {
-            self.spacing = 20 * song.settings.scale.magnifier
-            var song = song
+        /// - Parameters:
+        ///   - song: The ``Song`` to view
+        ///   - settings: The ``AppSettings``
+        init(song: Song, settings: AppSettings) {
+            self.spacing = 20 * settings.scale.magnifier
+            var settings = settings
             /// Calculate label style
-            switch song.settings.display.paging {
+            switch settings.display.paging {
             case .asColumns:
-                song.settings.display.labelStyle = .inline
+                settings.display.labelStyle = .inline
             case .asList:
-                let neededWidth = (song.settings.scale.maxSongLabelWidth + song.settings.scale.maxSongLineWidth) + (2 * self.spacing) + 20
-                song.settings.display.labelStyle = song.settings.scale.maxSongWidth < neededWidth ? .inline : .grid
+                let neededWidth = (settings.scale.maxSongLabelWidth + settings.scale.maxSongLineWidth) + (2 * self.spacing) + 20
+                settings.display.labelStyle = settings.scale.maxSongWidth < neededWidth ? .inline : .grid
             }
             self.song = song
+            self.settings = settings
         }
         /// The body of the `View`
         var body: some View {
-            switch song.settings.display.paging {
+            switch settings.display.paging {
             case .asList:
                 ScrollView(.vertical) {
-                    switch song.settings.display.labelStyle {
+                    switch settings.display.labelStyle {
                     case .grid:
                         LazyVGrid(
                             columns: [
-                                GridItem(.fixed(song.settings.scale.maxSongLabelWidth), alignment: .topTrailing),
+                                GridItem(.fixed(settings.scale.maxSongLabelWidth), alignment: .topTrailing),
                                 GridItem(.fixed(10), alignment: .center),
-                                GridItem(.flexible(minimum: 100, maximum: song.settings.scale.maxSongLineWidth), alignment: .topLeading)
+                                GridItem(.flexible(minimum: 100, maximum: settings.scale.maxSongLineWidth), alignment: .topLeading)
                             ],
                             alignment: .center,
                             spacing: spacing
                         ) {
-                            RenderView.Sections(sections: song.sections, chords: song.chords, settings: song.settings)
+                            RenderView.Sections(sections: song.sections, chords: song.chords, settings: settings)
                         }
                         .padding(.vertical, spacing)
                     case .inline:
                         LazyVStack(alignment: .leading) {
-                            RenderView.Sections(sections: song.sections, chords: song.chords, settings: song.settings)
+                            RenderView.Sections(sections: song.sections, chords: song.chords, settings: settings)
                         }
                         .padding(spacing)
                     }
@@ -66,7 +71,7 @@ extension RenderView {
                         columnSpacing: spacing * 2,
                         rowSpacing: spacing * 0.5
                     ) {
-                        RenderView.Sections(sections: song.sections, chords: song.chords, settings: song.settings)
+                        RenderView.Sections(sections: song.sections, chords: song.chords, settings: settings)
                     }
                     .padding(spacing)
                 }

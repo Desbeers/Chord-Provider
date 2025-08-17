@@ -25,15 +25,17 @@ actor ChordProParser {
     /// Parse a **ChordPro** file into a ``Song`` structure
     /// - Parameters:
     ///   - song: The current ``Song``
+    ///   - instrument: The ``Chord/Instrument`` to use
     ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: An updated ``Song`` item
-    static func parse(song: Song, getOnlyMetadata: Bool = false) async -> Song {
+    static func parse(song: Song, instrument: Chord.Instrument, getOnlyMetadata: Bool = false) async -> Song {
         /// Store the values of the current song
         let old = song
         Logger.parser.info("Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
         /// Start with a fresh song
-        var song = Song(id: song.id, content: old.content, settings: old.settings)
+        var song = Song(id: song.id, content: old.content)
         song.metadata.fileURL = old.metadata.fileURL
+        song.metadata.instrument = instrument
         /// Add the optional transpose
         song.metadata.transpose = old.metadata.transpose
         /// And add the first section

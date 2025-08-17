@@ -65,10 +65,10 @@ struct HelpView: View {
                 }
                 var song = Song(id: UUID(), content: content)
                 song.metadata.fileURL = helpSong
-                song.settings = settings
-                song = await ChordProParser.parse(song: song)
+                song = await ChordProParser.parse(song: song, instrument: .guitar)
                 if let export = try? await SongExport.export(
-                    song: song
+                    song: song,
+                    settings: settings
                 ) {
                     data = export.pdf
                 }
@@ -84,10 +84,10 @@ struct HelpView: View {
             settings.style = AppSettings.Style.ColorPreset.random.presets(style: settings.style)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = helpSong
-            song.settings = settings
-            song = await ChordProParser.parse(song: song)
+            song = await ChordProParser.parse(song: song, instrument: .guitar)
             if let export = try? await SongExport.export(
-                song: song
+                song: song,
+                settings: settings
             ) {
                 data = export.pdf
             }
@@ -102,10 +102,10 @@ struct HelpView: View {
             settings.style = AppSettings.Style.FontPreset.random.presets(style: settings.style, fonts: appState.fonts)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = helpSong
-            song.settings = settings
-            song = await ChordProParser.parse(song: song)
+            song = await ChordProParser.parse(song: song, instrument: .guitar)
             if let export = try? await SongExport.export(
-                song: song
+                song: song,
+                settings: settings
             ) {
                 data = export.pdf
             }
