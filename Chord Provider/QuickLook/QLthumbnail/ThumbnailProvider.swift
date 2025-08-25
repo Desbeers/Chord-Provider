@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import OSLog
 import QuickLookThumbnailing
 
 /// Create a simple icon for a **ChordPro** file
@@ -18,9 +17,6 @@ class ThumbnailProvider: QLThumbnailProvider {
     ) {
 
         guard let nsImage = NSImage(named: "FileIcon"), let fileContents = try? String(contentsOf: request.fileURL, encoding: .utf8) else {
-            Logger.application.error(
-                "Resources not found"
-            )
             return handler(nil, nil)
         }
         var extensionBadge = "ChordPro"
@@ -43,9 +39,6 @@ class ThumbnailProvider: QLThumbnailProvider {
         )
         /// Draw icon if all is well
         if let cgImage {
-            Logger.application.info(
-                "Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public)"
-            )
             let qlThumbnailReply = QLThumbnailReply(contextSize: contextSize) { context -> Bool in
                 /// Draw the thumbnail in the provided context
                 context.draw(cgImage, in: scaleFrame, byTiling: false)
@@ -54,10 +47,6 @@ class ThumbnailProvider: QLThumbnailProvider {
             /// Set the proper extension type
             qlThumbnailReply.extensionBadge = extensionBadge
             handler(qlThumbnailReply, nil)
-        } else {
-            Logger.application.error(
-                "Make thumbnail for \(request.fileURL.lastPathComponent, privacy: .public) failed"
-            )
         }
     }
 }

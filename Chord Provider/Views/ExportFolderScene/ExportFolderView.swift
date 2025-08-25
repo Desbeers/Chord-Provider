@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import OSLog
+import ChordProviderCore
 
 /// SwiftUI `View` to export a folder with **ChordPro** songs to a PDF
 /// with a Table of Content and a cover page
@@ -91,7 +91,13 @@ struct ExportFolderView: View {
                                 }
                             }
                         } catch {
-                            Logger.application.error("\(error, privacy: .public)")
+                            LogUtils.shared.log(
+                                .init(
+                                    type: .error,
+                                    category: .application,
+                                    message: error.localizedDescription
+                                )
+                            )
                         }
                     }
                 },
@@ -115,13 +121,31 @@ struct ExportFolderView: View {
             onCompletion: { result in
                 switch result {
                 case .success(let url):
-                    Logger.application.notice("Export folder to \(url.lastPathComponent, privacy: .public) completed")
+                    LogUtils.shared.log(
+                        .init(
+                            type: .info,
+                            category: .fileAccess,
+                            message: "Export folder to \(url.lastPathComponent)"
+                        )
+                    )
                 case .failure(let error):
-                    Logger.application.error("Export folder error: \(error.localizedDescription, privacy: .public)")
+                    LogUtils.shared.log(
+                        .init(
+                            type: .error,
+                            category: .fileAccess,
+                            message: "Export folder error: \(error.localizedDescription)"
+                        )
+                    )
                 }
             },
             onCancellation: {
-                Logger.application.notice("Export canceled")
+                LogUtils.shared.log(
+                    .init(
+                        type: .info,
+                        category: .fileAccess,
+                        message: "Export canceled"
+                    )
+                )
             }
         )
         .scrollContentBackground(.hidden)

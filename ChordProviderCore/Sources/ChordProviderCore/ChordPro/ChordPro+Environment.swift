@@ -12,7 +12,7 @@ extension ChordPro {
     // MARK: 'ChordPro' section environments
 
     /// The environment of a section of the song
-    public enum Environment: String, Codable, Sendable  {
+    public enum Environment: String, Codable, Sendable {
 
         // MARK: Official environments
 

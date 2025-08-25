@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import OSLog
 
 extension Song.Section {
 
@@ -84,13 +83,33 @@ extension Song.Section {
                 self.warnings?.insert(warning)
             }
             let line = sourceLineNumber
-            Logger.parser.fault("**Line \(line, privacy: .public)**\n\(warning, privacy: .public)")
+
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .warning,
+                        category: .songParser,
+                        lineNumber: line,
+                        message: "\(warning)"
+                    )
+                )
+            }
         }
 
         /// Add a set of warnings
         mutating func addWarning(_ warning: Set<String>) {
-            let warningLine = (["**Line \(sourceLineNumber)**"] + warning.map(\.description)).joined(separator: "\n")
-            Logger.parser.fault("\(warningLine, privacy: .public)")
+            let warningLine = warning.map(\.description).joined(separator: "\n")
+            let line = sourceLineNumber
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .warning,
+                        category: .songParser,
+                        lineNumber: line,
+                        message: warningLine
+                    )
+                )
+            }
             self.warnings = warning
         }
 

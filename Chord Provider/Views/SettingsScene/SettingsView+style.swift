@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 extension SettingsView {
@@ -56,7 +55,13 @@ extension SettingsView {
                                                 let style = try JSONUtils.decode(text, struct: AppSettings.Style.self)
                                                 appState.settings.style = style
                                             } catch {
-                                                Logger.fileAccess.error("Theme import failed: \(error.localizedDescription, privacy: .public)")
+                                                LogUtils.shared.log(
+                                                    .init(
+                                                        type: .error,
+                                                        category: .fileAccess,
+                                                        message: "Theme import failed: \(error.localizedDescription)"
+                                                    )
+                                                )
                                                 errorAlert = AppError.importThemeError.alert()
                                             }
                                         }
@@ -100,7 +105,15 @@ extension SettingsView {
                                 showJsonExportDialog = true
                             } catch {
                                 /// This should not happen
-                                Logger.parser.error("\(error.localizedDescription, privacy: .public)")
+                                Task {
+                                    LogUtils.shared.log(
+                                        .init(
+                                            type: .error,
+                                            category: .chordProCliParser,
+                                            message: error.localizedDescription
+                                        )
+                                    )
+                                }
                             }
                         },
                         label: {
@@ -128,9 +141,21 @@ extension SettingsView {
         ) { result in
             switch result {
             case .success(let url):
-                Logger.fileAccess.info("Theme exported to \(url, privacy: .public)")
+                LogUtils.shared.log(
+                    .init(
+                        type: .info,
+                        category: .fileAccess,
+                        message: "Theme exported to \(url)"
+                    )
+                )
             case .failure(let error):
-                Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
+                LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .fileAccess,
+                        message: "Export failed: \(error.localizedDescription)"
+                    )
+                )
             }
         }
         .fileImporter(
@@ -144,14 +169,31 @@ extension SettingsView {
                     try files.forEach { url in
                         let text = try String(contentsOf: url, encoding: .utf8)
                         appState.settings.style = try JSONUtils.decode(text, struct: AppSettings.Style.self)
-                        Logger.fileAccess.info("Theme imported from \(url, privacy: .public)")
+                        LogUtils.shared.log(
+                            .init(
+                                type: .info,
+                                category: .fileAccess,
+                                message: "Theme imported from \(url)"
+                            )
+                        )
                     }
-                } catch {
-                    Logger.fileAccess.error("Import failed: \(error.localizedDescription, privacy: .public)")
+                } catch {LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .fileAccess,
+                        message: "Import failed: \(error.localizedDescription)"
+                    )
+                )
                     errorAlert = AppError.importThemeError.alert()
                 }
             case .failure(let error):
-                Logger.fileAccess.error("Import failed: \(error.localizedDescription, privacy: .public)")
+                LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .fileAccess,
+                        message: "Import failed: \(error.localizedDescription)"
+                    )
+                )
                 errorAlert = AppError.importThemeError.alert()
             }
         }

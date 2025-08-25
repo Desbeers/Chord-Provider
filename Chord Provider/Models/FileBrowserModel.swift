@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 /// The observable file browser state for **Chord Provider**

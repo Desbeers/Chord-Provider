@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 extension WelcomeView {
@@ -104,7 +103,6 @@ extension WelcomeView {
         .task(id: fileBrowser.songs) {
             if fileBrowser.songs.isEmpty {
                 fileBrowser.getFiles()
-                appState.lastUpdate = .now
             }
             let tags = fileBrowser.songs.compactMap(\.metadata.tags).flatMap { $0 }
             /// Make sure the tags are unique

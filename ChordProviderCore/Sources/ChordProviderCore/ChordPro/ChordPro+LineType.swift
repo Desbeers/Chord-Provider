@@ -10,7 +10,7 @@ import Foundation
 extension ChordPro {
 
     /// The type of the line in a **ChordPro** song
-    public enum LineType: String, Codable, Sendable  {
+    public enum LineType: String, Codable, Sendable {
         case songLine = "song_line"
         case emptyLine = "empty_line"
         case metadata

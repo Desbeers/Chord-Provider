@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
-import OSLog
+import ChordProviderCore
 
 /// SwiftUI `View` with a button to select a file
 /// - Note: A file can be a *normal* file but also a folder
@@ -20,7 +20,6 @@ struct UserFileButton: View {
     let action: () -> Void
     /// The label of the button
     @State private var label: String?
-
     /// Present an import dialog
     @State private var presentImportDialog: Bool = false
     /// The body of the `View`
@@ -54,10 +53,22 @@ struct UserFileButton: View {
                     action()
                 }
             case .failure(let error):
-                Logger.application.error("Import dialog error: '\(error, privacy: .public)'")
+                LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .songParser,
+                        message: "Import dialog error: '\(error.localizedDescription)'"
+                    )
+                )
             }
         } onCancellation: {
-            Logger.application.info("Import canceled")
+            LogUtils.shared.log(
+                .init(
+                    type: .error,
+                    category: .songParser,
+                    message: "Import canceled"
+                )
+            )
         }
         .fileDialogMessage(Text(userFile.message))
         .fileDialogCustomizationID(userFile.id)

@@ -13,6 +13,13 @@ struct ToolbarView: CustomizableToolbarContent {
     @Environment(SceneStateModel.self) private var sceneState
     /// The body of the `View`
     var body: some CustomizableToolbarContent {
+#if DEBUG
+        ToolbarItem(id: "html") {
+            Button("HTML") {
+                sceneState.songRenderer = sceneState.songRenderer == .html ? .standard : .html
+            }
+        }
+#endif
         ToolbarItem(id: "editor") {
             sceneState.showEditorButton
         }

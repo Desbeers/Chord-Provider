@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 /// The observable scene state for **Chord Provider**
@@ -66,7 +65,11 @@ import ChordProviderCore
                 try export.pdf.write(to: song.metadata.exportURL)
                 return export.pdf
             } catch {
-                Logger.application.error("PDF error: \(error.localizedDescription, privacy: .public)")
+                LogUtils.shared.log(.init(
+                    type: .error,
+                    category: .pdfGenerator,
+                    message: "PDF error: \(error.localizedDescription)")
+                )
                 throw error
             }
         case true:
@@ -78,7 +81,11 @@ import ChordProviderCore
                 )
                 return export.data
             } catch {
-                Logger.application.error("ChordPro CLI error: \(error.localizedDescription, privacy: .public)")
+                LogUtils.shared.log(.init(
+                    type: .error,
+                    category: .chordProCliParser,
+                    message: "ChordPro CLI error: \(error.localizedDescription)")
+                )
                 throw error
             }
         }
@@ -134,6 +141,8 @@ extension SceneStateModel {
         case standard
         /// PDF View
         case pdf
+        /// HTML View
+        case html
         /// Animating
         case animating
     }

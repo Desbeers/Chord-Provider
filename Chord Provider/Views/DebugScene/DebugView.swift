@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 /// SwiftUI `View` for the debug window
@@ -21,12 +20,8 @@ struct DebugView: View {
     @State var source: [(line: Int, source: Song.Section.Line)] = []
     /// The currently selected line
     @State var selectedLine: Int?
-    /// All parsed log messages
-    @State var osLogMessages: [LogMessage] = []
     /// JSON part
     @State var jsonPart: Part = .metadata
-    /// Remember the last fetched time
-    @State var lastFetchedLogDate = Date.now
     /// The body of the `View`
     var body: some View {
         VStack(spacing: 0) {
@@ -61,15 +56,9 @@ struct DebugView: View {
                 await getSource()
             }
         }
-        .task(id: appState.lastUpdate) {
-            if scenePhase == .active {
-                await getLog()
-            }
-        }
         .task(id: scenePhase) {
             if scenePhase == .active {
                 await getSource()
-                await getLog()
             }
         }
         .task(id: tab) {

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 
 /// SwiftUI `Scene` for **Chord Provider**
 @main struct ChordProviderApp: App {

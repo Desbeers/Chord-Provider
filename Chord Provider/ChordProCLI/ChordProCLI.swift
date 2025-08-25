@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import OSLog
 import ChordProviderCore
 
 /// Terminal utilities to run the official **ChordPro** CLI to create a PDF
@@ -62,7 +61,15 @@ extension ChordProCLI {
         do {
             try task.run()
         } catch {
-            Logger.chordpro.error("\(error.localizedDescription, privacy: .public)")
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .chordProCliParser,
+                        message: error.localizedDescription
+                    )
+                )
+            }
         }
         /// Return the stream
         return AsyncStream { continuation in
@@ -188,7 +195,15 @@ extension ChordProCLI {
                     try config.write(to: song.metadata.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
                     try jsonSettings.write(to: song.metadata.configURL, atomically: true, encoding: String.Encoding.utf8)
                 } catch {
-                    Logger.application.error("\(error.localizedDescription, privacy: .public)")
+                    Task {
+                        LogUtils.shared.log(
+                            .init(
+                                type: .error,
+                                category: .chordProCliParser,
+                                message: error.localizedDescription
+                            )
+                        )
+                    }
                 }
             }
             arguments.append("--config='\(song.metadata.defaultConfigURL.path)'")
@@ -205,7 +220,15 @@ extension ChordProCLI {
         /// Add the output file
         arguments.append("--output=\"\(song.metadata.exportURL.path)\"")
         /// Add the process to the log
-        Logger.chordpro.info("Creating PDF preview with ChordPro CLI")
+        Task {
+            LogUtils.shared.log(
+                .init(
+                    type: .info,
+                    category: .chordProCliParser,
+                    message: "Creating PDF preview with ChordPro CLI"
+                )
+            )
+        }
         let runChordPro = Task.detached {
             await ChordProCLI.runInShell(arguments: [arguments.joined(separator: " ")])
         }
@@ -239,16 +262,33 @@ extension ChordProCLI {
             let match = lineNumberRegex?.firstMatch(in: message, options: [], range: NSRange(location: 0, length: message.utf16.count)),
             let lineNumber = Range(match.range(at: 1), in: message),
             let remaining = Range(match.range(at: 2), in: message) {
-            let logMessage = LogMessage(
+            let logMessage = LogUtils.LogMessage(
                 time: output.time,
                 type: .fault,
+                category: .chordProCliParser,
                 lineNumber: Int(message[lineNumber]),
                 message: "Warning: \(String(message[remaining]))"
             )
-            Logger.chordpro.fault("**Line \(logMessage.lineNumber ?? 0, privacy: .public)**\n\(String(message[remaining]), privacy: .public)")
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .fault,
+                        category: .chordProCliParser,
+                        message: "**Line \(logMessage.lineNumber ?? 0)**\n\(String(message[remaining]))"
+                    )
+                )
+            }
             return true
         } else {
-            Logger.chordpro.notice("\(message, privacy: .public)")
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .notice,
+                        category: .chordProCliParser,
+                        message: message
+                    )
+                )
+            }
             return false
         }
     }

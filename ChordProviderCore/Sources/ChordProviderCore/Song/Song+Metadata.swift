@@ -37,9 +37,6 @@ extension Song {
             self.longestLine = longestLine
             self.definedMetadata = definedMetadata
         }
-        
-
-
 
         // MARK: Metadata directives
 

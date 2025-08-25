@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 /// Export a single ``Song`` to a PDF
@@ -27,7 +26,13 @@ extension SongExport {
         song: Song,
         settings: AppSettings
     ) async throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
-        Logger.pdfBuild.info("Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
+        await LogUtils.shared.log(
+            .init(
+                type: .info,
+                category: .fileAccess,
+                message: "Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")**"
+            )
+        )
         let documentInfo = PDFBuild.DocumentInfo(
             title: song.metadata.title,
             author: song.metadata.artist,
@@ -156,7 +161,13 @@ extension SongExport {
             if settings.pdf.scaleFonts {
                 settings.pdf.scale = availableWidth / longestLineWidth
             }
-            Logger.pdfBuild.warning("Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)** does not fit")
+            await LogUtils.shared.log(
+                .init(
+                    type: .warning,
+                    category: .pdfGenerator,
+                    message: "Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")** does not fit"
+                )
+            )
         }
 
         // MARK: Calculate offset

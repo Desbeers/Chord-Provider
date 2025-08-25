@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 /// SwiftUI `View` for the Welcome Window
@@ -101,7 +100,13 @@ extension WelcomeView {
         do {
             try await openDocument(at: url)
         } catch {
-            Logger.application.error("Error opening URL: \(error.localizedDescription, privacy: .public)")
+            LogUtils.shared.log(
+                .init(
+                    type: .error,
+                    category: .application,
+                    message: "Error opening URL: \(error.localizedDescription)"
+                )
+            )
         }
         dismiss()
     }

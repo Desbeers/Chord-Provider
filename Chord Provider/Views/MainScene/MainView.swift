@@ -6,8 +6,8 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
+import ChordProviderHTML
 
 /// SwiftUI `View` for the main content
 struct MainView: View {
@@ -194,6 +194,8 @@ struct MainView: View {
             case .pdf:
                 PreviewPaneView()
                     .transition(.move(edge: .trailing))
+            case .html:
+                HtmlView(song: sceneState.song)
             case .animating:
                 progress
             }
@@ -209,7 +211,6 @@ struct MainView: View {
             /// Remove this song from the Debug View if active
             if sceneState.song.id == appState.song?.id {
                 appState.song = nil
-                appState.lastUpdate = .now
             }
         }
     }
@@ -235,7 +236,6 @@ struct MainView: View {
             prefixes: appState.settings.application.sortTokens
         )
         sceneState.getMedia()
-        appState.lastUpdate = .now
 
         /// Optional update the PDF preview
         if updatePreview, sceneState.songRenderer == .pdf {

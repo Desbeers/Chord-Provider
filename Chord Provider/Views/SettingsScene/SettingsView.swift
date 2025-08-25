@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 
 /// SwiftUI `View` for the settings
 struct SettingsView: View {

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import OSLog
+import ChordProviderCore
 
 extension UserFileUtils.Selection {
 
@@ -29,7 +29,15 @@ extension UserFileUtils.Selection {
             }
             return urlForBookmark
         } catch {
-            Logger.fileAccess.error("\(error.localizedDescription, privacy: .public)")
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .application,
+                        message: error.localizedDescription
+                    )
+                )
+            }
             return nil
         }
     }
@@ -45,9 +53,16 @@ extension UserFileUtils.Selection {
             )
             UserDefaults.standard.set(bookmarkData, forKey: self.id)
             selectedURL.stopAccessingSecurityScopedResource()
-            Logger.fileAccess.info("Bookmark set for '\(selectedURL.lastPathComponent, privacy: .public)'")
         } catch let error {
-            Logger.fileAccess.error("Bookmark error: '\(error.localizedDescription, privacy: .public)'")
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .application,
+                        message: "Bookmark error: '\(error.localizedDescription)'"
+                    )
+                )
+            }
             selectedURL.stopAccessingSecurityScopedResource()
         }
     }

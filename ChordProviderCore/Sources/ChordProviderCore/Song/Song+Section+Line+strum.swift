@@ -10,7 +10,7 @@ import Foundation
 extension Song.Section.Line {
 
     /// The structure of a strum
-    public struct Strum: Equatable, Codable, Identifiable, Hashable, Sendable  {
+    public struct Strum: Equatable, Codable, Identifiable, Hashable, Sendable {
         /// Init the struct
         public init(id: Int = 0, action: Song.Section.Line.Strum.Action = .none, beat: String = "", tuplet: String = "&") {
             self.id = id
@@ -61,7 +61,7 @@ extension Song.Section.Line {
 extension Song.Section.Line.Strum {
 
     /// The strum actions
-    public enum Action: Codable, Sendable  {
+    public enum Action: Codable, Sendable {
         /// Up stroke
         case up
         /// Accented up stroke

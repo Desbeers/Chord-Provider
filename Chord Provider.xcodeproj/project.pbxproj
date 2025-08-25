@@ -27,6 +27,9 @@
 		D706FDA92BCECC9F005DEDF6 /* PDFStringAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8D2BCECC9F005DEDF6 /* PDFStringAttribute.swift */; };
 		D706FDAC2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */; };
 		D706FDAD2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */; };
+		D707CB092E59C6B7001FED23 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D707CB082E59C6B7001FED23 /* ChordProviderHTML */; };
+		D707CB0B2E59E7CF001FED23 /* AppKitUtils+WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D707CB0A2E59E7CF001FED23 /* AppKitUtils+WebView.swift */; };
+		D707CB0D2E59E82D001FED23 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D707CB0C2E59E82D001FED23 /* HtmlView.swift */; };
 		D70B72742BD3CD2F003C89B4 /* PDFBuild+Chords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */; };
 		D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */; };
 		D70B72792BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */; };
@@ -194,8 +197,6 @@
 		D79932E62D71EB940003F502 /* AppSettings+AppWindowID.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79932E52D71EB940003F502 /* AppSettings+AppWindowID.swift */; };
 		D79932E72D71EB940003F502 /* AppSettings+AppWindowID.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79932E52D71EB940003F502 /* AppSettings+AppWindowID.swift */; };
 		D7A10B872D11DC8E005DD032 /* ThumbnailProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74072902BA20D9000DD52F0 /* ThumbnailProvider.swift */; };
-		D7A10B892D131657005DD032 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */; };
-		D7A10B8A2D131657005DD032 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */; };
 		D7A10B8D2D131919005DD032 /* SongExport+images.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A10B8B2D131918005DD032 /* SongExport+images.swift */; };
 		D7A10B8E2D132ECE005DD032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7F13F9E2A6460B7002D875D /* Assets.xcassets */; };
 		D7A283832C3476A300E2F0BB /* PreviewPDFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A283822C3476A300E2F0BB /* PreviewPDFButton.swift */; };
@@ -260,7 +261,6 @@
 		D7EA87682C5A580A009A3D82 /* ChordProEditor+Wrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87562C5A580A009A3D82 /* ChordProEditor+Wrapper.swift */; };
 		D7EA87692C5A580A009A3D82 /* ChordProEditorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87572C5A580A009A3D82 /* ChordProEditorDelegate.swift */; };
 		D7EA876D2C5A581E009A3D82 /* UTType+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876A2C5A581E009A3D82 /* UTType+extension.swift */; };
-		D7EA876E2C5A581E009A3D82 /* Logger+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */; };
 		D7EA876F2C5A581E009A3D82 /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876C2C5A581E009A3D82 /* Color+extension.swift */; };
 		D7EA87722C5A583B009A3D82 /* SettingsCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87702C5A583B009A3D82 /* SettingsCache.swift */; };
 		D7EA877B2C5A587A009A3D82 /* SceneStateModel+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA87792C5A587A009A3D82 /* SceneStateModel+Preview.swift */; };
@@ -398,6 +398,8 @@
 		D706FD8D2BCECC9F005DEDF6 /* PDFStringAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFStringAttribute.swift; sourceTree = "<group>"; };
 		D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+LyricsSection+Line+Part.swift"; sourceTree = "<group>"; };
 		D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+LyricsSection+Line.swift"; sourceTree = "<group>"; };
+		D707CB0A2E59E7CF001FED23 /* AppKitUtils+WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+WebView.swift"; sourceTree = "<group>"; };
+		D707CB0C2E59E82D001FED23 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Chords.swift"; sourceTree = "<group>"; };
 		D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Chords+Diagram.swift"; sourceTree = "<group>"; };
 		D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TabSection+Line.swift"; sourceTree = "<group>"; };
@@ -572,7 +574,6 @@
 		D7EA87562C5A580A009A3D82 /* ChordProEditor+Wrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChordProEditor+Wrapper.swift"; sourceTree = "<group>"; };
 		D7EA87572C5A580A009A3D82 /* ChordProEditorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProEditorDelegate.swift; sourceTree = "<group>"; };
 		D7EA876A2C5A581E009A3D82 /* UTType+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UTType+extension.swift"; sourceTree = "<group>"; };
-		D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+extension.swift"; sourceTree = "<group>"; };
 		D7EA876C2C5A581E009A3D82 /* Color+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+extension.swift"; sourceTree = "<group>"; };
 		D7EA87702C5A583B009A3D82 /* SettingsCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCache.swift; sourceTree = "<group>"; };
 		D7EA87792C5A587A009A3D82 /* SceneStateModel+Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SceneStateModel+Preview.swift"; sourceTree = "<group>"; };
@@ -649,6 +650,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D778F3732E51F559007CA66E /* ChordProviderCore in Frameworks */,
+				D707CB092E59C6B7001FED23 /* ChordProviderHTML in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -983,6 +985,7 @@
 				D778F3292E51C814007CA66E /* ChordDefinition */,
 				D778F3252E51C333007CA66E /* Song */,
 				D778F3262E51C358007CA66E /* README.md */,
+				D7781B502D0CA06900EC0CCF /* LogMessage.swift */,
 			);
 			path = ChordProviderMac;
 			sourceTree = "<group>";
@@ -1029,7 +1032,6 @@
 			children = (
 				D730BBA52CA844C2008719F2 /* Collection+extensions.swift */,
 				D7EA876C2C5A581E009A3D82 /* Color+extension.swift */,
-				D7EA876B2C5A581E009A3D82 /* Logger+extension.swift */,
 				D7C725CD2BFF5B49006D9C74 /* NSWindow+extension.swift */,
 				D730BBA72CA844C2008719F2 /* Sequence+extensions.swift */,
 				D7EC28A02BF690FE00F220A1 /* String+extensions.swift */,
@@ -1055,6 +1057,7 @@
 				D7F13FB72A6460B7002D875D /* ChordsView.swift */,
 				D7593A502DA950150037952B /* RenderView */,
 				D76C24E22C3AA2AA00C93D82 /* PreviewPaneView.swift */,
+				D707CB0C2E59E82D001FED23 /* HtmlView.swift */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -1170,6 +1173,7 @@
 				D7EA874B2C5A5809009A3D82 /* AppKitUtils+SharingServiceRepresentedView.swift */,
 				D70D96BD2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift */,
 				D7FC62DE2E100AD400382DC2 /* Backport.swift */,
+				D707CB0A2E59E7CF001FED23 /* AppKitUtils+WebView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -1289,7 +1293,6 @@
 				D7EF99682BDADC2E0058E1CB /* AppError.swift */,
 				D70D96D72CB28B8200B51A14 /* AppSettings */,
 				D78819652BFB25300033545D /* Help.swift */,
-				D7781B502D0CA06900EC0CCF /* LogMessage.swift */,
 				D77209732DF331BD00B58648 /* Samples.swift */,
 				D7781B4D2D0C94E100EC0CCF /* ChordProvider.entitlements */,
 				D7F13F7A2A645FED002D875D /* Info.plist */,
@@ -1420,6 +1423,7 @@
 			name = "Chord Provider";
 			packageProductDependencies = (
 				D778F3722E51F559007CA66E /* ChordProviderCore */,
+				D707CB082E59C6B7001FED23 /* ChordProviderHTML */,
 			);
 			productName = "Chord Provider";
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
@@ -1478,6 +1482,7 @@
 			mainGroup = D7F13F662A645FEC002D875D;
 			packageReferences = (
 				D778F3712E51F559007CA66E /* XCLocalSwiftPackageReference "ChordProviderCore" */,
+				D707CB072E59C6B7001FED23 /* XCLocalSwiftPackageReference "ChordProviderHTML" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
@@ -1552,7 +1557,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A10B872D11DC8E005DD032 /* ThumbnailProvider.swift in Sources */,
-				D7A10B8A2D131657005DD032 /* Logger+extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1595,6 +1599,7 @@
 				D77CDB1C2D7334E300943462 /* SongFileUtils+Artist.swift in Sources */,
 				D7B45F5E2C2DD438003932CB /* Editor.swift in Sources */,
 				D733F6042B90CC1C0065D6FD /* FileBrowserModel+Elements.swift in Sources */,
+				D707CB0D2E59E82D001FED23 /* HtmlView.swift in Sources */,
 				D7EA87722C5A583B009A3D82 /* SettingsCache.swift in Sources */,
 				D79932E72D71EB940003F502 /* AppSettings+AppWindowID.swift in Sources */,
 				D705035A2D23250200DB897A /* Modifiers.swift in Sources */,
@@ -1675,7 +1680,6 @@
 				D7F3726C2E3252B10075C8E4 /* C64View+functions.swift in Sources */,
 				D706FD962BCECC9F005DEDF6 /* PDFBuild+Padding.swift in Sources */,
 				D730BBED2CA844C2008719F2 /* MidiPlayer.swift in Sources */,
-				D7EA876E2C5A581E009A3D82 /* Logger+extension.swift in Sources */,
 				D7EA877F2C5A5888009A3D82 /* ColorPickerButton.swift in Sources */,
 				D7781B512D0CA06900EC0CCF /* LogMessage.swift in Sources */,
 				D730BC322CA844C2008719F2 /* ChordDefinitionView.swift in Sources */,
@@ -1742,6 +1746,7 @@
 				D7C725CC2BFF5B3A006D9C74 /* View+extension.swift in Sources */,
 				D70D96BE2CB158A100B51A14 /* AppKitUtils+QLPreviewRepresentedView.swift in Sources */,
 				D7EB791D2CA995C3004D965B /* Modifiers+Scale.swift in Sources */,
+				D707CB0B2E59E7CF001FED23 /* AppKitUtils+WebView.swift in Sources */,
 				D7EB791A2CA97BA5004D965B /* ChordsDatabaseView.swift in Sources */,
 				D75E6C692DABB0960065F1D2 /* RenderView+StrumSection.swift in Sources */,
 				D70B727E2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift in Sources */,
@@ -1814,7 +1819,6 @@
 				D70B72A12BD52A9B003C89B4 /* PDFBuild+Text.swift in Sources */,
 				D70B72A22BD52A9B003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D71E96F42DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift in Sources */,
-				D7A10B892D131657005DD032 /* Logger+extension.swift in Sources */,
 				D75350562DC79BD300CC310A /* AppSettings+SongListSort.swift in Sources */,
 				D7FA29662DF0461700B5CBE9 /* ImageUtils.swift in Sources */,
 				D7E22D892DB2844E004AA103 /* FontUtils+Item.swift in Sources */,
@@ -2274,6 +2278,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		D707CB072E59C6B7001FED23 /* XCLocalSwiftPackageReference "ChordProviderHTML" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ChordProviderHTML;
+		};
 		D778F3712E51F559007CA66E /* XCLocalSwiftPackageReference "ChordProviderCore" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ChordProviderCore;
@@ -2281,6 +2289,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D707CB082E59C6B7001FED23 /* ChordProviderHTML */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ChordProviderHTML;
+		};
 		D778F3722E51F559007CA66E /* ChordProviderCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ChordProviderCore;

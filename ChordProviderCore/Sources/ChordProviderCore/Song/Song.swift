@@ -18,7 +18,6 @@ public struct Song: Equatable, Codable, Identifiable {
         self.sections = sections
         self.chords = chords
     }
-    
 
     public static let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
         .appendingPathComponent(Bundle.main.bundleIdentifier ?? "nl.desbeers.chordprovider", isDirectory: true)

@@ -14,8 +14,6 @@ import ChordProviderCore
     var recentFiles: [URL] = []
     /// The optional current song in focus
     var song: Song?
-    /// Last time the app state was updated
-    var lastUpdate: Date = .now
     /// The ID of the app window
     var id: AppSettings.AppWindowID
     /// The application settings

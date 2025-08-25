@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import OSLog
+import ChordProviderCore
 
 /// SwiftUI `View` with a button for a ``Song`` export
 struct ExportSongButton: View {
@@ -48,13 +48,25 @@ struct ExportSongButton: View {
             onCompletion: { result in
                 switch result {
                 case .success(let url):
-                    Logger.application.notice("Export song to \(url.lastPathComponent, privacy: .public) completed")
+                    LogUtils.shared.log(.init(
+                        type: .info,
+                        category: .fileAccess,
+                        message: "Export song to \(url.lastPathComponent) completed")
+                    )
                 case .failure(let error):
-                    Logger.application.error("Export song error: \(error.localizedDescription, privacy: .public)")
+                    LogUtils.shared.log(.init(
+                        type: .error,
+                        category: .fileAccess,
+                        message: "Export song error: \(error.localizedDescription)")
+                    )
                 }
             },
             onCancellation: {
-                Logger.application.notice("Export canceled")
+                LogUtils.shared.log(.init(
+                    type: .info,
+                    category: .fileAccess,
+                    message: "Export canceled")
+                )
             }
         )
     }

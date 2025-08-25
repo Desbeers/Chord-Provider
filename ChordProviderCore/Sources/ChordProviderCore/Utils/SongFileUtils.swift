@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import OSLog
 
 /// Utilities to deal with a song file
 public enum SongFileUtils {
@@ -39,7 +38,6 @@ extension SongFileUtils {
                 getOnlyMetadata: getOnlyMetadata
             )
         } catch {
-            Logger.parser.error("\(error.localizedDescription, privacy: .public)")
             throw ChordProviderError.fileNotFound
         }
     }

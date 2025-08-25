@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProviderCore
 
 extension DebugView {
 
@@ -15,7 +16,7 @@ extension DebugView {
             ScrollViewReader { value in
                 LazyVStack(spacing: 0) {
                     /// - Note: This *must* be a LazyVStack or else memory usage will go nuts
-                    ForEach(osLogMessages) { log in
+                    ForEach(LogUtils.shared.messages) { log in
                         VStack(alignment: .leading, spacing: 0) {
                             Divider()
                             HStack(alignment: .top, spacing: 0) {
@@ -24,7 +25,7 @@ extension DebugView {
                                     .padding(.trailing, 4)
                                 Text(log.time.formatted(date: .omitted, time: .standard))
                                 Text(": ")
-                                Text(log.category)
+                                Text(log.category.rawValue)
                                 Text(": ")
                                 if let lineNumber = log.lineNumber {
                                     Text("**Line \(lineNumber)**: ")
@@ -42,7 +43,7 @@ extension DebugView {
                         .task {
                             value.scrollTo(1)
                         }
-                        .onChange(of: osLogMessages) {
+                        .onChange(of: LogUtils.shared.messages) {
                             value.scrollTo(1)
                         }
                 }
@@ -50,7 +51,7 @@ extension DebugView {
         }
         Divider()
         Button("Clear Log Messages") {
-            osLogMessages = []
+            LogUtils.shared.messages = []
         }
         .frame(height: 50, alignment: .center)
     }

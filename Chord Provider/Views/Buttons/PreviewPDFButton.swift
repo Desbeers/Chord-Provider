@@ -64,8 +64,6 @@ struct PreviewPDFButton: View {
                 openWindow(id: AppDelegate.WindowID.debugView.rawValue)
             }
         }
-        /// Update the log
-        appState.lastUpdate = .now
     }
 }
 

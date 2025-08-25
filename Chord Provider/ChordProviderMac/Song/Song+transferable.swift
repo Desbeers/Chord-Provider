@@ -9,7 +9,7 @@ import Foundation
 import CoreTransferable
 import ChordProviderCore
 
-extension Song: @unchecked Sendable, Transferable {
+extension Song: @unchecked @retroactive Sendable, @retroactive Transferable {
 
     /// Transfer protocol
     public static var transferRepresentation: some TransferRepresentation {

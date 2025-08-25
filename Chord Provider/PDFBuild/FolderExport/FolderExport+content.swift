@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import OSLog
 import PDFKit
 
 extension FolderExport {

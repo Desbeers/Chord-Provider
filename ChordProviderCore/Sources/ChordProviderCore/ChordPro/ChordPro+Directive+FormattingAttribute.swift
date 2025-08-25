@@ -10,7 +10,7 @@ import Foundation
 extension ChordPro.Directive {
 
     /// Optional formatting attributes for directives
-    public enum FormattingAttribute: String, Comparable, Codable, Sendable  {
+    public enum FormattingAttribute: String, Comparable, Codable, Sendable {
         /// Fallback for a simple attribute
         case plain
         /// Label

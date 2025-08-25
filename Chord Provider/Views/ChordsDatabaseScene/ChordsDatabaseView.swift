@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import OSLog
 import ChordProviderCore
 
 /// SwiftUI `View` for the chords database
@@ -142,7 +141,15 @@ struct ChordsDatabaseView: View {
                         uniqueNames: false
                     )
                 } catch {
-                    Logger.application.error("\(error.localizedDescription, privacy: .public)")
+                    Task {
+                        LogUtils.shared.log(
+                            .init(
+                                type: .error,
+                                category: .application,
+                                message: error.localizedDescription
+                            )
+                        )
+                    }
                 }
             }
         }
@@ -160,9 +167,25 @@ struct ChordsDatabaseView: View {
             onCompletion: { result in
                 switch result {
                 case .success(let url):
-                    Logger.fileAccess.info("Database exported to \(url, privacy: .public)")
+                    Task {
+                        LogUtils.shared.log(
+                            .init(
+                                type: .info,
+                                category: .chordProCliParser,
+                                message: "Database exported to \(url)"
+                            )
+                        )
+                    }
                 case .failure(let error):
-                    Logger.fileAccess.error("Export failed: \(error.localizedDescription, privacy: .public)")
+                    Task {
+                        LogUtils.shared.log(
+                            .init(
+                                type: .error,
+                                category: .chordProCliParser,
+                                message: "Export failed: \(error.localizedDescription)"
+                            )
+                        )
+                    }
                 }
                 if chordsDatabaseState.closeWindowAfterSaving {
                     chordsDatabaseState.closeWindowAfterSaving = false

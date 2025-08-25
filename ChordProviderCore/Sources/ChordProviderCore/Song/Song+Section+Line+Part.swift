@@ -10,7 +10,7 @@ import Foundation
 extension Song.Section.Line {
 
     /// A part in the ``Song/Section/Line``
-    public struct Part: Identifiable, Equatable, Codable, Sendable  {
+    public struct Part: Identifiable, Equatable, Codable, Sendable {
         /// The unique ID of the part
         public var id: Int
         /// The optional chord definition

@@ -6,24 +6,74 @@
 
 import Foundation
 import ArgumentParser
+import Logging
 import ChordProviderCore
+import ChordProviderHTML
+
+nonisolated(unsafe) var logger = Logger(label: "nl.desbeers.chordprovider")
 
 @main
 struct Chordprovider: AsyncParsableCommand {
-    @Option(help: "The ChordPro song to parse.")
+
+    //var logger = Logger(label: "nl.desbeers.chordprovider")
+
+    @Argument(help: "The ChordPro song to parse.")
     public var source: String
     @Option(help: "The output format.")
-    public var output: Output
+    public var format: OutputFormat
+    @Option(help: "The output file.")
+    public var output: String?
+
+    static let discussion: String = """
+        A simple text format for the notation of lyrics with chords.
+        
+        See https://www.chordpro.org
+        """
+
+
+    static let configuration = CommandConfiguration(
+        commandName: "chordprovider", // defaults to the type name, hyphen-separated and lowercase
+        abstract: "Convert a ChordPro song into another format",
+        //usage: "When nil, generates it based on the name, arguments, flags and options",
+        discussion: discussion,
+    )
+
     mutating func run() async throws {
+
+
+        logger.handler = PrintLogHandler(label: "Label")
+
         let url = URL(filePath: source)
+        var destination = url
+        if let output {
+            destination = URL(fileURLWithPath: output)
+        } else {
+            destination = url.deletingPathExtension().appendingPathExtension(format.rawValue)
+        }
+
         let parsedSong = try await SongFileUtils.parseSongFile(fileURL: url, instrument: .guitar, prefixes: [], getOnlyMetadata: false)
 
-        switch output {
+        let fileManager = FileManager.default
+
+        var result: String = "Error"
+
+        switch format {
         case .json:
-            let json = try JSONUtils.encode(parsedSong)
-            print(json)
+            if let json = try? JSONUtils.encode(parsedSong) {
+                result = json
+            }
         case .source:
-            print(parsedSong.content)
+            result = parsedSong.content
+        case .html:
+            result = HtmlRender.main(song: parsedSong, settings: HtmlSettings())
         }
+
+        /// Remove previous export (if any)
+        try? fileManager.removeItem(atPath: destination.path)
+        try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
+
+        print("Converted \(url.lastPathComponent) to \(destination.lastPathComponent)")
+
+        logger.info("Done!")
     }
 }

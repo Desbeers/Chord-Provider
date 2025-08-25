@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import OSLog
+import ChordProviderCore
 
 /// All the settings for **Chord Provider**
 struct AppSettings: Equatable, Codable, Sendable {
@@ -45,7 +45,6 @@ extension AppSettings {
             return settings
         }
         /// No settings found; return defaults
-        Logger.application.info("No **\(id.rawValue, privacy: .public)** found; using defaults")
         var appSettings = AppSettings()
         appSettings.style = AppSettings.Style().defaults()
         /// Save settings
@@ -59,9 +58,25 @@ extension AppSettings {
     static func save(id: AppSettings.AppWindowID, settings: AppSettings) throws {
         do {
             try SettingsCache.set(id: id, object: settings)
-            Logger.application.info("**\(id.rawValue, privacy: .public)** saved")
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .info,
+                        category: .application,
+                        message: "**\(id.rawValue)** saved"
+                    )
+                )
+            }
         } catch {
-            Logger.application.error("Error saving **\(id.rawValue, privacy: .public)**")
+            Task {
+                await LogUtils.shared.log(
+                    .init(
+                        type: .error,
+                        category: .application,
+                        message: "Error saving **\(id.rawValue)**"
+                    )
+                )
+            }
             throw AppError.saveSettingsError
         }
     }

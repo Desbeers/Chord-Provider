@@ -6,7 +6,6 @@
 //
 
 import AppKit
-import OSLog
 import ChordProviderCore
 
 /// The observable state for an image in a **ChordPro** song
@@ -38,7 +37,6 @@ import ChordProviderCore
     private func loadImage(url: URL?) async {
         guard let url else { return }
         if let imageFromCache = ImageCache.shared.getImageFromCache(from: url) {
-            Logger.viewBuild.notice("Image from cache: \(url.lastPathComponent, privacy: .public)")
             self.image = imageFromCache
             self.size = ImageUtils.getImageSize(image: imageFromCache, arguments: arguments)
             return
@@ -57,7 +55,6 @@ import ChordProviderCore
             self.fallbackImage(url: url)
             return
         }
-        Logger.viewBuild.notice("Loading image: \(url.lastPathComponent, privacy: .public)")
         self.image = loadedImage
         self.size = ImageUtils.getImageSize(image: loadedImage, arguments: self.arguments)
         ImageCache.shared.setImageCache(image: loadedImage, key: url)
@@ -66,7 +63,15 @@ import ChordProviderCore
     /// Create a fallback image
     /// - Parameter url: The URL of the original image
     private func fallbackImage(url: URL) {
-        Logger.viewBuild.error("Missing image for **\(url.lastPathComponent, privacy: .public)**")
+        Task {
+            LogUtils.shared.log(
+                .init(
+                    type: .error,
+                    category: .application,
+                    message: "Missing image for **\(url.lastPathComponent)**"
+                )
+            )
+        }
         // swiftlint:disable:next force_unwrapping
         let fallbackImage = NSImage(systemSymbolName: "photo", accessibilityDescription: nil)!
         self.size = CGSize(width: 100, height: 80)

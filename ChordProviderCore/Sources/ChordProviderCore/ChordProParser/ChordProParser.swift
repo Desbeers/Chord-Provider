@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import OSLog
 
 /// The **ChordPro** file parser
 public actor ChordProParser {
@@ -37,7 +36,11 @@ public actor ChordProParser {
     ) async -> Song {
         /// Store the values of the current song
         let old = song
-        Logger.parser.info("Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song", privacy: .public)**")
+        await LogUtils.shared.log(.init(
+            type: .info,
+            category: .songParser,
+            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song")**")
+        )
         /// Start with a fresh song
         var song = Song(id: song.id, content: old.content)
         song.metadata.fileURL = old.metadata.fileURL

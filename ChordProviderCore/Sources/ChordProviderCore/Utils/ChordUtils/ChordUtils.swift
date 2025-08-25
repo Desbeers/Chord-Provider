@@ -35,8 +35,23 @@ public enum ChordUtils {
 
     /// Import a definition database from a JSON database file
     private static func importInstrument( _ instrument: Chord.Instrument) -> [ChordDefinition] {
-        let database = Bundle.main.decode(ChordPro.Instrument.self, from: instrument.database)
-        return importDatabase(database: database, instrument: instrument)
+
+        switch instrument {
+        case .guitar:
+            if let database = try? JSONUtils.decode(guitarStandardETuning, struct: ChordPro.Instrument.self) {
+                return importDatabase(database: database, instrument: instrument)
+            }
+        case .guitalele:
+            if let database = try? JSONUtils.decode(guitaleleStandardATuning, struct: ChordPro.Instrument.self) {
+                return importDatabase(database: database, instrument: instrument)
+            }
+        case .ukulele:
+            if let database = try? JSONUtils.decode(ukuleleStandardGTuning, struct: ChordPro.Instrument.self) {
+                return importDatabase(database: database, instrument: instrument)
+            }
+        }
+        /// This should not happen
+        return []
     }
 
     /// Import a database with chord definitions
@@ -128,7 +143,7 @@ public enum ChordUtils {
         )
 
         let encoder = JSONEncoder()
-        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys, .withoutEscapingSlashes]
         do {
             let encodedData = try encoder.encode(export)
             return String(data: encodedData, encoding: .utf8) ?? "error"
