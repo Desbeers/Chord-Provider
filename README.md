@@ -101,3 +101,9 @@ Xcode 26 is required.
 2. Build and run!
 
 **Chord Provider** does not use any external packages.
+
+## Linux
+
+I'm (slowly) porting **Chord Provider** to Linux.
+
+The `ChordProCLI` package works with Fedora but it is *work in progress*...

@@ -1,5 +1,5 @@
 //
-//  AppKitUtils+WebView.swift
+//  AppKitUtils+WKWebRepresentedView.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -17,7 +17,6 @@ struct WKWebRepresentedView: NSViewRepresentable {
     func makeNSView(context: Context) -> WKWebView {
         let webView = WKWebView()
         webView.autoresizingMask = [.width, .height]
-        webView.setValue(false, forKey: "drawsBackground")
         webView.setValue(true, forKey: "allowsMagnification")
         webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
         webView.navigationDelegate = context.coordinator
@@ -41,6 +40,7 @@ struct WKWebRepresentedView: NSViewRepresentable {
             decidePolicyFor navigationAction: WKNavigationAction,
             decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void
         ) {
+            // swiftlint:disable:next line_length
             webView.evaluateJavaScript("[scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, scrollTop = window.pageYOffset || document.documentElement.scrollTop]") { [weak self] value, _ in
                 guard let value = value as? [Int] else {
                     return
@@ -50,6 +50,7 @@ struct WKWebRepresentedView: NSViewRepresentable {
             decisionHandler(.allow)
         }
 
+        // swiftlint:disable:next implicitly_unwrapped_optional
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             webView.evaluateJavaScript("""
             document.documentElement.scrollLeft = document.body.scrollLeft = \(scrollPosition.x)

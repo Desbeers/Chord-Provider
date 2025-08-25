@@ -15,11 +15,9 @@ extension HtmlRender {
 
             switch section.environment {
             case .verse, .bridge, .chorus:
-                output.append("<div class=\"lines " + (section.environment.rawValue ?? "") + "\">")
-                output.append(sectionStart(section))
                 lyricsSection(output: &output, section: section, settings: settings)
-                output.append("</div>")
-                //LyricsSection(section: section, settings: settings)
+            case .repeatChorus:
+                repeatChorusSection(output: &output, section: section, settings: settings)
                 //            case .repeatChorus:
                 //                RepeatChorusSection(
                 //                    section: section,
@@ -36,8 +34,8 @@ extension HtmlRender {
                 //                }
                 //            case .textblock:
                 //                TextblockSection(section: section, settings: settings)
-                //            case .comment:
-                //                CommentSection(section: section, settings: settings)
+            case .comment:
+                commentSection(output: &output, section: section, settings: settings)
                 //            case .strum:
                 //                if !settings.application.lyricsOnly {
                 //                    StrumSection(section: section, settings: settings)
@@ -48,27 +46,24 @@ extension HtmlRender {
                 /// Not supported or not a viewable environment
                 break
             }
-
         }
     }
 
-    static private func sectionStart(_ section: Song.Section) -> String {
+
+    static func wrapSongSection(
+        section: Song.Section,
+        label: String?,
+        prominent: Bool = false,
+        content: [String],
+        settings: HtmlSettings
+    ) -> String {
 
         var html = ""
-        html += "<div class=\"section "
-        if section.lines.isEmpty {
-            html += "no-name\">&nbsp;</div><div class=\"section single "
-        }
-        if section.label == nil {
-            html += "no-name "
-        }
-        html += (section.environment.rawValue)
-        html += "\">"
-        html += (!section.label.isEmpty ? "<div class=\"name\">" + section.label + "</div>" : "&nbsp;")
+        html += "<div class=\"label\">" + (label == nil ? "&nbsp;" : label ?? "") + "</div>"
+        html += "<div class=\"section \(section.environment.rawValue) \(section.label.isEmpty ? "no-label" : "")\">"
+        html += content.joined(separator: "\n")
         html += "</div>"
 
         return html
     }
-
-
 }

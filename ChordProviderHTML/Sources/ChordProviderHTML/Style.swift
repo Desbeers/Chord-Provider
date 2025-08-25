@@ -8,26 +8,11 @@
 import Foundation
 
 let style: String = """
-/*
- 
- Styling of the song:
- 
- Structure:
- 
- - container
- -- grid
- --- section
- --- lines, depending on content has the following:
- ---- measures
- ------ measure
- -------- chord
- ---- tablature
- ---- line: a line in a song
- ----- part
- ------- chord
- ------- lyric
- 
- */
+
+<style>
+:root {
+ color-scheme: light dark;
+}
 
 /* General stuff */
 
@@ -50,34 +35,52 @@ body {
 }
 
 #grid {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#grid > div.label {
+    text-align: right;
+    margin-right: 1em;
+}
+
+
+.section {
+    text-align: left;
+    clear: left;
+    border-left: 1px solid;
+    padding-left: 1em;
+    margin-bottom: 1em;
+}
+
+.section.no-label {
+    border: 0;
+}
+
+.section.repeat_chorus {
+    border: 0;
+}
+
+.comment-inline {
+    background: #00ff00;
+    padding: 0.2em;
+    border-radius: 0.4em;
+margin: 0.5em 0 0.5em 0;
+}
+
+.comment-section, .repeat-chorus {
+    background: #00ff00;
+    padding: 0.2em;
+    border-radius: 0.4em;
     display: inline-block;
 }
 
-.section {
-    font: -apple-system-subheadline;
-    text-align: left;
-    clear: left;
-}
-
-.section.single {
-    border: none;
-    border-radius: 0.5em;
-}
-
-.section .name {
-    font-weight: bold;
-    color: var(--sectionColor);
-}
-
-.section.single .name {
-    padding: 0 1em;
-}
 
 /*
  Lines
  */
 
-.lines {
+.line {
     float: left;
     clear: left;
 }
@@ -150,40 +153,7 @@ body {
 }
 
 
-    .section {
-        margin-bottom: 1em;
-        border-radius: 0.5em 0.5em 0.5em 0;
-    }
-    
-    .section .name {
-        padding: 0.5em 0;
-        display: inline-block;
-        border-bottom: 1px solid var(--highlightColor);
-    }
 
-    .section.chorus {
-        margin-bottom: 0;
-        border: none;
-    }
-
-    .section.chorus .name {
-        background-color: var(--highlightColor);
-        display: inline-block;
-        padding: 0.5em 1em;
-        border-radius: 0.5em 0.5em 0.5em 0;
-    }
-    
-    .section.chorus.single .name {
-        border-radius: 0.5em;
-    }
-    
-    .section.no-name {
-        display: none;
-    }
-    
-    .section.single {
-        margin-bottom: 1em;
-    }
 
     .lines {
         margin-bottom: 1em;
@@ -198,5 +168,5 @@ body {
     .lines.chorus .line:first-child {
         margin-top: 0.5em;
     }
-
+</style>
 """

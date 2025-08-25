@@ -6,17 +6,11 @@
 
 import Foundation
 import ArgumentParser
-import Logging
 import ChordProviderCore
 import ChordProviderHTML
 
-nonisolated(unsafe) var logger = Logger(label: "nl.desbeers.chordprovider")
-
 @main
 struct Chordprovider: AsyncParsableCommand {
-
-    //var logger = Logger(label: "nl.desbeers.chordprovider")
-
     @Argument(help: "The ChordPro song to parse.")
     public var source: String
     @Option(help: "The output format.")
@@ -39,9 +33,6 @@ struct Chordprovider: AsyncParsableCommand {
     )
 
     mutating func run() async throws {
-
-
-        logger.handler = PrintLogHandler(label: "Label")
 
         let url = URL(filePath: source)
         var destination = url
@@ -72,8 +63,18 @@ struct Chordprovider: AsyncParsableCommand {
         try? fileManager.removeItem(atPath: destination.path)
         try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
 
-        print("Converted \(url.lastPathComponent) to \(destination.lastPathComponent)")
+        let messages = await LogUtils.shared.messages.map {message in
 
-        logger.info("Done!")
+            var line = message.type.rawValue + ": " + message.category.rawValue + ": "
+            if let lineNumber = message.lineNumber {
+                line += "line \(lineNumber): "
+            }
+
+            return line + message.message
+        }
+            .joined(separator: "\n")
+
+        print(messages)
+        print("Converted \(url.lastPathComponent) to \(destination.lastPathComponent)")
     }
 }

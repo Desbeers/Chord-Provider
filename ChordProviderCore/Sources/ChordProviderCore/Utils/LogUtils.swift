@@ -7,16 +7,25 @@
 
 import Foundation
 
+#if os(macOS)
 @MainActor @Observable public final class LogUtils {
     /// The shared instance of the class
     public static let shared = LogUtils()
-
     public var messages: [LogMessage] = []
-
     public func log( _ message: LogMessage) {
         messages.append(message)
     }
 }
+#else
+    @MainActor public final class LogUtils {
+    /// The shared instance of the class
+    public static let shared = LogUtils()
+    public var messages: [LogMessage] = []
+    public func log( _ message: LogMessage) {
+        messages.append(message)
+    }
+}
+#endif
 
 extension LogUtils {
 
@@ -48,7 +57,7 @@ extension LogUtils {
 
 extension LogUtils {
 
-    public enum Level: Sendable {
+    public enum Level: String, Sendable {
         case debug
 
         case info

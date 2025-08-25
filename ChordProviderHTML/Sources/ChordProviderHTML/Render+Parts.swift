@@ -24,12 +24,7 @@ public extension HtmlRender {
             html += "</div><div class=\"lyric\">\(part.text ?? "&nbsp;")\u{200c}</div></div>"
         }
         html += "</div>"
-
         output.append(html)
-
-//        for part in parts {
-//            output.append(part.text ?? "")
-//        }
     }
 
 }
