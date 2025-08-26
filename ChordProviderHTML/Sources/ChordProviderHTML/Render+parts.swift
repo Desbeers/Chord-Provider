@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Render+parts.swift
 //  ChordProviderHTML
 //
 //  Created by Nick Berendsen on 23/08/2025.
@@ -26,5 +26,4 @@ public extension HtmlRender {
         html += "</div>"
         output.append(html)
     }
-
 }

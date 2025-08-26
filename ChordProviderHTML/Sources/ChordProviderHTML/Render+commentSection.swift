@@ -24,6 +24,5 @@ public extension HtmlRender {
         html += "</div>"
 
         output.append(html)
-
     }
 }

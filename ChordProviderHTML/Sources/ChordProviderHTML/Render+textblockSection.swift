@@ -1,26 +1,21 @@
 //
-//  Render+lyricsSection.swift
+//  Render+textblockSection.swift
 //  ChordProviderHTML
 //
-//  Created by Nick Berendsen on 23/08/2025.
+//  Created by Nick Berendsen on 25/08/2025.
 //
 
 import Foundation
 import ChordProviderCore
 
-public extension HtmlRender {
+extension   HtmlRender {
 
-    static func lyricsSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
-
+    static func textblockSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
         var result: [String] = []
-
-
         for line in section.lines {
             switch line.type {
             case .songLine:
-                if let lineParts = line.parts {
-                    parts(output: &result, parts: lineParts, settings: settings)
-                }
+                result.append("<div class=\"line\">\(line.plain ?? "&nbsp;")</div>")
             case .emptyLine:
                 result.append("<div class=\"line\">&nbsp;</div>")
             case .comment:
@@ -29,7 +24,6 @@ public extension HtmlRender {
                 break
             }
         }
-
         output.append(wrapSongSection(section: section, label: section.label, content: result, settings: settings))
     }
 }

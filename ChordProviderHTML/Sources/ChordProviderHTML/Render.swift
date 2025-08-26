@@ -31,6 +31,8 @@ public extension HtmlRender {
 
         html = html.replacingOccurrences(of: "**HEADER**", with: output.joined(separator: "\n"))
 
+        html = html.replacingOccurrences(of: "**CHORDS**", with: chords(chords: song.chords, settings: settings))
+
         output = []
 
         sections(output: &output, sections: song.sections, chords: song.chords, settings: settings)

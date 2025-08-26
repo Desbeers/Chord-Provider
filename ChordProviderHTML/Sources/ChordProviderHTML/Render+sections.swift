@@ -1,5 +1,5 @@
 //
-//  Render+Sections.swift
+//  Render+sections.swift
 //  ChordProviderHTML
 //
 //  Created by Nick Berendsen on 23/08/2025.
@@ -18,22 +18,15 @@ extension HtmlRender {
                 lyricsSection(output: &output, section: section, settings: settings)
             case .repeatChorus:
                 repeatChorusSection(output: &output, section: section, settings: settings)
-                //            case .repeatChorus:
-                //                RepeatChorusSection(
-                //                    section: section,
-                //                    sections: sections,
-                //                    settings: settings
-                //                )
-                //            case .tab:
-                //                if !settings.application.lyricsOnly {
-                //                    TabSection(section: section, settings: settings)
+            case .tab:
+                tabSection(output: &output, section: section, settings: settings)
                 //                }
-                //            case .grid:
+            case .grid:
                 //                if !settings.application.lyricsOnly {
-                //                    GridSection(section: section, settings: settings)
+                gridSection(output: &output, section: section, settings: settings)
                 //                }
-                //            case .textblock:
-                //                TextblockSection(section: section, settings: settings)
+            case .textblock:
+                textblockSection(output: &output, section: section, settings: settings)
             case .comment:
                 commentSection(output: &output, section: section, settings: settings)
                 //            case .strum:

@@ -21,6 +21,7 @@ let htmlPage: String = """
 <body>
 <div id="container">
 **HEADER**
+**CHORDS**
 <div id="grid">
 **CONTENT**
 </div>
