@@ -2,13 +2,13 @@
 //  Render+commentSection.swift
 //  ChordProviderHTML
 //
-//  Created by Nick Berendsen on 25/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 import ChordProviderCore
 
-public extension HtmlRender {
+extension HtmlRender {
 
     static func commentSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
         var result: [String] = []

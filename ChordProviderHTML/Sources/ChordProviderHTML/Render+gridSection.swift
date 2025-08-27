@@ -1,14 +1,14 @@
 //
-//  File.swift
+//  Render+gridSection.swift
 //  ChordProviderHTML
 //
-//  Created by Nick Berendsen on 26/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 import ChordProviderCore
 
-extension   HtmlRender {
+extension HtmlRender {
 
     static func gridSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
 

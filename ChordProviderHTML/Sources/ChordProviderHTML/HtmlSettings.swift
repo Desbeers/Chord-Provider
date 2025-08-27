@@ -1,13 +1,26 @@
 //
-//  File.swift
+//  HtmlSettings.swift
 //  ChordProviderHTML
 //
-//  Created by Nick Berendsen on 23/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 
 public struct HtmlSettings {
+    public init(options: HtmlSettings.Options = .init()) {
+        self.options = options
+    }
+    public var options: Options = .init()
+}
 
-    public init() {}
+extension HtmlSettings {
+
+    public struct Options {
+        public init(lyricOnly: Bool = false) {
+            self.lyricOnly = lyricOnly
+        }
+        
+        public var lyricOnly: Bool = false
+    }
 }

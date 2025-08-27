@@ -2,7 +2,7 @@
 //  Render.swift
 //  ChordProviderHTML
 //
-//  Created by Nick Berendsen on 23/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -14,7 +14,12 @@ public enum HtmlRender {
 
 public extension HtmlRender {
 
-    static func main(song: Song, settings: HtmlSettings) -> String {
+    /// Render a song into a HTML page
+    /// - Parameters:
+    ///   - song: The song to render
+    ///   - settings: The settings
+    /// - Returns: A complete HTML page
+    static func render(song: Song, settings: HtmlSettings) -> String {
 
         var html = htmlPage
 
@@ -31,7 +36,11 @@ public extension HtmlRender {
 
         html = html.replacingOccurrences(of: "**HEADER**", with: output.joined(separator: "\n"))
 
-        html = html.replacingOccurrences(of: "**CHORDS**", with: chords(chords: song.chords, settings: settings))
+        if settings.options.lyricOnly {
+            html = html.replacingOccurrences(of: "**CHORDS**", with: "")
+        } else {
+            html = html.replacingOccurrences(of: "**CHORDS**", with: chords(chords: song.chords, settings: settings))
+        }
 
         output = []
 

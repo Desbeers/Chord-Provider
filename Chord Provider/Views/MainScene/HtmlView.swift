@@ -12,9 +12,13 @@ import ChordProviderHTML
 public struct HtmlView: View {
     let song: Song
     let output: String
-    public init(song: Song) {
+    public init(song: Song, lyricsOnly: Bool) {
+
+        var settings = HtmlSettings()
+        settings.options.lyricOnly = lyricsOnly
+
         self.song = song
-        self.output = HtmlRender.main(song: song, settings: HtmlSettings())
+        self.output = HtmlRender.render(song: song, settings: settings)
     }
     public var body: some View {
         VStack {

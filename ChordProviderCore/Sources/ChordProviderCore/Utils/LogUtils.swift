@@ -8,6 +8,7 @@
 import Foundation
 
 #if os(macOS)
+/// Utilities to deal with logging
 @MainActor @Observable public final class LogUtils {
     /// The shared instance of the class
     public static let shared = LogUtils()
@@ -17,6 +18,7 @@ import Foundation
     }
 }
 #else
+    /// Utilities to deal with logging
     @MainActor public final class LogUtils {
     /// The shared instance of the class
     public static let shared = LogUtils()

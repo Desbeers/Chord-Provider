@@ -2,13 +2,13 @@
 //  Render+textblockSection.swift
 //  ChordProviderHTML
 //
-//  Created by Nick Berendsen on 25/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 import ChordProviderCore
 
-extension   HtmlRender {
+extension HtmlRender {
 
     static func textblockSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
         var result: [String] = []

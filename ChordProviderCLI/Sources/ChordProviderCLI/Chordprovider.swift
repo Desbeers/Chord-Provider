@@ -14,25 +14,32 @@ struct Chordprovider: AsyncParsableCommand {
     @Argument(help: "The ChordPro song to parse.")
     public var source: String
     @Option(help: "The output format.")
-    public var format: OutputFormat
-    @Option(help: "The output file.")
+    public var format: OutputFormat = .html
+    @Option(name: [.long, .customShort("o")], help: ArgumentHelp(
+        "The output file.",
+        discussion: "If no output file is provided, the output will be next to the song.",
+        valueName: "file"))
     public var output: String?
+    @Flag(name: [.customLong("lyrics-only"), .customShort("l")], help: "Only prints lyrics")
+    var lyricsOnly: Bool = false
 
     static let discussion: String = """
-        A simple text format for the notation of lyrics with chords.
-        
-        See https://www.chordpro.org
-        """
+A simple text format for the notation of lyrics with chords.
 
+See https://www.chordpro.org
+"""
 
     static let configuration = CommandConfiguration(
         commandName: "chordprovider", // defaults to the type name, hyphen-separated and lowercase
         abstract: "Convert a ChordPro song into another format",
-        //usage: "When nil, generates it based on the name, arguments, flags and options",
+        // usage: "When nil, generates it based on the name, arguments, flags and options",
         discussion: discussion,
     )
 
     mutating func run() async throws {
+
+        var settings = HtmlSettings()
+        settings.options.lyricOnly = lyricsOnly
 
         let url = URL(filePath: source)
         var destination = url
@@ -56,7 +63,7 @@ struct Chordprovider: AsyncParsableCommand {
         case .source:
             result = parsedSong.content
         case .html:
-            result = HtmlRender.main(song: parsedSong, settings: HtmlSettings())
+            result = HtmlRender.render(song: parsedSong, settings: settings)
         }
 
         /// Remove previous export (if any)

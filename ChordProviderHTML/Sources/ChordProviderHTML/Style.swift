@@ -1,14 +1,13 @@
 //
-//  File.swift
+//  Style.swift
 //  ChordProviderHTML
 //
-//  Created by Nick Berendsen on 23/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 
 let style: String = """
-
 <style>
 :root {
     --foreground: #120750;
@@ -16,9 +15,12 @@ let style: String = """
     --foregroundMedium: #5e5e5e;
     --background: #FDFEFB;
     --chord: #780E03;
+    --comment: #fce4cc;
 }
 
-/* General stuff */
+/*
+    General stuff
+*/
 
 ::-webkit-scrollbar {
     display: none;
@@ -50,6 +52,10 @@ body {
     margin-right: 1em;
 }
 
+/*
+    Sections
+*/
+
 .section {
     text-align: left;
     clear: left;
@@ -76,7 +82,9 @@ body {
     padding-right: 0.5em;
 }
 
-/* Labels */
+/*
+    Labels
+*/
 
 .label .chorus, .repeat-chorus {
     background: var(--foregroundLight);
@@ -88,24 +96,27 @@ body {
     display: none;
 }
 
-.comment-inline {
-    background: #00ff00;
-    padding: 0.2em;
-    border-radius: 0.4em;
-    margin: 0.5em 0 0.5em 0;
-}
-
-.comment-section {
-    background: yellow;
-    padding: 0.2em;
-    border-radius: 0.4em;
-    display: inline-block;
-}
-
 .repeat-chorus {
     display: inline-block;
 }
 
+/*
+    Comments
+*/
+
+.line.comment {
+    background: var(--comment);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.comment-section {
+    display: inline-block;
+}
+
+.comment-inline {
+    margin: 0.5em 0 0.5em 0;
+}
 
 /*
     Lines
@@ -145,12 +156,16 @@ body {
     display: inline-block;
 }
 
+/* The optional nut above the diagram */
+
 .chord-diagram .nut {
     position: relative;
     top: 1px;
     border: 1px solid var(--foregroundMedium);
     margin: 0 14px;
 }
+
+/* The optional base-fret left of the diagram */
 
 .chord-diagram .base-fret {
     position: absolute;
@@ -160,9 +175,36 @@ body {
     text-align: right;
 }
 
+/* Top and bottom bar */
+
+.chord-diagram .bar {
+    display: grid;
+    margin-left: 11px;
+    grid-template-rows: repeat(1, 10px);
+}
+
+.chord-diagram.guitar .bar, .chord-diagram.guitalele .bar {
+    grid-template-columns: repeat(6, 10px);
+}
+
+.chord-diagram.ukulele .bar {
+    grid-template-columns: repeat(4, 10px);
+}
+
+.chord-diagram .bar div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6px;
+}
+
+/* The diagram */
+
 .chord-diagram .diagram {
     position: relative;
 }
+
+/* The grid of the diagram */
 
 .chord-diagram .grid {
     display: grid;
@@ -172,91 +214,62 @@ body {
     margin-left: 15px;
     margin-right: 15px;
     color: var(--foregroundMedium);
+    grid-template-rows: repeat(5, 13px);
 }
 
 .chord-diagram.guitar .grid, .chord-diagram.guitalele .grid {
     grid-template-columns: repeat(5, 10px);
-    grid-template-rows: repeat(5, 13px);
 }
 
 .chord-diagram.ukulele .grid {
     grid-template-columns: repeat(3, 10px);
-    grid-template-rows: repeat(5, 13px);
 }
 
 .chord-diagram .grid div {
-
-      border-bottom: 1px solid;
-      border-right: 1px solid;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-
-
-.chord-diagram .bar {
-    display: grid;
-    margin-left: 11px;
-    margin-right: 11px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.chord-diagram.guitar .bar, .chord-diagram.guitalele .bar {
-    grid-template-columns: repeat(6, 10px);
-    grid-template-rows: repeat(1, 10px);
-}
-
-.chord-diagram.ukulele .bar {
-    grid-template-columns: repeat(4, 10px);
-    grid-template-rows: repeat(1, 10px);
-}
-
-.chord-diagram .bar div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-font-size: 6px;
-    }
-
-
+/* The fingers of the diagram */
 
 .chord-diagram .fingers {
     display: grid;
     position: absolute;
     top: 2px;
     left: 11px;
-    color: var(--background)
+    color: var(--background);
+    grid-template-rows: repeat(6, 13px);
 }
 
 .chord-diagram.guitar .fingers, .chord-diagram.guitalele .fingers {
     grid-template-columns: repeat(6, 10px);
-    grid-template-rows: repeat(6, 13px);
 }
 
 .chord-diagram.ukulele .fingers {
     grid-template-columns: repeat(4, 10px);
-    grid-template-rows: repeat(6, 13px);
 }
 
 .chord-diagram .fingers div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .chord-diagram .fingers div.circle {
     width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      font-size: 6px;
+    height: 10px;
+    border-radius: 50%;
+    font-size: 6px;
     background: var(--chord);
 }
 
 .chord-diagram .fingers div.barre {
-        width: 10px;
-      height: 10px;
-
-      font-size: 6px;
+    width: 10px;
+    height: 10px;
+    font-size: 6px;
     background: var(--chord);
 }
 
