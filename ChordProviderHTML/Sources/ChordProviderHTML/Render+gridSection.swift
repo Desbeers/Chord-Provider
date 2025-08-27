@@ -32,6 +32,6 @@ extension   HtmlRender {
             return "<div class=\"part\">\(element)</div>"
         }
 
-        output.append(wrapSongSection(section: section, label: section.label, content: result, settings: settings))
+        output.append(wrapSongSection(section: section, content: result, settings: settings))
     }
 }

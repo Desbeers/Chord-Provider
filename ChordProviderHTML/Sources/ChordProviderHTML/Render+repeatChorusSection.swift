@@ -16,6 +16,6 @@ extension HtmlRender {
         result.append(section.lines.first?.plain ?? section.label)
         result.append("</div>")
 
-        output.append(wrapSongSection(section: section, label: nil, content: result, settings: settings))
+        output.append(wrapSongSection(section: section, content: result, settings: settings))
     }
 }

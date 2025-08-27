@@ -11,7 +11,11 @@ let style: String = """
 
 <style>
 :root {
- color-scheme: light dark;
+    --foreground: #120750;
+    --foregroundLight: #bfbfbf;
+    --foregroundMedium: #5e5e5e;
+    --background: #FDFEFB;
+    --chord: #780E03;
 }
 
 /* General stuff */
@@ -25,6 +29,9 @@ body {
     margin: 0;
     padding: 0;
     padding-top: 1em;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: Arial, sans-serif;
 }
 
 #container {
@@ -46,7 +53,7 @@ body {
 .section {
     text-align: left;
     clear: left;
-    border-left: 1px solid;
+    border-left: 1px solid var(--foregroundLight);
     padding-left: 1em;
     margin-bottom: 1em;
 }
@@ -69,6 +76,18 @@ body {
     padding-right: 0.5em;
 }
 
+/* Labels */
+
+.label .chorus, .repeat-chorus {
+    background: var(--foregroundLight);
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.label .repeat_chorus {
+    display: none;
+}
+
 .comment-inline {
     background: #00ff00;
     padding: 0.2em;
@@ -84,9 +103,6 @@ body {
 }
 
 .repeat-chorus {
-    background: #00ff00;
-    padding: 0.2em;
-    border-radius: 0.4em;
     display: inline-block;
 }
 
@@ -112,6 +128,10 @@ body {
     white-space: nowrap;
 }
 
+.chord {
+    color: var(--chord);
+}
+
 /*
     Chord Diagrams
 */
@@ -121,14 +141,14 @@ body {
 }
 
 .chord-diagram {
-position: relative;
+    position: relative;
     display: inline-block;
 }
 
 .chord-diagram .nut {
     position: relative;
     top: 1px;
-    border: 1px solid;
+    border: 1px solid var(--foregroundMedium);
     margin: 0 14px;
 }
 
@@ -151,6 +171,7 @@ position: relative;
     position: relative;
     margin-left: 15px;
     margin-right: 15px;
+    color: var(--foregroundMedium);
 }
 
 .chord-diagram.guitar .grid, .chord-diagram.guitalele .grid {
@@ -174,23 +195,23 @@ position: relative;
 
 
 
-.chord-diagram .top-bar {
+.chord-diagram .bar {
     display: grid;
     margin-left: 11px;
     margin-right: 11px;
 }
 
-.chord-diagram.guitar .top-bar, .chord-diagram.guitalele .top-bar {
+.chord-diagram.guitar .bar, .chord-diagram.guitalele .bar {
     grid-template-columns: repeat(6, 10px);
     grid-template-rows: repeat(1, 10px);
 }
 
-.chord-diagram.ukulele .top-bar {
+.chord-diagram.ukulele .bar {
     grid-template-columns: repeat(4, 10px);
     grid-template-rows: repeat(1, 10px);
 }
 
-.chord-diagram .top-bar div {
+.chord-diagram .bar div {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -204,6 +225,7 @@ font-size: 6px;
     position: absolute;
     top: 2px;
     left: 11px;
+    color: var(--background)
 }
 
 .chord-diagram.guitar .fingers, .chord-diagram.guitalele .fingers {
@@ -225,18 +247,17 @@ font-size: 6px;
 .chord-diagram .fingers div.circle {
     width: 10px;
       height: 10px;
-      background-color: blue;
       border-radius: 50%;
-    color: white;
       font-size: 6px;
+    background: var(--chord);
 }
 
 .chord-diagram .fingers div.barre {
         width: 10px;
       height: 10px;
-      background-color: blue;
-    color: white;
+
       font-size: 6px;
+    background: var(--chord);
 }
 
 .chord-diagram .fingers div.barre.start {

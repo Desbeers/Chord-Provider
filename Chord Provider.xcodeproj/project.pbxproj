@@ -1247,9 +1247,9 @@
 		D7F13F712A645FEC002D875D /* Chord Provider */ = {
 			isa = PBXGroup;
 			children = (
+				D7F13F9B2A6460B7002D875D /* General */,
 				D778F31F2E51C233007CA66E /* ChordProCLI */,
 				D778F31E2E51C19C007CA66E /* ChordProviderMac */,
-				D7F13F9B2A6460B7002D875D /* General */,
 				D76C24E62C3AFFC700C93D82 /* Documents */,
 				D7EA87582C5A580A009A3D82 /* ChordProEditor */,
 				D7C655AA2DE1FE3900FA605F /* Utilities */,

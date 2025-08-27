@@ -23,10 +23,10 @@ public extension HtmlRender {
     static func diagram(chord: ChordDefinition, settings: HtmlSettings) -> String {
         var html = ""
         html += "<div class=\"chord-diagram \(chord.instrument.rawValue)\">"
-        html += chord.display
+        html += "<span class=\"chord\">" + chord.display + "</span>"
 
         /// Top bar
-        html += "<div class=\"top-bar\">"
+        html += "<div class=\"bar top\">"
 
         for index in chord.frets.indices {
             var string: String?
@@ -44,11 +44,11 @@ public extension HtmlRender {
 
         html += "</div>"
 
-        if chord.baseFret == 1 {
-            html += "<div class=\"nut\"></div>"
-        } else {
-            html += "<div class=\"base-fret\">\(chord.baseFret)</div>"
-        }
+//        if chord.baseFret == 1 {
+//            html += "<div class=\"nut\"></div>"
+//        } else {
+//            html += "<div class=\"base-fret\">\(chord.baseFret)</div>"
+//        }
 
         html += "<div class=\"diagram\">"
 
@@ -86,7 +86,7 @@ public extension HtmlRender {
 
         /// Notes
         let notes = chord.components
-        html += "<div class=\"top-bar\">"
+        html += "<div class=\"bar bottom\">"
         for note in notes {
             switch note.note {
             case .none:

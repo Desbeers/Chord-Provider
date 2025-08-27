@@ -45,18 +45,19 @@ extension HtmlRender {
 
     static func wrapSongSection(
         section: Song.Section,
-        label: String?,
-        prominent: Bool = false,
+        //label: String?,
         content: [String],
         settings: HtmlSettings
     ) -> String {
 
+        let environment = section.environment.rawValue
+        let label = section.label.isEmpty ? "&nbsp;" : section.label
+
         var html = ""
-        html += "<div class=\"label\">" + (label == nil ? "&nbsp;" : label ?? "") + "</div>"
-        html += "<div class=\"section \(section.environment.rawValue) \(section.label.isEmpty ? "no-label" : "")\">"
+        html += "<div class=\"label\"><span class=\"\(environment)\">" + (label) + "</span></div>"
+        html += "<div class=\"section \(environment) \(section.label.isEmpty ? "no-label" : "")\">"
         html += content.joined(separator: "\n")
         html += "</div>"
-
         return html
     }
 }

@@ -30,6 +30,6 @@ public extension HtmlRender {
             }
         }
 
-        output.append(wrapSongSection(section: section, label: section.label, content: result, settings: settings))
+        output.append(wrapSongSection(section: section, content: result, settings: settings))
     }
 }
