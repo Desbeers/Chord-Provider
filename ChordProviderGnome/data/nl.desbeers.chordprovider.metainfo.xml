@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.AparokshaUI.AdwaitaTemplate</id>
+  
+  <name>Adwaita Template</name>
+  <summary>A template for creating GNOME apps with Swift</summary>
+  
+  <metadata_license>MIT</metadata_license>
+  <project_license>LGPL-3.0-or-later</project_license>
+  
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+  
+  <description>
+    <p>
+      This is a <em>long</em> description of this project. Yes - that is required!
+    </p>
+  </description>
+  
+  <launchable type="desktop-id">io.github.AparokshaUI.AdwaitaTemplate.desktop</launchable>
+</component>
+

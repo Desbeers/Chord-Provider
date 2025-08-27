@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=Adwaita Template
+Comment=A template for creating GNOME apps with Swift
+Categories=Development;GNOME;
+
+Icon=io.github.AparokshaUI.AdwaitaTemplate
+Exec=AdwaitaTemplate
+Terminal=false
