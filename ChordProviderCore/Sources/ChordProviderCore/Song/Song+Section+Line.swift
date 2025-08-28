@@ -83,33 +83,24 @@ extension Song.Section {
                 self.warnings?.insert(warning)
             }
             let line = sourceLineNumber
-
-            Task {
-                await LogUtils.shared.log(
-                    .init(
-                        type: .warning,
-                        category: .songParser,
-                        lineNumber: line,
-                        message: "\(warning)"
-                    )
-                )
-            }
+            LogUtils.shared.setLog(
+                type: .warning,
+                category: .songParser,
+                lineNumber: line,
+                message: "\(warning)"
+            )
         }
 
         /// Add a set of warnings
         mutating func addWarning(_ warning: Set<String>) {
             let warningLine = warning.map(\.description).joined(separator: "\n")
             let line = sourceLineNumber
-            Task {
-                await LogUtils.shared.log(
-                    .init(
-                        type: .warning,
-                        category: .songParser,
-                        lineNumber: line,
-                        message: warningLine
-                    )
-                )
-            }
+            LogUtils.shared.setLog(
+                type: .warning,
+                category: .songParser,
+                lineNumber: line,
+                message: warningLine
+            )
             self.warnings = warning
         }
 

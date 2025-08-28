@@ -7,27 +7,33 @@
 
 import Foundation
 
-#if os(macOS)
-/// Utilities to deal with logging
-@MainActor @Observable public final class LogUtils {
-    /// The shared instance of the class
+public class LogUtils: @unchecked Sendable {
+
     public static let shared = LogUtils()
-    public var messages: [LogMessage] = []
-    public func log( _ message: LogMessage) {
-        messages.append(message)
+
+    private var logs: [LogMessage] = []
+    private let singletonQueue = DispatchQueue(label: "nl.desbeers.chordprovider.serial.queue")
+    private init() {}
+
+    public func setLog(type: LogUtils.Level = .notice, category: LogUtils.Category, lineNumber: Int? = nil, message: String) {
+        singletonQueue.sync {
+            let message = LogUtils.LogMessage(type: type, category: category, lineNumber: lineNumber, message: message)
+            logs.append(message)
+        }
+    }
+
+    public func fetchLog() -> [LogUtils.LogMessage] {
+        singletonQueue.sync {
+            return logs
+        }
+    }
+
+    public func clearLog() {
+        singletonQueue.sync {
+            logs = []
+        }
     }
 }
-#else
-    /// Utilities to deal with logging
-    @MainActor public final class LogUtils {
-    /// The shared instance of the class
-    public static let shared = LogUtils()
-    public var messages: [LogMessage] = []
-    public func log( _ message: LogMessage) {
-        messages.append(message)
-    }
-}
-#endif
 
 extension LogUtils {
 
@@ -82,5 +88,6 @@ extension LogUtils {
         case application = "Application"
         case pdfGenerator = "PDF Generator"
         case fileAccess = "File Access"
+        case jsonParser = "JSON Parser"
     }
 }

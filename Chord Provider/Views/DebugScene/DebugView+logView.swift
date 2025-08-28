@@ -16,7 +16,7 @@ extension DebugView {
             ScrollViewReader { value in
                 LazyVStack(spacing: 0) {
                     /// - Note: This *must* be a LazyVStack or else memory usage will go nuts
-                    ForEach(LogUtils.shared.messages) { log in
+                    ForEach(logs) { log in
                         VStack(alignment: .leading, spacing: 0) {
                             Divider()
                             HStack(alignment: .top, spacing: 0) {
@@ -43,7 +43,7 @@ extension DebugView {
                         .task {
                             value.scrollTo(1)
                         }
-                        .onChange(of: LogUtils.shared.messages) {
+                        .onChange(of: logs) {
                             value.scrollTo(1)
                         }
                 }
@@ -51,7 +51,8 @@ extension DebugView {
         }
         Divider()
         Button("Clear Log Messages") {
-            LogUtils.shared.messages = []
+            LogUtils.shared.clearLog()
+            logs = []
         }
         .frame(height: 50, alignment: .center)
     }

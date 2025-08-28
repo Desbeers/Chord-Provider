@@ -26,12 +26,12 @@ extension SongFileUtils {
         instrument: Chord.Instrument,
         prefixes: [String],
         getOnlyMetadata: Bool
-    ) async throws -> Song {
+    ) throws -> Song {
         do {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
             var song = Song(id: UUID(), content: content)
             song.metadata.fileURL = fileURL
-            return await ChordProParser.parse(
+            return ChordProParser.parse(
                 song: song,
                 instrument: instrument,
                 prefixes: prefixes,

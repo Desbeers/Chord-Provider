@@ -33,14 +33,15 @@ public actor ChordProParser {
         instrument: Chord.Instrument,
         prefixes: [String],
         getOnlyMetadata: Bool = false
-    ) async -> Song {
+    ) -> Song {
         /// Store the values of the current song
         let old = song
-        await LogUtils.shared.log(.init(
+        LogUtils.shared.setLog(
             type: .info,
             category: .songParser,
-            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song")**")
+            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song")**"
         )
+
         /// Start with a fresh song
         var song = Song(id: song.id, content: old.content)
         song.metadata.fileURL = old.metadata.fileURL

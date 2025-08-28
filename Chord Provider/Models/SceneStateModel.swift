@@ -65,10 +65,10 @@ import ChordProviderCore
                 try export.pdf.write(to: song.metadata.exportURL)
                 return export.pdf
             } catch {
-                LogUtils.shared.log(.init(
+                LogUtils.shared.setLog(
                     type: .error,
                     category: .pdfGenerator,
-                    message: "PDF error: \(error.localizedDescription)")
+                    message: "PDF error: \(error.localizedDescription)"
                 )
                 throw error
             }
@@ -81,10 +81,10 @@ import ChordProviderCore
                 )
                 return export.data
             } catch {
-                LogUtils.shared.log(.init(
+                LogUtils.shared.setLog(
                     type: .error,
                     category: .chordProCliParser,
-                    message: "ChordPro CLI error: \(error.localizedDescription)")
+                    message: "ChordPro CLI error: \(error.localizedDescription)"
                 )
                 throw error
             }

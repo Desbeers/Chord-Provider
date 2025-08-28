@@ -29,15 +29,11 @@ extension UserFileUtils.Selection {
             }
             return urlForBookmark
         } catch {
-            Task {
-                await LogUtils.shared.log(
-                    .init(
-                        type: .error,
-                        category: .application,
-                        message: error.localizedDescription
-                    )
-                )
-            }
+            LogUtils.shared.setLog(
+                type: .error,
+                category: .application,
+                message: error.localizedDescription
+            )
             return nil
         }
     }
@@ -54,15 +50,11 @@ extension UserFileUtils.Selection {
             UserDefaults.standard.set(bookmarkData, forKey: self.id)
             selectedURL.stopAccessingSecurityScopedResource()
         } catch let error {
-            Task {
-                await LogUtils.shared.log(
-                    .init(
-                        type: .error,
-                        category: .application,
-                        message: "Bookmark error: '\(error.localizedDescription)'"
-                    )
-                )
-            }
+            LogUtils.shared.setLog(
+                type: .error,
+                category: .application,
+                message: "Bookmark error: '\(error.localizedDescription)'"
+            )
             selectedURL.stopAccessingSecurityScopedResource()
         }
     }

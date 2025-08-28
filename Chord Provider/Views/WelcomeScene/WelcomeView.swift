@@ -100,12 +100,10 @@ extension WelcomeView {
         do {
             try await openDocument(at: url)
         } catch {
-            LogUtils.shared.log(
-                .init(
-                    type: .error,
-                    category: .application,
-                    message: "Error opening URL: \(error.localizedDescription)"
-                )
+            LogUtils.shared.setLog(
+                type: .error,
+                category: .fileAccess,
+                message: "Error opening URL: \(error.localizedDescription)"
             )
         }
         dismiss()

@@ -63,15 +63,11 @@ import ChordProviderCore
     /// Create a fallback image
     /// - Parameter url: The URL of the original image
     private func fallbackImage(url: URL) {
-        Task {
-            LogUtils.shared.log(
-                .init(
-                    type: .error,
-                    category: .application,
-                    message: "Missing image for **\(url.lastPathComponent)**"
-                )
-            )
-        }
+        LogUtils.shared.setLog(
+            type: .error,
+            category: .fileAccess,
+            message: "Missing image for **\(url.lastPathComponent)**"
+        )
         // swiftlint:disable:next force_unwrapping
         let fallbackImage = NSImage(systemSymbolName: "photo", accessibilityDescription: nil)!
         self.size = CGSize(width: 100, height: 80)

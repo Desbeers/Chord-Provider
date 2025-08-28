@@ -27,7 +27,7 @@ extension SongFileUtils {
             while let item = items.nextObject() as? URL {
                 if
                     ChordProDocument.fileExtension.contains(item.pathExtension),
-                    let song = try? await parseSongFile(
+                    let song = try? parseSongFile(
                         fileURL: item,
                         instrument: settings.display.instrument,
                         prefixes: settings.application.sortTokens,

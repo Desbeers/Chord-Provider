@@ -70,7 +70,7 @@ See https://www.chordpro.org
         try? fileManager.removeItem(atPath: destination.path)
         try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
 
-        let messages = await LogUtils.shared.messages.map {message in
+        let messages = LogUtils.shared.fetchLog().map {message in
 
             var line = message.type.rawValue + ": " + message.category.rawValue + ": "
             if let lineNumber = message.lineNumber {

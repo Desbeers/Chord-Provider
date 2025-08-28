@@ -7,9 +7,12 @@
 
 import SwiftUI
 import ChordProviderCore
+import Observation
 
 /// The observable application state for **Chord Provider**
-@MainActor @Observable final class AppStateModel {
+@MainActor
+@Observable
+final class AppStateModel {
     /// The list with recent files
     var recentFiles: [URL] = []
     /// The optional current song in focus

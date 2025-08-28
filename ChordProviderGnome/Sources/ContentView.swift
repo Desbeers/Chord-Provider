@@ -1,47 +1,53 @@
 //
 //  File.swift
-//  Adwaita Template
+//  ChordProviderGnome
 //
-//  Created by Nick Berendsen on 27/08/2025.
+//  © 2025 Nick Berendsen
 //
 
-import Foundation
 import Adwaita
 import ChordProviderCore
 import ChordProviderHTML
 
 struct ContentView: View {
-
+    
     var app: AdwaitaApp
     var window: AdwaitaWindow
-
-    @State private var text = "Open a song to view"
-
+    @State private var text = sampleSong
+    @State private var showEditor = false
     @State private var fileDialog = Signal()
+
     var view: Body {
-        VStack(spacing: 20) {
-            RenderView(render: text)
-                .hexpand()
-                .vexpand()
-            Button("Open Song") {
-                fileDialog.signal()
+        OverlaySplitView(visible: $showEditor) {
+            EditorView(text: $text)
+        } content: {
+            VStack {
+                RenderView(render: text)
+                    .hexpand()
+                    .vexpand()
+                HStack {
+                    Button("Open another Song") {
+                        fileDialog.signal()
+                    }
+                    .pill()
+                }
+                .halign(.center)
+                .padding()
             }
-            .halign(.center)
-            .pill()
-            .suggested()
-            .padding()
         }
-        .topToolbar {
-            ToolbarView(app: app, window: window)
+        .minSidebarWidth(500)
+        .topToolbar{
+            HeaderBar {
+                Toggle(icon: .default(icon: .textEditor), isOn: $showEditor)
+                    .tooltip("Show Editor")
+            } end: {
+                ToolbarView(app: app, window: window)
+            }
         }
         .fileImporter(open: fileDialog, extensions: ["chordpro"]) {
-            let url = $0
-            Task {
-                if let result = try? await SongFileUtils.parseSongFile(fileURL: url, instrument: .guitar, prefixes: [], getOnlyMetadata: false) {
-                    text = HtmlRender.render(song: result, settings: .init())
-                } else {
-                    print("ERROR: Failed to parse file")
-                }
+            let fileURL = $0
+            if let content = try? String(contentsOf: fileURL, encoding: .utf8) {
+                text = content
             }
         } onClose: {
             /// Nothing to do

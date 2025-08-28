@@ -53,21 +53,17 @@ struct UserFileButton: View {
                     action()
                 }
             case .failure(let error):
-                LogUtils.shared.log(
-                    .init(
-                        type: .error,
-                        category: .songParser,
-                        message: "Import dialog error: '\(error.localizedDescription)'"
-                    )
+                LogUtils.shared.setLog(
+                    type: .error,
+                    category: .fileAccess,
+                    message: "Import dialog error: '\(error.localizedDescription)'"
                 )
             }
         } onCancellation: {
-            LogUtils.shared.log(
-                .init(
-                    type: .error,
-                    category: .songParser,
-                    message: "Import canceled"
-                )
+            LogUtils.shared.setLog(
+                type: .info,
+                category: .fileAccess,
+                message: "Import canceled"
             )
         }
         .fileDialogMessage(Text(userFile.message))

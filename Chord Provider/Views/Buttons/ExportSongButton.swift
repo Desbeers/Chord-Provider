@@ -48,24 +48,24 @@ struct ExportSongButton: View {
             onCompletion: { result in
                 switch result {
                 case .success(let url):
-                    LogUtils.shared.log(.init(
+                    LogUtils.shared.setLog(
                         type: .info,
                         category: .fileAccess,
-                        message: "Export song to \(url.lastPathComponent) completed")
+                        message: "Export song to \(url.lastPathComponent) completed"
                     )
                 case .failure(let error):
-                    LogUtils.shared.log(.init(
+                    LogUtils.shared.setLog(
                         type: .error,
                         category: .fileAccess,
-                        message: "Export song error: \(error.localizedDescription)")
+                        message: "Export song error: \(error.localizedDescription)"
                     )
                 }
             },
             onCancellation: {
-                LogUtils.shared.log(.init(
+                LogUtils.shared.setLog(
                     type: .info,
                     category: .fileAccess,
-                    message: "Export canceled")
+                    message: "Export canceled"
                 )
             }
         )

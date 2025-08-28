@@ -141,15 +141,11 @@ struct ChordsDatabaseView: View {
                         uniqueNames: false
                     )
                 } catch {
-                    Task {
-                        LogUtils.shared.log(
-                            .init(
-                                type: .error,
-                                category: .application,
-                                message: error.localizedDescription
-                            )
-                        )
-                    }
+                    LogUtils.shared.setLog(
+                        type: .error,
+                        category: .jsonParser,
+                        message: error.localizedDescription
+                    )
                 }
             }
         }
@@ -168,24 +164,18 @@ struct ChordsDatabaseView: View {
                 switch result {
                 case .success(let url):
                     Task {
-                        LogUtils.shared.log(
-                            .init(
-                                type: .info,
-                                category: .chordProCliParser,
-                                message: "Database exported to \(url)"
-                            )
+                        LogUtils.shared.setLog(
+                            type: .info,
+                            category: .fileAccess,
+                            message: "Database exported to \(url.lastPathComponent)"
                         )
                     }
                 case .failure(let error):
-                    Task {
-                        LogUtils.shared.log(
-                            .init(
-                                type: .error,
-                                category: .chordProCliParser,
-                                message: "Export failed: \(error.localizedDescription)"
-                            )
-                        )
-                    }
+                    LogUtils.shared.setLog(
+                        type: .error,
+                        category: .fileAccess,
+                        message: "Export failed: \(error.localizedDescription)"
+                    )
                 }
                 if chordsDatabaseState.closeWindowAfterSaving {
                     chordsDatabaseState.closeWindowAfterSaving = false

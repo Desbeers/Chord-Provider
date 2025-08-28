@@ -25,15 +25,11 @@ extension JSONUtils {
             let content = String(data: encodedData, encoding: .utf8) ?? "error"
             return content
         } catch {
-            Task {
-                await LogUtils.shared.log(
-                    .init(
-                        type: .error,
-                        category: .chordProCliParser,
-                        message: error.localizedDescription
-                    )
-                )
-            }
+            LogUtils.shared.setLog(
+                type: .error,
+                category: .jsonParser,
+                message: error.localizedDescription
+            )
             throw error
         }
     }

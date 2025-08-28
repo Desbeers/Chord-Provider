@@ -91,12 +91,10 @@ struct ExportFolderView: View {
                                 }
                             }
                         } catch {
-                            LogUtils.shared.log(
-                                .init(
-                                    type: .error,
-                                    category: .application,
-                                    message: error.localizedDescription
-                                )
+                            LogUtils.shared.setLog(
+                                type: .error,
+                                category: .fileAccess,
+                                message: error.localizedDescription
                             )
                         }
                     }
@@ -121,30 +119,24 @@ struct ExportFolderView: View {
             onCompletion: { result in
                 switch result {
                 case .success(let url):
-                    LogUtils.shared.log(
-                        .init(
-                            type: .info,
-                            category: .fileAccess,
-                            message: "Export folder to \(url.lastPathComponent)"
-                        )
+                    LogUtils.shared.setLog(
+                        type: .info,
+                        category: .fileAccess,
+                        message: "Export folder to \(url.lastPathComponent) completed"
                     )
                 case .failure(let error):
-                    LogUtils.shared.log(
-                        .init(
-                            type: .error,
-                            category: .fileAccess,
-                            message: "Export folder error: \(error.localizedDescription)"
-                        )
+                    LogUtils.shared.setLog(
+                        type: .error,
+                        category: .fileAccess,
+                        message: "Export folder error: \(error.localizedDescription)"
                     )
                 }
             },
             onCancellation: {
-                LogUtils.shared.log(
-                    .init(
-                        type: .info,
-                        category: .fileAccess,
-                        message: "Export canceled"
-                    )
+                LogUtils.shared.setLog(
+                    type: .info,
+                    category: .fileAccess,
+                    message: "Export canceled"
                 )
             }
         )

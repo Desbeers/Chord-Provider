@@ -1,5 +1,9 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+//
+//  File.swift
+//  ChordProviderGnome
+//
+//  © 2025 Nick Berendsen
+//
 
 import Adwaita
 
@@ -13,6 +17,6 @@ struct AdwaitaTemplate: App {
             ContentView(app: app, window: window)
         }
         .title("Chord Provider")
-        .defaultSize(width: 450, height: 300)
+        .defaultSize(width: 800, height: 600)
     }
 }

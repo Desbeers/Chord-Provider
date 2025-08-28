@@ -1,8 +1,8 @@
 //
 //  File.swift
-//  Chord Provider
+//  ChordProviderGnome
 //
-//  Created by Nick Berendsen on 27/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -15,8 +15,10 @@ struct EditorView: View {
     @Binding var text: String
 
     var view: Body {
-        TextEditor(text: $text)
-            .innerPadding(20)
+        ScrollView {
+            TextEditor(text: $text)
+                .innerPadding(20)
+        }
             .frame(minWidth: 200)
             .card()
     }

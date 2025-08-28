@@ -26,12 +26,10 @@ extension SongExport {
         song: Song,
         settings: AppSettings
     ) async throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
-        await LogUtils.shared.log(
-            .init(
-                type: .info,
-                category: .fileAccess,
-                message: "Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")**"
-            )
+        LogUtils.shared.setLog(
+            type: .info,
+            category: .pdfGenerator,
+            message: "Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")**"
         )
         let documentInfo = PDFBuild.DocumentInfo(
             title: song.metadata.title,
@@ -161,12 +159,10 @@ extension SongExport {
             if settings.pdf.scaleFonts {
                 settings.pdf.scale = availableWidth / longestLineWidth
             }
-            await LogUtils.shared.log(
-                .init(
-                    type: .warning,
-                    category: .pdfGenerator,
-                    message: "Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")** does not fit"
-                )
+            LogUtils.shared.setLog(
+                type: .warning,
+                category: .pdfGenerator,
+                message: "Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")** does not fit"
             )
         }
 

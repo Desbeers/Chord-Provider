@@ -1,8 +1,8 @@
 //
 //  File.swift
-//  Chord Provider
+//  ChordProviderGnome
 //
-//  Created by Nick Berendsen on 27/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -10,16 +10,31 @@ import Adwaita
 import ChordProviderCore
 import ChordProviderHTML
 
-struct RenderView: View {    
-    let render: String
+struct RenderView: View {
+    init(render: String) {
+        let song = Song(id: UUID(), content: render)
+        let result = ChordProParser.parse(
+            song: song,
+            instrument: .guitar,
+            prefixes: [],
+            getOnlyMetadata: false
+        )
+        self.song = result
+    }
+    let song: Song
 
     var view: Body {
         ScrollView {
-            Text(render)
-                .wrap()
-                .hexpand()
-                .padding(20)
-                .halign(.fill)
+            VStack {
+                Label("<span size='xx-large'>\(song.metadata.title)</span>")
+                    .useMarkup()
+                    .heading()
+                Text("<span size='x-large'>\(song.metadata.subtitle ?? "")</span>")
+                    .useMarkup()
+                GtkRender.SectionsView(song: song)
+                    .halign(.center)
+            }
+            .padding(20)
         }
     }
 }

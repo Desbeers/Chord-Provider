@@ -58,25 +58,17 @@ extension AppSettings {
     static func save(id: AppSettings.AppWindowID, settings: AppSettings) throws {
         do {
             try SettingsCache.set(id: id, object: settings)
-            Task {
-                await LogUtils.shared.log(
-                    .init(
-                        type: .info,
-                        category: .application,
-                        message: "**\(id.rawValue)** saved"
-                    )
-                )
-            }
+            LogUtils.shared.setLog(
+                type: .info,
+                category: .application,
+                message: "**\(id.rawValue)** saved"
+            )
         } catch {
-            Task {
-                await LogUtils.shared.log(
-                    .init(
-                        type: .error,
-                        category: .application,
-                        message: "Error saving **\(id.rawValue)**"
-                    )
-                )
-            }
+            LogUtils.shared.setLog(
+                type: .info,
+                category: .application,
+                message: "Error saving **\(id.rawValue)**"
+            )
             throw AppError.saveSettingsError
         }
     }

@@ -20,6 +20,8 @@ struct DebugView: View {
     @State var source: [(line: Int, source: Song.Section.Line)] = []
     /// The currently selected line
     @State var selectedLine: Int?
+    /// All the logs
+    @State var logs: [LogUtils.LogMessage] = []
     /// JSON part
     @State var jsonPart: Part = .metadata
     /// The body of the `View`
@@ -53,6 +55,7 @@ struct DebugView: View {
         .animation(.default, value: tab)
         .task(id: appState.song) {
             if scenePhase == .active {
+                logs = LogUtils.shared.fetchLog()
                 await getSource()
             }
         }

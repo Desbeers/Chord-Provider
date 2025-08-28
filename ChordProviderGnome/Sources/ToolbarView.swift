@@ -1,3 +1,10 @@
+//
+//  File.swift
+//  ChordProviderGnome
+//
+//  © 2025 Nick Berendsen
+//
+
 import Adwaita
 
 struct ToolbarView: View {
@@ -7,34 +14,30 @@ struct ToolbarView: View {
     var window: AdwaitaWindow
 
     var view: Body {
-        HeaderBar.end {
-            Menu(icon: .default(icon: .openMenu)) {
-                MenuButton(Loc.newWindow, window: false) {
-                    app.addWindow("main")
-                }
-                .keyboardShortcut("n".ctrl())
-                MenuButton(Loc.closeWindow) {
-                    window.close()
-                }
-                .keyboardShortcut("w".ctrl())
-                MenuSection {
-                    MenuButton("About Chord Provider", window: false) {
-                        about = true
-                    }
+        //HeaderBar.end {
+        Menu(icon: .default(icon: .openMenu)) {
+            MenuButton(Loc.newWindow, window: false) {
+                app.addWindow("main")
+            }
+            .keyboardShortcut("n".ctrl())
+            MenuSection {
+                MenuButton("About Chord Provider", window: false) {
+                    about = true
                 }
             }
-            .primary()
-            .tooltip(Loc.mainMenu)
-            .aboutDialog(
-                visible: $about,
-                app: "Chord Provider",
-                developer: "Nick Berendsen",
-                version: "dev",
-                icon: .custom(name: "io.github.AparokshaUI.AdwaitaTemplate"),
-                website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
-                issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
-            )
         }
+        //.primary()
+        .tooltip(Loc.mainMenu)
+        .aboutDialog(
+            visible: $about,
+            app: "Chord Provider",
+            developer: "Nick Berendsen",
+            version: "dev",
+            icon: .custom(name: "io.github.AparokshaUI.AdwaitaTemplate"),
+            website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
+            issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
+        )
+        //}
     }
 
 }
