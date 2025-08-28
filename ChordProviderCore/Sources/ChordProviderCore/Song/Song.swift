@@ -8,7 +8,7 @@
 import Foundation
 
 /// The structure of a song as shown in **Chord Provider**
-public struct Song: Equatable, Codable, Identifiable {
+public struct Song: Equatable, Codable, Identifiable, Sendable {
     public init(id: UUID, content: String = "", hasContent: Bool = true, lines: Int = 0, metadata: Song.Metadata = Metadata(), sections: [Song.Section] = [Song.Section](), chords: [ChordDefinition] = []) {
         self.id = id
         self.content = content

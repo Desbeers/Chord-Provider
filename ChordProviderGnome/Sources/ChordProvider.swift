@@ -15,5 +15,4 @@ struct AdwaitaTemplate: App {
         .title("Chord Provider")
         .defaultSize(width: 450, height: 300)
     }
-
 }

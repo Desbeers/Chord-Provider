@@ -20,7 +20,7 @@ extension HtmlSettings {
         public init(lyricOnly: Bool = false) {
             self.lyricOnly = lyricOnly
         }
-        
+
         public var lyricOnly: Bool = false
     }
 }

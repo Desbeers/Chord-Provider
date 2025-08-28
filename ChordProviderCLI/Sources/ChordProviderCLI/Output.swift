@@ -8,7 +8,7 @@
 import Foundation
 import ArgumentParser
 
-enum OutputFormat: String,CaseIterable, ExpressibleByArgument {
+enum OutputFormat: String, CaseIterable, ExpressibleByArgument {
     case html
     case json
     case source
