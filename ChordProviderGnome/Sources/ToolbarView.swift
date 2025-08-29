@@ -24,7 +24,7 @@ struct ToolbarView: View {
             MenuButton("Open") {
                 openSong.signal()
             }
-            .keyboardShortcut("n".ctrl())
+            .keyboardShortcut("o".ctrl())
             MenuButton("Save") {
                 if let songURL {
                     try? text.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)

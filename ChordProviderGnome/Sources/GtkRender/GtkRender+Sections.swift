@@ -23,6 +23,7 @@ extension GtkRender {
                         .useMarkup()
                         .halign(.start)
                         .padding(10, .vertical)
+                    Separator()
                 }
                     switch section.environment {
                     case .verse, .bridge, .chorus:
