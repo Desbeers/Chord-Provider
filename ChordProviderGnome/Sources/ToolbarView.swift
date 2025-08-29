@@ -5,17 +5,35 @@
 //  © 2025 Nick Berendsen
 //
 
+import Foundation
 import Adwaita
 
 struct ToolbarView: View {
 
     @State private var about = false
+    @Binding var openSong: Signal
+    @Binding var saveSongAs: Signal
+    @Binding var songURL: URL?
+    var text: String
     var app: AdwaitaApp
     var window: AdwaitaWindow
 
     var view: Body {
         //HeaderBar.end {
         Menu(icon: .default(icon: .openMenu)) {
+            MenuButton("Open") {
+                openSong.signal()
+            }
+            MenuButton("Save") {
+                if let songURL {
+                    try? text.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
+                } else {
+                    saveSongAs.signal()
+                }
+            }
+            MenuButton("Save As…") {
+                saveSongAs.signal()
+            }
             MenuButton(Loc.newWindow, window: false) {
                 app.addWindow("main")
             }

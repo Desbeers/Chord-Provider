@@ -11,4 +11,6 @@ enum GtkRender {
     /// Just a placeholder
 }
 
-struct EmptyView: Widget {}
+struct EmptyView: View {
+    var view: Body {}
+}

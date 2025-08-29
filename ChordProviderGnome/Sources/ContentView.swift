@@ -5,6 +5,7 @@
 //  © 2025 Nick Berendsen
 //
 
+import Foundation
 import Adwaita
 import ChordProviderCore
 import ChordProviderHTML
@@ -15,7 +16,10 @@ struct ContentView: View {
     var window: AdwaitaWindow
     @State private var text = sampleSong
     @State private var showEditor = false
-    @State private var fileDialog = Signal()
+    @State private var openSong = Signal()
+    @State private var saveSongAs = Signal()
+    @State private var songURL: URL?
+    @State private var aboutDialog = false
 
     var view: Body {
         OverlaySplitView(visible: $showEditor) {
@@ -25,14 +29,6 @@ struct ContentView: View {
                 RenderView(render: text)
                     .hexpand()
                     .vexpand()
-                HStack {
-                    Button("Open another Song") {
-                        fileDialog.signal()
-                    }
-                    .pill()
-                }
-                .halign(.center)
-                .padding()
             }
         }
         .minSidebarWidth(500)
@@ -41,16 +37,36 @@ struct ContentView: View {
                 Toggle(icon: .default(icon: .textEditor), isOn: $showEditor)
                     .tooltip("Show Editor")
             } end: {
-                ToolbarView(app: app, window: window)
+                ToolbarView(
+                    openSong: $openSong,
+                    saveSongAs: $saveSongAs,
+                    songURL: $songURL,
+                    text: text,
+                    app: app,
+                    window: window
+                )
             }
         }
-        .fileImporter(open: fileDialog, extensions: ["chordpro"]) {
-            let fileURL = $0
-            if let content = try? String(contentsOf: fileURL, encoding: .utf8) {
+        .fileImporter(
+            open: openSong,
+            extensions: ["chordpro", "cho"]
+        ) { url in
+            if let content = try? String(contentsOf: url, encoding: .utf8) {
+                songURL = url
                 text = content
             }
         } onClose: {
             /// Nothing to do
         }
+        .fileExporter(
+            open: saveSongAs, 
+            initialName: songURL?.lastPathComponent ?? "Untitled.chordpro",
+        ) { url in
+            songURL = url
+            try? text.write(to: url, atomically: true, encoding: String.Encoding.utf8)
+        } onClose: {
+            /// Nothing to do
+        }
+
     }
 }
