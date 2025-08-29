@@ -35,7 +35,8 @@ extension GtkRender {
                         CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment")
                     default:
                         /// Not supported or not a viewable environment
-                        EmptyView()
+                        //EmptyView()
+                        Text(" ")
                     }
             }
         }
