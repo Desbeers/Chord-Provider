@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "Chord Provider",
+    name: "ChordProvider",
     platforms: [
         .macOS(.v15)
     ],
@@ -16,7 +16,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "Chord Provider",
+            name: "ChordProvider",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "Localized", package: "localized"),

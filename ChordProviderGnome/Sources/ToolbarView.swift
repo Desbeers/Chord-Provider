@@ -33,7 +33,7 @@ struct ToolbarView: View {
             app: "Chord Provider",
             developer: "Nick Berendsen",
             version: "dev",
-            icon: .custom(name: "io.github.AparokshaUI.AdwaitaTemplate"),
+            icon: .custom(name: "nl.desbeers.chordprovider"),
             website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
             issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
         )

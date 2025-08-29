@@ -2,10 +2,10 @@
 Version=1.0
 Type=Application
 
-Name=Adwaita Template
-Comment=A template for creating GNOME apps with Swift
-Categories=Development;GNOME;
+Name=Chord Provider
+Comment=A ChordPro viewer and editor
+Categories=Music;GNOME;
 
-Icon=io.github.AparokshaUI.AdwaitaTemplate
-Exec=AdwaitaTemplate
+Icon=nl.desbeers.chordprovider
+Exec=ChordProvider
 Terminal=false

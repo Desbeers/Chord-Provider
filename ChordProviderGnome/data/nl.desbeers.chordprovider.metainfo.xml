@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.AparokshaUI.AdwaitaTemplate</id>
+  <id>nl.desbeers.chordprovider</id>
   
-  <name>Adwaita Template</name>
-  <summary>A template for creating GNOME apps with Swift</summary>
+  <name>Chord Provider</name>
+  <summary>A ChordPro viewer and editor</summary>
   
-  <metadata_license>MIT</metadata_license>
-  <project_license>LGPL-3.0-or-later</project_license>
+  <metadata_license>GPL</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
   
   <supports>
     <control>pointing</control>
@@ -16,10 +16,10 @@
   
   <description>
     <p>
-      This is a <em>long</em> description of this project. Yes - that is required!
+      A ChordPro viewer and editor for Gnome
     </p>
   </description>
   
-  <launchable type="desktop-id">io.github.AparokshaUI.AdwaitaTemplate.desktop</launchable>
+  <launchable type="desktop-id">nl.desbeers.chordprovider.desktop</launchable>
 </component>
 

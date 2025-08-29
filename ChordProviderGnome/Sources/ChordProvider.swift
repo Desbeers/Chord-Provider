@@ -8,7 +8,7 @@
 import Adwaita
 
 @main
-struct AdwaitaTemplate: App {
+struct ChordProvider: App {
 
     let app = AdwaitaApp(id: "nl.desbeers.chordprovider")
 
