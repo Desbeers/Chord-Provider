@@ -21,12 +21,14 @@ struct ContentView: View {
     @State private var songURL: URL?
     @State private var aboutDialog = false
 
+    let id = UUID()
+
     var view: Body {
         OverlaySplitView(visible: $showEditor) {
             EditorView(text: $text)
         } content: {
             VStack {
-                RenderView(render: text)
+                RenderView(render: text, id: id)
                     .hexpand()
                     .vexpand()
             }

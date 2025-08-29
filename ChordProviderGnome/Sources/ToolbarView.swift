@@ -24,6 +24,7 @@ struct ToolbarView: View {
             MenuButton("Open") {
                 openSong.signal()
             }
+            .keyboardShortcut("n".ctrl())
             MenuButton("Save") {
                 if let songURL {
                     try? text.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
@@ -31,9 +32,11 @@ struct ToolbarView: View {
                     saveSongAs.signal()
                 }
             }
+            .keyboardShortcut("s".ctrl())
             MenuButton("Save As…") {
                 saveSongAs.signal()
             }
+            .keyboardShortcut("s".ctrl().shift())
             MenuButton(Loc.newWindow, window: false) {
                 app.addWindow("main")
             }

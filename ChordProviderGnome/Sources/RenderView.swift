@@ -11,8 +11,8 @@ import ChordProviderCore
 import ChordProviderHTML
 
 struct RenderView: View {
-    init(render: String) {
-        let song = Song(id: UUID(), content: render)
+    init(render: String, id: UUID) {
+        let song = Song(id: id, content: render)
         let result = ChordProParser.parse(
             song: song,
             instrument: .guitar,
