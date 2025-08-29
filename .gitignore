@@ -4,6 +4,9 @@ xcuserdata/
 ## Art
 Art/
 
+## Build
+.build/
+
 ## Jazzy stuff
 build/
 
