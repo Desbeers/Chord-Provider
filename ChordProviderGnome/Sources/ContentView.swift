@@ -36,7 +36,7 @@ struct ContentView: View {
             }
         }
         .minSidebarWidth(500)
-        .topToolbar {
+        .topToolbar{
             HeaderBar {
                 Toggle(icon: .default(icon: .textEditor), isOn: $showEditor)
                     .tooltip("Show Editor")
