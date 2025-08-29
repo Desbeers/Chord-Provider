@@ -20,17 +20,41 @@ struct ContentView: View {
     @State private var saveSongAs = Signal()
     @State private var songURL: URL?
     @State private var aboutDialog = false
+    @State private var lyricsOnly = false
+    @State private var settings: ChordProviderSettings = .init()
+
 
     let id = UUID()
 
     var view: Body {
         OverlaySplitView(visible: $showEditor) {
-            EditorView(text: $text)
+            VStack {
+                EditorView(text: $text)
+                HStack {
+                    Button("Clean Source") {
+                        let song = Song(id: id, content: text)
+                        let result = ChordProParser.parse(
+                            song: song,
+                            instrument: .guitar,
+                            prefixes: [],
+                            getOnlyMetadata: false
+                        )
+                        text = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+                    }
+                    .pill()
+                    .padding(4,.bottom)
+                }
+                .halign(.center)
+            }
         } content: {
             VStack {
-                RenderView(render: text, id: id)
+                RenderView(render: text, id: id, settings: settings)
                     .hexpand()
                     .vexpand()
+                if showEditor {
+                    LogView()
+                        .transition(.coverUpDown)
+                }
             }
         }
         .minSidebarWidth(500)
@@ -38,11 +62,14 @@ struct ContentView: View {
             HeaderBar {
                 Toggle(icon: .default(icon: .textEditor), isOn: $showEditor)
                     .tooltip("Show Editor")
+                Toggle(icon: .default(icon: .tv), isOn: $settings.options.lyricOnly)
+                    .tooltip("Show only lyrics")
             } end: {
                 ToolbarView(
                     openSong: $openSong,
                     saveSongAs: $saveSongAs,
                     songURL: $songURL,
+                    lyricsOnly: $lyricsOnly,
                     text: text,
                     app: app,
                     window: window

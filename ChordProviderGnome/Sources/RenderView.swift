@@ -11,7 +11,9 @@ import ChordProviderCore
 import ChordProviderHTML
 
 struct RenderView: View {
-    init(render: String, id: UUID) {
+    init(render: String, id: UUID, settings: ChordProviderSettings) {
+        self.settings = settings
+        LogUtils.shared.clearLog()
         let song = Song(id: id, content: render)
         let result = ChordProParser.parse(
             song: song,
@@ -22,6 +24,7 @@ struct RenderView: View {
         self.song = result
     }
     let song: Song
+    let settings: ChordProviderSettings
 
     var view: Body {
         ScrollView {
@@ -31,7 +34,7 @@ struct RenderView: View {
                     .heading()
                 Text("<span size='x-large'>\(song.metadata.subtitle ?? "")</span>")
                     .useMarkup()
-                GtkRender.SectionsView(song: song)
+                GtkRender.SectionsView(song: song, settings: settings)
                     .halign(.center)
             }
             .padding(20)

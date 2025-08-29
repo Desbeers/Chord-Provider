@@ -77,6 +77,29 @@ extension LogUtils {
         case error
 
         case fault
+
+        public var hexColor: String {
+            switch self {
+            case .debug:
+                /// Black
+                "#000000"
+            case .info:
+                /// Cyan
+                "#0ed5d8"
+            case .notice:
+                /// Blue
+                "#0433ff"
+            case .error:
+                /// Red
+                "#ff2600"
+            case .fault:
+                /// yellow
+                "#ff9300"
+            case .warning:
+                /// Yellow
+                "#ff9300"
+            }
+        }
     }
 }
 

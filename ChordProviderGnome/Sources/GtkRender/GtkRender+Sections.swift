@@ -14,30 +14,29 @@ extension GtkRender {
     struct SectionsView: View {
 
         let song: Song
+        let settings: ChordProviderSettings
 
         var view: Body {
             ForEach(song.sections) { section in
-
-                if !section.label.isEmpty {
-                    Text("<span size='large' weight='bold'>\(section.label)</span>")
-                        .useMarkup()
-                        .halign(.start)
-                        .padding(10, .vertical)
-                    Separator()
-                }
-                    switch section.environment {
-                    case .verse, .bridge, .chorus:
-                        LyricsSection(section: section)
-                    case .textblock:
-                        TextblockSection(section: section)
-                    case .tab:
+                switch section.environment {
+                case .verse, .bridge, .chorus:
+                    HeaderView(section: section, settings: settings)
+                    LyricsSection(section: section, settings: settings)
+                case .textblock:
+                    TextblockSection(section: section)
+                case .tab:
+                    if !settings.options.lyricOnly {
+                        HeaderView(section: section, settings: settings)
                         TabSection(section: section)
-                    case .comment:
-                        CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment")
-                    default:
-                        /// Not supported or not a viewable environment
-                        EmptyView()
                     }
+                case .repeatChorus:
+                    HeaderView(section: section, settings: settings)
+                case .comment:
+                    CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment")
+                default:
+                    /// Not supported or not a viewable environment
+                    EmptyView()
+                }
             }
         }
     }

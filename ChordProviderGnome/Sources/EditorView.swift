@@ -15,11 +15,14 @@ struct EditorView: View {
     @Binding var text: String
 
     var view: Body {
-        ScrollView {
-            TextEditor(text: $text)
-                .innerPadding(20)
+        VStack(spacing: 0) {
+            ScrollView {
+                TextEditor(text: $text)
+                    .innerPadding(20)
+                    .vexpand()
+                    .card()
+                    .padding()
+            }
         }
-            .frame(minWidth: 200)
-            .card()
     }
 }

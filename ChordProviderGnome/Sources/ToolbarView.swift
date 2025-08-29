@@ -14,6 +14,7 @@ struct ToolbarView: View {
     @Binding var openSong: Signal
     @Binding var saveSongAs: Signal
     @Binding var songURL: URL?
+    @Binding var lyricsOnly: Bool
     var text: String
     var app: AdwaitaApp
     var window: AdwaitaWindow
@@ -40,7 +41,6 @@ struct ToolbarView: View {
             MenuButton(Loc.newWindow, window: false) {
                 app.addWindow("main")
             }
-            .keyboardShortcut("n".ctrl())
             MenuSection {
                 MenuButton("About Chord Provider", window: false) {
                     about = true
