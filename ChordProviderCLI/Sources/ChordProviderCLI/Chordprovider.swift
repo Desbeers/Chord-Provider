@@ -1,6 +1,6 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
-// 
+//
 // Swift Argument Parser
 // https://swiftpackageindex.com/apple/swift-argument-parser/documentation
 
@@ -22,7 +22,7 @@ struct Chordprovider: AsyncParsableCommand {
     public var output: String?
     @Flag(name: [.customLong("lyrics-only"), .customShort("l")], help: "Only prints lyrics")
     var lyricsOnly: Bool = false
-    @Flag(help: "Prints to stdout")
+    @Flag(help: "Prints to stdout and use the source as a plain text")
     var stdout: Bool = false
 
     static let discussion: String = """
@@ -43,17 +43,24 @@ See https://www.chordpro.org
         var settings = HtmlSettings()
         settings.options.lyricOnly = lyricsOnly
 
+        var parsedSong = Song(id: UUID())
+        var destination = URL(filePath: source)
+
         let url = URL(filePath: source)
-        var destination = url
-        if let output {
-            destination = URL(fileURLWithPath: output)
+
+        if stdout {
+            parsedSong.content = source
+            parsedSong = ChordProParser.parse(song: parsedSong, instrument: .guitar, prefixes: [])
         } else {
-            destination = url.deletingPathExtension().appendingPathExtension(format.rawValue)
+
+            if let output {
+                destination = URL(fileURLWithPath: output)
+            } else {
+                destination = url.deletingPathExtension().appendingPathExtension(format.rawValue)
+            }
+
+            parsedSong = try SongFileUtils.parseSongFile(fileURL: url, instrument: .guitar, prefixes: [], getOnlyMetadata: false)
         }
-
-        let parsedSong = try await SongFileUtils.parseSongFile(fileURL: url, instrument: .guitar, prefixes: [], getOnlyMetadata: false)
-
-        let fileManager = FileManager.default
 
         var result: String = "Error"
 
@@ -70,6 +77,7 @@ See https://www.chordpro.org
         if stdout {
             print (result)
         } else {
+            let fileManager = FileManager.default
             /// Remove previous export (if any)
             try? fileManager.removeItem(atPath: destination.path)
             try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
