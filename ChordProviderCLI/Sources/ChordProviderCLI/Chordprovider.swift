@@ -22,6 +22,8 @@ struct Chordprovider: AsyncParsableCommand {
     public var output: String?
     @Flag(name: [.customLong("lyrics-only"), .customShort("l")], help: "Only prints lyrics")
     var lyricsOnly: Bool = false
+    @Flag(help: "Prints to stdout")
+    var stdout: Bool = false
 
     static let discussion: String = """
 A simple text format for the notation of lyrics with chords.
@@ -65,23 +67,26 @@ See https://www.chordpro.org
         case .html:
             result = HtmlRender.render(song: parsedSong, settings: settings)
         }
+        if stdout {
+            print (result)
+        } else {
+            /// Remove previous export (if any)
+            try? fileManager.removeItem(atPath: destination.path)
+            try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
 
-        /// Remove previous export (if any)
-        try? fileManager.removeItem(atPath: destination.path)
-        try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
+            let messages = LogUtils.shared.fetchLog().map {message in
 
-        let messages = LogUtils.shared.fetchLog().map {message in
+                var line = message.type.rawValue + ": " + message.category.rawValue + ": "
+                if let lineNumber = message.lineNumber {
+                    line += "line \(lineNumber): "
+                }
 
-            var line = message.type.rawValue + ": " + message.category.rawValue + ": "
-            if let lineNumber = message.lineNumber {
-                line += "line \(lineNumber): "
+                return line + message.message
             }
+                .joined(separator: "\n")
 
-            return line + message.message
+            print(messages)
+            print("Converted \(url.lastPathComponent) to \(destination.lastPathComponent)")
         }
-            .joined(separator: "\n")
-
-        print(messages)
-        print("Converted \(url.lastPathComponent) to \(destination.lastPathComponent)")
     }
 }
