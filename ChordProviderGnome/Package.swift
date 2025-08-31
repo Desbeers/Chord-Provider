@@ -10,7 +10,6 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://git.aparoksha.dev/aparoksha/adwaita-swift", branch: "main"),
-        .package(url: "https://git.aparoksha.dev/aparoksha/localized", branch: "main"),
         .package(path: "../ChordProviderCore"),
         .package(path: "../ChordProviderHTML")
     ],
@@ -19,17 +18,10 @@ let package = Package(
             name: "ChordProvider",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
-                .product(name: "Localized", package: "localized"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore"),
                 .product(name: "ChordProviderHTML", package: "ChordProviderHTML")
             ],
-            path: "Sources",
-            resources: [
-                .process("Localized.yml")
-            ],
-            plugins: [
-                .plugin(name: "GenerateLocalized", package: "localized")
-            ]
+            path: "Sources"
         )
     ],
     swiftLanguageModes: [.v5]

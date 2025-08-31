@@ -38,7 +38,7 @@ struct ToolbarView: View {
                 saveSongAs.signal()
             }
             .keyboardShortcut("s".ctrl().shift())
-            MenuButton(Loc.newWindow, window: false) {
+            MenuButton("new Window", window: false) {
                 app.addWindow("main")
             }
             MenuSection {
@@ -48,7 +48,7 @@ struct ToolbarView: View {
             }
         }
         //.primary()
-        .tooltip(Loc.mainMenu)
+        .tooltip("Main Menu")
         .aboutDialog(
             visible: $about,
             app: "Chord Provider",
