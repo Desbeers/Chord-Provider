@@ -15,7 +15,7 @@ struct ContentView: View {
     var app: AdwaitaApp
     var window: AdwaitaWindow
     @State private var text = sampleSong
-    @State private var showEditor = false
+    @State private var showEditor = true
     @State private var openSong = Signal()
     @State private var saveSongAs = Signal()
     @State private var songURL: URL?
@@ -57,7 +57,7 @@ struct ContentView: View {
                 }
             }
         }
-        .minSidebarWidth(500)
+        .minSidebarWidth(600)
         .topToolbar{
             HeaderBar {
                 Toggle(icon: .default(icon: .textEditor), isOn: $showEditor)

@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import SourceView
 import ChordProviderCore
 import ChordProviderHTML
 
@@ -17,11 +18,16 @@ struct EditorView: View {
     var view: Body {
         VStack(spacing: 0) {
             ScrollView {
-                TextEditor(text: $text)
-                    .innerPadding(20)
+                SourceView(text: $text)
+                    .innerPadding()
+                    .lineNumbers()
+                    .language(.chordpro)
                     .vexpand()
                     .card()
                     .padding()
+                    .css {
+                        "textview { font-family: Monospace; font-size: 12pt; }"
+                    }
             }
         }
     }
