@@ -161,8 +161,8 @@ extension ChordDefinition {
     public init(unknown: String, instrument: Chord.Instrument) {
         /// Set the properties
         self.id = UUID()
-        self.frets = []
-        self.fingers = []
+        self.frets = Array(repeating: 0, count: instrument.strings.count)
+        self.fingers = Array(repeating: 0, count: instrument.strings.count)
         self.baseFret = 0
         self.root = .c
         self.quality = .major

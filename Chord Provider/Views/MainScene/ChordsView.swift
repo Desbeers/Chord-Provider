@@ -42,8 +42,6 @@ struct ChordsView: View {
                             effect
                                 .scaleEffect(phase.isIdentity ? 1 : 0.6)
                         }
-                    case .unknownChord:
-                        EmptyView()
                     default:
                         ChordDefinitionView(chord: chord, width: 100, settings: sceneState.settings)
                             .scrollTransition { effect, phase in

@@ -43,8 +43,7 @@ extension ChordProParser {
                 let result = processChord(
                     chord: String(text),
                     line: &line,
-                    song: &song,
-                    ignoreUnknown: true
+                    song: &song
                 )
                 if result.status == .unknownChord {
                     grid.parts.append(Song.Section.Line.Part(id: partID, text: text))
