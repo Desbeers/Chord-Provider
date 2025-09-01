@@ -31,7 +31,7 @@ extension HtmlRender {
 
         /// Start of chord diagram
         var html = ""
-        html += "<div class=\"chord-diagram \(chord.instrument.rawValue)\">"
+        html += "<div class=\"chord-diagram \(chord.instrument.rawValue.lowercased())\">"
         html += "<span class=\"chord\">" + chord.display + "</span>"
 
         /// Top bar

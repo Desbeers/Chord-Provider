@@ -23,8 +23,9 @@ https://git.aparoksha.dev/aparoksha/adwaita-swift
 
 {start_of_grid label="Griddy Grid!"}
 | G7 G7 . C | Am . . Am |
+| G7 G7 . C |
+| Asus4 G7 . C | Am . . Am |
 | G7 G7 . C | Asus4 . . Am |
-{comment This is not really a nice melody, I know!}
 {end_of_grid}
 
 {start_of_chorus}

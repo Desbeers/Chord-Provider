@@ -37,51 +37,33 @@ extension PDFBuild {
         ///   - calculationOnly: Bool if only the Bounding Rect should be calculated
         ///   - pageRect: The page size of the PDF document
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
-            let maxColumns = section.lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
-                let elements = grids.flatMap { $0.parts }.count
-                return max(accumulator, elements)
-            }
-            /// Find the  column width
-            let elements: [NSMutableAttributedString] = (0 ..< maxColumns).map { _ in NSMutableAttributedString() }
-            var columnWidth: [Double] = (0 ..< maxColumns).map { _ in Double() }
-            var lineHeight: Double = 0
-            for line in section.lines where line.type == .songLine {
-                if let grid = line.grid {
-                    let parts = grid.flatMap { $0.parts }
-                    for (column, part) in parts.enumerated() {
-                        elements[column].append(
-                            NSAttributedString(
-                                string: " \(part.text ?? "") \n",
-                                attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
-                            )
-                        )
-                        let textBounds = elements[column].boundingRect(with: rect.size)
-                        columnWidth[column] = textBounds.width
-                    }
-                }
-            }
+            /// Convert the grid into columns
+            let section = section.gridColumns()
             /// Draw the elements
             for line in section.lines {
                 switch line.type {
                 case .songLine:
-                    if let grid = line.grid {
-
+                    if let gridColumns = line.gridColumns {
+                        var lineHeight: Double = 0
                         var partRect = rect
-
-                        let parts = grid.flatMap { $0.parts }
-                        for (column, part) in parts.enumerated() {
-
-                            let string = NSAttributedString(
-                                string: " \(part.text ?? "") \u{200c}",
-                                attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
-                            )
-                            let textBounds = string.boundingRect(with: rect.size)
+                        for column in gridColumns.grids {
+                            let string = NSMutableAttributedString()
+                            for part in column.parts {
+                                string.append(
+                                    NSAttributedString(
+                                        string: " \(part.text ?? "") \n",
+                                        attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
+                                    )
+                                )
+                            }
+                            let textBounds = string.boundingRect(with: pageRect.size, options: .usesLineFragmentOrigin)
                             lineHeight = max(lineHeight, textBounds.height)
                             if !calculationOnly {
                                 string.draw(in: partRect)
-                                partRect.origin.y = rect.origin.y
-                                partRect.origin.x += columnWidth[column] + 2 * textPadding
                             }
+                            /// Move the rect
+                            partRect.origin.y = rect.origin.y
+                            partRect.origin.x += textBounds.width + 2 * textPadding
                         }
                         rect.origin.y += lineHeight
                         rect.size.height -= lineHeight

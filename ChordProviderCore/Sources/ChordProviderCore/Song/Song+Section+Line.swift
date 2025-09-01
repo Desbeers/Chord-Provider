@@ -62,6 +62,10 @@ extension Song.Section {
         public var parts: [Part]?
         /// The  optional grid in the line
         private(set) public var grid: [Grid]?
+        /// The  optional grid columns in the line
+        /// - Note: there is a function to move grids into columns for rendering
+        public var gridColumns: GridColumns?
+
         /// The optional strum pattern in the line
         public var strum: [[Strum]]?
 

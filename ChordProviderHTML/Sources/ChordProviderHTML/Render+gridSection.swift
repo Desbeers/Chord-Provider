@@ -11,27 +11,36 @@ import ChordProviderCore
 extension HtmlRender {
 
     static func gridSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
-
-        let maxColumns = section.lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
-            let elements = grids.flatMap { $0.parts }.count
-            return max(accumulator, elements)
-        }
-
-        var elements: [String] = (0 ..< maxColumns).map { _ in String() }
-
-        for line in section.lines where line.type == .songLine {
-            if let grid = line.grid {
-                let parts = grid.flatMap { $0.parts }
-                for (column, part) in parts.enumerated() {
-                    elements[column].append("<div>\(part.text ?? "&nbsp;")</div>")
+        /// Convert the grid into columns
+        var section = section.gridColumns()
+        var result: [String] = []
+        for line in section.lines {
+            switch line.type {
+            case .songLine:
+                result.append("<div class=\"line\">")
+                if let gridColumns = line.gridColumns {
+                    for column in gridColumns.grids {
+                        let parts = column.parts.map { part in
+                            if let chordDefinition = part.chordDefinition, let text = part.text {
+                                return "<div class=\"chord\">\(chordDefinition.display)</div>"
+                            } else if let text = part.text {
+                                return "<div>\(text.isEmpty ? "&nbsp;" : "\(text)")</div>"
+                            }
+                            /// This should not happen
+                            return ""
+                        }
+                        result.append("<div class=\"part\">\(parts.joined())</div>")
+                    }
                 }
+                result.append("</div>")
+            case .emptyLine:
+                result.append("<div class=\"line\">&nbsp;</div>")
+            case .comment:
+                commentLabel(output: &result, comment: line.plain, inline: true, settings: settings)
+            default:
+                break
             }
         }
-
-        let result = elements.map {element in
-            return "<div class=\"part\">\(element)</div>"
-        }
-
         output.append(wrapSongSection(section: section, content: result, settings: settings))
     }
 }

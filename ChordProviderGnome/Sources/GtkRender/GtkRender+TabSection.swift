@@ -16,19 +16,19 @@ extension GtkRender {
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
-                        switch line.type {
-                        case .songLine:
-                            Text("<tt>\(line.plain ?? "")</tt>")
-                                .useMarkup()
-                                .wrap()
-                                .halign(.start)
-                        case .emptyLine:
-                            Text(" ")
-                        case .comment:
-                            CommentLabel(comment: line.plain ?? "Empty Comment")
-                        default:
-                            EmptyView()
-                        }
+                    switch line.type {
+                    case .songLine:
+                        Text("<tt>\(line.plain ?? "")</tt>")
+                            .useMarkup()
+                            .wrap()
+                            .halign(.start)
+                    case .emptyLine:
+                        Text(" ")
+                    case .comment:
+                        CommentLabel(comment: line.plain ?? "Empty Comment")
+                    default:
+                        EmptyView()
+                    }
                 }
             }
             .padding(10)

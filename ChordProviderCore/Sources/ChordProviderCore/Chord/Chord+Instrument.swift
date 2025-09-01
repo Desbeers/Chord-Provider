@@ -26,7 +26,7 @@ extension Chord {
 
 extension Chord.Instrument {
 
-   /// The description of the instrument
+    /// The description of the instrument
     public var description: String {
         rawValue
     }

@@ -61,5 +61,47 @@ extension Song {
         mutating func resetWarnings() {
             self.warnings = nil
         }
+        
+        /// Convert grids into columns
+        /// - Returns: A new ``Song/Section``
+        public func gridColumns() -> Song.Section {
+            var newSection = self
+            newSection.lines = []
+
+            let maxColumns = self.lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
+                let elements = grids.flatMap { $0.parts }.count
+                return max(accumulator, elements)
+            }
+            var elements: [Song.Section.Line.Grid] = (0 ..< maxColumns).enumerated().map { item in
+                Song.Section.Line.Grid(id: item.element)
+            }
+            for line in self.lines {
+                if let grid = line.grid {
+                    let parts = grid.flatMap { $0.parts }
+                    for (column, part) in parts.enumerated() {
+                        elements[column].parts.append(part)
+                    }
+                    if parts.count < maxColumns {
+                        for column in (parts.count..<maxColumns) {
+                            elements[column].parts.append(.init(id: column, text: ""))
+                        }
+                    }
+                } else {
+                    if  let first = elements.first, !first.parts.isEmpty {
+                        /// Add this as item
+                        var newLine: Song.Section.Line = .init(type: .songLine)
+                        newLine.gridColumns = Song.Section.Line.GridColumns(id: line.sourceLineNumber, grids: elements)
+                        newSection.lines.append(newLine)
+                        /// Clear the grid
+                        elements = (0 ..< maxColumns).enumerated().map { item in
+                            Song.Section.Line.Grid(id: item.element)
+                        }
+                    }
+                    /// Add the other line
+                    newSection.lines.append(line)
+                }
+            }
+            return newSection
+        }
     }
 }

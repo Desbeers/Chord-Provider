@@ -75,22 +75,22 @@ See https://www.chordpro.org
             result = HtmlRender.render(song: parsedSong, settings: settings)
         }
         if stdout {
-            print (result)
+            print(result)
         } else {
             let fileManager = FileManager.default
             /// Remove previous export (if any)
             try? fileManager.removeItem(atPath: destination.path)
             try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
 
-            let messages = LogUtils.shared.fetchLog().map {message in
+            let messages = LogUtils.shared.fetchLog()
+                .map { message in
+                    var line = message.type.rawValue + ": " + message.category.rawValue + ": "
+                    if let lineNumber = message.lineNumber {
+                        line += "line \(lineNumber): "
+                    }
 
-                var line = message.type.rawValue + ": " + message.category.rawValue + ": "
-                if let lineNumber = message.lineNumber {
-                    line += "line \(lineNumber): "
+                    return line + message.message
                 }
-
-                return line + message.message
-            }
                 .joined(separator: "\n")
 
             print(messages)

@@ -22,7 +22,7 @@ extension Song.Section.Line {
             self.chord = chord
             self.text = text
         }
-        
+
         /// The unique ID of the part
         public var id: Int
         /// The optional chord definition

@@ -59,7 +59,9 @@ struct ToolbarView: View {
                 developer: "Nick Berendsen",
                 version: "dev",
                 icon: .custom(name: "nl.desbeers.chordprovider"),
+                // swiftlint:disable:next force_unwrapping
                 website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
+                // swiftlint:disable:next force_unwrapping
                 issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
             )
         }

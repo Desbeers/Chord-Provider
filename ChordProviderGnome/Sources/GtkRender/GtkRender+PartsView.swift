@@ -15,19 +15,19 @@ extension GtkRender {
         let parts: [Song.Section.Line.Part]
         let settings: AppSettings
         var view: Body {
-                ForEach(parts, horizontal: true) { part in
-                    VStack {
-                        if let chord = part.chordDefinition {
-                            Text("<span foreground='#0433ff'>\(chord.display)</span>")
-                                .useMarkup()
-                                .halign(.start)
-                        } else {
-                            Text(" ")
-                        }
-                        Text(.init("\(part.text ?? " ")"))
+            ForEach(parts, horizontal: true) { part in
+                VStack {
+                    if let chord = part.chordDefinition {
+                        Text("<span foreground='#0433ff'>\(chord.display)</span>")
+                            .useMarkup()
                             .halign(.start)
+                    } else {
+                        Text(" ")
                     }
+                    Text(.init("\(part.text ?? " ")"))
+                        .halign(.start)
                 }
             }
         }
+    }
 }
