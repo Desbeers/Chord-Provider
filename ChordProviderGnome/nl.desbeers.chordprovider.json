@@ -43,6 +43,7 @@
         "swift build -c debug --static-swift-stdlib",
         "strip .build/debug/ChordProvider",
         "install -Dm755 .build/debug/ChordProvider /app/bin/ChordProvider",
+        "install -Dm644 .build/debug/GtkSourceView_SourceView.resources/chordpro.lang /app/bin/GtkSourceView_SourceView.resources/chordpro.lang",
         "install -Dm644 data/nl.desbeers.chordprovider.metainfo.xml $DESTDIR/app/share/metainfo/nl.desbeers.chordprovider.metainfo.xml",
         "install -Dm644 data/nl.desbeers.chordprovider.desktop $DESTDIR/app/share/applications/nl.desbeers.chordprovider.desktop",
         "install -Dm644 data/icons/nl.desbeers.chordprovider.svg $DESTDIR/app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",

@@ -11,7 +11,7 @@ import PackageDescription
 /// The CodeEditor package.
 let package = Package(
     name: "GtkSourceView",
-    platforms: [.macOS(.v10_15)],
+    platforms: [.macOS(.v15)],
     products: [
         .library(
             name: "SourceView",

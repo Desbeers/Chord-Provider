@@ -5,8 +5,19 @@
 //  Created by david-swift on 27.11.23.
 //
 
+import Foundation
 import Adwaita
 import CCodeEditor
+
+public struct BundleTestView: View {
+    let bundle: String
+    public init() {
+        self.bundle = Bundle.module.url(forResource: "chordpro", withExtension: "lang")?.deletingLastPathComponent().path() ?? "Empty"
+    }
+    public var view: Body {
+        Text(bundle)
+    }
+}
 
 /// A text or code editor widget.
 public struct SourceView: AdwaitaWidget {
@@ -99,7 +110,9 @@ public struct SourceView: AdwaitaWidget {
     /// - Parameter buffer: The text view's buffer.
     func setLanguage(buffer: ViewStorage) {
         let manager = gtk_source_language_manager_get_default()
-        gtk_source_language_manager_append_search_path(manager, "./GtkSourceView_SourceView.bundle/Contents/Resources")
+        if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
+            gtk_source_language_manager_append_search_path(manager, urlPath.deletingLastPathComponent().path())
+        }
         let language = gtk_source_language_manager_get_language(manager, language.languageName)
         gtk_source_buffer_set_language(buffer.opaquePointer?.cast(), language)
     }
@@ -133,5 +146,4 @@ public struct SourceView: AdwaitaWidget {
         newSelf.language = language
         return newSelf
     }
-
 }

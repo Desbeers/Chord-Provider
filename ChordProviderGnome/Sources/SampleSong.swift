@@ -13,10 +13,9 @@ let sampleSong = """
 {title Swing Low Sweet Chariot}
 {subtitle Traditional}
 
-<div class="test">Test mij!</div>
-
 {start_of_textblock Welcome!}
-Welcome to the 'sneak preview' of Chord Provider for Gnome!
+Welcome to the 'sneak preview' of
+Chord Provider for Gnome!
 Thanks to 'adwaita-swift'
 https://git.aparoksha.dev/aparoksha/adwaita-swift
 {comment All bugs are for free!}

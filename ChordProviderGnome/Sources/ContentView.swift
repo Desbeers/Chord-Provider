@@ -11,19 +11,17 @@ import ChordProviderCore
 import ChordProviderHTML
 
 struct ContentView: View {
-    
+
     var app: AdwaitaApp
     var window: AdwaitaWindow
     @State private var text = sampleSong
-    @State private var showEditor = true
+    @State private var showEditor = false
     @State private var openSong = Signal()
     @State private var saveSongAs = Signal()
     @State private var songURL: URL?
     @State private var aboutDialog = false
     @State private var lyricsOnly = false
     @State private var settings: ChordProviderSettings = .init()
-
-
     let id = UUID()
 
     var view: Body {
@@ -42,7 +40,7 @@ struct ContentView: View {
                         text = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                     }
                     .pill()
-                    .padding(4,.bottom)
+                    .padding(4, .bottom)
                 }
                 .halign(.center)
             }
@@ -57,8 +55,8 @@ struct ContentView: View {
                 }
             }
         }
-        .minSidebarWidth(600)
-        .topToolbar{
+        .minSidebarWidth(500)
+        .topToolbar {
             HeaderBar {
                 Toggle(icon: .default(icon: .textEditor), isOn: $showEditor)
                     .tooltip("Show Editor")
@@ -88,7 +86,7 @@ struct ContentView: View {
             /// Nothing to do
         }
         .fileExporter(
-            open: saveSongAs, 
+            open: saveSongAs,
             initialName: songURL?.lastPathComponent ?? "Untitled.chordpro",
         ) { url in
             songURL = url
@@ -96,6 +94,5 @@ struct ContentView: View {
         } onClose: {
             /// Nothing to do
         }
-
     }
 }
