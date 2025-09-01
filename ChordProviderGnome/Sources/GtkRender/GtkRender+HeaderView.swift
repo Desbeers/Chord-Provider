@@ -13,7 +13,7 @@ extension GtkRender {
 
     struct HeaderView: View {
         let section: Song.Section
-        let settings: ChordProviderSettings
+        let settings: AppSettings
         var view: Body {
             if !section.label.isEmpty {
                 Text("<span size='large' weight='bold'>\(section.label)</span>")

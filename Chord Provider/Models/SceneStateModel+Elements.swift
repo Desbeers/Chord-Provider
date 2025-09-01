@@ -538,9 +538,9 @@ extension SceneStateModel {
         var body: some View {
             Picker("Instrument", selection: $sceneState.settings.display.instrument) {
                 ForEach(Chord.Instrument.allCases, id: \.rawValue) { value in
-                    Text(value.label)
+                    Text(value.description)
                         .tag(value)
-                        .help(value.description)
+                        .help(value.label)
                 }
             }
         }

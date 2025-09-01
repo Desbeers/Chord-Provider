@@ -8,19 +8,15 @@
 import Foundation
 
 public struct ChordProviderSettings {
-    public init(options: ChordProviderSettings.Options = .init()) {
-        self.options = options
+    public init(instrument: Chord.Instrument = .guitar, lyricOnly: Bool = false, repeatWholeChorus: Bool = false) {
+        self.instrument = instrument
+        self.lyricOnly = lyricOnly
+        self.repeatWholeChorus = repeatWholeChorus
     }
-    public var options: Options = .init()
-}
-
-extension ChordProviderSettings {
-
-    public struct Options {
-        public init(lyricOnly: Bool = false) {
-            self.lyricOnly = lyricOnly
-        }
-
-        public var lyricOnly: Bool = false
-    }
+    /// The instrument for the song
+    public var instrument: Chord.Instrument = .guitar
+    /// Show only lyrics
+    public var lyricOnly: Bool
+    /// Repeat the whole last chorus when using a *{chorus}* directive
+    public var repeatWholeChorus: Bool
 }

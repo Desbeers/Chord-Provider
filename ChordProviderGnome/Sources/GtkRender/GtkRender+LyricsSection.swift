@@ -13,13 +13,13 @@ extension GtkRender {
 
     struct LyricsSection: View {
         let section: Song.Section
-        let settings: ChordProviderSettings
+        let settings: AppSettings
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
                         switch line.type {
                         case .songLine:
-                            if settings.options.lyricOnly {
+                            if settings.core.lyricOnly {
                                 Text(line.plain ?? "")
                                     .halign(.start)
                             } else if let parts = line.parts {

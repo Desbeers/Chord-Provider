@@ -13,7 +13,7 @@ extension GtkRender {
 
     struct PartsView: View {
         let parts: [Song.Section.Line.Part]
-        let settings: ChordProviderSettings
+        let settings: AppSettings
         var view: Body {
                 ForEach(parts, horizontal: true) { part in
                     VStack {

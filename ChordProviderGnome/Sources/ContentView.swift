@@ -11,33 +11,25 @@ import ChordProviderCore
 import ChordProviderHTML
 
 struct ContentView: View {
-
     var app: AdwaitaApp
     var window: AdwaitaWindow
-    @State private var text = sampleSong
-    @State private var showEditor = false
-    @State private var openSong = Signal()
-    @State private var saveSongAs = Signal()
-    @State private var songURL: URL?
-    @State private var aboutDialog = false
-    @State private var lyricsOnly = false
-    @State private var settings: ChordProviderSettings = .init()
+    @State private var settings = AppSettings()
     let id = UUID()
 
     var view: Body {
-        OverlaySplitView(visible: $showEditor) {
+        OverlaySplitView(visible: $settings.app.showEditor) {
             VStack {
-                EditorView(text: $text)
+                EditorView(text: $settings.app.text)
                 HStack {
                     Button("Clean Source") {
-                        let song = Song(id: id, content: text)
+                        let song = Song(id: id, content: settings.app.text)
                         let result = ChordProParser.parse(
                             song: song,
-                            instrument: .guitar,
+                            instrument: settings.core.instrument,
                             prefixes: [],
                             getOnlyMetadata: false
                         )
-                        text = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+                        settings.app.text = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                     }
                     .pill()
                     .padding(4, .bottom)
@@ -46,10 +38,10 @@ struct ContentView: View {
             }
         } content: {
             VStack {
-                RenderView(render: text, id: id, settings: settings)
+                RenderView(render: settings.app.text, id: id, settings: settings)
                     .hexpand()
                     .vexpand()
-                if showEditor {
+                if settings.app.showEditor {
                     LogView()
                         .transition(.coverUpDown)
                 }
@@ -57,40 +49,29 @@ struct ContentView: View {
         }
         .minSidebarWidth(500)
         .topToolbar {
-            HeaderBar {
-                Toggle(icon: .default(icon: .textEditor), isOn: $showEditor)
-                    .tooltip("Show Editor")
-                Toggle(icon: .default(icon: .tv), isOn: $settings.options.lyricOnly)
-                    .tooltip("Show only lyrics")
-            } end: {
-                ToolbarView(
-                    openSong: $openSong,
-                    saveSongAs: $saveSongAs,
-                    songURL: $songURL,
-                    lyricsOnly: $lyricsOnly,
-                    text: text,
-                    app: app,
-                    window: window
-                )
-            }
+            ToolbarView(
+                app: app,
+                window: window,
+                settings: $settings
+            )
         }
         .fileImporter(
-            open: openSong,
+            open: settings.app.openSong,
             extensions: ["chordpro", "cho"]
         ) { url in
             if let content = try? String(contentsOf: url, encoding: .utf8) {
-                songURL = url
-                text = content
+                settings.app.songURL = url
+                settings.app.text = content
             }
         } onClose: {
             /// Nothing to do
         }
         .fileExporter(
-            open: saveSongAs,
-            initialName: songURL?.lastPathComponent ?? "Untitled.chordpro",
+            open: settings.app.saveSongAs,
+            initialName: settings.app.songURL?.lastPathComponent ?? "Untitled.chordpro",
         ) { url in
-            songURL = url
-            try? text.write(to: url, atomically: true, encoding: String.Encoding.utf8)
+            settings.app.songURL = url
+            try? settings.app.text.write(to: url, atomically: true, encoding: String.Encoding.utf8)
         } onClose: {
             /// Nothing to do
         }

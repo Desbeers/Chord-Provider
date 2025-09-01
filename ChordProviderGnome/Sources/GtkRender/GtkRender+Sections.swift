@@ -14,7 +14,7 @@ extension GtkRender {
     struct SectionsView: View {
 
         let song: Song
-        let settings: ChordProviderSettings
+        let settings: AppSettings
 
         var view: Body {
             ForEach(song.sections) { section in
@@ -25,12 +25,22 @@ extension GtkRender {
                 case .textblock:
                     TextblockSection(section: section)
                 case .tab:
-                    if !settings.options.lyricOnly {
+                    if !settings.core.lyricOnly {
                         HeaderView(section: section, settings: settings)
                         TabSection(section: section)
                     }
                 case .repeatChorus:
-                    HeaderView(section: section, settings: settings)
+                    /// Check if we have to repeat the whole chorus
+                    if
+                        settings.core.repeatWholeChorus,
+                        let lastChorus = song.sections.last(
+                            where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
+                        ) {
+                        HeaderView(section: lastChorus, settings: settings)
+                        LyricsSection(section: lastChorus, settings: settings)
+                    } else {
+                        HeaderView(section: section, settings: settings)
+                    }
                 case .comment:
                     CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment")
                 default:

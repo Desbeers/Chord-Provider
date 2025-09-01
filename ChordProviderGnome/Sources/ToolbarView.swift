@@ -7,58 +7,64 @@
 
 import Foundation
 import Adwaita
+import ChordProviderCore
 
 struct ToolbarView: View {
-
-    @State private var about = false
-    @Binding var openSong: Signal
-    @Binding var saveSongAs: Signal
-    @Binding var songURL: URL?
-    @Binding var lyricsOnly: Bool
-    var text: String
     var app: AdwaitaApp
     var window: AdwaitaWindow
+    @Binding var settings: AppSettings
 
     var view: Body {
-        //HeaderBar.end {
-        Menu(icon: .default(icon: .openMenu)) {
-            MenuButton("Open") {
-                openSong.signal()
-            }
-            .keyboardShortcut("o".ctrl())
-            MenuButton("Save") {
-                if let songURL {
-                    try? text.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
-                } else {
-                    saveSongAs.signal()
-                }
-            }
-            .keyboardShortcut("s".ctrl())
-            MenuButton("Save As…") {
-                saveSongAs.signal()
-            }
-            .keyboardShortcut("s".ctrl().shift())
-            MenuButton("new Window", window: false) {
-                app.addWindow("main")
-            }
-            MenuSection {
-                MenuButton("About Chord Provider", window: false) {
-                    about = true
-                }
-            }
+        HeaderBar {
+            Toggle(icon: .default(icon: .textEditor), isOn: $settings.app.showEditor)
+                .tooltip("Show Editor")
+            Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricOnly)
+                .tooltip("Show only lyrics")
+            Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
+                .tooltip("Repeat whole chorus")
+            DropDown(selection: $settings.core.instrument, values: Chord.Instrument.allCases)
         }
-        //.primary()
-        .tooltip("Main Menu")
-        .aboutDialog(
-            visible: $about,
-            app: "Chord Provider",
-            developer: "Nick Berendsen",
-            version: "dev",
-            icon: .custom(name: "nl.desbeers.chordprovider"),
-            website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
-            issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
-        )
-        //}
+        end: {
+            Menu(icon: .default(icon: .openMenu)) {
+                MenuButton("Open") {
+                    settings.app.openSong.signal()
+                }
+                .keyboardShortcut("o".ctrl())
+                MenuButton("Save") {
+                    if let songURL = settings.app.songURL {
+                        try? settings.app.text.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
+                    } else {
+                        settings.app.saveSongAs.signal()
+                    }
+                }
+                .keyboardShortcut("s".ctrl())
+                MenuButton("Save As…") {
+                    settings.app.saveSongAs.signal()
+                }
+                .keyboardShortcut("s".ctrl().shift())
+                MenuButton("New Window", window: false) {
+                    app.addWindow("main")
+                }
+                MenuSection {
+                    MenuButton("About Chord Provider", window: false) {
+                        settings.app.aboutDialog = true
+                    }
+                }
+            }
+            .primary()
+            .tooltip("Main Menu")
+            .aboutDialog(
+                visible: $settings.app.aboutDialog,
+                app: "Chord Provider",
+                developer: "Nick Berendsen",
+                version: "dev",
+                icon: .custom(name: "nl.desbeers.chordprovider"),
+                website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
+                issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
+            )
+        }
+        .headerBarTitle {
+            WindowTitle(subtitle: settings.app.songURL?.lastPathComponent ?? "New Song", title: "Chord Provider")
+        }
     }
-
 }

@@ -16,7 +16,6 @@ struct ChordProvider: App {
         Window(id: "main") { window in
             ContentView(app: app, window: window)
         }
-        .title("Chord Provider")
         .defaultSize(width: 800, height: 600)
     }
 }
