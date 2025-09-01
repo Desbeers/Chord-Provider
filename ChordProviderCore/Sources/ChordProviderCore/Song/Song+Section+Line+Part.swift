@@ -11,6 +11,18 @@ extension Song.Section.Line {
 
     /// A part in the ``Song/Section/Line``
     public struct Part: Identifiable, Equatable, Codable, Sendable {
+        public init(
+            id: Int = 0,
+            chordDefinition: ChordDefinition? = nil,
+            chord: ChordPro.Instrument.Chord? = nil,
+            text: String? = nil
+        ) {
+            self.id = id
+            self.chordDefinition = chordDefinition
+            self.chord = chord
+            self.text = text
+        }
+        
         /// The unique ID of the part
         public var id: Int
         /// The optional chord definition

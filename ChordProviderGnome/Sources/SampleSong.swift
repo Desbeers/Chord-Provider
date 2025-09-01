@@ -21,6 +21,12 @@ https://git.aparoksha.dev/aparoksha/adwaita-swift
 {comment All bugs are for free!}
 {end_of_textblock}
 
+{start_of_grid label="Griddy Grid!"}
+| G7 G7 . C | Am . . Am |
+| G7 G7 . C | Asus4 . . Am |
+{comment This is not really a nice melody, I know!}
+{end_of_grid}
+
 {start_of_chorus}
 Swing [D]low, sweet [G]chari[D]ot,
 Comin’ for to carry me [A7]home.

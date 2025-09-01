@@ -17,24 +17,24 @@ extension GtkRender {
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
-                        switch line.type {
-                        case .songLine:
-                            if settings.core.lyricOnly {
-                                Text(line.plain ?? "")
-                                    .halign(.start)
-                            } else if let parts = line.parts {
-                                PartsView(
-                                    parts: parts,
-                                    settings: settings
-                                )
-                            }
-                        case .emptyLine:
-                            Text(" ")
-                        case .comment:
-                            CommentLabel(comment: line.plain ?? "Empty Comment")
-                        default:
-                            EmptyView()
+                    switch line.type {
+                    case .songLine:
+                        if settings.core.lyricOnly {
+                            Text(line.plain ?? "")
+                                .halign(.start)
+                        } else if let parts = line.parts {
+                            PartsView(
+                                parts: parts,
+                                settings: settings
+                            )
                         }
+                    case .emptyLine:
+                        Text(" ")
+                    case .comment:
+                        CommentLabel(comment: line.plain ?? "Empty Comment")
+                    default:
+                        EmptyView()
+                    }
                 }
             }
             .padding(10)

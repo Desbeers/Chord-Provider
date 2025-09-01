@@ -29,17 +29,23 @@ extension GtkRender {
                         HeaderView(section: section, settings: settings)
                         TabSection(section: section)
                     }
+                case .grid:
+                    if !settings.core.lyricOnly {
+                        HeaderView(section: section, settings: settings)
+                        GridSection(section: section, settings: settings)
+                    }
                 case .repeatChorus:
+                    let label = section.lines.first?.plain ?? section.label
                     /// Check if we have to repeat the whole chorus
                     if
                         settings.core.repeatWholeChorus,
                         let lastChorus = song.sections.last(
                             where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
                         ) {
-                        HeaderView(section: lastChorus, settings: settings)
+                        HeaderView(label: label, section: lastChorus, settings: settings)
                         LyricsSection(section: lastChorus, settings: settings)
                     } else {
-                        HeaderView(section: section, settings: settings)
+                        HeaderView(label: label, section: section, settings: settings)
                     }
                 case .comment:
                     CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment")

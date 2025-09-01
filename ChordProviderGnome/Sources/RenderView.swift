@@ -32,7 +32,7 @@ struct RenderView: View {
                 Label("<span size='xx-large'>\(song.metadata.title)</span>")
                     .useMarkup()
                     .heading()
-                Text("<span size='x-large'>\(song.metadata.subtitle ?? "")</span>")
+                Text("<span size='x-large'>\(song.metadata.artist)</span>")
                     .useMarkup()
                 Text("<span size='large'>\(settings.core.instrument)</span>")
                     .useMarkup()

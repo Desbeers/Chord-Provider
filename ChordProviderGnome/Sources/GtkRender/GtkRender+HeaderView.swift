@@ -12,16 +12,18 @@ import ChordProviderCore
 extension GtkRender {
 
     struct HeaderView: View {
-        let section: Song.Section
-        let settings: AppSettings
+        init(label: String? = nil, section: Song.Section, settings: AppSettings) {
+            self.label = label ?? section.label
+        }
+        let label: String
         var view: Body {
-            if !section.label.isEmpty {
-                Text("<span size='large' weight='bold'>\(section.label)</span>")
+            if !label.isEmpty {
+                Text("<span size='large' weight='bold'>\(label)</span>")
                     .useMarkup()
                     .halign(.start)
                     .padding(10, .vertical)
                 Separator()
             }
-            }
         }
+    }
 }
