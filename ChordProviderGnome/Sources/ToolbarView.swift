@@ -16,13 +16,17 @@ struct ToolbarView: View {
 
     var view: Body {
         HeaderBar {
-            Toggle(icon: .default(icon: .textEditor), isOn: $settings.app.showEditor)
-                .tooltip("Show Editor")
+            ToggleButton(icon: .default(icon: .textEditor), isOn: $settings.app.showEditor) {
+                settings.app.splitter = settings.app.splitter == 0 ? 400 : 0
+                settings.app.showEditor = settings.app.splitter == 0 ? false : true
+            }
+            .tooltip("\(settings.app.showEditor ? "Hide" : "Show") the editor")
             Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricOnly)
-                .tooltip("Show only lyrics")
+                .tooltip("\(settings.core.lyricOnly ? "Show also chords" : "Show only lyrics")")
             Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
-                .tooltip("Repeat whole chorus")
+                .tooltip("\(settings.core.repeatWholeChorus ? "Show only repeating labels" : "Repeat whole chorus")")
             DropDown(selection: $settings.core.instrument, values: Chord.Instrument.allCases)
+                .tooltip("Select your instrument")
         }
         end: {
             Menu(icon: .default(icon: .openMenu)) {
@@ -32,7 +36,7 @@ struct ToolbarView: View {
                 .keyboardShortcut("o".ctrl())
                 MenuButton("Save") {
                     if let songURL = settings.app.songURL {
-                        try? settings.app.text.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
+                        try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
                     } else {
                         settings.app.saveSongAs.signal()
                     }
@@ -66,7 +70,10 @@ struct ToolbarView: View {
             )
         }
         .headerBarTitle {
-            WindowTitle(subtitle: settings.app.songURL?.lastPathComponent ?? "New Song", title: "Chord Provider")
+            WindowTitle(
+                subtitle: settings.app.subtitle,
+                title: "Chord Provider"
+            )
         }
     }
 }

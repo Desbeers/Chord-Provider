@@ -17,58 +17,26 @@ struct ContentView: View {
     let id = UUID()
 
     var view: Body {
-        Box {
-            if settings.app.showEditor {
-                SplitView {
-                    //VStack {
-                        EditorView(text: $settings.app.text)
-                    //}
-                    .transition(.coverLeftRight)
-                } end: {
-                    RenderView(render: settings.app.text, id: id, settings: settings)
-                        //.hexpand()
-                }
-                .transition(.crossfade)
-            } else {
-                RenderView(render: settings.app.text, id: id, settings: settings)
+
+        SplitView(splitter: $settings.app.splitter) {
+            EditorView(settings: $settings)
+        } end: {
+            VStack {
+                RenderView(render: settings.app.source, id: id, settings: settings)
+                    .hexpand()
                     .vexpand()
-                    //.transition(.coverDownUp)
+                if settings.app.splitter != 0 {
+                    LogView()
+                        .transition(.coverUpDown)
+                }
             }
+
+            //.hexpand()
         }
+        //.transition(.crossfade)
+
         .vexpand()
         .hexpand()
-//        OverlaySplitView(visible: $settings.app.showEditor) {
-//            VStack {
-//                EditorView(text: $settings.app.text)
-//                HStack {
-//                    Button("Clean Source") {
-//                        let song = Song(id: id, content: settings.app.text)
-//                        let result = ChordProParser.parse(
-//                            song: song,
-//                            instrument: settings.core.instrument,
-//                            prefixes: [],
-//                            getOnlyMetadata: false
-//                        )
-//                        settings.app.text = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
-//                    }
-//                    .pill()
-//                    .padding(4, .bottom)
-//                }
-//                .halign(.center)
-//            }
-//        } content: {
-//            VStack {
-//                RenderView(render: settings.app.text, id: id, settings: settings)
-//                    .hexpand()
-//                    .vexpand()
-//                if settings.app.showEditor {
-//                    LogView()
-//                        .transition(.coverUpDown)
-//                }
-//            }
-//        }
-//        .sidebarWidthFraction(0.8)
-        //.minSidebarWidth(500)
         .topToolbar {
             ToolbarView(
                 app: app,
@@ -82,7 +50,8 @@ struct ContentView: View {
         ) { url in
             if let content = try? String(contentsOf: url, encoding: .utf8) {
                 settings.app.songURL = url
-                settings.app.text = content
+                settings.app.source = content
+                settings.app.originalSource = content
             }
         } onClose: {
             /// Nothing to do
@@ -92,7 +61,8 @@ struct ContentView: View {
             initialName: settings.app.songURL?.lastPathComponent ?? "Untitled.chordpro",
         ) { url in
             settings.app.songURL = url
-            try? settings.app.text.write(to: url, atomically: true, encoding: String.Encoding.utf8)
+            try? settings.app.source.write(to: url, atomically: true, encoding: String.Encoding.utf8)
+            settings.app.originalSource = settings.app.source
         } onClose: {
             /// Nothing to do
         }

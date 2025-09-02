@@ -19,10 +19,20 @@ public struct SplitView: AdwaitaWidget {
     let startID = "start"
     /// The end content's id.
     let endID = "end"
+    /// The splitter ID
+    let splitterID = "splitter"
 
-    public init(@ViewBuilder start: @escaping () -> Body, @ViewBuilder end: @escaping () -> Body) {
+    /// Position of the splitter
+    @Binding var splitter: Int
+
+    public init(
+        splitter: Binding<Int>,
+        @ViewBuilder start: @escaping () -> Body,
+        @ViewBuilder end: @escaping () -> Body
+    ) {
         self.start = start()
         self.end = end()
+        self._splitter = splitter
     }
 
     /// The view storage.
@@ -34,12 +44,12 @@ public struct SplitView: AdwaitaWidget {
         data: WidgetData,
         type: Data.Type
     ) -> ViewStorage where Data: ViewRenderData {
-
         let panedView = gtk_paned_new(GTK_ORIENTATION_HORIZONTAL)
         var content: [String: [ViewStorage]] = [:]
 
         let startStorage = start.storage(data: data, type: type)
         let startPage = gtk_frame_new("Left")
+        gtk_paned_set_position(.init(panedView), 0)
         gtk_paned_set_start_child(.init(panedView), startStorage.opaquePointer?.cast())
         content[startID] = [startStorage]
 
@@ -49,10 +59,11 @@ public struct SplitView: AdwaitaWidget {
         content[endID] = [endStorage]
 
         let storage = ViewStorage(panedView?.opaque(), content: content)
-        update(storage, data: data, updateProperties: true, type: type)
 
         storage.fields[startID] = startPage?.opaque()
         storage.fields[endID] = endPage?.opaque()
+
+        update(storage, data: data, updateProperties: true, type: type)
 
         return storage
     }
@@ -66,28 +77,20 @@ public struct SplitView: AdwaitaWidget {
         if let startStorage = storage.content[startID]?[safe: 0] {
             start
                 .updateStorage(startStorage, data: data, updateProperties: updateProperties, type: type)
-
-//            if updateProperties, let mainPage = storage.fields["main-page"] as? OpaquePointer {
-//                adw_navigation_page_set_title(mainPage.cast(), cStorage.fields[.navigationLabel] as? String ?? "")
-//            }
         }
         if let endStorage = storage.content[endID]?[safe: 0] {
             end
                 .updateStorage(endStorage, data: data, updateProperties: updateProperties, type: type)
-//            if updateProperties, let sidebarPage = storage.fields["sidebar-page"] as? OpaquePointer {
-//                adw_navigation_page_set_title(sidebarPage.cast(), sStorage.fields[.navigationLabel] as? String ?? "")
-//            }
         }
-//        guard updateProperties else {
-//            return
-//        }
-//        let collapsed = adw_navigation_split_view_get_collapsed(storage.opaquePointer) != 0
-//        if collapsed != self.collapsed {
-//            adw_navigation_split_view_set_collapsed(storage.opaquePointer, self.collapsed.cBool)
-//        }
-//        let showContent = adw_navigation_split_view_get_show_content(storage.opaquePointer) != 0
-//        if let binding = self.showContent, showContent != binding.wrappedValue {
-//            adw_navigation_split_view_set_show_content(storage.opaquePointer, binding.wrappedValue.cBool)
-//        }
+        guard updateProperties else {
+            return
+        }
+        let position = Int(gtk_paned_get_position(storage.opaquePointer))
+            if splitter >= 0 && position < 1 {
+                gtk_paned_set_position(storage.opaquePointer, Int32(splitter))
+            } else if splitter == 0 {
+                gtk_paned_set_position(storage.opaquePointer, 0)
+            }
+        storage.previousState = self
     }
 }

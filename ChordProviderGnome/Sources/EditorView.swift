@@ -13,22 +13,36 @@ import ChordProviderHTML
 
 struct EditorView: View {
 
-    @Binding var text: String
+    @Binding var settings: AppSettings
 
     var view: Body {
         VStack(spacing: 0) {
             ScrollView {
-                SourceView(text: $text)
+                SourceView(text: $settings.app.source)
                     .innerPadding()
                     .lineNumbers()
                     .language(.chordpro)
                     .vexpand()
-//                    .card()
-                    .padding()
+                    //.padding()
                     .css {
                         "textview { font-family: Monospace; font-size: 12pt; }"
                     }
             }
+            HStack {
+                Button("Clean Source") {
+                    let song = Song(id: UUID(), content: settings.app.source)
+                    let result = ChordProParser.parse(
+                        song: song,
+                        instrument: settings.core.instrument,
+                        prefixes: [],
+                        getOnlyMetadata: false
+                    )
+                    settings.app.source = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+                }
+                .pill()
+                .padding(4, .bottom)
+            }
+            .halign(.center)
         }
     }
 }
