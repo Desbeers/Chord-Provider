@@ -51,7 +51,7 @@ extension PDFBuild {
                             for part in column.parts {
                                 string.append(
                                     NSAttributedString(
-                                        string: " \(part.text ?? "") \n",
+                                        string: " \(part.text ?? "") \(part == column.parts.last ? "" : "\n")",
                                         attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
                                     )
                                 )

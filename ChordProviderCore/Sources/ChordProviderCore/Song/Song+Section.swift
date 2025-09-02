@@ -61,13 +61,14 @@ extension Song {
         mutating func resetWarnings() {
             self.warnings = nil
         }
-        
         /// Convert grids into columns
         /// - Returns: A new ``Song/Section``
         public func gridColumns() -> Song.Section {
             var newSection = self
             newSection.lines = []
-
+            /// Give all parts an unique id
+            var partID: Int = 1
+            /// Get the maximum columns
             let maxColumns = self.lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
                 let elements = grids.flatMap { $0.parts }.count
                 return max(accumulator, elements)
@@ -79,11 +80,16 @@ extension Song {
                 if let grid = line.grid {
                     let parts = grid.flatMap { $0.parts }
                     for (column, part) in parts.enumerated() {
+                        var part = part
+                        part.id = partID
                         elements[column].parts.append(part)
+                        partID += 1
                     }
+                    /// Fill the grid if needed
                     if parts.count < maxColumns {
                         for column in (parts.count..<maxColumns) {
-                            elements[column].parts.append(.init(id: column, text: ""))
+                            elements[column].parts.append(.init(id: partID, text: ""))
+                            partID += 1
                         }
                     }
                 } else {

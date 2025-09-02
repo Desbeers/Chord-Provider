@@ -12,7 +12,7 @@ extension HtmlRender {
 
     static func gridSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
         /// Convert the grid into columns
-        var section = section.gridColumns()
+        let section = section.gridColumns()
         var result: [String] = []
         for line in section.lines {
             switch line.type {
@@ -21,7 +21,7 @@ extension HtmlRender {
                 if let gridColumns = line.gridColumns {
                     for column in gridColumns.grids {
                         let parts = column.parts.map { part in
-                            if let chordDefinition = part.chordDefinition, let text = part.text {
+                            if let chordDefinition = part.chordDefinition {
                                 return "<div class=\"chord\">\(chordDefinition.display)</div>"
                             } else if let text = part.text {
                                 return "<div>\(text.isEmpty ? "&nbsp;" : "\(text)")</div>"
