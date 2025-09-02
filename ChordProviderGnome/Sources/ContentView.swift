@@ -17,37 +17,58 @@ struct ContentView: View {
     let id = UUID()
 
     var view: Body {
-        OverlaySplitView(visible: $settings.app.showEditor) {
-            VStack {
-                EditorView(text: $settings.app.text)
-                HStack {
-                    Button("Clean Source") {
-                        let song = Song(id: id, content: settings.app.text)
-                        let result = ChordProParser.parse(
-                            song: song,
-                            instrument: settings.core.instrument,
-                            prefixes: [],
-                            getOnlyMetadata: false
-                        )
-                        settings.app.text = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
-                    }
-                    .pill()
-                    .padding(4, .bottom)
+        Box {
+            if settings.app.showEditor {
+                SplitView {
+                    //VStack {
+                        EditorView(text: $settings.app.text)
+                    //}
+                    .transition(.coverLeftRight)
+                } end: {
+                    RenderView(render: settings.app.text, id: id, settings: settings)
+                        //.hexpand()
                 }
-                .halign(.center)
-            }
-        } content: {
-            VStack {
+                .transition(.crossfade)
+            } else {
                 RenderView(render: settings.app.text, id: id, settings: settings)
-                    .hexpand()
                     .vexpand()
-                if settings.app.showEditor {
-                    LogView()
-                        .transition(.coverUpDown)
-                }
+                    //.transition(.coverDownUp)
             }
         }
-        .minSidebarWidth(500)
+        .vexpand()
+        .hexpand()
+//        OverlaySplitView(visible: $settings.app.showEditor) {
+//            VStack {
+//                EditorView(text: $settings.app.text)
+//                HStack {
+//                    Button("Clean Source") {
+//                        let song = Song(id: id, content: settings.app.text)
+//                        let result = ChordProParser.parse(
+//                            song: song,
+//                            instrument: settings.core.instrument,
+//                            prefixes: [],
+//                            getOnlyMetadata: false
+//                        )
+//                        settings.app.text = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+//                    }
+//                    .pill()
+//                    .padding(4, .bottom)
+//                }
+//                .halign(.center)
+//            }
+//        } content: {
+//            VStack {
+//                RenderView(render: settings.app.text, id: id, settings: settings)
+//                    .hexpand()
+//                    .vexpand()
+//                if settings.app.showEditor {
+//                    LogView()
+//                        .transition(.coverUpDown)
+//                }
+//            }
+//        }
+//        .sidebarWidthFraction(0.8)
+        //.minSidebarWidth(500)
         .topToolbar {
             ToolbarView(
                 app: app,

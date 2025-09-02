@@ -32,7 +32,7 @@ extension GtkRender {
                                         Text("<span\(part.chordDefinition != nil ? " foreground='#0433ff'" : "")>\(part.text ?? "")</span>")
                                             .useMarkup()
                                             .halign(.start)
-                                            .padding(5, .trailing)
+                                            .padding(5, [.trailing, .bottom])
                                     }
                                 }
                             }

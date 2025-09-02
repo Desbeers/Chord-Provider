@@ -23,7 +23,7 @@ struct EditorView: View {
                     .lineNumbers()
                     .language(.chordpro)
                     .vexpand()
-                    .card()
+//                    .card()
                     .padding()
                     .css {
                         "textview { font-family: Monospace; font-size: 12pt; }"
