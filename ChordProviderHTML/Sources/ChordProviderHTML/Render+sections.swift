@@ -10,19 +10,28 @@ import ChordProviderCore
 
 extension HtmlRender {
 
-    static func sections(output: inout [String], sections: [Song.Section], chords: [ChordDefinition], settings: HtmlSettings) {
-        for section in sections {
+    static func sections(output: inout [String], song: Song, chords: [ChordDefinition], settings: ChordProviderSettings) {
+        for section in song.sections {
             switch section.environment {
             case .verse, .bridge, .chorus:
                 lyricsSection(output: &output, section: section, settings: settings)
             case .repeatChorus:
-                repeatChorusSection(output: &output, section: section, settings: settings)
+                /// Check if we have to repeat the whole chorus
+                if
+                    settings.repeatWholeChorus,
+                    let lastChorus = song.sections.last(
+                        where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
+                    ) {
+                    lyricsSection(output: &output, section: lastChorus, settings: settings)
+                } else {
+                    repeatChorusSection(output: &output, section: section, settings: settings)
+                }
             case .tab:
-                if !settings.options.lyricOnly {
+                if !settings.lyricOnly {
                     tabSection(output: &output, section: section, settings: settings)
                 }
             case .grid:
-                if !settings.options.lyricOnly {
+                if !settings.lyricOnly {
                     gridSection(output: &output, section: section, settings: settings)
                 }
             case .textblock:
@@ -40,7 +49,7 @@ extension HtmlRender {
     static func wrapSongSection(
         section: Song.Section,
         content: [String],
-        settings: HtmlSettings
+        settings: ChordProviderSettings
     ) -> String {
 
         let environment = section.environment.rawValue

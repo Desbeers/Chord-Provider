@@ -10,7 +10,7 @@ import ChordProviderCore
 
 extension HtmlRender {
 
-    static func repeatChorusSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
+    static func repeatChorusSection(output: inout [String], section: Song.Section, settings: ChordProviderSettings) {
         var result: [String] = []
         result.append("<div class=\"line repeat-chorus\">")
         result.append(section.lines.first?.plain ?? section.label)

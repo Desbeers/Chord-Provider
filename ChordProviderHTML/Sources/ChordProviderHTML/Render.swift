@@ -19,7 +19,7 @@ public extension HtmlRender {
     ///   - song: The song to render
     ///   - settings: The settings
     /// - Returns: A complete HTML page
-    static func render(song: Song, settings: HtmlSettings) -> String {
+    static func render(song: Song, settings: ChordProviderSettings) -> String {
 
         var html = htmlPage
 
@@ -36,7 +36,7 @@ public extension HtmlRender {
 
         html = html.replacingOccurrences(of: "**HEADER**", with: output.joined(separator: "\n"))
 
-        if settings.options.lyricOnly {
+        if settings.lyricOnly {
             html = html.replacingOccurrences(of: "**CHORDS**", with: "")
         } else {
             html = html.replacingOccurrences(of: "**CHORDS**", with: chords(chords: song.chords, settings: settings))
@@ -44,7 +44,7 @@ public extension HtmlRender {
 
         output = []
 
-        sections(output: &output, sections: song.sections, chords: song.chords, settings: settings)
+        sections(output: &output, song: song, chords: song.chords, settings: settings)
 
         html = html.replacingOccurrences(of: "**CONTENT**", with: output.joined(separator: "\n"))
 

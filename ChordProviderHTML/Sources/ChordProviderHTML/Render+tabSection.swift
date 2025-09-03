@@ -10,7 +10,7 @@ import ChordProviderCore
 
 extension HtmlRender {
 
-    static func tabSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
+    static func tabSection(output: inout [String], section: Song.Section, settings: ChordProviderSettings) {
         var result: [String] = []
         for line in section.lines {
             switch line.type {

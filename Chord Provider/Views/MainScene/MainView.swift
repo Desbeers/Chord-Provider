@@ -195,7 +195,7 @@ struct MainView: View {
                 PreviewPaneView()
                     .transition(.move(edge: .trailing))
             case .html:
-                HtmlView(song: sceneState.song, lyricsOnly: appState.settings.application.lyricsOnly)
+                HtmlView(song: sceneState.song, settings: appState.settings)
             case .animating:
                 progress
             }

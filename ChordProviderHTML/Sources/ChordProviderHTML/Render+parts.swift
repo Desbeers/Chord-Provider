@@ -10,7 +10,7 @@ import ChordProviderCore
 
 extension HtmlRender {
 
-    static func parts(output: inout [String], parts: [Song.Section.Line.Part], settings: HtmlSettings) {
+    static func parts(output: inout [String], parts: [Song.Section.Line.Part], settings: ChordProviderSettings) {
 
         var html = "<div class=\"line\">"
         parts.forEach { part in

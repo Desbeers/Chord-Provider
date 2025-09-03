@@ -17,7 +17,7 @@ struct ToolbarView: View {
     var view: Body {
         HeaderBar {
             ToggleButton(icon: .default(icon: .textEditor), isOn: $settings.app.showEditor) {
-                settings.app.splitter = settings.app.splitter == 0 ? 400 : 0
+                settings.app.splitter = settings.app.splitter == 0 ? 500 : 0
                 settings.app.showEditor = settings.app.splitter == 0 ? false : true
             }
             .tooltip("\(settings.app.showEditor ? "Hide" : "Show") the editor")

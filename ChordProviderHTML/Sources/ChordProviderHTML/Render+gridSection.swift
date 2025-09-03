@@ -10,7 +10,7 @@ import ChordProviderCore
 
 extension HtmlRender {
 
-    static func gridSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
+    static func gridSection(output: inout [String], section: Song.Section, settings: ChordProviderSettings) {
         /// Convert the grid into columns
         let section = section.gridColumns()
         var result: [String] = []

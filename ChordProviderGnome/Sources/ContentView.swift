@@ -30,11 +30,7 @@ struct ContentView: View {
                         .transition(.coverUpDown)
                 }
             }
-
-            //.hexpand()
         }
-        //.transition(.crossfade)
-
         .vexpand()
         .hexpand()
         .topToolbar {

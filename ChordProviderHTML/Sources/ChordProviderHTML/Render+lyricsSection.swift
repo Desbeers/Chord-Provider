@@ -10,14 +10,14 @@ import ChordProviderCore
 
 extension HtmlRender {
 
-    static func lyricsSection(output: inout [String], section: Song.Section, settings: HtmlSettings) {
+    static func lyricsSection(output: inout [String], section: Song.Section, settings: ChordProviderSettings) {
 
         var result: [String] = []
 
         for line in section.lines {
             switch line.type {
             case .songLine:
-                if settings.options.lyricOnly {
+                if settings.lyricOnly {
                     result.append("<div class=\"line\">\(line.plain ?? "")</div>")
                 } else if let lineParts = line.parts {
                     parts(output: &result, parts: lineParts, settings: settings)

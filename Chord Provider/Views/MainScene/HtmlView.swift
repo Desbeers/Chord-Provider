@@ -9,18 +9,18 @@ import SwiftUI
 import ChordProviderCore
 import ChordProviderHTML
 
-public struct HtmlView: View {
-    let song: Song
+struct HtmlView: View {
     let output: String
-    public init(song: Song, lyricsOnly: Bool) {
+    init(song: Song, settings: AppSettings) {
 
-        var settings = HtmlSettings()
-        settings.options.lyricOnly = lyricsOnly
-
-        self.song = song
+        let settings = ChordProviderSettings(
+            instrument: settings.display.instrument,
+            lyricOnly: settings.application.lyricsOnly,
+            repeatWholeChorus: settings.application.repeatWholeChorus
+        )
         self.output = HtmlRender.render(song: song, settings: settings)
     }
-    public var body: some View {
+    var body: some View {
         VStack {
             WKWebRepresentedView(html: output)
         }

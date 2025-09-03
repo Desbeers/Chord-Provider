@@ -16,11 +16,11 @@ extension Chord {
         public var id: Self { self }
 
         /// Guitar Standard E tuning
-        case guitar = "Guitar"
+        case guitar
         /// Guitalele
-        case guitalele = "Guitalele"
+        case guitalele
         /// Ukulele Standard G tuning
-        case ukulele = "Ukulele"
+        case ukulele
     }
 }
 
@@ -28,7 +28,7 @@ extension Chord.Instrument {
 
     /// The description of the instrument
     public var description: String {
-        rawValue
+        rawValue.capitalized
     }
 
     /// The label of the instrument

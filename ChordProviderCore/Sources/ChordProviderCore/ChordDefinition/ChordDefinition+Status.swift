@@ -57,7 +57,7 @@ extension ChordDefinition {
         public var description: String {
             switch self {
             case .toManyFrets:
-                "To many frets"
+                "Too many frets"
             case .notEnoughFrets:
                 "Not enough frets"
             case .customTransposedChord:

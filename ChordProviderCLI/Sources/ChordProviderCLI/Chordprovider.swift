@@ -11,59 +11,106 @@ import ChordProviderHTML
 
 @main
 struct Chordprovider: AsyncParsableCommand {
-    @Argument(help: "The ChordPro song to parse.")
+    /// The **ChordPro** source
+    @Argument(
+        help:
+            ArgumentHelp(
+                "The ChordPro song to parse.",
+                discussion: "This can be a file path or a string containing the ChordPro source.",
+                valueName: "source"
+            )
+    )
     public var source: String
+    /// The output format
     @Option(help: "The output format.")
     public var format: OutputFormat = .html
-    @Option(name: [.long, .customShort("o")], help: ArgumentHelp(
-        "The output file.",
-        discussion: "If no output file is provided, the output will be next to the song.",
-        valueName: "file"))
-    public var output: String?
-    @Flag(name: [.customLong("lyrics-only"), .customShort("l")], help: "Only prints lyrics")
+    /// The instrument
+    @Option(name: [.long, .customShort("i")], help: "The instrument to use.")
+    public var instrument: Chord.Instrument = .guitar
+    /// Clean source option
+    @Flag(
+        name: [.long, .customShort("c")],
+        help:
+            ArgumentHelp(
+                "Try to clean the source.",
+                discussion: "This is only useful when the output is set to 'source.",
+            )
+    )
+    var cleanSource: Bool = false
+    /// Option for only lyrics
+    @Flag(name: [.long, .customShort("l")], help: "Only prints lyrics")
     var lyricsOnly: Bool = false
-    @Flag(help: "Prints to stdout and use the source as a plain text")
+    /// Option for repeating the whole  chorus
+    @Flag(name: [.long, .customShort("r")], help: "Repeat whole chorus")
+    var repeatWholeChorus: Bool = false
+    /// Option to print the result to `stdout`
+    @Flag(name: [.long, .customShort("s")], help: "Prints the result to stdout")
     var stdout: Bool = false
+    /// The optional output URL
+    @Option(
+        name: [.long, .customShort("o")],
+        help:
+            ArgumentHelp(
+                "The output file.",
+                discussion: outputDiscussion,
+                valueName: "file")
+    )
+    public var output: String?
 
-    static let discussion: String = """
-A simple text format for the notation of lyrics with chords.
-
-See https://www.chordpro.org
-"""
-
+    /// The configuration
     static let configuration = CommandConfiguration(
         commandName: "chordprovider", // defaults to the type name, hyphen-separated and lowercase
         abstract: "Convert a ChordPro song into another format",
-        // usage: "When nil, generates it based on the name, arguments, flags and options",
-        discussion: discussion,
+        discussion: configurationDiscussion,
     )
 
+    /// The main function
     mutating func run() async throws {
-
-        var settings = HtmlSettings()
-        settings.options.lyricOnly = lyricsOnly
-
+        /// Set the settings
+        let settings = ChordProviderSettings(
+            instrument: instrument,
+            lyricOnly: lyricsOnly,
+            repeatWholeChorus: repeatWholeChorus
+        )
+        /// The default song
         var parsedSong = Song(id: UUID())
-        var destination = URL(filePath: source)
+        /// The default result
+        var result: String = "Error parsing the song"
 
+        /// Set the source URL
         let url = URL(filePath: source)
-
-        if stdout {
+        do {
+            try checkURL(url)
+            /// The URL is valid and its content will be used
+            parsedSong = try SongFileUtils.parseSongFile(fileURL: url, instrument: instrument, prefixes: [], getOnlyMetadata: false)
+        } catch {
+            /// The URL is not valid so the direct source will be used
             parsedSong.content = source
-            parsedSong = ChordProParser.parse(song: parsedSong, instrument: .guitar, prefixes: [])
-        } else {
-
-            if let output {
-                destination = URL(fileURLWithPath: output)
-            } else {
-                destination = url.deletingPathExtension().appendingPathExtension(format.rawValue)
+            parsedSong = ChordProParser.parse(song: parsedSong, instrument: instrument, prefixes: [])
+            /// Write to stdout if no output URL is given
+            if output == nil {
+                stdout = true
             }
-
-            parsedSong = try SongFileUtils.parseSongFile(fileURL: url, instrument: .guitar, prefixes: [], getOnlyMetadata: false)
         }
 
-        var result: String = "Error"
+        /// Clean the source if requested
+        if format == .source && cleanSource {
+            result = parsedSong.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+            /// Parse again to reset the warnings
+            LogUtils.shared.clearLog()
+            parsedSong.content = result
+            parsedSong = ChordProParser.parse(song: parsedSong, instrument: instrument, prefixes: [])
+        }
 
+        /// Set the destination URL
+        var destination = URL(filePath: source)
+        if let output {
+            destination = URL(fileURLWithPath: output)
+        } else {
+            destination = destination.deletingPathExtension().appendingPathExtension(format.rawValue)
+        }
+
+        /// Get the result
         switch format {
         case .json:
             if let json = try? JSONUtils.encode(parsedSong) {
@@ -74,27 +121,39 @@ See https://www.chordpro.org
         case .html:
             result = HtmlRender.render(song: parsedSong, settings: settings)
         }
+
+        /// Output the result
         if stdout {
             print(result)
         } else {
-            let fileManager = FileManager.default
-            /// Remove previous export (if any)
-            try? fileManager.removeItem(atPath: destination.path)
-            try? result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
-
-            let messages = LogUtils.shared.fetchLog()
-                .map { message in
-                    var line = message.type.rawValue + ": " + message.category.rawValue + ": "
-                    if let lineNumber = message.lineNumber {
-                        line += "line \(lineNumber): "
-                    }
-
-                    return line + message.message
-                }
-                .joined(separator: "\n")
-
-            print(messages)
-            print("Converted \(url.lastPathComponent) to \(destination.lastPathComponent)")
+            do {
+                let fileManager = FileManager.default
+                /// Remove previous export (if any)
+                try? fileManager.removeItem(atPath: destination.path)
+                try result.write(to: destination, atomically: true, encoding: String.Encoding.utf8)
+                print(messages().joined(separator: "\n"))
+                print("Converted \(url.lastPathComponent) to \(destination.lastPathComponent)")
+            } catch {
+                print("Error writing to file: \(destination.path())")
+            }
         }
+    }
+
+    func checkURL(_ url: URL) throws {
+        guard FileManager.default.fileExists(atPath: url.path) else {
+            throw ValidationError("File not found: \(url)")
+        }
+    }
+
+    func messages() -> [String] {
+        LogUtils.shared.fetchLog()
+            .map { message in
+                var line = message.type.rawValue + ": " + message.category.rawValue + ": "
+                if let lineNumber = message.lineNumber {
+                    line += "line \(lineNumber): "
+                }
+
+                return line + message.message
+            }
     }
 }

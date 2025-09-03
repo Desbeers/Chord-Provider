@@ -23,7 +23,6 @@ struct EditorView: View {
                     .lineNumbers()
                     .language(.chordpro)
                     .vexpand()
-                    //.padding()
                     .css {
                         "textview { font-family: Monospace; font-size: 12pt; }"
                     }
@@ -39,8 +38,7 @@ struct EditorView: View {
                     )
                     settings.app.source = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                 }
-                .pill()
-                .padding(4, .bottom)
+                .padding(4)
             }
             .halign(.center)
         }

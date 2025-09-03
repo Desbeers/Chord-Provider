@@ -15,7 +15,7 @@ extension HtmlRender {
     ///   - chords: All the known chords in the song
     ///   - settings: The settings
     /// - Returns: A `div` with tall he chord diagrams
-    static func chords(chords: [ChordDefinition], settings: HtmlSettings) -> String {
+    static func chords(chords: [ChordDefinition], settings: ChordProviderSettings) -> String {
         let diagrams = chords.map { chord in
             return diagram(chord: chord, settings: settings)
         }
@@ -27,7 +27,7 @@ extension HtmlRender {
     ///   - chord: The chord to display
     ///   - settings: The settings
     /// - Returns: A `div` with the chord diagram
-    static func diagram(chord: ChordDefinition, settings: HtmlSettings) -> String {
+    static func diagram(chord: ChordDefinition, settings: ChordProviderSettings) -> String {
 
         /// Start of chord diagram
         var html = ""
