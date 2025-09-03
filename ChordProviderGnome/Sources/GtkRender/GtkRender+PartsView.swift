@@ -18,7 +18,7 @@ extension GtkRender {
             ForEach(parts, horizontal: true) { part in
                 VStack {
                     if let chord = part.chordDefinition {
-                        Text("<span foreground='#0433ff'>\(chord.display)</span>")
+                        Text("<span foreground='\(HexColor.chord)'>\(chord.display)</span>")
                             .useMarkup()
                             .halign(.start)
                     } else {

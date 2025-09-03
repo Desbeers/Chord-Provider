@@ -29,7 +29,7 @@ extension GtkRender {
                             ForEach(elements, horizontal: true) { element in
                                 HStack {
                                     ForEach(element.parts) { part in
-                                        Text("<span\(part.chordDefinition != nil ? " foreground='#0433ff'" : "")>\(part.text ?? "")</span>")
+                                        Text("<span\(part.chordDefinition != nil ? " foreground='\(HexColor.chord)'" : "")>\(part.text ?? "")</span>")
                                             .useMarkup()
                                             .halign(.start)
                                             .padding(5, [.trailing, .bottom])

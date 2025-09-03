@@ -16,7 +16,7 @@ extension GtkRender {
         let comment: String
         /// The body of the `View`
         var view: Body {
-            Text("<span style='italic' foreground='#d97d08'>\(comment)</span>")
+            Text("<span style='italic' foreground='\(HexColor.comment)'>\(comment)</span>")
                 .wrap()
                 .useMarkup()
                 .padding()
