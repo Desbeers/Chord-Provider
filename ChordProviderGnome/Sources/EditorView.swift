@@ -26,6 +26,8 @@ struct EditorView: View {
                     .css {
                         "textview { font-family: Monospace; font-size: 12pt; }"
                     }
+                    .card()
+                    .padding(8)
             }
             HStack {
                 Button("Clean Source") {
