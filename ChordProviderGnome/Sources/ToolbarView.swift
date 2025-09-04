@@ -55,7 +55,6 @@ struct ToolbarView: View {
                     settings.core.export.format = .html
                     settings.app.saveSongAs.signal()
                 }
-                .keyboardShortcut("s".ctrl().shift())
                 MenuSection {
                     MenuButton("New Window", window: false) {
                         app.addWindow("main")
@@ -64,11 +63,11 @@ struct ToolbarView: View {
                 MenuSection {
                     Submenu("Zoom") {
                         MenuButton("Zoom In") {
-                            settings.app.zoom += 0.1
+                            settings.app.zoom = min(settings.app.zoom + 0.05, 2.0)
                         }
                         .keyboardShortcut("plus".ctrl())
                         MenuButton("Zoom Out") {
-                            settings.app.zoom -= 0.1
+                            settings.app.zoom = max(settings.app.zoom - 0.05, 0.6)
                         }
                         .keyboardShortcut("minus".ctrl())
                         MenuSection {

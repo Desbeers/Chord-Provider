@@ -27,12 +27,11 @@ struct RenderView: View {
     var view: Body {
         ScrollView {
             VStack {
-                Label("<span size='xx-large'>\(song.metadata.title)</span>")
+                Text(song.metadata.title, font: .title, zoom: settings.app.zoom)
                     .useMarkup()
-                    .heading()
-                Text("<span size='x-large'>\(song.metadata.artist)</span>")
+                Text(song.metadata.subtitle ?? "", font: .subtitle, zoom: settings.app.zoom)
                     .useMarkup()
-                Text("<span size='large'>\(settings.core.instrument)</span>")
+                Text(settings.core.instrument.description, font: .standard, zoom: settings.app.zoom)
                     .useMarkup()
                 GtkRender.SectionsView(song: song, settings: settings)
                     .halign(.center)

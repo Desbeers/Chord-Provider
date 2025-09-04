@@ -56,12 +56,14 @@ extension AppSettings {
 extension AppSettings {
 
         enum Font {
+            case title
+            case subtitle
             case standard
             case chord
             case comment
             case tab
             case grid
-            case header
+            case sectionHeader
 
             static let base: Double = 12.5
 
@@ -77,8 +79,12 @@ extension AppSettings {
                     AppSettings.Font.standard.style(zoom: zoom) + " face='monospace'"
                 case .grid:
                     AppSettings.Font.chord.style(zoom: zoom)
-                case .header:
+                case .sectionHeader:
                     "font='\(self.size(zoom: zoom))'" + " weight='bold'"
+                case .title:
+                    "font='\(self.size(zoom: zoom))'" + " weight='bold'"
+                case .subtitle:
+                    "font='\(self.size(zoom: zoom))'"
                 }
             }
 
@@ -86,8 +92,10 @@ extension AppSettings {
                 switch self {
                 case .standard, .chord, .comment, .tab, .grid:
                     AppSettings.Font.base * zoom
-                case .header:
+                case .sectionHeader, .subtitle:
                     AppSettings.Font.base * zoom * 1.2
+                case .title:
+                    AppSettings.Font.base * zoom * 1.4
                 }
             }
         }

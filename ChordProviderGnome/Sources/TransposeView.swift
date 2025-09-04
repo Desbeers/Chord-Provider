@@ -15,14 +15,14 @@ struct TransposeView: View {
         VStack {
             HStack {
                 CountButton(settings: $settings, icon: .goPrevious) {
-                    $0.core.transpose = max($0.core.transpose - 1 , -11)
+                    $0.core.transpose = max($0.core.transpose - 1, -11)
                     $0.app.isTransposed = $0.core.transpose != 0
                 }
                 Text("\(settings.core.transpose) semitones")
                     .title2()
                     .frame(minWidth: 150)
                 CountButton(settings: $settings, icon: .goNext) {
-                    $0.core.transpose = min($0.core.transpose + 1 , 11)
+                    $0.core.transpose = min($0.core.transpose + 1, 11)
                     $0.app.isTransposed = $0.core.transpose != 0
                 }
             }
