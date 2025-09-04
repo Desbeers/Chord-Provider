@@ -62,6 +62,18 @@ struct ToolbarView: View {
                     }
                 }
                 MenuSection {
+                    Submenu("Zoom") {
+                        MenuButton("Zoom in") {
+                            settings.app.zoom += 0.2
+                        }
+                        .keyboardShortcut("+".ctrl())
+                        MenuButton("Zoom out") {
+                            settings.app.zoom -= 0.2
+                        }
+                        .keyboardShortcut("-".ctrl())
+                    }
+                }
+                MenuSection {
                     MenuButton("About Chord Provider", window: false) {
                         settings.app.aboutDialog = true
                     }

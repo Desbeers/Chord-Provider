@@ -21,3 +21,15 @@ extension ChordProviderSettings {
         return text
     }
 }
+
+extension Text {
+
+    /// Initialize a text widget.
+    /// - Parameter text: The content.
+    init(_ text: String, font: AppSettings.Font, zoom: Double) {
+
+        let wrapper = "<span font='\(font.size(zoom: zoom))'>\(text)</span>"
+
+        self.init(label: wrapper)
+    }
+}

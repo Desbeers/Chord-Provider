@@ -48,5 +48,23 @@ extension AppSettings {
         var splitter: Int = 0
         /// Bool if the editor is shown
         var showEditor: Bool = false
+        /// The zoom factor
+        var zoom: Double = 1
     }
+}
+
+extension AppSettings {
+
+        enum Font {
+            case standard
+
+            static let base: Double = 12.5
+
+            func size(zoom: Double) -> Double {
+                switch self {
+                case .standard:
+                    AppSettings.Font.base * zoom
+                }
+            }
+        }
 }
