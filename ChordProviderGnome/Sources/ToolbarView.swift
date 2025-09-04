@@ -25,6 +25,10 @@ struct ToolbarView: View {
                 .tooltip("\(settings.core.lyricsOnly ? "Show also chords" : "Show only lyrics")")
             Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
                 .tooltip("\(settings.core.repeatWholeChorus ? "Show only repeating labels" : "Repeat whole chorus")")
+            ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $settings.app.transposeDialog) {
+                settings.app.transposeDialog = true
+            }
+            .tooltip(settings.core.transposeTooltip)
             DropDown(selection: $settings.core.instrument, values: Chord.Instrument.allCases)
                 .tooltip("Select your instrument")
         }

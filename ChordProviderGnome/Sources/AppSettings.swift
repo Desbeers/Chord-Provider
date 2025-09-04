@@ -40,6 +40,8 @@ extension AppSettings {
         var saveSongAs = Signal()
         /// Show the *About* dialog
         var aboutDialog = false
+        /// Show the *Transpose* dialog
+        var transposeDialog = false
         /// The position of the splitter``
         var splitter: Int = 0
         /// Bool if the editor is shown

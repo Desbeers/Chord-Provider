@@ -46,7 +46,7 @@ public actor ChordProParser {
         song.metadata.instrument = settings.instrument
         song.metadata.mirrorDiagram = settings.diagram.mirror
         /// Add the optional transpose
-        song.metadata.transpose = old.metadata.transpose
+        song.metadata.transpose = settings.transpose
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text, stripping newlines at the end

@@ -40,6 +40,12 @@ struct ContentView: View {
                 settings: $settings
             )
         }
+        .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 220, height: 100) {
+            TransposeView(settings: $settings.core)
+                .topToolbar {
+                    HeaderBar.empty()
+                }
+        }
         .fileImporter(
             open: settings.app.openSong,
             extensions: ["chordpro", "cho"]

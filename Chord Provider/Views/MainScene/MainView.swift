@@ -100,7 +100,7 @@ struct MainView: View {
                 await renderSong(updatePreview: false)
             }
         }
-        .onChange(of: sceneState.song.metadata.transpose) {
+        .onChange(of: sceneState.settings.core.transpose) {
             Task {
                 await renderSong()
             }

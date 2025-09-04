@@ -466,11 +466,11 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Button {
-                sceneState.song.metadata.transpose += 1
+                sceneState.settings.core.transpose += 1
             } label: {
                 Label(
                     "♯",
-                    systemImage: sceneState.song.metadata.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle"
+                    systemImage: sceneState.settings.core.transpose > 0 ? "arrow.up.circle.fill" : "arrow.up.circle"
                 )
             }
         }
@@ -487,11 +487,11 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Button {
-                sceneState.song.metadata.transpose -= 1
+                sceneState.settings.core.transpose -= 1
             } label: {
                 Label(
                     "♭",
-                    systemImage: sceneState.song.metadata.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle"
+                    systemImage: sceneState.settings.core.transpose < 0 ? "arrow.down.circle.fill" : "arrow.down.circle"
                 )
             }
         }
