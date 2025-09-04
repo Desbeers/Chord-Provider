@@ -13,20 +13,30 @@ struct TransposeView: View {
     @Binding var settings: AppSettings
     var view: Body {
         VStack {
+            Text("Transpose song")
+                .title2()
+                .padding()
             HStack {
                 CountButton(settings: $settings, icon: .goPrevious) {
                     $0.core.transpose = max($0.core.transpose - 1, -11)
-                    $0.app.isTransposed = $0.core.transpose != 0
                 }
                 Text("\(settings.core.transpose) semitones")
-                    .title2()
+                    .title3()
                     .frame(minWidth: 150)
                 CountButton(settings: $settings, icon: .goNext) {
                     $0.core.transpose = min($0.core.transpose + 1, 11)
-                    $0.app.isTransposed = $0.core.transpose != 0
                 }
             }
             .halign(.center)
+            .padding()
+            Button("Close") {
+                settings.app.isTransposed = settings.core.transpose != 0
+                settings.app.transposeDialog = false
+            }
+            .padding()
+            .halign(.center)
+            .pill()
+            .suggested()
         }
         .valign(.center)
         .padding()

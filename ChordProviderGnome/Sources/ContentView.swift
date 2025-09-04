@@ -40,11 +40,8 @@ struct ContentView: View {
                 settings: $settings
             )
         }
-        .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 260, height: 100) {
+        .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 260, height: 180) {
             TransposeView(settings: $settings)
-                .topToolbar {
-                    HeaderBar.empty()
-                }
         }
         .toast(settings.app.toastMessage, signal: settings.app.showToast)
         .fileImporter(
