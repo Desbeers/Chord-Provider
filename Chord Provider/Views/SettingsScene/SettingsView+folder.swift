@@ -21,10 +21,10 @@ extension SettingsView {
                 }
                 .wrapSettingsSection(title: "Sort songs and artists")
                 .task {
-                    sortTokens = appState.settings.application.sortTokens.joined(separator: ",")
+                    sortTokens = appState.settings.core.sortTokens.joined(separator: ",")
                 }
                 .onChange(of: sortTokens) {
-                    appState.settings.application.sortTokens = sortTokens.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+                    appState.settings.core.sortTokens = sortTokens.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
                 }
                 VStack {
                     Text(.init(Help.fileBrowser))

@@ -85,17 +85,32 @@ extension ChordDefinition {
 
 extension ChordDefinition {
 
-    /// Mirror a `Barre` for a left-handed chord
-    /// - Parameter barre: The original barre
-    /// - Returns: The left-handed barre
-    public func mirrorBarre(_ barre: Chord.Barre) -> Chord.Barre {
-        let strings = instrument.strings.count
-        return Chord.Barre(
-            finger: barre.finger,
-            fret: barre.fret,
-            startIndex: strings - barre.endIndex,
-            endIndex: strings - barre.startIndex
-        )
+    /// Mirror `Barres` for a left-handed chord
+    mutating public func mirrorChordDiagram() {
+        let strings = self.instrument.strings.count
+        self.frets = self.frets.reversed()
+        self.fingers = self.fingers.reversed()
+        self.components = self.components.reversed()
+        if let barres = self.barres {
+            self.barres = barres.map { barre in
+                return Chord.Barre(
+                    finger: barre.finger,
+                    fret: barre.fret,
+                    startIndex: strings - barre.endIndex,
+                    endIndex: strings - barre.startIndex
+                )
+            }
+        }
+        /// Mark the definition as mirrored
+        self.mirrored = true
+    }
+
+    /// Mirror `Barres` for a left-handed chord
+    /// - Returns: A mirrored ``ChordDefinition``
+    public func mirroredDiagram() -> ChordDefinition {
+        var copy = self
+        copy.mirrorChordDiagram()
+        return copy
     }
 }
 

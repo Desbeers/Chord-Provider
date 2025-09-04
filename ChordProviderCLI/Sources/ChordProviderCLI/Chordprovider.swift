@@ -43,6 +43,9 @@ struct Chordprovider: AsyncParsableCommand {
     /// Option for repeating the whole  chorus
     @Flag(name: [.long, .customShort("r")], help: "Repeat whole chorus")
     var repeatWholeChorus: Bool = false
+    /// Option to mirror diagrams for left-hand usage
+    @Flag(name: [.long, .customShort("m")], help: "Mirror diagrams for left-hand usage.")
+    var mirrorDiagram: Bool = false
     /// Option to print the result to `stdout`
     @Flag(name: [.long, .customShort("s")], help: "Prints the result to stdout")
     var stdout: Bool = false
@@ -67,11 +70,12 @@ struct Chordprovider: AsyncParsableCommand {
     /// The main function
     mutating func run() async throws {
         /// Set the settings
-        let settings = ChordProviderSettings(
+        var settings = ChordProviderSettings(
             instrument: instrument,
-            lyricOnly: lyricsOnly,
+            lyricsOnly: lyricsOnly,
             repeatWholeChorus: repeatWholeChorus
         )
+        settings.diagram.mirror = mirrorDiagram
         /// The default song
         var parsedSong = Song(id: UUID())
         /// The default result
@@ -82,11 +86,11 @@ struct Chordprovider: AsyncParsableCommand {
         do {
             try checkURL(url)
             /// The URL is valid and its content will be used
-            parsedSong = try SongFileUtils.parseSongFile(fileURL: url, instrument: instrument, prefixes: [], getOnlyMetadata: false)
+            parsedSong = try SongFileUtils.parseSongFile(fileURL: url, settings: settings)
         } catch {
             /// The URL is not valid so the direct source will be used
             parsedSong.content = source
-            parsedSong = ChordProParser.parse(song: parsedSong, instrument: instrument, prefixes: [])
+            parsedSong = ChordProParser.parse(song: parsedSong, settings: settings)
             /// Write to stdout if no output URL is given
             if output == nil {
                 stdout = true
@@ -94,12 +98,12 @@ struct Chordprovider: AsyncParsableCommand {
         }
 
         /// Clean the source if requested
-        if format == .source && cleanSource {
+        if format == .chordPro && cleanSource {
             result = parsedSong.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
             /// Parse again to reset the warnings
             LogUtils.shared.clearLog()
             parsedSong.content = result
-            parsedSong = ChordProParser.parse(song: parsedSong, instrument: instrument, prefixes: [])
+            parsedSong = ChordProParser.parse(song: parsedSong, settings: settings)
         }
 
         /// Set the destination URL
@@ -116,7 +120,7 @@ struct Chordprovider: AsyncParsableCommand {
             if let json = try? JSONUtils.encode(parsedSong) {
                 result = json
             }
-        case .source:
+        case .chordPro:
             result = parsedSong.content
         case .html:
             result = HtmlRender.render(song: parsedSong, settings: settings)

@@ -17,9 +17,7 @@ struct RenderView: View {
         let song = Song(id: id, content: render)
         let result = ChordProParser.parse(
             song: song,
-            instrument: .guitar,
-            prefixes: [],
-            getOnlyMetadata: false
+            settings: settings.core
         )
         self.song = result
     }

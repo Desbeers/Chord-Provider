@@ -267,7 +267,7 @@ extension SceneStateModel {
     var fretsPicker: some View {
         FretsPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: self.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            guitarTuningOrder: self.settings.core.diagram.mirror ? definition.instrument.strings.reversed() : definition.instrument.strings,
             sceneState: self
         )
     }
@@ -318,7 +318,7 @@ extension SceneStateModel {
     var fingersPicker: some View {
         FingersPicker(
             instrument: definition.instrument,
-            guitarTuningOrder: self.settings.diagram.mirrorDiagram ? definition.instrument.strings.reversed() : definition.instrument.strings,
+            guitarTuningOrder: self.settings.core.diagram.mirror ? definition.instrument.strings.reversed() : definition.instrument.strings,
             sceneState: self
         )
     }
@@ -536,7 +536,7 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Instrument", selection: $sceneState.settings.display.instrument) {
+            Picker("Instrument", selection: $sceneState.settings.core.instrument) {
                 ForEach(Chord.Instrument.allCases, id: \.rawValue) { value in
                     Text(value.description)
                         .tag(value)

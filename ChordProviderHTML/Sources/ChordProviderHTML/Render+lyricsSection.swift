@@ -17,7 +17,7 @@ extension HtmlRender {
         for line in section.lines {
             switch line.type {
             case .songLine:
-                if settings.lyricOnly {
+                if settings.lyricsOnly {
                     result.append("<div class=\"line\">\(line.plain ?? "")</div>")
                 } else if let lineParts = line.parts {
                     parts(output: &result, parts: lineParts, settings: settings)

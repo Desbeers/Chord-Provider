@@ -89,9 +89,9 @@ extension RenderView {
                 return Image(nsImage: cachedImage).resizable()
             } else {
                 var settings = settings
-                settings.diagram.showFingers = false
+                settings.core.diagram.showFingers = false
                 settings.diagram.showPlayButton = false
-                settings.diagram.showNotes = false
+                settings.core.diagram.showNotes = false
                 let renderer = ImageRenderer(
                     content:
                         ChordDefinitionView(

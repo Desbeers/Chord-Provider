@@ -30,11 +30,11 @@ extension RenderView {
                         settings: settings
                     )
                 case .tab:
-                    if !settings.application.lyricsOnly {
+                    if !settings.core.lyricsOnly {
                         TabSection(section: section, settings: settings)
                     }
                 case .grid:
-                    if !settings.application.lyricsOnly {
+                    if !settings.core.lyricsOnly {
                         GridSection(section: section, settings: settings)
                     }
                 case .textblock:
@@ -42,7 +42,7 @@ extension RenderView {
                 case .comment:
                     CommentSection(section: section, settings: settings)
                 case .strum:
-                    if !settings.application.lyricsOnly {
+                    if !settings.core.lyricsOnly {
                         StrumSection(section: section, settings: settings)
                     }
                 case .image:

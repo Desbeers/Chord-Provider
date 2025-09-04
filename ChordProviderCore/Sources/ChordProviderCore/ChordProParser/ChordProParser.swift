@@ -30,8 +30,7 @@ public actor ChordProParser {
     /// - Returns: An updated ``Song`` item
     public static func parse(
         song: Song,
-        instrument: Chord.Instrument,
-        prefixes: [String],
+        settings: ChordProviderSettings,
         getOnlyMetadata: Bool = false
     ) -> Song {
         /// Store the values of the current song
@@ -41,11 +40,11 @@ public actor ChordProParser {
             category: .songParser,
             message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song")**"
         )
-
         /// Start with a fresh song
         var song = Song(id: song.id, content: old.content)
-        song.metadata.fileURL = old.metadata.fileURL
-        song.metadata.instrument = instrument
+        song.metadata.fileURL = settings.songURL
+        song.metadata.instrument = settings.instrument
+        song.metadata.mirrorDiagram = settings.diagram.mirror
         /// Add the optional transpose
         song.metadata.transpose = old.metadata.transpose
         /// And add the first section
@@ -110,7 +109,7 @@ public actor ChordProParser {
             song.metadata.key = song.chords.first
         }
         /// Set default metadata if not defined in the song file
-        setDefaults(song: &song, prefixes: prefixes)
+        setDefaults(song: &song, prefixes: settings.sortTokens)
         /// Sort the chords
         song.chords = song.chords.sorted(using: KeyPathComparator(\.display))
         /// Check if the song has actual content

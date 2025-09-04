@@ -14,9 +14,9 @@ struct HtmlView: View {
     init(song: Song, settings: AppSettings) {
 
         let settings = ChordProviderSettings(
-            instrument: settings.display.instrument,
-            lyricOnly: settings.application.lyricsOnly,
-            repeatWholeChorus: settings.application.repeatWholeChorus
+            instrument: settings.core.instrument,
+            lyricsOnly: settings.core.lyricsOnly,
+            repeatWholeChorus: settings.core.repeatWholeChorus
         )
         self.output = HtmlRender.render(song: song, settings: settings)
     }

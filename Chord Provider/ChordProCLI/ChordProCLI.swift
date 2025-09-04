@@ -281,13 +281,13 @@ extension ChordProCLI {
         let paperSize = settings.pdf.pageSize.rect(settings: settings)
         config = config.replacingOccurrences(of: "pdf.papersize : a4", with: "pdf.papersize : [\(paperSize.width), \(paperSize.height)]")
         /// Optional show only the lyrics
-        if settings.application.lyricsOnly {
+        if settings.core.lyricsOnly {
             config = config.replacingOccurrences(of: "settings.lyrics-only : false", with: "settings.lyrics-only : true")
         }
-        if settings.application.repeatWholeChorus {
+        if settings.core.repeatWholeChorus {
             config = config.replacingOccurrences(of: "pdf.chorus.recall.quote : false", with: "pdf.chorus.recall.quote : true")
         }
-        if settings.diagram.showFingers {
+        if settings.core.diagram.showFingers {
             config = config.replacingOccurrences(of: "pdf.diagrams.fingers : false", with: "pdf.diagrams.fingers : true")
         }
         /// Return the config

@@ -34,9 +34,7 @@ struct EditorView: View {
                     let song = Song(id: UUID(), content: settings.app.source)
                     let result = ChordProParser.parse(
                         song: song,
-                        instrument: settings.core.instrument,
-                        prefixes: [],
-                        getOnlyMetadata: false
+                        settings: settings.core
                     )
                     settings.app.source = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                 }

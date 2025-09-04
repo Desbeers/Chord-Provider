@@ -16,8 +16,6 @@ extension AppSettings {
         var paging: Paging = .asList
         /// The label style of the song
         var labelStyle: LabelStyle = .grid
-        /// The instrument for the song
-        var instrument: Chord.Instrument = .guitar
         /// Show the chord diagrams
         var showChords: Bool = true
         /// Show the chord diagrams inline with the song text

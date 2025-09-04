@@ -23,7 +23,7 @@ extension AppStateModel {
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $appState.settings.application.repeatWholeChorus) {
+            Toggle(isOn: $appState.settings.core.repeatWholeChorus) {
                 Text("Repeat whole chorus")
                 Text("When enabled, the **{chorus}** directive will be replaced by the whole last found chorus with the same label.")
             }
@@ -42,7 +42,7 @@ extension AppStateModel {
         @Bindable var appState: AppStateModel
         /// The body of the `View`
         var body: some View {
-            Toggle(isOn: $appState.settings.application.lyricsOnly) {
+            Toggle(isOn: $appState.settings.core.lyricsOnly) {
                 Text("Show only lyrics")
                 Text("This option will hide all chords, tabs and grids.")
             }
@@ -65,10 +65,11 @@ extension AppStateModel {
                 Image(
                     systemName: appState
                         .settings
+                        .core
                         .diagram
                         .showFingers ? "hand.raised.fingers.spread.fill" : "hand.raised.fingers.spread"
                 )
-                Toggle(isOn: $appState.settings.diagram.showFingers) {
+                Toggle(isOn: $appState.settings.core.diagram.showFingers) {
                     Text("Show fingers")
                     Text("Show the suggested finger positions for the chord")
                 }
@@ -90,7 +91,7 @@ extension AppStateModel {
         var body: some View {
             HStack(alignment: .top) {
                 Image(systemName: "music.note.list")
-                Toggle(isOn: $appState.settings.diagram.showNotes) {
+                Toggle(isOn: $appState.settings.core.diagram.showNotes) {
                     Text("Show notes")
                     Text("Show the notes of the chord underneath the diagram")
                 }
@@ -111,8 +112,8 @@ extension AppStateModel {
         /// The body of the `View`
         var body: some View {
             HStack(alignment: .top) {
-                Image(systemName: appState.settings.diagram.mirrorDiagram ? "hand.point.left.fill" : "hand.point.right.fill")
-                Toggle(isOn: $appState.settings.diagram.mirrorDiagram) {
+                Image(systemName: appState.settings.core.diagram.mirror ? "hand.point.left.fill" : "hand.point.right.fill")
+                Toggle(isOn: $appState.settings.core.diagram.mirror) {
                     Text("Mirror diagram")
                     Text("Flip the finger positions for left-handed players")
                 }

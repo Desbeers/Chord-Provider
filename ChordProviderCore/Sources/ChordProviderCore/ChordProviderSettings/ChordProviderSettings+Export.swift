@@ -9,7 +9,7 @@ import Foundation
 
 extension ChordProviderSettings {
 
-    public struct Export {
+    public struct Export: Equatable, Codable, Sendable {
         public var format: Format = .html
     }
 }

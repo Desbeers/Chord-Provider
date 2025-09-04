@@ -36,6 +36,8 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
 
     /// The instrument of the chord
     public var instrument: Chord.Instrument
+    /// Bool if the diagram is mirrored
+    public var mirrored: Bool = false
 
     /// The note of an optional 'slash' chord
     public var slash: Chord.Root?

@@ -13,7 +13,8 @@ extension ChordDefinition {
     /// - Parameter instrument: The `instrument` to use
     func play(instrument: Midi.Instrument = .acousticNylonGuitar) {
         Task {
-            await MidiPlayer.shared.playChord(notes: self.components.compactMap(\.midi), instrument: instrument)
+            let components = self.mirrored ? self.components.reversed() : self.components
+            await MidiPlayer.shared.playChord(notes: components.compactMap(\.midi), instrument: instrument)
         }
     }
 }

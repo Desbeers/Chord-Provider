@@ -25,12 +25,12 @@ extension GtkRender {
                 case .textblock:
                     TextblockSection(section: section)
                 case .tab:
-                    if !settings.core.lyricOnly {
+                    if !settings.core.lyricsOnly {
                         HeaderView(section: section, settings: settings)
                         TabSection(section: section)
                     }
                 case .grid:
-                    if !settings.core.lyricOnly {
+                    if !settings.core.lyricsOnly {
                         HeaderView(section: section, settings: settings)
                         GridSection(section: section, settings: settings)
                     }

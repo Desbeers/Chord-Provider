@@ -85,6 +85,7 @@ struct MainView: View {
         }
         .errorAlert(message: $sceneState.errorAlert)
         .task {
+            sceneState.settings.core.songURL = fileURL
             sceneState.song.metadata.fileURL = fileURL
             sceneState.song.metadata.templateURL = document.templateURL
             await renderSong()
@@ -134,6 +135,29 @@ struct MainView: View {
             /// Reset chord cache; the theme might have changed
             RenderView.diagramCache.removeAllObjects()
             sceneState.settings.diagram = appState.settings.diagram
+            Task {
+                await renderSong()
+            }
+        }
+        .onChange(of: appState.settings.core) {
+            /// Reset chord cache; the theme might have changed
+            RenderView.diagramCache.removeAllObjects()
+            sceneState.settings.core = appState.settings.core
+            Task {
+                await renderSong()
+            }
+        }
+        .onChange(of: sceneState.settings.core.instrument) {
+            /// Reset chord cache; the theme might have changed
+            RenderView.diagramCache.removeAllObjects()
+            appState.settings.core.instrument = sceneState.settings.core.instrument
+            Task {
+                await renderSong()
+            }
+        }
+        .onChange(of: sceneState.settings.display) {
+            /// Store is in `appState` so it will be the defaults for the next song
+            appState.settings.display = sceneState.settings.display
             Task {
                 await renderSong()
             }
@@ -232,8 +256,7 @@ struct MainView: View {
         sceneState.song.metadata.fileURL = fileURL
         sceneState.song = ChordProParser.parse(
             song: sceneState.song,
-            instrument: sceneState.settings.display.instrument,
-            prefixes: appState.settings.application.sortTokens
+            settings: sceneState.settings.core
         )
         sceneState.getMedia()
 

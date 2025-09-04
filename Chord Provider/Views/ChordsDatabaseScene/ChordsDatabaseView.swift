@@ -85,7 +85,7 @@ struct ChordsDatabaseView: View {
         } message: {
             Text("Do you want to save the database before loading another instrument?")
         }
-        .task(id: sceneState.settings.display.instrument) {
+        .task(id: sceneState.settings.core.instrument) {
             if window?.isDocumentEdited ?? false {
                 chordsDatabaseState.saveDatabaseConfirmation = true
             } else {
@@ -94,7 +94,7 @@ struct ChordsDatabaseView: View {
         }
         .task {
             /// Set defaults
-            appState.settings.diagram.showNotes = true
+            appState.settings.core.diagram.showNotes = true
             appState.settings.diagram.showPlayButton = true
         }
         .onChange(of: chordsDatabaseState.allChords) {
@@ -128,6 +128,9 @@ struct ChordsDatabaseView: View {
         }
         .onChange(of: appState.settings.diagram) {
             sceneState.settings.diagram = appState.settings.diagram
+        }
+        .onChange(of: appState.settings.core.diagram) {
+            sceneState.settings.core.diagram = appState.settings.core.diagram
         }
         .onChange(of: sceneState.settings.display) {
             appState.settings.display = sceneState.settings.display
@@ -193,7 +196,7 @@ struct ChordsDatabaseView: View {
                 chordsDatabaseState.loadInstrumentAfterSaving = false
                 chordsDatabaseState.showExportSheet = false
                 chordsDatabaseState.saveDatabaseConfirmation = false
-                sceneState.settings.display.instrument = currentInstrument
+                sceneState.settings.core.instrument = currentInstrument
             }
         )
         .navigationSubtitle(currentInstrument.description)
@@ -204,7 +207,7 @@ struct ChordsDatabaseView: View {
 
     /// Get all the chords for an instrument
     func getAllChords() {
-        currentInstrument = sceneState.settings.display.instrument
+        currentInstrument = sceneState.settings.core.instrument
         chordsDatabaseState
             .allChords = ChordUtils
             .getAllChordsForInstrument(instrument: currentInstrument)

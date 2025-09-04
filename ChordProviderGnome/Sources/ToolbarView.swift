@@ -21,8 +21,8 @@ struct ToolbarView: View {
                 settings.app.showEditor = settings.app.splitter == 0 ? false : true
             }
             .tooltip("\(settings.app.showEditor ? "Hide" : "Show") the editor")
-            Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricOnly)
-                .tooltip("\(settings.core.lyricOnly ? "Show also chords" : "Show only lyrics")")
+            Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricsOnly)
+                .tooltip("\(settings.core.lyricsOnly ? "Show also chords" : "Show only lyrics")")
             Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
                 .tooltip("\(settings.core.repeatWholeChorus ? "Show only repeating labels" : "Repeat whole chorus")")
             DropDown(selection: $settings.core.instrument, values: Chord.Instrument.allCases)
@@ -38,7 +38,7 @@ struct ToolbarView: View {
                     if let songURL = settings.core.songURL {
                         try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
                     } else {
-                        settings.core.exportSettings.format = .chordPro
+                        settings.core.export.format = .chordPro
                         settings.app.saveSongAs.signal()
                     }
                 }
@@ -48,7 +48,7 @@ struct ToolbarView: View {
                 }
                 .keyboardShortcut("s".ctrl().shift())
                 MenuButton("Export as HTML") {
-                    settings.core.exportSettings.format = .html
+                    settings.core.export.format = .html
                     settings.app.saveSongAs.signal()
                 }
                 .keyboardShortcut("s".ctrl().shift())

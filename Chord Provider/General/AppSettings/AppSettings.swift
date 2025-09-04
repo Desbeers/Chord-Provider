@@ -12,6 +12,8 @@ import ChordProviderCore
 struct AppSettings: Equatable, Codable, Sendable {
     /// Settings that will change the behaviour of the application
     var application = Application()
+    /// Core settings
+    var core = ChordProviderSettings()
     /// The options for displaying a ``Song``
     var display = Display()
     /// The options for displaying a ``ChordDefinition``

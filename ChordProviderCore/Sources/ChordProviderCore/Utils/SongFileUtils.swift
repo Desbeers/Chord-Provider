@@ -23,9 +23,8 @@ extension SongFileUtils {
     /// - Returns: The parsed ``Song``
     public static func parseSongFile(
         fileURL: URL,
-        instrument: Chord.Instrument,
-        prefixes: [String],
-        getOnlyMetadata: Bool
+        settings: ChordProviderSettings,
+        getOnlyMetadata: Bool = false
     ) throws -> Song {
         do {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
@@ -33,8 +32,7 @@ extension SongFileUtils {
             song.metadata.fileURL = fileURL
             return ChordProParser.parse(
                 song: song,
-                instrument: instrument,
-                prefixes: prefixes,
+                settings: settings,
                 getOnlyMetadata: getOnlyMetadata
             )
         } catch {

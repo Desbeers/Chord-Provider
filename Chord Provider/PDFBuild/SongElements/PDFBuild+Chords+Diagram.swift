@@ -66,8 +66,8 @@ extension PDFBuild.Chords {
             self.height = gridSize.height
             self.xSpacing = width / Double(columns)
             self.ySpacing = height / 5
-            self.frets = settings.diagram.mirrorDiagram ? chord.frets.reversed() : chord.frets
-            self.fingers = settings.diagram.mirrorDiagram ? chord.fingers.reversed() : chord.fingers
+            self.frets = chord.frets
+            self.fingers = chord.fingers
 
             self.circleRadius = gridSize.width / 5.5
             self.xOffset = (xSpacing - circleRadius) / 2
@@ -106,7 +106,7 @@ extension PDFBuild.Chords {
             }
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
             rect.size.height = initialRect.size.height - currentDiagramHeight
-            if settings.diagram.showNotes {
+            if settings.core.diagram.showNotes {
                 drawNotesBar(rect: &rect)
                 rect.origin.y = initialRect.origin.y + currentDiagramHeight
                 rect.size.height = initialRect.size.height - currentDiagramHeight
@@ -273,7 +273,7 @@ extension PDFBuild.Chords {
                             var tmpRect = dotRect
                             shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                             /// Draw the optional finger
-                            if settings.diagram.showFingers && fingers[string] != 0 {
+                            if settings.core.diagram.showFingers && fingers[string] != 0 {
                                 let symbol = PDFBuild.Image("\(fingers[string]).circle.fill", fontSize: circleRadius, colors: fretColors)
                                 symbol.image.draw(in: dotRect)
                             }
@@ -302,9 +302,7 @@ extension PDFBuild.Chords {
                         height: circleRadius
                     )
                     for fret in 1...5 {
-                        if var barre = barres.first(where: { $0.fret == fret }) {
-                            /// Mirror for left-handed if needed
-                            barre = settings.diagram.mirrorDiagram ? chord.mirrorBarre(barre) : barre
+                        if let barre = barres.first(where: { $0.fret == fret }) {
                             let spacer = PDFBuild.Spacer(circleRadius)
                             let background = PDFBuild.Background(color: settings.style.theme.foregroundMedium.nsColor, spacer)
                             let shape = PDFBuild.Clip(.roundedRect(radius: circleRadius / 2), background)
@@ -319,7 +317,7 @@ extension PDFBuild.Chords {
                             /// Draw the bar
                             shape.draw(rect: &tmpRect, calculationOnly: calculationOnly, pageRect: pageRect)
                             /// Draw the optional finger
-                            if settings.diagram.showFingers && barre.finger != 0 {
+                            if settings.core.diagram.showFingers && barre.finger != 0 {
                                 let symbol = PDFBuild.Image("\(barre.finger).circle.fill", fontSize: circleRadius, colors: fretColors)
                                 /// Center the finger in the rect
                                 symbolRect.size.width = circleRadius
@@ -338,7 +336,6 @@ extension PDFBuild.Chords {
             /// Draw the notes bar underneath the grid
             /// - Parameter rect: The available rect
             func drawNotesBar(rect: inout CGRect) {
-                let notes = settings.diagram.mirrorDiagram ? chord.components.reversed() : chord.components
                 var fontSize: Double {
                     settings.pdf.diagramWidth / 14
                 }
@@ -348,7 +345,7 @@ extension PDFBuild.Chords {
                     width: xSpacing,
                     height: ySpacing
                 )
-                for note in notes {
+                for note in chord.components {
                     switch note.note {
                     case .none:
                         break

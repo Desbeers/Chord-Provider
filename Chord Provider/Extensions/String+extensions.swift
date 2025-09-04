@@ -20,7 +20,7 @@ extension String {
     /// Remove prefixes from a String
     /// - Returns: A String with al optional prefixes removed
     func removePrefixes() -> String {
-        let prefixes = AppSettings.load(id: .mainView).application.sortTokens
+        let prefixes = AppSettings.load(id: .mainView).core.sortTokens
         let pattern = "^(\(prefixes.map { "\\Q" + $0 + "\\E" }.joined(separator: "|")))\\s"
         guard let range = self.range(of: pattern, options: [.regularExpression, .caseInsensitive]) else {
             return self

@@ -19,7 +19,7 @@ extension GtkRender {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if settings.core.lyricOnly {
+                        if settings.core.lyricsOnly {
                             Text(line.plain ?? "")
                                 .halign(.start)
                         } else if let parts = line.parts {

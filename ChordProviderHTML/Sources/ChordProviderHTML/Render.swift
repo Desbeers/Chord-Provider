@@ -36,7 +36,7 @@ public extension HtmlRender {
 
         html = html.replacingOccurrences(of: "**HEADER**", with: output.joined(separator: "\n"))
 
-        if settings.lyricOnly {
+        if settings.lyricsOnly {
             html = html.replacingOccurrences(of: "**CHORDS**", with: "")
         } else {
             html = html.replacingOccurrences(of: "**CHORDS**", with: chords(chords: song.chords, settings: settings))

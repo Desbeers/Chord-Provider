@@ -118,7 +118,7 @@ extension SongExport {
 
         items.append(PDFBuild.Spacer(10))
 
-        if !settings.application.lyricsOnly, !song.chords.isEmpty {
+        if !settings.core.lyricsOnly, !song.chords.isEmpty {
             items.append(PDFBuild.SongDetails(song: song, settings: settings))
             items.append(PDFBuild.Spacer(10))
             items.append(PDFBuild.Chords(chords: song.chords, settings: settings))
@@ -193,17 +193,17 @@ extension SongExport {
             case .comment:
                 items.append(commentSection(section: section))
             case .tab:
-                if !settings.application.lyricsOnly {
+                if !settings.core.lyricsOnly {
                     items.append(tabSection(section: section))
                 }
             case .grid:
-                if !settings.application.lyricsOnly {
+                if !settings.core.lyricsOnly {
                     items.append(gridSection(section: section))
                 }
             case .textblock:
                 items.append(textblockSection(section: section))
             case .strum:
-                if !settings.application.lyricsOnly {
+                if !settings.core.lyricsOnly {
                     items.append(strumSection(section: section))
                 }
             case .image:
@@ -233,7 +233,7 @@ extension SongExport {
                         fontOptions: settings.style.fonts.label
                     ),
                     PDFBuild.Divider(direction: .vertical, color: settings.style.theme.foregroundLight.nsColor),
-                    PDFBuild.LyricsSection(section, chords: settings.application.lyricsOnly ? [] : song.chords, settings: settings)
+                    PDFBuild.LyricsSection(section, chords: settings.core.lyricsOnly ? [] : song.chords, settings: settings)
                 ]
             )
         }
@@ -349,7 +349,7 @@ extension SongExport {
         /// - Returns: A ``PDFBuild/Section`` element
         func repeatChorusSection(section: Song.Section) -> PDFBuild.Section {
             if
-                settings.application.repeatWholeChorus,
+                settings.core.repeatWholeChorus,
                 let lastChorus = song.sections.last(
                     where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
                 ) {

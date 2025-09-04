@@ -31,7 +31,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
         let contentType = UTType.pdf
         let fileContents = try String(contentsOf: request.fileURL, encoding: .utf8)
-        let song = ChordProParser.parse(song: Song(id: UUID(), content: fileContents), instrument: .guitar, prefixes: [])
+        let song = ChordProParser.parse(song: Song(id: UUID(), content: fileContents), settings: settings.core)
         let songData = try await SongExport.export(
             song: song,
             settings: settings
@@ -56,6 +56,7 @@ class PreviewProvider: QLPreviewProvider, QLPreviewingController {
 
 /// Simple substitute for the real AppSettings
 struct AppSettings: Equatable, Codable {
+    var core = ChordProviderSettings()
     var application = Application()
     var display = Display()
     var diagram = Diagram()

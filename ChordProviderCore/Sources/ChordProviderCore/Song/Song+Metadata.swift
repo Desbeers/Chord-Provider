@@ -13,7 +13,7 @@ extension Song {
 
     /// Structure for metadata about the song
     public struct Metadata: Equatable, Codable, Sendable {
-        public init(title: String = "No title", sortTitle: String = "", artist: String = "Unknown Artist", sortArtist: String = "", composers: [String]? = nil, subtitle: String? = nil, capo: String? = nil, key: ChordDefinition? = nil, tempo: String? = nil, time: String? = nil, year: String? = nil, album: String? = nil, audioURL: URL? = nil, videoURL: URL? = nil, tags: [String]? = nil, transpose: Int = 0, instrument: Chord.Instrument = .guitar, fileURL: URL? = nil, templateURL: URL? = nil, longestLabel: String = "", longestLine: Song.Section.Line = Song.Section.Line(), definedMetadata: Set<String> = []) {
+        public init(title: String = "No title", sortTitle: String = "", artist: String = "Unknown Artist", sortArtist: String = "", composers: [String]? = nil, subtitle: String? = nil, capo: String? = nil, key: ChordDefinition? = nil, tempo: String? = nil, time: String? = nil, year: String? = nil, album: String? = nil, audioURL: URL? = nil, videoURL: URL? = nil, tags: [String]? = nil, transpose: Int = 0, instrument: Chord.Instrument = .guitar, mirrorDiagram: Bool = false, fileURL: URL? = nil, templateURL: URL? = nil, longestLabel: String = "", longestLine: Song.Section.Line = Song.Section.Line(), definedMetadata: Set<String> = []) {
             self.title = title
             self.sortTitle = sortTitle
             self.artist = artist
@@ -31,6 +31,7 @@ extension Song {
             self.tags = tags
             self.transpose = transpose
             self.instrument = instrument
+            self.mirrorDiagram = mirrorDiagram
             self.fileURL = fileURL
             self.templateURL = templateURL
             self.longestLabel = longestLabel
@@ -74,6 +75,8 @@ extension Song {
         public var transpose: Int = 0
         /// The instrument for the song
         public var instrument: Chord.Instrument = .guitar
+        /// Mirror the chord diagram for left-handed users
+        public var mirrorDiagram: Bool
 
         // MARK: URL's
 

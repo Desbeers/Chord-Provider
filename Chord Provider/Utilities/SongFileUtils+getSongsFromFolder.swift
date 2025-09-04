@@ -29,8 +29,7 @@ extension SongFileUtils {
                     ChordProDocument.fileExtension.contains(item.pathExtension),
                     let song = try? parseSongFile(
                         fileURL: item,
-                        instrument: settings.display.instrument,
-                        prefixes: settings.application.sortTokens,
+                        settings: settings.core,
                         getOnlyMetadata: getOnlyMetadata
                     ) {
                     songs.append(song)

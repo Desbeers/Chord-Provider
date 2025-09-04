@@ -27,11 +27,11 @@ extension HtmlRender {
                     repeatChorusSection(output: &output, section: section, settings: settings)
                 }
             case .tab:
-                if !settings.lyricOnly {
+                if !settings.lyricsOnly {
                     tabSection(output: &output, section: section, settings: settings)
                 }
             case .grid:
-                if !settings.lyricOnly {
+                if !settings.lyricsOnly {
                     gridSection(output: &output, section: section, settings: settings)
                 }
             case .textblock:
