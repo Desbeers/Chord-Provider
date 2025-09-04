@@ -20,11 +20,11 @@ struct ToolbarView: View {
                 settings.app.splitter = settings.app.splitter == 0 ? 500 : 0
                 settings.app.showEditor = settings.app.splitter == 0 ? false : true
             }
-            .tooltip("\(settings.app.showEditor ? "Hide" : "Show") the editor")
+            .tooltip("Show the editor")
             Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricsOnly)
-                .tooltip("\(settings.core.lyricsOnly ? "Show also chords" : "Show only lyrics")")
+                .tooltip("Show only lyrics")
             Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
-                .tooltip("\(settings.core.repeatWholeChorus ? "Show only repeating labels" : "Repeat whole chorus")")
+                .tooltip("Repeat whole chorus")
             ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $settings.app.isTransposed) {
                 settings.app.transposeDialog = true
             }
@@ -41,6 +41,9 @@ struct ToolbarView: View {
                 MenuButton("Save") {
                     if let songURL = settings.core.songURL {
                         try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
+                        /// Set the toast
+                        settings.app.toastMessage = "Saved \(songURL.deletingPathExtension().lastPathComponent)"
+                        settings.app.showToast.signal()
                     } else {
                         settings.core.export.format = .chordPro
                         settings.app.saveSongAs.signal()

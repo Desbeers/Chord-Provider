@@ -46,6 +46,7 @@ struct ContentView: View {
                     HeaderBar.empty()
                 }
         }
+        .toast(settings.app.toastMessage, signal: settings.app.showToast)
         .fileImporter(
             open: settings.app.openSong,
             extensions: ["chordpro", "cho"]
@@ -54,6 +55,9 @@ struct ContentView: View {
                 settings.core.songURL = url
                 settings.app.source = content
                 settings.app.originalSource = content
+                /// Show the toast
+                settings.app.toastMessage = "Opened \(url.deletingPathExtension().lastPathComponent)"
+                settings.app.showToast.signal()
             }
         } onClose: {
             /// Nothing to do
@@ -78,7 +82,13 @@ struct ContentView: View {
                 settings.core.songURL = url
                 /// The new state of the song
                 settings.app.originalSource = settings.app.source
+                /// Set the toast
+                settings.app.toastMessage = "Saved as \(url.deletingPathExtension().lastPathComponent)"
+            } else {
+                /// Set the toast
+                settings.app.toastMessage = "Exported as \(url.lastPathComponent)"
             }
+            settings.app.showToast.signal()
         } onClose: {
             /// Nothing to do
         }

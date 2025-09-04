@@ -23,6 +23,9 @@ extension GtkRender {
                     HeaderView(section: section, settings: settings)
                     LyricsSection(section: section, settings: settings)
                 case .textblock:
+                    if !section.label.isEmpty {
+                        HeaderView(section: section, settings: settings)
+                    }
                     TextblockSection(section: section, settings: settings)
                 case .tab:
                     if !settings.core.lyricsOnly {
@@ -35,7 +38,7 @@ extension GtkRender {
                         GridSection(section: section, settings: settings)
                     }
                 case .repeatChorus:
-                    let label = section.lines.first?.plain ?? section.label
+                    let label = section.lines.first?.plain
                     /// Check if we have to repeat the whole chorus
                     if
                         settings.core.repeatWholeChorus,
@@ -45,7 +48,7 @@ extension GtkRender {
                         HeaderView(label: label, section: lastChorus, settings: settings)
                         LyricsSection(section: lastChorus, settings: settings)
                     } else {
-                        HeaderView(label: label, section: section, settings: settings)
+                        RepeatChorus(label: label, section: section, settings: settings)
                     }
                 case .comment:
                     CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment", settings: settings)

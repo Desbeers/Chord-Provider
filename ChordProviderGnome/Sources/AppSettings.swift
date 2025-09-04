@@ -50,6 +50,10 @@ extension AppSettings {
         var showEditor: Bool = false
         /// The zoom factor
         var zoom: Double = 1
+        /// Show a toast
+        var showToast = Signal()
+        /// The toast message
+        var toastMessage: String = ""
     }
 }
 
@@ -64,6 +68,7 @@ extension AppSettings {
             case tab
             case grid
             case sectionHeader
+            case repeatChorus
 
             static let base: Double = 12.5
 
@@ -74,7 +79,7 @@ extension AppSettings {
                 case .chord:
                     AppSettings.Font.standard.style(zoom: zoom) + " color='\(HexColor.chord)'"
                 case .comment:
-                    AppSettings.Font.standard.style(zoom: zoom) + " style='italic' color='\(HexColor.comment)'"
+                    AppSettings.Font.standard.style(zoom: zoom) + " style='italic' weight='bold' color='\(HexColor.comment)'"
                 case .tab:
                     AppSettings.Font.standard.style(zoom: zoom) + " face='monospace'"
                 case .grid:
@@ -85,6 +90,8 @@ extension AppSettings {
                     "font='\(self.size(zoom: zoom))'" + " weight='bold'"
                 case .subtitle:
                     "font='\(self.size(zoom: zoom))'"
+                case .repeatChorus:
+                    AppSettings.Font.sectionHeader.style(zoom: zoom) + " style='italic'"
                 }
             }
 
@@ -92,7 +99,7 @@ extension AppSettings {
                 switch self {
                 case .standard, .chord, .comment, .tab, .grid:
                     AppSettings.Font.base * zoom
-                case .sectionHeader, .subtitle:
+                case .sectionHeader, .subtitle, .repeatChorus:
                     AppSettings.Font.base * zoom * 1.2
                 case .title:
                     AppSettings.Font.base * zoom * 1.4
