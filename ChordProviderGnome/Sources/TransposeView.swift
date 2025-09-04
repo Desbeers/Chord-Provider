@@ -10,15 +10,21 @@ import ChordProviderCore
 import Adwaita
 
 struct TransposeView: View {
-    @Binding var settings: ChordProviderSettings
+    @Binding var settings: AppSettings
     var view: Body {
         VStack {
             HStack {
-                CountButton(count: $settings.transpose, icon: .goPrevious) { $0 -= 1 }
-                Text("\(settings.transpose) semitones")
+                CountButton(settings: $settings, icon: .goPrevious) {
+                    $0.core.transpose = max($0.core.transpose - 1 , -11)
+                    $0.app.isTransposed = $0.core.transpose != 0
+                }
+                Text("\(settings.core.transpose) semitones")
                     .title2()
-                    .frame(minWidth: 120)
-                CountButton(count: $settings.transpose, icon: .goNext) { $0 += 1 }
+                    .frame(minWidth: 150)
+                CountButton(settings: $settings, icon: .goNext) {
+                    $0.core.transpose = min($0.core.transpose + 1 , 11)
+                    $0.app.isTransposed = $0.core.transpose != 0
+                }
             }
             .halign(.center)
         }
@@ -27,13 +33,13 @@ struct TransposeView: View {
     }
 
     private struct CountButton: View {
-        @Binding var count: Int
+        @Binding var settings: AppSettings
         var icon: Icon.DefaultIcon
-        var action: (inout Int) -> Void
+        var action: (inout AppSettings) -> Void
 
         var view: Body {
             Button(icon: .default(icon: icon)) {
-                action(&count)
+                action(&settings)
             }
             .circular()
         }

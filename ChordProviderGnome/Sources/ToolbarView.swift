@@ -25,7 +25,7 @@ struct ToolbarView: View {
                 .tooltip("\(settings.core.lyricsOnly ? "Show also chords" : "Show only lyrics")")
             Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
                 .tooltip("\(settings.core.repeatWholeChorus ? "Show only repeating labels" : "Repeat whole chorus")")
-            ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $settings.app.transposeDialog) {
+            ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $settings.app.isTransposed) {
                 settings.app.transposeDialog = true
             }
             .tooltip(settings.core.transposeTooltip)

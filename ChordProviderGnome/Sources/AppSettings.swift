@@ -42,6 +42,8 @@ extension AppSettings {
         var aboutDialog = false
         /// Show the *Transpose* dialog
         var transposeDialog = false
+        /// Bool if the song is  *Transposed*
+        var isTransposed = false
         /// The position of the splitter``
         var splitter: Int = 0
         /// Bool if the editor is shown

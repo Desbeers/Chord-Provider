@@ -40,8 +40,8 @@ struct ContentView: View {
                 settings: $settings
             )
         }
-        .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 220, height: 100) {
-            TransposeView(settings: $settings.core)
+        .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 260, height: 100) {
+            TransposeView(settings: $settings)
                 .topToolbar {
                     HeaderBar.empty()
                 }
