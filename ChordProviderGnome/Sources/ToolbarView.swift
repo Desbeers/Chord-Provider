@@ -63,14 +63,20 @@ struct ToolbarView: View {
                 }
                 MenuSection {
                     Submenu("Zoom") {
-                        MenuButton("Zoom in") {
-                            settings.app.zoom += 0.2
+                        MenuButton("Zoom In") {
+                            settings.app.zoom += 0.1
                         }
-                        .keyboardShortcut("+".ctrl())
-                        MenuButton("Zoom out") {
-                            settings.app.zoom -= 0.2
+                        .keyboardShortcut("plus".ctrl())
+                        MenuButton("Zoom Out") {
+                            settings.app.zoom -= 0.1
                         }
-                        .keyboardShortcut("-".ctrl())
+                        .keyboardShortcut("minus".ctrl())
+                        MenuSection {
+                            MenuButton("Reset Zoom") {
+                                settings.app.zoom = 1
+                            }
+                            .keyboardShortcut("0".ctrl())
+                        }
                     }
                 }
                 MenuSection {

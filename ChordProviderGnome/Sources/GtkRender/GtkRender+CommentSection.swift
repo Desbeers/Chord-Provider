@@ -14,9 +14,11 @@ extension GtkRender {
     struct CommentLabel: View {
         /// The comment
         let comment: String
+        /// The settings
+        let settings: AppSettings
         /// The body of the `View`
         var view: Body {
-            Text("<span style='italic' foreground='\(HexColor.comment)'>\(comment)</span>")
+            Text(comment, font: .comment, zoom: settings.app.zoom)
                 .wrap()
                 .useMarkup()
                 .padding()

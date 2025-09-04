@@ -13,18 +13,21 @@ extension GtkRender {
 
     struct TextblockSection: View {
         let section: Song.Section
+        let settings: AppSettings
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        Text(line.plain ?? "")
+                        Text(line.plain ?? "", font: .standard, zoom: settings.app.zoom)
+                            .useMarkup()
                             .wrap()
                             .halign(.start)
                     case .emptyLine:
-                        Text(" ")
+                        Text(" ", font: .standard, zoom: settings.app.zoom)
+                            .useMarkup()
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "Empty Comment")
+                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
                         EmptyView()
                     }

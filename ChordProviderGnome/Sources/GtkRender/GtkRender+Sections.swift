@@ -23,11 +23,11 @@ extension GtkRender {
                     HeaderView(section: section, settings: settings)
                     LyricsSection(section: section, settings: settings)
                 case .textblock:
-                    TextblockSection(section: section)
+                    TextblockSection(section: section, settings: settings)
                 case .tab:
                     if !settings.core.lyricsOnly {
                         HeaderView(section: section, settings: settings)
-                        TabSection(section: section)
+                        TabSection(section: section, settings: settings)
                     }
                 case .grid:
                     if !settings.core.lyricsOnly {
@@ -48,7 +48,7 @@ extension GtkRender {
                         HeaderView(label: label, section: section, settings: settings)
                     }
                 case .comment:
-                    CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment")
+                    CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment", settings: settings)
                 default:
                     /// Not supported or not a viewable environment
                     EmptyView()

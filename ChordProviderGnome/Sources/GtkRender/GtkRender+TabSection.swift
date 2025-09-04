@@ -13,19 +13,21 @@ extension GtkRender {
 
     struct TabSection: View {
         let section: Song.Section
+        let settings: AppSettings
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        Text("<tt>\(line.plain ?? "")</tt>")
+//                        Text("<tt>\(line.plain ?? "")</tt>")
+                        Text(line.plain ?? "", font: .tab, zoom: settings.app.zoom)
                             .useMarkup()
                             .wrap()
                             .halign(.start)
                     case .emptyLine:
                         Text(" ")
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "Empty Comment")
+                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
                         EmptyView()
                     }

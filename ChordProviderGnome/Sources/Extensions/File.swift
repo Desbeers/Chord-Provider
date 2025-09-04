@@ -28,7 +28,7 @@ extension Text {
     /// - Parameter text: The content.
     init(_ text: String, font: AppSettings.Font, zoom: Double) {
 
-        let wrapper = "<span font='\(font.size(zoom: zoom))'>\(text)</span>"
+        let wrapper = "<span \(font.style(zoom: zoom))>\(text)</span>"
 
         self.init(label: wrapper)
     }

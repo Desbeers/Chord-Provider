@@ -57,13 +57,37 @@ extension AppSettings {
 
         enum Font {
             case standard
+            case chord
+            case comment
+            case tab
+            case grid
+            case header
 
             static let base: Double = 12.5
 
-            func size(zoom: Double) -> Double {
+            func style(zoom: Double) -> String {
                 switch self {
                 case .standard:
+                    "font='\(AppSettings.Font.base * zoom)'"
+                case .chord:
+                    AppSettings.Font.standard.style(zoom: zoom) + " color='\(HexColor.chord)'"
+                case .comment:
+                    AppSettings.Font.standard.style(zoom: zoom) + " style='italic' color='\(HexColor.comment)'"
+                case .tab:
+                    AppSettings.Font.standard.style(zoom: zoom) + " face='monospace'"
+                case .grid:
+                    AppSettings.Font.chord.style(zoom: zoom)
+                case .header:
+                    "font='\(self.size(zoom: zoom))'" + " weight='bold'"
+                }
+            }
+
+            func size(zoom: Double) -> Double {
+                switch self {
+                case .standard, .chord, .comment, .tab, .grid:
                     AppSettings.Font.base * zoom
+                case .header:
+                    AppSettings.Font.base * zoom * 1.2
                 }
             }
         }

@@ -18,7 +18,7 @@ extension GtkRender {
             ForEach(parts, horizontal: true) { part in
                 VStack {
                     if let chord = part.chordDefinition {
-                        Text("<span foreground='\(HexColor.chord)'>\(chord.display)</span>", font: .standard, zoom: settings.app.zoom)
+                        Text(chord.display, font: .chord, zoom: settings.app.zoom)
                             .useMarkup()
                             .halign(.start)
                     } else {

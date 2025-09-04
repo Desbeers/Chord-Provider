@@ -29,7 +29,7 @@ extension GtkRender {
                             ForEach(elements, horizontal: true) { element in
                                 HStack {
                                     ForEach(element.parts) { part in
-                                        Text("<span\(part.chordDefinition != nil ? " foreground='\(HexColor.chord)'" : "")>\(part.text ?? "")</span>")
+                                        Text(part.text ?? "", font: part.chordDefinition == nil ? .standard : .grid, zoom: settings.app.zoom)
                                             .useMarkup()
                                             .halign(.start)
                                             .padding(5, [.trailing, .bottom])
@@ -40,7 +40,7 @@ extension GtkRender {
                     case .emptyLine:
                         Text(" ")
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "Empty Comment")
+                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
                         EmptyView()
                     }
