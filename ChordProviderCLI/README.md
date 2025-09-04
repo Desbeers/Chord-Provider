@@ -2,6 +2,6 @@
 
 The CLI version of Chord Provider
 
-- Convert a ChordPro song into JSON or HTML
+- Convert a ChordPro song into JSON or HTML or clean its source.
 
 Only depends on Foundation and build on macOS and Linux
