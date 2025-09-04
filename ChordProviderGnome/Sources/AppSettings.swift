@@ -75,23 +75,23 @@ extension AppSettings {
             func style(zoom: Double) -> String {
                 switch self {
                 case .standard:
-                    "font='\(AppSettings.Font.base * zoom)'"
+                    Pango.font(AppSettings.Font.base * zoom)
                 case .chord:
-                    AppSettings.Font.standard.style(zoom: zoom) + " color='\(HexColor.chord)'"
+                    AppSettings.Font.standard.style(zoom: zoom) + Pango.color(HexColor.chord) + Pango.bold.rawValue
                 case .comment:
-                    AppSettings.Font.standard.style(zoom: zoom) + " style='italic' weight='bold' color='\(HexColor.comment)'"
+                    AppSettings.Font.standard.style(zoom: zoom) + Pango.italic.rawValue + Pango.color(HexColor.comment) + Pango.bold.rawValue
                 case .tab:
-                    AppSettings.Font.standard.style(zoom: zoom) + " face='monospace'"
+                    AppSettings.Font.standard.style(zoom: zoom) + Pango.monospace.rawValue
                 case .grid:
                     AppSettings.Font.chord.style(zoom: zoom)
                 case .sectionHeader:
-                    "font='\(self.size(zoom: zoom))'" + " weight='bold'"
+                    Pango.font(self.size(zoom: zoom)) + Pango.bold.rawValue
                 case .title:
-                    "font='\(self.size(zoom: zoom))'" + " weight='bold'"
+                    Pango.font(self.size(zoom: zoom)) + Pango.bold.rawValue
                 case .subtitle:
-                    "font='\(self.size(zoom: zoom))'"
+                    Pango.font(self.size(zoom: zoom)) 
                 case .repeatChorus:
-                    AppSettings.Font.sectionHeader.style(zoom: zoom) + " style='italic'"
+                    AppSettings.Font.sectionHeader.style(zoom: zoom) + Pango.italic.rawValue
                 }
             }
 
