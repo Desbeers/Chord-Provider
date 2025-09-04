@@ -45,7 +45,7 @@ struct ContentView: View {
             extensions: ["chordpro", "cho"]
         ) { url in
             if let content = try? String(contentsOf: url, encoding: .utf8) {
-                settings.app.songURL = url
+                settings.core.songURL = url
                 settings.app.source = content
                 settings.app.originalSource = content
             }
@@ -54,11 +54,27 @@ struct ContentView: View {
         }
         .fileExporter(
             open: settings.app.saveSongAs,
-            initialName: settings.app.songURL?.lastPathComponent ?? "Untitled.chordpro",
+            initialName: settings.core.initialName
         ) { url in
-            settings.app.songURL = url
-            try? settings.app.source.write(to: url, atomically: true, encoding: String.Encoding.utf8)
-            settings.app.originalSource = settings.app.source
+            var string = settings.app.source
+            /// If we want to export HTML, let's do it...
+            if settings.core.exportSettings.format == .html {
+                var song = Song(id: id, content: settings.app.source)
+                song = ChordProParser.parse(
+                    song: song,
+                    instrument: settings.core.instrument,
+                    prefixes: [],
+                    getOnlyMetadata: false
+                )
+                string = HtmlRender.render(song: song, settings: settings.core)
+            }
+            try? string.write(to: url, atomically: true, encoding: String.Encoding.utf8)
+            /// Remember the new source URL when saved as a **ChordPro** file
+            if settings.core.exportSettings.format == .chordPro {
+                settings.core.songURL = url
+                /// The new state of the song
+                settings.app.originalSource = settings.app.source
+            }
         } onClose: {
             /// Nothing to do
         }

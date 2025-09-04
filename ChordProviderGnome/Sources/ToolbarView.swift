@@ -35,9 +35,10 @@ struct ToolbarView: View {
                 }
                 .keyboardShortcut("o".ctrl())
                 MenuButton("Save") {
-                    if let songURL = settings.app.songURL {
+                    if let songURL = settings.core.songURL {
                         try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
                     } else {
+                        settings.core.exportSettings.format = .chordPro
                         settings.app.saveSongAs.signal()
                     }
                 }
@@ -46,8 +47,15 @@ struct ToolbarView: View {
                     settings.app.saveSongAs.signal()
                 }
                 .keyboardShortcut("s".ctrl().shift())
-                MenuButton("New Window", window: false) {
-                    app.addWindow("main")
+                MenuButton("Export as HTML") {
+                    settings.core.exportSettings.format = .html
+                    settings.app.saveSongAs.signal()
+                }
+                .keyboardShortcut("s".ctrl().shift())
+                MenuSection {
+                    MenuButton("New Window", window: false) {
+                        app.addWindow("main")
+                    }
                 }
                 MenuSection {
                     MenuButton("About Chord Provider", window: false) {
@@ -71,7 +79,7 @@ struct ToolbarView: View {
         }
         .headerBarTitle {
             WindowTitle(
-                subtitle: settings.app.subtitle,
+                subtitle: settings.subtitle,
                 title: "Chord Provider"
             )
         }

@@ -9,10 +9,6 @@ import Foundation
 import ArgumentParser
 import ChordProviderCore
 
-enum OutputFormat: String, CaseIterable, ExpressibleByArgument {
-    case html
-    case json
-    case source
-}
-
 extension Chord.Instrument: @retroactive ExpressibleByArgument { }
+
+extension ChordProviderSettings.Export.Format: @retroactive ExpressibleByArgument { }

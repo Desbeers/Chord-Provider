@@ -22,8 +22,8 @@ struct Chordprovider: AsyncParsableCommand {
     )
     public var source: String
     /// The output format
-    @Option(help: "The output format.")
-    public var format: OutputFormat = .html
+    @Option(name: [.long, .customShort("f")], help: "The output format.")
+    public var format: ChordProviderSettings.Export.Format = .html
     /// The instrument
     @Option(name: [.long, .customShort("i")], help: "The instrument to use.")
     public var instrument: Chord.Instrument = .guitar
@@ -120,10 +120,12 @@ struct Chordprovider: AsyncParsableCommand {
             result = parsedSong.content
         case .html:
             result = HtmlRender.render(song: parsedSong, settings: settings)
+        case .pdf:
+            result = "Sorry, not yet implemented"
         }
 
         /// Output the result
-        if stdout {
+        if stdout || format == .pdf {
             print(result)
         } else {
             do {
