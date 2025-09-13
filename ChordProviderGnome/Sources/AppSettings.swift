@@ -10,11 +10,13 @@ import Adwaita
 import ChordProviderCore
 
 /// The settings for the application
-struct AppSettings {
+struct AppSettings: Codable {
     /// Core settings
     var core = ChordProviderSettings()
     /// Application specific settings
     var app = App()
+    /// Editor specific settings
+    var editor = Editor()
     /// The subtitle for the application
     var subtitle: String {
         "\(core.songURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
@@ -23,6 +25,10 @@ struct AppSettings {
     /// - Note: Comparing the source with the original source
     var dirty: Bool {
         app.source != app.originalSource
+    }
+    enum CodingKeys: CodingKey {
+        case core
+        case editor
     }
 }
 
@@ -48,12 +54,45 @@ extension AppSettings {
         var splitter: Int = 0
         /// Bool if the editor is shown
         var showEditor: Bool = false
+        /// Bool if the preferences is shown
+        var showPreferences: Bool = false
         /// The zoom factor
         var zoom: Double = 1
         /// Show a toast
         var showToast = Signal()
         /// The toast message
         var toastMessage: String = ""
+    }
+}
+
+
+extension AppSettings {
+
+    struct Editor: Codable {
+        var showLineNumbers: Bool = true
+        var wrapLines: Bool = true
+        var fontSize: EditorFont = .standard
+    }
+}
+
+extension AppSettings {
+    enum EditorFont: Int, Codable, CaseIterable, CustomStringConvertible, Identifiable {
+        case smaller = 10
+        case small = 11
+        case standard = 12
+        case large = 13
+        case larger = 14
+
+        public var description: String {
+            switch self {
+            case .smaller: "Smaller"
+            case .small: "Small"
+            case .standard: "Standard"
+            case .large: "Large"
+            case .larger: "Larger"
+            }
+        }
+        public var id: Self { self }
     }
 }
 

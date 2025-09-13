@@ -13,7 +13,7 @@ import ChordProviderHTML
 struct ContentView: View {
     var app: AdwaitaApp
     var window: AdwaitaWindow
-    @State private var settings = AppSettings()
+    @State("settings") private var settings = AppSettings()
     let id = UUID()
 
     var view: Body {
@@ -44,6 +44,32 @@ struct ContentView: View {
             TransposeView(settings: $settings)
         }
         .toast(settings.app.toastMessage, signal: settings.app.showToast)
+        .preferencesDialog(visible: $settings.app.showPreferences)
+        .preferencesPage("Page 1", icon: .default(icon: .audioHeadset)) { page in
+            page
+                .group("Song") {
+                    SwitchRow()
+                        .title("Show only lyrics")
+                        .subtitle("Hide all the chords")
+                        .active($settings.core.lyricsOnly)
+                    SwitchRow()
+                        .title("Repeat whole chorus")
+                        .subtitle("Show the whole chorus with the same label")
+                        .active($settings.core.repeatWholeChorus)
+                }
+                .group("Editor") {
+                    SwitchRow()
+                        .title("Line Numbers")
+                        .subtitle("Show the line numbers in the editor")
+                        .active($settings.editor.showLineNumbers)
+                    SwitchRow()
+                        .title("Wrap Lines")
+                        .subtitle("Wrap lines when they are too long")
+                        .active($settings.editor.wrapLines)
+                    ComboRow("Font Size", selection: $settings.editor.fontSize, values: AppSettings.EditorFont.allCases)
+                        .subtitle("Select the font size for the editor")
+                }
+        }
         .fileImporter(
             open: settings.app.openSong,
             extensions: ["chordpro", "cho"]

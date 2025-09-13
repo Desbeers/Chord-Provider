@@ -21,10 +21,10 @@ struct ToolbarView: View {
                 settings.app.showEditor = settings.app.splitter == 0 ? false : true
             }
             .tooltip("Show the editor")
-            Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricsOnly)
-                .tooltip("Show only lyrics")
-            Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
-                .tooltip("Repeat whole chorus")
+//            Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricsOnly)
+//                .tooltip("Show only lyrics")
+//            Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
+//                .tooltip("Repeat whole chorus")
             ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $settings.app.isTransposed) {
                 settings.app.transposeDialog = true
             }
@@ -82,9 +82,15 @@ struct ToolbarView: View {
                     }
                 }
                 MenuSection {
+                    MenuButton("Preferences") {
+                        settings.app.showPreferences = true
+                    }
+                    .keyboardShortcut("comma".ctrl())
                     MenuButton("About Chord Provider", window: false) {
                         settings.app.aboutDialog = true
                     }
+                    MenuButton("Quit", window: false) { app.quit() }
+                        .keyboardShortcut("q".ctrl())
                 }
             }
             .primary()

@@ -1,35 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language id="chordpro" name=".chordpro" version="2.0" _section="Other">
-  <metadata>
-    <property name="mimetypes">text/plain</property>
-    <property name="globs">*.chordpro;*.cho</property>
-  </metadata>
-  <styles>
-    <style id="comment" name="Comment" map-to="def:comment"/>
-    <style id="floating-point" name="Floating Point" map-to="def:floating-point"/>
-    <style id="string" name="String" map-to="def:string"/>
-    <style id="keyword" name="Keyword" map-to="def:keyword"/>
-    <style id="decimal" name="Decimal" map-to="def:decimal"/>
-    <style id="variable" name="Variable" map-to="def:type"/>
-    <style id="non-standard-key" name="Data Type" map-to="def:type"/>
-    <style id="boolean-value" name="Boolean value" map-to="def:boolean"/>
-  </styles>
-  <definitions>
-    <context id="line-comment" style-ref="comment" end-at-line-end="true" class="comment" class-disabled="no-spell-check">
-      <start>^#</start>
-    </context>
-    <context id="chord" style-ref="keyword">
-      <match>\[(.*?)\]</match>
-    </context>
-    <context id="directive" style-ref="variable">
-      <match>{(.*?)}</match>
-    </context>
-    <context id="chordpro" class="no-spell-check">
-      <include>
-        <context ref="line-comment"/>
-        <context ref="chord"/>
-        <context ref="directive"/>
-      </include>
-    </context>
-  </definitions>
+    <metadata>
+        <property name="mimetypes">text/plain</property>
+        <property name="globs">*.chordpro;*.cho</property>
+        <property name="suggested-suffix">.chordpro</property>
+    </metadata>
+    <styles>
+        <style id="comment" name="Comment" map-to="def:comment"/>
+        <style id="directive" name="Directive" map-to="def:type"/>
+        <style id="chord" name="Chord" map-to="def:keyword"/>
+    </styles>
+    <definitions>
+        <context id="directives">
+            <keyword>title</keyword>
+            <keyword>sorttitle</keyword>
+            <keyword>subtitle</keyword>
+            <keyword>artist</keyword>
+            <keyword>sortartist</keyword>
+            <keyword>composer</keyword>
+            <keyword>album</keyword>
+            <keyword>year</keyword>
+            <keyword>key</keyword>
+            <keyword>time</keyword>
+            <keyword>tempo</keyword>
+            <keyword>capo</keyword>
+            <keyword>instrument</keyword>
+            <keyword>tag</keyword>
+            <keyword>comment</keyword>
+            <keyword>image</keyword>
+            <keyword>start_of_chorus</keyword>
+            <keyword>end_of_chorus</keyword>
+            <keyword>chorus</keyword>
+            <keyword>start_of_verse</keyword>
+            <keyword>end_of_verse</keyword>
+            <keyword>start_of_bridge</keyword>
+            <keyword>end_of_bridge</keyword>
+            <keyword>start_of_tab</keyword>
+            <keyword>end_of_tab</keyword>
+            <keyword>start_of_grid</keyword>
+            <keyword>end_of_grid</keyword>
+            <keyword>start_of_strum</keyword>
+            <keyword>end_of_strum</keyword>
+            <keyword>start_of_abc</keyword>
+            <keyword>end_of_abc</keyword>
+            <keyword>start_of_textblock</keyword>
+            <keyword>end_of_textblock</keyword>
+            <keyword>define</keyword>
+            <keyword>new_page</keyword>
+            <keyword>column_break</keyword>
+        </context>
+
+        <context id="directive">
+            <start>\{</start>
+            <end>\}</end>
+            <include>
+                <context ref="directives" style-ref="directive"/>
+                <context id="anything" style-ref="def:preprocessor">
+                    <match>([^\}]*)</match>
+                </context>
+            </include>
+        </context>
+
+        <context id="comment" style-ref="comment" end-at-line-end="true">
+            <start>^#</start>
+        </context>
+
+        <context id="chord">
+            <start>\[</start>
+            <end>\]</end>
+            <include>
+                <context id="chord-name" style-ref="chord">
+                    <match>([^\]]*)</match>
+                </context>
+            </include>
+        </context>
+
+        <context id="chordpro" class="no-spell-check">
+            <include>
+                <context ref="comment"/>
+                <context ref="chord"/>
+                <context ref="directive"/>
+            </include>
+        </context>
+    </definitions>
 </language>

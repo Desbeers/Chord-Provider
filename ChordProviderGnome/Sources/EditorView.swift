@@ -20,11 +20,13 @@ struct EditorView: View {
             ScrollView {
                 SourceView(text: $settings.app.source)
                     .innerPadding()
-                    .lineNumbers()
+                    .lineNumbers(settings.editor.showLineNumbers)
                     .language(.chordpro)
+                    .wrapMode(settings.editor.wrapLines ? .word : .none)
+                    .highlightCurrentLine(true)
                     .vexpand()
                     .css {
-                        "textview { font-family: Monospace; font-size: 12pt; }"
+                        "textview { font-family: Monospace; font-size: \(settings.editor.fontSize.rawValue)pt; }"
                     }
                     .card()
                     .padding(8)

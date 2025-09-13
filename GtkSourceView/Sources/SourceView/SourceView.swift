@@ -9,16 +9,6 @@ import Foundation
 import Adwaita
 import CCodeEditor
 
-public struct BundleTestView: View {
-    let bundle: String
-    public init() {
-        self.bundle = Bundle.module.url(forResource: "chordpro", withExtension: "lang")?.deletingLastPathComponent().path() ?? "Empty"
-    }
-    public var view: Body {
-        Text(bundle)
-    }
-}
-
 /// A text or code editor widget.
 public struct SourceView: AdwaitaWidget {
 
@@ -32,6 +22,10 @@ public struct SourceView: AdwaitaWidget {
     var numbers = false
     /// The programming language for syntax highlighting.
     var language: Language = .plain
+    /// The (word) wrap mode used when rendering the text.
+    var wrapMode: WrapMode = .none
+
+    var highlightCurrentLine: Bool = true
 
     /// Initialize a code editor.
     /// - Parameter text: The editor's content.
@@ -90,6 +84,8 @@ public struct SourceView: AdwaitaWidget {
                 gtk_text_view_set_right_margin(storage.opaquePointer?.cast(), padding.cInt)
             }
             gtk_source_view_set_show_line_numbers(storage.opaquePointer?.cast(), numbers.cBool)
+            gtk_text_view_set_wrap_mode(storage.opaquePointer?.cast(), wrapMode.rawValue)
+            gtk_source_view_set_highlight_current_line(storage.opaquePointer?.cast(), highlightCurrentLine.cBool)
         }
     }
 
@@ -137,6 +133,15 @@ public struct SourceView: AdwaitaWidget {
         newSelf.numbers = visible
         return newSelf
     }
+    
+    /// Highlight the current line
+    /// - Parameter highlight: Whether the current line is highlighted
+    /// - Returns: The editor
+    public func highlightCurrentLine(_ highlight: Bool = true) -> Self {
+        var newSelf = self
+        newSelf.highlightCurrentLine = highlight
+        return newSelf
+    }
 
     /// Set the syntax highlighting programming language.
     /// - Parameter language: The programming language.
@@ -146,4 +151,23 @@ public struct SourceView: AdwaitaWidget {
         newSelf.language = language
         return newSelf
     }
+
+    /// Set the wrapMode for the text view.
+    ///
+    /// Available wrap modes are `none`, `char`, `word`, `wordChar`. Please refer to the
+    /// corresponding `GtkWrapMode` documentation for the details on how they work.
+    ///
+    /// - Parameter mode: The `WrapMode` to set.
+    public func wrapMode(_ mode: WrapMode) -> Self {
+      var newSelf = self
+      newSelf.wrapMode = mode
+      return newSelf
+    }
+
+//    public enum WWrapMode: Int {
+//        case none
+//        case character
+//        case word
+//        case wordCharacter
+//    }
 }
