@@ -43,6 +43,43 @@ struct ContentView: View {
         .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 260, height: 180) {
             TransposeView(settings: $settings)
         }
+        .alertDialog(
+            visible: $settings.app.showDirtyClose,
+            heading: "File has Changed",
+            body: "Do you want to save your file?",
+            id: "dirty-dialog"
+        )
+        .response("Cancel", role: .close) {
+            // Nothing to do
+        }
+        .response("Discard", appearance: .destructive, role: .none) {
+            switch settings.app.saveDoneAction {
+            case .close:
+                window.close()
+            case .openSong:
+                settings.app.openSong.signal()
+            case .noAction:
+                return
+            }
+        }
+        .response("Save", appearance: .suggested, role: .default) {
+            if let songURL = settings.core.songURL {
+                try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
+                switch settings.app.saveDoneAction {
+                case .close:
+                    window.close()
+                case .openSong:
+                    settings.app.openSong.signal()
+                case .noAction:
+                    /// Set the toast
+                    settings.app.toastMessage = "Saved \(songURL.deletingPathExtension().lastPathComponent)"
+                    settings.app.showToast.signal()
+                }
+            } else {
+                settings.core.export.format = .chordPro
+                settings.app.saveSongAs.signal()
+            }
+        }
         .dialog(visible: $settings.app.showPreferences, title: "Preferences", width: 400, height: 410) {
             SettingsView(settings: $settings)
                 .topToolbar {
@@ -91,7 +128,14 @@ struct ContentView: View {
                 /// Set the toast
                 settings.app.toastMessage = "Exported as \(url.lastPathComponent)"
             }
-            settings.app.showToast.signal()
+            switch settings.app.saveDoneAction {
+            case .close:
+                window.close()
+            case .openSong:
+                settings.app.openSong.signal()
+            case .noAction:
+                settings.app.showToast.signal()
+            }
         } onClose: {
             /// Nothing to do
         }

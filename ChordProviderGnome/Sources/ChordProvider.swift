@@ -17,5 +17,6 @@ struct ChordProvider: App {
             ContentView(app: app, window: window)
         }
         .defaultSize(width: 800, height: 600)
+        .deletable(false)
     }
 }

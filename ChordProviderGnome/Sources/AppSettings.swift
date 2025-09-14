@@ -69,6 +69,8 @@ extension AppSettings {
         var openSong = Signal()
         /// A signal to save as song with a new name
         var saveSongAs = Signal()
+        /// What to do when a song is saved
+        var saveDoneAction: SaveDoneAction = .noAction
         /// Show the *About* dialog
         var aboutDialog = false
         /// Show the *Transpose* dialog
@@ -81,6 +83,8 @@ extension AppSettings {
         var showEditor: Bool = false
         /// Bool if the preferences is shown
         var showPreferences: Bool = false
+        /// Bool if the close dialog is shown
+        var showDirtyClose: Bool = false
         /// The zoom factor
         var zoom: Double = 1
         /// Show a toast
@@ -99,6 +103,15 @@ extension AppSettings {
         var showLineNumbers: Bool = true
         var wrapLines: Bool = true
         var fontSize: EditorFont = .standard
+    }
+}
+
+extension AppSettings {
+
+    enum SaveDoneAction {
+        case close
+        case openSong
+        case noAction
     }
 }
 

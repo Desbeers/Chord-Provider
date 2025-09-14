@@ -35,7 +35,12 @@ struct ToolbarView: View {
         end: {
             Menu(icon: .default(icon: .openMenu)) {
                 MenuButton("Open") {
-                    settings.app.openSong.signal()
+                    if settings.dirty {
+                        settings.app.saveDoneAction = .openSong
+                        settings.app.showDirtyClose = true
+                    } else {
+                        settings.app.openSong.signal()
+                    }
                 }
                 .keyboardShortcut("o".ctrl())
                 MenuButton("Save") {
@@ -46,11 +51,14 @@ struct ToolbarView: View {
                         settings.app.showToast.signal()
                     } else {
                         settings.core.export.format = .chordPro
+                        settings.app.saveDoneAction = .noAction
                         settings.app.saveSongAs.signal()
                     }
                 }
                 .keyboardShortcut("s".ctrl())
                 MenuButton("Save As…") {
+                    settings.core.export.format = .chordPro
+                    settings.app.saveDoneAction = .noAction
                     settings.app.saveSongAs.signal()
                 }
                 .keyboardShortcut("s".ctrl().shift())
@@ -58,11 +66,11 @@ struct ToolbarView: View {
                     settings.core.export.format = .html
                     settings.app.saveSongAs.signal()
                 }
-                MenuSection {
-                    MenuButton("New Window", window: false) {
-                        app.addWindow("main")
-                    }
-                }
+//                MenuSection {
+//                    MenuButton("New Window", window: false) {
+//                        app.addWindow("main")
+//                    }
+//                }
                 MenuSection {
                     Submenu("Zoom") {
                         MenuButton("Zoom In") {
@@ -89,7 +97,14 @@ struct ToolbarView: View {
                     MenuButton("About Chord Provider", window: false) {
                         settings.app.aboutDialog = true
                     }
-                    MenuButton("Quit", window: false) { app.quit() }
+                    MenuButton("Quit", window: false) {
+                        if settings.dirty {
+                            settings.app.saveDoneAction = .close
+                            settings.app.showDirtyClose = true
+                        } else {
+                            window.close()
+                        }
+                    }
                         .keyboardShortcut("q".ctrl())
                 }
             }
