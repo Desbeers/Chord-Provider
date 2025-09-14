@@ -43,39 +43,13 @@ struct ContentView: View {
         .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 260, height: 180) {
             TransposeView(settings: $settings)
         }
-        .dialog(visible: $settings.app.showPreferences, title: "Preferences", width: 400, height: 400) {
+        .dialog(visible: $settings.app.showPreferences, title: "Preferences", width: 400, height: 410) {
             SettingsView(settings: $settings)
                 .topToolbar {
                     HeaderBar.empty()
                 }
         }
         .toast(settings.app.toastMessage, signal: settings.app.showToast)
-//        .preferencesDialog(visible: $settings.app.showPreferences)
-//        .preferencesPage("Page 1", icon: .default(icon: .audioHeadset)) { page in
-//            page
-//                .group("Song") {
-//                    SwitchRow()
-//                        .title("Show only lyrics")
-//                        .subtitle("Hide all the chords")
-//                        .active($settings.core.lyricsOnly)
-//                    SwitchRow()
-//                        .title("Repeat whole chorus")
-//                        .subtitle("Show the whole chorus with the same label")
-//                        .active($settings.core.repeatWholeChorus)
-//                }
-//                .group("Editor") {
-//                    SwitchRow()
-//                        .title("Line Numbers")
-//                        .subtitle("Show the line numbers in the editor")
-//                        .active($settings.editor.showLineNumbers)
-//                    SwitchRow()
-//                        .title("Wrap Lines")
-//                        .subtitle("Wrap lines when they are too long")
-//                        .active($settings.editor.wrapLines)
-//                    ComboRow("Font Size", selection: $settings.editor.fontSize, values: AppSettings.EditorFont.allCases)
-//                        .subtitle("Select the font size for the editor")
-//                }
-//        }
         .fileImporter(
             open: settings.app.openSong,
             extensions: ["chordpro", "cho"]

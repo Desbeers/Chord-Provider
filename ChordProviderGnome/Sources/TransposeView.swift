@@ -14,14 +14,13 @@ struct TransposeView: View {
     var view: Body {
         VStack {
             Text("Transpose song")
-                .title2()
+                .heading()
                 .padding()
             HStack {
                 CountButton(settings: $settings, icon: .goPrevious) {
                     $0.core.transpose = max($0.core.transpose - 1, -11)
                 }
                 Text("\(settings.core.transpose) semitones")
-                    .title3()
                     .frame(minWidth: 150)
                 CountButton(settings: $settings, icon: .goNext) {
                     $0.core.transpose = min($0.core.transpose + 1, 11)

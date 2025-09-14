@@ -28,9 +28,6 @@ public enum SettingsCache {
     ///   - object:The struct to save
     /// - Throws: an error if it can't be saved
     public static func set<T: Codable>(id: String, object: T) throws {
-
-        dump(object)
-
         let file = try self.path(for: id)
         let archivedValue = try JSONUtils.encode(object)
         try archivedValue.write(to: file, atomically: true, encoding: .utf8)

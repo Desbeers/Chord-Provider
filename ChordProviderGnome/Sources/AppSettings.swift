@@ -28,7 +28,12 @@ struct AppSettings: Codable {
         }
     }
     /// Application specific settings
-    var app = App()
+    var app = App() {
+        didSet {
+            print("Saving settings")
+            try? SettingsCache.set(id: "ChordProviderGnome", object: self)
+        }
+    }
     /// Editor specific settings
     var editor = Editor() {
         didSet {
@@ -48,13 +53,14 @@ struct AppSettings: Codable {
     enum CodingKeys: CodingKey {
         case core
         case editor
+        case app
     }
 }
 
 extension AppSettings {
 
     /// Settings for the application
-    struct App {
+    struct App: Codable {
         /// The source of the song
         var source = sampleSong
         /// The original source of the song when opened or created
@@ -81,6 +87,9 @@ extension AppSettings {
         var showToast = Signal()
         /// The toast message
         var toastMessage: String = ""
+        enum CodingKeys: CodingKey {
+            case zoom
+        }
     }
 }
 

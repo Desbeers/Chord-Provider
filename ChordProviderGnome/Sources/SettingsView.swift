@@ -14,8 +14,9 @@ struct SettingsView: View {
     var view: Body {
         ScrollView {
             Text("Display")
-                .title3()
-                .padding(10, .bottom)
+                .heading()
+                .halign(.start)
+                .padding(10, [.leading, .bottom])
             Form {
                 SwitchRow()
                     .title("Show only lyrics")
@@ -27,7 +28,8 @@ struct SettingsView: View {
                     .active($settings.core.repeatWholeChorus)
             }
             Text("Editor")
-                .title3()
+                .heading()
+                .halign(.start)
                 .padding(10)
             Form {
                 SwitchRow()
