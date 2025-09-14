@@ -26,7 +26,7 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable {
     /// Repeat the whole last chorus when using a *{chorus}* directive
     public var repeatWholeChorus: Bool
     /// The optional transpose
-    public var transpose: Int
+    public var transpose: Int = 0
     /// Export settings
     public var export = Export()
     /// Diagram settings
@@ -41,5 +41,13 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable {
         /// Add the extension
         name.append(".\(export.format.rawValue)")
         return name
+    }
+    /// The coding keys
+    enum CodingKeys: CodingKey {
+        case instrument
+        case lyricsOnly
+        case repeatWholeChorus
+        case diagram
+        case sortTokens
     }
 }

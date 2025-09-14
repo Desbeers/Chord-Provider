@@ -11,12 +11,31 @@ import ChordProviderCore
 
 /// The settings for the application
 struct AppSettings: Codable {
+    init() {
+        if let settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
+            print("Loaded settings")
+            self = settings
+        } else {
+            print("No settings found, creating new one")
+        }
+    }
+    
     /// Core settings
-    var core = ChordProviderSettings()
+    var core = ChordProviderSettings() {
+        didSet {
+            print("Saving settings")
+            try? SettingsCache.set(id: "ChordProviderGnome", object: self)
+        }
+    }
     /// Application specific settings
     var app = App()
     /// Editor specific settings
-    var editor = Editor()
+    var editor = Editor() {
+        didSet {
+            print("Saving settings")
+            try? SettingsCache.set(id: "ChordProviderGnome", object: self)
+        }
+    }
     /// The subtitle for the application
     var subtitle: String {
         "\(core.songURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
@@ -64,7 +83,6 @@ extension AppSettings {
         var toastMessage: String = ""
     }
 }
-
 
 extension AppSettings {
 
