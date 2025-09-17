@@ -18,14 +18,14 @@ struct ContentView: View {
 
     var view: Body {
 
-        SplitView(splitter: $settings.app.splitter) {
+        SplitView(splitter: $settings.editor.splitter) {
             EditorView(settings: $settings)
         } end: {
             VStack {
                 RenderView(render: settings.app.source, id: id, settings: settings)
                     .hexpand()
                     .vexpand()
-                if settings.app.splitter != 0 {
+                if settings.editor.showEditor {
                     LogView()
                         .transition(.coverUpDown)
                 }

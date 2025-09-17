@@ -12,8 +12,12 @@ import ChordProviderCore
 /// The settings for the application
 struct AppSettings: Codable {
     init() {
-        if let settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
+        if var settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
             print("Loaded settings")
+            /// Restore the splitter position when the editor is open
+            if settings.editor.showEditor {
+                settings.editor.splitter = settings.editor.restoreSplitter
+            }
             self = settings
         } else {
             print("No settings found, creating new one")
@@ -23,21 +27,22 @@ struct AppSettings: Codable {
     /// Core settings
     var core = ChordProviderSettings() {
         didSet {
-            print("Saving settings")
+            print("Saving core settings")
             try? SettingsCache.set(id: "ChordProviderGnome", object: self)
         }
     }
     /// Application specific settings
     var app = App() {
         didSet {
-            print("Saving settings")
+            print("Saving app settings")
             try? SettingsCache.set(id: "ChordProviderGnome", object: self)
         }
     }
     /// Editor specific settings
     var editor = Editor() {
         didSet {
-            print("Saving settings")
+            print("ID: \(app.id.uuidString)")
+            print("Saving editor settings")
             try? SettingsCache.set(id: "ChordProviderGnome", object: self)
         }
     }
@@ -61,6 +66,7 @@ extension AppSettings {
 
     /// Settings for the application
     struct App: Codable {
+        var id: UUID = UUID()
         /// The source of the song
         var source = sampleSong
         /// The original source of the song when opened or created
@@ -77,10 +83,6 @@ extension AppSettings {
         var transposeDialog = false
         /// Bool if the song is  *Transposed*
         var isTransposed = false
-        /// The position of the splitter``
-        var splitter: Int = 0
-        /// Bool if the editor is shown
-        var showEditor: Bool = false
         /// Bool if the preferences is shown
         var showPreferences: Bool = false
         /// Bool if the close dialog is shown
@@ -100,9 +102,28 @@ extension AppSettings {
 extension AppSettings {
 
     struct Editor: Codable {
+        /// Bool if the editor is shown
+        var showEditor: Bool = false
         var showLineNumbers: Bool = true
         var wrapLines: Bool = true
         var fontSize: EditorFont = .standard
+        /// The position of the splitter``
+        var splitter: Int = 0  {
+            willSet {
+                if newValue > 100 {
+                    restoreSplitter = newValue
+                }
+            }
+            didSet {
+                print("Splitter: \(splitter)")
+                if splitter < 100 {
+                    showEditor = false
+                    splitter = 0
+                }
+            }
+        }
+        /// Remember the splitter position when hiding the editor
+        var restoreSplitter: Int = 400
     }
 }
 

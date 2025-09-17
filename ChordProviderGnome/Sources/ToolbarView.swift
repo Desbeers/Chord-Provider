@@ -16,15 +16,15 @@ struct ToolbarView: View {
 
     var view: Body {
         HeaderBar {
-            ToggleButton(icon: .default(icon: .textEditor), isOn: $settings.app.showEditor) {
-                settings.app.splitter = settings.app.splitter == 0 ? 500 : 0
-                settings.app.showEditor = settings.app.splitter == 0 ? false : true
+            Toggle(icon: .default(icon: .textEditor), isOn: $settings.editor.showEditor) {
+                switch settings.editor.showEditor {
+                case true:
+                    settings.editor.splitter = settings.editor.restoreSplitter
+                case false:
+                    settings.editor.splitter = 0
+                }
             }
             .tooltip("Show the editor")
-//            Toggle(icon: .default(icon: .formatJustifyLeft), isOn: $settings.core.lyricsOnly)
-//                .tooltip("Show only lyrics")
-//            Toggle(icon: .default(icon: .mediaPlaylistRepeat), isOn: $settings.core.repeatWholeChorus)
-//                .tooltip("Repeat whole chorus")
             ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $settings.app.isTransposed) {
                 settings.app.transposeDialog = true
             }

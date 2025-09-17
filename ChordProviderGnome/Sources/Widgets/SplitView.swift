@@ -65,6 +65,10 @@ public struct SplitView: AdwaitaWidget {
 
         update(storage, data: data, updateProperties: true, type: type)
 
+        storage.notify(name: "position") {
+            splitter = Int(gtk_paned_get_position(storage.opaquePointer))
+        }
+
         return storage
     }
 
@@ -86,11 +90,9 @@ public struct SplitView: AdwaitaWidget {
             return
         }
         let position = Int(gtk_paned_get_position(storage.opaquePointer))
-            if splitter >= 0 && position < 1 {
-                gtk_paned_set_position(storage.opaquePointer, Int32(splitter))
-            } else if splitter == 0 {
-                gtk_paned_set_position(storage.opaquePointer, 0)
-            }
+        if splitter != position {
+            gtk_paned_set_position(storage.opaquePointer, Int32(splitter))
+        }
         storage.previousState = self
     }
 }
