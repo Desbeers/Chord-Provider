@@ -37,8 +37,8 @@ public struct ChordView: AdwaitaWidget {
     ) -> ViewStorage where Data: ViewRenderData {
         let drawingArea = gtk_drawing_area_new()
 
-        gtk_drawing_area_set_content_width(drawingArea?.cast(), 120)
-        gtk_drawing_area_set_content_height(drawingArea?.cast(), 140)
+        //gtk_drawing_area_set_content_width(drawingArea?.cast(), 10)
+        gtk_drawing_area_set_content_height(drawingArea?.cast(), 120)
 
         let content: [String: [ViewStorage]] = [:]
         let storage = ViewStorage(drawingArea?.opaque(), content: content)
@@ -65,10 +65,9 @@ public struct ChordView: AdwaitaWidget {
 }
 
 @_cdecl("chordiagram_draw")
-func chordiagram_draw(
-    ptr: UnsafeMutableRawPointer,
-    file: UnsafePointer<CChar>?,
+public func chordiagram_draw(
+    pointer: OpaquePointer,
     userData: UnsafeMutableRawPointer
 ) {
-
+    cairo_set_source_rgb(pointer, 0, 0, 0)
 }

@@ -40,7 +40,7 @@ struct RenderView: View {
             }
             Separator()
             ChordsView(song: song, settings: settings)
-                .frame(minWidth: 120)
+                .frame(minWidth: 100)
         }
     }
 }
