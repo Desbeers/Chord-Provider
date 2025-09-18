@@ -1,5 +1,4 @@
 #include <gtk/gtk.h>
-#include <cairo.h>
 
 #define NUM_STRINGS 6
 #define NUM_FRETS 5

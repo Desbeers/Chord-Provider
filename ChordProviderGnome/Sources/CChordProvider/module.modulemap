@@ -1,6 +1,4 @@
 module CChordProvider [system] {
     header "shim.h"
-    link "cairo-1"
-    link "gtk-4"
     export *
 }
