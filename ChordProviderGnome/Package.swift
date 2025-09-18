@@ -8,6 +8,12 @@ let package = Package(
     platforms: [
         .macOS(.v15)
     ],
+    products: [
+        .library(
+            name: "CChordProvider",
+            targets: ["CChordProvider"]
+        )
+    ],
     dependencies: [
         .package(url: "https://git.aparoksha.dev/aparoksha/adwaita-swift", branch: "main"),
         .package(path: "../ChordProviderCore"),
@@ -18,12 +24,16 @@ let package = Package(
         .executableTarget(
             name: "ChordProvider",
             dependencies: [
+                "CChordProvider",
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore"),
                 .product(name: "ChordProviderHTML", package: "ChordProviderHTML"),
                 .product(name: "SourceView", package: "GtkSourceView")
             ],
             path: "Sources"
+        ),
+        .systemLibrary(
+            name: "CChordProvider"
         )
     ]
 )

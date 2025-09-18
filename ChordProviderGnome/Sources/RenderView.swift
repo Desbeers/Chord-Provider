@@ -25,18 +25,24 @@ struct RenderView: View {
     let settings: AppSettings
 
     var view: Body {
-        ScrollView {
-            VStack {
-                Text(song.metadata.title, font: .title, zoom: settings.app.zoom)
-                    .useMarkup()
-                Text(song.metadata.subtitle ?? "", font: .subtitle, zoom: settings.app.zoom)
-                    .useMarkup()
-                Text(settings.core.instrument.description, font: .standard, zoom: settings.app.zoom)
-                    .useMarkup()
-                GtkRender.SectionsView(song: song, settings: settings)
-                    .halign(.center)
+        HStack {
+            ScrollView {
+                VStack {
+                    Text(song.metadata.title, font: .title, zoom: settings.app.zoom)
+                        .useMarkup()
+                    Text(song.metadata.subtitle ?? "", font: .subtitle, zoom: settings.app.zoom)
+                        .useMarkup()
+                    Text(settings.core.instrument.description, font: .standard, zoom: settings.app.zoom)
+                        .useMarkup()
+                    GtkRender.SectionsView(song: song, settings: settings)
+                        .halign(.center)
+                }
+                .padding(20)
+                .hexpand()
             }
-            .padding(20)
+            Separator()
+            ChordsView(song: song, settings: settings)
+                .frame(minWidth: 120)
         }
     }
 }

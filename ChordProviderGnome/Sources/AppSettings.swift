@@ -41,7 +41,6 @@ struct AppSettings: Codable {
     /// Editor specific settings
     var editor = Editor() {
         didSet {
-            print("ID: \(app.id.uuidString)")
             print("Saving editor settings")
             try? SettingsCache.set(id: "ChordProviderGnome", object: self)
         }
@@ -115,7 +114,6 @@ extension AppSettings {
                 }
             }
             didSet {
-                print("Splitter: \(splitter)")
                 if splitter < 100 {
                     showEditor = false
                     splitter = 0
