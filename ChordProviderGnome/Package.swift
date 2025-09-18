@@ -33,7 +33,8 @@ let package = Package(
             path: "Sources"
         ),
         .systemLibrary(
-            name: "CChordProvider"
+            name: "CChordProvider",
+            pkgConfig: "cairo"
         )
     ]
 )

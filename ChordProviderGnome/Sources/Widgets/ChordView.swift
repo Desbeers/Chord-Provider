@@ -63,3 +63,12 @@ public struct ChordView: AdwaitaWidget {
         gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
     }
 }
+
+@_cdecl("chordiagram_draw")
+func chordiagram_draw(
+    ptr: UnsafeMutableRawPointer,
+    file: UnsafePointer<CChar>?,
+    userData: UnsafeMutableRawPointer
+) {
+
+}
