@@ -1,6 +1,6 @@
 //
 //  ChordPro+Directive+FormattingAttribute.swift
-//  Chord Provider
+//  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
 //

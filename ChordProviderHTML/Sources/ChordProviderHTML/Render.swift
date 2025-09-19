@@ -8,6 +8,7 @@
 import Foundation
 import ChordProviderCore
 
+/// Render a song into a HTML page
 public enum HtmlRender {
     // Just a placeholder
 }

@@ -9,7 +9,7 @@
 import SwiftUI
 @preconcurrency import AVFoundation
 
-/// Play a ``ChordDefinition`` with its MIDI values
+/// Play a ``ChordProviderCore/ChordDefinition`` with its MIDI values
 actor MidiPlayer {
     /// Make it a shared actor
     static let shared = MidiPlayer()
@@ -58,7 +58,7 @@ actor MidiPlayer {
     /// Play a chord with its MIDI values
     /// - Parameters:
     ///   - notes: The notes to play
-    ///   - instrument: The ``Chord/Instrument`` to use
+    ///   - instrument: The instrument to use
     func playChord(notes: [Int], instrument: Midi.Instrument = .acousticNylonGuitar) async {
         let composer = Chord()
         let chord = composer.compose(notes: notes, instrument: instrument)

@@ -101,7 +101,7 @@ extension WelcomeView {
             try await openDocument(at: url)
         } catch {
             LogUtils.shared.setLog(
-                type: .error,
+                level: .error,
                 category: .fileAccess,
                 message: "Error opening URL: \(error.localizedDescription)"
             )

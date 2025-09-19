@@ -141,11 +141,11 @@ extension SceneStateModel {
 
     // MARK: Root Picker
 
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
+    /// SwiftUI `View` with a `Picker` to select a root value
     func rootPicker(showAllOption: Bool, hideFlats: Bool) -> some View {
         RootPicker(sceneState: self, showAllOption: showAllOption, hideFlats: hideFlats)
     }
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value
+    /// SwiftUI `View` with a `Picker` to select a root value
     struct RootPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
@@ -175,11 +175,11 @@ extension SceneStateModel {
 
     // MARK: Quality Picker
 
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
+    /// SwiftUI `View` with a `Picker` to select a quality value
     func qualityPicker(showAll: Bool = false) -> some View {
         QualityPicker(sceneState: self, showAll: showAll)
     }
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Quality`` value
+    /// SwiftUI `View` with a `Picker` to select a quality value
     struct QualityPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
@@ -232,11 +232,11 @@ extension SceneStateModel {
 
     // MARK: Slash Picker
 
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as slash bass note
+    /// SwiftUI `View` with a `Picker` to select a root value as slash bass note
     var slashPicker: some View {
         SlashPicker(sceneState: self)
     }
-    /// SwiftUI `View` with a `Picker` to select a ``Chord/Root`` value as slash bass note
+    /// SwiftUI `View` with a `Picker` to select a root value as slash bass note
     struct SlashPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel
@@ -526,11 +526,11 @@ extension SceneStateModel {
 
     // MARK: Instrument Picker
 
-    /// SwiftUI `Picker` to select a  ``ChordDefinition/instrument`` value
+    /// SwiftUI `Picker` to select an instrument value
     var instrumentPicker: some View {
         InstrumentPicker(sceneState: self)
     }
-    /// SwiftUI `Picker` to select a  ``Chord/Instrument`` value
+    /// SwiftUI `Picker` to select an instrument value
     struct InstrumentPicker: View {
         /// The binding to the observable state of the scene
         @Bindable var sceneState: SceneStateModel

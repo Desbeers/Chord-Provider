@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GtkRender+CommentLabel.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen

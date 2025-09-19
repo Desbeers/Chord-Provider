@@ -14,6 +14,7 @@ analyzer_rules:
 
 opt_in_rules:
   - array_init
+  - missing_docs
 #  - attributes
   - closure_end_indentation
   - closure_spacing

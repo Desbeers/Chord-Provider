@@ -1,14 +1,14 @@
 //
 //  Language.swift
-//  CodeEditor
+//  GTKSourceView
 //
-//  Created by david-swift on 28.11.23.
+//  © 2025 Nick Berendsen
 //
 
 /// A language available in the code editor.
 public enum Language: String, CaseIterable {
 
-    // swiftlint:disable missing_docs identifier_name
+    // swiftlint:disable identifier_name
 
     case abnf
     case actionscript
@@ -187,7 +187,7 @@ public enum Language: String, CaseIterable {
     case yaml
     case yara
 
-    // swiftlint:enable missing_docs identifier_name
+    // swiftlint:enable identifier_name
 
     /// The name of the language for the backend.
     var languageName: String {

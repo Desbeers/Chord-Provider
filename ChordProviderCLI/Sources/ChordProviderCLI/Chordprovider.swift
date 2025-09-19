@@ -154,7 +154,7 @@ struct Chordprovider: AsyncParsableCommand {
     func messages() -> [String] {
         LogUtils.shared.fetchLog()
             .map { message in
-                var line = message.type.rawValue + ": " + message.category.rawValue + ": "
+                var line = message.level.rawValue + ": " + message.category.rawValue + ": "
                 if let lineNumber = message.lineNumber {
                     line += "line \(lineNumber): "
                 }

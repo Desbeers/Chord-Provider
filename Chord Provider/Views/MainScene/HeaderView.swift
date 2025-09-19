@@ -44,7 +44,7 @@ extension HeaderView {
 
     /// SwiftUI `View` with general information
     struct General: View {
-        /// The ``Song``
+        /// The ``ChordProviderCore/Song``
         let song: Song
         /// The metadata of the ``Song``
         private var metaData: [String] {
@@ -79,7 +79,7 @@ extension HeaderView {
     struct Details: View {
         /// The observable state of the application
         @Environment(AppStateModel.self) private var appState
-        /// The ``Song``
+        /// The ``ChordProviderCore/Song``
         let song: Song
         /// The body of the `View`
         var body: some View {

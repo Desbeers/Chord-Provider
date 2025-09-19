@@ -10,7 +10,7 @@ import ChordProviderCore
 
 /// SwiftUI `View` for the song
 struct SongView: View {
-    /// The ``Song``
+    /// The ``ChordProviderCore/Song``
     let song: Song
     /// The ``AppSettings``
     let settings: AppSettings

@@ -24,7 +24,7 @@ struct DebugButtons: View {
                 }
                 /// Delete the settings
                 for setting in AppSettings.AppWindowID.allCases {
-                    try? SettingsCache.delete(id: setting)
+                    try? SettingsCache.delete(id: setting.rawValue)
                 }
                 /// Terminate the application
                 /// - Note: This will also clean the temporarily files

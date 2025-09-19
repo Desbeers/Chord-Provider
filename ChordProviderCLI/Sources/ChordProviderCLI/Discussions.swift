@@ -1,6 +1,6 @@
 //
 //  Discussions.swift
-//  chordprovider
+//  ChordProviderCLI
 //
 //  Created by Nick Berendsen on 03/09/2025.
 //

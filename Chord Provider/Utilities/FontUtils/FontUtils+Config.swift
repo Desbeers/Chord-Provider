@@ -20,7 +20,7 @@ extension FontUtils {
         case text = "Text"
         /// The chords, like [G7] for example
         case chord = "Chords"
-        /// The label in front of an ``ChordPro/Environment``
+        /// The label in front of an environment
         case label = "Labels"
         /// {comment ...}
         case comment = "Comments"

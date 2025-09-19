@@ -1,6 +1,6 @@
 //
 //  Song+Metadata.swift
-//  Chord Provider
+//  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
 //
@@ -13,7 +13,31 @@ extension Song {
 
     /// Structure for metadata about the song
     public struct Metadata: Equatable, Codable, Sendable {
-        public init(title: String = "No title", sortTitle: String = "", artist: String = "Unknown Artist", sortArtist: String = "", composers: [String]? = nil, subtitle: String? = nil, capo: String? = nil, key: ChordDefinition? = nil, tempo: String? = nil, time: String? = nil, year: String? = nil, album: String? = nil, audioURL: URL? = nil, videoURL: URL? = nil, tags: [String]? = nil, transpose: Int = 0, instrument: Chord.Instrument = .guitar, mirrorDiagram: Bool = false, fileURL: URL? = nil, templateURL: URL? = nil, longestLabel: String = "", longestLine: Song.Section.Line = Song.Section.Line(), definedMetadata: Set<String> = []) {
+        public init(
+            title: String = "No title",
+            sortTitle: String = "",
+            artist: String = "Unknown Artist",
+            sortArtist: String = "",
+            composers: [String]? = nil,
+            subtitle: String? = nil,
+            capo: String? = nil,
+            key: ChordDefinition? = nil,
+            tempo: String? = nil,
+            time: String? = nil,
+            year: String? = nil,
+            album: String? = nil,
+            audioURL: URL? = nil,
+            videoURL: URL? = nil,
+            tags: [String]? = nil,
+            transpose: Int = 0,
+            instrument: Chord.Instrument = .guitar,
+            mirrorDiagram: Bool = false,
+            fileURL: URL? = nil,
+            templateURL: URL? = nil,
+            longestLabel: String = "",
+            longestLine: Song.Section.Line = Song.Section.Line(),
+            definedMetadata: Set<String> = []
+        ) {
             self.title = title
             self.sortTitle = sortTitle
             self.artist = artist

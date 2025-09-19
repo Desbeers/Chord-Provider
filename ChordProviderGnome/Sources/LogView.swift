@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  LogView.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -9,11 +9,11 @@ import Foundation
 import Adwaita
 import ChordProviderCore
 
-
+/// The `View` for showing log messages
 struct LogView: View {
     init() {
         let messages = LogUtils.shared.fetchLog().map {message in
-            var line = "<span foreground='\(message.type.hexColor)'>\(message.type.rawValue)" + ": " + message.category.rawValue + ": "
+            var line = "<span foreground='\(message.level.hexColor)'>\(message.level.rawValue)" + ": " + message.category.rawValue + ": "
             if let lineNumber = message.lineNumber {
                 line += "line \(lineNumber): "
             }

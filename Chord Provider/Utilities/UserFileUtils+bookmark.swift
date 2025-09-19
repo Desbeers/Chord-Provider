@@ -30,7 +30,7 @@ extension UserFileUtils.Selection {
             return urlForBookmark
         } catch {
             LogUtils.shared.setLog(
-                type: .error,
+                level: .error,
                 category: .application,
                 message: error.localizedDescription
             )
@@ -51,7 +51,7 @@ extension UserFileUtils.Selection {
             selectedURL.stopAccessingSecurityScopedResource()
         } catch let error {
             LogUtils.shared.setLog(
-                type: .error,
+                level: .error,
                 category: .application,
                 message: "Bookmark error: '\(error.localizedDescription)'"
             )

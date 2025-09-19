@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  ChordProvider
+//  ChordDiagramView.swift
+//  ChordProviderGnome
 //
-//  Created by Nick Berendsen on 02/09/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -11,24 +11,23 @@ import CAdw
 import CChordProvider
 import ChordProviderCore
 
-public struct ChordView: AdwaitaWidget {
-
+/// The `AdwaitaWidget` for a chord diagram
+public struct ChordDiagramView: AdwaitaWidget {
+    /// The chord definition
     let chord: ChordDefinition
-
-    /// The start content's id.
+    /// The id of the chord
     let chordID = "chord"
-
+    /// The `C` version of the chord definition
     let cchord = UnsafeMutablePointer<ChordInC>.allocate(capacity: 1)
-
+    /// Init the `widget`
     public init(
         chord: ChordDefinition
     ) {
         self.chord = chord
     }
-
     /// The view storage.
     /// - Parameters:
-    ///     - modifiers: Modify views before being updated.
+    ///     - data: The widget data.
     ///     - type: The view render data type.
     /// - Returns: The view storage.
     public func container<Data>(
@@ -36,8 +35,6 @@ public struct ChordView: AdwaitaWidget {
         type: Data.Type
     ) -> ViewStorage where Data: ViewRenderData {
         let drawingArea = gtk_drawing_area_new()
-
-        //gtk_drawing_area_set_content_width(drawingArea?.cast(), 10)
         gtk_drawing_area_set_content_height(drawingArea?.cast(), 120)
 
         let content: [String: [ViewStorage]] = [:]
@@ -62,12 +59,4 @@ public struct ChordView: AdwaitaWidget {
         )
         gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
     }
-}
-
-@_cdecl("chordiagram_draw")
-public func chordiagram_draw(
-    pointer: OpaquePointer,
-    userData: UnsafeMutableRawPointer
-) {
-    cairo_set_source_rgb(pointer, 0, 0, 0)
 }

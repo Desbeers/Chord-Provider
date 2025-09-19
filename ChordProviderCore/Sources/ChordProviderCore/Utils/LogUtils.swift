@@ -1,33 +1,45 @@
 //
-//  File.swift
+//  LogUtils.swift
 //  ChordProviderCore
 //
-//  Created by Nick Berendsen on 24/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 
+/// Utilities for logging
 public class LogUtils: @unchecked Sendable {
-
+    /// The shared instance of the logger
     public static let shared = LogUtils()
-
+    /// All the logs
     private var logs: [LogMessage] = []
+    /// The queue for setting a log
     private let singletonQueue = DispatchQueue(label: "nl.desbeers.chordprovider.serial.queue")
+    /// Private init
     private init() {}
 
-    public func setLog(type: LogUtils.Level = .notice, category: LogUtils.Category, lineNumber: Int? = nil, message: String) {
+    /// Set a log entry
+    /// - Parameters:
+    ///   - level: The level of the log
+    ///   - category: The category of the log
+    ///   - lineNumber: The optional line number
+    ///   - message: The message
+    public func setLog(level: LogUtils.Level = .notice, category: LogUtils.Category, lineNumber: Int? = nil, message: String) {
         singletonQueue.sync {
-            let message = LogUtils.LogMessage(type: type, category: category, lineNumber: lineNumber, message: message)
+            let message = LogUtils.LogMessage(level: level, category: category, lineNumber: lineNumber, message: message)
             logs.append(message)
         }
     }
 
+    /// Fetch the log entries
+    /// - Returns: All the log entries
     public func fetchLog() -> [LogUtils.LogMessage] {
         singletonQueue.sync {
             return logs
         }
     }
 
+    /// Clear all the log entries
     public func clearLog() {
         singletonQueue.sync {
             logs = []
@@ -39,10 +51,17 @@ extension LogUtils {
 
     /// The structure for a log message
     public struct LogMessage: Equatable, Identifiable, Sendable {
-        public init(id: UUID = UUID(), time: Date = .now, type: LogUtils.Level = .notice, category: LogUtils.Category, lineNumber: Int? = nil, message: String = "There are currently no messages") {
+        public init(
+            id: UUID = UUID(),
+            time: Date = .now,
+            level: LogUtils.Level = .notice,
+            category: LogUtils.Category,
+            lineNumber: Int? = nil,
+            message: String = "There are currently no messages"
+        ) {
             self.id = id
             self.time = time
-            self.type = type
+            self.level = level
             self.category = category
             self.lineNumber = lineNumber
             self.message = message
@@ -52,8 +71,8 @@ extension LogUtils {
         public var id: UUID = UUID()
         /// The date and time of the log message
         public var time: Date = .now
-        /// The type of log message
-        public var type: Level = .notice
+        /// The level of the log message
+        public var level: Level = .notice
         /// The category of the log message
         public var category: Category
         /// The optional line number of the **ChordPro** source
@@ -65,19 +84,21 @@ extension LogUtils {
 
 extension LogUtils {
 
+    /// The level of the log message
     public enum Level: String, Sendable {
+        /// Debug
         case debug
-
+        /// Info
         case info
-
+        /// Notice
         case notice
-
+        /// Warning
         case warning
-
+        /// Error
         case error
-
+        /// Fault
         case fault
-
+        /// The hex color for a level
         public var hexColor: String {
             switch self {
             case .debug:
@@ -105,12 +126,19 @@ extension LogUtils {
 
 extension LogUtils {
 
+    /// The category of the log message
     public enum Category: String, Sendable {
+        /// Song Parser
         case songParser = "Song Parser"
+        /// ChordPro CLI Parser
         case chordProCliParser = "ChordPro CLI Parser"
+        /// Application
         case application = "Application"
+        /// PDF Generator
         case pdfGenerator = "PDF Generator"
+        /// File Access
         case fileAccess = "File Access"
+        /// JSON Parser
         case jsonParser = "JSON Parser"
     }
 }

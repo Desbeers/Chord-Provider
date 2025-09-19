@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GtkRender+HeaderView.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen

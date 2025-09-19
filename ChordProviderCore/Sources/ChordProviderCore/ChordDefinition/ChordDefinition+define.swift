@@ -1,6 +1,6 @@
 //
 //  ChordDefinition+define.swift
-//  Chord Provider
+//  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
 //

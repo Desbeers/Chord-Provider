@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  ChordProvider
+//  AppSettings.swift
+//  ChordProviderGnome
 //
-//  Created by Nick Berendsen on 01/09/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -23,7 +23,7 @@ struct AppSettings: Codable {
             print("No settings found, creating new one")
         }
     }
-    
+
     /// Core settings
     var core = ChordProviderSettings() {
         didSet {
@@ -31,14 +31,14 @@ struct AppSettings: Codable {
             try? SettingsCache.set(id: "ChordProviderGnome", object: self)
         }
     }
-    /// Application specific settings
+    /// Application settings
     var app = App() {
         didSet {
             print("Saving app settings")
             try? SettingsCache.set(id: "ChordProviderGnome", object: self)
         }
     }
-    /// Editor specific settings
+    /// Editor settings
     var editor = Editor() {
         didSet {
             print("Saving editor settings")
@@ -100,14 +100,18 @@ extension AppSettings {
 
 extension AppSettings {
 
+    /// Settings for the editor
     struct Editor: Codable {
         /// Bool if the editor is shown
         var showEditor: Bool = false
+        /// Bool if the editor is showing line numbers
         var showLineNumbers: Bool = true
+        /// Bool if the editor should wrap lines
         var wrapLines: Bool = true
+        /// The font size of the editor
         var fontSize: EditorFont = .standard
         /// The position of the splitter``
-        var splitter: Int = 0  {
+        var splitter: Int = 0 {
             willSet {
                 if newValue > 100 {
                     restoreSplitter = newValue
@@ -157,51 +161,51 @@ extension AppSettings {
 
 extension AppSettings {
 
-        enum Font {
-            case title
-            case subtitle
-            case standard
-            case chord
-            case comment
-            case tab
-            case grid
-            case sectionHeader
-            case repeatChorus
+    enum Font {
+        case title
+        case subtitle
+        case standard
+        case chord
+        case comment
+        case tab
+        case grid
+        case sectionHeader
+        case repeatChorus
 
-            static let base: Double = 12.5
+        static let base: Double = 12.5
 
-            func style(zoom: Double) -> String {
-                switch self {
-                case .standard:
-                    Pango.font(AppSettings.Font.base * zoom)
-                case .chord:
-                    AppSettings.Font.standard.style(zoom: zoom) + Pango.color(HexColor.chord) + Pango.bold.rawValue
-                case .comment:
-                    AppSettings.Font.standard.style(zoom: zoom) + Pango.italic.rawValue + Pango.color(HexColor.comment) + Pango.bold.rawValue
-                case .tab:
-                    AppSettings.Font.standard.style(zoom: zoom) + Pango.monospace.rawValue
-                case .grid:
-                    AppSettings.Font.chord.style(zoom: zoom)
-                case .sectionHeader:
-                    Pango.font(self.size(zoom: zoom)) + Pango.bold.rawValue
-                case .title:
-                    Pango.font(self.size(zoom: zoom)) + Pango.bold.rawValue
-                case .subtitle:
-                    Pango.font(self.size(zoom: zoom)) 
-                case .repeatChorus:
-                    AppSettings.Font.sectionHeader.style(zoom: zoom) + Pango.italic.rawValue
-                }
-            }
-
-            func size(zoom: Double) -> Double {
-                switch self {
-                case .standard, .chord, .comment, .tab, .grid:
-                    AppSettings.Font.base * zoom
-                case .sectionHeader, .subtitle, .repeatChorus:
-                    AppSettings.Font.base * zoom * 1.2
-                case .title:
-                    AppSettings.Font.base * zoom * 1.4
-                }
+        func style(zoom: Double) -> String {
+            switch self {
+            case .standard:
+                Pango.font(AppSettings.Font.base * zoom)
+            case .chord:
+                AppSettings.Font.standard.style(zoom: zoom) + Pango.color(HexColor.chord) + Pango.bold.rawValue
+            case .comment:
+                AppSettings.Font.standard.style(zoom: zoom) + Pango.italic.rawValue + Pango.color(HexColor.comment) + Pango.bold.rawValue
+            case .tab:
+                AppSettings.Font.standard.style(zoom: zoom) + Pango.monospace.rawValue
+            case .grid:
+                AppSettings.Font.chord.style(zoom: zoom)
+            case .sectionHeader:
+                Pango.font(self.size(zoom: zoom)) + Pango.bold.rawValue
+            case .title:
+                Pango.font(self.size(zoom: zoom)) + Pango.bold.rawValue
+            case .subtitle:
+                Pango.font(self.size(zoom: zoom))
+            case .repeatChorus:
+                AppSettings.Font.sectionHeader.style(zoom: zoom) + Pango.italic.rawValue
             }
         }
+
+        func size(zoom: Double) -> Double {
+            switch self {
+            case .standard, .chord, .comment, .tab, .grid:
+                AppSettings.Font.base * zoom
+            case .sectionHeader, .subtitle, .repeatChorus:
+                AppSettings.Font.base * zoom * 1.2
+            case .title:
+                AppSettings.Font.base * zoom * 1.4
+            }
+        }
+    }
 }

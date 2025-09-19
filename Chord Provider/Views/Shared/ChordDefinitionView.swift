@@ -8,7 +8,7 @@
 import SwiftUI
 import ChordProviderCore
 
-/// SwiftUI `View` for a ``ChordDefinition``
+/// SwiftUI `View` for a ``ChordProviderCore/ChordDefinition``
 
 struct ChordDefinitionView: View {
     /// The chord to display in a diagram
@@ -41,7 +41,7 @@ struct ChordDefinitionView: View {
 
     /// Init the `View`
     /// - Parameters:
-    ///   - chord: The ``ChordDefinition``
+    ///   - chord: The ``ChordProviderCore/ChordDefinition``
     ///   - width: The width of the diagram
     ///   - settings: The application
     ///   - useDefaultColors: Bool to use the default colors for the diagram
@@ -317,7 +317,7 @@ extension ChordDefinitionView {
 
     /// The `Shape` of the grid
     struct GridShape: Shape {
-        /// The ``Chord/Instrument`` to use
+        /// The instrument to use
         let instrument: Chord.Instrument
         func path(in rect: CGRect) -> Path {
             let columns = instrument.strings.count - 1

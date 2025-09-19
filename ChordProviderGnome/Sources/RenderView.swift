@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  RenderView.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -10,6 +10,7 @@ import Adwaita
 import ChordProviderCore
 import ChordProviderHTML
 
+/// The `View` for the rendered song
 struct RenderView: View {
     init(render: String, id: UUID, settings: AppSettings) {
         self.settings = settings

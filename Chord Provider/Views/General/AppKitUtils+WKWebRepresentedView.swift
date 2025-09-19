@@ -9,55 +9,57 @@ import Foundation
 import SwiftUI
 import WebKit
 
-/// The HTML View
-struct WKWebRepresentedView: NSViewRepresentable {
+extension AppKitUtils {
 
-    var html: String
+    /// The HTML View
+    struct WKWebRepresentedView: NSViewRepresentable {
 
-    func makeNSView(context: Context) -> WKWebView {
-        let webView = WKWebView()
-        webView.autoresizingMask = [.width, .height]
-        webView.setValue(true, forKey: "allowsMagnification")
-        webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
-        webView.navigationDelegate = context.coordinator
-        return webView
-    }
+        var html: String
 
-    func updateNSView(_ webView: WKWebView, context: Context) {
-        webView.loadHTMLString(html, baseURL: nil)
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator()
-    }
-
-    /// Custom Coordinator which handles persistent scroll position in the WebView
-    class Coordinator: NSObject, WKNavigationDelegate {
-        private var scrollPosition = CGPoint()
-
-        func webView(
-            _ webView: WKWebView,
-            decidePolicyFor navigationAction: WKNavigationAction,
-            decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void
-        ) {
-            // swiftlint:disable:next line_length
-            webView.evaluateJavaScript("[scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, scrollTop = window.pageYOffset || document.documentElement.scrollTop]") { [weak self] value, _ in
-                guard let value = value as? [Int] else {
-                    return
-                }
-                self?.scrollPosition = CGPoint(x: value[0], y: value[1])
-            }
-            decisionHandler(.allow)
+        func makeNSView(context: Context) -> WKWebView {
+            let webView = WKWebView()
+            webView.autoresizingMask = [.width, .height]
+            webView.setValue(true, forKey: "allowsMagnification")
+            webView.configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+            webView.navigationDelegate = context.coordinator
+            return webView
         }
 
-        // swiftlint:disable:next implicitly_unwrapped_optional
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.evaluateJavaScript("""
+        func updateNSView(_ webView: WKWebView, context: Context) {
+            webView.loadHTMLString(html, baseURL: nil)
+        }
+
+        func makeCoordinator() -> Coordinator {
+            Coordinator()
+        }
+
+        /// Custom Coordinator which handles persistent scroll position in the WebView
+        class Coordinator: NSObject, WKNavigationDelegate {
+            private var scrollPosition = CGPoint()
+
+            func webView(
+                _ webView: WKWebView,
+                decidePolicyFor navigationAction: WKNavigationAction,
+                decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void
+            ) {
+                webView.evaluateJavaScript("[scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, scrollTop = window.pageYOffset || document.documentElement.scrollTop]") { [weak self] value, _ in
+                    guard let value = value as? [Int] else {
+                        return
+                    }
+                    self?.scrollPosition = CGPoint(x: value[0], y: value[1])
+                }
+                decisionHandler(.allow)
+            }
+
+            // swiftlint:disable:next implicitly_unwrapped_optional
+            func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+                webView.evaluateJavaScript("""
             document.documentElement.scrollLeft = document.body.scrollLeft = \(scrollPosition.x)
             """)
-            webView.evaluateJavaScript("""
+                webView.evaluateJavaScript("""
             document.documentElement.scrollTop = document.body.scrollTop = \(scrollPosition.y)
             """)
+            }
         }
     }
 }

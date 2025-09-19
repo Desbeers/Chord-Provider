@@ -197,7 +197,7 @@ extension AppSettings.Style {
         var text = FontUtils.Options(size: 12)
         /// The chords, like [G7] for example
         var chord = FontUtils.Options(size: 10)
-        /// The label in front of an ``ChordPro/Environment``
+        /// The label in front of an environment
         var label = FontUtils.Options(size: 10)
         /// {comment ...}
         var comment = FontUtils.Options(size: 8)

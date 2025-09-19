@@ -1,6 +1,6 @@
 //
 //  Song+Section+Line.swift
-//  Chord Provider
+//  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
 //
@@ -13,7 +13,21 @@ extension Song.Section {
     ///
     /// This is a line in the source document, parsed into components
     public struct Line: Identifiable, Equatable, Codable, Sendable {
-        public init(sourceLineNumber: Int = 0, source: String = "", sourceParsed: String = "", lineLength: String? = nil, directive: ChordPro.Directive? = nil, arguments: ChordProParser.DirectiveArguments? = nil, type: ChordPro.LineType = .unknown, context: ChordPro.Environment = .none, warnings: Set<String>? = nil, parts: [Song.Section.Line.Part]? = nil, grid: [Song.Section.Line.Grid]? = nil, strum: [[Song.Section.Line.Strum]]? = nil, plain: String? = nil) {
+        public init(
+            sourceLineNumber: Int = 0,
+            source: String = "",
+            sourceParsed: String = "",
+            lineLength: String? = nil,
+            directive: ChordPro.Directive? = nil,
+            arguments: ChordProParser.DirectiveArguments? = nil,
+            type: ChordPro.LineType = .unknown,
+            context: ChordPro.Environment = .none,
+            warnings: Set<String>? = nil,
+            parts: [Song.Section.Line.Part]? = nil,
+            grid: [Song.Section.Line.Grid]? = nil,
+            strum: [[Song.Section.Line.Strum]]? = nil,
+            plain: String? = nil
+        ) {
             self.sourceLineNumber = sourceLineNumber
             self.source = source
             self.sourceParsed = sourceParsed
@@ -88,7 +102,7 @@ extension Song.Section {
             }
             let line = sourceLineNumber
             LogUtils.shared.setLog(
-                type: .warning,
+                level: .warning,
                 category: .songParser,
                 lineNumber: line,
                 message: "\(warning)"
@@ -100,7 +114,7 @@ extension Song.Section {
             let warningLine = warning.map(\.description).joined(separator: "\n")
             let line = sourceLineNumber
             LogUtils.shared.setLog(
-                type: .warning,
+                level: .warning,
                 category: .songParser,
                 lineNumber: line,
                 message: warningLine

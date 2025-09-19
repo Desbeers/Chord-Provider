@@ -17,14 +17,14 @@ extension PDFBuild {
     /// Display metadata details of the song
     class SongDetails: PDFElement {
 
-        /// The ``Song``
+        /// The ``ChordProviderCore/Song``
         let song: Song
         /// The application settings
         let settings: AppSettings
 
         /// Init the **song details** element
         /// - Parameters:
-        ///   - song: The ``Song``
+        ///   - song: The ``ChordProviderCore/Song``
         ///   - settings: The application settings
         init(song: Song, settings: AppSettings) {
             self.song = song

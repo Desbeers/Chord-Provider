@@ -8,7 +8,7 @@
 import SwiftUI
 import ChordProviderCore
 
-/// SwiftUI `View` with a button for a ``Song`` in BASIC export
+/// SwiftUI `View` with a button for a ``ChordProviderCore/Song`` in BASIC export
 struct ExportBASICButton: View {
     /// The current song
     let output: [C64View.Output]
@@ -40,13 +40,13 @@ struct ExportBASICButton: View {
                 switch result {
                 case .success(let url):
                     LogUtils.shared.setLog(
-                        type: .info,
+                        level: .info,
                         category: .fileAccess,
                         message: "Export song to \(url.lastPathComponent) completed"
                     )
                 case .failure(let error):
                     LogUtils.shared.setLog(
-                        type: .error,
+                        level: .error,
                         category: .fileAccess,
                         message: "Export song error: \(error.localizedDescription)"
                     )
@@ -54,7 +54,7 @@ struct ExportBASICButton: View {
             },
             onCancellation: {
                 LogUtils.shared.setLog(
-                    type: .info,
+                    level: .info,
                     category: .fileAccess,
                     message: "Export canceled"
                 )

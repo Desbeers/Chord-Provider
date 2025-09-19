@@ -1,6 +1,6 @@
 //
 //  Output.swift
-//  chordprovider
+//  ChordProviderCLI
 //
 //  Created by Nick Berendsen on 17/08/2025.
 //

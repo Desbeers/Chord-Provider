@@ -54,14 +54,14 @@ struct UserFileButton: View {
                 }
             case .failure(let error):
                 LogUtils.shared.setLog(
-                    type: .error,
+                    level: .error,
                     category: .fileAccess,
                     message: "Import dialog error: '\(error.localizedDescription)'"
                 )
             }
         } onCancellation: {
             LogUtils.shared.setLog(
-                type: .info,
+                level: .info,
                 category: .fileAccess,
                 message: "Import canceled"
             )

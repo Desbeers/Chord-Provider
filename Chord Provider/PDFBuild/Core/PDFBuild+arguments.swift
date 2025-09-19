@@ -11,7 +11,7 @@ import ChordProviderCore
 extension PDFBuild {
 
     /// Get the optional alignment from directive arguments
-    /// - Parameter arguments: The ``ChordProParser/DirectiveArguments``
+    /// - Parameter arguments: The directive argument
     /// - Returns: The alignment, `.left` if not set
     static func getAlign(_ arguments: ChordProParser.DirectiveArguments?) -> NSTextAlignment {
         if let align = arguments?[.align] {

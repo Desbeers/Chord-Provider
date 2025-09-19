@@ -11,7 +11,7 @@ import ChordProviderCore
 extension ChordsDatabaseView {
 
     /// Show a chord diagram
-    /// - Parameter chord: The ``ChordDefinition``
+    /// - Parameter chord: The ``ChordProviderCore/ChordDefinition``
     /// - Returns: A `View` with the chord diagram
     func diagram(chord: ChordDefinition) -> some View {
         HStack {

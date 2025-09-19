@@ -92,7 +92,7 @@ struct ExportFolderView: View {
                             }
                         } catch {
                             LogUtils.shared.setLog(
-                                type: .error,
+                                level: .error,
                                 category: .fileAccess,
                                 message: error.localizedDescription
                             )
@@ -120,13 +120,13 @@ struct ExportFolderView: View {
                 switch result {
                 case .success(let url):
                     LogUtils.shared.setLog(
-                        type: .info,
+                        level: .info,
                         category: .fileAccess,
                         message: "Export folder to \(url.lastPathComponent) completed"
                     )
                 case .failure(let error):
                     LogUtils.shared.setLog(
-                        type: .error,
+                        level: .error,
                         category: .fileAccess,
                         message: "Export folder error: \(error.localizedDescription)"
                     )
@@ -134,7 +134,7 @@ struct ExportFolderView: View {
             },
             onCancellation: {
                 LogUtils.shared.setLog(
-                    type: .info,
+                    level: .info,
                     category: .fileAccess,
                     message: "Export canceled"
                 )

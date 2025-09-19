@@ -8,7 +8,7 @@
 import SwiftUI
 import ChordProviderCore
 
-/// Export a single ``Song`` to a PDF
+/// Export a single ``ChordProviderCore/Song`` to a PDF
 enum SongExport {
     // Just a placeholder
 }
@@ -19,7 +19,7 @@ extension SongExport {
 
     /// Export a single song to PDF
     /// - Parameters:
-    ///   - song: The ``Song`` to export
+    ///   - song: The ``ChordProviderCore/Song`` to export
     ///   - settings: The ``AppSettings``
     /// - Returns: The song as PDF `Data` and the TOC as a `TOCInfo` array
     static func export(
@@ -27,7 +27,7 @@ extension SongExport {
         settings: AppSettings
     ) async throws -> (pdf: Data, toc: [PDFBuild.TOCInfo]) {
         LogUtils.shared.setLog(
-            type: .info,
+            level: .info,
             category: .pdfGenerator,
             message: "Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")**"
         )
@@ -71,9 +71,9 @@ extension SongExport {
 
     // MARK: Get all the PDF elements for a `Song`
 
-    /// Get all the PDF elements for a ``Song``
+    /// Get all the PDF elements for a ``ChordProviderCore/Song``
     /// - Parameters:
-    ///   - song: The ``Song``
+    ///   - song: The ``ChordProviderCore/Song``
     ///   - settings: The ``AppSettings``
     ///   - counter: The ``PDFBuild/PageCounter`` class
     /// - Returns: All the PDF elements in an array
@@ -160,7 +160,7 @@ extension SongExport {
                 settings.pdf.scale = availableWidth / longestLineWidth
             }
             LogUtils.shared.setLog(
-                type: .warning,
+                level: .warning,
                 category: .pdfGenerator,
                 message: "Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")** does not fit"
             )

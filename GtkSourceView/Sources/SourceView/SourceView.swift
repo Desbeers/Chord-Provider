@@ -1,8 +1,8 @@
 //
-//  CodeEditor.swift
-//  CodeEditor
+//  SourceView.swift
+//  GTKSourceView
 //
-//  Created by david-swift on 27.11.23.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
@@ -133,7 +133,7 @@ public struct SourceView: AdwaitaWidget {
         newSelf.numbers = visible
         return newSelf
     }
-    
+
     /// Highlight the current line
     /// - Parameter highlight: Whether the current line is highlighted
     /// - Returns: The editor
@@ -159,15 +159,8 @@ public struct SourceView: AdwaitaWidget {
     ///
     /// - Parameter mode: The `WrapMode` to set.
     public func wrapMode(_ mode: WrapMode) -> Self {
-      var newSelf = self
-      newSelf.wrapMode = mode
-      return newSelf
+        var newSelf = self
+        newSelf.wrapMode = mode
+        return newSelf
     }
-
-//    public enum WWrapMode: Int {
-//        case none
-//        case character
-//        case word
-//        case wordCharacter
-//    }
 }

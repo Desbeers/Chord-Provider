@@ -21,7 +21,7 @@ extension PDFBuild.LyricsSection.Line {
         let chord: NSAttributedString?
         /// The text of the part
         let text: NSAttributedString
-        /// All the chords of the ``Song``
+        /// All the chords of the ``ChordProviderCore/Song``
         let chords: [ChordDefinition]
 
         /// Init the **part** element

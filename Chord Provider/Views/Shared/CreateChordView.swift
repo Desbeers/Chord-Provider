@@ -7,7 +7,7 @@
 import SwiftUI
 import ChordProviderCore
 
-/// SwiftUI `View` to create a ``ChordDefinition`` with pickers
+/// SwiftUI `View` to create a ``ChordProviderCore/ChordDefinition`` with pickers
 struct CreateChordView: View {
     /// Bool to show the 'all' option
     let showAllOption: Bool

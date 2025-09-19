@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GtkRender+TextblockSection.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen

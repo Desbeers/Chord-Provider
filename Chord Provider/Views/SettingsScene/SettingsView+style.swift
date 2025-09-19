@@ -56,7 +56,7 @@ extension SettingsView {
                                                 appState.settings.style = style
                                             } catch {
                                                 LogUtils.shared.setLog(
-                                                    type: .error,
+                                                    level: .error,
                                                     category: .fileAccess,
                                                     message: "Theme import failed: \(error.localizedDescription)"
                                                 )
@@ -105,7 +105,7 @@ extension SettingsView {
                                 /// This should not happen
                                 Task {
                                     LogUtils.shared.setLog(
-                                        type: .error,
+                                        level: .error,
                                         category: .jsonParser,
                                         message: error.localizedDescription
                                     )
@@ -138,13 +138,13 @@ extension SettingsView {
             switch result {
             case .success(let url):
                 LogUtils.shared.setLog(
-                    type: .info,
+                    level: .info,
                     category: .fileAccess,
                     message: "Export theme to \(url.lastPathComponent) completed"
                 )
             case .failure(let error):
                 LogUtils.shared.setLog(
-                    type: .error,
+                    level: .error,
                     category: .fileAccess,
                     message: "Export theme error: \(error.localizedDescription)"
                 )
@@ -162,14 +162,14 @@ extension SettingsView {
                         let text = try String(contentsOf: url, encoding: .utf8)
                         appState.settings.style = try JSONUtils.decode(text, struct: AppSettings.Style.self)
                         LogUtils.shared.setLog(
-                            type: .info,
+                            level: .info,
                             category: .fileAccess,
                             message: "Import theme from \(url.lastPathComponent) completed"
                         )
                     }
                 } catch {
                     LogUtils.shared.setLog(
-                        type: .error,
+                        level: .error,
                         category: .fileAccess,
                         message: "Import theme error: \(error.localizedDescription)"
                     )
@@ -177,7 +177,7 @@ extension SettingsView {
                 }
             case .failure(let error):
                 LogUtils.shared.setLog(
-                    type: .error,
+                    level: .error,
                     category: .fileAccess,
                     message: "Import theme error: \(error.localizedDescription)"
                 )

@@ -21,7 +21,7 @@ extension DebugView {
                             Divider()
                             HStack(alignment: .top, spacing: 0) {
                                 Image(systemName: "exclamationmark.bubble")
-                                    .foregroundStyle(log.type.color)
+                                    .foregroundStyle(log.level.color)
                                     .padding(.trailing, 4)
                                 Text(log.time.formatted(date: .omitted, time: .standard))
                                 Text(": ")
@@ -35,7 +35,7 @@ extension DebugView {
                             .padding(8)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(log.type.color.opacity(0.2))
+                        .background(log.level.color.opacity(0.2))
                     }
                     /// Just use this as anchor point to keep the scrollview at the bottom
                     Divider()

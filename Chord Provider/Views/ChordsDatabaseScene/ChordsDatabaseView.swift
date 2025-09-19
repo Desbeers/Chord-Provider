@@ -145,7 +145,7 @@ struct ChordsDatabaseView: View {
                     )
                 } catch {
                     LogUtils.shared.setLog(
-                        type: .error,
+                        level: .error,
                         category: .jsonParser,
                         message: error.localizedDescription
                     )
@@ -168,14 +168,14 @@ struct ChordsDatabaseView: View {
                 case .success(let url):
                     Task {
                         LogUtils.shared.setLog(
-                            type: .info,
+                            level: .info,
                             category: .fileAccess,
                             message: "Database exported to \(url.lastPathComponent)"
                         )
                     }
                 case .failure(let error):
                     LogUtils.shared.setLog(
-                        type: .error,
+                        level: .error,
                         category: .fileAccess,
                         message: "Export failed: \(error.localizedDescription)"
                     )

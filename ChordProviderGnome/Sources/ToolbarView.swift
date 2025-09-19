@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ToolbarView.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -9,6 +9,7 @@ import Foundation
 import Adwaita
 import ChordProviderCore
 
+/// The `View` for the toolbar
 struct ToolbarView: View {
     var app: AdwaitaApp
     var window: AdwaitaWindow
@@ -49,6 +50,8 @@ struct ToolbarView: View {
                         /// Set the toast
                         settings.app.toastMessage = "Saved \(songURL.deletingPathExtension().lastPathComponent)"
                         settings.app.showToast.signal()
+                        /// Remember the content as  saved
+                        settings.app.originalSource = settings.app.source
                     } else {
                         settings.core.export.format = .chordPro
                         settings.app.saveDoneAction = .noAction
@@ -66,11 +69,6 @@ struct ToolbarView: View {
                     settings.core.export.format = .html
                     settings.app.saveSongAs.signal()
                 }
-//                MenuSection {
-//                    MenuButton("New Window", window: false) {
-//                        app.addWindow("main")
-//                    }
-//                }
                 MenuSection {
                     Submenu("Zoom") {
                         MenuButton("Zoom In") {

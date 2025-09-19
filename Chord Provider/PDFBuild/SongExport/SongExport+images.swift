@@ -26,7 +26,7 @@ extension SongExport {
             }
             guard let data = await task.value, let nsImage = NSImage(data: data) else {
                 LogUtils.shared.setLog(
-                    type: .error,
+                    level: .error,
                     category: .fileAccess,
                     message: "Missing image for **\(imageURL.lastPathComponent)**"
                 )

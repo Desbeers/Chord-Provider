@@ -11,7 +11,7 @@ import ChordProviderCore
 extension FolderExport {
 
     /// Get all ChordPro songs from a specific folder
-    /// - Returns: All found songs in a ``Song`` array
+    /// - Returns: All found songs in a ``ChordProviderCore/Song`` array
     @MainActor static func files() async throws -> [Song] {
         /// Get a list of all files
         if let exportFolder = UserFileUtils.Selection.exportFolder.getBookmarkURL {

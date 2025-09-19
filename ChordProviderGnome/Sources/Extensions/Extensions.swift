@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  ChordProvider
+//  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
 //

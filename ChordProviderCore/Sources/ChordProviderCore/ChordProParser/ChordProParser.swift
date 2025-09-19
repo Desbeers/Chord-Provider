@@ -1,6 +1,6 @@
 //
 //  ChordProParser.swift
-//  Chord Provider
+//  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
 //
@@ -24,8 +24,7 @@ public actor ChordProParser {
     /// Parse a **ChordPro** file into a ``Song`` structure
     /// - Parameters:
     ///   - song: The current ``Song``
-    ///   - instrument: The ``Chord/Instrument`` to use
-    ///   - prefixes: Optional prefixes for sorting
+    ///   - settings: The ``ChordProviderCore/ChordProviderSettings`` to use
     ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: An updated ``Song`` item
     public static func parse(
@@ -36,7 +35,7 @@ public actor ChordProParser {
         /// Store the values of the current song
         let old = song
         LogUtils.shared.setLog(
-            type: .info,
+            level: .info,
             category: .songParser,
             message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song")**"
         )

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  EditorView.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -11,10 +11,11 @@ import SourceView
 import ChordProviderCore
 import ChordProviderHTML
 
+/// The `View` for editing a song
 struct EditorView: View {
-
+    /// The ``AppSettings``
     @Binding var settings: AppSettings
-
+    /// The body of the `View`
     var view: Body {
         VStack(spacing: 0) {
             ScrollView {

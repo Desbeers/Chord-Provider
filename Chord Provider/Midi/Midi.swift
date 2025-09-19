@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: Play a `ChordDefinition` with MIDI
 
-/// Play a ``ChordDefinition`` with MIDI
+/// Play a ``ChordProviderCore/ChordDefinition`` with MIDI
 enum Midi {
     /// Just a placeholder
 }

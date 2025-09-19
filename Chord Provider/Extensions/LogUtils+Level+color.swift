@@ -1,5 +1,5 @@
 //
-//  ChordPro+LogMessage.swift
+//  LogUtils+Level+color.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -9,6 +9,7 @@ import SwiftUI
 import ChordProviderCore
 
 extension LogUtils.Level {
+
     /// The SwiftUI `Color` for the level of the log
     var color: Color {
         switch self {

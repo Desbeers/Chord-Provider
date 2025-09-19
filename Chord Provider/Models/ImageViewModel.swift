@@ -25,7 +25,7 @@ import ChordProviderCore
     }
 
     /// Update the arguments of the image
-    /// - Parameter arguments: The new ``ChordProParser/DirectiveArguments``
+    /// - Parameter arguments: The new directive arguments
     func updateArguments(_ arguments: ChordProParser.DirectiveArguments?) async {
         self.arguments = arguments
         let url = ChordProParser.getImageURL(arguments?[.src] ?? "", fileURL: fileURL)
@@ -64,7 +64,7 @@ import ChordProviderCore
     /// - Parameter url: The URL of the original image
     private func fallbackImage(url: URL) {
         LogUtils.shared.setLog(
-            type: .error,
+            level: .error,
             category: .fileAccess,
             message: "Missing image for **\(url.lastPathComponent)**"
         )

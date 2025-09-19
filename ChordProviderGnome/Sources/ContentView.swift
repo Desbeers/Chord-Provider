@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ContentView.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -10,15 +10,20 @@ import Adwaita
 import ChordProviderCore
 import ChordProviderHTML
 
+/// The main `View` for the application
 struct ContentView: View {
+    /// The `AdwaitaApp`
     var app: AdwaitaApp
+    /// The `AdwaitaWindow`
     var window: AdwaitaWindow
+    /// The ``AppSettings``
     @State private var settings = AppSettings()
+    /// The unique id
     let id = UUID()
-
+    /// The body of the `View`
     var view: Body {
 
-        SplitView(splitter: $settings.editor.splitter) {
+        HSplitView(splitter: $settings.editor.splitter) {
             EditorView(settings: $settings)
         } end: {
             VStack {

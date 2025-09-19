@@ -10,7 +10,7 @@ import ChordProviderCore
 
 /// The observable scene state for **Chord Provider**
 @MainActor @Observable final class SceneStateModel {
-    /// The current ``Song``
+    /// The current ``ChordProviderCore/Song``
     var song: Song
     /// PDF preview related stuff
     var preview = Preview()
@@ -32,7 +32,7 @@ import ChordProviderCore
 
     // MARK: Editor stuff
 
-    /// All the values of a ``ChordDefinition``
+    /// All the values of a ``ChordProviderCore/ChordDefinition``
     /// - Note: Used for editing a chord
     var definition: ChordDefinition
     /// Bool to show the `clean` confirmation dialog
@@ -66,7 +66,7 @@ import ChordProviderCore
                 return export.pdf
             } catch {
                 LogUtils.shared.setLog(
-                    type: .error,
+                    level: .error,
                     category: .pdfGenerator,
                     message: "PDF error: \(error.localizedDescription)"
                 )
@@ -82,7 +82,7 @@ import ChordProviderCore
                 return export.data
             } catch {
                 LogUtils.shared.setLog(
-                    type: .error,
+                    level: .error,
                     category: .chordProCliParser,
                     message: "ChordPro CLI error: \(error.localizedDescription)"
                 )

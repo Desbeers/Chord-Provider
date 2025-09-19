@@ -14,9 +14,9 @@ struct AppSettings: Equatable, Codable, Sendable {
     var application = Application()
     /// Core settings
     var core = ChordProviderSettings()
-    /// The options for displaying a ``Song``
+    /// The options for displaying a ``ChordProviderCore/Song``
     var display = Display()
-    /// The options for displaying a ``ChordDefinition``
+    /// The options for displaying a ``ChordProviderCore/ChordDefinition``
     var diagram = Diagram()
     /// The options for the ``ChordProEditor``
     var editor: Editor.Settings = .init()
@@ -43,7 +43,7 @@ extension AppSettings {
     /// - Parameter id: The ID of the settings
     /// - Returns: The ``AppSettings``
     static func load(id: AppSettings.AppWindowID) -> AppSettings {
-        if let settings = try? SettingsCache.get(id: id, struct: AppSettings.self) {
+        if let settings = try? SettingsCache.get(id: id.rawValue, struct: AppSettings.self) {
             return settings
         }
         /// No settings found; return defaults
@@ -59,15 +59,15 @@ extension AppSettings {
     /// - Parameter settings: The ``AppSettings``
     static func save(id: AppSettings.AppWindowID, settings: AppSettings) throws {
         do {
-            try SettingsCache.set(id: id, object: settings)
+            try SettingsCache.set(id: id.rawValue, object: settings)
             LogUtils.shared.setLog(
-                type: .info,
+                level: .info,
                 category: .application,
                 message: "**\(id.rawValue)** saved"
             )
         } catch {
             LogUtils.shared.setLog(
-                type: .info,
+                level: .info,
                 category: .application,
                 message: "Error saving **\(id.rawValue)**"
             )

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SampleSong.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// The sample song
 let sampleSong = """
 # Example of a simple ChordPro song.
 

@@ -9,6 +9,7 @@ import SwiftUI
 import ChordProviderCore
 import ChordProviderHTML
 
+/// SwiftUI `View` for the HTML rendering
 struct HtmlView: View {
     let output: String
     init(song: Song, settings: AppSettings) {
@@ -22,7 +23,7 @@ struct HtmlView: View {
     }
     var body: some View {
         VStack {
-            WKWebRepresentedView(html: output)
+            AppKitUtils.WKWebRepresentedView(html: output)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

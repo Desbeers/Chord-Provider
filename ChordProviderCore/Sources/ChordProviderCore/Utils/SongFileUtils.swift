@@ -1,6 +1,6 @@
 //
 //  SongFileUtils.swift
-//  Chord Provider
+//  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
 //
@@ -17,8 +17,7 @@ extension SongFileUtils {
     /// Parse the song file
     /// - Parameters:
     ///   - fileURL: The URL of the file
-    ///   - instrument: The ``Chord//Instrument``
-    ///   - prefixes: Optional prefixes for sorting
+    ///   - settings: The ``ChordProviderSettings``
     ///   - getOnlyMetadata: Bool to get only metadata of the song
     /// - Returns: The parsed ``Song``
     public static func parseSongFile(
@@ -26,10 +25,11 @@ extension SongFileUtils {
         settings: ChordProviderSettings,
         getOnlyMetadata: Bool = false
     ) throws -> Song {
+        var settings = settings
         do {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
             var song = Song(id: UUID(), content: content)
-            song.metadata.fileURL = fileURL
+            settings.songURL = fileURL
             return ChordProParser.parse(
                 song: song,
                 settings: settings,

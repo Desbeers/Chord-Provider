@@ -2,7 +2,7 @@
 //  ChordProviderError.swift
 //  ChordProviderCore
 //
-//  Created by Nick Berendsen on 17/08/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation

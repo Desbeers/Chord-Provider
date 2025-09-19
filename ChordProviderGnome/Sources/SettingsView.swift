@@ -1,6 +1,6 @@
 //
 //  TransposeView.swift
-//  ChordProvider
+//  ChordProviderGnome
 //
 //  Created by Nick Berendsen on 04/09/2025.
 //
@@ -9,6 +9,7 @@ import Foundation
 import ChordProviderCore
 import Adwaita
 
+/// The `View` for settings
 struct SettingsView: View {
     @Binding var settings: AppSettings
     var view: Body {
@@ -49,5 +50,3 @@ struct SettingsView: View {
         .vexpand()
     }
 }
-
-

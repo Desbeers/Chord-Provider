@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ChordProvider.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -7,8 +7,8 @@
 
 import Adwaita
 
-@main
-struct ChordProvider: App {
+/// The Chord Provider application
+@main struct ChordProvider: App {
 
     let app = AdwaitaApp(id: "nl.desbeers.chordprovider")
 

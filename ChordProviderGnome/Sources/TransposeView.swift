@@ -1,14 +1,15 @@
 //
 //  TransposeView.swift
-//  ChordProvider
+//  ChordProviderGnome
 //
-//  Created by Nick Berendsen on 04/09/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
 import ChordProviderCore
 import Adwaita
 
+/// The `View` for transposing a song
 struct TransposeView: View {
     @Binding var settings: AppSettings
     var view: Body {
@@ -53,7 +54,4 @@ struct TransposeView: View {
             .circular()
         }
     }
-
 }
-
-

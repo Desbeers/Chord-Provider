@@ -1,9 +1,9 @@
 // swift-tools-version: 6.1
 //
 //  Package.swift
-//  CodeEditor
+//  GTKSourceView
 //
-//  Created by david-swift on 27.11.23.
+//  © 2025 Nick Berendsen
 //
 
 import PackageDescription

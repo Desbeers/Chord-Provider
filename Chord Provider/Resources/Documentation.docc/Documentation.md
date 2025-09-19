@@ -57,7 +57,6 @@ While I studied a lot of code from other projects to learn; in the end, its all 
 - ``AppError``
 - ``AppSettings``
 - ``Help``
-- ``LogMessage``
 - ``Backport``
 
 ### Documents
@@ -81,17 +80,8 @@ The *export document* is a PDF with either a song or a whole folder with songs.
 
 Bits and pieces for a **ChordPro** file
 
-- ``ChordPro``
 - ``ChordProConfig``
 - ``ChordProCLI``
-- ``ChordProConfig``
-
-### **ChordPro** parser
-
-All files needed for parsing a **ChordPro** song
-
-- ``ChordProParser``
-- ``Song``
 
 ### **ChordPro** editor
 
@@ -103,28 +93,19 @@ While working well for *normal* songs it will be a bit sluggish on long document
 - ``ChordProEditorDelegate``
 - ``Editor``
 
-### Chord Definitions
-
-- ``Chord``
-- ``ChordDefinition``
-
 ### Utilities
 
-- ``ChordUtils``
 - ``FontUtils``
 - ``ImageUtils``
-- ``JSONUtils``
-- ``SongFileUtils``
 - ``UserFileUtils``
 
 ### Cache
 
 - ``ImageCache``
-- ``SettingsCache``
 
 ### Midi
 
-Convert a ``ChordDefinition`` to Midi values and play it with Core Audio
+Convert a ``ChordProviderCore/ChordDefinition`` to Midi values and play it with Core Audio
 
 - ``Midi``
 - ``MidiPlayer``
@@ -159,6 +140,7 @@ Models used by the SwiftUI Views
 - ``ChordsView``
 - ``EditorView``
 - ``PreviewPaneView``
+- ``HtmlView``
 
 ### SwiftUI About Scene
 
@@ -202,7 +184,7 @@ To get a *native* macOS Help, you have to compile a *Help Book*. While I did tha
 
 ### SwiftUI Debug Scene
 
-**Chord Provider** parses the **ChordPro** file into a ``Song`` structure and logs its progress. The *Debug Scene* let you view the result and logs.
+**Chord Provider** parses the **ChordPro** file into a ``ChordProviderCore/Song`` structure and logs its progress. The *Debug Scene* let you view the result and logs.
 
 - ``DebugView``
 

@@ -1,6 +1,6 @@
 //
 //  JSONUtils.swift
-//  Chord Provider
+//  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
 //
@@ -26,7 +26,7 @@ extension JSONUtils {
             return content
         } catch {
             LogUtils.shared.setLog(
-                type: .error,
+                level: .error,
                 category: .jsonParser,
                 message: error.localizedDescription
             )

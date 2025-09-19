@@ -62,7 +62,7 @@ extension ChordProCLI {
             try task.run()
         } catch {
             LogUtils.shared.setLog(
-                type: .error,
+                level: .error,
                 category: .chordProCliParser,
                 message: error.localizedDescription
             )
@@ -151,7 +151,7 @@ extension ChordProCLI {
 
     /// Export a document or folder with the **ChordPro** binary to a PDF
     /// - Parameters:
-    ///   - song: The current ``Song``
+    ///   - song: The current ``ChordProviderCore/Song``
     ///   - settings: The ``AppSettings``
     /// - Returns: The PDF as `Data` and the status as ``AppError``
     @MainActor static func exportPDF(
@@ -192,7 +192,7 @@ extension ChordProCLI {
                     try jsonSettings.write(to: song.metadata.configURL, atomically: true, encoding: String.Encoding.utf8)
                 } catch {
                     LogUtils.shared.setLog(
-                        type: .error,
+                        level: .error,
                         category: .chordProCliParser,
                         message: error.localizedDescription
                     )
@@ -213,7 +213,7 @@ extension ChordProCLI {
         arguments.append("--output=\"\(song.metadata.exportURL.path)\"")
         /// Add the process to the log
         LogUtils.shared.setLog(
-            type: .info,
+            level: .info,
             category: .chordProCliParser,
             message: "Creating PDF preview with ChordPro CLI"
         )
@@ -251,7 +251,7 @@ extension ChordProCLI {
             let lineNumber = Range(match.range(at: 1), in: message),
             let remaining = Range(match.range(at: 2), in: message) {
             LogUtils.shared.setLog(
-                type: .fault,
+                level: .fault,
                 category: .chordProCliParser,
                 lineNumber: Int(message[lineNumber]),
                 message: "Warning: \(String(message[remaining]))"
@@ -259,7 +259,7 @@ extension ChordProCLI {
             return true
         } else {
             LogUtils.shared.setLog(
-                type: .notice,
+                level: .notice,
                 category: .chordProCliParser,
                 message: message
             )

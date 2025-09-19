@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  GtkRender+TabSection.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -19,7 +19,6 @@ extension GtkRender {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-//                        Text("<tt>\(line.plain ?? "")</tt>")
                         Text(line.plain ?? "", font: .tab, zoom: settings.app.zoom)
                             .useMarkup()
                             .wrap()

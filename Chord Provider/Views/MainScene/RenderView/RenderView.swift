@@ -14,9 +14,9 @@ enum RenderView {
 
 extension RenderView {
 
-    /// Render a ``Song`` structure into a SwiftUI `View`
+    /// Render a ``ChordProviderCore/Song`` structure into a SwiftUI `View`
     struct MainView: View {
-        /// The ``Song``
+        /// The ``ChordProviderCore/Song``
         let song: Song
         /// The ``AppSettings``
         let settings: AppSettings
@@ -24,7 +24,7 @@ extension RenderView {
         let spacing: Double
         /// Init the `View`
         /// - Parameters:
-        ///   - song: The ``Song`` to view
+        ///   - song: The ``ChordProviderCore/Song`` to view
         ///   - settings: The ``AppSettings``
         init(song: Song, settings: AppSettings) {
             self.spacing = 20 * settings.scale.magnifier

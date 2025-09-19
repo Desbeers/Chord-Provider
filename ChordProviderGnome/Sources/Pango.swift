@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  ChordProvider
+//  Pango.swift
+//  ChordProviderGnome
 //
 //  Created by Nick Berendsen on 04/09/2025.
 //

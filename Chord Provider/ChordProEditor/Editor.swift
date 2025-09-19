@@ -33,9 +33,9 @@ enum Editor {
     /// The background of the highlighted line in the editor
     static let highlightedBackgroundColor: NSColor = .gray.withAlphaComponent(0.1)
 
-    /// Edit a ``ChordPro/Directive`` with its argument in the ``ChordProEditor``
+    /// Edit a directive with its argument in the ``ChordProEditor``
     /// - Parameters:
-    ///   - directive: The ``ChordPro/Directive`` to apply
+    ///   - directive: The directive to apply
     ///   - editorInternals: The internals of the ``ChordProEditor``
     static func format(
         directive: ChordPro.Directive,
@@ -60,9 +60,9 @@ enum Editor {
         }
     }
 
-    /// Format a ``ChordPro/Directive`` with its argument
+    /// Format a directive with its argument
     /// - Parameters:
-    ///   - directive: The ``ChordPro/Directive`` to apply
+    ///   - directive: The directive to apply
     ///   - argument: The argument of the `directive`
     /// - Returns: A formatted `Directive`  as `String`
     static func format(directive: ChordPro.Directive, argument: String) -> String {
