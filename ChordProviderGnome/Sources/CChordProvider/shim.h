@@ -5,7 +5,9 @@
 
 struct ChordInC {
     int strings;
+    int baseFret;
     int frets[6];
+    int fingers[6];
 };
 typedef struct ChordInC ChordInC;
 
@@ -16,9 +18,17 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
 {
     ChordInC *data = user_data;
 
+    char finger[3];
+
     int margin = 20;
     double fret_spacing = (height - 2 * margin) / (double)NUM_FRETS;
     double string_spacing = (width - 2 * margin) / (double)(data->strings - 1);
+
+    cairo_select_font_face(cr, "monospace",
+          CAIRO_FONT_SLANT_NORMAL,
+          CAIRO_FONT_WEIGHT_NORMAL);
+
+      cairo_set_font_size(cr, 9);
 
     // Draw strings
     cairo_set_source_rgb(cr, 0, 0, 0);
@@ -29,6 +39,21 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
         cairo_line_to(cr, x, height - margin);
     }
     cairo_stroke(cr);
+
+    // Draw top bar or base fret
+    if (data->baseFret == 1) {
+        cairo_set_source_rgb(cr, 0, 0, 0);
+        cairo_set_line_width(cr, 2);
+        cairo_move_to(cr, margin - 1, margin);
+        cairo_line_to(cr, width - margin + 1, margin);
+        cairo_stroke(cr);
+        cairo_set_line_width(cr, 0.2);
+    } else {
+        cairo_set_source_rgb(cr, 0, 0, 0);
+        cairo_move_to(cr, margin - 15, margin + fret_spacing / 1.5);
+        sprintf(finger, "%d", data->baseFret);
+        cairo_show_text(cr, finger);
+    }
 
     // Draw frets
     for (int i = 0; i <= NUM_FRETS; ++i) {
@@ -44,10 +69,10 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
         if (data->frets[i] == -1) {
             // Muted string: draw X
             cairo_set_source_rgb(cr, 0.552, 0.551, 0.551);
-            cairo_move_to(cr, x-2, margin-12);
-            cairo_line_to(cr, x+2, margin-6);
-            cairo_move_to(cr, x+2, margin-12);
-            cairo_line_to(cr, x-2, margin-6);
+            cairo_move_to(cr, x-3, margin-11);
+            cairo_line_to(cr, x+3, margin-5);
+            cairo_move_to(cr, x+3, margin-11);
+            cairo_line_to(cr, x-3, margin-5);
             cairo_set_line_width(cr, 1);
             cairo_stroke(cr);
         } else if (data->frets[i] == 0) {
@@ -62,6 +87,13 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
             cairo_set_source_rgb(cr, 0.552, 0.551, 0.551);
             cairo_arc(cr, x, y, 6, 0, 2 * G_PI);
             cairo_fill(cr);
+            if (data->fingers[i] > 0) {
+                sprintf(finger, "%d", data->fingers[i]);
+                cairo_move_to(cr, x - 2.5, y + 3);
+                cairo_set_source_rgb(cr, 1, 1, 1);
+                cairo_show_text(cr, finger);
+                cairo_new_path(cr);
+            }
         }
     }
 }

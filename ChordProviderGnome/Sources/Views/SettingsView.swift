@@ -28,6 +28,16 @@ struct SettingsView: View {
                     .subtitle("Show the whole chorus with the same label")
                     .active($settings.core.repeatWholeChorus)
             }
+            Text("Chord Diagrams")
+                .heading()
+                .halign(.start)
+                .padding(10)
+            Form {
+                SwitchRow()
+                    .title("Show left-handed chords")
+                    .subtitle("Flip the chord diagrams")
+                    .active($settings.core.diagram.mirror)
+            }
             Text("Editor")
                 .heading()
                 .halign(.start)

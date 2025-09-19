@@ -21,6 +21,5 @@ import Adwaita
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)
-        .deletable(false)
     }
 }

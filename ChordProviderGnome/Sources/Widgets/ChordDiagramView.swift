@@ -49,6 +49,7 @@ public struct ChordDiagramView: AdwaitaWidget {
         type: Data.Type
     ) where Data: ViewRenderData {
         cchord.pointee.strings = Int32(chord.instrument.strings.count)
+        cchord.pointee.baseFret = Int32(chord.baseFret)
         cchord.pointee.frets = (
             Int32(chord.frets[safe: 0] ?? 0),
             Int32(chord.frets[safe: 1] ?? 0),
@@ -56,6 +57,14 @@ public struct ChordDiagramView: AdwaitaWidget {
             Int32(chord.frets[safe: 3] ?? 0),
             Int32(chord.frets[safe: 4] ?? 0),
             Int32(chord.frets[safe: 5] ?? 0)
+        )
+        cchord.pointee.fingers = (
+            Int32(chord.fingers[safe: 0] ?? 0),
+            Int32(chord.fingers[safe: 1] ?? 0),
+            Int32(chord.fingers[safe: 2] ?? 0),
+            Int32(chord.fingers[safe: 3] ?? 0),
+            Int32(chord.fingers[safe: 4] ?? 0),
+            Int32(chord.fingers[safe: 5] ?? 0)
         )
         gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
     }
