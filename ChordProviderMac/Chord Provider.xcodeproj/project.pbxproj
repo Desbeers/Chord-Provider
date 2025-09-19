@@ -27,7 +27,6 @@
 		D706FDA92BCECC9F005DEDF6 /* PDFStringAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FD8D2BCECC9F005DEDF6 /* PDFStringAttribute.swift */; };
 		D706FDAC2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */; };
 		D706FDAD2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */; };
-		D707CB092E59C6B7001FED23 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D707CB082E59C6B7001FED23 /* ChordProviderHTML */; };
 		D707CB0B2E59E7CF001FED23 /* AppKitUtils+WKWebRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D707CB0A2E59E7CF001FED23 /* AppKitUtils+WKWebRepresentedView.swift */; };
 		D707CB0D2E59E82D001FED23 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D707CB0C2E59E82D001FED23 /* HtmlView.swift */; };
 		D70B72742BD3CD2F003C89B4 /* PDFBuild+Chords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */; };
@@ -85,6 +84,10 @@
 		D71E96F42DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F22DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift */; };
 		D71E96F62DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F52DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift */; };
 		D71E96F72DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F52DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift */; };
+		D71ED6C62E7D748100817CD4 /* ChordProviderCore in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6C52E7D748100817CD4 /* ChordProviderCore */; };
+		D71ED6C92E7D749700817CD4 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6C82E7D749700817CD4 /* ChordProviderHTML */; };
+		D71ED6E72E7D74D700817CD4 /* ChordProviderCore in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6E62E7D74D700817CD4 /* ChordProviderCore */; };
+		D71ED6E92E7D74DB00817CD4 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6E82E7D74DB00817CD4 /* ChordProviderHTML */; };
 		D71F864C2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */; };
 		D71F864D2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */; };
 		D71F864F2D843F1900BA57BD /* AppSettings+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */; };
@@ -177,8 +180,6 @@
 		D778F32C2E51C850007CA66E /* ChordDefinition+Status+color.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778F32A2E51C850007CA66E /* ChordDefinition+Status+color.swift */; };
 		D778F3532E51F1B5007CA66E /* Song+Metadata+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778F3522E51F1B5007CA66E /* Song+Metadata+extensions.swift */; };
 		D778F3542E51F1B5007CA66E /* Song+Metadata+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D778F3522E51F1B5007CA66E /* Song+Metadata+extensions.swift */; };
-		D778F3732E51F559007CA66E /* ChordProviderCore in Frameworks */ = {isa = PBXBuildFile; productRef = D778F3722E51F559007CA66E /* ChordProviderCore */; };
-		D778F3752E51F56E007CA66E /* ChordProviderCore in Frameworks */ = {isa = PBXBuildFile; productRef = D778F3742E51F56E007CA66E /* ChordProviderCore */; };
 		D779D3552C68F0D700380175 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D779D3542C68F0D700380175 /* WelcomeView.swift */; };
 		D77CDB1A2D73323100943462 /* SongFileUtils+getSongsFromFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB192D73323100943462 /* SongFileUtils+getSongsFromFolder.swift */; };
 		D77CDB1C2D7334E300943462 /* SongFileUtils+Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77CDB1B2D7334E300943462 /* SongFileUtils+Artist.swift */; };
@@ -362,26 +363,6 @@
 		D70503272D21532B00DB897A /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		D705032F2D2179A400DB897A /* UserFileUtils+bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserFileUtils+bookmark.swift"; sourceTree = "<group>"; };
 		D705033E2D23108300DB897A /* .periphery.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .periphery.yml; sourceTree = "<group>"; };
-		D705033F2D23142700DB897A /* highlight.css.scss */ = {isa = PBXFileReference; lastKnownFileType = text; path = highlight.css.scss; sourceTree = "<group>"; };
-		D70503402D23142700DB897A /* jazzy.css.scss */ = {isa = PBXFileReference; lastKnownFileType = text; path = jazzy.css.scss; sourceTree = "<group>"; };
-		D70503422D23142700DB897A /* carat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = carat.png; sourceTree = "<group>"; };
-		D70503432D23142700DB897A /* dash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dash.png; sourceTree = "<group>"; };
-		D70503442D23142700DB897A /* Icon-macOS-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-macOS-128.png"; sourceTree = "<group>"; };
-		D70503452D23142700DB897A /* spinner.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = spinner.gif; sourceTree = "<group>"; };
-		D70503472D23142700DB897A /* jazzy.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jazzy.js; sourceTree = "<group>"; };
-		D70503482D23142700DB897A /* jazzy.search.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jazzy.search.js; sourceTree = "<group>"; };
-		D70503492D23142700DB897A /* jquery.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = jquery.min.js; sourceTree = "<group>"; };
-		D705034A2D23142700DB897A /* lunr.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = lunr.min.js; sourceTree = "<group>"; };
-		D705034B2D23142700DB897A /* typeahead.jquery.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = typeahead.jquery.js; sourceTree = "<group>"; };
-		D705034E2D23142700DB897A /* deprecation.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = deprecation.mustache; sourceTree = "<group>"; };
-		D705034F2D23142700DB897A /* doc.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = doc.mustache; sourceTree = "<group>"; };
-		D70503502D23142700DB897A /* footer.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = footer.mustache; sourceTree = "<group>"; };
-		D70503512D23142700DB897A /* header.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = header.mustache; sourceTree = "<group>"; };
-		D70503522D23142700DB897A /* nav.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = nav.mustache; sourceTree = "<group>"; };
-		D70503532D23142700DB897A /* parameter.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameter.mustache; sourceTree = "<group>"; };
-		D70503542D23142700DB897A /* task.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = task.mustache; sourceTree = "<group>"; };
-		D70503552D23142700DB897A /* tasks.mustache */ = {isa = PBXFileReference; lastKnownFileType = text; path = tasks.mustache; sourceTree = "<group>"; };
-		D70503572D23142700DB897A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		D70503592D23250200DB897A /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		D706FD6F2BCECC9F005DEDF6 /* PDFBuild+Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Background.swift"; sourceTree = "<group>"; };
 		D706FD702BCECC9F005DEDF6 /* PDFBuild+Clip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Clip.swift"; sourceTree = "<group>"; };
@@ -427,7 +408,6 @@
 		D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Style.swift"; sourceTree = "<group>"; };
 		D71F86522D8593B500BA57BD /* FontUtils+SFSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontUtils+SFSymbol.swift"; sourceTree = "<group>"; };
 		D72B610F2C16E4170027B235 /* UserFileUtils+Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserFileUtils+Selection.swift"; sourceTree = "<group>"; };
-		D72D4FE82DC4C736000F9E9C /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		D730BB9F2CA844C2008719F2 /* Midi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Midi.swift; sourceTree = "<group>"; };
 		D730BBA52CA844C2008719F2 /* Collection+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+extensions.swift"; sourceTree = "<group>"; };
 		D730BBA72CA844C2008719F2 /* Sequence+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Sequence+extensions.swift"; sourceTree = "<group>"; };
@@ -646,8 +626,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D778F3732E51F559007CA66E /* ChordProviderCore in Frameworks */,
-				D707CB092E59C6B7001FED23 /* ChordProviderHTML in Frameworks */,
+				D71ED6C62E7D748100817CD4 /* ChordProviderCore in Frameworks */,
+				D71ED6C92E7D749700817CD4 /* ChordProviderHTML in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,82 +635,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D71ED6E92E7D74DB00817CD4 /* ChordProviderHTML in Frameworks */,
 				D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */,
-				D778F3752E51F56E007CA66E /* ChordProviderCore in Frameworks */,
+				D71ED6E72E7D74D700817CD4 /* ChordProviderCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D70503412D23142700DB897A /* css */ = {
-			isa = PBXGroup;
-			children = (
-				D705033F2D23142700DB897A /* highlight.css.scss */,
-				D70503402D23142700DB897A /* jazzy.css.scss */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		D70503462D23142700DB897A /* img */ = {
-			isa = PBXGroup;
-			children = (
-				D70503422D23142700DB897A /* carat.png */,
-				D70503432D23142700DB897A /* dash.png */,
-				D70503442D23142700DB897A /* Icon-macOS-128.png */,
-				D70503452D23142700DB897A /* spinner.gif */,
-			);
-			path = img;
-			sourceTree = "<group>";
-		};
-		D705034C2D23142700DB897A /* js */ = {
-			isa = PBXGroup;
-			children = (
-				D70503472D23142700DB897A /* jazzy.js */,
-				D70503482D23142700DB897A /* jazzy.search.js */,
-				D70503492D23142700DB897A /* jquery.min.js */,
-				D705034A2D23142700DB897A /* lunr.min.js */,
-				D705034B2D23142700DB897A /* typeahead.jquery.js */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		D705034D2D23142700DB897A /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				D70503412D23142700DB897A /* css */,
-				D70503462D23142700DB897A /* img */,
-				D705034C2D23142700DB897A /* js */,
-			);
-			path = assets;
-			sourceTree = "<group>";
-		};
-		D70503562D23142700DB897A /* templates */ = {
-			isa = PBXGroup;
-			children = (
-				D705034E2D23142700DB897A /* deprecation.mustache */,
-				D705034F2D23142700DB897A /* doc.mustache */,
-				D70503502D23142700DB897A /* footer.mustache */,
-				D70503512D23142700DB897A /* header.mustache */,
-				D70503522D23142700DB897A /* nav.mustache */,
-				D70503532D23142700DB897A /* parameter.mustache */,
-				D70503542D23142700DB897A /* task.mustache */,
-				D70503552D23142700DB897A /* tasks.mustache */,
-			);
-			path = templates;
-			sourceTree = "<group>";
-		};
-		D70503582D23142700DB897A /* JazzyTheme */ = {
-			isa = PBXGroup;
-			children = (
-				D705034D2D23142700DB897A /* assets */,
-				D70503562D23142700DB897A /* templates */,
-				D70503572D23142700DB897A /* README.md */,
-			);
-			name = JazzyTheme;
-			path = Resources/JazzyTheme;
-			sourceTree = "<group>";
-		};
 		D706FD7E2BCECC9F005DEDF6 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
@@ -1198,10 +1111,8 @@
 				D7C725CA2BFF5A92006D9C74 /* .jazzy.yaml */,
 				D705033E2D23108300DB897A /* .periphery.yml */,
 				D7A384D32BEAD9480020221C /* README.md */,
-				D72D4FE82DC4C736000F9E9C /* CHANGELOG.md */,
 				D7F13F712A645FEC002D875D /* Chord Provider */,
 				D7F13FF72A646356002D875D /* Frameworks */,
-				D70503582D23142700DB897A /* JazzyTheme */,
 				D7F13F702A645FEC002D875D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1395,6 +1306,8 @@
 			packageProductDependencies = (
 				D778F3722E51F559007CA66E /* ChordProviderCore */,
 				D707CB082E59C6B7001FED23 /* ChordProviderHTML */,
+				D71ED6C52E7D748100817CD4 /* ChordProviderCore */,
+				D71ED6C82E7D749700817CD4 /* ChordProviderHTML */,
 			);
 			productName = "Chord Provider";
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
@@ -1414,7 +1327,8 @@
 			);
 			name = "ChordPro Preview";
 			packageProductDependencies = (
-				D778F3742E51F56E007CA66E /* ChordProviderCore */,
+				D71ED6E62E7D74D700817CD4 /* ChordProviderCore */,
+				D71ED6E82E7D74DB00817CD4 /* ChordProviderHTML */,
 			);
 			productName = "QLExtension (macOS)";
 			productReference = D7F13FF62A646356002D875D /* ChordPro Preview.appex */;
@@ -1452,8 +1366,8 @@
 			);
 			mainGroup = D7F13F662A645FEC002D875D;
 			packageReferences = (
-				D778F3712E51F559007CA66E /* XCLocalSwiftPackageReference "ChordProviderCore" */,
-				D707CB072E59C6B7001FED23 /* XCLocalSwiftPackageReference "ChordProviderHTML" */,
+				D71ED6C42E7D748100817CD4 /* XCLocalSwiftPackageReference "../ChordProviderCore" */,
+				D71ED6C72E7D749700817CD4 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
@@ -2257,13 +2171,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D707CB072E59C6B7001FED23 /* XCLocalSwiftPackageReference "ChordProviderHTML" */ = {
+		D71ED6C42E7D748100817CD4 /* XCLocalSwiftPackageReference "../ChordProviderCore" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ChordProviderHTML;
+			relativePath = ../ChordProviderCore;
 		};
-		D778F3712E51F559007CA66E /* XCLocalSwiftPackageReference "ChordProviderCore" */ = {
+		D71ED6C72E7D749700817CD4 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ChordProviderCore;
+			relativePath = ../ChordProviderHTML;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -2272,13 +2186,26 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = ChordProviderHTML;
 		};
-		D778F3722E51F559007CA66E /* ChordProviderCore */ = {
+		D71ED6C52E7D748100817CD4 /* ChordProviderCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ChordProviderCore;
 		};
-		D778F3742E51F56E007CA66E /* ChordProviderCore */ = {
+		D71ED6C82E7D749700817CD4 /* ChordProviderHTML */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D778F3712E51F559007CA66E /* XCLocalSwiftPackageReference "ChordProviderCore" */;
+			productName = ChordProviderHTML;
+		};
+		D71ED6E62E7D74D700817CD4 /* ChordProviderCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D71ED6C42E7D748100817CD4 /* XCLocalSwiftPackageReference "../ChordProviderCore" */;
+			productName = ChordProviderCore;
+		};
+		D71ED6E82E7D74DB00817CD4 /* ChordProviderHTML */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D71ED6C72E7D749700817CD4 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */;
+			productName = ChordProviderHTML;
+		};
+		D778F3722E51F559007CA66E /* ChordProviderCore */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = ChordProviderCore;
 		};
 /* End XCSwiftPackageProductDependency section */
