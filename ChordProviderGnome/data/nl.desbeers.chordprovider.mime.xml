@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="application/x-chordpro">
+    <sub-class-of type="text/plain"/>
+    <generic-icon name="nl.desbeers.chordprovider-doc"/>
+    <glob pattern="*.cho" weight="80"/>
+    <glob pattern="*.chordpro" weight="100"/>
+    <glob pattern="*.chopro" weight="100"/>
+    <glob pattern="*.crd" weight="50"/>
+    <comment>ChordPro song</comment>
+  </mime-type>
+</mime-info>

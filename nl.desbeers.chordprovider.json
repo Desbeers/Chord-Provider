@@ -11,7 +11,8 @@
     "--share=ipc",
     "--socket=fallback-x11",
     "--device=dri",
-    "--socket=wayland"
+    "--socket=wayland",
+    "--filesystem=host"
   ],
   "build-options": {
     "append-path": "/usr/lib/sdk/swift6/bin",
@@ -43,10 +44,15 @@
         "cd ChordProviderGnome && swift build -c release --static-swift-stdlib",
         "install -Dm755 ChordProviderGnome/.build/release/ChordProvider /app/bin/ChordProvider",
         "install -Dm644 ChordProviderGnome/.build/release/GtkSourceView_SourceView.resources/chordpro.lang /app/bin/GtkSourceView_SourceView.resources/chordpro.lang",
-        "install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.metainfo.xml /app/share/metainfo/nl.desbeers.chordprovider.metainfo.xml",
-        "install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.desktop /app/share/applications/nl.desbeers.chordprovider.desktop",
         "install -Dm644 ChordProviderGnome/data/icons/nl.desbeers.chordprovider.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",
-        "install -Dm644 ChordProviderGnome/data/icons/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg"
+        "install -Dm644 ChordProviderGnome/data/icons/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg",
+        "install -Dm644 ChordProviderGnome/data/icons/nl.desbeers.chordprovider-mime.svg /app/share/icons/hicolor/scalable/mimetypes/nl.desbeers.chordprovider-doc.svg",
+	"install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.metainfo.xml /app/share/metainfo/nl.desbeers.chordprovider.metainfo.xml",
+	"install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.desktop /app/share/applications/nl.desbeers.chordprovider.desktop",
+	"mkdir -p /app/share/mime/packages/",
+	"install -m644 -p -t /app/share/mime/packages ChordProviderGnome/data/nl.desbeers.chordprovider.mime.xml",
+	"update-mime-database /app/share/mime",
+	"desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop"
       ]
     }
   ]
