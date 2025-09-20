@@ -18,6 +18,13 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
 {
     cchord *data = user_data;
 
+    GtkSettings *settings = gtk_settings_get_default();
+    gboolean is_dark_mode = FALSE;
+    g_object_get(G_OBJECT(settings), "gtk-application-prefer-dark-theme",
+                 &is_dark_mode, NULL);
+
+    const double color = is_dark_mode ? 1 : 0;
+
     char finger[3];
 
     int margin = 20;
@@ -31,7 +38,7 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
       cairo_set_font_size(cr, 9);
 
     // Draw strings
-    cairo_set_source_rgb(cr, 0, 0, 0);
+    cairo_set_source_rgb(cr, color, color, color);
     cairo_set_line_width(cr, 0.2);
     for (int i = 0; i < data->strings; ++i) {
         double x = margin + i * string_spacing;
@@ -42,14 +49,14 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
 
     // Draw top bar or base fret
     if (data->base_fret == 1) {
-        cairo_set_source_rgb(cr, 0, 0, 0);
+        cairo_set_source_rgb(cr, color, color, color);
         cairo_set_line_width(cr, 2);
         cairo_move_to(cr, margin - 1, margin);
         cairo_line_to(cr, width - margin + 1, margin);
         cairo_stroke(cr);
         cairo_set_line_width(cr, 0.2);
     } else {
-        cairo_set_source_rgb(cr, 0, 0, 0);
+        cairo_set_source_rgb(cr, color, color, color);
         cairo_move_to(cr, margin - 15, margin + fret_spacing / 1.5);
         sprintf(finger, "%d", data->base_fret);
         cairo_show_text(cr, finger);
