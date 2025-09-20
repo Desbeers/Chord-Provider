@@ -3,20 +3,20 @@
 #define NUM_STRINGS 6
 #define NUM_FRETS 5
 
-struct ChordInC {
+struct cchord {
     int strings;
-    int baseFret;
+    int base_fret;
     int frets[6];
     int fingers[6];
 };
-typedef struct ChordInC ChordInC;
+typedef struct cchord cchord;
 
 
 
 static void
 draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer user_data)
 {
-    ChordInC *data = user_data;
+    cchord *data = user_data;
 
     char finger[3];
 
@@ -41,7 +41,7 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
     cairo_stroke(cr);
 
     // Draw top bar or base fret
-    if (data->baseFret == 1) {
+    if (data->base_fret == 1) {
         cairo_set_source_rgb(cr, 0, 0, 0);
         cairo_set_line_width(cr, 2);
         cairo_move_to(cr, margin - 1, margin);
@@ -51,7 +51,7 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
     } else {
         cairo_set_source_rgb(cr, 0, 0, 0);
         cairo_move_to(cr, margin - 15, margin + fret_spacing / 1.5);
-        sprintf(finger, "%d", data->baseFret);
+        sprintf(finger, "%d", data->base_fret);
         cairo_show_text(cr, finger);
     }
 

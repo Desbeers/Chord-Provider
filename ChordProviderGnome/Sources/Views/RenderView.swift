@@ -31,7 +31,7 @@ struct RenderView: View {
                 VStack {
                     Text(song.metadata.title, font: .title, zoom: settings.app.zoom)
                         .useMarkup()
-                    Text(song.metadata.subtitle ?? "", font: .subtitle, zoom: settings.app.zoom)
+                    Text(song.metadata.subtitle ?? song.metadata.artist, font: .subtitle, zoom: settings.app.zoom)
                         .useMarkup()
                     GtkRender.SectionsView(song: song, settings: settings)
                         .halign(.center)

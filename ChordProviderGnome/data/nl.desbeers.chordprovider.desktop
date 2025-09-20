@@ -9,3 +9,5 @@ Categories=Music;GNOME;
 Icon=nl.desbeers.chordprovider
 Exec=ChordProvider
 Terminal=false
+Keywords=music,typesetting,lead sheet
+MimeType=application/x-chordpro;

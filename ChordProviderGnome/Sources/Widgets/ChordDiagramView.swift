@@ -13,43 +13,14 @@ import ChordProviderCore
 
 /// The `AdwaitaWidget` for a chord diagram
 public struct ChordDiagramView: AdwaitaWidget {
-    /// The chord definition
-    let chord: ChordDefinition
-    /// The id of the chord
-    let chordID = "chord"
     /// The `C` version of the chord definition
-    let cchord = UnsafeMutablePointer<ChordInC>.allocate(capacity: 1)
+    let cchord = UnsafeMutablePointer<cchord>.allocate(capacity: 1)
     /// Init the `widget`
     public init(
         chord: ChordDefinition
     ) {
-        self.chord = chord
-    }
-    /// The view storage.
-    /// - Parameters:
-    ///     - data: The widget data.
-    ///     - type: The view render data type.
-    /// - Returns: The view storage.
-    public func container<Data>(
-        data: WidgetData,
-        type: Data.Type
-    ) -> ViewStorage where Data: ViewRenderData {
-        let drawingArea = gtk_drawing_area_new()
-        gtk_drawing_area_set_content_height(drawingArea?.cast(), 120)
-
-        let content: [String: [ViewStorage]] = [:]
-        let storage = ViewStorage(drawingArea?.opaque(), content: content)
-        return storage
-    }
-
-    public func update<Data>(
-        _ storage: ViewStorage,
-        data: WidgetData,
-        updateProperties: Bool,
-        type: Data.Type
-    ) where Data: ViewRenderData {
         cchord.pointee.strings = Int32(chord.instrument.strings.count)
-        cchord.pointee.baseFret = Int32(chord.baseFret)
+        cchord.pointee.base_fret = Int32(chord.baseFret)
         cchord.pointee.frets = (
             Int32(chord.frets[safe: 0] ?? 0),
             Int32(chord.frets[safe: 1] ?? 0),
@@ -66,6 +37,29 @@ public struct ChordDiagramView: AdwaitaWidget {
             Int32(chord.fingers[safe: 4] ?? 0),
             Int32(chord.fingers[safe: 5] ?? 0)
         )
+    }
+    /// The view storage.
+    /// - Parameters:
+    ///     - data: The widget data.
+    ///     - type: The view render data type.
+    /// - Returns: The view storage.
+    public func container<Data>(
+        data: WidgetData,
+        type: Data.Type
+    ) -> ViewStorage where Data: ViewRenderData {
+        let drawingArea = gtk_drawing_area_new()
+        gtk_drawing_area_set_content_height(drawingArea?.cast(), 120)
+        let content: [String: [ViewStorage]] = [:]
+        let storage = ViewStorage(drawingArea?.opaque(), content: content)
+        return storage
+    }
+
+    public func update<Data>(
+        _ storage: ViewStorage,
+        data: WidgetData,
+        updateProperties: Bool,
+        type: Data.Type
+    ) where Data: ViewRenderData {
         gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
     }
 }

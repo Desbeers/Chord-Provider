@@ -22,6 +22,15 @@ struct AppSettings: Codable {
         } else {
             print("No settings found, creating new one")
         }
+        /// Open an optional song URL
+        if let fileURL = CommandLine.arguments[safe: 1] {
+            let url = URL(filePath: fileURL)
+            if let content = try? String(contentsOf: url, encoding: .utf8) {
+                self.app.source = content
+                self.app.originalSource = content
+                self.core.songURL = url
+            }
+        }
     }
 
     /// Core settings
