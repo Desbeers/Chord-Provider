@@ -11,7 +11,7 @@ import Foundation
 /// The Chord Provider application
 @main struct ChordProvider: App {
     /// Give it an unique ID so Files does not open new windows
-    let app = AdwaitaApp(id: "nl.desbeers.chordprovider.\(UUID().uuidString)")
+    let app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(UUID().uuidString)")
 
     @State("width") private var width = 800
     @State("height") private var height = 600
