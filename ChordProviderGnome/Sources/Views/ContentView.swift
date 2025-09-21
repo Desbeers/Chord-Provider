@@ -16,15 +16,12 @@ struct ContentView: View {
     var app: AdwaitaApp
     /// The `AdwaitaWindow`
     var window: AdwaitaWindow
-    /// The optional URL of a song
-    var url: URL?
     /// The ``AppSettings``
-    @State private var settings = AppSettings()
+    @Binding var settings: AppSettings
     /// The unique id
     let id = UUID()
     /// The body of the `View`
     var view: Body {
-
         HSplitView(splitter: $settings.editor.splitter) {
             EditorView(settings: $settings)
         } end: {

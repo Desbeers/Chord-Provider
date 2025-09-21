@@ -1,8 +1,5 @@
 #include <gtk/gtk.h>
 
-#define NUM_STRINGS 6
-#define NUM_FRETS 5
-
 struct cchord {
     int strings;
     int base_fret;
@@ -11,31 +8,27 @@ struct cchord {
 };
 typedef struct cchord cchord;
 
-
-
 static void
 draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer user_data)
 {
     cchord *data = user_data;
-
+    // Set light or dark mode
     GtkSettings *settings = gtk_settings_get_default();
     gboolean is_dark_mode = FALSE;
     g_object_get(G_OBJECT(settings), "gtk-application-prefer-dark-theme",
                  &is_dark_mode, NULL);
-
     const double color = is_dark_mode ? 1 : 0;
 
     char finger[3];
-
     int margin = 20;
-    double fret_spacing = (height - 2 * margin) / (double)NUM_FRETS;
+    double fret_spacing = (height - 2 * margin) / (double)5;
     double string_spacing = (width - 2 * margin) / (double)(data->strings - 1);
 
-    cairo_select_font_face(cr, "monospace",
+    /// Set the font
+    cairo_select_font_face(cr, "Adwaita Mono",
           CAIRO_FONT_SLANT_NORMAL,
           CAIRO_FONT_WEIGHT_NORMAL);
-
-      cairo_set_font_size(cr, 9);
+    cairo_set_font_size(cr, 11);
 
     // Draw strings
     cairo_set_source_rgb(cr, color, color, color);
@@ -63,7 +56,7 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
     }
 
     // Draw frets
-    for (int i = 0; i <= NUM_FRETS; ++i) {
+    for (int i = 0; i <= 5; ++i) {
         double y = margin + i * fret_spacing;
         cairo_move_to(cr, margin, y);
         cairo_line_to(cr, width - margin, y);
@@ -96,7 +89,7 @@ draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer us
             cairo_fill(cr);
             if (data->fingers[i] > 0) {
                 sprintf(finger, "%d", data->fingers[i]);
-                cairo_move_to(cr, x - 2.5, y + 3);
+                cairo_move_to(cr, x - 3, y + 4);
                 cairo_set_source_rgb(cr, 1, 1, 1);
                 cairo_show_text(cr, finger);
                 cairo_new_path(cr);

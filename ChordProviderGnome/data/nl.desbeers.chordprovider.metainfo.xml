@@ -8,18 +8,30 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   
+  <releases>
+    <release date="2025-09-20" version="0.1.0"/>
+  </releases>
+
   <supports>
     <control>pointing</control>
     <control>keyboard</control>
     <control>touch</control>
   </supports>
   
+  <content_rating type="oars-1.1"/>
+
+  <developer id="nl.desbeers">
+    <name translatable="no">Nick Berendsen</name>
+  </developer>
+
   <description>
     <p>
-      A ChordPro viewer and editor for Gnome
+      A ChordPro viewer and editor for Gnome that show the source in a beautiful view with chord diagrams.
     </p>
   </description>
   
+  <url type="homepage">https://github.com/Desbeers/Chord-Provider</url>
+
   <launchable type="desktop-id">nl.desbeers.chordprovider.desktop</launchable>
 </component>
 

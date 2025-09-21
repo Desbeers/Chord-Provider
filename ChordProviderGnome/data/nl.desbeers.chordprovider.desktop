@@ -1,11 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-
 Name=Chord Provider
 Comment=A ChordPro viewer and editor
 Categories=Music;GNOME;
-
 Icon=nl.desbeers.chordprovider
 Exec=ChordProvider
 Terminal=false
