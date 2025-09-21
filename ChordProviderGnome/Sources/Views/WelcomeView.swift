@@ -18,23 +18,25 @@ struct WelcomeView: View {
     /// The body of the `View`
     var view: Body {
         VStack(spacing: 0) {
-            ScrollView {
-                if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
-                    Picture()
-                        .data(data)
-                        .frame(maxWidth: 100)
-                        .frame(maxHeight: 100)
-                        .padding()
-                }
-                VStack(spacing: 20) {
-                    if settings.app.recentSongs.isEmpty {
-                        Button("Open a Song") {
-                            settings.app.openSong.signal()
-                        }
-                        .halign(.center)
-                    } else {
-                        Text("Recent Songs", font: .title, zoom: settings.app.zoom)
-                            .useMarkup()
+            if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
+                Picture()
+                    .data(data)
+                    .frame(maxWidth: 200)
+                    .frame(maxHeight: 200)
+                    .padding()
+            }
+            VStack(spacing: 20) {
+                if settings.app.recentSongs.isEmpty {
+                    Button("Open a Song") {
+                        settings.app.openSong.signal()
+                    }
+                    .halign(.center)
+                    .valign(.center)
+                    .suggested()
+                } else {
+                    Text("Recent Songs", font: .title, zoom: settings.app.zoom)
+                        .useMarkup()
+                    ScrollView {
                         VStack(spacing: 10) {
                             ForEach(settings.app.recentSongs) {songURL in
                                 Button(songURL.url.lastPathComponent, icon: .default(icon: .documentOpen)) {
@@ -49,47 +51,49 @@ struct WelcomeView: View {
                                     }
                                     settings.app.showToast.signal()
                                 }
-                                .padding()
+                                .hasFrame(false)
+                                .halign(.start)
                             }
                         }
-                        .card()
-                        .frame(minWidth: 400)
                         .halign(.center)
                         .padding()
-                        HStack(spacing: 10) {
-                            Button("Open another Song") {
-                                settings.app.openSong.signal()
-                            }
-                            .suggested()
-                            Button("Clear recent Songs") {
-                                settings.app.clearRecentSongs()
-                            }
-                        }
-                        .halign(.center)
                     }
-                    Text("Create a new song", font: .title, zoom: settings.app.zoom)
-                        .useMarkup()
+                    .vexpand()
+                    .card()
+                    .padding()
                     HStack(spacing: 10) {
-                        Button("Open an Empty Song") {
-                            settings.app.source = emptySong
-                            settings.app.originalSource = emptySong
-                            settings.editor.showEditor = true
-                            settings.editor.splitter = settings.editor.restoreSplitter
+                        Button("Open another Song") {
+                            settings.app.openSong.signal()
                         }
-                        .padding()
-                        Button("Open a Sample Song") {
-                            settings.app.source = sampleSong
-                            settings.app.originalSource = sampleSong
-                            settings.editor.showEditor = true
-                            settings.editor.splitter = settings.editor.restoreSplitter
+                        .suggested()
+                        Button("Clear recent Songs") {
+                            settings.app.clearRecentSongs()
                         }
-                        .padding()
                     }
                     .halign(.center)
                 }
-                .hexpand()
-                .vexpand()
+                Text("Create a new song", font: .title, zoom: settings.app.zoom)
+                    .useMarkup()
+                HStack {
+                    Button("Start with an empty Song") {
+                        settings.app.source = emptySong
+                        settings.app.originalSource = emptySong
+                        settings.editor.showEditor = true
+                        settings.editor.splitter = settings.editor.restoreSplitter
+                    }
+                    .padding()
+                    Button("Start with a sample Song") {
+                        settings.app.source = sampleSong
+                        settings.app.originalSource = sampleSong
+                        settings.editor.showEditor = true
+                        settings.editor.splitter = settings.editor.restoreSplitter
+                    }
+                    .padding()
+                }
+                .halign(.center)
             }
+            .hexpand()
+            .vexpand()
         }
         .padding(40)
     }

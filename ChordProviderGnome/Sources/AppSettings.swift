@@ -31,6 +31,8 @@ struct AppSettings: Codable {
                 self.core.songURL = url
                 /// Append to recent
                 self.app.addRecentSong(songURL: url)
+                /// Save it
+                try? SettingsCache.set(id: "ChordProviderGnome", object: self)
             }
         }
         if app.source.isEmpty {
