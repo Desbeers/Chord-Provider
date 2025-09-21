@@ -26,12 +26,18 @@ struct ContentView: View {
             EditorView(settings: $settings)
         } end: {
             VStack {
-                RenderView(render: settings.app.source, id: id, settings: settings)
-                    .hexpand()
-                    .vexpand()
-                if settings.editor.showEditor {
-                    LogView()
-                        .transition(.coverUpDown)
+                if settings.app.source.isEmpty {
+                    WelcomeView(settings: $settings)
+                        .vexpand()
+                        .hexpand()
+                } else {
+                    RenderView(render: settings.app.source, id: id, settings: settings)
+                        .hexpand()
+                        .vexpand()
+                    if settings.editor.showEditor {
+                        LogView()
+                            .transition(.coverUpDown)
+                    }
                 }
             }
         }
@@ -102,6 +108,8 @@ struct ContentView: View {
                 /// Show the toast
                 settings.app.toastMessage = "Opened \(url.deletingPathExtension().lastPathComponent)"
                 settings.app.showToast.signal()
+                /// Append to recent
+                settings.app.addRecentSong(songURL: url)
             }
         } onClose: {
             /// Nothing to do

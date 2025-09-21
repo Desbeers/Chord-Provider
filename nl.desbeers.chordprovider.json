@@ -43,6 +43,7 @@
       "build-commands": [
         "cd ChordProviderGnome && swift build -c release --static-swift-stdlib",
         "install -Dm755 ChordProviderGnome/.build/release/ChordProvider /app/bin/ChordProvider",
+        "install -Dm644 ChordProviderGnome/.build/release/ChordProvider_ChordProvider.resources/nl.desbeers.chordprovider.svg /app/bin/ChordProvider_ChordProvider.resources/nl.desbeers.chordprovider.svg",
         "install -Dm644 ChordProviderGnome/.build/release/GtkSourceView_SourceView.resources/chordpro.lang /app/bin/GtkSourceView_SourceView.resources/chordpro.lang",
         "install -Dm644 ChordProviderGnome/data/icons/nl.desbeers.chordprovider.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",
         "install -Dm644 ChordProviderGnome/data/icons/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg",
@@ -57,3 +58,5 @@
     }
   ]
 }
+
+ChordProvider_ChordProvider.bundle/Contents/Resources/nl.desbeers.chordprovider.svg

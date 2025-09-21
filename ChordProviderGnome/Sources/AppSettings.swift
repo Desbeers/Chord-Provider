@@ -29,7 +29,13 @@ struct AppSettings: Codable {
                 self.app.source = content
                 self.app.originalSource = content
                 self.core.songURL = url
+                /// Append to recent
+                self.app.addRecentSong(songURL: url)
             }
+        }
+        if app.source.isEmpty {
+            editor.showEditor = false
+            editor.splitter = 0
         }
     }
 
@@ -76,9 +82,9 @@ extension AppSettings {
     struct App: Codable {
         var id: UUID = UUID()
         /// The source of the song
-        var source = sampleSong
+        var source = ""
         /// The original source of the song when opened or created
-        var originalSource = sampleSong
+        var originalSource = ""
         /// A signal to open a song
         var openSong = Signal()
         /// A signal to save as song with a new name
@@ -101,8 +107,21 @@ extension AppSettings {
         var showToast = Signal()
         /// The toast message
         var toastMessage: String = ""
+        /// Recent songs
+        private(set) var recentSongs: [URLElement] = []
+        /// The Coding Keys
         enum CodingKeys: CodingKey {
             case zoom
+            case recentSongs
+        }
+        mutating func addRecentSong(songURL: URL) {
+            var recent = self.recentSongs
+            recent.removeAll { $0.url == songURL }
+            recent.insert(URLElement(url: songURL), at: 0)
+            self.recentSongs = Array(recent.prefix(10))
+        }
+        mutating func clearRecentSongs() {
+            self.recentSongs = []
         }
     }
 }
@@ -135,6 +154,15 @@ extension AppSettings {
         }
         /// Remember the splitter position when hiding the editor
         var restoreSplitter: Int = 400
+    }
+}
+
+extension AppSettings {
+    struct URLElement: Identifiable, Codable{
+
+        var id = UUID()
+        var url: URL
+
     }
 }
 

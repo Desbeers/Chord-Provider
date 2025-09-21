@@ -40,8 +40,12 @@ struct RenderView: View {
                 .hexpand()
             }
             Separator()
-            ChordsView(song: song, settings: settings)
-                .frame(minWidth: 100)
+            if !song.chords.isEmpty {
+                ChordsView(song: song, settings: settings)
+                    .frame(minWidth: 100)
+                    .transition(.coverLeftRight)
+            }
+
         }
     }
 }

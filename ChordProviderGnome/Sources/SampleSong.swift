@@ -7,12 +7,17 @@
 
 import Foundation
 
-/// The sample song
+/// The empty song
+let emptySong = """
+{title New Song}
+{artist New Artist}
+"""
+
 let sampleSong = """
 # Example of a simple ChordPro song.
 
-{title Swing Low Sweet Chariot}
-{subtitle Traditional}
+{title New Song}
+{artist New Artist}
 
 {start_of_textblock}
 Welcome to the <i>sneak preview</i> of <b>Chord Provider</b> for <b>Gnome</b>!

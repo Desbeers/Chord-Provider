@@ -40,3 +40,21 @@ extension SongFileUtils {
         }
     }
 }
+
+extension SongFileUtils {
+
+    /// Get the song content
+    /// - Parameters:
+    ///   - fileURL: The URL of the file
+    /// - Returns: The parsed ``Song``
+    public static func getSongContent(
+        fileURL: URL
+    ) throws -> String {
+        do {
+            let content = try String(contentsOf: fileURL, encoding: .utf8)
+            return content
+        } catch {
+            throw ChordProviderError.fileNotFound
+        }
+    }
+}

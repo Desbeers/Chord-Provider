@@ -30,7 +30,12 @@ let package = Package(
                 .product(name: "ChordProviderHTML", package: "ChordProviderHTML"),
                 .product(name: "SourceView", package: "GtkSourceView")
             ],
-            path: "Sources"
+            path: "Sources",
+            resources: [
+                .copy("Resources/nl.desbeers.chordprovider.svg"),
+                .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),
+                .copy("Resources/nl.desbeers.chordprovider-mime.svg")
+            ],
         ),
         .systemLibrary(
             name: "CChordProvider",
