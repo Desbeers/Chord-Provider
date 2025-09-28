@@ -38,6 +38,7 @@ struct AppSettings: Codable {
         if app.source.isEmpty {
             editor.showEditor = false
             editor.splitter = 0
+            app.showWelcome = true
         }
     }
 
@@ -99,6 +100,8 @@ extension AppSettings {
         var transposeDialog = false
         /// Bool if the song is  *Transposed*
         var isTransposed = false
+        /// Bool if the welcome is shown
+        var showWelcome: Bool = false
         /// Bool if the preferences is shown
         var showPreferences: Bool = false
         /// Bool if the close dialog is shown
@@ -120,7 +123,7 @@ extension AppSettings {
             var recent = self.recentSongs
             recent.removeAll { $0.url == songURL }
             recent.insert(URLElement(url: songURL), at: 0)
-            self.recentSongs = Array(recent.prefix(10))
+            self.recentSongs = Array(recent.prefix(100))
         }
         mutating func clearRecentSongs() {
             self.recentSongs = []

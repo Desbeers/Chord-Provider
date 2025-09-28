@@ -18,11 +18,13 @@ struct ToolbarView: View {
     var view: Body {
         HeaderBar {
             Toggle(icon: .default(icon: .textEditor), isOn: $settings.editor.showEditor) {
-                switch settings.editor.showEditor {
-                case true:
-                    settings.editor.splitter = settings.editor.restoreSplitter
-                case false:
-                    settings.editor.splitter = 0
+                if !settings.app.showWelcome {
+                    switch settings.editor.showEditor {
+                    case true:
+                        settings.editor.splitter = settings.editor.restoreSplitter
+                    case false:
+                        settings.editor.splitter = 0
+                    }
                 }
             }
             .tooltip("Show the editor")
@@ -40,10 +42,19 @@ struct ToolbarView: View {
                         settings.app.saveDoneAction = .openSong
                         settings.app.showDirtyClose = true
                     } else {
-                        settings.app.openSong.signal()
+                        settings.app.source = ""
+                        settings.app.originalSource = ""
+                        settings.core.songURL = nil
+                        settings.editor.showEditor = false
+                        settings.editor.splitter = 0
+                        settings.app.showWelcome = true
                     }
                 }
                 .keyboardShortcut("o".ctrl())
+//                MenuButton("Welcome") {
+//                    settings.app.source = ""
+//                }
+//                .keyboardShortcut("o".ctrl())
                 MenuButton("Save") {
                     if let songURL = settings.core.songURL {
                         try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)

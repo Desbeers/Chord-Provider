@@ -26,7 +26,7 @@ struct ContentView: View {
             EditorView(settings: $settings)
         } end: {
             VStack {
-                if settings.app.source.isEmpty {
+                if settings.app.showWelcome {
                     WelcomeView(settings: $settings)
                         .vexpand()
                         .hexpand()
@@ -110,6 +110,8 @@ struct ContentView: View {
                 settings.app.showToast.signal()
                 /// Append to recent
                 settings.app.addRecentSong(songURL: url)
+                /// Hide the welcome
+                settings.app.showWelcome = false
             }
         } onClose: {
             /// Nothing to do
