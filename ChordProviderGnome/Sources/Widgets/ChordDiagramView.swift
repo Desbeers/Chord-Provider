@@ -83,8 +83,9 @@ public struct ChordDiagramView: AdwaitaWidget {
     }
 }
 
+/// Declare C function implementations as `public` to ensure they're not optimized away.
 @_cdecl("draw_chord_swift")
-private func drawChord(
+public func drawChord(
     cr: OpaquePointer!,
     width: Int32,
     height: Int32,
