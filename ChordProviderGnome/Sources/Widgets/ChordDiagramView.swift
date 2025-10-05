@@ -135,8 +135,8 @@ public func drawChord(
     )
     cairo_set_font_size(cr, 8)
 
-    cairo_set_source_rgb(cr, color, color, color);
-    cairo_set_line_width(cr, 0.2);
+    cairo_set_source_rgb(cr, color, color, color)
+    cairo_set_line_width(cr, 0.2)
 
     /// Draw strings
     for i in 0..<strings {
@@ -163,65 +163,65 @@ public func drawChord(
 
     /// Draw frets
     for i in 0..<6 {
-        let y = margin + Double(i) * fretSpacing;
-        cairo_move_to(cr, margin, y);
-        cairo_line_to(cr, width - margin, y);
+        let y = margin + Double(i) * fretSpacing
+        cairo_move_to(cr, margin, y)
+        cairo_line_to(cr, width - margin, y)
     }
     cairo_stroke(cr);
 
     /// Draw finger positions
     for i in 0..<strings {
-        let x = margin + Double(i) * stringSpacing;
+        let x = margin + Double(i) * stringSpacing
         if (frets[i] == -1) {
             /// Muted string: draw X
             cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-            cairo_move_to(cr, x-3, margin-11);
-            cairo_line_to(cr, x+3, margin-5);
-            cairo_move_to(cr, x+3, margin-11);
-            cairo_line_to(cr, x-3, margin-5);
-            cairo_set_line_width(cr, 1);
+            cairo_move_to(cr, x-3, margin-11)
+            cairo_line_to(cr, x+3, margin-5)
+            cairo_move_to(cr, x+3, margin-11)
+            cairo_line_to(cr, x-3, margin-5)
+            cairo_set_line_width(cr, 1)
             cairo_stroke(cr);
         } else if frets[i] == 0 {
             /// Open string: draw open circle
             cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-            cairo_arc(cr, x, margin-8, 3, 0, 2 * G_PI);
-            cairo_set_line_width(cr, 1);
-            cairo_stroke(cr);
+            cairo_arc(cr, x, margin-8, 3, 0, 2 * G_PI)
+            cairo_set_line_width(cr, 1)
+            cairo_stroke(cr)
         } else if frets[i] > 0 {
 
             if let barre = barres.first(where: {$0.fret == frets[i]}) {
                 /// Draw barre
                 let x = margin + (stringSpacing * Double(barre.startIndex)) - (stringSpacing / 2)
-                let y = margin + Double(frets[i]) * fretSpacing - fretSpacing + 2;
+                let y = margin + Double(frets[i]) * fretSpacing - fretSpacing + 3
 
                 let width = Double(barre.length) * stringSpacing
-                let height = 12.0
+                let height = 10.0
 
-                cairo_new_sub_path (cr);
-                cairo_arc (cr, x + width - radius, y + radius, radius, -90 * degrees, 0 * degrees);
-                cairo_arc (cr, x + width - radius, y + height - radius, radius, 0 * degrees, 90 * degrees);
-                cairo_arc (cr, x + radius, y + height - radius, radius, 90 * degrees, 180 * degrees);
-                cairo_arc (cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees);
-                cairo_close_path (cr);
-                cairo_set_source_rgb(cr, 0.552, 0.551, 0.551);
-                cairo_fill_preserve (cr);
+                cairo_new_sub_path (cr)
+                cairo_arc (cr, x + width - radius, y + radius, radius, -90 * degrees, 0 * degrees)
+                cairo_arc (cr, x + width - radius, y + height - radius, radius, 0 * degrees, 90 * degrees)
+                cairo_arc (cr, x + radius, y + height - radius, radius, 90 * degrees, 180 * degrees)
+                cairo_arc (cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees)
+                cairo_close_path (cr)
+                cairo_set_source_rgb(cr, 0.552, 0.551, 0.551)
+                cairo_fill_preserve (cr)
                 if (fingers[i] > 0) {
-                    cairo_move_to(cr, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + 9);
-                    cairo_set_source_rgb(cr, 1, 1, 1);
-                    cairo_show_text(cr, "\(fingers[i])");
-                    cairo_new_path(cr);
+                    cairo_move_to(cr, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + 8)
+                    cairo_set_source_rgb(cr, 1, 1, 1)
+                    cairo_show_text(cr, "\(fingers[i])")
+                    cairo_new_path(cr)
                 }
             } else {
                 /// Finger position: draw filled circle
-                let y = margin + Double(frets[i]) * fretSpacing - fretSpacing / 2;
-                cairo_set_source_rgb(cr, 0.552, 0.551, 0.551);
-                cairo_arc(cr, x, y, 6, 0, 2 * G_PI);
-                cairo_fill(cr);
+                let y = margin + Double(frets[i]) * fretSpacing - fretSpacing / 2
+                cairo_set_source_rgb(cr, 0.552, 0.551, 0.551)
+                cairo_arc(cr, x, y, 6, 0, 2 * G_PI)
+                cairo_fill(cr)
                 if (fingers[i] > 0) {
-                    cairo_move_to(cr, x - 2.5, y + 3);
-                    cairo_set_source_rgb(cr, 1, 1, 1);
-                    cairo_show_text(cr, "\(fingers[i])");
-                    cairo_new_path(cr);
+                    cairo_move_to(cr, x - 2.5, y + 3)
+                    cairo_set_source_rgb(cr, 1, 1, 1)
+                    cairo_show_text(cr, "\(fingers[i])")
+                    cairo_new_path(cr)
                 }
             }
         }

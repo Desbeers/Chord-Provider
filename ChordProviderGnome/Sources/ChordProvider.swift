@@ -26,5 +26,14 @@ import Foundation
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)
         .title(settings.subtitle)
+        .onClose {
+            if settings.dirty {
+                settings.app.saveDoneAction = .close
+                settings.app.showDirtyClose = true
+                return true
+            } else {
+                return false
+            }
+        }
     }
 }

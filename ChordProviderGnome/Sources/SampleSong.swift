@@ -11,6 +11,7 @@ import Foundation
 let emptySong = """
 {title New Song}
 {artist New Artist}
+
 """
 
 let sampleSong = """

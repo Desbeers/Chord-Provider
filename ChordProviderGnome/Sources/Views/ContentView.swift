@@ -30,10 +30,12 @@ struct ContentView: View {
                     WelcomeView(settings: $settings)
                         .vexpand()
                         .hexpand()
+                        .transition(.coverLeftRight)
                 } else {
                     RenderView(render: settings.app.source, id: id, settings: settings)
                         .hexpand()
                         .vexpand()
+                        .transition(.coverRightLeft)
                     if settings.editor.showEditor {
                         LogView()
                             .transition(.coverUpDown)
@@ -55,8 +57,8 @@ struct ContentView: View {
         }
         .alertDialog(
             visible: $settings.app.showDirtyClose,
-            heading: "File has Changed",
-            body: "Do you want to save your file?",
+            heading: "Song has changed",
+            body: "Do you want to save your song?",
             id: "dirty-dialog"
         )
         .response("Cancel", role: .close) {
@@ -65,6 +67,9 @@ struct ContentView: View {
         .response("Discard", appearance: .destructive, role: .none) {
             switch settings.app.saveDoneAction {
             case .close:
+                /// Make the source 'clean'
+                settings.app.originalSource = settings.app.source
+                /// Close the window
                 window.close()
             case .openSong:
                 settings.app.openSong.signal()
