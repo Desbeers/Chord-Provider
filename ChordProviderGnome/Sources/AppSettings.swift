@@ -92,6 +92,8 @@ extension AppSettings {
         var openSong = Signal()
         /// A signal to save as song with a new name
         var saveSongAs = Signal()
+        /// A signal to open a folder
+        var openFolder = Signal()
         /// What to do when a song is saved
         var saveDoneAction: SaveDoneAction = .noAction
         /// Show the *About* dialog
@@ -114,10 +116,16 @@ extension AppSettings {
         var toastMessage: String = ""
         /// Recent songs
         private(set) var recentSongs: [URLElement] = []
+        /// The songs folder
+        var songsFolder: String = ""
+        /// The selected tab on the welcome view
+        var welcomeTab: WelcomeView.ViewSwitcherView = .recent
         /// The Coding Keys
         enum CodingKeys: CodingKey {
             case zoom
             case recentSongs
+            case songsFolder
+            case welcomeTab
         }
         mutating func addRecentSong(songURL: URL) {
             var recent = self.recentSongs
