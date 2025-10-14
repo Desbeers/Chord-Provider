@@ -30,9 +30,9 @@ import Foundation
             if settings.dirty {
                 settings.app.saveDoneAction = .close
                 settings.app.showDirtyClose = true
-                return true
+                return .keep
             } else {
-                return false
+                return .close
             }
         }
     }

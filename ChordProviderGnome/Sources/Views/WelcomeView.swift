@@ -15,8 +15,12 @@ import ChordProviderHTML
 struct WelcomeView: View {
     /// The ``AppSettings``
     @Binding var settings: AppSettings
+    /// The artist browser
+    @State private var artists: [SongFileUtils.Artist] = []
     /// The song browser
-    @State private var songBrowser: [SongFileUtils.Artist] = []
+    @State private var songs: [Song] = []
+    /// The search field
+    @State private var search: String = ""
     /// The body of the `View`
     var view: Body {
         HStack(spacing: 20) {
@@ -32,32 +36,20 @@ struct WelcomeView: View {
                             .padding()
                     }
                     Button("Start with an empty song") {
-                        settings.app.source = emptySong
-                        settings.app.originalSource = emptySong
-                        settings.editor.showEditor = true
-                        settings.editor.splitter = settings.editor.restoreSplitter
-                        settings.app.showWelcome = false
+                        openSong(content: emptySong)
                     }
                     .padding()
                     Button("Open a sample song") {
-                        settings.app.source = sampleSong
-                        settings.app.originalSource = sampleSong
-                        settings.editor.showEditor = true
-                        settings.editor.splitter = settings.editor.restoreSplitter
-                        settings.app.showWelcome = false
+                        openSong(content: sampleSong)
                     }
                     .padding()
                 }
                 .halign(.center)
             }
-            //.hexpand()
-            //.frame(maxWidth: 300)
             Separator()
             VStack(spacing: 20) {
                 ViewSwitcher(selectedElement: $settings.app.welcomeTab)
                     .wideDesign(true)
-                //                Text(selection.rawValue, font: .title, zoom: settings.app.zoom)
-                //                    .useMarkup()
                 switch settings.app.welcomeTab {
                 case .recent: recent
                 case .mySongs: mySongs
@@ -72,7 +64,8 @@ struct WelcomeView: View {
                 Idle {
                     let url = URL(fileURLWithPath: settings.app.songsFolder)
                     let content = SongFileUtils.getSongsFromFolder(url: url, settings: settings.core, getOnlyMetadata: true)
-                    songBrowser = content.artists
+                    artists = content.artists
+                    songs = content.songs
                 }
             }
         }
@@ -80,7 +73,8 @@ struct WelcomeView: View {
 }
 
 extension WelcomeView {
-    
+
+    /// The `View` with *Recent* content
     var recent: AnyView {
         VStack(spacing: 20) {
             ScrollView {
@@ -89,23 +83,9 @@ extension WelcomeView {
                         .heading()
                 } else {
                     VStack(spacing: 10) {
-                        ForEach(settings.app.recentSongs) {songURL in
-                            Button(songURL.url.deletingPathExtension().lastPathComponent, icon: .default(icon: .documentOpen)) {
-                                do {
-                                    let content = try SongFileUtils.getSongContent(fileURL: songURL.url)
-                                    settings.app.source = content
-                                    settings.app.originalSource = content
-                                    settings.app.toastMessage = "Opened \(songURL.url.deletingPathExtension().lastPathComponent)"
-                                    settings.app.addRecentSong(songURL: songURL.url)
-                                    settings.core.songURL = songURL.url
-                                    settings.app.showWelcome = false
-                                } catch {
-                                    settings.app.toastMessage = "Could not open the song"
-                                }
-                                settings.app.showToast.signal()
-                            }
-                            .hasFrame(false)
-                            .halign(.start)
+                        ForEach(settings.app.recentSongs) {song in
+                            OpenButton(songURL: song.url, settings: $settings)
+                                .halign(.start)
                         }
                     }
                     .halign(.center)
@@ -127,45 +107,40 @@ extension WelcomeView {
                 }
             }
             .halign(.center)
-            //}
         }
-        //.hexpand()
     }
-    
+
+    /// The `View` with *My Songs* content
     var mySongs: AnyView {
         VStack {
+            EntryRow("Search", text: $search)
+                .halign(.center)
             ScrollView {
                 HStack {
-                    if songBrowser.isEmpty {
+                    if artists.isEmpty {
                         Text("Select a folder with your songs.")
                             .heading()
-                    } else {
-                        ForEach(songBrowser) { artist in
+                    } else if search.isEmpty {
+                        ForEach(artists) { artist in
                             Text(artist.name)
                                 .heading()
                                 .halign(.start)
                             Separator()
                             VStack {
                                 ForEach(artist.songs) { song in
-                                    Button(song.metadata.title, icon: .default(icon: .documentOpen)) {
-                                        if let url = song.metadata.fileURL, let content = try? String(contentsOf: url, encoding: .utf8) {
-                                            settings.core.songURL = url
-                                            settings.app.source = content
-                                            settings.app.originalSource = content
-                                            /// Show the toast
-                                            settings.app.toastMessage = "Opened \(url.deletingPathExtension().lastPathComponent)"
-                                            settings.app.showToast.signal()
-                                            /// Append to recent
-                                            settings.app.addRecentSong(songURL: url)
-                                            /// Hide the welcome
-                                            settings.app.showWelcome = false
-                                        }
+                                    if let url = song.metadata.fileURL {
+                                        OpenButton(songURL: url, title: song.metadata.title, settings: $settings)
+                                            .halign(.end)
                                     }
-                                    .hasFrame(false)
-                                    .halign(.end)
                                 }
                             }
-                            .halign(.end)
+                        }
+                    } else {
+                        ForEach(songs.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
+                            if let songURL = song.metadata.fileURL {
+                                OpenButton(songURL: songURL, settings: $settings)
+                                    .halign(.start)
+                            }
                         }
                     }
                 }
@@ -178,15 +153,17 @@ extension WelcomeView {
         }
     }
     
+    /// The tabs on the Welcome View
     enum ViewSwitcherView: String, ViewSwitcherOption, CaseIterable, Codable {
-        
+        /// Recent songs
         case recent = "Recent Songs"
+        /// My songs
         case mySongs = "My Songs"
-        
+        /// The title of the tab
         var title: String {
             rawValue.capitalized
         }
-        
+        /// The icon of the tab
         var icon: Icon {
             .default(icon: {
                 switch self {
@@ -198,4 +175,51 @@ extension WelcomeView {
             }())
         }
     }
+}
+
+extension WelcomeView {
+
+    /// Open a song with its content as string
+    /// - Parameter content: The content of the song
+    func openSong(content: String) {
+        settings.app.source = content
+        settings.app.originalSource = content
+        settings.editor.showEditor = true
+        settings.editor.splitter = settings.editor.restoreSplitter
+        settings.app.showWelcome = false
+    }
+
+    /// The `View` for opening a song
+    struct OpenButton: View {
+        /// The song URL to open
+        let songURL: URL
+        /// The title of the button
+        let title: String
+        /// The ``AppSettings``
+        @Binding var settings: AppSettings
+        init(songURL: URL, title: String? = nil, settings: Binding<AppSettings>) {
+            self.songURL = songURL
+            self._settings = settings
+            self.title = title ?? songURL.deletingPathExtension().lastPathComponent
+        }
+        /// The body of the `View`
+        var view: Body {
+            Button(title, icon: .default(icon: .folderMusic)) {
+                do {
+                    let content = try SongFileUtils.getSongContent(fileURL: songURL)
+                    settings.app.source = content
+                    settings.app.originalSource = content
+                    settings.app.toastMessage = "Opened \(songURL.deletingPathExtension().lastPathComponent)"
+                    settings.app.addRecentSong(songURL: songURL)
+                    settings.core.songURL = songURL
+                    settings.app.showWelcome = false
+                } catch {
+                    settings.app.toastMessage = "Could not open the song"
+                }
+                settings.app.showToast.signal()
+            }
+            .hasFrame(false)
+        }
+    }
+
 }

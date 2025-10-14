@@ -30,7 +30,19 @@ extension Text {
     /// - Parameter zoom: The current zoom facrtor
     init(_ text: String, font: AppSettings.Font, zoom: Double) {
         /// Wrap the text in `pango`
-        let wrapper = "<span \(font.style(zoom: zoom))>\(text)</span>"
+        let wrapper = "<span \(font.style(zoom: zoom))>\(text.escapeHTML())</span>"
         self.init(label: wrapper)
+    }
+}
+
+extension String {
+
+    func escapeHTML() -> String {
+        var escapedString = self.replacingOccurrences(of: "&", with: "&amp;")
+        escapedString = escapedString.replacingOccurrences(of: "<", with: "&lt;")
+        escapedString = escapedString.replacingOccurrences(of: ">", with: "&gt;")
+        escapedString = escapedString.replacingOccurrences(of: "\"", with: "&quot;")
+        escapedString = escapedString.replacingOccurrences(of: "'", with: "&#39;")
+        return escapedString
     }
 }

@@ -101,7 +101,7 @@ struct ContentView: View {
                     HeaderBar.empty()
                 }
         }
-        .toast(settings.app.toastMessage, signal: settings.app.showToast)
+        .toast(settings.app.toastMessage.escapeHTML(), signal: settings.app.showToast)
         .fileImporter(
             open: settings.app.openSong,
             extensions: ["chordpro", "cho"]

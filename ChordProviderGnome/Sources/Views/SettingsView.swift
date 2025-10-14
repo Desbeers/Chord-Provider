@@ -2,7 +2,7 @@
 //  TransposeView.swift
 //  ChordProviderGnome
 //
-//  Created by Nick Berendsen on 04/09/2025.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation
