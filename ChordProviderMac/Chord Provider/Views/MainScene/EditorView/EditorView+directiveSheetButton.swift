@@ -20,7 +20,7 @@ extension EditorView {
                     directive == .define,
                     let chord = ChordDefinition(
                         name: "C",
-                        instrument: sceneState.song.metadata.instrument
+                        instrument: sceneState.song.settings.instrument
                     ) {
                     sceneState.definition = chord
                 }

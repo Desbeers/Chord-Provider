@@ -37,15 +37,12 @@ public actor ChordProParser {
         LogUtils.shared.setLog(
             level: .info,
             category: .songParser,
-            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.metadata.fileURL?.lastPathComponent ?? "New Song")**"
+            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.settings.fileURL?.lastPathComponent ?? "New Song")**"
         )
         /// Start with a fresh song
         var song = Song(id: song.id, content: old.content)
-        song.metadata.fileURL = settings.songURL
-        song.metadata.instrument = settings.instrument
-        song.metadata.mirrorDiagram = settings.diagram.mirror
-        /// Add the optional transpose
-        song.metadata.transpose = settings.transpose
+        /// Add the settings
+        song.settings = settings
         /// And add the first section
         var currentSection = Song.Section(id: song.sections.count + 1)
         /// Parse each line of the text, stripping newlines at the end

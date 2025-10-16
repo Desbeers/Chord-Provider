@@ -65,7 +65,7 @@ struct HelpView: View {
                     settings.style = AppSettings.Style.ColorPreset.light.presets(style: settings.style)
                 }
                 var song = Song(id: UUID(), content: content)
-                song.metadata.fileURL = helpSong
+                song.settings.fileURL = helpSong
                 song = ChordProParser.parse(song: song, settings: settings.core)
                 if let export = try? await SongExport.export(
                     song: song,
@@ -84,7 +84,7 @@ struct HelpView: View {
             let content = try? String(contentsOf: helpSong, encoding: .utf8) {
             settings.style = AppSettings.Style.ColorPreset.random.presets(style: settings.style)
             var song = Song(id: UUID(), content: content)
-            song.metadata.fileURL = helpSong
+            song.settings.fileURL = helpSong
             song = ChordProParser.parse(song: song, settings: settings.core)
             if let export = try? await SongExport.export(
                 song: song,
@@ -102,7 +102,7 @@ struct HelpView: View {
             let content = try? String(contentsOf: helpSong, encoding: .utf8) {
             settings.style = AppSettings.Style.FontPreset.random.presets(style: settings.style, fonts: appState.fonts)
             var song = Song(id: UUID(), content: content)
-            song.metadata.fileURL = helpSong
+            song.settings.fileURL = helpSong
             song = ChordProParser.parse(song: song, settings: settings.core)
             if let export = try? await SongExport.export(
                 song: song,

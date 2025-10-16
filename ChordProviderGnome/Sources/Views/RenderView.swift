@@ -13,6 +13,7 @@ import ChordProviderHTML
 /// The `View` for the rendered song
 struct RenderView: View {
     init(render: String, id: UUID, settings: AppSettings) {
+        print("INIT!!")
         self.settings = settings
         LogUtils.shared.clearLog()
         let song = Song(id: id, content: render)

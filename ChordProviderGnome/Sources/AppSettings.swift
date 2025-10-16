@@ -28,9 +28,9 @@ struct AppSettings: Codable {
             if let content = try? String(contentsOf: url, encoding: .utf8) {
                 self.app.source = content
                 self.app.originalSource = content
-                self.core.songURL = url
+                self.core.fileURL = url
                 /// Append to recent
-                self.app.addRecentSong(songURL: url)
+                self.app.addRecentSong(fileURL: url)
                 /// Save it
                 try? SettingsCache.set(id: "ChordProviderGnome", object: self)
             }
@@ -65,7 +65,7 @@ struct AppSettings: Codable {
     }
     /// The subtitle for the application
     var subtitle: String {
-        "\(core.songURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
+        "\(core.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
     }
     /// Bool if the source is modified
     /// - Note: Comparing the source with the original source
@@ -127,10 +127,10 @@ extension AppSettings {
             case songsFolder
             case welcomeTab
         }
-        mutating func addRecentSong(songURL: URL) {
+        mutating func addRecentSong(fileURL: URL) {
             var recent = self.recentSongs
-            recent.removeAll { $0.url == songURL }
-            recent.insert(URLElement(url: songURL), at: 0)
+            recent.removeAll { $0.url == fileURL }
+            recent.insert(URLElement(url: fileURL), at: 0)
             self.recentSongs = Array(recent.prefix(100))
         }
         mutating func clearRecentSongs() {

@@ -30,7 +30,7 @@ extension SongFileUtils {
         do {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
             let song = Song(id: UUID(), content: content)
-            settings.songURL = fileURL
+            settings.fileURL = fileURL
             return ChordProParser.parse(
                 song: song,
                 settings: settings,

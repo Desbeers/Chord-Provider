@@ -1,5 +1,5 @@
 //
-//  Song+Metadata+chordProCLI.swift
+//  ChordProviderSettings+extensions.swift
 //  Chord Provider
 //
 //  © 2025 Nick Berendsen
@@ -8,7 +8,7 @@
 import Foundation
 import ChordProviderCore
 
-extension Song.Metadata {
+extension ChordProviderSettings {
 
     // MARK: ChordPro CLI integration
 

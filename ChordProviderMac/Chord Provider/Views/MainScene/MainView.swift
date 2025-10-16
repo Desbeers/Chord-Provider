@@ -85,9 +85,9 @@ struct MainView: View {
         }
         .errorAlert(message: $sceneState.errorAlert)
         .task {
-            sceneState.settings.core.songURL = fileURL
-            sceneState.song.metadata.fileURL = fileURL
-            sceneState.song.metadata.templateURL = document.templateURL
+            sceneState.settings.core.fileURL = fileURL
+            sceneState.song.settings.fileURL = fileURL
+            sceneState.song.settings.templateURL = document.templateURL
             await renderSong()
             /// Always open the editor for a new file or a template
             if document.text == ChordProDocument.getSongTemplateContent() || document.templateURL != nil {
@@ -131,10 +131,10 @@ struct MainView: View {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings.diagram) {
+        .onChange(of: appState.settings.midi) {
             /// Reset chord cache; the theme might have changed
             RenderView.diagramCache.removeAllObjects()
-            sceneState.settings.diagram = appState.settings.diagram
+            sceneState.settings.midi = appState.settings.midi
             Task {
                 await renderSong()
             }
@@ -253,7 +253,7 @@ struct MainView: View {
     /// Render the song
     private func renderSong(updatePreview: Bool = true) async {
         sceneState.song.content = document.text
-        sceneState.song.metadata.fileURL = fileURL
+        sceneState.song.settings.fileURL = fileURL
         sceneState.song = ChordProParser.parse(
             song: sceneState.song,
             settings: sceneState.settings.core
@@ -274,7 +274,7 @@ struct MainView: View {
 
         /// Pass the parsed song to the appState
         appState.song = sceneState.song
-        if let index = fileBrowser.songs.firstIndex(where: { $0.metadata.fileURL == fileURL }) {
+        if let index = fileBrowser.songs.firstIndex(where: { $0.settings.fileURL == fileURL }) {
             fileBrowser.songs[index].metadata.title = sceneState.song.metadata.title
             fileBrowser.songs[index].metadata.artist = sceneState.song.metadata.artist
             fileBrowser.songs[index].metadata.tags = sceneState.song.metadata.tags

@@ -31,13 +31,15 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable {
     public var export = Export()
     /// Diagram settings
     public var diagram = Diagram()
-    /// The URL of the current song
-    public var songURL: URL?
+    /// The URL of the current **ChordPro** file
+    public var fileURL: URL?
+    /// The optional template URL
+    public var templateURL: URL?
     /// List of articles to ignore when sorting songs and artists
     public var sortTokens: [String] = ["the", "a", "de", "een", "’t"]
     /// The initial name when exporting
     public var initialName: String {
-        var name = songURL?.deletingPathExtension().lastPathComponent ?? "Untitled"
+        var name = fileURL?.deletingPathExtension().lastPathComponent ?? "Untitled"
         /// Add the extension
         name.append(".\(export.format.rawValue)")
         return name

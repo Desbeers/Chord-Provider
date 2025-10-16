@@ -78,8 +78,8 @@ struct ContentView: View {
             }
         }
         .response("Save", appearance: .suggested, role: .default) {
-            if let songURL = settings.core.songURL {
-                try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
+            if let fileURL = settings.core.fileURL {
+                try? settings.app.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
                 switch settings.app.saveDoneAction {
                 case .close:
                     window.close()
@@ -87,7 +87,7 @@ struct ContentView: View {
                     settings.app.openSong.signal()
                 case .noAction:
                     /// Set the toast
-                    settings.app.toastMessage = "Saved \(songURL.deletingPathExtension().lastPathComponent)"
+                    settings.app.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
                     settings.app.showToast.signal()
                 }
             } else {
@@ -105,16 +105,16 @@ struct ContentView: View {
         .fileImporter(
             open: settings.app.openSong,
             extensions: ["chordpro", "cho"]
-        ) { url in
-            if let content = try? String(contentsOf: url, encoding: .utf8) {
-                settings.core.songURL = url
+        ) { fileURL in
+            if let content = try? String(contentsOf: fileURL, encoding: .utf8) {
+                settings.core.fileURL = fileURL
                 settings.app.source = content
                 settings.app.originalSource = content
                 /// Show the toast
-                settings.app.toastMessage = "Opened \(url.deletingPathExtension().lastPathComponent)"
+                settings.app.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
                 settings.app.showToast.signal()
                 /// Append to recent
-                settings.app.addRecentSong(songURL: url)
+                settings.app.addRecentSong(fileURL: fileURL)
                 /// Hide the welcome
                 settings.app.showWelcome = false
             }
@@ -124,7 +124,7 @@ struct ContentView: View {
         .fileExporter(
             open: settings.app.saveSongAs,
             initialName: settings.core.initialName
-        ) { url in
+        ) { fileURL in
             var string = settings.app.source
             /// If we want to export HTML, let's do it...
             if settings.core.export.format == .html {
@@ -135,17 +135,17 @@ struct ContentView: View {
                 )
                 string = HtmlRender.render(song: song, settings: settings.core)
             }
-            try? string.write(to: url, atomically: true, encoding: String.Encoding.utf8)
+            try? string.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Remember the new source URL when saved as a **ChordPro** file
             if settings.core.export.format == .chordPro {
-                settings.core.songURL = url
+                settings.core.fileURL = fileURL
                 /// The new state of the song
                 settings.app.originalSource = settings.app.source
                 /// Set the toast
-                settings.app.toastMessage = "Saved as \(url.deletingPathExtension().lastPathComponent)"
+                settings.app.toastMessage = "Saved as \(fileURL.deletingPathExtension().lastPathComponent)"
             } else {
                 /// Set the toast
-                settings.app.toastMessage = "Exported as \(url.lastPathComponent)"
+                settings.app.toastMessage = "Exported as \(fileURL.lastPathComponent)"
             }
             switch settings.app.saveDoneAction {
             case .close:

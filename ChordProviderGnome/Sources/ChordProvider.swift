@@ -21,7 +21,11 @@ import Foundation
 
     var scene: Scene {
         Window(id: "main") { window in
-            ContentView(app: app, window: window, settings: $settings)
+            ContentView(
+                app: app,
+                window: window,
+                settings: $settings
+            )
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)

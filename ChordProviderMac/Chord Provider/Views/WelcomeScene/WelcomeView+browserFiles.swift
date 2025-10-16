@@ -162,7 +162,7 @@ extension WelcomeView {
         Button(
             action: {
                 Task {
-                    if let url = song.metadata.fileURL {
+                    if let url = song.settings.fileURL {
                         await openSong(url: url)
                     }
                 }
@@ -197,7 +197,7 @@ extension WelcomeView {
         .contextMenu {
             Button(
                 action: {
-                    if let url = song.metadata.fileURL {
+                    if let url = song.settings.fileURL {
                         url.openInFinder()
                     }
                 },

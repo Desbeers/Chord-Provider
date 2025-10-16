@@ -49,7 +49,7 @@ struct ToolbarView: View {
                         } else {
                             settings.app.source = ""
                             settings.app.originalSource = ""
-                            settings.core.songURL = nil
+                            settings.core.fileURL = nil
                             settings.editor.showEditor = false
                             settings.editor.splitter = 0
                             settings.app.showWelcome = true
@@ -57,10 +57,10 @@ struct ToolbarView: View {
                     }
                     .keyboardShortcut("o".ctrl())
                     MenuButton("Save") {
-                        if let songURL = settings.core.songURL {
-                            try? settings.app.source.write(to: songURL, atomically: true, encoding: String.Encoding.utf8)
+                        if let fileURL = settings.core.fileURL {
+                            try? settings.app.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
                             /// Set the toast
-                            settings.app.toastMessage = "Saved \(songURL.deletingPathExtension().lastPathComponent)"
+                            settings.app.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
                             settings.app.showToast.signal()
                             /// Remember the content as  saved
                             settings.app.originalSource = settings.app.source

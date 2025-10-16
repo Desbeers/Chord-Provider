@@ -95,7 +95,7 @@ struct ChordsDatabaseView: View {
         .task {
             /// Set defaults
             appState.settings.core.diagram.showNotes = true
-            appState.settings.diagram.showPlayButton = true
+            appState.settings.midi.showPlayButton = true
         }
         .onChange(of: chordsDatabaseState.allChords) {
             filterChords()
@@ -126,8 +126,8 @@ struct ChordsDatabaseView: View {
                     )
             }
         }
-        .onChange(of: appState.settings.diagram) {
-            sceneState.settings.diagram = appState.settings.diagram
+        .onChange(of: appState.settings.midi) {
+            sceneState.settings.midi = appState.settings.midi
         }
         .onChange(of: appState.settings.core.diagram) {
             sceneState.settings.core.diagram = appState.settings.core.diagram

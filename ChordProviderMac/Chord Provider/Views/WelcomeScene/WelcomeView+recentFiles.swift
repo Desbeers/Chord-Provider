@@ -47,7 +47,7 @@ extension WelcomeView {
                     .help("Another random song from your library")
                     Button {
                         Task {
-                            if let url = randomSong.metadata.fileURL {
+                            if let url = randomSong.settings.fileURL {
                                 await openSong(url: url)
                             }
                         }

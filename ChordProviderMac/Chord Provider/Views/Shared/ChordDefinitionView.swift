@@ -36,8 +36,6 @@ struct ChordDefinitionView: View {
     let nutHeight: Double
     /// The application settings
     var settings: AppSettings
-    /// The display options for the diagram
-    let diagramDisplayOptions: AppSettings.Diagram
 
     /// Init the `View`
     /// - Parameters:
@@ -48,7 +46,6 @@ struct ChordDefinitionView: View {
     init(chord: ChordDefinition, width: Double, settings: AppSettings, useDefaultColors: Bool = false) {
         self.chord = chord
         self.settings = settings
-        self.diagramDisplayOptions = settings.diagram
         self.width = width
         self.gridWidth = width * 0.8
         self.nutHeight = gridWidth / 25
@@ -107,10 +104,10 @@ struct ChordDefinitionView: View {
             settings.style.theme.foregroundMedium
         )
         .overlay(alignment: .topLeading) {
-            if diagramDisplayOptions.showPlayButton, chord.status.knownChord {
+            if settings.midi.showPlayButton, chord.status.knownChord {
                 PlayChordButton(
                     chord: chord,
-                    instrument: diagramDisplayOptions.midiInstrument
+                    instrument: settings.midi.instrument
                 )
                 .foregroundStyle(settings.style.fonts.chord.color)
                 .font(.caption)

@@ -47,7 +47,7 @@ extension RenderView {
                 Button(
                     action: {
                         if chord.status != .unknownChord {
-                            chord.play(instrument: settings.diagram.midiInstrument)
+                            chord.play(instrument: settings.midi.instrument)
                         }
                     },
                     label: {
@@ -90,7 +90,7 @@ extension RenderView {
             } else {
                 var settings = settings
                 settings.core.diagram.showFingers = false
-                settings.diagram.showPlayButton = false
+                settings.midi.showPlayButton = false
                 settings.core.diagram.showNotes = false
                 let renderer = ImageRenderer(
                     content:

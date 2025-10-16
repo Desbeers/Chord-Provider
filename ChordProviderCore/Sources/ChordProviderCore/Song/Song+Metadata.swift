@@ -29,11 +29,6 @@ extension Song {
             audioURL: URL? = nil,
             videoURL: URL? = nil,
             tags: [String]? = nil,
-            transpose: Int = 0,
-            instrument: Chord.Instrument = .guitar,
-            mirrorDiagram: Bool = false,
-            fileURL: URL? = nil,
-            templateURL: URL? = nil,
             longestLabel: String = "",
             longestLine: Song.Section.Line = Song.Section.Line(),
             definedMetadata: Set<String> = []
@@ -53,11 +48,6 @@ extension Song {
             self.audioURL = audioURL
             self.videoURL = videoURL
             self.tags = tags
-            self.transpose = transpose
-            self.instrument = instrument
-            self.mirrorDiagram = mirrorDiagram
-            self.fileURL = fileURL
-            self.templateURL = templateURL
             self.longestLabel = longestLabel
             self.longestLine = longestLine
             self.definedMetadata = definedMetadata
@@ -95,21 +85,6 @@ extension Song {
         public var videoURL: URL?
         /// The optional tag(s)
         public var tags: [String]?
-        /// The optional transpose
-        public var transpose: Int = 0
-        /// The instrument for the song
-        public var instrument: Chord.Instrument = .guitar
-        /// Mirror the chord diagram for left-handed users
-        public var mirrorDiagram: Bool
-
-        // MARK: URL's
-
-        /// The optional file URL
-        public var fileURL: URL?
-
-        /// The optional template URL
-        public var templateURL: URL?
-
         /// The longest label in the song
         /// - Note: Used in PDF output to calculate label offset
         public var longestLabel: String = ""
@@ -117,7 +92,7 @@ extension Song {
         /// - Note: Used in the PDF and SwiftUI output
         public var longestLine = Song.Section.Line()
 
-        // MARK: Meta data directives that are defined
+        // MARK: Metadata directives that are defined
 
         /// An set of defined directives that only should be set once
         /// - Note: Used in the directive menus to disable *once only* directives

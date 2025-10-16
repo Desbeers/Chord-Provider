@@ -134,8 +134,8 @@ extension AppStateModel {
         /// The body of the `View`
         var body: some View {
             HStack(alignment: .top) {
-                Image(systemName: appState.settings.diagram.showPlayButton ? "play.fill" : "play")
-                Toggle(isOn: $appState.settings.diagram.showPlayButton) {
+                Image(systemName: appState.settings.midi.showPlayButton ? "play.fill" : "play")
+                Toggle(isOn: $appState.settings.midi.showPlayButton) {
                     Text("Show play button")
                     Text("Play the chord with MIDI")
                 }
@@ -162,7 +162,7 @@ extension AppStateModel {
         var body: some View {
             VStack(alignment: .leading) {
                 Label("MIDI Instrument", systemImage: "guitars.fill")
-                Picker("MIDI Instrument:", selection: $appState.settings.diagram.midiInstrument) {
+                Picker("MIDI Instrument:", selection: $appState.settings.midi.instrument) {
                     ForEach(Midi.Instrument.allCases) { value in
                         Text(value.label)
                             .tag(value)
@@ -170,7 +170,7 @@ extension AppStateModel {
                 }
                 .frame(maxWidth: 180)
                 .labelsHidden()
-                .disabled(!appState.settings.diagram.showPlayButton)
+                .disabled(!appState.settings.midi.showPlayButton)
             }
         }
     }

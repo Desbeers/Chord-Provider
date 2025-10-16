@@ -29,7 +29,7 @@ extension SongExport {
         LogUtils.shared.setLog(
             level: .info,
             category: .pdfGenerator,
-            message: "Creating PDF preview for **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")**"
+            message: "Creating PDF preview for **\(song.settings.fileURL?.lastPathComponent ?? "New Song")**"
         )
         let documentInfo = PDFBuild.DocumentInfo(
             title: song.metadata.title,
@@ -162,7 +162,7 @@ extension SongExport {
             LogUtils.shared.setLog(
                 level: .warning,
                 category: .pdfGenerator,
-                message: "Content of **\(song.metadata.fileURL?.lastPathComponent ?? "New Song")** does not fit"
+                message: "Content of **\(song.settings.fileURL?.lastPathComponent ?? "New Song")** does not fit"
             )
         }
 
@@ -207,7 +207,7 @@ extension SongExport {
                     items.append(strumSection(section: section))
                 }
             case .image:
-                await items.append(imageSection(section: section, fileURL: song.metadata.fileURL))
+                await items.append(imageSection(section: section, fileURL: song.settings.fileURL))
             default:
                 break
             }

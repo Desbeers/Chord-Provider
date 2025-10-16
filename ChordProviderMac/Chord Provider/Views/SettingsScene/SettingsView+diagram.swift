@@ -22,7 +22,7 @@ extension SettingsView {
                 VStack(alignment: .leading) {
                     appState.playToggle
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    if appState.settings.diagram.showPlayButton {
+                    if appState.settings.midi.showPlayButton {
                         appState.midiInstrumentPicker
                             .padding(.leading)
                     }
@@ -34,15 +34,15 @@ extension SettingsView {
             Divider()
             Button(
                 action: {
-                    appState.settings.diagram = AppSettings.Diagram()
+                    appState.settings.midi = AppSettings.MidiPlayer()
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
-            .disabled(appState.settings.diagram == AppSettings.Diagram())
+            .disabled(appState.settings.midi == AppSettings.MidiPlayer())
             .padding()
         }
-        .animation(.default, value: appState.settings.diagram.showPlayButton)
+        .animation(.default, value: appState.settings.midi.showPlayButton)
     }
 }

@@ -16,8 +16,8 @@ struct AppSettings: Equatable, Codable, Sendable {
     var core = ChordProviderSettings()
     /// The options for displaying a ``ChordProviderCore/Song``
     var display = Display()
-    /// The options for displaying a ``ChordProviderCore/ChordDefinition``
-    var diagram = Diagram()
+    /// The options for playing a ``ChordProviderCore/ChordDefinition`` with MIDI
+    var midi = MidiPlayer()
     /// The options for the ``ChordProEditor``
     var editor: Editor.Settings = .init()
     /// Settings for the official **ChordPro** CLI integration

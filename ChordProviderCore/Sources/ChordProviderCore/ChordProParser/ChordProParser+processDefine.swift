@@ -25,10 +25,10 @@ extension ChordProParser {
         do {
             var definedChord = try ChordDefinition(
                 definition: label,
-                instrument: song.metadata.instrument,
+                instrument: song.settings.instrument,
                 status: .unknownChord
             )
-            definedChord.status = song.metadata.transpose == 0 ? definedChord.status : .customTransposedChord
+            definedChord.status = song.settings.transpose == 0 ? definedChord.status : .customTransposedChord
             /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
                 $0.name == definedChord.name &&
@@ -37,13 +37,13 @@ extension ChordProParser {
                 /// Use the same ID as the standard chord
                 definedChord.id = song.chords[index].id
                 /// Mirror if needed
-                if song.metadata.mirrorDiagram {
+                if song.settings.diagram.mirror {
                     definedChord.mirrorChordDiagram()
                 }
                 song.chords[index] = definedChord
             } else {
                 /// Mirror if needed
-                if song.metadata.mirrorDiagram {
+                if song.settings.diagram.mirror {
                     definedChord.mirrorChordDiagram()
                 }
                 /// Add the chord as a new definition

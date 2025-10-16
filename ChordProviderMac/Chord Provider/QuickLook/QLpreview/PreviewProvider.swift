@@ -59,7 +59,7 @@ struct AppSettings: Equatable, Codable {
     var core = ChordProviderSettings()
     var application = Application()
     var display = Display()
-    var diagram = Diagram()
+    var midi = MidiPlayer()
     var style = Style()
     var pdf = AppSettings.PDF()
 }

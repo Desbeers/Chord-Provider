@@ -188,8 +188,8 @@ extension ChordProCLI {
                 do {
                     var config = try String(contentsOf: config, encoding: .utf8)
                     config = ChordProCLI.applyUserSettings(config: config, settings: settings)
-                    try config.write(to: song.metadata.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
-                    try jsonSettings.write(to: song.metadata.configURL, atomically: true, encoding: String.Encoding.utf8)
+                    try config.write(to: song.settings.defaultConfigURL, atomically: true, encoding: String.Encoding.utf8)
+                    try jsonSettings.write(to: song.settings.configURL, atomically: true, encoding: String.Encoding.utf8)
                 } catch {
                     LogUtils.shared.setLog(
                         level: .error,
@@ -198,15 +198,15 @@ extension ChordProCLI {
                     )
                 }
             }
-            arguments.append("--config='\(song.metadata.defaultConfigURL.path)'")
-            arguments.append("--config='\(song.metadata.configURL.path)'")
+            arguments.append("--config='\(song.settings.defaultConfigURL.path)'")
+            arguments.append("--config='\(song.settings.configURL.path)'")
         }
         /// Add the optional local system config that is next to a song file
-        if let localSystemConfigURL = song.metadata.localSystemConfigURL {
+        if let localSystemConfigURL = song.settings.localSystemConfigURL {
             arguments.append("--config='\(localSystemConfigURL.path)'")
         }
         /// Add the optional local config that is next to a song file
-        if let localSongConfigURL = song.metadata.localSongConfigURL {
+        if let localSongConfigURL = song.settings.localSongConfigURL {
             arguments.append("--config='\(localSongConfigURL.path)'")
         }
         /// Add the output file

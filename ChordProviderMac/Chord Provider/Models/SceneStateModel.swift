@@ -93,7 +93,7 @@ import ChordProviderCore
 
     /// Get the optional media stored next to a song file
     func getMedia() {
-        if let fileURL = song.metadata.fileURL {
+        if let fileURL = song.settings.fileURL {
             var mediaURL = fileURL.deletingPathExtension().appendingPathExtension("m4a")
             if mediaURL.exist {
                 song.metadata.audioURL = mediaURL

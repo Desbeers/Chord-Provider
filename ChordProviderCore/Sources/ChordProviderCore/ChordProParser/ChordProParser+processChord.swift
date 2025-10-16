@@ -31,20 +31,20 @@ extension ChordProParser {
             return match
         }
         /// Try to find it in the database
-        if var databaseChord = ChordDefinition(name: chord, instrument: song.metadata.instrument) {
-            if song.metadata.transpose != 0 {
-                databaseChord.transpose(transpose: song.metadata.transpose, scale: song.metadata.key?.root ?? .c)
+        if var databaseChord = ChordDefinition(name: chord, instrument: song.settings.instrument) {
+            if song.settings.transpose != 0 {
+                databaseChord.transpose(transpose: song.settings.transpose, scale: song.metadata.key?.root ?? .c)
                 /// Keep the original name
                 databaseChord.name = chord
             }
             /// Mirror if needed
-            if song.metadata.mirrorDiagram {
+            if song.settings.diagram.mirror {
                 databaseChord.mirrorChordDiagram()
             }
             song.chords.append(databaseChord)
             return databaseChord
         }
-        let unknownChord = ChordDefinition(unknown: chord, instrument: song.metadata.instrument)
+        let unknownChord = ChordDefinition(unknown: chord, instrument: song.settings.instrument)
         /// Add a warning that the chord is unknown
         line.addWarning("Unknown chord: **\(chord)**")
         /// Return the unknown chord

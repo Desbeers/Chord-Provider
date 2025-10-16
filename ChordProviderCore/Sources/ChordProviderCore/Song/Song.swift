@@ -42,6 +42,11 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     /// The total lines of the song
     var lines: Int = 0
 
+    // MARK: Settings
+
+    /// The ``ChordProviderSettings`` for the song
+    public var settings = ChordProviderSettings()
+
     // MARK: Metadata directives
 
     /// The metadata about the ``Song``

@@ -52,13 +52,13 @@ extension ChordsDatabaseView {
                         let quality: Chord.Quality = chordsDatabaseState.gridQuality == .unknown ? .major : chordsDatabaseState.gridQuality
                         var definition: String = "base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0"
                         /// Different fingering for an ukulele
-                        if sceneState.song.metadata.instrument == .ukulele {
+                        if sceneState.song.settings.instrument == .ukulele {
                             definition = "base-fret 1 frets x x x x fingers 0 0 0 0"
                         }
 
                         if let definition = try? ChordDefinition(
                             definition: "\(root.rawValue)\(quality.rawValue) \(definition)",
-                            instrument: sceneState.song.metadata.instrument,
+                            instrument: sceneState.song.settings.instrument,
                             status: .addDefinition
                         ) {
                             sceneState.definition = definition
