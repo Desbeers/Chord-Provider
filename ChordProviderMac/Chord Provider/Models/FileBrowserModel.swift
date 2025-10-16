@@ -40,9 +40,9 @@ extension FileBrowserModel {
         Task {
             if let songsFolder = UserFileUtils.Selection.songsFolder.getBookmarkURL {
                 let settings = AppSettings.load(id: .mainView)
-                let content = await SongFileUtils.getSongsFromFolder(
+                let content = SongFileUtils.getSongsFromFolder(
                     url: songsFolder,
-                    settings: settings,
+                    settings: settings.core,
                     getOnlyMetadata: true
                 )
                 songs = content.songs

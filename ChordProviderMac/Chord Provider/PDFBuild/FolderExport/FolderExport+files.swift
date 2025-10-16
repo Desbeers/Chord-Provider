@@ -16,9 +16,9 @@ extension FolderExport {
         /// Get a list of all files
         if let exportFolder = UserFileUtils.Selection.exportFolder.getBookmarkURL {
             let settings = AppSettings.load(id: .exportFolderView)
-            let content = await SongFileUtils.getSongsFromFolder(
+            let content = SongFileUtils.getSongsFromFolder(
                 url: exportFolder,
-                settings: settings
+                settings: settings.core
             )
             return content.songs
         } else {
