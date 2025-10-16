@@ -14,6 +14,7 @@ let emptySong = """
 
 """
 
+/// The sample song
 let sampleSong = """
 # Example of a simple ChordPro song.
 

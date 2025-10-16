@@ -51,7 +51,7 @@ struct SettingsView: View {
                     .title("Wrap Lines")
                     .subtitle("Wrap lines when they are too long")
                     .active($settings.editor.wrapLines)
-                ComboRow("Font Size", selection: $settings.editor.fontSize, values: AppSettings.EditorFont.allCases)
+                ComboRow("Font Size", selection: $settings.editor.fontSize, values: AppSettings.Editor.Font.allCases)
                     .subtitle("Select the font size for the editor")
             }
         }

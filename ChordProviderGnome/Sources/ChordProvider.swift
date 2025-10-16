@@ -8,7 +8,7 @@
 import Adwaita
 import Foundation
 
-/// The Chord Provider application
+/// The **Chord Provider** application
 @main struct ChordProvider: App {
     /// Give it an unique ID so Files does not open new windows
     let app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(UUID().uuidString)")
@@ -17,23 +17,24 @@ import Foundation
     @State("height") private var height = 600
 
     /// The ``AppSettings``
-    @State private var settings = AppSettings()
+    @State private var appState = AppState()
 
     var scene: Scene {
         Window(id: "main") { window in
             ContentView(
                 app: app,
                 window: window,
-                settings: $settings
+                appState: $appState,
+                id: UUID()
             )
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)
-        .title(settings.subtitle)
+        .title(appState.song.metadata.exportName)
         .onClose {
-            if settings.dirty {
-                settings.app.saveDoneAction = .close
-                settings.app.showDirtyClose = true
+            if appState.scene.dirty {
+                appState.scene.saveDoneAction = .close
+                appState.scene.showDirtyClose = true
                 return .keep
             } else {
                 return .close

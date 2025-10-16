@@ -83,7 +83,9 @@ public struct ChordDiagramView: AdwaitaWidget {
     }
 }
 
-/// Declare C function implementations as `public` to ensure they're not optimized away.
+/// Draw a chord diagram with *Cairo*
+///
+/// - Note: Declare C function implementations as `public` to ensure they're not optimized away.
 @_cdecl("draw_chord_swift")
 public func drawChord(
     cr: OpaquePointer!,

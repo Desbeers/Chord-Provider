@@ -11,27 +11,27 @@ import Adwaita
 
 /// The `View` for transposing a song
 struct TransposeView: View {
-    @Binding var settings: AppSettings
+    @Binding var appState: AppState
     var view: Body {
         VStack {
             Text("Transpose song")
                 .heading()
                 .padding()
             HStack {
-                CountButton(settings: $settings, icon: .goPrevious) {
+                CountButton(settings: $appState.settings, icon: .goPrevious) {
                     $0.core.transpose = max($0.core.transpose - 1, -11)
                 }
-                Text("\(settings.core.transpose) semitones")
+                Text("\(appState.settings.core.transpose) semitones")
                     .frame(minWidth: 150)
-                CountButton(settings: $settings, icon: .goNext) {
+                CountButton(settings: $appState.settings, icon: .goNext) {
                     $0.core.transpose = min($0.core.transpose + 1, 11)
                 }
             }
             .halign(.center)
             .padding()
             Button("Close") {
-                settings.app.isTransposed = settings.core.transpose != 0
-                settings.app.transposeDialog = false
+                appState.scene.isTransposed = appState.settings.core.transpose != 0
+                appState.scene.showTransposeDialog = false
             }
             .padding()
             .halign(.center)

@@ -12,31 +12,46 @@ import ChordProviderHTML
 
 /// The main `View` for the application
 struct ContentView: View {
+    init(app: AdwaitaApp, window: AdwaitaWindow, appState: Binding<AppState>, id: UUID) {
+        print("Content Init")
+        LogUtils.shared.clearLog()
+        self.app = app
+        self.window = window
+        self._appState = appState
+        let song = Song(id: id, content: appState.scene.source.wrappedValue)
+        
+        let result = ChordProParser.parse(
+            song: song,
+            settings: appState.settings.core.wrappedValue
+        )
+        self.song = result
+    }
+    
     /// The `AdwaitaApp`
     var app: AdwaitaApp
     /// The `AdwaitaWindow`
     var window: AdwaitaWindow
-    /// The ``AppSettings``
-    @Binding var settings: AppSettings
-    /// The unique id
-    let id = UUID()
+    /// The ``AppState``
+    @Binding var appState: AppState
+    /// The song
+    let song: Song
     /// The body of the `View`
     var view: Body {
-        HSplitView(splitter: $settings.editor.splitter) {
-            EditorView(settings: $settings)
+        HSplitView(splitter: $appState.settings.editor.splitter) {
+            EditorView(appState: $appState)
         } end: {
             VStack {
-                if settings.app.showWelcome {
-                    WelcomeView(settings: $settings)
+                if appState.scene.showWelcome {
+                    WelcomeView(appState: $appState)
                         .vexpand()
                         .hexpand()
                         .transition(.coverLeftRight)
                 } else {
-                    RenderView(render: settings.app.source, id: id, settings: settings)
+                    RenderView(song: song, settings: appState.settings)
                         .hexpand()
                         .vexpand()
                         .transition(.coverRightLeft)
-                    if settings.editor.showEditor {
+                    if appState.settings.editor.showEditor {
                         LogView()
                             .transition(.coverUpDown)
                     }
@@ -49,14 +64,30 @@ struct ContentView: View {
             ToolbarView(
                 app: app,
                 window: window,
-                settings: $settings
+                appState: $appState
             )
         }
-        .dialog(visible: $settings.app.transposeDialog, title: "Transpose the song", width: 260, height: 180) {
-            TransposeView(settings: $settings)
+        .aboutDialog(
+            visible: $appState.scene.showAboutDialog,
+            app: "Chord Provider",
+            developer: "Nick Berendsen",
+            version: "dev",
+            icon: .custom(name: "nl.desbeers.chordprovider"),
+            // swiftlint:disable:next force_unwrapping
+            website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
+            // swiftlint:disable:next force_unwrapping
+            issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
+        )
+        .dialog(
+            visible: $appState.scene.showTransposeDialog,
+            title: "Transpose the song",
+            width: 260,
+            height: 180)
+        {
+            TransposeView(appState: $appState)
         }
         .alertDialog(
-            visible: $settings.app.showDirtyClose,
+            visible: $appState.scene.showDirtyClose,
             heading: "Song has changed",
             body: "Do you want to save your song?",
             id: "dirty-dialog"
@@ -65,95 +96,95 @@ struct ContentView: View {
             // Nothing to do
         }
         .response("Discard", appearance: .destructive, role: .none) {
-            switch settings.app.saveDoneAction {
+            switch appState.scene.saveDoneAction {
             case .close:
                 /// Make the source 'clean'
-                settings.app.originalSource = settings.app.source
+                appState.scene.originalSource = appState.scene.source
                 /// Close the window
                 window.close()
             case .openSong:
-                settings.app.openSong.signal()
+                appState.scene.openSong.signal()
             case .noAction:
                 return
             }
         }
         .response("Save", appearance: .suggested, role: .default) {
-            if let fileURL = settings.core.fileURL {
-                try? settings.app.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-                switch settings.app.saveDoneAction {
+            if let fileURL = appState.settings.core.fileURL {
+                try? appState.scene.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+                switch appState.scene.saveDoneAction {
                 case .close:
                     window.close()
                 case .openSong:
-                    settings.app.openSong.signal()
+                    appState.scene.openSong.signal()
                 case .noAction:
                     /// Set the toast
-                    settings.app.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
-                    settings.app.showToast.signal()
+                    appState.scene.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
+                    appState.scene.showToast.signal()
                 }
             } else {
-                settings.core.export.format = .chordPro
-                settings.app.saveSongAs.signal()
+                appState.settings.core.export.format = .chordPro
+                appState.scene.saveSongAs.signal()
             }
         }
-        .dialog(visible: $settings.app.showPreferences, title: "Preferences", width: 400, height: 410) {
-            SettingsView(settings: $settings)
+        .dialog(visible: $appState.scene.showPreferences, title: "Preferences", width: 400, height: 410) {
+            SettingsView(settings: $appState.settings)
                 .topToolbar {
                     HeaderBar.empty()
                 }
         }
-        .toast(settings.app.toastMessage.escapeHTML(), signal: settings.app.showToast)
+        .toast(appState.scene.toastMessage.escapeHTML(), signal: appState.scene.showToast)
         .fileImporter(
-            open: settings.app.openSong,
+            open: appState.scene.openSong,
             extensions: ["chordpro", "cho"]
         ) { fileURL in
             if let content = try? String(contentsOf: fileURL, encoding: .utf8) {
-                settings.core.fileURL = fileURL
-                settings.app.source = content
-                settings.app.originalSource = content
+                appState.settings.core.fileURL = fileURL
+                appState.scene.source = content
+                appState.scene.originalSource = content
                 /// Show the toast
-                settings.app.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-                settings.app.showToast.signal()
+                appState.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
+                appState.scene.showToast.signal()
                 /// Append to recent
-                settings.app.addRecentSong(fileURL: fileURL)
+                appState.settings.app.addRecentSong(fileURL: fileURL)
                 /// Hide the welcome
-                settings.app.showWelcome = false
+                appState.scene.showWelcome = false
             }
         } onClose: {
             /// Nothing to do
         }
         .fileExporter(
-            open: settings.app.saveSongAs,
-            initialName: settings.core.initialName
+            open: appState.scene.saveSongAs,
+            initialName: appState.settings.core.initialName
         ) { fileURL in
-            var string = settings.app.source
+            var string = appState.scene.source
             /// If we want to export HTML, let's do it...
-            if settings.core.export.format == .html {
-                var song = Song(id: id, content: settings.app.source)
+            if appState.settings.core.export.format == .html {
+                var song = Song(id: UUID(), content: appState.scene.source)
                 song = ChordProParser.parse(
                     song: song,
-                    settings: settings.core
+                    settings: appState.settings.core
                 )
-                string = HtmlRender.render(song: song, settings: settings.core)
+                string = HtmlRender.render(song: song, settings: appState.settings.core)
             }
             try? string.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Remember the new source URL when saved as a **ChordPro** file
-            if settings.core.export.format == .chordPro {
-                settings.core.fileURL = fileURL
+            if appState.settings.core.export.format == .chordPro {
+                appState.settings.core.fileURL = fileURL
                 /// The new state of the song
-                settings.app.originalSource = settings.app.source
+                appState.scene.originalSource = appState.scene.source
                 /// Set the toast
-                settings.app.toastMessage = "Saved as \(fileURL.deletingPathExtension().lastPathComponent)"
+                appState.scene.toastMessage = "Saved as \(fileURL.deletingPathExtension().lastPathComponent)"
             } else {
                 /// Set the toast
-                settings.app.toastMessage = "Exported as \(fileURL.lastPathComponent)"
+                appState.scene.toastMessage = "Exported as \(fileURL.lastPathComponent)"
             }
-            switch settings.app.saveDoneAction {
+            switch appState.scene.saveDoneAction {
             case .close:
                 window.close()
             case .openSong:
-                settings.app.openSong.signal()
+                appState.scene.openSong.signal()
             case .noAction:
-                settings.app.showToast.signal()
+                appState.scene.showToast.signal()
             }
         } onClose: {
             /// Nothing to do

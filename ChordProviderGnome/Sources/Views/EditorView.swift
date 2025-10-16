@@ -13,33 +13,33 @@ import ChordProviderHTML
 
 /// The `View` for editing a song
 struct EditorView: View {
-    /// The ``AppSettings``
-    @Binding var settings: AppSettings
+    /// The ``AppState``
+    @Binding var appState: AppState
     /// The body of the `View`
     var view: Body {
         VStack(spacing: 0) {
             ScrollView {
-                SourceView(text: $settings.app.source)
+                SourceView(text: $appState.scene.source)
                     .innerPadding()
-                    .lineNumbers(settings.editor.showLineNumbers)
+                    .lineNumbers(appState.settings.editor.showLineNumbers)
                     .language(.chordpro)
-                    .wrapMode(settings.editor.wrapLines ? .word : .none)
+                    .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                     .highlightCurrentLine(true)
                     .vexpand()
                     .css {
-                        "textview { font-family: Monospace; font-size: \(settings.editor.fontSize.rawValue)pt; }"
+                        "textview { font-family: Monospace; font-size: \(appState.settings.editor.fontSize.rawValue)pt; }"
                     }
                     .card()
                     .padding(8)
             }
             HStack {
                 Button("Clean Source") {
-                    let song = Song(id: UUID(), content: settings.app.source)
+                    let song = Song(id: UUID(), content: appState.scene.source)
                     let result = ChordProParser.parse(
                         song: song,
-                        settings: settings.core
+                        settings: appState.settings.core
                     )
-                    settings.app.source = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+                    appState.scene.source = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                 }
                 .padding(4)
             }
