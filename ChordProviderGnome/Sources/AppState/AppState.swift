@@ -22,9 +22,6 @@ struct AppState {
         } else {
             print("No settings found, creating new one")
         }
-
-        let song = Song(id: UUID())
-
         /// Open an optional song URL
         if let fileURL = CommandLine.arguments[safe: 1] {
             let url = URL(filePath: fileURL)
@@ -43,8 +40,6 @@ struct AppState {
             settings.editor.splitter = 0
             scene.showWelcome = true
         }
-
-        self.song = song
     }
 
     var settings = AppSettings() {
@@ -54,9 +49,6 @@ struct AppState {
         }
     }
     var scene = Scene()
-    var song: Song
-
-
 
     /// The subtitle for the scene
     var subtitle: String {

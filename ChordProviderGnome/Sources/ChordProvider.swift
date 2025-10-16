@@ -30,7 +30,7 @@ import Foundation
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)
-        .title(appState.song.metadata.exportName)
+        .title(appState.subtitle)
         .onClose {
             if appState.scene.dirty {
                 appState.scene.saveDoneAction = .close
