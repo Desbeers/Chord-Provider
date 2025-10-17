@@ -17,15 +17,3 @@ struct AppSettings: Codable {
     /// Editor settings
     var editor = Editor()
 }
-
-extension AppSettings {
-    
-    /// Make a URL identifiable
-    struct URLElement: Identifiable, Codable {
-        /// The ID of the URL
-        var id = UUID()
-        /// The URL
-        var url: URL
-
-    }
-}

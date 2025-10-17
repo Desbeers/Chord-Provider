@@ -13,13 +13,11 @@ import ChordProviderHTML
 /// The main `View` for the application
 struct ContentView: View {
     init(app: AdwaitaApp, window: AdwaitaWindow, appState: Binding<AppState>, id: UUID) {
-        print("Content Init")
         LogUtils.shared.clearLog()
         self.app = app
         self.window = window
         self._appState = appState
         let song = Song(id: id, content: appState.scene.source.wrappedValue)
-        
         let result = ChordProParser.parse(
             song: song,
             settings: appState.settings.core.wrappedValue
@@ -88,7 +86,7 @@ struct ContentView: View {
         }
         .alertDialog(
             visible: $appState.scene.showDirtyClose,
-            heading: "Song has changed",
+            heading: "'\(song.metadata.title)' has changed",
             body: "Do you want to save your song?",
             id: "dirty-dialog"
         )
@@ -97,13 +95,13 @@ struct ContentView: View {
         }
         .response("Discard", appearance: .destructive, role: .none) {
             switch appState.scene.saveDoneAction {
-            case .close:
-                /// Make the source 'clean'
+            case .closeWindow:
+                /// Make the source 'clean' so we can close the window
                 appState.scene.originalSource = appState.scene.source
                 /// Close the window
                 window.close()
-            case .openSong:
-                appState.scene.openSong.signal()
+            case .showWelcomeScreen:
+                appState.showWelcomeScreen()
             case .noAction:
                 return
             }
@@ -111,11 +109,13 @@ struct ContentView: View {
         .response("Save", appearance: .suggested, role: .default) {
             if let fileURL = appState.settings.core.fileURL {
                 try? appState.scene.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+                /// Add it to the recent songs list
+                appState.settings.app.addRecentSong(fileURL: fileURL)
                 switch appState.scene.saveDoneAction {
-                case .close:
+                case .closeWindow:
                     window.close()
-                case .openSong:
-                    appState.scene.openSong.signal()
+                case .showWelcomeScreen:
+                    appState.showWelcomeScreen()
                 case .noAction:
                     /// Set the toast
                     appState.scene.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
@@ -154,35 +154,26 @@ struct ContentView: View {
         }
         .fileExporter(
             open: appState.scene.saveSongAs,
-            initialName: appState.settings.core.initialName
+            initialName: song.initialName(format: appState.settings.core.export.format)
         ) { fileURL in
-            var string = appState.scene.source
-            /// If we want to export HTML, let's do it...
-            if appState.settings.core.export.format == .html {
-                var song = Song(id: UUID(), content: appState.scene.source)
-                song = ChordProParser.parse(
-                    song: song,
-                    settings: appState.settings.core
-                )
-                string = HtmlRender.render(song: song, settings: appState.settings.core)
-            }
-            try? string.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-            /// Remember the new source URL when saved as a **ChordPro** file
-            if appState.settings.core.export.format == .chordPro {
+            switch appState.settings.core.export.format {
+            case .chordPro:
                 appState.settings.core.fileURL = fileURL
-                /// The new state of the song
-                appState.scene.originalSource = appState.scene.source
+                appState.saveSong()
                 /// Set the toast
-                appState.scene.toastMessage = "Saved as \(fileURL.deletingPathExtension().lastPathComponent)"
-            } else {
-                /// Set the toast
-                appState.scene.toastMessage = "Exported as \(fileURL.lastPathComponent)"
+                appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
+            case .html:
+                appState.exportSong(song: song, exportURL: fileURL)
+                appState.scene.toastMessage = "Song exported as \(fileURL.lastPathComponent)"
+            default:
+                break
             }
             switch appState.scene.saveDoneAction {
-            case .close:
+            case .closeWindow:
                 window.close()
-            case .openSong:
-                appState.scene.openSong.signal()
+            case .showWelcomeScreen:
+                appState.scene.showToast.signal()
+                appState.showWelcomeScreen()
             case .noAction:
                 appState.scene.showToast.signal()
             }

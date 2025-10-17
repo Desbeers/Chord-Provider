@@ -18,7 +18,7 @@ struct ToolbarView: View {
     var view: Body {
         HeaderBar {
             if !appState.scene.showWelcome {
-                HStack {
+                HStack(spacing: 5) {
                     Toggle(icon: .default(icon: .textEditor), isOn: $appState.settings.editor.showEditor) {
                         if !appState.scene.showWelcome {
                             switch appState.settings.editor.showEditor {
@@ -62,31 +62,17 @@ struct ToolbarView: View {
                 Menu(icon: .default(icon: .openMenu)) {
                     MenuButton("Open") {
                         if appState.scene.dirty {
-                            appState.scene.saveDoneAction = .openSong
+                            appState.scene.saveDoneAction = .showWelcomeScreen
                             appState.scene.showDirtyClose = true
                         } else {
-                            appState.scene.source = ""
-                            appState.scene.originalSource = ""
-                            appState.settings.core.fileURL = nil
-                            appState.settings.editor.showEditor = false
-                            appState.settings.editor.splitter = 0
-                            appState.scene.showWelcome = true
+                            appState.showWelcomeScreen()
                         }
                     }
                     .keyboardShortcut("o".ctrl())
                     MenuButton("Save") {
-                        if let fileURL = appState.settings.core.fileURL {
-                            try? appState.scene.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-                            /// Set the toast
-                            appState.scene.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
-                            appState.scene.showToast.signal()
-                            /// Remember the content as  saved
-                            appState.scene.originalSource = appState.scene.source
-                        } else {
-                            appState.settings.core.export.format = .chordPro
-                            appState.scene.saveDoneAction = .noAction
-                            appState.scene.saveSongAs.signal()
-                        }
+                        appState.settings.core.export.format = .chordPro
+                        appState.scene.saveDoneAction = .noAction
+                        appState.saveSong()
                     }
                     .keyboardShortcut("s".ctrl())
                     MenuButton("Save As…") {
@@ -97,6 +83,7 @@ struct ToolbarView: View {
                     .keyboardShortcut("s".ctrl().shift())
                     MenuButton("Export as HTML") {
                         appState.settings.core.export.format = .html
+                        appState.scene.saveDoneAction = .noAction
                         appState.scene.saveSongAs.signal()
                     }
                     MenuSection {
@@ -126,12 +113,7 @@ struct ToolbarView: View {
                             appState.scene.showAboutDialog = true
                         }
                         MenuButton("Quit", window: false) {
-                            if appState.scene.dirty {
-                                appState.scene.saveDoneAction = .close
-                                appState.scene.showDirtyClose = true
-                            } else {
-                                window.close()
-                            }
+                            appState.closeWindow(window: window)
                         }
                         .keyboardShortcut("q".ctrl())
                     }

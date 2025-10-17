@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 
 extension AppSettings {
     
@@ -18,20 +19,55 @@ extension AppSettings {
         /// The zoom factor
         var zoom: Double = 1
         /// Recent songs
-        private(set) var recentSongs: [URLElement] = []
+        private(set) var recentSongs: [RecentSong] = []
 
         /// Add a recent song
         /// - Parameter fileURL: The file URL of the song
         mutating func addRecentSong(fileURL: URL) {
-            var recent = self.recentSongs
-            recent.removeAll { $0.url == fileURL }
-            recent.insert(URLElement(url: fileURL), at: 0)
-            self.recentSongs = Array(recent.prefix(100))
+            if let song = try? SongFileUtils.parseSongFile(
+                        fileURL: fileURL,
+                        settings: ChordProviderSettings(),
+                        getOnlyMetadata: true
+                    ) {
+                var recent = self.recentSongs
+                recent.removeAll { $0.url == fileURL }
+                recent.insert(RecentSong(
+                    url: fileURL,
+                    title: song.metadata.title,
+                    artist: song.metadata.artist
+                ), at: 0)
+                self.recentSongs = Array(recent.prefix(100))
+            }
         }
 
         /// Clear recent songs list
         mutating func clearRecentSongs() {
             self.recentSongs = []
         }
+
+        /// Get recent songs
+        func getRecentSongs() -> [RecentSong] {
+            var recent: [RecentSong] = []
+            for song in self.recentSongs {
+                if FileManager.default.fileExists(atPath: song.url.path) {
+                    recent.append(song)
+                }
+            }
+            return recent
+        }
+    }
+}
+extension AppSettings {
+
+    /// Recent Song
+    struct RecentSong: Identifiable, Codable {
+        /// The ID of the URL
+        var id = UUID()
+        /// The URL
+        var url: URL
+        /// The title
+        var title: String
+        /// The artist
+        var artist: String
     }
 }

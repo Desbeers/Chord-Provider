@@ -22,6 +22,17 @@ extension ChordProviderSettings {
     }
 }
 
+extension Song {
+
+    /// The intentional name of the song file
+    public func initialName(format: ChordProviderSettings.Export.Format) -> String {
+        var name = settings.fileURL?.deletingPathExtension().lastPathComponent ?? "\(metadata.artist) - \(metadata.title)"
+        /// Add the extension
+        name.append(".\(format.rawValue)")
+        return name
+    }
+}
+
 extension Text {
 
     /// Initialize a text widget.
@@ -37,12 +48,23 @@ extension Text {
 
 extension String {
 
+    func contains(_ strings: [String]) -> Bool {
+        strings.contains { contains($0) }
+    }
+}
+
+extension String {
+
     func escapeHTML() -> String {
-        var escapedString = self.replacingOccurrences(of: "&", with: "&amp;")
-        escapedString = escapedString.replacingOccurrences(of: "<", with: "&lt;")
-        escapedString = escapedString.replacingOccurrences(of: ">", with: "&gt;")
-        escapedString = escapedString.replacingOccurrences(of: "\"", with: "&quot;")
-        escapedString = escapedString.replacingOccurrences(of: "'", with: "&#39;")
-        return escapedString
+        if self.contains(["<", ">"]) {
+            /// The string contains Pango markup; don't escape
+            return self
+        } else {
+            /// Escape special markup characters
+            var escapedString = self.replacingOccurrences(of: "&", with: "&amp;")
+            escapedString = escapedString.replacingOccurrences(of: "\"", with: "&quot;")
+            escapedString = escapedString.replacingOccurrences(of: "'", with: "&#39;")
+            return escapedString
+        }
     }
 }

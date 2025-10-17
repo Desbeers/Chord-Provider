@@ -83,9 +83,12 @@ extension WelcomeView {
                         .heading()
                 } else {
                     VStack(spacing: 10) {
-                        ForEach(appState.settings.app.recentSongs) {song in
+                        ForEach(appState.settings.app.getRecentSongs()) {song in
                             OpenButton(fileURL: song.url, appState: $appState)
                                 .halign(.start)
+                            Text("\(song.artist) - \(song.title)")
+                                .halign(.start)
+                                .padding(30, .leading)
                         }
                     }
                     .halign(.center)
@@ -149,7 +152,7 @@ extension WelcomeView {
             }
             .card()
             .vexpand()
-            EntryRow("Folder (TODO: File Picker cannot select a folder)", text: $appState.settings.app.songsFolder)
+            EntryRow("Folder (TODO: File Picker cannot select a folder...)", text: $appState.settings.app.songsFolder)
         }
     }
     
@@ -219,6 +222,7 @@ extension WelcomeView {
                 appState.scene.showToast.signal()
             }
             .hasFrame(false)
+            .tooltip(fileURL.path)
         }
     }
 

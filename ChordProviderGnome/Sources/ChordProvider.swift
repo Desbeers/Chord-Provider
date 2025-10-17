@@ -33,7 +33,7 @@ import Foundation
         .title(appState.subtitle)
         .onClose {
             if appState.scene.dirty {
-                appState.scene.saveDoneAction = .close
+                appState.scene.saveDoneAction = .closeWindow
                 appState.scene.showDirtyClose = true
                 return .keep
             } else {
