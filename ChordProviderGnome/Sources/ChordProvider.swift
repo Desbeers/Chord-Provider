@@ -27,6 +27,9 @@ import Foundation
                 appState: $appState,
                 id: UUID()
             )
+            .css {
+                Markup.css
+            }
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)

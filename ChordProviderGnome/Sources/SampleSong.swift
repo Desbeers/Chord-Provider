@@ -20,6 +20,7 @@ let sampleSong = """
 
 {title New Song}
 {artist New Artist}
+{tag Help Document}
 
 {start_of_textblock}
 Welcome to the <i>sneak preview</i> of <b>Chord Provider</b> for <b>Gnome</b>!
