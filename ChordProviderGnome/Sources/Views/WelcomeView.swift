@@ -60,9 +60,8 @@ struct WelcomeView: View {
         .vexpand()
         .padding(20)
         .onAppear {
-            if !appState.settings.app.songsFolder.isEmpty {
+            if let url = appState.settings.app.songsFolder {
                 Idle {
-                    let url = URL(fileURLWithPath: appState.settings.app.songsFolder)
                     let content = SongFileUtils.getSongsFromFolder(url: url, settings: appState.settings.core, getOnlyMetadata: true)
                     artists = content.artists
                     songs = content.songs
@@ -97,7 +96,6 @@ extension WelcomeView {
             }
             .card()
             .vexpand()
-            .padding(10, .bottom)
             HStack(spacing: 10) {
                 Button("Open another song") {
                     appState.scene.openSong.signal()
@@ -116,8 +114,16 @@ extension WelcomeView {
     /// The `View` with *My Songs* content
     var mySongs: AnyView {
         VStack {
-            EntryRow("Search", text: $search)
-                .halign(.center)
+            HStack {
+                EntryRow("Search", text: $search)
+                    .suffix {
+                        Button(icon: .default(icon: .editClear)) {
+                            search = ""
+                        }
+                        .hasFrame(false)
+                    }
+            }
+            .halign(.center)
             ScrollView {
                 HStack {
                     if artists.isEmpty {
@@ -152,7 +158,28 @@ extension WelcomeView {
             }
             .card()
             .vexpand()
-            EntryRow("Folder (TODO: File Picker cannot select a folder...)", text: $appState.settings.app.songsFolder)
+            .padding(20, .bottom)
+            HStack(spacing: 20) {
+                Text("The folder with your songs:")
+                Button(appState.settings.app.songsFolder?.lastPathComponent ?? "Select folder") {
+                    appState.scene.openFolder.signal()
+                }
+            }
+            .halign(.center)
+            .folderImporter(
+                open: appState.scene.openFolder) { folderURL in
+                    appState.settings.app.songsFolder = folderURL
+                    let content = SongFileUtils.getSongsFromFolder(
+                        url: folderURL,
+                        settings: appState.settings.core,
+                        getOnlyMetadata: true
+                    )
+                    artists = content.artists
+                    songs = content.songs
+                } onClose: {
+                    /// Nothing to do
+                }
+
         }
     }
     

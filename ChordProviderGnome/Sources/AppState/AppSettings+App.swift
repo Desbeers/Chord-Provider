@@ -13,7 +13,7 @@ extension AppSettings {
     /// Settings for all **Chord Provider** scenes
     struct App: Codable {
         /// The songs folder
-        var songsFolder: String = "/Users/Desbeers/Library/Mobile Documents/com~apple~CloudDocs/Chord Provider"
+        var songsFolder: URL?
         /// The selected tab on the welcome view
         var welcomeTab: WelcomeView.ViewSwitcherView = .recent
         /// The zoom factor
