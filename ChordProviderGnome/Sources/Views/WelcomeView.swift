@@ -24,7 +24,7 @@ struct WelcomeView: View {
     /// The body of the `View`
     var view: Body {
         HStack(spacing: 20) {
-            VStack {
+            VStack(spacing: 20) {
                 Text("Create a new song", font: .title, zoom: appState.settings.app.zoom)
                     .useMarkup()
                 VStack {
@@ -36,13 +36,20 @@ struct WelcomeView: View {
                             .padding()
                     }
                     Button("Start with an empty song") {
-                        openSong(content: emptySong)
+                        openSong(content: "{title New Song}\n{artist New Artist}\n")
                     }
                     .padding()
                     Button("Open a sample song") {
-                        openSong(content: sampleSong)
+                        openSample("Swing Low Sweet Chariot", showEditor: true)
                     }
                     .padding()
+                    /// - Note: This should be a spacer
+                    Text("")
+                        .vexpand()
+                    Button("Help") {
+                        openSample("Help", showEditor: false)
+                    }
+                    //.padding(5, .bottom)
                 }
                 .halign(.center)
             }
@@ -209,13 +216,25 @@ extension WelcomeView {
 
 extension WelcomeView {
 
+    func openSample(_ sample: String, showEditor: Bool = true) {
+        if
+            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
+            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+            openSong(content: content, showEditor: showEditor)
+        } else {
+            print("Error loading sample song")
+        }
+    }
+
     /// Open a song with its content as string
     /// - Parameter content: The content of the song
-    func openSong(content: String) {
+    func openSong(content: String, showEditor: Bool = true) {
         appState.scene.source = content
         appState.scene.originalSource = content
-        appState.settings.editor.showEditor = true
-        appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
+        appState.settings.editor.showEditor = showEditor
+        if showEditor {
+            appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
+        }
         appState.scene.showWelcome = false
     }
 
@@ -252,5 +271,4 @@ extension WelcomeView {
             .tooltip(fileURL.path)
         }
     }
-
 }
