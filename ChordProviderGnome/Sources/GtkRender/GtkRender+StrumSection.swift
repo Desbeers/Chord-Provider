@@ -44,7 +44,12 @@ extension GtkRender {
                                                         .useMarkup()
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 }
-                                                Text(strum.beat.isEmpty ? strum.tuplet : strum.beat)
+                                                Text(
+                                                    strum.beat.isEmpty ? strum.tuplet : strum.beat,
+                                                    font: .standard,
+                                                    zoom: settings.app.zoom
+                                                )
+                                                    .useMarkup()
                                             }
                                             .frame(minWidth: Int(settings.app.zoom * 20))
                                         }
