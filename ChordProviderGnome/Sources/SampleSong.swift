@@ -27,6 +27,24 @@ Welcome to the <i>sneak preview</i> of <b>Chord Provider</b> for <b>Gnome</b>!
 {comment All bugs are for free!}
 {end_of_textblock}
 
+# STRUM PATTERNS:
+# "u": .up,
+# "up": .up,
+# "ua": .accentedUp,
+# "um": .mutedUp,
+# "us": .slowUp,
+# "d": .down,
+# "dn": .down,
+# "da": .accentedDown,
+# "dm": .mutedDown,
+# "ds": .slowDown,
+# "x": .palmMute,
+# ".": .none
+{start_of_strum label="Strum Me!" tuplet="2"}
+da . ua d x d u d um dm d u d us ds u
+{comment Basic strumming pattern is supported as well, see the source for the pattern}
+{end_of_strum}
+
 {start_of_chorus}
 Swing [D]low, sweet [G]chari[D]ot,
 Comin’ for to carry me [A7]home.

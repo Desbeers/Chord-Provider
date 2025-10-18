@@ -25,11 +25,11 @@ extension PDFBuild.StrumSection {
         /// - Parameters:
         ///   - strums: The strums in the line
         ///   - settings: The application settings
-        init(strums: [[Song.Section.Line.Strum]], settings: AppSettings) {
+        init(strums: [Song.Section.Line.StrumGroup], settings: AppSettings) {
             var items: [Part] = []
             let spacer = Song.Section.Line.Strum(id: 0, action: .none, beat: " ", tuplet: " ")
             for strum in strums {
-                for part in strum {
+                for part in strum.strums {
                     items.append(Part(part: part, settings: settings))
                 }
                 items.append(Part(part: spacer, settings: settings))

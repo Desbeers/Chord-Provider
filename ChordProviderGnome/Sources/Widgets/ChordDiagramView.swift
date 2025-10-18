@@ -158,7 +158,6 @@ public func drawChord(
         cairo_set_line_width(cr, 0.2)
     } else {
         cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-        //cairo_set_source_rgb(cr, color, color, color)
         cairo_move_to(cr, margin - 15, margin + fretSpacing / 1.5)
         cairo_show_text(cr, "\(data.base_fret)")
     }
@@ -177,16 +176,16 @@ public func drawChord(
         if (frets[i] == -1) {
             /// Muted string: draw X
             cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-            cairo_move_to(cr, x-3, margin-11)
-            cairo_line_to(cr, x+3, margin-5)
-            cairo_move_to(cr, x+3, margin-11)
-            cairo_line_to(cr, x-3, margin-5)
+            cairo_move_to(cr, x - 3, margin - 11)
+            cairo_line_to(cr, x + 3, margin - 5)
+            cairo_move_to(cr, x + 3, margin - 11)
+            cairo_line_to(cr, x - 3, margin - 5)
             cairo_set_line_width(cr, 1)
             cairo_stroke(cr);
         } else if frets[i] == 0 {
             /// Open string: draw open circle
             cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-            cairo_arc(cr, x, margin-8, 3, 0, 2 * G_PI)
+            cairo_arc(cr, x, margin - 8, 3, 0, 2 * Double.pi)
             cairo_set_line_width(cr, 1)
             cairo_stroke(cr)
         } else if frets[i] > 0 {
@@ -205,7 +204,7 @@ public func drawChord(
                 cairo_arc (cr, x + radius, y + height - radius, radius, 90 * degrees, 180 * degrees)
                 cairo_arc (cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees)
                 cairo_close_path (cr)
-                cairo_set_source_rgb(cr, 0.552, 0.551, 0.551)
+                cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
                 cairo_fill_preserve (cr)
                 if (fingers[i] > 0) {
                     cairo_move_to(cr, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + 8)
@@ -216,7 +215,7 @@ public func drawChord(
             } else {
                 /// Finger position: draw filled circle
                 let y = margin + Double(frets[i]) * fretSpacing - fretSpacing / 2
-                cairo_set_source_rgb(cr, 0.552, 0.551, 0.551)
+                cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
                 cairo_arc(cr, x, y, 6, 0, 2 * G_PI)
                 cairo_fill(cr)
                 if (fingers[i] > 0) {

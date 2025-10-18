@@ -37,6 +37,11 @@ extension GtkRender {
                         HeaderView(section: section, settings: settings)
                         GridSection(section: section, settings: settings)
                     }
+                case .strum:
+                    if !settings.core.lyricsOnly {
+                        HeaderView(section: section, settings: settings)
+                        StrumSection(section: section, settings: settings)
+                    }
                 case .repeatChorus:
                     let label = section.lines.first?.plain
                     /// Check if we have to repeat the whole chorus

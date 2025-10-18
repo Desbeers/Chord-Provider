@@ -29,11 +29,11 @@ extension RenderView {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if let strums = line.strum {
+                        if let strums = line.strumGroup {
                             HStack {
-                                ForEach(strums, id: \.self) {strumPart in
+                                ForEach(strums) {strumPart in
                                     HStack(spacing: 0) {
-                                        ForEach(strumPart) { strum in
+                                        ForEach(strumPart.strums) { strum in
                                             let dash = strum.action == .slowUp || strum.action == .slowDown ? true : false
                                             VStack(spacing: 2) {
                                                 Text(strum.topSymbol)

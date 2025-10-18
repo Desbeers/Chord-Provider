@@ -25,6 +25,7 @@ extension ChordProParser {
         let timeSignature = (Int(song.metadata.time?.prefix(1) ?? "4") ?? 4)
         var beat = 0
         var group = 0
+        var id = 0
         var strums: [Song.Section.Line.Strum] = []
 
         /// Start with a fresh line
@@ -36,7 +37,7 @@ extension ChordProParser {
             context: .strum
         )
 
-        var result: [[Song.Section.Line.Strum]] = []
+        var result: [Song.Section.Line.StrumGroup] = []
         let parts = text.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ")
         for(index, character) in parts.enumerated() {
 
@@ -53,19 +54,20 @@ extension ChordProParser {
             strums.append(strum)
 
             if timeSignature * tuplet == group {
-                result.append(strums)
+                result.append(Song.Section.Line.StrumGroup(id: id, strums: strums))
                 strums = []
                 group = 0
+                id += 1
             }
         }
         if !strums.isEmpty {
-            result.append(strums)
+            result.append(Song.Section.Line.StrumGroup(id: id, strums: strums))
         }
         if strums.count == 1, strums.first?.action == Song.Section.Line.Strum.Action.none {
             /// It looks like the strum is not in a valid format, add a warning
             line.addWarning("The strum pattern does not look valid")
         } else {
-            line.strum = result
+            line.strumGroup = result
         }
         currentSection.lines.append(line)
     }
