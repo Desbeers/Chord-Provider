@@ -149,8 +149,6 @@ struct ContentView: View {
                 /// Hide the welcome
                 appState.scene.showWelcome = false
             }
-        } onClose: {
-            /// Nothing to do
         }
         .fileExporter(
             open: appState.scene.saveSongAs,
@@ -177,8 +175,6 @@ struct ContentView: View {
             case .noAction:
                 appState.scene.showToast.signal()
             }
-        } onClose: {
-            /// Nothing to do
         }
     }
 }

@@ -121,16 +121,10 @@ extension WelcomeView {
     /// The `View` with *My Songs* content
     var mySongs: AnyView {
         VStack {
-            HStack {
-                EntryRow("Search", text: $search)
-                    .suffix {
-                        Button(icon: .default(icon: .editClear)) {
-                            search = ""
-                        }
-                        .hasFrame(false)
-                    }
-            }
-            .halign(.center)
+            SearchEntry()
+                .text($search)
+                .placeholderText("Search")
+                .padding(5, .bottom)
             ScrollView {
                 HStack {
                     if artists.isEmpty {

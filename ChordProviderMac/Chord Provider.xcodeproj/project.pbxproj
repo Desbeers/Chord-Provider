@@ -307,8 +307,8 @@
 		D7F884742DD084C6007A4BA4 /* EditorView+Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F884732DD084C6007A4BA4 /* EditorView+Items.swift */; };
 		D7FA295F2DEF268D00B5CBE9 /* AppSettings+ChordProCLI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA295E2DEF268D00B5CBE9 /* AppSettings+ChordProCLI.swift */; };
 		D7FA29602DEF268D00B5CBE9 /* AppSettings+ChordProCLI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA295E2DEF268D00B5CBE9 /* AppSettings+ChordProCLI.swift */; };
-		D7FA29652DF0457B00B5CBE9 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */; };
-		D7FA29662DF0461700B5CBE9 /* ImageUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */; };
+		D7FA29652DF0457B00B5CBE9 /* ImageUtils+applicationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA29642DF0457B00B5CBE9 /* ImageUtils+applicationIcon.swift */; };
+		D7FA29662DF0461700B5CBE9 /* ImageUtils+applicationIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA29642DF0457B00B5CBE9 /* ImageUtils+applicationIcon.swift */; };
 		D7FA7F402C2CA9320031E1E8 /* ChordProDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */; };
 		D7FA7F412C2CA9320031E1E8 /* ExportDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */; };
 		D7FC62DF2E100AD400382DC2 /* Backport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FC62DE2E100AD400382DC2 /* Backport.swift */; };
@@ -596,7 +596,7 @@
 		D7F884712DCF63D1007A4BA4 /* SplitterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitterView.swift; sourceTree = "<group>"; };
 		D7F884732DD084C6007A4BA4 /* EditorView+Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorView+Items.swift"; sourceTree = "<group>"; };
 		D7FA295E2DEF268D00B5CBE9 /* AppSettings+ChordProCLI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+ChordProCLI.swift"; sourceTree = "<group>"; };
-		D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUtils.swift; sourceTree = "<group>"; };
+		D7FA29642DF0457B00B5CBE9 /* ImageUtils+applicationIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageUtils+applicationIcon.swift"; sourceTree = "<group>"; };
 		D7FA7F3E2C2CA9320031E1E8 /* ChordProDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChordProDocument.swift; sourceTree = "<group>"; };
 		D7FA7F3F2C2CA9320031E1E8 /* ExportDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportDocument.swift; sourceTree = "<group>"; };
 		D7FC62DE2E100AD400382DC2 /* Backport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backport.swift; sourceTree = "<group>"; };
@@ -911,6 +911,7 @@
 		D77979262BED7FA200BE165A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D7FA29642DF0457B00B5CBE9 /* ImageUtils+applicationIcon.swift */,
 				D778F32A2E51C850007CA66E /* ChordDefinition+Status+color.swift */,
 				D75350532DC7970E00CC310A /* ChordDefinition+play.swift */,
 				D7AA50A92E07EAAE003D731A /* Song+transferable.swift */,
@@ -1037,7 +1038,6 @@
 			isa = PBXGroup;
 			children = (
 				D7E22D932DB3C195004AA103 /* FontUtils */,
-				D7FA29642DF0457B00B5CBE9 /* ImageUtils.swift */,
 				D7F372392E2E6B0A0075C8E4 /* JSONUtils+highlight.swift */,
 				D7C655AE2DE31AB400FA605F /* UserFileUtils.swift */,
 				D705032F2D2179A400DB897A /* UserFileUtils+bookmark.swift */,
@@ -1630,7 +1630,7 @@
 				D75E6C692DABB0960065F1D2 /* RenderView+StrumSection.swift in Sources */,
 				D70B727E2BD4F8FD003C89B4 /* PDFBuild+SongDetails.swift in Sources */,
 				D7FA295F2DEF268D00B5CBE9 /* AppSettings+ChordProCLI.swift in Sources */,
-				D7FA29652DF0457B00B5CBE9 /* ImageUtils.swift in Sources */,
+				D7FA29652DF0457B00B5CBE9 /* ImageUtils+applicationIcon.swift in Sources */,
 				D7F80D8C2E143AA5004865FE /* RenderView+EmptyLine.swift in Sources */,
 				D70503302D2179A400DB897A /* UserFileUtils+bookmark.swift in Sources */,
 				D7A10B8D2D131919005DD032 /* SongExport+images.swift in Sources */,
@@ -1699,7 +1699,7 @@
 				D70B72A22BD52A9B003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */,
 				D71E96F42DB5FB840080FE8F /* PDFBuild+StrumSection+Line.swift in Sources */,
 				D75350562DC79BD300CC310A /* AppSettings+SongListSort.swift in Sources */,
-				D7FA29662DF0461700B5CBE9 /* ImageUtils.swift in Sources */,
+				D7FA29662DF0461700B5CBE9 /* ImageUtils+applicationIcon.swift in Sources */,
 				D7E22D892DB2844E004AA103 /* FontUtils+Item.swift in Sources */,
 				D7EF99662BDAD98A0058E1CB /* PDFBuild+Image.swift in Sources */,
 				D7EF996A2BDADC2E0058E1CB /* AppError.swift in Sources */,

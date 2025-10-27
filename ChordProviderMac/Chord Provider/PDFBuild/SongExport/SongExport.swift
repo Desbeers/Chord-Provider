@@ -397,7 +397,7 @@ extension SongExport {
                         labelDivider(section: section),
                         PDFBuild.Image(
                             image,
-                            size: ImageUtils.getImageSize(image: image, arguments: arguments),
+                            size: ImageUtils.getImageSizeFromArguments(size: image.size, arguments: arguments),
                             alignment: PDFBuild.getAlign(arguments),
                             offset: ChordProParser.getOffset(arguments)
                         )

@@ -38,7 +38,7 @@ import Foundation
             if appState.scene.dirty {
                 appState.scene.saveDoneAction = .closeWindow
                 appState.scene.showDirtyClose = true
-                return .keep
+                return .cancel
             } else {
                 return .close
             }

@@ -38,7 +38,7 @@ import ChordProviderCore
         guard let url else { return }
         if let imageFromCache = ImageCache.shared.getImageFromCache(from: url) {
             self.image = imageFromCache
-            self.size = ImageUtils.getImageSize(image: imageFromCache, arguments: arguments)
+            self.size = ImageUtils.getImageSizeFromArguments(size: imageFromCache.size, arguments: arguments)
             return
         }
 
@@ -56,7 +56,7 @@ import ChordProviderCore
             return
         }
         self.image = loadedImage
-        self.size = ImageUtils.getImageSize(image: loadedImage, arguments: self.arguments)
+        self.size = ImageUtils.getImageSizeFromArguments(size: loadedImage.size, arguments: self.arguments)
         ImageCache.shared.setImageCache(image: loadedImage, key: url)
     }
 

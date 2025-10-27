@@ -57,6 +57,8 @@ extension GtkRender {
                     }
                 case .comment:
                     CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment", settings: settings)
+                case .image:
+                    ImageSection(section: section, settings: settings)
                 default:
                     /// Not supported or not a viewable environment
                     EmptyView()
