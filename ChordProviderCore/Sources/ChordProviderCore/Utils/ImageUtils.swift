@@ -4,6 +4,8 @@
 //
 //  © 2025 Nick Berendsen
 //
+// Thanks to https://medium.com/ios-os-x-development/prefetching-images-size-without-downloading-them-entirely-in-swift-5c2f8a6f82e9
+//
 
 import Foundation
 
@@ -14,32 +16,33 @@ public enum ImageUtils {
 }
 
 public extension ImageUtils {
-    
+
     /// Get the format of an image from its data
     /// - Parameter data: The data of the image
     /// - Returns: The format of the image
-    public static func getImageFormat(data: Data) -> Format {
+    static func getImageFormat(data: Data) -> Format {
         var format: Format = .unknown
         /// Evaluate the format of the image
         var length = UInt16(0)
         (data as NSData).getBytes(&length, range: NSRange(location: 0, length: 2))
-        switch CFSwapInt16(length) {
+        switch length.byteSwapped {
         case 0xFFD8:
             format = .jpeg
         case 0x8950:
             format = .png
         case 0x4749:
             format = .gif
-        default:        break
+        default:
+            break
         }
         return format
     }
 }
 
 public extension ImageUtils {
-    
+
     /// Image format
-    public enum Format {
+    enum Format {
         /// jpeg image
         case jpeg
         /// png image
@@ -58,7 +61,7 @@ public extension ImageUtils {
     ///   - size: The true size of the image
     ///   - arguments: The arguments of the image in the song
     /// - Returns: The `CGSize` of the image
-    public static func getImageSizeFromArguments(size: CGSize, arguments: ChordProParser.DirectiveArguments?) -> CGSize {
+    static func getImageSizeFromArguments(size: CGSize, arguments: ChordProParser.DirectiveArguments?) -> CGSize {
         var size = size
         var scale: Double = 1
         if let scaleArgument = arguments?[.scale], let value = Double(scaleArgument.replacingOccurrences(of: "%", with: "")) {
@@ -86,49 +89,57 @@ public extension ImageUtils {
     /// Get the size of an image based on its data
     /// - Parameter data: The data of the image
     /// - Returns: The size of the image, if found
-    public static func getImageSize(data: Data) -> CGSize? {
+    static func getImageSize(data: Data) -> CGSize? {
 
         let format = getImageFormat(data: data)
 
         switch format {
 
         case .png:
-            var w: UInt32 = 0; var h: UInt32 = 0;
-            (data as NSData).getBytes(&w, range: NSRange(location: 16, length: 4))
-            (data as NSData).getBytes(&h, range: NSRange(location: 20, length: 4))
+            var width: UInt32 = 0
+            var height: UInt32 = 0
+            (data as NSData).getBytes(&width, range: NSRange(location: 16, length: 4))
+            (data as NSData).getBytes(&height, range: NSRange(location: 20, length: 4))
 
-            return CGSize(width: Double(Int(CFSwapInt32(w))), height: Double(Int(CFSwapInt32(h))))
+            return CGSize(width: Double(width.byteSwapped), height: Double(height.byteSwapped))
 
         case .gif:
-            var w: UInt16 = 0; var h: UInt16 = 0
-            (data as NSData).getBytes(&w, range: NSRange(location: 6, length: 2))
-            (data as NSData).getBytes(&h, range: NSRange(location: 8, length: 2))
+            var width: UInt16 = 0
+            var height: UInt16 = 0
+            (data as NSData).getBytes(&width, range: NSRange(location: 6, length: 2))
+            (data as NSData).getBytes(&height, range: NSRange(location: 8, length: 2))
 
-            return CGSize(width: Double(Int(w)), height: Double(Int(h)))
+            return CGSize(width: Double(width), height: Double(height))
 
         case .jpeg:
-            var i: Int = 0
-            var block_length: UInt16 = UInt16(data[i]) * 256 + UInt16(data[i+1])
+            var i: Int = 4
+            var blockLength: UInt16 = UInt16(data[i]) * 256 + UInt16(data[i+1])
             repeat {
-                i += Int(block_length) //Increase the file index to get to the next block
-                if i >= data.count { // Check to protect against segmentation faults
+                /// Increase the file index to get to the next block
+                i += Int(blockLength)
+                /// Check to protect against segmentation faults
+                if i >= data.count {
                     return nil
                 }
-                if data[i] != 0xFF { //Check that we are truly at the start of another block
+                /// Check that we are truly at the start of another block
+                if data[i] != 0xFF {
                     return nil
                 }
-                if data[i+1] >= 0xC0 && data[i+1] <= 0xC3 { // if marker type is SOF0, SOF1, SOF2
-                    // "Start of frame" marker which contains the file size
-                    var w: UInt16 = 0; var h: UInt16 = 0;
-                    (data as NSData).getBytes(&h, range: NSMakeRange(i + 5, 2))
-                    (data as NSData).getBytes(&w, range: NSMakeRange(i + 7, 2))
+                /// if marker type is SOF0, SOF1, SOF2
+                if data[i+1] >= 0xC0 && data[i+1] <= 0xC3 {
+                    /// "Start of frame" marker which contains the file size
+                    var width: UInt16 = 0
+                    var height: UInt16 = 0
+                    (data as NSData).getBytes(&height, range: NSMakeRange(i + 5, 2))
+                    (data as NSData).getBytes(&width, range: NSMakeRange(i + 7, 2))
 
-                    let size = CGSize(width: Double(Int(CFSwapInt16(w))), height: Double(Int(CFSwapInt16(h))) );
+                    let size = CGSize(width: Double(width.byteSwapped), height: Double(height.byteSwapped) )
                     return size
                 } else {
-                    // Skip the block marker
-                    i+=2;
-                    block_length = UInt16(data[i]) * 256 + UInt16(data[i+1]);   // Go to the next block
+                    /// Skip the block marker
+                    i += 2
+                    /// Go to the next block
+                    blockLength = UInt16(data[i]) * 256 + UInt16(data[i+1])
                 }
             } while (i < data.count)
             return nil
