@@ -56,14 +56,6 @@ extension String {
     }
 }
 
-/// Make a String identifiable
-struct ElementWrapper: Identifiable, Equatable {
-
-    var id = UUID()
-    var content: String
-
-}
-
 extension String {
     
     /// Wrap text into separate lines and make it identifiable
@@ -71,5 +63,13 @@ extension String {
     /// - Returns: The wrapped text in an array
     func wrap(by length: Int) -> [ElementWrapper] {
         self.split(by: length).map { ElementWrapper(content: $0) }
+    }
+
+    /// Make a String identifiable
+    struct ElementWrapper: Identifiable, Equatable {
+
+        var id = UUID()
+        var content: String
+
     }
 }

@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for a textblock section
     struct TextblockSection: View {
         init(section: Song.Section, settings: AppSettings, maxLenght: Int) {
             self.section = section
@@ -31,7 +32,7 @@ extension GtkRender {
                     VStack {
                         switch line.type {
                         case .songLine:
-                            let lines: [ElementWrapper] = line.plain?.wrap(by: maxLenght) ?? [ElementWrapper(content: "")]
+                            let lines: [String.ElementWrapper] = line.plain?.wrap(by: maxLenght) ?? [String.ElementWrapper(content: "")]
                             ForEach(lines) { line in
                                 Text(line.content)
                                     .useMarkup()

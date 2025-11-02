@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for a comment label
     struct CommentLabel: View {
         /// The comment
         let comment: String

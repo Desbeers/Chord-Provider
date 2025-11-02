@@ -31,8 +31,8 @@ struct WelcomeView: View {
                     if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
                         Picture()
                             .data(data)
-                            .frame(maxWidth: 200)
-                            .frame(maxHeight: 200)
+                            .frame(maxWidth: 300)
+                            .frame(maxHeight: 300)
                             .padding()
                     }
                     Button("Start with an empty song") {
@@ -148,10 +148,20 @@ extension WelcomeView {
                             }
                         }
                     } else {
-                        ForEach(songs.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
-                            if let fileURL = song.settings.fileURL {
-                                OpenButton(fileURL: fileURL, appState: $appState)
-                                    .halign(.start)
+
+                        let result = songs.filter { $0.search.localizedCaseInsensitiveContains(search) }
+                        if result.isEmpty {
+                            StatusPage(
+                                "No songs found",
+                                icon: .default(icon: .systemSearch),
+                                description: "Oops! We couldn't find any songs that match your search."
+                            )
+                        } else {
+                            ForEach(songs.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
+                                if let fileURL = song.settings.fileURL {
+                                    OpenButton(fileURL: fileURL, appState: $appState)
+                                        .halign(.start)
+                                }
                             }
                         }
                     }

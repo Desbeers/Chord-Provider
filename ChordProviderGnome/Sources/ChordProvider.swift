@@ -7,6 +7,7 @@
 
 import Adwaita
 import Foundation
+import CChordProvider
 
 /// The **Chord Provider** application
 @main struct ChordProvider: App {
@@ -28,9 +29,11 @@ import Foundation
                 id: UUID()
             )
             .css {
-                Markup.css(zoom: appState.settings.app.zoom)
+                Markup.css(
+                    zoom: appState.settings.app.zoom,
+                    dark: app_prefers_dark_theme() == 1 ? true : false
+                )
             }
-            .style(.theme)
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)

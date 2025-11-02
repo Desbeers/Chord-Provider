@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for a grid section
     struct GridSection: View {
         /// Init the struct
         init(section: Song.Section, settings: AppSettings) {

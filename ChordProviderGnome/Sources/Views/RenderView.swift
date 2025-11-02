@@ -19,29 +19,7 @@ struct RenderView: View {
     var view: Body {
         HStack {
             ScrollView {
-                VStack {
-                    Text(song.metadata.title)
-                        .style(.title)
-                    Text(song.metadata.subtitle ?? song.metadata.artist)
-                        .style(.subtitle)
-                    /// Show optional tags
-                    if let tags = song.metadata.tags {
-                        HStack {
-                            ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
-                                Text(tag.string)
-                                    .style(Markup.Class.tagLabel.description)
-                                    .padding(5, .leading)
-                            }
-                        }
-                        .hexpand()
-                        .halign(.end)
-                        .padding(10, .top)
-                    }
-                    GtkRender.SectionsView(song: song, settings: settings)
-                        .halign(.center)
-                }
-                .padding(20)
-                .hexpand()
+                GtkRender.PageView(song: song, settings: settings)
             }
             Separator()
             if !song.chords.isEmpty {

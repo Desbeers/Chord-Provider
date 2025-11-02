@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for a strum section
     struct StrumSection: View {
         let section: Song.Section
         let settings: AppSettings

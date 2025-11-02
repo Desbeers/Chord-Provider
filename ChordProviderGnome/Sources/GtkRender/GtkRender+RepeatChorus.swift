@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for repeating a chorus
     struct RepeatChorus: View {
         init(label: String? = nil, section: Song.Section, settings: AppSettings) {
             self.label = label ?? section.label

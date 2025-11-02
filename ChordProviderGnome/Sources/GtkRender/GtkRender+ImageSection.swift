@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for an image section
     struct ImageSection: View {
         init(section: Song.Section, settings: AppSettings) {
             self.section = section

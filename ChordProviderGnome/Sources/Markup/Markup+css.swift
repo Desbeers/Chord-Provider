@@ -32,11 +32,8 @@ extension Markup {
 
     static let baseFontSize: Double = 12.5
 
-    static func css(zoom: Double) -> String {
-
-        let dark: Bool = app_prefers_dark_theme() == 1 ? true : false
-
-return """
+    static func css(zoom: Double, dark: Bool) -> String {
+"""
 .standard, .strum {
     font-size: \(baseFontSize * zoom)px;
 }
@@ -84,9 +81,7 @@ return """
 }
 .plain-button {
     color: \(dark ? "#cee3da" : "#78847f");
-}
-.card {
-    background-color: \(dark ? "#35393f" : "#fcfefb");
+    font-size: 1.1em;
 }
 """
     }

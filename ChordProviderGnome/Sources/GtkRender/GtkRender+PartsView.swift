@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for parts of a song lyric
     struct PartsView: View {
         let parts: [Song.Section.Line.Part]
         let settings: AppSettings

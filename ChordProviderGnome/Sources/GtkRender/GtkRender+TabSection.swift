@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for a tab section
     struct TabSection: View {
         let section: Song.Section
         let settings: AppSettings

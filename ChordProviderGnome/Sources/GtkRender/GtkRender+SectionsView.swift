@@ -11,6 +11,7 @@ import ChordProviderCore
 
 extension GtkRender {
 
+    /// The `View` for all sections
     struct SectionsView: View {
 
         let song: Song
