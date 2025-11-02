@@ -18,11 +18,15 @@ extension GtkRender {
         let settings: AppSettings
         /// The body of the `View`
         var view: Body {
-            Text(comment, font: .comment, zoom: settings.app.zoom)
-                .wrap()
-                .useMarkup()
-                .padding()
-                .halign(.start)
+            HStack(spacing: 10) {
+                Symbol(icon: .default(icon: .userInvisible))
+                Text(comment)
+                    .useMarkup()
+                    .wrap()
+            }
+            .style(Markup.Class.commentLabel.description)
+            .padding()
+            .halign(.start)
         }
     }
 }

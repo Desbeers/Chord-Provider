@@ -26,7 +26,8 @@ extension GtkRender {
                     if !section.label.isEmpty {
                         HeaderView(section: section, settings: settings)
                     }
-                    TextblockSection(section: section, settings: settings)
+                    let maxLenght = song.metadata.longestLine.lineLength?.count ?? 100
+                    TextblockSection(section: section, settings: settings, maxLenght: maxLenght)
                 case .tab:
                     if !settings.core.lyricsOnly {
                         HeaderView(section: section, settings: settings)

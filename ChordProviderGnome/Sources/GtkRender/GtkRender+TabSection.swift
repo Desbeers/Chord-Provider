@@ -19,9 +19,8 @@ extension GtkRender {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        Text(line.plain ?? "", font: .tab, zoom: settings.app.zoom)
-                            .useMarkup()
-                            .wrap()
+                        Text(line.plain ?? "")
+                            .style(.tab)
                             .halign(.start)
                     case .emptyLine:
                         Text(" ")

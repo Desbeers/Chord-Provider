@@ -12,21 +12,20 @@ Please visit the official <b><i>ChordPro</i></b> website for the full experience
 {end_of_textblock}
 
 {start_of_textblock Functionality}
-**Chord Provider** can do the following:
-- It will view and/or edit *ChordPro* files.
-- It can export your song to a PDF document.
-- It can also export a whole folder with *ChordPro* songs to a PDF
-- You can configure its colors and fonts.
-- It also have a database with a lot of chords.
+<b>Chord Provider</b> can do the following:
+
+- It will view and/or edit <i>ChordPro</i> files.
+- It can transpose your song.
+- It can export your song to a HTML document.
 {end_of_textblock}
 
 {start_of_chorus Directives}
 Not all official [D]directives are supported, [B]but most are.
 You can add [G7]chords to a verse or [C]chorus.
-{comment In the standard view you can click on a chord to see its diagram}
 {end_of_chorus}
 
 {start_of_tab Tab Tab Tab!}
+{comment You can add <i>Tabs</i>}
 e|-------------|
 B|-------0-1-1-|
 G|-2-2---1-2-2-|
@@ -62,62 +61,34 @@ da . ua d x d u d um dm d u d us ds u
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}
 This is just a block with text.
 It is using the `{start_of_textblock}` environment.
-You can align it to your liking
-and style it in the `Settings`.
+You can align it to your liking.
 
-You can use *italic* and **bold** markdown formats!
+You can use <i>italic</i> and <b>bold</b> Pango formats!
 {comment This implementation is only partly according the standard}
 {end_of_textblock}
 
-{start_of_verse This is a song}
-This help [F]file is actually a ChordPro song rendered as a PDF.
-You [C]can open this song from the *examples* tab on the 
-welcome screen and s[E]ee it in plain text.
-{end_of_verse}
+{start_of_textblock Repeat}
+The below directive indicates that the Chorus must be repeated. In the Settings you can select 'Repeat whole chorus' and then the <i>Chorus</i> label will be replaced by the whole Chorus with the same label.
+{end_of_textblock}
 
 {chorus}
 
-{start_of_textblock Repeat}
-The above directive indicates that the Chorus must be repeated. In the Settings you can select 'Repeat whole chorus' and then the **Chorus** label will be replaced by the whole Chorus with the same label.
+{start_of_textblock Images}
+There is basic support for images.
 {end_of_textblock}
+
+{image label="Fancy Guitars!" align="left" width="300" src="HelpImage.png"}
+
+{comment See the source for more info.}
 
 {define G7 base-fret 1 frets 2 4 5 5 4 2 fingers 1 2 4 4 3 1}
-
-{start_of_textblock Finder}
-In the `Finder`; **ChordPro** files will have a custom icon
-with the title of the song; just eyecandy!
-**Chord Provider** also supports *quickview*; press `space`
-when you have a song selected and it will render it for you.
-{end_of_textblock}
-
-{image label="Fancy Icons!" align="left" scale="30%" src="IconPreview.png"}
-
-{comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song as badge.}
 
 {start_of_verse Custom Chords}
 You cannot s[E]ee it in the output, [B]but I just
 redefined my favorite [G7]G7 Chord!
 {end_of_verse}
 
-{image src="ChordDefine.png" width="400" align="center"}
-
-{comment Define chords to your liking...}
-
-{start_of_textblock label="Markdown" align="center" flush="left"}
-# Yes, markdown! This is a heading!
-
-Markdown feels natural to the **ChordPro** text format and has basic support in **Chord Provider**.
-
-- This is a list
-- Text that is **Bold**
-- Text that is *Italic*
-- Text that is ~Strikethrough~
-- Links [Github](https://github.com/Desbeers/Chord-Provider)
-- Headers
-- And some `{code}`
-
-You can use it in comments, labels and text blocks.
-{end_of_textblock}
+{comment Define chords to your liking; the diagram is on the right.}
 
 {start_of_textblock label="About me" align="right" flush="right"}
 I'm not a musician; I'm not a programmer
@@ -127,7 +98,7 @@ I'm just a hobbyist who enjoys both!
 Learned programming way back on the `Commodore 64`
 but I never made it my work.
 
-*If you make your hobby your work it is not your hobby anymore...*
+<i>If you make your hobby your work it is not your hobby anymore...</i>
 
 So, I didn’t...
 
@@ -135,23 +106,15 @@ I play guitar for more than 20 years; strumming my chords on a beautiful Telecas
 {end_of_textblock}
 
 {start_of_textblock}
-**Chord Provider** is the result of both hobbies and it serves me well.
+<b>Chord Provider</b> is the result of both hobbies and it serves me well.
 - Sometimes I just play the songs in my songbook; sometimes I see that there is something wrong in the book so I solve it.
 - Sometimes I just give myself a challenge to add something to the application because its like a crossword challenge
-- I do contribute to the official **ChordPro** implementation because I believe in *Open Source software* and standards. While **Chord Provider** is *macOS* only, a closed system, my code is not. I just like *macOS* and especially `Swift` as programming language.
 {end_of_textblock}
 
 {comment https://github.com/Desbeers/Chord-Provider}
 
 {start_of_verse Bugs}
-[B]Bugs are for free; no subscription in [C]**Chord Provider** [F]for [A]additional [F]features!
+[B]Bugs are for free; no subscription in [C]<b>Chord Provider</b> [F]for [A]additional [F]features!
 However; If you realy don't like the [B]bug, report it...
 {comment https://github.com/Desbeers/Chord-Provider/issues/new}
 {end_of_verse}
-
-{start_of_textblock label="Style and Colors" align="center" flush="center"}
-If you look at this help, it looks *plain* and **boring**.
-Give it a try with the **Random Colors** and **Random Fonts** buttons below!
-
-{comment You can set **colors** and **fonts** in the `settings` yourself}
-{end_of_textblock}

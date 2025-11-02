@@ -20,8 +20,8 @@ extension GtkRender {
         let settings: AppSettings
         var view: Body {
             if !label.isEmpty {
-                Text(label, font: .sectionHeader, zoom: settings.app.zoom)
-                    .useMarkup()
+                Text(label)
+                    .style(.sectionHeader)
                     .halign(.start)
                     .padding(10, .vertical)
                 Separator()

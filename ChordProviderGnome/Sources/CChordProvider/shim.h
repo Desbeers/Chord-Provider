@@ -28,16 +28,21 @@ struct cstrum {
 };
 typedef struct cstrum cstrum;
 
+// Returns TRUE if the application prefers dark theme, FALSE otherwise
+static gboolean
+app_prefers_dark_theme(void) {
+    GtkSettings *settings = gtk_settings_get_default();
+    gboolean prefers_dark = FALSE;
+    g_object_get(settings, "gtk-application-prefer-dark-theme", &prefers_dark, NULL);
+    return prefers_dark;
+}
+
 extern void draw_chord_swift(cairo_t *cr, int width, int height, gpointer user_data, gboolean dark_mode);
 
 static void
 draw_chord(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer user_data)
 {
-    /// Set light or dark mode
-    GtkSettings *settings = gtk_settings_get_default();
-    gboolean is_dark_mode = FALSE;
-    g_object_get(G_OBJECT(settings), "gtk-application-prefer-dark-theme", &is_dark_mode, NULL);
-    draw_chord_swift(cr, width, height, user_data, is_dark_mode);
+    draw_chord_swift(cr, width, height, user_data, app_prefers_dark_theme());
 }
 
 extern void draw_arrow_swift(cairo_t *cr, int width, int height, gpointer user_data, gboolean dark_mode);
@@ -45,9 +50,5 @@ extern void draw_arrow_swift(cairo_t *cr, int width, int height, gpointer user_d
 static void
 draw_arrow(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer user_data)
 {
-    /// Set light or dark mode
-    GtkSettings *settings = gtk_settings_get_default();
-    gboolean is_dark_mode = FALSE;
-    g_object_get(G_OBJECT(settings), "gtk-application-prefer-dark-theme", &is_dark_mode, NULL);
-    draw_arrow_swift(cr, width, height, user_data, is_dark_mode);
+    draw_arrow_swift(cr, width, height, user_data, app_prefers_dark_theme());
 }

@@ -28,8 +28,9 @@ import Foundation
                 id: UUID()
             )
             .css {
-                Markup.css
+                Markup.css(zoom: appState.settings.app.zoom)
             }
+            .style(.theme)
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)

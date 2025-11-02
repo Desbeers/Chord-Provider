@@ -20,10 +20,13 @@ extension GtkRender {
         let settings: AppSettings
         var view: Body {
             if !label.isEmpty {
-                Text(label, font: .repeatChorus, zoom: settings.app.zoom)
-                    .useMarkup()
-                    .halign(.start)
-                    .padding(10, .vertical)
+                HStack(spacing: 10) {
+                    Symbol(icon: .default(icon: .mediaPlaylistRepeat))
+                    Text(label)
+                }
+                .style(.repeatChorus)
+                .halign(.start)
+                .padding()
             }
         }
     }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Adwaita
 
 /// Markup of the song render
 enum Markup {
@@ -20,5 +21,11 @@ extension Markup {
         var id = UUID()
         /// The String
         var string: String
+    }
+}
+
+extension AnyView {
+    func style(_ name: Markup.Class) -> AnyView {
+        style(name.description)
     }
 }

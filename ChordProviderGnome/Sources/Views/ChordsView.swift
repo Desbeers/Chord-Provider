@@ -19,8 +19,9 @@ struct ChordsView: View {
     var view: Body {
         ScrollView {
             ForEach(song.chords) { chord in
-                Text(chord.display, font: .chord, zoom: 1)
+                Text(chord.display)
                     .useMarkup()
+                    .style(.chord)
                 ChordDiagramView(chord: chord)
             }
         }

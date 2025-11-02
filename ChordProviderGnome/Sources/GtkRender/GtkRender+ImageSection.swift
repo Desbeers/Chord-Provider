@@ -15,8 +15,13 @@ extension GtkRender {
         init(section: Song.Section, settings: AppSettings) {
             self.section = section
             self.settings = settings
-
-            if let url = ChordProParser.getImageURL(section.arguments?[.src] ?? "", fileURL: settings.core.fileURL), let data = try? Data(contentsOf: url) {
+            let fileURL = settings.core.fileURL == nil ? settings.core.templateURL : settings.core.fileURL
+            if
+                let url = ChordProParser.getImageURL(
+                    section.arguments?[.src] ?? "",
+                    fileURL: fileURL
+                ),
+                let data = try? Data(contentsOf: url) {
                 self.data = data
                 if let size = ImageUtils.getImageSize(data: data) {
                     self.size = ImageUtils.getImageSizeFromArguments(size: size, arguments: section.arguments)

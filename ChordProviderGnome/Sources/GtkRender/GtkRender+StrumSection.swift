@@ -26,8 +26,8 @@ extension GtkRender {
                                         ForEach(strumPart.strums, horizontal: true) { strum in
                                             let dash = strum.action == .slowUp || strum.action == .slowDown ? true : false
                                             VStack(spacing: 2) {
-                                                Text(strum.topSymbol, font: .standard, zoom: settings.app.zoom)
-                                                    .useMarkup()
+                                                Text(strum.topSymbol)
+                                                    .style(.strum)
                                                 switch strum.action {
                                                 case .down, .accentedDown, .mutedDown, .slowDown:
                                                     ArrowView(direction: .down, length: Int(settings.app.zoom * 50), dash: dash)
@@ -36,20 +36,18 @@ extension GtkRender {
                                                     ArrowView(direction: .up, length: Int(settings.app.zoom * 50), dash: dash)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 case .palmMute:
-                                                    Text("x", font: .standard, zoom: settings.app.zoom)
-                                                        .useMarkup()
+                                                    Text("x")
+                                                        .style(.strum)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 default:
-                                                    Text(" ", font: .standard, zoom: settings.app.zoom)
-                                                        .useMarkup()
+                                                    Text(" ")
+                                                        .style(.strum)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 }
                                                 Text(
-                                                    strum.beat.isEmpty ? strum.tuplet : strum.beat,
-                                                    font: .standard,
-                                                    zoom: settings.app.zoom
+                                                    strum.beat.isEmpty ? strum.tuplet : strum.beat
                                                 )
-                                                    .useMarkup()
+                                                .style(.strum)
                                             }
                                             .frame(minWidth: Int(settings.app.zoom * 20))
                                         }

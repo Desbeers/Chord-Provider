@@ -33,19 +33,6 @@ extension Song {
     }
 }
 
-extension Text {
-
-    /// Initialize a text widget.
-    /// - Parameter text: The content.
-    /// - Parameter font: The font to use
-    /// - Parameter zoom: The current zoom facrtor
-    init(_ text: String, font: Markup.Font, zoom: Double) {
-        /// Wrap the text in `pango`
-        let wrapper = "<span \(font.style(zoom: zoom))>\(text.escapeHTML())</span>"
-        self.init(label: wrapper)
-    }
-}
-
 extension String {
 
     func contains(_ strings: [String]) -> Bool {
@@ -66,5 +53,23 @@ extension String {
             escapedString = escapedString.replacingOccurrences(of: "'", with: "&#39;")
             return escapedString
         }
+    }
+}
+
+/// Make a String identifiable
+struct ElementWrapper: Identifiable, Equatable {
+
+    var id = UUID()
+    var content: String
+
+}
+
+extension String {
+    
+    /// Wrap text into separate lines and make it identifiable
+    /// - Parameter length: The maximum length
+    /// - Returns: The wrapped text in an array
+    func wrap(by length: Int) -> [ElementWrapper] {
+        self.split(by: length).map { ElementWrapper(content: $0) }
     }
 }

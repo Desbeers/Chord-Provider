@@ -18,15 +18,16 @@ extension GtkRender {
             ForEach(parts, horizontal: true) { part in
                 VStack {
                     if let chord = part.chordDefinition {
-                        Text(chord.display, font: .chord, zoom: settings.app.zoom)
-                            .useMarkup()
+                        Text(chord.display)
+                            .style(.chord)
                             .halign(.start)
                     } else {
-                        Text(" ", font: .standard, zoom: settings.app.zoom)
-                            .useMarkup()
+                        Text(" ")
+                            .style(.chord)
                     }
-                    Text(part.text ?? " ", font: .standard, zoom: settings.app.zoom)
+                    Text(part.text ?? " ")
                         .useMarkup()
+                        .style(.standard)
                         .halign(.start)
                 }
             }

@@ -29,8 +29,8 @@ extension GtkRender {
                             ForEach(elements, horizontal: true) { element in
                                 HStack {
                                     ForEach(element.parts) { part in
-                                        Text(part.text ?? "", font: part.chordDefinition == nil ? .standard : .grid, zoom: settings.app.zoom)
-                                            .useMarkup()
+                                        Text(part.text ?? "")
+                                            .style(part.chordDefinition == nil ? .standard : .grid)
                                             .halign(.start)
                                             .padding(5, [.trailing, .bottom])
                                     }

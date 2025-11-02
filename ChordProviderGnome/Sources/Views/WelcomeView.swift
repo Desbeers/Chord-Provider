@@ -25,8 +25,8 @@ struct WelcomeView: View {
     var view: Body {
         HStack(spacing: 20) {
             VStack(spacing: 20) {
-                Text("Create a new song", font: .title, zoom: appState.settings.app.zoom)
-                    .useMarkup()
+                Text("Create a new song")
+                    .style(.title)
                 VStack {
                     if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
                         Picture()
@@ -47,7 +47,9 @@ struct WelcomeView: View {
                     Text("")
                         .vexpand()
                     Button("Help") {
-                        openSample("Help", showEditor: false)
+                        Idle {
+                            openSample("Help", showEditor: false, url: true)
+                        }
                     }
                     //.padding(5, .bottom)
                 }
@@ -210,11 +212,11 @@ extension WelcomeView {
 
 extension WelcomeView {
 
-    func openSample(_ sample: String, showEditor: Bool = true) {
+    func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
         if
             let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-            openSong(content: content, showEditor: showEditor)
+            openSong(content: content, showEditor: showEditor, url: url ? sampleSong : nil)
         } else {
             print("Error loading sample song")
         }
@@ -222,12 +224,15 @@ extension WelcomeView {
 
     /// Open a song with its content as string
     /// - Parameter content: The content of the song
-    func openSong(content: String, showEditor: Bool = true) {
+    func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
         appState.scene.source = content
         appState.scene.originalSource = content
         appState.settings.editor.showEditor = showEditor
         if showEditor {
             appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
+        }
+        if let url {
+            appState.settings.core.templateURL = url
         }
         appState.scene.showWelcome = false
     }
@@ -262,7 +267,7 @@ extension WelcomeView {
                 appState.scene.showToast.signal()
             }
             .hasFrame(false)
-            .tooltip(fileURL.path)
+            .tooltip(fileURL.path.escapeHTML())
         }
     }
 }

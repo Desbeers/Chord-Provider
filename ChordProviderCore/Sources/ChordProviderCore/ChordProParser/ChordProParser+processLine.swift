@@ -30,16 +30,11 @@ extension ChordProParser {
             sourceParsed: text.trimmingCharacters(in: .whitespaces),
             type: .songLine
         )
-        /// Remove markup, if any, **Chord Provider** does not support it
-        let textCopy = text.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
-        if text != textCopy {
-            line.addWarning("**Chord Provider** does not support inline markup")
-        }
         var partID: Int = 1
         /// All the parts in the line
         var parts: [Song.Section.Line.Part] = []
         /// Chop the line in parts
-        var matches = textCopy.matches(of: Chord.RegexDefinitions.line)
+        var matches = text.matches(of: Chord.RegexDefinitions.line)
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {

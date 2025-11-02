@@ -20,10 +20,10 @@ struct RenderView: View {
         HStack {
             ScrollView {
                 VStack {
-                    Text(song.metadata.title, font: .title, zoom: settings.app.zoom)
-                        .useMarkup()
-                    Text(song.metadata.subtitle ?? song.metadata.artist, font: .subtitle, zoom: settings.app.zoom)
-                        .useMarkup()
+                    Text(song.metadata.title)
+                        .style(.title)
+                    Text(song.metadata.subtitle ?? song.metadata.artist)
+                        .style(.subtitle)
                     /// Show optional tags
                     if let tags = song.metadata.tags {
                         HStack {
