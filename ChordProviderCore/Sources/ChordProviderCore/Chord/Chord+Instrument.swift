@@ -93,11 +93,11 @@ extension Chord.Instrument {
     public var database: String {
         switch self {
         case .guitar:
-            "GuitarStandardETuning"
+            "ChordDefinitions/GuitarStandardETuning"
         case .guitalele:
-            "GuitaleleStandardATuning"
+            "ChordDefinitions/GuitaleleStandardATuning"
         case .ukulele:
-            "UkuleleStandardGTuning"
+            "ChordDefinitions/UkuleleStandardGTuning"
         }
     }
 }

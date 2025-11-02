@@ -35,23 +35,8 @@ public enum ChordUtils {
 
     /// Import a definition database from a JSON database file
     private static func importInstrument( _ instrument: Chord.Instrument) -> [ChordDefinition] {
-
-        switch instrument {
-        case .guitar:
-            if let database = try? JSONUtils.decode(guitarStandardETuning, struct: ChordPro.Instrument.self) {
-                return importDatabase(database: database, instrument: instrument)
-            }
-        case .guitalele:
-            if let database = try? JSONUtils.decode(guitaleleStandardATuning, struct: ChordPro.Instrument.self) {
-                return importDatabase(database: database, instrument: instrument)
-            }
-        case .ukulele:
-            if let database = try? JSONUtils.decode(ukuleleStandardGTuning, struct: ChordPro.Instrument.self) {
-                return importDatabase(database: database, instrument: instrument)
-            }
-        }
-        /// This should not happen
-        return []
+        let database = Bundle.module.decode(ChordPro.Instrument.self, from: instrument.database)
+        return importDatabase(database: database, instrument: instrument)
     }
 
     /// Import a database with chord definitions

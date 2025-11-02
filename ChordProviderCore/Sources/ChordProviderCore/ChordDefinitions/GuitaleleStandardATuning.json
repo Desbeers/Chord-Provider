@@ -1,7 +1,3 @@
-import Foundation
-
-// swiftlint:disable all
-let guitaleleStandardATuning: String = """
 {
   "chords" : [
     {
@@ -332,7 +328,7 @@ let guitaleleStandardATuning: String = """
         0,
         3
       ],
-      "name" : "C/B"
+      "name" : "C\/B"
     },
     {
       "base" : 1,
@@ -352,7 +348,7 @@ let guitaleleStandardATuning: String = """
         0,
         3
       ],
-      "name" : "C/E"
+      "name" : "C\/E"
     },
     {
       "base" : 1,
@@ -372,7 +368,7 @@ let guitaleleStandardATuning: String = """
         0,
         3
       ],
-      "name" : "C/F"
+      "name" : "C\/F"
     },
     {
       "base" : 1,
@@ -392,7 +388,7 @@ let guitaleleStandardATuning: String = """
         0,
         3
       ],
-      "name" : "C/G"
+      "name" : "C\/G"
     },
     {
       "base" : 1,
@@ -557,7 +553,7 @@ let guitaleleStandardATuning: String = """
         2,
         0
       ],
-      "name" : "D/A"
+      "name" : "D\/A"
     },
     {
       "base" : 1,
@@ -577,7 +573,7 @@ let guitaleleStandardATuning: String = """
         2,
         0
       ],
-      "name" : "D/B"
+      "name" : "D\/B"
     },
     {
       "base" : 1,
@@ -597,11 +593,11 @@ let guitaleleStandardATuning: String = """
         2,
         0
       ],
-      "name" : "D/C"
+      "name" : "D\/C"
     },
     {
       "base" : 1,
-      "display" : "D/F♯",
+      "display" : "D\/F♯",
       "fingers" : [
         0,
         3,
@@ -618,7 +614,7 @@ let guitaleleStandardATuning: String = """
         2,
         0
       ],
-      "name" : "D/F#"
+      "name" : "D\/F#"
     },
     {
       "base" : 1,
@@ -1346,5 +1342,3 @@ let guitaleleStandardATuning: String = """
     "A4"
   ]
 }
-"""
-// swiftlint:enable all

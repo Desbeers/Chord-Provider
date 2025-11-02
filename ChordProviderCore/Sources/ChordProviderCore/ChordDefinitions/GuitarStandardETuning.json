@@ -1,7 +1,3 @@
-import Foundation
-
-// swiftlint:disable all
-let guitarStandardETuning: String = """
 {
   "chords" : [
     {
@@ -86,7 +82,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 2,
-      "display" : "A/C♯",
+      "display" : "A\/C♯",
       "fingers" : [
         0,
         3,
@@ -103,11 +99,11 @@ let guitarStandardETuning: String = """
         1,
         4
       ],
-      "name" : "A/C#"
+      "name" : "A\/C#"
     },
     {
       "base" : 2,
-      "display" : "A/C♯",
+      "display" : "A\/C♯",
       "fingers" : [
         0,
         3,
@@ -124,11 +120,11 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "A/C#"
+      "name" : "A\/C#"
     },
     {
       "base" : 4,
-      "display" : "A/C♯",
+      "display" : "A\/C♯",
       "fingers" : [
         0,
         1,
@@ -145,7 +141,7 @@ let guitarStandardETuning: String = """
         2,
         2
       ],
-      "name" : "A/C#"
+      "name" : "A\/C#"
     },
     {
       "base" : 1,
@@ -165,7 +161,7 @@ let guitarStandardETuning: String = """
         2,
         0
       ],
-      "name" : "A/D"
+      "name" : "A\/D"
     },
     {
       "base" : 5,
@@ -185,7 +181,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "A/D"
+      "name" : "A\/D"
     },
     {
       "base" : 1,
@@ -205,7 +201,7 @@ let guitarStandardETuning: String = """
         2,
         0
       ],
-      "name" : "A/E"
+      "name" : "A\/E"
     },
     {
       "base" : 2,
@@ -225,7 +221,7 @@ let guitarStandardETuning: String = """
         1,
         4
       ],
-      "name" : "A/E"
+      "name" : "A\/E"
     },
     {
       "base" : 5,
@@ -245,7 +241,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "A/E"
+      "name" : "A\/E"
     },
     {
       "base" : 1,
@@ -265,7 +261,7 @@ let guitarStandardETuning: String = """
         2,
         0
       ],
-      "name" : "A/F"
+      "name" : "A\/F"
     },
     {
       "base" : 1,
@@ -285,7 +281,7 @@ let guitarStandardETuning: String = """
         2,
         0
       ],
-      "name" : "A/F"
+      "name" : "A\/F"
     },
     {
       "base" : 1,
@@ -305,11 +301,11 @@ let guitarStandardETuning: String = """
         2,
         -1
       ],
-      "name" : "A/F"
+      "name" : "A\/F"
     },
     {
       "base" : 1,
-      "display" : "A/F♯",
+      "display" : "A\/F♯",
       "fingers" : [
         1,
         0,
@@ -326,11 +322,11 @@ let guitarStandardETuning: String = """
         2,
         0
       ],
-      "name" : "A/F#"
+      "name" : "A\/F#"
     },
     {
       "base" : 2,
-      "display" : "A/F♯",
+      "display" : "A\/F♯",
       "fingers" : [
         1,
         3,
@@ -347,11 +343,11 @@ let guitarStandardETuning: String = """
         1,
         4
       ],
-      "name" : "A/F#"
+      "name" : "A\/F#"
     },
     {
       "base" : 2,
-      "display" : "A/F♯",
+      "display" : "A\/F♯",
       "fingers" : [
         1,
         3,
@@ -368,7 +364,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "A/F#"
+      "name" : "A\/F#"
     },
     {
       "base" : 1,
@@ -388,7 +384,7 @@ let guitarStandardETuning: String = """
         2,
         0
       ],
-      "name" : "A/G"
+      "name" : "A\/G"
     },
     {
       "base" : 2,
@@ -408,7 +404,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "A/G"
+      "name" : "A\/G"
     },
     {
       "base" : 5,
@@ -428,11 +424,11 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "A/G"
+      "name" : "A\/G"
     },
     {
       "base" : 2,
-      "display" : "A/G♯",
+      "display" : "A\/G♯",
       "fingers" : [
         2,
         3,
@@ -449,11 +445,11 @@ let guitarStandardETuning: String = """
         1,
         4
       ],
-      "name" : "A/G#"
+      "name" : "A\/G#"
     },
     {
       "base" : 2,
-      "display" : "A/G♯",
+      "display" : "A\/G♯",
       "fingers" : [
         2,
         3,
@@ -470,11 +466,11 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "A/G#"
+      "name" : "A\/G#"
     },
     {
       "base" : 5,
-      "display" : "A/G♯",
+      "display" : "A\/G♯",
       "fingers" : [
         0,
         0,
@@ -491,7 +487,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "A/G#"
+      "name" : "A\/G#"
     },
     {
       "base" : 1,
@@ -3834,7 +3830,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "A⁷/D",
+      "display" : "A⁷\/D",
       "fingers" : [
         0,
         0,
@@ -3851,7 +3847,7 @@ let guitarStandardETuning: String = """
         2,
         3
       ],
-      "name" : "A7/D"
+      "name" : "A7\/D"
     },
     {
       "base" : 1,
@@ -8270,7 +8266,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am/C"
+      "name" : "Am\/C"
     },
     {
       "base" : 2,
@@ -8290,7 +8286,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "Am/C"
+      "name" : "Am\/C"
     },
     {
       "base" : 2,
@@ -8310,7 +8306,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "Am/C"
+      "name" : "Am\/C"
     },
     {
       "base" : 1,
@@ -8330,7 +8326,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am/E"
+      "name" : "Am\/E"
     },
     {
       "base" : 1,
@@ -8350,7 +8346,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am/E"
+      "name" : "Am\/E"
     },
     {
       "base" : 5,
@@ -8370,7 +8366,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "Am/E"
+      "name" : "Am\/E"
     },
     {
       "base" : 1,
@@ -8390,7 +8386,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am/F"
+      "name" : "Am\/F"
     },
     {
       "base" : 1,
@@ -8410,7 +8406,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am/F"
+      "name" : "Am\/F"
     },
     {
       "base" : 1,
@@ -8430,11 +8426,11 @@ let guitarStandardETuning: String = """
         1,
         -1
       ],
-      "name" : "Am/F"
+      "name" : "Am\/F"
     },
     {
       "base" : 1,
-      "display" : "Am/F♯",
+      "display" : "Am\/F♯",
       "fingers" : [
         2,
         0,
@@ -8451,11 +8447,11 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am/F#"
+      "name" : "Am\/F#"
     },
     {
       "base" : 2,
-      "display" : "Am/F♯",
+      "display" : "Am\/F♯",
       "fingers" : [
         1,
         2,
@@ -8472,11 +8468,11 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "Am/F#"
+      "name" : "Am\/F#"
     },
     {
       "base" : 4,
-      "display" : "Am/F♯",
+      "display" : "Am\/F♯",
       "fingers" : [
         0,
         0,
@@ -8493,7 +8489,7 @@ let guitarStandardETuning: String = """
         2,
         2
       ],
-      "name" : "Am/F#"
+      "name" : "Am\/F#"
     },
     {
       "base" : 1,
@@ -8513,7 +8509,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am/G"
+      "name" : "Am\/G"
     },
     {
       "base" : 2,
@@ -8533,7 +8529,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "Am/G"
+      "name" : "Am\/G"
     },
     {
       "base" : 5,
@@ -8553,11 +8549,11 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "Am/G"
+      "name" : "Am\/G"
     },
     {
       "base" : 2,
-      "display" : "Am/G♯",
+      "display" : "Am\/G♯",
       "fingers" : [
         3,
         2,
@@ -8574,11 +8570,11 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "Am/G#"
+      "name" : "Am\/G#"
     },
     {
       "base" : 2,
-      "display" : "Am/G♯",
+      "display" : "Am\/G♯",
       "fingers" : [
         3,
         2,
@@ -8595,7 +8591,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "Am/G#"
+      "name" : "Am\/G#"
     },
     {
       "base" : 1,
@@ -8767,7 +8763,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "Am⁷/G",
+      "display" : "Am⁷\/G",
       "fingers" : [
         3,
         0,
@@ -8784,7 +8780,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Am7/G"
+      "name" : "Am7\/G"
     },
     {
       "base" : 1,
@@ -14900,7 +14896,7 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "Bm/A"
+      "name" : "Bm\/A"
     },
     {
       "base" : 1,
@@ -16470,7 +16466,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "C/B"
+      "name" : "C\/B"
     },
     {
       "base" : 1,
@@ -16490,7 +16486,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "C/E"
+      "name" : "C\/E"
     },
     {
       "base" : 1,
@@ -16510,7 +16506,7 @@ let guitarStandardETuning: String = """
         1,
         3
       ],
-      "name" : "C/E"
+      "name" : "C\/E"
     },
     {
       "base" : 5,
@@ -16530,7 +16526,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "C/E"
+      "name" : "C\/E"
     },
     {
       "base" : 1,
@@ -16550,7 +16546,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "C/F"
+      "name" : "C\/F"
     },
     {
       "base" : 1,
@@ -16570,7 +16566,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "C/F"
+      "name" : "C\/F"
     },
     {
       "base" : 3,
@@ -16590,7 +16586,7 @@ let guitarStandardETuning: String = """
         3,
         1
       ],
-      "name" : "C/F"
+      "name" : "C\/F"
     },
     {
       "base" : 1,
@@ -16610,7 +16606,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "C/G"
+      "name" : "C\/G"
     },
     {
       "base" : 2,
@@ -16630,7 +16626,7 @@ let guitarStandardETuning: String = """
         4,
         -1
       ],
-      "name" : "C/G"
+      "name" : "C\/G"
     },
     {
       "base" : 3,
@@ -16650,7 +16646,7 @@ let guitarStandardETuning: String = """
         3,
         1
       ],
-      "name" : "C/G"
+      "name" : "C\/G"
     },
     {
       "base" : 1,
@@ -21577,7 +21573,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 4,
-      "display" : "Cm⁷/G",
+      "display" : "Cm⁷\/G",
       "fingers" : [
         0,
         0,
@@ -21594,7 +21590,7 @@ let guitarStandardETuning: String = """
         1,
         3
       ],
-      "name" : "Cm7/G"
+      "name" : "Cm7\/G"
     },
     {
       "base" : 1,
@@ -21661,7 +21657,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 4,
-      "display" : "Cm⁷♭⁵/F♯",
+      "display" : "Cm⁷♭⁵\/F♯",
       "fingers" : [
         0,
         0,
@@ -21678,7 +21674,7 @@ let guitarStandardETuning: String = """
         1,
         3
       ],
-      "name" : "Cm7b5/F#"
+      "name" : "Cm7b5\/F#"
     },
     {
       "base" : 1,
@@ -23080,7 +23076,7 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/A"
+      "name" : "D\/A"
     },
     {
       "base" : 4,
@@ -23100,7 +23096,7 @@ let guitarStandardETuning: String = """
         4,
         -1
       ],
-      "name" : "D/A"
+      "name" : "D\/A"
     },
     {
       "base" : 5,
@@ -23120,11 +23116,11 @@ let guitarStandardETuning: String = """
         3,
         1
       ],
-      "name" : "D/A"
+      "name" : "D\/A"
     },
     {
       "base" : 1,
-      "display" : "D/A♯",
+      "display" : "D\/A♯",
       "fingers" : [
         0,
         1,
@@ -23141,11 +23137,11 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/A#"
+      "name" : "D\/A#"
     },
     {
       "base" : 1,
-      "display" : "D/A♯",
+      "display" : "D\/A♯",
       "fingers" : [
         0,
         1,
@@ -23162,11 +23158,11 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/A#"
+      "name" : "D\/A#"
     },
     {
       "base" : 5,
-      "display" : "D/A♯",
+      "display" : "D\/A♯",
       "fingers" : [
         2,
         1,
@@ -23183,7 +23179,7 @@ let guitarStandardETuning: String = """
         3,
         -1
       ],
-      "name" : "D/A#"
+      "name" : "D\/A#"
     },
     {
       "base" : 1,
@@ -23203,7 +23199,7 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/B"
+      "name" : "D\/B"
     },
     {
       "base" : 1,
@@ -23223,7 +23219,7 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/B"
+      "name" : "D\/B"
     },
     {
       "base" : 2,
@@ -23243,7 +23239,7 @@ let guitarStandardETuning: String = """
         2,
         4
       ],
-      "name" : "D/B"
+      "name" : "D\/B"
     },
     {
       "base" : 1,
@@ -23263,7 +23259,7 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/C"
+      "name" : "D\/C"
     },
     {
       "base" : 1,
@@ -23283,7 +23279,7 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/C"
+      "name" : "D\/C"
     },
     {
       "base" : 5,
@@ -23303,11 +23299,11 @@ let guitarStandardETuning: String = """
         3,
         -1
       ],
-      "name" : "D/C"
+      "name" : "D\/C"
     },
     {
       "base" : 1,
-      "display" : "D/F♯",
+      "display" : "D\/F♯",
       "fingers" : [
         1,
         0,
@@ -23324,11 +23320,11 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "D/F#"
+      "name" : "D\/F#"
     },
     {
       "base" : 2,
-      "display" : "D/F♯",
+      "display" : "D\/F♯",
       "fingers" : [
         0,
         0,
@@ -23345,11 +23341,11 @@ let guitarStandardETuning: String = """
         2,
         4
       ],
-      "name" : "D/F#"
+      "name" : "D\/F#"
     },
     {
       "base" : 2,
-      "display" : "D/F♯",
+      "display" : "D\/F♯",
       "fingers" : [
         1,
         4,
@@ -23366,7 +23362,7 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "D/F#"
+      "name" : "D\/F#"
     },
     {
       "base" : 1,
@@ -31339,7 +31335,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "Dm⁹/F",
+      "display" : "Dm⁹\/F",
       "fingers" : [
         1,
         0,
@@ -31356,7 +31352,7 @@ let guitarStandardETuning: String = """
         1,
         0
       ],
-      "name" : "Dm9/F"
+      "name" : "Dm9\/F"
     },
     {
       "base" : 1,
@@ -32590,7 +32586,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/B"
+      "name" : "E\/B"
     },
     {
       "base" : 2,
@@ -32610,7 +32606,7 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "E/B"
+      "name" : "E\/B"
     },
     {
       "base" : 7,
@@ -32630,11 +32626,11 @@ let guitarStandardETuning: String = """
         3,
         1
       ],
-      "name" : "E/B"
+      "name" : "E\/B"
     },
     {
       "base" : 4,
-      "display" : "E/C♯",
+      "display" : "E\/C♯",
       "fingers" : [
         0,
         1,
@@ -32651,11 +32647,11 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "E/C#"
+      "name" : "E\/C#"
     },
     {
       "base" : 4,
-      "display" : "E/C♯",
+      "display" : "E\/C♯",
       "fingers" : [
         0,
         1,
@@ -32672,11 +32668,11 @@ let guitarStandardETuning: String = """
         2,
         4
       ],
-      "name" : "E/C#"
+      "name" : "E\/C#"
     },
     {
       "base" : 9,
-      "display" : "E/C♯",
+      "display" : "E\/C♯",
       "fingers" : [
         1,
         3,
@@ -32693,7 +32689,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "E/C#"
+      "name" : "E\/C#"
     },
     {
       "base" : 1,
@@ -32713,7 +32709,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/D"
+      "name" : "E\/D"
     },
     {
       "base" : 2,
@@ -32733,7 +32729,7 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "E/D"
+      "name" : "E\/D"
     },
     {
       "base" : 4,
@@ -32753,11 +32749,11 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "E/D"
+      "name" : "E\/D"
     },
     {
       "base" : 1,
-      "display" : "E/D♯",
+      "display" : "E\/D♯",
       "fingers" : [
         0,
         0,
@@ -32774,11 +32770,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/D#"
+      "name" : "E\/D#"
     },
     {
       "base" : 4,
-      "display" : "E/D♯",
+      "display" : "E\/D♯",
       "fingers" : [
         0,
         3,
@@ -32795,11 +32791,11 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "E/D#"
+      "name" : "E\/D#"
     },
     {
       "base" : 9,
-      "display" : "E/D♯",
+      "display" : "E\/D♯",
       "fingers" : [
         2,
         3,
@@ -32816,7 +32812,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "E/D#"
+      "name" : "E\/D#"
     },
     {
       "base" : 1,
@@ -32836,7 +32832,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/F"
+      "name" : "E\/F"
     },
     {
       "base" : 1,
@@ -32856,7 +32852,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/F"
+      "name" : "E\/F"
     },
     {
       "base" : 3,
@@ -32876,11 +32872,11 @@ let guitarStandardETuning: String = """
         3,
         2
       ],
-      "name" : "E/F"
+      "name" : "E\/F"
     },
     {
       "base" : 1,
-      "display" : "E/F♯",
+      "display" : "E\/F♯",
       "fingers" : [
         2,
         3,
@@ -32897,11 +32893,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/F#"
+      "name" : "E\/F#"
     },
     {
       "base" : 2,
-      "display" : "E/F♯",
+      "display" : "E\/F♯",
       "fingers" : [
         1,
         1,
@@ -32918,11 +32914,11 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "E/F#"
+      "name" : "E\/F#"
     },
     {
       "base" : 4,
-      "display" : "E/F♯",
+      "display" : "E\/F♯",
       "fingers" : [
         0,
         0,
@@ -32939,7 +32935,7 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "E/F#"
+      "name" : "E\/F#"
     },
     {
       "base" : 1,
@@ -32959,7 +32955,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/G"
+      "name" : "E\/G"
     },
     {
       "base" : 2,
@@ -32979,7 +32975,7 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "E/G"
+      "name" : "E\/G"
     },
     {
       "base" : 4,
@@ -32999,11 +32995,11 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "E/G"
+      "name" : "E\/G"
     },
     {
       "base" : 1,
-      "display" : "E/G♯",
+      "display" : "E\/G♯",
       "fingers" : [
         0,
         0,
@@ -33020,11 +33016,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/G#"
+      "name" : "E\/G#"
     },
     {
       "base" : 1,
-      "display" : "E/G♯",
+      "display" : "E\/G♯",
       "fingers" : [
         4,
         2,
@@ -33041,11 +33037,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "E/G#"
+      "name" : "E\/G#"
     },
     {
       "base" : 2,
-      "display" : "E/G♯",
+      "display" : "E\/G♯",
       "fingers" : [
         2,
         1,
@@ -33062,11 +33058,11 @@ let guitarStandardETuning: String = """
         4,
         -1
       ],
-      "name" : "E/G#"
+      "name" : "E\/G#"
     },
     {
       "base" : 4,
-      "display" : "E/G♯",
+      "display" : "E\/G♯",
       "fingers" : [
         1,
         4,
@@ -33083,7 +33079,7 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "E/G#"
+      "name" : "E\/G#"
     },
     {
       "base" : 1,
@@ -37627,7 +37623,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/B"
+      "name" : "Em\/B"
     },
     {
       "base" : 1,
@@ -37647,7 +37643,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "Em/B"
+      "name" : "Em\/B"
     },
     {
       "base" : 2,
@@ -37667,11 +37663,11 @@ let guitarStandardETuning: String = """
         4,
         2
       ],
-      "name" : "Em/B"
+      "name" : "Em\/B"
     },
     {
       "base" : 1,
-      "display" : "Em/C♯",
+      "display" : "Em\/C♯",
       "fingers" : [
         0,
         3,
@@ -37688,11 +37684,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/C#"
+      "name" : "Em\/C#"
     },
     {
       "base" : 4,
-      "display" : "Em/C♯",
+      "display" : "Em\/C♯",
       "fingers" : [
         0,
         1,
@@ -37709,11 +37705,11 @@ let guitarStandardETuning: String = """
         2,
         4
       ],
-      "name" : "Em/C#"
+      "name" : "Em\/C#"
     },
     {
       "base" : 9,
-      "display" : "Em/C♯",
+      "display" : "Em\/C♯",
       "fingers" : [
         1,
         2,
@@ -37730,7 +37726,7 @@ let guitarStandardETuning: String = """
         4,
         4
       ],
-      "name" : "Em/C#"
+      "name" : "Em\/C#"
     },
     {
       "base" : 1,
@@ -37750,7 +37746,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/D"
+      "name" : "Em\/D"
     },
     {
       "base" : 4,
@@ -37770,7 +37766,7 @@ let guitarStandardETuning: String = """
         2,
         -1
       ],
-      "name" : "Em/D"
+      "name" : "Em\/D"
     },
     {
       "base" : 12,
@@ -37790,11 +37786,11 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "Em/D"
+      "name" : "Em\/D"
     },
     {
       "base" : 1,
-      "display" : "Em/D♯",
+      "display" : "Em\/D♯",
       "fingers" : [
         0,
         0,
@@ -37811,11 +37807,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/D#"
+      "name" : "Em\/D#"
     },
     {
       "base" : 4,
-      "display" : "Em/D♯",
+      "display" : "Em\/D♯",
       "fingers" : [
         0,
         4,
@@ -37832,11 +37828,11 @@ let guitarStandardETuning: String = """
         2,
         -1
       ],
-      "name" : "Em/D#"
+      "name" : "Em\/D#"
     },
     {
       "base" : 6,
-      "display" : "Em/D♯",
+      "display" : "Em\/D♯",
       "fingers" : [
         0,
         1,
@@ -37853,7 +37849,7 @@ let guitarStandardETuning: String = """
         3,
         -1
       ],
-      "name" : "Em/D#"
+      "name" : "Em\/D#"
     },
     {
       "base" : 1,
@@ -37873,7 +37869,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/F"
+      "name" : "Em\/F"
     },
     {
       "base" : 1,
@@ -37893,7 +37889,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/F"
+      "name" : "Em\/F"
     },
     {
       "base" : 1,
@@ -37913,11 +37909,11 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "Em/F"
+      "name" : "Em\/F"
     },
     {
       "base" : 1,
-      "display" : "Em/F♯",
+      "display" : "Em\/F♯",
       "fingers" : [
         1,
         2,
@@ -37934,11 +37930,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/F#"
+      "name" : "Em\/F#"
     },
     {
       "base" : 1,
-      "display" : "Em/F♯",
+      "display" : "Em\/F♯",
       "fingers" : [
         1,
         2,
@@ -37955,11 +37951,11 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "Em/F#"
+      "name" : "Em\/F#"
     },
     {
       "base" : 2,
-      "display" : "Em/F♯",
+      "display" : "Em\/F♯",
       "fingers" : [
         1,
         1,
@@ -37976,7 +37972,7 @@ let guitarStandardETuning: String = """
         4,
         2
       ],
-      "name" : "Em/F#"
+      "name" : "Em\/F#"
     },
     {
       "base" : 1,
@@ -37996,7 +37992,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/G"
+      "name" : "Em\/G"
     },
     {
       "base" : 1,
@@ -38016,7 +38012,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "Em/G"
+      "name" : "Em\/G"
     },
     {
       "base" : 2,
@@ -38036,11 +38032,11 @@ let guitarStandardETuning: String = """
         4,
         0
       ],
-      "name" : "Em/G"
+      "name" : "Em\/G"
     },
     {
       "base" : 1,
-      "display" : "Em/G♯",
+      "display" : "Em\/G♯",
       "fingers" : [
         4,
         1,
@@ -38057,11 +38053,11 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "Em/G#"
+      "name" : "Em\/G#"
     },
     {
       "base" : 3,
-      "display" : "Em/G♯",
+      "display" : "Em\/G♯",
       "fingers" : [
         0,
         0,
@@ -38078,11 +38074,11 @@ let guitarStandardETuning: String = """
         3,
         1
       ],
-      "name" : "Em/G#"
+      "name" : "Em\/G#"
     },
     {
       "base" : 4,
-      "display" : "Em/G♯",
+      "display" : "Em\/G♯",
       "fingers" : [
         1,
         4,
@@ -38099,7 +38095,7 @@ let guitarStandardETuning: String = """
         2,
         -1
       ],
-      "name" : "Em/G#"
+      "name" : "Em\/G#"
     },
     {
       "base" : 1,
@@ -39753,7 +39749,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/A"
+      "name" : "F\/A"
     },
     {
       "base" : 2,
@@ -39773,7 +39769,7 @@ let guitarStandardETuning: String = """
         -1,
         -1
       ],
-      "name" : "F/A"
+      "name" : "F\/A"
     },
     {
       "base" : 3,
@@ -39793,7 +39789,7 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "F/A"
+      "name" : "F\/A"
     },
     {
       "base" : 1,
@@ -39813,7 +39809,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/C"
+      "name" : "F\/C"
     },
     {
       "base" : 3,
@@ -39833,7 +39829,7 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "F/C"
+      "name" : "F\/C"
     },
     {
       "base" : 8,
@@ -39853,7 +39849,7 @@ let guitarStandardETuning: String = """
         3,
         1
       ],
-      "name" : "F/C"
+      "name" : "F\/C"
     },
     {
       "base" : 1,
@@ -39873,7 +39869,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/D"
+      "name" : "F\/D"
     },
     {
       "base" : 5,
@@ -39893,7 +39889,7 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "F/D"
+      "name" : "F\/D"
     },
     {
       "base" : 5,
@@ -39913,11 +39909,11 @@ let guitarStandardETuning: String = """
         2,
         4
       ],
-      "name" : "F/D"
+      "name" : "F\/D"
     },
     {
       "base" : 1,
-      "display" : "F/D♯",
+      "display" : "F\/D♯",
       "fingers" : [
         0,
         0,
@@ -39934,11 +39930,11 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/D#"
+      "name" : "F\/D#"
     },
     {
       "base" : 3,
-      "display" : "F/D♯",
+      "display" : "F\/D♯",
       "fingers" : [
         0,
         3,
@@ -39955,11 +39951,11 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "F/D#"
+      "name" : "F\/D#"
     },
     {
       "base" : 5,
-      "display" : "F/D♯",
+      "display" : "F\/D♯",
       "fingers" : [
         0,
         2,
@@ -39976,7 +39972,7 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "F/D#"
+      "name" : "F\/D#"
     },
     {
       "base" : 1,
@@ -39996,7 +39992,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/E"
+      "name" : "F\/E"
     },
     {
       "base" : 1,
@@ -40016,7 +40012,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/E"
+      "name" : "F\/E"
     },
     {
       "base" : 1,
@@ -40036,7 +40032,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/E"
+      "name" : "F\/E"
     },
     {
       "base" : 1,
@@ -40056,7 +40052,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F/G"
+      "name" : "F\/G"
     },
     {
       "base" : 1,
@@ -40076,7 +40072,7 @@ let guitarStandardETuning: String = """
         -1,
         -1
       ],
-      "name" : "F/G"
+      "name" : "F\/G"
     },
     {
       "base" : 3,
@@ -40096,7 +40092,7 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "F/G"
+      "name" : "F\/G"
     },
     {
       "base" : 1,
@@ -41696,7 +41692,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "F♯m/A",
+      "display" : "F♯m\/A",
       "fingers" : [
         0,
         0,
@@ -41713,7 +41709,7 @@ let guitarStandardETuning: String = """
         2,
         2
       ],
-      "name" : "F#m/A"
+      "name" : "F#m\/A"
     },
     {
       "base" : 1,
@@ -43397,7 +43393,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "F⁷/D♯",
+      "display" : "F⁷\/D♯",
       "fingers" : [
         0,
         0,
@@ -43414,7 +43410,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "F7/D#"
+      "name" : "F7\/D#"
     },
     {
       "base" : 1,
@@ -44258,7 +44254,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "Fadd⁹/C",
+      "display" : "Fadd⁹\/C",
       "fingers" : [
         0,
         3,
@@ -44275,11 +44271,11 @@ let guitarStandardETuning: String = """
         1,
         3
       ],
-      "name" : "Fadd9/C"
+      "name" : "Fadd9\/C"
     },
     {
       "base" : 1,
-      "display" : "Fadd⁹/G",
+      "display" : "Fadd⁹\/G",
       "fingers" : [
         3,
         0,
@@ -44296,7 +44292,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "Fadd9/G"
+      "name" : "Fadd9\/G"
     },
     {
       "base" : 1,
@@ -44787,7 +44783,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "Fm/C"
+      "name" : "Fm\/C"
     },
     {
       "base" : 1,
@@ -44807,7 +44803,7 @@ let guitarStandardETuning: String = """
         1,
         4
       ],
-      "name" : "Fm/C"
+      "name" : "Fm\/C"
     },
     {
       "base" : 8,
@@ -44827,7 +44823,7 @@ let guitarStandardETuning: String = """
         2,
         1
       ],
-      "name" : "Fm/C"
+      "name" : "Fm\/C"
     },
     {
       "base" : 1,
@@ -46439,7 +46435,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "G/A"
+      "name" : "G\/A"
     },
     {
       "base" : 1,
@@ -46459,7 +46455,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "G/B"
+      "name" : "G\/B"
     },
     {
       "base" : 1,
@@ -46479,7 +46475,7 @@ let guitarStandardETuning: String = """
         3,
         3
       ],
-      "name" : "G/B"
+      "name" : "G\/B"
     },
     {
       "base" : 2,
@@ -46499,7 +46495,7 @@ let guitarStandardETuning: String = """
         2,
         2
       ],
-      "name" : "G/B"
+      "name" : "G\/B"
     },
     {
       "base" : 1,
@@ -46519,7 +46515,7 @@ let guitarStandardETuning: String = """
         0,
         -1
       ],
-      "name" : "G/C"
+      "name" : "G\/C"
     },
     {
       "base" : 1,
@@ -46539,7 +46535,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "G/D"
+      "name" : "G\/D"
     },
     {
       "base" : 3,
@@ -46559,7 +46555,7 @@ let guitarStandardETuning: String = """
         1,
         1
       ],
-      "name" : "G/D"
+      "name" : "G\/D"
     },
     {
       "base" : 5,
@@ -46579,7 +46575,7 @@ let guitarStandardETuning: String = """
         4,
         3
       ],
-      "name" : "G/D"
+      "name" : "G\/D"
     },
     {
       "base" : 1,
@@ -46599,7 +46595,7 @@ let guitarStandardETuning: String = """
         3,
         3
       ],
-      "name" : "G/E"
+      "name" : "G\/E"
     },
     {
       "base" : 1,
@@ -46619,7 +46615,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "G/E"
+      "name" : "G\/E"
     },
     {
       "base" : 1,
@@ -46639,7 +46635,7 @@ let guitarStandardETuning: String = """
         3,
         3
       ],
-      "name" : "G/E"
+      "name" : "G\/E"
     },
     {
       "base" : 1,
@@ -46659,7 +46655,7 @@ let guitarStandardETuning: String = """
         3,
         3
       ],
-      "name" : "G/F"
+      "name" : "G\/F"
     },
     {
       "base" : 1,
@@ -46679,7 +46675,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "G/F"
+      "name" : "G\/F"
     },
     {
       "base" : 1,
@@ -46699,11 +46695,11 @@ let guitarStandardETuning: String = """
         3,
         3
       ],
-      "name" : "G/F"
+      "name" : "G\/F"
     },
     {
       "base" : 1,
-      "display" : "G/F♯",
+      "display" : "G\/F♯",
       "fingers" : [
         0,
         0,
@@ -46720,11 +46716,11 @@ let guitarStandardETuning: String = """
         3,
         3
       ],
-      "name" : "G/F#"
+      "name" : "G\/F#"
     },
     {
       "base" : 1,
-      "display" : "G/F♯",
+      "display" : "G\/F♯",
       "fingers" : [
         1,
         2,
@@ -46741,11 +46737,11 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "G/F#"
+      "name" : "G\/F#"
     },
     {
       "base" : 1,
-      "display" : "G/F♯",
+      "display" : "G\/F♯",
       "fingers" : [
         1,
         2,
@@ -46762,7 +46758,7 @@ let guitarStandardETuning: String = """
         3,
         3
       ],
-      "name" : "G/F#"
+      "name" : "G\/F#"
     },
     {
       "base" : 1,
@@ -49937,7 +49933,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "G⁶/E",
+      "display" : "G⁶\/E",
       "fingers" : [
         0,
         2,
@@ -49954,7 +49950,7 @@ let guitarStandardETuning: String = """
         0,
         0
       ],
-      "name" : "G6/E"
+      "name" : "G6\/E"
     },
     {
       "base" : 1,
@@ -50042,7 +50038,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "G⁷/B",
+      "display" : "G⁷\/B",
       "fingers" : [
         0,
         2,
@@ -50059,11 +50055,11 @@ let guitarStandardETuning: String = """
         0,
         1
       ],
-      "name" : "G7/B"
+      "name" : "G7\/B"
     },
     {
       "base" : 1,
-      "display" : "G⁷/F",
+      "display" : "G⁷\/F",
       "fingers" : [
         3,
         2,
@@ -50080,7 +50076,7 @@ let guitarStandardETuning: String = """
         0,
         1
       ],
-      "name" : "G7/F"
+      "name" : "G7\/F"
     },
     {
       "base" : 1,
@@ -50882,7 +50878,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "Gadd⁴/C",
+      "display" : "Gadd⁴\/C",
       "fingers" : [
         0,
         2,
@@ -50899,7 +50895,7 @@ let guitarStandardETuning: String = """
         0,
         3
       ],
-      "name" : "Gadd4/C"
+      "name" : "Gadd4\/C"
     },
     {
       "base" : 1,
@@ -52810,7 +52806,7 @@ let guitarStandardETuning: String = """
     },
     {
       "base" : 1,
-      "display" : "G♭m/A",
+      "display" : "G♭m\/A",
       "fingers" : [
         0,
         0,
@@ -52827,7 +52823,7 @@ let guitarStandardETuning: String = """
         2,
         2
       ],
-      "name" : "Gbm/A"
+      "name" : "Gbm\/A"
     },
     {
       "base" : 1,
@@ -56053,5 +56049,3 @@ let guitarStandardETuning: String = """
     "E4"
   ]
 }
-"""
-// swiftlint:enable all
