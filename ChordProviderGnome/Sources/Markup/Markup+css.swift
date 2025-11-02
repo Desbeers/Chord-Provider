@@ -75,9 +75,8 @@ return """
     border-radius: 0.5em;
 }
 .chord, .grid {
-    font-size: \(baseFontSize * zoom)px;
-    font-weight: bold;
-    color: #780e03;
+    font-size: \(1.1 * baseFontSize * zoom)px;
+    color: \(dark ? "#cb1300" : "#780e03");
 }
 .textblock {
     font-size: \(baseFontSize * zoom)px;
