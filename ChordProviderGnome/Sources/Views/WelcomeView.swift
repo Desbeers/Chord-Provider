@@ -267,6 +267,7 @@ extension WelcomeView {
                 appState.scene.showToast.signal()
             }
             .hasFrame(false)
+            .style(.plainButton)
             .tooltip(fileURL.path.escapeHTML())
         }
     }

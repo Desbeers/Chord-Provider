@@ -27,6 +27,7 @@ extension Markup {
         case grid
         case tab
         case strum
+        case plainButton = "plain-button"
     }
 
     static let baseFontSize: Double = 12.5
@@ -36,10 +37,6 @@ extension Markup {
         let dark: Bool = app_prefers_dark_theme() == 1 ? true : false
 
 return """
-  .theme {
-    color: \(dark ? "#fff" : "#000");
-    background-color: \(dark ? "#2c2e33" : "#fbfcf9");
-  }
 .standard, .strum {
     font-size: \(baseFontSize * zoom)px;
 }
@@ -76,7 +73,7 @@ return """
 }
 .chord, .grid {
     font-size: \(1.1 * baseFontSize * zoom)px;
-    color: \(dark ? "#cb1300" : "#780e03");
+    color: \(dark ? "#cee3da" : "#78847f");
 }
 .textblock {
     font-size: \(baseFontSize * zoom)px;
@@ -84,6 +81,9 @@ return """
 .tab {
     font-size: \(baseFontSize * zoom)px;
     font-family: monospace;
+}
+.plain-button {
+    color: \(dark ? "#cee3da" : "#78847f");
 }
 .card {
     background-color: \(dark ? "#35393f" : "#fcfefb");
