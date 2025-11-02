@@ -13,6 +13,12 @@ import ChordProviderHTML
 
 /// The `View` a new song
 struct WelcomeView: View {
+    init(appState: Binding<AppState>) {
+        self._appState = appState
+        if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
+            self.data = data
+        }
+    }
     /// The ``AppState``
     @Binding var appState: AppState
     /// The artist browser
@@ -21,6 +27,8 @@ struct WelcomeView: View {
     @State private var songs: [Song] = []
     /// The search field
     @State private var search: String = ""
+    /// The image data
+    var data: Data? = nil
     /// The body of the `View`
     var view: Body {
         HStack(spacing: 20) {
@@ -28,11 +36,11 @@ struct WelcomeView: View {
                 Text("Create a new song")
                     .style(.title)
                 VStack {
-                    if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
+                    if let data {
                         Picture()
                             .data(data)
-                            .frame(maxWidth: 300)
-                            .frame(maxHeight: 300)
+                            .frame(minWidth: 260)
+                            .frame(minHeight: 260)
                             .padding()
                     }
                     Button("Start with an empty song") {
