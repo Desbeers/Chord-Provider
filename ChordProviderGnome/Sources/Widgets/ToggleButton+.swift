@@ -18,7 +18,7 @@ extension ToggleButton {
     ///   - isOn: Bool if the button is on
     ///   - handler: The button's action handler
     public init(_ label: String? = nil, icon: Icon, isOn: Binding<Bool>, handler: @escaping () -> Void) {
-        self.init()
+        self.init(isOn: isOn)
         self = self.child {
             ButtonContent()
                 .label(label)
@@ -34,7 +34,7 @@ extension ToggleButton {
     ///   - isOn: Bool if the button is on
     ///   - handler: The button's action handler
     public init(_ label: String, isOn: Binding<Bool>, handler: @escaping () -> Void) {
-        self.init()
+        self.init(isOn: isOn)
         self = self.label(label)
         self = self.active(isOn)
         self = self.clicked(handler)

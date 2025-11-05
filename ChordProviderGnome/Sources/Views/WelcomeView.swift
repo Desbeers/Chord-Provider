@@ -65,8 +65,10 @@ struct WelcomeView: View {
             }
             Separator()
             VStack(spacing: 20) {
-                ViewSwitcher(selectedElement: $appState.settings.app.welcomeTab)
-                    .wideDesign(true)
+                ToggleGroup(
+                    selection: $appState.settings.app.welcomeTab,
+                    values: ViewSwitcherView.allCases
+                )
                 switch appState.settings.app.welcomeTab {
                 case .recent: recent
                 case .mySongs: mySongs
@@ -205,17 +207,19 @@ extension WelcomeView {
     }
     
     /// The tabs on the Welcome View
-    enum ViewSwitcherView: String, ViewSwitcherOption, CaseIterable, Codable {
+    enum ViewSwitcherView: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
         /// Recent songs
         case recent = "Recent Songs"
         /// My songs
         case mySongs = "My Songs"
-        /// The title of the tab
-        var title: String {
+        /// The id of the tab
+        var id: Self { self }
+        /// The description of the tab
+        var description: String {
             rawValue.capitalized
         }
         /// The icon of the tab
-        var icon: Icon {
+        var icon: Icon? {
             .default(icon: {
                 switch self {
                 case .recent:
@@ -225,6 +229,8 @@ extension WelcomeView {
                 }
             }())
         }
+        /// Bool to show the label
+        var showLabel: Bool { true }
     }
 }
 

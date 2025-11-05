@@ -34,6 +34,18 @@ import CChordProvider
                     dark: app_prefers_dark_theme() == 1 ? true : false
                 )
             }
+//            .shortcutsDialog(visible: $appState.scene.showKeyboardShortcuts)
+//            .shortcutsSection("Windows") { section in
+//                section
+//                    .shortcutsItem("New window", accelerator: "n".ctrl())
+//                    .shortcutsItem("Close window", accelerator: "w".ctrl())
+//            }
+//            .shortcutsSection("General") { section in
+//                section
+//                    .shortcutsItem("Show preferences", accelerator: "comma".ctrl())
+//                    .shortcutsItem("Show keyboard shortcuts", accelerator: "question".ctrl())
+//            }
+//            .shortcutsSection { $0.shortcutsItem("Quit Demo", accelerator: "q".ctrl()) }
         }
         .size(width: $width, height: $height)
         .defaultSize(width: 800, height: 600)

@@ -37,6 +37,8 @@ extension AppState {
         var showPreferences: Bool = false
         /// Bool if the close dialog is shown
         var showDirtyClose: Bool = false
+        /// Bool to show the keyboard shortcuts
+        var showKeyboardShortcuts: Bool = false
         /// Show a toast
         var showToast = Signal()
         /// The toast message
