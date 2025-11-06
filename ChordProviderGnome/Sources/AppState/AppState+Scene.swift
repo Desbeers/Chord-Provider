@@ -43,6 +43,8 @@ extension AppState {
         var showToast = Signal()
         /// The toast message
         var toastMessage: String = ""
+        /// The search string
+        var search: String = ""
 
         /// Bool if the source is modified
         /// - Note: Comparing the source with the original source

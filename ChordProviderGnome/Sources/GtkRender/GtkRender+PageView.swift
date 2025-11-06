@@ -19,23 +19,25 @@ extension GtkRender {
 
         var view: Body {
             VStack {
+                /// Show optional tags
+                if let tags = song.metadata.tags {
+                    Overlay()
+                        .overlay {
+                            HStack {
+                                ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
+                                    Text(tag.string)
+                                        .style(Markup.Class.tagLabel.description)
+                                        .padding(5, .leading)
+                                }
+                            }
+                            .hexpand()
+                            .halign(.end)
+                        }
+                }
                 Text(song.metadata.title)
                     .style(.title)
                 Text(song.metadata.subtitle ?? song.metadata.artist)
                     .style(.subtitle)
-                /// Show optional tags
-                if let tags = song.metadata.tags {
-                    HStack {
-                        ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
-                            Text(tag.string)
-                                .style(Markup.Class.tagLabel.description)
-                                .padding(5, .leading)
-                        }
-                    }
-                    .hexpand()
-                    .halign(.end)
-                    .padding(10, .top)
-                }
                 GtkRender.SectionsView(song: song, settings: settings)
                     .halign(.center)
             }

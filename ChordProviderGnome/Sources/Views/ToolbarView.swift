@@ -14,7 +14,6 @@ struct ToolbarView: View {
     var app: AdwaitaApp
     var window: AdwaitaWindow
     @Binding var appState: AppState
-
     var view: Body {
         HeaderBar {
             if !appState.scene.showWelcome {
@@ -41,27 +40,34 @@ struct ToolbarView: View {
         }
         end: {
             if appState.scene.showWelcome {
-                Menu(icon: .default(icon: .openMenu)) {
-                    MenuSection {
-                        MenuButton("Preferences") {
-                            appState.scene.showPreferences = true
-                        }
-                        .keyboardShortcut("comma".ctrl())
-                        MenuButton("Keyboard Shortcuts") {
-                            appState.scene.showKeyboardShortcuts = true
-                        }
-                        .keyboardShortcut("question".ctrl())
-                        MenuButton("About Chord Provider", window: false) {
-                            appState.scene.showAboutDialog = true
-                        }
-                        MenuButton("Quit", window: false) {
-                            window.close()
-                        }
-                        .keyboardShortcut("q".ctrl())
+                HStack(spacing: 5) {
+                    if appState.settings.app.welcomeTab == .mySongs {
+                        SearchEntry()
+                            .text($appState.scene.search)
+                            .placeholderText("Search")
                     }
+                    Menu(icon: .default(icon: .openMenu)) {
+                        MenuSection {
+                            MenuButton("Preferences") {
+                                appState.scene.showPreferences = true
+                            }
+                            .keyboardShortcut("comma".ctrl())
+                            MenuButton("Keyboard Shortcuts") {
+                                appState.scene.showKeyboardShortcuts = true
+                            }
+                            .keyboardShortcut("question".ctrl())
+                            MenuButton("About Chord Provider", window: false) {
+                                appState.scene.showAboutDialog = true
+                            }
+                            MenuButton("Quit", window: false) {
+                                window.close()
+                            }
+                            .keyboardShortcut("q".ctrl())
+                        }
+                    }
+                    .primary()
+                    .tooltip("Main Menu")
                 }
-                .primary()
-                .tooltip("Main Menu")
             } else {
                 Menu(icon: .default(icon: .openMenu)) {
                     MenuButton("Open") {

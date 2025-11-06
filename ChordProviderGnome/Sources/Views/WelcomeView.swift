@@ -25,8 +25,6 @@ struct WelcomeView: View {
     @State private var artists: [SongFileUtils.Artist] = []
     /// The song browser
     @State private var songs: [Song] = []
-    /// The search field
-    @State private var search: String = ""
     /// The image data
     var data: Data? = nil
     /// The body of the `View`
@@ -46,22 +44,21 @@ struct WelcomeView: View {
                     Button("Start with an empty song") {
                         openSong(content: "{title New Song}\n{artist New Artist}\n")
                     }
+                    .frame(maxWidth: 250)
                     .padding()
                     Button("Open a sample song") {
                         openSample("Swing Low Sweet Chariot", showEditor: true)
                     }
+                    .frame(maxWidth: 250)
                     .padding()
                     /// - Note: This should be a spacer
                     Text("")
                         .vexpand()
                     Button("Help") {
-                        Idle {
-                            openSample("Help", showEditor: false, url: true)
-                        }
+                        openSample("Help", showEditor: false, url: true)
                     }
-                    //.padding(5, .bottom)
+                    .frame(maxWidth: 250)
                 }
-                .halign(.center)
             }
             Separator()
             VStack(spacing: 20) {
@@ -133,16 +130,12 @@ extension WelcomeView {
     /// The `View` with *My Songs* content
     var mySongs: AnyView {
         VStack {
-            SearchEntry()
-                .text($search)
-                .placeholderText("Search")
-                .padding(5, .bottom)
             ScrollView {
                 HStack {
                     if artists.isEmpty {
                         Text("Select a folder with your songs.")
                             .heading()
-                    } else if search.isEmpty {
+                    } else if appState.scene.search.isEmpty {
                         ForEach(artists) { artist in
                             Text(artist.name)
                                 .heading()
@@ -158,8 +151,7 @@ extension WelcomeView {
                             }
                         }
                     } else {
-
-                        let result = songs.filter { $0.search.localizedCaseInsensitiveContains(search) }
+                        let result = songs.filter { $0.search.localizedCaseInsensitiveContains(appState.scene.search) }
                         if result.isEmpty {
                             StatusPage(
                                 "No songs found",
@@ -167,7 +159,7 @@ extension WelcomeView {
                                 description: "Oops! We couldn't find any songs that match your search."
                             )
                         } else {
-                            ForEach(songs.filter { $0.search.localizedCaseInsensitiveContains(search) }) { song in
+                            ForEach(result) { song in
                                 if let fileURL = song.settings.fileURL {
                                     OpenButton(fileURL: fileURL, appState: $appState)
                                         .halign(.start)
@@ -205,7 +197,7 @@ extension WelcomeView {
 
         }
     }
-    
+
     /// The tabs on the Welcome View
     enum ViewSwitcherView: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
         /// Recent songs

@@ -35,6 +35,11 @@ let package = Package(
                 .copy("Resources/nl.desbeers.chordprovider.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-mime.svg"),
+                .copy("Resources/capo.svg"),
+                .copy("Resources/instrument.svg"),
+                .copy("Resources/key.svg"),
+                .copy("Resources/tempo.svg"),
+                .copy("Resources/time.svg"),
                 .copy("Samples")
             ],
         ),
