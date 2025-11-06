@@ -47,10 +47,10 @@ struct ToolbarView: View {
                             appState.scene.showPreferences = true
                         }
                         .keyboardShortcut("comma".ctrl())
-//                        MenuButton("Keyboard Shortcuts") {
-//                            appState.scene.showKeyboardShortcuts = true
-//                        }
-//                        .keyboardShortcut("question".ctrl())
+                        MenuButton("Keyboard Shortcuts") {
+                            appState.scene.showKeyboardShortcuts = true
+                        }
+                        .keyboardShortcut("question".ctrl())
                         MenuButton("About Chord Provider", window: false) {
                             appState.scene.showAboutDialog = true
                         }
@@ -113,10 +113,10 @@ struct ToolbarView: View {
                             appState.scene.showPreferences = true
                         }
                         .keyboardShortcut("comma".ctrl())
-//                        MenuButton("Keyboard Shortcuts") {
-//                            appState.scene.showKeyboardShortcuts = true
-//                        }
-//                        .keyboardShortcut("question".ctrl())
+                        MenuButton("Keyboard Shortcuts") {
+                            appState.scene.showKeyboardShortcuts = true
+                        }
+                        .keyboardShortcut("question".ctrl())
                         MenuButton("About Chord Provider", window: false) {
                             appState.scene.showAboutDialog = true
                         }
