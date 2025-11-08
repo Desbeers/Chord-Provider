@@ -50,20 +50,21 @@ extension Markup {
     font-weight: bold;
 }
 .tag-label {
+    font-size: \(0.8 * baseFontSize * zoom)px;
     color: #000;
     background-color: #ffc7c2;
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .comment-label {
-    font-size: \(baseFontSize * zoom)px;
+    font-size: \(0.8 * baseFontSize * zoom)px;
     color: #000;
     background-color: #f1e8c9;
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .repeat-chorus {
-    font-size: \(1.1 * baseFontSize * zoom)px;
+    font-size: \(0.8 * baseFontSize * zoom)px;
     color: #000;
     background-color: \(dark ? "#98989d" : "#c8d3ca");
     padding: 0.5em;
@@ -85,7 +86,7 @@ extension Markup {
     font-size: 1.1em;
 }
 .metadata {
-        font-size: 14px;
+        font-size: 12px;
 }
 """
     }

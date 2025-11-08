@@ -159,10 +159,15 @@ extension WelcomeView {
                                 description: "Oops! We couldn't find any songs that match your search."
                             )
                         } else {
-                            ForEach(result) { song in
-                                if let fileURL = song.settings.fileURL {
-                                    OpenButton(fileURL: fileURL, appState: $appState)
-                                        .halign(.start)
+                            VStack(spacing: 10) {
+                                ForEach(result) { song in
+                                    if let fileURL = song.settings.fileURL {
+                                        OpenButton(fileURL: fileURL, appState: $appState)
+                                            .halign(.start)
+                                        Text("\(song.metadata.artist) - \(song.metadata.title)")
+                                            .halign(.start)
+                                            .padding(30, .leading)
+                                    }
                                 }
                             }
                         }

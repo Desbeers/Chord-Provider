@@ -22,6 +22,7 @@ extension GtkRender {
                         Text(chord.display)
                             .style(.chord)
                             .halign(.start)
+                            .padding(5, .trailing)
                     } else {
                         Text(" ")
                             .style(.chord)
