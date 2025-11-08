@@ -1,6 +1,9 @@
 {title Chord Provider Help}
 {artist ChordPro viewer and editor}
 {tag Help Document}
+{time 4/4}
+{tempo 123}
+{capo II}
 
 {start_of_textblock label="Introduction" align="center" flush="left"}
 <b><i>ChordPro</i></b> is an open standard text format, a simple text format for the notation of lyrics with chords.

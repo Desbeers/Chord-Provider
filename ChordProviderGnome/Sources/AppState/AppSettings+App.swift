@@ -18,6 +18,10 @@ extension AppSettings {
         var welcomeTab: WelcomeView.ViewSwitcherView = .recent
         /// The zoom factor
         var zoom: Double = 1
+        /// The width of the window
+        var width = 800
+        /// The height of the window
+        var height = 600
         /// Recent songs
         private(set) var recentSongs: [RecentSong] = []
 

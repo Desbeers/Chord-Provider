@@ -38,11 +38,44 @@ extension GtkRender {
                     .style(.title)
                 Text(song.metadata.subtitle ?? song.metadata.artist)
                     .style(.subtitle)
+                /// Metadata
+                HStack {
+                    if let key = song.metadata.key {
+                        metadata(name: "key", value: key.display)
+                    }
+                    if let capo = song.metadata.capo {
+                        metadata(name: "capo", value: capo)
+                    }
+                    if let time = song.metadata.time {
+                        metadata(name: "time", value: time)
+                    }
+                    if let tempo = song.metadata.tempo {
+                        metadata(name: "tempo", value: tempo)
+                    }
+                }
+                .padding()
+                .style(.metadata)
+                .halign(.center)
                 GtkRender.SectionsView(song: song, settings: settings)
                     .halign(.center)
             }
             .padding(20)
             .hexpand()
+        }
+        
+        /// Show metadata with an icon
+        /// - Parameters:
+        ///   - name: Name of the icon
+        ///   - value: The value of the metadata
+        /// - Returns: A View
+        private func metadata(name: String, value: String) -> AnyView {
+            HStack(spacing: 5) {
+                BundleImage(name: name)
+                    .pixelSize(16)
+                    .valign(.baselineCenter)
+                Text(value)
+            }
+            .padding()
         }
     }
 }

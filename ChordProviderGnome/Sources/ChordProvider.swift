@@ -13,10 +13,6 @@ import CChordProvider
 @main struct ChordProvider: App {
     /// Give it an unique ID so Files does not open new windows
     let app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(UUID().uuidString)")
-
-    @State("width") private var width = 800
-    @State("height") private var height = 600
-
     /// The ``AppSettings``
     @State private var appState = AppState()
 
@@ -54,7 +50,7 @@ import CChordProvider
             }
             .shortcutsSection { $0.shortcutsItem("Quit Chord Provider", accelerator: "q".ctrl()) }
         }
-        .size(width: $width, height: $height)
+        .size(width: $appState.settings.app.width, height: $appState.settings.app.height)
         .defaultSize(width: 800, height: 600)
         .title(appState.subtitle)
         .onClose {

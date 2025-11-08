@@ -28,6 +28,7 @@ extension Markup {
         case tab
         case strum
         case plainButton = "plain-button"
+        case metadata
     }
 
     static let baseFontSize: Double = 12.5
@@ -82,6 +83,9 @@ extension Markup {
 .plain-button {
     color: \(dark ? "#cee3da" : "#78847f");
     font-size: 1.1em;
+}
+.metadata {
+        font-size: 14px;
 }
 """
     }

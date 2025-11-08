@@ -10,6 +10,7 @@ import Adwaita
 import ChordProviderCore
 
 enum Utils {
+
     static func getAlign(_ arguments: ChordProParser.DirectiveArguments?) -> Alignment {
         if let align = arguments?[.align] {
             switch align {
@@ -23,6 +24,7 @@ enum Utils {
         }
         return .start
     }
+
     /// Get text flush from the arguments
     /// - Parameter arguments: The arguments of the directive
     /// - Returns: The text flush alignment
