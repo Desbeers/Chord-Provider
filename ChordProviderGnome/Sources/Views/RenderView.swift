@@ -18,9 +18,7 @@ struct RenderView: View {
 
     var view: Body {
         HStack {
-            ScrollView {
-                GtkRender.PageView(song: song, settings: settings)
-            }
+            GtkRender.PageView(song: song, settings: settings)
             Separator()
             if !song.chords.isEmpty {
                 ChordsView(song: song, settings: settings)

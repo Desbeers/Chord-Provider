@@ -19,6 +19,7 @@ extension Markup {
         case title = "song-title"
         case subtitle = "song-subtitle"
         case sectionHeader = "section-header"
+        case sectionChorus = "section-chorus"
         case tagLabel = "tag-label"
         case commentLabel = "comment-label"
         case repeatChorus = "repeat-chorus"
@@ -63,8 +64,16 @@ extension Markup {
     padding: 0.5em;
     border-radius: 0.5em;
 }
+.section-chorus {
+    font-size: \(1 * baseFontSize * zoom)px;
+    font-weight: bold;
+    color: #000;
+    background-color: \(dark ? "#98989d" : "#c8d3ca");
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
 .repeat-chorus {
-    font-size: \(0.8 * baseFontSize * zoom)px;
+    font-size: \(1 * baseFontSize * zoom)px;
     color: #000;
     background-color: \(dark ? "#98989d" : "#c8d3ca");
     padding: 0.5em;

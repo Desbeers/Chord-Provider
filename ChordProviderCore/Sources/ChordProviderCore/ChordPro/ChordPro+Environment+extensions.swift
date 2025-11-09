@@ -86,7 +86,7 @@ extension ChordPro.Environment {
     }
 
     /// Environments with song content
-    static var content: [ChordPro.Environment] {
+    public static var content: [ChordPro.Environment] {
         [
             .chorus,
             .repeatChorus,
@@ -96,7 +96,8 @@ extension ChordPro.Environment {
             .grid,
             .strum,
             .textblock,
-            .comment
+            .comment,
+            .image
         ]
     }
 }

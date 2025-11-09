@@ -32,6 +32,7 @@ extension GtkRender {
                             }
                             .hexpand()
                             .halign(.end)
+                            .padding()
                         }
                 }
                 Text(song.metadata.title)
@@ -53,13 +54,18 @@ extension GtkRender {
                         metadata(name: "tempo", value: tempo)
                     }
                 }
-                .padding()
                 .style(.metadata)
                 .halign(.center)
-                GtkRender.SectionsView(song: song, settings: settings)
-                    .halign(.center)
+                .card()
+                .padding(10, .top)
+                ScrollView {
+                    GtkRender.SectionsView(song: song, settings: settings)
+                        .halign(.center)
+                        .padding(20)
+                }
+                .vexpand()
             }
-            .padding(20)
+            //.padding(20)
             .hexpand()
         }
         
