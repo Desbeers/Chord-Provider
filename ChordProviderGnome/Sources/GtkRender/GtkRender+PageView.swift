@@ -32,7 +32,7 @@ extension GtkRender {
                             }
                             .hexpand()
                             .halign(.end)
-                            .padding()
+                            .padding(10,.trailing)
                         }
                 }
                 Text(song.metadata.title)

@@ -40,11 +40,11 @@ extension Markup {
     font-size: \(baseFontSize * zoom)px;
 }
 .song-title {
-    font-size: \(1.4 * baseFontSize * zoom)px;
+    font-size: \(1.4 * baseFontSize)px;
     font-weight: bold;
 }
 .song-subtitle {
-    font-size: \(1.2 * baseFontSize * zoom)px;
+    font-size: \(1.2 * baseFontSize)px;
 }
 .section-header {
     font-size: \(1.2 * baseFontSize * zoom)px;

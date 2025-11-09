@@ -17,15 +17,19 @@ struct RenderView: View {
     let settings: AppSettings
 
     var view: Body {
-        HStack {
-            GtkRender.PageView(song: song, settings: settings)
+        VStack {
             Separator()
-            if !song.chords.isEmpty {
-                ChordsView(song: song, settings: settings)
-                    .frame(minWidth: 100)
-                    .transition(.coverLeftRight)
+                .padding(10, .bottom)
+            HStack {
+                GtkRender.PageView(song: song, settings: settings)
+                Separator()
+                if !song.chords.isEmpty {
+                    ChordsView(song: song, settings: settings)
+                        .frame(minWidth: 100)
+                        .transition(.coverLeftRight)
+                }
+                
             }
-
         }
     }
 }
