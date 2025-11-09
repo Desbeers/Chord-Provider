@@ -138,7 +138,7 @@ struct ToolbarView: View {
         }
         .headerBarTitle {
             WindowTitle(
-                subtitle: appState.scene.showWelcome ? "" : appState.subtitle,
+                subtitle: appState.scene.showWelcome ? "Open or create a ChordPro song" : appState.subtitle,
                 title: "Chord Provider"
             )
         }

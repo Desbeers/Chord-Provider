@@ -25,7 +25,7 @@ struct RenderView: View {
                     .frame(minWidth: 100)
                     .transition(.coverLeftRight)
             }
-
         }
+        .padding(10, .top)
     }
 }

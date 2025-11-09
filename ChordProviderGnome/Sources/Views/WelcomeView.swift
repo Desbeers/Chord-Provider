@@ -54,12 +54,18 @@ struct WelcomeView: View {
                     /// - Note: This should be a spacer
                     Text("")
                         .vexpand()
+                    Text("<b>ChordPro</b> is a simple text format for the notation of lyrics with chords.\n\nSee <a href=\"https://www.chordpro.org\">ChordPro.org</a> for more information.")
+                        .useMarkup()
+                        .wrap()
+                        .padding(10, .bottom)
+                        .frame(maxWidth: 250)
                     Button("Help") {
                         openSample("Help", showEditor: false, url: true)
                     }
                     .frame(maxWidth: 250)
                 }
             }
+            Separator()
             VStack(spacing: 20) {
                 ToggleGroup(
                     selection: $appState.settings.app.welcomeTab,
