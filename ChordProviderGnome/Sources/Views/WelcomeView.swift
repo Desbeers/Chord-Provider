@@ -60,7 +60,6 @@ struct WelcomeView: View {
                     .frame(maxWidth: 250)
                 }
             }
-            Separator()
             VStack(spacing: 20) {
                 ToggleGroup(
                     selection: $appState.settings.app.welcomeTab,
