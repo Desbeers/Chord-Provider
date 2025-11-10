@@ -11,7 +11,7 @@
 While I hope you like <b>Chord Provider</b>, it is just my hobby project and not a complete implementation of the standard.
 
 Please visit the official <b><i>ChordPro</i></b> website for the full experience:
-{comment https://www.chordpro.org/}
+{comment <a href="https://www.chordpro.org\">ChordPro.org</a>}
 {end_of_textblock}
 
 {start_of_textblock Functionality}
@@ -120,10 +120,10 @@ I play guitar for more than 20 years; strumming my chords on a beautiful Telecas
 - Sometimes I just give myself a challenge to add something to the application because its like a crossword challenge
 {end_of_textblock}
 
-{comment https://github.com/Desbeers/Chord-Provider}
+{comment <a href="https://github.com/Desbeers/Chord-Provider">Chord Provider on GitHub</a>}
 
 {start_of_verse Bugs}
 [B]Bugs are for free; no subscription in [C]<b>Chord Provider</b> [F]for [A]additional [F]features!
 However; If you realy don't like the [B]bug, report it...
-{comment https://github.com/Desbeers/Chord-Provider/issues/new}
+{comment <a href="https://github.com/Desbeers/Chord-Provider/issues/new">Report issues</a>}
 {end_of_verse}

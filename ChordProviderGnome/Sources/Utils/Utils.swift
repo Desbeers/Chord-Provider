@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import RegexBuilder
 
 enum Utils {
 
@@ -41,5 +42,32 @@ enum Utils {
         }
         /// Use the align argument by default
         return getAlign(arguments)
+    }
+
+    static func convertSimpleLinks(_ content: String) -> String {
+        let link = Regex {
+            Regex {
+                "http"
+                Optionally { "s" }
+                "://"
+                OneOrMore {
+                    CharacterClass(
+                        ("A"..."Z"),
+                        ("a"..."z"),
+                        .digit,
+                        .anyOf(":/?&=%._~-#@!$'*+,;")
+                    )
+                }
+            }
+        }
+        var content = content
+        /// Convert simple links
+        if !content.contains("<"), content.contains("http") {
+            let matches = content.matches(of: link)
+            for match in matches {
+                content = content.replacingOccurrences(of: match.0, with: "<a href=\"\(match.0)\">\(match.0)</a>")
+            }
+        }
+        return content
     }
 }
