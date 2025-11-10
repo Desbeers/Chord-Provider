@@ -109,8 +109,8 @@ I'm porting **Chord Provider** to Linux.
 - The `ChordProCLI` package works fine on Linux if you have Swift 6 installed.
 - The `ChordProviderGnome` package contains an Adwaita GUI version build with [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift). It is *work in progress* and can be build as *flatpak*...
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-1.jpg)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-1.png)
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.jpg)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-3.jpg)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-3.png)
