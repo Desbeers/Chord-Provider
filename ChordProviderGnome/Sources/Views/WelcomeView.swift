@@ -54,7 +54,7 @@ struct WelcomeView: View {
                     /// - Note: This should be a spacer
                     Text("")
                         .vexpand()
-                    Text("<b>ChordPro</b> is a simple text format for the notation of lyrics with chords.\n\nSee <a href=\"https://www.chordpro.org\">ChordPro.org</a> for more information.")
+                    Text("<a href=\"https://www.chordpro.org\">ChordPro</a> is a simple text format for the notation of lyrics with chords.")
                         .useMarkup()
                         .wrap()
                         .padding(10, .bottom)
