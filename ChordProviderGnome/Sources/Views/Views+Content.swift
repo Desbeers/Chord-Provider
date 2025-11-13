@@ -92,9 +92,6 @@ extension Views {
                 body: "Do you want to save your song?",
                 id: "dirty-dialog"
             )
-            .response("Cancel", role: .close) {
-                // Nothing to do
-            }
             .response("Discard", appearance: .destructive, role: .none) {
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
@@ -128,10 +125,39 @@ extension Views {
                     appState.scene.saveSongAs.signal()
                 }
             }
-            .dialog(visible: $appState.scene.showPreferences, title: "Preferences", width: 400, height: 410) {
-                Views.Settings(settings: $appState.settings)
-                    .topToolbar {
-                        HeaderBar.empty()
+            .preferencesDialog(visible: $appState.scene.showPreferences)
+            .preferencesPage("General", icon: .default(icon: .folderMusic)) { page in
+                page
+                    .group("Display your song") {
+                        SwitchRow()
+                            .title("Show only lyrics")
+                            .subtitle("Hide all the chords")
+                            .active($appState.settings.core.lyricsOnly)
+                        SwitchRow()
+                            .title("Repeat whole chorus")
+                            .subtitle("Show the whole chorus with the same label")
+                            .active($appState.settings.core.repeatWholeChorus)
+                    }
+                    .group("Chord Diagrams") {
+                        SwitchRow()
+                            .title("Show left-handed chords")
+                            .subtitle("Flip the chord diagrams")
+                            .active($appState.settings.core.diagram.mirror)
+                    }
+            }
+            .preferencesPage("Editor", icon: .default(icon: .textEditor)) { page in
+                page
+                    .group("Options for the editor") {
+                        SwitchRow()
+                            .title("Line Numbers")
+                            .subtitle("Show the line numbers in the editor")
+                            .active($appState.settings.editor.showLineNumbers)
+                        SwitchRow()
+                            .title("Wrap Lines")
+                            .subtitle("Wrap lines when they are too long")
+                            .active($appState.settings.editor.wrapLines)
+                        ComboRow("Font Size", selection: $appState.settings.editor.fontSize, values: AppSettings.Editor.Font.allCases)
+                            .subtitle("Select the font size for the editor")
                     }
             }
             .toast(appState.scene.toastMessage.escapeHTML(), signal: appState.scene.showToast)
