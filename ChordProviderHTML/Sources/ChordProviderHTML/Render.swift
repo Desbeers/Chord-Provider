@@ -33,21 +33,21 @@ public extension HtmlRender {
         }
         output.append("</div>")
 
-        html = html.replacingOccurrences(of: "**TITLE**", with: song.metadata.title)
+        html.replace("**TITLE**", with: song.metadata.title)
 
-        html = html.replacingOccurrences(of: "**HEADER**", with: output.joined(separator: "\n"))
+        html.replace("**HEADER**", with: output.joined(separator: "\n"))
 
         if settings.lyricsOnly {
-            html = html.replacingOccurrences(of: "**CHORDS**", with: "")
+            html.replace("**CHORDS**", with: "")
         } else {
-            html = html.replacingOccurrences(of: "**CHORDS**", with: chords(chords: song.chords, settings: settings))
+            html.replace("**CHORDS**", with: chords(chords: song.chords, settings: settings))
         }
 
         output = []
 
         sections(output: &output, song: song, chords: song.chords, settings: settings)
 
-        html = html.replacingOccurrences(of: "**CONTENT**", with: output.joined(separator: "\n"))
+        html.replace("**CONTENT**", with: output.joined(separator: "\n"))
 
         return html
     }

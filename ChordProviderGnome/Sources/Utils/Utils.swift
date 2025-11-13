@@ -10,8 +10,12 @@ import Adwaita
 import ChordProviderCore
 import RegexBuilder
 
+/// General utils shared in the application
 enum Utils {
 
+    /// Get text flush from the arguments
+    /// - Parameter arguments: The arguments of the directive
+    /// - Returns: The text alignment
     static func getAlign(_ arguments: ChordProParser.DirectiveArguments?) -> Alignment {
         if let align = arguments?[.align] {
             switch align {
@@ -65,7 +69,7 @@ enum Utils {
         if !content.contains("<"), content.contains("http") {
             let matches = content.matches(of: link)
             for match in matches {
-                content = content.replacingOccurrences(of: match.0, with: "<a href=\"\(match.0)\">\(match.0)</a>")
+                content = content.replacing(match.0, with: "<a href=\"\(match.0)\">\(match.0)</a>")
             }
         }
         return content

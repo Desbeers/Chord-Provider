@@ -1,5 +1,5 @@
 //
-//  ChordDiagramView.swift
+//  Widgets+Arrow.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -11,51 +11,54 @@ import CAdw
 import CChordProvider
 import ChordProviderCore
 
-/// The `AdwaitaWidget` for an arrow
-struct ArrowView: AdwaitaWidget {
+extension Widgets {
 
-    let cstrum = UnsafeMutablePointer<cstrum>.allocate(capacity: 1)
+    /// The `AdwaitaWidget` for drawing an arrow
+    struct Arrow: AdwaitaWidget {
 
-    /// Init the `widget`
-    init(direction: Direction, length: Int = 40, dash: Bool) {
+        let cstrum = UnsafeMutablePointer<cstrum>.allocate(capacity: 1)
 
-        cstrum.pointee.down = direction == .down ? true : false
-        cstrum.pointee.dash = dash
-        cstrum.pointee.length = Int32(length)
+        /// Init the `widget`
+        init(direction: Direction, length: Int = 40, dash: Bool) {
 
-        //self.direction.initialize(to: direction == .down ? true : false)
-    }
-    /// The view storage.
-    /// - Parameters:
-    ///     - data: The widget data.
-    ///     - type: The view render data type.
-    /// - Returns: The view storage.
-    func container<Data>(
-        data: WidgetData,
-        type: Data.Type
-    ) -> ViewStorage where Data: ViewRenderData {
-        let drawingArea = gtk_drawing_area_new()
-        gtk_drawing_area_set_content_height(drawingArea?.cast(), cstrum.pointee.length)
-        let content: [String: [ViewStorage]] = [:]
-        let storage = ViewStorage(drawingArea?.opaque(), content: content)
-        return storage
-    }
+            cstrum.pointee.down = direction == .down ? true : false
+            cstrum.pointee.dash = dash
+            cstrum.pointee.length = Int32(length)
 
-    func update<Data>(
-        _ storage: ViewStorage,
-        data: WidgetData,
-        updateProperties: Bool,
-        type: Data.Type
-    ) where Data: ViewRenderData {
-        gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_arrow, cstrum, nil)
-    }
-}
+            //self.direction.initialize(to: direction == .down ? true : false)
+        }
+        /// The view storage.
+        /// - Parameters:
+        ///     - data: The widget data.
+        ///     - type: The view render data type.
+        /// - Returns: The view storage.
+        func container<Data>(
+            data: WidgetData,
+            type: Data.Type
+        ) -> ViewStorage where Data: ViewRenderData {
+            let drawingArea = gtk_drawing_area_new()
+            gtk_drawing_area_set_content_height(drawingArea?.cast(), cstrum.pointee.length)
+            let content: [String: [ViewStorage]] = [:]
+            let storage = ViewStorage(drawingArea?.opaque(), content: content)
+            return storage
+        }
 
-extension ArrowView {
+        func update<Data>(
+            _ storage: ViewStorage,
+            data: WidgetData,
+            updateProperties: Bool,
+            type: Data.Type
+        ) where Data: ViewRenderData {
+            gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_arrow, cstrum, nil)
+        }
+//    }
+//
+//    extension ArrowView {
 
-    enum Direction {
-        case up
-        case down
+        enum Direction {
+            case up
+            case down
+        }
     }
 }
 

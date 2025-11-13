@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for a textblock section
     struct TextblockSection: View {
+        /// Init the `View`
         init(section: Song.Section, settings: AppSettings, maxLenght: Int) {
             self.section = section
             self.settings = settings
@@ -20,12 +21,17 @@ extension GtkRender {
             self.halign = Utils.getAlign(section.arguments)
             self.flush = Utils.getTextFlush(section.arguments)
         }
-        
+        /// The current section of the song
         let section: Song.Section
+        /// The settings of the application
         let settings: AppSettings
+        /// The maximum length of a single line
         let maxLenght: Int
+        /// The horizontal alignment
         let halign: Alignment
+        /// The alignment of multi-lines
         let flush: Alignment
+        /// The body of the `View`
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
@@ -39,14 +45,13 @@ extension GtkRender {
                                     .style(.textblock)
                                     .halign(flush)
                             }
-                            EmptyView()
                         case .emptyLine:
                             Text(" ")
                                 .style(.textblock)
                         case .comment:
                             CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                         default:
-                            EmptyView()
+                            Widgets.Empty()
                         }
                     }
                     .halign(flush)

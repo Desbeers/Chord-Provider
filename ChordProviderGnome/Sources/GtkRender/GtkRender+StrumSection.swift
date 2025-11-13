@@ -13,8 +13,11 @@ extension GtkRender {
 
     /// The `View` for a strum section
     struct StrumSection: View {
+        /// The current section of the song
         let section: Song.Section
+        /// The settings of the application
         let settings: AppSettings
+        /// The body of the `View`
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
@@ -31,10 +34,10 @@ extension GtkRender {
                                                     .style(.strum)
                                                 switch strum.action {
                                                 case .down, .accentedDown, .mutedDown, .slowDown:
-                                                    ArrowView(direction: .down, length: Int(settings.app.zoom * 50), dash: dash)
+                                                    Widgets.Arrow(direction: .down, length: Int(settings.app.zoom * 50), dash: dash)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 case .up, .accentedUp, .mutedUp, .slowUp:
-                                                    ArrowView(direction: .up, length: Int(settings.app.zoom * 50), dash: dash)
+                                                    Widgets.Arrow(direction: .up, length: Int(settings.app.zoom * 50), dash: dash)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 case .palmMute:
                                                     Text("x")
@@ -61,7 +64,7 @@ extension GtkRender {
                     case .comment:
                         CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
-                        EmptyView()
+                        Widgets.Empty()
                     }
                 }
             }

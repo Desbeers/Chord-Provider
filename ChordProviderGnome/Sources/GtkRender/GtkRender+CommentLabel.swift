@@ -13,13 +13,14 @@ extension GtkRender {
 
     /// The `View` for a comment label
     struct CommentLabel: View {
+        /// Init the `View`
         init(comment: String, settings: AppSettings) {
             self.comment = Utils.convertSimpleLinks(comment)
             self.settings = settings
         }
-        /// The comment
+        /// The comment as `String`
         let comment: String
-        /// The settings
+        /// The settings of the application
         let settings: AppSettings
         /// The body of the `View`
         var view: Body {

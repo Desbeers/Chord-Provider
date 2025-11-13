@@ -64,7 +64,7 @@ public extension ImageUtils {
     static func getImageSizeFromArguments(size: CGSize, arguments: ChordProParser.DirectiveArguments?) -> CGSize {
         var size = size
         var scale: Double = 1
-        if let scaleArgument = arguments?[.scale], let value = Double(scaleArgument.replacingOccurrences(of: "%", with: "")) {
+        if let scaleArgument = arguments?[.scale], let value = Double(scaleArgument.replacing("%", with: "")) {
             /// - Note: Never let is be zero or else it will disappear from the SwiftUI View
             scale = max(value / 100, 0.1)
         }

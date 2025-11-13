@@ -13,8 +13,11 @@ extension GtkRender {
 
     /// The `View` for a lyrics section
     struct LyricsSection: View {
+        /// The current section of the song
         let section: Song.Section
+        /// The settings of the application
         let settings: AppSettings
+        /// The body of the `View`
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
@@ -34,7 +37,7 @@ extension GtkRender {
                     case .comment:
                         CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
-                        EmptyView()
+                        Widgets.Empty()
                     }
                 }
             }

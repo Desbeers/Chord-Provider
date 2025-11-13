@@ -13,8 +13,11 @@ extension GtkRender {
 
     /// The `View` for parts of a song lyric
     struct PartsView: View {
+        /// The parts of the song line
         let parts: [Song.Section.Line.Part]
+        /// The settings of the application
         let settings: AppSettings
+        /// The body of the `View`
         var view: Body {
             ForEach(parts, horizontal: true) { part in
                 VStack {

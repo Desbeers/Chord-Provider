@@ -15,10 +15,10 @@ import CChordProvider
     let app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(UUID().uuidString)")
     /// The ``AppSettings``
     @State private var appState = AppState()
-
+    /// The body of the `Scene`
     var scene: Scene {
         Window(id: "main") { window in
-            ContentView(
+            Views.Content(
                 app: app,
                 window: window,
                 appState: $appState,
@@ -30,25 +30,6 @@ import CChordProvider
                     dark: app_prefers_dark_theme() == 1 ? true : false
                 )
             }
-            .shortcutsDialog(visible: $appState.scene.showKeyboardShortcuts)
-            .shortcutsSection("Song") { section in
-                section
-                    .shortcutsItem("Open", accelerator: "o".ctrl())
-                    .shortcutsItem("Save", accelerator: " s".ctrl())
-                    .shortcutsItem("Save As", accelerator: " s".ctrl().shift())
-            }
-            .shortcutsSection("Zoom") { section in
-                section
-                    .shortcutsItem("Zoom In", accelerator: "plus".ctrl())
-                    .shortcutsItem("Zoom Out", accelerator: " minus".ctrl())
-                    .shortcutsItem("Reset Zoom", accelerator: " 0".ctrl())
-            }
-            .shortcutsSection("General") { section in
-                section
-                    .shortcutsItem("Show preferences", accelerator: "comma".ctrl())
-                    .shortcutsItem("Show keyboard shortcuts", accelerator: "question".ctrl())
-            }
-            .shortcutsSection { $0.shortcutsItem("Quit Chord Provider", accelerator: "q".ctrl()) }
         }
         .size(width: $appState.settings.app.width, height: $appState.settings.app.height)
         .defaultSize(width: 800, height: 600)

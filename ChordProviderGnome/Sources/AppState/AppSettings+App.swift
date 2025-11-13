@@ -15,7 +15,7 @@ extension AppSettings {
         /// The songs folder
         var songsFolder: URL?
         /// The selected tab on the welcome view
-        var welcomeTab: WelcomeView.ViewSwitcherView = .recent
+        var welcomeTab: Views.Welcome.ViewSwitcherView = .recent
         /// The zoom factor
         var zoom: Double = 1
         /// The width of the window

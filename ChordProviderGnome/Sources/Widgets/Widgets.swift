@@ -1,13 +1,13 @@
 //
-//  GtkRender.swift
+//  Widgets.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
 //
 
-import Adwaita
+import Foundation
 
-/// Render a song in GTK `Widgets`
-enum GtkRender {
+/// Custom Adwaita `Widgets`
+enum Widgets {
     // Just a placeholder
 }

@@ -1,5 +1,5 @@
 //
-//  WelcomeView.swift
+//  Views+Welcome.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -9,93 +9,96 @@ import Foundation
 import Adwaita
 import SourceView
 import ChordProviderCore
-import ChordProviderHTML
 
-/// The `View` a new song
-struct WelcomeView: View {
-    init(appState: Binding<AppState>) {
-        self._appState = appState
-        if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
-            self.data = data
+extension Views {
+    
+    /// The `View` a new song
+    struct Welcome: View {
+        /// Init the `View`
+        init(appState: Binding<AppState>) {
+            self._appState = appState
+            if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
+                self.data = data
+            }
         }
-    }
-    /// The ``AppState``
-    @Binding var appState: AppState
-    /// The artist browser
-    @State private var artists: [SongFileUtils.Artist] = []
-    /// The song browser
-    @State private var songs: [Song] = []
-    /// The image data
-    var data: Data? = nil
-    /// The body of the `View`
-    var view: Body {
-        HStack(spacing: 20) {
-            VStack(spacing: 20) {
-                Text("Create a new song")
-                    .style(.title)
-                VStack {
-                    if let data {
-                        Picture()
-                            .data(data)
-                            .frame(minWidth: 260)
-                            .frame(minHeight: 260)
-                            .padding()
-                    }
-                    Button("Start with an empty song") {
-                        openSong(content: "{title New Song}\n{artist New Artist}\n")
-                    }
-                    .frame(maxWidth: 250)
-                    .padding()
-                    Button("Open a sample song") {
-                        openSample("Swing Low Sweet Chariot", showEditor: true)
-                    }
-                    .frame(maxWidth: 250)
-                    .padding()
-                    /// - Note: This should be a spacer
-                    Text("")
-                        .vexpand()
-                    Text("<a href=\"https://www.chordpro.org\">ChordPro</a> is a simple text format for the notation of lyrics with chords.")
-                        .useMarkup()
-                        .wrap()
-                        .padding(10, .bottom)
+        /// The state of the application
+        @Binding var appState: AppState
+        /// The artist browser
+        @State private var artists: [SongFileUtils.Artist] = []
+        /// The song browser
+        @State private var songs: [Song] = []
+        /// The image data
+        var data: Data? = nil
+        /// The body of the `View`
+        var view: Body {
+            HStack(spacing: 20) {
+                VStack(spacing: 20) {
+                    Text("Create a new song")
+                        .style(.title)
+                    VStack {
+                        if let data {
+                            Picture()
+                                .data(data)
+                                .frame(minWidth: 260)
+                                .frame(minHeight: 260)
+                                .padding()
+                        }
+                        Button("Start with an empty song") {
+                            openSong(content: "{title New Song}\n{artist New Artist}\n")
+                        }
                         .frame(maxWidth: 250)
-                    Button("Help") {
-                        openSample("Help", showEditor: false, url: true)
+                        .padding()
+                        Button("Open a sample song") {
+                            openSample("Swing Low Sweet Chariot", showEditor: true)
+                        }
+                        .frame(maxWidth: 250)
+                        .padding()
+                        /// - Note: This should be a spacer
+                        Text("")
+                            .vexpand()
+                        Text("<a href=\"https://www.chordpro.org\">ChordPro</a> is a simple text format for the notation of lyrics with chords.")
+                            .useMarkup()
+                            .wrap()
+                            .padding(10, .bottom)
+                            .frame(maxWidth: 250)
+                        Button("Help") {
+                            openSample("Help", showEditor: false, url: true)
+                        }
+                        .frame(maxWidth: 250)
                     }
-                    .frame(maxWidth: 250)
                 }
-            }
-            Separator()
-            VStack(spacing: 20) {
-                ToggleGroup(
-                    selection: $appState.settings.app.welcomeTab,
-                    values: ViewSwitcherView.allCases
-                )
-                switch appState.settings.app.welcomeTab {
-                case .recent: recent
-                case .mySongs: mySongs
+                Separator()
+                VStack(spacing: 20) {
+                    ToggleGroup(
+                        selection: $appState.settings.app.welcomeTab,
+                        values: ViewSwitcherView.allCases
+                    )
+                    switch appState.settings.app.welcomeTab {
+                    case .recent: recent
+                    case .mySongs: mySongs
+                    }
                 }
+                .hexpand()
             }
-            .hexpand()
-        }
-        .vexpand()
-        .padding(20)
-        .onAppear {
-            if let url = appState.settings.app.songsFolder {
-                Idle {
-                    let content = SongFileUtils.getSongsFromFolder(url: url, settings: appState.settings.core, getOnlyMetadata: true)
-                    artists = content.artists
-                    songs = content.songs
+            .vexpand()
+            .padding(20)
+            .onAppear {
+                if let url = appState.settings.app.songsFolder {
+                    Idle {
+                        let content = SongFileUtils.getSongsFromFolder(url: url, settings: appState.settings.core, getOnlyMetadata: true)
+                        artists = content.artists
+                        songs = content.songs
+                    }
                 }
             }
         }
     }
 }
 
-extension WelcomeView {
-
+extension Views.Welcome {
+    
     /// The `View` with *Recent* content
-    var recent: AnyView {
+    @ViewBuilder var recent: Body {
         VStack(spacing: 20) {
             ScrollView {
                 if appState.settings.app.recentSongs.isEmpty {
@@ -131,9 +134,9 @@ extension WelcomeView {
             .halign(.center)
         }
     }
-
+    
     /// The `View` with *My Songs* content
-    var mySongs: AnyView {
+    @ViewBuilder var mySongs: Body {
         VStack {
             ScrollView {
                 HStack {
@@ -204,10 +207,10 @@ extension WelcomeView {
                 } onClose: {
                     /// Nothing to do
                 }
-
+            
         }
     }
-
+    
     /// The tabs on the Welcome View
     enum ViewSwitcherView: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
         /// Recent songs
@@ -236,8 +239,9 @@ extension WelcomeView {
     }
 }
 
-extension WelcomeView {
 
+extension Views.Welcome {
+    
     func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
         if
             let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
@@ -247,7 +251,7 @@ extension WelcomeView {
             print("Error loading sample song")
         }
     }
-
+    
     /// Open a song with its content as string
     /// - Parameter content: The content of the song
     func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
@@ -262,14 +266,14 @@ extension WelcomeView {
         }
         appState.scene.showWelcome = false
     }
-
+    
     /// The `View` for opening a song
     struct OpenButton: View {
         /// The file URL to open
         let fileURL: URL
         /// The title of the button
         let title: String
-        /// The ``AppState``
+        /// The state of the application
         @Binding var appState: AppState
         init(fileURL: URL, title: String? = nil, appState: Binding<AppState>) {
             self.fileURL = fileURL
@@ -298,3 +302,4 @@ extension WelcomeView {
         }
     }
 }
+

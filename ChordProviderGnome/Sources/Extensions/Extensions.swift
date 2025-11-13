@@ -48,9 +48,9 @@ extension String {
             return self
         } else {
             /// Escape special markup characters
-            var escapedString = self.replacingOccurrences(of: "&", with: "&amp;")
-            escapedString = escapedString.replacingOccurrences(of: "\"", with: "&quot;")
-            escapedString = escapedString.replacingOccurrences(of: "'", with: "&#39;")
+            var escapedString = self.replacing("&", with: "&amp;")
+            escapedString = escapedString.replacing("\"", with: "&quot;")
+            escapedString = escapedString.replacing("'", with: "&#39;")
             return escapedString
         }
     }

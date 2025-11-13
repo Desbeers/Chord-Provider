@@ -36,6 +36,10 @@ extension Markup {
 
     static func css(zoom: Double, dark: Bool) -> String {
 """
+.background {
+    font-family: "Adwaita Sans";
+    font-size: 11pt;
+}
 .standard, .strum {
     font-size: \(baseFontSize * zoom)px;
 }

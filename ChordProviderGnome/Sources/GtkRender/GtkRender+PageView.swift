@@ -13,10 +13,11 @@ extension GtkRender {
 
     /// The `View` for a whole song
     struct PageView: View {
-
+        /// The whole song
         let song: Song
+        /// The settings of the application
         let settings: AppSettings
-
+        /// The body of the `View`
         var view: Body {
             VStack {
                 /// Show optional tags
@@ -65,7 +66,6 @@ extension GtkRender {
                 }
                 .vexpand()
             }
-            //.padding(20)
             .hexpand()
         }
         
@@ -74,9 +74,9 @@ extension GtkRender {
         ///   - name: Name of the icon
         ///   - value: The value of the metadata
         /// - Returns: A View
-        private func metadata(name: String, value: String) -> AnyView {
+        @ViewBuilder private func metadata(name: String, value: String) -> Body {
             HStack(spacing: 5) {
-                BundleImage(name: name)
+                Widgets.BundleImage(name: name)
                     .pixelSize(16)
                     .valign(.baselineCenter)
                 Text(value)

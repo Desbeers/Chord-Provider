@@ -52,7 +52,7 @@ extension ChordProParser {
                     if value.components(separatedBy: "\"").count < 3 {
                         currentSection.addWarning("Missing brackets around **\(value)**")
                     }
-                    value = value.replacingOccurrences(of: "\"", with: "")
+                    value.replace("\"", with: "")
                     $0[argument] = value
                 } else {
                     currentSection.addWarning("Unknown *key*: **\($1.1)**")
