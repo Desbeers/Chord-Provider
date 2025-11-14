@@ -32,7 +32,7 @@ extension Views {
                     .child {
                         Text(chord.display)
                             .style(.chord)
-                        Widgets.ChordDiagram(chord: chord)
+                        Widgets.ChordDiagram(chord: chord, settings: settings)
                             .frame(minWidth: 100)
                     }
                     .style(.chordButton)
@@ -60,7 +60,7 @@ extension Views {
                         }
                         .halign(.center)
                         FlowBox(getChordDefinitions(), selection: nil) { chord in
-                            Widgets.ChordDiagram(chord: chord)
+                            Widgets.ChordDiagram(chord: chord, settings: settings)
                                 .frame(minWidth: 100)
                                 .frame(maxWidth: 100)
                         }

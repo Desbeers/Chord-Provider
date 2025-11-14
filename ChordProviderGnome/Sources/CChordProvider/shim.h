@@ -12,12 +12,20 @@ struct cbarre {
 };
 typedef struct cbarre cbarre;
 
+struct cnote {
+    /// The note of the string
+    char * note
+};
+typedef struct cnote cnote;
+
 struct cchord {
     int strings;
     int base_fret;
     int frets[6];
     int fingers[6];
     cbarre barre[5];
+    cnote note[6];
+    bool show_notes;
 };
 typedef struct cchord cchord;
 

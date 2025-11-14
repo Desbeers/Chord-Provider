@@ -19,7 +19,8 @@ extension Widgets {
         let cchord = UnsafeMutablePointer<cchord>.allocate(capacity: 1)
         /// Init the `widget`
         public init(
-            chord: ChordDefinition
+            chord: ChordDefinition,
+            settings: AppSettings
         ) {
             cchord.pointee.strings = Int32(chord.instrument.strings.count)
             cchord.pointee.base_fret = Int32(chord.baseFret)
@@ -58,6 +59,22 @@ extension Widgets {
                     result[safe: 4] ?? cbarre()
                 )
             }
+            cchord.pointee.show_notes = settings.core.diagram.showNotes
+            var result: [cnote] = []
+            for note in chord.components {
+                let string = note.note == .none ? " " : note.note.display
+                if let pointer: UnsafeMutablePointer<CChar> = strdup(NSString(string: string).utf8String) {
+                    result.append(cnote(note: pointer))
+                }
+            }
+            cchord.pointee.note = (
+                result[safe: 0] ?? cnote(),
+                result[safe: 1] ?? cnote(),
+                result[safe: 2] ?? cnote(),
+                result[safe: 3] ?? cnote(),
+                result[safe: 4] ?? cnote(),
+                result[safe: 5] ?? cnote()
+            )
         }
         /// The view storage.
         /// - Parameters:
@@ -111,6 +128,11 @@ public func drawChord(
 
     let fingers = Mirror(reflecting: data.fingers).children.map { item in
         return Int("\(item.value)") ?? 0
+    }
+
+    let notes = Mirror(reflecting: data.note).children.map { item in
+        let note = item.value as! cnote
+        return String(cString: note.note)
     }
 
     let barres: [Chord.Barre] = Mirror(reflecting: data.barre).children.map { item in
@@ -227,6 +249,19 @@ public func drawChord(
                     cairo_new_path(cr)
                 }
             }
+        }
+    }
+    /// Draw notes
+    if data.show_notes {
+        cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
+        for i in 0..<strings {
+            var offset: Double = 0
+            if let note = notes[safe: i] {
+                offset = note.count == 1 ? 1.1 : 1.25
+            }
+            let y = (margin / offset) + Double(i) * stringSpacing
+            cairo_move_to(cr, y, 110)
+            cairo_show_text(cr, notes[safe: i])
         }
     }
 }

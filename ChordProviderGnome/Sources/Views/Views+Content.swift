@@ -143,6 +143,10 @@ extension Views {
                             .title("Show left-handed chords")
                             .subtitle("Flip the chord diagrams")
                             .active($appState.settings.core.diagram.mirror)
+                        SwitchRow()
+                            .title("Show notes")
+                            .subtitle("Show the notes of a chord in the diagram")
+                            .active($appState.settings.core.diagram.showNotes)
                     }
             }
             .preferencesPage("Editor", icon: .default(icon: .textEditor)) { page in
