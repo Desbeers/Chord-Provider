@@ -63,8 +63,8 @@ extension Widgets {
             var result: [cnote] = []
             for note in chord.components {
                 let string = note.note == .none ? " " : note.note.display
-                if let pointer: UnsafeMutablePointer<CChar> = strdup(NSString(string: string).utf8String) {
-                    result.append(cnote(note: pointer))
+                if let string = string.toUnsafeMutablePointer() {
+                    result.append(cnote(note: string))
                 }
             }
             cchord.pointee.note = (
