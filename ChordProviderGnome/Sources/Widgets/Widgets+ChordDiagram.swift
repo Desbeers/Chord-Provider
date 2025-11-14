@@ -61,6 +61,7 @@ extension Widgets {
             }
             cchord.pointee.show_notes = settings.core.diagram.showNotes
             var result: [cnote] = []
+            let fallback = cnote(note: " ".toUnsafeMutablePointer())
             for note in chord.components {
                 let string = note.note == .none ? " " : note.note.display
                 if let string = string.toUnsafeMutablePointer() {
@@ -68,12 +69,12 @@ extension Widgets {
                 }
             }
             cchord.pointee.note = (
-                result[safe: 0] ?? cnote(),
-                result[safe: 1] ?? cnote(),
-                result[safe: 2] ?? cnote(),
-                result[safe: 3] ?? cnote(),
-                result[safe: 4] ?? cnote(),
-                result[safe: 5] ?? cnote()
+                result[safe: 0] ?? fallback,
+                result[safe: 1] ?? fallback,
+                result[safe: 2] ?? fallback,
+                result[safe: 3] ?? fallback,
+                result[safe: 4] ?? fallback,
+                result[safe: 5] ?? fallback
             )
         }
         /// The view storage.

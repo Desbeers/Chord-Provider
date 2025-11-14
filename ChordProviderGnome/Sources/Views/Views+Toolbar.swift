@@ -54,6 +54,9 @@ extension Views {
                         }
                         Menu(icon: .default(icon: .openMenu)) {
                             MenuSection {
+                                MenuButton("Chords Database") {
+                                    app.showWindow("database")
+                                }
                                 MenuButton("Preferences") {
                                     appState.scene.showPreferences = true
                                 }
@@ -121,6 +124,9 @@ extension Views {
                             }
                         }
                         MenuSection {
+                            MenuButton("Chords Database") {
+                                app.showWindow("database")
+                            }
                             MenuButton("Preferences") {
                                 appState.scene.showPreferences = true
                             }

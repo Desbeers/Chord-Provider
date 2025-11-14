@@ -101,3 +101,25 @@ extension String {
         return strdup(self)
     }
 }
+
+extension Chord.Instrument: @retroactive ViewSwitcherOption {
+    public var title: String {
+        self.description
+    }
+
+    public var icon: Adwaita.Icon {
+        .default(icon: .folderMusic)
+    }
+}
+
+extension Chord.Root: @retroactive ToggleGroupItem {
+    public var icon: Adwaita.Icon? {
+        nil
+    }
+
+    public var showLabel: Bool {
+        true
+    }
+
+
+}

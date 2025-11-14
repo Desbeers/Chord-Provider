@@ -43,5 +43,10 @@ import CChordProvider
                 return .close
             }
         }
+        Window(id: "database", open: 0) { _ in
+            Views.Database(settings: appState.settings)
+        }
+        .defaultSize(width: 800, height: 600)
+        .title("Chords Database")
     }
 }
