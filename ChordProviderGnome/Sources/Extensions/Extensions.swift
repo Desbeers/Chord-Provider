@@ -91,7 +91,7 @@ extension String {
         guard let val = value else {
             return nil
         }
-        stream.write(val, maxLength: data.count)
+        _ = stream.write(val, maxLength: data.count)
         stream.close()
 
         return UnsafePointer<UInt8>(buffer)

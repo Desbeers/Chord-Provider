@@ -103,7 +103,11 @@ extension Markup {
     font-size: 12px;
 }
 .chord-button {
-    padding: 0;
+    padding: 5px 0 0 0;
+}
+.chord-button .chord {
+    font-size: \(baseFontSize)px;
+    font-weight: normal;
 }
 """
     }
