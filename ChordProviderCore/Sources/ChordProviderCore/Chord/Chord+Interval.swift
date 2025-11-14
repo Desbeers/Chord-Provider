@@ -10,7 +10,11 @@ import Foundation
 extension Chord {
 
     /// The structure for an interval
-    public struct Interval: Hashable, Sendable, CustomStringConvertible {
+    public struct Interval: Hashable, Sendable, Identifiable, CustomStringConvertible {
+        /// Make the struct identifiable
+        public var id: String {
+            self.description
+        }
 
         // swiftlint:disable identifier_name
 

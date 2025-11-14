@@ -30,6 +30,7 @@ extension Markup {
         case strum
         case plainButton = "plain-button"
         case metadata
+        case chordButton = "chord-button"
     }
 
     static let baseFontSize: Double = 12.5
@@ -99,7 +100,10 @@ extension Markup {
     font-size: 1.1em;
 }
 .metadata {
-        font-size: 12px;
+    font-size: 12px;
+}
+.chord-button {
+    padding: 0;
 }
 """
     }

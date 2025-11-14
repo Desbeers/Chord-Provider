@@ -8,6 +8,7 @@
 import Foundation
 import ChordProviderCore
 import Adwaita
+import CAdw
 
 extension ChordProviderSettings {
 

@@ -25,7 +25,6 @@ extension Views {
                 Separator()
                 if !song.chords.isEmpty {
                     Views.Chords(song: song, settings: settings)
-                        .frame(minWidth: 100)
                         .transition(.coverLeftRight)
                 }
             }
