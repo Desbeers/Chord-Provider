@@ -27,6 +27,8 @@ public struct SourceView: AdwaitaWidget {
 
     var highlightCurrentLine: Bool = true
 
+    var editable: Bool = true
+
     /// Initialize a code editor.
     /// - Parameter text: The editor's content.
     public init(text: Binding<String>) {
@@ -83,6 +85,7 @@ public struct SourceView: AdwaitaWidget {
             if paddingEdges.contains(.trailing) {
                 gtk_text_view_set_right_margin(storage.opaquePointer?.cast(), padding.cInt)
             }
+            gtk_text_view_set_editable(storage.opaquePointer?.cast(), editable.cBool)
             gtk_source_view_set_show_line_numbers(storage.opaquePointer?.cast(), numbers.cBool)
             gtk_text_view_set_wrap_mode(storage.opaquePointer?.cast(), wrapMode.rawValue)
             gtk_source_view_set_highlight_current_line(storage.opaquePointer?.cast(), highlightCurrentLine.cBool)
@@ -134,9 +137,18 @@ public struct SourceView: AdwaitaWidget {
         return newSelf
     }
 
-    /// Highlight the current line
+    /// Make the text read-only.
+    /// - Parameter readOnly: Whether the text is read-only
+    /// - Returns: The editor.
+    public func editable(_ editable: Bool = true) -> Self {
+        var newSelf = self
+        newSelf.editable = editable
+        return newSelf
+    }
+
+    /// Highlight the current line.
     /// - Parameter highlight: Whether the current line is highlighted
-    /// - Returns: The editor
+    /// - Returns: The editor.
     public func highlightCurrentLine(_ highlight: Bool = true) -> Self {
         var newSelf = self
         newSelf.highlightCurrentLine = highlight

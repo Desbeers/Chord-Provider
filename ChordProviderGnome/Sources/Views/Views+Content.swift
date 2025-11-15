@@ -14,19 +14,6 @@ extension Views {
 
     /// The main `View` for the application
     struct Content: View {
-        /// Init the `View`
-        init(app: AdwaitaApp, window: AdwaitaWindow, appState: Binding<AppState>, id: UUID) {
-            LogUtils.shared.clearLog()
-            self.app = app
-            self.window = window
-            self._appState = appState
-            let song = Song(id: id, content: appState.scene.source.wrappedValue)
-            let result = ChordProParser.parse(
-                song: song,
-                settings: appState.settings.core.wrappedValue
-            )
-            self.song = result
-        }
         /// The `AdwaitaApp`
         var app: AdwaitaApp
         /// The `AdwaitaWindow`
@@ -34,28 +21,30 @@ extension Views {
         /// The state of the application
         @Binding var appState: AppState
         /// The whole song
-        let song: Song
+        @Binding var song: Song
         /// The body of the `View`
         var view: Body {
-            HSplitView(splitter: $appState.settings.editor.splitter) {
-                Views.Editor(appState: $appState)
-            } end: {
-                VStack {
-                    if appState.scene.showWelcome {
-                        Views.Welcome(appState: $appState)
-                            .vexpand()
-                            .hexpand()
-                            .transition(.coverLeftRight)
-                    } else {
-                        Views.Render(song: song, settings: appState.settings)
-                            .hexpand()
-                            .vexpand()
-                            .transition(.coverRightLeft)
-                        if appState.settings.editor.showEditor {
-                            Views.Log()
-                                .transition(.coverUpDown)
+            VStack {
+                HSplitView(splitter: $appState.settings.editor.splitter) {
+                    Views.Editor(app: app, song: song, appState: $appState)
+                } end: {
+                    VStack {
+                        if appState.scene.showWelcome {
+                            Views.Welcome(appState: $appState)
+                                .vexpand()
+                                .hexpand()
+                                .transition(.coverLeftRight)
+                        } else {
+                            Views.Render(song: song, settings: appState.settings)
+                                .hexpand()
+                                .vexpand()
+                                .transition(.coverRightLeft)
                         }
                     }
+                }
+                if appState.settings.editor.showEditor {
+                    Views.Log(app: app)
+                        .transition(.coverUpDown)
                 }
             }
             .vexpand()
@@ -66,6 +55,18 @@ extension Views {
                     window: window,
                     appState: $appState
                 )
+            }
+            .onUpdate {
+                if appState.scene.source != song.content || song.settings != appState.settings.core {
+                    Idle {
+                        LogUtils.shared.clearLog()
+                        song.content = appState.scene.source
+                        song = ChordProParser.parse(
+                            song: song,
+                            settings: appState.settings.core
+                        )
+                    }
+                }
             }
             .aboutDialog(
                 visible: $appState.scene.showAboutDialog,

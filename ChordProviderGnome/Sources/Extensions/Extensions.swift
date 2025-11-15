@@ -120,6 +120,24 @@ extension Chord.Root: @retroactive ToggleGroupItem {
     public var showLabel: Bool {
         true
     }
+}
 
+extension LogUtils.Level {
 
+    var style: Markup.Class {
+        switch self {
+        case .info:
+            Markup.Class.logInfo
+        case .warning:
+            Markup.Class.logWarning
+        case .error:
+            Markup.Class.logError
+        case .debug:
+            Markup.Class.logDebug
+        case .notice:
+            Markup.Class.logNotice
+        case .fault:
+            Markup.Class.logFault
+        }
+    }
 }

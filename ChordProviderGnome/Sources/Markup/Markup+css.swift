@@ -31,6 +31,13 @@ extension Markup {
         case plainButton = "plain-button"
         case metadata
         case chordButton = "chord-button"
+
+        case logWarning = "log-warning"
+        case logError = "log-error"
+        case logDebug = "log-debug"
+        case logInfo = "log-info"
+        case logNotice = "log-notice"
+        case logFault = "log-fault"
     }
 
     static let baseFontSize: Double = 12.5
@@ -108,6 +115,12 @@ extension Markup {
 .chord-button .chord {
     font-size: \(baseFontSize)px;
     font-weight: normal;
+}
+.log-warning {
+    color: var(--warning-color);
+}
+.log-error {
+    color: var(--error-color);
 }
 """
     }

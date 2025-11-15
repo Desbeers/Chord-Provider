@@ -14,6 +14,11 @@ extension Views {
 
     /// The `View` for editing a song
     struct Editor: View {
+
+        let app: AdwaitaApp
+
+        let song: Song
+
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`
@@ -33,18 +38,18 @@ extension Views {
                         .card()
                         .padding(8)
                 }
-                HStack {
-                    Button("Clean Source") {
-                        let song = Song(id: UUID(), content: appState.scene.source)
-                        let result = ChordProParser.parse(
-                            song: song,
-                            settings: appState.settings.core
-                        )
-                        appState.scene.source = result.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
-                    }
-                    .padding(4)
-                }
-                .halign(.center)
+//                HStack {
+//                    Button("Clean Source") {
+//                        appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+//                    }
+//                    .padding(4)
+//                    Button("Debug") {
+//                        app.showWindow("debug")
+//                        //debug.toggle()
+//                    }
+//                    .padding(4)
+//                }
+//                .halign(.center)
             }
         }
     }

@@ -14,36 +14,63 @@ extension Views {
     /// The `View` for showing log messages
     struct Log: View {
         /// Init the `View`
-        init() {
-            let messages = LogUtils.shared.fetchLog().map {message in
-                var line = "<span foreground='\(message.level.hexColor)'>\(message.level.rawValue)" + ": " + message.category.rawValue + ": "
-                if let lineNumber = message.lineNumber {
-                    line += "line \(lineNumber): "
-                }
-                return Message(id: message.id, message: line + message.message + "</span>")
+        init(app: AdwaitaApp) {
+            let messages = LogUtils.shared.fetchLog().map { message in
+
+                let text = Utils.convertMarkdown(message.message)
+
+                return Message(
+                    id: message.id,
+                    line: message.lineNumber,
+                    level: message.level,
+                    message: text
+                )
             }
             self.messages = messages
+            self.app = app
         }
+        /// The app
+        let app: AdwaitaApp
         /// The log messages
         let messages: [Message]
         /// The body of the `View`
         var view: Body {
             Separator()
+                .padding()
             ScrollView {
                 VStack(spacing: 0) {
                     ForEach(messages) { line in
-                        Text(line.message)
-                            .useMarkup()
-                            .halign(.start)
+                        HStack {
+                            if let line = line.line {
+                                Text("Line \(line): ")
+                            }
+                            Text(line.message)
+                                .useMarkup()
+                                .style(line.level.style)
+                                .halign(.start)
+                        }
                     }
                 }
-                .padding(4)
+                .padding()
             }
             .hexpand()
+            .overlay {
+                Button("Parser Info") {
+                    app.showWindow("debug")
+                }
+                .tooltip("See how your song is parsed")
+                .padding()
+                .valign(.start)
+                //.hexpand()
+                .halign(.end)
+                .padding(10,.trailing)
+            }
         }
 
         struct Message: Identifiable {
             let id: UUID
+            let line: Int?
+            let level: LogUtils.Level
             let message: String
         }
     }

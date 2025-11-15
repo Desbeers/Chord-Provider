@@ -7,14 +7,23 @@
 
 import Adwaita
 import Foundation
+import ChordProviderCore
 import CChordProvider
 
 /// The **Chord Provider** application
 @main struct ChordProvider: App {
+    init() {
+        let id: UUID = UUID()
+        self.app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(id.uuidString)")
+        self._song = State(wrappedValue: Song(id: id, content: ""))
+    }
+    
     /// Give it an unique ID so Files does not open new windows
-    let app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(UUID().uuidString)")
+    let app: AdwaitaApp
     /// The ``AppSettings``
     @State private var appState = AppState()
+
+    @State private var song: Song
     /// The body of the `Scene`
     var scene: Scene {
         Window(id: "main") { window in
@@ -22,7 +31,7 @@ import CChordProvider
                 app: app,
                 window: window,
                 appState: $appState,
-                id: UUID()
+                song: $song
             )
             .css {
                 Markup.css(
@@ -49,5 +58,11 @@ import CChordProvider
         .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
         .title("Chords Database")
+        Window(id: "debug", open: 0) { _ in
+            Views.Debug(song: song, app: app)
+        }
+        .minSize(width: 800, height: 600)
+        .defaultSize(width: 800, height: 600)
+        .title("Debug")
     }
 }
