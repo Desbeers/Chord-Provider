@@ -52,11 +52,8 @@ extension Views {
                         VStack {
                             Text(selectedChord.display)
                                 .style(.title)
-                            ForEach(selectedChord.quality.intervals.intervals, horizontal: true) { interval in
-                                Text(interval.description)
-                                    .style(.subtitle)
-                                    .padding(5, .horizontal)
-                            }
+                            Text(selectedChord.quality.intervalsLabel)
+                                .style(.subtitle)
                         }
                         .halign(.center)
                         FlowBox(getChordDefinitions(), selection: nil) { chord in

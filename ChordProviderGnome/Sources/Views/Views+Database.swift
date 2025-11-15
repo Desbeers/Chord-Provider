@@ -13,50 +13,110 @@ extension Views {
 
     /// The `View` for showing the chord database
     struct Database: View {
-        init(settings: AppSettings) {
-            print("INIT")
-            //self.chords = ChordUtils.getAllChordsForInstrument(instrument: .guitar)
-            self.settings = settings
-        }
-        @State private var selection: Chord.Instrument = .guitar
-        @State private var chords: [ChordDefinition] = []
-        @State private var chord: Chord.Root.ID = ""
+        /// The settings of the application
         let settings: AppSettings
+        /// The selected instrument
+        @State private var instrument: Chord.Instrument = .guitar
+        /// The selected chord
+        @State private var chord: Chord.Root.ID = "C"
+        /// The optional search string
+        @State private var search: String = ""
+        /// The current selected diagram
+        @State private var selection: UUID = UUID()
+        /// Toast signal when a definition is copied
+        @State private var copied: Signal = .init()
+        /// The body of the `View`
         var view: Body {
+            let chords = getChords()
             VStack {
-                ToggleGroup(
-                    selection: $chord,
-                    values: Chord.Root.naturalAndSharp.dropFirst().dropLast()
-                )
+                if search.isEmpty {
+                    ToggleGroup(
+                        selection: $chord,
+                        values: Chord.Root.naturalAndSharp.dropFirst().dropLast()
+                    )
+                    .transition(.coverUpDown)
+                }
                 ScrollView {
-                    FlowBox(getChords(), selection: nil) { chord in
-                        Text(chord.display)
-                            .style(.chord)
+                    if chords.isEmpty {
+                        StatusPage(
+                            "No chords found",
+                            icon: .default(icon: .systemSearch),
+                            description: "Oops! We couldn't find any chords that match your search."
+                        )
+                    } else {
+                        FlowBox(chords, selection: $selection) { chord in
+                            VStack {
+                                Text(chord.display)
+                                    .style(.chord)
+                                Widgets.ChordDiagram(chord: chord, settings: settings)
+                                    .frame(minWidth: 100)
+                                    .frame(maxWidth: 100)
+                            }
+                        }
+                        .vexpand()
+                        .padding()
+                    }
+                }
+                if let chord = chords.first(where: { $0.id == selection }) {
+                    Separator()
+                    HStack {
                         Widgets.ChordDiagram(chord: chord, settings: settings)
                             .frame(minWidth: 100)
                             .frame(maxWidth: 100)
+                        VStack {
+                            Text(chord.display)
+                                .style(.title)
+                            Text(chord.quality.intervalsLabel)
+                                .style(.subtitle)
+                            HStack {
+                                Text("{\(chord.define)}")
+                                    .selectable()
+                                Button(icon: .default(icon: .editCopy)) {
+                                    AdwaitaApp.copy("{\(chord.define)}")
+                                    copied.signal()
+                                }
+                                .flat(true)
+                            }
+                        }
+                        .padding()
                     }
                 }
-                .vexpand()
             }
+            .toast("Copied to clipboard", signal: copied)
             .topToolbar {
-                HeaderBar() { } end: { }
-                    .headerBarTitle {
-                        ViewSwitcher(selectedElement: $selection)
-                            .wideDesign(true)
-                    }
+                HeaderBar() { } end: {
+                    SearchEntry()
+                        .text($search)
+                        .placeholderText("Search")
+                }
+                .headerBarTitle {
+                    ViewSwitcher(selectedElement: $instrument)
+                        .wideDesign(true)
+                }
             }
         }
-
-        func getChords() -> [ChordDefinition] {
-            let chord = Chord.Root(rawValue: self.chord) ?? .c
-            return ChordUtils.getAllChordsForInstrument(instrument: selection)
-                .filter { $0.root == chord}
-                .sorted(
-                    using: [
-                        KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
-                    ]
-                )
+        
+        /// Get all filtered chords
+        /// - Returns: The filtered chords
+        private func getChords() -> [ChordDefinition] {
+            if search.isEmpty {
+                let chord = Chord.Root(rawValue: self.chord) ?? .c
+                return ChordUtils.getAllChordsForInstrument(instrument: instrument)
+                    .filter { $0.root == chord}
+                    .sorted(
+                        using: [
+                            KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
+                        ]
+                    )
+            } else {
+                return ChordUtils.getAllChordsForInstrument(instrument: instrument)
+                    .filter { $0.name.localizedCaseInsensitiveContains(search) }
+                    .sorted(
+                        using: [
+                            KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
+                        ]
+                    )
+            }
         }
     }
 }

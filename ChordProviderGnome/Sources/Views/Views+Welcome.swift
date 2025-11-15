@@ -166,6 +166,7 @@ extension Views.Welcome {
                                 icon: .default(icon: .systemSearch),
                                 description: "Oops! We couldn't find any songs that match your search."
                             )
+                            .frame(minWidth: 350)
                         } else {
                             VStack(spacing: 10) {
                                 ForEach(result) { song in

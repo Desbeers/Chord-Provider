@@ -46,6 +46,7 @@ import CChordProvider
         Window(id: "database", open: 0) { _ in
             Views.Database(settings: appState.settings)
         }
+        .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
         .title("Chords Database")
     }
