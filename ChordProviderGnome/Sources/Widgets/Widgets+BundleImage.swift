@@ -49,6 +49,13 @@ extension Widgets {
             }
         }
 
+        /// Initialize `BundleImage`.
+        public init(path: String) {
+            if let urlPath = Bundle.module.url(forResource: path, withExtension: "svg") {
+                self.resource = urlPath.path
+            }
+        }
+
         /// The view storage.
         /// - Parameters:
         ///     - modifiers: Modify views before being updated.
@@ -74,6 +81,9 @@ extension Widgets {
             storage.modify { widget in
                 if let resource, updateProperties, (storage.previousState as? Self)?.resource != resource {
                     gtk_image_set_from_file(widget, resource)
+                }
+                if let pixelSize, updateProperties, (storage.previousState as? Self)?.pixelSize != pixelSize {
+                    gtk_image_set_pixel_size(widget, pixelSize.cInt)
                 }
             }
             for function in updateFunctions {

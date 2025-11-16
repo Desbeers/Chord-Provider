@@ -35,7 +35,7 @@ extension Views {
                     case .json:
                         json
                     case .log:
-                        Views.Log(app: app)
+                        Views.Log(main: false, app: app)
                     case .source:
                         source
                     }
@@ -60,6 +60,7 @@ extension Views {
                         VStack {
                             HStack {
                                 Text("\(line.id)")
+                                    .style(line.source.warnings == nil ? .none : .bold)
                                     .frame(minWidth: 40)
                                     .halign(.end)
                                 SourceView(text: .constant(line.source.sourceParsed))
@@ -71,7 +72,8 @@ extension Views {
                             .valign(.center)
                             VStack(spacing: 0) {
                                 if let warnings = line.source.warnings {
-                                    Text(.init("\(warnings.joined(separator: ", "))"))
+                                    Text(Utils.convertMarkdown("\(warnings.joined(separator: ", "))"))
+                                        .useMarkup()
                                         .padding()
                                         .style(.logError)
                                 }
@@ -97,6 +99,7 @@ extension Views {
                 Label("A <b>bold</b> line number means the <b>source line</b> has warnings that the parser will try to resolve")
                     .useMarkup()
             }
+            .padding()
         }
 
         @ViewBuilder var json: Body {

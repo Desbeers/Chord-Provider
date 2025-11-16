@@ -14,8 +14,10 @@ extension Markup {
         var description: String {
             self.rawValue
         }
+        case none
         case theme = "theme"
         case standard
+        case bold
         case title = "song-title"
         case subtitle = "song-subtitle"
         case sectionHeader = "section-header"
@@ -50,6 +52,9 @@ extension Markup {
 }
 .standard, .strum {
     font-size: \(baseFontSize * zoom)px;
+}
+.bold {
+    font-weight: bold;
 }
 .song-title {
     font-size: \(1.4 * baseFontSize)px;

@@ -33,12 +33,10 @@ extension GtkRender {
                 ForEach(sections) { section in
                     sectionPart(section)
                 }
-                .transition(.slideLeftRight)
             case false:
                 Widgets.Columns(sections) { section in
                     sectionPart(section)
                 }
-                .transition(.slideLeftRight)
             }
         }
         

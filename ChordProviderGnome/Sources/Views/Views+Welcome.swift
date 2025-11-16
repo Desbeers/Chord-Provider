@@ -14,21 +14,12 @@ extension Views {
     
     /// The `View` a new song
     struct Welcome: View {
-        /// Init the `View`
-        init(appState: Binding<AppState>) {
-            self._appState = appState
-            if let urlPath = Bundle.module.url(forResource: "nl.desbeers.chordprovider-mime", withExtension: "svg"), let data = try? Data(contentsOf: urlPath) {
-                self.data = data
-            }
-        }
         /// The state of the application
         @Binding var appState: AppState
         /// The artist browser
         @State private var artists: [SongFileUtils.Artist] = []
         /// The song browser
         @State private var songs: [Song] = []
-        /// The image data
-        var data: Data? = nil
         /// The body of the `View`
         var view: Body {
             HStack(spacing: 20) {
@@ -36,13 +27,9 @@ extension Views {
                     Text("Create a new song")
                         .style(.title)
                     VStack {
-                        if let data {
-                            Picture()
-                                .data(data)
-                                .frame(minWidth: 260)
-                                .frame(minHeight: 260)
-                                .padding()
-                        }
+                        Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
+                            .pixelSize(260)
+                            .padding()
                         Button("Start with an empty song") {
                             openSong(content: "{title New Song}\n{artist New Artist}\n")
                         }
@@ -54,7 +41,8 @@ extension Views {
                         .frame(maxWidth: 250)
                         .padding()
                         /// - Note: This should be a spacer
-                        Text("")
+                        Separator()
+                            .style("spacer")
                             .vexpand()
                         Text("<a href=\"https://www.chordpro.org\">ChordPro</a> is a simple text format for the notation of lyrics with chords.")
                             .useMarkup()

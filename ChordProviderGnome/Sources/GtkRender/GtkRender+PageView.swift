@@ -64,6 +64,7 @@ extension GtkRender {
                         .halign(.center)
                         .padding(20)
                 }
+                .style("document")
                 .vexpand()
             }
             .hexpand()
