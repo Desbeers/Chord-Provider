@@ -57,6 +57,37 @@ extension Views {
                     case .recent: recent
                     case .mySongs: mySongs
                     }
+                    HStack {
+                        switch appState.settings.app.welcomeTab {
+                        case .recent:
+                            if !appState.settings.app.recentSongs.isEmpty {
+                                HStack {
+                                    Button("Clear recent songs") {
+                                        appState.settings.app.clearRecentSongs()
+                                    }
+                                    .halign(.start)
+                                    .hexpand()
+                                }
+                            }
+                        case .mySongs:
+                            HStack {
+                                Text("The folder with your songs:")
+                                    .padding()
+                                Button(appState.settings.app.songsFolder?.lastPathComponent ?? "Select folder") {
+                                    appState.scene.openFolder.signal()
+                                }
+                            }
+                            .halign(.start)
+                            .hexpand()
+                        }
+                        Button("Open another song") {
+                            appState.scene.openSong.signal()
+                        }
+                        .suggested()
+                        .halign(.end)
+                        .valign(.start)
+                    }
+                    .hexpand()
                 }
                 .hexpand()
             }
@@ -82,8 +113,12 @@ extension Views.Welcome {
         VStack(spacing: 20) {
             ScrollView {
                 if appState.settings.app.recentSongs.isEmpty {
-                    Text("You have no recent songs.")
-                        .heading()
+                    StatusPage(
+                        "No recent songs",
+                        icon: .default(icon: .folderMusic),
+                        description: "You have no recent songs."
+                    )
+                    .frame(minWidth: 350)
                 } else {
                     VStack(spacing: 10) {
                         ForEach(appState.settings.app.getRecentSongs()) {song in
@@ -100,18 +135,6 @@ extension Views.Welcome {
             }
             .card()
             .vexpand()
-            HStack(spacing: 10) {
-                Button("Open another song") {
-                    appState.scene.openSong.signal()
-                }
-                .suggested()
-                if !appState.settings.app.recentSongs.isEmpty {
-                    Button("Clear recent songs") {
-                        appState.settings.app.clearRecentSongs()
-                    }
-                }
-            }
-            .halign(.center)
         }
     }
     
@@ -121,38 +144,50 @@ extension Views.Welcome {
             ScrollView {
                 HStack {
                     if artists.isEmpty {
-                        Text("Select a folder with your songs.")
-                            .heading()
+                        StatusPage(
+                            "No folder selected",
+                            icon: .default(icon: .folderMusic),
+                            description: "You have not selected a folder with your songs."
+                        )
+                        .child {
+                            Text("Your songs will appear once you select a folder.")
+                                .style("capture")
+                        }
+                        .frame(minWidth: 350)
                     } else if appState.scene.search.isEmpty {
-                        ForEach(artists) { artist in
-                            Text(artist.name)
-                                .heading()
-                                .halign(.start)
-                            Separator()
+                        FlowBox(artists, selection: nil) { artist in
                             VStack {
-                                ForEach(artist.songs) { song in
-                                    HStack {
-                                        if let url = song.settings.fileURL {
-                                            OpenButton(fileURL: url, title: song.metadata.title, appState: $appState)
-                                                .halign(.start)
-                                        }
-                                        if let tags = song.metadata.tags {
-                                            HStack {
-                                                ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
-                                                    Text(tag.string)
-                                                        .style(.tagLabel)
-                                                        .padding(5, .leading)
-                                                }
+                                Text(artist.name)
+                                    .style(.title)
+                                    .halign(.start)
+                                Separator()
+                                VStack {
+                                    ForEach(artist.songs) { song in
+                                        HStack {
+                                            if let url = song.settings.fileURL {
+                                                OpenButton(fileURL: url, title: song.metadata.title, appState: $appState)
+                                                    .halign(.start)
                                             }
-                                            .hexpand()
-                                            .halign(.end)
-                                            .valign(.center)
-                                            .padding(10, .leading)
+                                            if let tags = song.metadata.tags {
+                                                HStack {
+                                                    ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
+                                                        Text(tag.string)
+                                                            .style(.tagLabel)
+                                                            .padding(5, .leading)
+                                                    }
+                                                }
+                                                .hexpand()
+                                                .halign(.end)
+                                                .valign(.center)
+                                                .padding(10, .leading)
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        .rowSpacing(10)
+                        .columnSpacing(10)
                     } else {
                         let result = songs.filter { $0.search.localizedCaseInsensitiveContains(appState.scene.search) }
                         if result.isEmpty {
@@ -182,14 +217,6 @@ extension Views.Welcome {
             }
             .card()
             .vexpand()
-            .padding(20, .bottom)
-            HStack(spacing: 20) {
-                Text("The folder with your songs:")
-                Button(appState.settings.app.songsFolder?.lastPathComponent ?? "Select folder") {
-                    appState.scene.openFolder.signal()
-                }
-            }
-            .halign(.center)
             .folderImporter(
                 open: appState.scene.openFolder) { folderURL in
                     appState.settings.app.songsFolder = folderURL
@@ -209,10 +236,10 @@ extension Views.Welcome {
     
     /// The tabs on the Welcome View
     enum ViewSwitcherView: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
-        /// Recent songs
-        case recent = "Recent Songs"
         /// My songs
         case mySongs = "My Songs"
+        /// Recent songs
+        case recent = "Recent Songs"
         /// The id of the tab
         var id: Self { self }
         /// The description of the tab
