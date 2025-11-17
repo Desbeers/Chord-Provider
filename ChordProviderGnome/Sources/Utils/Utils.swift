@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import CAdw
 import ChordProviderCore
 import RegexBuilder
 
@@ -69,7 +70,8 @@ enum Utils {
         if !content.contains("<"), content.contains("http") {
             let matches = content.matches(of: link)
             for match in matches {
-                content = content.replacing(match.0, with: "<a href=\"\(match.0)\">\(match.0)</a>")
+                let escapedLink = String(match.0).escapeHTML()
+                content = content.replacing(match.0, with: "<a href=\"\(escapedLink)\">\(escapedLink)</a>")
             }
         }
         return content

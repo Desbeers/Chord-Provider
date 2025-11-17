@@ -49,10 +49,13 @@ extension String {
             return self
         } else {
             /// Escape special markup characters
-            var escapedString = self.replacing("&", with: "&amp;")
-            escapedString = escapedString.replacing("\"", with: "&quot;")
-            escapedString = escapedString.replacing("'", with: "&#39;")
-            return escapedString
+            var escaped = self
+            escaped = escaped.replacingOccurrences(of: "&", with: "&amp;")
+            escaped = escaped.replacingOccurrences(of: "<", with: "&lt;")
+            escaped = escaped.replacingOccurrences(of: ">", with: "&gt;")
+            escaped = escaped.replacingOccurrences(of: "\"", with: "&quot;")
+            escaped = escaped.replacingOccurrences(of: "'", with: "&apos;")
+            return escaped
         }
     }
 }

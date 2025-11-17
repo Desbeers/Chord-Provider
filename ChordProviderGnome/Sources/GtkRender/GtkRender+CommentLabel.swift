@@ -26,11 +26,15 @@ extension GtkRender {
         var view: Body {
             HStack(spacing: 10) {
                 Symbol(icon: .default(icon: .userInvisible))
+                    .valign(.start)
                 Text(comment)
                     .useMarkup()
                     .wrap()
+                    .halign(.start)
+                /// This seems reasonable to me...
+                    .frame(maxWidth: Int(400 * settings.app.zoom))
             }
-            .style(Markup.Class.commentLabel.description)
+            .style(.commentLabel)
             .padding()
             .halign(.start)
         }
