@@ -35,7 +35,7 @@ extension Views {
                                 .hexpand()
                                 .transition(.coverLeftRight)
                         } else {
-                            Views.Render(song: song, settings: appState.settings)
+                            Views.Render(song: song, appState: $appState)
                                 .hexpand()
                                 .vexpand()
                                 .transition(.coverRightLeft)

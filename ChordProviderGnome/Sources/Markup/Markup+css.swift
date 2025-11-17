@@ -34,6 +34,8 @@ extension Markup {
         case metadata
         case chordButton = "chord-button"
 
+        case selectedChord = "selected-chord"
+
         case logWarning = "log-warning"
         case logError = "log-error"
         case logDebug = "log-debug"
@@ -120,6 +122,10 @@ extension Markup {
 .chord-button .chord {
     font-size: \(baseFontSize)px;
     font-weight: normal;
+}
+.selected-chord {
+    background: var(--card-bg-color);
+    border-radius: 0.6em;
 }
 .log-warning {
     color: var(--warning-color);

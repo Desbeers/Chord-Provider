@@ -16,15 +16,15 @@ extension Views {
     struct Render: View {
         /// The whole song
         let song: Song
-        /// The settings of the application
-        let settings: AppSettings
+        /// The state of the application
+        @Binding var appState: AppState
         /// The body of the `View`
         var view: Body {
             HStack {
-                GtkRender.PageView(song: song, settings: settings)
+                GtkRender.PageView(song: song, settings: appState.settings)
                 Separator()
                 if !song.chords.isEmpty {
-                    Views.Chords(song: song, settings: settings)
+                    Views.Chords(song: song, appState: $appState)
                         .transition(.coverLeftRight)
                 }
             }

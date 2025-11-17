@@ -49,30 +49,27 @@ extension Views {
                                 Text(chord.display)
                                     .style(.chord)
                                 Widgets.ChordDiagram(chord: chord, settings: settings)
-                                    .frame(minWidth: 100)
-                                    .frame(maxWidth: 100)
                             }
                         }
-                        .vexpand()
+                        .valign(.start)
                         .padding()
                     }
                 }
+                .vexpand()
                 if let chord = chords.first(where: { $0.id == selection }) {
                     Separator()
                     HStack {
-                        Widgets.ChordDiagram(chord: chord, settings: settings)
-                            .frame(minWidth: 100)
-                            .frame(maxWidth: 100)
+                        Widgets.ChordDiagram(chord: chord, width: 140, settings: settings)
                         VStack {
                             Text(chord.display)
                                 .style(.title)
                             Text(chord.quality.intervalsLabel)
                                 .style(.subtitle)
                             HStack {
-                                Text("{\(chord.define)}")
+                                Text("{define \(chord.define)}")
                                     .selectable()
                                 Button(icon: .default(icon: .editCopy)) {
-                                    AdwaitaApp.copy("{\(chord.define)}")
+                                    AdwaitaApp.copy("{define \(chord.define)}")
                                     copied.signal()
                                 }
                                 .flat(true)

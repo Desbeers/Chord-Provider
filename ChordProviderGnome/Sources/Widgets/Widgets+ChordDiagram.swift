@@ -13,15 +13,38 @@ import ChordProviderCore
 
 extension Widgets {
 
+    /// The `View` for all the chord variations
+    struct ChordDiagram: View {
+        /// The chord definition
+        let chord: ChordDefinition
+        /// The width of the diagram
+        var width: Double = 100
+        /// The settings of the application
+        let settings: AppSettings
+        /// The body of the `View`
+        var  view: Body {
+            Diagram(chord: chord, width: width, settings: settings)
+                .frame(minWidth: Int(width), minHeight: Int(width * 1.2))
+                .frame(maxWidth: Int(width))
+                .frame(maxHeight: Int(width * 1.2))
+                .valign(.center)
+                .halign(.center)
+        }
+    }
+
     /// The `AdwaitaWidget` for a chord diagram
-    struct ChordDiagram: AdwaitaWidget {
+    private struct Diagram: AdwaitaWidget {
         /// The `C` version of the chord definition
         let cchord = UnsafeMutablePointer<cchord>.allocate(capacity: 1)
+        /// The width of the diagram
+        let width: Double
         /// Init the `widget`
         public init(
             chord: ChordDefinition,
+            width: Double = 100,
             settings: AppSettings
         ) {
+            self.width = width
             cchord.pointee.strings = Int32(chord.instrument.strings.count)
             cchord.pointee.base_fret = Int32(chord.baseFret)
             cchord.pointee.frets = (
@@ -87,7 +110,8 @@ extension Widgets {
             type: Data.Type
         ) -> ViewStorage where Data: ViewRenderData {
             let drawingArea = gtk_drawing_area_new()
-            gtk_drawing_area_set_content_height(drawingArea?.cast(), 120)
+            gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
+            gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))
             let content: [String: [ViewStorage]] = [:]
             let storage = ViewStorage(drawingArea?.opaque(), content: content)
             return storage
@@ -147,12 +171,14 @@ public func drawChord(
         }
         return Chord.Barre()
     }
-    let margin: Double = 20
+    let margin: Double = width * 0.2
     let fretSpacing: Double = (height - 2 * margin) / 5.0
     let stringSpacing: Double = (width - 2 * margin) / Double(strings - 1)
 
-    let radius = 6.0
+    let radius = width * 0.06
     let degrees = G_PI / 180.0
+
+    let fontSize = width * 0.08
 
     /// Set the font
     cairo_select_font_face(
@@ -160,7 +186,7 @@ public func drawChord(
         cairo_font_slant_t(rawValue: 0),
         cairo_font_weight_t(rawValue: 0)
     )
-    cairo_set_font_size(cr, 8)
+    cairo_set_font_size(cr, fontSize)
 
     cairo_set_source_rgb(cr, color, color, color)
     cairo_set_line_width(cr, 0.2)
@@ -176,14 +202,15 @@ public func drawChord(
     /// Draw top bar or base fret
     if (data.base_fret == 1) {
         cairo_set_source_rgb(cr, color, color, color)
-        cairo_set_line_width(cr, 2)
+        cairo_set_line_width(cr, fontSize / 4)
         cairo_move_to(cr, margin - 1, margin)
         cairo_line_to(cr, width - margin + 1, margin)
         cairo_stroke(cr)
         cairo_set_line_width(cr, 0.2)
     } else {
+        let xOffset = margin * (data.base_fret > 9 ? 0.2 : 0.4)
         cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-        cairo_move_to(cr, margin - 15, margin + fretSpacing / 1.5)
+        cairo_move_to(cr, xOffset, margin + fretSpacing / 1.5)
         cairo_show_text(cr, "\(data.base_fret)")
     }
 
@@ -200,28 +227,28 @@ public func drawChord(
         let x = margin + Double(i) * stringSpacing
         if (frets[i] == -1) {
             /// Muted string: draw X
+            let xOffset = radius / 2
             cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-            cairo_move_to(cr, x - 3, margin - 11)
-            cairo_line_to(cr, x + 3, margin - 5)
-            cairo_move_to(cr, x + 3, margin - 11)
-            cairo_line_to(cr, x - 3, margin - 5)
+            cairo_move_to(cr, x - xOffset, margin - radius * 1.5)
+            cairo_line_to(cr, x + xOffset, margin - xOffset)
+            cairo_move_to(cr, x + xOffset, margin - radius * 1.5)
+            cairo_line_to(cr, x - xOffset, margin - xOffset)
             cairo_set_line_width(cr, 1)
-            cairo_stroke(cr);
+            cairo_stroke(cr)
         } else if frets[i] == 0 {
             /// Open string: draw open circle
             cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-            cairo_arc(cr, x, margin - 8, 3, 0, 2 * Double.pi)
+            cairo_arc(cr, x, margin - radius, radius / 2, 0, 2 * Double.pi)
             cairo_set_line_width(cr, 1)
             cairo_stroke(cr)
         } else if frets[i] > 0 {
-
             if let barre = barres.first(where: {$0.fret == frets[i]}) {
                 /// Draw barre
+                let height = radius * 2
                 let x = margin + (stringSpacing * Double(barre.startIndex)) - (stringSpacing / 2)
-                let y = margin + Double(frets[i]) * fretSpacing - fretSpacing + 3
-
+                //let y = margin + Double(frets[i]) * fretSpacing - fretSpacing + 3
+                let y = margin + Double(frets[i]) * fretSpacing - fretSpacing + ((fretSpacing - height) / 2)
                 let width = Double(barre.length) * stringSpacing
-                let height = 10.0
 
                 cairo_new_sub_path (cr)
                 cairo_arc (cr, x + width - radius, y + radius, radius, -90 * degrees, 0 * degrees)
@@ -232,7 +259,7 @@ public func drawChord(
                 cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
                 cairo_fill_preserve (cr)
                 if (fingers[i] > 0) {
-                    cairo_move_to(cr, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + 8)
+                    cairo_move_to(cr, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + (fontSize / 0.9))
                     cairo_set_source_rgb(cr, 1, 1, 1)
                     cairo_show_text(cr, "\(fingers[i])")
                     cairo_new_path(cr)
@@ -241,10 +268,10 @@ public func drawChord(
                 /// Finger position: draw filled circle
                 let y = margin + Double(frets[i]) * fretSpacing - fretSpacing / 2
                 cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
-                cairo_arc(cr, x, y, 6, 0, 2 * G_PI)
-                cairo_fill(cr)
+                cairo_arc(cr, x, y, radius, 0, 2 * G_PI)
+                cairo_fill_preserve (cr)
                 if (fingers[i] > 0) {
-                    cairo_move_to(cr, x - 2.5, y + 3)
+                    cairo_move_to(cr, x - (fontSize / 3.2), y + (fontSize / 2.4))
                     cairo_set_source_rgb(cr, 1, 1, 1)
                     cairo_show_text(cr, "\(fingers[i])")
                     cairo_new_path(cr)
@@ -252,6 +279,7 @@ public func drawChord(
             }
         }
     }
+
     /// Draw notes
     if data.show_notes {
         cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
@@ -261,7 +289,7 @@ public func drawChord(
                 offset = note.count == 1 ? 1.1 : 1.25
             }
             let y = (margin / offset) + Double(i) * stringSpacing
-            cairo_move_to(cr, y, 110)
+            cairo_move_to(cr, y, height - fontSize * 1.4)
             cairo_show_text(cr, notes[safe: i])
         }
     }

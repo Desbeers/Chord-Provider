@@ -15,12 +15,15 @@ extension Views {
     struct Chords: View {
         /// The whole song
         let song: Song
-        /// The settings of the application
-        let settings: AppSettings
+        /// The state of the application
+        @Binding var appState: AppState
         /// Bool to open the chord dialog
         @State private var chordDialog: Bool = false
         /// The selected chord
-        @State private var selectedChord: ChordDefinition? = nil
+        // swiftlint:disable:next force_unwrapping
+        @State private var selectedChord  = ChordDefinition(name: "C", instrument: .guitar)!
+        /// The selected variation
+        @State private var selectedVariation: ChordDefinition.ID = UUID()
         /// The body of the `View`
         var view: Body {
             ScrollView {
@@ -32,8 +35,7 @@ extension Views {
                     .child {
                         Text(chord.display)
                             .style(.chord)
-                        Widgets.ChordDiagram(chord: chord, settings: settings)
-                            .frame(minWidth: 100)
+                        Widgets.ChordDiagram(chord: chord, settings: appState.settings)
                     }
                     .style(.chordButton)
                     .flat(true)
@@ -43,47 +45,15 @@ extension Views {
             .frame(minWidth: 110)
             .dialog(
                 visible: $chordDialog,
-                title: "Chord Variations",
-                width: 400,
-                height: 400
+                width: 440,
+                height: 440
             ) {
-                ScrollView {
-                    if let selectedChord {
-                        VStack {
-                            Text(selectedChord.display)
-                                .style(.title)
-                            Text(selectedChord.quality.intervalsLabel)
-                                .style(.subtitle)
-                        }
-                        .halign(.center)
-                        FlowBox(getChordDefinitions(), selection: nil) { chord in
-                            Widgets.ChordDiagram(chord: chord, settings: settings)
-                                .frame(minWidth: 100)
-                                .frame(maxWidth: 100)
-                        }
-                        .padding()
-                    } else {
-                        /// This should not happen
-                        Text("No chord selected")
-                    }
-                }
-                .topToolbar {
-                    HeaderBar.empty()
-                }
+                Variations(
+                    appState: $appState,
+                    selectedChord: selectedChord,
+                    chordDialog: $chordDialog
+                )
             }
-        }
-
-        /// Get all chord definitions for the selected chord name
-        /// - Returns: An array of chord definitions`
-        private func getChordDefinitions() -> [ChordDefinition] {
-            guard let selectedChord else {
-                return []
-            }
-            let allChords = ChordUtils.getAllChordsForInstrument(instrument: selectedChord.instrument)
-            return allChords
-                .matching(root: selectedChord.root)
-                .matching(quality: selectedChord.quality)
-                .matching(slash: selectedChord.slash)
         }
     }
 }

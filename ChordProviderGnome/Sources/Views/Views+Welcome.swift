@@ -23,37 +23,30 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             HStack(spacing: 20) {
-                VStack(spacing: 20) {
+                VStack {
                     Text("Create a new song")
                         .style(.title)
-                    VStack {
-                        Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
-                            .pixelSize(260)
-                            .padding()
-                        Button("Start with an empty song") {
-                            openSong(content: "{title New Song}\n{artist New Artist}\n")
-                        }
-                        .frame(maxWidth: 250)
-                        .padding()
-                        Button("Open a sample song") {
-                            openSample("Swing Low Sweet Chariot", showEditor: true)
-                        }
-                        .frame(maxWidth: 250)
-                        .padding()
-                        /// - Note: This should be a spacer
-                        Separator()
-                            .style("spacer")
-                            .vexpand()
-                        Text("<a href=\"https://www.chordpro.org\">ChordPro</a> is a simple text format for the notation of lyrics with chords.")
-                            .useMarkup()
-                            .wrap()
-                            .padding(10, .bottom)
-                            .frame(maxWidth: 250)
-                        Button("Help") {
-                            openSample("Help", showEditor: false, url: true)
-                        }
-                        .frame(maxWidth: 250)
+                    Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
+                        .pixelSize(260)
+                    //.padding()
+                    Button("Start with an empty song") {
+                        openSong(content: "{title New Song}\n{artist New Artist}\n")
                     }
+                    .frame(maxWidth: 250)
+                    .padding()
+                    Button("Open a sample song") {
+                        openSample("Swing Low Sweet Chariot", showEditor: true)
+                    }
+                    .frame(maxWidth: 250)
+                    .padding()
+                    /// - Note: This should be a spacer
+                    Separator()
+                        .style("spacer")
+                        .vexpand()
+                    Button("Help") {
+                        openSample("Help", showEditor: false, url: true)
+                    }
+                    .frame(maxWidth: 250)
                 }
                 Separator()
                 VStack(spacing: 20) {
