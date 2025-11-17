@@ -20,6 +20,9 @@ extension Views {
         @State private var artists: [SongFileUtils.Artist] = []
         /// The song browser
         @State private var songs: [Song] = []
+        /// The loading state
+        /// - Note: For the song browser
+        @State private var loadingState: Utils.LoadingState = .loading
         /// The body of the `View`
         var view: Body {
             HStack(spacing: 20) {
@@ -71,9 +74,8 @@ extension Views {
                             }
                         case .mySongs:
                             HStack {
-                                Text("The folder with your songs:")
-                                    .padding()
-                                Button(appState.settings.app.songsFolder?.lastPathComponent ?? "Select folder") {
+                                let folder = appState.settings.app.songsFolder?.lastPathComponent
+                                Button(folder ?? "Select Folder", icon: .default(icon: .folder)) {
                                     appState.scene.openFolder.signal()
                                 }
                             }
@@ -99,6 +101,11 @@ extension Views {
                         let content = SongFileUtils.getSongsFromFolder(url: url, settings: appState.settings.core, getOnlyMetadata: true)
                         artists = content.artists
                         songs = content.songs
+                        loadingState = .loaded
+                    }
+                } else {
+                    Idle {
+                        loadingState = .error
                     }
                 }
             }
@@ -143,16 +150,12 @@ extension Views.Welcome {
         VStack {
             ScrollView {
                 HStack {
-                    if artists.isEmpty {
+                    if loadingState != .loaded {
                         StatusPage(
-                            "No folder selected",
+                            loadingState == .error ? "No folder selected." : "Loading songs",
                             icon: .default(icon: .folderMusic),
-                            description: "You have not selected a folder with your songs."
+                            description: loadingState == .error ? "You have not selected a folder with your songs." : "One moment..."
                         )
-                        .child {
-                            Text("Your songs will appear once you select a folder.")
-                                .style("capture")
-                        }
                         .frame(minWidth: 350)
                     } else if appState.scene.search.isEmpty {
                         FlowBox(artists, selection: nil) { artist in
@@ -227,6 +230,7 @@ extension Views.Welcome {
                     )
                     artists = content.artists
                     songs = content.songs
+                    loadingState = .loaded
                 } onClose: {
                     /// Nothing to do
                 }

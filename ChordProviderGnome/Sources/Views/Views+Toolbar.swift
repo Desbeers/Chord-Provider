@@ -47,7 +47,7 @@ extension Views {
             end: {
                 if appState.scene.showWelcome {
                     HStack {
-                        if appState.settings.app.welcomeTab == .mySongs {
+                        if appState.settings.app.welcomeTab == .mySongs, appState.settings.app.songsFolder != nil {
                             SearchEntry()
                                 .text($appState.scene.search)
                                 .placeholderText("Search")

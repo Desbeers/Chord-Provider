@@ -45,6 +45,7 @@ import CChordProvider
         }
         .size(width: $appState.settings.app.width, height: $appState.settings.app.height)
         .defaultSize(width: 800, height: 600)
+        .minSize(width: 800, height: 600)
         .title(appState.subtitle)
         .onClose {
             if appState.scene.dirty {
@@ -72,7 +73,6 @@ import CChordProvider
         }
         .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
-        .title("Debug")
-        .devel()
+        .title("Parser Info")
     }
 }

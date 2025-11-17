@@ -109,6 +109,11 @@ extension Views {
                     Button("Clean Source") {
                         appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                     }
+                } else {
+                    Button("Open Editor") {
+                        appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
+                        appState.settings.editor.showEditor.toggle()
+                    }
                 }
             }
             .padding()

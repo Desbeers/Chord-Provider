@@ -98,4 +98,10 @@ enum Utils {
         }
         return content
     }
+
+    enum LoadingState {
+        case loading
+        case loaded
+        case error
+    }
 }
