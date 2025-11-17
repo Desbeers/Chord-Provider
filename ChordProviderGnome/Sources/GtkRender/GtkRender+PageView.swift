@@ -27,13 +27,13 @@ extension GtkRender {
                             HStack {
                                 ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
                                     Text(tag.string)
-                                        .style(Markup.Class.tagLabel.description)
+                                        .style(.tagLabel)
                                         .padding(5, .leading)
                                 }
                             }
                             .hexpand()
                             .halign(.end)
-                            .padding(10,.trailing)
+                            .padding(10, .trailing)
                         }
                 }
                 Text(song.metadata.title)

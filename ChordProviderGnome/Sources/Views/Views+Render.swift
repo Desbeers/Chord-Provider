@@ -23,10 +23,7 @@ extension Views {
             HStack {
                 GtkRender.PageView(song: song, settings: appState.settings)
                 Separator()
-                if !song.chords.isEmpty {
-                    Views.Chords(song: song, appState: $appState)
-                        .transition(.coverLeftRight)
-                }
+                Views.Chords(song: song, appState: $appState)
             }
             .padding(10, .top)
         }

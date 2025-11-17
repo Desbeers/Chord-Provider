@@ -28,7 +28,6 @@ extension Views {
                         .style(.title)
                     Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
                         .pixelSize(260)
-                    //.padding()
                     Button("Start with an empty song") {
                         openSong(content: "{title New Song}\n{artist New Artist}\n")
                     }
@@ -132,9 +131,24 @@ extension Views.Welcome {
                             Separator()
                             VStack {
                                 ForEach(artist.songs) { song in
-                                    if let url = song.settings.fileURL {
-                                        OpenButton(fileURL: url, title: song.metadata.title, appState: $appState)
+                                    HStack {
+                                        if let url = song.settings.fileURL {
+                                            OpenButton(fileURL: url, title: song.metadata.title, appState: $appState)
+                                                .halign(.start)
+                                        }
+                                        if let tags = song.metadata.tags {
+                                            HStack {
+                                                ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
+                                                    Text(tag.string)
+                                                        .style(.tagLabel)
+                                                        .padding(5, .leading)
+                                                }
+                                            }
+                                            .hexpand()
                                             .halign(.end)
+                                            .valign(.center)
+                                            .padding(10, .leading)
+                                        }
                                     }
                                 }
                             }
@@ -270,9 +284,9 @@ extension Views.Welcome {
                     appState.scene.source = content
                     appState.scene.originalSource = content
                     appState.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-                    appState.settings.app.addRecentSong(fileURL: fileURL)
                     appState.settings.core.fileURL = fileURL
                     appState.scene.showWelcome = false
+                    appState.settings.app.addRecentSong(fileURL: fileURL)
                 } catch {
                     appState.scene.toastMessage = "Could not open the song"
                 }
