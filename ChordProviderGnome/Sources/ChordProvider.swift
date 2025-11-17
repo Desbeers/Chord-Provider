@@ -13,19 +13,22 @@ import CChordProvider
 /// The **Chord Provider** application
 @main struct ChordProvider: App {
     init() {
+        /// Give it an unique ID so Files does not open new windows
         let id: UUID = UUID()
         self.app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(id.uuidString)")
         self._song = State(wrappedValue: Song(id: id, content: ""))
     }
-    
-    /// Give it an unique ID so Files does not open new windows
+    /// The app
     let app: AdwaitaApp
     /// The ``AppSettings``
     @State private var appState = AppState()
-
+    /// The song
     @State private var song: Song
     /// The body of the `Scene`
     var scene: Scene {
+
+        // MARK: Main Window
+
         Window(id: "main") { window in
             Views.Content(
                 app: app,
@@ -52,17 +55,24 @@ import CChordProvider
                 return .close
             }
         }
+
+        // MARK: Database Window
+
         Window(id: "database", open: 0) { _ in
             Views.Database(settings: appState.settings)
         }
         .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
         .title("Chords Database")
+
+        // MARK: Debug Window
+
         Window(id: "debug", open: 0) { _ in
-            Views.Debug(song: song, app: app)
+            Views.Debug(app: app, appState: $appState, song: song)
         }
         .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
         .title("Debug")
+        .devel()
     }
 }

@@ -61,9 +61,7 @@ extension Views {
                     .tooltip("See how your song is parsed")
                     .padding()
                     .valign(.start)
-                    //.hexpand()
                     .halign(.end)
-                    .padding(10,.trailing)
                 }
             }
             .vexpand(!main)

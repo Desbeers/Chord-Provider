@@ -46,7 +46,7 @@ extension Views {
             }
             end: {
                 if appState.scene.showWelcome {
-                    HStack(spacing: 5) {
+                    HStack {
                         if appState.settings.app.welcomeTab == .mySongs {
                             SearchEntry()
                                 .text($appState.scene.search)
@@ -78,74 +78,80 @@ extension Views {
                         .tooltip("Main Menu")
                     }
                 } else {
-                    Menu(icon: .default(icon: .openMenu)) {
-                        MenuButton("Open") {
-                            if appState.scene.dirty {
-                                appState.scene.saveDoneAction = .showWelcomeScreen
-                                appState.scene.showDirtyClose = true
-                            } else {
-                                appState.showWelcomeScreen()
+                    HStack(spacing: 5) {
+                        Button(icon: .default(icon: .helpAbout)) {
+                            app.showWindow("debug")
+                        }
+                        .tooltip("See how your song is parsed")
+                        Menu(icon: .default(icon: .openMenu)) {
+                            MenuButton("Open") {
+                                if appState.scene.dirty {
+                                    appState.scene.saveDoneAction = .showWelcomeScreen
+                                    appState.scene.showDirtyClose = true
+                                } else {
+                                    appState.showWelcomeScreen()
+                                }
                             }
-                        }
-                        .keyboardShortcut("o".ctrl())
-                        MenuButton("Save") {
-                            appState.settings.core.export.format = .chordPro
-                            appState.scene.saveDoneAction = .noAction
-                            appState.saveSong()
-                        }
-                        .keyboardShortcut("s".ctrl())
-                        MenuButton("Save As…") {
-                            appState.settings.core.export.format = .chordPro
-                            appState.scene.saveDoneAction = .noAction
-                            appState.scene.saveSongAs.signal()
-                        }
-                        .keyboardShortcut("s".ctrl().shift())
-                        MenuButton("Export as HTML") {
-                            appState.settings.core.export.format = .html
-                            appState.scene.saveDoneAction = .noAction
-                            appState.scene.saveSongAs.signal()
-                        }
-                        MenuSection {
-                            Submenu("Zoom") {
-                                MenuButton("Zoom In") {
-                                    appState.settings.app.zoom = min(appState.settings.app.zoom + 0.05, 2.0)
-                                }
-                                .keyboardShortcut("plus".ctrl())
-                                MenuButton("Zoom Out") {
-                                    appState.settings.app.zoom = max(appState.settings.app.zoom - 0.05, 0.6)
-                                }
-                                .keyboardShortcut("minus".ctrl())
-                                MenuSection {
-                                    MenuButton("Reset Zoom") {
-                                        appState.settings.app.zoom = 1
+                            .keyboardShortcut("o".ctrl())
+                            MenuButton("Save") {
+                                appState.settings.core.export.format = .chordPro
+                                appState.scene.saveDoneAction = .noAction
+                                appState.saveSong()
+                            }
+                            .keyboardShortcut("s".ctrl())
+                            MenuButton("Save As…") {
+                                appState.settings.core.export.format = .chordPro
+                                appState.scene.saveDoneAction = .noAction
+                                appState.scene.saveSongAs.signal()
+                            }
+                            .keyboardShortcut("s".ctrl().shift())
+                            MenuButton("Export as HTML") {
+                                appState.settings.core.export.format = .html
+                                appState.scene.saveDoneAction = .noAction
+                                appState.scene.saveSongAs.signal()
+                            }
+                            MenuSection {
+                                Submenu("Zoom") {
+                                    MenuButton("Zoom In") {
+                                        appState.settings.app.zoom = min(appState.settings.app.zoom + 0.05, 2.0)
                                     }
-                                    .keyboardShortcut("0".ctrl())
+                                    .keyboardShortcut("plus".ctrl())
+                                    MenuButton("Zoom Out") {
+                                        appState.settings.app.zoom = max(appState.settings.app.zoom - 0.05, 0.6)
+                                    }
+                                    .keyboardShortcut("minus".ctrl())
+                                    MenuSection {
+                                        MenuButton("Reset Zoom") {
+                                            appState.settings.app.zoom = 1
+                                        }
+                                        .keyboardShortcut("0".ctrl())
+                                    }
                                 }
                             }
+                            MenuSection {
+                                MenuButton("Chords Database") {
+                                    app.showWindow("database")
+                                }
+                                MenuButton("Preferences") {
+                                    appState.scene.showPreferences = true
+                                }
+                                .keyboardShortcut("comma".ctrl())
+                                MenuButton("Keyboard Shortcuts") {
+                                    appState.scene.showKeyboardShortcuts = true
+                                }
+                                .keyboardShortcut("question".ctrl())
+                                MenuButton("About Chord Provider", window: false) {
+                                    appState.scene.showAboutDialog = true
+                                }
+                                MenuButton("Quit", window: false) {
+                                    appState.closeWindow(window: window)
+                                }
+                                .keyboardShortcut("q".ctrl())
+                            }
                         }
-                        MenuSection {
-                            MenuButton("Chords Database") {
-                                app.showWindow("database")
-                            }
-                            MenuButton("Preferences") {
-                                appState.scene.showPreferences = true
-                            }
-                            .keyboardShortcut("comma".ctrl())
-                            MenuButton("Keyboard Shortcuts") {
-                                appState.scene.showKeyboardShortcuts = true
-                            }
-                            .keyboardShortcut("question".ctrl())
-                            MenuButton("About Chord Provider", window: false) {
-                                appState.scene.showAboutDialog = true
-                            }
-                            MenuButton("Quit", window: false) {
-                                appState.closeWindow(window: window)
-                            }
-                            .keyboardShortcut("q".ctrl())
-                        }
+                        .primary()
+                        .tooltip("Main Menu")
                     }
-                    .primary()
-                    .tooltip("Main Menu")
                 }
             }
             .headerBarTitle {

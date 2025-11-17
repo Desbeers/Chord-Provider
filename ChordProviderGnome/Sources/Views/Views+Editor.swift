@@ -14,7 +14,7 @@ extension Views {
 
     /// The `View` for editing a song
     struct Editor: View {
-
+        /// The app
         let app: AdwaitaApp
 
         let song: Song

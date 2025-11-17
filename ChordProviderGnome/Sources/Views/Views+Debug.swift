@@ -14,12 +14,16 @@ extension Views {
 
     /// The `View` for showing debug messages
     struct Debug: View {
+        /// The app
+        let app: AdwaitaApp
+        /// The state of the application
+        @Binding var appState: AppState
         /// The current song
         let song: Song
-        // the app
-        let app: AdwaitaApp
-        /// the selected tab
+        /// The selected tab
         @State private var selectedTab: Tab = .source
+        /// the selected json page
+        @State private var jsonSelection: JSONPage = .metadata
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -30,7 +34,6 @@ extension Views {
                         description: "There is nothing to show."
                     )
                 } else {
-
                     switch selectedTab {
                     case .json:
                         json
@@ -51,9 +54,10 @@ extension Views {
             }
         }
 
+        // MARK: Source View
+
         @ViewBuilder var source: Body {
             Separator()
-            //SourceView(text: .constant(song.content))
             ScrollView {
                 VStack {
                     ForEach(getSource()) { line in
@@ -63,10 +67,7 @@ extension Views {
                                     .style(line.source.warnings == nil ? .none : .bold)
                                     .frame(minWidth: 40)
                                     .halign(.end)
-                                SourceView(text: .constant(line.source.sourceParsed))
-                                    .editable(false)
-                                    .highlightCurrentLine(false)
-                                    .language(.chordpro)
+                                sourceView(line.source.sourceParsed, language: .chordpro)
                                     .hexpand()
                             }
                             .valign(.center)
@@ -92,61 +93,117 @@ extension Views {
                 }
                 .vexpand()
             }
-            VStack {
-                Separator()
-                Label("A negative line number means the line is added by the <b>parser</b> and is not part of the current document")
-                    .useMarkup()
-                Label("A <b>bold</b> line number means the <b>source line</b> has warnings that the parser will try to resolve")
-                    .useMarkup()
+            Separator()
+            HStack {
+                VStack {
+                    Label("A negative line number means the line is added by the <b>parser</b> and is not part of the current document")
+                        .useMarkup()
+                        .halign(.start)
+                    Label("A <b>bold</b> line number means the <b>source line</b> has warnings that the parser will try to resolve")
+                        .useMarkup()
+                        .halign(.start)
+                }
+                .style("caption")
+                .hexpand()
+                if appState.settings.editor.showEditor {
+                    Button("Clean Source") {
+                        appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+                    }
+                }
             }
             .padding()
         }
 
+        // MARK: JSON View
+
         @ViewBuilder var json: Body {
             Separator()
-            ScrollView {
-                VStack {
-                    FormSection("Metadata") {
-                        let metadata = try? JSONUtils.encode(song.metadata)
-                        sectionPart(
-                            row: ExpanderRow().title("<b>Metadata</b>").rows {
-                                sourceView(metadata)
+            NavigationSplitView {
+                List(JSONPage.allCases, selection: $jsonSelection) { element in
+                    Text(element.description)
+                        .ellipsize()
+                        .halign(.start)
+                        .padding()
+                }
+                .sidebarStyle()
+            } content: {
+                ScrollView {
+                    VStack {
+                        switch jsonSelection {
+                        case .metadata:
+                            let metadata = try? JSONUtils.encode(song.metadata)
+                            sourceView(metadata)
+                        case .sections:
+                            ForEach(song.sections) { section in
+                                let content = try? JSONUtils.encode(section)
+                                sectionPart(
+                                    row: ExpanderRow().title("Section <b>\(section.environment.rawValue)</b>").rows {
+                                        sourceView(content)
+                                    }
+                                )
                             }
-                        )
-                    }
-                    FormSection("Sections") {
-                        ForEach(song.sections) { section in
-                            let content = try? JSONUtils.encode(section)
-
-                            sectionPart(
-                                row: ExpanderRow().title("Section <b>\(section.environment.rawValue)</b>").rows {
-                                    sourceView(content)
-                                }
-                            )
+                        case .chords:
+                            ForEach(song.chords) { chord in
+                                let content = try? JSONUtils.encode(chord)
+                                sectionPart(
+                                    row: ExpanderRow().title("Chord <b>\(chord.display)</b>").rows {
+                                        HStack {
+                                            Widgets.ChordDiagram(chord: chord, settings: appState.settings)
+                                                .valign(.start)
+                                            sourceView(content)
+                                                .hexpand()
+                                        }
+                                    }
+                                )
+                            }
+                        case .settings:
+                            let metadata = try? JSONUtils.encode(song.settings)
+                            sourceView(metadata)
                         }
                     }
+                    .padding()
                 }
-                .padding()
-                .frame(maxWidth: 700)
             }
             .vexpand()
         }
 
         enum Tab: String, CaseIterable, ViewSwitcherOption {
+            /// The title of the tab
             var title: String {
                 self.rawValue
             }
-
-            var icon: Adwaita.Icon {
-                .default(icon: .acAdapter)
+            /// The icon of the tab
+            var icon: Icon {
+                .default(icon: {
+                    switch self {
+                    case .log:
+                         .dialogInformation
+                    case .source:
+                         .formatJustifyLeft
+                    case .json:
+                         .viewListBullet
+                    }
+                }())
             }
-
             /// Log messages
             case log = "Log output"
             /// Song source messages
             case source = "Generated Source"
             /// Generated JSON messages
             case json = "JSON output"
+        }
+
+        enum JSONPage: String, Identifiable, CaseIterable, Codable, CustomStringConvertible {
+            var id: Self {
+                self
+            }
+            var description: String {
+                self.rawValue
+            }
+            case metadata = "Metadata"
+            case sections = "Sections"
+            case chords = "Chords"
+            case settings = "Settings"
         }
 
         struct Source: Identifiable {
@@ -161,10 +218,11 @@ extension Views {
             .padding()
         }
 
-        private func sourceView(_ text: String?) -> AnyView {
+        private func sourceView(_ text: String?, language: Language = .json) -> AnyView {
             SourceView(text: .constant(text ?? "Error"))
-                .language(.json)
+                .language(language)
                 .editable(false)
+                .highlightCurrentLine(false)
         }
 
         func getSource() -> [Source]  {
