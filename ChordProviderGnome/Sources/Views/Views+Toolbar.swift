@@ -108,11 +108,6 @@ extension Views {
                                 appState.scene.saveSongAs.signal()
                             }
                             .keyboardShortcut("s".ctrl().shift())
-                            MenuButton("Export as HTML") {
-                                appState.settings.core.export.format = .html
-                                appState.scene.saveDoneAction = .noAction
-                                appState.scene.saveSongAs.signal()
-                            }
                             MenuSection {
                                 Submenu("Zoom") {
                                     MenuButton("Zoom In") {

@@ -17,7 +17,6 @@ let package = Package(
     dependencies: [
         .package(url: "https://git.aparoksha.dev/aparoksha/adwaita-swift", branch: "main"),
         .package(path: "../ChordProviderCore"),
-        .package(path: "../ChordProviderHTML"),
         .package(path: "../GtkSourceView")
     ],
     targets: [
@@ -27,7 +26,6 @@ let package = Package(
                 "CChordProvider",
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore"),
-                .product(name: "ChordProviderHTML", package: "ChordProviderHTML"),
                 .product(name: "SourceView", package: "GtkSourceView")
             ],
             path: "Sources",

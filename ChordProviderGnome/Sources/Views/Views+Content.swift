@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import ChordProviderHTML
 
 extension Views {
 
@@ -193,9 +192,6 @@ extension Views {
                     appState.saveSong()
                     /// Set the toast
                     appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
-                case .html:
-                    appState.exportSong(song: song, exportURL: fileURL)
-                    appState.scene.toastMessage = "Song exported as \(fileURL.lastPathComponent)"
                 default:
                     break
                 }

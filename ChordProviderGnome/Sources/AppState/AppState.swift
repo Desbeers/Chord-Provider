@@ -7,7 +7,6 @@
 
 import Foundation
 import ChordProviderCore
-import ChordProviderHTML
 import Adwaita
 
 /// The state of **Chord Provider**
@@ -69,11 +68,6 @@ extension AppState {
         } else {
             self.scene.saveSongAs.signal()
         }
-    }
-
-    mutating func exportSong(song: Song, exportURL: URL) {
-        let string = HtmlRender.render(song: song, settings: self.settings.core)
-        try? string.write(to: exportURL, atomically: true, encoding: String.Encoding.utf8)
     }
 
     mutating func closeWindow(window: AdwaitaWindow) {

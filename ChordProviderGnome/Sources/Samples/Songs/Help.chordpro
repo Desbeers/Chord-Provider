@@ -11,7 +11,7 @@
 While I hope you like <b>Chord Provider</b>, it is just my hobby project and not a complete implementation of the standard.
 
 Please visit the official <b><i>ChordPro</i></b> website for the full experience:
-{comment <a href="https://www.chordpro.org\">ChordPro.org</a>}
+{comment <a href="https://www.chordpro.org">ChordPro.org</a>}
 {end_of_textblock}
 
 {start_of_textblock Functionality}
@@ -19,22 +19,32 @@ Please visit the official <b><i>ChordPro</i></b> website for the full experience
 
 - It will view and/or edit <i>ChordPro</i> files.
 - It can transpose your song.
-- It can export your song to a HTML document.
+
+<b>Chord Provider</b> can <i>not</i> do the following:
+
+- Export your song to a PDF.
+- Change the look of your song.
+- Print your song.
+
+<b>Chord Provider</b> is a very basic application... By design...
+
+<a href="https://www.chordpro.org">Use the official implementation for that.</a>
 {end_of_textblock}
 
 {start_of_chorus Directives}
 Not all official [D]directives are supported, [B]but most are.
 You can add [G7]chords to a verse or [C]chorus.
+{comment This is a <b>Chorus</b> and so it has a more prominent label}
 {end_of_chorus}
 
 {start_of_tab Tab Tab Tab!}
-{comment You can add <i>Tabs</i>}
 e|-------------|
 B|-------0-1-1-|
 G|-2-2---1-2-2-|
 D|-------------|
 A|-------------|
 E|-------------|
+{comment You can add <i>Tabs</i>}
 {end_of_tab}
 
 {start_of_grid label="Griddy Grid!"}
@@ -99,6 +109,10 @@ redefined my favorite [G7]G7 Chord!
 
 {comment Define chords to your liking; the diagram is on the right.}
 
+{start_of_textblock}
+If you select a <i>Chord Diagram</i> you can see its known variations and you can add the definition to your song.
+{end_of_textblock}
+
 {start_of_textblock label="About me" align="center" flush="left"}
 I'm not a musician; I'm not a programmer
 
@@ -124,6 +138,6 @@ I play guitar for more than 20 years; strumming my chords on a beautiful Telecas
 
 {start_of_verse Bugs}
 [B]Bugs are for free; no subscription in [C]<b>Chord Provider</b> [F]for [A]additional [F]features!
-However; If you realy don't like the [B]bug, report it...
+However; If you really don't like the [B]bug, report it...
 {comment <a href="https://github.com/Desbeers/Chord-Provider/issues/new">Report issues</a>}
 {end_of_verse}
