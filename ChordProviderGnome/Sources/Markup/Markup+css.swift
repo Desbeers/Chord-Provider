@@ -48,6 +48,10 @@ extension Markup {
 
     static func css(zoom: Double, dark: Bool) -> String {
 """
+:root {
+    --chordprovider-accent-bg-color: \(dark ? "#98989d" : "#c8d3ca");
+    --chordprovider-accent-color: \(dark ? "#cee3da" : "#78847f");
+}
 .background {
     font-family: "Adwaita Sans";
     font-size: 11pt;
@@ -72,8 +76,9 @@ extension Markup {
 }
 .tag-label {
     font-size: \(0.8 * baseFontSize * zoom)px;
+    font-weight: normal;
     color: #000;
-    background-color: #ffc7c2;
+    background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
@@ -88,20 +93,20 @@ extension Markup {
     font-size: \(1 * baseFontSize * zoom)px;
     font-weight: bold;
     color: #000;
-    background-color: \(dark ? "#98989d" : "#c8d3ca");
+    background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .repeat-chorus {
     font-size: \(1 * baseFontSize * zoom)px;
     color: #000;
-    background-color: \(dark ? "#98989d" : "#c8d3ca");
+    background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .chord, .grid {
     font-size: \(1.1 * baseFontSize * zoom)px;
-    color: \(dark ? "#cee3da" : "#78847f");
+    color: var( --chordprovider-accent-color);
 }
 .textblock {
     font-size: \(baseFontSize * zoom)px;
@@ -111,7 +116,7 @@ extension Markup {
     font-family: monospace;
 }
 .plain-button {
-    color: \(dark ? "#cee3da" : "#78847f");
+    color: var( --chordprovider-accent-color);
     font-size: \(baseFontSize)px;
     font-weight: normal;
 }
