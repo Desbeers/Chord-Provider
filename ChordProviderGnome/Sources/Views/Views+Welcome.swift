@@ -157,33 +157,23 @@ extension Views.Welcome {
                             description: loadingState == .error ? "You have not selected a folder with your songs." : "One moment..."
                         )
                         .frame(minWidth: 350)
+                        .transition(.crossfade)
                     } else if appState.scene.search.isEmpty {
                         FlowBox(artists, selection: nil) { artist in
                             VStack {
                                 Text(artist.name)
-                                    .style(.title)
+                                    .style(.subtitle)
                                     .halign(.start)
                                 Separator()
                                 VStack {
                                     ForEach(artist.songs) { song in
-                                        HStack {
-                                            if let url = song.settings.fileURL {
-                                                OpenButton(fileURL: url, title: song.metadata.title, appState: $appState)
-                                                    .halign(.start)
-                                            }
-                                            if let tags = song.metadata.tags {
-                                                HStack {
-                                                    ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
-                                                        Text(tag.string)
-                                                            .style(.tagLabel)
-                                                            .padding(5, .leading)
-                                                    }
-                                                }
-                                                .hexpand()
-                                                .halign(.end)
-                                                .valign(.center)
-                                                .padding(10, .leading)
-                                            }
+                                        if let url = song.settings.fileURL {
+                                            OpenButton(
+                                                fileURL: url,
+                                                title: song.metadata.title,
+                                                appState: $appState,
+                                                tags: song.metadata.tags
+                                            )
                                         }
                                     }
                                 }
@@ -191,6 +181,7 @@ extension Views.Welcome {
                         }
                         .rowSpacing(10)
                         .columnSpacing(10)
+                        .transition(.crossfade)
                     } else {
                         let result = songs.filter { $0.search.localizedCaseInsensitiveContains(appState.scene.search) }
                         if result.isEmpty {
@@ -200,11 +191,16 @@ extension Views.Welcome {
                                 description: "Oops! We couldn't find any songs that match your search."
                             )
                             .frame(minWidth: 350)
+                            .transition(.crossfade)
                         } else {
                             VStack(spacing: 10) {
                                 ForEach(result) { song in
                                     if let fileURL = song.settings.fileURL {
-                                        OpenButton(fileURL: fileURL, appState: $appState)
+                                        OpenButton(
+                                            fileURL: fileURL,
+                                            appState: $appState,
+                                            tags: song.metadata.tags
+                                        )
                                             .halign(.start)
                                         Text("\(song.metadata.artist) - \(song.metadata.title)")
                                             .halign(.start)
@@ -212,6 +208,7 @@ extension Views.Welcome {
                                     }
                                 }
                             }
+                            .transition(.crossfade)
                         }
                     }
                 }
@@ -298,14 +295,21 @@ extension Views.Welcome {
         let title: String
         /// The state of the application
         @Binding var appState: AppState
-        init(fileURL: URL, title: String? = nil, appState: Binding<AppState>) {
+        /// The optional tags
+        var tags: [String]?
+        /// The style
+        let style: Markup.Class
+        /// Init the struct
+        init(fileURL: URL, title: String? = nil, appState: Binding<AppState>, tags: [String]? = nil) {
             self.fileURL = fileURL
             self._appState = appState
             self.title = title ?? fileURL.deletingPathExtension().lastPathComponent
+            self.tags = tags
+            self.style = title == nil ? .subtitle : .plainButton
         }
         /// The body of the `View`
         var view: Body {
-            Button(title, icon: .default(icon: .folderMusic)) {
+            Button("") {
                 do {
                     let content = try SongFileUtils.getSongContent(fileURL: fileURL)
                     appState.scene.source = content
@@ -319,8 +323,25 @@ extension Views.Welcome {
                 }
                 appState.scene.showToast.signal()
             }
+            .child {
+                HStack {
+                    Text(title)
+                        .halign(.start)
+                        .hexpand()
+                        .style(style)
+                    if let tags  {
+                        HStack {
+                            ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
+                                Text(tag.string)
+                                    .style(.tagLabel)
+                                    .padding(5, .leading)
+                                    .valign(.start)
+                            }
+                        }
+                    }
+                }
+            }
             .hasFrame(false)
-            .style(.plainButton)
             .tooltip(fileURL.path.escapeHTML())
         }
     }

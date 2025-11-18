@@ -64,6 +64,7 @@ extension Markup {
 }
 .song-subtitle {
     font-size: \(1.2 * baseFontSize)px;
+    font-weight: normal;
 }
 .section-header {
     font-size: \(1.2 * baseFontSize * zoom)px;
@@ -112,6 +113,7 @@ extension Markup {
 .plain-button {
     color: \(dark ? "#cee3da" : "#78847f");
     font-size: 1.1em;
+    font-weight: normal;
 }
 .metadata {
     font-size: 12px;
