@@ -20,69 +20,33 @@ extension GtkRender {
         /// The body of the `View`
         var view: Body {
             VStack {
-                /// Show optional tags
-                if let tags = song.metadata.tags {
-                    Overlay()
-                        .overlay {
-                            HStack {
-                                ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
-                                    Text(tag.string)
-                                        .style(.tagLabel)
-                                        .padding(5, .leading)
-                                }
-                            }
-                            .hexpand()
-                            .halign(.end)
-                            .padding(10, .trailing)
-                        }
+                switch settings.app.columnPaging {
+                case true:
+                    PageHeader(song: song, settings: settings)
+                    ScrollView {
+                        sections
+                    }
+                    .vexpand()
+                    .transition(.crossfade)
+                case false:
+                    ScrollView {
+                        PageHeader(song: song, settings: settings)
+                        sections
+                    }
+                    .vexpand()
+                    .transition(.crossfade)
                 }
-                Text(song.metadata.title)
-                    .style(.title)
-                Text(song.metadata.subtitle ?? song.metadata.artist)
-                    .style(.subtitle)
-                /// Metadata
-                HStack {
-                    if let key = song.metadata.key {
-                        metadata(name: "key", value: key.display)
-                    }
-                    if let capo = song.metadata.capo {
-                        metadata(name: "capo", value: capo)
-                    }
-                    if let time = song.metadata.time {
-                        metadata(name: "time", value: time)
-                    }
-                    if let tempo = song.metadata.tempo {
-                        metadata(name: "tempo", value: tempo)
-                    }
-                }
-                .style(.metadata)
-                .halign(.center)
-                .card()
-                .padding(10, .top)
-                ScrollView {
-                    GtkRender.SectionsView(song: song, settings: settings)
-                        .halign(.center)
-                        .padding(20)
-                }
-                .style("document")
-                .vexpand()
+
+
             }
+            .style("document")
             .hexpand()
         }
-        
-        /// Show metadata with an icon
-        /// - Parameters:
-        ///   - name: Name of the icon
-        ///   - value: The value of the metadata
-        /// - Returns: A View
-        @ViewBuilder private func metadata(name: String, value: String) -> Body {
-            HStack(spacing: 5) {
-                Widgets.BundleImage(name: name)
-                    .pixelSize(16)
-                    .valign(.baselineCenter)
-                Text(value)
-            }
-            .padding()
+        /// The sections
+        @ViewBuilder var sections: Body {
+            GtkRender.SectionsView(song: song, settings: settings)
+                .halign(.center)
+                .padding(20)
         }
     }
 }

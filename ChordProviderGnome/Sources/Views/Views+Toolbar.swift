@@ -41,7 +41,10 @@ extension Views {
                         .tooltip(appState.settings.core.transposeTooltip)
                         DropDown(selection: $appState.settings.core.instrument, values: Chord.Instrument.allCases)
                             .tooltip("Select your instrument")
+                        Toggle(icon: .default(icon: .viewDual), isOn: $appState.settings.app.columnPaging)
+                            .tooltip("Show the song in columns")
                     }
+                    .transition(.crossfade)
                 }
             }
             end: {

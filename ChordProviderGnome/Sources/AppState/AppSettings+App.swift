@@ -16,6 +16,8 @@ extension AppSettings {
         var songsFolder: URL?
         /// The selected tab on the welcome view
         var welcomeTab: Views.Welcome.ViewSwitcherView = .mySongs
+        /// The page layout
+        var columnPaging: Bool = true
         /// The zoom factor
         var zoom: Double = 1
         /// The width of the window
@@ -61,6 +63,7 @@ extension AppSettings {
         }
     }
 }
+
 extension AppSettings {
 
     /// Recent Song

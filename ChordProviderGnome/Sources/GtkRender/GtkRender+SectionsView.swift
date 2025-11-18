@@ -28,13 +28,13 @@ extension GtkRender {
         let settings: AppSettings
         /// The body of the `View`
         var view: Body {
-            switch settings.editor.showEditor {
+            switch settings.app.columnPaging {
             case true:
-                ForEach(sections) { section in
+                Widgets.Columns(sections) { section in
                     sectionPart(section)
                 }
             case false:
-                Widgets.Columns(sections) { section in
+                ForEach(sections) { section in
                     sectionPart(section)
                 }
             }

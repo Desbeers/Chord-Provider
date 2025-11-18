@@ -25,7 +25,6 @@ extension Views {
                 Separator()
                 Views.Chords(song: song, appState: $appState)
             }
-            .padding(10, .top)
         }
     }
 }
