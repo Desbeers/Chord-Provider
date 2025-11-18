@@ -112,7 +112,7 @@ extension Markup {
 }
 .plain-button {
     color: \(dark ? "#cee3da" : "#78847f");
-    font-size: 1.1em;
+    font-size: \(baseFontSize)px;
     font-weight: normal;
 }
 .metadata {
