@@ -134,6 +134,7 @@ extension Views.Welcome {
                             Text("\(song.artist) - \(song.title)")
                                 .halign(.start)
                                 .padding(30, .leading)
+                                .style("caption")
                         }
                     }
                     .halign(.center)
@@ -205,6 +206,7 @@ extension Views.Welcome {
                                         Text("\(song.metadata.artist) - \(song.metadata.title)")
                                             .halign(.start)
                                             .padding(30, .leading)
+                                            .style("caption")
                                     }
                                 }
                             }
