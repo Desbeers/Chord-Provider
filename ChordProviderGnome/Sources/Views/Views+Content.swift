@@ -83,8 +83,8 @@ extension Views {
                 visible: $appState.scene.showTransposeDialog,
                 title: "Transpose the song",
                 width: 260,
-                height: 180)
-            {
+                height: 180
+            ) {
                 Views.Transpose(appState: $appState)
             }
             .alertDialog(

@@ -67,7 +67,8 @@ extension Widgets {
                         /// The child to insert
                         let child = content(element).storage(data: data, type: type)
                         adw_wrap_box_insert_child_after(
-                            widget, child.opaquePointer?.cast(),
+                            widget,
+                            child.opaquePointer?.cast(),
                             previous?.opaquePointer?.cast()
                         )
                         contentStorage.insert(child, at: index)
@@ -78,7 +79,6 @@ extension Widgets {
                 for (index, element) in elements.enumerated() {
                     content(element).updateStorage(contentStorage[index], data: data, updateProperties: updateProperties, type: type)
                 }
-
             }
             for function in updateFunctions {
                 function(storage, data, updateProperties)

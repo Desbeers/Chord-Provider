@@ -133,10 +133,10 @@ extension Widgets {
 /// - Note: Declare C function implementations as `public` to ensure they're not optimized away.
 @_cdecl("draw_chord_swift")
 public func drawChord(
-    cr: OpaquePointer!,
+    cr: OpaquePointer,
     width: Int32,
     height: Int32,
-    user_data: gpointer!,
+    user_data: gpointer,
     dark_mode: gboolean
 ) {
     let data = user_data.load(as: cchord.self)
@@ -156,6 +156,7 @@ public func drawChord(
     }
 
     let notes = Mirror(reflecting: data.note).children.map { item in
+        // swiftlint:disable:next force_cast
         let note = item.value as! cnote
         return String(cString: note.note)
     }
@@ -182,7 +183,8 @@ public func drawChord(
 
     /// Set the font
     cairo_select_font_face(
-        cr, "Adwaita Mono",
+        cr,
+        "Adwaita Mono",
         cairo_font_slant_t(rawValue: 0),
         cairo_font_weight_t(rawValue: 0)
     )
@@ -197,10 +199,10 @@ public func drawChord(
         cairo_move_to(cr, x, margin)
         cairo_line_to(cr, x, height - margin)
     }
-    cairo_stroke(cr);
+    cairo_stroke(cr)
 
     /// Draw top bar or base fret
-    if (data.base_fret == 1) {
+    if data.base_fret == 1 {
         cairo_set_source_rgb(cr, color, color, color)
         cairo_set_line_width(cr, fontSize / 4)
         cairo_move_to(cr, margin - 1, margin)
@@ -220,12 +222,12 @@ public func drawChord(
         cairo_move_to(cr, margin, y)
         cairo_line_to(cr, width - margin, y)
     }
-    cairo_stroke(cr);
+    cairo_stroke(cr)
 
     /// Draw finger positions
     for i in 0..<strings {
         let x = margin + Double(i) * stringSpacing
-        if (frets[i] == -1) {
+        if frets[i] == -1 {
             /// Muted string: draw X
             let xOffset = radius / 2
             cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
@@ -242,23 +244,22 @@ public func drawChord(
             cairo_set_line_width(cr, 1)
             cairo_stroke(cr)
         } else if frets[i] > 0 {
-            if let barre = barres.first(where: {$0.fret == frets[i]}) {
+            if let barre = barres.first(where: { $0.fret == frets[i] }) {
                 /// Draw barre
                 let height = radius * 2
                 let x = margin + (stringSpacing * Double(barre.startIndex)) - (stringSpacing / 2)
-                //let y = margin + Double(frets[i]) * fretSpacing - fretSpacing + 3
                 let y = margin + Double(frets[i]) * fretSpacing - fretSpacing + ((fretSpacing - height) / 2)
                 let width = Double(barre.length) * stringSpacing
 
-                cairo_new_sub_path (cr)
-                cairo_arc (cr, x + width - radius, y + radius, radius, -90 * degrees, 0 * degrees)
-                cairo_arc (cr, x + width - radius, y + height - radius, radius, 0 * degrees, 90 * degrees)
-                cairo_arc (cr, x + radius, y + height - radius, radius, 90 * degrees, 180 * degrees)
-                cairo_arc (cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees)
-                cairo_close_path (cr)
+                cairo_new_sub_path(cr)
+                cairo_arc(cr, x + width - radius, y + radius, radius, -90 * degrees, 0 * degrees)
+                cairo_arc(cr, x + width - radius, y + height - radius, radius, 0 * degrees, 90 * degrees)
+                cairo_arc(cr, x + radius, y + height - radius, radius, 90 * degrees, 180 * degrees)
+                cairo_arc(cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees)
+                cairo_close_path(cr)
                 cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
-                cairo_fill_preserve (cr)
-                if (fingers[i] > 0) {
+                cairo_fill_preserve(cr)
+                if fingers[i] > 0 {
                     cairo_move_to(cr, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + (fontSize / 0.9))
                     cairo_set_source_rgb(cr, 1, 1, 1)
                     cairo_show_text(cr, "\(fingers[i])")
@@ -269,8 +270,8 @@ public func drawChord(
                 let y = margin + Double(frets[i]) * fretSpacing - fretSpacing / 2
                 cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
                 cairo_arc(cr, x, y, radius, 0, 2 * G_PI)
-                cairo_fill_preserve (cr)
-                if (fingers[i] > 0) {
+                cairo_fill_preserve(cr)
+                if fingers[i] > 0 {
                     cairo_move_to(cr, x - (fontSize / 3.2), y + (fontSize / 2.4))
                     cairo_set_source_rgb(cr, 1, 1, 1)
                     cairo_show_text(cr, "\(fingers[i])")

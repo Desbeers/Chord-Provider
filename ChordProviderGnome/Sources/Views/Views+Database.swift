@@ -81,7 +81,7 @@ extension Views {
             }
             .toast("Copied to clipboard", signal: copied)
             .topToolbar {
-                HeaderBar() { } end: {
+                HeaderBar { } end: {
                     SearchEntry()
                         .text($search)
                         .placeholderText("Search")
@@ -92,14 +92,14 @@ extension Views {
                 }
             }
         }
-        
+
         /// Get all filtered chords
         /// - Returns: The filtered chords
         private func getChords() -> [ChordDefinition] {
             if search.isEmpty {
                 let chord = Chord.Root(rawValue: self.chord) ?? .c
                 return ChordUtils.getAllChordsForInstrument(instrument: instrument)
-                    .filter { $0.root == chord}
+                    .filter { $0.root == chord }
                     .sorted(
                         using: [
                             KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)

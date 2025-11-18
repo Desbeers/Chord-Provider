@@ -38,18 +38,6 @@ extension Views {
                         .card()
                         .padding(8)
                 }
-//                HStack {
-//                    Button("Clean Source") {
-//                        appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
-//                    }
-//                    .padding(4)
-//                    Button("Debug") {
-//                        app.showWindow("debug")
-//                        //debug.toggle()
-//                    }
-//                    .padding(4)
-//                }
-//                .halign(.center)
             }
         }
     }

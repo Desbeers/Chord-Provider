@@ -11,7 +11,7 @@ import SourceView
 import ChordProviderCore
 
 extension Views {
-    
+
     /// The `View` a new song
     struct Welcome: View {
         /// The state of the application
@@ -114,7 +114,7 @@ extension Views {
 }
 
 extension Views.Welcome {
-    
+
     /// The `View` with *Recent* content
     @ViewBuilder var recent: Body {
         VStack(spacing: 20) {
@@ -144,7 +144,7 @@ extension Views.Welcome {
             .vexpand()
         }
     }
-    
+
     /// The `View` with *My Songs* content
     @ViewBuilder var mySongs: Body {
         VStack {
@@ -220,24 +220,20 @@ extension Views.Welcome {
             }
             .card()
             .vexpand()
-            .folderImporter(
-                open: appState.scene.openFolder) { folderURL in
-                    appState.settings.app.songsFolder = folderURL
-                    let content = SongFileUtils.getSongsFromFolder(
-                        url: folderURL,
-                        settings: appState.settings.core,
-                        getOnlyMetadata: true
-                    )
-                    artists = content.artists
-                    songs = content.songs
-                    loadingState = .loaded
-                } onClose: {
-                    /// Nothing to do
-                }
-            
+            .folderImporter(open: appState.scene.openFolder) { folderURL in
+                appState.settings.app.songsFolder = folderURL
+                let content = SongFileUtils.getSongsFromFolder(
+                    url: folderURL,
+                    settings: appState.settings.core,
+                    getOnlyMetadata: true
+                )
+                artists = content.artists
+                songs = content.songs
+                loadingState = .loaded
+            }
         }
     }
-    
+
     /// The tabs on the Welcome View
     enum ViewSwitcherView: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
         /// My songs
@@ -268,7 +264,7 @@ extension Views.Welcome {
 
 
 extension Views.Welcome {
-    
+
     func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
         if
             let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
@@ -278,7 +274,7 @@ extension Views.Welcome {
             print("Error loading sample song")
         }
     }
-    
+
     /// Open a song with its content as string
     /// - Parameter content: The content of the song
     func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
@@ -293,7 +289,7 @@ extension Views.Welcome {
         }
         appState.scene.showWelcome = false
     }
-    
+
     /// The `View` for opening a song
     struct OpenButton: View {
         /// The file URL to open
@@ -329,4 +325,3 @@ extension Views.Welcome {
         }
     }
 }
-

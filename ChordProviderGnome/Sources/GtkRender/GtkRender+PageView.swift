@@ -36,8 +36,6 @@ extension GtkRender {
                     .vexpand()
                     .transition(.crossfade)
                 }
-
-
             }
             .style("document")
             .hexpand()

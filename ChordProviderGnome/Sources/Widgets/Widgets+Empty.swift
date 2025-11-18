@@ -36,6 +36,5 @@ extension Widgets {
         ) where Data: ViewRenderData {
             /// Nothing to do
         }
-
     }
 }

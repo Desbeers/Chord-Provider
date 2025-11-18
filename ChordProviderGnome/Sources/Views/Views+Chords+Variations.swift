@@ -25,7 +25,7 @@ extension Views.Chords {
                 chords = [selectedChord] + chords
             }
             self.chords = chords
-            let current = chords.first(where: {$0.define == selectedChord.define}) ?? selectedChord
+            let current = chords.first { $0.define == selectedChord.define } ?? selectedChord
             self.selectedChord = current
             self._selectedVariationID = State(wrappedValue: current.id)
         }
@@ -57,8 +57,7 @@ extension Views.Chords {
                 case true:
                     if
                         let chord = chords.first(where: { $0.id == selectedVariationID }),
-                        !appState.scene.source.contains(chord.define)
-                    {
+                        !appState.scene.source.contains(chord.define) {
                         HStack {
                             Text("Add this chord definition to your song")
                                 .hexpand()

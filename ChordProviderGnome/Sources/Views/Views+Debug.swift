@@ -46,7 +46,7 @@ extension Views {
             }
             .hexpand()
             .topToolbar {
-                HeaderBar() { } end: { }
+                HeaderBar { } end: { }
                     .headerBarTitle {
                         ViewSwitcher(selectedElement: $selectedTab)
                             .wideDesign(true)
@@ -182,11 +182,11 @@ extension Views {
                 .default(icon: {
                     switch self {
                     case .log:
-                         .dialogInformation
+                        .dialogInformation
                     case .source:
-                         .formatJustifyLeft
+                        .formatJustifyLeft
                     case .json:
-                         .viewListBullet
+                        .viewListBullet
                     }
                 }())
             }
@@ -230,7 +230,7 @@ extension Views {
                 .highlightCurrentLine(false)
         }
 
-        func getSource() -> [Source]  {
+        func getSource() -> [Source] {
             var source: [Source] = []
             for line in song.sections.flatMap(\.lines) {
                 source.append(Source(id: line.sourceLineNumber, source: line))

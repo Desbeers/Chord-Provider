@@ -61,7 +61,7 @@ extension String {
 }
 
 extension String {
-    
+
     /// Wrap text into separate lines and make it identifiable
     /// - Parameter length: The maximum length
     /// - Returns: The wrapped text in an array
@@ -71,10 +71,8 @@ extension String {
 
     /// Make a String identifiable
     struct ElementWrapper: Identifiable, Equatable {
-
         var id = UUID()
         var content: String
-
     }
 }
 

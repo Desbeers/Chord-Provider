@@ -39,7 +39,7 @@ extension GtkRender {
                 }
             }
         }
-        
+
         /// A `View` with a single section
         /// - Parameter section: The current section
         /// - Returns: A `View`

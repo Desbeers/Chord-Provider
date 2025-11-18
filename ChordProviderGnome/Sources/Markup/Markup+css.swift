@@ -9,7 +9,7 @@ import Foundation
 import CChordProvider
 
 extension Markup {
-    
+
     enum Class: String, CustomStringConvertible {
         var description: String {
             self.rawValue

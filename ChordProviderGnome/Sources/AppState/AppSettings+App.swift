@@ -9,7 +9,7 @@ import Foundation
 import ChordProviderCore
 
 extension AppSettings {
-    
+
     /// Settings for all **Chord Provider** scenes
     struct App: Codable {
         /// The songs folder
@@ -31,17 +31,20 @@ extension AppSettings {
         /// - Parameter fileURL: The file URL of the song
         mutating func addRecentSong(fileURL: URL) {
             if let song = try? SongFileUtils.parseSongFile(
-                        fileURL: fileURL,
-                        settings: ChordProviderSettings(),
-                        getOnlyMetadata: true
-                    ) {
+                fileURL: fileURL,
+                settings: ChordProviderSettings(),
+                getOnlyMetadata: true
+            ) {
                 var recent = self.recentSongs
                 recent.removeAll { $0.url == fileURL }
-                recent.insert(RecentSong(
-                    url: fileURL,
-                    title: song.metadata.title,
-                    artist: song.metadata.artist
-                ), at: 0)
+                recent.insert(
+                    RecentSong(
+                        url: fileURL,
+                        title: song.metadata.title,
+                        artist: song.metadata.artist
+                    ),
+                    at: 0
+                )
                 self.recentSongs = Array(recent.prefix(100))
             }
         }
@@ -54,10 +57,8 @@ extension AppSettings {
         /// Get recent songs
         func getRecentSongs() -> [RecentSong] {
             var recent: [RecentSong] = []
-            for song in self.recentSongs {
-                if FileManager.default.fileExists(atPath: song.url.path) {
-                    recent.append(song)
-                }
+            for song in self.recentSongs where FileManager.default.fileExists(atPath: song.url.path) {
+                recent.append(song)
             }
             return recent
         }

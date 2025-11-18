@@ -39,8 +39,8 @@ extension AppSettings {
 }
 
 extension AppSettings.Editor {
-    
-    /// The font size of the ediot
+
+    /// The font size of the editor
     enum Font: Int, Codable, CaseIterable, CustomStringConvertible, Identifiable {
         case smaller = 10
         case small = 11

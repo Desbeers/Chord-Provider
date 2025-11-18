@@ -53,7 +53,6 @@ extension GtkRender {
                         .frame(minWidth: Int(size.width))
                         .frame(maxWidth: Int(size.width))
                         .halign(halign)
-
                 } else {
                     Text("Image not loaded")
                 }
