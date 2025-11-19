@@ -51,6 +51,9 @@ extension Views {
                             song: song,
                             settings: appState.settings.core
                         )
+                        /// Update the recent song list
+                        /// - Note: It will only do that when the song has an URL
+                        appState.addRecentSong(song: song)
                     }
                 }
             }

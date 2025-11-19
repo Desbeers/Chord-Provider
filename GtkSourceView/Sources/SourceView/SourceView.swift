@@ -24,9 +24,9 @@ public struct SourceView: AdwaitaWidget {
     var language: Language = .plain
     /// The (word) wrap mode used when rendering the text.
     var wrapMode: WrapMode = .none
-
+    /// Bool if the current line should be highlighted
     var highlightCurrentLine: Bool = true
-
+    /// Bool if the text is editable
     var editable: Bool = true
 
     /// Initialize a code editor.

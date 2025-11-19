@@ -12,16 +12,19 @@ import Adwaita
 /// The state of **Chord Provider**
 struct AppState {
     init() {
-        if var settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
+        if let settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
             print("Loaded settings")
             self.settings = settings
         } else {
             print("No settings found, creating new one")
         }
+
+        if let recentSongs = try? SettingsCache.get(id: "ChordProviderGnome-recent", struct: [AppState.RecentSong].self) {
+            self.recentSongs = recentSongs
+        }
         /// Open an optional song URL
         if let fileURL = CommandLine.arguments[safe: 1] {
             let url = URL(filePath: fileURL)
-            //self.openSong(fileURL: url)
             if let content = try? String(contentsOf: url, encoding: .utf8) {
                 self.scene.source = content
                 self.scene.originalSource = content
@@ -41,14 +44,18 @@ struct AppState {
     var settings = AppSettings() {
         didSet {
             print("Saving settings")
-//            print("---")
-//            dump(oldValue.editor)
-//            print("---")
-//            dump(settings.editor)
             try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)
         }
     }
+
     var scene = Scene()
+
+    var recentSongs: [RecentSong] = [] {
+        didSet {
+            print("Saving recent songs")
+            try? SettingsCache.set(id: "ChordProviderGnome-recent", object: self.recentSongs)
+        }
+    }
 
     /// The subtitle for the scene
     var subtitle: String {

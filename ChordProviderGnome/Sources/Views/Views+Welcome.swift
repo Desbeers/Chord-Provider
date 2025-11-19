@@ -143,7 +143,7 @@ extension Views.Welcome {
     @ViewBuilder var recentSongs: Body {
         VStack(spacing: 20) {
             ScrollView {
-                if appState.settings.app.recentSongs.isEmpty {
+                if appState.getRecentSongs().isEmpty {
                     StatusPage(
                         "No recent songs",
                         icon: .default(icon: .folderMusic),
@@ -152,13 +152,14 @@ extension Views.Welcome {
                     .frame(minWidth: 350)
                 } else {
                     VStack(spacing: 10) {
-                        ForEach(appState.settings.app.getRecentSongs()) {song in
-                            OpenButton(fileURL: song.url, appState: $appState)
-                                .halign(.start)
-                            Text("\(song.artist) - \(song.title)")
-                                .halign(.start)
-                                .padding(30, .leading)
-                                .style(.plainButton)
+                        ForEach(appState.getRecentSongs()) { recent in
+                            openButton(fileURL: recent.url, song: recent.song)
+//                            OpenButton(fileURL: recent.url, appState: $appState)
+//                                .halign(.start)
+//                            Text("\(recent.song.metadata.artist) - \(recent.song.metadata.title)")
+//                                .halign(.start)
+//                                .padding(30, .leading)
+//                                .style(.plainButton)
                         }
                     }
                     .halign(.center)
@@ -198,12 +199,7 @@ extension Views.Welcome {
                                 VStack {
                                     ForEach(artist.songs) { song in
                                         if let url = song.settings.fileURL {
-                                            OpenButton(
-                                                fileURL: url,
-                                                title: song.metadata.title,
-                                                appState: $appState,
-                                                tags: song.metadata.tags
-                                            )
+                                            openButton(fileURL: url, song: song, artistView: false)
                                         }
                                     }
                                 }
@@ -226,16 +222,17 @@ extension Views.Welcome {
                             VStack(spacing: 10) {
                                 ForEach(result) { song in
                                     if let fileURL = song.settings.fileURL {
-                                        OpenButton(
-                                            fileURL: fileURL,
-                                            appState: $appState,
-                                            tags: song.metadata.tags
-                                        )
-                                        .halign(.start)
-                                        Text("\(song.metadata.artist) - \(song.metadata.title)")
-                                            .halign(.start)
-                                            .padding(30, .leading)
-                                            .style(.plainButton)
+                                        openButton(fileURL: fileURL, song: song)
+//                                        OpenButton(
+//                                            fileURL: fileURL,
+//                                            appState: $appState,
+//                                            tags: song.metadata.tags
+//                                        )
+//                                        .halign(.start)
+//                                        Text("\(song.metadata.artist) - \(song.metadata.title)")
+//                                            .halign(.start)
+//                                            .padding(30, .leading)
+//                                            .style(.plainButton)
                                     }
                                 }
                             }
@@ -310,33 +307,45 @@ extension Views.Welcome {
 
 extension Views.Welcome {
 
-//    func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
-//        if
-//            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
-//            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-//            openSong(content: content, showEditor: showEditor, url: url ? sampleSong : nil)
-//        } else {
-//            print("Error loading sample song")
-//        }
-//    }
+    @ViewBuilder func openButton(fileURL: URL, song: Song, artistView: Bool = true) -> Body {
+        Button("") {
+            appState.openSong(fileURL: fileURL)
+            appState.scene.showToast.signal()
+        }
+        .child {
+            HStack {
+                VStack {
+                    Text(song.metadata.title)
+                        .halign(.start)
+                        .style(.plainButton)
+                        .hexpand()
+                    if artistView {
+                        Text(song.metadata.artist)
+                            .halign(.start)
+                            .style("capture")
 
-//    /// Open a song with its content as string
-//    /// - Parameter content: The content of the song
-//    func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
-//        appState.scene.source = content
-//        appState.scene.originalSource = content
-//        appState.settings.editor.showEditor = showEditor
-//        if showEditor {
-//            appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
-//        }
-//        if let url {
-//            appState.settings.core.templateURL = url
-//        }
-//        appState.scene.showWelcome = false
-//    }
+                    }
+                }
+                if let tags = song.metadata.tags  {
+                    HStack {
+                        ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
+                            Text(tag.string)
+                                .style(.tagLabel)
+                                .padding(5, .leading)
+                                .valign(.start)
+                        }
+                    }
+                }
+            }
+        }
+        .hasFrame(false)
+        .tooltip(fileURL.path.escapeHTML())
+
+    }
+
 
     /// The `View` for opening a song
-    struct OpenButton: View {
+    struct AAOpenButton: View {
         /// The file URL to open
         let fileURL: URL
         /// The title of the button
