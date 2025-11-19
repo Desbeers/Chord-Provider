@@ -84,7 +84,6 @@ extension Views.Chords {
                         Text("Open the editor to add another variation of the chord")
                             .hexpand()
                         Button("Open") {
-                            appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
                             appState.settings.editor.showEditor.toggle()
                         }
                         .suggested()

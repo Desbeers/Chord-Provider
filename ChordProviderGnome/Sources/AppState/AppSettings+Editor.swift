@@ -20,21 +20,7 @@ extension AppSettings {
         /// The font size of the editor
         var fontSize: Font = .standard
         /// The position of the splitter``
-        var splitter: Int = 0 {
-            willSet {
-                if newValue > 100 {
-                    restoreSplitter = newValue
-                }
-            }
-            didSet {
-                if splitter < 100 {
-                    showEditor = false
-                    splitter = 0
-                }
-            }
-        }
-        /// Remember the splitter position when hiding the editor
-        var restoreSplitter: Int = 400
+        var splitter: Int = 400
     }
 }
 

@@ -111,7 +111,6 @@ extension Views {
                     }
                 } else {
                     Button("Open Editor") {
-                        appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
                         appState.settings.editor.showEditor.toggle()
                     }
                 }

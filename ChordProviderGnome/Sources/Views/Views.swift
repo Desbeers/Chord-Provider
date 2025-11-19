@@ -11,3 +11,16 @@ import Foundation
 enum Views {
     // Just a placeholder
 }
+
+extension Views {
+
+    /// The loading state of a `View`
+    enum LoadingState {
+        /// `View` is loading
+        case loading
+        /// `View` is loaded
+        case loaded
+        /// `View` has an error
+        case error
+    }
+}

@@ -14,8 +14,6 @@ extension AppSettings {
     struct App: Codable {
         /// The songs folder
         var songsFolder: URL?
-        /// The selected tab on the welcome view
-        var welcomeTab: Views.Welcome.ViewSwitcherView = .mySongs
         /// The page layout
         var columnPaging: Bool = true
         /// The zoom factor

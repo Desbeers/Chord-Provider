@@ -14,6 +14,10 @@ extension Views {
 
     /// The `View` a new song
     struct Welcome: View {
+        /// The app
+        let app: AdwaitaApp
+        /// The window
+        let window: AdwaitaWindow
         /// The state of the application
         @Binding var appState: AppState
         /// The artist browser
@@ -22,8 +26,15 @@ extension Views {
         @State private var songs: [Song] = []
         /// The loading state
         /// - Note: For the song browser
-        @State private var loadingState: Utils.LoadingState = .loading
-        /// The body of the `View`
+        @State private var loadingState: Views.LoadingState = .loading
+
+        @State private var welcomeTab: WelcomeTab = .mySongs
+
+        @State private var search: String = ""
+
+        // MARK: Main View
+
+        /// The Main `View`
         var view: Body {
             HStack(spacing: 20) {
                 VStack {
@@ -32,12 +43,12 @@ extension Views {
                     Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
                         .pixelSize(260)
                     Button("Start with an empty song") {
-                        openSong(content: "{title New Song}\n{artist New Artist}\n")
+                        appState.openSong(content: "{title New Song}\n{artist New Artist}\n")
                     }
                     .frame(maxWidth: 250)
                     .padding()
                     Button("Open a sample song") {
-                        openSample("Swing Low Sweet Chariot", showEditor: true)
+                        appState.openSample("Swing Low Sweet Chariot", showEditor: true)
                     }
                     .frame(maxWidth: 250)
                     .padding()
@@ -46,23 +57,26 @@ extension Views {
                         .style("spacer")
                         .vexpand()
                     Button("Help") {
-                        openSample("Help", showEditor: false, url: true)
+                        appState.openSample("Help", showEditor: false, url: true)
                     }
                     .frame(maxWidth: 250)
                 }
                 Separator()
                 VStack(spacing: 20) {
+                    /// - Note: The selection must be a single variable; it cannot be a struct
+                    ///
+                    /// When opening a song at launch and go back to this View you will get a crash otherwise
                     ToggleGroup(
-                        selection: $appState.settings.app.welcomeTab,
-                        values: ViewSwitcherView.allCases
+                        selection: $welcomeTab,
+                        values: WelcomeTab.allCases
                     )
-                    switch appState.settings.app.welcomeTab {
-                    case .recent: recent
+                    switch welcomeTab {
+                    case .recentSongs: recentSongs
                     case .mySongs: mySongs
                     }
                     HStack {
-                        switch appState.settings.app.welcomeTab {
-                        case .recent:
+                        switch welcomeTab {
+                        case .recentSongs:
                             if !appState.settings.app.recentSongs.isEmpty {
                                 HStack {
                                     Button("Clear recent songs") {
@@ -96,18 +110,26 @@ extension Views {
             .vexpand()
             .padding(20)
             .onAppear {
-                if let url = appState.settings.app.songsFolder {
-                    Idle {
-                        let content = SongFileUtils.getSongsFromFolder(url: url, settings: appState.settings.core, getOnlyMetadata: true)
-                        artists = content.artists
-                        songs = content.songs
-                        loadingState = .loaded
-                    }
-                } else {
-                    Idle {
-                        loadingState = .error
-                    }
-                }
+                getFolderContent()
+            }
+            .folderImporter(
+                open: appState.scene.openFolder,
+                initialFolder: appState.settings.app.songsFolder
+            ) { folderURL in
+                appState.settings.app.songsFolder = folderURL
+                getFolderContent()
+            }
+
+            // MARK: Top Toolbar
+
+            .topToolbar {
+                Views.Toolbar.Welcome(
+                    app: app,
+                    window: window,
+                    welcomeTab: welcomeTab,
+                    appState: $appState,
+                    search: $search
+                )
             }
         }
     }
@@ -115,8 +137,10 @@ extension Views {
 
 extension Views.Welcome {
 
-    /// The `View` with *Recent* content
-    @ViewBuilder var recent: Body {
+    // MARK: - Recent Songs View
+
+    /// The `View` with **Recent** songs
+    @ViewBuilder var recentSongs: Body {
         VStack(spacing: 20) {
             ScrollView {
                 if appState.settings.app.recentSongs.isEmpty {
@@ -145,6 +169,11 @@ extension Views.Welcome {
             .vexpand()
         }
     }
+}
+
+extension Views.Welcome {
+
+    // MARK: - My Songs View
 
     /// The `View` with *My Songs* content
     @ViewBuilder var mySongs: Body {
@@ -159,7 +188,7 @@ extension Views.Welcome {
                         )
                         .frame(minWidth: 350)
                         .transition(.crossfade)
-                    } else if appState.scene.search.isEmpty {
+                    } else if search.isEmpty {
                         FlowBox(artists, selection: nil) { artist in
                             VStack {
                                 Text(artist.name)
@@ -184,7 +213,7 @@ extension Views.Welcome {
                         .columnSpacing(10)
                         .transition(.crossfade)
                     } else {
-                        let result = songs.filter { $0.search.localizedCaseInsensitiveContains(appState.scene.search) }
+                        let result = songs.filter { $0.search.localizedCaseInsensitiveContains(search) }
                         if result.isEmpty {
                             StatusPage(
                                 "No songs found",
@@ -202,7 +231,7 @@ extension Views.Welcome {
                                             appState: $appState,
                                             tags: song.metadata.tags
                                         )
-                                            .halign(.start)
+                                        .halign(.start)
                                         Text("\(song.metadata.artist) - \(song.metadata.title)")
                                             .halign(.start)
                                             .padding(30, .leading)
@@ -219,40 +248,57 @@ extension Views.Welcome {
             }
             .card()
             .vexpand()
-            .folderImporter(open: appState.scene.openFolder) { folderURL in
-                appState.settings.app.songsFolder = folderURL
+        }
+    }
+}
+
+// MARK: - Helper functions
+
+extension Views.Welcome {
+    
+    /// Get the content of a folder with songs
+    func getFolderContent() {
+        Idle {
+            if let url = appState.settings.app.songsFolder {
                 let content = SongFileUtils.getSongsFromFolder(
-                    url: folderURL,
+                    url: url,
                     settings: appState.settings.core,
                     getOnlyMetadata: true
                 )
                 artists = content.artists
                 songs = content.songs
                 loadingState = .loaded
+            } else {
+                loadingState = .error
             }
         }
     }
+}
+
+extension Views.Welcome {
+
+    // MARK: - Welcome Tabs
 
     /// The tabs on the Welcome View
-    enum ViewSwitcherView: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
+    enum WelcomeTab: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
         /// My songs
         case mySongs = "My Songs"
         /// Recent songs
-        case recent = "Recent Songs"
+        case recentSongs = "Recent Songs"
         /// The id of the tab
         var id: Self { self }
         /// The description of the tab
         var description: String {
-            rawValue.capitalized
+            rawValue
         }
         /// The icon of the tab
         var icon: Icon? {
             .default(icon: {
                 switch self {
-                case .recent:
-                    return .documentOpenRecent
+                case .recentSongs:
+                        .documentOpenRecent
                 case .mySongs:
-                    return .documentOpen
+                        .documentOpen
                 }
             }())
         }
@@ -264,30 +310,30 @@ extension Views.Welcome {
 
 extension Views.Welcome {
 
-    func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
-        if
-            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
-            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-            openSong(content: content, showEditor: showEditor, url: url ? sampleSong : nil)
-        } else {
-            print("Error loading sample song")
-        }
-    }
+//    func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
+//        if
+//            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
+//            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+//            openSong(content: content, showEditor: showEditor, url: url ? sampleSong : nil)
+//        } else {
+//            print("Error loading sample song")
+//        }
+//    }
 
-    /// Open a song with its content as string
-    /// - Parameter content: The content of the song
-    func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
-        appState.scene.source = content
-        appState.scene.originalSource = content
-        appState.settings.editor.showEditor = showEditor
-        if showEditor {
-            appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
-        }
-        if let url {
-            appState.settings.core.templateURL = url
-        }
-        appState.scene.showWelcome = false
-    }
+//    /// Open a song with its content as string
+//    /// - Parameter content: The content of the song
+//    func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
+//        appState.scene.source = content
+//        appState.scene.originalSource = content
+//        appState.settings.editor.showEditor = showEditor
+//        if showEditor {
+//            appState.settings.editor.splitter = appState.settings.editor.restoreSplitter
+//        }
+//        if let url {
+//            appState.settings.core.templateURL = url
+//        }
+//        appState.scene.showWelcome = false
+//    }
 
     /// The `View` for opening a song
     struct OpenButton: View {
@@ -312,17 +358,7 @@ extension Views.Welcome {
         /// The body of the `View`
         var view: Body {
             Button("") {
-                do {
-                    let content = try SongFileUtils.getSongContent(fileURL: fileURL)
-                    appState.scene.source = content
-                    appState.scene.originalSource = content
-                    appState.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-                    appState.settings.core.fileURL = fileURL
-                    appState.scene.showWelcome = false
-                    appState.settings.app.addRecentSong(fileURL: fileURL)
-                } catch {
-                    appState.scene.toastMessage = "Could not open the song"
-                }
+                appState.openSong(fileURL: fileURL)
                 appState.scene.showToast.signal()
             }
             .child {

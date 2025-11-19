@@ -21,52 +21,31 @@ extension Views {
         @Binding var appState: AppState
         /// The whole song
         @Binding var song: Song
-        /// The body of the `View`
+
+        // MARK: Main View
+
+        /// The main `View`
         var view: Body {
-            VStack {
-                HSplitView(splitter: $appState.settings.editor.splitter) {
-                    Views.Editor(app: app, song: song, appState: $appState)
-                } end: {
-                    VStack {
-                        if appState.scene.showWelcome {
-                            Views.Welcome(appState: $appState)
-                                .vexpand()
-                                .hexpand()
-                                .transition(.coverLeftRight)
-                        } else {
-                            Views.Render(song: song, appState: $appState)
-                                .hexpand()
-                                .vexpand()
-                                .transition(.coverRightLeft)
-                        }
-                    }
-                }
-                if appState.settings.editor.showEditor {
-                    Views.Log(app: app)
-                        .transition(.coverUpDown)
-                }
+            //            VStack {
+            EitherView(appState.scene.showWelcome) {
+                Views.Welcome(app: app, window: window, appState: $appState)
+                    .vexpand()
+                    .hexpand()
+                    .transition(.crossfade)
+            } else: {
+                Views.Render(app: app, window: window, song: $song, appState: $appState)
+                    .hexpand()
+                    .vexpand()
+                    .transition(.crossfade)
             }
-            .vexpand()
-            .hexpand()
-            .topToolbar {
-                Views.Toolbar(
-                    app: app,
-                    window: window,
-                    appState: $appState
-                )
-            }
-            .onUpdate {
-                if appState.scene.source != song.content || song.settings != appState.settings.core {
-                    Idle {
-                        LogUtils.shared.clearLog()
-                        song.content = appState.scene.source
-                        song = ChordProParser.parse(
-                            song: song,
-                            settings: appState.settings.core
-                        )
-                    }
-                }
-            }
+
+            // MARK: About Dialog
+
+            /// The **About dialog**
+            ///
+            /// - Note: It would be nice if we could add some more stuff to this dialog
+            /// - Credits
+            /// - Troubleshooting
             .aboutDialog(
                 visible: $appState.scene.showAboutDialog,
                 app: "Chord Provider",
@@ -74,10 +53,14 @@ extension Views {
                 version: "dev",
                 icon: .custom(name: "nl.desbeers.chordprovider"),
                 // swiftlint:disable:next force_unwrapping
-                website: .init(string: "https://github.com/Desbeers/Chord-Provider")!,
+                website: URL(string: "https://github.com/Desbeers/Chord-Provider")!,
                 // swiftlint:disable:next force_unwrapping
-                issues: .init(string: "https://github.com/Desbeers/Chord-Provider/issues")!
+                issues: URL(string: "https://github.com/Desbeers/Chord-Provider/issues")!
             )
+
+            // MARK: Transpose Song Dialog
+
+            /// The dialog to ** Transpose Song**
             .dialog(
                 visible: $appState.scene.showTransposeDialog,
                 title: "Transpose the song",
@@ -86,6 +69,10 @@ extension Views {
             ) {
                 Views.Transpose(appState: $appState)
             }
+
+            // MARK: Alert Dialog
+
+            /// The **Alert dialog** when a song is changed but not yet saved
             .alertDialog(
                 visible: $appState.scene.showDirtyClose,
                 heading: "'\(song.metadata.title)' has changed",
@@ -125,6 +112,12 @@ extension Views {
                     appState.scene.saveSongAs.signal()
                 }
             }
+
+            // MARK: Preference dialog
+
+            /// The **Preference Dialog**
+            ///
+            /// - Note: It would be nice if the pages can be added in an overload
             .preferencesDialog(visible: $appState.scene.showPreferences)
             .preferencesPage("General", icon: .default(icon: .folderMusic)) { page in
                 page
@@ -164,24 +157,26 @@ extension Views {
                             .subtitle("Select the font size for the editor")
                     }
             }
+
+            // MARK: Toast
+
+            /// The **Toast** message
             .toast(appState.scene.toastMessage.escapeHTML(), signal: appState.scene.showToast)
+
+            // MARK: File Importer
+
+            /// The **File Importer**
             .fileImporter(
                 open: appState.scene.openSong,
                 extensions: ["chordpro", "cho"]
             ) { fileURL in
-                if let content = try? String(contentsOf: fileURL, encoding: .utf8) {
-                    appState.settings.core.fileURL = fileURL
-                    appState.scene.source = content
-                    appState.scene.originalSource = content
-                    /// Show the toast
-                    appState.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-                    appState.scene.showToast.signal()
-                    /// Append to recent
-                    appState.settings.app.addRecentSong(fileURL: fileURL)
-                    /// Hide the welcome
-                    appState.scene.showWelcome = false
-                }
+                appState.openSong(fileURL: fileURL)
+                appState.scene.showToast.signal()
             }
+
+            // MARK: File Exporter
+
+            /// The **File Exporter**
             .fileExporter(
                 open: appState.scene.saveSongAs,
                 initialName: song.initialName(format: appState.settings.core.export.format)
@@ -205,6 +200,28 @@ extension Views {
                     appState.scene.showToast.signal()
                 }
             }
+
+            // MARK: Shortcuts Dialog
+
+            .shortcutsDialog(visible: $appState.scene.showKeyboardShortcuts)
+            .shortcutsSection("Song") { section in
+                section
+                    .shortcutsItem("Open", accelerator: "o".ctrl())
+                    .shortcutsItem("Save", accelerator: " s".ctrl())
+                    .shortcutsItem("Save As", accelerator: " s".ctrl().shift())
+            }
+            .shortcutsSection("Zoom") { section in
+                section
+                    .shortcutsItem("Zoom In", accelerator: "plus".ctrl())
+                    .shortcutsItem("Zoom Out", accelerator: " minus".ctrl())
+                    .shortcutsItem("Reset Zoom", accelerator: " 0".ctrl())
+            }
+            .shortcutsSection("General") { section in
+                section
+                    .shortcutsItem("Show preferences", accelerator: "comma".ctrl())
+                    .shortcutsItem("Show keyboard shortcuts", accelerator: "question".ctrl())
+            }
+            .shortcutsSection { $0.shortcutsItem("Quit Chord Provider", accelerator: "q".ctrl()) }
         }
     }
 }

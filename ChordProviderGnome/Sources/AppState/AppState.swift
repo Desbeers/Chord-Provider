@@ -14,10 +14,6 @@ struct AppState {
     init() {
         if var settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
             print("Loaded settings")
-            /// Restore the splitter position when the editor is open
-            if settings.editor.showEditor {
-                settings.editor.splitter = settings.editor.restoreSplitter
-            }
             self.settings = settings
         } else {
             print("No settings found, creating new one")
@@ -25,6 +21,7 @@ struct AppState {
         /// Open an optional song URL
         if let fileURL = CommandLine.arguments[safe: 1] {
             let url = URL(filePath: fileURL)
+            //self.openSong(fileURL: url)
             if let content = try? String(contentsOf: url, encoding: .utf8) {
                 self.scene.source = content
                 self.scene.originalSource = content
@@ -37,7 +34,6 @@ struct AppState {
         }
         if scene.source.isEmpty {
             settings.editor.showEditor = false
-            settings.editor.splitter = 0
             scene.showWelcome = true
         }
     }
@@ -45,6 +41,10 @@ struct AppState {
     var settings = AppSettings() {
         didSet {
             print("Saving settings")
+//            print("---")
+//            dump(oldValue.editor)
+//            print("---")
+//            dump(settings.editor)
             try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)
         }
     }
@@ -57,6 +57,48 @@ struct AppState {
 }
 
 extension AppState {
+    
+    /// Open a sample song from the Bundle
+    /// - Parameters:
+    ///   - sample: The sample song
+    ///   - showEditor: Bool to show the editor
+    ///   - url: Bool if the URL should be added
+    mutating func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
+        if
+            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
+            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
+            openSong(content: content, showEditor: showEditor, url: url ? sampleSong : nil)
+        } else {
+            print("Error loading sample song")
+        }
+    }
+
+    /// Open a song from an URL
+    mutating func openSong(fileURL: URL) {
+        do {
+            let content = try SongFileUtils.getSongContent(fileURL: fileURL)
+            self.scene.source = content
+            self.scene.originalSource = content
+            self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
+            self.settings.core.fileURL = fileURL
+            self.scene.showWelcome = false
+            self.settings.app.addRecentSong(fileURL: fileURL)
+        } catch {
+            self.scene.toastMessage = "Could not open the song"
+        }
+    }
+
+    /// Open a song with its content as string
+    /// - Parameter content: The content of the song
+    mutating func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
+        self.scene.source = content
+        self.scene.originalSource = content
+        self.settings.editor.showEditor = showEditor
+        if let url {
+            self.settings.core.templateURL = url
+        }
+        self.scene.showWelcome = false
+    }
 
     mutating func saveSong() {
         if let fileURL = self.settings.core.fileURL {
@@ -81,11 +123,11 @@ extension AppState {
     }
 
     mutating func showWelcomeScreen() {
+        print("Show Welcome Screen")
         self.scene.source = ""
         self.scene.originalSource = ""
         self.settings.core.fileURL = nil
         self.settings.editor.showEditor = false
-        self.settings.editor.splitter = 0
         self.scene.showWelcome = true
     }
 }
