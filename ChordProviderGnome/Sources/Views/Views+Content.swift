@@ -26,17 +26,33 @@ extension Views {
 
         /// The main `View`
         var view: Body {
-            //            VStack {
-            EitherView(appState.scene.showWelcome) {
-                Views.Welcome(app: app, window: window, appState: $appState)
-                    .vexpand()
-                    .hexpand()
-                    .transition(.crossfade)
-            } else: {
-                Views.Render(app: app, window: window, song: $song, appState: $appState)
-                    .hexpand()
-                    .vexpand()
-                    .transition(.crossfade)
+            VStack {
+                if appState.scene.showWelcome {
+                    Views.Welcome(app: app, window: window, appState: $appState)
+                        .vexpand()
+                        .hexpand()
+                        .transition(.crossfade)
+                } else {
+                    Views.Render(app: app, window: window, song: song, appState: $appState)
+                        .hexpand()
+                        .vexpand()
+                        .transition(.crossfade)
+                }
+            }
+            // MARK: On Update
+            
+            .onUpdate {
+                Idle {
+                    /// Update the song when its contents is changed or when the core settings are changed
+                    if appState.scene.source != song.content || song.settings != appState.settings.core {
+                        LogUtils.shared.clearLog()
+                        song.content = appState.scene.source
+                        song = ChordProParser.parse(
+                            song: song,
+                            settings: appState.settings.core
+                        )
+                    }
+                }
             }
 
             // MARK: About Dialog

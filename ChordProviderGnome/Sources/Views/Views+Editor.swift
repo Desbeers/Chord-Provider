@@ -14,11 +14,6 @@ extension Views {
 
     /// The `View` for editing a song
     struct Editor: View {
-        /// The app
-        let app: AdwaitaApp
-
-        let song: Song
-
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`

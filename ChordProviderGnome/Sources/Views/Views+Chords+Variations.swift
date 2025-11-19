@@ -62,8 +62,8 @@ extension Views.Chords {
                             Text("Add this chord definition to your song")
                                 .hexpand()
                             Button("Add") {
-                                appState.scene.source += "\n{define \(chord.define)}\n"
                                 chordDialog.toggle()
+                                appState.scene.source += "\n{define \(chord.define)}\n"
                             }
                             .suggested()
                         }

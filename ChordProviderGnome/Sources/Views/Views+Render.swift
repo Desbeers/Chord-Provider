@@ -18,21 +18,36 @@ extension Views {
         /// The window
         let window: AdwaitaWindow
         /// The whole song
-        @Binding var song: Song
+        let song: Song
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`
         var view: Body {
-            EitherView(appState.settings.editor.showEditor) {
-                HSplitView(splitter: $appState.settings.editor.splitter) {
-                    Views.Editor(app: app, song: song, appState: $appState)
+            /// Show or hide the editor
+            let binding = Binding(
+                get: { self.appState.settings.editor.showEditor ? appState.settings.editor.splitter : 0 },
+                set: { self.appState.settings.editor.splitter = $0 }
+            )
+            VStack {
+                HSplitView(
+                    splitter: binding
+                ) {
+                    Views.Editor(appState: $appState)
                 } end: {
-                    render
+                    HStack {
+                        GtkRender.PageView(song: song, settings: appState.settings)
+                        Separator()
+                        Views.Chords(song: song, appState: $appState)
+                    }
+                    .hexpand()
+                    .vexpand()
                 }
-            } else: {
-                render
+                if appState.settings.editor.showEditor {
+                    Log(main: true, app: app)
+                        .transition(.coverDownUp)
+                }
             }
-            
+
             // MARK: Top Toolbar
 
             .topToolbar {
@@ -42,34 +57,6 @@ extension Views {
                     appState: $appState
                 )
             }
-
-            // MARK: On Update
-
-            .onUpdate {
-                /// Update the song when its contents is changed or when the core settings are changed
-                if appState.scene.source != song.content || song.settings != appState.settings.core {
-                    Idle {
-                        LogUtils.shared.clearLog()
-                        song.content = appState.scene.source
-                        song = ChordProParser.parse(
-                            song: song,
-                            settings: appState.settings.core
-                        )
-                    }
-                }
-            }
-        }
-
-        @ViewBuilder
-        var render: Body {
-            HStack {
-                GtkRender.PageView(song: song, settings: appState.settings)
-                Separator()
-                Views.Chords(song: song, appState: $appState)
-            }
-                .hexpand()
-                .vexpand()
-                .transition(.crossfade)
         }
     }
 }
