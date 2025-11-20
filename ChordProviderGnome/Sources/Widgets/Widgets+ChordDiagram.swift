@@ -63,8 +63,9 @@ extension Widgets {
                 Int32(chord.fingers[safe: 4] ?? 0),
                 Int32(chord.fingers[safe: 5] ?? 0)
             )
+            var barreResult: [cbarre] = []
+            let barreFallback = cbarre(finger: -1, fret: 0, start_index: 0, end_index: 0)
             if let barres = chord.barres {
-                var result: [cbarre] = []
                 for barre in barres {
                     let item = cbarre(
                         finger: Int32(barre.finger),
@@ -72,32 +73,32 @@ extension Widgets {
                         start_index: Int32(barre.startIndex),
                         end_index: Int32(barre.endIndex)
                     )
-                    result.append(item)
+                    barreResult.append(item)
                 }
-                cchord.pointee.barre = (
-                    result[safe: 0] ?? cbarre(),
-                    result[safe: 1] ?? cbarre(),
-                    result[safe: 2] ?? cbarre(),
-                    result[safe: 3] ?? cbarre(),
-                    result[safe: 4] ?? cbarre()
-                )
             }
+            cchord.pointee.barre = (
+                barreResult[safe: 0] ?? barreFallback,
+                barreResult[safe: 1] ?? barreFallback,
+                barreResult[safe: 2] ?? barreFallback,
+                barreResult[safe: 3] ?? barreFallback,
+                barreResult[safe: 4] ?? barreFallback
+            )
             cchord.pointee.show_notes = settings.core.diagram.showNotes
-            var result: [cnote] = []
-            let fallback = cnote(note: " ".toUnsafeMutablePointer())
+            var noteResult: [cnote] = []
+            let noteFallback = cnote(note: " ".toUnsafeMutablePointer())
             for note in chord.components {
                 let string = note.note == .none ? " " : note.note.display
                 if let string = string.toUnsafeMutablePointer() {
-                    result.append(cnote(note: string))
+                    noteResult.append(cnote(note: string))
                 }
             }
             cchord.pointee.note = (
-                result[safe: 0] ?? fallback,
-                result[safe: 1] ?? fallback,
-                result[safe: 2] ?? fallback,
-                result[safe: 3] ?? fallback,
-                result[safe: 4] ?? fallback,
-                result[safe: 5] ?? fallback
+                noteResult[safe: 0] ?? noteFallback,
+                noteResult[safe: 1] ?? noteFallback,
+                noteResult[safe: 2] ?? noteFallback,
+                noteResult[safe: 3] ?? noteFallback,
+                noteResult[safe: 4] ?? noteFallback,
+                noteResult[safe: 5] ?? noteFallback
             )
         }
         /// The view storage.
@@ -112,8 +113,8 @@ extension Widgets {
             let drawingArea = gtk_drawing_area_new()
             gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
             gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))
-            let content: [String: [ViewStorage]] = [:]
-            let storage = ViewStorage(drawingArea?.opaque(), content: content)
+            let storage = ViewStorage(drawingArea?.opaque())
+            update(storage, data: data, updateProperties: true, type: type)
             return storage
         }
 
@@ -123,7 +124,9 @@ extension Widgets {
             updateProperties: Bool,
             type: Data.Type
         ) where Data: ViewRenderData {
-            gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
+            if updateProperties {
+                gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
+            }
         }
     }
 }

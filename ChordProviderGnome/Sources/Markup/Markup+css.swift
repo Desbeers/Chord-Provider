@@ -140,6 +140,9 @@ extension Markup {
 .log-error {
     color: var(--error-color);
 }
+.caption {
+    font-size: 10px;
+}
 """
     }
 }

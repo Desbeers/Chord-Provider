@@ -81,7 +81,7 @@ extension Views.Chords {
                     }
                 case false:
                     HStack {
-                        Text("Open the editor to add another variation of the chord")
+                        Text("Open the editor to add another variation")
                             .hexpand()
                         Button("Open") {
                             appState.settings.editor.showEditor.toggle()
