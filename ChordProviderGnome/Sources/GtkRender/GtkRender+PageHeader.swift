@@ -40,6 +40,7 @@ extension GtkRender {
                     .style(.title)
                 Text(song.metadata.subtitle ?? song.metadata.artist)
                     .style(.subtitle)
+                    .padding(5, .top)
                 /// Metadata
                 HStack {
                     if let key = song.metadata.key {

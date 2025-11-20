@@ -149,6 +149,12 @@ extension ChordPro {
 
         /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings
         case define
+        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitar
+        case defineGuitar = "define-guitar"
+        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitar
+        case defineGuitalele = "define-guitalele"
+        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitar
+        case defineUkulele = "define-ukulele"
 
         // MARK: Output related directives
 

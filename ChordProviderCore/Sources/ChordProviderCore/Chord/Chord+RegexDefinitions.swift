@@ -135,12 +135,17 @@ extension Chord {
         nonisolated(unsafe) static let directive = Regex {
             "{"
             Capture {
-                OneOrMore(.word)
+                OneOrMore {
+                    CharacterClass(
+                        .word,
+                        .anyOf("-")
+                    )
+                }
             }
             Optionally {
                 OneOrMore {
                     CharacterClass(
-                        .anyOf(": ")
+                        .anyOf(": -")
                     )
                 }
                 TryCapture {

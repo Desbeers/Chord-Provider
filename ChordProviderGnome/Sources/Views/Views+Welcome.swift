@@ -295,8 +295,6 @@ extension Views.Welcome {
         fileURL: URL,
         song: Song,
         songTitleOnly: Bool = false
-        //settings: ChordProviderSettings? = nil
-        //recent: [AppState.RecentSong]
     ) -> Body {
         let settings = appState.getRecentSongs().first(where: { $0.url == fileURL })?.settings
         Button("") {

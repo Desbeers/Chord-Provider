@@ -37,7 +37,7 @@ public actor ChordProParser {
         LogUtils.shared.setLog(
             level: .info,
             category: .songParser,
-            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(old.settings.fileURL?.lastPathComponent ?? "New Song")**"
+            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(settings.fileURL?.lastPathComponent ?? "New Song")**"
         )
         /// Start with a fresh song
         var song = Song(id: song.id, content: old.content)

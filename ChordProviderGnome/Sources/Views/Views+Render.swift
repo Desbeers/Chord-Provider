@@ -44,7 +44,7 @@ extension Views {
                 }
                 if appState.settings.editor.showEditor {
                     Log(main: true, app: app)
-                        .transition(.coverDownUp)
+                        .transition(.coverUpDown)
                 }
             }
 

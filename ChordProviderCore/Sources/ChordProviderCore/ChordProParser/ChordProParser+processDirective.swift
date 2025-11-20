@@ -133,6 +133,30 @@ extension ChordProParser {
                     case .define:
                         processDefine(arguments: arguments, currentSection: &currentSection, song: &song)
 
+                    case .defineGuitar:
+                        processDefine(
+                            instrument: .guitar,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
+
+                    case .defineUkulele:
+                        processDefine(
+                            instrument: .ukulele,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
+
+                    case .defineGuitalele:
+                        processDefine(
+                            instrument: .guitalele,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
+
                         // MARK: Images
 
                     case .image:

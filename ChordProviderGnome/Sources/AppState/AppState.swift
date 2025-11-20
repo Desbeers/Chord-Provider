@@ -132,8 +132,8 @@ extension AppState {
             self.scene.source = content
             self.scene.originalSource = content
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-            self.settings.core.fileURL = fileURL
             self.scene.showWelcome = false
+            self.settings.core.fileURL = fileURL
         } catch {
             self.scene.toastMessage = "Could not open the song"
         }
@@ -181,7 +181,6 @@ extension AppState {
         self.scene.source = ""
         self.scene.originalSource = ""
         self.settings.core.fileURL = nil
-        self.settings.editor.showEditor = false
         self.scene.showWelcome = true
     }
 }

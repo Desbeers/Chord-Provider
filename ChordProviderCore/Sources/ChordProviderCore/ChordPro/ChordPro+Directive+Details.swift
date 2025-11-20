@@ -290,7 +290,7 @@ extension ChordPro.Directive {
                 environment: .textblock,
                 lineType: .environmentDirective
             )
-        case .define:
+        case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
             Details(
                 label: "Chord Definition",
                 icon: "hand.raised",

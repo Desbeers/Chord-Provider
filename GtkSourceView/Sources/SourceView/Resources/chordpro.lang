@@ -45,6 +45,9 @@
             <keyword>end_of_abc</keyword>
             <keyword>start_of_textblock</keyword>
             <keyword>end_of_textblock</keyword>
+            <keyword>define-guitar</keyword>
+            <keyword>define-guitalele</keyword>
+            <keyword>define-ukulele</keyword>
             <keyword>define</keyword>
             <keyword>new_page</keyword>
             <keyword>column_break</keyword>
