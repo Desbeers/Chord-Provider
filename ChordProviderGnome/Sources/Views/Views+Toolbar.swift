@@ -10,6 +10,8 @@ import Adwaita
 import ChordProviderCore
 
 extension Views {
+
+    /// Toolbar Views
     enum Toolbar {
         // Just a placeholder
     }
@@ -25,12 +27,14 @@ extension Views.Toolbar {
         var window: AdwaitaWindow
         /// The state of the application
         @Binding var appState: AppState
+        /// The current song
+        let song: Song
         /// The body of the `View`
         var view: Body {
             HeaderBar {
                 HStack(spacing: 5) {
                     Toggle(icon: .default(icon: .textEditor), isOn: $appState.settings.editor.showEditor)
-                    .tooltip("Show the editor")
+                        .tooltip("Show the editor")
                     ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $appState.scene.isTransposed) {
                         appState.scene.showTransposeDialog = true
                     }
@@ -60,7 +64,7 @@ extension Views.Toolbar {
                         MenuButton("Save") {
                             appState.settings.core.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
-                            appState.saveSong()
+                            appState.saveSong(song)
                         }
                         .keyboardShortcut("s".ctrl())
                         MenuButton("Save As…") {

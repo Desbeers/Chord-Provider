@@ -52,7 +52,7 @@ extension Views {
                             settings: appState.settings.core
                         )
                         /// Update the recent song list
-                        /// - Note: It will only do that when the song has an URL
+                        /// - Note: It will only do that when the song has an URL and is not dirty
                         appState.addRecentSong(song: song)
                     }
                 }
@@ -113,9 +113,7 @@ extension Views {
             }
             .response("Save", appearance: .suggested, role: .default) {
                 if let fileURL = appState.settings.core.fileURL {
-                    try? appState.scene.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-                    /// Add it to the recent songs list
-                    appState.settings.app.addRecentSong(fileURL: fileURL)
+                    appState.saveSong(song)
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
                         window.close()
@@ -127,6 +125,7 @@ extension Views {
                         appState.scene.showToast.signal()
                     }
                 } else {
+                    /// The song has not yet been saved; show the *Save As* dialog
                     appState.settings.core.export.format = .chordPro
                     appState.scene.saveSongAs.signal()
                 }
@@ -203,7 +202,7 @@ extension Views {
                 switch appState.settings.core.export.format {
                 case .chordPro:
                     appState.settings.core.fileURL = fileURL
-                    appState.saveSong()
+                    appState.saveSong(song)
                     /// Set the toast
                     appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
                 default:

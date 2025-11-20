@@ -29,10 +29,6 @@ struct AppState {
                 self.scene.source = content
                 self.scene.originalSource = content
                 self.settings.core.fileURL = url
-                /// Append to recent
-                self.settings.app.addRecentSong(fileURL: url)
-                /// Save it
-                try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)
             }
         }
         if scene.source.isEmpty {
@@ -50,7 +46,7 @@ struct AppState {
 
     var scene = Scene()
 
-    var recentSongs: [RecentSong] = [] {
+    private(set) var recentSongs: [RecentSong] = [] {
         didSet {
             print("Saving recent songs")
             try? SettingsCache.set(id: "ChordProviderGnome-recent", object: self.recentSongs)
@@ -60,6 +56,52 @@ struct AppState {
     /// The subtitle for the scene
     var subtitle: String {
         "\(settings.core.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(scene.dirty ? " - edited" : "")"
+    }
+}
+
+extension AppState {
+
+    /// Add a recent song
+    /// - Parameter song: The parsed song
+    mutating func addRecentSong(song: Song) {
+        if let fileURL = song.settings.fileURL, !self.scene.dirty {
+            var recentSongs = self.recentSongs
+            /// Keep only relevant information
+            var recent = Song(id: UUID())
+            recent.metadata.title = song.metadata.title
+            recent.metadata.artist = song.metadata.artist
+            recent.metadata.tags = song.metadata.tags
+            recentSongs.append(
+                RecentSong(
+                    url: fileURL,
+                    song: recent,
+                    lastOpened: Date.now,
+                    settings: self.settings.core
+                )
+            )
+            /// Update the list
+            self.recentSongs = Array(
+                recentSongs
+                    .sorted(using: KeyPathComparator(\.lastOpened, order: .reverse))
+                    .uniqued(by: \.id)
+                    .prefix(20)
+            )
+        }
+    }
+
+    /// Clear recent songs list
+    mutating func clearRecentSongs() {
+        self.recentSongs = []
+    }
+
+    /// Get recent songs
+    func getRecentSongs() -> [RecentSong] {
+        var recent: [RecentSong] = []
+        for song in self.recentSongs where FileManager.default.fileExists(atPath: song.url.path) {
+            recent.append(song)
+        }
+        /// Return to the `View`
+        return recent
     }
 }
 
@@ -84,12 +126,14 @@ extension AppState {
     mutating func openSong(fileURL: URL) {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
+            /// Reset transpose
+            self.scene.isTransposed = false
+            self.settings.core.transpose = 0
             self.scene.source = content
             self.scene.originalSource = content
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
             self.settings.core.fileURL = fileURL
             self.scene.showWelcome = false
-            self.settings.app.addRecentSong(fileURL: fileURL)
         } catch {
             self.scene.toastMessage = "Could not open the song"
         }
@@ -98,6 +142,9 @@ extension AppState {
     /// Open a song with its content as string
     /// - Parameter content: The content of the song
     mutating func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
+        /// Reset transpose
+        self.scene.isTransposed = false
+        self.settings.core.transpose = 0
         self.scene.source = content
         self.scene.originalSource = content
         self.settings.editor.showEditor = showEditor
@@ -107,13 +154,13 @@ extension AppState {
         self.scene.showWelcome = false
     }
 
-    mutating func saveSong() {
+    mutating func saveSong(_ song: Song) {
         if let fileURL = self.settings.core.fileURL {
             try? self.scene.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Remember the content as  saved
             self.scene.originalSource = self.scene.source
             /// Add it to the recent songs list
-            self.settings.app.addRecentSong(fileURL: fileURL)
+            self.addRecentSong(song: song)
         } else {
             self.scene.saveSongAs.signal()
         }

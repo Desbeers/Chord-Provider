@@ -142,3 +142,16 @@ extension LogUtils.Level {
         }
     }
 }
+
+extension ChordProviderSettings {
+    var settingsLabel: String {
+        var label: [String] = [self.instrument.description]
+        if self.lyricsOnly {
+            label.append("Lyrics only")
+        }
+        if self.repeatWholeChorus {
+            label.append("Repeat whole chorus")
+        }
+        return label.joined(separator: ", ")
+    }
+}

@@ -54,7 +54,8 @@ extension Views {
                 Views.Toolbar.Main(
                     app: app,
                     window: window,
-                    appState: $appState
+                    appState: $appState,
+                    song: song
                 )
             }
         }
