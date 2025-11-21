@@ -29,7 +29,7 @@ extension Views {
                                 if let line = line.lineNumber {
                                     Text("Line \(line): ")
                                 }
-                                Text(Utils.convertMarkdown(line.message))
+                                Text(line.message)
                                     .useMarkup()
                                     .halign(.start)
                             }

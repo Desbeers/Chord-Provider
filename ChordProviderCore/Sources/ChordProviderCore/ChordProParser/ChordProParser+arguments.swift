@@ -50,12 +50,12 @@ extension ChordProParser {
                 if let argument = ChordPro.Directive.FormattingAttribute(rawValue: $1.1.lowercased()) {
                     var value = $1.2
                     if value.components(separatedBy: "\"").count < 3 {
-                        currentSection.addWarning("Missing brackets around **\(value)**")
+                        currentSection.addWarning("Missing brackets around <b>\(value)</b>")
                     }
                     value.replace("\"", with: "")
                     $0[argument] = value
                 } else {
-                    currentSection.addWarning("Unknown *key*: **\($1.1)**")
+                    currentSection.addWarning("Unknown <i>key</i>: <b>\($1.1)</b>")
                 }
             }
         } else {

@@ -60,7 +60,7 @@ extension PDFBuild {
             var result: (any PDFElement)?
             var labelWidth: Double = 0
 
-            let label = NSAttributedString(labelText.toMarkdown(fontOptions: fontOptions, scale: 1))
+            let label = NSAttributedString(labelText.fromHTML(fontOptions: fontOptions, scale: 1))
 
             if let sfSymbol {
                 let image = PDFBuild.Image(sfSymbol, fontSize: fontOptions.size, colors: [fontOptions.color.nsColor])

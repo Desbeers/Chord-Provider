@@ -74,9 +74,8 @@ extension Views {
                             VStack(spacing: 0) {
                                 if let warnings = line.source.warnings {
                                     ForEach(Array(warnings)) { warning in
-                                        Text(Utils.convertMarkdown(warning.message))
+                                        Text(warning.message)
                                             .useMarkup()
-                                            //.padding()
                                             .levelStyle(warning.level)
                                             .halign(.start)
                                     }

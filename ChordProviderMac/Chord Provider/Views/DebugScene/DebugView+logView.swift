@@ -30,7 +30,7 @@ extension DebugView {
                                 if let lineNumber = log.lineNumber {
                                     Text("**Line \(lineNumber)**: ")
                                 }
-                                Text(.init(log.message))
+                                Text(log.message.fromHTML())
                             }
                             .padding(8)
                         }

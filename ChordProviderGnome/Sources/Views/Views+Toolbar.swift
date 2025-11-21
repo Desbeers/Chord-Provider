@@ -51,7 +51,7 @@ extension Views.Toolbar {
                         app.showWindow("debug")
                     }
                     .tooltip("See how your song is parsed")
-                    .destructive(song.hasWarnings)
+                    .accent(song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
                             if appState.scene.dirty {

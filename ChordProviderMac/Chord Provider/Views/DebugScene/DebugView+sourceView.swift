@@ -30,7 +30,7 @@ extension DebugView {
                                 Text(JSONUtils.highlight(code: line.source.source, editorSettings: appState.settings.editor))
                                     .monospaced()
                                 if let warnings = line.source.warnings {
-                                    Text(.init("\(warnings.map(\.message).joined(separator: ", "))"))
+                                    Text(warnings.map(\.message).joined(separator: ", ").fromHTML())
                                         .foregroundStyle(.red)
                                         .font(.caption)
                                 }

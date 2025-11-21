@@ -26,7 +26,7 @@ extension RenderView {
                     Label(
                         title: {
                             /// Init the text like this to enable markdown formatting
-                            Text(.init(label))
+                            Text(label.fromHTML(fontOptions: settings.style.fonts.textblock, scale: settings.scale.magnifier))
                         },
                         icon: {
                             Image(systemName: sfSymbol)

@@ -49,14 +49,16 @@ extension ChordProParser {
                 var arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
 
                 if directive.warning {
-                    currentSection.addWarning("Short directive for **\(directive.directive.details.label)**; long is preferrable")
+                    currentSection.addWarning(
+                        "Short directive for <b><tt>\(directive.directive.details.label)</tt></b>; the long version is preferable"
+                    )
                 }
                 /// Always use long directives
                 let directive = directive.directive
 
                 if arguments[.plain] != nil, text.starts(with: "{\(parsedDirective):") {
                     currentSection.addWarning(
-                        "No need for a colon **:** for a simple argument",
+                        "No need for a colon <b><tt>:</tt></b> for a simple argument",
                         level: .notice
                     )
                 }
@@ -105,7 +107,7 @@ extension ChordProParser {
 
                         /// ## Start of ABC
                     case .startOfABC:
-                        currentSection.addWarning("**ABC** is not supported in the output")
+                        currentSection.addWarning("<b>ABC</b> is not supported in the output")
                         openSection(
                             directive: .startOfABC,
                             arguments: arguments,
@@ -169,7 +171,7 @@ extension ChordProParser {
 
                     default:
                         /// A known but unsupported directive
-                        currentSection.addWarning("**\(directive.details.label)** is not supported")
+                        currentSection.addWarning("<b>\(directive.details.label)</b> is not supported")
                         addSection(
                             directive: directive,
                             arguments: arguments,

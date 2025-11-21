@@ -54,7 +54,7 @@ extension PDFBuild {
             for line in section.lines {
                 switch line.type {
                 case .songLine:
-                    var string = line.plain?.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: 1) ?? AttributedString()
+                    var string = line.plain?.fromHTML(fontOptions: settings.style.fonts.textblock, scale: 1) ?? AttributedString()
                     let paragraphStyle = string.paragraphStyle as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
                     paragraphStyle.lineHeightMultiple = 1.2
                     paragraphStyle.alignment = flush

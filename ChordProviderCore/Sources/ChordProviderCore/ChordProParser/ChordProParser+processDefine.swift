@@ -28,7 +28,7 @@ extension ChordProParser {
         } else {
             /// The definition is for another instrument
             currentSection.addWarning(
-                "The chord definition is for **\(instrument.rawValue)** and will be ignored",
+                "The chord definition is for <b>\(instrument.rawValue)</b> and will be ignored",
                 level: .notice
             )
             addSection(
@@ -83,7 +83,7 @@ extension ChordProParser {
         } catch {
             /// The definition could not be processed
             currentSection.addWarning(
-                "Wrong chord definition: \(error.localizedDescription)",
+                "Wrong chord definition: <b>\(error.localizedDescription)</b>",
                 level: .error
             )
         }

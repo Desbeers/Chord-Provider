@@ -20,15 +20,15 @@ extension ChordProParser {
         song: inout Song
     ) {
         var arguments: ChordProParser.DirectiveArguments = [.plain: comment]
-        if (!currentSection.lines.isEmpty && currentSection.autoCreated ?? false == false) || currentSection.environment == .textblock {
+        if !currentSection.lines.isEmpty && currentSection.autoCreated ?? false == false {
             /// A source comment inside a section
             let line = Song.Section.Line(
                 sourceLineNumber: song.lines,
                 source: comment,
                 sourceParsed: comment.trimmingCharacters(in: .whitespaces),
-                directive: currentSection.environment == .textblock ? nil : .sourceComment,
-                type: currentSection.environment == .textblock ? .songLine : .sourceComment,
-                context: currentSection.environment == .textblock ? .textblock : .sourceComment,
+                directive: .sourceComment,
+                type: .sourceComment,
+                context: .sourceComment,
                 plain: comment.trimmingCharacters(in: .whitespaces)
             )
             currentSection.lines.append(line)

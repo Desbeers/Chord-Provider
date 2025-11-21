@@ -35,8 +35,8 @@ extension RenderView {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        /// Init the text like this to enable markdown formatting
-                        Text(line.plain?.toMarkdown(fontOptions: settings.style.fonts.textblock, scale: settings.scale.magnifier) ?? "")
+                        /// Init the text like this to enable Pango formatting
+                        Text(line.plain?.fromHTML(fontOptions: settings.style.fonts.textblock, scale: settings.scale.magnifier) ?? "")
                     case .emptyLine:
                         EmptyLine(settings: settings)
                     case .comment:

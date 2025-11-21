@@ -76,26 +76,4 @@ enum Utils {
         }
         return content
     }
-
-    static func convertMarkdown(_ content: String) -> String {
-        let bold = Regex {
-            Regex {
-                "**"
-                OneOrMore {
-                    CharacterClass(
-                        .any
-                    )
-                }
-                "**"
-            }
-        }
-        var content = content
-
-        let matches = content.matches(of: bold)
-        for match in matches {
-            /// Smelly...
-            content = content.replacing(match.0, with: "<b>\(match.0.replacing("**", with: ""))</b>")
-        }
-        return content
-    }
 }

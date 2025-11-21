@@ -32,7 +32,11 @@ extension ChordProParser {
                 context: environment
             )
             /// Add a warning to the first line
-            currentSection.lines[firstLineIndex].addWarning("No environment set, using **\(environment.rawValue)**")
+            currentSection
+                .lines[firstLineIndex]
+                .addWarning(
+                    "No environment set, using <b><tt>\(environment.rawValue)</tt></b>"
+                )
             /// Set the new context
             currentSection.lines[firstLineIndex].context = environment
             /// Add the opening directive at the start

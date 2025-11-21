@@ -327,6 +327,7 @@ extension Views.Welcome {
                     HStack {
                         ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
                             Text(tag.string)
+                                .useMarkup()
                                 .style(.tagLabel)
                                 .padding(5, .leading)
                                 .valign(.end)

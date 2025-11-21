@@ -37,7 +37,7 @@ public actor ChordProParser {
         LogUtils.shared.setLog(
             level: .info,
             category: .songParser,
-            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") **\(settings.fileURL?.lastPathComponent ?? "New Song")**"
+            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") <b>\(settings.fileURL?.lastPathComponent ?? "New Song")</b>"
         )
         /// Start with a fresh song
         var song = Song(id: song.id, content: old.content)
@@ -83,8 +83,7 @@ public actor ChordProParser {
                     /// Empty line
                     processEmptyLine(currentSection: &currentSection, song: &song)
                 case "#":
-                    /// Source comment or a Markdown header
-                    /// - Note: Headers are only supported in textblocks
+                    /// Source comment
                     processSourceComment(comment: text, currentSection: &currentSection, song: &song)
                 default:
                     processEnvironment(text: text, currentSection: &currentSection, song: &song)

@@ -3,20 +3,19 @@
 {tag Help Document}
 
 {start_of_textblock label="Introduction" align="center" flush="left"}
-**ChordPro** is an open standard text format, a simple text format for the notation of lyrics with chords.
+<b>ChordPro</b> is an open standard text format, a simple text format for the notation of lyrics with chords.
 
-While I hope you like **Chord Provider**, it is just my hobby project and not a complete implementation of the standard.
+While I hope you like <b>Chord Provider</b>, it is just my hobby project and not a complete implementation of the standard.
 
-Please visit the official **ChordPro** website for the full experience:
-{comment Simple links are clickable:}
+Please visit the official <b>ChordPro</b> website for the full experience:
 {comment https://www.chordpro.org/}
 {end_of_textblock}
 
 {start_of_textblock Functionality}
-**Chord Provider** can do the following:
-- It will view and/or edit *ChordPro* files.
+<b>Chord Provider</b> can do the following:
+- It will view and/or edit <i>ChordPro</i> files.
 - It can export your song to a PDF document.
-- It can also export a whole folder with *ChordPro* songs to a PDF
+- It can also export a whole folder with <i>ChordPro</i> songs to a PDF
 - You can configure its colors and fonts.
 - It also have a database with a lot of chords.
 {end_of_textblock}
@@ -62,38 +61,38 @@ da . ua d x d u d um dm d u d us ds u
 
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}
 This is just a block with text.
-It is using the `{start_of_textblock}` environment.
+It is using the <tt>{start_of_textblock}</tt> environment.
 You can align it to your liking
 and style it in the `Settings`.
 
-You can use *italic* and **bold** markdown formats!
+You can use <i>italic</i> and <b>bold</b> Pango formats!
 {comment This implementation is only partly according the standard}
 {end_of_textblock}
 
 {start_of_verse This is a song}
 This help [F]file is actually a ChordPro song rendered as a PDF.
-You [C]can open this song from the *examples* tab on the 
+You [C]can open this song from the <i>examples</i> tab on the 
 welcome screen and s[E]ee it in plain text.
 {end_of_verse}
 
 {chorus}
 
 {start_of_textblock Repeat}
-The above directive indicates that the Chorus must be repeated. In the Settings you can select 'Repeat whole chorus' and then the **Chorus** label will be replaced by the whole Chorus with the same label.
+The above directive indicates that the Chorus must be repeated. In the Settings you can select 'Repeat whole chorus' and then the <b>Chorus</b> label will be replaced by the whole Chorus with the same label.
 {end_of_textblock}
 
 {define G7 base-fret 1 frets 2 4 5 5 4 2 fingers 1 2 4 4 3 1}
 
 {start_of_textblock Finder}
-In the `Finder`; **ChordPro** files will have a custom icon
+In the `Finder`; <b>ChordPro</b> files will have a custom icon
 with the title of the song; just eyecandy!
-**Chord Provider** also supports *quickview*; press `space`
+<b>Chord Provider</b> also supports <i>quickview</i>; press `space`
 when you have a song selected and it will render it for you.
 {end_of_textblock}
 
 {image label="Fancy Icons!" align="left" scale="30%" src="IconPreview.png"}
 
-{comment Images are supported as well; this is a *ChordPro* file in the Finder with the title of the song as badge.}
+{comment Images are supported as well; this is a <i>ChordPro</i> file in the Finder with the title of the song as badge.}
 
 {start_of_verse Custom Chords}
 You cannot s[E]ee it in the output, [B]but I just
@@ -104,20 +103,18 @@ redefined my favorite [G7]G7 Chord!
 
 {comment Define chords to your liking...}
 
-{start_of_textblock label="Markdown" align="center" flush="left"}
-# Yes, markdown! This is a heading!
+{start_of_textblock label="Pango" align="center" flush="left"}
 
-Markdown feels natural to the **ChordPro** text format and has basic support in **Chord Provider**.
+Markdown feels natural to the <b>ChordPro</b> text format and has basic support in <b>Chord Provider</b>.
 
 - This is a list
-- Text that is **Bold**
-- Text that is *Italic*
-- Text that is ~Strikethrough~
-- Links [Github](https://github.com/Desbeers/Chord-Provider)
-- Headers
-- And some `{code}`
+- Text that is <b>Bold</b>
+- Text that is <i>Italic</i>
+- Text that is <s>Strikethrough</s>
+- Links <a href="https://github.com/Desbeers/Chord-Provider">Github</a> <i>(They don't work in the PDF)</i>
+- And some <tt>code</tt>
 
-You can use it in comments, labels and text blocks.
+You can use it in comments, lyrics and text blocks.
 {end_of_textblock}
 
 {start_of_textblock label="About me" align="right" flush="right"}
@@ -130,29 +127,29 @@ but I never made it my work.
 
 *If you make your hobby your work it is not your hobby anymore...*
 
-So, I didn’t...
+So, I didn't...
 
-I play guitar for more than 20 years; strumming my chords on a beautiful Telecaster. Never got really good at it but I don’t care. I enjoy it!
+I play guitar for more than 20 years; strumming my chords on a beautiful Telecaster. Never got really good at it but I don't care. I enjoy it!
 {end_of_textblock}
 
 {start_of_textblock}
-**Chord Provider** is the result of both hobbies and it serves me well.
+<b>Chord Provider</b> is the result of both hobbies and it serves me well.
 - Sometimes I just play the songs in my songbook; sometimes I see that there is something wrong in the book so I solve it.
 - Sometimes I just give myself a challenge to add something to the application because its like a crossword challenge
-- I do contribute to the official **ChordPro** implementation because I believe in *Open Source software* and standards. While **Chord Provider** is *macOS* only, a closed system, my code is not. I just like *macOS* and especially `Swift` as programming language.
+- I do contribute to the official <b>ChordPro</b> implementation because I believe in <i>Open Source software</i> and standards. While <b>Chord Provider</b> is <i>macOS</i> only, a closed system, my code is not. I just like <i>macOS</i> and especially <code>Swift</code> as programming language.
 {end_of_textblock}
 
 {comment https://github.com/Desbeers/Chord-Provider}
 
 {start_of_verse Bugs}
-[B]Bugs are for free; no subscription in [C]**Chord Provider** [F]for [A]additional [F]features!
+[B]Bugs are for free; no subscription in [C]<b>Chord Provider</b> [F]for [A]additional [F]features!
 However; If you realy don't like the [B]bug, report it...
 {comment https://github.com/Desbeers/Chord-Provider/issues/new}
 {end_of_verse}
 
 {start_of_textblock label="Style and Colors" align="center" flush="center"}
-If you look at this help, it looks *plain* and **boring**.
-Give it a try with the **Random Colors** and **Random Fonts** buttons below!
+If you look at this help, it looks <i>plain</i> and <b>boring</b>.
+Give it a try with the <b>Random Colors</b> and <b>Random Fonts</b> buttons below!
 
-{comment You can set **colors** and **fonts** in the `settings` yourself}
+{comment You can set <b>colors</b> and <b>fonts</b> in the `settings` yourself}
 {end_of_textblock}

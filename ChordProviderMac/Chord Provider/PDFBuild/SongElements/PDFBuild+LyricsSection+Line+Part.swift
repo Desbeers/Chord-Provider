@@ -35,9 +35,15 @@ extension PDFBuild.LyricsSection.Line {
             fontOptions.color = settings.style.theme.foreground
 
             self.chords = chords
+            let lyrics = part.text ?? " "
+            var text = lyrics.fromHTML(fontOptions: fontOptions, scale: settings.pdf.scale)
             /// Preserve spaces in the drawing
-            let lyrics = "\u{200c}\(part.text ?? " ")\u{200c}"
-            let text = lyrics.toMarkdown(fontOptions: fontOptions, scale: settings.pdf.scale)
+            let whitespacePreserve = NSAttributedString("\u{200c}")
+            //let result = whitespacePreserve.append(NSMutableAttributedString(text))
+            let result = NSMutableAttributedString()
+            result.append(whitespacePreserve)
+            result.append(NSAttributedString(text))
+            result.append(whitespacePreserve)
             self.text = NSAttributedString(text)
 
             if !chords.isEmpty {

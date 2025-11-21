@@ -69,7 +69,7 @@ extension ChordProParser {
             plain: plain
         )
         if source == nil {
-            line.addWarning("**CHORD PROVIDER** ERROR, NO SOURCE GIVEN")
+            line.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
         }
         /// Calculate the source
         line.calculateSource()
