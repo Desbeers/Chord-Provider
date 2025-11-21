@@ -50,7 +50,7 @@ public class LogUtils: @unchecked Sendable {
 extension LogUtils {
 
     /// The structure for a log message
-    public struct LogMessage: Equatable, Identifiable, Sendable {
+    public struct LogMessage: Equatable, Identifiable, Sendable, Hashable, Codable {
         public init(
             id: UUID = UUID(),
             time: Date = .now,
@@ -85,7 +85,7 @@ extension LogUtils {
 extension LogUtils {
 
     /// The level of the log message
-    public enum Level: String, Sendable {
+    public enum Level: String, Sendable, Codable {
         /// Debug
         case debug
         /// Info
@@ -98,36 +98,13 @@ extension LogUtils {
         case error
         /// Fault
         case fault
-        /// The hex color for a level
-        public var hexColor: String {
-            switch self {
-            case .debug:
-                /// Black
-                "#000000"
-            case .info:
-                /// Cyan
-                "#0ed5d8"
-            case .notice:
-                /// Blue
-                "#0433ff"
-            case .error:
-                /// Red
-                "#ff2600"
-            case .fault:
-                /// yellow
-                "#ff9300"
-            case .warning:
-                /// Yellow
-                "#ff9300"
-            }
-        }
     }
 }
 
 extension LogUtils {
 
     /// The category of the log message
-    public enum Category: String, Sendable {
+    public enum Category: String, Sendable, Codable {
         /// Song Parser
         case songParser = "Song Parser"
         /// ChordPro CLI Parser

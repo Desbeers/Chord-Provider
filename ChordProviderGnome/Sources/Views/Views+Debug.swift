@@ -21,7 +21,7 @@ extension Views {
         /// The current song
         let song: Song
         /// The selected tab
-        @State private var selectedTab: Tab = .source
+        @State private var selectedTab: Tab = .log
         /// the selected json page
         @State private var jsonSelection: JSONPage = .metadata
         /// The body of the `View`
@@ -38,7 +38,7 @@ extension Views {
                     case .json:
                         json
                     case .log:
-                        Views.Log(main: false, app: app)
+                        Views.Log(app: app)
                     case .source:
                         source
                     }
@@ -73,15 +73,17 @@ extension Views {
                             .valign(.center)
                             VStack(spacing: 0) {
                                 if let warnings = line.source.warnings {
-                                    Text(Utils.convertMarkdown("\(warnings.joined(separator: ", "))"))
-                                        .useMarkup()
-                                        .padding()
-                                        .style(.logError)
+                                    ForEach(Array(warnings)) { warning in
+                                        Text(Utils.convertMarkdown(warning.message))
+                                            .useMarkup()
+                                            //.padding()
+                                            .levelStyle(warning.level)
+                                            .halign(.start)
+                                    }
                                 }
                                 if line.source.sourceLineNumber < 1 {
                                     Text("The directive is added by the parser")
-                                        .padding()
-                                        .style(.logWarning)
+                                        .levelStyle(.info)
                                 }
                             }
                             .halign(.start)

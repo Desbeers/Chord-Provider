@@ -72,7 +72,7 @@ struct EditorView: View {
             HStack(spacing: 0) {
                 Text("Line \(sceneState.editorInternals.currentLine.sourceLineNumber)")
                 if let warnings = sceneState.editorInternals.currentLine.warnings {
-                    Text(.init(": \(warnings.joined(separator: ", "))"))
+                    Text(.init(": \(warnings.map(\.message).joined(separator: ", "))"))
                         .lineLimit(1)
                 }
                 Spacer()

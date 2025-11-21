@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 import Adwaita
 
 /// Markup of the song render
@@ -27,5 +28,11 @@ extension Markup {
 extension AnyView {
     func style(_ name: Markup.Class) -> AnyView {
         style(name.description)
+    }
+}
+
+extension AnyView {
+    func levelStyle(_ name : LogUtils.Level) -> AnyView {
+        style("log").style("log-\(name.rawValue)")
     }
 }

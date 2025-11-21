@@ -22,7 +22,7 @@ extension Song.Section {
             arguments: ChordProParser.DirectiveArguments? = nil,
             type: ChordPro.LineType = .unknown,
             context: ChordPro.Environment = .none,
-            warnings: Set<String>? = nil,
+            warnings: [LogUtils.LogMessage]? = nil,
             parts: [Song.Section.Line.Part]? = nil,
             grid: [Song.Section.Line.Grid]? = nil,
             strumGroup: [Song.Section.Line.StrumGroup]? = nil,
@@ -67,9 +67,6 @@ extension Song.Section {
         /// The context of the line
         public var context: ChordPro.Environment = .none
 
-        /// Optional warnings about the content of the line
-        private(set) public var warnings: Set<String>?
-
         /// The optional parts in the line
         ///
         /// A part mostly consist of some text with a chord
@@ -92,26 +89,52 @@ extension Song.Section {
             arguments?[.plain] ?? arguments?[.label] ?? plain ?? context.label
         }
 
+        /// Optional warnings about the content of the line
+        private(set) public var warnings: [LogUtils.LogMessage]?
+
         /// Add a single warning to the set of warnings
         /// - Note: warnings are *optionals* so we can not just 'insert' it
-        mutating func addWarning(_ warning: String) {
+        mutating func addWarning(_ warning: LogUtils.LogMessage, level: LogUtils.Level = .warning) {
+
+            //let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
+
             if self.warnings == nil {
                 self.warnings = [warning]
             } else {
-                self.warnings?.insert(warning)
+                self.warnings?.append(warning)
             }
             let line = sourceLineNumber
             LogUtils.shared.setLog(
-                level: .warning,
+                level: level,
                 category: .songParser,
                 lineNumber: line,
-                message: "\(warning)"
+                message: "\(warning.message)"
+            )
+        }
+
+        /// Add a single warning to the set of warnings
+        /// - Note: warnings are *optionals* so we can not just 'insert' it
+        mutating func addWarning(_ warning: String, level: LogUtils.Level = .warning) {
+
+            let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
+
+            if self.warnings == nil {
+                self.warnings = [warning]
+            } else {
+                self.warnings?.append(warning)
+            }
+            let line = sourceLineNumber
+            LogUtils.shared.setLog(
+                level: level,
+                category: .songParser,
+                lineNumber: line,
+                message: "\(warning.message)"
             )
         }
 
         /// Add a set of warnings
-        mutating func addWarning(_ warning: Set<String>) {
-            let warningLine = warning.map(\.description).joined(separator: "\n")
+        mutating func addWarning(_ warning: [LogUtils.LogMessage]) {
+            let warningLine = warning.map(\.message).joined(separator: "\n")
             let line = sourceLineNumber
             LogUtils.shared.setLog(
                 level: .warning,
@@ -203,7 +226,7 @@ extension Song.Section.Line {
         self.source = try container.decode(String.self, forKey: .source)
         self.sourceParsed = try container.decode(String.self, forKey: .sourceParsed)
         self.lineLength = try container.decodeIfPresent(String.self, forKey: .lineLength)
-        self.warnings = try container.decodeIfPresent(Set<String>.self, forKey: .warnings)
+        self.warnings = try container.decodeIfPresent([LogUtils.LogMessage].self, forKey: .warnings)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
         self.strumGroup = try container.decodeIfPresent([StrumGroup].self, forKey: .strumGroup)

@@ -21,6 +21,12 @@
 - Wrong chord definitions
 {end_of_textblock}
 
+{define-guitar A base-fret 1 frets x 0 1 2 3 0 fingers 0 0 1 2 3 0}
+
+{define-guitalele A base-fret 1 frets 0 2 2 1 x 0 fingers 0 2 3 1 0 0}
+
+{define-ukulele A base-fret 1 frets 2 1 0 0 fingers 2 1 0 0}
+
 {comment: Normal sections}
 
 {start_of_verse}

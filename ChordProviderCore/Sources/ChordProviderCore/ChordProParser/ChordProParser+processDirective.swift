@@ -49,13 +49,16 @@ extension ChordProParser {
                 var arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
 
                 if directive.warning {
-                    currentSection.addWarning("Short directive for **\(directive.directive.details.label)**")
+                    currentSection.addWarning("Short directive for **\(directive.directive.details.label)**; long is preferrable")
                 }
                 /// Always use long directives
                 let directive = directive.directive
 
                 if arguments[.plain] != nil, text.starts(with: "{\(parsedDirective):") {
-                    currentSection.addWarning("No need for a colon **:** for a simple argument")
+                    currentSection.addWarning(
+                        "No need for a colon **:** for a simple argument",
+                        level: .notice
+                    )
                 }
                 /// Keep the original source
                 arguments[.source] = text
@@ -180,7 +183,10 @@ extension ChordProParser {
                 // MARK: Unknown directive
 
                 /// Add the unknown directive as a single line in a section
-                currentSection.addWarning("This is an unknown directive")
+                currentSection.addWarning(
+                    "This is an unknown directive",
+                    level: .error
+                )
                 addSection(
                     directive: .unknown,
                     arguments: sourceArgument,
@@ -193,7 +199,10 @@ extension ChordProParser {
             // MARK: Not a (complete) directive
 
             /// Add the unknown directive as a single line in a section
-            currentSection.addWarning("This is not a complete directive")
+            currentSection.addWarning(
+                "This is not a complete directive",
+                level: .error
+            )
             addSection(
                 directive: .unknown,
                 arguments: sourceArgument,

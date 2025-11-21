@@ -34,7 +34,10 @@ extension ChordProParser {
                 context: currentSection.environment
             )
             if warning {
-                currentSection.lines[lastLineIndex].addWarning("The section is not properly closed with **{\(closingDirective.rawValue.long)}**")
+                currentSection.lines[lastLineIndex].addWarning(
+                    "The section is not properly closed with **{\(closingDirective.rawValue.long)}**",
+                    level: .error
+                )
             }
             currentSection.lines.insert(line, at: lastLineIndex + 1)
         } else {
@@ -54,7 +57,10 @@ extension ChordProParser {
                 }
             }
             if directive != closingDirective {
-                line.addWarning("Wrong closing directive, it should be **{\(closingDirective.rawValue.long)}**")
+                line.addWarning(
+                    "Wrong closing directive, it should be **{\(closingDirective.rawValue.long)}**",
+                    level: .error
+                )
             }
             currentSection.lines.append(line)
         }

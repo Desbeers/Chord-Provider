@@ -134,11 +134,25 @@ extension Markup {
     background: var(--card-bg-color);
     border-radius: 0.6em;
 }
+
+.log {
+    padding: 4px;
+    border-radius: 4px;
+    margin: 4px;
+    color: var(--dark-5);
+}
+
+.log-info {
+    background-color: var(--green-1);
+}
+.log-notice {
+    background-color: var(--blue-1);
+}
 .log-warning {
-    color: var(--warning-color);
+    background-color: var(--orange-1);
 }
 .log-error {
-    color: var(--error-color);
+    background-color: var(--red-1);
 }
 .caption {
     font-size: 10px;

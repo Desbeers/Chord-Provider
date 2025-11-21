@@ -39,6 +39,9 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     /// Bool if the song has actual content
     public var hasContent: Bool = true
 
+    /// Bool if the song has warnings or errors
+    public var hasWarnings: Bool = false
+
     /// The total lines of the song
     var lines: Int = 0
 

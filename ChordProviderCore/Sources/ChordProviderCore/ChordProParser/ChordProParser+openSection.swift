@@ -78,7 +78,7 @@ extension ChordProParser {
         /// Add optional warnings
         if let warnings = currentSection.warnings {
             for warning in warnings {
-                line.addWarning(warning)
+                line.addWarning(warning, level: warning.level)
             }
         }
 

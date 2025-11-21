@@ -42,10 +42,6 @@ extension Views {
                     .hexpand()
                     .vexpand()
                 }
-                if appState.settings.editor.showEditor {
-                    Log(main: true, app: app)
-                        .transition(.coverUpDown)
-                }
             }
 
             // MARK: Top Toolbar

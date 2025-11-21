@@ -27,7 +27,10 @@ extension ChordProParser {
             processDefine(arguments: arguments, currentSection: &currentSection, song: &song)
         } else {
             /// The definition is for another instrument
-            currentSection.addWarning("The chord definition is for **\(instrument.rawValue)** and will be ignored")
+            currentSection.addWarning(
+                "The chord definition is for **\(instrument.rawValue)** and will be ignored",
+                level: .notice
+            )
             addSection(
                 directive: .define,
                 arguments: arguments,
@@ -79,7 +82,10 @@ extension ChordProParser {
             }
         } catch {
             /// The definition could not be processed
-            currentSection.addWarning("Wrong chord definition: \(error.localizedDescription)")
+            currentSection.addWarning(
+                "Wrong chord definition: \(error.localizedDescription)",
+                level: .error
+            )
         }
         addSection(
             directive: .define,

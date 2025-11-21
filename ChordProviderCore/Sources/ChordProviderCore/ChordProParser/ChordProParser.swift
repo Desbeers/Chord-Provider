@@ -113,6 +113,16 @@ public actor ChordProParser {
         if Set(sections).isDisjoint(with: ChordPro.Environment.content) {
             song.hasContent = false
         }
+        /// Check if the song has warnings or errors
+        let lines = song.sections.flatMap(\.lines).compactMap(\.warnings)
+        song.hasWarnings = lines.isEmpty ? false : true
+
+        LogUtils.shared.setLog(
+            level: song.hasWarnings ? .notice : .info,
+            category: .songParser,
+            message: "Parsing done \(song.hasWarnings ? "with" : "without") notices or warnings"
+        )
+
         /// All done!
         return song
     }
