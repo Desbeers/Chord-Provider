@@ -174,4 +174,28 @@ extension ChordDefinition {
         self.components = []
         self.barres = []
     }
+
+    // MARK: Init as text
+
+    /// Init the ``ChordDefinition`` with a text instead of a chord
+    ///
+    /// - Parameters:
+    ///   - unknown: The name of the text chord
+    ///   - instrument: The ``Chord/Instrument``
+    public init(text: String, instrument: Chord.Instrument) {
+        /// Set the properties
+        self.id = UUID()
+        self.frets = Array(repeating: 0, count: instrument.strings.count)
+        self.fingers = Array(repeating: 0, count: instrument.strings.count)
+        self.baseFret = 0
+        self.root = .c
+        self.quality = .major
+        self.slash = nil
+        self.name = text
+        self.instrument = instrument
+        self.status = .textChord
+        /// Calculated values
+        self.components = []
+        self.barres = []
+    }
 }

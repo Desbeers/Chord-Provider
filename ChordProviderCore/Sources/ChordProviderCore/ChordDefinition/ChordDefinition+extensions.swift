@@ -23,7 +23,7 @@ extension ChordDefinition {
     /// - Returns: A formatted string with the name of the chord
     public var display: String {
         var name: String = ""
-        if self.status == .unknownChord || self.quality == .unknown {
+        if self.status == .unknownChord || self.status == .textChord || self.quality == .unknown {
             /// We don't know anything about this chord; so use the original name
             name = self.name
         } else {

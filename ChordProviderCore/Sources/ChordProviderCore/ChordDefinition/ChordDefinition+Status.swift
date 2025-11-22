@@ -46,6 +46,8 @@ extension ChordDefinition {
         case noChordsDefined
         /// The definition is correct
         case correct
+        /// The definition is just text; eg [*Text]
+        case textChord
         /// Add a definition
         case addDefinition = "Add chord definition"
         /// Edit a definition

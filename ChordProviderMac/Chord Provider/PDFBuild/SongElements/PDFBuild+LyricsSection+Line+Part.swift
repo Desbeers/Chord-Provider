@@ -36,10 +36,9 @@ extension PDFBuild.LyricsSection.Line {
 
             self.chords = chords
             let lyrics = part.text ?? " "
-            var text = lyrics.fromHTML(fontOptions: fontOptions, scale: settings.pdf.scale)
+            let text = lyrics.fromHTML(fontOptions: fontOptions, scale: settings.pdf.scale)
             /// Preserve spaces in the drawing
             let whitespacePreserve = NSAttributedString("\u{200c}")
-            //let result = whitespacePreserve.append(NSMutableAttributedString(text))
             let result = NSMutableAttributedString()
             result.append(whitespacePreserve)
             result.append(NSAttributedString(text))
