@@ -80,14 +80,14 @@ extension Markup {
 .tag-label {
     font-size: \(0.8 * baseFontSize * zoom)px;
     font-weight: normal;
-    color: \(dark ? "#eee" : "000");
+    color: \(dark ? "#eee" : "#000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .comment-label {
     font-size: \(0.8 * baseFontSize * zoom)px;
-    color: \(dark ? "#eee" : "000");
+    color: \(dark ? "#eee" : "#000");
     background-color: \(dark ? "#5b574c" : "#f1e8c9");
     padding: 0.5em;
     border-radius: 0.5em;
@@ -95,14 +95,14 @@ extension Markup {
 .section-chorus {
     font-size: \(1 * baseFontSize * zoom)px;
     font-weight: bold;
-    color: \(dark ? "#fff" : "000");
+    color: \(dark ? "#fff" : "#000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .repeat-chorus {
     font-size: \(1 * baseFontSize * zoom)px;
-    color: \(dark ? "#fff" : "000");
+    color: \(dark ? "#fff" : "#000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
@@ -140,14 +140,12 @@ extension Markup {
     background: var(--card-bg-color);
     border-radius: 0.6em;
 }
-
 .log {
     padding: 4px;
     border-radius: 4px;
     margin: 4px;
     color: var(--dark-5);
 }
-
 .log-info {
     background-color: var(--green-1);
 }

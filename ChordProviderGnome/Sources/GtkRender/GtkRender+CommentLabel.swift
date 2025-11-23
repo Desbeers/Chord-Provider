@@ -26,7 +26,6 @@ extension GtkRender {
         var view: Body {
             HStack(spacing: 10) {
                 Symbol(icon: .default(icon: .userInvisible))
-                    .valign(.start)
                 Text(comment)
                     .useMarkup()
                     .wrap()

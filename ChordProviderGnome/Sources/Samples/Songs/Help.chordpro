@@ -49,7 +49,7 @@ E|-------------|
 {end_of_tab}
 
 {start_of_grid label="Griddy Grid!"}
-|s u  .  u d | d     . d u  |
+|s u+  .  ua ds | dx     . da us  |
 |  G7 G7 . C | Am    . . Am |
 |  G7 G7 . C | Asus4 . . Am |
 {comment This is not really a nice melody, I know!}
