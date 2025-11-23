@@ -35,6 +35,8 @@ extension Markup {
         case metadata
         case chordButton = "chord-button"
 
+        case emptyLine = "empty-line"
+
         case selectedChord = "selected-chord"
 
         case svgIcon = "svg-icon"
@@ -61,6 +63,9 @@ extension Markup {
 }
 .standard, .strum {
     font-size: \(baseFontSize * zoom)px;
+}
+.empty-line {
+    font-size: \(baseFontSize * zoom * 0.25)px;
 }
 .bold {
     font-weight: bold;

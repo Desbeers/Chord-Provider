@@ -46,8 +46,7 @@ extension GtkRender {
                                     .halign(flush)
                             }
                         case .emptyLine:
-                            Text(" ")
-                                .style(.textblock)
+                            EmptyLine()
                         case .comment:
                             CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                         default:

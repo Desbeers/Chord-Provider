@@ -33,7 +33,7 @@ extension GtkRender {
                             )
                         }
                     case .emptyLine:
-                        Text(" ")
+                        EmptyLine()
                     case .comment:
                         CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
