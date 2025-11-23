@@ -28,6 +28,7 @@ extension Markup {
         case chord
         case textblock
         case grid
+        case gridChord = "grid-chord"
         case tab
         case strum
         case plainButton = "plain-button"
@@ -106,7 +107,10 @@ extension Markup {
     padding: 0.5em;
     border-radius: 0.5em;
 }
-.chord, .grid {
+.grid {
+    font-size: \(1.1 * baseFontSize * zoom)px;
+}
+.chord, .grid-chord {
     font-size: \(1.1 * baseFontSize * zoom)px;
     color: var( --chordprovider-accent-color);
 }

@@ -18,11 +18,14 @@ extension GtkRender {
             /// Convert the grids into columns
             self.section = section.gridColumns()
             self.settings = settings
+            self.height = Int(20 * settings.app.zoom)
         }
         /// The current section of the song
         let section: Song.Section
         /// The settings of the application
         let settings: AppSettings
+        /// The height of the grid rows
+        let height: Int
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -31,29 +34,42 @@ extension GtkRender {
                     case .songLine:
                         if let elements = line.gridColumns?.grids {
                             ForEach(elements, horizontal: true) { element in
-                                HStack {
                                     ForEach(element.cells) { cell in
                                         VStack {
                                             ForEach(cell.parts, horizontal: true) { part in
                                                 /// - Note: I cannot set the style conditional
                                                 if let chord = part.chordDefinition {
-                                                    Text(chord.display)
-                                                        .style(.grid)
-                                                        .padding(5, [.trailing, .bottom])
+                                                    Box {
+                                                        Text(chord.display)
+                                                            .style(.gridChord)
+                                                            .vexpand()
+                                                    }
+                                                    .valign(.center)
+                                                    .frame(minHeight: height)
+                                                    .padding(5, .trailing)
                                                 } else if let strum = part.strum {
-                                                    Widgets.BundleImage(strum: strum)
-                                                        .pixelSize(Int(12.5 * settings.app.zoom))
-                                                        .style(.svgIcon)
-                                                        .padding(5, [.trailing, .bottom])
+                                                    Box {
+                                                        Widgets.BundleImage(strum: strum)
+                                                            .pixelSize(Int(14 * settings.app.zoom))
+                                                            .style(.svgIcon)
+                                                            .vexpand()
+                                                    }
+                                                    .valign(.center)
+                                                    .frame(minHeight: height)
+                                                    .padding(5, .trailing)
                                                 } else {
-                                                    Text(part.text ?? " ")
-                                                        .style(.standard)
-                                                        .padding(5, [.trailing, .bottom])
+                                                    Box {
+                                                        Text(part.text ?? " ")
+                                                            .style(.grid)
+                                                            .vexpand()
+                                                    }
+                                                    .valign(.center)
+                                                    .frame(minHeight: height)
+                                                    .padding(5, .trailing)
                                                 }
                                             }
                                         }
                                     }
-                                }
                             }
                         }
                     case .emptyLine:
