@@ -35,8 +35,8 @@ extension GtkRender {
                     .frame(maxWidth: Int(400 * settings.app.zoom))
             }
             .style(.commentLabel)
-            .padding()
             .halign(.start)
+            .padding()
         }
     }
 }

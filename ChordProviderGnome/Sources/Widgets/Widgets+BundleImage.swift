@@ -43,9 +43,7 @@ extension Widgets {
 
         /// Initialize `BundleImage`.
         public init(name: String) {
-            let dark = app_prefers_dark_theme() == 1 ? true : false
-            let name = "Icons/\(name)\(dark ? "-dark" : "")"
-            if let urlPath = Bundle.module.url(forResource: name, withExtension: "svg") {
+            if let urlPath = Bundle.module.url(forResource: "Icons/\(name)", withExtension: "svg") {
                 self.resource = urlPath.path
             }
         }

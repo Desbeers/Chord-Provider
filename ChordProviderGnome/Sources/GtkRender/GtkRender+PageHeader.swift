@@ -13,10 +13,25 @@ extension GtkRender {
 
     /// The `View` for the song header
     struct PageHeader: View {
+        /// Init the `View`
+        init(song: Song, settings: AppSettings) {
+            self.song = song
+            self.settings = settings
+            var subtitle: [String] = [song.metadata.subtitle ?? song.metadata.artist]
+            if let album = song.metadata.album {
+                subtitle.append(album)
+            }
+            if let year = song.metadata.year {
+                subtitle.append(year)
+            }
+            self.subtitle = subtitle.joined(separator: " · ")
+        }
         /// The whole song
         let song: Song
         /// The settings of the application
         let settings: AppSettings
+        /// The subtitle
+        let subtitle: String
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -24,12 +39,12 @@ extension GtkRender {
                 if let tags = song.metadata.tags {
                     Overlay()
                         .overlay {
-                            HStack {
-                                ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
+                            VStack {
+                                ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: false) { tag in
                                     Text(tag.string)
                                         .useMarkup()
                                         .style(.tagLabel)
-                                        .padding(5, .leading)
+                                        .padding(5)
                                 }
                             }
                             .hexpand()
@@ -39,7 +54,7 @@ extension GtkRender {
                 }
                 Text(song.metadata.title)
                     .style(.title)
-                Text(song.metadata.subtitle ?? song.metadata.artist)
+                Text(subtitle)
                     .style(.subtitle)
                     .padding(5, .top)
                 /// Metadata
@@ -74,6 +89,7 @@ extension GtkRender {
                 Widgets.BundleImage(name: name)
                     .pixelSize(16)
                     .valign(.baselineCenter)
+                    .style(.svgIcon)
                 Text(value)
             }
             .padding()

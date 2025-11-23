@@ -52,7 +52,7 @@ extension Markup {
     static func css(zoom: Double, dark: Bool) -> String {
 """
 :root {
-    --chordprovider-accent-bg-color: \(dark ? "#98989d" : "#c8d3ca");
+    --chordprovider-accent-bg-color: \(dark ? "#57575a" : "#c8d3ca");
     --chordprovider-accent-color: \(dark ? "#cee3da" : "#78847f");
 }
 .background {
@@ -80,29 +80,29 @@ extension Markup {
 .tag-label {
     font-size: \(0.8 * baseFontSize * zoom)px;
     font-weight: normal;
-    color: #000;
+    color: \(dark ? "#eee" : "000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .comment-label {
     font-size: \(0.8 * baseFontSize * zoom)px;
-    color: #000;
-    background-color: #f1e8c9;
+    color: \(dark ? "#eee" : "000");
+    background-color: \(dark ? "#5b574c" : "#f1e8c9");
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .section-chorus {
     font-size: \(1 * baseFontSize * zoom)px;
     font-weight: bold;
-    color: #000;
+    color: \(dark ? "#fff" : "000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .repeat-chorus {
     font-size: \(1 * baseFontSize * zoom)px;
-    color: #000;
+    color: \(dark ? "#fff" : "000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
