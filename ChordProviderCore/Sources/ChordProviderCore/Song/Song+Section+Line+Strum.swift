@@ -29,9 +29,9 @@ extension Song.Section.Line {
         /// Optional top symbol
         public var topSymbol: String {
             switch self.action {
-            case .accentedUp, .accentedDown:
+            case .upAccent, .downAccent:
                 ">"
-            case .mutedUp, .mutedDown:
+            case .upMuted, .downMuted:
                 "x"
             default:
                 " "
@@ -42,18 +42,25 @@ extension Song.Section.Line {
     /// Convert strum characters in the source to fancy symbols
     static var strumCharacterDict: [String: Song.Section.Line.Strum.Action] {
         [
-            "u": .up,
-            "up": .up,
-            "ua": .accentedUp,
-            "um": .mutedUp,
-            "us": .slowUp,
-            "d": .down,
-            "dn": .down,
-            "da": .accentedDown,
-            "dm": .mutedDown,
-            "ds": .slowDown,
-            "x": .palmMute,
-            ".": .none
+            "u":    .up,
+            "up":   .up,
+            "u+":   .upAccent,
+            "ua":   .upArpeggio,
+            "ua+":  .upArpeggioAccent,
+            "ux":   .upMuted,
+            "ux+":  .upMutedAccent,
+            "us":   .upStaccato,
+            "us+":  .upStaccatoAccent,
+            "d":    .down,
+            "dn":   .down,
+            "d+":   .downAccent,
+            "da":   .downArpeggio,
+            "da+":  .downArpeggioAccent,
+            "dx":   .downMuted,
+            "dx+":  .downMutedAccent,
+            "ds":   .downStaccato,
+            "ds+":  .downStaccatoAccent,
+            ".":    .none
         ]
     }
 }
@@ -61,26 +68,54 @@ extension Song.Section.Line {
 extension Song.Section.Line.Strum {
 
     /// The strum actions
-    public enum Action: Codable, Sendable {
+    public enum Action: String, Codable, Sendable {
+
         /// Up stroke
         case up
-        /// Accented up stroke
-        case accentedUp
+        /// Accent up stroke
+        case upAccent
+        /// Arpeggio up stroke
+        case upArpeggio
+        /// Arpeggio Accent up stroke
+        case upArpeggioAccent
         /// Muted up stroke
-        case mutedUp
-        /// Slow up stroke
-        case slowUp
+        case upMuted
+        /// Muted Accent up stroke
+        case upMutedAccent
+        /// Staccato up stroke
+        case upStaccato
+        /// Staccato Accent up stroke
+        case upStaccatoAccent
+
         /// Down stroke
         case down
-        /// Accented down stroke
-        case accentedDown
+        /// Accent down stroke
+        case downAccent
+        /// Arpeggio down stroke
+        case downArpeggio
+        /// Arpeggio Accent down stroke
+        case downArpeggioAccent
         /// Muted down stroke
-        case mutedDown
-        /// Slow down stroke
-        case slowDown
-        /// Palm mute stroke
-        case palmMute
+        case downMuted
+        /// Muted Accent down stroke
+        case downMutedAccent
+        /// Staccato down stroke
+        case downStaccato
+        /// Staccato Accent down stroke
+        case downStaccatoAccent
+
         /// Do not stroke
         case none
+
+        // TODO: make me nice!
+        public var symbol: String {
+            if self.rawValue.starts(with: "up") {
+                "\u{2191}"
+            } else if self.rawValue.starts(with: "down") {
+                "\u{2193}"
+            } else {
+                "."
+            }
+        }
     }
 }

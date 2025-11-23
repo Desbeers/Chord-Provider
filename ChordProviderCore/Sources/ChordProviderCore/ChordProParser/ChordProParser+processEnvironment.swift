@@ -25,6 +25,8 @@ extension ChordProParser {
         case .tab:
             /// A tab can start with '|--02-3-4|', but also with 'E|--2-3-4| for example
             processTab(text: text, currentSection: &currentSection, song: &song)
+        case .grid:
+            processGrid(text: text, currentSection: &currentSection, song: &song)
         case .strum:
             processStrum(text: text, currentSection: &currentSection, song: &song)
         case .textblock:

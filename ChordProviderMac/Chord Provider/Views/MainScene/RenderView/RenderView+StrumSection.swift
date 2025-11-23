@@ -34,28 +34,28 @@ extension RenderView {
                                 ForEach(strums) {strumPart in
                                     HStack(spacing: 0) {
                                         ForEach(strumPart.strums) { strum in
-                                            let dash = strum.action == .slowUp || strum.action == .slowDown ? true : false
+                                            let dash = strum.action == .upArpeggio || strum.action == .downArpeggio ? true : false
                                             VStack(spacing: 2) {
                                                 Text(strum.topSymbol)
                                                     .foregroundStyle(settings.style.theme.foregroundMedium)
                                                     .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.magnifier * 0.6))
                                                 Group {
                                                     switch strum.action {
-                                                    case .down, .accentedDown, .mutedDown, .slowDown:
+                                                    case .down, .downAccent, .downMuted, .downArpeggio:
                                                         ArrowView(
                                                             start: CGPoint(x: width / 2, y: 0),
                                                             end: CGPoint(x: width / 2, y: width * 2),
                                                             dash: dash,
                                                             color: settings.style.theme.foregroundMedium
                                                         )
-                                                    case .up, .accentedUp, .mutedUp, .slowUp:
+                                                    case .up, .upAccent, .upMuted, .upArpeggio:
                                                         ArrowView(
                                                             start: CGPoint(x: width / 2, y: width * 2),
                                                             end: CGPoint(x: width / 2, y: 0),
                                                             dash: dash,
                                                             color: settings.style.theme.foregroundMedium
                                                         )
-                                                    case .palmMute:
+                                                    case .none:
                                                         Text("x")
                                                             .foregroundStyle(settings.style.theme.foregroundMedium)
                                                             .font(settings.style.fonts.text.swiftUIFont(scale: settings.scale.magnifier * 0.6))

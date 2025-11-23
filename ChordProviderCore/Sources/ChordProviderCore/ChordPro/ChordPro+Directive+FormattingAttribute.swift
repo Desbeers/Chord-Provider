@@ -37,6 +37,8 @@ extension ChordPro.Directive {
         case height
         /// Tuplet; used in a *{start_of_strum}* environment
         case tuplet
+        /// Shape; used in grids
+        case shape
 
         // MARK: For internal use
 
@@ -74,6 +76,7 @@ extension ChordPro.Directive {
             case .define: 15
             case .key: 16
             case .source: 17
+            case .shape: 18
             }
         }
     }

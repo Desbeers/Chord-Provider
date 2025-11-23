@@ -20,14 +20,19 @@ extension HtmlRender {
                 result.append("<div class=\"line\">")
                 if let gridColumns = line.gridColumns {
                     for column in gridColumns.grids {
-                        let parts = column.parts.map { part in
-                            if let chordDefinition = part.chordDefinition {
-                                return "<div class=\"chord\">\(chordDefinition.display)</div>"
-                            } else if let text = part.text {
-                                return "<div>\(text.isEmpty ? "&nbsp;" : "\(text)")</div>"
+                        let parts = column.cells.map { cell in
+                            for part in cell.parts {
+                                if let chordDefinition = part.chordDefinition {
+                                    return "<div class=\"chord\">\(chordDefinition.display)</div>"
+                                } else if let strum = part.strum {
+                                    return "<div>\(strum.symbol)</div>"
+                                } else if let text = part.text {
+                                    dump(text)
+                                    return "<div>\(text == " " ? "&nbsp;" : "\(text)")</div>"
+                                }
                             }
                             /// This should not happen
-                            return ""
+                            return "<div>&nbsp;</div>"
                         }
                         result.append("<div class=\"part\">\(parts.joined())</div>")
                     }

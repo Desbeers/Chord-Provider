@@ -28,7 +28,6 @@
 		D706FDAC2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */; };
 		D706FDAD2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */; };
 		D707CB0B2E59E7CF001FED23 /* AppKitUtils+WKWebRepresentedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D707CB0A2E59E7CF001FED23 /* AppKitUtils+WKWebRepresentedView.swift */; };
-		D707CB0D2E59E82D001FED23 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D707CB0C2E59E82D001FED23 /* HtmlView.swift */; };
 		D70B72742BD3CD2F003C89B4 /* PDFBuild+Chords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */; };
 		D70B72772BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */; };
 		D70B72792BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */; };
@@ -85,9 +84,7 @@
 		D71E96F62DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F52DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift */; };
 		D71E96F72DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E96F52DB5FB970080FE8F /* PDFBuild+StrumSection+Line+Part.swift */; };
 		D71ED6C62E7D748100817CD4 /* ChordProviderCore in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6C52E7D748100817CD4 /* ChordProviderCore */; };
-		D71ED6C92E7D749700817CD4 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6C82E7D749700817CD4 /* ChordProviderHTML */; };
 		D71ED6E72E7D74D700817CD4 /* ChordProviderCore in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6E62E7D74D700817CD4 /* ChordProviderCore */; };
-		D71ED6E92E7D74DB00817CD4 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D71ED6E82E7D74DB00817CD4 /* ChordProviderHTML */; };
 		D71F864C2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */; };
 		D71F864D2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */; };
 		D71F864F2D843F1900BA57BD /* AppSettings+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */; };
@@ -95,6 +92,8 @@
 		D71F86512D84412200BA57BD /* Color+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EA876C2C5A581E009A3D82 /* Color+extension.swift */; };
 		D71F86532D8593B500BA57BD /* FontUtils+SFSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* FontUtils+SFSymbol.swift */; };
 		D71F86542D8593B500BA57BD /* FontUtils+SFSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F86522D8593B500BA57BD /* FontUtils+SFSymbol.swift */; };
+		D71F9B422ED30565008A0A35 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D71F9B412ED30565008A0A35 /* ChordProviderHTML */; };
+		D71F9B442ED306B2008A0A35 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F9B432ED306B2008A0A35 /* HtmlView.swift */; };
 		D72B61102C16E4170027B235 /* UserFileUtils+Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B610F2C16E4170027B235 /* UserFileUtils+Selection.swift */; };
 		D730BBD22CA844C2008719F2 /* Midi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BB9F2CA844C2008719F2 /* Midi.swift */; };
 		D730BBD32CA844C2008719F2 /* Midi.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730BB9F2CA844C2008719F2 /* Midi.swift */; };
@@ -205,7 +204,6 @@
 		D7AA50C12E08176B003D731A /* ChordProviderSettings+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AA50BF2E08176B003D731A /* ChordProviderSettings+extensions.swift */; };
 		D7AB50632BD958FF00AA797B /* PDFBuild+TOCItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AB50622BD958FF00AA797B /* PDFBuild+TOCItem.swift */; };
 		D7ACC8DC2EA0F2E000510DA3 /* ChordProviderCore in Frameworks */ = {isa = PBXBuildFile; productRef = D778F3722E51F559007CA66E /* ChordProviderCore */; };
-		D7ACC8DD2EA0F2E000510DA3 /* ChordProviderHTML in Frameworks */ = {isa = PBXBuildFile; productRef = D707CB082E59C6B7001FED23 /* ChordProviderHTML */; };
 		D7B319DF2BD564D9006A173A /* PDFBuild+TextblockSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */; };
 		D7B319E02BD564DE006A173A /* PDFBuild+TextblockSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319DE2BD564D9006A173A /* PDFBuild+TextblockSection.swift */; };
 		D7B319E32BD57DE7006A173A /* PDFBuild+DocumentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B319E22BD57DE7006A173A /* PDFBuild+DocumentInfo.swift */; };
@@ -379,7 +377,6 @@
 		D706FDAA2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line+Part.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+LyricsSection+Line+Part.swift"; sourceTree = "<group>"; };
 		D706FDAB2BCECE63005DEDF6 /* PDFBuild+LyricsSection+Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PDFBuild+LyricsSection+Line.swift"; sourceTree = "<group>"; };
 		D707CB0A2E59E7CF001FED23 /* AppKitUtils+WKWebRepresentedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppKitUtils+WKWebRepresentedView.swift"; sourceTree = "<group>"; };
-		D707CB0C2E59E82D001FED23 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		D70B72732BD3CD2F003C89B4 /* PDFBuild+Chords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Chords.swift"; sourceTree = "<group>"; };
 		D70B72762BD43E37003C89B4 /* PDFBuild+Chords+Diagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Chords+Diagram.swift"; sourceTree = "<group>"; };
 		D70B72782BD4D6A4003C89B4 /* PDFBuild+TabSection+Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+TabSection+Line.swift"; sourceTree = "<group>"; };
@@ -407,6 +404,7 @@
 		D71F864B2D83272200BA57BD /* PDFBuild+Tags.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PDFBuild+Tags.swift"; sourceTree = "<group>"; };
 		D71F864E2D843F1900BA57BD /* AppSettings+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppSettings+Style.swift"; sourceTree = "<group>"; };
 		D71F86522D8593B500BA57BD /* FontUtils+SFSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontUtils+SFSymbol.swift"; sourceTree = "<group>"; };
+		D71F9B432ED306B2008A0A35 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		D72B610F2C16E4170027B235 /* UserFileUtils+Selection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserFileUtils+Selection.swift"; sourceTree = "<group>"; };
 		D730BB9F2CA844C2008719F2 /* Midi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Midi.swift; sourceTree = "<group>"; };
 		D730BBA52CA844C2008719F2 /* Collection+extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+extensions.swift"; sourceTree = "<group>"; };
@@ -624,10 +622,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7ACC8DD2EA0F2E000510DA3 /* ChordProviderHTML in Frameworks */,
+				D71F9B422ED30565008A0A35 /* ChordProviderHTML in Frameworks */,
 				D7ACC8DC2EA0F2E000510DA3 /* ChordProviderCore in Frameworks */,
 				D71ED6C62E7D748100817CD4 /* ChordProviderCore in Frameworks */,
-				D71ED6C92E7D749700817CD4 /* ChordProviderHTML in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,7 +632,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D71ED6E92E7D74DB00817CD4 /* ChordProviderHTML in Frameworks */,
 				D7F13FF92A646356002D875D /* Quartz.framework in Frameworks */,
 				D71ED6E72E7D74D700817CD4 /* ChordProviderCore in Frameworks */,
 			);
@@ -944,7 +940,7 @@
 				D7F13FB72A6460B7002D875D /* ChordsView.swift */,
 				D7593A502DA950150037952B /* RenderView */,
 				D76C24E22C3AA2AA00C93D82 /* PreviewPaneView.swift */,
-				D707CB0C2E59E82D001FED23 /* HtmlView.swift */,
+				D71F9B432ED306B2008A0A35 /* HtmlView.swift */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -1303,9 +1299,8 @@
 			name = "Chord Provider";
 			packageProductDependencies = (
 				D778F3722E51F559007CA66E /* ChordProviderCore */,
-				D707CB082E59C6B7001FED23 /* ChordProviderHTML */,
 				D71ED6C52E7D748100817CD4 /* ChordProviderCore */,
-				D71ED6C82E7D749700817CD4 /* ChordProviderHTML */,
+				D71F9B412ED30565008A0A35 /* ChordProviderHTML */,
 			);
 			productName = "Chord Provider";
 			productReference = D7F13F6F2A645FEC002D875D /* Chord Provider.app */;
@@ -1326,7 +1321,6 @@
 			name = "ChordPro Preview";
 			packageProductDependencies = (
 				D71ED6E62E7D74D700817CD4 /* ChordProviderCore */,
-				D71ED6E82E7D74DB00817CD4 /* ChordProviderHTML */,
 			);
 			productName = "QLExtension (macOS)";
 			productReference = D7F13FF62A646356002D875D /* ChordPro Preview.appex */;
@@ -1365,7 +1359,7 @@
 			mainGroup = D7F13F662A645FEC002D875D;
 			packageReferences = (
 				D71ED6C42E7D748100817CD4 /* XCLocalSwiftPackageReference "../ChordProviderCore" */,
-				D71ED6C72E7D749700817CD4 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */,
+				D71F9B402ED30565008A0A35 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D7F13F702A645FEC002D875D /* Products */;
@@ -1480,7 +1474,6 @@
 				D75E6C652DABB0530065F1D2 /* RenderView+TextblockSection.swift in Sources */,
 				D7B45F5E2C2DD438003932CB /* Editor.swift in Sources */,
 				D733F6042B90CC1C0065D6FD /* FileBrowserModel+Elements.swift in Sources */,
-				D707CB0D2E59E82D001FED23 /* HtmlView.swift in Sources */,
 				D79932E72D71EB940003F502 /* AppSettings+AppWindowID.swift in Sources */,
 				D705035A2D23250200DB897A /* Modifiers.swift in Sources */,
 				D7EA875C2C5A580A009A3D82 /* AppKitUtils+printDialog.swift in Sources */,
@@ -1649,6 +1642,7 @@
 				D71F864D2D83272200BA57BD /* PDFBuild+Tags.swift in Sources */,
 				D706FDA62BCECC9F005DEDF6 /* PDFElement.swift in Sources */,
 				D7781B532D0F205F00EC0CCF /* PDFBuild+arguments.swift in Sources */,
+				D71F9B442ED306B2008A0A35 /* HtmlView.swift in Sources */,
 				D70503282D21532B00DB897A /* HelpView.swift in Sources */,
 				D770846F2D8D9683002530F7 /* SettingsView+style.swift in Sources */,
 				D7349E1B2E098980002821D3 /* DebugView+jsonView.swift in Sources */,
@@ -2171,33 +2165,24 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../ChordProviderCore;
 		};
-		D71ED6C72E7D749700817CD4 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */ = {
+		D71F9B402ED30565008A0A35 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../ChordProviderHTML;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D707CB082E59C6B7001FED23 /* ChordProviderHTML */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ChordProviderHTML;
-		};
 		D71ED6C52E7D748100817CD4 /* ChordProviderCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ChordProviderCore;
-		};
-		D71ED6C82E7D749700817CD4 /* ChordProviderHTML */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ChordProviderHTML;
 		};
 		D71ED6E62E7D74D700817CD4 /* ChordProviderCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D71ED6C42E7D748100817CD4 /* XCLocalSwiftPackageReference "../ChordProviderCore" */;
 			productName = ChordProviderCore;
 		};
-		D71ED6E82E7D74DB00817CD4 /* ChordProviderHTML */ = {
+		D71F9B412ED30565008A0A35 /* ChordProviderHTML */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D71ED6C72E7D749700817CD4 /* XCLocalSwiftPackageReference "../ChordProviderHTML" */;
 			productName = ChordProviderHTML;
 		};
 		D778F3722E51F559007CA66E /* ChordProviderCore */ = {

@@ -49,27 +49,16 @@ E|-------------|
 {end_of_tab}
 
 {start_of_grid label="Griddy Grid!"}
-| G7 G7 . C | Am . . Am |
-| G7 G7 . C | Asus4 . . Am |
+|s u  .  u d | d     . d u  |
+|  G7 G7 . C | Am    . . Am |
+|  G7 G7 . C | Asus4 . . Am |
 {comment This is not really a nice melody, I know!}
 {end_of_grid}
 
 # STRUM PATTERNS:
-# "u": .up,
-# "up": .up,
-# "ua": .accentedUp,
-# "um": .mutedUp,
-# "us": .slowUp,
-# "d": .down,
-# "dn": .down,
-# "da": .accentedDown,
-# "dm": .mutedDown,
-# "ds": .slowDown,
-# "x": .palmMute,
-# ".": .none
 {start_of_strum label="Strum Me!" tuplet="2"}
-da . ua d x d u d um dm d u d us ds u
-{comment Basic strumming pattern is supported as well, see the source for the pattern}
+d . ua d x d u d um dm d u d ua da u
+{comment Basic strumming pattern is supported as well, not ChordPro standard}
 {end_of_strum}
 
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}

@@ -16,11 +16,13 @@ extension ChordProParser {
     ///   - chord: The `chord` as String
     ///   - line: The current line of the section
     ///   - song: The whole ``Song``
+    ///   - warning: Bool to show a warning when the chord is unknown
     /// - Returns: The processed `chord` as String
     static func processChord(
         chord: String,
         line: inout Song.Section.Line,
-        song: inout Song
+        song: inout Song,
+        warning: Bool = true
     ) -> ChordDefinition {
         /// First, check if the chord is just text
         if chord.starts(with: "*") {
@@ -28,8 +30,8 @@ extension ChordProParser {
             return ChordDefinition(text: text, instrument: song.settings.instrument)
         } else {
             /// Check if this chord is already parsed
-            if  let match = song.chords.last(where: { $0.name == chord }) {
-                if match.status == .unknownChord {
+            if let match = song.chords.last(where: { $0.name == chord }) {
+                if match.status == .unknownChord, warning {
                     /// Add a warning that the chord is unknown
                     line.addWarning("Unknown chord: <b>(chord)</b>", level: .error)
                 }
@@ -51,7 +53,9 @@ extension ChordProParser {
             }
             let unknownChord = ChordDefinition(unknown: chord, instrument: song.settings.instrument)
             /// Add a warning that the chord is unknown
-            line.addWarning("Unknown chord: <b>\(chord)</b>", level: .error)
+            if warning {
+                line.addWarning("Unknown chord: <b>\(chord)</b>", level: .error)
+            }
             /// Return the unknown chord
             return unknownChord
         }

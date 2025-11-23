@@ -48,13 +48,24 @@ extension PDFBuild {
                         var partRect = rect
                         for column in gridColumns.grids {
                             let string = NSMutableAttributedString()
-                            for part in column.parts {
-                                string.append(
-                                    NSAttributedString(
-                                        string: " \(part.text ?? "") \(part == column.parts.last ? "" : "\n")",
-                                        attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
-                                    )
-                                )
+                            for cell in column.cells {
+                                for part in cell.parts {
+                                    if let strum = part.strum {
+                                        string.append(
+                                            NSAttributedString(
+                                                string: " \(strum.symbol) \(part == cell.parts.last ? "\n" : "")",
+                                                attributes: .gridText(settings: settings)
+                                            )
+                                        )
+                                    } else {
+                                        string.append(
+                                            NSAttributedString(
+                                                string: " \(part.text ?? "") \(part == cell.parts.last ? "\n" : "")",
+                                                attributes: part.chordDefinition == nil ? .gridText(settings: settings) : .gridChord(settings: settings)
+                                            )
+                                        )
+                                    }
+                                }
                             }
                             let textBounds = string.boundingRect(with: pageRect.size, options: .usesLineFragmentOrigin)
                             lineHeight = max(lineHeight, textBounds.height)

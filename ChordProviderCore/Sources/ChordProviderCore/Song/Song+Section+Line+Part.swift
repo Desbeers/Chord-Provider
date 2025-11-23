@@ -15,12 +15,14 @@ extension Song.Section.Line {
             id: Int = 0,
             chordDefinition: ChordDefinition? = nil,
             chord: ChordPro.Instrument.Chord? = nil,
-            text: String? = nil
+            text: String? = nil,
+            strum: Song.Section.Line.Strum.Action? = nil
         ) {
             self.id = id
             self.chordDefinition = chordDefinition
             self.chord = chord
             self.text = text
+            self.strum = strum
         }
 
         /// The unique ID of the part
@@ -31,5 +33,7 @@ extension Song.Section.Line {
         public var chord: ChordPro.Instrument.Chord?
         /// The optional text
         public var text: String?
+        /// The optional strum
+        public var strum: Song.Section.Line.Strum.Action?
     }
 }

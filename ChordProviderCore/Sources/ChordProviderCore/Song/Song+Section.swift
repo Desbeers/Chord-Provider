@@ -73,7 +73,7 @@ extension Song {
             var partID: Int = 1
             /// Get the maximum columns
             let maxColumns = self.lines.compactMap { $0.grid }.reduce(0) { accumulator, grids in
-                let elements = grids.flatMap { $0.parts }.count
+                let elements = grids.flatMap { $0.cells }.count
                 return max(accumulator, elements)
             }
             var elements: [Song.Section.Line.Grid] = (0 ..< maxColumns).enumerated().map { item in
@@ -81,22 +81,25 @@ extension Song {
             }
             for line in self.lines {
                 if let grid = line.grid {
-                    let parts = grid.flatMap { $0.parts }
+                    let parts = grid.flatMap { $0.cells }
                     for (column, part) in parts.enumerated() {
                         var part = part
                         part.id = partID
-                        elements[column].parts.append(part)
+                        elements[column].cells.append(part)
                         partID += 1
                     }
                     /// Fill the grid if needed
                     if parts.count < maxColumns {
+
                         for column in (parts.count..<maxColumns) {
-                            elements[column].parts.append(.init(id: partID, text: ""))
+                            let cell = Song.Section.Line.GridCell(id: partID, parts: [Song.Section.Line.Part(id: partID, text: "")])
+
+                            elements[column].cells.append(cell)
                             partID += 1
                         }
                     }
                 } else {
-                    if  let first = elements.first, !first.parts.isEmpty {
+                    if  let first = elements.first, !first.cells.isEmpty {
                         /// Add this as item
                         var newLine: Song.Section.Line = .init(type: .songLine)
                         newLine.gridColumns = Song.Section.Line.GridColumns(id: line.sourceLineNumber, grids: elements)

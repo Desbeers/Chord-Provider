@@ -32,11 +32,25 @@ extension GtkRender {
                         if let elements = line.gridColumns?.grids {
                             ForEach(elements, horizontal: true) { element in
                                 HStack {
-                                    ForEach(element.parts) { part in
-                                        Text(part.text ?? "")
-                                            .style(part.chordDefinition == nil ? .standard : .grid)
-                                            .halign(.start)
-                                            .padding(5, [.trailing, .bottom])
+                                    ForEach(element.cells) { cell in
+                                        VStack {
+                                            ForEach(cell.parts, horizontal: true) { part in
+                                                /// - Note: I cannot set the style conditional
+                                                if let chord = part.chordDefinition {
+                                                    Text(chord.display)
+                                                        .style(.grid)
+                                                        .padding(5, [.trailing, .bottom])
+                                                } else if let strum = part.strum {
+                                                    Text(strum.symbol)
+                                                        .style(.standard)
+                                                        .padding(5, [.trailing, .bottom])
+                                                } else {
+                                                    Text(part.text ?? " ")
+                                                        .style(.standard)
+                                                        .padding(5, [.trailing, .bottom])
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }

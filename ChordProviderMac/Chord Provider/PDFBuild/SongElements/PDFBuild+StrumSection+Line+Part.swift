@@ -52,7 +52,7 @@ extension PDFBuild.StrumSection.Line {
         func draw(rect: inout CGRect, calculationOnly: Bool, pageRect: CGRect) {
             let x = settings.style.fonts.text.size / 2
             let length = settings.style.fonts.text.size * 2
-            let dash = part.action == .slowUp || part.action == .slowDown ? true : false
+            let dash = part.action == .upArpeggio || part.action == .upArpeggioAccent ? true : false
             if !calculationOnly {
                 let symbol = NSAttributedString(string: part.topSymbol, attributes: .strumLine(settings: settings))
                 symbol.draw(with: rect, options: textDrawingOptions, context: nil)
@@ -64,11 +64,11 @@ extension PDFBuild.StrumSection.Line {
                 var symbolRect = rect
                 symbolRect.origin.y += length - settings.style.fonts.text.size
                 switch part.action {
-                case .down, .accentedDown, .mutedDown, .slowDown:
+                case .down, .downAccent, .downMuted:
                     drawArrow(start: CGPoint(x: x, y: 0), end: CGPoint(x: x, y: length), dash: dash, rect: rect)
-                case .up, .accentedUp, .mutedUp, .slowUp:
+                case .up, .upAccent, .upMuted, .upArpeggio:
                     drawArrow(start: CGPoint(x: x, y: length), end: CGPoint(x: x, y: 0), dash: dash, rect: rect)
-                case .palmMute:
+                case .none:
                     let text = NSAttributedString(string: "x", attributes: .strumLine(settings: settings))
                     text.draw(with: symbolRect, options: textDrawingOptions, context: nil)
                 default:

@@ -25,16 +25,24 @@ extension RenderView {
                             if let grids = line.grid {
                                 GridRow {
                                     ForEach(grids) { grid in
-                                        ForEach(grid.parts) { part in
-                                            if let chord = part.chordDefinition {
-                                                RenderView.ChordView(
-                                                    chord: chord,
-                                                    settings: settings
-                                                )
-                                            } else {
-                                                Text(" \(part.text ?? "") ")
-                                                    .foregroundStyle(part.text == "|" || part.text == "." ? settings.style.fonts.text.color : Color.red)
-                                                    .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.magnifier))
+                                        HStack {
+                                            ForEach(grid.cells) { cell in
+                                                ForEach(cell.parts) { part in
+                                                    if let chord = part.chordDefinition {
+                                                        RenderView.ChordView(
+                                                            chord: chord,
+                                                            settings: settings
+                                                        )
+                                                    } else if let strum = part.strum {
+                                                        Text(" \(strum.symbol)")
+                                                            .foregroundStyle(settings.style.fonts.text.color)
+                                                            .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.magnifier))
+                                                    } else {
+                                                        Text(" \(part.text ?? "") ")
+                                                            .foregroundStyle(settings.style.fonts.text.color)
+                                                            .font(settings.style.fonts.chord.swiftUIFont(scale: settings.scale.magnifier))
+                                                    }
+                                                }
                                             }
                                         }
                                     }

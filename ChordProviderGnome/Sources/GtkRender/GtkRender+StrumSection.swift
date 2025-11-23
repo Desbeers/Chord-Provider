@@ -28,18 +28,18 @@ extension GtkRender {
                                 ForEach(strums, horizontal: true) {strumPart in
                                     HStack(spacing: 0) {
                                         ForEach(strumPart.strums, horizontal: true) { strum in
-                                            let dash = strum.action == .slowUp || strum.action == .slowDown ? true : false
+                                            let dash = strum.action == .upArpeggio || strum.action == .downArpeggio ? true : false
                                             VStack(spacing: 2) {
                                                 Text(strum.topSymbol)
                                                     .style(.strum)
                                                 switch strum.action {
-                                                case .down, .accentedDown, .mutedDown, .slowDown:
+                                                case .down, .downAccent, .downMuted, .downArpeggio:
                                                     Widgets.Arrow(direction: .down, length: Int(settings.app.zoom * 50), dash: dash)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
-                                                case .up, .accentedUp, .mutedUp, .slowUp:
+                                                case .up, .upAccent, .upMuted, .upArpeggio:
                                                     Widgets.Arrow(direction: .up, length: Int(settings.app.zoom * 50), dash: dash)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
-                                                case .palmMute:
+                                                case .none:
                                                     Text("x")
                                                         .style(.strum)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
