@@ -297,49 +297,51 @@ extension Views.Welcome {
         songTitleOnly: Bool = false
     ) -> Body {
         let settings = appState.getRecentSongs().first(where: { $0.url == fileURL })?.settings
-        Button("") {
-            if let settings {
-                appState.settings.core = settings
-            }
-            appState.openSong(fileURL: fileURL)
-            appState.scene.showToast.signal()
-        }
-        .child {
-            HStack {
-                VStack {
-                    Text(song.metadata.title)
-                        .halign(.start)
-                        .style(songTitleOnly ? .plainButton : .subtitle)
-                        .hexpand()
-                    if !songTitleOnly {
-                        Text(song.metadata.artist)
-                            .halign(.start)
-                            .style(.plainButton)
-                    }
-                    if let settings {
-                        Text(settings.settingsLabel)
-                            .halign(.start)
-                            .style("caption")
-                    }
+        HStack {
+            Button("") {
+                if let settings {
+                    appState.settings.core = settings
                 }
-                .valign(.center)
-                if let tags = song.metadata.tags  {
-                    HStack {
-                        ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
-                            Text(tag.string)
-                                .useMarkup()
-                                .style(.tagLabel)
-                                .padding(5, .leading)
-                                .valign(.end)
+                appState.openSong(fileURL: fileURL)
+                appState.scene.showToast.signal()
+            }
+            .child {
+                HStack {
+                    VStack {
+                        Text(song.metadata.title)
+                            .halign(.start)
+                            .style(songTitleOnly ? .plainButton : .subtitle)
+                            .hexpand()
+                        if !songTitleOnly {
+                            Text(song.metadata.artist)
+                                .halign(.start)
+                                .style(.plainButton)
+                        }
+                        if let settings {
+                            Text(settings.settingsLabel)
+                                .halign(.start)
+                                .style("caption")
                         }
                     }
                     .valign(.center)
                 }
+                .valign(.center)
+                .frame(minWidth: songTitleOnly ? 0 : 300)
             }
-            .valign(.center)
-            .frame(minWidth: songTitleOnly ? 0 : 300)
+            .hasFrame(false)
+            .tooltip(fileURL.path.escapeHTML())
+            if let tags = song.metadata.tags  {
+                HStack {
+                    ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
+                        Text(tag.string)
+                            .useMarkup()
+                            .style(.tagLabel)
+                            .padding(5, .leading)
+                            .valign(.end)
+                    }
+                }
+                .valign(.center)
+            }
         }
-        .hasFrame(false)
-        .tooltip(fileURL.path.escapeHTML())
     }
 }
