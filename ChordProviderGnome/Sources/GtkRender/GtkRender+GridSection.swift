@@ -34,42 +34,46 @@ extension GtkRender {
                     case .songLine:
                         if let elements = line.gridColumns?.grids {
                             ForEach(elements, horizontal: true) { element in
+                                VStack {
                                     ForEach(element.cells) { cell in
-                                        VStack {
-                                            ForEach(cell.parts, horizontal: true) { part in
-                                                /// - Note: I cannot set the style conditional
-                                                if let chord = part.chordDefinition {
-                                                    Box {
-                                                        Text(chord.display)
-                                                            .style(.gridChord)
-                                                            .vexpand()
-                                                    }
-                                                    .valign(.center)
-                                                    .frame(minHeight: height)
-                                                    .padding(5, .trailing)
-                                                } else if let strum = part.strum {
-                                                    Box {
-                                                        Widgets.BundleImage(strum: strum)
-                                                            .pixelSize(Int(14 * settings.app.zoom))
-                                                            .style(.svgIcon)
-                                                            .vexpand()
-                                                    }
-                                                    .valign(.center)
-                                                    .frame(minHeight: height)
-                                                    .padding(5, .trailing)
-                                                } else {
-                                                    Box {
-                                                        Text(part.text ?? " ")
-                                                            .style(.grid)
-                                                            .vexpand()
-                                                    }
-                                                    .valign(.center)
-                                                    .frame(minHeight: height)
-                                                    .padding(5, .trailing)
+                                        ForEach(cell.parts, horizontal: true) { part in
+                                            /// - Note: I cannot set the style conditional
+                                            if let chord = part.chordDefinition {
+                                                Box {
+                                                    Text(chord.display)
+                                                        .style(.gridChord)
+                                                        .vexpand()
                                                 }
+                                                .valign(.center)
+                                                .frame(minHeight: height)
+                                                .padding(5, .trailing)
+                                            } else if let strum = part.strum {
+                                                Box {
+                                                    Widgets.BundleImage(strum: strum)
+                                                        .pixelSize(Int(14 * settings.app.zoom))
+                                                        .style(.svgIcon)
+                                                        .vexpand()
+                                                }
+                                                .valign(.center)
+                                                .frame(minHeight: height)
+                                                .padding(5, .trailing)
+                                            } else {
+                                                Box {
+                                                    Text(part.text ?? " ")
+                                                        .style(.grid)
+                                                        .vexpand()
+                                                }
+                                                .valign(.center)
+                                                .frame(minHeight: height)
+                                                .padding(5, .trailing)
                                             }
                                         }
                                     }
+
+                                }
+                                .frame(maxHeight: 3 * height)
+                                .vexpand(false)
+                                .valign(.start)
                             }
                         }
                     case .emptyLine:
