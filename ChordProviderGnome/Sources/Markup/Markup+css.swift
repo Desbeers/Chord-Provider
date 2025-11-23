@@ -83,7 +83,7 @@ extension Markup {
     font-weight: bold;
 }
 .tag-label {
-    font-size: \(0.8 * baseFontSize * zoom)px;
+    font-size: \(0.8 * baseFontSize)px;
     font-weight: normal;
     color: \(dark ? "#eee" : "#000");
     background-color: var(--chordprovider-accent-bg-color);

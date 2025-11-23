@@ -13,9 +13,6 @@ extension GtkRender {
 
     /// The `View` for an empty line
     struct EmptyLine: View {
-        init() {
-            print("EMPTYLINE INIT")
-        }
         /// The body of the `View`
         var view: Body {
             Widgets.Empty()
