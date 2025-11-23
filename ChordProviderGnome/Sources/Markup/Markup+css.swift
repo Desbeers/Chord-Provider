@@ -36,6 +36,8 @@ extension Markup {
 
         case selectedChord = "selected-chord"
 
+        case svgIcon = "svg-icon"
+
         case logWarning = "log-warning"
         case logError = "log-error"
         case logDebug = "log-debug"
@@ -156,6 +158,9 @@ extension Markup {
 }
 .caption {
     font-size: 10px;
+}
+.svg-icon {
+    filter: invert(\(dark ? 90 : 40)%);
 }
 """
     }

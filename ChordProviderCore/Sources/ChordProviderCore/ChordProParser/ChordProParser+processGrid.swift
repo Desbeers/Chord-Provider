@@ -58,7 +58,7 @@ extension ChordProParser {
             let text = text == " " ? " " : text.trimmingCharacters(in: .whitespacesAndNewlines)
             var grid = Song.Section.Line.Grid(id: cellID, isStrumPattern: isStrumPattern)
             switch text {
-            case "|", ".", " ":
+            case "|", " ":
                 let part = Song.Section.Line.Part(id: partID, text: omittedSymbol ?? text)
                 grid.cells.append(Song.Section.Line.GridCell(id: partID, parts: [part]))
             default:

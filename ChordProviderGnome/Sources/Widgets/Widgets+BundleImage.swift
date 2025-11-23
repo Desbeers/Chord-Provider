@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 import CChordProvider
 import Adwaita
 import CAdw
@@ -52,6 +53,13 @@ extension Widgets {
         /// Initialize `BundleImage`.
         public init(path: String) {
             if let urlPath = Bundle.module.url(forResource: path, withExtension: "svg") {
+                self.resource = urlPath.path
+            }
+        }
+
+        /// Initialize `BundleImage`.
+        public init(strum: Song.Section.Line.Strum.Action) {
+            if let urlPath = Bundle.module.url(forResource: "Strums/\(strum.svgIcon)", withExtension: "svg") {
                 self.resource = urlPath.path
             }
         }

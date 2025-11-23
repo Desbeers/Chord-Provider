@@ -41,8 +41,9 @@ extension GtkRender {
                                                         .style(.grid)
                                                         .padding(5, [.trailing, .bottom])
                                                 } else if let strum = part.strum {
-                                                    Text(strum.symbol)
-                                                        .style(.standard)
+                                                    Widgets.BundleImage(strum: strum)
+                                                        .pixelSize(Int(12.5 * settings.app.zoom))
+                                                        .style(.svgIcon)
                                                         .padding(5, [.trailing, .bottom])
                                                 } else {
                                                     Text(part.text ?? " ")

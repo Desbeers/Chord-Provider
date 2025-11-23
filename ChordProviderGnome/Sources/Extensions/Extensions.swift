@@ -155,3 +155,44 @@ extension ChordProviderSettings {
         return label.joined(separator: ", ")
     }
 }
+
+extension Song.Section.Line.Strum.Action {
+    var svgIcon: String {
+        switch self {
+        case .up:
+            "strumarrow-up"
+        case .upAccent:
+            "strumarrow-up-acc"
+        case .upArpeggio:
+            "strumarrow-up-arp"
+        case .upArpeggioAccent:
+            "strumarrow-up-acc-arp"
+        case .upMuted:
+            "strumarrow-up-mut"
+        case .upMutedAccent:
+            "strumarrow-up-mut-acc"
+        case .upStaccato:
+            "strumarrow-up-stc"
+        case .upStaccatoAccent:
+            "strumarrow-up-acc-stc"
+        case .down:
+            "strumarrow-down"
+        case .downAccent:
+            "strumarrow-down-acc"
+        case .downArpeggio:
+            "strumarrow-down-arp"
+        case .downArpeggioAccent:
+            "strumarrow-down-acc-arp"
+        case .downMuted:
+            "strumarrow-down-mut"
+        case .downMutedAccent:
+            "strumarrow-down-mut-acc"
+        case .downStaccato:
+            "strumarrow-down-stc"
+        case .downStaccatoAccent:
+            "strumarrow-up-acc-stc"
+        case .none:
+            "none"
+        }
+    }
+}
