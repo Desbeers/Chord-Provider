@@ -43,8 +43,8 @@ extension Widgets {
 
         /// Initialize `BundleImage`.
         public init(name: String) {
-            if let urlPath = Bundle.module.url(forResource: "Icons/\(name)", withExtension: "svg") {
-                self.resource = urlPath.path
+            if let url = ImageUtils.getImageFromBundle("Icons/\(name)") {
+                self.resource = url.path
             }
         }
 
@@ -57,8 +57,8 @@ extension Widgets {
 
         /// Initialize `BundleImage`.
         public init(strum: Song.Section.Line.Strum.Action) {
-            if let urlPath = Bundle.module.url(forResource: "Strums/\(strum.svgIcon)", withExtension: "svg") {
-                self.resource = urlPath.path
+            if let url = ImageUtils.getImageFromBundle("Strums/\(strum.svgIcon)") {
+                self.resource = url.path
             }
         }
 

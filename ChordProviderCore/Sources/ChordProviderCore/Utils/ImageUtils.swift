@@ -16,6 +16,19 @@ public enum ImageUtils {
 }
 
 public extension ImageUtils {
+    
+    /// Get the URL of a SVG file in the bundle
+    /// - Parameter name: The name of the file
+    /// - Returns: An optional URL
+    static func getImageFromBundle(_ name: String) -> URL? {
+        if let url = Bundle.module.url(forResource: name, withExtension: "svg") {
+            return url
+        }
+        return nil
+    }
+}
+
+public extension ImageUtils {
 
     /// Get the format of an image from its data
     /// - Parameter data: The data of the image

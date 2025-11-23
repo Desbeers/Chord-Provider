@@ -21,7 +21,9 @@ let package = Package(
         .target(
             name: "ChordProviderCore",
             resources: [
-                .copy("ChordDefinitions")
+                .copy("ChordDefinitions"),
+                .copy("Resources/Icons"),
+                .copy("Resources/Strums")
             ],
 
         )
