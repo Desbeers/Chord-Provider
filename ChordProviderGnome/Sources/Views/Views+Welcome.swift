@@ -331,16 +331,8 @@ extension Views.Welcome {
             .hasFrame(false)
             .tooltip(fileURL.path.escapeHTML())
             if let tags = song.metadata.tags  {
-                HStack {
-                    ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: true) { tag in
-                        Text(tag.string)
-                            .useMarkup()
-                            .style(.tagLabel)
-                            .padding(5, .leading)
-                            .valign(.end)
-                    }
-                }
-                .valign(.center)
+                Views.Tags(tags: tags)
+                    .valign(.center)
             }
         }
     }

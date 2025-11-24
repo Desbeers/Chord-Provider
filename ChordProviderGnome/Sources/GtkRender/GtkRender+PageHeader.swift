@@ -39,17 +39,10 @@ extension GtkRender {
                 if let tags = song.metadata.tags {
                     Overlay()
                         .overlay {
-                            VStack {
-                                ForEach(tags.map { Markup.StringItem(string: $0) }, horizontal: false) { tag in
-                                    Text(tag.string)
-                                        .useMarkup()
-                                        .style(.tagLabel)
-                                        .padding(5)
-                                }
-                            }
-                            .hexpand()
-                            .halign(.end)
-                            .padding(10, .trailing)
+                            Views.Tags(tags: tags)
+                                .hexpand()
+                                .halign(.end)
+                                .padding(10, .trailing)
                         }
                 }
                 Text(song.metadata.title)

@@ -22,6 +22,7 @@ extension Markup {
         case subtitle = "song-subtitle"
         case sectionHeader = "section-header"
         case sectionChorus = "section-chorus"
+        case tagButton = "tag-button"
         case tagLabel = "tag-label"
         case commentLabel = "comment-label"
         case repeatChorus = "repeat-chorus"
@@ -82,13 +83,17 @@ extension Markup {
     font-size: \(1.2 * baseFontSize * zoom)px;
     font-weight: bold;
 }
-.tag-label {
+.tag-label, .tag-button {
     font-size: \(0.8 * baseFontSize)px;
     font-weight: normal;
     color: \(dark ? "#eee" : "#000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
+}
+.tag-button:hover {
+    background-color: var(--accent-bg-color);
+    color: #fff;
 }
 .comment-label {
     font-size: \(0.8 * baseFontSize * zoom)px;
