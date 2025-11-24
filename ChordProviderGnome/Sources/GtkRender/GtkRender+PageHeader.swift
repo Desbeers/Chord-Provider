@@ -35,16 +35,6 @@ extension GtkRender {
         /// The body of the `View`
         var view: Body {
             VStack {
-                /// Show optional tags
-                if let tags = song.metadata.tags {
-                    Overlay()
-                        .overlay {
-                            Views.Tags(tags: tags)
-                                .hexpand()
-                                .halign(.end)
-                                .padding(10, .trailing)
-                        }
-                }
                 Text(song.metadata.title)
                     .style(.title)
                 Text(subtitle)

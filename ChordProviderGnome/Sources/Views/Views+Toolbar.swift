@@ -47,6 +47,10 @@ extension Views.Toolbar {
             }
             end: {
                 HStack(spacing: 5) {
+                    /// Show optional tags
+                    if let tags = song.metadata.tags {
+                        Views.Tags(tags: tags)
+                    }
                     Button(icon: .default(icon: .helpAbout)) {
                         app.showWindow("debug")
                     }
