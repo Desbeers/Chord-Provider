@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RegexBuilder
 
 extension ChordProParser {
 
@@ -37,7 +38,9 @@ extension ChordProParser {
         /// Bool if the line is a strum pattern
         var isStrumPattern: Bool = false
         /// Separate the grids
-        var grids = text.split(separator: " ")
+        var grids = text.matches(of: Chord.RegexDefinitions.spaceOrMarkupSeparator).map { match in
+            String(match.0)
+        }
         /// Check if the grid line is a strum pattern
         if grids.first == "|S" {
             grids[0] = "|"
@@ -55,8 +58,11 @@ extension ChordProParser {
             grids.insert(" ", at: 0)
         }
         for text in grids where !text.isEmpty {
-            let text = text == " " ? " " : text.trimmingCharacters(in: .whitespacesAndNewlines)
             var grid = Song.Section.Line.Grid(id: cellID, isStrumPattern: isStrumPattern)
+            /// Check for pango markup
+            let markup = text.markup
+            /// Use the plain text only
+            let text = markup.text
             switch text {
             case "|", " ":
                 let part = Song.Section.Line.Part(id: partID, text: omittedSymbol ?? text)
@@ -97,13 +103,14 @@ extension ChordProParser {
                             warning: false
                         )
                         if result.status == .unknownChord {
-                            parts.append(Song.Section.Line.Part(id: partID, text: String(text)))
+                            parts.append(Song.Section.Line.Part(id: partID, text: String(text), textMarkup: markup))
                         } else {
                             parts.append(
                                 Song.Section.Line.Part(
                                     id: partID,
                                     chordDefinition: result,
-                                    text: result.display
+                                    text: result.display,
+                                    chordMarkup: markup
                                 )
                             )
                         }

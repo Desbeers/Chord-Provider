@@ -14,26 +14,47 @@ extension Song.Section.Line {
         public init(
             id: Int = 0,
             chordDefinition: ChordDefinition? = nil,
-            chord: ChordPro.Instrument.Chord? = nil,
             text: String? = nil,
-            strum: Song.Section.Line.Strum.Action? = nil
+            strum: Song.Section.Line.Strum.Action? = nil,
+            textMarkup: Song.Markup? = nil,
+            chordMarkup: Song.Markup? = nil
         ) {
             self.id = id
             self.chordDefinition = chordDefinition
-            self.chord = chord
             self.text = text
             self.strum = strum
+            self.textMarkup = textMarkup
+            self.chordMarkup = chordMarkup
         }
 
         /// The unique ID of the part
         public var id: Int
         /// The optional chord definition
         public var chordDefinition: ChordDefinition?
-        /// The optional chord definition in **ChordPro** format
-        public var chord: ChordPro.Instrument.Chord?
         /// The optional text
         public var text: String?
+
+        /// The optional lyrics
+        public var lyrics: [Song.Markup]?
+
         /// The optional strum
         public var strum: Song.Section.Line.Strum.Action?
+        /// Pango formatting for the text
+        public var textMarkup: Song.Markup?
+        /// Pango formatting for the chord
+        public var chordMarkup: Song.Markup?
+
+        public func withMarkup(_ text: String) -> String {
+            return "\(textMarkup?.start ?? "")\(text)\(textMarkup?.end ?? "")"
+        }
+        public func withMarkup(_ chord: ChordDefinition) -> String {
+            return "\(chordMarkup?.start ?? "")\(chord.display)\(chordMarkup?.end ?? "")"
+        }
+        public var lyricsText: String {
+            if let lyrics {
+                return lyrics.map { lyric in "\(lyric.start)\(lyric.text)\(lyric.end)"}.joined()
+            }
+            return ""
+        }
     }
 }

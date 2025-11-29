@@ -29,8 +29,6 @@ extension AppState {
         var showAboutDialog = false
         /// Show the *Transpose* dialog
         var showTransposeDialog = false
-        /// Bool if the song is  *Transposed*
-        var isTransposed = false
         /// Bool if the welcome is shown
         var showWelcome: Bool = false
         /// Bool if the preferences is shown

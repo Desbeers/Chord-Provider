@@ -9,6 +9,22 @@ import Foundation
 
 extension String {
 
+    /// Wrapper for text that contains optional markup
+    var markup: Song.Markup {
+        /// Fallback; this should not happen
+        var markup = Song.Markup(start: "<span color=\"red\">", text: self, end: "</span>")
+        if let match = self.wholeMatch(of: Chord.RegexDefinitions.optionalMarkup) {
+            markup.start = String(match.1 ?? "")
+            markup.text = String(match.2 ?? "")
+            markup.end = String(match.3 ?? "")
+            return markup
+        }
+        return markup
+    }
+}
+
+extension String {
+
     /// Remove prefixes from a String
     /// - Returns: A String with al optional prefixes removed
     func removePrefixes(_ prefixes: [String]) -> String {

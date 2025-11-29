@@ -86,7 +86,7 @@ extension Views {
                 width: 260,
                 height: 180
             ) {
-                Views.Transpose(appState: $appState)
+                Views.Transpose(appState: $appState, song: song)
             }
 
             // MARK: Alert Dialog

@@ -10,14 +10,14 @@ import ChordProviderCore
 import Adwaita
 import CAdw
 
-extension ChordProviderSettings {
+extension Song {
 
     var transposeTooltip: String {
         var text = "Transpose"
-        if self.transpose == 0 {
+        if self.transposing == 0 {
             text += " the song"
         } else {
-            text += " by \(self.transpose) semitones"
+            text += " by \(self.transposing) semitones"
         }
         return text
     }

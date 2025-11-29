@@ -51,8 +51,8 @@ extension ChordProParser {
         case .key:
             if let label, var chord = ChordDefinition(name: label, instrument: song.settings.instrument) {
                 /// Transpose the key if needed
-                if song.settings.transpose != 0 {
-                    chord.transpose(transpose: song.settings.transpose, scale: chord.root)
+                if song.transposing != 0 {
+                    chord.transpose(transpose: song.transposing, scale: chord.root)
                 }
                 song.metadata.key = chord
             }
@@ -62,6 +62,8 @@ extension ChordProParser {
             song.metadata.year = label
         case .album:
             song.metadata.album = label
+        case .transpose:
+            song.metadata.transpose = Int(label ?? "0") ?? 0
 
             // MARK: Unofficial Meta-data directives
 

@@ -38,26 +38,34 @@ extension ChordProParser {
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {
+
             let (_, chord, lyric) = match.output
             var part = Song.Section.Line.Part(id: partID)
             if let chord {
+                /// Check for pango markup
+                let markup = String(chord).markup
                 part.chordDefinition = processChord(
-                    chord: String(chord),
+                    chord: markup.text,
                     line: &line,
                     song: &song
                 )
+                line.lineLength = (line.lineLength ?? "") + " \(markup.text) "
                 /// Because it has a chord; the section should be at least a verse
                 haveChords = true
-                /// Official **ChordPro** compatibility
-                // part.chord = part.chordDefinition?.chordProJSON
+                /// Add optional markup
+                part.chordMarkup = markup
             }
             if let lyric {
-                part.text = String(lyric)
-                /// Add the lyrics to the 'plain' text
-                line.plain = (line.plain ?? "") + lyric
-                line.lineLength = (line.lineLength ?? "") + String(lyric)
-            } else if let chord {
-                line.lineLength = (line.lineLength ?? "") + " \(String(chord)) "
+                let parts = String(lyric).matches(of: Chord.RegexDefinitions.markupSeparator).map { match in
+                    String(match.0).markup
+                }
+                part.lyrics = parts
+                part.text = parts.map((\.text)).joined()
+                if let text = part.text {
+                    /// Add the lyrics to the 'plain' text
+                    line.plain = (line.plain ?? "") + text
+                    line.lineLength = (line.lineLength ?? "") + text
+                }
             }
             /// Add the part
             parts.append(part)

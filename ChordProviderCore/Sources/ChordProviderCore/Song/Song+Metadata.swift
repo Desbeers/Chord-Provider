@@ -85,6 +85,8 @@ extension Song {
         public var videoURL: URL?
         /// The optional tag(s)
         public var tags: [String]?
+        /// The optional transpose
+        public var transpose: Int = 0
         /// The longest label in the song
         /// - Note: Used in PDF output to calculate label offset
         public var longestLabel: String = ""

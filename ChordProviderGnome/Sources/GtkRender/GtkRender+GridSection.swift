@@ -40,7 +40,8 @@ extension GtkRender {
                                             /// - Note: I cannot set the style conditional
                                             if let chord = part.chordDefinition {
                                                 Box {
-                                                    Text(chord.display)
+                                                    Text(part.withMarkup(chord))
+                                                        .useMarkup()
                                                         .style(.gridChord)
                                                         .vexpand()
                                                 }
@@ -59,7 +60,8 @@ extension GtkRender {
                                                 .padding(5, .trailing)
                                             } else {
                                                 Box {
-                                                    Text(part.text ?? " ")
+                                                    Text(part.withMarkup(part.text ?? " "))
+                                                        .useMarkup()
                                                         .style(.grid)
                                                         .vexpand()
                                                 }

@@ -127,7 +127,6 @@ extension AppState {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
             /// Reset transpose
-            self.scene.isTransposed = false
             self.settings.core.transpose = 0
             self.scene.source = content
             self.scene.originalSource = content
@@ -143,7 +142,6 @@ extension AppState {
     /// - Parameter content: The content of the song
     mutating func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
         /// Reset transpose
-        self.scene.isTransposed = false
         self.settings.core.transpose = 0
         self.scene.source = content
         self.scene.originalSource = content

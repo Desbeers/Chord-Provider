@@ -59,7 +59,7 @@ extension ChordProParser {
                 instrument: song.settings.instrument,
                 status: .unknownChord
             )
-            definedChord.status = song.settings.transpose == 0 ? definedChord.status : .customTransposedChord
+            definedChord.status = song.transposing == 0 ? definedChord.status : .customTransposedChord
             /// Update a standard chord with the same name if there is one in the chords list
             if let index = song.chords.firstIndex(where: {
                 $0.name == definedChord.name &&

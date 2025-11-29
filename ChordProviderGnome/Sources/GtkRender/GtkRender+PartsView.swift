@@ -22,7 +22,8 @@ extension GtkRender {
             ForEach(parts, horizontal: true) { part in
                 VStack {
                     if let chord = part.chordDefinition {
-                        Text(chord.display)
+                        Text(part.withMarkup(chord))
+                            .useMarkup()
                             .style(.chord)
                             .halign(.start)
                             .padding(5, .trailing)
@@ -30,7 +31,7 @@ extension GtkRender {
                         Text(" ")
                             .style(.chord)
                     }
-                    Text(part.text ?? " ")
+                    Text(part.lyricsText)
                         .useMarkup()
                         .style(.standard)
                         .halign(.start)

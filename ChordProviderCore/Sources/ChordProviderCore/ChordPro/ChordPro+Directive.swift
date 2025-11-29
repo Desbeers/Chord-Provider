@@ -164,6 +164,11 @@ extension ChordPro {
         /// When printing songs in multiple columns, this directive forces printing to continue in the next column
         case columnBreak = "column_break|colb"
 
+        // MARK: Transposition
+
+        /// This directive indicates that the remainder of the song should be transposed the number of semitones according to the given value
+        case transpose
+
         // MARK: Custom metadata directives
 
         /// - Note: These are not *real* directives

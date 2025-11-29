@@ -31,14 +31,20 @@ extension Views.Toolbar {
         let song: Song
         /// The body of the `View`
         var view: Body {
+            let binding = Binding(
+                get: { song.transposing != 0 },
+                set: {
+                    _ = $0
+                }
+            )
             HeaderBar {
                 HStack(spacing: 5) {
                     Toggle(icon: .default(icon: .textEditor), isOn: $appState.settings.editor.showEditor)
                         .tooltip("Show the editor")
-                    ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: $appState.scene.isTransposed) {
+                    ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: binding) {
                         appState.scene.showTransposeDialog = true
                     }
-                    .tooltip(appState.settings.core.transposeTooltip)
+                    .tooltip(song.transposeTooltip)
                     DropDown(selection: $appState.settings.core.instrument, values: Chord.Instrument.allCases)
                         .tooltip("Select your instrument")
                     Toggle(icon: .default(icon: .viewDual), isOn: $appState.settings.app.columnPaging)

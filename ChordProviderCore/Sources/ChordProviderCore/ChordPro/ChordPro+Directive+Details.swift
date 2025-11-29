@@ -341,6 +341,15 @@ extension ChordPro.Directive {
                 environment: .strum,
                 lineType: .environmentDirective
             )
+        case .transpose:
+            Details(
+                label: "Transpose",
+                icon: "chart.line.flattrend.xyaxis",
+                button: "Strum",
+                help: "This directive indicates that the remainder of the song should be transposed the number of semitones according to the given value",
+                environment: .metadata,
+                lineType: .metadata
+            )
 
             // MARK: Custom directives
 

@@ -65,6 +65,13 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     /// The chords of the song
     public var chords: [ChordDefinition] = []
 
+    // MARK: Transposing
+
+    /// The total transposing; core setting + optional metadata
+    public var transposing: Int {
+        settings.transpose + metadata.transpose
+    }
+
     // MARK: Search
 
     /// Search

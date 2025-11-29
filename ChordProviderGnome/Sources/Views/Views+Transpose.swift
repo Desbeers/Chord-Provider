@@ -15,6 +15,8 @@ extension Views {
     struct Transpose: View {
         /// The state of the application
         @Binding var appState: AppState
+        /// The current song
+        let song: Song
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -23,18 +25,21 @@ extension Views {
                     .padding()
                 HStack {
                     CountButton(settings: $appState.settings, icon: .goPrevious) {
-                        $0.core.transpose = max($0.core.transpose - 1, -11)
+                        $0.core.transpose = max($0.core.transpose - 1, -11 - song.metadata.transpose)
                     }
-                    Text("\(appState.settings.core.transpose) semitones")
+                    Text("\(song.transposing) semitones")
                         .frame(minWidth: 150)
                     CountButton(settings: $appState.settings, icon: .goNext) {
-                        $0.core.transpose = min($0.core.transpose + 1, 11)
+                        $0.core.transpose = min($0.core.transpose + 1, 11 - song.metadata.transpose)
                     }
                 }
                 .halign(.center)
                 .padding()
+                if song.metadata.transpose != 0 {
+                    Text("The song is \(song.metadata.transpose) semitones transposed in the source")
+                        .style("caption")
+                }
                 Button("Close") {
-                    appState.scene.isTransposed = appState.settings.core.transpose != 0
                     appState.scene.showTransposeDialog = false
                 }
                 .padding()

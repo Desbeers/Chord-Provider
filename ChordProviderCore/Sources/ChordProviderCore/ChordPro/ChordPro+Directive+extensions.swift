@@ -87,7 +87,8 @@ extension ChordPro.Directive {
             .time,
             .tempo,
             .capo,
-            .tag
+            .tag,
+            .transpose
         ]
     }
 

@@ -51,6 +51,7 @@
             <keyword>define</keyword>
             <keyword>new_page</keyword>
             <keyword>column_break</keyword>
+            <keyword>transpose</keyword>
         </context>
 
         <context id="directive">

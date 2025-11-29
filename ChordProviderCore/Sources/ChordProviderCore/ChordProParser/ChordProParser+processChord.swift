@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RegexBuilder
 
 extension ChordProParser {
 
@@ -39,8 +40,8 @@ extension ChordProParser {
             }
             /// Try to find it in the database
             if var databaseChord = ChordDefinition(name: chord, instrument: song.settings.instrument) {
-                if song.settings.transpose != 0 {
-                    databaseChord.transpose(transpose: song.settings.transpose, scale: song.metadata.key?.root ?? .c)
+                if song.transposing != 0 {
+                    databaseChord.transpose(transpose: song.transposing, scale: song.metadata.key?.root ?? .c)
                     /// Keep the original name
                     databaseChord.name = chord
                 }

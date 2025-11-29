@@ -220,11 +220,88 @@ extension Chord {
                 Capture {
                     OneOrMore {
                         CharacterClass(
-                            .anyOf("[] ").inverted
+                            .anyOf("[]").inverted
                         )
                     }
                 }
                 "]"
+            }
+        }
+
+        /// The regex for capturing markup
+        nonisolated(unsafe) static let markupCapture = Regex {
+            Regex {
+                Capture {
+                    "<"
+                    OneOrMore(CharacterClass.anyOf(">").inverted)
+                    ">"
+                    ZeroOrMore(.reluctant) {
+                        /./
+                    }
+                    "</"
+                    OneOrMore(CharacterClass.anyOf(">").inverted)
+                    ">"
+                }
+            }
+        }
+
+        /// The regex for spitting a string into parts, separated by `space` or markup
+        nonisolated(unsafe) static let spaceOrMarkupSeparator = Regex {
+            Capture {
+                ChoiceOf {
+                    markupCapture
+                    Capture {
+                        OneOrMore {
+                            CharacterClass(
+                                .anyOf("<"),
+                                .whitespace
+                            )
+                            .inverted
+                        }
+                    }
+                }
+            }
+        }
+
+        /// The regex for spitting a string into parts, separated by markup
+        nonisolated(unsafe) static let markupSeparator = Regex {
+            Capture {
+                ChoiceOf {
+                    markupCapture
+                    Capture {
+                        OneOrMore {
+                            CharacterClass(
+                                .anyOf("<>")
+                            )
+                            .inverted
+                        }
+                    }
+                }
+            }
+        }
+
+        /// The regex for optional markup in a string
+        nonisolated(unsafe) static let optionalMarkup = Regex {
+            Regex {
+                Optionally {
+                    Capture {
+                        "<"
+                        OneOrMore(CharacterClass.anyOf(">").inverted)
+                        ">"
+                    }
+                }
+                Capture {
+                    OneOrMore {
+                        OneOrMore(CharacterClass.anyOf("<").inverted)
+                    }
+                }
+                Optionally {
+                    Capture {
+                        "</"
+                        OneOrMore(CharacterClass.anyOf(">").inverted)
+                        ">"
+                    }
+                }
             }
         }
     }
