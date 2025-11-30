@@ -9,6 +9,7 @@
         <style id="comment" name="Comment" map-to="def:comment"/>
         <style id="directive" name="Directive" map-to="def:type"/>
         <style id="chord" name="Chord" map-to="def:keyword"/>
+        <style id="markup" name="Markup" map-to="xml:attribute-value"/>
     </styles>
     <definitions>
         <context id="directives">
@@ -65,6 +66,16 @@
             </include>
         </context>
 
+        <context id="markup">
+            <start>&lt;</start>
+            <end>&gt;</end>
+            <include>
+                <context id="markup-content" style-ref="markup">
+                    <match>([^&gt;]*)</match>
+                </context>
+            </include>
+        </context>
+
         <context id="comment" style-ref="comment" end-at-line-end="true">
             <start>^#</start>
         </context>
@@ -84,6 +95,7 @@
                 <context ref="comment"/>
                 <context ref="chord"/>
                 <context ref="directive"/>
+                <context ref="markup"/>
             </include>
         </context>
     </definitions>
