@@ -18,14 +18,11 @@ extension GtkRender {
             /// Convert the grids into columns
             self.section = section.gridColumns()
             self.settings = settings
-            self.height = Int(20 * settings.app.zoom)
         }
         /// The current section of the song
         let section: Song.Section
         /// The settings of the application
         let settings: AppSettings
-        /// The height of the grid rows
-        let height: Int
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -35,14 +32,15 @@ extension GtkRender {
                         if let elements = line.gridColumns?.grids {
                             ForEach(elements, horizontal: true) { element in
                                 VStack {
-                                    ForEach(element.cells) { cell in
+                                    Widgets.Grid(element.cells, horizontal: false) { cell in
                                         ForEach(cell.parts, horizontal: true) { item in
                                             part(part: item)
                                         }
                                     }
+                                    .homogeneous()
                                 }
-                                .vexpand(false)
-                                .valign(.start)
+//                                .vexpand(false)
+//                                .valign(.start)
                             }
                         }
                     case .emptyLine:
@@ -59,37 +57,23 @@ extension GtkRender {
 
         @ViewBuilder func part(part: Song.Section.Line.Part) -> Body {
             /// - Note: I cannot set the style conditional
-            if let chord = part.chordDefinition {
-                Box {
+            Box {
+                if let chord = part.chordDefinition {
                     Text(part.withMarkup(chord))
                         .useMarkup()
                         .style(.gridChord)
-                        .vexpand()
-                }
-                .valign(.center)
-                .frame(minHeight: height)
-                .padding(5, .trailing)
-            } else if let strum = part.strum {
-                Box {
+                } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
                         .pixelSize(Int(14 * settings.app.zoom))
                         .style(.svgIcon)
-                        .vexpand()
-                }
-                .valign(.center)
-                .frame(minHeight: height)
-                .padding(5, .trailing)
-            } else {
-                Box {
+                } else {
                     Text(part.withMarkup(part.text ?? " "))
                         .useMarkup()
                         .style(.grid)
-                        .vexpand()
                 }
-                .valign(.center)
-                .frame(minHeight: height)
-                .padding(5, .trailing)
             }
+            .valign(.center)
+            .padding(2)
         }
     }
 }
