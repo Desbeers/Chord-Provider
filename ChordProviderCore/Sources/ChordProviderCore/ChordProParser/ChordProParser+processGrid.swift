@@ -9,9 +9,9 @@ import Foundation
 import RegexBuilder
 
 extension ChordProParser {
-
+    
     // MARK: Process a grid environment
-
+    
     /// Process a grid environment
     /// - Parameters:
     ///   - text: The text to process
@@ -72,13 +72,13 @@ extension ChordProParser {
                 /// Multiple chords can be put in a single cell by separating the chord names with a ~ (tilde)
                 let chords = text.split(separator: "~")
                 for text in chords {
-                    switch isStrumPattern {
-                    case true:
-                        if text.starts(with: "*") {
-                            /// Insert as a chord string
-                            let string = String(text.dropFirst())
-                            parts.append(Song.Section.Line.Part(id: partID, text: string))
-                        } else {
+                    if text.starts(with: "*") {
+                        /// Insert as a string
+                        let string = String(text.dropFirst())
+                        parts.append(Song.Section.Line.Part(id: partID, text: string))
+                    } else {
+                        switch isStrumPattern {
+                        case true:
                             /// Try to get the strum definition
                             if let strum = Song.Section.Line.strumCharacterDict[String(text)] {
                                 parts.append(
@@ -93,25 +93,25 @@ extension ChordProParser {
                                 parts.append(Song.Section.Line.Part(id: partID, chordDefinition: chord, text: chord.display))
                                 line.addWarning("Unknown stoke", level: .error)
                             }
-                        }
-                    case false:
-                        let result = processChord(
-                            chord: String(text),
-                            line: &line,
-                            song: &song,
-                            warning: false
-                        )
-                        if result.status == .unknownChord {
-                            parts.append(Song.Section.Line.Part(id: partID, text: String(text), textMarkup: markup))
-                        } else {
-                            parts.append(
-                                Song.Section.Line.Part(
-                                    id: partID,
-                                    chordDefinition: result,
-                                    text: result.display,
-                                    chordMarkup: markup
-                                )
+                        case false:
+                            let result = processChord(
+                                chord: String(text),
+                                line: &line,
+                                song: &song,
+                                warning: false
                             )
+                            if result.status == .unknownChord {
+                                parts.append(Song.Section.Line.Part(id: partID, text: String(text), textMarkup: markup))
+                            } else {
+                                parts.append(
+                                    Song.Section.Line.Part(
+                                        id: partID,
+                                        chordDefinition: result,
+                                        text: result.display,
+                                        chordMarkup: markup
+                                    )
+                                )
+                            }
                         }
                     }
                     partID += 1
