@@ -31,7 +31,7 @@ extension GtkRender {
                     case .songLine:
                         if let elements = line.gridColumns?.grids {
                             ForEach(elements, horizontal: true) { element in
-                                VStack {
+                                Box {
                                     Widgets.Grid(element.cells, horizontal: false) { cell in
                                         ForEach(cell.parts, horizontal: true) { item in
                                             part(part: item)
@@ -39,8 +39,7 @@ extension GtkRender {
                                     }
                                     .homogeneous()
                                 }
-//                                .vexpand(false)
-//                                .valign(.start)
+                                .homogeneous()
                             }
                         }
                     case .emptyLine:
@@ -58,20 +57,24 @@ extension GtkRender {
         @ViewBuilder func part(part: Song.Section.Line.Part) -> Body {
             /// - Note: I cannot set the style conditional
             Box {
-                if let chord = part.chordDefinition {
-                    Text(part.withMarkup(chord))
-                        .useMarkup()
-                        .style(.gridChord)
+                if part.chordDefinition != nil {
+                    Views.SingleChord(part: part, settings: settings)
+//                    Text(part.withMarkup(chord))
+//                        .useMarkup()
+//                        .style(.gridChord)
                 } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
                         .pixelSize(Int(14 * settings.app.zoom))
                         .style(.svgIcon)
+                        //.padding(5, .leading)
                 } else {
                     Text(part.withMarkup(part.text ?? " "))
                         .useMarkup()
                         .style(.grid)
+                        .padding(5, .leading)
                 }
             }
+            .homogeneous()
             .valign(.center)
             .padding(2)
         }

@@ -120,6 +120,9 @@ extension Song.Section.Line.Strum {
         /// Do not stroke
         case none
 
+        /// Spacer
+        case spacer
+
         // TODO: make me nice!
         public var symbol: String {
             if self.rawValue.starts(with: "up") {
@@ -167,6 +170,8 @@ extension Song.Section.Line.Strum {
                 "strumarrow-up-acc-stc"
             case .none:
                 "none"
+            case .spacer:
+                "spacer"
             }
 
         }

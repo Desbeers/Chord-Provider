@@ -27,9 +27,9 @@ extension Markup {
         case commentLabel = "comment-label"
         case repeatChorus = "repeat-chorus"
         case chord
+        case chordDiagramButton = "chord-diagram-button"
         case textblock
         case grid
-        case gridChord = "grid-chord"
         case tab
         case strum
         case plainButton = "plain-button"
@@ -120,7 +120,7 @@ extension Markup {
 .grid {
     font-size: \(1.1 * baseFontSize * zoom)px;
 }
-.chord, .grid-chord {
+.chord {
     font-size: \(1.1 * baseFontSize * zoom)px;
     color: var( --chordprovider-accent-color);
 }
@@ -142,9 +142,13 @@ extension Markup {
 .chord-button {
     padding: 5px 0 0 0;
 }
-.chord-button .chord {
+.chord-button .chord, .chord-diagram-button {
     font-size: \(baseFontSize)px;
-    font-weight: normal;
+    font-weight: bold;
+}
+.chord-diagram-button {
+    margin: 0;
+    padding: 0 2px;
 }
 .selected-chord {
     background: var(--card-bg-color);

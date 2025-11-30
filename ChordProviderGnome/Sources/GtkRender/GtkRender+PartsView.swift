@@ -20,11 +20,9 @@ extension GtkRender {
         /// The body of the `View`
         var view: Body {
             ForEach(parts, horizontal: true) { part in
-                VStack {
-                    if let chord = part.chordDefinition {
-                        Text(part.withMarkup(chord))
-                            .useMarkup()
-                            .style(.chord)
+                Box {
+                    if part.chordDefinition != nil {
+                        Views.SingleChord(part: part, settings: settings)
                             .halign(.start)
                             .padding(5, .trailing)
                     } else {
@@ -36,6 +34,7 @@ extension GtkRender {
                         .style(.standard)
                         .halign(.start)
                 }
+                .homogeneous()
             }
         }
     }

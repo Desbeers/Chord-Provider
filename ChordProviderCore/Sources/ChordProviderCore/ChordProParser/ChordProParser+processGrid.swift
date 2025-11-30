@@ -77,8 +77,7 @@ extension ChordProParser {
                         if text.starts(with: "*") {
                             /// Insert as a chord string
                             let string = String(text.dropFirst())
-                            let chord = ChordDefinition(text: string, instrument: song.settings.instrument)
-                            parts.append(Song.Section.Line.Part(id: partID, chordDefinition: chord, text: chord.display))
+                            parts.append(Song.Section.Line.Part(id: partID, text: string))
                         } else {
                             /// Try to get the strum definition
                             if let strum = Song.Section.Line.strumCharacterDict[String(text)] {
