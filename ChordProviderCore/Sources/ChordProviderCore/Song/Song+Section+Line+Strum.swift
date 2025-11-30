@@ -9,6 +9,19 @@ import Foundation
 
 extension Song.Section.Line {
 
+    /// The structure of strums
+    public struct Strums: Equatable, Codable, Identifiable, Hashable, Sendable {
+        /// Init the struct
+        public init(id: Int, strums: [Song.Section.Line.Strum]) {
+            self.id = id
+            self.strums = strums
+        }
+        /// The ID
+        public var id: Int
+        /// The strums
+        public var strums: [Song.Section.Line.Strum]
+    }
+
     /// The structure of a strum
     public struct Strum: Equatable, Codable, Identifiable, Hashable, Sendable {
         /// Init the struct

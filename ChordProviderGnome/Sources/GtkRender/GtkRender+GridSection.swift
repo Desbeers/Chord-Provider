@@ -36,44 +36,11 @@ extension GtkRender {
                             ForEach(elements, horizontal: true) { element in
                                 VStack {
                                     ForEach(element.cells) { cell in
-                                        ForEach(cell.parts, horizontal: true) { part in
-                                            /// - Note: I cannot set the style conditional
-                                            if let chord = part.chordDefinition {
-                                                Box {
-                                                    Text(part.withMarkup(chord))
-                                                        .useMarkup()
-                                                        .style(.gridChord)
-                                                        .vexpand()
-                                                }
-                                                .valign(.center)
-                                                .frame(minHeight: height)
-                                                .padding(5, .trailing)
-                                            } else if let strum = part.strum {
-                                                Box {
-                                                    Widgets.BundleImage(strum: strum)
-                                                        .pixelSize(Int(14 * settings.app.zoom))
-                                                        .style(.svgIcon)
-                                                        .vexpand()
-                                                }
-                                                .valign(.center)
-                                                .frame(minHeight: height)
-                                                .padding(5, .trailing)
-                                            } else {
-                                                Box {
-                                                    Text(part.withMarkup(part.text ?? " "))
-                                                        .useMarkup()
-                                                        .style(.grid)
-                                                        .vexpand()
-                                                }
-                                                .valign(.center)
-                                                .frame(minHeight: height)
-                                                .padding(5, .trailing)
-                                            }
+                                        ForEach(cell.parts, horizontal: true) { item in
+                                            part(part: item)
                                         }
                                     }
-
                                 }
-                                .frame(maxHeight: 3 * height)
                                 .vexpand(false)
                                 .valign(.start)
                             }
@@ -88,6 +55,41 @@ extension GtkRender {
                 }
             }
             .padding(10)
+        }
+
+        @ViewBuilder func part(part: Song.Section.Line.Part) -> Body {
+            /// - Note: I cannot set the style conditional
+            if let chord = part.chordDefinition {
+                Box {
+                    Text(part.withMarkup(chord))
+                        .useMarkup()
+                        .style(.gridChord)
+                        .vexpand()
+                }
+                .valign(.center)
+                .frame(minHeight: height)
+                .padding(5, .trailing)
+            } else if let strum = part.strum {
+                Box {
+                    Widgets.BundleImage(strum: strum)
+                        .pixelSize(Int(14 * settings.app.zoom))
+                        .style(.svgIcon)
+                        .vexpand()
+                }
+                .valign(.center)
+                .frame(minHeight: height)
+                .padding(5, .trailing)
+            } else {
+                Box {
+                    Text(part.withMarkup(part.text ?? " "))
+                        .useMarkup()
+                        .style(.grid)
+                        .vexpand()
+                }
+                .valign(.center)
+                .frame(minHeight: height)
+                .padding(5, .trailing)
+            }
         }
     }
 }

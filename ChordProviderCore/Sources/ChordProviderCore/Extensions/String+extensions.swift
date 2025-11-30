@@ -15,7 +15,7 @@ extension String {
         var markup = Song.Markup(start: "<span color=\"red\">", text: self, end: "</span>")
         if let match = self.wholeMatch(of: Chord.RegexDefinitions.optionalMarkup) {
             markup.start = String(match.1 ?? "")
-            markup.text = String(match.2 ?? "")
+            markup.text = String(match.2)
             markup.end = String(match.3 ?? "")
             return markup
         }

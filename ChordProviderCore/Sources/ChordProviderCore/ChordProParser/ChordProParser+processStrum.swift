@@ -37,7 +37,7 @@ extension ChordProParser {
             context: .strum
         )
 
-        var result: [Song.Section.Line.StrumGroup] = []
+        var result: [Song.Section.Line.Strums] = []
         let parts = text.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ")
         for(index, character) in parts.enumerated() {
 
@@ -54,20 +54,20 @@ extension ChordProParser {
             strums.append(strum)
 
             if timeSignature * tuplet == group {
-                result.append(Song.Section.Line.StrumGroup(id: id, strums: strums))
+                result.append(Song.Section.Line.Strums(id: id, strums: strums))
                 strums = []
                 group = 0
                 id += 1
             }
         }
         if !strums.isEmpty {
-            result.append(Song.Section.Line.StrumGroup(id: id, strums: strums))
+            result.append(Song.Section.Line.Strums(id: id, strums: strums))
         }
         if strums.count == 1, strums.first?.action == Song.Section.Line.Strum.Action.none {
             /// It looks like the strum is not in a valid format, add a warning
             line.addWarning("The strum pattern does not look valid")
         } else {
-            line.strumGroup = result
+            line.strums = result
         }
         currentSection.lines.append(line)
     }

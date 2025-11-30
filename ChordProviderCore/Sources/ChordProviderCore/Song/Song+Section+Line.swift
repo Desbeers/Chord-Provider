@@ -25,7 +25,7 @@ extension Song.Section {
             warnings: [LogUtils.LogMessage]? = nil,
             parts: [Song.Section.Line.Part]? = nil,
             grid: [Song.Section.Line.Grid]? = nil,
-            strumGroup: [Song.Section.Line.StrumGroup]? = nil,
+            strums: [Song.Section.Line.Strums]? = nil,
             plain: String? = nil
         ) {
             self.sourceLineNumber = sourceLineNumber
@@ -39,7 +39,7 @@ extension Song.Section {
             self.warnings = warnings
             self.parts = parts
             self.grid = grid
-            self.strumGroup = strumGroup
+            self.strums = strums
             self.plain = plain
         }
 
@@ -78,7 +78,7 @@ extension Song.Section {
         public var gridColumns: GridColumns?
 
         /// The optional strum pattern in the line
-        public var strumGroup: [StrumGroup]?
+        public var strums: [Strums]?
 
         /// A plain text version of the line
         /// - Note: The lyrics of a line, a comment or a tab for example
@@ -184,7 +184,7 @@ extension Song.Section.Line {
         case warnings
         case parts
         case grid
-        case strumGroup
+        case strums
         case plain
         case type
         case context
@@ -229,7 +229,7 @@ extension Song.Section.Line {
         self.warnings = try container.decodeIfPresent([LogUtils.LogMessage].self, forKey: .warnings)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
-        self.strumGroup = try container.decodeIfPresent([StrumGroup].self, forKey: .strumGroup)
+        self.strums = try container.decodeIfPresent([Strums].self, forKey: .strums)
         self.plain = try container.decodeIfPresent(String.self, forKey: .plain)
     }
     /// :nodoc:
@@ -262,7 +262,7 @@ extension Song.Section.Line {
         try container.encodeIfPresent(self.warnings, forKey: .warnings)
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.grid, forKey: .grid)
-        try container.encodeIfPresent(self.strumGroup, forKey: .strumGroup)
+        try container.encodeIfPresent(self.strums, forKey: .strums)
         try container.encodeIfPresent(self.plain, forKey: .plain)
     }
 }
