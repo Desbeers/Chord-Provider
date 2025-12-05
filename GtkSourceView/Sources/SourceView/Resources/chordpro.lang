@@ -1,101 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language id="chordpro" name=".chordpro" version="2.0" _section="Other">
+
+<language id="chordpro" name="ChordPro" version="2.0" _section="Markup">
     <metadata>
         <property name="mimetypes">text/plain</property>
         <property name="globs">*.chordpro;*.cho</property>
         <property name="suggested-suffix">.chordpro</property>
     </metadata>
+
     <styles>
-        <style id="comment" name="Comment" map-to="def:comment"/>
-        <style id="directive" name="Directive" map-to="def:type"/>
+        <style id="attrib-name" name="Attribute Name" map-to="xml:attribute-value"/>
+        <style id="attrib-value" name="Attribute Value" map-to="xml:attribute-name"/>
+        <style id="tag" name="Tag" map-to="def:function"/>
         <style id="chord" name="Chord" map-to="def:keyword"/>
-        <style id="markup" name="Markup" map-to="xml:attribute-value"/>
     </styles>
+
+    <default-regex-options case-sensitive="false"/>
+
     <definitions>
-        <context id="directives">
-            <keyword>title</keyword>
-            <keyword>sorttitle</keyword>
-            <keyword>subtitle</keyword>
-            <keyword>artist</keyword>
-            <keyword>sortartist</keyword>
-            <keyword>composer</keyword>
-            <keyword>album</keyword>
-            <keyword>year</keyword>
-            <keyword>key</keyword>
-            <keyword>time</keyword>
-            <keyword>tempo</keyword>
-            <keyword>capo</keyword>
-            <keyword>instrument</keyword>
-            <keyword>tag</keyword>
-            <keyword>comment</keyword>
-            <keyword>image</keyword>
-            <keyword>start_of_chorus</keyword>
-            <keyword>end_of_chorus</keyword>
-            <keyword>chorus</keyword>
-            <keyword>start_of_verse</keyword>
-            <keyword>end_of_verse</keyword>
-            <keyword>start_of_bridge</keyword>
-            <keyword>end_of_bridge</keyword>
-            <keyword>start_of_tab</keyword>
-            <keyword>end_of_tab</keyword>
-            <keyword>start_of_grid</keyword>
-            <keyword>end_of_grid</keyword>
-            <keyword>start_of_strum</keyword>
-            <keyword>end_of_strum</keyword>
-            <keyword>start_of_abc</keyword>
-            <keyword>end_of_abc</keyword>
-            <keyword>start_of_textblock</keyword>
-            <keyword>end_of_textblock</keyword>
-            <keyword>define-guitar</keyword>
-            <keyword>define-guitalele</keyword>
-            <keyword>define-ukulele</keyword>
-            <keyword>define</keyword>
-            <keyword>new_page</keyword>
-            <keyword>column_break</keyword>
-            <keyword>transpose</keyword>
-        </context>
 
-        <context id="directive">
-            <start>\{</start>
-            <end>\}</end>
-            <include>
-                <context ref="directives" style-ref="directive"/>
-                <context id="anything" style-ref="def:preprocessor">
-                    <match>([^\}]*)</match>
-                </context>
-            </include>
-        </context>
+        <define-regex id="attribute-name">[a-z0-9:_-]+</define-regex>
 
-        <context id="markup">
-            <start>&lt;</start>
-            <end>&gt;</end>
-            <include>
-                <context id="markup-content" style-ref="markup">
-                    <match>([^&gt;]*)</match>
-                </context>
-            </include>
-        </context>
+        <define-regex id="net-address" extended="true">
+            \b(?:https?|ftp):\/\/[^\s/$.?#].[^\s&gt;]*\b
+        </define-regex>
 
-        <context id="comment" style-ref="comment" end-at-line-end="true">
-            <start>^#</start>
-        </context>
+        <define-regex id="all-directives" extended="true">
+            (?:title|sorttitle|subtitle|artist|sortartist|composer|album|year|key|time|tempo|capo|instrument|tag|comment|image|start_of_chorus|end_of_chorus|chorus|start_of_verse|end_of_verse|start_of_bridge|end_of_bridge|start_of_tab|end_of_tab|start_of_grid|end_of_grid|start_of_strum|end_of_strum|start_of_abc|end_of_abc|start_of_textblock|end_of_textblock|define|define-guitar|define-guitalele|define-ukulele|new_page|column_break|transpose|source_comment|empty_line|unknown)
+        </define-regex>
 
         <context id="chord">
             <start>\[</start>
             <end>\]</end>
             <include>
+                <context sub-pattern="0" where="start" style-ref="def:strong-emphasis"/>
+                <context sub-pattern="0" where="end" style-ref="def:strong-emphasis"/>
+                <context ref="tag"/>
                 <context id="chord-name" style-ref="chord">
-                    <match>([^\]]*)</match>
+                    <match>([^\]&lt;&gt;]*)</match>
                 </context>
             </include>
         </context>
 
-        <context id="chordpro" class="no-spell-check">
+        <context id="tag" class="no-spell-check">
+            <start>&lt;/?[a-z0-9_-]+</start>
+            <end>/?&gt;</end>
             <include>
-                <context ref="comment"/>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context ref="arguments"/>
+            </include>
+        </context>
+
+        <context id="bold" class="no-spell-check" end-at-line-end="true" >
+            <start>&lt;b&gt;</start>
+            <end>&lt;/b&gt;</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context id="bold-text" style-ref="def:strong-emphasis" end-at-line-end="true" extend-parent="false">
+                    <start>\%{def:always-match}</start>
+                </context>
+            </include>
+        </context>
+
+        <context id="italic" class="no-spell-check" end-at-line-end="true" >
+            <start>&lt;i&gt;</start>
+            <end>&lt;/i&gt;</end>
+            <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context id="italic-text" style-ref="def:emphasis" end-at-line-end="true" extend-parent="false">
+                    <start>\%{def:always-match}</start>
+                </context>
+            </include>
+        </context>
+
+        <context id="arguments">
+            <include>
+                <!-- Attribute in the form: name="value" -->
+                <context id="attrib-quoted" class="no-spell-check">
+                    <start>(\%{attribute-name}\s*=\s*)(\")</start>
+                    <include>
+                        <context sub-pattern="1" where="start" style-ref="attrib-name"/>
+                        <context id="net-address" end-parent="true" extend-parent="false" style-ref="def:net-address" class="no-spell-check">
+                            <match>\%{net-address}</match>
+                        </context>
+                        <context id="string" end-parent="true" end-at-line-end="true" style-ref="attrib-value" class="string" class-disabled="no-spell-check">
+                            <start>\%{def:always-match}</start>
+                            <end>\"</end>
+                            <include>
+                                <context sub-pattern="0" where="start" style-ref="tag"/>
+                                <context sub-pattern="0" where="end" style-ref="tag"/>
+                            </include>
+                        </context>
+                    </include>
+                </context>
+
+                <!-- Attribute in the form: name=value -->
+                <context id="attrib-unquoted" style-ref="attrib-value" class="no-spell-check">
+                    <start>\%{attribute-name}\s*=\s*</start>
+                    <end>(?=&gt;|\s)</end>
+                    <include>
+                        <context sub-pattern="0" where="start" style-ref="attrib-name"/>
+                        <context ref="xml:entity"/>
+                        <context ref="xml:character-reference"/>
+                    </include>
+                </context>
+
+                <!-- Attribute in the form: name -->
+                <context id="attrib-no-value" style-ref="attrib-value" class="no-spell-check">
+                    <match>\%{attribute-name}</match>
+                </context>
+
+            </include>
+        </context>
+
+        <context id="directive" end-at-line-end="true" >
+            <start>(\{)(\%{all-directives})(:?)</start>
+            <end>\}</end>
+            <include>
+                <context sub-pattern="2" where="start" style-ref="def:type"/>
+                <context sub-pattern="3" where="start" style-ref="def:note"/>
+<!--                <context ref="bold"/>-->
+<!--                <context ref="italic"/>-->
+                <context ref="tag"/>
+                <context ref="arguments"/>
+            </include>
+        </context>
+
+        <!-- All the context collected -->
+        <context id="chordpro">
+            <include>
+                <context ref="def:shell-like-comment"/>
+                <context ref="bold"/>
+                <context ref="italic"/>
                 <context ref="chord"/>
                 <context ref="directive"/>
-                <context ref="markup"/>
+                <context ref="tag"/>
             </include>
         </context>
     </definitions>
