@@ -58,10 +58,6 @@ extension Markup {
     --chordprovider-accent-bg-color: \(dark ? "#57575a" : "#c8d3ca");
     --chordprovider-accent-color: \(dark ? "#cee3da" : "#78847f");
 }
-.background {
-    font-family: "Adwaita Sans";
-    font-size: 11pt;
-}
 .standard, .strum {
     font-size: \(baseFontSize * zoom)px;
 }

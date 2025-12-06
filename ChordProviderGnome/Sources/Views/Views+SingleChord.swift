@@ -33,7 +33,11 @@ extension Views {
                 .flat()
                 .style(.chordDiagramButton)
                 .popover(visible: $chordDiagram) {
-                    Widgets.ChordDiagram(chord: chord, settings: settings)
+                    VStack(spacing: 0) {
+                        Text(chord.display)
+                            .style(.chord)
+                        Widgets.ChordDiagram(chord: chord, settings: settings)
+                    }
                 }
             }
         }
