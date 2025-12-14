@@ -93,7 +93,7 @@ extension ChordPro.Directive {
     }
 
     public static var directivesWithArgument: [ChordPro.Directive] {
-        metadataDirectives + environmentDirectives + [
+        metadataDirectives + [
             .define,
             .defineGuitar,
             .defineUkulele,
