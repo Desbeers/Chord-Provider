@@ -36,6 +36,13 @@ let package = Package(
                 .copy("Samples")
             ],
         ),
+        .executableTarget(
+            name: "Generate",
+            dependencies: [
+                .product(name: "ChordProviderCore", package: "ChordProviderCore"),
+            ],
+            path: "Generate",
+        ),
         .systemLibrary(
             name: "CChordProvider",
             pkgConfig: "cairo"

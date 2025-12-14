@@ -46,7 +46,17 @@ public struct SourceView: AdwaitaWidget {
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
+        /// Set the **ChordPro** `directive` snippets
+        editor.fields["snippets"] = gtk_source_completion_snippets_new()
+        /// Don't show them by default; `snippets` are *fuzzy* but I want them only for directives
+        editor.fields["provider"] = false
+        /// Magic, not my code :-)
         codeeditor_buffer_set_theme_adaptive(buffer.opaquePointer?.cast())
+        /// Add **ChordPro** stuff to the editor
+        setLanguage(buffer: buffer)
+        /// Init the source editor
+        /// - Note: Important, or else the popup fill fail. This took me a long time to find-out...
+        gtk_source_init()
         update(editor, data: data, updateProperties: true, type: type)
         return editor
     }
@@ -64,12 +74,32 @@ public struct SourceView: AdwaitaWidget {
                 if self.text != text {
                     self.text = text
                 }
+                if let snippets = storage.fields["snippets"] as? UnsafeMutablePointer<GtkSourceCompletionSnippets>?, let provider = storage.fields["provider"] as? Bool {
+                    let completion = gtk_source_view_get_completion(storage.opaquePointer?.cast())
+                    let bracket = bracket_condition_met(storage.opaquePointer?.cast())
+                    switch bracket {
+                    case 1:
+                        /// We have a bracket on the line
+                        if provider {
+                            /// There is already a provider for **ChordPro** directive snippets
+                            break
+                        } else {
+                            /// Add the provider with **ChordPro** snippets
+                            gtk_source_completion_add_provider(completion, snippets?.opaque())
+                            storage.fields["provider"] = true
+                        }
+                    default:
+                        /// Remove the provider
+                        storage.fields["provider"] = false
+                        gtk_source_completion_hide(completion);
+                        gtk_source_completion_remove_provider(completion, snippets?.opaque())
+                    }
+                }
             }
             if updateProperties {
                 if getText(buffer: buffer) != self.text {
                     gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), text, -1)
                 }
-                setLanguage(buffer: buffer)
             }
         }
         if updateProperties {
@@ -110,7 +140,14 @@ public struct SourceView: AdwaitaWidget {
     func setLanguage(buffer: ViewStorage) {
         let manager = gtk_source_language_manager_get_default()
         if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
-            gtk_source_language_manager_append_search_path(manager, urlPath.deletingLastPathComponent().path())
+            let path = urlPath.deletingLastPathComponent().path()
+            /// Add the **ChordPro** language
+            gtk_source_language_manager_append_search_path(manager, path)
+            /// Add the **ChordPro** snippets
+            /// - Note: Doing this in `Swift` gives crashes on Linux; so I use a `C` function
+            path.withCString { cString in
+                codeeditor_snippets(cString)
+            }
         }
         let language = gtk_source_language_manager_get_language(manager, language.languageName)
         gtk_source_buffer_set_language(buffer.opaquePointer?.cast(), language)

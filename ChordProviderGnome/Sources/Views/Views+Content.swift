@@ -39,12 +39,12 @@ extension Views {
                         .transition(.crossfade)
                 }
             }
+
             // MARK: On Update
             
             .onUpdate {
-                Idle {
-                    /// Update the song when its contents is changed or when the core settings are changed
-                    if appState.scene.source != song.content || song.settings != appState.settings.core {
+                if appState.scene.source != song.content || song.settings != appState.settings.core {
+                    Idle(priority: .low) {
                         LogUtils.shared.clearLog()
                         song.content = appState.scene.source
                         song = ChordProParser.parse(

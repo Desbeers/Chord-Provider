@@ -147,14 +147,14 @@ extension ChordPro {
 
         /// # Chord diagrams
 
-        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings
-        case define
         /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitar
         case defineGuitar = "define-guitar"
-        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitar
+        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitalele
         case defineGuitalele = "define-guitalele"
-        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitar
+        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a ukulele
         case defineUkulele = "define-ukulele"
+        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings
+        case define
 
         // MARK: Output related directives
 

@@ -36,7 +36,12 @@ extension Views {
                     VStack(spacing: 0) {
                         Text(chord.display)
                             .style(.chord)
-                        Widgets.ChordDiagram(chord: chord, settings: settings)
+                        if !chord.status.knownChord {
+                            Text(chord.status.description)
+                                .style(.caption)
+                        } else {
+                            Widgets.ChordDiagram(chord: chord, settings: settings)
+                        }
                     }
                 }
             }

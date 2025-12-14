@@ -1,4 +1,7 @@
+#include <gtk/gtk.h>
 #include <gtksourceview/gtksource.h>
+
+#define MIN_CHARS_AFTER_BRACE 2
 
 static void update_theme_on_settings_change(GObject *settings,
                                             GParamSpec *pspec,
@@ -42,4 +45,56 @@ static void codeeditor_buffer_set_theme_adaptive(GtkSourceBuffer *buffer) {
 static void print_language_id(gpointer data, gpointer user_data) {
   const gchar *language_id = (const gchar *)data;
   g_print("%s\n", language_id);
+}
+
+static void codeeditor_snippets(const char *msg)
+{
+  GtkSourceSnippetManager *manager;
+  char **search_path;
+  gsize len;
+
+  manager = gtk_source_snippet_manager_get_default ();
+
+  search_path = g_strdupv ((char **)gtk_source_snippet_manager_get_search_path (manager));
+  len = g_strv_length (search_path);
+  search_path = g_realloc_n (search_path, len + 2, sizeof (char **));
+  search_path[len++] = g_strdup (msg);
+  search_path[len] = NULL;
+
+  gtk_source_snippet_manager_set_search_path (manager,
+                                              (const char * const *)search_path);
+
+  g_strfreev (search_path);
+}
+
+static gboolean
+bracket_condition_met(GtkSourceView *view)
+{
+    GtkTextBuffer *buffer =
+        gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+
+    GtkTextIter iter;
+    gtk_text_buffer_get_iter_at_mark(
+        buffer,
+        &iter,
+        gtk_text_buffer_get_insert(buffer));
+
+    GtkTextIter scan = iter;
+    int count = 0;
+
+    while (gtk_text_iter_backward_char(&scan)) {
+        gunichar c = gtk_text_iter_get_char(&scan);
+
+        /* Stop at whitespace or newline */
+        if (g_unichar_isspace(c))
+            return FALSE;
+
+        /* Found trigger */
+        if (c == '{')
+            return count >= MIN_CHARS_AFTER_BRACE;
+
+        count++;
+    }
+
+    return FALSE;
 }

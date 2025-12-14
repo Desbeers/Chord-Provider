@@ -30,7 +30,8 @@ let package = Package(
             name: "SourceView",
             dependencies: [.product(name: "Adwaita", package: "adwaita-swift"), "CSourceView"],
             resources: [
-                .copy("Resources/chordpro.lang")
+                .copy("Resources/chordpro.lang"),
+                .copy("Resources/chordpro.snippets")
             ],
         ),
         .systemLibrary(

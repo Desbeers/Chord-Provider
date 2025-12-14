@@ -15,6 +15,8 @@ extension ChordPro.Directive {
     public struct Details {
         /// The label of the directive
         public var label: String
+        /// Default value when the directive needs an argument
+        public var defaultValue: String?
         /// The SF symbol of the directive
         public var icon: String
         /// The text for a button to create this directive
@@ -91,6 +93,7 @@ extension ChordPro.Directive {
         case .year:
             Details(
                 label: "Year",
+                defaultValue: "1975",
                 icon: "calendar",
                 button: "Year",
                 help: "The year this song was first published, as a four-digit number",
@@ -99,6 +102,7 @@ extension ChordPro.Directive {
         case .key:
             Details(
                 label: "Key",
+                defaultValue: "C",
                 icon: "key",
                 button: "Key",
                 help: "This directive specifies the key the song is written in",
@@ -107,6 +111,7 @@ extension ChordPro.Directive {
         case .time:
             Details(
                 label: "Time",
+                defaultValue: "4/4",
                 icon: "timer",
                 button: "Time",
                 help: "This directive specifies a time signature",
@@ -115,6 +120,7 @@ extension ChordPro.Directive {
         case .tempo:
             Details(
                 label: "Tempo",
+                defaultValue: "128",
                 icon: "metronome",
                 button: "Tempo",
                 help: "This directive specifies the tempo in number of beats per minute for the song",
@@ -123,6 +129,7 @@ extension ChordPro.Directive {
         case .capo:
             Details(
                 label: "Capo",
+                defaultValue: "1",
                 icon: "paperclip",
                 button: "Capo",
                 help: "This directive specifies the capo setting for the song",
@@ -290,12 +297,39 @@ extension ChordPro.Directive {
                 environment: .textblock,
                 lineType: .environmentDirective
             )
-        case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
+        case .define:
             Details(
                 label: "Chord Definition",
                 icon: "hand.raised",
                 button: "Define Chord",
                 help: "This directive defines a chord in terms of fret/string positions and, optionally, finger settings",
+                environment: .metadata
+            )
+        case .defineGuitar:
+            Details(
+                label: "Chord Definition for a guitar",
+                defaultValue: "C base-fret 1 frets x 3 2 0 1 0 fingers 0 3 2 0 1 0",
+                icon: "hand.raised",
+                button: "Define Chord",
+                help: "This directive defines a guitar chord in terms of fret/string positions and, optionally, finger settings",
+                environment: .metadata
+            )
+        case .defineGuitalele:
+            Details(
+                label: "Chord Definition for a guitalele",
+                defaultValue: "C base-fret 1 frets 3 2 0 0 0 3 fingers 2 1 0 0 0 3",
+                icon: "hand.raised",
+                button: "Define Chord",
+                help: "This directive defines a guitalele chord in terms of fret/string positions and, optionally, finger settings",
+                environment: .metadata
+            )
+        case .defineUkulele:
+            Details(
+                label: "Chord Definition for a ukulele",
+                defaultValue: "C base-fret 1 frets 0 0 0 3 fingers 0 0 0 3",
+                icon: "hand.raised",
+                button: "Define Chord",
+                help: "This directive defines a ukulele chord in terms of fret/string positions and, optionally, finger settings",
                 environment: .metadata
             )
         case .newPage:

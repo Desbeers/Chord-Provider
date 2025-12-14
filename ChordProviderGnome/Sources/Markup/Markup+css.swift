@@ -18,6 +18,7 @@ extension Markup {
         case theme = "theme"
         case standard
         case bold
+        case caption
         case title = "song-title"
         case subtitle = "song-subtitle"
         case sectionHeader = "section-header"
@@ -27,6 +28,7 @@ extension Markup {
         case commentLabel = "comment-label"
         case repeatChorus = "repeat-chorus"
         case chord
+        case chordError = "chord-error"
         case chordDiagramButton = "chord-diagram-button"
         case textblock
         case grid
@@ -119,6 +121,10 @@ extension Markup {
 .chord {
     font-size: \(1.1 * baseFontSize * zoom)px;
     color: var( --chordprovider-accent-color);
+}
+.chord-error {
+    font-size: \(1.1 * baseFontSize * zoom)px;
+    color: var( --destructive-color);
 }
 .textblock {
     font-size: \(baseFontSize * zoom)px;

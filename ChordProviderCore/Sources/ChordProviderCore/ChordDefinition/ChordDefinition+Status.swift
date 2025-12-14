@@ -108,7 +108,7 @@ extension ChordDefinition {
         /// Bool if the chord is considered 'known'
         public var knownChord: Bool {
             switch self {
-            case .standardChord, .transposedChord, .customChord, .customTransposedChord, .correct:
+            case .standardChord, .transposedChord, .customChord, .correct:
                 true
             default:
                 false

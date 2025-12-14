@@ -92,6 +92,16 @@ extension ChordPro.Directive {
         ]
     }
 
+    public static var directivesWithArgument: [ChordPro.Directive] {
+        metadataDirectives + environmentDirectives + [
+            .define,
+            .defineGuitar,
+            .defineUkulele,
+            .defineGuitalele,
+            .comment
+        ]
+    }
+
     /// Array of **environment** ``ChordPro/Directive``
     public static var environmentDirectives: [ChordPro.Directive] {
         [
@@ -117,7 +127,7 @@ extension ChordPro.Directive {
     }
 
     /// Array of  custom **environment** ``ChordPro/Directive``
-    static var customDirectives: [ChordPro.Directive] {
+    static public var customDirectives: [ChordPro.Directive] {
         [
             .sourceComment,
             .emptyLine,
