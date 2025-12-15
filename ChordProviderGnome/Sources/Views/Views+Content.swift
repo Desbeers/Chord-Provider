@@ -21,6 +21,8 @@ extension Views {
         @Binding var appState: AppState
         /// The whole song
         @Binding var song: Song
+        /// Bool if the song is parsing
+        @State private var parsing: Bool = false
 
         // MARK: Main View
 
@@ -41,20 +43,10 @@ extension Views {
             }
 
             // MARK: On Update
-            
+
             .onUpdate {
                 if appState.scene.source != song.content || song.settings != appState.settings.core {
-                    Idle(priority: .low) {
-                        LogUtils.shared.clearLog()
-                        song.content = appState.scene.source
-                        song = ChordProParser.parse(
-                            song: song,
-                            settings: appState.settings.core
-                        )
-                        /// Update the recent song list
-                        /// - Note: It will only do that when the song has an URL and is not dirty
-                        appState.addRecentSong(song: song)
-                    }
+                    parse()
                 }
             }
 
@@ -240,6 +232,28 @@ extension Views {
                     .shortcutsItem("Show keyboard shortcuts", accelerator: "question".ctrl())
             }
             .shortcutsSection { $0.shortcutsItem("Quit Chord Provider", accelerator: "q".ctrl()) }
+        }
+        
+        /// Parse the song
+        func parse() {
+            if !parsing {
+                parsing = true
+                Idle(priority: .low) {
+                    LogUtils.shared.clearLog()
+                    song.content = appState.scene.source
+                    song.settings = appState.settings.core
+                    var newSong = song
+                    newSong = ChordProParser.parse(
+                        song: song,
+                        settings: appState.settings.core
+                    )
+                    self.song = newSong
+                    /// Update the recent song list
+                    /// - Note: It will only do that when the song has an URL and is not dirty
+                    appState.addRecentSong(song: song)
+                    parsing = false
+                }
+            }
         }
     }
 }

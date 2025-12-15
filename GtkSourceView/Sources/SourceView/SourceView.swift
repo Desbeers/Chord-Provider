@@ -119,6 +119,7 @@ public struct SourceView: AdwaitaWidget {
             gtk_source_view_set_show_line_numbers(storage.opaquePointer?.cast(), numbers.cBool)
             gtk_text_view_set_wrap_mode(storage.opaquePointer?.cast(), wrapMode.rawValue)
             gtk_source_view_set_highlight_current_line(storage.opaquePointer?.cast(), highlightCurrentLine.cBool)
+            storage.previousState = self
         }
     }
 

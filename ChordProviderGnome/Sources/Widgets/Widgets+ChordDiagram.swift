@@ -34,8 +34,12 @@ extension Widgets {
 
     /// The `AdwaitaWidget` for a chord diagram
     private struct Diagram: AdwaitaWidget {
+        /// The chord definition
+        let chord: ChordDefinition
         /// The `C` version of the chord definition
         let cchord = UnsafeMutablePointer<cchord>.allocate(capacity: 1)
+
+        let settings: AppSettings
         /// The width of the diagram
         let width: Double
         /// Init the `widget`
@@ -44,7 +48,51 @@ extension Widgets {
             width: Double = 100,
             settings: AppSettings
         ) {
+            self.chord = chord
+            self.settings = settings
             self.width = width
+        }
+        /// The view storage.
+        /// - Parameters:
+        ///     - data: The widget data.
+        ///     - type: The view render data type.
+        /// - Returns: The view storage.
+        func container<Data>(
+            data: WidgetData,
+            type: Data.Type
+        ) -> ViewStorage where Data: ViewRenderData {
+            convert()
+            let drawingArea = gtk_drawing_area_new()
+            gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
+            gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))
+            gtk_drawing_area_set_draw_func(drawingArea?.cast(), draw_chord, cchord, nil)
+            let storage = ViewStorage(drawingArea?.opaque())
+            storage.fields["settings"] = settings
+            storage.fields["chord"] = chord
+            update(storage, data: data, updateProperties: true, type: type)
+            return storage
+        }
+
+        func update<Data>(
+            _ storage: ViewStorage,
+            data: WidgetData,
+            updateProperties: Bool,
+            type: Data.Type
+        ) where Data: ViewRenderData {
+            if updateProperties, let settingsStorage = storage.fields["settings"] as? AppSettings, let chordStorage = storage.fields["chord"] as? ChordDefinition {
+                if settings.core.diagram != settingsStorage.core.diagram || chord != chordStorage {
+                    Idle {
+                        convert()
+                        storage.fields["settings"] = settings
+                        storage.fields["chord"] = chord
+                        gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
+                    }
+                }
+                storage.previousState = self
+            }
+        }
+
+        func convert() {
             cchord.pointee.strings = Int32(chord.instrument.strings.count)
             cchord.pointee.base_fret = Int32(chord.baseFret)
             cchord.pointee.frets = (
@@ -100,33 +148,6 @@ extension Widgets {
                 noteResult[safe: 4] ?? noteFallback,
                 noteResult[safe: 5] ?? noteFallback
             )
-        }
-        /// The view storage.
-        /// - Parameters:
-        ///     - data: The widget data.
-        ///     - type: The view render data type.
-        /// - Returns: The view storage.
-        func container<Data>(
-            data: WidgetData,
-            type: Data.Type
-        ) -> ViewStorage where Data: ViewRenderData {
-            let drawingArea = gtk_drawing_area_new()
-            gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
-            gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))
-            let storage = ViewStorage(drawingArea?.opaque())
-            update(storage, data: data, updateProperties: true, type: type)
-            return storage
-        }
-
-        func update<Data>(
-            _ storage: ViewStorage,
-            data: WidgetData,
-            updateProperties: Bool,
-            type: Data.Type
-        ) where Data: ViewRenderData {
-            if updateProperties {
-                gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_chord, cchord, nil)
-            }
         }
     }
 }
