@@ -21,7 +21,7 @@ extension Views {
             VStack(spacing: 0) {
                 ScrollView {
                     SourceView(text: $appState.scene.source)
-                        .innerPadding()
+                        .innerPadding(10, edges: [.top, .trailing, .bottom])
                         .lineNumbers(appState.settings.editor.showLineNumbers)
                         .language(.chordpro)
                         .wrapMode(appState.settings.editor.wrapLines ? .word : .none)

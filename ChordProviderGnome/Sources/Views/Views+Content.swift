@@ -242,12 +242,10 @@ extension Views {
                     LogUtils.shared.clearLog()
                     song.content = appState.scene.source
                     song.settings = appState.settings.core
-                    var newSong = song
-                    newSong = ChordProParser.parse(
+                    song = ChordProParser.parse(
                         song: song,
                         settings: appState.settings.core
                     )
-                    self.song = newSong
                     /// Update the recent song list
                     /// - Note: It will only do that when the song has an URL and is not dirty
                     appState.addRecentSong(song: song)

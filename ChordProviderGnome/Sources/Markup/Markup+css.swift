@@ -85,7 +85,7 @@ extension Markup {
     font-size: \(0.8 * baseFontSize)px;
     font-weight: normal;
     color: \(dark ? "#eee" : "#000");
-    background-color: var(--chordprovider-accent-bg-color);
+    background-color: var(--headerbar-shade-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }

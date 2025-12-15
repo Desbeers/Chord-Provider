@@ -59,14 +59,10 @@ extension GtkRender {
             Box {
                 if part.chordDefinition != nil {
                     Views.SingleChord(part: part, settings: settings)
-//                    Text(part.withMarkup(chord))
-//                        .useMarkup()
-//                        .style(.gridChord)
                 } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
                         .pixelSize(Int(14 * settings.app.zoom))
                         .style(.svgIcon)
-                        //.padding(5, .leading)
                 } else {
                     Text(part.withMarkup(part.text ?? " "))
                         .useMarkup()
