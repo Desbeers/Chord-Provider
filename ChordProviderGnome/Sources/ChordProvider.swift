@@ -65,14 +65,5 @@ import CChordProvider
         .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
         .title("Chords Database")
-
-        // MARK: Debug Window
-
-        Window(id: "debug", open: 0) { _ in
-            Views.Debug(app: app, appState: $appState, song: song)
-        }
-        .minSize(width: 800, height: 600)
-        .defaultSize(width: 800, height: 600)
-        .title("Parser Info")
     }
 }

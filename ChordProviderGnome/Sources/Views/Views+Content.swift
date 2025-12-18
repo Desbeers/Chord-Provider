@@ -34,6 +34,19 @@ extension Views {
                         .vexpand()
                         .hexpand()
                         .transition(.crossfade)
+                } else if appState.scene.showDebug {
+                    Views.Debug(app: app, appState: $appState, song: song)
+
+                    // MARK: Top Toolbar
+
+                    .topToolbar {
+                        Views.Toolbar.Main(
+                            app: app,
+                            window: window,
+                            appState: $appState,
+                            song: song
+                        )
+                    }
                 } else {
                     Views.Render(app: app, window: window, song: song, appState: $appState)
                         .hexpand()

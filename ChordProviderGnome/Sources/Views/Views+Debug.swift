@@ -27,6 +27,11 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             VStack {
+                ToggleGroup(selection: $selectedTab, values: Tab.allCases)
+                    .padding()
+                Text(selectedTab.help)
+                    .style(.title)
+                    .padding(5, .bottom)
                 if song.content.isEmpty {
                     StatusPage(
                         "No song open",
@@ -45,13 +50,15 @@ extension Views {
                 }
             }
             .hexpand()
-            .topToolbar {
-                HeaderBar { } end: { }
-                    .headerBarTitle {
-                        ViewSwitcher(selectedElement: $selectedTab)
-                            .wideDesign(true)
-                    }
+            .card()
+            .padding()
+            Button("Back to your song") {
+                appState.scene.showDebug = false
             }
+            .halign(.center)
+            .suggested()
+            .padding(5, .bottom)
+
         }
 
         // MARK: Source View
@@ -106,14 +113,8 @@ extension Views {
                 }
                 .style("caption")
                 .hexpand()
-                if appState.settings.editor.showEditor {
-                    Button("Clean Source") {
-                        appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
-                    }
-                } else {
-                    Button("Open Editor") {
-                        appState.settings.editor.showEditor.toggle()
-                    }
+                Button("Use this as your Source") {
+                    appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                 }
             }
             .padding()
@@ -126,11 +127,9 @@ extension Views {
             NavigationSplitView {
                 List(JSONPage.allCases, selection: $jsonSelection) { element in
                     Text(element.description)
-                        .ellipsize()
                         .halign(.start)
                         .padding()
                 }
-                .sidebarStyle()
             } content: {
                 ScrollView {
                     VStack {
@@ -172,24 +171,36 @@ extension Views {
             .vexpand()
         }
 
-        enum Tab: String, CaseIterable, ViewSwitcherOption {
-            /// The title of the tab
-            var title: String {
-                self.rawValue
+        enum Tab: String, ToggleGroupItem, CaseIterable, CustomStringConvertible {
+            var id: Self { self }
+
+            var description: String { rawValue }
+
+            var help: String {
+                switch self {
+                case .log:
+                    "The logging messages generated during the song parsing"
+                case .source:
+                    "The generated source for your song"
+                case .json:
+                    "The JSON representation of the song"
+                }
             }
-            /// The icon of the tab
-            var icon: Icon {
+
+            var icon: Icon? {
                 .default(icon: {
                     switch self {
                     case .log:
-                        .dialogInformation
+                            .dialogInformation
                     case .source:
-                        .formatJustifyLeft
+                            .formatJustifyLeft
                     case .json:
-                        .viewListBullet
+                            .viewListBullet
                     }
                 }())
             }
+
+            var showLabel: Bool { true }
             /// Log messages
             case log = "Log output"
             /// Song source messages
@@ -203,7 +214,7 @@ extension Views {
                 self
             }
             var description: String {
-                self.rawValue
+               rawValue
             }
             case metadata = "Metadata"
             case sections = "Sections"

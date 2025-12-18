@@ -31,6 +31,8 @@ extension AppState {
         var showTransposeDialog = false
         /// Bool if the welcome is shown
         var showWelcome: Bool = false
+        /// Show the *Debug*
+        var showDebug = false
         /// Bool if the preferences is shown
         var showPreferences: Bool = false
         /// Bool if the close dialog is shown

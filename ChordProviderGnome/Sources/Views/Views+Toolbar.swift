@@ -57,8 +57,8 @@ extension Views.Toolbar {
                     if let tags = song.metadata.tags {
                         Views.Tags(tags: tags)
                     }
-                    Button(icon: .default(icon: .helpAbout)) {
-                        app.showWindow("debug")
+                    Toggle(icon: .default(icon: .helpAbout), isOn: $appState.scene.showDebug) {
+                        /// Nothing to handle
                     }
                     .tooltip("See how your song is parsed")
                     .accent(song.hasWarnings)
