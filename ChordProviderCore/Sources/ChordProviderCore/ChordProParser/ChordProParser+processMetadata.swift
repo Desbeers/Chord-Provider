@@ -15,16 +15,27 @@ extension ChordProParser {
     ///   - arguments: The optional arguments for the directive
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
+    ///
+    /// - Note: Metadata supports only a single plain argument
     static func processMetadata(
         directive: ChordPro.Directive,
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        /// Set this metadata as defined
-        song.metadata.definedMetadata.insert(directive.rawValue.long)
-        /// Get the label
-        let label = arguments[.plain]
+        /// Check if the directive is already defined and add a warning if it should only be set once
+        if song.metadata.definedMetadata.contains(directive.rawValue.long), ChordPro.Directive.singleDirectives.contains(directive) {
+            currentSection.addWarning("Metadata <b>\(directive.details.label)</b> is redefined; previous one will be ignored", level: .error)
+        } else {
+            /// Set this metadata as defined
+            song.metadata.definedMetadata.insert(directive.rawValue.long)
+        }
+        /// Add a warning that attributes are not supported for metadata
+        if arguments[.label] != nil {
+            currentSection.addWarning("Metadata attributes are not supported", level: .notice)
+        }
+        /// Get the label; fallback to the optional label but give a warning
+        let label = arguments[.plain] ?? arguments[.label]
         /// Add the metadata to the song
         switch directive {
 
@@ -64,9 +75,6 @@ extension ChordProParser {
             song.metadata.album = label
         case .transpose:
             song.metadata.transpose = Int(label ?? "0") ?? 0
-
-            // MARK: Unofficial Meta-data directives
-
         case .sortArtist:
             song.metadata.sortArtist = label ?? song.metadata.sortArtist
         case .tag:
@@ -75,7 +83,22 @@ extension ChordProParser {
                     song.metadata.tags = [label]
                 }
             }
-
+        case .duration:
+            song.metadata.duration = label
+        case .copyright:
+            song.metadata.copyright = label
+        case .arranger:
+            if let label {
+                if (song.metadata.arrangers?.append(label)) == nil {
+                    song.metadata.arrangers = [label]
+                }
+            }
+        case .lyricist:
+            if let label {
+                if (song.metadata.lyricists?.append(label)) == nil {
+                    song.metadata.lyricists = [label]
+                }
+            }
         default:
             break
         }

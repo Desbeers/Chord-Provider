@@ -32,7 +32,7 @@ extension ChordProParser {
         case .textblock:
             processTextblock(text: text, currentSection: &currentSection, song: &song)
         default:
-            /// Anything else
+            /// Treat as normal song line
             processLine(text: text, currentSection: &currentSection, song: &song)
         }
     }

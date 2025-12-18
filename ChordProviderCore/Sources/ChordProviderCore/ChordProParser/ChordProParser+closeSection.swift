@@ -24,7 +24,7 @@ extension ChordProParser {
     ) {
         let closingDirective = currentSection.environment.directives.close
         /// Add the closing directive for an automatic created environment or if a environment is not properly closed
-        if currentSection.autoCreated ?? false || warning, let lastLineIndex = currentSection.lines.lastIndex(where: { $0.directive != .emptyLine }) {
+        if (currentSection.autoCreated ?? false) || warning, let lastLineIndex = currentSection.lines.lastIndex(where: { $0.directive != .emptyLine }) {
             let line = Song.Section.Line(
                 sourceLineNumber: -(currentSection.lines[lastLineIndex].sourceLineNumber + 1),
                 source: "{\(directive.rawValue.long)}",

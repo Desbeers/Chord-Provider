@@ -34,7 +34,7 @@ extension ChordProParser {
             if let match = song.chords.last(where: { $0.name == chord }) {
                 if match.status == .unknownChord, warning {
                     /// Add a warning that the chord is unknown
-                    line.addWarning("Unknown chord: <b>(chord)</b>", level: .error)
+                    line.addWarning("Unknown chord: <b>\(chord)</b>", level: .error)
                 }
                 return match
             }

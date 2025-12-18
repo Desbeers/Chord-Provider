@@ -88,7 +88,11 @@ extension ChordPro.Directive {
             .tempo,
             .capo,
             .tag,
-            .transpose
+            .transpose,
+            .copyright,
+            .duration,
+            .arranger,
+            .lyricist
         ]
     }
 
@@ -123,6 +127,26 @@ extension ChordPro.Directive {
             .comment,
             .define,
             .image
+        ]
+    }
+
+    /// Array of ``ChordPro/Directive`` that should only defined once
+    static var singleDirectives: [ChordPro.Directive] {
+        [
+            .title,
+            .sortTitle,
+            .subtitle,
+            .artist,
+            .sortArtist,
+            .album,
+            .year,
+            .key,
+            .time,
+            .tempo,
+            .capo,
+            .transpose,
+            .copyright,
+            .duration
         ]
     }
 

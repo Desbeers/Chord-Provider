@@ -24,12 +24,13 @@ extension ChordProParser {
 
         /// Close the current section if it has lines and give it a warning if the environment is not auto-created
         /// - Note: a new section will be created in that function
+        let shouldWarn = !(currentSection.autoCreated ?? false)
         if !currentSection.lines.isEmpty {
             closeSection(
                 directive: currentSection.environment.directives.close,
                 currentSection: &currentSection,
                 song: &song,
-                warning: currentSection.autoCreated ?? false ? false : true
+                warning: shouldWarn
             )
         }
 
@@ -47,16 +48,10 @@ extension ChordProParser {
         var arguments = arguments
 
         /// Set the source
-        let source = arguments[.source]
-        /// Clear the passed source to avoid confusion with 'real' arguments
-        arguments[.source] = nil
+        let source = arguments.removeValue(forKey: .source)
 
         /// Make a plain argument just plain
-        var plain: String?
-        if let plainArgument = arguments[.plain] {
-            plain = plainArgument
-            arguments[.plain] = nil
-        }
+        let plain = arguments.removeValue(forKey: .plain)
 
         /// Add the single line
         var line = Song.Section.Line(

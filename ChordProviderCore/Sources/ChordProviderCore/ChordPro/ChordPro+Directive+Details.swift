@@ -99,6 +99,45 @@ extension ChordPro.Directive {
                 help: "The year this song was first published, as a four-digit number",
                 environment: .metadata
             )
+        case .copyright:
+            Details(
+                label: "Copyright",
+                icon: "chart.line.flattrend.xyaxis",
+                button: "Copyright",
+                help: "Copyright information for the song",
+                environment: .metadata,
+                lineType: .metadata
+            )
+        case .duration:
+            Details(
+                label: "Duration",
+                icon: "timer",
+                button: "Duration",
+                help: "This directive specifies the duration of the song",
+                environment: .metadata,
+                lineType: .metadata,
+                info: "This can be a number indicating seconds, or a time specification conforming to the extended ordinal time format as defined in ISO 8601."
+            )
+        case .arranger:
+            Details(
+                label: "Arranger",
+                icon: "person.2",
+                button: "Arranger",
+                help: "This directive defines the arranger of the song",
+                environment: .metadata,
+                lineType: .metadata,
+                info: "Multiple arrangers can be specified using multiple directives."
+            )
+        case .lyricist:
+            Details(
+                label: "Lyricist",
+                icon: "person.2",
+                button: "Lyricist",
+                help: "This directive defines the writer of the lyrics of the song",
+                environment: .metadata,
+                lineType: .metadata,
+                info: "Multiple lyricists can be specified using multiple directives."
+            )
         case .key:
             Details(
                 label: "Key",

@@ -74,6 +74,14 @@ extension ChordPro {
         case instrument
         /// This directive defines a tag for the song
         case tag
+        /// Copyright information for the song
+        case copyright
+        /// This directive specifies the duration of the song
+        case duration
+        /// This directive defines the arranger of the song
+        case arranger
+        /// This directive defines the writer of the lyrics of the song
+        case lyricist
 
         /// # Formatting directives
 

@@ -85,6 +85,14 @@ extension Song {
         public var videoURL: URL?
         /// The optional tag(s)
         public var tags: [String]?
+        /// The optional duration
+        public var duration: String?
+        /// The optional copyright
+        public var copyright: String?
+        /// The optional arranger(s)
+        public var arrangers: [String]?
+        /// The optional lyricist(s)
+        public var lyricists: [String]?
         /// The optional transpose
         public var transpose: Int = 0
         /// The longest label in the song

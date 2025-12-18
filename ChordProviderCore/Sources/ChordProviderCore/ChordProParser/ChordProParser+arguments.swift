@@ -20,7 +20,9 @@ extension ChordProParser {
             /// Go to all `key=value` items, skipping .plain and source (that should not be there anyway)
             var string: [String] = []
             for key in arguments.keys.sorted(by: <) where key != .plain && key != .source {
-                string.append("\(key)=\"\(arguments[key] ?? "Empty")\"")
+                if let value = arguments[key] {
+                    string.append("\(key)=\"\(value)\"")
+                }
             }
             return string.isEmpty ? nil : "\(string.joined(separator: " "))"
         }
@@ -49,7 +51,7 @@ extension ChordProParser {
             arguments = attributes.reduce(into: DirectiveArguments()) {
                 if let argument = ChordPro.Directive.FormattingAttribute(rawValue: $1.1.lowercased()) {
                     var value = $1.2
-                    if value.components(separatedBy: "\"").count < 3 {
+                    if value.first != "\"" || value.last != "\"" {
                         currentSection.addWarning("Missing brackets around <b>\(value)</b>")
                     }
                     value.replace("\"", with: "")

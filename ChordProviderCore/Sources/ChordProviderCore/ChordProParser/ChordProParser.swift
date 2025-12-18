@@ -8,7 +8,7 @@
 import Foundation
 
 /// The **ChordPro** file parser
-public actor ChordProParser {
+public enum ChordProParser {
 
     /// A dictionary with optional arguments for a directive
     ///
@@ -44,14 +44,17 @@ public actor ChordProParser {
         /// Add the settings
         song.settings = settings
         /// And add the first section
-        var currentSection = Song.Section(id: song.sections.count + 1)
+        var currentSection = Song.Section(id: 1)
         /// Parse each line of the text, stripping newlines at the end
+        /// Leading whitespace is ignored for line classification, but preserved for content processing
         for text in song.content.components(separatedBy: .newlines) {
+            let trimmed = text.trimmingCharacters(in: .whitespaces)
+            let firstCharacter = trimmed.first
             /// Increase the line number
             song.lines += 1
             /// Parse only metadata
             /// - Note: Used in file browser
-            if getOnlyMetadata, text.trimmingCharacters(in: .whitespaces).prefix(1) == "{" {
+            if getOnlyMetadata, firstCharacter == "{" {
                 /// Directive
                 processDirective(
                     text: text,
@@ -60,8 +63,7 @@ public actor ChordProParser {
                     getOnlyMetadata: getOnlyMetadata
                 )
             } else if !getOnlyMetadata {
-
-                switch text.trimmingCharacters(in: .whitespaces).prefix(1) {
+                switch firstCharacter {
                 case "{":
                     /// Directive
                     processDirective(
@@ -79,12 +81,12 @@ public actor ChordProParser {
                         /// Tab
                         processTab(text: text, currentSection: &currentSection, song: &song)
                     }
-                case "":
-                    /// Empty line
-                    processEmptyLine(currentSection: &currentSection, song: &song)
                 case "#":
                     /// Source comment
                     processSourceComment(comment: text, currentSection: &currentSection, song: &song)
+                case nil:
+                    /// Empty line
+                    processEmptyLine(currentSection: &currentSection, song: &song)
                 default:
                     processEnvironment(text: text, currentSection: &currentSection, song: &song)
                 }
@@ -99,7 +101,7 @@ public actor ChordProParser {
                 song: &song
             )
         }
-        /// Set the first chord as key if not set manual
+        /// Set the first chord as key if not set manually
         if song.metadata.key == nil {
             song.metadata.key = song.chords.first
         }
@@ -114,7 +116,7 @@ public actor ChordProParser {
         }
         /// Check if the song has warnings or errors
         let lines = song.sections.flatMap(\.lines).compactMap(\.warnings)
-        song.hasWarnings = lines.isEmpty ? false : true
+        song.hasWarnings = !lines.isEmpty
 
         LogUtils.shared.setLog(
             level: song.hasWarnings ? .notice : .info,

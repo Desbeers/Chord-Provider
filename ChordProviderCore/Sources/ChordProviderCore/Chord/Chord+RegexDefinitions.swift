@@ -10,7 +10,9 @@ import RegexBuilder
 
 extension Chord {
 
-    /// Regex definitions to parse a chord
+    /// Regex primitives used by the ChordPro parsing pipeline
+    ///
+    /// These regexes are intentionally scoped and rely on higher-level invariants enforced by the parser stages
     enum RegexDefinitions {
 
         // MARK: Regex to parse a chord string
@@ -189,13 +191,9 @@ extension Chord {
             }
         }
 
-
-        /// The regex for a *normal*  line with optional `chords` and/or `lyrics`
-        ///
-        ///     /// ## Example
-        ///
-        ///     [A]I sing you a [G]song!!
-        ///
+        /// Regex for parsing a *single-chord segment* of a line
+        /// - Important: The input string MUST contain at most one chord `[ ... ]`.
+        ///   Full lines are split before applying this regex.
         nonisolated(unsafe) static let line = Regex {
             /// The chord
             Optionally {
