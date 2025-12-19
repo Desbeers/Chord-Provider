@@ -136,11 +136,18 @@ extension ChordProParser {
                         // MARK: Chord diagrams
 
                     case .define:
-                        processDefine(arguments: arguments, currentSection: &currentSection, song: &song)
+                        processDefine(
+                            instrument: song.settings.instrument,
+                            directive: .define,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
 
                     case .defineGuitar:
                         processDefine(
                             instrument: .guitar,
+                            directive: .defineGuitar,
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
@@ -149,6 +156,7 @@ extension ChordProParser {
                     case .defineUkulele:
                         processDefine(
                             instrument: .ukulele,
+                            directive: .defineUkulele,
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
@@ -157,6 +165,7 @@ extension ChordProParser {
                     case .defineGuitalele:
                         processDefine(
                             instrument: .guitalele,
+                            directive: .defineGuitalele,
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song

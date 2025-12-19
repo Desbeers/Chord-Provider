@@ -14,17 +14,24 @@ extension ChordProParser {
     /// Process a chord definition for a specific instrument
     /// - Parameters:
     ///   - instrument: The instrument
+    ///   - directive: The directive
     ///   - arguments: The directive arguments
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func processDefine(
         instrument: Chord.Instrument,
+        directive: ChordPro.Directive,
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
         if song.settings.instrument == instrument {
-            processDefine(arguments: arguments, currentSection: &currentSection, song: &song)
+            processDefine(
+                directive: directive,
+                arguments: arguments,
+                currentSection: &currentSection,
+                song: &song
+            )
         } else {
             /// The definition is for another instrument
             currentSection.addWarning(
@@ -32,7 +39,7 @@ extension ChordProParser {
                 level: .notice
             )
             addSection(
-                directive: .define,
+                directive: directive,
                 arguments: arguments,
                 currentSection: &currentSection,
                 song: &song
@@ -44,10 +51,12 @@ extension ChordProParser {
 
     /// Process a chord definition
     /// - Parameters:
+    ///   - directive: The directive
     ///   - arguments: The directive arguments
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
-    static func processDefine(
+    private static func processDefine(
+        directive: ChordPro.Directive,
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
@@ -88,7 +97,7 @@ extension ChordProParser {
             )
         }
         addSection(
-            directive: .define,
+            directive: directive,
             arguments: arguments,
             currentSection: &currentSection,
             song: &song
