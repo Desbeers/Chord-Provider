@@ -40,7 +40,7 @@ extension PDFBuild {
             for line in section.lines {
                 switch line.type {
                 case .songLine:
-                    if let strums = line.strumGroup {
+                    if let strums = line.strums {
                         let line = Line(strums: strums, settings: settings)
                         line.draw(rect: &rect, calculationOnly: calculationOnly, pageRect: pageRect)
                     }

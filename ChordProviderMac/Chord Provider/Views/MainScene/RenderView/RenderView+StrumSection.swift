@@ -29,7 +29,7 @@ extension RenderView {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if let strums = line.strumGroup {
+                        if let strums = line.strums {
                             HStack {
                                 ForEach(strums) {strumPart in
                                     HStack(spacing: 0) {
