@@ -34,11 +34,13 @@ extension Views {
                         .vexpand()
                         .hexpand()
                         .transition(.crossfade)
-                } else if appState.scene.showDebug {
-                    Views.Debug(app: app, appState: $appState, song: song)
-
-                    // MARK: Top Toolbar
-
+                } else {
+                    Box {
+                        Views.Render(app: app, window: window, song: song, appState: $appState)
+                            .hexpand()
+                            .vexpand()
+                            .transition(.crossfade)
+                    }
                     .topToolbar {
                         Views.Toolbar.Main(
                             app: app,
@@ -47,11 +49,9 @@ extension Views {
                             song: song
                         )
                     }
-                } else {
-                    Views.Render(app: app, window: window, song: song, appState: $appState)
-                        .hexpand()
-                        .vexpand()
-                        .transition(.crossfade)
+                    .dialog(visible: $appState.scene.showDebug, width: 800, height: 600) {
+                        Views.Debug(appState: $appState, song: song)
+                    }
                 }
             }
 

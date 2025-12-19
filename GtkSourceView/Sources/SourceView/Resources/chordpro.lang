@@ -25,7 +25,7 @@
         </define-regex>
 
         <define-regex id="all-directives" extended="true">
-            (?:title|sorttitle|subtitle|artist|sortartist|composer|album|year|key|time|tempo|capo|instrument|tag|comment|image|start_of_chorus|end_of_chorus|chorus|start_of_verse|end_of_verse|start_of_bridge|end_of_bridge|start_of_tab|end_of_tab|start_of_grid|end_of_grid|start_of_strum|end_of_strum|start_of_abc|end_of_abc|start_of_textblock|end_of_textblock|define-guitar|define-guitalele|define-ukulele|define|new_page|column_break|transpose|source_comment|empty_line|unknown)
+            (?:title|sorttitle|subtitle|artist|sortartist|composer|album|year|key|time|tempo|capo|instrument|tag|copyright|duration|arranger|lyricist|comment|image|start_of_chorus|end_of_chorus|chorus|start_of_verse|end_of_verse|start_of_bridge|end_of_bridge|start_of_tab|end_of_tab|start_of_grid|end_of_grid|start_of_strum|end_of_strum|start_of_abc|end_of_abc|start_of_textblock|end_of_textblock|define-guitar|define-guitalele|define-ukulele|define|new_page|column_break|transpose|source_comment|empty_line|unknown)
         </define-regex>
 
         <context id="chord">

@@ -14,41 +14,31 @@ extension Views {
 
     /// The `View` for showing debug messages
     struct Debug: View {
-        /// The app
-        let app: AdwaitaApp
         /// The state of the application
         @Binding var appState: AppState
         /// The current song
         let song: Song
-        /// The selected tab
-        @State private var selectedTab: Tab = .log
         /// the selected json page
         @State private var jsonSelection: JSONPage = .metadata
         /// The body of the `View`
         var view: Body {
             VStack {
-                ToggleGroup(selection: $selectedTab, values: Tab.allCases)
+                ToggleGroup(selection: $appState.scene.selectedDebugTab, values: Tab.allCases)
                     .padding()
-                Text(selectedTab.help)
+                Text(appState.scene.selectedDebugTab.help)
                     .style(.title)
                     .padding(5, .bottom)
-                if song.content.isEmpty {
-                    StatusPage(
-                        "No song open",
-                        icon: .default(icon: .folderMusic),
-                        description: "There is nothing to show."
-                    )
-                } else {
-                    switch selectedTab {
-                    case .json:
-                        json
-                    case .log:
-                        Views.Log(app: app)
-                    case .source:
-                        source
-                    }
+                Separator()
+                switch appState.scene.selectedDebugTab {
+                case .json:
+                    json
+                case .log:
+                    Views.Log()
+                case .source:
+                    source
                 }
             }
+            .vexpand()
             .hexpand()
             .card()
             .padding()
@@ -58,13 +48,11 @@ extension Views {
             .halign(.center)
             .suggested()
             .padding(5, .bottom)
-
         }
 
         // MARK: Source View
 
         @ViewBuilder var source: Body {
-            Separator()
             ScrollView {
                 VStack {
                     ForEach(getSource()) { line in
@@ -86,6 +74,10 @@ extension Views {
                                             .levelStyle(warning.level)
                                             .halign(.start)
                                     }
+                                    Text(line.source.source)
+                                        .style(.caption)
+                                        .padding(5, .leading)
+                                        .halign(.start)
                                 }
                                 if line.source.sourceLineNumber < 1 {
                                     Text("The directive is added by the parser")
@@ -113,7 +105,7 @@ extension Views {
                 }
                 .style("caption")
                 .hexpand()
-                Button("Use this as your Source") {
+                Button("Use this as your source") {
                     appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
                 }
             }
@@ -123,7 +115,6 @@ extension Views {
         // MARK: JSON View
 
         @ViewBuilder var json: Body {
-            Separator()
             NavigationSplitView {
                 List(JSONPage.allCases, selection: $jsonSelection) { element in
                     Text(element.description)

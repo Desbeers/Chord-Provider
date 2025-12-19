@@ -13,11 +13,8 @@ extension Views {
 
     /// The `View` for showing log messages
     struct Log: View {
-        /// The app
-        let app: AdwaitaApp
         /// The body of the `View`
         var view: Body {
-            Separator()
             HStack {
                 ScrollView {
                     VStack(spacing: 0) {

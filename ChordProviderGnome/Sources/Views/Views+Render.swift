@@ -43,17 +43,6 @@ extension Views {
                     .vexpand()
                 }
             }
-
-            // MARK: Top Toolbar
-
-            .topToolbar {
-                Views.Toolbar.Main(
-                    app: app,
-                    window: window,
-                    appState: $appState,
-                    song: song
-                )
-            }
         }
     }
 }

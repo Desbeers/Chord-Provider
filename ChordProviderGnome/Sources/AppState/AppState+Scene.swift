@@ -33,6 +33,8 @@ extension AppState {
         var showWelcome: Bool = false
         /// Show the *Debug*
         var showDebug = false
+        /// The selected debug tab
+        var selectedDebugTab: Views.Debug.Tab = .log
         /// Bool if the preferences is shown
         var showPreferences: Bool = false
         /// Bool if the close dialog is shown
