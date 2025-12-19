@@ -18,24 +18,5 @@ extension ChordPro {
         case sourceComment = "source_comment"
         case environmentDirective = "environment_directive"
         case unknown
-
-        public var icon: String {
-            switch self {
-            case .songLine:
-                "lines.measurement.vertical"
-            case .emptyLine:
-                "pause"
-            case .metadata:
-                "info"
-            case .comment:
-                "text.bubble"
-            case .sourceComment:
-                "bubble"
-            case .unknown:
-                "questionmark"
-            case .environmentDirective:
-                "arrowshape.left.arrowshape.right"
-            }
-        }
     }
 }

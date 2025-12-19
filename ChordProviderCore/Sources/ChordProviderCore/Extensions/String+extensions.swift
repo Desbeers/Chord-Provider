@@ -13,7 +13,7 @@ extension String {
     var markup: Song.Markup {
         /// Fallback; this should not happen
         var markup = Song.Markup(start: "<span color=\"red\">", text: self, end: "</span>")
-        if let match = self.wholeMatch(of: Chord.RegexDefinitions.optionalMarkup) {
+        if let match = self.wholeMatch(of: ChordPro.RegexDefinitions.optionalMarkup) {
             markup.start = String(match.1 ?? "")
             markup.text = String(match.2)
             markup.end = String(match.3 ?? "")

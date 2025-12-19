@@ -22,7 +22,7 @@ extension ChordDefinition {
     /// - Throws: An ``ChordDefinition/Status/unknownChord`` error when the string cannot be parsed
     /// - Returns: A  ``ChordDefinition`` structure
     static func define(from define: String, instrument: Chord.Instrument) throws -> ChordDefinition {
-        if let definition = define.firstMatch(of: Chord.RegexDefinitions.chordDefine) {
+        if let definition = define.firstMatch(of: ChordPro.RegexDefinitions.chordDefine) {
 
             let positions = instrument.strings.count
 

@@ -104,7 +104,7 @@ extension ChordProEditor {
                         inRect: markerRect,
                         highlight: highlight,
                         warning: warning,
-                        icon: line.directive?.details.icon ?? line.type.icon
+                        icon: line.directive?.sfSymbol ?? line.type.sfSymbol
                     )
                     if highlight {
                         /// Set the current line of the cursor
@@ -131,7 +131,7 @@ extension ChordProEditor {
                     inRect: markerRect,
                     highlight: highlight,
                     warning: false,
-                    icon: ChordPro.Directive.emptyLine.details.icon
+                    icon: ChordPro.Directive.emptyLine.sfSymbol
                 )
                 if highlight {
                     /// Set the current line of the cursor

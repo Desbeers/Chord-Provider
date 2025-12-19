@@ -1,5 +1,5 @@
 //
-//  Chord+RegexDefinitions.swift
+//  ChordPro+RegexDefinitions.swift
 //  ChordProviderCore
 //
 //  © 2025 Nick Berendsen
@@ -8,7 +8,7 @@
 import Foundation
 import RegexBuilder
 
-extension Chord {
+extension ChordPro {
 
     /// Regex primitives used by the ChordPro parsing pipeline
     ///

@@ -26,7 +26,7 @@ extension EditorView {
                 }
                 editDirective = directive
             }, label: {
-                Label("\(directive.details.button)…", systemImage: directive.details.icon)
+                Label("\(directive.details.label)…", systemImage: directive.sfSymbol)
             }
         )
         .disabled(sceneState.song.metadata.definedMetadata.contains(directive.rawValue.long))

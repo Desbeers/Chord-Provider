@@ -41,9 +41,9 @@ extension EditorView.DirectiveSheet {
                 ForEach(items, id: \.self) { item in
                     switch item {
                     case .plain:
-                        PlainField(label: directive.details.button, prompt: directive.details.button, value: $formState.plain)
+                        PlainField(label: directive.details.label, prompt: directive.details.label, value: $formState.plain)
                     case .label:
-                        PlainField(label: "Label", prompt: directive.details.button, value: $formState.label)
+                        PlainField(label: "Label", prompt: directive.details.label, value: $formState.label)
                     case .align:
                         AlignPicker(label: "Align", value: $formState.align)
                     case .flush:
@@ -59,7 +59,7 @@ extension EditorView.DirectiveSheet {
                     case .tuplet:
                         NumberPicker(label: "Tuplet", start: 2, end: 4, value: $formState.tuplet)
                     case .numeric:
-                        NumberSlider(label: directive.details.button, start: start, end: end, suffix: suffix, value: $formState.numeric)
+                        NumberSlider(label: directive.details.label, start: start, end: end, suffix: suffix, value: $formState.numeric)
                     case .key:
                         HStack {
                             sceneState.rootPicker(showAllOption: false, hideFlats: false)
@@ -182,7 +182,7 @@ extension EditorView.DirectiveSheet {
                 Label {
                     Text(directive.details.label)
                 } icon: {
-                    Image(systemName: directive.details.icon)
+                    Image(systemName: directive.sfSymbol)
                         .foregroundStyle(.secondary)
                 }
                 .font(.title)

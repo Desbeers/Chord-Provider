@@ -22,7 +22,7 @@ extension ChordUtils {
             var root: Chord.Root?
             var quality: Chord.Quality?
             var slash: Chord.Root?
-            if let match = chord.wholeMatch(of: Chord.RegexDefinitions.chordString) {
+            if let match = chord.wholeMatch(of: ChordPro.RegexDefinitions.chordString) {
                 root = match.1
                 if let qualityMatch = match.2 {
                     quality = qualityMatch

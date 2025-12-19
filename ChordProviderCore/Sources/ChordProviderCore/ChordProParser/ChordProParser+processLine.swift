@@ -34,7 +34,7 @@ extension ChordProParser {
         /// All the parts in the line
         var parts: [Song.Section.Line.Part] = []
         /// Chop the line in parts
-        var matches = text.matches(of: Chord.RegexDefinitions.line)
+        var matches = text.matches(of: ChordPro.RegexDefinitions.line)
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {
@@ -56,7 +56,7 @@ extension ChordProParser {
                 part.chordMarkup = markup
             }
             if let lyric {
-                let parts = String(lyric).matches(of: Chord.RegexDefinitions.markupSeparator).map { match in
+                let parts = String(lyric).matches(of: ChordPro.RegexDefinitions.markupSeparator).map { match in
                     String(match.0).markup
                 }
                 part.lyrics = parts

@@ -17,16 +17,12 @@ extension ChordPro.Directive {
         public var label: String
         /// Default value when the directive needs an argument
         public var defaultValue: String?
-        /// The SF symbol of the directive
-        public var icon: String
-        /// The text for a button to create this directive
-        public var button: String
         /// The help text for the directive
         public var help: String
         /// The environment
         public var environment: ChordPro.Environment
         /// The line type
-        public var lineType: ChordPro.LineType = .metadata
+        public var lineType: ChordPro.LineType
         /// Additional info
         public var info: String?
     }
@@ -37,73 +33,63 @@ extension ChordPro.Directive {
         case .title:
             Details(
                 label: "Title",
-                icon: "music.note",
-                button: "Title",
                 help: "This directive defines the title of the song",
                 environment: .metadata,
+                lineType: .metadata
             )
         case .sortTitle:
             Details(
                 label: "Sorting Title",
-                icon: "music.note",
-                button: "Sorting Title",
                 help: "This directive defines the sorting title of the song",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .subtitle:
             Details(
                 label: "Subtitle",
-                icon: "music.note",
-                button: "Subtitle",
                 help: "This directive defines a subtitle of the song",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .artist:
             Details(
                 label: "Artist",
-                icon: "person",
-                button: "Artist",
                 help: "This directive defines an artist",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .composer:
             Details(
                 label: "Composer",
-                icon: "pencil.line",
-                button: "Composer",
                 help: "This directive defines a composer",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .sortArtist:
             Details(
                 label: "Sorting Artist",
-                icon: "person",
-                button: "Sorting Artist",
                 help: "This directive defines the sorting name of artist",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .album:
             Details(
                 label: "Album",
-                icon: "music.quarternote.3",
-                button: "Album",
                 help: "This directive defines an album this song occurs on",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .year:
             Details(
                 label: "Year",
                 defaultValue: "1975",
-                icon: "calendar",
-                button: "Year",
                 help: "The year this song was first published, as a four-digit number",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .copyright:
             Details(
                 label: "Copyright",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Copyright",
                 help: "Copyright information for the song",
                 environment: .metadata,
                 lineType: .metadata
@@ -111,8 +97,6 @@ extension ChordPro.Directive {
         case .duration:
             Details(
                 label: "Duration",
-                icon: "timer",
-                button: "Duration",
                 help: "This directive specifies the duration of the song",
                 environment: .metadata,
                 lineType: .metadata,
@@ -121,8 +105,6 @@ extension ChordPro.Directive {
         case .arranger:
             Details(
                 label: "Arranger",
-                icon: "person.2",
-                button: "Arranger",
                 help: "This directive defines the arranger of the song",
                 environment: .metadata,
                 lineType: .metadata,
@@ -131,8 +113,6 @@ extension ChordPro.Directive {
         case .lyricist:
             Details(
                 label: "Lyricist",
-                icon: "person.2",
-                button: "Lyricist",
                 help: "This directive defines the writer of the lyrics of the song",
                 environment: .metadata,
                 lineType: .metadata,
@@ -142,51 +122,44 @@ extension ChordPro.Directive {
             Details(
                 label: "Key",
                 defaultValue: "C",
-                icon: "key",
-                button: "Key",
                 help: "This directive specifies the key the song is written in",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .time:
             Details(
                 label: "Time",
                 defaultValue: "4/4",
-                icon: "timer",
-                button: "Time",
                 help: "This directive specifies a time signature",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .tempo:
             Details(
                 label: "Tempo",
                 defaultValue: "128",
-                icon: "metronome",
-                button: "Tempo",
                 help: "This directive specifies the tempo in number of beats per minute for the song",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .capo:
             Details(
                 label: "Capo",
                 defaultValue: "1",
-                icon: "paperclip",
-                button: "Capo",
                 help: "This directive specifies the capo setting for the song",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .instrument:
             Details(
                 label: "Instrument",
-                icon: "guitars",
-                button: "Instrument",
                 help: "This directive specifies the instrument setting for the song",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .comment:
             Details(
                 label: "Comment",
-                icon: "text.bubble",
-                button: "Comment",
                 help: "This directive introduce a comment line",
                 environment: .comment,
                 lineType: .comment
@@ -194,8 +167,6 @@ extension ChordPro.Directive {
         case .image:
             Details(
                 label: "Image",
-                icon: "photo",
-                button: "Insert Image",
                 help: "Specifies the name of the file containing the image",
                 environment: .image,
                 lineType: .environmentDirective,
@@ -204,8 +175,6 @@ extension ChordPro.Directive {
         case .startOfChorus:
             Details(
                 label: "Start of Chorus",
-                icon: "music.note.list",
-                button: "Chorus",
                 help: "This directive indicates that the lines that follow form the song’s chorus",
                 environment: .chorus,
                 lineType: .environmentDirective
@@ -213,8 +182,6 @@ extension ChordPro.Directive {
         case .endOfChorus:
             Details(
                 label: "End of Chorus",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Chorus",
                 help: "This directive indicates the end of the chorus",
                 environment: .chorus,
                 lineType: .environmentDirective
@@ -222,8 +189,6 @@ extension ChordPro.Directive {
         case .chorus:
             Details(
                 label: "Repeat Chorus",
-                icon: "repeat",
-                button: "Repeat Chorus",
                 help: "his directive indicates that the song chorus must be played here",
                 environment: .repeatChorus,
                 lineType: .environmentDirective
@@ -231,8 +196,6 @@ extension ChordPro.Directive {
         case .startOfVerse:
             Details(
                 label: "Start of Verse",
-                icon: "list.star",
-                button: "Verse",
                 help: "Specifies that the following lines form a verse of the song",
                 environment: .verse,
                 lineType: .environmentDirective
@@ -240,8 +203,6 @@ extension ChordPro.Directive {
         case .endOfVerse:
             Details(
                 label: "End of Verse",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Verse",
                 help: "Specifies the end of the verse",
                 environment: .verse,
                 lineType: .environmentDirective
@@ -249,8 +210,6 @@ extension ChordPro.Directive {
         case .startOfBridge:
             Details(
                 label: "Start of Bridge",
-                icon: "list.bullet.indent",
-                button: "Bridge",
                 help: "Specifies that the following lines form a bridge of the song",
                 environment: .bridge,
                 lineType: .environmentDirective
@@ -258,8 +217,6 @@ extension ChordPro.Directive {
         case .endOfBridge:
             Details(
                 label: "End of Bridge",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Bridge",
                 help: "Specifies the end of the bridge",
                 environment: .bridge,
                 lineType: .environmentDirective
@@ -267,8 +224,6 @@ extension ChordPro.Directive {
         case .startOfTab:
             Details(
                 label: "Start of Tab",
-                icon: "tablecells",
-                button: "Tab",
                 help: "This directive indicates that the lines that follow form a section of guitar TAB instructions",
                 environment: .tab,
                 lineType: .environmentDirective
@@ -276,8 +231,6 @@ extension ChordPro.Directive {
         case .endOfTab:
             Details(
                 label: "End of Tab",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Tab",
                 help: "This directive indicates the end of the tab",
                 environment: .tab,
                 lineType: .environmentDirective
@@ -285,8 +238,6 @@ extension ChordPro.Directive {
         case .startOfGrid:
             Details(
                 label: "Start of Grid",
-                icon: "square.grid.2x2",
-                button: "Grid",
                 help: "This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles",
                 environment: .grid,
                 lineType: .environmentDirective
@@ -294,8 +245,6 @@ extension ChordPro.Directive {
         case .endOfGrid:
             Details(
                 label: "End of Grid",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Grid",
                 help: "This directive indicates the end of the grid",
                 environment: .grid,
                 lineType: .environmentDirective
@@ -303,8 +252,6 @@ extension ChordPro.Directive {
         case .startOfABC:
             Details(
                 label: "Start of ABC",
-                icon: "textformat.abc",
-                button: "ABC",
                 help: "This directive indicates that the lines that follow define a piece of music written in ABC music notation",
                 environment: .abc,
                 lineType: .environmentDirective
@@ -312,8 +259,6 @@ extension ChordPro.Directive {
         case .endOfABC:
             Details(
                 label: "End of ABC",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "ABC",
                 help: "This directive indicates the end of the ABC",
                 environment: .abc,
                 lineType: .environmentDirective
@@ -321,8 +266,6 @@ extension ChordPro.Directive {
         case .startOfTextblock:
             Details(
                 label: "Start of Textblock",
-                icon: "textformat",
-                button: "Textblock",
                 help: "This directive indicates that the lines that follow define a piece of text that is combined into a single object",
                 environment: .textblock,
                 lineType: .environmentDirective
@@ -330,8 +273,6 @@ extension ChordPro.Directive {
         case .endOfTextblock:
             Details(
                 label: "End of Textblock",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Textblock",
                 help: "This directive indicates the end of the textblock",
                 environment: .textblock,
                 lineType: .environmentDirective
@@ -339,67 +280,58 @@ extension ChordPro.Directive {
         case .define:
             Details(
                 label: "Chord Definition",
-                icon: "hand.raised",
-                button: "Define Chord",
                 help: "This directive defines a chord in terms of fret/string positions and, optionally, finger settings",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .defineGuitar:
             Details(
                 label: "Chord Definition for a guitar",
                 defaultValue: "C base-fret 1 frets x 3 2 0 1 0 fingers 0 3 2 0 1 0",
-                icon: "hand.raised",
-                button: "Define Chord",
                 help: "This directive defines a guitar chord in terms of fret/string positions and, optionally, finger settings",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .defineGuitalele:
             Details(
                 label: "Chord Definition for a guitalele",
                 defaultValue: "C base-fret 1 frets 3 2 0 0 0 3 fingers 2 1 0 0 0 3",
-                icon: "hand.raised",
-                button: "Define Chord",
                 help: "This directive defines a guitalele chord in terms of fret/string positions and, optionally, finger settings",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .defineUkulele:
             Details(
                 label: "Chord Definition for a ukulele",
                 defaultValue: "C base-fret 1 frets 0 0 0 3 fingers 0 0 0 3",
-                icon: "hand.raised",
-                button: "Define Chord",
                 help: "This directive defines a ukulele chord in terms of fret/string positions and, optionally, finger settings",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .newPage:
             Details(
                 label: "New Page",
-                icon: "document.badge.plus",
-                button: "New Page",
                 help: "This directive forces a new page to be generated at the place where it occurs in the song",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .columnBreak:
             Details(
                 label: "Column Break",
-                icon: "square.split.2x1",
-                button: "Column Break",
                 help: "When printing songs in multiple columns, this directive forces printing to continue in the next column",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .tag:
             Details(
                 label: "Tag",
-                icon: "tag",
-                button: "Tag",
                 help: "This directive defines a tag for the song",
-                environment: .metadata
+                environment: .metadata,
+                lineType: .metadata
             )
         case .startOfStrum:
             Details(
                 label: "Start of Strum",
-                icon: "arrow.up.arrow.down",
-                button: "Strum",
                 help: "This directive indicates that the lines that follow defines a strum pattern",
                 environment: .strum,
                 lineType: .environmentDirective,
@@ -408,8 +340,6 @@ extension ChordPro.Directive {
         case .endOfStrum:
             Details(
                 label: "End of Strum",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Strum",
                 help: "This directive indicates the end of the strum",
                 environment: .strum,
                 lineType: .environmentDirective
@@ -417,8 +347,6 @@ extension ChordPro.Directive {
         case .transpose:
             Details(
                 label: "Transpose",
-                icon: "chart.line.flattrend.xyaxis",
-                button: "Strum",
                 help: "This directive indicates that the remainder of the song should be transposed the number of semitones according to the given value",
                 environment: .metadata,
                 lineType: .metadata
@@ -429,8 +357,6 @@ extension ChordPro.Directive {
         case .sourceComment:
             Details(
                 label: "Source Comment",
-                icon: "bubble",
-                button: "None",
                 help: "Ignored in the Output",
                 environment: .sourceComment,
                 lineType: .sourceComment
@@ -438,8 +364,6 @@ extension ChordPro.Directive {
         case .emptyLine:
             Details(
                 label: "Empty Line",
-                icon: "pause",
-                button: "None",
                 help: "An empty line in the source",
                 environment: .emptyLine,
                 lineType: .emptyLine
@@ -447,10 +371,9 @@ extension ChordPro.Directive {
         case .unknown:
             Details(
                 label: "Unknown",
-                icon: "questionmark",
-                button: "None",
                 help: "This directive is unknown",
-                environment: .none
+                environment: .none,
+                lineType: .unknown
             )
         }
     }

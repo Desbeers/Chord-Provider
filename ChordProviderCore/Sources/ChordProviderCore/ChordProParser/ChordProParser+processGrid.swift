@@ -38,7 +38,7 @@ extension ChordProParser {
         /// Bool if the line is a strum pattern
         var isStrumPattern: Bool = false
         /// Separate the grids
-        var grids = text.matches(of: Chord.RegexDefinitions.spaceOrMarkupSeparator).map { match in
+        var grids = text.matches(of: ChordPro.RegexDefinitions.spaceOrMarkupSeparator).map { match in
             String(match.0)
         }
         /// Check if the grid line is a strum pattern

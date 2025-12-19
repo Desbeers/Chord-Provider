@@ -39,7 +39,7 @@ extension ChordProParser {
         /// Keep the current text as source when we cannot handle the directive
         let sourceArgument: DirectiveArguments = [.source: text]
 
-        if let match = text.firstMatch(of: Chord.RegexDefinitions.directive) {
+        if let match = text.firstMatch(of: ChordPro.RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
 

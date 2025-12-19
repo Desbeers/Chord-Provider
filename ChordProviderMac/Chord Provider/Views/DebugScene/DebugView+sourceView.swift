@@ -24,7 +24,7 @@ extension DebugView {
                                     .body
                                         .weight(line.source.warnings == nil ? .regular : .bold)
                                 )
-                            Image(systemName: line.source.directive?.details.icon ?? line.source.type.icon)
+                            Image(systemName: line.source.directive?.sfSymbol ?? line.source.type.sfSymbol)
                                 .font(.caption)
                             VStack(alignment: .leading) {
                                 Text(JSONUtils.highlight(code: line.source.source, editorSettings: appState.settings.editor))
