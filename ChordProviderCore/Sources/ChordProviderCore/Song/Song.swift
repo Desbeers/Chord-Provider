@@ -9,26 +9,18 @@ import Foundation
 
 /// The structure of a song as shown in **Chord Provider**
 public struct Song: Equatable, Codable, Identifiable, Sendable {
+
+    /// Init the song
+    /// - Parameters:
+    ///   - id: The ID of the song
+    ///   - content: The content of the song
     public init(
         id: UUID,
-        content: String = "",
-        hasContent: Bool = true,
-        lines: Int = 0,
-        metadata: Song.Metadata = Metadata(),
-        sections: [Song.Section] = [Song.Section](),
-        chords: [ChordDefinition] = []
+        content: String = ""
     ) {
         self.id = id
         self.content = content
-        self.hasContent = hasContent
-        self.lines = lines
-        self.metadata = metadata
-        self.sections = sections
-        self.chords = chords
     }
-
-    public static let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
-        .appendingPathComponent(Bundle.main.bundleIdentifier ?? "nl.desbeers.chordprovider", isDirectory: true)
 
     /// The ID of the song
     public var id: UUID
@@ -58,12 +50,12 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     // MARK: All the sections in the song
 
     /// The sections of the song
-    public var sections = [Song.Section]()
+    public var sections = [Section]()
 
     // MARK: All the chords in the song
 
     /// The chords of the song
-    public var chords: [ChordDefinition] = []
+    public var chords = [ChordDefinition]()
 
     // MARK: Transposing
 

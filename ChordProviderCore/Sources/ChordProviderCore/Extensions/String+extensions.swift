@@ -12,11 +12,11 @@ extension String {
     /// Wrapper for text that contains optional markup
     var markup: Song.Markup {
         /// Fallback; this should not happen
-        var markup = Song.Markup(start: "<span color=\"red\">", text: self, end: "</span>")
+        var markup = Song.Markup(open: "<span color=\"red\">", text: self, close: "</span>")
         if let match = self.wholeMatch(of: ChordPro.RegexDefinitions.optionalMarkup) {
-            markup.start = String(match.1 ?? "")
+            markup.open = String(match.1 ?? "")
             markup.text = String(match.2)
-            markup.end = String(match.3 ?? "")
+            markup.close = String(match.3 ?? "")
             return markup
         }
         return markup

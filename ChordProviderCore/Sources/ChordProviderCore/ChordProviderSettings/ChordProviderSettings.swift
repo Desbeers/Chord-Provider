@@ -52,4 +52,7 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable {
         case diagram
         case sortTokens
     }
+    /// The temporary directory
+    public static let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        .appendingPathComponent(Bundle.main.bundleIdentifier ?? "nl.desbeers.chordprovider", isDirectory: true)
 }

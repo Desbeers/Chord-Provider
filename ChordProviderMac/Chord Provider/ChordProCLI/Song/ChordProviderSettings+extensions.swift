@@ -16,14 +16,14 @@ extension ChordProviderSettings {
     var defaultConfigURL: URL {
         let fileName = "ChordProviderDefaults"
         /// Create an export URL
-        return Song.temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .json)
+        return ChordProviderSettings.temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .json)
     }
 
     /// The URL of the config file with details
     var configURL: URL {
         let fileName = "ChordProvider"
         /// Create an export URL
-        return Song.temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .json)
+        return ChordProviderSettings.temporaryDirectoryURL.appendingPathComponent(fileName, conformingTo: .json)
     }
 
     /// The optional local configuration (a config named `chordpro.json` next to a song)

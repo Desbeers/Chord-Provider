@@ -57,7 +57,6 @@ extension Song.Section {
         /// The length of the line, the lyrics and loose chords
         /// - Note: Used for rendering
         public var lineLength: String?
-
         /// The optional `Directive` of the section
         public var directive: ChordPro.Directive?
         /// The optional arguments of the directive
@@ -66,38 +65,37 @@ extension Song.Section {
         public var type: ChordPro.LineType = .unknown
         /// The context of the line
         public var context: ChordPro.Environment = .none
-
         /// The optional parts in the line
-        ///
-        /// A part mostly consist of some text with a chord
+        /// - Note: A part mostly consist of some text with a chord
         public var parts: [Part]?
         /// The  optional grid in the line
-        private(set) public var grid: [Grid]?
+        public var grid: [Grid]?
         /// The  optional grid columns in the line
         /// - Note: there is a function to move grids into columns for rendering
         public var gridColumns: GridColumns?
-
         /// The optional strum pattern in the line
         public var strums: [Strums]?
-
         /// A plain text version of the line
         /// - Note: The lyrics of a line, a comment or a tab for example
         public var plain: String?
+        /// Optional warnings about the content of the line
+        public var warnings: [LogUtils.LogMessage]?
+
+        // MARK: Calculated values
 
         /// The calculated label of the directive
         public var label: String {
             arguments?[.plain] ?? arguments?[.label] ?? plain ?? context.label
         }
 
-        /// Optional warnings about the content of the line
-        private(set) public var warnings: [LogUtils.LogMessage]?
+        // MARK: Mutating functions
 
         /// Add a single warning to the set of warnings
+        /// - Parameters:
+        ///   - warning: The warning as ``LogUtils/LogMessage``
+        ///   - level: The level of the warning
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: LogUtils.LogMessage, level: LogUtils.Level = .warning) {
-
-            //let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
-
             if self.warnings == nil {
                 self.warnings = [warning]
             } else {
@@ -113,47 +111,16 @@ extension Song.Section {
         }
 
         /// Add a single warning to the set of warnings
+        /// - Parameters:
+        ///   - warning: The warning a `String`
+        ///   - level: The level of the warning
         /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String, level: LogUtils.Level = .warning) {
-
             let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
-
-            if self.warnings == nil {
-                self.warnings = [warning]
-            } else {
-                self.warnings?.append(warning)
-            }
-            let line = sourceLineNumber
-            LogUtils.shared.setLog(
-                level: level,
-                category: .songParser,
-                lineNumber: line,
-                message: "\(warning.message)"
-            )
+            addWarning(warning, level: level)
         }
-
-        /// Add a set of warnings
-        mutating func addWarning(_ warning: [LogUtils.LogMessage]) {
-            let warningLine = warning.map(\.message).joined(separator: "\n")
-            let line = sourceLineNumber
-            LogUtils.shared.setLog(
-                level: .warning,
-                category: .songParser,
-                lineNumber: line,
-                message: warningLine
-            )
-            self.warnings = warning
-        }
-
-        /// - Note: grids are *optionals* so we can not just 'insert' it
-        mutating func addGrid(_ grid: Grid) {
-            if self.grid == nil {
-                self.grid = [grid]
-            } else {
-                self.grid?.append(grid)
-            }
-        }
-
+        
+        /// Calculate the source of the line
         mutating func calculateSource() {
             if let directive {
                 if ChordPro.Directive.customDirectives.contains(directive) {
@@ -172,97 +139,4 @@ extension Song.Section {
     }
 }
 
-extension Song.Section.Line {
-    /// :nodoc:
-    enum CodingKeys: CodingKey {
-        case sourceLineNumber
-        case directive
-        case arguments
-        case source
-        case sourceParsed
-        case lineLength
-        case warnings
-        case parts
-        case grid
-        case strums
-        case plain
-        case type
-        case context
-    }
-    /// :nodoc:
-    public init(from decoder: any Decoder) throws {
-        let container: KeyedDecodingContainer<CodingKeys> = try decoder.container(keyedBy: CodingKeys.self)
 
-        /// Decode an optional directive string to a ``ChordPro/Directive``
-        if let directive = try container.decodeIfPresent(String.self, forKey: .directive) {
-            self.directive = ChordProParser.getDirective(directive)?.directive
-        } else {
-            self.directive = nil
-        }
-
-        /// Decode the context string to a ``ChordPro/Environment``
-        let context = try container.decode(String.self, forKey: .context)
-        self.context = ChordPro.Environment(rawValue: context) ?? .none
-
-        /// Decode a type string to a ``Song/Section/Line/LineType``
-        let type = try container.decode(String.self, forKey: .type)
-        self.type = ChordPro.LineType(rawValue: type) ?? .unknown
-
-        /// Decode the arguments dictionary into `[String: String]`
-        if let stringDictionary = try container.decodeIfPresent([String: String].self, forKey: .arguments) {
-            var enumDictionary: [ChordPro.Directive.FormattingAttribute: String] = [:]
-            for (stringKey, value) in stringDictionary {
-                guard let key = ChordPro.Directive.FormattingAttribute(rawValue: stringKey) else {
-                    return
-                }
-                enumDictionary[key] = value
-            }
-            self.arguments = enumDictionary
-        } else {
-            self.arguments = nil
-        }
-
-        self.sourceLineNumber = try container.decode(Int.self, forKey: .sourceLineNumber)
-        self.source = try container.decode(String.self, forKey: .source)
-        self.sourceParsed = try container.decode(String.self, forKey: .sourceParsed)
-        self.lineLength = try container.decodeIfPresent(String.self, forKey: .lineLength)
-        self.warnings = try container.decodeIfPresent([LogUtils.LogMessage].self, forKey: .warnings)
-        self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
-        self.grid = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .grid)
-        self.strums = try container.decodeIfPresent([Strums].self, forKey: .strums)
-        self.plain = try container.decodeIfPresent(String.self, forKey: .plain)
-    }
-    /// :nodoc:
-    public func encode(to encoder: any Encoder) throws {
-        var container: KeyedEncodingContainer<CodingKeys> = encoder.container(keyedBy: CodingKeys.self)
-
-        try container.encode(self.sourceLineNumber, forKey: .sourceLineNumber)
-
-        /// Encode an optional directive ``ChordPro/Directive`` to a String
-        try container.encodeIfPresent(self.directive?.rawValue.long, forKey: .directive)
-
-        /// Encode a type ``ChordPro/LineType`` to a String
-        try container.encode(self.type, forKey: .type)
-
-        /// Encode arguments into a ``ChordProParser/DirectiveArguments`` dictionary
-        var stringDictionary: [String: String]?
-        if let arguments = self.arguments {
-            stringDictionary = Dictionary(
-                uniqueKeysWithValues: arguments.map { ($0.rawValue, $1) }
-            )
-        }
-        try container.encodeIfPresent(stringDictionary, forKey: .arguments)
-
-        /// Encode an optional context ``ChordPro/Environment`` to a String
-        try container.encode(self.context.rawValue, forKey: .context)
-
-        try container.encode(self.source, forKey: .source)
-        try container.encode(self.sourceParsed, forKey: .sourceParsed)
-        try container.encodeIfPresent(self.lineLength, forKey: .lineLength)
-        try container.encodeIfPresent(self.warnings, forKey: .warnings)
-        try container.encodeIfPresent(self.parts, forKey: .parts)
-        try container.encodeIfPresent(self.grid, forKey: .grid)
-        try container.encodeIfPresent(self.strums, forKey: .strums)
-        try container.encodeIfPresent(self.plain, forKey: .plain)
-    }
-}

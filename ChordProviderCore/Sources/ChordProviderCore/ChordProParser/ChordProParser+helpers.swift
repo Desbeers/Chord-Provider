@@ -52,13 +52,4 @@ extension ChordProParser {
             song.metadata.longestLabel = label
         }
     }
-
-//    static func calculateSource(line: Song.Section.Line) -> String {
-//        /// Check for arguments
-//        if let arguments = ChordProParser.lineArgumentsToString(line) {
-//            return "{\(line.directive.rawValue.long) \(arguments)}"
-//        }
-//        /// Only a directive
-//        return "{\(line.directive.rawValue.long)}"
-//    }
 }

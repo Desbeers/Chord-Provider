@@ -33,9 +33,6 @@ extension Song.Section.Line {
         public var id: Int
         public var parts: [Song.Section.Line.Part]
     }
-}
-
-extension Song.Section.Line {
 
     /// Grid columns in the ``Song/Section/Line``
     public struct GridColumns: Identifiable, Equatable, Codable, Sendable {
@@ -47,5 +44,16 @@ extension Song.Section.Line {
         public var id: Int
         /// The parts in the grid
         public var grids: [Song.Section.Line.Grid] = []
+    }
+
+    /// Add `grid` to a line
+    /// - Parameter grid: The line with `grid` to add
+    /// - Note: grids are *optionals* so we can not just 'insert' it
+    mutating func addGrid(_ grid: Grid) {
+        if self.grid == nil {
+            self.grid = [grid]
+        } else {
+            self.grid?.append(grid)
+        }
     }
 }

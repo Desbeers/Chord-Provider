@@ -13,45 +13,9 @@ extension Song {
 
     /// Structure for metadata about the song
     public struct Metadata: Equatable, Codable, Sendable {
-        public init(
-            title: String = "No title",
-            sortTitle: String = "",
-            artist: String = "Unknown Artist",
-            sortArtist: String = "",
-            composers: [String]? = nil,
-            subtitle: String? = nil,
-            capo: String? = nil,
-            key: ChordDefinition? = nil,
-            tempo: String? = nil,
-            time: String? = nil,
-            year: String? = nil,
-            album: String? = nil,
-            audioURL: URL? = nil,
-            videoURL: URL? = nil,
-            tags: [String]? = nil,
-            longestLabel: String = "",
-            longestLine: Song.Section.Line = Song.Section.Line(),
-            definedMetadata: Set<String> = []
-        ) {
-            self.title = title
-            self.sortTitle = sortTitle
-            self.artist = artist
-            self.sortArtist = sortArtist
-            self.composers = composers
-            self.subtitle = subtitle
-            self.capo = capo
-            self.key = key
-            self.tempo = tempo
-            self.time = time
-            self.year = year
-            self.album = album
-            self.audioURL = audioURL
-            self.videoURL = videoURL
-            self.tags = tags
-            self.longestLabel = longestLabel
-            self.longestLine = longestLine
-            self.definedMetadata = definedMetadata
-        }
+
+        /// Init the metadata with default values
+        public init() {}
 
         // MARK: Metadata directives
 

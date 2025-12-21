@@ -18,7 +18,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
     /// Cleanup the temporarily files on exit
     func applicationWillTerminate(_ notification: Notification) {
-        try? FileManager.default.removeItem(at: Song.temporaryDirectoryURL)
+        try? FileManager.default.removeItem(at: ChordProviderSettings.temporaryDirectoryURL)
     }
 
     // MARK: App Window ID's

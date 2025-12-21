@@ -37,7 +37,7 @@ struct DebugButtons: View {
         Button(
             action: {
                 /// Open the **Chord Provider** temporary folder
-                NSWorkspace.shared.open(Song.temporaryDirectoryURL)
+                NSWorkspace.shared.open(ChordProviderSettings.temporaryDirectoryURL)
             },
             label: {
                 Text("Open temporary folder")
