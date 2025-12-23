@@ -7,7 +7,6 @@
 
 import Foundation
 import Adwaita
-import ChordProviderCore
 
 extension GtkRender {
 

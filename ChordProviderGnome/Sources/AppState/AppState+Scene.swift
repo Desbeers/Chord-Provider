@@ -12,7 +12,6 @@ extension AppState {
 
     /// Settings for the current scene
     struct Scene {
-        var id: UUID = UUID()
         /// The source of the song
         var source = ""
         /// The original source of the song when opened or created

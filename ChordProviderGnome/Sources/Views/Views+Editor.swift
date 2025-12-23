@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import SourceView
-import ChordProviderCore
 
 extension Views {
 

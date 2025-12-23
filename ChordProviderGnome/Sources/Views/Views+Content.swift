@@ -35,23 +35,21 @@ extension Views {
                         .hexpand()
                         .transition(.crossfade)
                 } else {
-                    Box {
-                        Views.Render(app: app, window: window, song: song, appState: $appState)
-                            .hexpand()
-                            .vexpand()
-                            .transition(.crossfade)
-                    }
-                    .topToolbar {
-                        Views.Toolbar.Main(
-                            app: app,
-                            window: window,
-                            appState: $appState,
-                            song: song
-                        )
-                    }
-                    .dialog(visible: $appState.scene.showDebug, width: 800, height: 600) {
-                        Views.Debug(appState: $appState, song: song)
-                    }
+                    Views.Render(song: song, appState: $appState)
+                        .hexpand()
+                        .vexpand()
+                        .transition(.crossfade)
+                        .topToolbar {
+                            Views.Toolbar.Main(
+                                app: app,
+                                window: window,
+                                appState: $appState,
+                                song: song
+                            )
+                        }
+                        .dialog(visible: $appState.scene.showDebug, width: 800, height: 600) {
+                            Views.Debug(appState: $appState, song: song)
+                        }
                 }
             }
 

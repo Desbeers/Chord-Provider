@@ -13,10 +13,6 @@ extension Views {
 
     /// The `View` for showing a rendered song
     struct Render: View {
-        /// The app
-        let app: AdwaitaApp
-        /// The window
-        let window: AdwaitaWindow
         /// The whole song
         let song: Song
         /// The state of the application

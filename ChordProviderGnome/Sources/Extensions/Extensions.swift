@@ -78,26 +78,6 @@ extension String {
 
 extension String {
 
-    func toUnsafePointer() -> UnsafePointer<UInt8>? {
-        guard let data = self.data(using: .utf8) else {
-            return nil
-        }
-
-        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: data.count)
-        let stream = OutputStream(toBuffer: buffer, capacity: data.count)
-        stream.open()
-        let value = data.withUnsafeBytes {
-            $0.baseAddress?.assumingMemoryBound(to: UInt8.self)
-        }
-        guard let val = value else {
-            return nil
-        }
-        _ = stream.write(val, maxLength: data.count)
-        stream.close()
-
-        return UnsafePointer<UInt8>(buffer)
-    }
-
     func toUnsafeMutablePointer() -> UnsafeMutablePointer<Int8>? {
         return strdup(self)
     }
@@ -120,26 +100,6 @@ extension Chord.Root: @retroactive ToggleGroupItem {
 
     public var showLabel: Bool {
         true
-    }
-}
-
-extension LogUtils.Level {
-
-    var style: Markup.Class {
-        switch self {
-        case .info:
-            Markup.Class.logInfo
-        case .warning:
-            Markup.Class.logWarning
-        case .error:
-            Markup.Class.logError
-        case .debug:
-            Markup.Class.logDebug
-        case .notice:
-            Markup.Class.logNotice
-        case .fault:
-            Markup.Class.logFault
-        }
     }
 }
 

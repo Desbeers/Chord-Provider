@@ -14,14 +14,11 @@ extension GtkRender {
     /// The `View` for repeating a chorus
     struct RepeatChorus: View {
         /// Init the `View`
-        init(label: String? = nil, section: Song.Section, settings: AppSettings) {
+        init(label: String? = nil, section: Song.Section) {
             self.label = label ?? section.label
-            self.settings = settings
         }
         /// The label of the section
         let label: String
-        /// The settings of the application
-        let settings: AppSettings
         /// The body of the `View`
         var view: Body {
             if !label.isEmpty {

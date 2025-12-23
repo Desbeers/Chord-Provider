@@ -47,27 +47,27 @@ extension GtkRender {
         private func sectionPart(_ section: Song.Section) -> Body {
             switch section.environment {
             case .verse, .bridge, .chorus:
-                SectionHeader(section: section, settings: settings)
+                SectionHeader(section: section)
                 LyricsSection(section: section, settings: settings)
             case .textblock:
                 if !section.label.isEmpty {
-                    SectionHeader(section: section, settings: settings)
+                    SectionHeader(section: section)
                 }
                 let maxLenght = song.metadata.longestLine.lineLength?.count ?? 100
                 TextblockSection(section: section, settings: settings, maxLenght: maxLenght)
             case .tab:
                 if !settings.core.lyricsOnly {
-                    SectionHeader(section: section, settings: settings)
+                    SectionHeader(section: section)
                     TabSection(section: section, settings: settings)
                 }
             case .grid:
                 if !settings.core.lyricsOnly {
-                    SectionHeader(section: section, settings: settings)
+                    SectionHeader(section: section)
                     GridSection(section: section, settings: settings)
                 }
             case .strum:
                 if !settings.core.lyricsOnly {
-                    SectionHeader(section: section, settings: settings)
+                    SectionHeader(section: section)
                     StrumSection(section: section, settings: settings)
                 }
             case .repeatChorus:
@@ -78,10 +78,10 @@ extension GtkRender {
                     let lastChorus = song.sections.last(
                         where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
                     ) {
-                    SectionHeader(label: label, section: lastChorus, settings: settings)
+                    SectionHeader(label: label, section: lastChorus)
                     LyricsSection(section: lastChorus, settings: settings)
                 } else {
-                    RepeatChorus(label: label, section: section, settings: settings)
+                    RepeatChorus(label: label, section: section)
                 }
             case .comment:
                 CommentLabel(comment: section.lines.first?.plain ?? "Empty Comment", settings: settings)

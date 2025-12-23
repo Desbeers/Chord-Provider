@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ChordProviderCore
 
 extension AppSettings {
 
@@ -22,20 +21,5 @@ extension AppSettings {
         var width = 800
         /// The height of the window
         var height = 600
-    }
-}
-
-extension AppSettings {
-
-    /// Recent Song
-    struct RecentSong: Identifiable, Codable {
-        /// The ID of the URL
-        var id = UUID()
-        /// The URL
-        var url: URL
-        /// The title
-        var title: String
-        /// The artist
-        var artist: String
     }
 }

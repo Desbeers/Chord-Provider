@@ -22,8 +22,6 @@ extension Views {
         /// The selected chord
         // swiftlint:disable:next force_unwrapping
         @State private var selectedChord = ChordDefinition(name: "C", instrument: .guitar)!
-        /// The selected variation
-        @State private var selectedVariation: ChordDefinition.ID = UUID()
         /// The body of the `View`
         var view: Body {
             ScrollView {

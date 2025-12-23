@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ChordProviderCore
 import Adwaita
 
 extension Views {

@@ -164,16 +164,6 @@ extension AppState {
         }
     }
 
-    mutating func closeWindow(window: AdwaitaWindow) {
-        if self.scene.dirty {
-            self.scene.saveDoneAction = .closeWindow
-            self.scene.showDirtyClose = true
-        } else {
-            self.scene.originalSource = self.scene.source
-            window.close()
-        }
-    }
-
     mutating func showWelcomeScreen() {
         print("Show Welcome Screen")
         self.scene.source = ""

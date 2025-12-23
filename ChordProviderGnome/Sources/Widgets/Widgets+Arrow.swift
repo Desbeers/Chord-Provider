@@ -9,7 +9,6 @@ import Foundation
 import Adwaita
 import CAdw
 import CChordProvider
-import ChordProviderCore
 
 extension Widgets {
 

@@ -15,8 +15,6 @@ extension GtkRender {
     struct ImageSection: View {
         /// Init the `View`
         init(section: Song.Section, settings: AppSettings) {
-            self.section = section
-            self.settings = settings
             self.halign = Utils.getAlign(section.arguments)
             let fileURL = settings.core.fileURL == nil ? settings.core.templateURL : settings.core.fileURL
             if
@@ -31,10 +29,6 @@ extension GtkRender {
                 }
             }
         }
-        /// The current section of the song
-        let section: Song.Section
-        /// The settings of the application
-        let settings: AppSettings
         /// The optional data of the image
         var data: Data?
         /// The optional size of the image
