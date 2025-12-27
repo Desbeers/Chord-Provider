@@ -167,11 +167,11 @@ cchord_clear_barre(cchord *c, int index) {
 }
 
 struct cbarre
-cchord_get_barre(const struct cchord *chord, int index) {
+cchord_get_barre(const cchord *chord, int index) {
     struct cbarre empty;
     memset(&empty, 0, sizeof(struct cbarre));
 
-    if (!chord || index >= 0 && index < MAX_BARRES)
+    if (!chord || index < 0 || index >= MAX_BARRES)
         return empty;
 
     return chord->barres[index];
