@@ -150,12 +150,23 @@ public struct SourceView: AdwaitaWidget {
     /// - Parameter buffer: The text view's buffer.
     /// - Returns: The content.
     static func getText(buffer: ViewStorage) -> String {
-        let startIter: UnsafeMutablePointer<GtkTextIter> = .allocate(capacity: 1)
-        let endIter: UnsafeMutablePointer<GtkTextIter> = .allocate(capacity: 1)
+        let startIter = UnsafeMutablePointer<GtkTextIter>.allocate(capacity: 1)
+        let endIter   = UnsafeMutablePointer<GtkTextIter>.allocate(capacity: 1)
+        defer {
+            startIter.deallocate()
+            endIter.deallocate()
+        }
+
         gtk_text_buffer_get_start_iter(buffer.opaquePointer?.cast(), startIter)
         gtk_text_buffer_get_end_iter(buffer.opaquePointer?.cast(), endIter)
-        return .init(
-            cString: gtk_text_buffer_get_text(buffer.opaquePointer?.cast(), startIter, endIter, true.cBool)
+
+        return String(
+            cString: gtk_text_buffer_get_text(
+                buffer.opaquePointer?.cast(),
+                startIter,
+                endIter,
+                true.cBool
+            )
         )
     }
 

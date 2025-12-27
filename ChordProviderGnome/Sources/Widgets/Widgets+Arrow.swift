@@ -15,14 +15,17 @@ extension Widgets {
     /// The `AdwaitaWidget` for drawing an arrow
     struct Arrow: AdwaitaWidget {
 
-        let cstrum = UnsafeMutablePointer<cstrum>.allocate(capacity: 1)
+        let direction: Direction
+        let length: Int
+        let dash: Bool
 
         /// Init the `widget`
         init(direction: Direction, length: Int = 40, dash: Bool) {
-            cstrum.pointee.down = direction == .down ? true : false
-            cstrum.pointee.dash = dash
-            cstrum.pointee.length = Int32(length)
+            self.direction = direction
+            self.length = length
+            self.dash = dash
         }
+
         /// The view storage.
         /// - Parameters:
         ///     - data: The widget data.
@@ -33,7 +36,24 @@ extension Widgets {
             type: Data.Type
         ) -> ViewStorage where Data: ViewRenderData {
             let drawingArea = gtk_drawing_area_new()
-            gtk_drawing_area_set_content_height(drawingArea?.cast(), cstrum.pointee.length)
+
+            let cdata = UnsafeMutablePointer<cstrum>.allocate(capacity: 1)
+            cdata.initialize(
+                to: cstrum(
+                    down: direction == .down,
+                    dash: dash,
+                    length: Int32(length)
+                )
+            )
+            gtk_drawing_area_set_content_height(drawingArea?.cast(), cdata.pointee.length)
+            gtk_drawing_area_set_draw_func(drawingArea?.cast(), draw_arrow, cdata) { userData in
+                userData?
+                    .assumingMemoryBound(to: cstrum.self)
+                    .deinitialize(count: 1)
+                userData?
+                    .assumingMemoryBound(to: cstrum.self)
+                    .deallocate()
+            }
             let content: [String: [ViewStorage]] = [:]
             let storage = ViewStorage(drawingArea?.opaque(), content: content)
             return storage
@@ -45,7 +65,11 @@ extension Widgets {
             updateProperties: Bool,
             type: Data.Type
         ) where Data: ViewRenderData {
-            gtk_drawing_area_set_draw_func(storage.opaquePointer?.cast(), draw_arrow, cstrum, nil)
+            if updateProperties {
+                Idle {
+                    gtk_widget_queue_draw(storage.opaquePointer?.cast())
+                }
+            }
         }
 
         /// The arrow direction
@@ -69,7 +93,9 @@ public func drawArrow(
     user_data: gpointer,
     dark_mode: gboolean
 ) {
-    let data = user_data.load(as: cstrum.self)
+    let data = user_data
+        .assumingMemoryBound(to: cstrum.self)
+        .pointee
 
     let color: Double = dark_mode == 0 ? 0.5 : 0.8
 
@@ -78,16 +104,17 @@ public func drawArrow(
     let arrowDegrees = Double.pi / 8
 
     let x1: Double = Double(data.length) / 5
-    let y1: Double = data.down == true ? 0 : Double(data.length)
+    let y1: Double = data.down ? 0 : Double(data.length)
     let x2: Double = Double(data.length) / 5
-    let y2: Double = data.down == true ? Double(data.length) : 0
+    let y2: Double = data.down ? Double(data.length) : 0
 
     cairo_set_source_rgb(cr, color, color, color)
     cairo_set_line_width(cr, 1)
 
     /// Dashes for the line
     if data.dash {
-        cairo_set_dash(cr, [4, 0], 1, 0)
+        var dashes: [Double] = [4.0, 4.0]
+        cairo_set_dash(cr, &dashes, Int32(dashes.count), 0)
     }
 
     /// Draw line
