@@ -5,12 +5,6 @@
 //  Created by Nick Berendsen on 28/12/2025.
 //
 
-//#ifndef Header_h
-//#define Header_h
-//
-//
-//#endif /* Header_h */
-
 typedef void (*CodeEditorInsertCB)(
     gint offset,
     const gchar *text,
@@ -23,14 +17,30 @@ typedef void (*CodeEditorDeleteCB)(
     gpointer user_data
 );
 
-void codeeditor_connect_delta_signals(
-    GtkTextBuffer *buffer,
-    CodeEditorInsertCB insert_cb,
-    CodeEditorDeleteCB delete_cb,
+typedef void (*CodeEditorCursorCB)(
     gpointer user_data
 );
 
-//#include "codeeditor.h"
+void codeeditor_connect_buffer_signals(
+    GtkTextBuffer *buffer,
+    CodeEditorInsertCB insert_cb,
+    CodeEditorDeleteCB delete_cb,
+    CodeEditorCursorCB cursor_cb,
+    gpointer user_data
+);
+
+static void
+on_cursor_position_notify(
+    GObject    *object,
+    GParamSpec *pspec,
+    gpointer    user_data
+) {
+    CodeEditorCursorCB cb =
+        g_object_get_data(object, "cursor_cb");
+    if (!cb) return;
+
+    cb(user_data);
+}
 
 static void
 on_insert_text(GtkTextBuffer *buffer,
@@ -61,17 +71,26 @@ on_delete_range(GtkTextBuffer *buffer,
 }
 
 void
-codeeditor_connect_delta_signals(GtkTextBuffer *buffer,
+codeeditor_connect_buffer_signals(GtkTextBuffer *buffer,
                                  CodeEditorInsertCB insert_cb,
                                  CodeEditorDeleteCB delete_cb,
+                                 CodeEditorCursorCB cursor_cb,
                                  gpointer user_data)
 {
     g_object_set_data(G_OBJECT(buffer), "insert_cb", insert_cb);
     g_object_set_data(G_OBJECT(buffer), "delete_cb", delete_cb);
+    g_object_set_data(G_OBJECT(buffer), "cursor_cb", cursor_cb);
     g_object_set_data(G_OBJECT(buffer), "user_data", user_data);
+
 
     g_signal_connect(buffer, "insert-text", G_CALLBACK(on_insert_text), user_data);
     g_signal_connect(buffer, "delete-range", G_CALLBACK(on_delete_range), user_data);
+    g_signal_connect(
+        buffer,
+        "notify::cursor-position",
+        G_CALLBACK(on_cursor_position_notify),
+        user_data
+    );
 }
 
 typedef void (*CodeEditorTimeoutCB)(gpointer user_data);

@@ -62,22 +62,13 @@ public struct SourceView: AdwaitaWidget {
 
         storage.fields["snippetIdle"] = nil
 
-        // Connect delta callbacks
-        codeeditor_connect_delta_signals(
+        /// Connect signal callbacks
+        codeeditor_connect_buffer_signals(
             buffer.opaquePointer?.cast(),
             codeeditor_insert_cb,
             codeeditor_delete_cb,
+            cursor_position_cb,
             Unmanaged.passUnretained(storage).toOpaque()
-        )
-
-        g_signal_connect_data(
-            buffer.opaquePointer?.cast(),
-            "notify::cursor-position",
-            unsafeBitCast(cursor_position_cb as (@convention(c) (UnsafeMutablePointer<GObject>?, UnsafeMutablePointer<GParamSpec>?, UnsafeMutableRawPointer?) -> Void),
-                          to: GCallback.self),
-            Unmanaged.passUnretained(storage).toOpaque(),
-            nil,
-            GConnectFlags(0)
         )
 
         return storage
@@ -90,10 +81,9 @@ public struct SourceView: AdwaitaWidget {
         type: Data.Type
     ) {
         if updateProperties {
-            // Debounced sync + snippet handling
+            /// Debounced sync
             Idle {
                 syncFromSwiftIfNeeded(storage: storage)
-                handleSnippets(storage: storage)
                 if paddingEdges.contains(.top) {
                     gtk_text_view_set_top_margin(storage.opaquePointer?.cast(), padding.cInt)
                 }
@@ -115,6 +105,8 @@ public struct SourceView: AdwaitaWidget {
         }
     }
 
+    // MARK: ChordPro language and snippets
+
     func setLanguage(buffer: ViewStorage) {
         let manager = gtk_source_language_manager_get_default()
         if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
@@ -126,7 +118,25 @@ public struct SourceView: AdwaitaWidget {
         gtk_source_buffer_set_language(buffer.opaquePointer?.cast(), lang)
     }
 
-    // MARK: - Fluent API
+    // MARK: Sync / Snapshots
+
+    func syncFromSwiftIfNeeded(storage: ViewStorage) {
+        guard
+            let buffer = storage.content["buffer"]?.first,
+            let binding = storage.fields["textBinding"] as? Binding<String>,
+            let lastHash = storage.fields["lastSnapshotHash"] as? Int
+        else { return }
+
+        let newValue = binding.wrappedValue
+        let newHash = newValue.hashValue
+
+        guard newHash != lastHash else { return }
+
+        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), newValue, -1)
+        storage.fields["lastSnapshotHash"] = newHash
+    }
+
+    // MARK: View modifiers
 
     public func innerPadding(_ padding: Int = 10, edges: Set<Edge> = .all) -> Self {
         var newSelf = self
@@ -166,23 +176,7 @@ public struct SourceView: AdwaitaWidget {
     }
 }
 
-// MARK: - Sync / Snapshots
-
-func syncFromSwiftIfNeeded(storage: ViewStorage) {
-    guard
-        let buffer = storage.content["buffer"]?.first,
-        let binding = storage.fields["textBinding"] as? Binding<String>,
-        let lastHash = storage.fields["lastSnapshotHash"] as? Int
-    else { return }
-
-    let newValue = binding.wrappedValue
-    let newHash = newValue.hashValue
-
-    guard newHash != lastHash else { return }
-
-    gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), newValue, -1)
-    storage.fields["lastSnapshotHash"] = newHash
-}
+// MARK: - Helpers
 
 func snapshotText(buffer: ViewStorage) -> String {
     var start = GtkTextIter()
@@ -213,62 +207,6 @@ func scheduleSnapshot(_ storage: ViewStorage) {
     storage.fields["snapshotSource"] = source
 }
 
-@_cdecl("cursor_position_cb")
-func cursor_position_cb(
-    _ object: UnsafeMutablePointer<GObject>?,
-    _ pspec: UnsafeMutablePointer<GParamSpec>?,
-    _ userData: UnsafeMutableRawPointer?
-) {
-    guard let userData else { return }
-    let storage = Unmanaged<ViewStorage>
-        .fromOpaque(userData)
-        .takeUnretainedValue()
-
-    scheduleSnippetCheck(storage)
-}
-
-
-@_cdecl("flush_snapshot_cb")
-func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
-    guard let userData else { return }
-    let storage = Unmanaged<ViewStorage>.fromOpaque(userData).takeUnretainedValue()
-    storage.fields["snapshotSource"] = 0
-    guard storage.fields["dirty"] as? Bool == true else { return }
-    storage.fields["dirty"] = false
-
-    guard
-        let buffer = storage.content["buffer"]?.first,
-        let binding = storage.fields["textBinding"] as? Binding<String>
-    else { return }
-
-    let text = snapshotText(buffer: buffer)
-    binding.wrappedValue = text
-    storage.fields["lastSnapshotHash"] = text.hashValue
-}
-
-// MARK: - Gtk delta callbacks
-
-@_cdecl("codeeditor_insert_cb")
-func codeeditor_insert_cb(
-    offset: Int32,
-    text: UnsafePointer<CChar>?,
-    userData: UnsafeMutableRawPointer?
-) {
-    guard let userData else { return }
-    let storage = Unmanaged<ViewStorage>.fromOpaque(userData).takeUnretainedValue()
-    scheduleSnapshot(storage)
-}
-
-@_cdecl("codeeditor_delete_cb")
-func codeeditor_delete_cb(
-    start: Int32,
-    end: Int32,
-    userData: UnsafeMutableRawPointer?
-) {
-    guard let userData else { return }
-    let storage = Unmanaged<ViewStorage>.fromOpaque(userData).takeUnretainedValue()
-    scheduleSnapshot(storage)
-}
 
 // MARK: - Snippets
 
@@ -300,4 +238,56 @@ func scheduleSnippetCheck(_ storage: ViewStorage) {
         storage.fields["snippetIdle"] = nil
         handleSnippets(storage: storage)
     }
+}
+
+// MARK: - Swift callbacks for `C` functions
+
+@_cdecl("codeeditor_insert_cb")
+func codeeditor_insert_cb(
+    offset: Int32,
+    text: UnsafePointer<CChar>?,
+    userData: UnsafeMutableRawPointer?
+) {
+    guard let userData else { return }
+    let storage = Unmanaged<ViewStorage>.fromOpaque(userData).takeUnretainedValue()
+    scheduleSnapshot(storage)
+}
+
+@_cdecl("codeeditor_delete_cb")
+func codeeditor_delete_cb(
+    start: Int32,
+    end: Int32,
+    userData: UnsafeMutableRawPointer?
+) {
+    guard let userData else { return }
+    let storage = Unmanaged<ViewStorage>.fromOpaque(userData).takeUnretainedValue()
+    scheduleSnapshot(storage)
+}
+
+@_cdecl("cursor_position_cb")
+func cursor_position_cb(_ userData: UnsafeMutableRawPointer?) {
+    guard let userData else { return }
+    let storage = Unmanaged<ViewStorage>
+        .fromOpaque(userData)
+        .takeUnretainedValue()
+
+    scheduleSnippetCheck(storage)
+}
+
+@_cdecl("flush_snapshot_cb")
+func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
+    guard let userData else { return }
+    let storage = Unmanaged<ViewStorage>.fromOpaque(userData).takeUnretainedValue()
+    storage.fields["snapshotSource"] = 0
+    guard storage.fields["dirty"] as? Bool == true else { return }
+    storage.fields["dirty"] = false
+
+    guard
+        let buffer = storage.content["buffer"]?.first,
+        let binding = storage.fields["textBinding"] as? Binding<String>
+    else { return }
+
+    let text = snapshotText(buffer: buffer)
+    binding.wrappedValue = text
+    storage.fields["lastSnapshotHash"] = text.hashValue
 }
