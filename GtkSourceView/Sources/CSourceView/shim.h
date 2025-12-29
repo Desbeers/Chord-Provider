@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 #include <gtksourceview/gtksource.h>
+#include "editor.h"
 
 #define MIN_CHARS_AFTER_BRACE 2
 
@@ -70,8 +71,7 @@ static void codeeditor_snippets(const char *msg)
 static gboolean
 bracket_condition_met(GtkSourceView *view)
 {
-    GtkTextBuffer *buffer =
-        gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+    GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 
     GtkTextIter iter;
     gtk_text_buffer_get_iter_at_mark(
@@ -79,22 +79,24 @@ bracket_condition_met(GtkSourceView *view)
         &iter,
         gtk_text_buffer_get_insert(buffer));
 
-    GtkTextIter scan = iter;
-    int count = 0;
+    // Get start of the line
+    GtkTextIter lineStart = iter;
+    gtk_text_iter_set_line_offset(&lineStart, 0);
 
-    while (gtk_text_iter_backward_char(&scan)) {
+    // Scan forward from line start to cursor
+    GtkTextIter scan = lineStart;
+    while (gtk_text_iter_compare(&scan, &iter) < 0) {
         gunichar c = gtk_text_iter_get_char(&scan);
 
-        /* Stop at whitespace or newline */
-        if (g_unichar_isspace(c))
-            return FALSE;
+        // Skip whitespace
+        if (!g_unichar_isspace(c)) {
+            // First non-whitespace must be '{'
+            return c == '{';
+        }
 
-        /* Found trigger */
-        if (c == '{')
-            return count >= MIN_CHARS_AFTER_BRACE;
-
-        count++;
+        gtk_text_iter_forward_char(&scan);
     }
 
+    // No non-whitespace character found before cursor
     return FALSE;
 }
