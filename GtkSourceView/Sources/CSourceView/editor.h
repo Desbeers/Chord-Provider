@@ -21,13 +21,45 @@ typedef void (*CodeEditorCursorCB)(
     gpointer user_data
 );
 
-void codeeditor_connect_buffer_signals(
-    GtkTextBuffer *buffer,
-    CodeEditorInsertCB insert_cb,
-    CodeEditorDeleteCB delete_cb,
-    CodeEditorCursorCB cursor_cb,
+
+typedef void (*CodeEditorCompletionShowCB)(
     gpointer user_data
 );
+
+typedef void (*CodeEditorCompletionHideCB)(
+    gpointer user_data
+);
+
+
+
+//static void
+//on_completion_show(
+//    GObject    *object,
+//    GParamSpec *pspec,
+//    gpointer    user_data
+//) {
+//    printf("SHOW!!!");
+//    CodeEditorCursorCB cb =
+//        g_object_get_data(object, "show_cb");
+//    if (!cb) return;
+//
+//    cb(user_data);
+//}
+//
+//static void
+//on_completion_hide(
+//    GObject    *object,
+//    GParamSpec *pspec,
+//    gpointer    user_data
+//) {
+//    CodeEditorCursorCB cb =
+//        g_object_get_data(object, "hide_cb");
+//    if (!cb) return;
+//
+//    cb(user_data);
+//}
+
+
 
 static void
 on_cursor_position_notify(
@@ -71,26 +103,37 @@ on_delete_range(GtkTextBuffer *buffer,
 }
 
 void
-codeeditor_connect_buffer_signals(GtkTextBuffer *buffer,
-                                 CodeEditorInsertCB insert_cb,
-                                 CodeEditorDeleteCB delete_cb,
-                                 CodeEditorCursorCB cursor_cb,
-                                 gpointer user_data)
+codeeditor_connect_buffer_signals(
+                                  GtkTextBuffer *buffer,
+                                  CodeEditorInsertCB insert_cb,
+                                  CodeEditorDeleteCB delete_cb,
+                                  CodeEditorCursorCB cursor_cb,
+                                  gpointer user_data)
 {
     g_object_set_data(G_OBJECT(buffer), "insert_cb", insert_cb);
     g_object_set_data(G_OBJECT(buffer), "delete_cb", delete_cb);
     g_object_set_data(G_OBJECT(buffer), "cursor_cb", cursor_cb);
     g_object_set_data(G_OBJECT(buffer), "user_data", user_data);
 
-
-    g_signal_connect(buffer, "insert-text", G_CALLBACK(on_insert_text), user_data);
-    g_signal_connect(buffer, "delete-range", G_CALLBACK(on_delete_range), user_data);
     g_signal_connect(
-        buffer,
-        "notify::cursor-position",
-        G_CALLBACK(on_cursor_position_notify),
-        user_data
-    );
+                     buffer,
+                     "insert-text",
+                     G_CALLBACK(on_insert_text),
+                     user_data
+                     );
+    g_signal_connect(
+                     buffer,
+                     "delete-range",
+                     G_CALLBACK(on_delete_range),
+                     user_data
+                     );
+    g_signal_connect(
+                     buffer,
+                     "notify::cursor-position",
+                     G_CALLBACK(on_cursor_position_notify),
+                     user_data
+                     );
+    printf("Connected..");
 }
 
 typedef void (*CodeEditorTimeoutCB)(gpointer user_data);

@@ -248,6 +248,7 @@ extension Views {
         /// Parse the song
         func parse() {
             if !parsing {
+                print("PARSING")
                 parsing = true
                 Idle(priority: .low) {
                     LogUtils.shared.clearLog()
