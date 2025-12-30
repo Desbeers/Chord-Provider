@@ -9,6 +9,13 @@ import Foundation
 import Adwaita
 import CCodeEditor
 
+public enum SourceViewCommand {
+    case insert(
+        text: String,
+        wrapSelectionWith: (prefix: String, suffix: String)?
+    )
+}
+
 final class SourceViewController {
 
     /// The GTKSourceView
@@ -74,6 +81,65 @@ final class SourceViewController {
     deinit {
         print("DEINT CONTROLLER")
     }
+
+    func handle(_ command: SourceViewCommand) {
+        switch command {
+        case let .insert(text, wrapper):
+            insertText(text, wrapSelectionWith: wrapper)
+        }
+    }
+
+    func insertText(
+        _ text: String,
+        wrapSelectionWith wrapper: (prefix: String, suffix: String)? = nil
+    ) {
+        guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
+            buffer.opaquePointer?.cast()
+        else { return }
+
+        var insertIter = GtkTextIter()
+        gtk_text_buffer_get_iter_at_mark(
+            bufferPtr,
+            &insertIter,
+            gtk_text_buffer_get_insert(bufferPtr)
+        )
+
+        /// No selection = simple insert
+        if wrapper == nil || (gtk_text_buffer_get_has_selection(bufferPtr) == 0) {
+            gtk_text_buffer_insert(bufferPtr, &insertIter, text, -1)
+            return
+        }
+
+        /// Selection case
+        var start = GtkTextIter()
+        var end = GtkTextIter()
+        gtk_text_buffer_get_selection_bounds(bufferPtr, &start, &end)
+
+        let startMark = gtk_text_buffer_create_mark(bufferPtr, nil, &start, 1)
+        let endMark   = gtk_text_buffer_create_mark(bufferPtr, nil, &end, 0)
+
+        /// Insert suffix first
+        var endIter = GtkTextIter()
+        gtk_text_buffer_get_iter_at_mark(bufferPtr, &endIter, endMark)
+        gtk_text_buffer_insert(bufferPtr, &endIter, wrapper!.suffix, -1)
+
+        /// Insert prefix second
+        var startIter = GtkTextIter()
+        gtk_text_buffer_get_iter_at_mark(bufferPtr, &startIter, startMark)
+        gtk_text_buffer_insert(bufferPtr, &startIter, wrapper!.prefix, -1)
+
+        /// Clear selection by collapsing it
+        var cursorIter = GtkTextIter()
+        gtk_text_buffer_get_iter_at_mark(bufferPtr, &cursorIter, endMark)
+        gtk_text_buffer_place_cursor(bufferPtr, &cursorIter)
+
+        /// Cleanup
+        gtk_text_buffer_delete_mark(bufferPtr, startMark)
+        gtk_text_buffer_delete_mark(bufferPtr, endMark)
+    }
+
+
+
 
     func syncFromSwiftIfNeeded() {
         guard

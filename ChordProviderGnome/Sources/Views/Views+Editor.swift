@@ -15,11 +15,38 @@ extension Views {
     struct Editor: View {
         /// The state of the application
         @Binding var appState: AppState
+
+        @State private var editorCommand: SourceViewCommand?
         /// The body of the `View`
         var view: Body {
             VStack(spacing: 0) {
+                Separator()
+                HStack {
+                    Button("Verse") {
+                        editorCommand = .insert(
+                            text: "\n{start_of_verse}\n{end_of_verse}\n",
+                            wrapSelectionWith: (prefix: "{start_of_verse}\n", suffix: "\n{end_of_verse}\n")
+                        )
+                    }
+                    .flat()
+                    Button("Chorus") {
+                        editorCommand = .insert(
+                            text: "\n{start_of_chorus}\n{end_of_chorus}\n",
+                            wrapSelectionWith: (prefix: "{start_of_chorus}\n", suffix: "\n{end_of_chorus}\n")
+                        )
+                    }
+                    .flat()
+                    Button("Comment") {
+                        editorCommand = .insert(
+                            text: "\n{comment ...}\n",
+                            wrapSelectionWith: (prefix: "{comment ", suffix: "}\n")
+                        )
+                    }
+                    .flat()
+                }
+                .halign(.center)
                 ScrollView {
-                    SourceView(text: $appState.scene.source)
+                    SourceView(text: $appState.scene.source, command: $editorCommand)
                         .innerPadding(10, edges: [.top, .trailing, .bottom])
                         .lineNumbers(appState.settings.editor.showLineNumbers)
                         .language(.chordpro)
@@ -30,7 +57,7 @@ extension Views {
                             "textview { font-family: Monospace; font-size: \(appState.settings.editor.fontSize.rawValue)pt; }"
                         }
                         .card()
-                        .padding(8)
+                        .padding([.leading, .trailing, .bottom])
                 }
             }
         }

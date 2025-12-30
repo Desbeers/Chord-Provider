@@ -14,6 +14,9 @@ public struct SourceView: AdwaitaWidget {
 
     /// The editor's content.
     @Binding var text: String
+    /// Commands for the editor
+    @Binding var command: SourceViewCommand?
+
     var padding = 0
     var paddingEdges: Set<Edge> = []
     var numbers = false
@@ -22,8 +25,9 @@ public struct SourceView: AdwaitaWidget {
     var highlightCurrentLine: Bool = true
     var editable: Bool = true
     /// Init the editor
-    public init(text: Binding<String>) {
+    public init(text: Binding<String>, command: Binding<SourceViewCommand?> = .constant(nil)) {
         self._text = text
+        self._command = command
     }
 
     public func container<Data>(
@@ -47,6 +51,10 @@ public struct SourceView: AdwaitaWidget {
         if updateProperties, let controller = storage.fields["controller"] as? SourceViewController {
             Idle {
                 controller.syncFromSwiftIfNeeded()
+                if let command = self.command {
+                    controller.handle(command)
+                    self.command = nil
+                }
                 if paddingEdges.contains(.top) {
                     gtk_text_view_set_top_margin(storage.opaquePointer?.cast(), padding.cInt)
                 }
