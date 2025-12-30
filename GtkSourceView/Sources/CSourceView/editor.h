@@ -1,9 +1,59 @@
-//
-//  editor.h
-//  GtkSourceView
-//
-//  Created by Nick Berendsen on 28/12/2025.
-//
+gboolean
+bracket_condition_met(GtkSourceView *view)
+{
+
+    GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+
+    GtkTextIter iter;
+    GtkTextIter line_start;
+    GtkTextIter line_end;
+
+    gtk_text_buffer_get_iter_at_mark(
+        buffer,
+        &iter,
+        gtk_text_buffer_get_insert(buffer)
+    );
+
+    /* Get line boundaries */
+    line_start = iter;
+    gtk_text_iter_set_line_offset(&line_start, 0);
+
+    line_end = line_start;
+    gtk_text_iter_forward_to_line_end(&line_end);
+
+    /* Get full line text */
+    gchar *line = gtk_text_buffer_get_text(
+        buffer,
+        &line_start,
+        &line_end,
+        FALSE
+    );
+
+    if (!line) {
+        return FALSE;
+    }
+
+    /* Skip leading whitespace */
+    gchar *p = line;
+    while (*p == ' ' || *p == '\t') {
+        p++;
+    }
+
+    /* Condition 1: line starts with '{' */
+    if (*p != '{') {
+        g_free(line);
+        return FALSE;
+    }
+
+    /* Condition 2: line does NOT contain '}' */
+    if (strchr(p, '}') != NULL) {
+        g_free(line);
+        return FALSE;
+    }
+
+    g_free(line);
+    return TRUE;
+}
 
 typedef void (*CodeEditorInsertCB)(
     gint offset,
@@ -20,46 +70,6 @@ typedef void (*CodeEditorDeleteCB)(
 typedef void (*CodeEditorCursorCB)(
     gpointer user_data
 );
-
-
-typedef void (*CodeEditorCompletionShowCB)(
-    gpointer user_data
-);
-
-typedef void (*CodeEditorCompletionHideCB)(
-    gpointer user_data
-);
-
-
-
-//static void
-//on_completion_show(
-//    GObject    *object,
-//    GParamSpec *pspec,
-//    gpointer    user_data
-//) {
-//    printf("SHOW!!!");
-//    CodeEditorCursorCB cb =
-//        g_object_get_data(object, "show_cb");
-//    if (!cb) return;
-//
-//    cb(user_data);
-//}
-//
-//static void
-//on_completion_hide(
-//    GObject    *object,
-//    GParamSpec *pspec,
-//    gpointer    user_data
-//) {
-//    CodeEditorCursorCB cb =
-//        g_object_get_data(object, "hide_cb");
-//    if (!cb) return;
-//
-//    cb(user_data);
-//}
-
-
 
 static void
 on_cursor_position_notify(
@@ -113,7 +123,6 @@ codeeditor_connect_buffer_signals(
     g_object_set_data(G_OBJECT(buffer), "insert_cb", insert_cb);
     g_object_set_data(G_OBJECT(buffer), "delete_cb", delete_cb);
     g_object_set_data(G_OBJECT(buffer), "cursor_cb", cursor_cb);
-    g_object_set_data(G_OBJECT(buffer), "user_data", user_data);
 
     g_signal_connect(
                      buffer,
