@@ -32,7 +32,7 @@ extension GtkRender {
                         if let elements = line.gridColumns?.grids {
                             ForEach(elements, horizontal: true) { element in
                                 Box {
-                                    Widgets.Grid(element.cells, horizontal: false) { cell in
+                                    ForEach(element.cells, horizontal: false) { cell in
                                         ForEach(cell.parts, horizontal: true) { item in
                                             part(part: item)
                                         }

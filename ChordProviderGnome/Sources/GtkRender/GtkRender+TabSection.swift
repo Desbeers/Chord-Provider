@@ -35,7 +35,7 @@ extension GtkRender {
                     }
                 }
             }
-            .padding(10)
+            .padding()
         }
     }
 }

@@ -183,7 +183,7 @@ extension Views.Welcome {
                         .frame(minWidth: 350)
                         .transition(.crossfade)
                     } else if search.isEmpty {
-                        FlowBox(artists, selection: nil) { artist in
+                        FlowBox(artists) { artist in
                             VStack {
                                 Text(artist.name)
                                     .style(.subtitle)

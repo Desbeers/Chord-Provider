@@ -1,5 +1,5 @@
 {
-  "originHash" : "3d4c906b00a15169a7661b513bed256d7a41e854209305ed84a376aac74f2020",
+  "originHash" : "79761c1d59a2f4311d58e2db50469343f91890570c4fb784b995a4edd7ac0d28",
   "pins" : [
     {
       "identity" : "adwaita-swift",
@@ -7,7 +7,7 @@
       "location" : "https://git.aparoksha.dev/aparoksha/adwaita-swift",
       "state" : {
         "branch" : "main",
-        "revision" : "92fe4fb25622d7b55a2410e3683de296f120e655"
+        "revision" : "cf60b8103f4884ee285e50a1e2bb22747bccd42d"
       }
     },
     {

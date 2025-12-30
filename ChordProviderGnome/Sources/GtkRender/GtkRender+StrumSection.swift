@@ -57,7 +57,7 @@ extension GtkRender {
                                         }
                                         Text(" ")
                                     }
-                                    .padding(10, .trailing)
+                                    .padding(.trailing)
                                 }
                             }
                         }
@@ -68,7 +68,7 @@ extension GtkRender {
                     }
                 }
             }
-            .padding(10)
+            .padding()
         }
     }
 }

@@ -28,7 +28,7 @@ extension GtkRender {
                 Text(label)
                     .style(style)
                     .halign(.start)
-                    .padding(10, .vertical)
+                    .padding(.vertical)
                 Separator()
             }
         }
