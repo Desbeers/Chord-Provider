@@ -9,6 +9,27 @@ import Foundation
 import Adwaita
 import CCodeEditor
 
+public struct SourceViewBridge: Equatable {
+    /// Confirm to `Equatable`
+    public static func ==(lhs: SourceViewBridge, rhs: SourceViewBridge) -> Bool {
+        return lhs.currentLine == rhs.currentLine
+    }
+    /// One-shot command for the editor
+    public var command: SourceViewCommand?
+
+    /// 1-based current cursor line
+    public var currentLine: Int
+
+    public init(
+        command: SourceViewCommand? = nil,
+        currentLine: Int = 1
+    ) {
+        self.command = command
+        self.currentLine = currentLine
+    }
+}
+
+
 public enum SourceViewCommand {
     case insert(
         text: String,
@@ -22,6 +43,8 @@ final class SourceViewController {
     let storage: ViewStorage
     /// The GTKTextBuffer
     let buffer: ViewStorage
+
+    var currentLine: Int = 1
 
     // MARK: Snippets
 
@@ -48,27 +71,28 @@ final class SourceViewController {
     /// - Parameters:
     ///   - text: The editor text
     ///   - language: The editor language
-    init(text: Binding<String>, language: Language) {
+    init(text: Binding<String>, bridge: Binding<SourceViewBridge>, language: Language) {
 
         self.lastSnapshotHash = text.wrappedValue.hashValue
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         codeeditor_buffer_set_theme_adaptive(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
         gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), text.wrappedValue, -1)
-
+        SourceViewController.moveCursorToFirstLine(buffer: buffer)
         storage = ViewStorage(
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
         /// Store the binding of the text
         storage.fields["textBinding"] = text
+        /// Sore the binding of the bridge
+        storage.fields["bridgeBinding"] = bridge
 
         // MARK: Snippets
 
         completion = gtk_source_view_get_completion(storage.opaquePointer?.cast())
 
         gtk_source_init()
-
         /// Connect signal callbacks
         codeeditor_connect_buffer_signals(
             buffer.opaquePointer?.cast(),
@@ -87,6 +111,18 @@ final class SourceViewController {
         case let .insert(text, wrapper):
             insertText(text, wrapSelectionWith: wrapper)
         }
+    }
+
+    static func moveCursorToFirstLine(buffer: ViewStorage) {
+        guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
+            buffer.opaquePointer?.cast()
+        else { return }
+
+        var iter = GtkTextIter()
+        gtk_text_buffer_get_start_iter(bufferPtr, &iter)
+
+        // Place cursor at start of line 0
+        gtk_text_buffer_place_cursor(bufferPtr, &iter)
     }
 
     func insertText(
@@ -138,9 +174,6 @@ final class SourceViewController {
         gtk_text_buffer_delete_mark(bufferPtr, endMark)
     }
 
-
-
-
     func syncFromSwiftIfNeeded() {
         guard
             let binding = storage.fields["textBinding"] as? Binding<String>
@@ -155,6 +188,8 @@ final class SourceViewController {
         gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), newValue, -1)
         /// Make a new hash
         self.lastSnapshotHash = newHash
+        /// Move to the top
+        SourceViewController.moveCursorToFirstLine(buffer: buffer)
     }
 
     // MARK: ChordPro language and snippets
@@ -168,6 +203,32 @@ final class SourceViewController {
         }
         let lang = gtk_source_language_manager_get_language(manager, language.languageName)
         gtk_source_buffer_set_language(buffer.opaquePointer?.cast(), lang)
+    }
+
+    func updateCurrentLine() {
+        guard
+            let bridgeBinding = storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
+        else {
+            return
+        }
+        guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
+            buffer.opaquePointer?.cast()
+        else { return }
+
+        var iter = GtkTextIter()
+        gtk_text_buffer_get_iter_at_mark(
+            bufferPtr,
+            &iter,
+            gtk_text_buffer_get_insert(bufferPtr)
+        )
+        currentLine = Int(gtk_text_iter_get_line(&iter) + 1)
+
+        var bridge = bridgeBinding.wrappedValue
+        /// Only update the binding when needed
+        if bridge.currentLine != self.currentLine {
+            bridge.currentLine = currentLine
+            bridgeBinding.wrappedValue = bridge
+        }
     }
 }
 
@@ -255,6 +316,7 @@ func codeeditor_delete_cb(
 func cursor_position_cb(_ userData: UnsafeMutableRawPointer?) {
     guard let userData else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
+    controller.updateCurrentLine()
     scheduleSnippetCheck(controller)
 }
 

@@ -35,7 +35,7 @@ extension ChordProParser {
             currentSection
                 .lines[firstLineIndex]
                 .addWarning(
-                    "No environment set, using <b><tt>\(environment.rawValue)</tt></b>"
+                    "No environment set, using <b>\(environment.rawValue)</b>"
                 )
             /// Set the new context
             currentSection.lines[firstLineIndex].context = environment

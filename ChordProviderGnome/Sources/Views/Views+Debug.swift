@@ -226,7 +226,7 @@ extension Views {
         }
 
         private func sourceView(_ text: String?, language: Language = .json) -> AnyView {
-            SourceView(text: .constant(text ?? "Error"))
+            SourceView(text: .constant(text ?? "Error"), bridge: .constant(SourceViewBridge()))
                 .language(language)
                 .editable(false)
                 .highlightCurrentLine(false)

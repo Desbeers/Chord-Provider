@@ -35,7 +35,7 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     public var hasWarnings: Bool = false
 
     /// The total lines of the song
-    var lines: Int = 0
+    public var lines: Int = 0
 
     // MARK: Settings
 

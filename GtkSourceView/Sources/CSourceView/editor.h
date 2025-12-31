@@ -142,7 +142,6 @@ codeeditor_connect_buffer_signals(
                      G_CALLBACK(on_cursor_position_notify),
                      user_data
                      );
-    printf("Connected..");
 }
 
 typedef void (*CodeEditorTimeoutCB)(gpointer user_data);

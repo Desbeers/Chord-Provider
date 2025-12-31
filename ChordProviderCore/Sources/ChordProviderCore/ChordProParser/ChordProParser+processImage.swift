@@ -30,7 +30,7 @@ extension ChordProParser {
                 context: .image
             )
             line.calculateSource()
-            line.addWarning("Images inside a <tt>\(currentSection.environment.rawValue)</tt> section is not supported")
+            line.addWarning("Images inside a <b>\(currentSection.environment.rawValue)</b> section is not supported")
             currentSection.lines.append(line)
         } else {
             /// An image in its own section

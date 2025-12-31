@@ -15,7 +15,7 @@ public struct SourceView: AdwaitaWidget {
     /// The editor's content.
     @Binding var text: String
     /// Commands for the editor
-    @Binding var command: SourceViewCommand?
+    @Binding var bridge: SourceViewBridge
 
     var padding = 0
     var paddingEdges: Set<Edge> = []
@@ -25,9 +25,12 @@ public struct SourceView: AdwaitaWidget {
     var highlightCurrentLine: Bool = true
     var editable: Bool = true
     /// Init the editor
-    public init(text: Binding<String>, command: Binding<SourceViewCommand?> = .constant(nil)) {
+    public init(
+        text: Binding<String>,
+        bridge: Binding<SourceViewBridge>
+    ) {
         self._text = text
-        self._command = command
+        self._bridge = bridge
     }
 
     public func container<Data>(
@@ -35,7 +38,7 @@ public struct SourceView: AdwaitaWidget {
         type: Data.Type
     ) -> ViewStorage {
         /// Get the controller class
-        let controller = SourceViewController(text: $text, language: language)
+        let controller = SourceViewController(text: $text, bridge: $bridge, language: language)
         /// Store the controller to keep it alive
         controller.storage.fields["controller"] = controller
         /// Return the GTKSourceView
@@ -49,11 +52,15 @@ public struct SourceView: AdwaitaWidget {
         type: Data.Type
     ) {
         if updateProperties, let controller = storage.fields["controller"] as? SourceViewController {
+            let bridgeBinding = $bridge
             Idle {
                 controller.syncFromSwiftIfNeeded()
-                if let command = self.command {
+                /// Handle command (one-shot)
+                if let command = bridgeBinding.wrappedValue.command {
                     controller.handle(command)
-                    self.command = nil
+                    var newBridge = bridgeBinding.wrappedValue
+                    newBridge.command = nil
+                    bridgeBinding.wrappedValue = newBridge
                 }
                 if paddingEdges.contains(.top) {
                     gtk_text_view_set_top_margin(storage.opaquePointer?.cast(), padding.cInt)

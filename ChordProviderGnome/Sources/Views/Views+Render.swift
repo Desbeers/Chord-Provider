@@ -28,7 +28,7 @@ extension Views {
                 HSplitView(
                     splitter: binding
                 ) {
-                    Views.Editor(appState: $appState)
+                    Views.Editor(appState: $appState, song: song)
                 } end: {
                     HStack {
                         GtkRender.PageView(song: song, settings: appState.settings)

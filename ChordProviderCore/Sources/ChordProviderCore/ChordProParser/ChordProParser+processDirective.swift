@@ -50,7 +50,7 @@ extension ChordProParser {
 
                 if directive.warning {
                     currentSection.addWarning(
-                        "Short directive for <b><tt>\(directive.directive.details.label)</tt></b>; the long version is preferable"
+                        "Short directive for <b>\(directive.directive.details.label)</b>; the long version is preferable"
                     )
                 }
                 /// Always use long directives
@@ -58,7 +58,7 @@ extension ChordProParser {
 
                 if arguments[.plain] != nil, text.starts(with: "{\(parsedDirective):") {
                     currentSection.addWarning(
-                        "No need for a colon <b><tt>:</tt></b> for a simple argument",
+                        "No need for a colon <b>:</b> for a simple argument",
                         level: .notice
                     )
                 }
