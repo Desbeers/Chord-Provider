@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import ChordProviderCore
 import CCodeEditor
 
 public struct SourceViewBridge: Equatable {
@@ -29,13 +30,15 @@ public struct SourceViewBridge: Equatable {
     }
 }
 
-
 public enum SourceViewCommand {
-    case insert(
-        text: String,
-        wrapSelectionWith: (prefix: String, suffix: String)?
-    )
+    case insert(text: String, wrapSelectionWith: (prefix: String, suffix: String)?)
+    case setMarker(line: Int, category: String, enabled: Bool)
+    case setMarkers(lines: [Song.Section.Line])
+    case clearMarkers
+    case replaceAllText(text: String)
+    case appendText(text: String)
 }
+
 
 final class SourceViewController {
 
@@ -72,7 +75,7 @@ final class SourceViewController {
     ///   - text: The editor text
     ///   - language: The editor language
     init(text: Binding<String>, bridge: Binding<SourceViewBridge>, language: Language) {
-
+        print("INIT CONTROLLER")
         self.lastSnapshotHash = text.wrappedValue.hashValue
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         codeeditor_buffer_set_theme_adaptive(buffer.opaquePointer?.cast())
@@ -83,6 +86,7 @@ final class SourceViewController {
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
+
         /// Store the binding of the text
         storage.fields["textBinding"] = text
         /// Sore the binding of the bridge
@@ -101,78 +105,26 @@ final class SourceViewController {
             cursor_position_cb,
             Unmanaged.passUnretained(self).toOpaque()
         )
+
+        codeeditor_install_bookmark_renderer(storage.opaquePointer?.cast(), "bookmark")
+
     }
     deinit {
         print("DEINT CONTROLLER")
     }
 
-    func handle(_ command: SourceViewCommand) {
-        switch command {
-        case let .insert(text, wrapper):
-            insertText(text, wrapSelectionWith: wrapper)
-        }
-    }
+
+
+    // MARK: Cursor movement
 
     static func moveCursorToFirstLine(buffer: ViewStorage) {
-        guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
-            buffer.opaquePointer?.cast()
-        else { return }
-
         var iter = GtkTextIter()
-        gtk_text_buffer_get_start_iter(bufferPtr, &iter)
-
-        // Place cursor at start of line 0
-        gtk_text_buffer_place_cursor(bufferPtr, &iter)
+        gtk_text_buffer_get_start_iter(buffer.opaquePointer?.cast(), &iter)
+        /// Place cursor at start of line 0
+        gtk_text_buffer_place_cursor(buffer.opaquePointer?.cast(), &iter)
     }
 
-    func insertText(
-        _ text: String,
-        wrapSelectionWith wrapper: (prefix: String, suffix: String)? = nil
-    ) {
-        guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
-            buffer.opaquePointer?.cast()
-        else { return }
-
-        var insertIter = GtkTextIter()
-        gtk_text_buffer_get_iter_at_mark(
-            bufferPtr,
-            &insertIter,
-            gtk_text_buffer_get_insert(bufferPtr)
-        )
-
-        /// No selection = simple insert
-        if wrapper == nil || (gtk_text_buffer_get_has_selection(bufferPtr) == 0) {
-            gtk_text_buffer_insert(bufferPtr, &insertIter, text, -1)
-            return
-        }
-
-        /// Selection case
-        var start = GtkTextIter()
-        var end = GtkTextIter()
-        gtk_text_buffer_get_selection_bounds(bufferPtr, &start, &end)
-
-        let startMark = gtk_text_buffer_create_mark(bufferPtr, nil, &start, 1)
-        let endMark   = gtk_text_buffer_create_mark(bufferPtr, nil, &end, 0)
-
-        /// Insert suffix first
-        var endIter = GtkTextIter()
-        gtk_text_buffer_get_iter_at_mark(bufferPtr, &endIter, endMark)
-        gtk_text_buffer_insert(bufferPtr, &endIter, wrapper!.suffix, -1)
-
-        /// Insert prefix second
-        var startIter = GtkTextIter()
-        gtk_text_buffer_get_iter_at_mark(bufferPtr, &startIter, startMark)
-        gtk_text_buffer_insert(bufferPtr, &startIter, wrapper!.prefix, -1)
-
-        /// Clear selection by collapsing it
-        var cursorIter = GtkTextIter()
-        gtk_text_buffer_get_iter_at_mark(bufferPtr, &cursorIter, endMark)
-        gtk_text_buffer_place_cursor(bufferPtr, &cursorIter)
-
-        /// Cleanup
-        gtk_text_buffer_delete_mark(bufferPtr, startMark)
-        gtk_text_buffer_delete_mark(bufferPtr, endMark)
-    }
+    // MARK: Sync from Swift
 
     func syncFromSwiftIfNeeded() {
         guard
@@ -189,7 +141,10 @@ final class SourceViewController {
         /// Make a new hash
         self.lastSnapshotHash = newHash
         /// Move to the top
+        print("MOVE TO FIRST LINE")
         SourceViewController.moveCursorToFirstLine(buffer: buffer)
+        currentLine = 1
+        updateCurrentLine()
     }
 
     // MARK: ChordPro language and snippets

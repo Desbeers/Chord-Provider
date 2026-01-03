@@ -105,9 +105,6 @@ extension Views {
                 }
                 .style("caption")
                 .hexpand()
-                Button("Use this as your source") {
-                    appState.scene.source = song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
-                }
             }
             .padding()
         }

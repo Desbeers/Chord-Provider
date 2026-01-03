@@ -180,6 +180,14 @@ extension Markup {
 .svg-icon {
     filter: invert(\(dark ? 90 : 40)%);
 }
+
+gutter {
+    background-color: var(--headerbar-backdrop-color);
+}
+
+gutterrenderer {
+    padding-right: 4px;
+}
 """
     }
 }

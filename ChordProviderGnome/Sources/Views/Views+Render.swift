@@ -39,6 +39,7 @@ extension Views {
                     .vexpand()
                 }
             }
+            .id(appState.scene.id)
         }
     }
 }

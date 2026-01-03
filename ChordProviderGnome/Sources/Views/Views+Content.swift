@@ -261,6 +261,8 @@ extension Views {
                     /// - Note: It will only do that when the song has an URL and is not dirty
                     appState.addRecentSong(song: song)
                     parsing = false
+                    /// Deal with warnings
+                    appState.bridge.command = .setMarkers(lines: song.sections.flatMap(\.lines).filter {$0.warnings != nil} )
                 }
             }
         }

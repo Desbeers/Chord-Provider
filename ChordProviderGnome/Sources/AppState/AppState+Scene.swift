@@ -7,11 +7,14 @@
 
 import Foundation
 import Adwaita
+import SourceView
 
 extension AppState {
 
     /// Settings for the current scene
     struct Scene {
+        /// The ID of the song
+        var id: UUID = UUID()
         /// The source of the song
         var source = ""
         /// The original source of the song when opened or created

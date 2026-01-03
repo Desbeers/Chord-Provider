@@ -23,12 +23,17 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://git.aparoksha.dev/aparoksha/adwaita-swift", branch: "main")
+        .package(url: "https://git.aparoksha.dev/aparoksha/adwaita-swift", branch: "main"),
+        .package(path: "../ChordProviderCore")
     ],
     targets: [
         .target(
             name: "SourceView",
-            dependencies: [.product(name: "Adwaita", package: "adwaita-swift"), "CSourceView"],
+            dependencies: [
+                .product(name: "Adwaita", package: "adwaita-swift"),
+                .product(name: "ChordProviderCore", package: "ChordProviderCore"),
+                "CSourceView"
+            ],
             resources: [
                 .copy("Resources/chordpro.lang"),
                 .copy("Resources/chordpro.snippets")

@@ -7,6 +7,7 @@
 
 import Foundation
 import ChordProviderCore
+import SourceView
 import Adwaita
 
 /// The state of **Chord Provider**
@@ -52,6 +53,9 @@ struct AppState {
             try? SettingsCache.set(id: "ChordProviderGnome-recent", object: self.recentSongs)
         }
     }
+
+    /// The editor bridge
+    var bridge = SourceViewBridge()
 
     /// The subtitle for the scene
     var subtitle: String {
@@ -170,6 +174,10 @@ extension AppState {
         self.scene.originalSource = ""
         self.settings.core.fileURL = nil
         self.scene.showWelcome = true
+        /// Give the scene a new ID
+        self.scene.id = UUID()
+        /// Reset the bridge
+        self.bridge.currentLine = 1
     }
 }
 
