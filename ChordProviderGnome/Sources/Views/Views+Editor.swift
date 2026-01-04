@@ -30,7 +30,7 @@ extension Views {
         
         @State private var showMetadata: Bool = false
         @State private var showEnvironment: Bool = false
-        @State private var showMoret: Bool = false
+        @State private var showMore: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -45,10 +45,7 @@ extension Views {
                             .popover(visible: $showMetadata) {
                                 ForEach(ChordPro.Directive.metadataDirectives) { directive in
                                     Button(directive.details.label) {
-                                        appState.editor.command = .insert(
-                                            text: "\n\(directive.format.start) ...\(directive.format.end)\n",
-                                            wrapSelectionWith: (prefix: "\(directive.format.start)", suffix: directive.format.end)
-                                        )
+                                        appState.editor.command = .insertDirective(directive: directive)
                                         showMetadata.toggle()
                                     }
                                     .flat()
@@ -64,10 +61,7 @@ extension Views {
                             .popover(visible: $showEnvironment) {
                                 ForEach(ChordPro.Directive.environmentDirectives) { directive in
                                     Button(directive.details.buttonLabel ?? directive.details.label) {
-                                        appState.editor.command = .insert(
-                                            text: "\n\(directive.format.start)\n\(directive.format.end)\n",
-                                            wrapSelectionWith: (prefix: "\(directive.format.start)\n", suffix: "\n\(directive.format.end)\n")
-                                        )
+                                        appState.editor.command = .insertDirective(directive: directive)
                                         showEnvironment.toggle()
                                     }
                                     .flat()
@@ -78,14 +72,12 @@ extension Views {
                             .style(.editorButton)
                             .padding(5)
                             .onClick {
-                                showMoret.toggle()
+                                showMore.toggle()
                             }
-                            .popover(visible: $showMoret) {
+                            .popover(visible: $showMore) {
                                 Button("Comment") {
-                                    appState.editor.command = .insert(
-                                        text: "\n{comment ...}\n",
-                                        wrapSelectionWith: (prefix: "{comment ", suffix: "}\n")
-                                    )
+                                    appState.editor.command = .insertDirective(directive: .comment)
+                                    showMore.toggle()
                                 }
                                 .flat()
                             }

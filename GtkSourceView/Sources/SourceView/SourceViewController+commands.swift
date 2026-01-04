@@ -8,6 +8,16 @@
 import Foundation
 import Adwaita
 import CCodeEditor
+import ChordProviderCore
+
+public enum SourceViewCommand {
+    case insertDirective(directive: ChordPro.Directive)
+    case setMarker(line: Int, category: String, enabled: Bool)
+    case setMarkers(lines: [Song.Section.Line])
+    case clearMarkers
+    case replaceAllText(text: String)
+    case appendText(text: String)
+}
 
 extension SourceViewController {
 
@@ -15,29 +25,16 @@ extension SourceViewController {
 
     func handle(_ command: SourceViewCommand) {
         switch command {
-        case let .insert(text, wrapper):
-            insertText(text, wrapSelectionWith: wrapper)
+        case let .insertDirective(directive):
+            insertDirective(directive)
         case let .setMarker(line, category, enabled):
             setMarker(line: line, category: category, enabled: enabled)
         case .clearMarkers:
             codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
         case .setMarkers(lines: let lines):
             codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-            codeeditor_clear_annotations(annotations)
             for line in lines {
                 setMarker(line: line.sourceLineNumber, category: "bookmark", enabled: true)
-                if let warnings = line.warnings {
-                    var text: String = ""
-                    for warning in warnings {
-                        text += warning.message
-                        if warning != warnings.last {
-                            text += "\n"
-                        }
-                    }
-                    text.withCString { cString in
-                        codeeditor_add_annotation(buffer.opaquePointer?.cast(), annotations, line.sourceLineNumber.cInt, cString)
-                    }
-                }
             }
         case .replaceAllText(text: let text):
             replaceAllText(buffer.opaquePointer?.cast(), text)
@@ -89,13 +86,17 @@ extension SourceViewController {
         gtk_text_buffer_end_user_action(buffer)
     }
 
-    func insertText(
-        _ text: String,
-        wrapSelectionWith wrapper: (prefix: String, suffix: String)? = nil
-    ) {
+    func insertDirective(_ directive: ChordPro.Directive) {
+        defer {
+            gtk_text_buffer_end_user_action(buffer.opaquePointer?.cast())
+            /// Refocus the editor
+            gtk_widget_grab_focus(storage.opaquePointer?.cast())
+        }
         guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
             buffer.opaquePointer?.cast()
         else { return }
+        /// Make it one `undo`
+        gtk_text_buffer_begin_user_action(bufferPtr)
 
         var insertIter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(
@@ -104,13 +105,37 @@ extension SourceViewController {
             gtk_text_buffer_get_insert(bufferPtr)
         )
 
-        /// No selection = simple insert
-        if wrapper == nil || (gtk_text_buffer_get_has_selection(bufferPtr) == 0) {
-            gtk_text_buffer_insert(bufferPtr, &insertIter, text, -1)
+        /// No selection: insert prefix + suffix and move cursor
+        if gtk_text_buffer_get_has_selection(bufferPtr) == 0 {
+            // Move to start of the current line
+            gtk_text_iter_set_line_offset(&insertIter, 0)
+
+            // Insert prefix first
+            gtk_text_buffer_insert(bufferPtr, &insertIter, directive.format.start, -1)
+
+            // Insert suffix last
+            gtk_text_buffer_insert(bufferPtr, &insertIter, "\(directive.format.end)\n", -1)
+
+            // Move cursor two lines up
+            var cursorIter = GtkTextIter()
+            gtk_text_buffer_get_iter_at_mark(bufferPtr, &cursorIter, gtk_text_buffer_get_insert(bufferPtr))
+            // Move iter backward by 2 lines
+
+            if ChordPro.Directive.environmentDirectives.contains(directive) {
+                /// Move the cursor up two lines to be in between the directives
+                gtk_text_iter_backward_line(&cursorIter)
+                gtk_text_iter_backward_line(&cursorIter)
+            } else {
+                /// Move it back just before the bracket
+                gtk_text_iter_backward_char(&cursorIter)
+                gtk_text_iter_backward_char(&cursorIter)
+            }
+            gtk_text_buffer_place_cursor(bufferPtr, &cursorIter)
+
             return
         }
 
-        /// Selection case
+        /// Selection case: wrap selection with prefix/suffix
         var start = GtkTextIter()
         var end = GtkTextIter()
         gtk_text_buffer_get_selection_bounds(bufferPtr, &start, &end)
@@ -118,22 +143,22 @@ extension SourceViewController {
         let startMark = gtk_text_buffer_create_mark(bufferPtr, nil, &start, 1)
         let endMark   = gtk_text_buffer_create_mark(bufferPtr, nil, &end, 0)
 
-        /// Insert suffix first
+        // Insert suffix first
         var endIter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(bufferPtr, &endIter, endMark)
-        gtk_text_buffer_insert(bufferPtr, &endIter, wrapper!.suffix, -1)
+        gtk_text_buffer_insert(bufferPtr, &endIter, "\(directive.format.end)\n", -1)
 
-        /// Insert prefix second
+        // Insert prefix second
         var startIter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(bufferPtr, &startIter, startMark)
-        gtk_text_buffer_insert(bufferPtr, &startIter, wrapper!.prefix, -1)
+        gtk_text_buffer_insert(bufferPtr, &startIter, directive.format.start, -1)
 
-        /// Clear selection by collapsing it
+        // Collapse selection
         var cursorIter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(bufferPtr, &cursorIter, endMark)
         gtk_text_buffer_place_cursor(bufferPtr, &cursorIter)
 
-        /// Cleanup
+        // Cleanup marks
         gtk_text_buffer_delete_mark(bufferPtr, startMark)
         gtk_text_buffer_delete_mark(bufferPtr, endMark)
     }

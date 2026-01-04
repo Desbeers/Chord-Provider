@@ -10,18 +10,6 @@ import Adwaita
 import ChordProviderCore
 import CCodeEditor
 
-
-
-public enum SourceViewCommand {
-    case insert(text: String, wrapSelectionWith: (prefix: String, suffix: String)?)
-    case setMarker(line: Int, category: String, enabled: Bool)
-    case setMarkers(lines: [Song.Section.Line])
-    case clearMarkers
-    case replaceAllText(text: String)
-    case appendText(text: String)
-}
-
-
 final class SourceViewController {
 
     /// The GTKSourceView
@@ -52,9 +40,6 @@ final class SourceViewController {
     /// The debounced snapshot schedule
     var snapshotSchedule: guint = 0
 
-
-    let annotations: UnsafeMutablePointer<CodeEditorAnnotations>
-
     /// Init the controller
     /// - Parameters:
     ///   - text: The editor text
@@ -74,9 +59,6 @@ final class SourceViewController {
         /// Store the binding of the bridge
         storage.fields["bridgeBinding"] = bridge
 
-        annotations = .allocate(capacity: 1)
-        annotations.initialize(to: CodeEditorAnnotations(provider: nil))
-
         // MARK: Snippets
 
         completion = gtk_source_view_get_completion(storage.opaquePointer?.cast())
@@ -90,17 +72,7 @@ final class SourceViewController {
             cursor_position_cb,
             Unmanaged.passUnretained(self).toOpaque()
         )
-
-        
-
         codeeditor_install_bookmark_renderer(storage.opaquePointer?.cast(), "bookmark")
-
-        codeeditor_enable_annotations(storage.opaquePointer?.cast(), annotations)
-
-        //gtk_source_view_get
-
-        //codeeditor_enable_annotations(storage.opaquePointer?.cast())
-
     }
     deinit {
         print("DEINT CONTROLLER")
