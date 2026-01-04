@@ -24,6 +24,7 @@ extension Markup {
         case sectionHeader = "section-header"
         case sectionChorus = "section-chorus"
         case tagButton = "tag-button"
+        case editorButton = "editor-button"
         case tagLabel = "tag-label"
         case commentLabel = "comment-label"
         case repeatChorus = "repeat-chorus"
@@ -88,8 +89,16 @@ extension Markup {
     background-color: var(--headerbar-shade-color);
     padding: 0.5em;
     border-radius: 0.5em;
+    transition: 0.3s;
 }
-.tag-button:hover {
+.editor-button {
+    font-size: \(0.8 * baseFontSize)px;
+    font-weight: normal;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    transition: 0.3s;
+}
+.tag-button:hover, .editor-button:hover {
     background-color: var(--accent-bg-color);
     color: #fff;
 }

@@ -25,6 +25,8 @@ extension ChordPro.Directive {
         public var lineType: ChordPro.LineType
         /// Additional info
         public var info: String?
+        /// Optional button label
+        public var buttonLabel: String?
     }
 
     /// The details of a directive
@@ -177,7 +179,8 @@ extension ChordPro.Directive {
                 label: "Start of Chorus",
                 help: "This directive indicates that the lines that follow form the song’s chorus",
                 environment: .chorus,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                buttonLabel: "Chorus"
             )
         case .endOfChorus:
             Details(
@@ -198,7 +201,8 @@ extension ChordPro.Directive {
                 label: "Start of Verse",
                 help: "Specifies that the following lines form a verse of the song",
                 environment: .verse,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                buttonLabel: "Verse"
             )
         case .endOfVerse:
             Details(
@@ -212,7 +216,8 @@ extension ChordPro.Directive {
                 label: "Start of Bridge",
                 help: "Specifies that the following lines form a bridge of the song",
                 environment: .bridge,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                buttonLabel: "Bridge"
             )
         case .endOfBridge:
             Details(
@@ -226,7 +231,8 @@ extension ChordPro.Directive {
                 label: "Start of Tab",
                 help: "This directive indicates that the lines that follow form a section of guitar TAB instructions",
                 environment: .tab,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                buttonLabel: "Tab"
             )
         case .endOfTab:
             Details(
@@ -240,7 +246,8 @@ extension ChordPro.Directive {
                 label: "Start of Grid",
                 help: "This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles",
                 environment: .grid,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                buttonLabel: "Grid"
             )
         case .endOfGrid:
             Details(
@@ -254,7 +261,8 @@ extension ChordPro.Directive {
                 label: "Start of ABC",
                 help: "This directive indicates that the lines that follow define a piece of music written in ABC music notation",
                 environment: .abc,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                buttonLabel: "ABC"
             )
         case .endOfABC:
             Details(
@@ -268,7 +276,8 @@ extension ChordPro.Directive {
                 label: "Start of Textblock",
                 help: "This directive indicates that the lines that follow define a piece of text that is combined into a single object",
                 environment: .textblock,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                buttonLabel: "Textblock"
             )
         case .endOfTextblock:
             Details(
@@ -335,7 +344,8 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the lines that follow defines a strum pattern",
                 environment: .strum,
                 lineType: .environmentDirective,
-                info: "**Tuplet** is a generic term that describes a grouping of notes that would not normally occur within a beat."
+                info: "**Tuplet** is a generic term that describes a grouping of notes that would not normally occur within a beat.",
+                buttonLabel: "Strum"
             )
         case .endOfStrum:
             Details(

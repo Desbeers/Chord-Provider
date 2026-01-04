@@ -1,5 +1,5 @@
 //
-//  Language.swift
+//  markers.h
 //  GTKSourceView
 //
 //  © 2025 Nick Berendsen
@@ -88,4 +88,5 @@ codeeditor_clear_marks(
         category
     );
 }
+
 

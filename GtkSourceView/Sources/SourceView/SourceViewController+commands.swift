@@ -23,8 +23,21 @@ extension SourceViewController {
             codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
         case .setMarkers(lines: let lines):
             codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
+            codeeditor_clear_annotations(annotations)
             for line in lines {
                 setMarker(line: line.sourceLineNumber, category: "bookmark", enabled: true)
+                if let warnings = line.warnings {
+                    var text: String = ""
+                    for warning in warnings {
+                        text += warning.message
+                        if warning != warnings.last {
+                            text += "\n"
+                        }
+                    }
+                    text.withCString { cString in
+                        codeeditor_add_annotation(buffer.opaquePointer?.cast(), annotations, line.sourceLineNumber.cInt, cString)
+                    }
+                }
             }
         case .replaceAllText(text: let text):
             replaceAllText(buffer.opaquePointer?.cast(), text)

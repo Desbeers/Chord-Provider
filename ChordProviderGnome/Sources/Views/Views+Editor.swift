@@ -11,7 +11,7 @@ import ChordProviderCore
 import SourceView
 
 extension Views {
-
+    
     /// The `View` for editing a song
     struct Editor: View {
         init(appState: Binding<AppState>, song: Song) {
@@ -27,37 +27,73 @@ extension Views {
         let lines: [Song.Section.Line]
         /// Confirmation for cleanup
         @State private var confirmCleanup: Bool = false
+        
+        @State private var showMetadata: Bool = false
+        @State private var showEnvironment: Bool = false
+        @State private var showMoret: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
                 VStack {
                     HStack {
-                        Button("Verse") {
-                            appState.bridge.command = .insert(
-                                text: "\n{start_of_verse}\n{end_of_verse}\n",
-                                wrapSelectionWith: (prefix: "{start_of_verse}\n", suffix: "\n{end_of_verse}\n")
-                            )
-                        }
-                        .flat()
-                        Button("Chorus") {
-                            appState.bridge.command = .insert(
-                                text: "\n{start_of_chorus}\n{end_of_chorus}\n",
-                                wrapSelectionWith: (prefix: "{start_of_chorus}\n", suffix: "\n{end_of_chorus}\n")
-                            )
-                        }
-                        .flat()
-                        Button("Comment") {
-                            appState.bridge.command = .insert(
-                                text: "\n{comment ...}\n",
-                                wrapSelectionWith: (prefix: "{comment ", suffix: "}\n")
-                            )
-                        }
-                        .flat()
+                        Text("Metadata")
+                            .style(.editorButton)
+                            .padding(5)
+                            .onClick {
+                                showMetadata.toggle()
+                            }
+                            .popover(visible: $showMetadata) {
+                                ForEach(ChordPro.Directive.metadataDirectives) { directive in
+                                    Button(directive.details.label) {
+                                        appState.editor.command = .insert(
+                                            text: "\n\(directive.format.start) ...\(directive.format.end)\n",
+                                            wrapSelectionWith: (prefix: "\(directive.format.start)", suffix: directive.format.end)
+                                        )
+                                        showMetadata.toggle()
+                                    }
+                                    .flat()
+                                    .insensitive(song.metadata.definedMetadata.contains(directive.rawValue.long))
+                                }
+                            }
+                        Text("Environment")
+                            .style(.editorButton)
+                            .padding(5)
+                            .onClick {
+                                showEnvironment.toggle()
+                            }
+                            .popover(visible: $showEnvironment) {
+                                ForEach(ChordPro.Directive.environmentDirectives) { directive in
+                                    Button(directive.details.buttonLabel ?? directive.details.label) {
+                                        appState.editor.command = .insert(
+                                            text: "\n\(directive.format.start)\n\(directive.format.end)\n",
+                                            wrapSelectionWith: (prefix: "\(directive.format.start)\n", suffix: "\n\(directive.format.end)\n")
+                                        )
+                                        showEnvironment.toggle()
+                                    }
+                                    .flat()
+                                    .insensitive(song.metadata.definedMetadata.contains(directive.rawValue.long))
+                                }
+                            }
+                        Text("more...")
+                            .style(.editorButton)
+                            .padding(5)
+                            .onClick {
+                                showMoret.toggle()
+                            }
+                            .popover(visible: $showMoret) {
+                                Button("Comment") {
+                                    appState.editor.command = .insert(
+                                        text: "\n{comment ...}\n",
+                                        wrapSelectionWith: (prefix: "{comment ", suffix: "}\n")
+                                    )
+                                }
+                                .flat()
+                            }
                     }
                     .halign(.center)
                     Separator()
                     ScrollView {
-                        SourceView(text: $appState.scene.source, bridge: $appState.bridge)
+                        SourceView(bridge: $appState.editor)
                             .innerPadding(10, edges: .all)
                             .lineNumbers(appState.settings.editor.showLineNumbers)
                             .language(.chordpro)
@@ -78,7 +114,7 @@ extension Views {
         @ViewBuilder
         var lineInfo: Body {
             HStack {
-                let currentLine = getCurrentLine(lineNumber: appState.bridge.currentLine)
+                let currentLine = getCurrentLine(lineNumber: appState.editor.currentLine)
                 Text("Line \(currentLine.sourceLineNumber)")
                     .frame(maxWidth: 120)
                     .halign(.start)
@@ -100,6 +136,7 @@ extension Views {
                 Button("Cleanup") {
                     confirmCleanup.toggle()
                 }
+                .insensitive(!song.hasWarnings)
                 .halign(.end)
                 .alertDialog(
                     visible: $confirmCleanup,
@@ -114,7 +151,7 @@ extension Views {
                     /// Nothing to do
                 }
                 .response("Cleanup", appearance: .suggested, role: .default) {
-                    appState.bridge.command = .replaceAllText(text: song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n"))
+                    appState.editor.command = .replaceAllText(text: song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n"))
                 }
             }
             .style(.caption)

@@ -12,9 +12,7 @@ import CCodeEditor
 /// A text or code editor widget.
 public struct SourceView: AdwaitaWidget {
 
-    /// The editor's content.
-    @Binding var text: String
-    /// Commands for the editor
+    /// The editor bridge
     @Binding var bridge: SourceViewBridge
 
     var padding = 0
@@ -26,10 +24,8 @@ public struct SourceView: AdwaitaWidget {
     var editable: Bool = true
     /// Init the editor
     public init(
-        text: Binding<String>,
         bridge: Binding<SourceViewBridge>
     ) {
-        self._text = text
         self._bridge = bridge
     }
 
@@ -38,7 +34,7 @@ public struct SourceView: AdwaitaWidget {
         type: Data.Type
     ) -> ViewStorage {
         /// Get the controller class
-        let controller = SourceViewController(text: $text, bridge: $bridge, language: language)
+        let controller = SourceViewController(bridge: $bridge, language: language)
         /// Store the controller to keep it alive
         controller.storage.fields["controller"] = controller
         /// Return the GTKSourceView
@@ -54,7 +50,6 @@ public struct SourceView: AdwaitaWidget {
         if updateProperties, let controller = storage.fields["controller"] as? SourceViewController {
             let bridgeBinding = $bridge
             Idle {
-                controller.syncFromSwiftIfNeeded()
                 /// Handle command (one-shot)
                 if let command = bridgeBinding.wrappedValue.command {
                     controller.handle(command)

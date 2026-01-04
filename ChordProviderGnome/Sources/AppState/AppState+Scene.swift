@@ -16,8 +16,9 @@ extension AppState {
         /// The ID of the song
         var id: UUID = UUID()
         /// The source of the song
-        var source = ""
+        //var source = ""
         /// The original source of the song when opened or created
+        /// - Note: To check if the song is changed
         var originalSource = ""
         /// A signal to open a song
         var openSong = Signal()
@@ -47,11 +48,5 @@ extension AppState {
         var showToast = Signal()
         /// The toast message
         var toastMessage: String = ""
-
-        /// Bool if the source is modified
-        /// - Note: Comparing the source with the original source
-        var dirty: Bool {
-            source != originalSource
-        }
     }
 }

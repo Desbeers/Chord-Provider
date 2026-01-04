@@ -48,7 +48,7 @@ import CChordProvider
         .minSize(width: 800, height: 600)
         .title(appState.subtitle)
         .onClose {
-            if appState.scene.dirty {
+            if appState.dirty {
                 appState.scene.saveDoneAction = .closeWindow
                 appState.scene.showDirtyClose = true
                 return .cancel

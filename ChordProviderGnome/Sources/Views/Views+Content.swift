@@ -56,7 +56,7 @@ extension Views {
             // MARK: On Update
 
             .onUpdate {
-                if appState.scene.source != song.content || song.settings != appState.settings.core {
+                if appState.editor.source != song.content || song.settings != appState.settings.core {
                     parse()
                 }
             }
@@ -105,7 +105,7 @@ extension Views {
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
                     /// Make the source 'clean' so we can close the window
-                    appState.scene.originalSource = appState.scene.source
+                    appState.scene.originalSource = appState.editor.source
                     /// Close the window
                     window.close()
                 case .showWelcomeScreen:
@@ -251,7 +251,7 @@ extension Views {
                 parsing = true
                 Idle(priority: .low) {
                     LogUtils.shared.clearLog()
-                    song.content = appState.scene.source
+                    song.content = appState.editor.source
                     song.settings = appState.settings.core
                     song = ChordProParser.parse(
                         song: song,
@@ -262,7 +262,7 @@ extension Views {
                     appState.addRecentSong(song: song)
                     parsing = false
                     /// Deal with warnings
-                    appState.bridge.command = .setMarkers(lines: song.sections.flatMap(\.lines).filter {$0.warnings != nil} )
+                    appState.editor.command = .setMarkers(lines: song.sections.flatMap(\.lines).filter {$0.warnings != nil} )
                 }
             }
         }

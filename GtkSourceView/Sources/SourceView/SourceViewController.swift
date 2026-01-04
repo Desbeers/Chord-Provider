@@ -10,25 +10,7 @@ import Adwaita
 import ChordProviderCore
 import CCodeEditor
 
-public struct SourceViewBridge: Equatable {
-    /// Confirm to `Equatable`
-    public static func ==(lhs: SourceViewBridge, rhs: SourceViewBridge) -> Bool {
-        return lhs.currentLine == rhs.currentLine
-    }
-    /// One-shot command for the editor
-    public var command: SourceViewCommand?
 
-    /// 1-based current cursor line
-    public var currentLine: Int
-
-    public init(
-        command: SourceViewCommand? = nil,
-        currentLine: Int = 1
-    ) {
-        self.command = command
-        self.currentLine = currentLine
-    }
-}
 
 public enum SourceViewCommand {
     case insert(text: String, wrapSelectionWith: (prefix: String, suffix: String)?)
@@ -70,27 +52,30 @@ final class SourceViewController {
     /// The debounced snapshot schedule
     var snapshotSchedule: guint = 0
 
+
+    let annotations: UnsafeMutablePointer<CodeEditorAnnotations>
+
     /// Init the controller
     /// - Parameters:
     ///   - text: The editor text
     ///   - language: The editor language
-    init(text: Binding<String>, bridge: Binding<SourceViewBridge>, language: Language) {
+    init(bridge: Binding<SourceViewBridge>, language: Language) {
         print("INIT CONTROLLER")
-        self.lastSnapshotHash = text.wrappedValue.hashValue
+        self.lastSnapshotHash = bridge.source.wrappedValue.hashValue
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         codeeditor_buffer_set_theme_adaptive(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
-        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), text.wrappedValue, -1)
+        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), bridge.source.wrappedValue, -1)
         SourceViewController.moveCursorToFirstLine(buffer: buffer)
         storage = ViewStorage(
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
-
-        /// Store the binding of the text
-        storage.fields["textBinding"] = text
-        /// Sore the binding of the bridge
+        /// Store the binding of the bridge
         storage.fields["bridgeBinding"] = bridge
+
+        annotations = .allocate(capacity: 1)
+        annotations.initialize(to: CodeEditorAnnotations(provider: nil))
 
         // MARK: Snippets
 
@@ -106,7 +91,15 @@ final class SourceViewController {
             Unmanaged.passUnretained(self).toOpaque()
         )
 
+        
+
         codeeditor_install_bookmark_renderer(storage.opaquePointer?.cast(), "bookmark")
+
+        codeeditor_enable_annotations(storage.opaquePointer?.cast(), annotations)
+
+        //gtk_source_view_get
+
+        //codeeditor_enable_annotations(storage.opaquePointer?.cast())
 
     }
     deinit {
@@ -122,29 +115,6 @@ final class SourceViewController {
         gtk_text_buffer_get_start_iter(buffer.opaquePointer?.cast(), &iter)
         /// Place cursor at start of line 0
         gtk_text_buffer_place_cursor(buffer.opaquePointer?.cast(), &iter)
-    }
-
-    // MARK: Sync from Swift
-
-    func syncFromSwiftIfNeeded() {
-        guard
-            let binding = storage.fields["textBinding"] as? Binding<String>
-        else {
-            return
-        }
-        let newValue = binding.wrappedValue
-        let newHash = newValue.hashValue
-        guard newHash != self.lastSnapshotHash else {
-            return
-        }
-        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), newValue, -1)
-        /// Make a new hash
-        self.lastSnapshotHash = newHash
-        /// Move to the top
-        print("MOVE TO FIRST LINE")
-        SourceViewController.moveCursorToFirstLine(buffer: buffer)
-        currentLine = 1
-        updateCurrentLine()
     }
 
     // MARK: ChordPro language and snippets
@@ -288,11 +258,11 @@ func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     controller.snapshotSchedule = 0
     guard
         let buffer = controller.storage.content["buffer"]?.first,
-        let binding = controller.storage.fields["textBinding"] as? Binding<String>
+        let binding = controller.storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
     else {
         return
     }
     let text = snapshotText(buffer: buffer)
-    binding.wrappedValue = text
+    binding.source.wrappedValue = text
     controller.lastSnapshotHash = text.hashValue
 }

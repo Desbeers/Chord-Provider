@@ -64,7 +64,7 @@ extension Views.Toolbar {
                     .accent(song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
-                            if appState.scene.dirty {
+                            if appState.dirty {
                                 appState.scene.saveDoneAction = .showWelcomeScreen
                                 appState.scene.showDirtyClose = true
                             } else {

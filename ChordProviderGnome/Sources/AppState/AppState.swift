@@ -27,12 +27,12 @@ struct AppState {
         if let fileURL = CommandLine.arguments[safe: 1] {
             let url = URL(filePath: fileURL)
             if let content = try? String(contentsOf: url, encoding: .utf8) {
-                self.scene.source = content
+                self.editor.source = content
                 self.scene.originalSource = content
                 self.settings.core.fileURL = url
             }
         }
-        if scene.source.isEmpty {
+        if editor.source.isEmpty {
             settings.editor.showEditor = false
             scene.showWelcome = true
         }
@@ -55,11 +55,11 @@ struct AppState {
     }
 
     /// The editor bridge
-    var bridge = SourceViewBridge()
+    var editor = SourceViewBridge()
 
     /// The subtitle for the scene
     var subtitle: String {
-        "\(settings.core.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(scene.dirty ? " - edited" : "")"
+        "\(settings.core.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
     }
 }
 
@@ -68,7 +68,7 @@ extension AppState {
     /// Add a recent song
     /// - Parameter song: The parsed song
     mutating func addRecentSong(song: Song) {
-        if let fileURL = song.settings.fileURL, !self.scene.dirty {
+        if let fileURL = song.settings.fileURL, !self.dirty {
             var recentSongs = self.recentSongs
             /// Keep only relevant information
             var recent = Song(id: UUID())
@@ -107,6 +107,12 @@ extension AppState {
         /// Return to the `View`
         return recent
     }
+
+    /// Bool if the source is modified
+    /// - Note: Comparing the source with the original source
+    var dirty: Bool {
+        editor.source != scene.originalSource
+    }
 }
 
 extension AppState {
@@ -132,7 +138,7 @@ extension AppState {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
             /// Reset transpose
             self.settings.core.transpose = 0
-            self.scene.source = content
+            self.editor.source = content
             self.scene.originalSource = content
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
             self.scene.showWelcome = false
@@ -147,7 +153,7 @@ extension AppState {
     mutating func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
         /// Reset transpose
         self.settings.core.transpose = 0
-        self.scene.source = content
+        self.editor.source = content
         self.scene.originalSource = content
         self.settings.editor.showEditor = showEditor
         if let url {
@@ -158,9 +164,9 @@ extension AppState {
 
     mutating func saveSong(_ song: Song) {
         if let fileURL = self.settings.core.fileURL {
-            try? self.scene.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+            try? self.editor.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Remember the content as  saved
-            self.scene.originalSource = self.scene.source
+            self.scene.originalSource = self.editor.source
             /// Add it to the recent songs list
             self.addRecentSong(song: song)
         } else {
@@ -170,14 +176,14 @@ extension AppState {
 
     mutating func showWelcomeScreen() {
         print("Show Welcome Screen")
-        self.scene.source = ""
+        self.editor.source = ""
         self.scene.originalSource = ""
         self.settings.core.fileURL = nil
         self.scene.showWelcome = true
         /// Give the scene a new ID
         self.scene.id = UUID()
-        /// Reset the bridge
-        self.bridge.currentLine = 1
+        /// Reset the editor
+        self.editor = SourceViewBridge()
     }
 }
 

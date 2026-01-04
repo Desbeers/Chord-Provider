@@ -2,6 +2,7 @@
 #include <gtksourceview/gtksource.h>
 #include "editor.h"
 #include "markers.h"
+#include "annotations.h"
 
 static void update_theme_on_settings_change(GObject *settings,
                                             GParamSpec *pspec,

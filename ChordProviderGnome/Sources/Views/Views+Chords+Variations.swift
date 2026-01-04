@@ -57,13 +57,13 @@ extension Views.Chords {
                 case true:
                     if
                         let chord = chords.first(where: { $0.id == selectedVariationID }),
-                        !appState.scene.source.contains(chord.define) {
+                        !appState.editor.source.contains(chord.define) {
                         HStack {
                             Text("Add this chord definition to your song")
                                 .hexpand()
                             Button("Add") {
                                 chordDialog.toggle()
-                                appState.bridge.command = .appendText(text: "{define-\(appState.settings.core.instrument.rawValue) \(chord.define)}")
+                                appState.editor.command = .appendText(text: "{define-\(appState.settings.core.instrument.rawValue) \(chord.define)}")
                                 //appState.scene.source += "\n{define-\(appState.settings.core.instrument.rawValue) \(chord.define)}\n"
                             }
                             .suggested()
