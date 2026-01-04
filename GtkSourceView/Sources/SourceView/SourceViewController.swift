@@ -193,10 +193,37 @@ func codeeditor_insert_cb(
     text: UnsafePointer<CChar>?,
     userData: UnsafeMutableRawPointer?
 ) {
-    guard let userData else { return }
+    guard let userData, let text = text else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
+
+    /// Convert C string to Swift String
+    let insertedText = String(cString: text)
+
+    /// Check if the inserted text is exactly "["
+    if insertedText == "[" {
+        Idle {
+            guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
+                    controller.buffer.opaquePointer?.cast()
+            else { return }
+
+            /// Get insert mark
+            guard let insertMark = gtk_text_buffer_get_insert(bufferPtr) else { return }
+
+            /// Insert closing bracket
+            var iter = GtkTextIter()
+            gtk_text_buffer_get_iter_at_mark(bufferPtr, &iter, insertMark)
+            gtk_text_buffer_insert(bufferPtr, &iter, "]", -1)
+
+            /// Move cursor back between brackets
+            gtk_text_iter_backward_char(&iter)
+            gtk_text_buffer_place_cursor(bufferPtr, &iter)
+        }
+    }
+
+    /// Schedule undo snapshot / any other callbacks
     scheduleSnapshot(controller)
 }
+
 
 @_cdecl("codeeditor_delete_cb")
 func codeeditor_delete_cb(
