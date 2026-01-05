@@ -25,7 +25,7 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     /// The ID of the song
     public var id: UUID
 
-    /// The raw content of the song
+    /// The source of the song
     public var content: String = ""
 
     /// Bool if the song has actual content

@@ -63,10 +63,10 @@ extension Views.Toolbar {
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
                             if appState.dirty {
-                                appState.scene.saveDoneAction = .showWelcomeScreen
+                                appState.scene.saveDoneAction = .showWelcomeView
                                 appState.scene.showDirtyClose = true
                             } else {
-                                appState.scene.showWelcome = true
+                                appState.scene.showWelcomeView = true
                             }
                         }
                         .keyboardShortcut("o".ctrl())
@@ -108,7 +108,7 @@ extension Views.Toolbar {
             }
             .headerBarTitle {
                 WindowTitle(
-                    subtitle: appState.scene.showWelcome ? "Open or create a ChordPro song" : appState.subtitle,
+                    subtitle: appState.scene.showWelcomeView ? "Open or create a ChordPro song" : appState.subtitle,
                     title: "Chord Provider"
                 )
             }

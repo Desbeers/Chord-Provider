@@ -13,9 +13,9 @@ extension AppState {
 
     /// Settings for the current scene
     struct Scene {
-        /// The original source of the song when opened or created
+        /// The original content of the song when opened or created
         /// - Note: To check if the song is changed
-        var originalSource = ""
+        var originalContent = ""
         /// A signal to open a song
         var openSong = Signal()
         /// A signal to save as song with a new name
@@ -28,8 +28,8 @@ extension AppState {
         var showAboutDialog = false
         /// Show the *Transpose* dialog
         var showTransposeDialog = false
-        /// Bool if the welcome is shown
-        var showWelcome: Bool = true
+        /// Bool if the welcome view is shown
+        var showWelcomeView: Bool = true
         /// Show the *Debug*
         var showDebug = false
         /// The selected debug tab

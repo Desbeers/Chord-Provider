@@ -1,5 +1,6 @@
 # Chord Provider
 
+<<<<<<< Updated upstream
 **I lost my interest in `macOS`.**
 
 **In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
@@ -7,6 +8,9 @@
 I consider to drop it.
 
 ## A [ChordPro](https://www.chordpro.org) viewer and editor for Linux and macOS
+=======
+## A [ChordPro](https://www.chordpro.org) viewer and editor
+>>>>>>> Stashed changes
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
 
@@ -18,7 +22,13 @@ While I hope you like **Chord Provider**, as *musician* or *programmer*, it is j
 
 ## Chord Provider
 
+<<<<<<< Updated upstream
 **Chord Provider** is written in Swift.
+=======
+**Chord Provider** is written in Swift
+
+
+>>>>>>> Stashed changes
 
 ![Chord Provider on macOS](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 

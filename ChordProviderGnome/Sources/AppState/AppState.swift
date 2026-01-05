@@ -88,7 +88,7 @@ extension AppState {
             var recentSongs = self.recentSongs
             /// Keep only relevant information
             let recent = ChordProParser.parse(
-                song: Song(id: UUID(), content: self.scene.originalSource),
+                song: Song(id: UUID(), content: self.scene.originalContent),
                 settings: self.editor.song.settings,
                 getOnlyMetadata: true
             )
@@ -128,7 +128,7 @@ extension AppState {
     /// Bool if the source is modified
     /// - Note: Comparing the source with the original source
     var dirty: Bool {
-        editor.song.content != scene.originalSource
+        editor.song.content != scene.originalContent
     }
 }
 
@@ -171,22 +171,23 @@ extension AppState {
         /// Don't show the previous song
         self.editor.song.hasContent = false
         self.editor.song.content = content
-        self.scene.originalSource = content
+        self.scene.originalContent = content
         self.settings.editor.showEditor = showEditor
         if let templateURL {
             self.editor.song.settings.templateURL = templateURL
         }
         /// Give the song a new ID
+        /// - Note: That will make a new View
         self.editor.song.id = UUID()
         /// Close the welcome
-        self.scene.showWelcome = false
+        self.scene.showWelcomeView = false
     }
 
     mutating func saveSong(_ song: Song) {
         if let fileURL = self.editor.song.settings.fileURL {
             try? self.editor.song.content.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Remember the content as  saved
-            self.scene.originalSource = self.editor.song.content
+            self.scene.originalContent = self.editor.song.content
             /// Add it to the recent songs list
             self.addRecentSong()
         } else {
@@ -196,10 +197,14 @@ extension AppState {
 }
 
 extension AppState {
-
+    
+    /// What to do when saving a song
     enum SaveDoneAction {
+        /// Close the window
         case closeWindow
-        case showWelcomeScreen
+        /// Show the welcome view
+        case showWelcomeView
+        /// Do nthing
         case noAction
     }
 }

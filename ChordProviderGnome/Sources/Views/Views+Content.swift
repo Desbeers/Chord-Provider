@@ -25,7 +25,7 @@ extension Views {
         /// The main `View`
         var view: Body {
             VStack {
-                if appState.scene.showWelcome {
+                if appState.scene.showWelcomeView {
                     Views.Welcome(app: app, window: window, appState: $appState)
                         .vexpand()
                         .hexpand()
@@ -92,11 +92,11 @@ extension Views {
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
                     /// Make the source 'clean' so we can close the window
-                    appState.scene.originalSource = appState.editor.song.content
+                    appState.scene.originalContent = appState.editor.song.content
                     /// Close the window
                     window.close()
-                case .showWelcomeScreen:
-                    appState.scene.showWelcome = true
+                case .showWelcomeView:
+                    appState.scene.showWelcomeView = true
                 case .noAction:
                     return
                 }
@@ -107,8 +107,8 @@ extension Views {
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
                         window.close()
-                    case .showWelcomeScreen:
-                        appState.scene.showWelcome = true
+                    case .showWelcomeView:
+                        appState.scene.showWelcomeView = true
                     case .noAction:
                         /// Set the toast
                         appState.scene.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
@@ -201,9 +201,9 @@ extension Views {
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
                     window.close()
-                case .showWelcomeScreen:
+                case .showWelcomeView:
                     appState.scene.showToast.signal()
-                    appState.scene.showWelcome = true
+                    appState.scene.showWelcomeView = true
                 case .noAction:
                     appState.scene.showToast.signal()
                 }

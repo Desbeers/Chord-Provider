@@ -12,15 +12,16 @@ import CChordProvider
 
 /// The **Chord Provider** application
 @main struct ChordProvider: App {
+    /// Init the application
     init() {
-        /// Give it an unique ID so Files does not open new windows
+        /// - Note: Give it an unique ID so Files does not open new windows
         let id: UUID = UUID()
         self.app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(id.uuidString)")
-        //self._song = State(wrappedValue: Song(id: id, content: ""))
     }
-    /// The app
+    /// The application
     let app: AdwaitaApp
     /// The state of the application
+    /// - Note: This will load all the settings
     @State private var appState = AppState()
     /// The body of the `Scene`
     var scene: Scene {
@@ -31,23 +32,25 @@ import CChordProvider
             Views.Content(
                 app: app,
                 window: window,
-                appState: $appState,
-                //song: $song
+                appState: $appState
             )
             .css {
                 Markup.css(
                     zoom: appState.settings.app.zoom,
+                    /// - Note: This does not update on theme change; it needs a `View` update
                     dark: app_prefers_dark_theme() == 1 ? true : false
                 )
             }
             .onAppear {
                 /// Open a song when passed as argument at launch
+                /// - Note: When opened again with another argument; it will create a new instance because the application will have a another ID
                 if let fileURL = CommandLine.arguments[safe: 1] {
                     let url = URL(filePath: fileURL)
                     appState.openSong(fileURL: url)
                 }
             }
         }
+        /// - Note: It will remember the window size when opening a new window
         .size(width: $appState.window.width, height: $appState.window.height)
         .defaultSize(width: 800, height: 600)
         .minSize(width: 800, height: 600)
@@ -67,6 +70,7 @@ import CChordProvider
         Window(id: "database", open: 0) { _ in
             Views.Database(appState: appState)
         }
+        /// - Note: I don't store its window size
         .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
         .title("Chords Database")

@@ -29,23 +29,23 @@ extension Views {
                     Views.Editor(appState: $appState)
                 } end: {
 
-                        if appState.editor.song.hasContent {
-                            HStack {
+                    if appState.editor.song.hasContent {
+                        HStack {
                             GtkRender.PageView(song: appState.editor.song, settings: appState.settings)
                             Separator()
                             Views.Chords(song: appState.editor.song, appState: $appState)
-                            }
-                            .hexpand()
-                            .vexpand()
-                        } else {
-                            StatusPage(
-                                "Parsing",
-                                icon: .default(icon: .folderMusic),
-                                description: "Parsing your song..."
-                            )
-                            .frame(minWidth: 350)
-                            .transition(.crossfade)
                         }
+                        .hexpand()
+                        .vexpand()
+                    } else {
+                        StatusPage(
+                            "Parsing",
+                            icon: .default(icon: .folderMusic),
+                            description: "Parsing your song..."
+                        )
+                        .frame(minWidth: 350)
+                        .transition(.crossfade)
+                    }
                 }
             }
             /// Set the ID to the View with the unique ID of the song
