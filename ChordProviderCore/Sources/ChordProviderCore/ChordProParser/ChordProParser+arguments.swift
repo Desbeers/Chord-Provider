@@ -44,8 +44,9 @@ extension ChordProParser {
         if
             let parsedArgument,
             parsedArgument.contains("="),
-            !parsedArgument.contains("<"),
-            !parsedArgument.contains("http") {
+            !parsedArgument.contains("<")
+            //!parsedArgument.contains("http")
+        {
             let attributes = parsedArgument.matches(of: ChordPro.RegexDefinitions.formattingAttributes)
             /// Map the attributes in a dictionary
             arguments = attributes.reduce(into: DirectiveArguments()) {

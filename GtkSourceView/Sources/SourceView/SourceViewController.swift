@@ -49,11 +49,11 @@ final class SourceViewController {
         codeeditor_buffer_set_theme_adaptive(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
         gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), bridge.song.content.wrappedValue, -1)
-        SourceViewController.moveCursorToFirstLine(buffer: buffer)
         storage = ViewStorage(
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
+        SourceViewController.moveCursorToFirstLine(storage: storage, buffer: buffer)
         /// Store the binding of the bridge
         storage.fields["bridgeBinding"] = bridge
 
@@ -81,11 +81,18 @@ final class SourceViewController {
 
     // MARK: Cursor movement
 
-    static func moveCursorToFirstLine(buffer: ViewStorage) {
+    static func moveCursorToFirstLine(storage: ViewStorage, buffer: ViewStorage) {
         var iter = GtkTextIter()
         gtk_text_buffer_get_start_iter(buffer.opaquePointer?.cast(), &iter)
         /// Place cursor at start of line 0
         gtk_text_buffer_place_cursor(buffer.opaquePointer?.cast(), &iter)
+        // Scroll to cursor
+        if let insertMark = gtk_text_buffer_get_insert(buffer.opaquePointer?.cast()) {
+            gtk_text_view_scroll_mark_onscreen(
+                storage.opaquePointer?.cast(),
+                insertMark
+            )
+        }
     }
 
     // MARK: ChordPro language and snippets

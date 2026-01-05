@@ -13,32 +13,30 @@ import CAdw
 
 /// The state of **Chord Provider**
 struct AppState {
+
+    /// Init the `AppState`
     init() {
+
+        // MARK: Load settings
+
+        /// General settings
         if let settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
             print("Loaded settings")
             self.settings = settings
         } else {
             print("No settings found, creating new one")
         }
-
+        /// The size of the window
+        if let windowSize = try? SettingsCache.get(id: "ChordProviderGnome-window", struct: AppState.WindowSize.self) {
+            print("Loaded window size")
+            self.window = windowSize
+        }
+        /// Recent songs
         if let recentSongs = try? SettingsCache.get(id: "ChordProviderGnome-recent", struct: [AppState.RecentSong].self) {
             self.recentSongs = recentSongs
         }
-        /// Open an optional song URL
-        if let fileURL = CommandLine.arguments[safe: 1] {
-            let url = URL(filePath: fileURL)
-            if let content = try? String(contentsOf: url, encoding: .utf8) {
-                self.editor.song.content = content
-                self.scene.originalSource = content
-                self.editor.song.settings.fileURL = url
-            }
-        }
-        if editor.song.content.isEmpty {
-            settings.editor.showEditor = false
-            scene.showWelcome = true
-        }
     }
-
+    /// The shared application settings
     var settings = AppSettings() {
         didSet {
             if settings != oldValue {
@@ -46,23 +44,26 @@ struct AppState {
             }
         }
     }
-
-    let saveDebouncer = Debouncer(delay: 1)
-
+    /// Debounce window saving or else it got nuts when resizing the window
+    let saveWindowDebouncer = Debouncer(delay: 1)
+    /// The size of the window
+    /// - Note: Will be used when opening a new instance of **ChordProvider**
     var window = WindowSize() {
         didSet {
             if window != oldValue {
                 let window = window
-                saveDebouncer.schedule {
+                saveWindowDebouncer.schedule {
                     print("Saving window size")
                     try? SettingsCache.set(id: "ChordProviderGnome-window", object: window)
                 }
             }
         }
     }
-
+    /// State of the `Scene`
+    /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
 
+    /// Recent songs
     private(set) var recentSongs: [RecentSong] = [] {
         didSet {
             print("Saving recent songs")
@@ -82,15 +83,15 @@ struct AppState {
 extension AppState {
 
     /// Add a recent song
-    /// - Parameter song: The parsed song
-    mutating func addRecentSong(song: Song) {
-        if let fileURL = song.settings.fileURL, !self.dirty {
+    mutating func addRecentSong() {
+        if let fileURL = self.editor.song.settings.fileURL {
             var recentSongs = self.recentSongs
             /// Keep only relevant information
-            var recent = Song(id: UUID())
-            recent.metadata.title = song.metadata.title
-            recent.metadata.artist = song.metadata.artist
-            recent.metadata.tags = song.metadata.tags
+            let recent = ChordProParser.parse(
+                song: Song(id: UUID(), content: self.scene.originalSource),
+                settings: self.editor.song.settings,
+                getOnlyMetadata: true
+            )
             recentSongs.append(
                 RecentSong(
                     url: fileURL,
@@ -137,12 +138,12 @@ extension AppState {
     /// - Parameters:
     ///   - sample: The sample song
     ///   - showEditor: Bool to show the editor
-    ///   - url: Bool if the URL should be added
-    mutating func openSample(_ sample: String, showEditor: Bool = true, url: Bool = false) {
+    mutating func openSample(_ sample: String, showEditor: Bool) {
         if
             let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-            openSong(content: content, showEditor: showEditor, url: url ? sampleSong : nil)
+            self.editor.song.settings.fileURL = nil
+            openSong(content: content, showEditor: showEditor, templateURL: sampleSong)
         } else {
             print("Error loading sample song")
         }
@@ -152,20 +153,10 @@ extension AppState {
     mutating func openSong(fileURL: URL) {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
-
-            var settings = self.editor.song.settings
-            settings.transpose = 0
-            settings.fileURL = fileURL
-            self.editor.song.settings = settings
-            /// Reset transpose
-            //self.editor.song.settings.transpose = 0
-            /// Pass the content to the editor
-            self.editor.song.hasContent = false
-            self.editor.command = .replaceAllText(text: content)
-            self.scene.originalSource = content
+            self.editor.song.settings.fileURL = fileURL
+            openSong(content: content, showEditor: self.settings.editor.showEditor)
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-            self.scene.showWelcome = false
-            //self.editor.song.settings.fileURL = fileURL
+            self.addRecentSong()
         } catch {
             self.scene.toastMessage = "Could not open the song"
         }
@@ -173,17 +164,21 @@ extension AppState {
 
     /// Open a song with its content as string
     /// - Parameter content: The content of the song
-    mutating func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
+    mutating private func openSong(content: String, showEditor: Bool, templateURL: URL? = nil) {
         /// Reset transpose
         self.editor.song.settings.transpose = 0
-        /// Pass the content to the editor
+        self.editor.song.metadata.transpose = 0
+        /// Don't show the previous song
         self.editor.song.hasContent = false
-        self.editor.command = .replaceAllText(text: content)
+        self.editor.song.content = content
         self.scene.originalSource = content
         self.settings.editor.showEditor = showEditor
-        if let url {
-            self.editor.song.settings.templateURL = url
+        if let templateURL {
+            self.editor.song.settings.templateURL = templateURL
         }
+        /// Give the song a new ID
+        self.editor.song.id = UUID()
+        /// Close the welcome
         self.scene.showWelcome = false
     }
 
@@ -193,7 +188,7 @@ extension AppState {
             /// Remember the content as  saved
             self.scene.originalSource = self.editor.song.content
             /// Add it to the recent songs list
-            self.addRecentSong(song: song)
+            self.addRecentSong()
         } else {
             self.scene.saveSongAs.signal()
         }

@@ -28,6 +28,7 @@ extension SourceViewController {
             /// Clear all markers
             codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
             replaceAllText(buffer.opaquePointer?.cast(), text)
+            SourceViewController.moveCursorToFirstLine(storage: storage, buffer: buffer)
         case .appendText(text: let text):
             appendTextAndScroll(storage.opaquePointer?.cast(), text)
         }

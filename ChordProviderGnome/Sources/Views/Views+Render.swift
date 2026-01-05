@@ -39,16 +39,17 @@ extension Views {
                             .vexpand()
                         } else {
                             StatusPage(
-                                "Loading",
+                                "Parsing",
                                 icon: .default(icon: .folderMusic),
-                                description: "Loading your song..."
+                                description: "Parsing your song..."
                             )
                             .frame(minWidth: 350)
                             .transition(.crossfade)
                         }
                 }
             }
-            //.id(appState.scene.id)
+            /// Set the ID to the View with the unique ID of the song
+            .id(appState.editor.song.id)
         }
     }
 }

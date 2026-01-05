@@ -26,9 +26,9 @@ extension Views {
         /// The loading state
         /// - Note: For the song browser
         @State private var loadingState: Views.LoadingState = .loading
-
+        /// The tab to show
         @State private var welcomeTab: WelcomeTab = .mySongs
-
+        /// The optional search string
         @State private var search: String = ""
 
         // MARK: Main View
@@ -37,13 +37,12 @@ extension Views {
         var view: Body {
             HStack(spacing: 20) {
                 VStack {
-                    Text(appState.editor.song.hasContent.description)
                     Text("Create a new song")
                         .style(.title)
                     Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
                         .pixelSize(260)
                     Button("Start with an empty song") {
-                        appState.openSong(content: "{title New Song}\n{artist New Artist}\n")
+                        appState.openSample("New Song", showEditor: true)
                     }
                     .frame(maxWidth: 250)
                     .padding()
@@ -57,7 +56,7 @@ extension Views {
                         .style("spacer")
                         .vexpand()
                     Button("Help") {
-                        appState.openSample("Help", showEditor: false, url: true)
+                        appState.openSample("Help", showEditor: false)
                     }
                     .frame(maxWidth: 250)
                 }
@@ -137,7 +136,7 @@ extension Views {
 
 extension Views.Welcome {
 
-    // MARK: - Recent Songs View
+    // MARK: Recent Songs View
 
     /// The `View` with **Recent** songs
     @ViewBuilder var recentSongs: Body {
@@ -300,11 +299,10 @@ extension Views.Welcome {
         HStack {
             Button("") {
                 if let settings {
-                    //appState.editor.song.settings = settings
+                    appState.editor.song.settings = settings
                 }
                 appState.openSong(fileURL: fileURL)
                 appState.scene.showToast.signal()
-                appState.addRecentSong(song: song)
             }
             .child {
                 HStack {

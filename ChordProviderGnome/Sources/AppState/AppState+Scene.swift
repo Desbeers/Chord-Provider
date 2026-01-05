@@ -29,7 +29,7 @@ extension AppState {
         /// Show the *Transpose* dialog
         var showTransposeDialog = false
         /// Bool if the welcome is shown
-        var showWelcome: Bool = false
+        var showWelcome: Bool = true
         /// Show the *Debug*
         var showDebug = false
         /// The selected debug tab

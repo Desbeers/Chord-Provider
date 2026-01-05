@@ -107,26 +107,26 @@ extension Views {
                 Text("Line \(currentLine.sourceLineNumber)")
                     .frame(maxWidth: 120)
                     .halign(.start)
-                    .padding(.trailing)
-                if let warnings = currentLine.warnings {
-                    VStack {
-                        ForEach(warnings) { warning in
-                            Text(warning.message)
-                                .useMarkup()
-                                .halign(.start)
-                        }
+                    .padding()
+                ScrollView {
+                    if let warnings = currentLine.warnings {
+
+                        Text(warnings.map(\.message).joined(separator: "\n"))
+                            .useMarkup()
+                            .halign(.start)
+                            .hexpand()
+                    } else {
+                        Text(" ")
+                            .hexpand()
                     }
-                    .hexpand()
-                    .valign(.center)
-                } else {
-                    Text(" ")
-                        .hexpand()
                 }
                 Button("Cleanup") {
                     confirmCleanup.toggle()
                 }
+                .padding()
                 .insensitive(!appState.editor.song.hasWarnings)
                 .halign(.end)
+                .valign(.center)
                 .alertDialog(
                     visible: $confirmCleanup,
                     heading: "Cleanup",
@@ -144,9 +144,6 @@ extension Views {
                 }
             }
             .style(.caption)
-            .hexpand()
-            //.halign(.start)
-            .padding()
         }
         func getCurrentLine(lineNumber: Int) -> Song.Section.Line {
             lines[safe: lineNumber - 1] ?? Song.Section.Line()

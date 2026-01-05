@@ -20,10 +20,8 @@ import CChordProvider
     }
     /// The app
     let app: AdwaitaApp
-    /// The ``AppSettings``
+    /// The state of the application
     @State private var appState = AppState()
-    /// The song
-    //@State private var song: Song
     /// The body of the `Scene`
     var scene: Scene {
 
@@ -41,6 +39,13 @@ import CChordProvider
                     zoom: appState.settings.app.zoom,
                     dark: app_prefers_dark_theme() == 1 ? true : false
                 )
+            }
+            .onAppear {
+                /// Open a song when passed as argument at launch
+                if let fileURL = CommandLine.arguments[safe: 1] {
+                    let url = URL(filePath: fileURL)
+                    appState.openSong(fileURL: url)
+                }
             }
         }
         .size(width: $appState.window.width, height: $appState.window.height)
