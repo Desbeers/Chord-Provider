@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import ChordProviderCore
 import CCodeEditor
 
 /// A text or code editor widget.
@@ -37,6 +38,10 @@ public struct SourceView: AdwaitaWidget {
         let controller = SourceViewController(bridge: $bridge, language: language)
         /// Store the controller to keep it alive
         controller.storage.fields["controller"] = controller
+
+
+        controller.storage.fields["settings"] = bridge.song.settings
+
         /// Return the GTKSourceView
         return controller.storage
     }
@@ -47,9 +52,17 @@ public struct SourceView: AdwaitaWidget {
         updateProperties: Bool,
         type: Data.Type
     ) {
-        if updateProperties, let controller = storage.fields["controller"] as? SourceViewController {
+        if
+            updateProperties,
+            let controller = storage.fields["controller"] as? SourceViewController,
+            let settings = storage.fields["settings"] as? ChordProviderSettings {
             let bridgeBinding = $bridge
             Idle {
+                /// Handle settings update
+                if settings != bridge.song.settings {
+                    storage.fields["settings"] = bridge.song.settings
+                    scheduleSnapshot(controller)
+                }
                 /// Handle command (one-shot)
                 if let command = bridgeBinding.wrappedValue.command {
                     controller.handle(command)
@@ -75,6 +88,8 @@ public struct SourceView: AdwaitaWidget {
                 gtk_source_view_set_highlight_current_line(storage.opaquePointer?.cast(), highlightCurrentLine.cBool)
             }
             storage.previousState = self
+        } else {
+            print("ERROR")
         }
     }
 

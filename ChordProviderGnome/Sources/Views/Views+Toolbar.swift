@@ -27,12 +27,10 @@ extension Views.Toolbar {
         var window: AdwaitaWindow
         /// The state of the application
         @Binding var appState: AppState
-        /// The current song
-        let song: Song
         /// The body of the `View`
         var view: Body {
             let binding = Binding(
-                get: { song.transposing != 0 },
+                get: { appState.editor.song.transposing != 0 },
                 set: {
                     _ = $0
                 }
@@ -44,8 +42,8 @@ extension Views.Toolbar {
                     ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: binding) {
                         appState.scene.showTransposeDialog = true
                     }
-                    .tooltip(song.transposeTooltip)
-                    DropDown(selection: $appState.settings.core.instrument, values: Chord.Instrument.allCases)
+                    .tooltip(appState.editor.song.transposeTooltip)
+                    DropDown(selection: $appState.editor.song.settings.instrument, values: Chord.Instrument.allCases)
                         .tooltip("Select your instrument")
                     Toggle(icon: .default(icon: .viewDual), isOn: $appState.settings.app.columnPaging)
                         .tooltip("Show the song in columns")
@@ -54,14 +52,14 @@ extension Views.Toolbar {
             end: {
                 HStack(spacing: 5) {
                     /// Show optional tags
-                    if let tags = song.metadata.tags {
+                    if let tags = appState.editor.song.metadata.tags {
                         Views.Tags(tags: tags)
                     }
                     Toggle(icon: .default(icon: .helpAbout), isOn: $appState.scene.showDebug) {
                         /// Nothing to handle
                     }
                     .tooltip("See how your song is parsed")
-                    .accent(song.hasWarnings)
+                    .accent(appState.editor.song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
                             if appState.dirty {
@@ -73,13 +71,13 @@ extension Views.Toolbar {
                         }
                         .keyboardShortcut("o".ctrl())
                         MenuButton("Save") {
-                            appState.settings.core.export.format = .chordPro
+                            appState.editor.song.settings.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
-                            appState.saveSong(song)
+                            appState.saveSong(appState.editor.song)
                         }
                         .keyboardShortcut("s".ctrl())
                         MenuButton("Save As…") {
-                            appState.settings.core.export.format = .chordPro
+                            appState.editor.song.settings.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.scene.saveSongAs.signal()
                         }

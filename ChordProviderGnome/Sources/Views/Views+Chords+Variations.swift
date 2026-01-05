@@ -44,7 +44,7 @@ extension Views.Chords {
             VStack {
                 ScrollView {
                     FlowBox(chords, selection: $selectedVariationID) { chord in
-                        Widgets.ChordDiagram(chord: chord, width: 120, settings: appState.settings)
+                        Widgets.ChordDiagram(chord: chord, width: 120, settings: appState.editor.song.settings)
                             .style(chord == selectedChord ? .selectedChord : .none)
                             .padding(4, .vertical)
                     }
@@ -57,13 +57,13 @@ extension Views.Chords {
                 case true:
                     if
                         let chord = chords.first(where: { $0.id == selectedVariationID }),
-                        !appState.editor.source.contains(chord.define) {
+                        !appState.editor.song.content.contains(chord.define) {
                         HStack {
                             Text("Add this chord definition to your song")
                                 .hexpand()
                             Button("Add") {
                                 chordDialog.toggle()
-                                appState.editor.command = .appendText(text: "{define-\(appState.settings.core.instrument.rawValue) \(chord.define)}")
+                                appState.editor.command = .appendText(text: "{define-\(appState.editor.song.settings.instrument.rawValue) \(chord.define)}")
                                 //appState.scene.source += "\n{define-\(appState.settings.core.instrument.rawValue) \(chord.define)}\n"
                             }
                             .suggested()

@@ -19,10 +19,6 @@ extension Views {
         var window: AdwaitaWindow
         /// The state of the application
         @Binding var appState: AppState
-        /// The whole song
-        @Binding var song: Song
-        /// Bool if the song is parsing
-        @State private var parsing: Bool = false
 
         // MARK: Main View
 
@@ -35,7 +31,7 @@ extension Views {
                         .hexpand()
                         .transition(.crossfade)
                 } else {
-                    Views.Render(song: song, appState: $appState)
+                    Views.Render(appState: $appState)
                         .hexpand()
                         .vexpand()
                         .transition(.crossfade)
@@ -43,21 +39,12 @@ extension Views {
                             Views.Toolbar.Main(
                                 app: app,
                                 window: window,
-                                appState: $appState,
-                                song: song
+                                appState: $appState
                             )
                         }
                         .dialog(visible: $appState.scene.showDebug, width: 800, height: 600) {
-                            Views.Debug(appState: $appState, song: song)
+                            Views.Debug(appState: $appState)
                         }
-                }
-            }
-
-            // MARK: On Update
-
-            .onUpdate {
-                if appState.editor.source != song.content || song.settings != appState.settings.core {
-                    parse()
                 }
             }
 
@@ -89,7 +76,7 @@ extension Views {
                 width: 260,
                 height: 180
             ) {
-                Views.Transpose(appState: $appState, song: song)
+                Views.Transpose(appState: $appState)
             }
 
             // MARK: Alert Dialog
@@ -97,7 +84,7 @@ extension Views {
             /// The **Alert dialog** when a song is changed but not yet saved
             .alertDialog(
                 visible: $appState.scene.showDirtyClose,
-                heading: "'\(song.metadata.title)' has changed",
+                heading: "'\(appState.editor.song.metadata.title)' has changed",
                 body: "Do you want to save your song?",
                 id: "dirty-dialog"
             )
@@ -105,7 +92,7 @@ extension Views {
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
                     /// Make the source 'clean' so we can close the window
-                    appState.scene.originalSource = appState.editor.source
+                    appState.scene.originalSource = appState.editor.song.content
                     /// Close the window
                     window.close()
                 case .showWelcomeScreen:
@@ -115,8 +102,8 @@ extension Views {
                 }
             }
             .response("Save", appearance: .suggested, role: .default) {
-                if let fileURL = appState.settings.core.fileURL {
-                    appState.saveSong(song)
+                if let fileURL = appState.editor.song.settings.fileURL {
+                    appState.saveSong(appState.editor.song)
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
                         window.close()
@@ -129,7 +116,7 @@ extension Views {
                     }
                 } else {
                     /// The song has not yet been saved; show the *Save As* dialog
-                    appState.settings.core.export.format = .chordPro
+                    appState.editor.song.settings.export.format = .chordPro
                     appState.scene.saveSongAs.signal()
                 }
             }
@@ -146,21 +133,21 @@ extension Views {
                         SwitchRow()
                             .title("Show only lyrics")
                             .subtitle("Hide all the chords")
-                            .active($appState.settings.core.lyricsOnly)
+                            .active($appState.editor.song.settings.lyricsOnly)
                         SwitchRow()
                             .title("Repeat whole chorus")
                             .subtitle("Show the whole chorus with the same label")
-                            .active($appState.settings.core.repeatWholeChorus)
+                            .active($appState.editor.song.settings.repeatWholeChorus)
                     }
                     .group("Chord Diagrams") {
                         SwitchRow()
                             .title("Show left-handed chords")
                             .subtitle("Flip the chord diagrams")
-                            .active($appState.settings.core.diagram.mirror)
+                            .active($appState.editor.song.settings.diagram.mirror)
                         SwitchRow()
                             .title("Show notes")
                             .subtitle("Show the notes of a chord in the diagram")
-                            .active($appState.settings.core.diagram.showNotes)
+                            .active($appState.editor.song.settings.diagram.showNotes)
                     }
             }
             .preferencesPage("Editor", icon: .default(icon: .textEditor)) { page in
@@ -200,12 +187,12 @@ extension Views {
             /// The **File Exporter**
             .fileExporter(
                 open: appState.scene.saveSongAs,
-                initialName: song.initialName(format: appState.settings.core.export.format)
+                initialName: appState.editor.song.initialName(format: appState.editor.song.settings.export.format)
             ) { fileURL in
-                switch appState.settings.core.export.format {
+                switch appState.editor.song.settings.export.format {
                 case .chordPro:
-                    appState.settings.core.fileURL = fileURL
-                    appState.saveSong(song)
+                    appState.editor.song.settings.fileURL = fileURL
+                    appState.saveSong(appState.editor.song)
                     /// Set the toast
                     appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
                 default:
@@ -243,28 +230,6 @@ extension Views {
                     .shortcutsItem("Show keyboard shortcuts", accelerator: "question".ctrl())
             }
             .shortcutsSection { $0.shortcutsItem("Quit Chord Provider", accelerator: "q".ctrl()) }
-        }
-        
-        /// Parse the song
-        func parse() {
-            if !parsing {
-                parsing = true
-                Idle(priority: .low) {
-                    LogUtils.shared.clearLog()
-                    song.content = appState.editor.source
-                    song.settings = appState.settings.core
-                    song = ChordProParser.parse(
-                        song: song,
-                        settings: appState.settings.core
-                    )
-                    /// Update the recent song list
-                    /// - Note: It will only do that when the song has an URL and is not dirty
-                    appState.addRecentSong(song: song)
-                    parsing = false
-                    /// Deal with warnings
-                    appState.editor.command = .setMarkers(lines: song.sections.flatMap(\.lines).filter {$0.warnings != nil} )
-                }
-            }
         }
     }
 }

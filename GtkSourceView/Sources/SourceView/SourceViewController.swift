@@ -36,7 +36,7 @@ final class SourceViewController {
     // MARK: Snapshots
 
     /// The hash of the last snapshot
-    var lastSnapshotHash: Int
+    //var lastSnapshotHash: Int
     /// The debounced snapshot schedule
     var snapshotSchedule: guint = 0
 
@@ -46,11 +46,11 @@ final class SourceViewController {
     ///   - language: The editor language
     init(bridge: Binding<SourceViewBridge>, language: Language) {
         print("INIT CONTROLLER")
-        self.lastSnapshotHash = bridge.source.wrappedValue.hashValue
+        //self.lastSnapshotHash = bridge.song.content.wrappedValue.hashValue
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         codeeditor_buffer_set_theme_adaptive(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
-        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), bridge.source.wrappedValue, -1)
+        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), bridge.song.content.wrappedValue, -1)
         SourceViewController.moveCursorToFirstLine(buffer: buffer)
         storage = ViewStorage(
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
@@ -73,6 +73,9 @@ final class SourceViewController {
             Unmanaged.passUnretained(self).toOpaque()
         )
         codeeditor_install_bookmark_renderer(storage.opaquePointer?.cast(), "bookmark")
+
+        /// Render the song
+        scheduleSnapshot(self)
     }
     deinit {
         print("DEINT CONTROLLER")
@@ -261,7 +264,15 @@ func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     else {
         return
     }
+    /// Clear the log for a new parsing
+    LogUtils.shared.clearLog()
     let text = snapshotText(buffer: buffer)
-    binding.source.wrappedValue = text
-    controller.lastSnapshotHash = text.hashValue
+    binding.song.content.wrappedValue = text
+    binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
+    /// Clear all makers and add new ones if needed
+    codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
+    let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.warnings != nil}
+    for line in lines {
+        codeeditor_add_line_mark(controller.buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
+    }
 }

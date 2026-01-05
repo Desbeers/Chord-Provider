@@ -14,7 +14,7 @@ extension Views {
     /// The `View` for showing the chord database
     struct Database: View {
         /// The settings of the application
-        let settings: AppSettings
+        let appState: AppState
         /// The selected instrument
         @State private var instrument: Chord.Instrument = .guitar
         /// The selected chord
@@ -48,7 +48,7 @@ extension Views {
                             VStack {
                                 Text(chord.display)
                                     .style(.chord)
-                                Widgets.ChordDiagram(chord: chord, settings: settings)
+                                Widgets.ChordDiagram(chord: chord, settings: appState.editor.song.settings)
                             }
                         }
                         .valign(.start)
@@ -59,7 +59,7 @@ extension Views {
                 if let chord = chords.first(where: { $0.id == selection }) {
                     Separator()
                     HStack {
-                        Widgets.ChordDiagram(chord: chord, width: 140, settings: settings)
+                        Widgets.ChordDiagram(chord: chord, width: 140, settings: appState.editor.song.settings)
                         VStack {
                             Text(chord.display)
                                 .style(.title)

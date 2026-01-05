@@ -13,8 +13,6 @@ extension Views {
 
     /// The `View` for showing a rendered song
     struct Render: View {
-        /// The whole song
-        let song: Song
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`
@@ -28,12 +26,12 @@ extension Views {
                 HSplitView(
                     splitter: binding
                 ) {
-                    Views.Editor(appState: $appState, song: song)
+                    Views.Editor(appState: $appState)
                 } end: {
                     HStack {
-                        GtkRender.PageView(song: song, settings: appState.settings)
+                        GtkRender.PageView(song: appState.editor.song, settings: appState.settings)
                         Separator()
-                        Views.Chords(song: song, appState: $appState)
+                        Views.Chords(song: appState.editor.song, appState: $appState)
                     }
                     .hexpand()
                     .vexpand()

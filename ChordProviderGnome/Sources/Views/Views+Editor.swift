@@ -14,15 +14,12 @@ extension Views {
     
     /// The `View` for editing a song
     struct Editor: View {
-        init(appState: Binding<AppState>, song: Song) {
+        init(appState: Binding<AppState>) {
             self._appState = appState
-            self.song = song
-            self.lines = song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
+            self.lines = appState.wrappedValue.editor.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
         }
         /// The state of the application
         @Binding var appState: AppState
-        /// The whole song
-        let song: Song
         /// The current song lines
         let lines: [Song.Section.Line]
         /// Confirmation for cleanup
@@ -49,7 +46,7 @@ extension Views {
                                         showMetadata.toggle()
                                     }
                                     .flat()
-                                    .insensitive(song.metadata.definedMetadata.contains(directive.rawValue.long))
+                                    .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
                                 }
                             }
                         Text("Environment")
@@ -65,7 +62,7 @@ extension Views {
                                         showEnvironment.toggle()
                                     }
                                     .flat()
-                                    .insensitive(song.metadata.definedMetadata.contains(directive.rawValue.long))
+                                    .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
                                 }
                             }
                         Text("more...")
@@ -128,7 +125,7 @@ extension Views {
                 Button("Cleanup") {
                     confirmCleanup.toggle()
                 }
-                .insensitive(!song.hasWarnings)
+                .insensitive(!appState.editor.song.hasWarnings)
                 .halign(.end)
                 .alertDialog(
                     visible: $confirmCleanup,
@@ -143,7 +140,7 @@ extension Views {
                     /// Nothing to do
                 }
                 .response("Cleanup", appearance: .suggested, role: .default) {
-                    appState.editor.command = .replaceAllText(text: song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n"))
+                    appState.editor.command = .replaceAllText(text: appState.editor.song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n"))
                 }
             }
             .style(.caption)

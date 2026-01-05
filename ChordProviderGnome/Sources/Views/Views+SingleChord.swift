@@ -16,7 +16,7 @@ extension Views {
         /// The part containing the chord
         let part: Song.Section.Line.Part
         /// The settings
-        let settings: AppSettings
+        let settings: ChordProviderSettings
         /// Bool to open the chord diagram
         @State private var openChordDiagram: Bool = false
         /// The body of the `View`

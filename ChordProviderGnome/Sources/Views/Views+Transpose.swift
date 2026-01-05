@@ -15,8 +15,6 @@ extension Views {
     struct Transpose: View {
         /// The state of the application
         @Binding var appState: AppState
-        /// The current song
-        let song: Song
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -24,19 +22,19 @@ extension Views {
                     .heading()
                     .padding()
                 HStack {
-                    CountButton(settings: $appState.settings, icon: .goPrevious) {
-                        $0.core.transpose = max($0.core.transpose - 1, -11 - song.metadata.transpose)
+                    CountButton(appState: $appState, icon: .goPrevious) {
+                        $0.editor.song.settings.transpose = max($0.editor.song.settings.transpose - 1, -11)
                     }
-                    Text("\(song.transposing) semitones")
+                    Text("\(appState.editor.song.transposing) semitones")
                         .frame(minWidth: 150)
-                    CountButton(settings: $appState.settings, icon: .goNext) {
-                        $0.core.transpose = min($0.core.transpose + 1, 11 - song.metadata.transpose)
+                    CountButton(appState: $appState, icon: .goNext) {
+                        $0.editor.song.settings.transpose = min($0.editor.song.settings.transpose + 1, 11)
                     }
                 }
                 .halign(.center)
                 .padding()
-                if song.metadata.transpose != 0 {
-                    Text("The song is \(song.metadata.transpose) semitones transposed in the source")
+                if appState.editor.song.metadata.transpose != 0 {
+                    Text("The song is \(appState.editor.song.metadata.transpose) semitones transposed in the source")
                         .style("caption")
                 }
                 Button("Close") {
@@ -52,13 +50,13 @@ extension Views {
         }
 
         private struct CountButton: View {
-            @Binding var settings: AppSettings
+            @Binding var appState: AppState
             var icon: Icon.DefaultIcon
-            var action: (inout AppSettings) -> Void
+            var action: (inout AppState) -> Void
             /// The body of the `View`
             var view: Body {
                 Button(icon: .default(icon: icon)) {
-                    action(&settings)
+                    action(&appState)
                 }
                 .circular()
             }

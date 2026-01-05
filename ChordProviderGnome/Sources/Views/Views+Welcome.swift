@@ -242,7 +242,7 @@ extension Views.Welcome {
             if let url = appState.settings.app.songsFolder {
                 let content = SongFileUtils.getSongsFromFolder(
                     url: url,
-                    settings: appState.settings.core,
+                    settings: appState.editor.song.settings,
                     getOnlyMetadata: true
                 )
                 artists = content.artists
@@ -299,10 +299,11 @@ extension Views.Welcome {
         HStack {
             Button("") {
                 if let settings {
-                    appState.settings.core = settings
+                    appState.editor.song.settings = settings
                 }
                 appState.openSong(fileURL: fileURL)
                 appState.scene.showToast.signal()
+                appState.addRecentSong(song: song)
             }
             .child {
                 HStack {

@@ -20,7 +20,7 @@ extension Widgets {
         /// The width of the diagram
         var width: Double = 100
         /// The settings of the application
-        let settings: AppSettings
+        let settings: ChordProviderSettings
         /// The body of the `View`
         var  view: Body {
             Diagram(chord: chord, width: width, settings: settings)
@@ -37,14 +37,14 @@ extension Widgets {
         /// The chord definition
         let chord: ChordDefinition
         /// The settings of the application
-        let settings: AppSettings
+        let settings: ChordProviderSettings
         /// The width of the diagram
         let width: Double
         /// Init the `widget`
         public init(
             chord: ChordDefinition,
             width: Double = 100,
-            settings: AppSettings
+            settings: ChordProviderSettings
         ) {
             self.chord = chord
             self.settings = settings
@@ -59,7 +59,7 @@ extension Widgets {
             data: WidgetData,
             type: Data.Type
         ) -> ViewStorage where Data: ViewRenderData {
-            let context = Context(strings: settings.core.instrument.strings.count)
+            let context = Context(strings: settings.instrument.strings.count)
             convert(context: context)
             let drawingArea = gtk_drawing_area_new()
             gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
@@ -81,8 +81,8 @@ extension Widgets {
             updateProperties: Bool,
             type: Data.Type
         ) where Data: ViewRenderData {
-            if updateProperties, let settingsStorage = storage.fields["settings"] as? AppSettings, let chordStorage = storage.fields["chord"] as? ChordDefinition, let context = storage.fields["context"] as? Context {
-                if settings.core.diagram != settingsStorage.core.diagram || chord != chordStorage {
+            if updateProperties, let settingsStorage = storage.fields["settings"] as? ChordProviderSettings, let chordStorage = storage.fields["chord"] as? ChordDefinition, let context = storage.fields["context"] as? Context {
+                if settings.diagram != settingsStorage.diagram || chord != chordStorage {
                     convert(context: context)
                     storage.fields["settings"] = settings
                     storage.fields["chord"] = chord
@@ -96,7 +96,7 @@ extension Widgets {
         }
 
         func convert(context: Context) {
-            context.showNotes = settings.core.diagram.showNotes
+            context.showNotes = settings.diagram.showNotes
             context.baseFret = chord.baseFret
             for index in 0..<6 {
                 context.setFret(chord.frets[safe: index] ?? 0, on: index)

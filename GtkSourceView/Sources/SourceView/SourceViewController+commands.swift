@@ -12,9 +12,9 @@ import ChordProviderCore
 
 public enum SourceViewCommand {
     case insertDirective(directive: ChordPro.Directive)
-    case setMarker(line: Int, category: String, enabled: Bool)
-    case setMarkers(lines: [Song.Section.Line])
-    case clearMarkers
+//    case setMarker(line: Int, category: String, enabled: Bool)
+//    case setMarkers(lines: [Song.Section.Line])
+//    case clearMarkers
     case replaceAllText(text: String)
     case appendText(text: String)
 }
@@ -27,33 +27,10 @@ extension SourceViewController {
         switch command {
         case let .insertDirective(directive):
             insertDirective(directive)
-        case let .setMarker(line, category, enabled):
-            setMarker(line: line, category: category, enabled: enabled)
-        case .clearMarkers:
-            codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-        case .setMarkers(lines: let lines):
-            codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-            for line in lines {
-                setMarker(line: line.sourceLineNumber, category: "bookmark", enabled: true)
-            }
         case .replaceAllText(text: let text):
             replaceAllText(buffer.opaquePointer?.cast(), text)
         case .appendText(text: let text):
             appendTextAndScroll(storage.opaquePointer?.cast(), text)
-        }
-    }
-
-    func setMarker(
-        line: Int,
-        category: String,
-        enabled: Bool
-    ) {
-        category.withCString { cat in
-            if enabled {
-                codeeditor_add_line_mark(buffer.opaquePointer?.cast(), line.cInt, cat)
-            } else {
-                codeeditor_remove_line_marks(buffer.opaquePointer?.cast(), line.cInt, cat)
-            }
         }
     }
 

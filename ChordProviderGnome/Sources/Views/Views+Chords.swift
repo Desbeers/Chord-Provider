@@ -33,7 +33,7 @@ extension Views {
                     .child {
                         Text(chord.display)
                             .style(.chord)
-                        Widgets.ChordDiagram(chord: chord, settings: appState.settings)
+                        Widgets.ChordDiagram(chord: chord, settings: appState.editor.song.settings)
                     }
                     .style(.chordButton)
                     .flat(true)

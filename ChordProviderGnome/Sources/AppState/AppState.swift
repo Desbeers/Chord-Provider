@@ -27,12 +27,12 @@ struct AppState {
         if let fileURL = CommandLine.arguments[safe: 1] {
             let url = URL(filePath: fileURL)
             if let content = try? String(contentsOf: url, encoding: .utf8) {
-                self.editor.source = content
+                self.editor.song.content = content
                 self.scene.originalSource = content
-                self.settings.core.fileURL = url
+                self.editor.song.settings.fileURL = url
             }
         }
-        if editor.source.isEmpty {
+        if editor.song.content.isEmpty {
             settings.editor.showEditor = false
             scene.showWelcome = true
         }
@@ -55,11 +55,11 @@ struct AppState {
     }
 
     /// The editor bridge
-    var editor = SourceViewBridge()
+    var editor = SourceViewBridge(song: Song(id: UUID(), content: ""))
 
     /// The subtitle for the scene
     var subtitle: String {
-        "\(settings.core.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
+        "\(editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
     }
 }
 
@@ -80,7 +80,7 @@ extension AppState {
                     url: fileURL,
                     song: recent,
                     lastOpened: Date.now,
-                    settings: self.settings.core
+                    settings: self.editor.song.settings
                 )
             )
             /// Update the list
@@ -111,7 +111,7 @@ extension AppState {
     /// Bool if the source is modified
     /// - Note: Comparing the source with the original source
     var dirty: Bool {
-        editor.source != scene.originalSource
+        editor.song.content != scene.originalSource
     }
 }
 
@@ -137,12 +137,12 @@ extension AppState {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
             /// Reset transpose
-            self.settings.core.transpose = 0
-            self.editor.source = content
+            self.editor.song.settings.transpose = 0
+            self.editor.song.content = content
             self.scene.originalSource = content
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
             self.scene.showWelcome = false
-            self.settings.core.fileURL = fileURL
+            self.editor.song.settings.fileURL = fileURL
         } catch {
             self.scene.toastMessage = "Could not open the song"
         }
@@ -152,21 +152,21 @@ extension AppState {
     /// - Parameter content: The content of the song
     mutating func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
         /// Reset transpose
-        self.settings.core.transpose = 0
-        self.editor.source = content
+        self.editor.song.settings.transpose = 0
+        self.editor.song.content = content
         self.scene.originalSource = content
         self.settings.editor.showEditor = showEditor
         if let url {
-            self.settings.core.templateURL = url
+            self.editor.song.settings.templateURL = url
         }
         self.scene.showWelcome = false
     }
 
     mutating func saveSong(_ song: Song) {
-        if let fileURL = self.settings.core.fileURL {
-            try? self.editor.source.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+        if let fileURL = self.editor.song.settings.fileURL {
+            try? self.editor.song.content.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Remember the content as  saved
-            self.scene.originalSource = self.editor.source
+            self.scene.originalSource = self.editor.song.content
             /// Add it to the recent songs list
             self.addRecentSong(song: song)
         } else {
@@ -176,14 +176,14 @@ extension AppState {
 
     mutating func showWelcomeScreen() {
         print("Show Welcome Screen")
-        self.editor.source = ""
+        self.editor.song.content = ""
         self.scene.originalSource = ""
-        self.settings.core.fileURL = nil
+        self.editor.song.settings.fileURL = nil
         self.scene.showWelcome = true
         /// Give the scene a new ID
         self.scene.id = UUID()
         /// Reset the editor
-        self.editor = SourceViewBridge()
+        self.editor = SourceViewBridge(song: Song(id: UUID(), content: ""))
     }
 }
 

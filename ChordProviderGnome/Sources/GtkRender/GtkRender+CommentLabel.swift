@@ -30,7 +30,7 @@ extension GtkRender {
                     .wrap()
                     .halign(.start)
                 /// This seems reasonable to me...
-                    .frame(maxWidth: Int(400 * settings.app.zoom))
+                    //.frame(maxWidth: Int(400 * settings.app.zoom))
             }
             .style(.commentLabel)
             .halign(.start)

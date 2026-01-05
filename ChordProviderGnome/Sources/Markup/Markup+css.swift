@@ -89,18 +89,17 @@ extension Markup {
     background-color: var(--headerbar-shade-color);
     padding: 0.5em;
     border-radius: 0.5em;
-    transition: 0.3s;
+    transition: 0.15s;
 }
 .editor-button {
-    font-size: \(0.8 * baseFontSize)px;
+    font-size: \(0.9 * baseFontSize)px;
     font-weight: normal;
     padding: 0.5em;
     border-radius: 0.5em;
-    transition: 0.3s;
+    transition: 0.15s;
 }
 .tag-button:hover, .editor-button:hover {
-    background-color: var(--accent-bg-color);
-    color: #fff;
+    background-color: var(--shade-color);
 }
 .comment-label {
     font-size: \(0.8 * baseFontSize * zoom)px;

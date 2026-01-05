@@ -16,9 +16,7 @@ extension Views {
     struct Debug: View {
         /// The state of the application
         @Binding var appState: AppState
-        /// The current song
-        let song: Song
-        /// the selected json page
+        /// The selected json page
         @State private var jsonSelection: JSONPage = .metadata
         /// The body of the `View`
         var view: Body {
@@ -123,10 +121,10 @@ extension Views {
                     VStack {
                         switch jsonSelection {
                         case .metadata:
-                            let metadata = try? JSONUtils.encode(song.metadata)
+                            let metadata = try? JSONUtils.encode(appState.editor.song.metadata)
                             sourceView(metadata)
                         case .sections:
-                            ForEach(song.sections) { section in
+                            ForEach(appState.editor.song.sections) { section in
                                 let content = try? JSONUtils.encode(section)
                                 sectionPart(
                                     row: ExpanderRow().title("Section <b>\(section.environment.rawValue)</b>").rows {
@@ -135,12 +133,12 @@ extension Views {
                                 )
                             }
                         case .chords:
-                            ForEach(song.chords) { chord in
+                            ForEach(appState.editor.song.chords) { chord in
                                 let content = try? JSONUtils.encode(chord)
                                 sectionPart(
                                     row: ExpanderRow().title("Chord <b>\(chord.display)</b>").rows {
                                         HStack {
-                                            Widgets.ChordDiagram(chord: chord, settings: appState.settings)
+                                            Widgets.ChordDiagram(chord: chord, settings: appState.editor.song.settings)
                                                 .valign(.start)
                                             sourceView(content)
                                                 .hexpand()
@@ -149,7 +147,7 @@ extension Views {
                                 )
                             }
                         case .settings:
-                            let metadata = try? JSONUtils.encode(song.settings)
+                            let metadata = try? JSONUtils.encode(appState.editor.song.settings)
                             sourceView(metadata)
                         }
                     }
@@ -223,15 +221,16 @@ extension Views {
         }
 
         private func sourceView(_ text: String?, language: Language = .json) -> AnyView {
-            SourceView(bridge: .constant(SourceViewBridge()))
+            SourceView(bridge: .constant(SourceViewBridge(song: Song(id: UUID(), content: text ?? ""))))
                 .language(language)
                 .editable(false)
                 .highlightCurrentLine(false)
         }
 
         func getSource() -> [Source] {
+            dump(appState.editor.song.settings)
             var source: [Source] = []
-            for line in song.sections.flatMap(\.lines) {
+            for line in appState.editor.song.sections.flatMap(\.lines) {
                 source.append(Source(id: line.sourceLineNumber, source: line))
             }
             return source

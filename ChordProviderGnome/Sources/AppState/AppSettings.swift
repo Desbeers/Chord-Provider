@@ -11,7 +11,7 @@ import ChordProviderCore
 /// The settings for **Chord Provider**
 struct AppSettings: Codable {
     /// Core settings
-    var core = ChordProviderSettings()
+    //var core = ChordProviderSettings()
     /// Application settings for all scenes
     var app = App()
     /// Editor settings
