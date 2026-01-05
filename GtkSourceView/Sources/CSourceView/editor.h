@@ -160,7 +160,7 @@ codeeditor_timeout_trampoline(gpointer data)
     return G_SOURCE_REMOVE;
 }
 
-guint
+static guint
 codeeditor_timeout_add(
     guint timeout_ms,
     CodeEditorTimeoutCB cb,

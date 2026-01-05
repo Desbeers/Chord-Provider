@@ -191,7 +191,7 @@ func scheduleSnapshot(_ controller: SourceViewController) {
 // MARK: - Swift callbacks for `C` functions
 
 @_cdecl("codeeditor_insert_cb")
-func codeeditor_insert_cb(
+public func codeeditor_insert_cb(
     offset: Int32,
     text: UnsafePointer<CChar>?,
     userData: UnsafeMutableRawPointer?
@@ -229,7 +229,7 @@ func codeeditor_insert_cb(
 
 
 @_cdecl("codeeditor_delete_cb")
-func codeeditor_delete_cb(
+public func codeeditor_delete_cb(
     start: Int32,
     end: Int32,
     userData: UnsafeMutableRawPointer?
@@ -240,7 +240,7 @@ func codeeditor_delete_cb(
 }
 
 @_cdecl("cursor_position_cb")
-func cursor_position_cb(_ userData: UnsafeMutableRawPointer?) {
+public func cursor_position_cb(_ userData: UnsafeMutableRawPointer?) {
     guard let userData else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
     controller.updateCurrentLine()
@@ -248,7 +248,7 @@ func cursor_position_cb(_ userData: UnsafeMutableRawPointer?) {
 }
 
 @_cdecl("flush_snapshot_cb")
-func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
+public func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     guard let userData else {
         return
     }
