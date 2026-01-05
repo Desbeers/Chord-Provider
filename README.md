@@ -1,26 +1,40 @@
 # Chord Provider
 
-## A [ChordPro](https://www.chordpro.org) viewer, editor and PDF exporter for macOS
+**I lost my interest in `macOS`.**
+
+**In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
+
+I consider to drop it.
+
+## A [ChordPro](https://www.chordpro.org) viewer and editor for Linux and macOS
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
 
 ## ChordPro
 
-**ChordPro** is an open standard text format and its has an [official reference implementation](https://www.chordpro.org/chordpro/chordpro-directives/). While I hope you like **Chord Provider**, as *guitar player* or *macOS programmer*, it is just my hobby project.
+**ChordPro** is an open standard text format and its has an [official reference implementation](https://www.chordpro.org/chordpro/chordpro-directives/).
+
+While I hope you like **Chord Provider**, as *musician* or *programmer*, it is just my hobby project.
 
 ## Chord Provider
 
-**Chord Provider** is written in Swift 6 and SwiftUI and needs macOS Sequoia or macOS Tahoe.
+**Chord Provider** is written in Swift.
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
+![Chord Provider on macOS](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 
-There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native in the *macOS* world, it is often an afterthought... Not for me. I'm *Mac* user only and I don't use *iStuff*.
+![Chord Provider on Linux](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-3.png)
+
+There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native.
+
+Mine are. For `Linux`  written with [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift) and for `macOS` written in `SwifttUI`.
 
 ### The icon
 
 A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An *Olympic White*. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
 On macOS *Tahoe*, the application icon is not allowed to go out of its squarish boundary anymore; another lost of macOS identity... Now it has its own ugly *glass* icon, sorry for that...
+
+## macOS
 
 ### What can **Chord Provider** do?
 
@@ -38,7 +52,7 @@ The [official reference implementation](https://www.chordpro.org/) of the **Chor
 
 If you have the CLI utility installed on your system, **Chord Provider** can optional use it for creating PDF's.
 
-## A *true* macOS application
+### A *true* macOS application
 
 - It has a *quicklook* plugin for **ChordPro** files. Select a song in the *Finder* and press `space`.
 - It makes *thumbnails* for your **ChordPro** files with the **Chord Provider** icon and the name on the song below. True eye candy!
@@ -49,7 +63,7 @@ It's editor is written from scratch; in `AppKit`.
 
 While I studied a lot of code from other projects to learn; in the end, its all included. I don't like dependencies!
 
-## Binaries
+### Binaries
 
 I like `Swift` and `SwiftUI` but I don’t like the more and more lockdown of my beloved *macOS*. I don’t have a `Developer` account but that should't be needed to bring an *Open Source* applications to the Mac.
 
@@ -62,16 +76,43 @@ Well, the source is free!
 > *Open Source* software projects should get a free account.
 
 Please read the **Read me First**.
-  
-## Limitations
+
+### Limitations
 
 Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
+
+### How to compile
+
+Xcode 26 is required.
+
+1. Clone the project.
+2. Change the signing certificate to your own.
+2. Build and run!
+
+**Chord Provider** does not use any external packages
+
+## Linux
+
+### What can **Chord Provider** do?
+
+- It will view your **ChordPro** files.
+- It has a fancy editor to edit your songs
+- It has a *database* with a lot of chords.
+- *left-handed* chords support
+
+### How to compile
+
+Clone the source and build with `builder` as *Flatpak*.
+
+## Limitations
 
 Not all chords in the database are correct; especially the more complicated chords. Feel free to contribute!
 
 It is not a complete implementation of the **ChordPro** standard. Again, this is my *hobby project* for my own needs. The [official ChordPro implementation](https://www.chordpro.org/) might serve you better. I contributed a lot to its [Open Source code](https://github.com/ChordPro/chordpro).
 
 ## Thanks
+
+[adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift)
 
 Stole code (and ideas) from:
 - [Swifty Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
@@ -87,27 +128,3 @@ Learned a lot from Swift mailing lists:
 - [Swift with Majid](https://swiftwithmajid.com)
 
 I hope you learn something from my project as well!
-
-
-## How to compile
-
-Xcode 26 is required.
-
-1. Clone the project.
-2. Change the signing certificate to your own.
-2. Build and run!
-
-**Chord Provider** does not use any external packages.
-
-## Linux
-
-I'm porting **Chord Provider** to Linux.
-
-- The `ChordProCLI` package works fine on Linux if you have Swift 6 installed.
-- The `ChordProviderGnome` package contains an Adwaita GUI version build with [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift). It is *work in progress* and can be build as *flatpak*...
-
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-1.png)
-
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
-
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-3.png)
