@@ -9,9 +9,7 @@ import Foundation
 import ChordProviderCore
 
 /// The settings for **Chord Provider**
-struct AppSettings: Codable {
-    /// Core settings
-    //var core = ChordProviderSettings()
+struct AppSettings: Codable, Equatable {
     /// Application settings for all scenes
     var app = App()
     /// Editor settings

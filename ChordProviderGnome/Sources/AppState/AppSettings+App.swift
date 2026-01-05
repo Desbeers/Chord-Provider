@@ -10,16 +10,12 @@ import Foundation
 extension AppSettings {
 
     /// Settings for all **Chord Provider** scenes
-    struct App: Codable {
+    struct App: Codable, Equatable {
         /// The songs folder
         var songsFolder: URL?
         /// The page layout
         var columnPaging: Bool = true
         /// The zoom factor
         var zoom: Double = 1
-        /// The width of the window
-        var width = 800
-        /// The height of the window
-        var height = 600
     }
 }

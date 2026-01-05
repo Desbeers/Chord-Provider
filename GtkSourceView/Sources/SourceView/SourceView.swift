@@ -39,7 +39,6 @@ public struct SourceView: AdwaitaWidget {
         /// Store the controller to keep it alive
         controller.storage.fields["controller"] = controller
 
-
         controller.storage.fields["settings"] = bridge.song.settings
 
         /// Return the GTKSourceView
@@ -56,13 +55,13 @@ public struct SourceView: AdwaitaWidget {
             updateProperties,
             let controller = storage.fields["controller"] as? SourceViewController,
             let settings = storage.fields["settings"] as? ChordProviderSettings {
+            /// Handle settings update
+            if settings != bridge.song.settings {
+                storage.fields["settings"] = bridge.song.settings
+                scheduleSnapshot(controller)
+            }
             let bridgeBinding = $bridge
             Idle {
-                /// Handle settings update
-                if settings != bridge.song.settings {
-                    storage.fields["settings"] = bridge.song.settings
-                    scheduleSnapshot(controller)
-                }
                 /// Handle command (one-shot)
                 if let command = bridgeBinding.wrappedValue.command {
                     controller.handle(command)

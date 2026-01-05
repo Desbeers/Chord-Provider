@@ -10,7 +10,7 @@ import Foundation
 extension AppSettings {
 
     /// Settings for the editor
-    struct Editor: Codable {
+    struct Editor: Codable, Equatable {
         /// Bool if the editor is shown
         var showEditor: Bool = false
         /// Bool if the editor is showing line numbers

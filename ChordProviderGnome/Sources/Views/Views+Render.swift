@@ -28,16 +28,27 @@ extension Views {
                 ) {
                     Views.Editor(appState: $appState)
                 } end: {
-                    HStack {
-                        GtkRender.PageView(song: appState.editor.song, settings: appState.settings)
-                        Separator()
-                        Views.Chords(song: appState.editor.song, appState: $appState)
-                    }
-                    .hexpand()
-                    .vexpand()
+
+                        if appState.editor.song.hasContent {
+                            HStack {
+                            GtkRender.PageView(song: appState.editor.song, settings: appState.settings)
+                            Separator()
+                            Views.Chords(song: appState.editor.song, appState: $appState)
+                            }
+                            .hexpand()
+                            .vexpand()
+                        } else {
+                            StatusPage(
+                                "Loading",
+                                icon: .default(icon: .folderMusic),
+                                description: "Loading your song..."
+                            )
+                            .frame(minWidth: 350)
+                            .transition(.crossfade)
+                        }
                 }
             }
-            .id(appState.scene.id)
+            //.id(appState.scene.id)
         }
     }
 }

@@ -88,6 +88,7 @@ extension ChordPro.Environment {
     /// Environments with song content
     public static var content: [ChordPro.Environment] {
         [
+            .metadata,
             .chorus,
             .repeatChorus,
             .verse,

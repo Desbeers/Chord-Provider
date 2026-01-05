@@ -43,7 +43,7 @@ import CChordProvider
                 )
             }
         }
-        .size(width: $appState.settings.app.width, height: $appState.settings.app.height)
+        .size(width: $appState.window.width, height: $appState.window.height)
         .defaultSize(width: 800, height: 600)
         .minSize(width: 800, height: 600)
         .title(appState.subtitle)

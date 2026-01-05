@@ -13,10 +13,6 @@ extension AppState {
 
     /// Settings for the current scene
     struct Scene {
-        /// The ID of the song
-        var id: UUID = UUID()
-        /// The source of the song
-        //var source = ""
         /// The original source of the song when opened or created
         /// - Note: To check if the song is changed
         var originalSource = ""

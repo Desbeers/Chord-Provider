@@ -12,9 +12,6 @@ import ChordProviderCore
 
 public enum SourceViewCommand {
     case insertDirective(directive: ChordPro.Directive)
-//    case setMarker(line: Int, category: String, enabled: Bool)
-//    case setMarkers(lines: [Song.Section.Line])
-//    case clearMarkers
     case replaceAllText(text: String)
     case appendText(text: String)
 }
@@ -28,6 +25,8 @@ extension SourceViewController {
         case let .insertDirective(directive):
             insertDirective(directive)
         case .replaceAllText(text: let text):
+            /// Clear all markers
+            codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
             replaceAllText(buffer.opaquePointer?.cast(), text)
         case .appendText(text: let text):
             appendTextAndScroll(storage.opaquePointer?.cast(), text)

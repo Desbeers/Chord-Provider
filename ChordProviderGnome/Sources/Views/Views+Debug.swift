@@ -228,7 +228,6 @@ extension Views {
         }
 
         func getSource() -> [Source] {
-            dump(appState.editor.song.settings)
             var source: [Source] = []
             for line in appState.editor.song.sections.flatMap(\.lines) {
                 source.append(Source(id: line.sourceLineNumber, source: line))

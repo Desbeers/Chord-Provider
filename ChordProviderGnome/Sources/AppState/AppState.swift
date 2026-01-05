@@ -9,6 +9,7 @@ import Foundation
 import ChordProviderCore
 import SourceView
 import Adwaita
+import CAdw
 
 /// The state of **Chord Provider**
 struct AppState {
@@ -40,8 +41,23 @@ struct AppState {
 
     var settings = AppSettings() {
         didSet {
-            print("Saving settings")
-            try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)
+            if settings != oldValue {
+                try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)
+            }
+        }
+    }
+
+    let saveDebouncer = Debouncer(delay: 1)
+
+    var window = WindowSize() {
+        didSet {
+            if window != oldValue {
+                let window = window
+                saveDebouncer.schedule {
+                    print("Saving window size")
+                    try? SettingsCache.set(id: "ChordProviderGnome-window", object: window)
+                }
+            }
         }
     }
 
@@ -136,13 +152,20 @@ extension AppState {
     mutating func openSong(fileURL: URL) {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
+
+            var settings = self.editor.song.settings
+            settings.transpose = 0
+            settings.fileURL = fileURL
+            self.editor.song.settings = settings
             /// Reset transpose
-            self.editor.song.settings.transpose = 0
-            self.editor.song.content = content
+            //self.editor.song.settings.transpose = 0
+            /// Pass the content to the editor
+            self.editor.song.hasContent = false
+            self.editor.command = .replaceAllText(text: content)
             self.scene.originalSource = content
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
             self.scene.showWelcome = false
-            self.editor.song.settings.fileURL = fileURL
+            //self.editor.song.settings.fileURL = fileURL
         } catch {
             self.scene.toastMessage = "Could not open the song"
         }
@@ -153,7 +176,9 @@ extension AppState {
     mutating func openSong(content: String, showEditor: Bool = true, url: URL? = nil) {
         /// Reset transpose
         self.editor.song.settings.transpose = 0
-        self.editor.song.content = content
+        /// Pass the content to the editor
+        self.editor.song.hasContent = false
+        self.editor.command = .replaceAllText(text: content)
         self.scene.originalSource = content
         self.settings.editor.showEditor = showEditor
         if let url {
@@ -172,18 +197,6 @@ extension AppState {
         } else {
             self.scene.saveSongAs.signal()
         }
-    }
-
-    mutating func showWelcomeScreen() {
-        print("Show Welcome Screen")
-        self.editor.song.content = ""
-        self.scene.originalSource = ""
-        self.editor.song.settings.fileURL = nil
-        self.scene.showWelcome = true
-        /// Give the scene a new ID
-        self.scene.id = UUID()
-        /// Reset the editor
-        self.editor = SourceViewBridge(song: Song(id: UUID(), content: ""))
     }
 }
 

@@ -16,7 +16,7 @@ final class SourceViewController {
     let storage: ViewStorage
     /// The GTKTextBuffer
     let buffer: ViewStorage
-
+    /// The current line in the editor
     var currentLine: Int = 1
 
     // MARK: Snippets
@@ -35,8 +35,6 @@ final class SourceViewController {
 
     // MARK: Snapshots
 
-    /// The hash of the last snapshot
-    //var lastSnapshotHash: Int
     /// The debounced snapshot schedule
     var snapshotSchedule: guint = 0
 
@@ -80,8 +78,6 @@ final class SourceViewController {
     deinit {
         print("DEINT CONTROLLER")
     }
-
-
 
     // MARK: Cursor movement
 
@@ -198,7 +194,6 @@ public func codeeditor_insert_cb(
 ) {
     guard let userData, let text = text else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
-
     /// Convert C string to Swift String
     let insertedText = String(cString: text)
 

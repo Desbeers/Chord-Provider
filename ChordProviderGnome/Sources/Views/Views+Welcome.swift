@@ -37,6 +37,7 @@ extension Views {
         var view: Body {
             HStack(spacing: 20) {
                 VStack {
+                    Text(appState.editor.song.hasContent.description)
                     Text("Create a new song")
                         .style(.title)
                     Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
@@ -299,7 +300,7 @@ extension Views.Welcome {
         HStack {
             Button("") {
                 if let settings {
-                    appState.editor.song.settings = settings
+                    //appState.editor.song.settings = settings
                 }
                 appState.openSong(fileURL: fileURL)
                 appState.scene.showToast.signal()

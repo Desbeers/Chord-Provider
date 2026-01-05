@@ -66,7 +66,7 @@ extension Views.Toolbar {
                                 appState.scene.saveDoneAction = .showWelcomeScreen
                                 appState.scene.showDirtyClose = true
                             } else {
-                                appState.showWelcomeScreen()
+                                appState.scene.showWelcome = true
                             }
                         }
                         .keyboardShortcut("o".ctrl())

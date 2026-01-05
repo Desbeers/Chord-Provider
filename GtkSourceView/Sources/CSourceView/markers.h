@@ -65,7 +65,7 @@ codeeditor_remove_line_marks(
     );
 }
 
-void
+static void
 codeeditor_clear_marks(
     GtkSourceBuffer *buffer,
     const gchar *category

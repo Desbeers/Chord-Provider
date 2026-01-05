@@ -96,7 +96,7 @@ extension Views {
                     /// Close the window
                     window.close()
                 case .showWelcomeScreen:
-                    appState.showWelcomeScreen()
+                    appState.scene.showWelcome = true
                 case .noAction:
                     return
                 }
@@ -108,7 +108,7 @@ extension Views {
                     case .closeWindow:
                         window.close()
                     case .showWelcomeScreen:
-                        appState.showWelcomeScreen()
+                        appState.scene.showWelcome = true
                     case .noAction:
                         /// Set the toast
                         appState.scene.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
@@ -203,7 +203,7 @@ extension Views {
                     window.close()
                 case .showWelcomeScreen:
                     appState.scene.showToast.signal()
-                    appState.showWelcomeScreen()
+                    appState.scene.showWelcome = true
                 case .noAction:
                     appState.scene.showToast.signal()
                 }

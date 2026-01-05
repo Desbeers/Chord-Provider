@@ -111,9 +111,7 @@ public enum ChordProParser {
         song.chords = song.chords.sorted(using: KeyPathComparator(\.display))
         /// Check if the song has actual content
         let sections = song.sections.uniqued(by: \.environment).map(\.environment)
-        if Set(sections).isDisjoint(with: ChordPro.Environment.content) {
-            song.hasContent = false
-        }
+        song.hasContent = Set(sections).isDisjoint(with: ChordPro.Environment.content) ? false : true
         /// Check if the song has warnings or errors
         let lines = song.sections.flatMap(\.lines).compactMap(\.warnings)
         song.hasWarnings = !lines.isEmpty

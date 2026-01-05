@@ -29,7 +29,8 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     public var content: String = ""
 
     /// Bool if the song has actual content
-    public var hasContent: Bool = true
+    /// - Note: This will be set by the parser
+    public var hasContent: Bool = false
 
     /// Bool if the song has warnings or errors
     public var hasWarnings: Bool = false
