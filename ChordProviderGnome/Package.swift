@@ -10,33 +10,48 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "CGtk",
-            targets: ["CGtk"]
+            name: "SourceView",
+            targets: ["SourceView"]
         )
     ],
     dependencies: [
         .package(url: "https://git.aparoksha.dev/aparoksha/adwaita-swift", branch: "main"),
-        .package(path: "../ChordProviderCore"),
-        .package(path: "../GtkSourceView")
+        .package(path: "../ChordProviderCore")
     ],
     targets: [
         .target(
+            name: "SourceView",
+            dependencies: [
+                .product(name: "Adwaita", package: "adwaita-swift"),
+                .product(name: "ChordProviderCore", package: "ChordProviderCore"),
+                "CSourceView"
+            ],
+            resources: [
+                .copy("Resources/chordpro.lang"),
+                .copy("Resources/chordpro.snippets")
+            ],
+        ),
+        .target(
+            name: "CSourceView",
+            dependencies: [
+                "CGtkSourceView"
+            ],
+            publicHeadersPath: "include"
+        ),
+        .target(
             name: "CChordProvider",
             dependencies: [
-                "CGtk"
+                "CSourceView"
             ],
-            publicHeadersPath: "include",
-            cSettings: [
-                .headerSearchPath("include")
-            ]
+            publicHeadersPath: "include"
         ),
         .executableTarget(
             name: "ChordProvider",
             dependencies: [
                 "CChordProvider",
+                "SourceView",
                 .product(name: "Adwaita", package: "adwaita-swift"),
-                .product(name: "ChordProviderCore", package: "ChordProviderCore"),
-                .product(name: "SourceView", package: "GtkSourceView")
+                .product(name: "ChordProviderCore", package: "ChordProviderCore")
             ],
             resources: [
                 .copy("Resources/nl.desbeers.chordprovider.svg"),
@@ -53,8 +68,8 @@ let package = Package(
             path: "Generate",
         ),
         .systemLibrary(
-            name: "CGtk",
-            pkgConfig: "gtk4"
+            name: "CGtkSourceView",
+            pkgConfig: "gtksourceview-5"
         )
     ]
 )
