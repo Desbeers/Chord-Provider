@@ -45,7 +45,7 @@
         "install -Dm755 ChordProviderGnome/.build/release/ChordProvider /app/bin/ChordProvider",
         "cp -r ChordProviderGnome/.build/release/ChordProvider_ChordProvider.resources/ /app/bin",
         "cp -r ChordProviderGnome/.build/release/ChordProviderCore_ChordProviderCore.resources/ /app/bin",
-        "cp -r ChordProviderGnome/.build/release/GtkSourceView_SourceView.resources/ /app/bin",
+        "cp -r ChordProviderGnome/.build/release/ChordProvider_SourceView.resources/ /app/bin",
         "install -Dm644 ChordProviderGnome/Sources/ChordProvider/Resources/nl.desbeers.chordprovider.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",
         "install -Dm644 ChordProviderGnome/Sources/ChordProvider/Resources/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg",
         "install -Dm644 ChordProviderGnome/Sources/ChordProvider/Resources/nl.desbeers.chordprovider-mime.svg /app/share/icons/hicolor/scalable/mimetypes/nl.desbeers.chordprovider-doc.svg",
