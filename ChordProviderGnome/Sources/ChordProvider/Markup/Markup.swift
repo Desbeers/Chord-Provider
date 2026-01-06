@@ -16,7 +16,7 @@ enum Markup {
 
 extension Markup {
 
-    /// Make String identifiable
+    /// Make a String identifiable
     struct StringItem: Identifiable, Codable {
         /// The ID of the String
         var id = UUID()
@@ -25,14 +25,4 @@ extension Markup {
     }
 }
 
-extension AnyView {
-    func style(_ name: Markup.Class) -> AnyView {
-        style(name.description)
-    }
-}
 
-extension AnyView {
-    func levelStyle(_ name : LogUtils.Level) -> AnyView {
-        style("log").style("log-\(name.rawValue)")
-    }
-}

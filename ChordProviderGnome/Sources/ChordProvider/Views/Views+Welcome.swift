@@ -328,7 +328,7 @@ extension Views.Welcome {
                 .frame(minWidth: songTitleOnly ? 0 : 300)
             }
             .hasFrame(false)
-            .tooltip(fileURL.path.escapeHTML())
+            .tooltip(fileURL.path.escapeSpecialCharacters())
             if let tags = song.metadata.tags  {
                 Views.Tags(tags: tags)
                     .valign(.center)

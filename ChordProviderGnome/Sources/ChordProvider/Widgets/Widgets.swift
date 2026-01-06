@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Custom Adwaita `Widgets`
+/// Custom `Adwaita` Widgets
 enum Widgets {
     // Just a placeholder
 }

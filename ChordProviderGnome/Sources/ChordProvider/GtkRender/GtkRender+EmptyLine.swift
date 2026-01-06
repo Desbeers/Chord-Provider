@@ -14,7 +14,7 @@ extension GtkRender {
     struct EmptyLine: View {
         /// The body of the `View`
         var view: Body {
-            Widgets.Empty()
+            Views.Empty()
                 .padding(4)
         }
     }

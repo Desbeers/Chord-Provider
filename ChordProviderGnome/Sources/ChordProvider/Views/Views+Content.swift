@@ -42,7 +42,7 @@ extension Views {
                                 appState: $appState
                             )
                         }
-                        .dialog(visible: $appState.scene.showDebug, width: 800, height: 600) {
+                        .dialog(visible: $appState.scene.showDebugDialog, width: 800, height: 600) {
                             Views.Debug(appState: $appState)
                         }
                 }
@@ -83,7 +83,7 @@ extension Views {
 
             /// The **Alert dialog** when a song is changed but not yet saved
             .alertDialog(
-                visible: $appState.scene.showDirtyClose,
+                visible: $appState.scene.showCloseDialog,
                 heading: "'\(appState.editor.song.metadata.title)' has changed",
                 body: "Do you want to save your song?",
                 id: "dirty-dialog"
@@ -126,7 +126,7 @@ extension Views {
             /// The **Preference Dialog**
             ///
             /// - Note: It would be nice if the pages can be added in an overload
-            .preferencesDialog(visible: $appState.scene.showPreferences)
+            .preferencesDialog(visible: $appState.scene.showPreferencesDialog)
             .preferencesPage("General", icon: .default(icon: .folderMusic)) { page in
                 page
                     .group("Display your song") {
@@ -169,7 +169,7 @@ extension Views {
             // MARK: Toast
 
             /// The **Toast** message
-            .toast(appState.scene.toastMessage.escapeHTML(), signal: appState.scene.showToast)
+            .toast(appState.scene.toastMessage.escapeSpecialCharacters(), signal: appState.scene.showToast)
 
             // MARK: File Importer
 
@@ -211,7 +211,7 @@ extension Views {
 
             // MARK: Shortcuts Dialog
 
-            .shortcutsDialog(visible: $appState.scene.showKeyboardShortcuts)
+            .shortcutsDialog(visible: $appState.scene.showShortcutsDialog)
             .shortcutsSection("Song") { section in
                 section
                     .shortcutsItem("Open", accelerator: "o".ctrl())

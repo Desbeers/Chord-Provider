@@ -28,7 +28,6 @@ extension Views {
                 ) {
                     Views.Editor(appState: $appState)
                 } end: {
-
                     if appState.editor.song.hasContent {
                         HStack {
                             GtkRender.PageView(song: appState.editor.song, settings: appState.settings)
@@ -39,9 +38,9 @@ extension Views {
                         .vexpand()
                     } else {
                         StatusPage(
-                            "Parsing",
+                            "Loading",
                             icon: .default(icon: .folderMusic),
-                            description: "Parsing your song..."
+                            description: "Loading your song..."
                         )
                         .frame(minWidth: 350)
                         .transition(.crossfade)

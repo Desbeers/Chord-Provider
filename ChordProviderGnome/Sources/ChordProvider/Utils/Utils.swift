@@ -14,10 +14,10 @@ import RegexBuilder
 /// General utils shared in the application
 enum Utils {
 
-    /// Get text flush from the arguments
+    /// Get text alignment from the arguments
     /// - Parameter arguments: The arguments of the directive
     /// - Returns: The text alignment
-    static func getAlign(_ arguments: ChordProParser.DirectiveArguments?) -> Alignment {
+    static func getTextAlignment(_ arguments: ChordProParser.DirectiveArguments?) -> Alignment {
         if let align = arguments?[.align] {
             switch align {
             case "center":
@@ -46,9 +46,12 @@ enum Utils {
             }
         }
         /// Use the align argument by default
-        return getAlign(arguments)
+        return getTextAlignment(arguments)
     }
-
+    
+    /// Convert simple links to a full link
+    /// - Parameter content: The string
+    /// - Returns: A full link if the content has a simple link, else just the text
     static func convertSimpleLinks(_ content: String) -> String {
         let link = Regex {
             Regex {
@@ -70,7 +73,7 @@ enum Utils {
         if !content.contains("<"), content.contains("http") {
             let matches = content.matches(of: link)
             for match in matches {
-                let escapedLink = String(match.0).escapeHTML()
+                let escapedLink = String(match.0).escapeSpecialCharacters()
                 content = content.replacing(match.0, with: "<a href=\"\(escapedLink)\">\(escapedLink)</a>")
             }
         }

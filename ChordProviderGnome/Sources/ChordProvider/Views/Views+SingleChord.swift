@@ -41,7 +41,7 @@ extension Views {
                                 Text(chord.status.description)
                                     .style(.caption)
                             } else {
-                                Widgets.ChordDiagram(chord: chord, settings: settings)
+                                ChordDiagram(chord: chord, settings: settings)
                             }
                         }
                     }

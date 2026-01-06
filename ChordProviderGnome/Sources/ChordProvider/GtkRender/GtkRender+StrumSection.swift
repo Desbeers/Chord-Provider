@@ -31,7 +31,7 @@ extension GtkRender {
                                             let dash = strum.action == .upArpeggio || strum.action == .downArpeggio ? true : false
                                             VStack(spacing: 2) {
                                                 Text(strum.topSymbol)
-                                                    .style(.strum)
+                                                    .style(.sectionStrum)
                                                 switch strum.action {
                                                 case .down, .downAccent, .downMuted, .downArpeggio:
                                                     Widgets.Arrow(direction: .down, length: Int(settings.app.zoom * 50), dash: dash)
@@ -41,17 +41,17 @@ extension GtkRender {
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 case .none:
                                                     Text("x")
-                                                        .style(.strum)
+                                                        .style(.sectionStrum)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 default:
                                                     Text(" ")
-                                                        .style(.strum)
+                                                        .style(.sectionStrum)
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 }
                                                 Text(
                                                     strum.beat.isEmpty ? strum.tuplet : strum.beat
                                                 )
-                                                .style(.strum)
+                                                .style(.sectionStrum)
                                             }
                                             .frame(minWidth: Int(settings.app.zoom * 20))
                                         }
@@ -64,7 +64,7 @@ extension GtkRender {
                     case .comment:
                         CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
-                        Widgets.Empty()
+                        Views.Empty()
                     }
                 }
             }

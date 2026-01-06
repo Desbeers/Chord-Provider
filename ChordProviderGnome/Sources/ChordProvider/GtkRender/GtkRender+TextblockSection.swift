@@ -18,7 +18,7 @@ extension GtkRender {
             self.section = section
             self.settings = settings
             self.maxLenght = maxLenght
-            self.halign = Utils.getAlign(section.arguments)
+            self.halign = Utils.getTextAlignment(section.arguments)
             self.flush = Utils.getTextFlush(section.arguments)
         }
         /// The current section of the song
@@ -42,7 +42,7 @@ extension GtkRender {
                             ForEach(lines) { line in
                                 Text(line.content)
                                     .useMarkup()
-                                    .style(.textblock)
+                                    .style(.sectionTextblock)
                                     .halign(flush)
                             }
                         case .emptyLine:
@@ -50,7 +50,7 @@ extension GtkRender {
                         case .comment:
                             CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                         default:
-                            Widgets.Empty()
+                            Views.Empty()
                         }
                     }
                     .halign(flush)

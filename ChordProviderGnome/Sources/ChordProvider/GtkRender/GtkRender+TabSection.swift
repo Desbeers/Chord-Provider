@@ -24,14 +24,14 @@ extension GtkRender {
                     switch line.type {
                     case .songLine:
                         Text(line.plain ?? "")
-                            .style(.tab)
+                            .style(.sectionTab)
                             .halign(.start)
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
                         CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
-                        Widgets.Empty()
+                        Views.Empty()
                     }
                 }
             }

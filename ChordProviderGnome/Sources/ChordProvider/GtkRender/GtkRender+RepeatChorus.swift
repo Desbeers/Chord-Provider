@@ -26,7 +26,7 @@ extension GtkRender {
                     Symbol(icon: .default(icon: .mediaPlaylistRepeat))
                     Text(label)
                 }
-                .style(.repeatChorus)
+                .style(.sectionRepeatChorus)
                 .halign(.start)
                 .padding()
             }

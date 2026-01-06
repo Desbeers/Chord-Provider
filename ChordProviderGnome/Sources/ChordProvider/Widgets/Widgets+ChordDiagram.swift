@@ -13,24 +13,7 @@ import ChordProviderCore
 
 extension Widgets {
 
-    /// The `View` for all the chord variations
-    struct ChordDiagram: View {
-        /// The chord definition
-        let chord: ChordDefinition
-        /// The width of the diagram
-        var width: Double = 100
-        /// The settings of the application
-        let settings: ChordProviderSettings
-        /// The body of the `View`
-        var  view: Body {
-            Diagram(chord: chord, width: width, settings: settings)
-                .frame(minWidth: Int(width), minHeight: Int(width * 1.2))
-                .frame(maxWidth: Int(width))
-                .frame(maxHeight: Int(width * 1.2))
-                .valign(.center)
-                .halign(.center)
-        }
-    }
+
 
     /// The `AdwaitaWidget` for a chord diagram
     struct Diagram: AdwaitaWidget {
@@ -114,7 +97,6 @@ extension Widgets {
 }
 
 /// Draw a chord diagram with *Cairo*
-///
 /// - Note: Declare C function implementations as `public` to ensure they're not optimized away.
 @_cdecl("draw_chord_swift")
 public func drawChord(

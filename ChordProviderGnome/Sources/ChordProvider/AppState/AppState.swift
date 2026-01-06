@@ -14,7 +14,7 @@ import CAdw
 /// The state of **Chord Provider**
 struct AppState {
 
-    /// Init the `AppState`
+    /// Init the `AppState` and load the settings
     init() {
 
         // MARK: Load settings
@@ -45,7 +45,7 @@ struct AppState {
         }
     }
     /// Debounce window saving or else it got nuts when resizing the window
-    let saveWindowDebouncer = Debouncer(delay: 1)
+    let saveWindowDebouncer = Utils.Debouncer(delay: 1)
     /// The size of the window
     /// - Note: Will be used when opening a new instance of **ChordProvider**
     var window = WindowSize() {
@@ -59,11 +59,11 @@ struct AppState {
             }
         }
     }
-    /// State of the `Scene`
+    /// The state of the `Scene`
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
 
-    /// Recent songs
+    /// The list of *Recent songs*
     private(set) var recentSongs: [RecentSong] = [] {
         didSet {
             print("Saving recent songs")
@@ -71,18 +71,18 @@ struct AppState {
         }
     }
 
-    /// The editor bridge
+    /// The source view bridge
     var editor = SourceViewBridge(song: Song(id: UUID(), content: ""))
 
-    /// The subtitle for the scene
+    /// The subtitle of the `Scene`
     var subtitle: String {
-        "\(editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(dirty ? " - edited" : "")"
+        "\(editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(contentIsModified ? " - edited" : "")"
     }
 }
 
 extension AppState {
 
-    /// Add a recent song
+    /// Add a *Recent song*
     mutating func addRecentSong() {
         if let fileURL = self.editor.song.settings.fileURL {
             var recentSongs = self.recentSongs
@@ -110,12 +110,12 @@ extension AppState {
         }
     }
 
-    /// Clear recent songs list
+    /// Clear the *Recent songs* list
     mutating func clearRecentSongs() {
         self.recentSongs = []
     }
 
-    /// Get recent songs
+    /// Get *Recent songs*
     func getRecentSongs() -> [RecentSong] {
         var recent: [RecentSong] = []
         for song in self.recentSongs where FileManager.default.fileExists(atPath: song.url.path) {
@@ -125,9 +125,9 @@ extension AppState {
         return recent
     }
 
-    /// Bool if the source is modified
+    /// Bool if the content is modified
     /// - Note: Comparing the source with the original source
-    var dirty: Bool {
+    var contentIsModified: Bool {
         editor.song.content != scene.originalContent
     }
 }
@@ -182,7 +182,9 @@ extension AppState {
         /// Close the welcome
         self.scene.showWelcomeView = false
     }
-
+    
+    /// Save a song to disk
+    /// - Parameter song: The `Song` to save
     mutating func saveSong(_ song: Song) {
         if let fileURL = self.editor.song.settings.fileURL {
             try? self.editor.song.content.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
@@ -196,15 +198,4 @@ extension AppState {
     }
 }
 
-extension AppState {
-    
-    /// What to do when saving a song
-    enum SaveDoneAction {
-        /// Close the window
-        case closeWindow
-        /// Show the welcome view
-        case showWelcomeView
-        /// Do nthing
-        case noAction
-    }
-}
+

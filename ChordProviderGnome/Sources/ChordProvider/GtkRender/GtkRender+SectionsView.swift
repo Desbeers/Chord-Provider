@@ -89,7 +89,7 @@ extension GtkRender {
                 ImageSection(section: section, settings: settings, coreSettings: song.settings)
             default:
                 /// Not supported or not a viewable environment
-                Widgets.Empty()
+                Views.Empty()
             }
         }
     }

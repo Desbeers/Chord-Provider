@@ -35,7 +35,7 @@ import CChordProvider
                 appState: $appState
             )
             .css {
-                Markup.css(
+                return Markup.css(
                     zoom: appState.settings.app.zoom,
                     /// - Note: This does not update on theme change; it needs a `View` update
                     dark: app_prefers_dark_theme() == 1 ? true : false
@@ -46,6 +46,8 @@ import CChordProvider
                 /// - Note: When opened again with another argument; it will create a new instance because the application will have a another ID
                 if let fileURL = CommandLine.arguments[safe: 1] {
                     let url = URL(filePath: fileURL)
+                    /// - Note: Hide the editor because it is flashing if a song is directly opened
+                    appState.settings.editor.showEditor = false
                     appState.openSong(fileURL: url)
                 }
             }
@@ -56,9 +58,9 @@ import CChordProvider
         .minSize(width: 800, height: 600)
         .title(appState.subtitle)
         .onClose {
-            if appState.dirty {
+            if appState.contentIsModified {
                 appState.scene.saveDoneAction = .closeWindow
-                appState.scene.showDirtyClose = true
+                appState.scene.showCloseDialog = true
                 return .cancel
             } else {
                 return .close

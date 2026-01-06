@@ -39,7 +39,7 @@ extension GtkRender {
                     case .comment:
                         CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
                     default:
-                        Widgets.Empty()
+                        Views.Empty()
                     }
                 }
             }

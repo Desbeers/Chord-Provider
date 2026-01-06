@@ -82,8 +82,7 @@ extension Widgets {
     }
 }
 
-/// Draw a chord diagram with *Cairo*
-///
+/// Draw an arrow with *Cairo*
 /// - Note: Declare C function implementations as `public` to ensure they're not optimized away.
 @_cdecl("draw_arrow_swift")
 public func drawArrow(

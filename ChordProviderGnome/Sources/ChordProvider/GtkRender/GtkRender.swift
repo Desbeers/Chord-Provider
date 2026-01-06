@@ -7,7 +7,7 @@
 
 import Adwaita
 
-/// Render a song in GTK `Widgets`
+/// Render a song with GTK `Widgets`
 enum GtkRender {
     // Just a placeholder
 }

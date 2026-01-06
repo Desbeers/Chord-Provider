@@ -1,17 +1,15 @@
 //
-//  ToggleButton+.swift
+//  ToggleButton+init.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
 //
 
 import Adwaita
-import CAdw
 
-/// A button widget.
 extension ToggleButton {
 
-    /// Initialize a button.
+    /// Initialize a toggle button with an action handler
     /// - Parameters:
     ///   - icon: The button's icon
     ///   - isOn: Bool if the button is on

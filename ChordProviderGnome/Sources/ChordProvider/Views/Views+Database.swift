@@ -48,7 +48,7 @@ extension Views {
                             VStack {
                                 Text(chord.display)
                                     .style(.chord)
-                                Widgets.ChordDiagram(chord: chord, settings: appState.editor.song.settings)
+                                ChordDiagram(chord: chord, settings: appState.editor.song.settings)
                             }
                         }
                         .valign(.start)
@@ -59,7 +59,7 @@ extension Views {
                 if let chord = chords.first(where: { $0.id == selection }) {
                     Separator()
                     HStack {
-                        Widgets.ChordDiagram(chord: chord, width: 140, settings: appState.editor.song.settings)
+                        ChordDiagram(chord: chord, width: 140, settings: appState.editor.song.settings)
                         VStack {
                             Text(chord.display)
                                 .style(.title)

@@ -55,16 +55,14 @@ extension Views.Toolbar {
                     if let tags = appState.editor.song.metadata.tags {
                         Views.Tags(tags: tags)
                     }
-                    Toggle(icon: .default(icon: .helpAbout), isOn: $appState.scene.showDebug) {
-                        /// Nothing to handle
-                    }
+                    Toggle(icon: .default(icon: .helpAbout), isOn: $appState.scene.showDebugDialog)
                     .tooltip("See how your song is parsed")
                     .accent(appState.editor.song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
-                            if appState.dirty {
+                            if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView
-                                appState.scene.showDirtyClose = true
+                                appState.scene.showCloseDialog = true
                             } else {
                                 appState.scene.showWelcomeView = true
                             }
@@ -175,11 +173,11 @@ extension Views.Toolbar {
                     app.showWindow("database")
                 }
                 MenuButton("Preferences") {
-                    appState.scene.showPreferences = true
+                    appState.scene.showPreferencesDialog = true
                 }
                 .keyboardShortcut("comma".ctrl())
                 MenuButton("Keyboard Shortcuts") {
-                    appState.scene.showKeyboardShortcuts = true
+                    appState.scene.showShortcutsDialog = true
                 }
                 .keyboardShortcut("question".ctrl())
                 MenuButton("About Chord Provider", window: false) {
