@@ -8,7 +8,7 @@
 
 import PackageDescription
 
-/// The CodeEditor package.
+/// The SourceView package.
 let package = Package(
     name: "GtkSourceView",
     platforms: [.macOS(.v15)],
@@ -20,6 +20,10 @@ let package = Package(
         .library(
             name: "CSourceView",
             targets: ["CSourceView"]
+        ),
+        .library(
+            name: "CGtkSourceView",
+            targets: ["CGtkSourceView"]
         )
     ],
     dependencies: [
@@ -32,6 +36,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore"),
+                "CGtkSourceView",
                 "CSourceView"
             ],
             resources: [
@@ -39,8 +44,18 @@ let package = Package(
                 .copy("Resources/chordpro.snippets")
             ],
         ),
-        .systemLibrary(
+        .target(
             name: "CSourceView",
+            dependencies: [
+                "CGtkSourceView"
+            ],
+            publicHeadersPath: "include",
+            cSettings: [
+                .headerSearchPath("include")
+            ]
+        ),
+        .systemLibrary(
+            name: "CGtkSourceView",
             pkgConfig: "gtksourceview-5"
         )
     ]

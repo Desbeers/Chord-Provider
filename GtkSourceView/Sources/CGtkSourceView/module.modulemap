@@ -1,4 +1,4 @@
-module CCodeEditor [system] {
+module CGtkSourceView [system] {
 	header "shim.h"
 	link "gtksourceview-5"
 	export *

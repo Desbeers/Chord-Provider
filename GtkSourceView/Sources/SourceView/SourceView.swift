@@ -8,7 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import CCodeEditor
+import CGtkSourceView
 
 /// A text or code editor widget.
 public struct SourceView: AdwaitaWidget {

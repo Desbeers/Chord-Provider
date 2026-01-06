@@ -1,0 +1,90 @@
+#pragma once
+
+#include <gtk/gtk.h>
+#include <gtksourceview/gtksource.h>
+
+/* ============================================================
+   Theme
+   ============================================================ */
+
+void
+sourceview_set_theme(GtkSourceBuffer *buffer);
+
+/* ============================================================
+   Snippets
+   ============================================================ */
+
+void
+sourceview_add_snippets_path(const char *msg);
+
+/* ============================================================
+   Brackets check
+   ============================================================ */
+
+gboolean
+sourceview_check_for_brackets(GtkSourceView *view);
+
+/* ============================================================
+   Signal callbacks
+   ============================================================ */
+
+typedef void (*SourceViewInsertCB)(
+    gint offset,
+    const gchar *text,
+    gpointer user_data
+);
+
+typedef void (*SourceViewDeleteCB)(
+    gint start,
+    gint end,
+    gpointer user_data
+);
+
+typedef void (*SourceViewCursorCB)(
+    gpointer user_data
+);
+
+void
+sourceview_connect_signals(
+    GtkTextBuffer *buffer,
+    SourceViewInsertCB insert_cb,
+    SourceViewDeleteCB delete_cb,
+    SourceViewCursorCB cursor_cb,
+    gpointer user_data
+);
+
+/* ============================================================
+   Timeout helper
+   ============================================================ */
+
+typedef void (*SourceViewTimeoutCB)(gpointer user_data);
+
+guint
+sourceview_add_schedule(
+    guint timeout_ms,
+    SourceViewTimeoutCB cb,
+    gpointer user_data
+);
+
+/* ============================================================
+   Marks
+   ============================================================ */
+
+void
+sourceview_install_marks(
+    GtkSourceView *view,
+    const gchar *category
+);
+
+void
+sourceview_add_mark(
+    GtkSourceBuffer *buffer,
+    gint line,
+    const gchar *category
+);
+
+void
+sourceview_clear_marks(
+    GtkSourceBuffer *buffer,
+    const gchar *category
+);

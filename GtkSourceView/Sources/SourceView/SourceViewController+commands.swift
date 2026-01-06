@@ -7,7 +7,7 @@
 
 import Foundation
 import Adwaita
-import CCodeEditor
+import CSourceView
 import ChordProviderCore
 
 public enum SourceViewCommand {
@@ -26,7 +26,7 @@ extension SourceViewController {
             insertDirective(directive)
         case .replaceAllText(text: let text):
             /// Clear all markers
-            codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
+            sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
             replaceAllText(buffer.opaquePointer?.cast(), text)
             SourceViewController.moveCursorToFirstLine(storage: storage, buffer: buffer)
         case .appendText(text: let text):

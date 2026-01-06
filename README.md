@@ -1,11 +1,5 @@
 # Chord Provider
 
-**I lost my interest in `macOS`.**
-
-**In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
-
-I consider to drop it.
-
 ## A [ChordPro](https://www.chordpro.org) viewer and editor for Linux and macOS
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
@@ -35,6 +29,12 @@ A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An
 On macOS *Tahoe*, the application icon is not allowed to go out of its squarish boundary anymore; another lost of macOS identity... Now it has its own ugly *glass* icon, sorry for that...
 
 ## macOS
+
+**I lost my interest in `macOS`.**
+
+**In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
+
+I consider to drop it...
 
 ### What can **Chord Provider** do?
 

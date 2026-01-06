@@ -10,8 +10,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "CChordProvider",
-            targets: ["CChordProvider"]
+            name: "CGtk",
+            targets: ["CGtk"]
         )
     ],
     dependencies: [
@@ -20,6 +20,16 @@ let package = Package(
         .package(path: "../GtkSourceView")
     ],
     targets: [
+        .target(
+            name: "CChordProvider",
+            dependencies: [
+                "CGtk"
+            ],
+            publicHeadersPath: "include",
+            cSettings: [
+                .headerSearchPath("include")
+            ]
+        ),
         .executableTarget(
             name: "ChordProvider",
             dependencies: [
@@ -28,7 +38,6 @@ let package = Package(
                 .product(name: "ChordProviderCore", package: "ChordProviderCore"),
                 .product(name: "SourceView", package: "GtkSourceView")
             ],
-            path: "Sources",
             resources: [
                 .copy("Resources/nl.desbeers.chordprovider.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),
@@ -44,8 +53,8 @@ let package = Package(
             path: "Generate",
         ),
         .systemLibrary(
-            name: "CChordProvider",
-            pkgConfig: "cairo"
+            name: "CGtk",
+            pkgConfig: "gtk4"
         )
     ]
 )

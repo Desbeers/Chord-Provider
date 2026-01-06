@@ -8,7 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import CCodeEditor
+import CSourceView
 
 final class SourceViewController {
 
@@ -44,9 +44,8 @@ final class SourceViewController {
     ///   - language: The editor language
     init(bridge: Binding<SourceViewBridge>, language: Language) {
         print("INIT CONTROLLER")
-        //self.lastSnapshotHash = bridge.song.content.wrappedValue.hashValue
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
-        codeeditor_buffer_set_theme_adaptive(buffer.opaquePointer?.cast())
+        sourceview_set_theme(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
         gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), bridge.song.content.wrappedValue, -1)
         storage = ViewStorage(
@@ -63,14 +62,14 @@ final class SourceViewController {
 
         gtk_source_init()
         /// Connect signal callbacks
-        codeeditor_connect_buffer_signals(
+        sourceview_connect_signals(
             buffer.opaquePointer?.cast(),
-            codeeditor_insert_cb,
-            codeeditor_delete_cb,
-            cursor_position_cb,
+            sourceview_insert_cb,
+            sourceview_delete_cb,
+            sourceview_cursor_cb,
             Unmanaged.passUnretained(self).toOpaque()
         )
-        codeeditor_install_bookmark_renderer(storage.opaquePointer?.cast(), "bookmark")
+        sourceview_install_marks(storage.opaquePointer?.cast(), "bookmark")
 
         /// Render the song
         scheduleSnapshot(self)
@@ -102,7 +101,9 @@ final class SourceViewController {
         if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
             let path = urlPath.deletingLastPathComponent().path()
             gtk_source_language_manager_append_search_path(manager, path)
-            path.withCString { codeeditor_snippets($0) }
+            path.withCString { cString in
+                sourceview_add_snippets_path(cString)
+            }
         }
         let lang = gtk_source_language_manager_get_language(manager, language.languageName)
         gtk_source_buffer_set_language(buffer.opaquePointer?.cast(), lang)
@@ -139,7 +140,7 @@ final class SourceViewController {
 
 func handleSnippets(controller: SourceViewController) {
     let view: UnsafeMutablePointer<GtkSourceView>? = controller.storage.opaquePointer?.cast()
-    controller.snippetsAvailable = bracket_condition_met(view) == 1
+    controller.snippetsAvailable = sourceview_check_for_brackets(view) == 1
     if controller.snippetsAvailable {
         if !controller.snippetsLoaded {
             /// Load the snippets
@@ -182,7 +183,7 @@ func scheduleSnapshot(_ controller: SourceViewController) {
         g_source_destroy(gsource)
         controller.snapshotSchedule = 0
     }
-    let source: guint = codeeditor_timeout_add(
+    let source: guint = sourceview_add_schedule(
         500,
         flush_snapshot_cb,
         Unmanaged.passUnretained(controller).toOpaque()
@@ -193,8 +194,8 @@ func scheduleSnapshot(_ controller: SourceViewController) {
 
 // MARK: - Swift callbacks for `C` functions
 
-@_cdecl("codeeditor_insert_cb")
-public func codeeditor_insert_cb(
+@_cdecl("sourceview_insert_cb")
+public func sourceview_insert_cb(
     offset: Int32,
     text: UnsafePointer<CChar>?,
     userData: UnsafeMutableRawPointer?
@@ -230,8 +231,8 @@ public func codeeditor_insert_cb(
 }
 
 
-@_cdecl("codeeditor_delete_cb")
-public func codeeditor_delete_cb(
+@_cdecl("sourceview_delete_cb")
+public func sourceview_delete_cb(
     start: Int32,
     end: Int32,
     userData: UnsafeMutableRawPointer?
@@ -241,8 +242,8 @@ public func codeeditor_delete_cb(
     scheduleSnapshot(controller)
 }
 
-@_cdecl("cursor_position_cb")
-public func cursor_position_cb(_ userData: UnsafeMutableRawPointer?) {
+@_cdecl("sourceview_cursor_cb")
+public func sourceview_cursor_cb(_ userData: UnsafeMutableRawPointer?) {
     guard let userData else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
     controller.updateCurrentLine()
@@ -272,9 +273,9 @@ public func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     binding.song.content.wrappedValue = text
     binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
     /// Clear all makers and add new ones if needed
-    codeeditor_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
+    sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
     let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.warnings != nil}
     for line in lines {
-        codeeditor_add_line_mark(controller.buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
+        sourceview_add_mark(controller.buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
     }
 }
