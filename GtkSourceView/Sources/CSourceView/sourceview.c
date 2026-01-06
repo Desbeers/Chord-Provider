@@ -78,11 +78,8 @@ sourceview_check_for_brackets(GtkSourceView *view)
     GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 
     GtkTextIter iter, start, end;
-    gtk_text_buffer_get_iter_at_mark(
-        buffer,
-        &iter,
-        gtk_text_buffer_get_insert(buffer)
-    );
+    gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(buffer), &iter,
+                                     gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(buffer)));
 
     start = iter;
     gtk_text_iter_set_line_offset(&start, 0);
@@ -90,7 +87,7 @@ sourceview_check_for_brackets(GtkSourceView *view)
     end = start;
     gtk_text_iter_forward_to_line_end(&end);
 
-    gchar *line = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
+    gchar *line = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(buffer), &start, &end, FALSE);
     if (!line) return FALSE;
 
     gchar *p = line;
@@ -206,7 +203,7 @@ sourceview_add_schedule(guint timeout_ms,
 
 void
 sourceview_install_marks(GtkSourceView *view,
-                        const gchar *category)
+                         const gchar *category)
 {
     GtkSourceMarkAttributes *attrs =
         gtk_source_mark_attributes_new();
@@ -230,14 +227,9 @@ sourceview_add_mark(GtkSourceBuffer *buffer,
                     const gchar *category)
 {
     GtkTextIter iter;
-    gtk_text_buffer_get_iter_at_line(buffer, &iter, line - 1);
+    gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(buffer), &iter, line - 1);
 
-    gtk_source_buffer_create_source_mark(
-        buffer,
-        NULL,
-        category,
-        &iter
-    );
+    gtk_source_buffer_create_source_mark(buffer, NULL, category, &iter);
 }
 
 void
@@ -245,8 +237,9 @@ sourceview_clear_marks(GtkSourceBuffer *buffer, const gchar *category)
 {
     GtkTextIter start, end;
 
-    gtk_text_buffer_get_start_iter(buffer, &start);
-    gtk_text_buffer_get_end_iter(buffer, &end);
+    gtk_text_buffer_get_start_iter(GTK_TEXT_BUFFER(buffer), &start);
+    gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(buffer), &end);
 
     gtk_source_buffer_remove_source_marks(buffer, &start, &end, category);
 }
+
