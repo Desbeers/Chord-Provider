@@ -89,9 +89,6 @@ extension Views {
                             .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                             .highlightCurrentLine(true)
                             .vexpand()
-                            .css {
-                                "textview { font-family: Monospace; font-size: \(appState.settings.editor.fontSize.rawValue)pt; }"
-                            }
                     }
                     Separator()
                     lineInfo

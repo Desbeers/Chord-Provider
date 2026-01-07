@@ -14,11 +14,11 @@ extension Views {
     struct Tags: View {
         /// Init the `View`
         init(tags: [String]) {
-            self.tags = tags.map { Markup.StringItem(string: $0) }
+            self.tags = tags.toElementWrapper()
             self.horizontal = tags.count > 2 ? false : true
         }
         /// The tags
-        let tags: [Markup.StringItem]
+        let tags: [String.ElementWrapper]
         /// Horizontal view
         let horizontal: Bool
         /// Bool to show the popup
@@ -43,7 +43,7 @@ extension Views {
         /// Show a list of tags
         @ViewBuilder private func tagLabels() -> Body {
             ForEach(tags, horizontal: horizontal) { tag in
-                Text(tag.string)
+                Text(tag.content)
                     .useMarkup()
                     .style(.tagLabel)
                     .padding(5)

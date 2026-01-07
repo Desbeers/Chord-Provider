@@ -10,6 +10,7 @@ import ChordProviderCore
 import SourceView
 import Adwaita
 import CAdw
+import CChordProvider
 
 /// The state of **Chord Provider**
 struct AppState {
@@ -39,6 +40,16 @@ struct AppState {
     /// The shared application settings
     var settings = AppSettings() {
         didSet {
+            /// Update the style if needed
+            if settings.editor.fontSize != oldValue.editor.fontSize || settings.app.zoom != oldValue.app.zoom {
+                Markup.updateStyle(
+                    zoom: self.settings.app.zoom,
+                    dark: app_prefers_dark_theme() == 1 ? true : false,
+                    editorFontSize: self.settings.editor.fontSize.rawValue
+                )
+                self.styleState.pointee.editor_font_size = Int32(self.settings.editor.fontSize.rawValue)
+                self.styleState.pointee.zoom = self.settings.app.zoom
+            }
             if settings != oldValue {
                 try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)
             }
@@ -62,6 +73,9 @@ struct AppState {
     /// The state of the `Scene`
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
+
+    /// The state of the style
+    let styleState = UnsafeMutablePointer<stylestate>.allocate(capacity: 1)
 
     /// The list of *Recent songs*
     private(set) var recentSongs: [RecentSong] = [] {

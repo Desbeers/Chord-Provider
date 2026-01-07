@@ -109,7 +109,7 @@ extension Markup {
     static let baseFontSize: Double = 12.5
 
     /// The CSS declarations
-    static func css(zoom: Double, dark: Bool) -> String {
+    static func css(zoom: Double, dark: Bool, editorFontSize: Int) -> String {
 """
 :root {
     --chordprovider-accent-bg-color: \(dark ? "#57575a" : "#c8d3ca");
@@ -270,7 +270,11 @@ extension Markup {
     background-color: var(--red-5);
 }
 
-/* Editor Gutter */
+/* Editor */
+
+textview { 
+    font-family: Monospace; font-size: \(editorFontSize)pt;
+}
 
 gutter {
     background-color: var(--headerbar-backdrop-color);

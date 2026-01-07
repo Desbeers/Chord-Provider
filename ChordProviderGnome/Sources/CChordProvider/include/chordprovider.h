@@ -5,8 +5,26 @@
 
 G_BEGIN_DECLS
 
-/* Theme */
+/* Style */
 gboolean app_prefers_dark_theme(void);
+
+typedef struct {
+    double zoom;
+    int editor_font_size;
+} stylestate;
+
+void
+set_style(stylestate *state);
+
+void
+update_style(
+    GObject     *settings,
+    GParamSpec  *pspec,
+    gpointer     user_data
+);
+
+void
+add_css_from_string(const char *css);
 
 /* GTK draw callbacks */
 void draw_chord(

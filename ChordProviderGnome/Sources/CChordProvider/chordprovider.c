@@ -7,6 +7,70 @@
    GTK helpers
    ============================================================ */
 
+#include <gtk/gtk.h>
+
+void
+add_css_from_string(const char *css)
+{
+    static GtkCssProvider *current_provider = NULL;
+
+    if (css == NULL) {
+        return;
+    }
+
+    // Remove old provider if exists
+    if (current_provider) {
+        GdkDisplay *display = gdk_display_get_default();
+        if (display) {
+            gtk_style_context_remove_provider_for_display(
+                display,
+                GTK_STYLE_PROVIDER(current_provider)
+            );
+        }
+        g_object_unref(current_provider);
+        current_provider = NULL;
+    }
+
+    // Create new provider
+    GtkCssProvider *provider = gtk_css_provider_new();
+    gtk_css_provider_load_from_string(provider, css);
+
+    // Attach to default display
+    GdkDisplay *display = gdk_display_get_default();
+    if (display) {
+        gtk_style_context_add_provider_for_display(
+            display,
+            GTK_STYLE_PROVIDER(provider),
+            GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+        );
+    }
+
+    // Keep provider for next call
+    current_provider = provider;
+}
+
+void
+set_style(stylestate *state)
+{
+    GtkSettings *settings = gtk_settings_get_default();
+
+    // Initial sync
+    update_style(
+        G_OBJECT(settings),
+        NULL,
+        state
+    );
+
+    // Listen for changes
+    g_signal_connect(
+        settings,
+        "notify::gtk-application-prefer-dark-theme",
+        G_CALLBACK(update_style),
+        state
+    );
+}
+
+
 gboolean
 app_prefers_dark_theme(void) {
     GtkSettings *settings = gtk_settings_get_default();

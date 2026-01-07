@@ -34,14 +34,9 @@ import CChordProvider
                 window: window,
                 appState: $appState
             )
-            .css {
-                return Markup.css(
-                    zoom: appState.settings.app.zoom,
-                    /// - Note: This does not update on theme change; it needs a `View` update
-                    dark: app_prefers_dark_theme() == 1 ? true : false
-                )
-            }
             .onAppear {
+                /// Init the css style
+                Markup.initStyle(appState: appState)
                 /// Open a song when passed as argument at launch
                 /// - Note: When opened again with another argument; it will create a new instance because the application will have a another ID
                 if let fileURL = CommandLine.arguments[safe: 1] {

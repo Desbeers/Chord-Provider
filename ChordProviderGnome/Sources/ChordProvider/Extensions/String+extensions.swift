@@ -44,3 +44,9 @@ extension String {
         var content: String
     }
 }
+
+extension Array where Element == String {
+    func toElementWrapper() -> [String.ElementWrapper] {
+        return self.map { String.ElementWrapper(content: $0) }
+    }
+}
