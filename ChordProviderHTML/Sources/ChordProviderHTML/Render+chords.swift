@@ -52,7 +52,7 @@ extension HtmlRender {
         html += "</div>"
 
         /// Nut or base-fret
-        if chord.baseFret == 1 {
+        if chord.baseFret.rawValue == 1 {
             html += "<div class=\"nut\"></div>"
         } else {
             html += "<div class=\"base-fret\">\(chord.baseFret)</div>"

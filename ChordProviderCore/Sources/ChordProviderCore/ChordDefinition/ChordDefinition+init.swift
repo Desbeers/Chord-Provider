@@ -17,7 +17,7 @@ extension ChordDefinition {
         name: String,
         frets: [Int],
         fingers: [Int],
-        baseFret: Int,
+        baseFret: Chord.BaseFret,
         root: Chord.Root,
         quality: Chord.Quality,
         slash: Chord.Root?,
@@ -163,7 +163,7 @@ extension ChordDefinition {
         self.id = UUID()
         self.frets = Array(repeating: 0, count: instrument.strings.count)
         self.fingers = Array(repeating: 0, count: instrument.strings.count)
-        self.baseFret = 0
+        self.baseFret = .one
         self.root = .c
         self.quality = .major
         self.slash = nil
@@ -187,7 +187,7 @@ extension ChordDefinition {
         self.id = UUID()
         self.frets = Array(repeating: 0, count: instrument.strings.count)
         self.fingers = Array(repeating: 0, count: instrument.strings.count)
-        self.baseFret = 0
+        self.baseFret = .one
         self.root = .c
         self.quality = .major
         self.slash = nil

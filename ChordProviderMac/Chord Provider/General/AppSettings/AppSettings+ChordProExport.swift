@@ -78,7 +78,7 @@ extension AppSettings {
             ChordProviderCore.ChordPro.Instrument.Chord(
                 name: chord.name,
                 display: chord.display,
-                base: chord.baseFret,
+                base: chord.baseFret.rawValue,
                 frets: chord.frets,
                 fingers: chord.fingers,
                 copy: nil

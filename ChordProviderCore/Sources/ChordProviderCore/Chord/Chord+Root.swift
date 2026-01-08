@@ -11,10 +11,13 @@ extension Chord {
 
     /// The root of a chord
     /// - Note: Changes to the raw value might break the databases
-    public enum Root: String, CaseIterable, Codable, Comparable, Sendable, Identifiable {
+    public enum Root: String, CaseIterable, Codable, Comparable, Sendable, Identifiable, CustomStringConvertible {
 
         /// Identifiable protocol
-        public var id: String {
+        public var id: Self { self }
+
+        /// CustomStringConvertible protocol
+        public var description: String {
             self.rawValue
         }
 

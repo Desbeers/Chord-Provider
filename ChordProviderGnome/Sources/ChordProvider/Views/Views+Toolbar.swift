@@ -104,12 +104,6 @@ extension Views.Toolbar {
                     .tooltip("Main Menu")
                 }
             }
-            .headerBarTitle {
-                WindowTitle(
-                    subtitle: appState.scene.showWelcomeView ? "Open or create a ChordPro song" : appState.subtitle,
-                    title: "Chord Provider"
-                )
-            }
         }
     }
 }

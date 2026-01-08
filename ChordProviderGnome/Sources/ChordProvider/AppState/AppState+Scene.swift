@@ -51,6 +51,8 @@ extension AppState {
         var showCloseDialog: Bool = false
         /// Show the *Shortcuts* dialog
         var showShortcutsDialog: Bool = false
+        /// Show the *Define chord* dialog
+        var showDefineChordDialog: Bool = false
 
         // MARK: Toasts
 

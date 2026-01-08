@@ -84,7 +84,7 @@ public enum ChordUtils {
             ChordPro.Instrument.Chord(
                 name: chord.name,
                 display: chord.name == chord.display ? nil : chord.display,
-                base: chord.baseFret,
+                base: chord.baseFret.rawValue,
                 frets: chord.frets,
                 fingers: chord.fingers,
                 copy: nil
@@ -104,7 +104,7 @@ public enum ChordUtils {
             return ChordPro.Instrument.Chord(
                 name: copy.name,
                 display: copy.name == copy.display ? nil : copy.display,
-                base: copy.baseFret,
+                base: copy.baseFret.rawValue,
                 frets: copy.frets,
                 fingers: copy.fingers,
                 copy: nil
@@ -168,7 +168,7 @@ public enum ChordUtils {
     static func fretsToComponents(
         root: Chord.Root,
         frets: [Int],
-        baseFret: Int,
+        baseFret: Chord.BaseFret,
         instrument: Chord.Instrument
     ) -> [Chord.Component] {
         var components: [Chord.Component] = []
@@ -180,7 +180,7 @@ public enum ChordUtils {
                     components.append(Chord.Component(id: string, note: .none, midi: nil))
                 } else {
                     /// Add base fret if the fret is not 0 and the offset
-                    fret += instrument.offset[string] + (fret == 0 ? 1 : baseFret) + 40
+                    fret += instrument.offset[string] + (fret == 0 ? 1 : baseFret.rawValue) + 40
                     let key = valueToNote(value: fret, scale: root)
                     components.append(Chord.Component(id: string, note: key, midi: fret))
                 }

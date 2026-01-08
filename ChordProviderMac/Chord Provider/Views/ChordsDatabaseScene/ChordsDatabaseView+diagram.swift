@@ -54,7 +54,7 @@ extension ChordsDatabaseView {
         ) {
             deleteButton(chord: sceneState.definition)
         } message: {
-            Text("With base fret \(sceneState.definition.baseFret)")
+            Text("With base fret \(sceneState.definition.baseFret.rawValue)")
         }
     }
 

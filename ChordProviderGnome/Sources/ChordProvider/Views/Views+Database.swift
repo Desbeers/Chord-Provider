@@ -18,7 +18,7 @@ extension Views {
         /// The selected instrument
         @State private var instrument: Chord.Instrument = .guitar
         /// The selected chord
-        @State private var chord: Chord.Root.ID = "C"
+        @State private var chord: Chord.Root = .c
         /// The optional search string
         @State private var search: String = ""
         /// The current selected diagram
@@ -97,7 +97,6 @@ extension Views {
         /// - Returns: The filtered chords
         private func getChords() -> [ChordDefinition] {
             if search.isEmpty {
-                let chord = Chord.Root(rawValue: self.chord) ?? .c
                 return ChordUtils.getAllChordsForInstrument(instrument: instrument)
                     .filter { $0.root == chord }
                     .sorted(

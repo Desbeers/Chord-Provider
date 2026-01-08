@@ -38,6 +38,9 @@ extension ChordUtils {
         /// - Parameter chord: The ``ChordDefinition``
         /// - Returns: The ``ChordDefinition/Status`` of the chord definition
         static func validateChord(chord: ChordDefinition) -> ChordDefinition.Status {
+
+            //dump(chord.components)
+
             if chord.quality == .unknown {
                 return .wrongNotes
             }

@@ -41,6 +41,7 @@ public struct SourceView: AdwaitaWidget {
 
         controller.storage.fields["settings"] = bridge.song.settings
 
+        update(controller.storage, data: data, updateProperties: true, type: type)
         /// Return the GTKSourceView
         return controller.storage
     }

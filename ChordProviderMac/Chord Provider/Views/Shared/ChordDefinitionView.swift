@@ -132,13 +132,13 @@ struct ChordDefinitionView: View {
         Rectangle()
             .padding(.horizontal, cellWidth / 1.2)
             .frame(height: nutHeight)
-            .foregroundStyle(chord.baseFret == 1 ? settings.style.theme.foreground : Color.clear)
+            .foregroundStyle(chord.baseFret.rawValue == 1 ? settings.style.theme.foreground : Color.clear)
         ZStack(alignment: .topLeading) {
             grid
                 .offset(y: -nutHeight)
-            if chord.baseFret != 1 {
+            if chord.baseFret.rawValue != 1 {
                 let offset = (width - gridWidth) / 2
-                Text("\(chord.baseFret)")
+                Text("\(chord.baseFret.rawValue)")
                     .font(.system(size: lineHeight * 0.6, weight: .regular, design: .default))
                     .frame(width: offset, height: gridHeight / 5, alignment: .trailing)
                     .offset(x: -(offset / 2))

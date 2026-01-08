@@ -95,7 +95,7 @@ extension PDFBuild.Chords {
             drawNut(rect: &rect, calculationOnly: calculationOnly)
             rect.origin.y = initialRect.origin.y + currentDiagramHeight
             rect.size.height = initialRect.size.height - currentDiagramHeight
-            if chord.baseFret != 1 {
+            if chord.baseFret.rawValue != 1 {
                 drawBaseFret(rect: &rect)
             }
             drawGrid(rect: &rect, calculationOnly: calculationOnly)
@@ -185,7 +185,7 @@ extension PDFBuild.Chords {
                         width: gridSize.width + xSpacing * 0.55,
                         height: nutHeight
                     )
-                    if chord.baseFret == 1, let context = NSGraphicsContext.current?.cgContext {
+                    if chord.baseFret.rawValue == 1, let context = NSGraphicsContext.current?.cgContext {
                         context.setFillColor(settings.style.theme.foreground.nsColor.cgColor)
                         context.fill(nutRect)
                     }

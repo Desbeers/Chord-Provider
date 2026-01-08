@@ -282,6 +282,12 @@ gutter {
 gutterrenderer {
     padding-right: 4px;
 }
+
+/* Define Chord */
+
+toggle-group .toggle {
+    padding: 0;
+}
 """
     }
 }

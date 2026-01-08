@@ -80,7 +80,7 @@ extension Widgets {
 
         func convert(context: Context) {
             context.showNotes = settings.diagram.showNotes
-            context.baseFret = chord.baseFret
+            context.baseFret = chord.baseFret.rawValue
             for index in 0..<6 {
                 context.setFret(chord.frets[safe: index] ?? 0, on: index)
                 context.setFinger(chord.fingers[safe: index] ?? 0, on: index)

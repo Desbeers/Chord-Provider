@@ -43,7 +43,6 @@ final class SourceViewController {
     ///   - text: The editor text
     ///   - language: The editor language
     init(bridge: Binding<SourceViewBridge>, language: Language) {
-        print("INIT CONTROLLER")
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         sourceview_set_theme(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)

@@ -70,7 +70,7 @@ extension ChordDefinition {
             define += "/\(slash.rawValue)"
         }
         define += " base-fret "
-        define += baseFret.description
+        define += String(baseFret.rawValue)
         define += " frets "
         for fret in frets {
             define += "\(fret == -1 ? "x" : fret.description) "
@@ -135,7 +135,7 @@ extension ChordDefinition {
         ChordPro.Instrument.Chord(
             name: name,
             display: display,
-            base: baseFret,
+            base: baseFret.rawValue,
             frets: frets,
             fingers: fingers,
             copy: nil

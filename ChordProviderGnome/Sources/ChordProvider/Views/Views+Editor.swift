@@ -11,7 +11,7 @@ import ChordProviderCore
 import SourceView
 
 extension Views {
-    
+
     /// The `View` for editing a song
     struct Editor: View {
         init(appState: Binding<AppState>) {
@@ -24,77 +24,83 @@ extension Views {
         let lines: [Song.Section.Line]
         /// Confirmation for cleanup
         @State private var confirmCleanup: Bool = false
-        
+
         @State private var showMetadata: Bool = false
         @State private var showEnvironment: Bool = false
         @State private var showMore: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
-                VStack {
-                    HStack {
-                        Text("Metadata")
-                            .style(.editorButton)
-                            .padding(5)
-                            .onClick {
-                                showMetadata.toggle()
-                            }
-                            .popover(visible: $showMetadata) {
-                                ForEach(ChordPro.Directive.metadataDirectives) { directive in
-                                    Button(directive.details.label) {
-                                        appState.editor.command = .insertDirective(directive: directive)
-                                        showMetadata.toggle()
-                                    }
-                                    .flat()
-                                    .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
-                                }
-                            }
-                        Text("Environment")
-                            .style(.editorButton)
-                            .padding(5)
-                            .onClick {
-                                showEnvironment.toggle()
-                            }
-                            .popover(visible: $showEnvironment) {
-                                ForEach(ChordPro.Directive.environmentDirectives) { directive in
-                                    Button(directive.details.buttonLabel ?? directive.details.label) {
-                                        appState.editor.command = .insertDirective(directive: directive)
-                                        showEnvironment.toggle()
-                                    }
-                                    .flat()
-                                    .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
-                                }
-                            }
-                        Text("more...")
-                            .style(.editorButton)
-                            .padding(5)
-                            .onClick {
-                                showMore.toggle()
-                            }
-                            .popover(visible: $showMore) {
-                                Button("Comment") {
-                                    appState.editor.command = .insertDirective(directive: .comment)
-                                    showMore.toggle()
+                HStack {
+                    Text("Metadata")
+                        .style(.editorButton)
+                        .padding(5)
+                        .onClick {
+                            showMetadata.toggle()
+                        }
+                        .popover(visible: $showMetadata) {
+                            ForEach(ChordPro.Directive.metadataDirectives) { directive in
+                                Button(directive.details.label) {
+                                    appState.editor.command = .insertDirective(directive: directive)
+                                    showMetadata.toggle()
                                 }
                                 .flat()
+                                .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
                             }
-                    }
-                    .halign(.center)
-                    Separator()
-                    ScrollView {
-                        SourceView(bridge: $appState.editor)
-                            .innerPadding(10, edges: .all)
-                            .lineNumbers(appState.settings.editor.showLineNumbers)
-                            .language(.chordpro)
-                            .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
-                            .highlightCurrentLine(true)
-                            .vexpand()
-                    }
-                    Separator()
-                    lineInfo
+                        }
+                    Text("Environment")
+                        .style(.editorButton)
+                        .padding(5)
+                        .onClick {
+                            showEnvironment.toggle()
+                        }
+                        .popover(visible: $showEnvironment) {
+                            ForEach(ChordPro.Directive.environmentDirectives) { directive in
+                                Button(directive.details.buttonLabel ?? directive.details.label) {
+                                    appState.editor.command = .insertDirective(directive: directive)
+                                    showEnvironment.toggle()
+                                }
+                                .flat()
+                                .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
+                            }
+                        }
+                    Text("more...")
+                        .style(.editorButton)
+                        .padding(5)
+                        .onClick {
+                            showMore.toggle()
+                        }
+                        .popover(visible: $showMore) {
+                            Button("Comment") {
+                                appState.editor.command = .insertDirective(directive: .comment)
+                                showMore.toggle()
+                            }
+                            .flat()
+                            Button("Define a Chord") {
+                                appState.scene.showDefineChordDialog.toggle()
+                                showMore.toggle()
+                            }
+                            .flat()
+                        }
                 }
-                .card()
-                .padding()
+                .halign(.center)
+                Separator()
+                ScrollView {
+                    SourceView(bridge: $appState.editor)
+                        .innerPadding(10, edges: .all)
+                        .lineNumbers(appState.settings.editor.showLineNumbers)
+                        .language(.chordpro)
+                        .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
+                        .highlightCurrentLine(true)
+                        .vexpand()
+                }
+                Separator()
+                lineInfo
+            }
+            .card()
+            .padding()
+            .dialog(visible: $appState.scene.showDefineChordDialog) {
+                Views.DefineChord(appState: $appState)
             }
         }
         @ViewBuilder

@@ -11,7 +11,20 @@ extension Chord {
 
     /// All the chord qualities we know about
     /// - Note: Changes to the raw value might break the databases
-    public enum Quality: String, CaseIterable, Codable, Comparable, Sendable {
+    public enum Quality: String, CaseIterable, Codable, Comparable, Sendable, Identifiable, CustomStringConvertible {
+
+        /// Identifiable protocol
+        public var id: Self { self }
+        
+        /// CustomStringConvertible protocol
+        public var description: String {
+            switch self {
+            case .major:
+                "major"
+            default:
+                self.rawValue
+            }
+        }
 
         /// Fallback
         case unknown = "All Qualities"

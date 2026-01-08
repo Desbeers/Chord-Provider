@@ -19,7 +19,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     /// The finger positions of the chord
     public var fingers: [Int]
     /// The base fret of the chord
-    public var baseFret: Int
+    public var baseFret: Chord.BaseFret
     /// The root of the chord
     public var root: Chord.Root
     /// The quality of the chord

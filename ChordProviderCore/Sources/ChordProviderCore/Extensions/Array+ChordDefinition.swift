@@ -40,7 +40,7 @@ extension Array where Element == ChordDefinition {
     /// Find all chord definitions matching a base fret
     /// - Parameter baseFret: The base fret
     /// - Returns: All matching chord definitions
-    public func matching(baseFret: Int) -> [ChordDefinition] {
+    public func matching(baseFret: Chord.BaseFret) -> [ChordDefinition] {
         return self.filter { $0.baseFret == baseFret }
     }
 

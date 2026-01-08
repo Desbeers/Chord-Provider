@@ -24,6 +24,8 @@ struct AppState {
         if let settings = try? SettingsCache.get(id: "ChordProviderGnome", struct: AppSettings.self) {
             print("Loaded settings")
             self.settings = settings
+            /// Restore settings
+            self.editor.song.settings = self.settings.app.core
         } else {
             print("No settings found, creating new one")
         }
@@ -50,7 +52,9 @@ struct AppState {
                 self.styleState.pointee.editor_font_size = Int32(self.settings.editor.fontSize.rawValue)
                 self.styleState.pointee.zoom = self.settings.app.zoom
             }
+            //// Save the settings
             if settings != oldValue {
+                print("Save Settings")
                 try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)
             }
         }
@@ -86,7 +90,18 @@ struct AppState {
     }
 
     /// The source view bridge
-    var editor = SourceViewBridge(song: Song(id: UUID(), content: ""))
+    var editor = SourceViewBridge(song: Song(id: UUID(), content: "")) {
+        didSet {
+            if editor.song.settings != oldValue.song.settings {
+                self.settings.app.core = self.editor.song.settings
+//                /// Save shared settings
+//                self.settings.app.core.lyricsOnly = self.editor.song.settings.lyricsOnly
+//                self.settings.app.core.repeatWholeChorus = self.editor.song.settings.repeatWholeChorus
+//                self.settings.app.core.diagram.showNotes = self.editor.song.settings.diagram.showNotes
+//                self.settings.app.core.diagram.mirror = self.editor.song.settings.diagram.mirror
+            }
+        }
+    }
 
     /// The subtitle of the `Scene`
     var subtitle: String {
