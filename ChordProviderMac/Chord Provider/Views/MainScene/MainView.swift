@@ -110,12 +110,6 @@ struct MainView: View {
                 await renderSong()
             }
         }
-        .onChange(of: appState.settings.chordProCLI) {
-            sceneState.settings.chordProCLI = appState.settings.chordProCLI
-            Task {
-                await renderSong()
-            }
-        }
         .onChange(of: appState.settings.pdf) {
             sceneState.settings.pdf = appState.settings.pdf
             Task {

@@ -107,8 +107,6 @@ extension LogUtils {
     public enum Category: String, Sendable, Codable {
         /// Song Parser
         case songParser = "Song Parser"
-        /// ChordPro CLI Parser
-        case chordProCliParser = "ChordPro CLI Parser"
         /// Application
         case application = "Application"
         /// PDF Generator

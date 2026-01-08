@@ -20,8 +20,6 @@ struct AppSettings: Equatable, Codable, Sendable {
     var midi = MidiPlayer()
     /// The options for the ``ChordProEditor``
     var editor: Editor.Settings = .init()
-    /// Settings for the official **ChordPro** CLI integration
-    var chordProCLI: ChordProCLI = .init()
     /// Settings for the colors and fonts for displaying a song
     var style: Style = .init() {
         didSet {

@@ -63,61 +63,21 @@ extension SettingsView {
                     }
                 }
                 .wrapSettingsSection(title: "PDF Options")
-                VStack(alignment: .leading) {
-                    Toggle(isOn: $appState.settings.chordProCLI.useChordProCLI) {
-                        Text("Use the official ChordPro to create a PDF")
-                        Text("When enabled, PDF's will be rendered with the official ChordPro reference implementation.")
-                    }
-                    if appState.settings.chordProCLI.useChordProCLI {
-                        Toggle(isOn: $appState.settings.chordProCLI.useChordProviderSettings) {
-                            Text("Use the **Chord Provider** settings")
-                            Text("When enabled, some style and options from the settings will be used by the CLI.")
-                        }
-                        Toggle(isOn: $appState.settings.chordProCLI.useCustomConfig) {
-                            Text("Use a custom ChordPro configuration")
-                            Text("When enabled, ChordPro will use your own configuration.")
-                        }
-                        .disabled(!appState.settings.chordProCLI.useChordProCLI)
-                        UserFileButton(
-                            userFile: UserFileUtils.Selection.customChordProConfig
-                        ) {}
-                            .frame(maxWidth: .infinity)
-                            .disabled(!appState.settings.chordProCLI.useCustomConfig)
-                        VStack(alignment: .leading) {
-                            Toggle(isOn: $appState.settings.chordProCLI.useAdditionalLibrary) {
-                                Text("Add a custom library")
-                                // swiftlint:disable:next line_length
-                                Text("**ChordPro** has a built-in library with configs and other data. With *custom library* you can add an additional location where to look for data.")
-                            }
-                            .disabled(!appState.settings.chordProCLI.useChordProCLI)
-                        }
-                        UserFileButton(
-                            userFile: UserFileUtils.Selection.customChordProLibrary
-                        ) {}
-                            .frame(maxWidth: .infinity)
-                            .disabled(!appState.settings.chordProCLI.useAdditionalLibrary)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .wrapSettingsSection(title: "ChordPro CLI Integration")
-                .padding(.bottom)
             }
             .animation(.default, value: appState.settings.pdf.pageSize)
-            .animation(.default, value: appState.settings.chordProCLI.useChordProCLI)
             .formStyle(.columns)
             .frame(maxHeight: .infinity, alignment: .top)
             Divider()
             Button(
                 action: {
                     appState.settings.pdf = AppSettings.PDF()
-                    appState.settings.chordProCLI.useChordProCLI = false
                 },
                 label: {
                     Text("Reset to defaults")
                 }
             )
             .padding()
-            .disabled(appState.settings.pdf == AppSettings.PDF() && appState.settings.chordProCLI.useChordProCLI == false)
+            .disabled(appState.settings.pdf == AppSettings.PDF())
         }
     }
 }

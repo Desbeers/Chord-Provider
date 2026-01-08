@@ -303,7 +303,7 @@ extension SceneStateModel {
                             }
                         },
                         label: {
-                            Text("\(instrument.stringName[fret].display)")
+                            Text("\(instrument.stringNames[fret].display)")
                                 .font(.title3)
                         }
                     )
@@ -343,7 +343,7 @@ extension SceneStateModel {
                             }
                         },
                         label: {
-                            Text("\(instrument.stringName[finger].display)")
+                            Text("\(instrument.stringNames[finger].display)")
                                 .font(.title3)
                         }
                     )

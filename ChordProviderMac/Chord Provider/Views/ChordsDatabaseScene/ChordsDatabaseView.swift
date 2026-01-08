@@ -140,8 +140,7 @@ struct ChordsDatabaseView: View {
             if chordsDatabaseState.showExportSheet {
                 do {
                     chordsDatabaseState.exportData = try ChordUtils.exportToJSON(
-                        definitions: chordsDatabaseState.allChords,
-                        uniqueNames: false
+                        definitions: chordsDatabaseState.allChords
                     )
                 } catch {
                     LogUtils.shared.setLog(

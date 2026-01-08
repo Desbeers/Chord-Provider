@@ -36,28 +36,11 @@ public enum ChordUtils {
     /// Import a definition database from a JSON database file
     private static func importInstrument( _ instrument: Chord.Instrument) -> [ChordDefinition] {
         let database = Bundle.module.decode(ChordPro.Instrument.self, from: instrument.database)
-        return importDatabase(database: database, instrument: instrument)
-    }
-
-    /// Import a database with chord definitions
-    /// - Parameter database: The ``ChordPro/Instrument`` to import
-    /// - Parameter instrument: The ``Chord/Instrument`` to use
-    /// - Returns: An array of ``ChordDefinition``
-    static func importDatabase(database: ChordPro.Instrument, instrument: Chord.Instrument) -> [ChordDefinition] {
         var definitions: [ChordDefinition] = []
         /// Get all chord definitions
-        for chord in database.chords where chord.copy == nil {
+        for chord in database.chords {
             if let result = ChordDefinition(chord: chord, instrument: instrument) {
                 definitions.append(result)
-            }
-        }
-        /// Get all copies of chord definitions
-        for chord in database.chords where chord.copy != nil {
-            if var copy = definitions.first(where: { $0.name == chord.copy }) {
-                copy.name = chord.name
-                copy.root = copy.root.swapSharpForFlat
-                copy.id = UUID()
-                definitions.append(copy)
             }
         }
         return definitions.sorted(
@@ -70,9 +53,8 @@ public enum ChordUtils {
     /// Export the definitions to a JSON string
     /// - Parameters:
     ///   - definitions: The chord definitions
-    ///   - uniqueNames: Bool if the chord name should be unique, so one chord for each name
     /// - Returns: A JSON string with chord definitions in **ChordPro** format
-    public static func exportToJSON(definitions: [ChordDefinition], uniqueNames: Bool) throws -> String {
+    public static func exportToJSON(definitions: [ChordDefinition]) throws -> String {
         guard
             /// The first definition is needed to find the instrument
             let instrument = definitions.first?.instrument
@@ -86,8 +68,7 @@ public enum ChordUtils {
                 display: chord.name == chord.display ? nil : chord.display,
                 base: chord.baseFret.rawValue,
                 frets: chord.frets,
-                fingers: chord.fingers,
-                copy: nil
+                fingers: chord.fingers
             )
         }
         let flats = definitions.filter { $0.root.accidental == .sharp }
@@ -106,8 +87,7 @@ public enum ChordUtils {
                 display: copy.name == copy.display ? nil : copy.display,
                 base: copy.baseFret.rawValue,
                 frets: copy.frets,
-                fingers: copy.fingers,
-                copy: nil
+                fingers: copy.fingers
             )
         }
         chords.sort(
@@ -123,8 +103,7 @@ public enum ChordUtils {
                 type: instrument.rawValue
             ),
             tuning: instrument.tuning,
-            chords: uniqueNames ? chords.uniqued(by: \.name) : chords,
-            pdf: .init(diagrams: .init(vcells: 6))
+            chords: chords
         )
 
         let encoder = JSONEncoder()

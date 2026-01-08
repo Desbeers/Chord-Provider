@@ -137,17 +137,3 @@ extension ChordDefinition {
         self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
     }
 }
-
-extension ChordDefinition {
-
-    var chordProJSON: ChordPro.Instrument.Chord {
-        ChordPro.Instrument.Chord(
-            name: name,
-            display: display,
-            base: baseFret.rawValue,
-            frets: frets,
-            fingers: fingers,
-            copy: nil
-        )
-    }
-}

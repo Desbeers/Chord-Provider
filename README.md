@@ -46,12 +46,6 @@ I consider to drop it...
 - It has a *database* with a lot of chords.
 - *left-handed* chords support
 
-### Optional use the **ChordPro CLI reference implementation** for PDF creation
-
-The [official reference implementation](https://www.chordpro.org/) of the **ChordPro** format is *much* more powerful to create PDF's.
-
-If you have the CLI utility installed on your system, **Chord Provider** can optional use it for creating PDF's.
-
 ### A *true* macOS application
 
 - It has a *quicklook* plugin for **ChordPro** files. Select a song in the *Finder* and press `space`.

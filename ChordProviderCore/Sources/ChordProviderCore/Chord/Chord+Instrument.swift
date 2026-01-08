@@ -48,7 +48,7 @@ extension Chord.Instrument {
         var tuning: [String] = []
         for string in strings {
             let octave = ((offset[string] + 41) / 12) - 1
-            tuning.append("\(stringName[string].display)\(octave)")
+            tuning.append("\(stringNames[string].display)\(octave)")
         }
         return tuning
     }
@@ -62,8 +62,8 @@ extension Chord.Instrument {
             [0, 1, 2, 3, 4, 5]
         }
     }
-    /// The name of the strings
-    public var stringName: [Chord.Root] {
+    /// The names of the strings
+    public var stringNames: [Chord.Root] {
         switch self {
         case .guitar:
             [.e, .a, .d, .g, .b, .e]

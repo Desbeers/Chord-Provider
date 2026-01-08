@@ -83,7 +83,7 @@ ready.
                                 let basic = output.map(\.code).joined(separator: "\n")
                                 try? basic.write(to: song.metadata.basicURL, atomically: true, encoding: String.Encoding.utf8)
                                 let command = "petcat -w2 -nc -o ~/Desktop/song.prg -- '\(song.metadata.basicURL.path)'"
-                                _ = await ChordProCLI.runInShell(arguments: [command])
+                                _ = await TerminalUtils.runInShell(arguments: [command])
                             }
                         }
                     } label: {
@@ -95,9 +95,9 @@ ready.
                                 let basic = output.map(\.code).joined(separator: "\n")
                                 try? basic.write(to: song.metadata.basicURL, atomically: true, encoding: String.Encoding.utf8)
                                 let convert = "petcat -w2 -nc -o '\(song.metadata.basicProgramURL.path)' -- '\(song.metadata.basicURL.path)'"
-                                _ = await ChordProCLI.runInShell(arguments: [convert])
+                                _ = await TerminalUtils.runInShell(arguments: [convert])
                                 let command = "x64 -autostart '\(song.metadata.basicProgramURL.path)' &&"
-                                _ = await ChordProCLI.runInShell(arguments: [command])
+                                _ = await TerminalUtils.runInShell(arguments: [command])
                             }
                         }
                     } label: {

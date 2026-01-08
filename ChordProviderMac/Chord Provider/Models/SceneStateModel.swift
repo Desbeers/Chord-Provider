@@ -54,40 +54,20 @@ import ChordProviderCore
 
     /// Export the song to a PDF
     func exportSongToPDF() async throws -> Data {
-        switch settings.chordProCLI.useChordProCLI {
-        case false:
-            /// Default renderer
-            do {
-                let export = try await SongExport.export(
-                    song: song,
-                    settings: settings
-                )
-                try export.pdf.write(to: song.metadata.exportURL)
-                return export.pdf
-            } catch {
-                LogUtils.shared.setLog(
-                    level: .error,
-                    category: .pdfGenerator,
-                    message: "PDF error: \(error.localizedDescription)"
-                )
-                throw error
-            }
-        case true:
-            /// ChordPro CLI renderer
-            do {
-                let export = try await ChordProCLI.exportPDF(
-                    song: self.song,
-                    settings: settings
-                )
-                return export.data
-            } catch {
-                LogUtils.shared.setLog(
-                    level: .error,
-                    category: .chordProCliParser,
-                    message: "ChordPro CLI error: \(error.localizedDescription)"
-                )
-                throw error
-            }
+        do {
+            let export = try await SongExport.export(
+                song: song,
+                settings: settings
+            )
+            try export.pdf.write(to: song.metadata.exportURL)
+            return export.pdf
+        } catch {
+            LogUtils.shared.setLog(
+                level: .error,
+                category: .pdfGenerator,
+                message: "PDF error: \(error.localizedDescription)"
+            )
+            throw error
         }
     }
 

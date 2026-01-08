@@ -85,33 +85,29 @@ extension ChordDefinition {
     /// - Parameters:
     ///   -  chord: A **ChordPro** JSON chord
     ///   - instrument: The ``Chord/Instrument`` to use
-    /// - Throws: An ``ChordDefinition/Status/chordIsCopy`` error when the chord is a copy of another chord
+    /// - Throws: An error when the root and quality is not found
     /// - Returns: A  ``ChordDefinition`` structure
     ///
     /// - Note: The chords in the  **Chord Provider** database are in the same JSON format as used in the official **ChordPro** implementation.
     static func define(from chord: ChordPro.Instrument.Chord, instrument: Chord.Instrument) throws -> ChordDefinition {
-        if chord.copy == nil {
-            let elements = ChordUtils.Analizer.findChordElements(chord: chord.name)
-            guard
-                let root = elements.root,
-                let quality = elements.quality
-            else {
-                throw ChordDefinition.Status.unknownChord
-            }
-            let chordDefinition = ChordDefinition(
-                id: UUID(),
-                name: chord.name,
-                frets: chord.frets ?? [],
-                fingers: chord.fingers ?? [],
-                baseFret: Chord.BaseFret(rawValue: chord.base ?? 1) ?? .one,
-                root: root,
-                quality: quality,
-                slash: elements.slash,
-                instrument: instrument
-            )
-            return chordDefinition
-        } else {
-            throw ChordDefinition.Status.chordIsCopy
+        let elements = ChordUtils.Analizer.findChordElements(chord: chord.name)
+        guard
+            let root = elements.root,
+            let quality = elements.quality
+        else {
+            throw ChordDefinition.Status.unknownChord
         }
+        let chordDefinition = ChordDefinition(
+            id: UUID(),
+            name: chord.name,
+            frets: chord.frets ?? [],
+            fingers: chord.fingers ?? [],
+            baseFret: Chord.BaseFret(rawValue: chord.base ?? 1) ?? .one,
+            root: root,
+            quality: quality,
+            slash: elements.slash,
+            instrument: instrument
+        )
+        return chordDefinition
     }
 }

@@ -13,8 +13,6 @@ struct SettingsView: View {
     @Environment(FileBrowserModel.self) var fileBrowser
     /// The observable state of the application
     @Environment(AppStateModel.self) var appState
-    /// Bool if **ChordPro CLI** is available
-    @State var haveChordProCLI: Bool = false
     /// Sort tokens
     @State var sortTokens: String = ""
     /// JSON export string
@@ -48,21 +46,6 @@ struct SettingsView: View {
             }
         }
         .errorAlert(message: $errorAlert)
-        .task {
-            haveChordProCLI = await checkChordProCLI()
-        }
-    }
-}
-
-extension SettingsView {
-
-    /// Check if the **ChordPro** cli is found in the $PATH
-    /// - Returns: True or false
-    func checkChordProCLI() async -> Bool {
-        if (try? await ChordProCLI.getChordProBinary()) != nil {
-            return true
-        }
-        return false
     }
 }
 
