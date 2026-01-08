@@ -126,6 +126,9 @@ extension ChordPro.Directive {
             .subtitle,
             .comment,
             .define,
+            .defineGuitar,
+            .defineGuitalele,
+            .defineUkulele,
             .image
         ]
     }

@@ -59,7 +59,7 @@ struct EditorView: View {
                 if sceneState.editorInternals.clickedDirective {
                     /// Show the sheet
                     switch sceneState.editorInternals.currentLine.directive {
-                    case .define:
+                    case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
                         if validateChordDefinition() {
                             editDirective = sceneState.editorInternals.currentLine.directive
                         }

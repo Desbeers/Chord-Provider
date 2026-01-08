@@ -71,13 +71,19 @@ extension Views {
                             showMore.toggle()
                         }
                         .popover(visible: $showMore) {
-                            Button("Comment") {
+                            Button("Insert Comment") {
                                 appState.editor.command = .insertDirective(directive: .comment)
                                 showMore.toggle()
                             }
                             .flat()
+                            Separator()
                             Button("Define a Chord") {
                                 appState.scene.showDefineChordDialog.toggle()
+                                showMore.toggle()
+                            }
+                            .flat()
+                            Button("Add all Chord Definitions") {
+                                appState.editor.command = .appendText(text: appState.editor.song.definitions)
                                 showMore.toggle()
                             }
                             .flat()

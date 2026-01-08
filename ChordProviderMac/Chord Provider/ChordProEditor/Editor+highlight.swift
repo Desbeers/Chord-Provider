@@ -25,7 +25,9 @@ extension Editor {
     /// The regex for grid
     static let gridRegex = try! NSRegularExpression(pattern: "(?<=^|\\n)(\\|[^\\n]*)")
     /// The regex for directives
-    static let directiveRegex = try! NSRegularExpression(pattern: "\\{(\\w+):?([^\\}\\n]+)?(?:\\}|\\n)")
+    static let directiveRegex = try! NSRegularExpression(
+        pattern: "\\{([\\w-]+):?([^\\}\\n]+)?(?:\\}|\\n)"
+    )
     /// The regex for comments
     static let commentsRegex = try! NSRegularExpression(pattern: "(?<=^|\\n)(#[^\\n]*)")
     /// The regex for markup

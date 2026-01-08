@@ -71,7 +71,7 @@ extension ChordUtils {
             }
             /// Check notes
             for combination in combinations {
-                if notes.contains(combination.map(\.note)) {
+                if notes.uniqued(by: \.id).sorted().contains(combination.map(\.note).sorted()) {
                     return .correct
                 }
             }

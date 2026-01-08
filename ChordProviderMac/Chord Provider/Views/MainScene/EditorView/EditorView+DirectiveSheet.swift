@@ -28,7 +28,7 @@ extension EditorView {
                     Items(items: [.label, .src, .width, .height, .scale, .align], directive: directive)
                 case .key:
                     Items(items: [.key], directive: directive)
-                case .define:
+                case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
                     Items(items: [.define], directive: directive)
                 case .tempo:
                     Items(items: [.numeric], directive: directive, start: 60, end: 240, suffix: " bpm")

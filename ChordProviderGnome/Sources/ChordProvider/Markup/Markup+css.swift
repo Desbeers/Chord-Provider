@@ -283,6 +283,12 @@ gutterrenderer {
     padding-right: 4px;
 }
 
+popover button {
+    font-size: 10px;
+    padding: 2px 8px;
+    font-weight: normal;
+}
+
 /* Define Chord */
 
 toggle-group .toggle {
