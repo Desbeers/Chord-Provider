@@ -54,8 +54,8 @@ extension Views {
                         Text(definition.getName)
                             .style(.title)
                         diagramView()
-                        if let elements = ChordUtils.getChordComponents(chord: definition).first {
-                            let text = "<b>\(definition.display)</b> contains <b>\(elements.map(\.display).joined(separator: " "))</b>"
+                        if let elements = definition.noteCombinations.first {
+                            let text = "<b>\(definition.display)</b> contains \(elements.map { $0.required ? "<b>\($0.note.display)</b>" : $0.note.display } .joined(separator: " "))"
                             Text(text)
                                 .useMarkup()
                             Text(getDefinition().validate.description)

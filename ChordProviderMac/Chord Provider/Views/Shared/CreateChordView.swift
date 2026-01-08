@@ -18,7 +18,7 @@ struct CreateChordView: View {
     /// The chord diagram
     @State private var diagram: ChordDefinition?
     /// The chord components result
-    @State private var chordComponents: [[Chord.Root]] = []
+    @State private var chordCombinations: [[Chord.Note]] = []
     /// The body of the `View`
     var body: some View {
         VStack {
@@ -67,12 +67,12 @@ struct CreateChordView: View {
                     diagramView(width: 180)
                     Label(
                         title: {
-                            if let components = chordComponents.first {
+                            if let combinations = chordCombinations.first {
                                 HStack {
                                     Text("**\(sceneState.definition.display)** contains")
-                                    ForEach(components, id: \.self) { element in
-                                        Text(element.display)
-                                            .fontWeight(checkRequiredNote(note: element) ? .bold : .regular)
+                                    ForEach(combinations, id: \.self) { element in
+                                        Text(element.note.display)
+                                            .fontWeight(element.required ? .bold : .regular)
                                     }
                                 }
                             }
@@ -118,7 +118,7 @@ struct CreateChordView: View {
                 status: .standardChord
             )
             self.diagram = diagram
-            chordComponents = ChordUtils.getChordComponents(chord: diagram)
+            chordCombinations = diagram.noteCombinations
         }
     }
 
@@ -134,22 +134,6 @@ struct CreateChordView: View {
         } else {
             ProgressView()
         }
-    }
-
-    /// Check if a note is required for a chord
-    ///
-    /// The first array of the `chordComponents` contains all notes
-    ///
-    /// The last array of the `chordComponents` contains the least notes
-    ///
-    /// - Parameter note: The note to check
-    /// - Returns: True or False
-    func checkRequiredNote(note: Chord.Root) -> Bool {
-        if let first = chordComponents.first, let last = chordComponents.last {
-            let omitted = first.filter { !last.contains($0) }
-            return omitted.contains(note) ? false : true
-        }
-        return true
     }
 
     /// The header `View`

@@ -216,8 +216,8 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Picker("Base fret:", selection: $sceneState.definition.baseFret) {
-                ForEach(1...20, id: \.self) { value in
-                    Text(fretLabel(fret: value))
+                ForEach(Chord.BaseFret.allCases, id: \.self) { value in
+                    Text(value.description)
                         .tag(value)
                 }
             }

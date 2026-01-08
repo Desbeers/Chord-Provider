@@ -62,6 +62,15 @@ extension ChordDefinition {
 
 extension ChordDefinition {
 
+    /// Get all possible note combinations for a ``ChordDefinition``
+    /// - Returns: An array with ``Chord/Note`` arrays
+    public var noteCombinations: [[Chord.Note]] {
+        ChordUtils.Analizer.noteCombinations(chord: self)
+    }
+}
+
+extension ChordDefinition {
+
     /// Convert a ``ChordDefinition`` into a **ChordPro** `{define}`
     public var define: String {
         var define = root.rawValue

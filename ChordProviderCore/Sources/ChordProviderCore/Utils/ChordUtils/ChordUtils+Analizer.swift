@@ -38,9 +38,6 @@ extension ChordUtils {
         /// - Parameter chord: The ``ChordDefinition``
         /// - Returns: The ``ChordDefinition/Status`` of the chord definition
         static func validateChord(chord: ChordDefinition) -> ChordDefinition.Status {
-
-            //dump(chord.components)
-
             if chord.quality == .unknown {
                 return .wrongNotes
             }
@@ -50,8 +47,8 @@ extension ChordUtils {
             }
             /// Get all chord notes
             let notes = chord.components.filter { $0.note != .none } .uniqued(by: \.note).map(\.note)
-            /// Get all component combinations
-            let components = ChordUtils.getChordComponents(chord: chord)
+            /// Get all note combinations
+            let combinations = chord.noteCombinations
             /// Check slash note
             if let slash = chord.slash {
                 if ChordUtils.noteToValue(note: baseNote) != ChordUtils.noteToValue(note: slash) {
@@ -72,12 +69,45 @@ extension ChordUtils {
                     return .missingFingers
                 }
             }
-            /// Check if we have a match
-            for component in components where component.values == notes.values {
-                return .correct
+            /// Check notes
+            for combination in combinations {
+                if notes.contains(combination.map(\.note)) {
+                    return .correct
+                }
             }
             /// No match found
             return .wrongNotes
+        }
+
+        /// Get all possible note combinations for a ``ChordDefinition``
+        /// - Returns: An array with ``Chord/Note`` arrays
+        static func noteCombinations(chord: ChordDefinition) -> [[Chord.Note]] {
+            /// All the possible note combinations
+            var allNoteCombinations: [[Chord.Note]] = []
+
+            /// Get the root note value
+            let rootValue = ChordUtils.noteToValue(note: chord.root)
+            /// Get all notes
+            let notes = chord.quality.intervals.intervals.map(\.semitones).map { tone in
+                ChordUtils.valueToNote(value: tone + rootValue, scale: chord.root)
+            }
+            /// Get a list of optional notes that can be omitted
+            let optionals = chord.quality.intervals.optional.map(\.semitones).map { tone in
+                ChordUtils.valueToNote(value: tone + rootValue, scale: chord.root)
+            }.combinationsWithoutRepetition
+            /// Make a list with all optionals
+            let optionalList = optionals.last ?? []
+            /// Make all combinations
+            for optional in optionals {
+                var components = notes.filter { !optional.contains($0) }
+                /// Add the optional slash bass
+                if let slash = chord.slash, !components.values.contains(slash.value) {
+                    components.insert(slash, at: 0)
+                }
+                allNoteCombinations.append(components.map { Chord.Note(note: $0, required: !optionalList.contains($0)) })
+            }
+            /// Return the result
+            return allNoteCombinations
         }
     }
 }

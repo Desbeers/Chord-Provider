@@ -228,33 +228,4 @@ public enum ChordUtils {
         /// Return the fingers that should be barred
         return barres.isEmpty ? nil : barres
     }
-
-    /// Get all possible chord notes for a ``ChordDefinition``
-    /// - Parameters chord: The ``ChordDefinition``
-    /// - Returns: An array with ``Chord/Root`` arrays
-    public static func getChordComponents(chord: ChordDefinition) -> [[Chord.Root]] {
-        /// All the possible note combinations
-        var result: [[Chord.Root]] = []
-        /// Get the root note value
-        let rootValue = noteToValue(note: chord.root)
-        /// Get all notes
-        let notes = chord.quality.intervals.intervals.map(\.semitones).map { tone in
-            valueToNote(value: tone + rootValue, scale: chord.root)
-        }
-        /// Get a list of optional notes that can be omitted
-        let optionals = chord.quality.intervals.optional.map(\.semitones).map { tone in
-            valueToNote(value: tone + rootValue, scale: chord.root)
-        }.combinationsWithoutRepetition
-        /// Make all combinations
-        for optional in optionals {
-            var components = notes.filter { !optional.contains($0) }
-            /// Add the optional slash bass
-            if let slash = chord.slash, !components.values.contains(slash.value) {
-                components.insert(slash, at: 0)
-            }
-            result.append(components)
-        }
-        /// Return the result
-        return result
-    }
 }
