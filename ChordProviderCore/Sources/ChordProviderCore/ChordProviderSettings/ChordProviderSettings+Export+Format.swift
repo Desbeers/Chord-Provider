@@ -10,7 +10,6 @@ import Foundation
 extension ChordProviderSettings.Export {
 
     public enum Format: String, Equatable, Codable, Sendable {
-        case html
         case json
         case chordPro = "chordpro"
         case pdf

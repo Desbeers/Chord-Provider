@@ -141,8 +141,6 @@ extension SceneStateModel {
         case standard
         /// PDF View
         case pdf
-        /// HTML View
-        case html
         /// Animating
         case animating
     }

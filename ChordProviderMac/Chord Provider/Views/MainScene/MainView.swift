@@ -7,7 +7,6 @@
 
 import SwiftUI
 import ChordProviderCore
-import ChordProviderHTML
 
 /// SwiftUI `View` for the main content
 struct MainView: View {
@@ -218,8 +217,6 @@ struct MainView: View {
             case .pdf:
                 PreviewPaneView()
                     .transition(.move(edge: .trailing))
-            case .html:
-                HtmlView(song: sceneState.song, settings: appState.settings)
             case .animating:
                 progress
             }

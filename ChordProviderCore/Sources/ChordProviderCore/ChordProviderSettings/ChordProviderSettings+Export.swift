@@ -10,6 +10,6 @@ import Foundation
 extension ChordProviderSettings {
 
     public struct Export: Equatable, Codable, Sendable {
-        public var format: Format = .html
+        public var format: Format = .chordPro
     }
 }
