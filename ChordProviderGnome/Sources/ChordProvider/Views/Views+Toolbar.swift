@@ -104,6 +104,12 @@ extension Views.Toolbar {
                     .tooltip("Main Menu")
                 }
             }
+            .headerBarTitle {
+                WindowTitle(
+                    subtitle: appState.subtitle,
+                    title: "Chord Provider"
+                )
+            }
         }
     }
 }

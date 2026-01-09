@@ -10,6 +10,7 @@ import Adwaita
 
 
 extension Chord.Instrument: @retroactive ViewSwitcherOption {
+
     /// Conform to `ViewSwitcherOption` by adding a title
     public var title: String {
         self.description
@@ -21,6 +22,7 @@ extension Chord.Instrument: @retroactive ViewSwitcherOption {
 }
 
 extension Chord.Root: @retroactive ToggleGroupItem {
+
     /// Conform to `ToggleGroupItem` by adding an icon
     public var icon: Adwaita.Icon? {
         nil
