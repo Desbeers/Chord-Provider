@@ -45,7 +45,7 @@ extension Views {
             ForEach(tags, horizontal: horizontal) { tag in
                 Text(tag.content)
                     .useMarkup()
-                    .style(.tagLabel)
+                    .style(horizontal ? .tagLabel : .none)
                     .padding(5)
             }
         }

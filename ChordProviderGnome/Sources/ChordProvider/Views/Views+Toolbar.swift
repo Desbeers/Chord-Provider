@@ -139,6 +139,7 @@ extension Views.Toolbar {
                         SearchEntry()
                             .text($search)
                             .placeholderText("Search")
+                            .transition(.crossfade)
                     }
                     Menu(icon: .default(icon: .openMenu)) {
                         Shared(app: app, window: window, appState: $appState)

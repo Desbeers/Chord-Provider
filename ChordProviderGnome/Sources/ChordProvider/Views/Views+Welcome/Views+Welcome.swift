@@ -20,16 +20,20 @@ extension Views {
         /// The state of the application
         @Binding var appState: AppState
         /// The artist browser
-        @State private var artists: [SongFileUtils.Artist] = []
+        @State var artists: [SongFileUtils.Artist] = []
         /// The song browser
-        @State private var songs: [Song] = []
+        @State var songs: [Song] = []
+        /// The tags browser
+        @State var tags: [String.ElementWrapper] = []
         /// The loading state
         /// - Note: For the song browser
-        @State private var loadingState: Views.LoadingState = .loading
+        @State var loadingState: Views.LoadingState = .loading
         /// The tab to show
         @State private var welcomeTab: WelcomeTab = .mySongs
         /// The optional search string
-        @State private var search: String = ""
+        @State var search: String = ""
+        /// The selected tag
+        @State var selectedTab: String.ElementWrapper.ID = .init()
 
         // MARK: Main View
 
@@ -70,8 +74,9 @@ extension Views {
                         values: WelcomeTab.allCases
                     )
                     switch welcomeTab {
-                    case .recentSongs: recentSongs
                     case .mySongs: mySongs
+                    case .myTags: myTags
+                    case .recentSongs: recentSongs
                     }
                     HStack {
                         switch welcomeTab {
@@ -85,7 +90,7 @@ extension Views {
                                     .hexpand()
                                 }
                             }
-                        case .mySongs:
+                        case .mySongs, .myTags:
                             HStack {
                                 let folder = appState.settings.app.songsFolder?.lastPathComponent
                                 Button(folder ?? "Select Folder", icon: .default(icon: .folder)) {
@@ -134,108 +139,12 @@ extension Views {
     }
 }
 
-extension Views.Welcome {
-
-    // MARK: Recent Songs View
-
-    /// The `View` with **Recent** songs
-    @ViewBuilder var recentSongs: Body {
-        VStack(spacing: 20) {
-            ScrollView {
-                if appState.getRecentSongs().isEmpty {
-                    StatusPage(
-                        "No recent songs",
-                        icon: .default(icon: .folderMusic),
-                        description: "You have no recent songs."
-                    )
-                    .frame(minWidth: 350)
-                } else {
-                    VStack(spacing: 10) {
-                        ForEach(appState.getRecentSongs()) { recent in
-                            openButton(fileURL: recent.url, song: recent.song)
-                        }
-                    }
-                    .halign(.center)
-                    .padding()
-                }
-            }
-            .card()
-            .vexpand()
-        }
-    }
-}
+// MARK: Helper functions
 
 extension Views.Welcome {
 
-    // MARK: - My Songs View
+    // MARK: Get folder content
 
-    /// The `View` with *My Songs* content
-    @ViewBuilder var mySongs: Body {
-        VStack {
-            ScrollView {
-                HStack {
-                    if loadingState != .loaded {
-                        StatusPage(
-                            loadingState == .error ? "No folder selected." : "Loading songs",
-                            icon: .default(icon: .folderMusic),
-                            description: loadingState == .error ? "You have not selected a folder with your songs." : "One moment..."
-                        )
-                        .frame(minWidth: 350)
-                        .transition(.crossfade)
-                    } else if search.isEmpty {
-                        FlowBox(artists) { artist in
-                            VStack {
-                                Text(artist.name)
-                                    .style(.subtitle)
-                                    .halign(.start)
-                                Separator()
-                                VStack {
-                                    ForEach(artist.songs) { song in
-                                        if let url = song.settings.fileURL {
-                                            openButton(fileURL: url, song: song, songTitleOnly: true)
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        .rowSpacing(10)
-                        .columnSpacing(10)
-                        .transition(.crossfade)
-                    } else {
-                        let result = songs.filter { $0.search.localizedCaseInsensitiveContains(search) }
-                        if result.isEmpty {
-                            StatusPage(
-                                "No songs found",
-                                icon: .default(icon: .systemSearch),
-                                description: "Oops! We couldn't find any songs that match your search."
-                            )
-                            .frame(minWidth: 350)
-                            .transition(.crossfade)
-                        } else {
-                            VStack(spacing: 10) {
-                                ForEach(result) { song in
-                                    if let fileURL = song.settings.fileURL {
-                                        openButton(fileURL: fileURL, song: song)
-                                    }
-                                }
-                            }
-                            .transition(.crossfade)
-                        }
-                    }
-                }
-                .halign(.center)
-                .padding()
-            }
-            .card()
-            .vexpand()
-        }
-    }
-}
-
-// MARK: - Helper functions
-
-extension Views.Welcome {
-    
     /// Get the content of a folder with songs
     func getFolderContent() {
         Idle {
@@ -247,6 +156,11 @@ extension Views.Welcome {
                 )
                 artists = content.artists
                 songs = content.songs
+                /// Don't show thags with links; they are very specific for the song
+                let tags = songs.compactMap(\.metadata.tags).flatMap { $0 }.filter { !$0.contains("http") }
+                /// Make sure the tags are unique
+                self.tags = Array(Set(tags).sorted()).toElementWrapper()
+                /// The songs are loaded
                 loadingState = .loaded
             } else {
                 loadingState = .error
@@ -257,12 +171,14 @@ extension Views.Welcome {
 
 extension Views.Welcome {
 
-    // MARK: - Welcome Tabs
+    // MARK: Welcome Tabs
 
     /// The tabs on the Welcome View
     enum WelcomeTab: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
         /// My songs
         case mySongs = "My Songs"
+        /// My tags
+        case myTags = "My Tags"
         /// Recent songs
         case recentSongs = "Recent Songs"
         /// The id of the tab
@@ -275,10 +191,12 @@ extension Views.Welcome {
         var icon: Icon? {
             .default(icon: {
                 switch self {
-                case .recentSongs:
-                        .documentOpenRecent
                 case .mySongs:
                         .documentOpen
+                case .myTags:
+                        .userBookmarks
+                case .recentSongs:
+                        .documentOpenRecent
                 }
             }())
         }
@@ -290,6 +208,14 @@ extension Views.Welcome {
 
 extension Views.Welcome {
 
+    // MARK: Open Button
+
+    /// Open a song
+    /// - Parameters:
+    ///   - fileURL: The URL of the song
+    ///   - song: The song itself
+    ///   - songTitleOnly: Show only the song title
+    /// - Returns: A `Body`
     @ViewBuilder func openButton(
         fileURL: URL,
         song: Song,
