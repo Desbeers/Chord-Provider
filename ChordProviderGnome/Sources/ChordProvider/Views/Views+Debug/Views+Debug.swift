@@ -52,10 +52,7 @@ extension Views {
         ///   - language: The language of the text
         /// - Returns: An `AnyView`
         func sourceView(_ text: String?, language: Language = .json) -> AnyView {
-            SourceView(bridge: .constant(SourceViewBridge(song: Song(id: UUID(), content: text ?? ""))))
-                .language(language)
-                .editable(false)
-                .highlightCurrentLine(false)
+            SimpleSourceView(text: text ?? "", language: language)
         }
 
         /// The tabs of the *Debug* View

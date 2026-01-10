@@ -92,10 +92,9 @@ extension Views {
                 .halign(.center)
                 Separator()
                 ScrollView {
-                    SourceView(bridge: $appState.editor)
+                    SourceView(bridge: $appState.editor, language: .chordpro)
                         .innerPadding(10, edges: .all)
                         .lineNumbers(appState.settings.editor.showLineNumbers)
-                        .language(.chordpro)
                         .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                         .highlightCurrentLine(true)
                         .vexpand()

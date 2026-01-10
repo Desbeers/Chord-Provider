@@ -99,7 +99,6 @@ extension Views {
         /// Get all filtered chords
         /// - Returns: The filtered chords
         private func getChords() -> [ChordDefinition] {
-            print("GET CHORDS")
             var result = [ChordDefinition]()
             if search.isEmpty {
                 result = ChordUtils.getAllChordsForInstrument(instrument: settings.instrument)

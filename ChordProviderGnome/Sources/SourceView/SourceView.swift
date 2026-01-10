@@ -19,15 +19,17 @@ public struct SourceView: AdwaitaWidget {
     var padding = 0
     var paddingEdges: Set<Edge> = []
     var numbers = false
-    var language: Language = .plain
+    var language: Language
     var wrapMode: WrapMode = .none
     var highlightCurrentLine: Bool = true
     var editable: Bool = true
     /// Init the editor
     public init(
-        bridge: Binding<SourceViewBridge>
+        bridge: Binding<SourceViewBridge>,
+        language: Language
     ) {
         self._bridge = bridge
+        self.language = language
     }
 
     public func container<Data>(
@@ -38,9 +40,6 @@ public struct SourceView: AdwaitaWidget {
         let controller = SourceViewController(bridge: $bridge, language: language)
         /// Store the controller to keep it alive
         controller.storage.fields["controller"] = controller
-
-        controller.storage.fields["settings"] = bridge.song.settings
-
         update(controller.storage, data: data, updateProperties: true, type: type)
         /// Return the GTKSourceView
         return controller.storage
@@ -54,13 +53,7 @@ public struct SourceView: AdwaitaWidget {
     ) {
         if
             updateProperties,
-            let controller = storage.fields["controller"] as? SourceViewController,
-            let settings = storage.fields["settings"] as? ChordProviderSettings {
-            /// Handle settings update
-            if settings != bridge.song.settings {
-                storage.fields["settings"] = bridge.song.settings
-                scheduleSnapshot(controller)
-            }
+            let controller = storage.fields["controller"] as? SourceViewController {
             let bridgeBinding = $bridge
             Idle {
                 /// Handle command (one-shot)
@@ -117,12 +110,6 @@ public struct SourceView: AdwaitaWidget {
     public func highlightCurrentLine(_ highlight: Bool = true) -> Self {
         var newSelf = self
         newSelf.highlightCurrentLine = highlight
-        return newSelf
-    }
-
-    public func language(_ language: Language) -> Self {
-        var newSelf = self
-        newSelf.language = language
         return newSelf
     }
 

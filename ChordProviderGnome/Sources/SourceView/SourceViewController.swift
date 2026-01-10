@@ -10,7 +10,7 @@ import Adwaita
 import ChordProviderCore
 import CSourceView
 
-final class SourceViewController {
+public final class SourceViewController {
 
     /// The GTKSourceView
     let storage: ViewStorage
@@ -271,7 +271,7 @@ public func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     let text = snapshotText(buffer: buffer)
     binding.song.content.wrappedValue = text
     binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
-    /// Clear all makers and add new ones if needed
+    /// Clear all markers and add new ones if needed
     sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
     let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.warnings != nil}
     for line in lines {
