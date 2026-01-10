@@ -36,6 +36,8 @@ extension Views {
                         }
                         .hexpand()
                         .vexpand()
+                        /// Set the ID to the View with the unique ID of the song
+                        .id(appState.editor.song.id)
                     } else {
                         StatusPage(
                             "Loading",
@@ -47,8 +49,6 @@ extension Views {
                     }
                 }
             }
-            /// Set the ID to the View with the unique ID of the song
-            .id(appState.editor.song.id)
         }
     }
 }

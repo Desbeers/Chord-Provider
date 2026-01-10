@@ -16,6 +16,8 @@ public struct SourceView: AdwaitaWidget {
     /// The editor bridge
     @Binding var bridge: SourceViewBridge
 
+    let controller: SourceViewController?
+
     var padding = 0
     var paddingEdges: Set<Edge> = []
     var numbers = false
@@ -26,10 +28,12 @@ public struct SourceView: AdwaitaWidget {
     /// Init the editor
     public init(
         bridge: Binding<SourceViewBridge>,
+        controller: SourceViewController?,
         language: Language
     ) {
         self._bridge = bridge
         self.language = language
+        self.controller = controller
     }
 
     public func container<Data>(
@@ -37,9 +41,9 @@ public struct SourceView: AdwaitaWidget {
         type: Data.Type
     ) -> ViewStorage {
         /// Get the controller class
-        let controller = SourceViewController(bridge: $bridge, language: language)
+        let controller = controller ?? SourceViewController(bridge: $bridge, language: language)
         /// Store the controller to keep it alive
-        controller.storage.fields["controller"] = controller
+        //controller.storage.fields["controller"] = controller
         update(controller.storage, data: data, updateProperties: true, type: type)
         /// Return the GTKSourceView
         return controller.storage
@@ -52,8 +56,7 @@ public struct SourceView: AdwaitaWidget {
         type: Data.Type
     ) {
         if
-            updateProperties,
-            let controller = storage.fields["controller"] as? SourceViewController {
+            updateProperties, let controller {
             let bridgeBinding = $bridge
             Idle {
                 /// Handle command (one-shot)

@@ -9,6 +9,7 @@ import Adwaita
 import Foundation
 import ChordProviderCore
 import CChordProvider
+import SourceView
 
 /// The **Chord Provider** application
 @main struct ChordProvider: App {
@@ -35,6 +36,8 @@ import CChordProvider
                 appState: $appState
             )
             .onAppear {
+                /// Init the `GtkSourceView`controller
+                appState.controller = SourceViewController(bridge: $appState.editor, language: .chordpro)
                 /// Init the css style
                 Markup.initStyle(appState: appState)
                 /// Open a song when passed as argument at launch

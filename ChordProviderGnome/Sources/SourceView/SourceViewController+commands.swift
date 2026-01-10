@@ -10,15 +10,19 @@ import Adwaita
 import CSourceView
 import ChordProviderCore
 
+/// Command to pass to the editor
 public enum SourceViewCommand {
+    /// Insert a `Directive` at the cursor position
     case insertDirective(directive: ChordPro.Directive)
+    /// Replace all text
     case replaceAllText(text: String)
+    /// Append text to the end of the source
     case appendText(text: String)
 }
 
 extension SourceViewController {
 
-    // MARK: Commands
+    // MARK: Command handler
 
     func handle(_ command: SourceViewCommand) {
         switch command {
@@ -32,8 +36,17 @@ extension SourceViewController {
         case .appendText(text: let text):
             appendTextAndScroll(storage.opaquePointer?.cast(), text)
         }
+        /// Refocus the editor
+        /// - Note: It will loose focus because handling is done with a button
+        gtk_widget_grab_focus(storage.opaquePointer?.cast())
     }
 
+    // MARK: Command functions
+
+    /// Replace all text in the editor
+    /// - Parameters:
+    ///   - buffer: The `GtkTextBuffer`
+    ///   - text: The replacement `String`
     func replaceAllText(
         _ buffer: UnsafeMutablePointer<GtkTextBuffer>?,
         _ text: String
@@ -62,17 +75,21 @@ extension SourceViewController {
 
         gtk_text_buffer_end_user_action(buffer)
     }
-
+    
+    /// Insert a directive in the editor at the cursor position
+    /// - Parameter directive: The `Directive` to add
     func insertDirective(_ directive: ChordPro.Directive) {
+        /// Close the *undo* group*
         defer {
             gtk_text_buffer_end_user_action(buffer.opaquePointer?.cast())
-            /// Refocus the editor
-            gtk_widget_grab_focus(storage.opaquePointer?.cast())
         }
+        /// Make sure we get the buffer
         guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
             buffer.opaquePointer?.cast()
-        else { return }
-        /// Make it one `undo`
+        else {
+            return
+        }
+        /// Make it one `undo` group
         gtk_text_buffer_begin_user_action(bufferPtr)
 
         var insertIter = GtkTextIter()
@@ -82,21 +99,33 @@ extension SourceViewController {
             gtk_text_buffer_get_insert(bufferPtr)
         )
 
+        /// Get the start and end values for the directive
+        var directiveStart = directive.format.start
+        var directiveEnd = directive.format.end
+
+        // MARK: Insert without a selection
+
         /// No selection: insert prefix + suffix and move cursor
         if gtk_text_buffer_get_has_selection(bufferPtr) == 0 {
+
+            /// *Repeat chorus* is an exception; it has no *start* and *end`* but it *is* and environment
+            /// - Note: Give it additional *newlines* because the cursor will be moved
+            if directive == .chorus {
+                directiveEnd += "\n\n"
+            }
+
             // Move to start of the current line
             gtk_text_iter_set_line_offset(&insertIter, 0)
 
             // Insert prefix first
-            gtk_text_buffer_insert(bufferPtr, &insertIter, directive.format.start, -1)
+            gtk_text_buffer_insert(bufferPtr, &insertIter, directiveStart, -1)
 
             // Insert suffix last
-            gtk_text_buffer_insert(bufferPtr, &insertIter, "\(directive.format.end)\n", -1)
+            gtk_text_buffer_insert(bufferPtr, &insertIter, "\(directiveEnd)\n", -1)
 
-            // Move cursor two lines up
+            /// Move cursor
             var cursorIter = GtkTextIter()
             gtk_text_buffer_get_iter_at_mark(bufferPtr, &cursorIter, gtk_text_buffer_get_insert(bufferPtr))
-            // Move iter backward by 2 lines
 
             if ChordPro.Directive.environmentDirectives.contains(directive) {
                 /// Move the cursor up two lines to be in between the directives
@@ -112,6 +141,14 @@ extension SourceViewController {
             return
         }
 
+        // MARK: Insert with a selection
+
+        /// *Repeat chorus* is an exception; it has no *start* and *end`* but it *is* and environment
+        /// - Note: Add the selection as its label so give it some space
+        if directive == .chorus {
+            directiveStart += " "
+        }
+
         /// Selection case: wrap selection with prefix/suffix
         var start = GtkTextIter()
         var end = GtkTextIter()
@@ -123,12 +160,12 @@ extension SourceViewController {
         // Insert suffix first
         var endIter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(bufferPtr, &endIter, endMark)
-        gtk_text_buffer_insert(bufferPtr, &endIter, "\(directive.format.end)\n", -1)
+        gtk_text_buffer_insert(bufferPtr, &endIter, "\(directiveEnd)\n", -1)
 
         // Insert prefix second
         var startIter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(bufferPtr, &startIter, startMark)
-        gtk_text_buffer_insert(bufferPtr, &startIter, directive.format.start, -1)
+        gtk_text_buffer_insert(bufferPtr, &startIter, directiveStart, -1)
 
         // Collapse selection
         var cursorIter = GtkTextIter()

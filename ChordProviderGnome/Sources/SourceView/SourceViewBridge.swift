@@ -20,8 +20,11 @@ public struct SourceViewBridge: Equatable {
     /// One-shot command for the editor
     public var command: SourceViewCommand?
 
-    /// 1-based current cursor line
+    /// The current cursor line
     public var currentLine: Int
+    /// Bool if the editor is at the start of a line
+    /// - Note: Used to check if 'insert' commands are available
+    public var isAtBeginningOfLine: Bool = false
 
     public init(
         song: Song,

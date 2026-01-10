@@ -94,16 +94,16 @@ struct AppState {
         didSet {
             if editor.song.settings != oldValue.song.settings {
                 self.settings.app.core = self.editor.song.settings
-//                /// Save shared settings
-//                self.settings.app.core.lyricsOnly = self.editor.song.settings.lyricsOnly
-//                self.settings.app.core.repeatWholeChorus = self.editor.song.settings.repeatWholeChorus
-//                self.settings.app.core.diagram.showNotes = self.editor.song.settings.diagram.showNotes
-//                self.settings.app.core.diagram.mirror = self.editor.song.settings.diagram.mirror
             }
         }
     }
 
+    /// The `GtkSourceEditor`class to communicate with `Swift`
+    /// - Note: A lot of `C` stuff is easier with a `class`
+    var controller: SourceViewController?
+
     /// The subtitle of the `Scene`
+    /// - Note: Using the URL, *not* the metadata of the song
     var subtitle: String {
         "\(editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(contentIsModified ? " - edited" : "")"
     }
@@ -197,9 +197,10 @@ extension AppState {
         /// Reset transpose
         self.editor.song.settings.transpose = 0
         self.editor.song.metadata.transpose = 0
-        /// Don't show the previous song
+        /// Don't show the previous song because the rendering has some delay
         self.editor.song.hasContent = false
-        self.editor.song.content = content
+        /// - Note: Never set the content directly; it will be ignored and the song will not be updated
+        self.editor.command = .replaceAllText(text: content)
         self.scene.originalContent = content
         self.settings.editor.showEditor = showEditor
         if let templateURL {

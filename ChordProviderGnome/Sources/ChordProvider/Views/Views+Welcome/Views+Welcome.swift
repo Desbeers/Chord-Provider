@@ -46,15 +46,13 @@ extension Views {
                     Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
                         .pixelSize(260)
                     VStack {
-                        Button("Start with an new song") {
+                        Button("Start with a new song") {
                             appState.openSample("New Song", showEditor: true)
                         }
-                        .tooltip("A new song to get you started")
                         .padding()
                         Button("Open a sample song") {
                             appState.openSample("Swing Low Sweet Chariot", showEditor: true)
                         }
-                        .tooltip("A sample song to get you started")
                         .padding()
                         /// - Note: This should be a spacer
                         Separator()
@@ -63,7 +61,6 @@ extension Views {
                         Button("Help") {
                             appState.openSample("Help", showEditor: false)
                         }
-                        .tooltip("Get help how to use Chord Provider")
                     }
                     .frame(maxWidth: 250)
                 }

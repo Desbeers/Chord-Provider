@@ -18,6 +18,9 @@ public final class SourceViewController {
     let buffer: ViewStorage
     /// The current line in the editor
     var currentLine: Int = 1
+    /// Bool if the editor is at the start of a line
+    /// - Note: Used to check if 'insert' commands are available
+    public var isAtBeginningOfLine: Bool = false
 
     // MARK: Snippets
 
@@ -38,11 +41,14 @@ public final class SourceViewController {
     /// The debounced snapshot schedule
     var snapshotSchedule: guint = 0
 
+    /// The debounced line number schedule
+    var linenumberSchedule: guint = 0
+
     /// Init the controller
     /// - Parameters:
     ///   - text: The editor text
     ///   - language: The editor language
-    init(bridge: Binding<SourceViewBridge>, language: Language) {
+    public init(bridge: Binding<SourceViewBridge>, language: Language) {
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         sourceview_set_theme(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
@@ -84,7 +90,7 @@ public final class SourceViewController {
         gtk_text_buffer_get_start_iter(buffer.opaquePointer?.cast(), &iter)
         /// Place cursor at start of line 0
         gtk_text_buffer_place_cursor(buffer.opaquePointer?.cast(), &iter)
-        // Scroll to cursor
+        /// Scroll to cursor
         if let insertMark = gtk_text_buffer_get_insert(buffer.opaquePointer?.cast()) {
             gtk_text_view_scroll_mark_onscreen(
                 storage.opaquePointer?.cast(),
@@ -110,13 +116,11 @@ public final class SourceViewController {
 
     func updateCurrentLine() {
         guard
-            let bridgeBinding = storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
+            let bridgeBinding = storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>,
+            let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> = buffer.opaquePointer?.cast()
         else {
             return
         }
-        guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
-            buffer.opaquePointer?.cast()
-        else { return }
 
         var iter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(
@@ -125,11 +129,16 @@ public final class SourceViewController {
             gtk_text_buffer_get_insert(bufferPtr)
         )
         currentLine = Int(gtk_text_iter_get_line(&iter) + 1)
+        isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
+
+        //dump(isAtBeginningOfLine.description)
 
         var bridge = bridgeBinding.wrappedValue
         /// Only update the binding when needed
-        if bridge.currentLine != self.currentLine {
+        if bridge.currentLine != currentLine || bridge.isAtBeginningOfLine != isAtBeginningOfLine {
+
             bridge.currentLine = currentLine
+            bridge.isAtBeginningOfLine = isAtBeginningOfLine
             bridgeBinding.wrappedValue = bridge
         }
     }
@@ -191,6 +200,23 @@ func scheduleSnapshot(_ controller: SourceViewController) {
     controller.snapshotSchedule = source
 }
 
+// MARK: - Line Numbers
+
+func scheduleLineNumber(_ controller: SourceViewController) {
+    /// Check if there is already a line number update scheduled
+    if controller.linenumberSchedule != 0, let gsource = g_main_context_find_source_by_id(nil, controller.linenumberSchedule) {
+        g_source_destroy(gsource)
+        controller.linenumberSchedule = 0
+    }
+    let source: guint = sourceview_add_schedule(
+        100,
+        sourceview_linenumber_cb,
+        Unmanaged.passUnretained(controller).toOpaque()
+    )
+    /// Schedule new line number update
+    controller.linenumberSchedule = source
+}
+
 // MARK: - Swift callbacks for `C` functions
 
 @_cdecl("sourceview_insert_cb")
@@ -245,6 +271,15 @@ public func sourceview_delete_cb(
 public func sourceview_cursor_cb(_ userData: UnsafeMutableRawPointer?) {
     guard let userData else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
+    //controller.updateCurrentLine()
+    //scheduleSnippetCheck(controller)
+    scheduleLineNumber(controller)
+}
+
+@_cdecl("sourceview_linenumber_cb")
+public func sourceview_linenumber_cb(_ userData: UnsafeMutableRawPointer?) {
+    guard let userData else { return }
+    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
     controller.updateCurrentLine()
     scheduleSnippetCheck(controller)
 }
@@ -276,5 +311,33 @@ public func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.warnings != nil}
     for line in lines {
         sourceview_add_mark(controller.buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
+    }
+}
+
+
+/// A simple debouncer
+final class Debouncer {
+    private let queue: DispatchQueue
+    private let delay: TimeInterval
+    private var workItem: DispatchWorkItem?
+
+    init(delay: TimeInterval, queue: DispatchQueue = .global(qos: .utility)) {
+        self.delay = delay
+        self.queue = queue
+    }
+
+    func schedule(_ action: @escaping () -> Void) {
+        /// Cancel any pending work
+        workItem?.cancel()
+
+        let item = DispatchWorkItem(block: action)
+        workItem = item
+
+        queue.asyncAfter(deadline: .now() + delay, execute: item)
+    }
+
+    func cancel() {
+        workItem?.cancel()
+        workItem = nil
     }
 }
