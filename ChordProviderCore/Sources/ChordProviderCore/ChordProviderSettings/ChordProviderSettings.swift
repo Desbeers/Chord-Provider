@@ -8,6 +8,7 @@
 import Foundation
 
 public struct ChordProviderSettings: Equatable, Codable, Sendable {
+    /// Init the settings
     public init(
         instrument: Chord.Instrument = .guitar,
         lyricsOnly: Bool = false,

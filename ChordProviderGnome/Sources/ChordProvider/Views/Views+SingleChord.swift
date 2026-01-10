@@ -46,7 +46,6 @@ extension Views {
                         }
                     }
                 }
-                .id(chord.define)
             }
         }
     }

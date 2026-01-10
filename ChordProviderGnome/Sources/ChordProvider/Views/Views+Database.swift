@@ -13,10 +13,8 @@ extension Views {
 
     /// The `View` for showing the chord database
     struct Database: View {
-        /// The settings of the application
-        let appState: AppState
-        /// The selected instrument
-        @State private var instrument: Chord.Instrument = .guitar
+        /// The core settings
+        @State private var settings = ChordProviderSettings()
         /// The selected chord
         @State private var chord: Chord.Root = .c
         /// The optional search string
@@ -48,7 +46,7 @@ extension Views {
                             VStack {
                                 Text(chord.display)
                                     .style(.chord)
-                                ChordDiagram(chord: chord, settings: appState.editor.song.settings)
+                                ChordDiagram(chord: chord, settings: settings)
                             }
                         }
                         .valign(.start)
@@ -59,14 +57,15 @@ extension Views {
                 if let chord = chords.first(where: { $0.id == selection }) {
                     Separator()
                     HStack {
-                        ChordDiagram(chord: chord, width: 140, settings: appState.editor.song.settings)
+                        ChordDiagram(chord: chord, width: 140, settings: settings)
+                            //.id(settings.diagram.description + chord.define)
                         VStack {
                             Text(chord.display)
                                 .style(.title)
                             Text(chord.quality.intervalsLabel)
                                 .style(.subtitle)
                             HStack {
-                                Text("{define \(chord.define)}")
+                                Text("{define-\(chord.instrument.rawValue) \(chord.define)}")
                                     .selectable()
                                 Button(icon: .default(icon: .editCopy)) {
                                     AdwaitaApp.copy("{define \(chord.define)}")
@@ -74,6 +73,8 @@ extension Views {
                                 }
                                 .flat(true)
                             }
+                            Text(chord.notesLabel)
+                                .useMarkup()
                         }
                         .padding()
                     }
@@ -85,9 +86,11 @@ extension Views {
                     SearchEntry()
                         .text($search)
                         .placeholderText("Search")
+                    Toggle(icon: .default(icon: .objectRotateLeft), isOn: $settings.diagram.mirror)
+                        .tooltip("Show left-handed chords")
                 }
                 .headerBarTitle {
-                    ViewSwitcher(selectedElement: $instrument)
+                    ViewSwitcher(selectedElement: $settings.instrument)
                         .wideDesign(true)
                 }
             }
@@ -96,8 +99,10 @@ extension Views {
         /// Get all filtered chords
         /// - Returns: The filtered chords
         private func getChords() -> [ChordDefinition] {
+            print("GET CHORDS")
+            var result = [ChordDefinition]()
             if search.isEmpty {
-                return ChordUtils.getAllChordsForInstrument(instrument: instrument)
+                result = ChordUtils.getAllChordsForInstrument(instrument: settings.instrument)
                     .filter { $0.root == chord }
                     .sorted(
                         using: [
@@ -105,7 +110,7 @@ extension Views {
                         ]
                     )
             } else {
-                return ChordUtils.getAllChordsForInstrument(instrument: instrument)
+                result = ChordUtils.getAllChordsForInstrument(instrument: settings.instrument)
                     .filter { $0.name.localizedCaseInsensitiveContains(search) }
                     .sorted(
                         using: [
@@ -113,6 +118,7 @@ extension Views {
                         ]
                     )
             }
+            return result
         }
     }
 }

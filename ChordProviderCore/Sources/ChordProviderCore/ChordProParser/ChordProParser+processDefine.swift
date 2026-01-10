@@ -76,16 +76,8 @@ extension ChordProParser {
             }) {
                 /// Use the same ID as the standard chord
                 definedChord.id = song.chords[index].id
-                /// Mirror if needed
-                if song.settings.diagram.mirror {
-                    definedChord.mirrorChordDiagram()
-                }
                 song.chords[index] = definedChord
             } else {
-                /// Mirror if needed
-                if song.settings.diagram.mirror {
-                    definedChord.mirrorChordDiagram()
-                }
                 /// Add the chord as a new definition
                 song.chords.append(definedChord)
             }

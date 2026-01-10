@@ -44,6 +44,11 @@ struct ChordDefinitionView: View {
     ///   - settings: The application
     ///   - useDefaultColors: Bool to use the default colors for the diagram
     init(chord: ChordDefinition, width: Double, settings: AppSettings, useDefaultColors: Bool = false) {
+        var chord = chord
+        /// Mirror if needed
+        if settings.core.diagram.mirror {
+            chord.mirrorChordDiagram()
+        }
         self.chord = chord
         self.settings = settings
         self.width = width

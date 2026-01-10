@@ -54,15 +54,15 @@ extension Views {
                         Text(definition.getName)
                             .style(.title)
                         diagramView()
-                        if let elements = definition.noteCombinations.first {
-                            let text = "<b>\(definition.display)</b> contains \(elements.map { $0.required ? "<b>\($0.note.display)</b>" : $0.note.display } .joined(separator: " "))"
-                            Text(text)
-                                .useMarkup()
-                            Text(getDefinition().validate.description)
-                                .wrap()
-                                .caption()
-                                .padding()
-                        }
+                        Text(definition.notesLabel)
+                            .useMarkup()
+                        let validate = getDefinition().validate
+                        Text(validate.description)
+                            .wrap()
+                            .style(validate == .correct ? .none : .error)
+                            .caption()
+                            .padding()
+                            .id(validate.description)
                     }
                     VStack(spacing: 10) {
                         Text("Frets")
@@ -143,7 +143,7 @@ extension Views {
                 width: 160,
                 settings: appState.editor.song.settings
             )
-            .id(UUID())
+            //.id(UUID())
         }
 
         var strings: [StringNumber] {

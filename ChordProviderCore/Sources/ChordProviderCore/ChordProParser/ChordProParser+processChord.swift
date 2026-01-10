@@ -45,10 +45,6 @@ extension ChordProParser {
                     /// Keep the original name
                     databaseChord.name = chord
                 }
-                /// Mirror if needed
-                if song.settings.diagram.mirror {
-                    databaseChord.mirrorChordDiagram()
-                }
                 song.chords.append(databaseChord)
                 return databaseChord
             }

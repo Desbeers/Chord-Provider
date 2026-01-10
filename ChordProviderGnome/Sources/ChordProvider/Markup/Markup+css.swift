@@ -35,6 +35,8 @@ extension Markup {
         case metadata
         /// Represents an intentionally empty line
         case emptyLine = "empty-line"
+        /// An error
+        case error
 
         // MARK: Sections
 

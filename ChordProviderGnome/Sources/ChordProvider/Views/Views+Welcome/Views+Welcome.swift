@@ -45,22 +45,25 @@ extension Views {
                         .style(.title)
                     Widgets.BundleImage(path: "nl.desbeers.chordprovider-mime")
                         .pixelSize(260)
-                    Button("Start with an empty song") {
-                        appState.openSample("New Song", showEditor: true)
-                    }
-                    .frame(maxWidth: 250)
-                    .padding()
-                    Button("Open a sample song") {
-                        appState.openSample("Swing Low Sweet Chariot", showEditor: true)
-                    }
-                    .frame(maxWidth: 250)
-                    .padding()
-                    /// - Note: This should be a spacer
-                    Separator()
-                        .style("spacer")
-                        .vexpand()
-                    Button("Help") {
-                        appState.openSample("Help", showEditor: false)
+                    VStack {
+                        Button("Start with an new song") {
+                            appState.openSample("New Song", showEditor: true)
+                        }
+                        .tooltip("A new song to get you started")
+                        .padding()
+                        Button("Open a sample song") {
+                            appState.openSample("Swing Low Sweet Chariot", showEditor: true)
+                        }
+                        .tooltip("A sample song to get you started")
+                        .padding()
+                        /// - Note: This should be a spacer
+                        Separator()
+                            .style("spacer")
+                            .vexpand()
+                        Button("Help") {
+                            appState.openSample("Help", showEditor: false)
+                        }
+                        .tooltip("Get help how to use Chord Provider")
                     }
                     .frame(maxWidth: 250)
                 }
@@ -96,6 +99,7 @@ extension Views {
                                 Button(folder ?? "Select Folder", icon: .default(icon: .folder)) {
                                     appState.scene.openFolder.signal()
                                 }
+                                .tooltip("The folder with you songs")
                             }
                             .halign(.start)
                             .hexpand()

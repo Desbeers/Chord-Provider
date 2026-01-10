@@ -126,7 +126,7 @@ struct CreateChordView: View {
     @ViewBuilder func diagramView(width: Double) -> some View {
         if let diagram {
             ChordDefinitionView(
-                chord: sceneState.settings.core.diagram.mirror ? diagram.mirroredDiagram() : diagram,
+                chord: diagram,
                 width: width,
                 settings: sceneState.settings,
                 useDefaultColors: true

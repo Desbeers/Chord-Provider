@@ -59,8 +59,13 @@ extension PDFBuild.Chords {
         ///   - chord: The chord to display in a diagram
         ///   - settings: The PDF settings
         init(chord: ChordDefinition, settings: AppSettings) {
-            self.gridSize = CGSize(width: settings.pdf.diagramWidth / 1.2, height: settings.pdf.diagramWidth)
+            var chord = chord
+            /// Mirror if needed
+            if settings.core.diagram.mirror {
+                chord.mirrorChordDiagram()
+            }
             self.chord = chord
+            self.gridSize = CGSize(width: settings.pdf.diagramWidth / 1.2, height: settings.pdf.diagramWidth)
             self.columns = (chord.instrument.strings.count) - 1
             self.width = gridSize.width
             self.height = gridSize.height

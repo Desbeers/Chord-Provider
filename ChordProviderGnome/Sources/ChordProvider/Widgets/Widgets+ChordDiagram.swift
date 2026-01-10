@@ -51,34 +51,12 @@ extension Widgets {
                 Unmanaged<Context>.fromOpaque(userData!).release()
             }
             let storage = ViewStorage(drawingArea?.opaque())
-            storage.fields["settings"] = settings
-            storage.fields["chord"] = chord
-            storage.fields["context"] = context
-            update(storage, data: data, updateProperties: true, type: type)
             return storage
         }
-
-        func update<Data>(
-            _ storage: ViewStorage,
-            data: WidgetData,
-            updateProperties: Bool,
-            type: Data.Type
-        ) where Data: ViewRenderData {
-            if updateProperties, let settingsStorage = storage.fields["settings"] as? ChordProviderSettings, let chordStorage = storage.fields["chord"] as? ChordDefinition, let context = storage.fields["context"] as? Context {
-                if settings.diagram != settingsStorage.diagram || chord != chordStorage {
-                    convert(context: context)
-                    storage.fields["settings"] = settings
-                    storage.fields["chord"] = chord
-                    storage.fields["context"] = context
-                    Idle {
-                        gtk_widget_queue_draw(storage.opaquePointer?.cast())
-                    }
-                }
-                storage.previousState = self
-            }
-        }
-
-        func convert(context: Context) {
+        
+        /// Convert the `ChordDefinition` to `Context`
+        /// - Parameter context: An updated `Context`
+        private func convert(context: Context) {
             context.showNotes = settings.diagram.showNotes
             context.baseFret = chord.baseFret.rawValue
             for index in 0..<6 {

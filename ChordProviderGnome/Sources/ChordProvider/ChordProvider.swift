@@ -51,7 +51,6 @@ import CChordProvider
         .size(width: $appState.window.width, height: $appState.window.height)
         .defaultSize(width: 800, height: 600)
         .minSize(width: 800, height: 600)
-        .title(appState.subtitle)
         .onClose {
             if appState.contentIsModified {
                 appState.scene.saveDoneAction = .closeWindow
@@ -65,7 +64,7 @@ import CChordProvider
         // MARK: Database Window
 
         Window(id: "database", open: 0) { _ in
-            Views.Database(appState: appState)
+            Views.Database()
         }
         /// - Note: I don't store its window size
         .minSize(width: 800, height: 600)
