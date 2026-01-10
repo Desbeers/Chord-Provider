@@ -22,9 +22,13 @@ public struct SourceViewBridge: Equatable {
 
     /// The current cursor line
     public var currentLine: Int
+
     /// Bool if the editor is at the start of a line
     /// - Note: Used to check if 'insert' commands are available
     public var isAtBeginningOfLine: Bool = false
+
+    /// Bool if the editor has a selction
+    public var hasSelection: Bool = false
 
     public init(
         song: Song,

@@ -21,6 +21,8 @@ public final class SourceViewController {
     /// Bool if the editor is at the start of a line
     /// - Note: Used to check if 'insert' commands are available
     public var isAtBeginningOfLine: Bool = false
+    /// Bool if the editor has a section
+    public var hasSelection: Bool = false
 
     // MARK: Snippets
 
@@ -130,15 +132,18 @@ public final class SourceViewController {
         )
         currentLine = Int(gtk_text_iter_get_line(&iter) + 1)
         isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
+        hasSelection = gtk_text_buffer_get_has_selection(bufferPtr) != 0
+
 
         //dump(isAtBeginningOfLine.description)
 
         var bridge = bridgeBinding.wrappedValue
         /// Only update the binding when needed
-        if bridge.currentLine != currentLine || bridge.isAtBeginningOfLine != isAtBeginningOfLine {
+        if bridge.currentLine != currentLine || bridge.isAtBeginningOfLine != isAtBeginningOfLine || bridge.hasSelection != hasSelection {
 
             bridge.currentLine = currentLine
             bridge.isAtBeginningOfLine = isAtBeginningOfLine
+            bridge.hasSelection = hasSelection
             bridgeBinding.wrappedValue = bridge
         }
     }
@@ -314,30 +319,3 @@ public func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     }
 }
 
-
-/// A simple debouncer
-final class Debouncer {
-    private let queue: DispatchQueue
-    private let delay: TimeInterval
-    private var workItem: DispatchWorkItem?
-
-    init(delay: TimeInterval, queue: DispatchQueue = .global(qos: .utility)) {
-        self.delay = delay
-        self.queue = queue
-    }
-
-    func schedule(_ action: @escaping () -> Void) {
-        /// Cancel any pending work
-        workItem?.cancel()
-
-        let item = DispatchWorkItem(block: action)
-        workItem = item
-
-        queue.asyncAfter(deadline: .now() + delay, execute: item)
-    }
-
-    func cancel() {
-        workItem?.cancel()
-        workItem = nil
-    }
-}

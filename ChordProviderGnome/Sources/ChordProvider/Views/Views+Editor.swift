@@ -38,6 +38,10 @@ extension Views {
                             inserts.showMetadata.toggle()
                         }
                         .popover(visible: $inserts.showMetadata) {
+                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
+                                .style(.accent)
+                                .padding(.bottom)
+                            Separator()
                             ForEach(ChordPro.Directive.metadataDirectives) { directive in
                                 addInsert(directive: directive)
                                     .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
@@ -50,6 +54,10 @@ extension Views {
                             inserts.showEnvironment.toggle()
                         }
                         .popover(visible: $inserts.showEnvironment) {
+                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
+                                .style(.addToEditorLabel)
+                                .padding(.bottom)
+                            Separator()
                             ForEach(ChordPro.Directive.environmentDirectives) { directive in
                                 addInsert(directive: directive)
                             }
@@ -67,8 +75,12 @@ extension Views {
                                 inserts.showMore.toggle()
                             }
                             .flat()
+                            Button("Add all Chord definitions") {
+                                appState.editor.command = .appendText(text: appState.editor.song.definitions)
+                                inserts.showMore.toggle()
+                            }
+                            .flat()
                             /// - Note: This is fine
-                            addInsert(directive: .define, command: .appendText(text: appState.editor.song.definitions))
                             Separator()
                             addInsert(directive: .comment)
                         }
@@ -148,7 +160,8 @@ extension Views {
             directive: ChordPro.Directive = .title,
             command: SourceViewCommand? = nil
         ) -> Body {
-            Button(directive.details.buttonLabel ?? directive.details.label) {
+            let label = "\(directive.details.buttonLabel ?? directive.details.label)"
+            Button(label) {
                 appState.editor.command = command ?? .insertDirective(directive: directive)
                 inserts = .init()
             }

@@ -35,8 +35,10 @@ extension Markup {
         case metadata
         /// Represents an intentionally empty line
         case emptyLine = "empty-line"
-        /// An error
+        /// Error; a default
         case error
+        // Accent
+        case accent
 
         // MARK: Sections
 
@@ -74,6 +76,9 @@ extension Markup {
         case tagLabel = "tag-label"
         /// Label displaying a comment
         case commentLabel = "comment-label"
+        /// Label displaying a a addition to the editor
+        case addToEditorLabel = "add-to-editor-label"
+
 
         // MARK: Chords
 
@@ -222,6 +227,11 @@ extension Markup {
     background-color: \(dark ? "#5b574c" : "#f1e8c9");
     padding: 0.5em;
     border-radius: 0.5em;
+}
+
+.add-to-editor-label {
+    color: var(--accent-color);
+    font-weight: bold;
 }
 
 /* Chords */
