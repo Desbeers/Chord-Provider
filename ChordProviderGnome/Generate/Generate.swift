@@ -23,7 +23,7 @@ struct Generate {
 
             var text = "\(directive.rawValue.long)"
 
-            if ChordPro.Directive.directivesWithArgument.contains(directive) {
+            if ChordPro.Directive.withPlainArgument.contains(directive) {
                 text += " ${1:\(directive.details.defaultValue ?? directive.details.label)}"
             }
 
