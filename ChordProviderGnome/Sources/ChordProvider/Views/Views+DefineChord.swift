@@ -14,11 +14,28 @@ extension Views {
     /// The `View` to define a chord
     struct DefineChord: View {
         init(appState: Binding<AppState>) {
+            var newChord = true
+            var definition = ChordDefinition(name: "C", instrument: appState.wrappedValue.editor.song.settings.instrument)!
+            /// Check if we are called as *edit* the definition instead of a new one
+            if appState.editor.showEditDirectiveDialog.wrappedValue {
+                if let currentDefinition = try? ChordDefinition(
+                    definition: appState.editor.currentLine.plain.wrappedValue ?? "",
+                    instrument: appState.editor.song.settings.instrument.wrappedValue,
+                    status: .customChord
+                ) {
+                    definition = currentDefinition
+                    newChord = false
+                }
+            }
+
             self._appState = appState
-            let definition = ChordDefinition(name: "C", instrument: appState.wrappedValue.editor.song.settings.instrument)!
+
             self._definition = State(wrappedValue: definition)
 
+            self.newChord = newChord
+
         }
+        let newChord: Bool
         /// The state of the application
         @Binding var appState: AppState
         @State private var definition: ChordDefinition
@@ -61,7 +78,8 @@ extension Views {
                             .wrap()
                             .style(validate == .correct ? .none : .error)
                             .caption()
-                            .padding()
+                            .padding(.top)
+                            .frame(maxWidth: 160)
                             .id(validate.description)
                     }
                     VStack(spacing: 10) {
@@ -100,16 +118,21 @@ extension Views {
                 }
                 HStack(spacing: 10) {
                     Button("Cancel") {
-                        appState.scene.showDefineChordDialog.toggle()
+                        appState.editor.showEditDirectiveDialog = false
                     }
-                    Button("Add Definition") {
-                        appState.editor.command = .appendText(text: define)
-                        appState.scene.showDefineChordDialog.toggle()
+                    Button("\(newChord ? "Add" : "Update") Definition") {
+                        if newChord {
+                            appState.editor.command = .appendText(text: define)
+                        } else {
+                            appState.editor.command = .replaceLineText(text: define)
+                        }
+                        appState.editor.showEditDirectiveDialog = false
                     }
                     .suggested()
                 }
                 .halign(.center)
             }
+            .style(.define)
             .padding([.leading, .trailing, .bottom])
             .topToolbar {
                 HeaderBar.empty()

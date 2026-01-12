@@ -9,8 +9,37 @@ import Foundation
 
 extension ChordPro.Directive {
 
-    /// Optional formatting attributes for directives
-    public enum FormattingAttribute: String, Comparable, Codable, Sendable {
+    /// All the (optional) attributes for a directive
+    public var attributes: [ChordPro.Directive.FormattingAttribute] {
+        switch self {
+        case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge:
+            [.label]
+        case .startOfStrum:
+            [.label, .tuplet]
+        case .startOfTextblock:
+            [.label, .align, .flush]
+        case .image:
+            [.src, .width, .height, .scale, .align]
+        case .key:
+            [.key]
+        case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
+            [.define]
+        case .tempo:
+            [.numeric]
+        case .year, .copyright:
+            [.numeric]
+        default:
+            [.plain]
+        }
+    }
+
+    /// Formatting attribute for a directives
+    /// - Note: Attributes *can* be optional
+    public enum FormattingAttribute: String, Comparable, Codable, Sendable, Identifiable {
+
+        /// Confirm to `Identifiable` protocol
+        public var id: Self { self }
+
         /// Fallback for a simple attribute
         case plain
         /// Label
@@ -77,6 +106,16 @@ extension ChordPro.Directive {
             case .key: 16
             case .source: 17
             case .shape: 18
+            }
+        }
+
+        /// Optional help
+        public var help: String? {
+            switch self {
+            case .scale:
+                "A value of 0 % will be ignored"
+            default:
+                nil
             }
         }
     }

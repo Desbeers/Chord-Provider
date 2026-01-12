@@ -96,7 +96,8 @@ extension ChordPro.Directive {
         ]
     }
 
-    public static var directivesWithArgument: [ChordPro.Directive] {
+    /// Array of ``ChordPro/Directive`` that **must** have a *plain* argument
+    public static var withPlainArgument: [ChordPro.Directive] {
         metadataDirectives + [
             .define,
             .defineGuitar,

@@ -17,12 +17,14 @@ public final class SourceViewController {
     /// The GTKTextBuffer
     let buffer: ViewStorage
     /// The current line in the editor
-    var currentLine: Int = 1
+    var currentLine = Song.Section.Line()
     /// Bool if the editor is at the start of a line
     /// - Note: Used to check if 'insert' commands are available
     public var isAtBeginningOfLine: Bool = false
-    /// Bool if the editor has a section
+    /// Bool if the editor has a selection
     public var hasSelection: Bool = false
+//    /// All the lines in the song
+//    public var songLines = [Song.Section.Line]()
 
     // MARK: Snippets
 
@@ -70,13 +72,21 @@ public final class SourceViewController {
         gtk_source_init()
         /// Connect signal callbacks
         sourceview_connect_signals(
-            buffer.opaquePointer?.cast(),
+            storage.opaquePointer?.cast(),
             sourceview_insert_cb,
             sourceview_delete_cb,
             sourceview_cursor_cb,
+            sourceview_click_cb,
             Unmanaged.passUnretained(self).toOpaque()
         )
+
+        // MARK: Marks
+
         sourceview_install_marks(storage.opaquePointer?.cast(), "bookmark")
+
+        // MARK: Double click
+
+        //sourceview_check_clicks(storage.opaquePointer?.cast())
 
         /// Render the song
         scheduleSnapshot(self)
@@ -130,18 +140,16 @@ public final class SourceViewController {
             &iter,
             gtk_text_buffer_get_insert(bufferPtr)
         )
-        currentLine = Int(gtk_text_iter_get_line(&iter) + 1)
+        let currentLine = Int(gtk_text_iter_get_line(&iter) + 1)
+
+        self.currentLine = bridgeBinding.songLines[safe: currentLine - 1].wrappedValue ?? Song.Section.Line()
+
         isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
         hasSelection = gtk_text_buffer_get_has_selection(bufferPtr) != 0
-
-
-        //dump(isAtBeginningOfLine.description)
-
         var bridge = bridgeBinding.wrappedValue
         /// Only update the binding when needed
-        if bridge.currentLine != currentLine || bridge.isAtBeginningOfLine != isAtBeginningOfLine || bridge.hasSelection != hasSelection {
-
-            bridge.currentLine = currentLine
+        if bridge.currentLine.sourceLineNumber != currentLine || bridge.isAtBeginningOfLine != isAtBeginningOfLine || bridge.hasSelection != hasSelection {
+            bridge.currentLine = bridge.songLines[safe: currentLine - 1] ?? Song.Section.Line()
             bridge.isAtBeginningOfLine = isAtBeginningOfLine
             bridge.hasSelection = hasSelection
             bridgeBinding.wrappedValue = bridge
@@ -276,8 +284,6 @@ public func sourceview_delete_cb(
 public func sourceview_cursor_cb(_ userData: UnsafeMutableRawPointer?) {
     guard let userData else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
-    //controller.updateCurrentLine()
-    //scheduleSnippetCheck(controller)
     scheduleLineNumber(controller)
 }
 
@@ -287,6 +293,20 @@ public func sourceview_linenumber_cb(_ userData: UnsafeMutableRawPointer?) {
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
     controller.updateCurrentLine()
     scheduleSnippetCheck(controller)
+}
+
+@_cdecl("sourceview_click_cb")
+public func sourceview_click_cb(
+    click: Int32,
+    userData: UnsafeMutableRawPointer?
+) {
+    guard let userData, click == 3 else { return }
+    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
+    guard let binding = controller.storage.fields["bridgeBinding"] as? Binding<SourceViewBridge> else { return }
+    if let directive = controller.currentLine.directive, directive.editable {
+        binding.handleDirective.wrappedValue = directive
+        binding.showEditDirectiveDialog.wrappedValue = true
+    }
 }
 
 @_cdecl("flush_snapshot_cb")
@@ -313,8 +333,11 @@ public func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
     binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
     /// Clear all markers and add new ones if needed
     sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-    let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.warnings != nil}
-    for line in lines {
+    let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
+    binding.songLines.wrappedValue = lines
+    /// Update the current line
+    binding.currentLine.wrappedValue = lines[safe: controller.currentLine.sourceLineNumber - 1] ?? Song.Section.Line()
+    for line in lines.filter( { $0.warnings != nil } ) {
         sourceview_add_mark(controller.buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
     }
 }

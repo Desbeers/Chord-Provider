@@ -13,8 +13,6 @@ import ChordProviderCore
 
 extension Widgets {
 
-
-
     /// The `AdwaitaWidget` for a chord diagram
     struct Diagram: AdwaitaWidget {
         /// The chord definition

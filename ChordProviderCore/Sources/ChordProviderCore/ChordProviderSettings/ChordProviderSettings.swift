@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ChordProviderSettings: Equatable, Codable, Sendable {
+public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringConvertible {
     /// Init the settings
     public init(
         instrument: Chord.Instrument = .guitar,
@@ -19,6 +19,10 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable {
         self.lyricsOnly = lyricsOnly
         self.repeatWholeChorus = repeatWholeChorus
         self.transpose = transpose
+    }
+    /// Confirm to `CustomStringConvertible`
+    public var description: String {
+        "instrument: \(instrument) transpose: \(transpose)" + diagram.description
     }
     /// The instrument for the song
     public var instrument: Chord.Instrument = .guitar

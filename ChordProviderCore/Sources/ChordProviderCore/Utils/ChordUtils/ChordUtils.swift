@@ -116,6 +116,13 @@ public enum ChordUtils {
         }
     }
 
+    /// Find the root, quality and optional bass of a named chord
+    /// - Parameter chord: The name of the chord as `String`
+    /// - Returns: The root, quality and optional slash
+    public static func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?, slash: Chord.Root?) {
+        Analizer.findChordElements(chord: chord)
+    }
+
     /// Get index value of a note
     static func noteToValue(note: Chord.Root) -> Int {
         guard let value = Chord.Scales.noteValueDict[note] else {

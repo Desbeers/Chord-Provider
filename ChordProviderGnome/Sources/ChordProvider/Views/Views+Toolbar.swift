@@ -39,11 +39,19 @@ extension Views.Toolbar {
                 HStack(spacing: 5) {
                     Toggle(icon: .default(icon: .textEditor), isOn: $appState.settings.editor.showEditor)
                         .tooltip("Show the editor")
-                    ToggleButton(icon: .default(icon: .objectFlipVertical), isOn: binding) {
+                    ToggleButton(
+                        icon: .default(icon: .objectFlipVertical),
+                        isOn: binding
+                    ) {
                         appState.scene.showTransposeDialog = true
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
-                    DropDown(selection: $appState.editor.song.settings.instrument, values: Chord.Instrument.allCases)
+                    DropDown(
+                        selection: $appState.editor.song.settings.instrument.onSet { _ in
+                            appState.editor.command = .updateSong
+                        },
+                        values: Chord.Instrument.allCases
+                    )
                         .tooltip("Select your instrument")
                     Toggle(icon: .default(icon: .viewDual), isOn: $appState.settings.app.columnPaging)
                         .tooltip("Show the song in columns")

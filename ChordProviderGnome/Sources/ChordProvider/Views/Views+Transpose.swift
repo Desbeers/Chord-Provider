@@ -38,6 +38,8 @@ extension Views {
                         .style("caption")
                 }
                 Button("Close") {
+                    /// - Note: The song will only update its chords when this dialog is closed
+                    appState.editor.command = .updateSong
                     appState.scene.showTransposeDialog = false
                 }
                 .padding()

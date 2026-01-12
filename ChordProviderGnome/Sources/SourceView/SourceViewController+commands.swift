@@ -18,6 +18,12 @@ public enum SourceViewCommand {
     case replaceAllText(text: String)
     /// Append text to the end of the source
     case appendText(text: String)
+    /// Replace all text on a specific line in the editor
+    case replaceLineText(text: String)
+    /// Clear the current selection
+    case clearSelection
+    /// Schedule to update the song
+    case updateSong
 }
 
 extension SourceViewController {
@@ -35,10 +41,31 @@ extension SourceViewController {
             SourceViewController.moveCursorToFirstLine(storage: storage, buffer: buffer)
         case .appendText(text: let text):
             appendTextAndScroll(storage.opaquePointer?.cast(), text)
+        case .replaceLineText(text: let text):
+            clearSelection(buffer.opaquePointer?.cast())
+            replaceFromCursorToNewline(buffer.opaquePointer?.cast(), text: text)
+        case .clearSelection:
+            clearSelection(buffer.opaquePointer?.cast())
+        case .updateSong:
+            scheduleSnapshot(self)
         }
         /// Refocus the editor
         /// - Note: It will loose focus because handling is done with a button
         gtk_widget_grab_focus(storage.opaquePointer?.cast())
+    }
+
+    /// Clear any active selection in the text buffer
+    func clearSelection(_ buffer: UnsafeMutablePointer<GtkTextBuffer>?) {
+        guard let buffer else { return }
+
+        var insertIter = GtkTextIter()
+
+        // Get the current cursor (insert mark) position
+        let insertMark = gtk_text_buffer_get_insert(buffer)
+        gtk_text_buffer_get_iter_at_mark(buffer, &insertIter, insertMark)
+
+        // Collapse selection by placing cursor at insert position
+        gtk_text_buffer_place_cursor(buffer, &insertIter)
     }
 
     // MARK: Command functions
@@ -75,7 +102,49 @@ extension SourceViewController {
 
         gtk_text_buffer_end_user_action(buffer)
     }
-    
+
+    /// Replace text from the cursor position up to (but not including) the first newline
+    func replaceFromCursorToNewline(
+        _ buffer: UnsafeMutablePointer<GtkTextBuffer>?,
+        text: String
+    ) {
+        guard let buffer else { return }
+
+        var start = GtkTextIter()
+        var end = GtkTextIter()
+
+        gtk_text_buffer_begin_user_action(buffer)
+
+        // Get cursor position
+        let insertMark = gtk_text_buffer_get_insert(buffer)
+        gtk_text_buffer_get_iter_at_mark(buffer, &start, insertMark)
+
+        // Find end of line by asking GTK directly
+        let line = gtk_text_iter_get_line(&start)
+        gtk_text_buffer_get_iter_at_line_offset(
+            buffer,
+            &end,
+            line,
+            Int32.max
+        )
+
+        // Delete everything up to the newline
+        gtk_text_buffer_delete(buffer, &start, &end)
+
+        // Insert replacement text at cursor
+        text.withCString {
+            gtk_text_buffer_insert_at_cursor(buffer, $0, -1)
+        }
+
+        gtk_text_buffer_end_user_action(buffer)
+    }
+
+
+
+
+
+
+
     /// Insert a directive in the editor at the cursor position
     /// - Parameter directive: The `Directive` to add
     func insertDirective(_ directive: ChordPro.Directive) {

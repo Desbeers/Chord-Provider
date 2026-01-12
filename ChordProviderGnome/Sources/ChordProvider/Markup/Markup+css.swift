@@ -19,6 +19,9 @@ extension Markup {
         /// Don't style; there is no CSS declaration for this
         case none
 
+        /// The define dialog
+        case define
+
         // MARK: Text Styles
 
         /// Standard text or default-styled element
@@ -192,13 +195,18 @@ extension Markup {
     border-radius: 0.5em;
     transition: 0.15s;
 }
+
 .editor-button {
-    font-size: \(0.9 * baseFontSize)px;
+    font-size: \(0.8 * baseFontSize)px;
     font-weight: normal;
-    padding: 0.5em;
-    border-radius: 0.5em;
+    background: none;
     transition: 0.15s;
+    min-height: 12px;
 }
+.editor-button:checked {
+    background: var(--shade-color);
+}
+
 .tag-button:hover, .editor-button:hover {
     background-color: var(--shade-color);
 }
@@ -303,7 +311,7 @@ popover button {
 
 /* Define Chord */
 
-toggle-group .toggle {
+.define toggle-group .toggle {
     padding: 0;
 }
 """

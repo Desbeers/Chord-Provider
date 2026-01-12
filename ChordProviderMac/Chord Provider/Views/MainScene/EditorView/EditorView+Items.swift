@@ -12,8 +12,6 @@ extension EditorView.DirectiveSheet {
 
     /// SwiftUI `View to show editable items for the directive`
     struct Items: View {
-        /// The available items
-        let items: [ChordPro.Directive.FormattingAttribute]
         /// The directive
         let directive: ChordPro.Directive
         /// Start value (for sliders)
@@ -35,10 +33,10 @@ extension EditorView.DirectiveSheet {
         /// The body of the `View`
         var body: some View {
             VStack {
-                if items.first != .define {
+                if directive.attributes.first != .define {
                     Header(directive: directive)
                 }
-                ForEach(items, id: \.self) { item in
+                ForEach(directive.attributes, id: \.self) { item in
                     switch item {
                     case .plain:
                         PlainField(label: directive.details.label, prompt: directive.details.label, value: $formState.plain)
@@ -114,7 +112,7 @@ extension EditorView.DirectiveSheet {
         }
         /// Update the values
         private func update() {
-            switch items.first {
+            switch directive.attributes.first {
             case .plain:
                 /// Just plain text
                 sceneState.editorInternals.currentLine.plain = formState.plain

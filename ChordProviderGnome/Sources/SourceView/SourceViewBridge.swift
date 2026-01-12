@@ -21,22 +21,26 @@ public struct SourceViewBridge: Equatable {
     public var command: SourceViewCommand?
 
     /// The current cursor line
-    public var currentLine: Int
+    public var currentLine = Song.Section.Line()
 
     /// Bool if the editor is at the start of a line
     /// - Note: Used to check if 'insert' commands are available
     public var isAtBeginningOfLine: Bool = false
 
-    /// Bool if the editor has a selction
+    /// All the lines in the song
+    public var songLines = [Song.Section.Line]()
+
+    /// Bool if the editor has a selection
     public var hasSelection: Bool = false
 
+    /// Show the *Edit directive* dialog
+    public var showEditDirectiveDialog: Bool = false
+    /// The directive to handle in the *Edit directive* dialog
+    public var handleDirective: ChordPro.Directive?
+
     public init(
-        song: Song,
-        command: SourceViewCommand? = nil,
-        currentLine: Int = 1
+        song: Song
     ) {
         self.song = song
-        self.command = command
-        self.currentLine = currentLine
     }
 }

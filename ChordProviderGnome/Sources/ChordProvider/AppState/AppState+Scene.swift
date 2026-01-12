@@ -50,9 +50,8 @@ extension AppState {
         /// - Note: It will be shown when the content of the song is modified
         var showCloseDialog: Bool = false
         /// Show the *Shortcuts* dialog
+        /// - Note: Shortcuts don't work on macOS
         var showShortcutsDialog: Bool = false
-        /// Show the *Define chord* dialog
-        var showDefineChordDialog: Bool = false
 
         // MARK: Toasts
 

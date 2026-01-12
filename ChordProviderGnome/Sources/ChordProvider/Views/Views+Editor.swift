@@ -16,12 +16,9 @@ extension Views {
     struct Editor: View {
         init(appState: Binding<AppState>) {
             self._appState = appState
-            self.lines = appState.wrappedValue.editor.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
         }
         /// The state of the application
         @Binding var appState: AppState
-        /// The current song lines
-        let lines: [Song.Section.Line]
         /// Confirmation for cleanup
         @State private var confirmCleanup: Bool = false
         /// Inserts
@@ -30,16 +27,12 @@ extension Views {
         var view: Body {
             VStack {
                 /// - Note: Inserts for the editor
-                HStack {
-                    Text("Metadata")
+                HStack(spacing: 5) {
+                    Toggle("Metadata", isOn: $inserts.showMetadata)
                         .style(.editorButton)
-                        .padding(5)
-                        .onClick {
-                            inserts.showMetadata.toggle()
-                        }
                         .popover(visible: $inserts.showMetadata) {
                             Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
-                                .style(.accent)
+                                .style(.addToEditorLabel)
                                 .padding(.bottom)
                             Separator()
                             ForEach(ChordPro.Directive.metadataDirectives) { directive in
@@ -47,12 +40,8 @@ extension Views {
                                     .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
                             }
                         }
-                    Text("Environment")
+                    Toggle("Environment", isOn: $inserts.showEnvironment)
                         .style(.editorButton)
-                        .padding(5)
-                        .onClick {
-                            inserts.showEnvironment.toggle()
-                        }
                         .popover(visible: $inserts.showEnvironment) {
                             Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
                                 .style(.addToEditorLabel)
@@ -62,19 +51,10 @@ extension Views {
                                 addInsert(directive: directive)
                             }
                         }
-                    Text("more...")
+                    Toggle("More...", isOn: $inserts.showMore)
                         .style(.editorButton)
-                        .padding(5)
-                        .onClick {
-                            inserts.showMore.toggle()
-                        }
                         .popover(visible: $inserts.showMore) {
-                            // - TODO: Make this more fancy
-                            Button("Define a new Chord") {
-                                appState.scene.showDefineChordDialog.toggle()
-                                inserts.showMore.toggle()
-                            }
-                            .flat()
+                            addInsert(directive: .define)
                             Button("Add all Chord definitions") {
                                 appState.editor.command = .appendText(text: appState.editor.song.definitions)
                                 inserts.showMore.toggle()
@@ -85,6 +65,7 @@ extension Views {
                             addInsert(directive: .comment)
                         }
                 }
+                .padding(5)
                 .halign(.center)
                 /// - Note: Disable all *inserts* when we are not a the beginning of a new line
                 .insensitive(!appState.editor.isAtBeginningOfLine)
@@ -102,20 +83,24 @@ extension Views {
             }
             .card()
             .padding()
-            .dialog(visible: $appState.scene.showDefineChordDialog) {
-                Views.DefineChord(appState: $appState)
+            .dialog(visible: $appState.editor.showEditDirectiveDialog) {
+                switch appState.editor.handleDirective {
+                case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
+                    Views.DefineChord(appState: $appState)
+                default:
+                    Edit(appState: $appState)
+                }
             }
         }
         @ViewBuilder
         var lineInfo: Body {
             HStack {
-                let currentLine = getCurrentLine(lineNumber: appState.editor.currentLine)
-                Text("Line \(currentLine.sourceLineNumber)")
+                Text("Line \(appState.editor.currentLine.sourceLineNumber)")
                     .frame(maxWidth: 120)
                     .halign(.start)
                     .padding()
                 ScrollView {
-                    if let warnings = currentLine.warnings {
+                    if let warnings = appState.editor.currentLine.warnings {
                         Text(warnings.map(\.message).joined(separator: "\n"))
                             .useMarkup()
                             .halign(.start)
@@ -151,10 +136,6 @@ extension Views {
             .style(.caption)
         }
 
-        func getCurrentLine(lineNumber: Int) -> Song.Section.Line {
-            lines[safe: lineNumber - 1] ?? Song.Section.Line()
-        }
-
         @ViewBuilder
         func addInsert(
             directive: ChordPro.Directive = .title,
@@ -162,7 +143,10 @@ extension Views {
         ) -> Body {
             let label = "\(directive.details.buttonLabel ?? directive.details.label)"
             Button(label) {
-                appState.editor.command = command ?? .insertDirective(directive: directive)
+                /// Set the `directive`
+                appState.editor.handleDirective = directive
+                /// Open the dialog
+                appState.editor.showEditDirectiveDialog = true
                 inserts = .init()
             }
             .flat()

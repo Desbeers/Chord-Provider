@@ -40,16 +40,22 @@ typedef void (*SourceViewDeleteCB)(
     gpointer user_data
 );
 
+typedef void (*SourceViewClickCB)(
+    gint click,
+    gpointer user_data
+);
+
 typedef void (*SourceViewCursorCB)(
     gpointer user_data
 );
 
 void
 sourceview_connect_signals(
-    GtkTextBuffer *buffer,
+    GtkSourceView *view,
     SourceViewInsertCB insert_cb,
     SourceViewDeleteCB delete_cb,
     SourceViewCursorCB cursor_cb,
+    SourceViewClickCB click_cb,
     gpointer user_data
 );
 

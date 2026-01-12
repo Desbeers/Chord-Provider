@@ -50,26 +50,10 @@ extension Widgets {
                 userData?
                     .assumingMemoryBound(to: cstrum.self)
                     .deinitialize(count: 1)
-                userData?
-                    .assumingMemoryBound(to: cstrum.self)
-                    .deallocate()
             }
             let content: [String: [ViewStorage]] = [:]
             let storage = ViewStorage(drawingArea?.opaque(), content: content)
             return storage
-        }
-
-        func update<Data>(
-            _ storage: ViewStorage,
-            data: WidgetData,
-            updateProperties: Bool,
-            type: Data.Type
-        ) where Data: ViewRenderData {
-            if updateProperties {
-                Idle {
-                    gtk_widget_queue_draw(storage.opaquePointer?.cast())
-                }
-            }
         }
 
         /// The arrow direction

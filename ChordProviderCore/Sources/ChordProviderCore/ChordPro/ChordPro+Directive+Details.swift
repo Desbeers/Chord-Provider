@@ -181,6 +181,7 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the lines that follow form the song’s chorus",
                 environment: .chorus,
                 lineType: .environmentDirective,
+                info: "The label is optional",
                 buttonLabel: "Chorus"
             )
         case .endOfChorus:
@@ -192,10 +193,11 @@ extension ChordPro.Directive {
             )
         case .chorus:
             Details(
-                label: "Repeat Chorus",
-                help: "his directive indicates that the song chorus must be played here",
+                label: "Label",
+                help: "This directive indicates that the song chorus must be played here",
                 environment: .repeatChorus,
-                lineType: .environmentDirective
+                lineType: .environmentDirective,
+                info: "The label is optional"
             )
         case .startOfVerse:
             Details(
@@ -203,6 +205,7 @@ extension ChordPro.Directive {
                 help: "Specifies that the following lines form a verse of the song",
                 environment: .verse,
                 lineType: .environmentDirective,
+                info: "The label is optional",
                 buttonLabel: "Verse"
             )
         case .endOfVerse:
@@ -218,6 +221,7 @@ extension ChordPro.Directive {
                 help: "Specifies that the following lines form a bridge of the song",
                 environment: .bridge,
                 lineType: .environmentDirective,
+                info: "The label is optional",
                 buttonLabel: "Bridge"
             )
         case .endOfBridge:
@@ -233,6 +237,7 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the lines that follow form a section of guitar TAB instructions",
                 environment: .tab,
                 lineType: .environmentDirective,
+                info: "The label is optional",
                 buttonLabel: "Tab"
             )
         case .endOfTab:
@@ -248,6 +253,7 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles",
                 environment: .grid,
                 lineType: .environmentDirective,
+                info: "The label is optional",
                 buttonLabel: "Grid"
             )
         case .endOfGrid:
@@ -263,6 +269,7 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the lines that follow define a piece of music written in ABC music notation",
                 environment: .abc,
                 lineType: .environmentDirective,
+                info: "The label is optional",
                 buttonLabel: "ABC"
             )
         case .endOfABC:
@@ -278,6 +285,7 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the lines that follow define a piece of text that is combined into a single object",
                 environment: .textblock,
                 lineType: .environmentDirective,
+                info: "The label is optional",
                 buttonLabel: "Textblock"
             )
         case .endOfTextblock:
@@ -337,7 +345,8 @@ extension ChordPro.Directive {
                 label: "Tag",
                 help: "This directive defines a tag for the song",
                 environment: .metadata,
-                lineType: .metadata
+                lineType: .metadata,
+                info: "You can have more than one `tag` in the song."
             )
         case .startOfStrum:
             Details(
@@ -345,7 +354,7 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the lines that follow defines a strum pattern",
                 environment: .strum,
                 lineType: .environmentDirective,
-                info: "**Tuplet** is a generic term that describes a grouping of notes that would not normally occur within a beat.",
+                info: "- `Tuplet` is a generic term that describes a grouping of notes that would not normally occur within a beat.\n- The label is optional.",
                 buttonLabel: "Strum"
             )
         case .endOfStrum:

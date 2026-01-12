@@ -19,23 +19,23 @@ extension EditorView {
             VStack {
                 switch directive {
                 case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge:
-                    Items(items: [.label], directive: directive)
+                    Items(directive: directive)
                 case .startOfStrum:
-                    Items(items: [.label, .tuplet], directive: directive)
+                    Items(directive: directive)
                 case .startOfTextblock:
-                    Items(items: [.label, .align, .flush], directive: directive)
+                    Items(directive: directive)
                 case .image:
-                    Items(items: [.label, .src, .width, .height, .scale, .align], directive: directive)
+                    Items(directive: directive)
                 case .key:
-                    Items(items: [.key], directive: directive)
+                    Items(directive: directive)
                 case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
-                    Items(items: [.define], directive: directive)
+                    Items(directive: directive)
                 case .tempo:
-                    Items(items: [.numeric], directive: directive, start: 60, end: 240, suffix: " bpm")
+                    Items(directive: directive, start: 60, end: 240, suffix: " bpm")
                 case .year:
-                    Items(items: [.numeric], directive: directive, start: 1900, end: 2030)
+                    Items(directive: directive, start: 1900, end: 2030)
                 default:
-                    Items(items: [.plain], directive: directive)
+                    Items(directive: directive)
                 }
             }
             .padding()
