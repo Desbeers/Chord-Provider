@@ -197,7 +197,8 @@ extension ChordPro.Directive {
                 help: "This directive indicates that the song chorus must be played here",
                 environment: .repeatChorus,
                 lineType: .environmentDirective,
-                info: "The label is optional"
+                info: "The label is optional",
+                buttonLabel: "Repeat Chorus"
             )
         case .startOfVerse:
             Details(

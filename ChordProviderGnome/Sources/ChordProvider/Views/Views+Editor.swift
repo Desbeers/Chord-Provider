@@ -48,7 +48,7 @@ extension Views {
                                 .padding(.bottom)
                             Separator()
                             ForEach(ChordPro.Directive.environmentDirectives) { directive in
-                                addInsert(directive: directive)
+                                addInsert(directive: directive, command: .insertDirective(directive: directive))
                             }
                         }
                     Toggle("More...", isOn: $inserts.showMore)
@@ -138,15 +138,20 @@ extension Views {
 
         @ViewBuilder
         func addInsert(
-            directive: ChordPro.Directive = .title,
+            directive: ChordPro.Directive,
             command: SourceViewCommand? = nil
         ) -> Body {
             let label = "\(directive.details.buttonLabel ?? directive.details.label)"
             Button(label) {
-                /// Set the `directive`
-                appState.editor.handleDirective = directive
-                /// Open the dialog
-                appState.editor.showEditDirectiveDialog = true
+                if let command {
+                    /// Apply the command
+                    appState.editor.command = command
+                } else {
+                    /// Set the `directive`
+                    appState.editor.handleDirective = directive
+                    /// Open the dialog
+                    appState.editor.showEditDirectiveDialog = true
+                }
                 inserts = .init()
             }
             .flat()
