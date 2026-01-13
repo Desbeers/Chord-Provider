@@ -35,9 +35,11 @@ extension GtkRender {
                                                 switch strum.action {
                                                 case .down, .downAccent, .downMuted, .downArpeggio:
                                                     Widgets.Arrow(direction: .down, length: Int(settings.app.zoom * 50), dash: dash)
+                                                        .id("\(strum.action.rawValue)-\(dash)")
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 case .up, .upAccent, .upMuted, .upArpeggio:
                                                     Widgets.Arrow(direction: .up, length: Int(settings.app.zoom * 50), dash: dash)
+                                                        .id("\(strum.action.rawValue)-\(dash)")
                                                         .frame(minHeight: Int(settings.app.zoom * 50))
                                                 case .none:
                                                     Text("x")
