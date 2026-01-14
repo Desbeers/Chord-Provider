@@ -58,7 +58,6 @@ extension Views {
                     Separator()
                     HStack {
                         ChordDiagram(chord: chord, width: 140, settings: settings)
-                            //.id(settings.diagram.description + chord.define)
                         VStack {
                             Text(chord.display)
                                 .style(.title)

@@ -22,7 +22,7 @@ extension Chord {
             case .major:
                 "major"
             default:
-                self.rawValue
+                self.display
             }
         }
 

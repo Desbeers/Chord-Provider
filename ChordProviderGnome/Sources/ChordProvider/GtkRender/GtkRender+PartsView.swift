@@ -22,7 +22,7 @@ extension GtkRender {
             ForEach(parts, horizontal: true) { part in
                 Box {
                     if part.chordDefinition != nil {
-                        Views.SingleChord(part: part, settings: settings)
+                        SingleChord(part: part, settings: settings)
                             .halign(.start)
                             .padding(5, .trailing)
                     } else {

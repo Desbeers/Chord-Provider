@@ -26,6 +26,8 @@ Please visit the official <b><i>ChordPro</i></b> website for the full experience
 
 - It will view and/or edit <i>ChordPro</i> files.
 - It can transpose your song.
+- It has a fancy dialog to add chord definitions.
+- It has a database with a lot of chords.
 
 <b>Chord Provider</b> can <i>not</i> do the following:
 
@@ -33,9 +35,10 @@ Please visit the official <b><i>ChordPro</i></b> website for the full experience
 - Change the look of your song.
 - Print your song.
 
+<a href="https://www.chordpro.org">Use the official implementation for that.</a>
+
 <b>Chord Provider</b> is a very basic application... By design...
 
-<a href="https://www.chordpro.org">Use the official implementation for that.</a>
 {end_of_textblock}
 
 {start_of_chorus Directives}
@@ -43,6 +46,13 @@ Not all official [D]directives are supported, [B]but most are.
 You can add [G7]chords to a verse or [C]chorus.
 {comment This is a <b>Chorus</b> and so it has a more prominent label}
 {end_of_chorus}
+
+{start_of_verse The Editor}
+
+If a [D]directive can have [A]arguments;
+[C]click 3 times on the line to show a [D]dialog for that.
+
+{end_of_verse}
 
 {start_of_tab Tab Tab Tab!}
 e|-------------|

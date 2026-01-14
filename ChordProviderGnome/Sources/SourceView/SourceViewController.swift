@@ -84,10 +84,6 @@ public final class SourceViewController {
 
         sourceview_install_marks(storage.opaquePointer?.cast(), "bookmark")
 
-        // MARK: Double click
-
-        //sourceview_check_clicks(storage.opaquePointer?.cast())
-
         /// Render the song
         scheduleSnapshot(self)
     }

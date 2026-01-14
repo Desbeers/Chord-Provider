@@ -22,14 +22,18 @@ extension Views {
                     .heading()
                     .padding()
                 HStack {
-                    CountButton(appState: $appState, icon: .goPrevious) {
-                        $0.editor.song.settings.transpose = max($0.editor.song.settings.transpose - 1, -11)
-                    }
+                    CountButton(
+                        appState: $appState.onSet { _ in appState.editor.command = .updateSong },
+                        icon: .goPrevious) {
+                            $0.editor.song.settings.transpose = max($0.editor.song.settings.transpose - 1, -11)
+                        }
                     Text("\(appState.editor.song.transposing) semitones")
                         .frame(minWidth: 150)
-                    CountButton(appState: $appState, icon: .goNext) {
-                        $0.editor.song.settings.transpose = min($0.editor.song.settings.transpose + 1, 11)
-                    }
+                    CountButton(
+                        appState: $appState.onSet { _ in appState.editor.command = .updateSong },
+                        icon: .goNext) {
+                            $0.editor.song.settings.transpose = min($0.editor.song.settings.transpose + 1, 11)
+                        }
                 }
                 .halign(.center)
                 .padding()
@@ -38,8 +42,6 @@ extension Views {
                         .style("caption")
                 }
                 Button("Close") {
-                    /// - Note: The song will only update its chords when this dialog is closed
-                    appState.editor.command = .updateSong
                     appState.scene.showTransposeDialog = false
                 }
                 .padding()

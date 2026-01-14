@@ -54,9 +54,13 @@ extension Views {
                     selection: $definition.root,
                     values: Chord.Root.allCases.dropFirst().dropLast()
                 )
+                /// Disable above when a definition is edited
+                .insensitive(!newChord)
                 HStack(spacing: 10) {
                     Text("Quality:")
                     DropDown(selection: $definition.quality, values: Array(Chord.Quality.allCases.dropFirst()))
+                    /// Disable above when a definition is edited
+                    .insensitive(!newChord)
                     Text("Base fret:")
                     /// - Note: Make this better
                     DropDown(selection: $definition.baseFret, values: Chord.BaseFret.allCases)
@@ -65,6 +69,8 @@ extension Views {
                         selection: $slash.onSet { definition.slash = $0 == .none ? nil : $0 },
                         values: Array(Chord.Root.allCases.dropFirst())
                     )
+                    /// Disable above when a definition is edited
+                    .insensitive(!newChord)
                 }
                 HStack(spacing: 20) {
                     VStack {

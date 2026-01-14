@@ -175,13 +175,13 @@ extension Views.Editor {
                 .halign(.center)
                 .padding(.top)
             }
-            .padding()
+            .padding([.leading, .trailing, .bottom])
             .topToolbar {
                 HeaderBar.empty()
                     .headerBarTitle {
                         WindowTitle(
                             subtitle: "",
-                            title: directive.details.label
+                            title: "\(directive.details.buttonLabel ?? directive.details.label)"
                         )
                     }
             }

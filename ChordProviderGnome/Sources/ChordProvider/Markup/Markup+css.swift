@@ -224,7 +224,9 @@ extension Markup {
 }
 .chord-diagram-button {
     margin: 0;
-    padding: 0 2px;
+    padding: 0;
+    font-size: \(1.1 * baseFontSize * zoom)px;
+    color: var(--chordprovider-accent-color);
 }
 
 /* Labels */

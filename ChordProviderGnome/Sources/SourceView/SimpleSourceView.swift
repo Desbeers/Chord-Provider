@@ -37,6 +37,8 @@ public struct SimpleSourceView: AdwaitaWidget {
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
+        /// Disable editing
+        gtk_text_view_set_editable(storage.opaquePointer?.cast(), 0)
         return storage
     }
 }

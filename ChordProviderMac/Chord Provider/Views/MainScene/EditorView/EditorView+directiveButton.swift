@@ -18,7 +18,7 @@ extension EditorView {
                 Editor.format(directive: directive, editorInternals: sceneState.editorInternals)
             },
             label: {
-                Label("\(directive.details.label)…", systemImage: directive.sfSymbol)
+                Label("\(directive.details.buttonLabel ?? directive.details.label)…", systemImage: directive.sfSymbol)
             }
         )
         .disabled(sceneState.song.metadata.definedMetadata.contains(directive.rawValue.long))
