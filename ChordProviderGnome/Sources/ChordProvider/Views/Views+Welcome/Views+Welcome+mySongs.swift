@@ -1,5 +1,5 @@
 //
-//  Views.Welcome+mySongs.swift
+//  Views+Welcome+mySongs.swift
 //  ChordProvider
 //
 //  © 2025 Nick Berendsen
