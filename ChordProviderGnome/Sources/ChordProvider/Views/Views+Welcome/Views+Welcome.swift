@@ -117,6 +117,9 @@ extension Views {
             .onAppear {
                 getFolderContent()
             }
+
+            // MARK: Song Folder importer
+
             .folderImporter(
                 open: appState.scene.openFolder,
                 initialFolder: appState.settings.app.songsFolder

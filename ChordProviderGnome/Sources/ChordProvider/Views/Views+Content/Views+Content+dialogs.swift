@@ -1,5 +1,5 @@
 //
-//  Views+Content.swift
+//  Views+Content+dialogs.swift
 //  ChordProviderGnome
 //
 //  © 2025 Nick Berendsen
@@ -9,52 +9,21 @@ import Foundation
 import Adwaita
 import ChordProviderCore
 
-extension Views {
+extension Views.Content {
 
-    /// The main `View` for the application
-    struct Content: View {
-        /// The `AdwaitaApp`
-        var app: AdwaitaApp
-        /// The `AdwaitaWindow`
-        var window: AdwaitaWindow
-        /// The state of the application
-        @Binding var appState: AppState
+    /// The dialogs for he *Content view*
+    var dialogs: AnyView {
 
-        // MARK: Main View
+        /// Just an attachment point for modifiers
+        Views.Empty()
 
-        /// The main `View`
-        var view: Body {
-            VStack {
-                if appState.scene.showWelcomeView {
-                    Views.Welcome(app: app, window: window, appState: $appState)
-                        .vexpand()
-                        .hexpand()
-                        .transition(.crossfade)
-                } else {
-                    Views.Render(appState: $appState)
-                        .hexpand()
-                        .vexpand()
-                        .transition(.crossfade)
-                        .topToolbar {
-                            Views.Toolbar.Main(
-                                app: app,
-                                window: window,
-                                appState: $appState
-                            )
-                        }
-                        .dialog(visible: $appState.scene.showDebugDialog, width: 800, height: 600) {
-                            Views.Debug(appState: $appState)
-                        }
-                }
-            }
+        // MARK: About Dialog
 
-            // MARK: About Dialog
-
-            /// The **About dialog**
-            ///
-            /// - Note: It would be nice if we could add some more stuff to this dialog
-            /// - Credits
-            /// - Troubleshooting
+        /// The **About dialog**
+        ///
+        /// - Note: It would be nice if we could add some more stuff to this dialog
+        /// - Credits
+        /// - Troubleshooting
             .aboutDialog(
                 visible: $appState.scene.showAboutDialog,
                 app: "Chord Provider",
@@ -67,9 +36,9 @@ extension Views {
                 issues: URL(string: "https://github.com/Desbeers/Chord-Provider/issues")!
             )
 
-            // MARK: Transpose Song Dialog
+        // MARK: Transpose Song Dialog
 
-            /// The dialog to ** Transpose Song**
+        /// The dialog to ** Transpose Song**
             .dialog(
                 visible: $appState.scene.showTransposeDialog,
                 title: "Transpose the song",
@@ -79,9 +48,9 @@ extension Views {
                 Views.Transpose(appState: $appState)
             }
 
-            // MARK: Alert Dialog
+        // MARK: Save Song dialog
 
-            /// The **Alert dialog** when a song is changed but not yet saved
+        /// The **Alert dialog** when a song is changed but not yet saved
             .alertDialog(
                 visible: $appState.scene.showCloseDialog,
                 heading: "Save Changes?",
@@ -136,11 +105,11 @@ extension Views {
                 }
             }
 
-            // MARK: Preference dialog
+        // MARK: Preference dialog
 
-            /// The **Preference Dialog**
-            ///
-            /// - Note: It would be nice if the pages can be added in an overload
+        /// The **Preference Dialog**
+        ///
+        /// - Note: It would be nice if the pages can be added in an overload
             .preferencesDialog(visible: $appState.scene.showPreferencesDialog)
             .preferencesPage("General", icon: .default(icon: .folderMusic)) { page in
                 page
@@ -181,50 +150,7 @@ extension Views {
                     }
             }
 
-            // MARK: Toast
-
-            /// The **Toast** message
-            .toast(appState.scene.toastMessage.escapeSpecialCharacters(), signal: appState.scene.showToast)
-
-            // MARK: File Importer
-
-            /// The **File Importer**
-            .fileImporter(
-                open: appState.scene.openSong,
-                extensions: ["chordpro", "cho"]
-            ) { fileURL in
-                appState.openSong(fileURL: fileURL)
-                appState.scene.showToast.signal()
-            }
-
-            // MARK: File Exporter
-
-            /// The **File Exporter**
-            .fileExporter(
-                open: appState.scene.saveSongAs,
-                initialName: appState.editor.song.initialName(format: appState.editor.song.settings.export.format)
-            ) { fileURL in
-                switch appState.editor.song.settings.export.format {
-                case .chordPro:
-                    appState.editor.song.settings.fileURL = fileURL
-                    appState.saveSong(appState.editor.song)
-                    /// Set the toast
-                    appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
-                default:
-                    break
-                }
-                switch appState.scene.saveDoneAction {
-                case .closeWindow:
-                    window.close()
-                case .showWelcomeView:
-                    appState.scene.showToast.signal()
-                    appState.scene.showWelcomeView = true
-                case .noAction:
-                    appState.scene.showToast.signal()
-                }
-            }
-
-            // MARK: Shortcuts Dialog
+        // MARK: Shortcuts Dialog
 
             .shortcutsDialog(visible: $appState.scene.showShortcutsDialog)
             .shortcutsSection("Song") { section in
@@ -245,6 +171,5 @@ extension Views {
                     .shortcutsItem("Show keyboard shortcuts", accelerator: "question".ctrl())
             }
             .shortcutsSection { $0.shortcutsItem("Quit Chord Provider", accelerator: "q".ctrl()) }
-        }
     }
 }

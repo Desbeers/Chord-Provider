@@ -9,5 +9,6 @@ import Foundation
 
 /// Bits and pieces for a **ChordPro** file
 public enum ChordPro {
-    /// Just a placeholder
+    /// **ChordPro** file extensions
+    public static let fileExtensions: [String] = ["chordpro", "cho", "crd", "chopro", "chord", "pro"]
 }
