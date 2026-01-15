@@ -105,7 +105,7 @@ struct AppState {
     /// The subtitle of the `Scene`
     /// - Note: Using the URL, *not* the metadata of the song
     var subtitle: String {
-        "\(editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(contentIsModified ? " - edited" : "")"
+        "\(editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(contentIsModified ? " - modified" : "")"
     }
 }
 

@@ -84,10 +84,25 @@ extension Views {
             /// The **Alert dialog** when a song is changed but not yet saved
             .alertDialog(
                 visible: $appState.scene.showCloseDialog,
-                heading: "'\(appState.editor.song.metadata.title)' has changed",
-                body: "Do you want to save your song?",
-                id: "dirty-dialog"
+                heading: "Save Changes?",
+                //body: "Changes which are not saved will be permanently lost.",
+                id: "dirty-dialog",
+                /// - Note: Use `extraChild` instead of `body` so I can use markup
+                extraChild:  {
+                    VStack {
+                        Text("<b>\(appState.editor.song.metadata.title)</b> is modified.")
+                            .useMarkup()
+                            .style(.subtitle)
+                            .padding(.bottom)
+                        Text("Changes which are not saved will be permanently lost.")
+                    }
+                    /// - Note: Dirty trick to show all three buttons vertical
+                    .frame(minWidth: 380)
+                }
             )
+            .response("Cancel", role: .close) {
+                /// Do nothing
+            }
             .response("Discard", appearance: .destructive, role: .none) {
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
