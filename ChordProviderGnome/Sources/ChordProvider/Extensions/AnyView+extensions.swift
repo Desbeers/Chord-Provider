@@ -48,4 +48,12 @@ extension AnyView {
             gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_VERTICAL)
         }
     }
+
+    /// Orientate a `Widget` horizontal
+    /// - Returns: A modified `AnyView`
+    public func horizotal() -> AnyView {
+        inspect { storage, updateProperties in
+            gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_HORIZONTAL)
+        }
+    }
 }

@@ -21,6 +21,8 @@ extension Chord {
             switch self {
             case .major:
                 "major"
+            case .minor:
+                "minor"
             default:
                 self.display
             }

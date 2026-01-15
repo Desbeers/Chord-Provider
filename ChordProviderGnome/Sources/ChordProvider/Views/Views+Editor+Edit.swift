@@ -126,6 +126,7 @@ extension Views.Editor {
                         }
                     case .key:
                         KeyPicker(label: "Key", value: $formState.plain)
+                            .padding(.bottom)
                     default:
                         Text("\(attribute.rawValue) is not implemented")
                             .padding(.bottom)
@@ -139,6 +140,7 @@ extension Views.Editor {
                 Separator()
                 HStack(spacing: 10) {
                     Button("Cancel") {
+                        appState.editor.command = .clearSelection
                         appState.editor.showEditDirectiveDialog = false
                         appState.editor.handleDirective = nil
                     }

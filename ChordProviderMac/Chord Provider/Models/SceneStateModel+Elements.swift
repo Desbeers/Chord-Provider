@@ -189,7 +189,7 @@ extension SceneStateModel {
         var body: some View {
             Picker("Quality:", selection: $sceneState.definition.quality) {
                 ForEach(cases, id: \.rawValue) { value in
-                    Text(value == .major ? "major" : value.display)
+                    Text(value.description)
                         .tag(value)
                 }
             }
@@ -199,6 +199,25 @@ extension SceneStateModel {
             switch showAll {
             case true: Chord.Quality.allCases
             case false: Array(Chord.Quality.allCases.dropFirst())
+            }
+        }
+    }
+
+    /// SwiftUI `View` with a `Picker` to select a major or minor quality value
+    func qualityMajMinPicker() -> some View {
+        QualityMajMinPicker(sceneState: self)
+    }
+    /// SwiftUI `View` with a `Picker` to select a mayor or minor quality value
+    struct QualityMajMinPicker: View {
+        /// The binding to the observable state of the scene
+        @Bindable var sceneState: SceneStateModel
+        /// The body of the `View`
+        var body: some View {
+            Picker("Quality:", selection: $sceneState.definition.quality) {
+                ForEach([Chord.Quality.major, Chord.Quality.minor], id: \.rawValue) { value in
+                    Text(value.description)
+                        .tag(value)
+                }
             }
         }
     }

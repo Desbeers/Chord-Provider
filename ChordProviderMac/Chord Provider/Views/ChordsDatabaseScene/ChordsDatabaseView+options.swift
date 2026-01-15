@@ -19,22 +19,13 @@ extension ChordsDatabaseView {
                 Button {
                     chordsDatabaseState.showExportSheet.toggle()
                 } label: {
-                    Text("Export all \(currentInstrument.label) chords")
+                    Text("Export \(currentInstrument.description) chords")
                 }
             }
             GridRow {
                 sceneState.scaleSlider
                     .frame(width: 120)
                 Toggle("Hide Correct Chords", isOn: $hideCorrectChords)
-                VStack {
-                    Button {
-                        chordsDatabaseState.showExportSheet.toggle()
-                    } label: {
-                        Text(.init("Export \(currentInstrument.label) chords to **ChordPro** format"))
-                    }
-                    Text("Only the first definition of a chord will be exported")
-                        .font(.caption)
-                }
             }
         }
         .padding()

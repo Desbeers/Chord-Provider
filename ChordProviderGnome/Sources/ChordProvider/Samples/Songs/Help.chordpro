@@ -9,8 +9,7 @@
 {tempo 123}
 {capo II}
 {year 2026}
-# My favourite chord :-)
-{key G7}
+{key G}
 
 {start_of_textblock label="Introduction" align="center" flush="left"}
 <b><i>ChordPro</i></b> is an open standard text format, a simple text format for the notation of lyrics with chords.

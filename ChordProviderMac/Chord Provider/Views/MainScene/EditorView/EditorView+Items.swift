@@ -61,7 +61,7 @@ extension EditorView.DirectiveSheet {
                     case .key:
                         HStack {
                             sceneState.rootPicker(showAllOption: false, hideFlats: false)
-                            sceneState.qualityPicker()
+                            sceneState.qualityMajMinPicker()
                         }
                     case .define:
                         CreateChordView(showAllOption: false, hideFlats: false, sceneState: sceneState)

@@ -25,7 +25,7 @@ extension ChordsDatabaseView {
                 .padding()
                 Picker("Quality:", selection: $chordsDatabaseState.gridQuality) {
                     ForEach(Chord.Quality.allCases, id: \.rawValue) { value in
-                        Text(value == .major ? "major" : value.display)
+                        Text(value == .major ? "major" : value.description)
                             .tag(value)
                     }
                 }
