@@ -1,6 +1,6 @@
 //
 //  Views+Debug+log.swift
-//  ChordProviderGnome
+//  ChordProvider
 //
 //  © 2025 Nick Berendsen
 //

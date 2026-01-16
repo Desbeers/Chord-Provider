@@ -18,7 +18,5 @@ extension AppSettings {
         var columnPaging: Bool = true
         /// The zoom factor
         var zoom: Double = 1
-        /// The core settings
-        var core = ChordProviderSettings()
     }
 }

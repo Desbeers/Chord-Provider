@@ -12,7 +12,7 @@ extension AppState {
     
     /// The structure for a recent song
     struct RecentSong: Codable, Hashable, Identifiable {
-        /// The ID of te song
+        /// The ID of the song
         var id: String {
             url.absoluteString
         }

@@ -1,6 +1,6 @@
 //
 //  Views+Render.swift
-//  ChordProviderGnome
+//  ChordProvider
 //
 //  © 2025 Nick Berendsen
 //
@@ -36,8 +36,6 @@ extension Views {
                         }
                         .hexpand()
                         .vexpand()
-                        /// Set the ID to the View with the unique ID of the song
-                        .id(appState.editor.song.id)
                     } else {
                         StatusPage(
                             "Loading",

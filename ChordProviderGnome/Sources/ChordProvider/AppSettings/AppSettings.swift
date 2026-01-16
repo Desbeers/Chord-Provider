@@ -1,6 +1,6 @@
 //
 //  AppSettings.swift
-//  ChordProviderGnome
+//  ChordProvider
 //
 //  © 2025 Nick Berendsen
 //
@@ -12,6 +12,8 @@ import ChordProviderCore
 struct AppSettings: Codable, Equatable {
     /// Application settings for all scenes
     var app = App()
-    /// Editor settings
+    /// The editor settings
     var editor = Editor()
+    /// The core settings
+    var core = ChordProviderSettings()
 }

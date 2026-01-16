@@ -25,7 +25,7 @@ struct AppState {
             print("Loaded settings")
             self.settings = settings
             /// Restore settings
-            self.editor.song.settings = self.settings.app.core
+            self.editor.song.settings = self.settings.core
         } else {
             print("No settings found, creating new one")
         }
@@ -49,6 +49,8 @@ struct AppState {
                     dark: app_prefers_dark_theme() == 1 ? true : false,
                     editorFontSize: self.settings.editor.fontSize.rawValue
                 )
+                /// Store the new values
+                /// - Note: Needed if the user switching from light to dark or visa versa
                 self.styleState.pointee.editor_font_size = Int32(self.settings.editor.fontSize.rawValue)
                 self.styleState.pointee.zoom = self.settings.app.zoom
             }
@@ -82,7 +84,7 @@ struct AppState {
     let styleState = UnsafeMutablePointer<stylestate>.allocate(capacity: 1)
 
     /// The list of *Recent songs*
-    private(set) var recentSongs: [RecentSong] = [] {
+    var recentSongs: [RecentSong] = [] {
         didSet {
             print("Saving recent songs")
             try? SettingsCache.set(id: "ChordProviderGnome-recent", object: self.recentSongs)
@@ -93,7 +95,7 @@ struct AppState {
     var editor = SourceViewBridge(song: Song(id: UUID(), content: "")) {
         didSet {
             if editor.song.settings != oldValue.song.settings {
-                self.settings.app.core = self.editor.song.settings
+                self.settings.core = self.editor.song.settings
             }
         }
     }
@@ -101,131 +103,22 @@ struct AppState {
     /// The `GtkSourceEditor`class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
     var controller: SourceViewController?
-
-    /// The subtitle of the `Scene`
-    /// - Note: Using the URL, *not* the metadata of the song
-    var subtitle: String {
-        "\(editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent ?? "New Song")\(contentIsModified ? " - modified" : "")"
-    }
 }
 
 extension AppState {
 
-    /// Add a *Recent song*
-    mutating func addRecentSong() {
-        if let fileURL = self.editor.song.settings.fileURL {
-            var recentSongs = self.recentSongs
-            /// Keep only relevant information
-            let recent = ChordProParser.parse(
-                song: Song(id: UUID(), content: self.scene.originalContent),
-                settings: self.editor.song.settings,
-                getOnlyMetadata: true
-            )
-            recentSongs.append(
-                RecentSong(
-                    url: fileURL,
-                    song: recent,
-                    lastOpened: Date.now,
-                    settings: self.editor.song.settings
-                )
-            )
-            /// Update the list
-            self.recentSongs = Array(
-                recentSongs
-                    .sorted(using: KeyPathComparator(\.lastOpened, order: .reverse))
-                    .uniqued(by: \.id)
-                    .prefix(20)
-            )
-        }
+    // MARK: Calculated stuff
+
+    /// The subtitle of the `Scene`
+    /// - Note: Using the URL, *not* the metadata of the song
+    var subtitle: String {
+        let lastPathComponent = editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent
+        return "\(lastPathComponent ?? "New Song")\(contentIsModified ? " - modified" : "")"
     }
 
-    /// Clear the *Recent songs* list
-    mutating func clearRecentSongs() {
-        self.recentSongs = []
-    }
-
-    /// Get *Recent songs*
-    func getRecentSongs() -> [RecentSong] {
-        var recent: [RecentSong] = []
-        for song in self.recentSongs where FileManager.default.fileExists(atPath: song.url.path) {
-            recent.append(song)
-        }
-        /// Return to the `View`
-        return recent
-    }
-
-    /// Bool if the content is modified
+    /// Bool if the content of the song is modified
     /// - Note: Comparing the source with the original source
     var contentIsModified: Bool {
         editor.song.content != scene.originalContent
     }
 }
-
-extension AppState {
-    
-    /// Open a sample song from the Bundle
-    /// - Parameters:
-    ///   - sample: The sample song
-    ///   - showEditor: Bool to show the editor
-    mutating func openSample(_ sample: String, showEditor: Bool) {
-        if
-            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
-            let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-            self.editor.song.settings.fileURL = nil
-            openSong(content: content, showEditor: showEditor, templateURL: sampleSong)
-        } else {
-            print("Error loading sample song")
-        }
-    }
-
-    /// Open a song from an URL
-    mutating func openSong(fileURL: URL) {
-        do {
-            let content = try SongFileUtils.getSongContent(fileURL: fileURL)
-            self.editor.song.settings.fileURL = fileURL
-            openSong(content: content, showEditor: self.settings.editor.showEditor)
-            self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-            self.addRecentSong()
-        } catch {
-            self.scene.toastMessage = "Could not open the song"
-        }
-    }
-
-    /// Open a song with its content as string
-    /// - Parameter content: The content of the song
-    mutating private func openSong(content: String, showEditor: Bool, templateURL: URL? = nil) {
-        /// Reset transpose
-        self.editor.song.settings.transpose = 0
-        self.editor.song.metadata.transpose = 0
-        /// Don't show the previous song because the rendering has some delay
-        self.editor.song.hasContent = false
-        /// - Note: Never set the content directly; it will be ignored and the song will not be updated
-        self.editor.command = .replaceAllText(text: content)
-        self.scene.originalContent = content
-        self.settings.editor.showEditor = showEditor
-        if let templateURL {
-            self.editor.song.settings.templateURL = templateURL
-        }
-        /// Give the song a new ID
-        /// - Note: That will make a new View
-        self.editor.song.id = UUID()
-        /// Close the welcome
-        self.scene.showWelcomeView = false
-    }
-    
-    /// Save a song to disk
-    /// - Parameter song: The `Song` to save
-    mutating func saveSong(_ song: Song) {
-        if let fileURL = self.editor.song.settings.fileURL {
-            try? self.editor.song.content.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-            /// Remember the content as  saved
-            self.scene.originalContent = self.editor.song.content
-            /// Add it to the recent songs list
-            self.addRecentSong()
-        } else {
-            self.scene.saveSongAs.signal()
-        }
-    }
-}
-
-
