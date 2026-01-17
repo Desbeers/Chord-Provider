@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import CAdw
-import CChordProvider
 import ChordProviderCore
 
 extension Widgets {
@@ -40,38 +39,21 @@ extension Widgets {
             data: WidgetData,
             type: Data.Type
         ) -> ViewStorage where Data: ViewRenderData {
-            let context = Context(strings: settings.instrument.strings.count)
-            convert(context: context)
+            let context = Context(definition: chord, showNotes: settings.diagram.showNotes)
+            //convert(context: context)
             let drawingArea = gtk_drawing_area_new()
             gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
             gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))
             gtk_drawing_area_set_draw_func(
                 drawingArea?.cast(),
                 draw_chord,
-                Unmanaged.passRetained(context).toOpaque()) {
-                    userData in
-                    Unmanaged<Context>.fromOpaque(userData!).release()
-                }
+                Unmanaged.passRetained(context).toOpaque()
+            ) {
+                userData in
+                Unmanaged<Context>.fromOpaque(userData!).release()
+            }
             let storage = ViewStorage(drawingArea?.opaque())
             return storage
-        }
-        
-        /// Convert the `ChordDefinition` to `Context`
-        /// - Parameter context: An updated `Context`
-        private func convert(context: Context) {
-            context.showNotes = settings.diagram.showNotes
-            context.baseFret = chord.baseFret.rawValue
-            for index in 0..<6 {
-                context.setFret(chord.frets[safe: index] ?? 0, on: index)
-                context.setFinger(chord.fingers[safe: index] ?? 0, on: index)
-            }
-            let fallback = Chord.Barre(finger: -1, fret: 0, startIndex: 0, endIndex: 0)
-            for index in 0..<5 {
-                context.setBarre(at: index, barre: chord.barres?[safe: index] ?? fallback)
-            }
-            for (index, note) in chord.components.enumerated() {
-                context.setNote(note.note == .none ? " " : note.note.display, on: index)
-            }
         }
     }
 }
@@ -100,8 +82,9 @@ public func draw_chord(
     let data = Unmanaged<Widgets.Diagram.Context>
         .fromOpaque(userData)
         .takeUnretainedValue()
+
     let color: Double = dark_mode == 0 ? 0 : 1
-    let strings = data.strings
+    let strings = data.definition.instrument.strings.count
     let width = Double(width)
     let height = Double(height)
     let margin: Double = width * 0.2
@@ -134,7 +117,7 @@ public func draw_chord(
     cairo_stroke(cr)
 
     /// Draw top bar or base fret
-    if data.baseFret == 1 {
+    if data.definition.baseFret == .one {
         cairo_set_source_rgb(cr, color, color, color)
         cairo_set_line_width(cr, fontSize / 4)
         cairo_move_to(cr, margin - 1, margin)
@@ -142,10 +125,10 @@ public func draw_chord(
         cairo_stroke(cr)
         cairo_set_line_width(cr, 0.2)
     } else {
-        let xOffset = margin * (data.baseFret > 9 ? 0.2 : 0.4)
+        let xOffset = margin * (data.definition.baseFret.rawValue > 9 ? 0.2 : 0.4)
         cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
         cairo_move_to(cr, xOffset, margin + fretSpacing / 1.5)
-        cairo_show_text(cr, "\(data.baseFret)")
+        cairo_show_text(cr, "\(data.definition.baseFret.rawValue)")
     }
 
     /// Draw frets
@@ -158,9 +141,8 @@ public func draw_chord(
 
     /// Draw finger positions
     for index in 0..<strings {
-
-        let fret = data[fret: index]
-        let finger = data[finger: index]
+        let fret = data.definition.frets[index]
+        let finger = data.definition.fingers[index]
         let x = margin + Double(index) * stringSpacing
         if fret == -1 {
             /// Muted string: draw X
@@ -179,7 +161,7 @@ public func draw_chord(
             cairo_set_line_width(cr, 1)
             cairo_stroke(cr)
         } else if fret > 0 {
-            if let barre = data.barre(atFret: fret), !drawnBarres.contains(barre.fret) {
+            if let barres = data.definition.barres, let barre = barres.first(where: { $0.fret == fret }), !drawnBarres.contains(barre.fret) {
                 drawnBarres.insert(barre.fret)
                 /// Draw barre
                 let height = radius * 2
@@ -219,16 +201,19 @@ public func draw_chord(
     }
 
     /// Draw notes
-        if data.showNotes {
-            cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
-            for index in 0..<strings {
-                var offset: Double = 0
-                if let note = data.note(on: index) {
-                    offset = note.count == 1 ? 1.1 : 1.25
-                }
-                let y = (margin / offset) + Double(index) * stringSpacing
-                cairo_move_to(cr, y, height - fontSize * 1.4)
-                cairo_show_text(cr, data.note(on: index))
+
+    if data.showNotes {
+        cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
+        for index in 0..<strings {
+            let component = data.definition.components[index]
+            var offset: Double = 0
+            if let note = component.note != .none ? component.note : nil {
+                offset = note.rawValue.count == 1 ? 1.1 : 1.25
             }
+            let y = (margin / offset) + Double(index) * stringSpacing
+            cairo_move_to(cr, y, height - fontSize * 1.4)
+            let text = component.note != .none ? component.note.display : " "
+            cairo_show_text(cr, text)
         }
+    }
 }

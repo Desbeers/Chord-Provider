@@ -5,10 +5,9 @@
 //  © 2025 Nick Berendsen
 //
 
-import Adwaita
 import Foundation
+import Adwaita
 import ChordProviderCore
-import CChordProvider
 import SourceView
 
 /// The **Chord Provider** application

@@ -10,7 +10,6 @@ import ChordProviderCore
 import SourceView
 import Adwaita
 import CAdw
-import CChordProvider
 
 /// The state of **Chord Provider**
 struct AppState {

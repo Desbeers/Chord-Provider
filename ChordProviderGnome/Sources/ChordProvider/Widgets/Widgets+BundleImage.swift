@@ -7,8 +7,8 @@
 
 import Foundation
 import ChordProviderCore
-import CChordProvider
 import Adwaita
+import CAdw
 
 extension Widgets {
 

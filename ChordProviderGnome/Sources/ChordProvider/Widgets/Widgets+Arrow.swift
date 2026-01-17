@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import CAdw
-import CChordProvider
 
 extension Widgets {
 
@@ -36,20 +35,15 @@ extension Widgets {
             type: Data.Type
         ) -> ViewStorage where Data: ViewRenderData {
             let drawingArea = gtk_drawing_area_new()
-
-            let cdata = UnsafeMutablePointer<cstrum>.allocate(capacity: 1)
-            cdata.initialize(
-                to: cstrum(
-                    down: direction == .down,
-                    dash: dash,
-                    length: Int32(length)
-                )
-            )
-            gtk_drawing_area_set_content_height(drawingArea?.cast(), cdata.pointee.length)
-            gtk_drawing_area_set_draw_func(drawingArea?.cast(), draw_arrow, cdata) { userData in
-                userData?
-                    .assumingMemoryBound(to: cstrum.self)
-                    .deinitialize(count: 1)
+            let context = Context(direction: direction, length: length, dash: dash)
+            gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(length))
+            gtk_drawing_area_set_draw_func(
+                drawingArea?.cast(),
+                draw_arrow,
+                Unmanaged.passRetained(context).toOpaque()
+            ) {
+                userData in
+                Unmanaged<Context>.fromOpaque(userData!).release()
             }
             let content: [String: [ViewStorage]] = [:]
             let storage = ViewStorage(drawingArea?.opaque(), content: content)
@@ -82,9 +76,9 @@ public func draw_arrow(
         let userData
     else { return }
 
-    let data = userData
-        .assumingMemoryBound(to: cstrum.self)
-        .pointee
+    let data = Unmanaged<Widgets.Arrow.Context>
+        .fromOpaque(userData)
+        .takeUnretainedValue()
 
     let manager = adw_style_manager_get_default()
     let dark_mode = adw_style_manager_get_dark(manager)
@@ -96,9 +90,9 @@ public func draw_arrow(
     let arrowDegrees = Double.pi / 8
 
     let x1: Double = Double(data.length) / 5
-    let y1: Double = data.down ? 0 : Double(data.length)
+    let y1: Double = data.direction == .down ? 0 : Double(data.length)
     let x2: Double = Double(data.length) / 5
-    let y2: Double = data.down ? Double(data.length) : 0
+    let y2: Double = data.direction == .down ? Double(data.length) : 0
 
     cairo_set_source_rgb(cr, color, color, color)
     cairo_set_line_width(cr, 1)

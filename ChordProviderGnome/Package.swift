@@ -38,17 +38,9 @@ let package = Package(
             ],
             publicHeadersPath: "include"
         ),
-        .target(
-            name: "CChordProvider",
-            dependencies: [
-                "CSourceView"
-            ],
-            publicHeadersPath: "include"
-        ),
         .executableTarget(
             name: "ChordProvider",
             dependencies: [
-                "CChordProvider",
                 "SourceView",
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore")
