@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import CAdw
 import ChordProviderCore
 import CSourceView
 
@@ -23,8 +24,6 @@ public final class SourceViewController {
     public var isAtBeginningOfLine: Bool = false
     /// Bool if the editor has a selection
     public var hasSelection: Bool = false
-//    /// All the lines in the song
-//    public var songLines = [Song.Section.Line]()
 
     // MARK: Snippets
 
@@ -54,7 +53,6 @@ public final class SourceViewController {
     ///   - language: The editor language
     public init(bridge: Binding<SourceViewBridge>, language: Language) {
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
-        sourceview_set_theme(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
         gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), bridge.song.content.wrappedValue, -1)
         storage = ViewStorage(
@@ -68,6 +66,16 @@ public final class SourceViewController {
         // MARK: Snippets
 
         completion = gtk_source_view_get_completion(storage.opaquePointer?.cast())
+
+        // MARK: Style
+
+        /// Set the style
+        let styleManager = adw_style_manager_get_default()
+        SourceViewController.setStyle(buffer: buffer, manager: styleManager)
+        /// Add a *notification* for style changes
+        buffer.notify(name: "dark", pointer: styleManager) {
+            SourceViewController.setStyle(buffer: self.buffer, manager: styleManager)
+        }
 
         gtk_source_init()
         /// Connect signal callbacks
@@ -89,6 +97,18 @@ public final class SourceViewController {
     }
     deinit {
         print("DEINT CONTROLLER")
+    }
+    
+    /// Set the style of the editor
+    /// - Parameters:
+    ///   - buffer: The text buffer
+    ///   - styleManager: The `Adwaita` style manager
+    static func setStyle(buffer: ViewStorage, manager styleManager: OpaquePointer?) {
+        let isDark = adw_style_manager_get_dark(styleManager)
+        let theme = isDark == 1 ? "Adwaita-dark" : "Adwaita"
+        let manager = gtk_source_style_scheme_manager_get_default()
+        let scheme = gtk_source_style_scheme_manager_get_scheme(manager, theme)
+        gtk_source_buffer_set_style_scheme(buffer.opaquePointer?.cast(), scheme);
     }
 
     // MARK: Cursor movement

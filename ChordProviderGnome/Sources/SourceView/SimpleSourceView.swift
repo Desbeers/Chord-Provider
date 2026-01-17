@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import CAdw
 import ChordProviderCore
 import CSourceView
 
@@ -30,13 +31,19 @@ public struct SimpleSourceView: AdwaitaWidget {
         type: Data.Type
     ) -> ViewStorage {
         let buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
-        sourceview_set_theme(buffer.opaquePointer?.cast())
         SourceViewController.setupLanguage(buffer: buffer, language: language)
         gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), text, -1)
         let storage = ViewStorage(
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
+        /// Set the style
+        let styleManager = adw_style_manager_get_default()
+        SourceViewController.setStyle(buffer: buffer, manager: styleManager)
+        /// Add a *notification* for style changes
+        buffer.notify(name: "dark", pointer: styleManager) {
+            SourceViewController.setStyle(buffer: buffer, manager: styleManager)
+        }
         /// Disable editing
         gtk_text_view_set_editable(storage.opaquePointer?.cast(), 0)
         return storage

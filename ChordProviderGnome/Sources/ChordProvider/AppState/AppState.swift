@@ -44,15 +44,7 @@ struct AppState {
         didSet {
             /// Update the style if needed
             if settings.editor.fontSize != oldValue.editor.fontSize || settings.app.zoom != oldValue.app.zoom {
-                Markup.updateStyle(
-                    zoom: self.settings.app.zoom,
-                    dark: app_prefers_dark_theme() == 1 ? true : false,
-                    editorFontSize: self.settings.editor.fontSize.rawValue
-                )
-                /// Store the new values
-                /// - Note: Needed if the user switching from light to dark or visa versa
-                self.styleState.pointee.editor_font_size = Int32(self.settings.editor.fontSize.rawValue)
-                self.styleState.pointee.zoom = self.settings.app.zoom
+                self.setStyle()
             }
             //// Save the settings
             if settings != oldValue {
@@ -80,9 +72,6 @@ struct AppState {
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
 
-    /// The state of the style
-    let styleState = UnsafeMutablePointer<stylestate>.allocate(capacity: 1)
-
     /// The list of *Recent songs*
     var recentSongs: [RecentSong] = [] {
         didSet {
@@ -103,6 +92,12 @@ struct AppState {
     /// The `GtkSourceEditor`class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
     var controller: SourceViewController?
+
+    /// The `Adwaita` style manager
+    let styleManager = adw_style_manager_get_default()
+
+    /// The current CSS provider
+    var currentCssProvider: UnsafeMutablePointer<GtkCssProvider>?
 }
 
 extension AppState {

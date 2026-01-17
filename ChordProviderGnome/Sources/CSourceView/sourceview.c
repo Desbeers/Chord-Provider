@@ -1,46 +1,5 @@
 #include "sourceview.h"
-
 #include <string.h>
-
-/* ============================================================
-   Theme helpers (private)
-   ============================================================ */
-
-static void
-update_theme_on_settings_change(GObject *settings,
-                                GParamSpec *pspec,
-                                gpointer user_data)
-{
-    GtkSourceBuffer *buffer = GTK_SOURCE_BUFFER(user_data);
-    gboolean dark = FALSE;
-
-    g_object_get(settings,
-                 "gtk-application-prefer-dark-theme",
-                 &dark,
-                 NULL);
-
-    const char *scheme_name = dark ? "Adwaita-dark" : "Adwaita";
-
-    GtkSourceStyleSchemeManager *mgr =
-        gtk_source_style_scheme_manager_get_default();
-
-    GtkSourceStyleScheme *scheme =
-        gtk_source_style_scheme_manager_get_scheme(mgr, scheme_name);
-
-    gtk_source_buffer_set_style_scheme(buffer, scheme);
-}
-
-void
-sourceview_set_theme(GtkSourceBuffer *buffer)
-{
-    GtkSettings *settings = gtk_settings_get_default();
-    update_theme_on_settings_change(G_OBJECT(settings), NULL, buffer);
-
-    g_signal_connect(settings,
-                     "notify::gtk-application-prefer-dark-theme",
-                     G_CALLBACK(update_theme_on_settings_change),
-                     buffer);
-}
 
 /* ============================================================
    Snippets

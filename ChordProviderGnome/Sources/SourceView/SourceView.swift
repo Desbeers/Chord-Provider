@@ -42,8 +42,6 @@ public struct SourceView: AdwaitaWidget {
     ) -> ViewStorage {
         /// Get the controller class
         let controller = controller ?? SourceViewController(bridge: $bridge, language: language)
-        /// Store the controller to keep it alive
-        //controller.storage.fields["controller"] = controller
         update(controller.storage, data: data, updateProperties: true, type: type)
         /// Return the GTKSourceView
         return controller.storage

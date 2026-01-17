@@ -35,11 +35,15 @@ import SourceView
                 window: window,
                 appState: $appState
             )
-            .onAppear {
+            .inspectOnAppear { storage in
                 /// Init the `GtkSourceView`controller
                 appState.controller = SourceViewController(bridge: $appState.editor, language: .chordpro)
                 /// Init the css style
-                Markup.initStyle(appState: appState)
+                appState.setStyle()
+                /// Add a *notification* for style changes
+                storage.notify(name: "dark", pointer: appState.styleManager) {
+                    appState.setStyle()
+                }
                 /// Open a song when passed as argument at launch
                 /// - Note: When opened again with another argument; it will create a new instance because the application will have a another ID
                 if let fileURL = CommandLine.arguments[safe: 1] {
