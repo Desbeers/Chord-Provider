@@ -22,8 +22,6 @@ extension AppState {
         let song: Song
         /// Date when the song was last opened
         let lastOpened: Date
-        /// The core settings when the song was opened
-        let settings: ChordProviderSettings
         /// Confirm to `hashable`
         func hash(into hasher: inout Hasher) {
             hasher.combine(id)

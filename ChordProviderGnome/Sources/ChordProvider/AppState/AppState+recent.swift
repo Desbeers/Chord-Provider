@@ -25,8 +25,7 @@ extension AppState {
                 RecentSong(
                     url: fileURL,
                     song: recent,
-                    lastOpened: Date.now,
-                    settings: self.editor.song.settings
+                    lastOpened: Date.now
                 )
             )
             /// Update the list

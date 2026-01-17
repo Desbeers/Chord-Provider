@@ -45,7 +45,7 @@ struct AppState {
             if settings.editor.fontSize != oldValue.editor.fontSize || settings.app.zoom != oldValue.app.zoom {
                 self.setStyle()
             }
-            //// Save the settings
+            /// Save the settings
             if settings != oldValue {
                 print("Save Settings")
                 try? SettingsCache.set(id: "ChordProviderGnome", object: self.settings)

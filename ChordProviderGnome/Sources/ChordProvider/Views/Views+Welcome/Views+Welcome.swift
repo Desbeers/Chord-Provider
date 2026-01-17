@@ -225,12 +225,8 @@ extension Views.Welcome {
         song: Song,
         songTitleOnly: Bool = false
     ) -> Body {
-        let settings = appState.getRecentSongs().first(where: { $0.url == fileURL })?.settings
         HStack {
             Button("") {
-                if let settings {
-                    appState.editor.song.settings = settings
-                }
                 appState.openSong(fileURL: fileURL)
                 appState.scene.showToast.signal()
             }
@@ -245,11 +241,6 @@ extension Views.Welcome {
                             Text(song.metadata.artist)
                                 .halign(.start)
                                 .style(.plainButton)
-                        }
-                        if let settings {
-                            Text(settings.settingsLabel)
-                                .halign(.start)
-                                .style("caption")
                         }
                     }
                     .valign(.center)
