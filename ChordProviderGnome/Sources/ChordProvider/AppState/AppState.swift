@@ -24,7 +24,7 @@ struct AppState {
             print("Loaded settings")
             self.settings = settings
             /// Restore settings
-            self.editor.song.settings = self.settings.core
+            self.editor.song.settings = settings.core
         } else {
             print("No settings found, creating new one")
         }

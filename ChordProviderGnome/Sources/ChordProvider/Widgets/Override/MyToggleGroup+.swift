@@ -9,7 +9,7 @@ import Adwaita
 import CAdw
 import LevenshteinTransformations
 
-extension MyToggleGroup {
+extension Widgets.MyToggleGroup {
 
     /// The identifier for the values.
     static var values: String { "values" }

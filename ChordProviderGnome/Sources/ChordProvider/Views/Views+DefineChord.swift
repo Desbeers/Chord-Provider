@@ -93,7 +93,7 @@ extension Views {
                         Separator()
                         VStack {
                             ForEach(strings, horizontal: true) { string in
-                                MyToggleGroup(
+                                Widgets.MyToggleGroup(
                                     selection: $definition.frets[string.id],
                                     values: string.frets
                                 )
@@ -110,7 +110,7 @@ extension Views {
                         Separator()
                         VStack {
                             ForEach(fingers, horizontal: true) { finger in
-                                MyToggleGroup(
+                                Widgets.MyToggleGroup(
                                     selection: $definition.fingers[finger.id],
                                     values: finger.fingers
                                 )

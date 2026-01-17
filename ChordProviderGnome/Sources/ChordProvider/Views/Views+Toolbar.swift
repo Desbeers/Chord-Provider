@@ -29,19 +29,24 @@ extension Views.Toolbar {
         @Binding var appState: AppState
         /// The body of the `View`
         var view: Body {
-            let binding = Binding(
+            /// Bool if the song is transposed
+            let transposed = Binding(
                 get: { appState.editor.song.transposing != 0 },
                 set: {
+                    /// Needed but unused
                     _ = $0
                 }
             )
             HeaderBar {
                 HStack(spacing: 5) {
-                    Toggle(icon: .default(icon: .textEditor), isOn: $appState.settings.editor.showEditor)
-                        .tooltip("Show the editor")
+                    Toggle(
+                        icon: .default(icon: .textEditor),
+                        isOn: $appState.settings.editor.showEditor
+                    )
+                    .tooltip("Show the editor")
                     ToggleButton(
                         icon: .default(icon: .objectFlipVertical),
-                        isOn: binding
+                        isOn: transposed
                     ) {
                         appState.scene.showTransposeDialog = true
                     }
@@ -52,9 +57,12 @@ extension Views.Toolbar {
                         },
                         values: Chord.Instrument.allCases
                     )
-                        .tooltip("Select your instrument")
-                    Toggle(icon: .default(icon: .viewDual), isOn: $appState.settings.app.columnPaging)
-                        .tooltip("Show the song in columns")
+                    .tooltip("Select your instrument")
+                    Toggle(
+                        icon: .default(icon: .viewDual),
+                        isOn: $appState.settings.app.columnPaging
+                    )
+                    .tooltip("Show the song in columns")
                 }
             }
             end: {
@@ -63,7 +71,10 @@ extension Views.Toolbar {
                     if let tags = appState.editor.song.metadata.tags {
                         Views.Tags(tags: tags)
                     }
-                    Toggle(icon: .default(icon: .helpAbout), isOn: $appState.scene.showDebugDialog)
+                    Toggle(
+                        icon: .default(icon: .helpAbout),
+                        isOn: $appState.scene.showDebugDialog
+                    )
                     .tooltip("See how your song is parsed")
                     .accent(appState.editor.song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
@@ -79,7 +90,7 @@ extension Views.Toolbar {
                         MenuButton("Save") {
                             appState.editor.song.settings.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
-                            appState.saveSong(appState.editor.song)
+                            appState.saveSong()
                         }
                         .keyboardShortcut("s".ctrl())
                         MenuButton("Save As…") {

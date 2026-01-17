@@ -10,9 +10,9 @@ import ChordProviderCore
 
 extension AppState {
 
-    /// Save a song to disk
+    /// Save the current song to disk
     /// - Parameter song: The `Song` to save
-    mutating func saveSong(_ song: Song) {
+    mutating func saveSong() {
         if let fileURL = self.editor.song.settings.fileURL {
             try? self.editor.song.content.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Remember the content as  saved

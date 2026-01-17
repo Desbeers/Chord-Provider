@@ -38,7 +38,7 @@ extension Views.Content {
                 switch appState.editor.song.settings.export.format {
                 case .chordPro:
                     appState.editor.song.settings.fileURL = fileURL
-                    appState.saveSong(appState.editor.song)
+                    appState.saveSong()
                     /// Set the toast
                     appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
                 default:

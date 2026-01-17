@@ -87,7 +87,7 @@ extension Views.Content {
             }
             .response("Save", appearance: .suggested, role: .default) {
                 if let fileURL = appState.editor.song.settings.fileURL {
-                    appState.saveSong(appState.editor.song)
+                    appState.saveSong()
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
                         window.close()
