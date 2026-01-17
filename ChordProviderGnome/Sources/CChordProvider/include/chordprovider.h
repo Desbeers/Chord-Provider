@@ -5,45 +5,8 @@
 
 G_BEGIN_DECLS
 
-/* Style */
-gboolean app_prefers_dark_theme(void);
-
-/* GTK draw callbacks */
-void draw_chord(
-    GtkDrawingArea *area,
-    cairo_t *cr,
-    int width,
-    int height,
-    gpointer user_data
-);
-
-void draw_arrow(
-    GtkDrawingArea *area,
-    cairo_t *cr,
-    int width,
-    int height,
-    gpointer user_data
-);
-
 #define MAX_STRINGS 6
 #define MAX_BARRES  5
-
-/* Swift draw callbacks */
-void draw_chord_swift(
-    cairo_t *cr,
-    int width,
-    int height,
-    gpointer user_data,
-    gboolean dark_mode
-);
-
-void draw_arrow_swift(
-    cairo_t *cr,
-    int width,
-    int height,
-    gpointer user_data,
-    gboolean dark_mode
-);
 
 /* Data structures */
 

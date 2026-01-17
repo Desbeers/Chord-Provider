@@ -68,17 +68,26 @@ extension Widgets {
 
 /// Draw an arrow with *Cairo*
 /// - Note: Declare C function implementations as `public` to ensure they're not optimized away.
-@_cdecl("draw_arrow_swift")
-public func drawArrow(
-    cr: OpaquePointer,
-    width: Int32,
-    height: Int32,
-    user_data: gpointer,
-    dark_mode: gboolean
+@_cdecl("draw_arrow")
+public func draw_arrow(
+    _ area: UnsafeMutablePointer<GtkDrawingArea>?,
+    _ cr: OpaquePointer?,
+    _ width: Int32,
+    _ height: Int32,
+    _ userData: UnsafeMutableRawPointer?
 ) {
-    let data = user_data
+
+    guard
+        let cr,
+        let userData
+    else { return }
+
+    let data = userData
         .assumingMemoryBound(to: cstrum.self)
         .pointee
+
+    let manager = adw_style_manager_get_default()
+    let dark_mode = adw_style_manager_get_dark(manager)
 
     let color: Double = dark_mode == 0 ? 0.5 : 0.8
 

@@ -45,9 +45,13 @@ extension Widgets {
             let drawingArea = gtk_drawing_area_new()
             gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
             gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))
-            gtk_drawing_area_set_draw_func(drawingArea?.cast(), draw_chord, Unmanaged.passRetained(context).toOpaque()) { userData in
-                Unmanaged<Context>.fromOpaque(userData!).release()
-            }
+            gtk_drawing_area_set_draw_func(
+                drawingArea?.cast(),
+                draw_chord,
+                Unmanaged.passRetained(context).toOpaque()) {
+                    userData in
+                    Unmanaged<Context>.fromOpaque(userData!).release()
+                }
             let storage = ViewStorage(drawingArea?.opaque())
             return storage
         }
@@ -74,19 +78,27 @@ extension Widgets {
 
 /// Draw a chord diagram with *Cairo*
 /// - Note: Declare C function implementations as `public` to ensure they're not optimized away.
-@_cdecl("draw_chord_swift")
-public func drawChord(
-    cr: OpaquePointer,
-    width: Int32,
-    height: Int32,
-    user_data: gpointer,
-    dark_mode: gboolean
+@_cdecl("draw_chord")
+public func draw_chord(
+    _ area: UnsafeMutablePointer<GtkDrawingArea>?,
+    _ cr: OpaquePointer?,
+    _ width: Int32,
+    _ height: Int32,
+    _ userData: UnsafeMutableRawPointer?
 ) {
+
+    guard
+        let cr,
+        let userData
+    else { return }
+
+    let manager = adw_style_manager_get_default()
+    let dark_mode = adw_style_manager_get_dark(manager)
 
     var drawnBarres = Set<Int>()
 
     let data = Unmanaged<Widgets.Diagram.Context>
-        .fromOpaque(user_data)
+        .fromOpaque(userData)
         .takeUnretainedValue()
     let color: Double = dark_mode == 0 ? 0 : 1
     let strings = data.strings

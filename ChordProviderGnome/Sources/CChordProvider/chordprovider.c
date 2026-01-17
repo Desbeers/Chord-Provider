@@ -4,61 +4,6 @@
 #include <string.h>
 
 /* ============================================================
-   GTK helpers
-   ============================================================ */
-
-gboolean
-app_prefers_dark_theme(void) {
-    GtkSettings *settings = gtk_settings_get_default();
-    gboolean prefers_dark = FALSE;
-
-    if (settings) {
-        g_object_get(
-            settings,
-            "gtk-application-prefer-dark-theme",
-            &prefers_dark,
-            NULL
-        );
-    }
-
-    return prefers_dark;
-}
-
-/* ============================================================
-   Drawing callbacks
-   ============================================================ */
-
-void
-draw_chord(GtkDrawingArea *area,
-           cairo_t *cr,
-           int width,
-           int height,
-           gpointer user_data) {
-    draw_chord_swift(
-        cr,
-        width,
-        height,
-        user_data,
-        app_prefers_dark_theme()
-    );
-}
-
-void
-draw_arrow(GtkDrawingArea *area,
-           cairo_t *cr,
-           int width,
-           int height,
-           gpointer user_data) {
-    draw_arrow_swift(
-        cr,
-        width,
-        height,
-        user_data,
-        app_prefers_dark_theme()
-    );
-}
-
-/* ============================================================
    Chord lifecycle
    ============================================================ */
 
