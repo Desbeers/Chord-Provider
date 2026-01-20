@@ -120,7 +120,6 @@ void
 sourceview_connect_signals(GtkSourceView *view,
                            SourceViewInsertCB insert_cb,
                            SourceViewDeleteCB delete_cb,
-                           SourceViewCursorCB cursor_cb,
                            SourceViewClickCB click_cb,
                            gpointer user_data)
 {
@@ -143,50 +142,11 @@ sourceview_connect_signals(GtkSourceView *view,
 
     g_object_set_data(G_OBJECT(buffer), "insert_cb", insert_cb);
     g_object_set_data(G_OBJECT(buffer), "delete_cb", delete_cb);
-    g_object_set_data(G_OBJECT(buffer), "cursor_cb", cursor_cb);
 
     g_signal_connect(buffer, "insert-text",
                      G_CALLBACK(on_insert_text), user_data);
     g_signal_connect(buffer, "delete-range",
                      G_CALLBACK(on_delete_range), user_data);
-    g_signal_connect(buffer, "notify::cursor-position",
-                     G_CALLBACK(on_cursor_notify), user_data);
-}
-
-/* ============================================================
-   Timeout helper
-   ============================================================ */
-
-typedef struct {
-    SourceViewTimeoutCB cb;
-    gpointer user_data;
-} TimeoutPayload;
-
-static gboolean
-timeout_trampoline(gpointer data)
-{
-    TimeoutPayload *p = data;
-    p->cb(p->user_data);
-    g_free(p);
-    return G_SOURCE_REMOVE;
-}
-
-guint
-sourceview_add_schedule(guint timeout_ms,
-                        SourceViewTimeoutCB cb,
-                        gpointer user_data)
-{
-    TimeoutPayload *p = g_malloc(sizeof *p);
-    p->cb = cb;
-    p->user_data = user_data;
-
-    return g_timeout_add_full(
-        G_PRIORITY_DEFAULT,
-        timeout_ms,
-        timeout_trampoline,
-        p,
-        NULL
-    );
 }
 
 /* ============================================================

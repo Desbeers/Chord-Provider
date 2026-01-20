@@ -47,8 +47,9 @@ extension SourceViewController {
         case .clearSelection:
             clearSelection(buffer.opaquePointer?.cast())
         case .updateSong:
-            scheduleSnapshot(self)
+            scheduleSnapshot()
         }
+        updateCurrentLine()
         /// Refocus the editor
         /// - Note: It will loose focus because handling is done with a button
         gtk_widget_grab_focus(storage.opaquePointer?.cast())

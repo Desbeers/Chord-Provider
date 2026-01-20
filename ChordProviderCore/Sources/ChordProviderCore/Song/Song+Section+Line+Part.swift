@@ -45,7 +45,7 @@ extension Song.Section.Line {
         public func withMarkup(_ text: String) -> String {
             return "\(textMarkup?.open ?? "")\(text)\(textMarkup?.close ?? "")"
         }
-        /// Chord definition with arkup
+        /// Chord definition with markup
         public func withMarkup(_ chord: ChordDefinition) -> String {
             return "\(chordMarkup?.open ?? "")\(chord.display)\(chordMarkup?.close ?? "")"
         }

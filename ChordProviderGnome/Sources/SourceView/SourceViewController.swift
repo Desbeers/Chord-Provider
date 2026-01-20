@@ -39,13 +39,10 @@ public final class SourceViewController {
     /// The completion object
     let completion: OpaquePointer?
 
-    // MARK: Snapshots
+    // MARK: Debouncers
 
-    /// The debounced snapshot schedule
-    var snapshotSchedule: guint = 0
-
-    /// The debounced line number schedule
-    var linenumberSchedule: guint = 0
+    let lineNumberDebounce = Debouncer(delay: 0.1, queue: .main)
+    let snapshotDebounce = Debouncer(delay: 0.5, queue: .main)
 
     /// Init the controller
     /// - Parameters:
@@ -83,17 +80,23 @@ public final class SourceViewController {
             storage.opaquePointer?.cast(),
             sourceview_insert_cb,
             sourceview_delete_cb,
-            sourceview_cursor_cb,
             sourceview_click_cb,
             Unmanaged.passUnretained(self).toOpaque()
         )
+
+        buffer.notify(name: "cursor-position") { [self] in
+            lineNumberDebounce.schedule {
+                self.updateCurrentLine()
+                self.scheduleSnippetCheck()
+            }
+        }
 
         // MARK: Marks
 
         sourceview_install_marks(storage.opaquePointer?.cast(), "bookmark")
 
         /// Render the song
-        scheduleSnapshot(self)
+        scheduleSnapshot()
     }
     deinit {
         print("DEINT CONTROLLER")
@@ -156,16 +159,19 @@ public final class SourceViewController {
             &iter,
             gtk_text_buffer_get_insert(bufferPtr)
         )
-        let currentLine = Int(gtk_text_iter_get_line(&iter) + 1)
+        let currentLineNumber = Int(gtk_text_iter_get_line(&iter) + 1)
 
-        self.currentLine = bridgeBinding.songLines[safe: currentLine - 1].wrappedValue ?? Song.Section.Line()
+
+        let number = bridgeBinding.song.lines.wrappedValue
+
+        self.currentLine = bridgeBinding.songLines[safe: currentLineNumber - 1].wrappedValue ?? Song.Section.Line(sourceLineNumber: number)
 
         isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
         hasSelection = gtk_text_buffer_get_has_selection(bufferPtr) != 0
         var bridge = bridgeBinding.wrappedValue
         /// Only update the binding when needed
-        if bridge.currentLine.sourceLineNumber != currentLine || bridge.isAtBeginningOfLine != isAtBeginningOfLine || bridge.hasSelection != hasSelection {
-            bridge.currentLine = bridge.songLines[safe: currentLine - 1] ?? Song.Section.Line()
+        if bridge.currentLine.sourceLineNumber != currentLineNumber || bridge.isAtBeginningOfLine != isAtBeginningOfLine || bridge.hasSelection != hasSelection {
+            bridge.currentLine = currentLine
             bridge.isAtBeginningOfLine = isAtBeginningOfLine
             bridge.hasSelection = hasSelection
             bridgeBinding.wrappedValue = bridge
@@ -175,75 +181,79 @@ public final class SourceViewController {
 
 // MARK: - Snippets
 
-func handleSnippets(controller: SourceViewController) {
-    let view: UnsafeMutablePointer<GtkSourceView>? = controller.storage.opaquePointer?.cast()
-    controller.snippetsAvailable = sourceview_check_for_brackets(view) == 1
-    if controller.snippetsAvailable {
-        if !controller.snippetsLoaded {
-            /// Load the snippets
-            gtk_source_completion_add_provider(controller.completion, controller.snippets?.opaque())
-            controller.snippetsLoaded = true
-        }
-    } else if controller.snippetsLoaded {
-        /// Remove the snippets
-        gtk_source_completion_remove_provider(controller.completion, controller.snippets?.opaque())
-        controller.snippetsLoaded = false
-    }
-}
+extension SourceViewController {
 
-func scheduleSnippetCheck(_ controller: SourceViewController) {
-    if controller.snippetsIdle != nil { return }
-    controller.snippetsIdle = Idle {
-        controller.snippetsIdle = nil
-        handleSnippets(controller: controller)
+    func handleSnippets() {
+        let view: UnsafeMutablePointer<GtkSourceView>? = storage.opaquePointer?.cast()
+        snippetsAvailable = sourceview_check_for_brackets(view) == 1
+        if snippetsAvailable {
+            if !snippetsLoaded {
+                /// Load the snippets
+                gtk_source_completion_add_provider(completion, snippets?.opaque())
+                snippetsLoaded = true
+            }
+        } else if snippetsLoaded {
+            /// Remove the snippets
+            gtk_source_completion_remove_provider(completion, snippets?.opaque())
+            snippetsLoaded = false
+        }
     }
+
+    func scheduleSnippetCheck() {
+        if snippetsIdle != nil { return }
+        snippetsIdle = Idle { [self] in
+            snippetsIdle = nil
+            handleSnippets()
+        }
+    }
+
 }
 
 // MARK: - Snapshots
 //
 // Sync the text buffer to the Swift text binding
 
-func snapshotText(buffer: ViewStorage) -> String {
-    var start = GtkTextIter()
-    var end = GtkTextIter()
-    gtk_text_buffer_get_start_iter(buffer.opaquePointer?.cast(), &start)
-    gtk_text_buffer_get_end_iter(buffer.opaquePointer?.cast(), &end)
-    guard let cStr = gtk_text_buffer_get_text(buffer.opaquePointer?.cast(), &start, &end, true.cBool) else {
-        return ""
-    }
-    return String(cString: cStr)
-}
+extension SourceViewController {
 
-func scheduleSnapshot(_ controller: SourceViewController) {
-    /// Check if there is already a snapshot scheduled
-    if controller.snapshotSchedule != 0, let gsource = g_main_context_find_source_by_id(nil, controller.snapshotSchedule) {
-        g_source_destroy(gsource)
-        controller.snapshotSchedule = 0
+    func snapshotText() -> String {
+        var start = GtkTextIter()
+        var end = GtkTextIter()
+        gtk_text_buffer_get_start_iter(buffer.opaquePointer?.cast(), &start)
+        gtk_text_buffer_get_end_iter(buffer.opaquePointer?.cast(), &end)
+        guard let cStr = gtk_text_buffer_get_text(buffer.opaquePointer?.cast(), &start, &end, true.cBool) else {
+            return ""
+        }
+        return String(cString: cStr)
     }
-    let source: guint = sourceview_add_schedule(
-        500,
-        flush_snapshot_cb,
-        Unmanaged.passUnretained(controller).toOpaque()
-    )
-    /// Schedule new snapshot
-    controller.snapshotSchedule = source
-}
 
-// MARK: - Line Numbers
-
-func scheduleLineNumber(_ controller: SourceViewController) {
-    /// Check if there is already a line number update scheduled
-    if controller.linenumberSchedule != 0, let gsource = g_main_context_find_source_by_id(nil, controller.linenumberSchedule) {
-        g_source_destroy(gsource)
-        controller.linenumberSchedule = 0
+    func scheduleSnapshot() {
+        snapshotDebounce.schedule { [self] in
+            if snippetsAvailable {
+                /// Don't flush the text or else the completion popup will flicker
+                return
+            }
+            guard
+                let buffer = storage.content["buffer"]?.first,
+                let binding = storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
+            else {
+                return
+            }
+            /// Clear the log for a new parsing
+            LogUtils.shared.clearLog()
+            let text = snapshotText()
+            binding.song.content.wrappedValue = text
+            binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
+            /// Clear all markers and add new ones if needed
+            sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
+            let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
+            binding.songLines.wrappedValue = lines
+            /// Update the current line
+            updateCurrentLine()
+            for line in lines.filter( { $0.warnings != nil } ) {
+                sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
+            }
+        }
     }
-    let source: guint = sourceview_add_schedule(
-        100,
-        sourceview_linenumber_cb,
-        Unmanaged.passUnretained(controller).toOpaque()
-    )
-    /// Schedule new line number update
-    controller.linenumberSchedule = source
 }
 
 // MARK: - Swift callbacks for `C` functions
@@ -281,7 +291,7 @@ public func sourceview_insert_cb(
     }
 
     /// Schedule undo snapshot / any other callbacks
-    scheduleSnapshot(controller)
+    controller.scheduleSnapshot()
 }
 
 
@@ -293,22 +303,7 @@ public func sourceview_delete_cb(
 ) {
     guard let userData else { return }
     let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
-    scheduleSnapshot(controller)
-}
-
-@_cdecl("sourceview_cursor_cb")
-public func sourceview_cursor_cb(_ userData: UnsafeMutableRawPointer?) {
-    guard let userData else { return }
-    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
-    scheduleLineNumber(controller)
-}
-
-@_cdecl("sourceview_linenumber_cb")
-public func sourceview_linenumber_cb(_ userData: UnsafeMutableRawPointer?) {
-    guard let userData else { return }
-    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
-    controller.updateCurrentLine()
-    scheduleSnippetCheck(controller)
+    controller.scheduleSnapshot()
 }
 
 @_cdecl("sourceview_click_cb")
@@ -324,37 +319,3 @@ public func sourceview_click_cb(
         binding.showEditDirectiveDialog.wrappedValue = true
     }
 }
-
-@_cdecl("flush_snapshot_cb")
-public func flush_snapshot_cb(_ userData: UnsafeMutableRawPointer?) {
-    guard let userData else {
-        return
-    }
-    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
-    if controller.snippetsAvailable {
-        /// Don't flush the text or else the completion popup will flicker
-        return
-    }
-    controller.snapshotSchedule = 0
-    guard
-        let buffer = controller.storage.content["buffer"]?.first,
-        let binding = controller.storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
-    else {
-        return
-    }
-    /// Clear the log for a new parsing
-    LogUtils.shared.clearLog()
-    let text = snapshotText(buffer: buffer)
-    binding.song.content.wrappedValue = text
-    binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
-    /// Clear all markers and add new ones if needed
-    sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-    let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
-    binding.songLines.wrappedValue = lines
-    /// Update the current line
-    binding.currentLine.wrappedValue = lines[safe: controller.currentLine.sourceLineNumber - 1] ?? Song.Section.Line()
-    for line in lines.filter( { $0.warnings != nil } ) {
-        sourceview_add_mark(controller.buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
-    }
-}
-

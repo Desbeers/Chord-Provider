@@ -47,21 +47,7 @@ sourceview_connect_signals(
     GtkSourceView *view,
     SourceViewInsertCB insert_cb,
     SourceViewDeleteCB delete_cb,
-    SourceViewCursorCB cursor_cb,
     SourceViewClickCB click_cb,
-    gpointer user_data
-);
-
-/* ============================================================
-   Timeout helper
-   ============================================================ */
-
-typedef void (*SourceViewTimeoutCB)(gpointer user_data);
-
-guint
-sourceview_add_schedule(
-    guint timeout_ms,
-    SourceViewTimeoutCB cb,
     gpointer user_data
 );
 
