@@ -145,6 +145,9 @@ public final class SourceViewController {
         gtk_source_buffer_set_language(buffer.opaquePointer?.cast(), lang)
     }
 
+
+    // MARK: Current line information
+
     func updateCurrentLine() {
         guard
             let bridgeBinding = storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>,
@@ -169,13 +172,10 @@ public final class SourceViewController {
         isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
         hasSelection = gtk_text_buffer_get_has_selection(bufferPtr) != 0
         var bridge = bridgeBinding.wrappedValue
-        /// Only update the binding when needed
-        if bridge.currentLine.sourceLineNumber != currentLineNumber || bridge.isAtBeginningOfLine != isAtBeginningOfLine || bridge.hasSelection != hasSelection {
-            bridge.currentLine = currentLine
-            bridge.isAtBeginningOfLine = isAtBeginningOfLine
-            bridge.hasSelection = hasSelection
-            bridgeBinding.wrappedValue = bridge
-        }
+        bridge.currentLine = currentLine
+        bridge.isAtBeginningOfLine = isAtBeginningOfLine
+        bridge.hasSelection = hasSelection
+        bridgeBinding.wrappedValue = bridge
     }
 }
 
