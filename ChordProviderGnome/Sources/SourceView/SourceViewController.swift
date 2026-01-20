@@ -41,8 +41,8 @@ public final class SourceViewController {
 
     // MARK: Debouncers
 
-    let lineNumberDebounce = Debouncer(delay: 0.1, queue: .main)
-    let snapshotDebounce = Debouncer(delay: 0.5, queue: .main)
+    let lineNumberDebounce = Debouncer(delay: 0.1)
+    let snapshotDebounce = Debouncer(delay: 0.5)
 
     /// Init the controller
     /// - Parameters:

@@ -13,7 +13,7 @@ final class Debouncer {
     private let delay: TimeInterval
     private var workItem: DispatchWorkItem?
 
-    init(delay: TimeInterval, queue: DispatchQueue = .global(qos: .utility)) {
+    init(delay: TimeInterval, queue: DispatchQueue = .global(qos: .default)) {
         self.delay = delay
         self.queue = queue
     }
