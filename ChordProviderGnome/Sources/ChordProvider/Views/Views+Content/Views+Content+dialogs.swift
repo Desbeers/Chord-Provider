@@ -73,10 +73,10 @@ extension Views.Content {
                 /// Do nothing
             }
             .response("Discard", appearance: .destructive, role: .none) {
+                /// Make the source 'clean' so we can close the window
+                appState.scene.originalContent = appState.editor.song.content
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
-                    /// Make the source 'clean' so we can close the window
-                    appState.scene.originalContent = appState.editor.song.content
                     /// Close the window
                     window.close()
                 case .showWelcomeView:
