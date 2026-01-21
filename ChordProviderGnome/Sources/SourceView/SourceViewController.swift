@@ -84,8 +84,8 @@ public final class SourceViewController {
             Unmanaged.passUnretained(self).toOpaque()
         )
 
-        buffer.notify(name: "cursor-position") { [self] in
-            lineNumberDebounce.schedule {
+        buffer.notify(name: "cursor-position") {
+            self.lineNumberDebounce.schedule {
                 self.updateCurrentLine()
                 self.scheduleSnippetCheck()
             }
@@ -201,9 +201,9 @@ extension SourceViewController {
 
     func scheduleSnippetCheck() {
         if snippetsIdle != nil { return }
-        snippetsIdle = Idle { [self] in
-            snippetsIdle = nil
-            handleSnippets()
+        snippetsIdle = Idle {
+            self.snippetsIdle = nil
+            self.handleSnippets()
         }
     }
 
@@ -227,20 +227,20 @@ extension SourceViewController {
     }
 
     func scheduleSnapshot() {
-        snapshotDebounce.schedule { [self] in
-            if snippetsAvailable {
+        snapshotDebounce.schedule {
+            if self.snippetsAvailable {
                 /// Don't flush the text or else the completion popup will flicker
                 return
             }
             guard
-                let buffer = storage.content["buffer"]?.first,
-                let binding = storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
+                let buffer = self.storage.content["buffer"]?.first,
+                let binding = self.storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
             else {
                 return
             }
             /// Clear the log for a new parsing
             LogUtils.shared.clearLog()
-            let text = snapshotText()
+            let text = self.snapshotText()
             binding.song.content.wrappedValue = text
             binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
             /// Clear all markers and add new ones if needed
@@ -248,7 +248,7 @@ extension SourceViewController {
             let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
             binding.songLines.wrappedValue = lines
             /// Update the current line
-            updateCurrentLine()
+            self.updateCurrentLine()
             for line in lines.filter( { $0.warnings != nil } ) {
                 sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
             }
