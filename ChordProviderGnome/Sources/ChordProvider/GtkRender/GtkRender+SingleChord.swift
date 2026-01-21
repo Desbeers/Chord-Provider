@@ -22,7 +22,12 @@ extension GtkRender {
         /// The body of the `View`
         var view: Body {
             if let chord = part.chordDefinition {
-                Toggle(part.withMarkup(chord), isOn: $openChordDiagram)
+                Toggle("", isOn: $openChordDiagram)
+                    .child {
+                        Text(part.withMarkup(chord))
+                            .useMarkup()
+                            .style(.chord)
+                    }
                     .flat()
                     .style(.chordDiagramButton)
                     .popover(visible: $openChordDiagram) {
