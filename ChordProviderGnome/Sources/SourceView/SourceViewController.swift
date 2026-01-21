@@ -234,24 +234,28 @@ extension SourceViewController {
             }
             guard
                 let buffer = self.storage.content["buffer"]?.first,
-                let binding = self.storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
+                let bridgeBinding = self.storage.fields["bridgeBinding"] as? Binding<SourceViewBridge>
             else {
                 return
             }
             /// Clear the log for a new parsing
             LogUtils.shared.clearLog()
             let text = self.snapshotText()
-            binding.song.content.wrappedValue = text
-            binding.song.wrappedValue = ChordProParser.parse(song: binding.song.wrappedValue, settings: binding.song.wrappedValue.settings)
+            /// Get the values of the bridge binding
+            var bridge = bridgeBinding.wrappedValue
+            bridge.song.content = text
+            bridge.song = ChordProParser.parse(song: bridge.song, settings: bridge.song.settings)
             /// Clear all markers and add new ones if needed
             sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-            let lines = binding.wrappedValue.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
-            binding.songLines.wrappedValue = lines
+            let lines = bridge.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
+            bridge.songLines = lines
             /// Update the current line
             self.updateCurrentLine()
             for line in lines.filter( { $0.warnings != nil } ) {
                 sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
             }
+            /// Update the bridge
+            bridgeBinding.wrappedValue = bridge
         }
     }
 }

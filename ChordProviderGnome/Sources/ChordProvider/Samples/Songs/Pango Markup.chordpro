@@ -1,0 +1,18 @@
+{title Pango Markup}
+{subtitle Test Markup}
+
+{start_of_chorus}
+<b><i>Swing</i></b> word [<span color="red"><i>D</i></span>]low, sweet [<span color="purple">G</span>]chari[D]ot,
+Comin’ for to <big>carry</big> me [A7]home.
+Swing [D7]low, sweet [G]chari[D]ot,
+Comin’ for to [A7]carry me [D]home.
+{end_of_chorus}
+
+{start_of_grid shape="4x4"}
+|s *1 *2 *3 *4 | *1 *2 *3 *4 | *1 *2 *3 *4 | *1 *2 *3 *4 |
+| B . . . | <span color="red"><i><big>G#m</big></i></span> . . . | B . . . | B . . . |
+|s dn .~up d+ . | dn .~up d+ . | dn .~up d+ . | dn .~up d+ . |
+| <span color="purple">E</span> . . . | <span color="green">G#m</span> . . . | D#m . <span color="red">Gm</span> . | G#m . . . |
+| <span color="green">G#m</span> . . . | <span color="orange">G#m</span> . . . | D#m . <span color="red">G#m</span> . | G#m . . . |
+|s dn .~up d+ . | dn .~up d+ . | dn .~up d+ . | dn .~up d+ . |
+{end_of_grid}

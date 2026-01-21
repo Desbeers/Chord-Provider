@@ -47,19 +47,40 @@ extension Views {
                         .pixelSize(260)
                     VStack {
                         Button("Start with a new song") {
-                            appState.openSample("New Song", showEditor: true)
+                            appState.openSample(.newSong, showEditor: true)
                         }
                         .padding()
                         Button("Open a sample song") {
-                            appState.openSample("Swing Low Sweet Chariot", showEditor: true)
+                            appState.openSample(.swingLowSweetChariot, showEditor: true)
                         }
                         .padding()
+                        #if DEBUG
+                        Menu("Debug Songs") {
+                            /// - Note: I cannot use a `ForEach` to populate the menu. It will be empty.
+                            MenuButton(Utils.Samples.pangoMarkup.rawValue) {
+                                appState.openSample(Utils.Samples.pangoMarkup, showEditor: true)
+                            }
+                            MenuButton(Utils.Samples.debugWarnings.rawValue) {
+                                appState.openSample(Utils.Samples.debugWarnings, showEditor: true)
+                            }
+                            MenuButton(Utils.Samples.transpose.rawValue) {
+                                appState.openSample(Utils.Samples.transpose, showEditor: true)
+                            }
+                            MenuButton(Utils.Samples.chordDefinitions.rawValue) {
+                                appState.openSample(Utils.Samples.chordDefinitions, showEditor: true)
+                            }
+                            MenuButton(Utils.Samples.mollyMalone.rawValue) {
+                                appState.openSample(Utils.Samples.mollyMalone, showEditor: true)
+                            }
+                        }
+                        .padding()
+                        #endif
                         /// - Note: This should be a spacer
                         Separator()
                             .style("spacer")
                             .vexpand()
                         Button("Help") {
-                            appState.openSample("Help", showEditor: false)
+                            appState.openSample(.help, showEditor: false)
                         }
                     }
                     .frame(maxWidth: 250)

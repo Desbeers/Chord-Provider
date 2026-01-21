@@ -191,10 +191,8 @@ extension ChordPro {
             }
         }
 
-        /// Regex for parsing a *single-chord segment* of a line
-        /// - Important: The input string MUST contain at most one chord `[ ... ]`.
-        ///   Full lines are split before applying this regex.
-        nonisolated(unsafe) static let line = Regex {
+        /// The regex for parsing a song line into parts
+        nonisolated(unsafe) static let lineParts = Regex {
             /// The chord
             Optionally {
                 chord
@@ -226,32 +224,15 @@ extension ChordPro {
             }
         }
 
-        /// The regex for capturing markup
-        nonisolated(unsafe) static let markupCapture = Regex {
-            Regex {
-                Capture {
-                    "<"
-                    OneOrMore(CharacterClass.anyOf(">").inverted)
-                    ">"
-                    ZeroOrMore(.reluctant) {
-                        /./
-                    }
-                    "</"
-                    OneOrMore(CharacterClass.anyOf(">").inverted)
-                    ">"
-                }
-            }
-        }
-
-        /// The regex for spitting a string into parts, separated by `space` or markup
-        nonisolated(unsafe) static let spaceOrMarkupSeparator = Regex {
+        /// The regex for spitting a grid string into parts, separated by `space`, markup block or plain text
+        nonisolated(unsafe) static let gridSeparator = Regex {
             Capture {
                 ChoiceOf {
-                    markupCapture
+                    markupBlock
                     Capture {
                         OneOrMore {
                             CharacterClass(
-                                .anyOf("<"),
+                                .anyOf("<>"),
                                 .whitespace
                             )
                             .inverted
@@ -260,47 +241,53 @@ extension ChordPro {
                 }
             }
         }
-
-        /// The regex for spitting a string into parts, separated by markup
-        nonisolated(unsafe) static let markupSeparator = Regex {
-            Capture {
-                ChoiceOf {
-                    markupCapture
-                    Capture {
-                        OneOrMore {
-                            CharacterClass(
-                                .anyOf("<>")
-                            )
-                            .inverted
-                        }
-                    }
-                }
+        /// The regex for spitting a song line string into parts, separated by markup block or plain text, including spaces
+        nonisolated(unsafe) static let lineSeparator = Regex {
+            ChoiceOf {
+                Capture(markupBlock)
+                Capture(textOnly)
             }
         }
 
-        /// The regex for optional markup in a string
+        /// The regex for optional nested markup around plain text
         nonisolated(unsafe) static let optionalMarkup = Regex {
-            Regex {
-                Optionally {
-                    Capture {
-                        "<"
-                        OneOrMore(CharacterClass.anyOf(">").inverted)
-                        ">"
-                    }
-                }
-                Capture {
-                    OneOrMore {
-                        OneOrMore(CharacterClass.anyOf("<").inverted)
-                    }
-                }
-                Optionally {
-                    Capture {
-                        "</"
-                        OneOrMore(CharacterClass.anyOf(">").inverted)
-                        ">"
-                    }
-                }
+            Optionally {
+                Capture(openTags)
             }
+            Capture(textOnly)
+            Optionally {
+                Capture(closeTags)
+            }
+        }
+
+        // MARK: Building blocks
+
+        nonisolated(unsafe) private static let openTags = Regex {
+            OneOrMore {
+                "<"
+                OneOrMore(CharacterClass.anyOf(">").inverted)
+                ">"
+            }
+        }
+
+        nonisolated(unsafe) private static let closeTags = Regex {
+            OneOrMore {
+                "</"
+                OneOrMore(CharacterClass.anyOf(">").inverted)
+                ">"
+            }
+        }
+
+        nonisolated(unsafe) private static let textOnly = Regex {
+            OneOrMore {
+                CharacterClass.anyOf("<>").inverted
+            }
+        }
+
+        nonisolated(unsafe) private static let markupBlock = Regex {
+            openTags
+            textOnly
+            closeTags
         }
     }
 }

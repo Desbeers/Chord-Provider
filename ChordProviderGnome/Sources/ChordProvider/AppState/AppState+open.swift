@@ -14,9 +14,9 @@ extension AppState {
     /// - Parameters:
     ///   - sample: The sample song
     ///   - showEditor: Bool to show the editor
-    mutating func openSample(_ sample: String, showEditor: Bool) {
+    mutating func openSample(_ sample: Utils.Samples, showEditor: Bool) {
         if
-            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample)", withExtension: "chordpro"),
+            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample.rawValue)", withExtension: "chordpro"),
             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
             self.editor.song.settings.fileURL = nil
             openSong(content: content, showEditor: showEditor, templateURL: sampleSong)
