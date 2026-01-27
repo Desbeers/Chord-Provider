@@ -249,13 +249,13 @@ extension SourceViewController {
             sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
             let lines = bridge.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
             bridge.songLines = lines
-            /// Update the current line
-            self.updateCurrentLine()
             for line in lines.filter( { $0.warnings != nil } ) {
                 sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
             }
             /// Update the bridge
             bridgeBinding.wrappedValue = bridge
+            /// Update the current line
+            self.updateCurrentLine()
         }
     }
 }
