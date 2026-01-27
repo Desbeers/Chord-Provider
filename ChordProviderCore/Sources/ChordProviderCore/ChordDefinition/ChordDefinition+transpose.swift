@@ -14,20 +14,32 @@ extension ChordDefinition {
     ///   - transpose: The transpose value
     ///   - scale: The scale of the chord
     mutating func transpose(transpose: Int, scale: Chord.Root) {
-        if self.status == .customChord {
-            self.status = .customTransposedChord
+        /// Keep the current status
+        let kind = self.kind
+        /// Get the new name by adding the transpose value, it will keep the original chord name
+        /// - Note: For transposing custom chords
+        self.transposed = transpose
+        let newName = self.name
+        /// Get the chords for the instrument
+        let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument)
+        /// Transpose the root
+        let root = ChordUtils.transposeNote(note: self.root, transpose: transpose, scale: scale)
+        /// Find it in the database
+        if let chord = chords
+            .matching(root: root)
+            .matching(quality: self.quality)
+            .matching(slash: self.slash)
+            .first
+        {
+            self = chord
+            self.kind = kind == .customChord ? .customTransposedChord : .transposedChord
+            /// Save the transpose value
+            self.transposed = transpose
+            /// Set the transposed name
+            self.transposedName = newName
         } else {
-            /// Get the chords for the instrument
-            let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument)
-            let root = ChordUtils.transposeNote(note: self.root, transpose: transpose, scale: scale)
-            if let chord = chords.matching(root: root).matching(quality: self.quality).matching(slash: self.slash).first {
-                self = chord
-                self.name = self.getName
-                self.status = .transposedChord
-            } else {
-                self.root = root
-                self.status = .transposedUnknownChord
-            }
+            self.root = root
+            self.kind = .transposedUnknownChord
         }
     }
 }

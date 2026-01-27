@@ -204,7 +204,7 @@ extension C64View {
 
         for part in parts {
 
-            let characters = max((part.chordDefinition?.getName.count ?? -1) + 1, part.text?.count ?? 0) + lyrics.count
+            let characters = max((part.chordDefinition?.name.count ?? -1) + 1, part.text?.count ?? 0) + lyrics.count
             /// A line can be max 39 characters long
             if characters >= 39 {
                 addPart()
@@ -213,7 +213,7 @@ extension C64View {
             }
 
             if let chord = part.chordDefinition {
-                chords += "\(chord.getName) "
+                chords += "\(chord.name) "
             }
             lyrics += part.text ?? ""
             let chordsLenght = chords.count

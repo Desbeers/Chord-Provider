@@ -57,9 +57,9 @@ extension ChordsDatabaseView {
                     Button {
                         var chord = sceneState.definition
                         /// Calculated values
-                        chord.addCalculatedValues(instrument: sceneState.song.settings.instrument)
+                        chord.addCalculatedValues()
                         /// Set the status
-                        chord.status = .standardChord
+                        chord.kind = .standardChord
                         /// Add or edit the chord
                         switch sceneState.definition.status {
                         case .addDefinition:
@@ -87,7 +87,7 @@ extension ChordsDatabaseView {
                                 /// Swap sharp for flat
                                 chord.root = chord.root.swapSharpForFlat
                                 /// Calculated values
-                                chord.addCalculatedValues(instrument: sceneState.song.settings.instrument)
+                                chord.addCalculatedValues()
                                 /// Update the database
                                 chordDatabaseState.allChords[flatChordIndex] = chord
                             }

@@ -38,7 +38,7 @@ extension ChordUtils {
         /// - Parameter chord: The ``ChordDefinition``
         /// - Returns: The ``ChordDefinition/Status`` of the chord definition
         static func validateChord(chord: ChordDefinition) -> ChordDefinition.Status {
-            if chord.quality == .unknown {
+            if chord.quality == .none {
                 return .wrongNotes
             }
             /// Get the lowest note of the chord

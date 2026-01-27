@@ -50,10 +50,10 @@ extension ChordProParser {
                     song: &song
                 )
                 line.lineLength = (line.lineLength ?? "") + " \(markup.text) "
-                /// Because it has a chord; the section should be at least a verse
-                haveChords = true
                 /// Add optional markup
                 part.chordMarkup = markup
+                /// Because it has a chord; the section should be at least a verse
+                haveChords = true
             }
             if let lyric {
                 let parts = String(lyric).matches(of: ChordPro.RegexDefinitions.lineSeparator).map { match in

@@ -11,13 +11,16 @@ import Foundation
 enum ChordProviderError: String, LocalizedError {
     case fileNotFound
     case jsonDecoderError
+    case noChordsDefined
 
     var errorDescription: String? {
         switch self {
         case .fileNotFound:
-            return "The file is not found"
+            "The file is not found"
         case .jsonDecoderError:
-            return "JSON decoder error"
+            "JSON decoder error"
+        case .noChordsDefined:
+            "No chords are defined"
         }
     }
 }

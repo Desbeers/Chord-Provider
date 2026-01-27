@@ -9,9 +9,9 @@ import Foundation
 import RegexBuilder
 
 extension ChordProParser {
-    
+
     // MARK: Process a grid environment
-    
+
     /// Process a grid environment
     /// - Parameters:
     ///   - text: The text to process
@@ -64,7 +64,7 @@ extension ChordProParser {
             /// Use the plain text only
             let text = markup.text
             switch text {
-            case "|", " ":
+            case "|", " ", ".":
                 let part = Song.Section.Line.Part(id: partID, text: omittedSymbol ?? text)
                 grid.cells.append(Song.Section.Line.GridCell(id: partID, parts: [part]))
             default:
@@ -89,7 +89,7 @@ extension ChordProParser {
                                 )
                             } else {
                                 /// Unknown strum; fill the space and add a warning
-                                let chord = ChordDefinition(text: "?", instrument: song.settings.instrument)
+                                let chord = ChordDefinition(text: "?", kind: .textChord, instrument: song.settings.instrument)
                                 parts.append(Song.Section.Line.Part(id: partID, chordDefinition: chord, text: chord.display))
                                 line.addWarning("Unknown stroke", level: .error)
                             }
@@ -98,20 +98,15 @@ extension ChordProParser {
                                 chord: String(text),
                                 line: &line,
                                 song: &song,
-                                warning: false
                             )
-                            if result.status == .unknownChord {
-                                parts.append(Song.Section.Line.Part(id: partID, text: String(text), textMarkup: markup))
-                            } else {
-                                parts.append(
-                                    Song.Section.Line.Part(
-                                        id: partID,
-                                        chordDefinition: result,
-                                        text: result.display,
-                                        chordMarkup: markup
-                                    )
+                            parts.append(
+                                Song.Section.Line.Part(
+                                    id: partID,
+                                    chordDefinition: result,
+                                    text: result.display,
+                                    chordMarkup: markup
                                 )
-                            }
+                            )
                         }
                     }
                     partID += 1

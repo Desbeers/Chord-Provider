@@ -45,7 +45,7 @@ extension ChordPro {
                         return name
                     }
                     /// The quality is unknown
-                    return Chord.Quality.unknown
+                    return Chord.Quality.none
                 }
             }
             Optionally {

@@ -31,13 +31,19 @@ extension Views {
         let settings: ChordProviderSettings
         /// The body of the `View`
         var  view: Body {
-            Widgets.Diagram(chord: chord, width: width, settings: settings)
-                .frame(minWidth: Int(width), minHeight: Int(width * 1.2))
-                .frame(maxWidth: Int(width))
-                .frame(maxHeight: Int(width * 1.2))
-                .valign(.center)
-                .halign(.center)
-                .id(settings.diagram.description + chord.define)
+            if chord.kind.knownChord {
+                Widgets.Diagram(chord: chord, width: width, settings: settings)
+                    .frame(minWidth: Int(width), minHeight: Int(width * 1.2))
+                    .frame(maxWidth: Int(width))
+                    .frame(maxHeight: Int(width * 1.2))
+                    .valign(.center)
+                    .halign(.center)
+                    .id(settings.diagram.description + chord.define)
+            } else {
+                Text(chord.kind.description)
+                    .wrap()
+                    .style(.caption)
+            }
         }
     }
 }

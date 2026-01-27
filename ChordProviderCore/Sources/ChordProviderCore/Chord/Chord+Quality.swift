@@ -28,8 +28,9 @@ extension Chord {
             }
         }
 
-        /// Fallback
-        case unknown = "All Qualities"
+        // MARK: All
+
+        case all = "All Qualities"
 
         // MARK: Triad
 
@@ -141,6 +142,11 @@ extension Chord {
         /// Augmented 9
         case augNine = "aug9"
 
+        // MARK: Fallback
+
+        /// None
+        case none
+
         /// Implement Comparable
         public static func < (lhs: Self, rhs: Self) -> Bool {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
@@ -149,7 +155,7 @@ extension Chord {
         /// The display of Quality
         public var display: String {
             switch self {
-            case .unknown:                  "All"
+            case .all:                      "All"
             case .major:                    ""
             case .minor:                    "m"
             case .dim:                      "dim"
@@ -195,6 +201,7 @@ extension Chord {
             case .addNine:                  "add⁹"
             case .minorAddNine:             "madd⁹"
             case .addEleven:                "add¹¹"
+            case .none:                     "None"
             }
         }
 
@@ -207,17 +214,19 @@ extension Chord {
             // swiftlint:disable line_length
             switch self {
             case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addFour, .addNine, .addEleven:
-                .major
+                    .major
             case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSevenFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine, .minorThirteen:
-                .minor
+                    .minor
             case .dim, .dimSeven:
-                .diminished
+                    .diminished
             case .susTwo, .susFour, .sevenSusTwo, .sevenSusFour:
-                .suspended
+                    .suspended
             case .aug, .augSeven, .augNine:
-                .augmented
-            case .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive, .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen, .sevenSharpFive, .unknown:
-                .other
+                    .augmented
+            case .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive, .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen, .sevenSharpFive:
+                    .other
+            case .all, .none:
+                    .intern
             }
             // swiftlint:enable line_length
         }

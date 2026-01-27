@@ -24,6 +24,8 @@ public enum Chord {
         case suspended
         /// All other chords
         case other
+        /// Internal use
+        case intern
     }
 
     /// The accidental of a root

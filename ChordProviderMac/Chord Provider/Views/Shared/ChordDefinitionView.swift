@@ -96,7 +96,7 @@ struct ChordDefinitionView: View {
                     .padding(lineHeight / 4)
                     .foregroundStyle(settings.style.fonts.chord.color)
             }
-            switch chord.status {
+            switch chord.kind {
             case .standardChord, .transposedChord, .customChord:
                 diagram
             default:
@@ -109,7 +109,7 @@ struct ChordDefinitionView: View {
             settings.style.theme.foregroundMedium
         )
         .overlay(alignment: .topLeading) {
-            if settings.midi.showPlayButton, chord.status.knownChord {
+            if settings.midi.showPlayButton, chord.kind.knownChord {
                 PlayChordButton(
                     chord: chord,
                     instrument: settings.midi.instrument

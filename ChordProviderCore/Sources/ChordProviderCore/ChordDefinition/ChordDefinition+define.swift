@@ -56,7 +56,6 @@ extension ChordDefinition {
 
             let chordDefinition = ChordDefinition(
                 id: UUID(),
-                name: definition.1,
                 frets: frets,
                 fingers: fingers,
                 baseFret: Chord.BaseFret(rawValue: definition.2 ?? 1) ?? .one,
@@ -99,7 +98,6 @@ extension ChordDefinition {
         }
         let chordDefinition = ChordDefinition(
             id: UUID(),
-            name: chord.name,
             frets: chord.frets ?? [],
             fingers: chord.fingers ?? [],
             baseFret: Chord.BaseFret(rawValue: chord.base ?? 1) ?? .one,

@@ -35,12 +35,7 @@ extension GtkRender {
                             VStack(spacing: 0) {
                                 Text(chord.display)
                                     .style(.chord)
-                                if !chord.status.knownChord {
-                                    Text(chord.status.description)
-                                        .style(.caption)
-                                } else {
-                                    Views.ChordDiagram(chord: chord, settings: settings)
-                                }
+                                Views.ChordDiagram(chord: chord, settings: settings)
                             }
                         }
                     }

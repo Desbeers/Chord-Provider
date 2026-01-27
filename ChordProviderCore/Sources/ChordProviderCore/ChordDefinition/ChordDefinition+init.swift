@@ -14,7 +14,6 @@ extension ChordDefinition {
     /// Init the ``ChordDefinition`` with all known values
     public init(
         id: UUID,
-        name: String,
         frets: [Int],
         fingers: [Int],
         baseFret: Chord.BaseFret,
@@ -22,7 +21,7 @@ extension ChordDefinition {
         quality: Chord.Quality,
         slash: Chord.Root?,
         instrument: Chord.Instrument,
-        status: Status = .customChord
+        kind: Kind = .customChord
     ) {
         self.id = id
         self.frets = frets
@@ -31,25 +30,24 @@ extension ChordDefinition {
         self.root = root
         self.quality = quality
         self.slash = slash
-        self.name = name
         self.instrument = instrument
-        self.status = status
+        self.kind = kind
         /// Calculated values
-        self.components = ChordUtils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
+        addCalculatedValues()
     }
 
     // MARK: Init with a **ChordPro** definition
 
     /// Init the ``ChordDefinition`` with a **ChordPro** definition
-    ///
-    /// If the status is 'unknown', this function will try to find the chord in the database
-    ///
     /// - Parameters:
     ///   - definition: The **ChordPro** definition
-    ///   - instrument: The ``Chord/Instrument``
-    ///   - status: The ``Status`` of the chord definition
-    public init(definition: String, instrument: Chord.Instrument, status: Status) throws {
+    ///   - kind: The ``Kind`` of ``ChordDefinition``
+    ///   - instrument: The ``Chord/Instrument`` for this definition
+    public init(
+        definition: String,
+        kind: Kind,
+        instrument: Chord.Instrument,
+    ) throws {
         /// Parse the chord definition
         do {
             let definition = try ChordDefinition.define(from: definition, instrument: instrument)
@@ -60,26 +58,11 @@ extension ChordDefinition {
             self.baseFret = definition.baseFret
             self.root = definition.root
             self.quality = definition.quality
-            self.name = definition.name
             self.slash = definition.slash
             self.instrument = instrument
-            self.status = status
-            if status == .unknownChord {
-                /// Get the optional matching chords
-                let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument)
-                    .matching(root: definition.root)
-                    .matching(quality: definition.quality)
-                    .matching(slash: definition.slash)
-                /// See if we can find it
-                if chords.firstIndex(where: { $0.frets == definition.frets && $0.baseFret == definition.baseFret }) != nil {
-                    self.status = .standardChord
-                } else {
-                    self.status = .customChord
-                }
-            }
+            self.kind = kind
             /// Calculated values
-            self.components = ChordUtils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-            self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
+            addCalculatedValues()
         } catch {
             throw error
         }
@@ -91,7 +74,7 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - name: The name of the chord, e.g 'Am7'
-    ///   - instrument: The ``Chord/Instrument``
+    ///   - instrument: The ``Chord/Instrument`` for this definition
     public init?(name: String, instrument: Chord.Instrument) {
         /// Parse the chord name
         let elements = ChordUtils.Analizer.findChordElements(chord: name)
@@ -113,23 +96,20 @@ extension ChordDefinition {
         self.root = chord.root
         self.quality = chord.quality
         self.slash = elements.slash
-        self.name = name
         self.instrument = instrument
-        self.status = .standardChord
+        self.kind = .standardChord
         /// Calculated values
-        self.components = ChordUtils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-        self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
+        addCalculatedValues()
     }
 
     // MARK: Init with a ChordPro JSON chord
 
-    /// Init the ``ChordDefinition`` with the name of a chord
+    /// Init the ``ChordDefinition`` with a  **ChordPro** JSON chord
     ///
     /// - Parameters:
     ///   - chord: The **ChordPro** JSON chord
-    ///   - instrument: The ``Chord/Instrument``
+    ///   - instrument: The ``Chord/Instrument`` for this definition
     public init?(chord: ChordPro.Instrument.Chord, instrument: Chord.Instrument) {
-        /// Parse the JSON chord definition
         do {
             let definition = try ChordDefinition.define(from: chord, instrument: instrument)
             /// Set the properties
@@ -140,62 +120,40 @@ extension ChordDefinition {
             self.root = definition.root
             self.quality = definition.quality
             self.slash = definition.slash
-            self.name = definition.name
             self.instrument = definition.instrument
-            self.status = .standardChord
+            self.kind = .standardChord
             /// Calculated values
-            self.components = ChordUtils.fretsToComponents(root: root, frets: frets, baseFret: baseFret, instrument: instrument)
-            self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
+            addCalculatedValues()
         } catch {
             return nil
         }
     }
 
-    // MARK: Init with an unknown name
-
-    /// Init the ``ChordDefinition`` with an unknown chord
-    ///
-    /// - Parameters:
-    ///   - unknown: The name of the unknown chord
-    ///   - instrument: The ``Chord/Instrument``
-    public init(unknown: String, instrument: Chord.Instrument) {
-        /// Set the properties
-        self.id = UUID()
-        self.frets = Array(repeating: 0, count: instrument.strings.count)
-        self.fingers = Array(repeating: 0, count: instrument.strings.count)
-        self.baseFret = .one
-        self.root = .c
-        self.quality = .major
-        self.slash = nil
-        self.name = unknown
-        self.instrument = instrument
-        self.status = .unknownChord
-        /// Calculated values
-        self.components = []
-        self.barres = []
-    }
-
-    // MARK: Init as text
+    // MARK: Init with text
 
     /// Init the ``ChordDefinition`` with a text instead of a chord
     ///
     /// - Parameters:
-    ///   - unknown: The name of the text chord
-    ///   - instrument: The ``Chord/Instrument``
-    public init(text: String, instrument: Chord.Instrument) {
+    ///   - text: The name of the text chord
+    ///   - kind: The ``Kind`` of ``ChordDefinition``
+    ///   - instrument: The ``Chord/Instrument`` for this definition
+    ///
+    /// This might be *true* text like in a grid (`*Label`) or an unknown chord
+    public init(
+        text: String,
+        kind: Kind,
+        instrument: Chord.Instrument
+    ) {
         /// Set the properties
         self.id = UUID()
+        self.plain = text
         self.frets = Array(repeating: 0, count: instrument.strings.count)
         self.fingers = Array(repeating: 0, count: instrument.strings.count)
         self.baseFret = .one
-        self.root = .c
-        self.quality = .major
+        self.root = .none
+        self.quality = .none
         self.slash = nil
-        self.name = text
         self.instrument = instrument
-        self.status = .textChord
-        /// Calculated values
-        self.components = []
-        self.barres = []
+        self.kind = kind
     }
 }

@@ -25,7 +25,7 @@ struct ChordsView: View {
         ScrollView([sceneState.settings.display.chordsPosition == .bottom ? .horizontal : .vertical]) {
             layout {
                 ForEach(sceneState.song.chords) { chord in
-                    switch chord.status {
+                    switch chord.kind {
                     case .standardChord, .transposedChord:
                         Button(
                             action: {

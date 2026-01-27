@@ -31,7 +31,7 @@ extension RenderView {
             self.chord = chord
             self.popoverID = UUID().uuidString
             self.font = settings.style.fonts.chord.swiftUIFont(scale: settings.scale.magnifier)
-            switch chord.status {
+            switch chord.kind {
             case .unknownChord, .customTransposedChord, .transposedUnknownChord:
                 self.color = .red
             default:

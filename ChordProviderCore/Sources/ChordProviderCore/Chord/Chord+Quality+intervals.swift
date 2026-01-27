@@ -195,7 +195,7 @@ extension Chord.Quality {
 
             // MARK: - Unknown
 
-        case.unknown:
+        case .all, .none:
             ([], [])
         }
     }

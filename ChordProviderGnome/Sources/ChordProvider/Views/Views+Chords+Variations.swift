@@ -21,7 +21,7 @@ extension Views.Chords {
             self._appState = appState
             self._chordDialog = chordDialog
             var chords = Views.Chords.Variations.getChordDefinitions(chord: selectedChord)
-            if selectedChord.status == .customChord {
+            if selectedChord.kind == .customChord {
                 chords = [selectedChord] + chords
             }
             self.chords = chords

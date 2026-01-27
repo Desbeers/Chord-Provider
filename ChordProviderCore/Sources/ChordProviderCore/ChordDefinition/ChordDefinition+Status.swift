@@ -12,18 +12,15 @@ extension ChordDefinition {
     // MARK: The status of a `ChordDefinition`
 
     /// The status of the ``ChordDefinition``
-    public enum Status: String, LocalizedError, Codable {
+    public enum Status: String, LocalizedError, Codable, Comparable, CaseIterable {
 
-        /// A standard chord from the database
-        case standardChord
-        /// A transposed chord
-        case transposedChord
-        /// A transposed chord that is unknown
-        case transposedUnknownChord
-        /// A custom defined chord
-        case customChord
-        /// A custom defined chord that is transposed
-        case customTransposedChord
+        /// Comparable protocol
+        public static func < (lhs: Self, rhs: Self) -> Bool {
+            allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
+        }
+
+        // MARK: Validation
+
         /// An unknown chord
         case unknownChord
         /// The definition has too many frets
@@ -40,14 +37,11 @@ extension ChordDefinition {
         case wrongFingers
         /// The definition is missing fingers
         case missingFingers
-        /// The definition is a copy of another definition
-        case chordIsCopy
-        /// There are no chords defined
-        case noChordsDefined
         /// The definition is correct
         case correct
-        /// The definition is just text; eg [*Text]
-        case textChord
+
+        // MARK: Editing
+
         /// Add a definition
         case addDefinition = "Add chord definition"
         /// Edit a definition
@@ -62,10 +56,6 @@ extension ChordDefinition {
                 "Too many frets"
             case .notEnoughFrets:
                 "Not enough frets"
-            case .customTransposedChord:
-                "A custom chord can not be transposed in the diagram"
-            case .transposedUnknownChord:
-                "This transposed chord is unknown"
             case .unknownChord:
                 "This chord is unknown"
             case .correct:
@@ -100,18 +90,6 @@ extension ChordDefinition {
                 "You can not edit this chord definition because it has not enough frets defined for you current instrument."
             default:
                 "No Recovery suggestion"
-            }
-        }
-
-        // MARK: Custom
-
-        /// Bool if the chord is considered 'known'
-        public var knownChord: Bool {
-            switch self {
-            case .standardChord, .transposedChord, .customChord, .correct:
-                true
-            default:
-                false
             }
         }
     }

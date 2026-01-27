@@ -59,7 +59,7 @@ public enum ChordUtils {
             /// The first definition is needed to find the instrument
             let instrument = definitions.first?.instrument
         else {
-            throw ChordDefinition.Status.noChordsDefined
+            throw ChordProviderError.noChordsDefined
         }
         let basicAndSharps = definitions.filter { $0.root.accidental != .flat }
         var chords = basicAndSharps.map { chord in
@@ -77,11 +77,6 @@ public enum ChordUtils {
             var copy = chord
             /// Swap sharp for flat
             copy.root = chord.root.swapSharpForFlat
-            /// Change the name
-            copy.name = "\(copy.root.rawValue)\(chord.quality.rawValue)"
-            if let slash = chord.slash {
-                copy.name += "/\(slash.rawValue)"
-            }
             return ChordPro.Instrument.Chord(
                 name: copy.name,
                 display: copy.name == copy.display ? nil : copy.display,
@@ -112,7 +107,7 @@ public enum ChordUtils {
             let encodedData = try encoder.encode(export)
             return String(data: encodedData, encoding: .utf8) ?? "error"
         } catch {
-            throw ChordDefinition.Status.noChordsDefined
+            throw ChordProviderError.noChordsDefined
         }
     }
 

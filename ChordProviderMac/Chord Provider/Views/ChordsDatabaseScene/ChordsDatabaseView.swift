@@ -105,7 +105,7 @@ struct ChordsDatabaseView: View {
         }
         .onChange(of: chordsDatabaseState.navigationStack) {
             if chordsDatabaseState.navigationStack.isEmpty {
-                sceneState.definition.status = .standardChord
+                sceneState.definition.kind = .standardChord
             }
         }
         .task(id: chordsDatabaseState.gridRoot) {
@@ -219,7 +219,7 @@ struct ChordsDatabaseView: View {
         if chordsDatabaseState.gridRoot != .all {
             chords = chords.matching(sharpAndflatRoot: chordsDatabaseState.gridRoot)
         }
-        if chordsDatabaseState.gridQuality != .unknown {
+        if chordsDatabaseState.gridQuality != .none {
             chords = chords.matching(quality: chordsDatabaseState.gridQuality)
         }
         if hideCorrectChords {

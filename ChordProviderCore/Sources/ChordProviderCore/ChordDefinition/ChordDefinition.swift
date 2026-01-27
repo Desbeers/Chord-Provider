@@ -8,7 +8,14 @@
 import Foundation
 
 /// The structure of a chord definition
-public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable {
+public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable, Comparable {
+    /// Comparable protocol
+    /// - Note: Used for sorting the chords
+    public static func < (lhs: ChordDefinition, rhs: ChordDefinition) -> Bool {
+        (lhs.display, lhs.status)
+        <
+        (rhs.display, rhs.status)
+    }
 
     // MARK: Database items
 
@@ -24,25 +31,34 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     public var root: Chord.Root
     /// The quality of the chord
     public var quality: Chord.Quality
+    /// The note of an optional 'slash' chord
+    public var slash: Chord.Root?
+
+    // MARK: Transposing
+
+    /// The transposed note value
+    public var transposed: Int = 0
+    /// The transposed name of the chord
+    /// - Note: This will be the original name of the chord as defined in the source with the transpose value added
+    public var transposedName: String = ""
 
     // MARK: Other items
 
-    /// The name of the chord
-    public var name: String
-
-    /// The fingers you have to bar for the chord
-    /// - Note: A calculated value by the init
-    public var barres: [Chord.Barre]?
-
+    /// Plain text for an unknown or text chord
+    public var plain: String = ""
     /// The instrument of the chord
     public var instrument: Chord.Instrument
     /// Bool if the diagram is mirrored
     public var mirrored: Bool = false
+    /// The kind of chord definition
+    public var kind: Kind
+    /// The status of the chord definition
+    public var status: Status = .correct
 
-    /// The note of an optional 'slash' chord
-    public var slash: Chord.Root?
+    // MARK: Calculated values by the init()
+
+    /// The fingers you have to bar for the chord
+    public var barres: [Chord.Barre]?
     /// The components of the chord definition
     public var components: [Chord.Component] = []
-    /// The status of the chord definition
-    public var status: Status
 }

@@ -9,13 +9,14 @@ import Foundation
 
 extension ChordDefinition {
 
-    /// Get the name of the chord for internal use
-    /// - Returns: A string with the name of the chord
-    public var getName: String {
+    /// The name of the chord for internal use
+    /// - Returns: A string with the name and transpose value of the chord
+    public var name: String {
         var name = self.root.rawValue + self.quality.rawValue
         if let slash = self.slash {
             name += "/\(slash.rawValue)"
         }
+        name += "-\(transposed)"
         return name
     }
 
@@ -23,9 +24,9 @@ extension ChordDefinition {
     /// - Returns: A formatted string with the name of the chord
     public var display: String {
         var name: String = ""
-        if self.status == .unknownChord || self.status == .textChord || self.quality == .unknown {
-            /// We don't know anything about this chord; so use the original name
-            name = self.name
+        if self.root == .none || self.quality == .none {
+            /// We don't know anything about this chord; so use the plain name
+            name = self.plain
         } else {
             name = self.root.display + self.quality.display
             if let slash = self.slash {
@@ -39,9 +40,9 @@ extension ChordDefinition {
     /// - Returns: A formatted string with the flat name of the chord
     public var displayFlatForSharp: String {
         var name: String = ""
-        if self.status == .unknownChord || self.quality == .unknown {
-            /// We don't know anything about this chord; so use the original name
-            name = self.name
+        if self.root == .none || self.quality == .none {
+            /// We don't know anything about this chord; so use the plain name
+            name = self.plain
         } else {
             name = self.root.swapSharpForFlat.display + self.quality.display
             if let slash = self.slash {
@@ -126,14 +127,25 @@ extension ChordDefinition {
 extension ChordDefinition {
 
     /// Add calculated values to a ``ChordDefinition``
-    /// - Parameter instrument: The ``Chord/Instrument`` to use
-    mutating public func addCalculatedValues(instrument: Chord.Instrument) {
+    mutating public func addCalculatedValues() {
+        self.transposedName = self.name
+        getComponents()
+        getBarres()
+    }
+
+    mutating func getComponents() {
         self.components = ChordUtils.fretsToComponents(
             root: root,
             frets: frets,
             baseFret: baseFret,
             instrument: instrument
         )
-        self.barres = ChordUtils.fingersToBarres(frets: frets, fingers: fingers)
+    }
+
+    mutating func getBarres() {
+        self.barres = ChordUtils.fingersToBarres(
+            frets: frets,
+            fingers: fingers
+        )
     }
 }

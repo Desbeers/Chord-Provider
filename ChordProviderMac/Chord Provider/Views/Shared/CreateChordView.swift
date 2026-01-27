@@ -103,11 +103,8 @@ struct CreateChordView: View {
             }
         }
         .task(id: sceneState.definition) {
-            /// Construct the internal name
-            sceneState.definition.name = sceneState.definition.getName
             let diagram = ChordDefinition(
                 id: sceneState.definition.id,
-                name: sceneState.definition.getName,
                 frets: sceneState.definition.frets,
                 fingers: sceneState.definition.fingers,
                 baseFret: sceneState.definition.baseFret,
@@ -115,7 +112,7 @@ struct CreateChordView: View {
                 quality: sceneState.definition.quality,
                 slash: sceneState.definition.slash,
                 instrument: sceneState.definition.instrument,
-                status: .standardChord
+                kind: .standardChord
             )
             self.diagram = diagram
             chordCombinations = diagram.noteCombinations

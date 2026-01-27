@@ -25,7 +25,7 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             ScrollView {
-                ForEach(song.chords) { chord in
+                ForEach(song.chords.filter { $0.kind.knownChord } ) { chord in
                     Button("") {
                         selectedChord = chord
                         chordDialog.toggle()

@@ -20,8 +20,7 @@ extension Views {
             if appState.editor.showEditDirectiveDialog.wrappedValue {
                 if let currentDefinition = try? ChordDefinition(
                     definition: appState.editor.currentLine.plain.wrappedValue ?? "",
-                    instrument: appState.editor.song.settings.instrument.wrappedValue,
-                    status: .customChord
+                    kind: .customChord, instrument: appState.editor.song.settings.instrument.wrappedValue
                 ) {
                     definition = currentDefinition
                     newChord = false
@@ -58,7 +57,7 @@ extension Views {
                 .insensitive(!newChord)
                 HStack(spacing: 10) {
                     Text("Quality:")
-                    DropDown(selection: $definition.quality, values: Array(Chord.Quality.allCases.dropFirst()))
+                    DropDown(selection: $definition.quality, values: Array(Chord.Quality.allCases.dropFirst().dropLast()))
                     /// Disable above when a definition is edited
                     .insensitive(!newChord)
                     Text("Base fret:")
@@ -74,7 +73,7 @@ extension Views {
                 }
                 HStack(spacing: 20) {
                     VStack {
-                        Text(definition.getName)
+                        Text(definition.display)
                             .style(.title)
                         diagramView()
                         Text(definition.notesLabel)
@@ -154,7 +153,6 @@ extension Views {
         func getDefinition() ->ChordDefinition {
             ChordDefinition(
                 id: definition.id,
-                name: definition.getName,
                 frets: definition.frets,
                 fingers: definition.fingers,
                 baseFret: definition.baseFret,
@@ -162,7 +160,7 @@ extension Views {
                 quality: definition.quality,
                 slash: definition.slash,
                 instrument: definition.instrument,
-                status: .standardChord
+                kind: .standardChord
             )
         }
 

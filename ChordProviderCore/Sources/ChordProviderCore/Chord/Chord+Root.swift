@@ -23,8 +23,13 @@ extension Chord {
 
         // swiftlint:disable identifier_name
 
+        // MARK: All
+
         /// All
         case all = "All"
+
+        // MARK: Notes
+
         /// C
         case c = "C"
         /// C sharp
@@ -59,6 +64,9 @@ extension Chord {
         case b = "B"
         /// B flat
         case bFlat = "Bb"
+
+        // MARK: Fallback
+
         /// None
         case none = "None"
         // swiftlint:enable identifier_name
@@ -71,7 +79,7 @@ extension Chord {
         /// The display of Root
         public var display: String {
             switch self {
-            case .all:     "All"
+            case .all:      "All"
             case .c:        "C"
             case .cSharp:   "C♯"
             case .dFlat:    "D♭"

@@ -107,14 +107,33 @@ public enum ChordProParser {
         }
         /// Set default metadata if not defined in the song file
         setDefaults(song: &song, prefixes: settings.sortTokens)
-        /// Sort the chords
-        song.chords = song.chords.sorted(using: KeyPathComparator(\.display))
         /// Check if the song has actual content
         let sections = song.sections.uniqued(by: \.environment).map(\.environment)
         song.hasContent = Set(sections).isDisjoint(with: ChordPro.Environment.content) ? false : true
+        /// Set some stuff
+        let lines = song.sections.flatMap(\.lines)
         /// Check if the song has warnings or errors
-        let lines = song.sections.flatMap(\.lines).compactMap(\.warnings)
-        song.hasWarnings = !lines.isEmpty
+        song.hasWarnings = !lines.compactMap(\.warnings).isEmpty
+        /// Get all chords
+        /// - Note: Defined chords that are not used will be ignored
+        var result = Set<ChordDefinition>()
+        for line in lines {
+            /// Chords in lyrics, chorus etcetera
+            line.parts?.forEach { part in
+                if let chord = part.chordDefinition {
+                    result.insert(chord)
+                }
+            }
+            /// Chords in grids
+            line.grid?.flatMap(\.cells).forEach { grid in
+                grid.parts.forEach { part in
+                    if let chord = part.chordDefinition {
+                        result.insert(chord)
+                    }
+                }
+            }
+        }
+        song.chords = Array(result).sorted()
 
         LogUtils.shared.setLog(
             level: song.hasWarnings ? .notice : .info,

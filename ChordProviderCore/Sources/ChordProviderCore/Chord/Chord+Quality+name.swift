@@ -13,6 +13,8 @@ extension Chord.Quality {
     /// - Note: Used to lookup a quality from a **ChordPro** definition
     var name: [String] {
         switch self {
+        case .all:
+            ["all"]
         case .major:
             ["major", "maj", ""]
         case .minor:
@@ -103,7 +105,7 @@ extension Chord.Quality {
             ["madd9"]
         case .augNine:
             ["aug9"]
-        case .unknown:
+        case .none:
             ["?"]
         }
     }
