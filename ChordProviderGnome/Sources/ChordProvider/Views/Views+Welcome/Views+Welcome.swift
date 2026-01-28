@@ -142,8 +142,7 @@ extension Views {
             // MARK: Song Folder importer
 
             .folderImporter(
-                open: appState.scene.openFolder,
-                initialFolder: appState.settings.app.songsFolder
+                open: appState.scene.openFolder
             ) { folderURL in
                 appState.settings.app.songsFolder = folderURL
                 getFolderContent()
