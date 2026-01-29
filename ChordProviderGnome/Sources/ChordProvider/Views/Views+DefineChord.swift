@@ -73,7 +73,7 @@ extension Views {
                 }
                 HStack(spacing: 20) {
                     VStack {
-                        MidiPlayer(chord: definition)
+                        MidiPlayer(chord: getDefinition())
                         diagramView()
                         Text(definition.notesLabel)
                             .useMarkup()
