@@ -232,14 +232,13 @@ extension Markup {
 
 .midi-button {
     margin: 0;
-    padding: 0;
-    font-size: \(1.1 * baseFontSize * zoom)px;
+    padding: 0 4px;
+    font-size: \(1.1 * baseFontSize)px;
     color: var(--chordprovider-accent-color);
 }
 
 .midi-button image {
     opacity: 0.4;
-
 }
 
 /* Labels */

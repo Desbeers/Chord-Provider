@@ -36,6 +36,7 @@ extension Views {
             .style(.midiButton)
             .flat(true)
             .halign(.center)
+            .padding(.top)
         }
         /// Play the chord with MIDI
         func playChord() {
