@@ -33,8 +33,7 @@ extension GtkRender {
                     .popover(visible: $openChordDiagram) {
                         if openChordDiagram {
                             VStack(spacing: 0) {
-                                Text(chord.display)
-                                    .style(.chord)
+                                Views.MidiPlayer(chord: chord)
                                 Views.ChordDiagram(chord: chord, settings: settings)
                             }
                         }

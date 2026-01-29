@@ -73,8 +73,7 @@ extension Views {
                 }
                 HStack(spacing: 20) {
                     VStack {
-                        Text(definition.display)
-                            .style(.title)
+                        MidiPlayer(chord: definition)
                         diagramView()
                         Text(definition.notesLabel)
                             .useMarkup()
@@ -170,7 +169,6 @@ extension Views {
                 width: 160,
                 settings: appState.editor.song.settings
             )
-            //.id(UUID())
         }
 
         var strings: [StringNumber] {

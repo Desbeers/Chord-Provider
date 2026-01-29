@@ -26,13 +26,12 @@ extension Views {
         var view: Body {
             ScrollView {
                 ForEach(song.chords.filter { $0.kind.knownChord } ) { chord in
+                    MidiPlayer(chord: chord)
                     Button("") {
                         selectedChord = chord
                         chordDialog.toggle()
                     }
                     .child {
-                        Text(chord.display)
-                            .style(.chord)
                         ChordDiagram(chord: chord, settings: appState.editor.song.settings)
                     }
                     .style(.chordButton)

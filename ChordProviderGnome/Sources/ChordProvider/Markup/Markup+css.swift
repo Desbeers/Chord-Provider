@@ -71,6 +71,8 @@ extension Markup {
         case chordButton = "chord-button"
         /// Button used to display or open a chord diagram
         case chordDiagramButton = "chord-diagram-button"
+        /// Button used to play a chord with MIDI
+        case midiButton = "midi-button"
 
         // MARK: Labels
 
@@ -226,6 +228,18 @@ extension Markup {
     padding: 0;
     font-size: \(1.1 * baseFontSize * zoom)px;
     color: var(--chordprovider-accent-color);
+}
+
+.midi-button {
+    margin: 0;
+    padding: 0;
+    font-size: \(1.1 * baseFontSize * zoom)px;
+    color: var(--chordprovider-accent-color);
+}
+
+.midi-button image {
+    opacity: 0.4;
+
 }
 
 /* Labels */

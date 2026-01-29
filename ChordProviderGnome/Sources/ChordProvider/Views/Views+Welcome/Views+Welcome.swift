@@ -74,8 +74,6 @@ extension Views {
                             }
                         }
                         .padding()
-                        MidiPlayer()
-                            .padding()
                         #endif
                         /// - Note: This should be a spacer
                         Separator()

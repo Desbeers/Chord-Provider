@@ -44,9 +44,12 @@ extension Views.Chords {
             VStack {
                 ScrollView {
                     FlowBox(chords, selection: $selectedVariationID) { chord in
-                        Views.ChordDiagram(chord: chord, width: 120, settings: appState.editor.song.settings)
-                            .style(chord == selectedChord ? .selectedChord : .none)
-                            .padding(4, .vertical)
+                        VStack {
+                            Views.MidiPlayer(chord: chord)
+                            Views.ChordDiagram(chord: chord, width: 120, settings: appState.editor.song.settings)
+                                .style(chord == selectedChord ? .selectedChord : .none)
+                        }
+                        .padding(4, .vertical)
                     }
                     .valign(.start)
                     .padding()

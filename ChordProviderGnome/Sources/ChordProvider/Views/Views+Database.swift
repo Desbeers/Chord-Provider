@@ -44,8 +44,7 @@ extension Views {
                     } else {
                         FlowBox(chords, selection: $selection) { chord in
                             VStack {
-                                Text(chord.display)
-                                    .style(.chord)
+                                MidiPlayer(chord: chord)
                                 ChordDiagram(chord: chord, settings: settings)
                             }
                         }
