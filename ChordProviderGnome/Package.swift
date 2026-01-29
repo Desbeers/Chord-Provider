@@ -42,6 +42,7 @@ let package = Package(
             name: "ChordProvider",
             dependencies: [
                 "SourceView",
+                "CFluidSynth",
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore")
             ],
@@ -49,6 +50,7 @@ let package = Package(
                 .copy("Resources/nl.desbeers.chordprovider.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-mime.svg"),
+                .copy("Resources/GuitarSoundFont.sf2"),
                 .copy("Samples")
             ],
         ),
@@ -62,6 +64,10 @@ let package = Package(
         .systemLibrary(
             name: "CGtkSourceView",
             pkgConfig: "gtksourceview-5"
+        ),
+        .systemLibrary(
+            name: "CFluidSynth",
+            pkgConfig: "fluidsynth"
         )
     ]
 )
