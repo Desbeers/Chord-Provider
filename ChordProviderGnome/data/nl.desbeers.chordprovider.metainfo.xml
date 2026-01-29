@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
   <id>nl.desbeers.chordprovider</id>
-  
+
   <name>Chord Provider</name>
   <summary>A ChordPro viewer and editor</summary>
-  
+
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  
+
   <releases>
-    <release date="2025-09-20" version="0.1.0"/>
+    <release version="1.0.0" date="2026-02-01">
+      <description>
+        <ul>
+          <li>Initial public release</li>
+        </ul>
+      </description>
+    </release>
   </releases>
+
+  <keywords>
+    <keyword>chordpro</keyword>
+    <keyword>chords</keyword>
+    <keyword>music</keyword>
+    <keyword>guitar</keyword>
+  </keywords>
+
+  <categories>
+    <category>Music</category>
+    <category>Utility</category>
+  </categories>
 
   <supports>
     <control>pointing</control>
     <control>keyboard</control>
     <control>touch</control>
   </supports>
-  
+
   <content_rating type="oars-1.1"/>
 
   <developer id="nl.desbeers">
@@ -26,12 +44,41 @@
 
   <description>
     <p>
-      A ChordPro viewer and editor for Gnome that show the source in a beautiful view with chord diagrams.
+      Chord Provider is a ChordPro viewer and editor for GNOME that show the source in a beautiful view with chord diagrams.
     </p>
+    <ul>
+      <li>View your songs</li>
+      <li>Transpose your songs</li>
+      <li>Edit your songs using a modern, distraction-free editor</li>
+      <li>Provide a large built-in chord database</li>
+      <li>Play chords using MIDI</li>
+      <li>Support left-handed chord diagrams</li>
+    </ul>
   </description>
-  
+
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/Desbeers/Chord-Provider/main/Images/screenshot-adwaita-0.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/Desbeers/Chord-Provider/main/Images/screenshot-adwaita-1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/Desbeers/Chord-Provider/main/Images/screenshot-adwaita-2.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/Desbeers/Chord-Provider/main/Images/screenshot-adwaita-3.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/Desbeers/Chord-Provider/main/Images/screenshot-adwaita-4.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/Desbeers/Chord-Provider/main/Images/screenshot-adwaita-5.png</image>
+    </screenshot>
+  </screenshots>
+
   <url type="homepage">https://github.com/Desbeers/Chord-Provider</url>
+  <url type="bugtracker">https://github.com/Desbeers/Chord-Provider/issues</url>
 
   <launchable type="desktop-id">nl.desbeers.chordprovider.desktop</launchable>
 </component>
-

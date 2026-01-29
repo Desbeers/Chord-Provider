@@ -28,7 +28,7 @@ extension Views.Content {
                 visible: $appState.scene.showAboutDialog,
                 app: "Chord Provider",
                 developer: "Nick Berendsen",
-                version: "dev",
+                version: "1.0",
                 icon: .custom(name: "nl.desbeers.chordprovider"),
                 // swiftlint:disable:next force_unwrapping
                 website: URL(string: "https://github.com/Desbeers/Chord-Provider")!,
