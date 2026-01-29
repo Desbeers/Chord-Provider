@@ -31,62 +31,79 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
-                guard let sfUrl = Bundle.module.url(forResource: "GuitarSoundFont", withExtension: "sf2") else {
-                    return
-                }
-                Task.detached {
-                    let settings = new_fluid_settings()
-
-                    #if os(macOS)
-                    fluid_settings_setstr(settings, "audio.driver", "coreaudio")
-                    #elseif os(Linux)
-                    fluid_settings_setstr(settings, "audio.driver", "pipewire")
-                    fluid_settings_setint(settings, "audio.realtime-prio", 0)
-                    #endif
-
-                    let synth = new_fluid_synth(settings)
-
-                    fluid_synth_chorus_on(synth, 1, 1)
-                    fluid_synth_reverb_on(synth, 1, 1)
-
-                    let driver = new_fluid_audio_driver(settings, synth)
-
-                    /// Load SoundFont
-                    let sfontID = fluid_synth_sfload(synth, sfUrl.path(), 0)
-
-                    // Select Electric Guitar
-                    fluid_synth_program_select(
-                        synth,
-                        0,        // channel
-                        sfontID,  // sfont_id
-                        0,        // bank
-                        25        // Electric Guitar
-                    )
-
-                    /// --- STRUM NOTES ---
-                    for note in notes {
-                        fluid_synth_noteon(synth, 0, note, 120)
-                        try? await Task.sleep(nanoseconds: 80_000_000) // 50ms per string
-                    }
-
-                    /// --- SUSTAIN ---
-                    try? await Task.sleep(nanoseconds: 1_000_000_000) // 1s sustain
-
-                    /// --- FADE OUT via staggered note-offs ---
-                    for note in notes.reversed() { // reverse for descending strum
-                        fluid_synth_noteoff(synth, 0, note)
-                        try? await Task.sleep(nanoseconds: 100_000_000) // 100ms per string fade
-                    }
-
-                    /// Cleanup
-                    delete_fluid_audio_driver(driver)
-                    delete_fluid_synth(synth)
-                    delete_fluid_settings(settings)
-                }
+                playChord()
             }
             .style(.midiButton)
             .flat(true)
             .halign(.center)
+        }
+        /// Play the chord with MIDI
+        func playChord() {
+            guard let sfUrl = Bundle.module.url(forResource: "GuitarSoundFont", withExtension: "sf2") else {
+                return
+            }
+            Task.detached {
+                let settings = new_fluid_settings()
+                fluid_settings_setnum(settings, "synth.gain", 0.9)
+#if os(macOS)
+                fluid_settings_setstr(settings, "audio.driver", "coreaudio")
+#elseif os(Linux)
+                fluid_settings_setstr(settings, "audio.driver", "pipewire")
+                fluid_settings_setint(settings, "audio.realtime-prio", 0)
+#endif
+
+                let synth = new_fluid_synth(settings)
+                fluid_synth_chorus_on(synth, 1, 1)
+                fluid_synth_reverb_on(synth, 1, 1)
+                // max channel volume
+                fluid_synth_cc(synth, 0, 7, 110)
+
+                let driver = new_fluid_audio_driver(settings, synth)
+
+                /// Load SoundFont
+                let sfontID = fluid_synth_sfload(synth, sfUrl.path(), 0)
+
+                /// Select Electric Guitar
+                fluid_synth_program_select(
+                    synth,
+                    0,        /// channel
+                    sfontID,  /// sfont_id
+                    0,        /// bank
+                    25        /// Electric Guitar
+                )
+
+                /// --- STRUM NOTES ---
+                for note in notes {
+                    fluid_synth_noteon(synth, 0, note, 110)
+                    try? await Task.sleep(nanoseconds: 120_000_000)
+                }
+
+                /// --- SUSTAIN ---
+                try? await Task.sleep(nanoseconds: 2_500_000_000)
+
+                /// --- REAL FADE OUT via volume reduction ---
+                let fadeSteps = 40
+                let fadeInterval: UInt64 = 100_000_000  // 100ms per step
+                let startVolume: Int32 = 110
+
+                for step in 0..<fadeSteps {
+                    let volume = Int32(Double(startVolume) * (1.0 - Double(step) / Double(fadeSteps)))
+                    fluid_synth_cc(synth, 0, 7, volume)  // CC 7 = Master Volume
+                    try? await Task.sleep(nanoseconds: fadeInterval)
+                }
+
+                /// Let reverb decay naturally
+                try? await Task.sleep(nanoseconds: 400_000_000)
+                /// --- RELEASE ALL NOTES AT ONCE ---
+                for note in notes {
+                    fluid_synth_noteoff(synth, 0, note)
+                }
+
+                /// Cleanup
+                delete_fluid_audio_driver(driver)
+                delete_fluid_synth(synth)
+                delete_fluid_settings(settings)
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ While I hope you like **Chord Provider**, as *musician* or *programmer*, it is j
 
 ![Chord Provider on macOS](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
 
-![Chord Provider on Linux](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-3.png)
+![Chord Provider on Linux](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
 
 There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native.
 
@@ -39,12 +39,12 @@ I consider to drop it...
 ### What can **Chord Provider** do?
 
 - It will view your **ChordPro** files.
-- It can export your song as a PDF document or a whole folder with **ChordPro** songs to a PDF with a *Table of Contents*
-- It has a fancy editor to edit your songs
-- It can play the chords with MIDI with a guitar instrument that you can select in the `settings`
-- It can play audio songs or videos when stored next to the **ChordPro** file
+- It can export your song as a PDF document or a whole folder with **ChordPro** songs to a PDF with a *Table of Contents*.
+- It has a fancy editor to edit your songs.
+- It can play the chords with MIDI with a guitar instrument that you can select in the `settings`.
+- It can play audio songs or videos when stored next to the **ChordPro** file.
 - It has a *database* with a lot of chords.
-- *left-handed* chords support
+- *left-handed* chords support.
 
 ### A *true* macOS application
 
@@ -90,9 +90,12 @@ Xcode 26 is required.
 ### What can **Chord Provider** do?
 
 - It will view your **ChordPro** files.
-- It has a fancy editor to edit your songs
+- It has a fancy editor to edit your songs.
 - It has a *database* with a lot of chords.
-- *left-handed* chords support
+- It can play the chords with MIDI.
+- It can play audio songs or videos when stored next to the **ChordPro** file.
+- It has a *database* with a lot of chords.
+- *left-handed* chords support.
 
 ### How to compile
 
