@@ -23,6 +23,12 @@ extension Views {
 
                 let settings = new_fluid_settings()
 
+                #if os(macOS)
+                fluid_settings_setstr(settings, "audio.driver", "coreaudio")
+                #elseif os(Linux)
+                fluid_settings_setstr(settings, "audio.driver", "pipewire")
+                fluid_settings_setint(settings, "audio.realtime-prio", 0)
+                #endif
 
                 let synth = new_fluid_synth(settings)
                 let driver = new_fluid_audio_driver(settings, synth)

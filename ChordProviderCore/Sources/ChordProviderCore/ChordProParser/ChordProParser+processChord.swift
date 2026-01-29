@@ -46,12 +46,11 @@ extension ChordProParser {
                 }
                 return databaseChord
             }
-            var unknownChord = ChordDefinition(
+            let unknownChord = ChordDefinition(
                 text: chord,
                 kind: song.transposing == 0 ? .unknownChord : .transposedUnknownChord,
                 instrument: song.settings.instrument
             )
-            //unknownChord.kind = song.transposing == 0 ? .unknownChord : .transposedUnknownChord
             /// Add a warning that the chord is unknown
             line.addWarning("Unknown chord: <b>\(chord)</b>", level: .error)
             /// Return the unknown chord

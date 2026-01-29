@@ -11,14 +11,14 @@
     "--share=ipc",
     "--socket=fallback-x11",
     "--device=dri",
-    "--socket=wayland"
+    "--socket=wayland",
+    "--filesystem=xdg-run/pipewire-0"
   ],
   "build-options": {
     "append-path": "/usr/lib/sdk/swift6/bin",
     "prepend-ld-library-path": "/usr/lib/sdk/swift6/lib"
   },
   "cleanup": [
-    "/include",
     "/lib/pkgconfig",
     "/man",
     "/share/doc",
@@ -29,6 +29,7 @@
     "*.a"
   ],
   "modules": [
+    "shared-modules/linux-audio/fluidsynth2.json",
     {
       "name": "ChordProvider",
       "builddir": true,
