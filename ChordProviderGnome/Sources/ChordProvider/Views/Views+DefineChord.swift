@@ -26,13 +26,9 @@ extension Views {
                     newChord = false
                 }
             }
-
             self._appState = appState
-
             self._definition = State(wrappedValue: definition)
-
             self.newChord = newChord
-
         }
         let newChord: Bool
         /// The state of the application
@@ -61,7 +57,6 @@ extension Views {
                     /// Disable above when a definition is edited
                     .insensitive(!newChord)
                     Text("Base fret:")
-                    /// - Note: Make this better
                     DropDown(selection: $definition.baseFret, values: Chord.BaseFret.allCases)
                     Text("Optional bass:")
                     DropDown(
