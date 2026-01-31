@@ -51,9 +51,7 @@ extension GtkRender {
                     if let time = song.metadata.time {
                         metadata(name: "time", value: time)
                     }
-                    if let tempo = song.metadata.tempo {
-                        metadata(name: "tempo", value: tempo)
-                    }
+                    Views.MetronomeToggle(metadata: song.metadata)
                 }
                 .style(.metadata)
                 .halign(.center)

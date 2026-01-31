@@ -73,6 +73,8 @@ extension Markup {
         case chordDiagramButton = "chord-diagram-button"
         /// Button used to play a chord with MIDI
         case midiButton = "midi-button"
+        /// Button used to start the metronome
+        case metronomeButton = "metronome-button"
 
         // MARK: Labels
 
@@ -235,6 +237,11 @@ extension Markup {
     padding: 0 4px;
     font-size: \(1.1 * baseFontSize)px;
     color: var(--chordprovider-accent-color);
+}
+
+.metronome-button {
+    margin: 4px;
+    padding: 0 4px;
 }
 
 .midi-button image {

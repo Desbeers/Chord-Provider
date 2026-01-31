@@ -79,6 +79,9 @@ extension Views.Toolbar {
                     .accent(appState.editor.song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
+                            Task {
+                                await Utils.MidiEngine.shared.stopMetronome()
+                            }
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView
                                 appState.scene.showCloseDialog = true
