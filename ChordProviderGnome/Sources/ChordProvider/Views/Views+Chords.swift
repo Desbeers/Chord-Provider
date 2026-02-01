@@ -13,8 +13,6 @@ extension Views {
 
     /// The `View` for all the chords in a song
     struct Chords: View {
-        /// The whole song
-        let song: Song
         /// The state of the application
         @Binding var appState: AppState
         /// Bool to open the chord dialog
@@ -25,8 +23,8 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             ScrollView {
-                ForEach(song.chords.filter { $0.kind.knownChord } ) { chord in
-                    MidiPlayer(chord: chord)
+                ForEach(appState.editor.song.chords.filter { $0.kind.knownChord } ) { chord in
+                    MidiPlayer(chord: chord, midiInstrument: appState.settings.app.midiInstrument)
                     Button("") {
                         selectedChord = chord
                         chordDialog.toggle()

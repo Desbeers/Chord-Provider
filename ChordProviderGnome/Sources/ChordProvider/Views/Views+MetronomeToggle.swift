@@ -19,10 +19,10 @@ extension Views {
             self.tempo = metadata.tempo
             Task {
                 if let tempo = metadata.tempo, let bpm = Int(tempo) {
-                    await Utils.MidiEngine.shared.setMetronomeBPM(bpm)
-                    await Utils.MidiEngine.shared.setMetronomeMeter(metadata.time ?? "6/8")
+                    await Utils.MidiPlayer.shared.setMetronomeBPM(bpm)
+                    await Utils.MidiPlayer.shared.setMetronomeMeter(metadata.time ?? "4/4")
                 } else {
-                    await Utils.MidiEngine.shared.stopMetronome()
+                    await Utils.MidiPlayer.shared.stopMetronome()
                 }
             }
         }
@@ -40,11 +40,11 @@ extension Views {
                             switch value {
                             case true:
                                 Task {
-                                    await Utils.MidiEngine.shared.startMetronome(bpm: bpm)
+                                    await Utils.MidiPlayer.shared.startMetronome(bpm: bpm)
                                 }
                             case false:
                                 Task {
-                                    await Utils.MidiEngine.shared.stopMetronome()
+                                    await Utils.MidiPlayer.shared.stopMetronome()
                                 }
                             }
                         }

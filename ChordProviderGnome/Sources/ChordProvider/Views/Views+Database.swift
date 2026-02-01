@@ -44,7 +44,7 @@ extension Views {
                     } else {
                         FlowBox(chords, selection: $selection) { chord in
                             VStack {
-                                MidiPlayer(chord: chord)
+                                MidiPlayer(chord: chord, midiInstrument: .acousticNylonGuitar)
                                 ChordDiagram(chord: chord, settings: settings)
                             }
                         }

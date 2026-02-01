@@ -2,7 +2,7 @@
 //  Views+Debug+source.swift
 //  ChordProvider
 //
-//  Created by Nick Berendsen on 06/01/2026.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation

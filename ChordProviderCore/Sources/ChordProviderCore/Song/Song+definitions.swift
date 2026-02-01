@@ -1,8 +1,8 @@
 //
-//  Song+definititions.swift
+//  Song+definitions.swift
 //  ChordProviderCore
 //
-//  Created by Nick Berendsen on 08/01/2026.
+//  © 2025 Nick Berendsen
 //
 
 import Foundation

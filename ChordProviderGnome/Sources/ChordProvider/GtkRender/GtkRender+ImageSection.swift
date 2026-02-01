@@ -14,9 +14,9 @@ extension GtkRender {
     /// The `View` for an image section
     struct ImageSection: View {
         /// Init the `View`
-        init(section: Song.Section, settings: AppSettings, coreSettings: ChordProviderSettings) {
+        init(section: Song.Section, settings: AppSettings) {
             self.halign = Utils.getTextAlignment(section.arguments)
-            let fileURL = coreSettings.fileURL == nil ? coreSettings.templateURL : coreSettings.fileURL
+            let fileURL = settings.core.fileURL == nil ? settings.core.templateURL : settings.core.fileURL
             if
                 let url = ChordProParser.getImageURL(
                     section.arguments?[.src] ?? "",

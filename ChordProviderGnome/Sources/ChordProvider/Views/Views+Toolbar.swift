@@ -80,7 +80,7 @@ extension Views.Toolbar {
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
                             Task {
-                                await Utils.MidiEngine.shared.stopMetronome()
+                                await Utils.MidiPlayer.shared.stopMetronome()
                             }
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView

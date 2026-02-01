@@ -14,18 +14,15 @@ extension GtkRender {
     /// The `View` for a grid section
     struct GridSection: View {
         /// Init the `View`
-        init(section: Song.Section, settings: AppSettings, coreSettings: ChordProviderSettings) {
+        init(section: Song.Section, appState: AppState) {
             /// Convert the grids into columns
             self.section = section.gridColumns()
-            self.settings = settings
-            self.coreSettings = coreSettings
+            self.appState = appState
         }
+        /// The state of the application
+        let appState: AppState
         /// The current section of the song
         let section: Song.Section
-        /// The settings of the application
-        let settings: AppSettings
-
-        let coreSettings: ChordProviderSettings
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -48,7 +45,7 @@ extension GtkRender {
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
+                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: appState.settings)
                     default:
                         Views.Empty()
                     }
@@ -61,10 +58,10 @@ extension GtkRender {
             /// - Note: I cannot set the style conditional
             Box {
                 if part.chordDefinition != nil {
-                    SingleChord(part: part, settings: coreSettings)
+                    SingleChord(part: part, appState: appState)
                 } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
-                        .pixelSize(Int(14 * settings.app.zoom))
+                        .pixelSize(Int(14 * appState.settings.app.zoom))
                         .style(.svgIcon)
                 } else {
                     Text(part.withMarkup(part.text ?? " "))

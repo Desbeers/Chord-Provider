@@ -14,44 +14,41 @@ extension GtkRender {
     /// The `View` for the song header
     struct PageHeader: View {
         /// Init the `View`
-        init(song: Song, settings: AppSettings) {
-            self.song = song
-            self.settings = settings
-            var subtitle: [String] = [song.metadata.subtitle ?? song.metadata.artist]
-            if let album = song.metadata.album {
+        init(appState: AppState) {
+            self.appState = appState
+            var subtitle: [String] = [appState.editor.song.metadata.subtitle ?? appState.editor.song.metadata.artist]
+            if let album = appState.editor.song.metadata.album {
                 subtitle.append(album)
             }
-            if let year = song.metadata.year {
+            if let year = appState.editor.song.metadata.year {
                 subtitle.append(year)
             }
             self.subtitle = subtitle.joined(separator: " · ")
         }
-        /// The whole song
-        let song: Song
-        /// The settings of the application
-        let settings: AppSettings
+        /// The state of the application
+        let appState: AppState
         /// The subtitle
         let subtitle: String
         /// The body of the `View`
         var view: Body {
             VStack {
-                Text(song.metadata.title)
+                Text(appState.editor.song.metadata.title)
                     .style(.title)
                 Text(subtitle)
                     .style(.subtitle)
                     .padding(5, .top)
                 /// Metadata
                 HStack {
-                    if let key = song.metadata.key {
+                    if let key = appState.editor.song.metadata.key {
                         metadata(name: "key", value: key.display)
                     }
-                    if let capo = song.metadata.capo {
+                    if let capo = appState.editor.song.metadata.capo {
                         metadata(name: "capo", value: capo)
                     }
-                    if let time = song.metadata.time {
+                    if let time = appState.editor.song.metadata.time {
                         metadata(name: "time", value: time)
                     }
-                    Views.MetronomeToggle(metadata: song.metadata)
+                    Views.MetronomeToggle(metadata: appState.editor.song.metadata)
                 }
                 .style(.metadata)
                 .halign(.center)

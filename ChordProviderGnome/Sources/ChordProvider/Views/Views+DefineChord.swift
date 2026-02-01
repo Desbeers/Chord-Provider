@@ -68,7 +68,7 @@ extension Views {
                 }
                 HStack(spacing: 20) {
                     VStack {
-                        MidiPlayer(chord: getDefinition())
+                        MidiPlayer(chord: getDefinition(), midiInstrument: appState.settings.app.midiInstrument)
                         diagramView()
                         Text(definition.notesLabel)
                             .useMarkup()
@@ -144,7 +144,7 @@ extension Views {
             }
         }
 
-        func getDefinition() ->ChordDefinition {
+        func getDefinition() -> ChordDefinition {
             ChordDefinition(
                 id: definition.id,
                 frets: definition.frets,

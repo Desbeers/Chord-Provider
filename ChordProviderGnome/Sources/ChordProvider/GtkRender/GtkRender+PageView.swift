@@ -13,16 +13,14 @@ extension GtkRender {
 
     /// The `View` for a whole song
     struct PageView: View {
-        /// The whole song
-        let song: Song
-        /// The settings of the application
-        let settings: AppSettings
+        /// The state of the application
+        let appState: AppState
         /// The body of the `View`
         var view: Body {
             VStack {
-                switch settings.app.columnPaging {
+                switch appState.settings.app.columnPaging {
                 case true:
-                    PageHeader(song: song, settings: settings)
+                    PageHeader(appState: appState)
                     ScrollView {
                         sections
                     }
@@ -30,7 +28,7 @@ extension GtkRender {
                     .transition(.crossfade)
                 case false:
                     ScrollView {
-                        PageHeader(song: song, settings: settings)
+                        PageHeader(appState: appState)
                         sections
                     }
                     .vexpand()
@@ -42,7 +40,7 @@ extension GtkRender {
         }
         /// The sections
         @ViewBuilder var sections: Body {
-            GtkRender.SectionsView(song: song, settings: settings)
+            GtkRender.SectionsView(appState: appState)
                 .halign(.center)
                 .padding(20)
         }

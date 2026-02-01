@@ -15,29 +15,27 @@ extension GtkRender {
     struct LyricsSection: View {
         /// The current section of the song
         let section: Song.Section
-        /// The settings of the application
-        let settings: AppSettings
-        /// The core settings
-        let coreSettings: ChordProviderSettings
+        /// The state of the application
+        let appState: AppState
         /// The body of the `View`
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if coreSettings.lyricsOnly {
+                        if appState.settings.core.lyricsOnly {
                             Text(line.plain ?? "")
                                 .halign(.start)
                         } else if let parts = line.parts {
                             PartsView(
                                 parts: parts,
-                                settings: coreSettings
+                                appState: appState
                             )
                         }
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
+                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: appState.settings)
                     default:
                         Views.Empty()
                     }

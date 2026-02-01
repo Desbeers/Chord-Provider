@@ -15,14 +15,14 @@ extension GtkRender {
     struct PartsView: View {
         /// The parts of the song line
         let parts: [Song.Section.Line.Part]
-        /// The settings of the application
-        let settings: ChordProviderSettings
+        /// The state of the application
+        let appState: AppState
         /// The body of the `View`
         var view: Body {
             ForEach(parts, horizontal: true) { part in
                 Box {
                     if part.chordDefinition != nil {
-                        SingleChord(part: part, settings: settings)
+                        SingleChord(part: part, appState: appState)
                             .halign(.start)
                             .padding(5, .trailing)
                     } else {

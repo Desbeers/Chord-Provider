@@ -18,5 +18,9 @@ extension AppSettings {
         var columnPaging: Bool = true
         /// The zoom factor
         var zoom: Double = 1
+        /// The MIDI instrument
+        var midiInstrument: MidiInstrument = .acousticNylonGuitar
+        /// Use sound for chord definitions
+        var soundForChordDefinitions: Bool = false
     }
 }

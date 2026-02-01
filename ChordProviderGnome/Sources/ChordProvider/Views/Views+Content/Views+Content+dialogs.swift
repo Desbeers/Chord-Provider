@@ -149,6 +149,17 @@ extension Views.Content {
                             .subtitle("Select the font size for the editor")
                     }
             }
+            .preferencesPage("Midi", icon: .default(icon: .mediaPlaybackStart)) { page in
+                page
+                    .group("Options for the MIDI player") {
+                        ComboRow("Instrument", selection: $appState.settings.app.midiInstrument, values: AppSettings.MidiInstrument.allCases)
+                            .subtitle("Select the instrument for playing chord with MIDI")
+//                        SwitchRow()
+//                            .title("Sound for Chord Definitions")
+//                            .subtitle("Use sound when defining a Chord")
+//                            .active($appState.settings.app.soundForChordDefinitions)
+                    }
+            }
 
         // MARK: Shortcuts Dialog
 
