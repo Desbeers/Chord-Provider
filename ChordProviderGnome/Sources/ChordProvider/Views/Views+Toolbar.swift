@@ -47,7 +47,8 @@ extension Views.Toolbar {
                     ToggleButton(
                         icon: .default(icon: .objectFlipVertical),
                         isOn: transposed
-                    ) {
+                    )
+                    .toggled {
                         appState.scene.showTransposeDialog = true
                     }
                     .tooltip(appState.editor.song.transposeTooltip)

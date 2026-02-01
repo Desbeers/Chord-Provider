@@ -13,14 +13,12 @@ extension GtkRender {
     /// The `View` for a comment label
     struct CommentLabel: View {
         /// Init the `View`
-        init(comment: String, settings: AppSettings) {
-            self.comment = Utils.convertSimpleLinks(comment)
-            self.settings = settings
+        /// - Parameter comment: The comment as optional `String`
+        init(comment: String?) {
+            self.comment = Utils.convertSimpleLinks(comment ?? "Empty Comment")
         }
         /// The comment as `String`
         let comment: String
-        /// The settings of the application
-        let settings: AppSettings
         /// The body of the `View`
         var view: Body {
             HStack(spacing: 10) {
@@ -29,8 +27,6 @@ extension GtkRender {
                     .useMarkup()
                     .wrap()
                     .halign(.start)
-                /// This seems reasonable to me...
-                    //.frame(maxWidth: Int(400 * settings.app.zoom))
             }
             .style(.commentLabel)
             .halign(.start)

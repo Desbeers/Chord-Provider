@@ -14,7 +14,7 @@ extension GtkRender {
     /// The `View` for a section header
     struct SectionHeader: View {
         /// Init the `View`
-        init(label: String? = nil, section: Song.Section) {
+        init(section: Song.Section, label: String? = nil) {
             self.label = label ?? section.label
             self.style = section.environment == .chorus ? .sectionChorus : .sectionHeader
         }

@@ -109,7 +109,7 @@ extension Utils.MidiPlayer {
         fluid_synth_program_select(
             synth,
             metronomeChannel,
-            sfontID,
+            soundFontID,
             0,
             0
         )

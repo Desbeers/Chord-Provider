@@ -12,21 +12,23 @@ import ChordProviderCore
 extension Utils.MidiPlayer {
 
     /// Play notes polyphonically
-    func playNotes(_ notes: [Int32], instrument: MidiUtils.Instrument) async {
-        guard let synth, sfontID >= 0 else { return }
+    /// - Parameters:
+    ///   - notes: The notes to play
+    ///   - preset: The MIDI preset
+    func playNotes(_ notes: [Int32], preset: MidiUtils.Preset) async {
+        guard let synth, soundFontID >= 0 else { return }
         /// Cancel previous chord
         playToken = UUID()
         let myToken = playToken
         /// Get a MIDI channel
         let channel = allocateChannel()
-
-        let program = Int32(instrument.rawValue)
-
-        /// Set the instrument; defaults to electrical guitar
+        /// Get the program ID
+        let program = Int32(preset.rawValue)
+        /// Set the instrument
         fluid_synth_program_select(
             synth,
             channel,
-            sfontID,
+            soundFontID,
             0,
             program
         )

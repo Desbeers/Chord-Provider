@@ -15,8 +15,6 @@ extension GtkRender {
     struct TabSection: View {
         /// The current section of the song
         let section: Song.Section
-        /// The settings of the application
-        let settings: AppSettings
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -29,7 +27,7 @@ extension GtkRender {
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
+                        CommentLabel(comment: line.plain)
                     default:
                         Views.Empty()
                     }

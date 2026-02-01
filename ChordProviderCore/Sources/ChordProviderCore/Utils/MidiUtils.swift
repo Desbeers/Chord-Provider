@@ -14,8 +14,8 @@ public enum MidiUtils {
 
 public extension MidiUtils {
 
-    /// The instrument for playing MIDI
-    enum Instrument: Int, CaseIterable, CustomStringConvertible, Identifiable, Codable, Sendable {
+    /// The preset for playing MIDI
+    enum Preset: Int, CaseIterable, CustomStringConvertible, Identifiable, Codable, Sendable {
         public var description: String {
             switch self {
             case .acousticNylonGuitar:

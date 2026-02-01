@@ -12,8 +12,8 @@ import ChordProviderCore
 struct PlayChordButton: View {
     /// The chord to play
     let chord: ChordDefinition
-    /// The `MidiUtils/Instrument` to use
-    let instrument: MidiUtils.Instrument
+    /// The `MidiUtils/Preset` to use
+    let instrument: MidiUtils.Preset
     /// The body of the `View`
     var body: some View {
         Button(action: {

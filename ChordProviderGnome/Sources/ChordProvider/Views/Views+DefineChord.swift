@@ -72,7 +72,7 @@ extension Views {
                 }
                 HStack(spacing: 20) {
                     VStack {
-                        MidiPlayer(chord: getDefinition(), midiInstrument: appState.settings.app.midiInstrument)
+                        MidiPlayer(chord: getDefinition(), preset: appState.settings.core.midiPreset)
                         diagramView()
                         Text(definition.notesLabel)
                             .useMarkup()
@@ -128,8 +128,8 @@ extension Views {
                         .active($appState.settings.app.soundForChordDefinitions)
                     HStack(spacing: 10) {
                         DropDown(
-                            selection: $appState.settings.app.midiInstrument,
-                            values: MidiUtils.Instrument.allCases
+                            selection: $appState.settings.core.midiPreset,
+                            values: MidiUtils.Preset.allCases
                         )
                         .insensitive(!appState.settings.app.soundForChordDefinitions)
                         Separator()
@@ -188,9 +188,9 @@ extension Views {
                 let chord = getDefinition()
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
-                    let instrument = appState.settings.app.midiInstrument
+                    let preset = appState.settings.core.midiPreset
                     Task {
-                        await Utils.MidiPlayer.shared.playNotes([Int32(note)], instrument: instrument)
+                        await Utils.MidiPlayer.shared.playNotes([Int32(note)], preset: preset)
                     }
                 }
             }

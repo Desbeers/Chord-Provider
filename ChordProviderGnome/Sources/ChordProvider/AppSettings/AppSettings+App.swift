@@ -16,10 +16,8 @@ extension AppSettings {
         var songsFolder: URL?
         /// The page layout
         var columnPaging: Bool = true
-        /// The zoom factor
+        /// The zoom factor of the Render `View`
         var zoom: Double = 1
-        /// The MIDI instrument
-        var midiInstrument: MidiUtils.Instrument = .acousticNylonGuitar
         /// Use sound for chord definitions
         var soundForChordDefinitions: Bool = false
     }

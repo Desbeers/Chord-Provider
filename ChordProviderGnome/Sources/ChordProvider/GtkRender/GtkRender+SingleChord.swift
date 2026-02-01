@@ -15,8 +15,8 @@ extension GtkRender {
     struct SingleChord: View {
         /// The part containing the chord
         let part: Song.Section.Line.Part
-        /// The state of the application
-        let appState: AppState
+        /// The core settings
+        let settings: ChordProviderSettings
         /// Bool to open the chord diagram
         @State private var openChordDiagram: Bool = false
         /// The body of the `View`
@@ -33,8 +33,8 @@ extension GtkRender {
                     .popover(visible: $openChordDiagram) {
                         if openChordDiagram {
                             VStack(spacing: 0) {
-                                Views.MidiPlayer(chord: chord, midiInstrument: appState.settings.app.midiInstrument)
-                                Views.ChordDiagram(chord: chord, settings: appState.settings.core)
+                                Views.MidiPlayer(chord: chord, preset: settings.midiPreset)
+                                Views.ChordDiagram(chord: chord, settings: settings)
                             }
                         }
                     }

@@ -47,7 +47,7 @@ extension RenderView {
                 Button(
                     action: {
                         if chord.status != .unknownChord {
-                            chord.play(instrument: settings.midi.instrument)
+                            chord.play(instrument: settings.core.midiPreset)
                         }
                     },
                     label: {

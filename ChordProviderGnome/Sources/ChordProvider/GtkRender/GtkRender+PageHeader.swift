@@ -14,6 +14,7 @@ extension GtkRender {
     /// The `View` for the song header
     struct PageHeader: View {
         /// Init the `View`
+        /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             self._appState = appState
             let metadata = appState.editor.song.metadata.wrappedValue

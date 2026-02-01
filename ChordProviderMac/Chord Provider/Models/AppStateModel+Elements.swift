@@ -163,8 +163,8 @@ extension AppStateModel {
         var body: some View {
             VStack(alignment: .leading) {
                 Label("MIDI Instrument", systemImage: "guitars.fill")
-                Picker("MIDI Instrument:", selection: $appState.settings.midi.instrument) {
-                    ForEach(MidiUtils.Instrument.allCases) { value in
+                Picker("MIDI Instrument:", selection: $appState.settings.core.midiPreset) {
+                    ForEach(MidiUtils.Preset.allCases) { value in
                         Text(value.description)
                             .tag(value)
                     }

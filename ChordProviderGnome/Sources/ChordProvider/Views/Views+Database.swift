@@ -23,8 +23,8 @@ extension Views {
         @State private var selection: UUID = UUID()
         /// Toast signal when a definition is copied
         @State private var copied: Signal = .init()
-        /// The MIDI instrument to use
-        @State private var midiInstrument: MidiUtils.Instrument = .acousticNylonGuitar
+        /// The MIDI preset to use
+        @State private var preset: MidiUtils.Preset = .acousticNylonGuitar
         /// The body of the `View`
         var view: Body {
             let chords = getChords()
@@ -46,7 +46,7 @@ extension Views {
                     } else {
                         FlowBox(chords, selection: $selection) { chord in
                             VStack {
-                                MidiPlayer(chord: chord, midiInstrument: .acousticNylonGuitar)
+                                MidiPlayer(chord: chord, preset: preset)
                                 ChordDiagram(chord: chord, settings: settings)
                             }
                         }
@@ -61,7 +61,7 @@ extension Views {
                         HStack(spacing: 10) {
                             ChordDiagram(chord: chord, width: 120, settings: settings)
                             VStack {
-                                Views.MidiPlayer(chord: chord, midiInstrument: midiInstrument)
+                                Views.MidiPlayer(chord: chord, preset: preset)
                                     .padding(.bottom)
                                 Text(chord.quality.intervalsLabel)
                                     .style(.subtitle)
@@ -87,8 +87,8 @@ extension Views {
                         .active($settings.diagram.mirror)
                     HStack {
                         DropDown(
-                            selection: $midiInstrument,
-                            values: MidiUtils.Instrument.allCases
+                            selection: $preset,
+                            values: MidiUtils.Preset.allCases
                         )
                     }
                     .valign(.center)

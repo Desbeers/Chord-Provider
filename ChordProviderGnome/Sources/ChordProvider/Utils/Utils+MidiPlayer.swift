@@ -28,7 +28,7 @@ extension Utils {
         /// The driver for FluentSynth
         var driver: OpaquePointer?
         /// The current SoundFont ID
-        var sfontID: Int32 = -1
+        var soundFontID: Int32 = -1
         /// Initial volume
         let startVolume: Int32 = 120
 
@@ -87,7 +87,7 @@ extension Utils {
             /// Load the SoundFont
             /// - Note: Don't reset the channels (3th argument) because its only a small SoundFont that does not have the standard channels
             if let sfPath = MidiUtils.soundFont {
-                sfontID = fluid_synth_sfload(synth, sfPath.path(), 1)
+                soundFontID = fluid_synth_sfload(synth, sfPath.path(), 1)
             } else {
                 print("Souns not found!")
             }

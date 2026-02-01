@@ -14,7 +14,5 @@ extension AppSettings {
     struct MidiPlayer: Equatable, Codable, Sendable {
         /// Show a button to play the chord with MIDI
         var showPlayButton: Bool = true
-        /// The instrument to use for playing the chord with MIDI
-        var instrument: MidiUtils.Instrument = .acousticNylonGuitar
     }
 }

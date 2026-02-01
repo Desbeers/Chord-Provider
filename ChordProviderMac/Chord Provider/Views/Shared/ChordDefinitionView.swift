@@ -112,7 +112,7 @@ struct ChordDefinitionView: View {
             if settings.midi.showPlayButton, chord.kind.knownChord {
                 PlayChordButton(
                     chord: chord,
-                    instrument: settings.midi.instrument
+                    instrument: settings.core.midiPreset
                 )
                 .foregroundStyle(settings.style.fonts.chord.color)
                 .font(.caption)

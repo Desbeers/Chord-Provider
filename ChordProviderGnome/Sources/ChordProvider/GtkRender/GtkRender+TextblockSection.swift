@@ -14,17 +14,14 @@ extension GtkRender {
     /// The `View` for a textblock section
     struct TextblockSection: View {
         /// Init the `View`
-        init(section: Song.Section, settings: AppSettings, maxLenght: Int) {
+        init(section: Song.Section, maxLenght: Int) {
             self.section = section
-            self.settings = settings
             self.maxLenght = maxLenght
             self.halign = Utils.getTextAlignment(section.arguments)
             self.flush = Utils.getTextFlush(section.arguments)
         }
         /// The current section of the song
         let section: Song.Section
-        /// The settings of the application
-        let settings: AppSettings
         /// The maximum length of a single line
         let maxLenght: Int
         /// The horizontal alignment
@@ -48,7 +45,7 @@ extension GtkRender {
                         case .emptyLine:
                             EmptyLine()
                         case .comment:
-                            CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
+                            CommentLabel(comment: line.plain)
                         default:
                             Views.Empty()
                         }

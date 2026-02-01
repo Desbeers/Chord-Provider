@@ -15,8 +15,8 @@ extension GtkRender {
     struct StrumSection: View {
         /// The current section of the song
         let section: Song.Section
-        /// The settings of the application
-        let settings: AppSettings
+        /// The zoom value of the `View`
+        let zoom: Double
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -34,28 +34,28 @@ extension GtkRender {
                                                     .style(.sectionStrum)
                                                 switch strum.action {
                                                 case .down, .downAccent, .downMuted, .downArpeggio:
-                                                    Widgets.Arrow(direction: .down, length: Int(settings.app.zoom * 50), dash: dash)
+                                                    Widgets.Arrow(direction: .down, length: Int(zoom * 50), dash: dash)
                                                         .id("\(strum.action.rawValue)-\(dash)")
-                                                        .frame(minHeight: Int(settings.app.zoom * 50))
+                                                        .frame(minHeight: Int(zoom * 50))
                                                 case .up, .upAccent, .upMuted, .upArpeggio:
-                                                    Widgets.Arrow(direction: .up, length: Int(settings.app.zoom * 50), dash: dash)
+                                                    Widgets.Arrow(direction: .up, length: Int(zoom * 50), dash: dash)
                                                         .id("\(strum.action.rawValue)-\(dash)")
-                                                        .frame(minHeight: Int(settings.app.zoom * 50))
+                                                        .frame(minHeight: Int(zoom * 50))
                                                 case .none:
                                                     Text("x")
                                                         .style(.sectionStrum)
-                                                        .frame(minHeight: Int(settings.app.zoom * 50))
+                                                        .frame(minHeight: Int(zoom * 50))
                                                 default:
                                                     Text(" ")
                                                         .style(.sectionStrum)
-                                                        .frame(minHeight: Int(settings.app.zoom * 50))
+                                                        .frame(minHeight: Int(zoom * 50))
                                                 }
                                                 Text(
                                                     strum.beat.isEmpty ? strum.tuplet : strum.beat
                                                 )
                                                 .style(.sectionStrum)
                                             }
-                                            .frame(minWidth: Int(settings.app.zoom * 20))
+                                            .frame(minWidth: Int(zoom * 20))
                                         }
                                         Text(" ")
                                     }
@@ -64,7 +64,7 @@ extension GtkRender {
                             }
                         }
                     case .comment:
-                        CommentLabel(comment: line.plain ?? "Empty Comment", settings: settings)
+                        CommentLabel(comment: line.plain)
                     default:
                         Views.Empty()
                     }

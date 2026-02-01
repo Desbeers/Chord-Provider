@@ -26,6 +26,8 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     }
     /// The instrument for the song
     public var instrument: Chord.Instrument = .guitar
+    /// The MIDI preset
+    public var midiPreset: MidiUtils.Preset = .acousticNylonGuitar
     /// Show only lyrics
     public var lyricsOnly: Bool
     /// Repeat the whole last chorus when using a *{chorus}* directive
@@ -52,6 +54,7 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     /// The coding keys
     enum CodingKeys: CodingKey {
         case instrument
+        case midiPreset
         case lyricsOnly
         case repeatWholeChorus
         case diagram
