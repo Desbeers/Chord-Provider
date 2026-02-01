@@ -59,5 +59,10 @@ extension AppState {
         var showToast = Signal()
         /// The toast message
         var toastMessage: String = ""
+
+        // MARK: Metronome
+
+        /// Play metronome
+        var playMetronome: Bool = false
     }
 }

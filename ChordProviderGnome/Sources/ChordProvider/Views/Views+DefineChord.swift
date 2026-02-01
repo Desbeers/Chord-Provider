@@ -30,12 +30,16 @@ extension Views {
             self._definition = State(wrappedValue: definition)
             self.newChord = newChord
         }
-        let newChord: Bool
         /// The state of the application
         @Binding var appState: AppState
+        /// Bool if the chord definition is new
+        let newChord: Bool
+        /// The state of the chord definition
         @State private var definition: ChordDefinition
         /// The slash is *optional* so it needs its own handler
         @State private var slash: Chord.Root = .none
+        /// Don't play optional MIDI before the`View` is completely loaded
+        @State var loaded: Bool = false
         /// Calculated definition
         var define: String {
             "{define-\(definition.instrument.rawValue) \(definition.define)}"
@@ -87,7 +91,9 @@ extension Views {
                         VStack {
                             ForEach(strings, horizontal: true) { string in
                                 Widgets.MyToggleGroup(
-                                    selection: $definition.frets[string.id],
+                                    selection: $definition.frets[string.id].onSet { _ in
+                                        playNote(string)
+                                    },
                                     values: string.frets
                                 )
                                 .vertical()
@@ -115,19 +121,32 @@ extension Views {
                         .vexpand()
                     }
                 }
-                HStack(spacing: 10) {
-                    Button("Cancel") {
-                        appState.editor.showEditDirectiveDialog = false
-                    }
-                    Button("\(newChord ? "Add" : "Update") Definition") {
-                        if newChord {
-                            appState.editor.command = .appendText(text: define)
-                        } else {
-                            appState.editor.command = .replaceLineText(text: define)
+                Separator()
+                HStack {
+                    SwitchRow()
+                        .title("Play notes")
+                        .active($appState.settings.app.soundForChordDefinitions)
+                    HStack(spacing: 10) {
+                        DropDown(
+                            selection: $appState.settings.app.midiInstrument,
+                            values: AppSettings.MidiInstrument.allCases
+                        )
+                        .insensitive(!appState.settings.app.soundForChordDefinitions)
+                        Separator()
+                        Button("Cancel") {
+                            appState.editor.showEditDirectiveDialog = false
                         }
-                        appState.editor.showEditDirectiveDialog = false
+                        Button("\(newChord ? "Add" : "Update") Definition") {
+                            if newChord {
+                                appState.editor.command = .appendText(text: define)
+                            } else {
+                                appState.editor.command = .replaceLineText(text: define)
+                            }
+                            appState.editor.showEditDirectiveDialog = false
+                        }
+                        .suggested()
                     }
-                    .suggested()
+                    .valign(.center)
                 }
                 .halign(.center)
             }
@@ -142,9 +161,15 @@ extension Views {
                         )
                     }
             }
+            .onUpdate {
+                /// Set loaded state, optional enabling MIDI sounds
+                if !self.loaded {
+                    self.loaded = true
+                }
+            }
         }
 
-        func getDefinition() -> ChordDefinition {
+        private func getDefinition() -> ChordDefinition {
             ChordDefinition(
                 id: definition.id,
                 frets: definition.frets,
@@ -156,6 +181,19 @@ extension Views {
                 instrument: definition.instrument,
                 kind: .standardChord
             )
+        }
+
+        private func playNote( _ string: StringNumber) {
+            if self.loaded, appState.settings.app.soundForChordDefinitions {
+                let chord = getDefinition()
+                let notes = chord.components.map(\.midi)
+                if let note = notes[string.id] {
+                    let instrument = appState.settings.app.midiInstrument
+                    Task {
+                        await Utils.MidiPlayer.shared.playNotes([Int32(note)], instrument: instrument)
+                    }
+                }
+            }
         }
 
         @ViewBuilder func diagramView() -> Body {

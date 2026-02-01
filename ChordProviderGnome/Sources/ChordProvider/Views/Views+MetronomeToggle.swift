@@ -15,8 +15,10 @@ extension Views {
 
     /// A `View` with a metronome button
     struct MetronomeToggle: View {
-        init(metadata: Song.Metadata) {
+        init(appState: Binding<AppState>) {
+            let metadata = appState.editor.song.metadata.wrappedValue
             self.tempo = metadata.tempo
+            self._appState = appState
             Task {
                 if let tempo = metadata.tempo, let bpm = Int(tempo) {
                     await Utils.MidiPlayer.shared.setMetronomeBPM(bpm)
@@ -27,30 +29,38 @@ extension Views {
             }
         }
         let tempo: String?
-        @State private var playMetronome: Bool = false
+        @Binding var appState: AppState
+
         var view: Body {
-            if let tempo {
-                HStack{
-                    Widgets.BundleImage(name: "tempo")
-                        .pixelSize(16)
-                        .valign(.baselineCenter)
-                        .style(.svgIcon)
-                    Toggle(tempo, isOn: $playMetronome.onSet { value in
-                        if let bpm = Int(tempo) {
+            Box {
+                if let tempo {
+                    HStack{
+                        Widgets.BundleImage(name: "tempo")
+                            .pixelSize(16)
+                            .valign(.baselineCenter)
+                            .style(.svgIcon)
+                        Toggle(tempo, isOn: $appState.scene.playMetronome.onSet { value in
                             switch value {
                             case true:
                                 Task {
-                                    await Utils.MidiPlayer.shared.startMetronome(bpm: bpm)
+                                    await Utils.MidiPlayer.shared.startMetronome()
                                 }
                             case false:
                                 Task {
                                     await Utils.MidiPlayer.shared.stopMetronome()
                                 }
                             }
-                        }
-                    })
-                    .style(.metronomeButton)
-                    .flat()
+                        })
+                        .style(.metronomeButton)
+                        .flat()
+                    }
+                    .padding(3, .top)
+                }
+            }
+            .onUpdate {
+                if tempo == nil && appState.scene.playMetronome {
+                    /// Set the correct state of the button
+                    appState.scene.playMetronome = false
                 }
             }
         }

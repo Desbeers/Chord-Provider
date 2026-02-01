@@ -30,7 +30,7 @@ extension Views {
                 } end: {
                     if appState.editor.song.hasContent {
                         HStack {
-                            GtkRender.PageView(appState: appState)
+                            GtkRender.PageView(appState: $appState)
                             Separator()
                             Views.Chords(appState: $appState)
                         }

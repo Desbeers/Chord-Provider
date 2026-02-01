@@ -14,19 +14,20 @@ extension GtkRender {
     /// The `View` for the song header
     struct PageHeader: View {
         /// Init the `View`
-        init(appState: AppState) {
-            self.appState = appState
-            var subtitle: [String] = [appState.editor.song.metadata.subtitle ?? appState.editor.song.metadata.artist]
-            if let album = appState.editor.song.metadata.album {
+        init(appState: Binding<AppState>) {
+            self._appState = appState
+            let metadata = appState.editor.song.metadata.wrappedValue
+            var subtitle: [String] = [metadata.subtitle ?? metadata.artist]
+            if let album = metadata.album {
                 subtitle.append(album)
             }
-            if let year = appState.editor.song.metadata.year {
+            if let year = metadata.year {
                 subtitle.append(year)
             }
             self.subtitle = subtitle.joined(separator: " · ")
         }
         /// The state of the application
-        let appState: AppState
+        @Binding var appState: AppState
         /// The subtitle
         let subtitle: String
         /// The body of the `View`
@@ -48,7 +49,7 @@ extension GtkRender {
                     if let time = appState.editor.song.metadata.time {
                         metadata(name: "time", value: time)
                     }
-                    Views.MetronomeToggle(metadata: appState.editor.song.metadata)
+                    Views.MetronomeToggle(appState: $appState)
                 }
                 .style(.metadata)
                 .halign(.center)

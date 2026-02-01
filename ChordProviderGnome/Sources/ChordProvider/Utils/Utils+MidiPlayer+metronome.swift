@@ -13,10 +13,8 @@ extension Utils.MidiPlayer {
     // MARK: Metronome API
 
     /// Start the metronome
-    func startMetronome(bpm: Int) {
+    func startMetronome() {
         stopMetronome()
-        metronomeBPM = bpm
-
         metronomeTask = Task { [weak self] in
             await self?.runMetronome()
         }
@@ -30,7 +28,7 @@ extension Utils.MidiPlayer {
 
     /// Change the metronome BPM while running
     func setMetronomeBPM(_ bpm: Int) {
-        metronomeBPM = max(20, min(bpm, 300)) // clamp to sane range
+        metronomeBPM = max(20, min(bpm, 300))
     }
 
     /// Set metronome meter: "4/4", "6/8", "7/8=2+2+3"

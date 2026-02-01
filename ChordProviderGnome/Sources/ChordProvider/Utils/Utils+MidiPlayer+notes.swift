@@ -11,7 +11,7 @@ import CFluidSynth
 extension Utils.MidiPlayer {
 
     /// Play notes polyphonically
-    func playNotes(_ notes: [Int32], program: Int) async {
+    func playNotes(_ notes: [Int32], instrument: AppSettings.MidiInstrument) async {
         guard let synth, sfontID >= 0 else { return }
         /// Cancel previous chord
         playToken = UUID()
@@ -19,7 +19,7 @@ extension Utils.MidiPlayer {
         /// Get a MIDI channel
         let channel = allocateChannel()
 
-        let program = Int32(program)
+        let program = Int32(instrument.rawValue)
 
         /// Set the instrument; defaults to electrical guitar
         fluid_synth_program_select(

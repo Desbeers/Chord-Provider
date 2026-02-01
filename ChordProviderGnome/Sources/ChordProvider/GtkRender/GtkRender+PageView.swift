@@ -14,13 +14,13 @@ extension GtkRender {
     /// The `View` for a whole song
     struct PageView: View {
         /// The state of the application
-        let appState: AppState
+        @Binding var appState: AppState
         /// The body of the `View`
         var view: Body {
             VStack {
                 switch appState.settings.app.columnPaging {
                 case true:
-                    PageHeader(appState: appState)
+                    PageHeader(appState: $appState)
                     ScrollView {
                         sections
                     }
@@ -28,7 +28,7 @@ extension GtkRender {
                     .transition(.crossfade)
                 case false:
                     ScrollView {
-                        PageHeader(appState: appState)
+                        PageHeader(appState: $appState)
                         sections
                     }
                     .vexpand()

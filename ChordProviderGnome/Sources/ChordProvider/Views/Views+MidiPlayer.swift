@@ -35,7 +35,7 @@ extension Views {
         var view: Body {    
             Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
                 Task {
-                    await Utils.MidiPlayer.shared.playNotes(notes, program: midiInstrument.rawValue)
+                    await Utils.MidiPlayer.shared.playNotes(notes, instrument: midiInstrument)
                 }
             }
             .style(.midiButton)

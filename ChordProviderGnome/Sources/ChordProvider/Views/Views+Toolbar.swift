@@ -79,6 +79,8 @@ extension Views.Toolbar {
                     .accent(appState.editor.song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
+                            /// Reset metronome
+                            appState.scene.playMetronome = false
                             Task {
                                 await Utils.MidiPlayer.shared.stopMetronome()
                             }
