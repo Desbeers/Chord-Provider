@@ -23,6 +23,8 @@ extension Views {
         @State private var selection: UUID = UUID()
         /// Toast signal when a definition is copied
         @State private var copied: Signal = .init()
+        /// The MIDI instrument to use
+        @State private var midiInstrument: MidiUtils.Instrument = .acousticNylonGuitar
         /// The body of the `View`
         var view: Body {
             let chords = getChords()
@@ -53,29 +55,44 @@ extension Views {
                     }
                 }
                 .vexpand()
-                if let chord = chords.first(where: { $0.id == selection }) {
-                    Separator()
-                    HStack {
-                        ChordDiagram(chord: chord, width: 140, settings: settings)
-                        VStack {
-                            Text(chord.display)
-                                .style(.title)
-                            Text(chord.quality.intervalsLabel)
-                                .style(.subtitle)
-                            HStack {
-                                Text("{define-\(chord.instrument.rawValue) \(chord.define)}")
-                                    .selectable()
-                                Button(icon: .default(icon: .editCopy)) {
-                                    AdwaitaApp.copy("{define \(chord.define)}")
-                                    copied.signal()
+                Separator()
+                VStack {
+                    if let chord = chords.first(where: { $0.id == selection }) {
+                        HStack(spacing: 10) {
+                            ChordDiagram(chord: chord, width: 120, settings: settings)
+                            VStack {
+                                Views.MidiPlayer(chord: chord, midiInstrument: midiInstrument)
+                                    .padding(.bottom)
+                                Text(chord.quality.intervalsLabel)
+                                    .style(.subtitle)
+                                HStack {
+                                    Text("{define-\(chord.instrument.rawValue) \(chord.define)}")
+                                        .selectable()
+                                    Button(icon: .default(icon: .editCopy)) {
+                                        AdwaitaApp.copy("{define \(chord.define)}")
+                                        copied.signal()
+                                    }
+                                    .flat(true)
                                 }
-                                .flat(true)
+                                Text(chord.notesLabel)
+                                    .useMarkup()
                             }
-                            Text(chord.notesLabel)
-                                .useMarkup()
+                            .valign(.center)
                         }
-                        .padding()
                     }
+                }
+                HStack(spacing: 10) {
+                    SwitchRow()
+                        .title("Left-handed chords")
+                        .active($settings.diagram.mirror)
+                    HStack {
+                        DropDown(
+                            selection: $midiInstrument,
+                            values: MidiUtils.Instrument.allCases
+                        )
+                    }
+                    .valign(.center)
+
                 }
             }
             .toast("Copied to clipboard", signal: copied)
@@ -84,8 +101,6 @@ extension Views {
                     SearchEntry()
                         .text($search)
                         .placeholderText("Search")
-                    Toggle(icon: .default(icon: .objectRotateLeft), isOn: $settings.diagram.mirror)
-                        .tooltip("Show left-handed chords")
                 }
                 .headerBarTitle {
                     ViewSwitcher(selectedElement: $settings.instrument)
