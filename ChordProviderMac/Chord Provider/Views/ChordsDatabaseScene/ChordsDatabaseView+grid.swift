@@ -58,8 +58,8 @@ extension ChordsDatabaseView {
 
                         if let definition = try? ChordDefinition(
                             definition: "\(root.rawValue)\(quality.rawValue) \(definition)",
-                            instrument: sceneState.song.settings.instrument,
-                            kind: .customChord
+                            kind: .customChord,
+                            instrument: sceneState.song.settings.instrument
                         ) {
                             sceneState.definition = definition
                             chordsDatabaseState.navigationStack.append(definition)

@@ -8,6 +8,7 @@
 
 import SwiftUI
 @preconcurrency import AVFoundation
+import ChordProviderCore
 
 /// Play a ``ChordProviderCore/ChordDefinition`` with its MIDI values
 actor MidiPlayer {
@@ -21,7 +22,7 @@ actor MidiPlayer {
     /// Private init to make sure the actor is shared
     private init() {
         /// Get the Sound Font
-        guard let bankURL = Bundle.main.url(forResource: "GuitarSoundFont", withExtension: "sf2") else {
+        guard let bankURL = MidiUtils.soundFont else {
             fatalError("SoundFont not found.")
         }
         self.bankURL = bankURL
@@ -59,7 +60,7 @@ actor MidiPlayer {
     /// - Parameters:
     ///   - notes: The notes to play
     ///   - instrument: The instrument to use
-    func playChord(notes: [Int], instrument: Midi.Instrument = .acousticNylonGuitar) async {
+    func playChord(notes: [Int], instrument: MidiUtils.Instrument = .acousticNylonGuitar) async {
         let composer = Chord()
         let chord = composer.compose(notes: notes, instrument: instrument)
         prepareChord(chord: chord)

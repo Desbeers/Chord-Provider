@@ -7,11 +7,12 @@
 
 import Foundation
 import CFluidSynth
+import ChordProviderCore
 
 extension Utils.MidiPlayer {
 
     /// Play notes polyphonically
-    func playNotes(_ notes: [Int32], instrument: AppSettings.MidiInstrument) async {
+    func playNotes(_ notes: [Int32], instrument: MidiUtils.Instrument) async {
         guard let synth, sfontID >= 0 else { return }
         /// Cancel previous chord
         playToken = UUID()

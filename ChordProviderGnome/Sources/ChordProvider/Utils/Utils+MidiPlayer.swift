@@ -7,6 +7,7 @@
 
 import Foundation
 import CFluidSynth
+import ChordProviderCore
 
 extension Utils {
 
@@ -85,8 +86,10 @@ extension Utils {
 
             /// Load the SoundFont
             /// - Note: Don't reset the channels (3th argument) because its only a small SoundFont that does not have the standard channels
-            if let sfPath = Bundle.module.path(forResource: "GuitarSoundFont", ofType: "sf2") {
-                sfontID = fluid_synth_sfload(synth, sfPath, 1)
+            if let sfPath = MidiUtils.soundFont {
+                sfontID = fluid_synth_sfload(synth, sfPath.path(), 1)
+            } else {
+                print("Souns not found!")
             }
         }
 

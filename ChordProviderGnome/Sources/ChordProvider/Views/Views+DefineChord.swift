@@ -129,7 +129,7 @@ extension Views {
                     HStack(spacing: 10) {
                         DropDown(
                             selection: $appState.settings.app.midiInstrument,
-                            values: AppSettings.MidiInstrument.allCases
+                            values: MidiUtils.Instrument.allCases
                         )
                         .insensitive(!appState.settings.app.soundForChordDefinitions)
                         Separator()

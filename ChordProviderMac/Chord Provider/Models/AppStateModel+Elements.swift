@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChordProviderCore
 
 // MARK: Toggles
 
@@ -163,8 +164,8 @@ extension AppStateModel {
             VStack(alignment: .leading) {
                 Label("MIDI Instrument", systemImage: "guitars.fill")
                 Picker("MIDI Instrument:", selection: $appState.settings.midi.instrument) {
-                    ForEach(Midi.Instrument.allCases) { value in
-                        Text(value.label)
+                    ForEach(MidiUtils.Instrument.allCases) { value in
+                        Text(value.description)
                             .tag(value)
                     }
                 }

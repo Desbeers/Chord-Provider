@@ -19,7 +19,7 @@ extension AppSettings {
         /// The zoom factor
         var zoom: Double = 1
         /// The MIDI instrument
-        var midiInstrument: MidiInstrument = .acousticNylonGuitar
+        var midiInstrument: MidiUtils.Instrument = .acousticNylonGuitar
         /// Use sound for chord definitions
         var soundForChordDefinitions: Bool = false
     }

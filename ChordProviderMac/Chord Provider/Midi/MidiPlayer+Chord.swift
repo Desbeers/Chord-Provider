@@ -7,6 +7,7 @@
 
 import Foundation
 import AVFoundation
+import ChordProviderCore
 
 extension MidiPlayer {
 
@@ -28,7 +29,7 @@ extension MidiPlayer {
         ///   - notes: The notes of the chord
         ///   - instrument: The instrument to use
         /// - Returns: A ``Chord``
-        func compose(notes: [Int], instrument: Midi.Instrument) -> Chord {
+        func compose(notes: [Int], instrument: MidiUtils.Instrument) -> Chord {
             var chord = Chord()
             let trackID = chord.addTrack(instrumentID: UInt8(instrument.rawValue))
             var currentPosition: Float = 0

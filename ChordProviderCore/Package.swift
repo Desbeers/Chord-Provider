@@ -23,7 +23,8 @@ let package = Package(
             resources: [
                 .copy("ChordDefinitions"),
                 .copy("Resources/Icons"),
-                .copy("Resources/Strums")
+                .copy("Resources/Strums"),
+                .copy("Resources/GuitarSoundFont.sf2")
             ],
 
         )

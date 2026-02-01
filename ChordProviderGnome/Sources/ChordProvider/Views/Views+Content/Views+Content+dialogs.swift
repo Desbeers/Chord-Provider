@@ -152,7 +152,7 @@ extension Views.Content {
             .preferencesPage("Midi", icon: .default(icon: .mediaPlaybackStart)) { page in
                 page
                     .group("Options for the MIDI player") {
-                        ComboRow("Instrument", selection: $appState.settings.app.midiInstrument, values: AppSettings.MidiInstrument.allCases)
+                        ComboRow("Instrument", selection: $appState.settings.app.midiInstrument, values: MidiUtils.Instrument.allCases)
                             .subtitle("Select the instrument for playing chord with MIDI")
                         SwitchRow()
                             .title("Sound for Chord Definitions")

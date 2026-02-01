@@ -15,7 +15,7 @@ extension Views {
     /// A `View` that plays a Chord Definition
     struct MidiPlayer: View {
         /// Init the struct
-        init(chord: ChordDefinition, midiInstrument: AppSettings.MidiInstrument ) {
+        init(chord: ChordDefinition, midiInstrument: MidiUtils.Instrument) {
             self.notes = chord.components.compactMap { value in
                 if let midi = value.midi {
                     return Int32(midi)
@@ -30,7 +30,7 @@ extension Views {
         /// The MIDI notes
         let notes: [Int32]
         /// The MIDI instrument
-        let midiInstrument: AppSettings.MidiInstrument
+        let midiInstrument: MidiUtils.Instrument
         /// The body of the `View`
         var view: Body {    
             Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
