@@ -53,10 +53,11 @@ extension Views {
                         })
                         .style(.metronomeButton)
                         .flat()
+                        .padding(1, .top)
                     }
-                    .padding(3, .top)
                 }
             }
+            .valign(.baselineCenter)
             .onUpdate {
                 if tempo == nil && appState.scene.playMetronome {
                     /// Set the correct state of the button
