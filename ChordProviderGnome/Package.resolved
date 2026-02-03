@@ -1,5 +1,5 @@
 {
-  "originHash" : "79761c1d59a2f4311d58e2db50469343f91890570c4fb784b995a4edd7ac0d28",
+  "originHash" : "b36b44ddb42f2c4eac7eef861f4d145a29cf4dc9b7da20bc6cbc427d97072e3f",
   "pins" : [
     {
       "identity" : "adwaita-swift",
@@ -7,7 +7,7 @@
       "location" : "https://git.aparoksha.dev/aparoksha/adwaita-swift",
       "state" : {
         "branch" : "main",
-        "revision" : "cf60b8103f4884ee285e50a1e2bb22747bccd42d"
+        "revision" : "c08a9dc3bd44e07672422901652c4969161c1edd"
       }
     },
     {
@@ -25,7 +25,7 @@
       "location" : "https://git.aparoksha.dev/aparoksha/meta",
       "state" : {
         "branch" : "main",
-        "revision" : "3b2f8f926cb255ddcb8da7b21f6456d3a489340a"
+        "revision" : "f47727df52b1c2b36dec5df1c2bd10dc63e4c7d6"
       }
     },
     {
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://git.aparoksha.dev/aparoksha/meta-sqlite",
       "state" : {
-        "revision" : "cd48784024e43db8f1ac32572b052ed388dd9c42",
-        "version" : "0.1.0"
+        "branch" : "main",
+        "revision" : "05d3606100d300e30b93edf794e4cde0b157adc2"
       }
     },
     {
@@ -42,17 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stephencelis/SQLite.swift",
       "state" : {
-        "revision" : "392dd6058624d9f6c5b4c769d165ddd8c7293394",
-        "version" : "0.15.4"
-      }
-    },
-    {
-      "identity" : "swift-toolchain-sqlite",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/swiftlang/swift-toolchain-sqlite",
-      "state" : {
-        "revision" : "b626d3002773b1a1304166643e7f118f724b2132",
-        "version" : "1.0.4"
+        "revision" : "0c08856385fe24f7b76d8c51842d78a196e8e817",
+        "version" : "0.15.5"
       }
     }
   ],

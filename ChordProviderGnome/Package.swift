@@ -15,7 +15,11 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://git.aparoksha.dev/aparoksha/adwaita-swift", branch: "main"),
+        .package(
+            url: "https://git.aparoksha.dev/aparoksha/adwaita-swift",
+            branch: "main",
+            traits: ["exposeGeneratedAppearUpdateFunctions"],
+        ),
         .package(path: "../ChordProviderCore")
     ],
     targets: [

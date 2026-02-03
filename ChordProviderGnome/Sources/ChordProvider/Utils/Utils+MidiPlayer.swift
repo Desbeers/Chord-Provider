@@ -92,13 +92,5 @@ extension Utils {
                 print("Souns not found!")
             }
         }
-
-        // MARK: Deinit
-
-        deinit {
-            if let driver { delete_fluid_audio_driver(driver) }
-            if let synth { delete_fluid_synth(synth) }
-            if let settings { delete_fluid_settings(settings) }
-        }
     }
 }

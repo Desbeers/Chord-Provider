@@ -30,16 +30,6 @@ extension AnyView {
 }
 
 extension AnyView {
-
-    /// Make a button or similar widget use round appearance.
-    /// - Parameter active: Whether the style is currently applied.
-    /// - Returns: A modified `AnyView`
-    public func round(_ active: Bool = true) -> AnyView {
-        style("round", active: active)
-    }
-}
-
-extension AnyView {
     
     /// Orientate a `Widget` vertical
     /// - Returns: A modified `AnyView`
@@ -51,7 +41,7 @@ extension AnyView {
 
     /// Orientate a `Widget` horizontal
     /// - Returns: A modified `AnyView`
-    public func horizotal() -> AnyView {
+    public func horizontal() -> AnyView {
         inspect { storage, updateProperties in
             gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_HORIZONTAL)
         }

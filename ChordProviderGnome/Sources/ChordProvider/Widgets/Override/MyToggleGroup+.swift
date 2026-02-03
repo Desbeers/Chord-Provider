@@ -79,7 +79,6 @@ extension Widgets.MyToggleGroup {
                     adw_toggle_set_label(toggle, element.description)
                 }
                 adw_toggle_set_tooltip(toggle, element.description)
-                //}
                 if let icon = element.icon {
                     adw_toggle_set_icon_name(toggle, icon.string)
                 }
@@ -90,5 +89,4 @@ extension Widgets.MyToggleGroup {
         storage.fields[Self.values] = values
         adw_toggle_group_set_active_name(storage.opaquePointer, selection.description)
     }
-
 }

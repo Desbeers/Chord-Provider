@@ -181,7 +181,7 @@ extension Views.Editor.Edit {
                     )
                 }
                 .linked()
-                .horizotal()
+                .horizontal()
             }
             .halign(.center)
         }
