@@ -12,3 +12,6 @@ build/
 
 ## Mac stuff
 .DS_Store
+
+## Swift
+Package.resolved
