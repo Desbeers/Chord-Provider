@@ -11,7 +11,7 @@ import ChordProviderCore
 
 extension Views.Editor.Edit {
 
-    enum AlignmentStyle: String, Codable, CaseIterable, ToggleGroupItem, CustomStringConvertible {
+    enum AlignmentStyle: String, Codable, CaseIterable, CustomStringConvertible {
         /// Make it identifiable
         var id: Self { self }
         var description: String {
@@ -25,8 +25,6 @@ extension Views.Editor.Edit {
                 self.rawValue
             }
         }
-        var icon: Adwaita.Icon? { nil }
-        var showLabel: Bool { true }
         case `default`, left, center, right
     }
 
@@ -207,7 +205,9 @@ extension Views.Editor.Edit {
                 FieldLabel(label: label)
                 ToggleGroup(
                     selection: $selection.onSet { setting in value = setting.result },
-                    values: Views.Editor.Edit.AlignmentStyle.allCases
+                    values: Views.Editor.Edit.AlignmentStyle.allCases,
+                    id: \.self,
+                    label: \.description
                 )
             }
             .halign(.center)

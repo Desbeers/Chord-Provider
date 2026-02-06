@@ -19,7 +19,14 @@ extension Views {
         /// The `Body` of the `View`
         var view: Body {
             VStack {
-                ToggleGroup(selection: $appState.scene.selectedDebugTab, values: Tab.allCases)
+                ToggleGroup(
+                    selection: $appState.scene.selectedDebugTab,
+                    values: Tab.allCases,
+                    id: \.self,
+                    label: \.rawValue,
+                    icon: \.icon,
+                    showLabel: \.showLabel
+                )
                     .padding()
                 Text(appState.scene.selectedDebugTab.help)
                     .style(.title)
@@ -56,7 +63,7 @@ extension Views {
         }
 
         /// The tabs of the *Debug* View
-        enum Tab: String, ToggleGroupItem, CaseIterable, CustomStringConvertible {
+        enum Tab: String, CaseIterable, CustomStringConvertible {
             /// Make it identifiable
             var id: Self { self }
             /// The description of the tab

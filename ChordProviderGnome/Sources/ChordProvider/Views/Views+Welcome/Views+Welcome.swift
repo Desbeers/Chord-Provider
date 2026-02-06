@@ -92,7 +92,11 @@ extension Views {
                     /// When opening a song at launch and go back to this View you will get a crash otherwise
                     ToggleGroup(
                         selection: $welcomeTab,
-                        values: WelcomeTab.allCases
+                        values: WelcomeTab.allCases,
+                        id: \.self,
+                        label: \.rawValue,
+                        icon: \.icon,
+                        showLabel: \.showLabel
                     )
                     switch welcomeTab {
                     case .mySongs: mySongs
@@ -198,7 +202,7 @@ extension Views.Welcome {
     // MARK: Welcome Tabs
 
     /// The tabs on the Welcome View
-    enum WelcomeTab: String, ToggleGroupItem, CaseIterable, CustomStringConvertible, Codable {
+    enum WelcomeTab: String, CaseIterable, CustomStringConvertible, Codable {
         /// My songs
         case mySongs = "My Songs"
         /// My tags

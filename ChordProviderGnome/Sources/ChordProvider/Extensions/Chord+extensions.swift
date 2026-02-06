@@ -20,15 +20,3 @@ extension Chord.Instrument: @retroactive ViewSwitcherOption {
         .default(icon: .folderMusic)
     }
 }
-
-extension Chord.Root: @retroactive ToggleGroupItem {
-
-    /// Conform to `ToggleGroupItem` by adding an icon
-    public var icon: Adwaita.Icon? {
-        nil
-    }
-    /// Conform to `ToggleGroupItem` by adding *showLabel*
-    public var showLabel: Bool {
-        true
-    }
-}

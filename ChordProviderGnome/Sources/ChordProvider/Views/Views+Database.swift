@@ -32,7 +32,9 @@ extension Views {
                 if search.isEmpty {
                     ToggleGroup(
                         selection: $chord,
-                        values: Chord.Root.naturalAndSharp.dropFirst().dropLast()
+                        values: Chord.Root.naturalAndSharp.dropFirst().dropLast(),
+                        id: \.self,
+                        label: \.display
                     )
                     .transition(.coverUpDown)
                 }

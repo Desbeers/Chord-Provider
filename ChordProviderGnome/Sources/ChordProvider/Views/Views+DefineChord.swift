@@ -51,7 +51,9 @@ extension Views {
                     .caption()
                 ToggleGroup(
                     selection: $definition.root,
-                    values: Chord.Root.allCases.dropFirst().dropLast()
+                    values: Chord.Root.allCases.dropFirst().dropLast(),
+                    id: \.self,
+                    label: \.display
                 )
                 /// Disable above when a definition is edited
                 .insensitive(!newChord)
