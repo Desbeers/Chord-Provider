@@ -105,7 +105,7 @@ extension SongExport {
             attributes: .attributes(settings.style.fonts.subtitle) + .alignment(.center))
         )
         /// Add optional composers
-        if let composers = song.metadata.composers {
+        if let composers = song.metadata.composers?.compactMap(\.content) {
             items.append(PDFBuild.Text(
                 "\(composers.joined(separator: "/"))",
                 attributes: .attributes(settings.style.fonts.subtitle, scale: 0.6) + .alignment(.center))

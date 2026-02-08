@@ -82,7 +82,7 @@ extension WelcomeView {
                                         Text("Songs with '\(tag)' tag").font(.headline)
                                     }
                             ) {
-                                ForEach(fileBrowser.songs.filter { $0.metadata.tags?.contains(tag) ?? false }) { song in
+                                ForEach(fileBrowser.songs.filter { $0.metadata.tags?.map(\.content).contains(tag) ?? false }) { song in
                                     songRow(song: song, showArtist: true)
                                 }
                             }
@@ -106,14 +106,14 @@ extension WelcomeView {
             }
             let tags = fileBrowser.songs.compactMap(\.metadata.tags).flatMap { $0 }
             /// Make sure the tags are unique
-            fileBrowser.allTags = Array(Set(tags).sorted())
+            fileBrowser.allTags = Array(Set(tags.map(\.content)).sorted())
         }
         .onChange(of: fileBrowser.songsFolder) {
             fileBrowser.songs = []
             fileBrowser.getFiles()
             let tags = fileBrowser.songs.compactMap(\.metadata.tags).flatMap { $0 }
             /// Make sure the tags are unique
-            fileBrowser.allTags = Array(Set(tags).sorted())
+            fileBrowser.allTags = Array(Set(tags.map(\.content)).sorted())
         }
     }
     /// Artists list `View`
@@ -179,7 +179,7 @@ extension WelcomeView {
                                         .foregroundStyle(.secondary)
                                 }
                                 if let tags = song.metadata.tags {
-                                    Text(tags.joined(separator: "∙"))
+                                    Text(tags.map(\.content).joined(separator: "∙"))
                                         .foregroundStyle(.tertiary)
                                 }
                             }

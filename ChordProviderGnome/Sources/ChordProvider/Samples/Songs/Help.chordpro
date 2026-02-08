@@ -1,7 +1,12 @@
 {title Chord Provider Help}
 {artist ChordPro viewer and editor}
+# You can have more than one composer
 {composer Nick Berendsen}
-{copyright 2025}
+{composer And some secret person}
+# Same for arranger and lyricist
+{arranger Nick Berendsen}
+{lyricist Nick Berendsen}
+{copyright 2025, Nick Berendsen}
 {tag Help Document}
 {tag <a href="https://github.com/Desbeers/Chord-Provider/">GitHub</a>}
 {tag <a href="https://github.com/Desbeers/Chord-Provider/issues/">Issues</a>}
@@ -9,6 +14,8 @@
 {tempo 123}
 {capo II}
 {year 2026}
+# Duration can be given in seconds or M:SS
+{duration 200}
 {key G}
 
 {start_of_textblock label="Introduction" align="center" flush="left"}

@@ -68,3 +68,48 @@ extension String {
         return result
     }
 }
+
+extension String {
+
+    /// Wrap a `String` into separate lines and make it identifiable
+    /// - Parameter length: The maximum length
+    /// - Returns: The wrapped text in an array
+    public func wrap(by length: Int) -> [ElementWrapper] {
+        self.split(by: length).map { ElementWrapper(content: $0) }
+    }
+}
+
+// MARK: Make a `String` identifiable
+
+extension String {
+
+    /// Make a `String` identifiable by wrapping it in a `struct`
+    public var toElementWrapper: String.ElementWrapper {
+        ElementWrapper(content: self)
+    }
+
+    /// A wrapper for a `String` to make it identifiable
+    public struct ElementWrapper: Identifiable, Equatable, Hashable, Comparable, Sendable, Codable {
+        /// Comparable protocol conformance
+        public static func < (lhs: String.ElementWrapper, rhs: String.ElementWrapper) -> Bool {
+            lhs.content < rhs.content
+        }
+        /// Init the `ElementWrapper`
+        /// - Parameter content: The content of the `String`
+        public init(content: String) {
+            self.content = content
+        }
+        /// The unique ID of the wrapped `String`
+        /// - Note: Don't use the `String` itself because its not guaranteed to be unique
+        public let id = UUID()
+        public var content: String
+    }
+}
+
+extension Array where Element == String {
+
+    /// Make a `String` array identifiable
+    public var toElementWrapper: [String.ElementWrapper] {
+        self.map { String.ElementWrapper(content: $0) }
+    }
+}

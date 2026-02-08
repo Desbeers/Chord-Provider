@@ -28,26 +28,3 @@ extension String {
         }
     }
 }
-
-extension String {
-
-    /// Wrap a `String` into separate lines and make it identifiable
-    /// - Parameter length: The maximum length
-    /// - Returns: The wrapped text in an array
-    func wrap(by length: Int) -> [ElementWrapper] {
-        self.split(by: length).map { ElementWrapper(content: $0) }
-    }
-
-    /// Make a `String` identifiable
-    struct ElementWrapper: Identifiable, Equatable {
-        var id = UUID()
-        var content: String
-    }
-}
-
-extension Array where Element == String {
-    /// Make a `String` array identifiable
-    func toElementWrapper() -> [String.ElementWrapper] {
-        return self.map { String.ElementWrapper(content: $0) }
-    }
-}

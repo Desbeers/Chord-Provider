@@ -268,7 +268,6 @@ struct MainView: View {
         if let index = fileBrowser.songs.firstIndex(where: { $0.settings.fileURL == fileURL }) {
             fileBrowser.songs[index].metadata.title = sceneState.song.metadata.title
             fileBrowser.songs[index].metadata.artist = sceneState.song.metadata.artist
-            fileBrowser.songs[index].metadata.tags = sceneState.song.metadata.tags
         }
     }
 }

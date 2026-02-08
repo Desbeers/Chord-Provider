@@ -26,7 +26,7 @@ extension PDFBuild {
         ///   - song: The whole `Song`
         ///   - settings: The ``AppSettings``
         init(song: Song, settings: AppSettings) {
-            self.tags = song.metadata.tags
+            self.tags = song.metadata.tags?.compactMap(\.content)
             self.settings = settings
         }
 

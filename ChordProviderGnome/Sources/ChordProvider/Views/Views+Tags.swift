@@ -13,8 +13,8 @@ extension Views {
     /// The `View` for showing the tags of a song
     struct Tags: View {
         /// Init the `View`
-        init(tags: [String]) {
-            self.tags = tags.toElementWrapper()
+        init(tags: [String.ElementWrapper]) {
+            self.tags = tags
             self.horizontal = tags.count > 2 ? false : true
         }
         /// The tags

@@ -51,9 +51,7 @@ extension ChordProParser {
             song.metadata.artist = label ?? song.metadata.artist
         case .composer:
             if let label {
-                if (song.metadata.composers?.append(label)) == nil {
-                    song.metadata.composers = [label]
-                }
+                song.metadata.addComposer(label)
             }
         case .capo:
             song.metadata.capo = label
@@ -78,27 +76,15 @@ extension ChordProParser {
         case .sortArtist:
             song.metadata.sortArtist = label ?? song.metadata.sortArtist
         case .tag:
-            if let label {
-                if (song.metadata.tags?.append(label)) == nil {
-                    song.metadata.tags = [label]
-                }
-            }
+            song.metadata.addTag(label)
         case .duration:
             song.metadata.duration = label
         case .copyright:
             song.metadata.copyright = label
         case .arranger:
-            if let label {
-                if (song.metadata.arrangers?.append(label)) == nil {
-                    song.metadata.arrangers = [label]
-                }
-            }
+            song.metadata.addArranger(label)
         case .lyricist:
-            if let label {
-                if (song.metadata.lyricists?.append(label)) == nil {
-                    song.metadata.lyricists = [label]
-                }
-            }
+            song.metadata.addLyricist(label)
         default:
             break
         }

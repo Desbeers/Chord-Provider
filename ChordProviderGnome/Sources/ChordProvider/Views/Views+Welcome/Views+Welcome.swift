@@ -184,10 +184,10 @@ extension Views.Welcome {
                 )
                 artists = content.artists
                 songs = content.songs
-                /// Don't show thags with links; they are very specific for the song
-                let tags = songs.compactMap(\.metadata.tags).flatMap { $0 }.filter { !$0.contains("http") }
+                /// Don't show tags with links; they are very specific for the song
+                let tags = songs.compactMap(\.metadata.tags).flatMap { $0 }.filter { !$0.content.contains("http") }
                 /// Make sure the tags are unique
-                self.tags = Array(Set(tags).sorted()).toElementWrapper()
+                self.tags = Array(Set(tags).sorted())
                 /// The songs are loaded
                 loadingState = .loaded
             } else {

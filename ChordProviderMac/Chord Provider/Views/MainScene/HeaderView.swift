@@ -57,7 +57,7 @@ extension HeaderView {
                 meta.append(year)
             }
             if let composers = song.metadata.composers {
-                meta.append("\(composers.joined(separator: "/"))")
+                meta.append("\(composers.map(\.content).joined(separator: "/"))")
             }
             return meta
         }

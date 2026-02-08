@@ -26,11 +26,16 @@ extension GtkRender {
                 subtitle.append(year)
             }
             self.subtitle = subtitle.joined(separator: " · ")
+            self.metadata = metadata
         }
         /// The state of the application
         @Binding var appState: AppState
         /// The subtitle
         let subtitle: String
+        /// The metadata
+        let metadata: Song.Metadata
+        /// Bool to show more metadata
+        @State private var showMoreMetadata: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -41,16 +46,28 @@ extension GtkRender {
                     .padding(5, .top)
                 /// Metadata
                 HStack {
-                    if let key = appState.editor.song.metadata.key {
+                    if let key = metadata.key {
                         metadata(name: "key", value: key.display)
                     }
-                    if let capo = appState.editor.song.metadata.capo {
+                    if let capo = metadata.capo {
                         metadata(name: "capo", value: capo)
                     }
-                    if let time = appState.editor.song.metadata.time {
+                    if let time = metadata.time {
                         metadata(name: "time", value: time)
                     }
                     Views.MetronomeToggle(appState: $appState)
+                    if let additionalMetadata = additionalMetadata() {
+                        Button("More…") {
+                            showMoreMetadata.toggle()
+                        }
+                        .flat()
+                        .popover(visible: $showMoreMetadata) {
+                            ForEach(additionalMetadata) { item in
+                                Text(item.content)
+                                    .useMarkup()
+                            }
+                        }
+                    }
                 }
                 .style(.metadata)
                 .halign(.center)
@@ -73,6 +90,33 @@ extension GtkRender {
                 Text(value)
             }
             .padding()
+        }
+
+        private func additionalMetadata() -> [String.ElementWrapper]? {
+            var result = [String.ElementWrapper]()
+            if let duration = metadata.formatDuration {
+                appendMetadata([duration.toElementWrapper], label: "Duration", result: &result)
+            }
+            if let arrangers = metadata.arrangers {
+                appendMetadata(arrangers, label: "Arranger", result: &result)
+            }
+            if let lyricists = metadata.lyricists {
+                appendMetadata(lyricists, label: "Lyricist", result: &result)
+            }
+            if let composers = metadata.composers {
+                appendMetadata(composers, label: "Composer", result: &result)
+            }
+            if let copyright = metadata.copyright {
+                appendMetadata(["© \(copyright)".toElementWrapper], label: "Copyright", result: &result)
+            }
+            return result.isEmpty ? nil : result
+        }
+
+        private func appendMetadata(_ metadata: [String.ElementWrapper], label: String, result: inout [String.ElementWrapper]) {
+            result.append(.init(content: "<b>\(label)\(metadata.count > 1 ? "s" : "")</b>"))
+            for item in metadata {
+                result.append(.init(content: "\(item.content)"))
+            }
         }
     }
 }
