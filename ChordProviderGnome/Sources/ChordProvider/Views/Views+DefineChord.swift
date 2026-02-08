@@ -44,6 +44,55 @@ extension Views {
         var define: String {
             "{define-\(definition.instrument.rawValue) \(definition.define)}"
         }
+        /// Calculated note values for the strings
+        var strings: [StringNumber] {
+            var result: [StringNumber] = []
+            for string in definition.instrument.strings {
+                var frets = [Fret]()
+                /// Don't play
+                frets.append(Fret(value: -1, label: "Don't play this string"))
+                for fret in (0...5) {
+                    /// Calculate the fret note
+                    /// - Note: Only add the base fret after the first row because the note can still be played open
+                    let fretNote = definition
+                        .instrument.offset[string] + (string == 0 ? 1 : definition.baseFret.rawValue) + 40 + fret
+                    /// Convert the fret to a label
+                    let label = ChordUtils.valueToNote(value: fretNote, scale: definition.root).display
+                    frets.append(Fret(value: fret, label: label))
+                }
+                result.append(StringNumber(id: string, frets: frets))
+                frets = [Fret]()
+            }
+            return result
+        }
+        /// Calculated finger positions
+        var fingers: [FingerNumber] {
+            var result: [FingerNumber] = []
+            for string in definition.instrument.strings {
+                var fingers = [Finger]()
+                fingers.append(Finger(value: 0, label: "Don't play this string"))
+                for finger in (1...5) {
+                    fingers.append(Finger(value: finger, label: "\(finger)"))
+                }
+                result.append(FingerNumber(id: string, fingers: fingers))
+                fingers = [Finger]()
+            }
+            return result
+        }
+        /// Calculated chord definition
+        var getDefinition: ChordDefinition {
+            ChordDefinition(
+                id: definition.id,
+                frets: definition.frets,
+                fingers: definition.fingers,
+                baseFret: definition.baseFret,
+                root: definition.root,
+                quality: definition.quality,
+                slash: definition.slash,
+                instrument: definition.instrument,
+                kind: .standardChord
+            )
+        }
         /// The body of the `View`
         var view: Body {
             VStack(spacing: 10) {
@@ -59,11 +108,17 @@ extension Views {
                 .insensitive(!newChord)
                 HStack(spacing: 10) {
                     Text("Quality:")
-                    DropDown(selection: $definition.quality, values: Array(Chord.Quality.allCases.dropFirst().dropLast()))
+                    DropDown(
+                        selection: $definition.quality,
+                        values: Array(Chord.Quality.allCases.dropFirst().dropLast())
+                    )
                     /// Disable above when a definition is edited
                     .insensitive(!newChord)
                     Text("Base fret:")
-                    DropDown(selection: $definition.baseFret, values: Chord.BaseFret.allCases)
+                    DropDown(
+                        selection: $definition.baseFret,
+                        values: Chord.BaseFret.allCases
+                    )
                     Text("Optional bass:")
                     DropDown(
                         selection: $slash.onSet { definition.slash = $0 == .none ? nil : $0 },
@@ -74,11 +129,19 @@ extension Views {
                 }
                 HStack(spacing: 20) {
                     VStack {
-                        MidiPlayer(chord: getDefinition(), preset: appState.settings.core.midiPreset)
-                        diagramView()
+                        let definition = getDefinition
+                        MidiPlayer(
+                            chord: definition,
+                            preset: appState.settings.core.midiPreset
+                        )
+                        Views.ChordDiagram(
+                            chord: definition,
+                            width: 160,
+                            settings: appState.editor.song.settings
+                        )
                         Text(definition.notesLabel)
                             .useMarkup()
-                        let validate = getDefinition().validate
+                        let validate = definition.validate
                         Text(validate.description)
                             .wrap()
                             .style(validate == .correct ? .none : .error)
@@ -92,11 +155,15 @@ extension Views {
                         Separator()
                         VStack {
                             ForEach(strings, horizontal: true) { string in
-                                Widgets.MyToggleGroup(
+                                ToggleGroup(
                                     selection: $definition.frets[string.id].onSet { _ in
                                         playNote(string)
                                     },
-                                    values: string.frets
+                                    values: string.frets,
+                                    id: \.value,
+                                    label: \.label,
+                                    icon: \.icon,
+                                    showLabel: \.showLabel
                                 )
                                 .vertical()
                                 .flat()
@@ -111,9 +178,13 @@ extension Views {
                         Separator()
                         VStack {
                             ForEach(fingers, horizontal: true) { finger in
-                                Widgets.MyToggleGroup(
+                                ToggleGroup(
                                     selection: $definition.fingers[finger.id],
-                                    values: finger.fingers
+                                    values: finger.fingers,
+                                    id: \.value,
+                                    label: \.label,
+                                    icon: \.icon,
+                                    showLabel: \.showLabel
                                 )
                                 .vertical()
                                 .flat()
@@ -171,23 +242,13 @@ extension Views {
             }
         }
 
-        private func getDefinition() -> ChordDefinition {
-            ChordDefinition(
-                id: definition.id,
-                frets: definition.frets,
-                fingers: definition.fingers,
-                baseFret: definition.baseFret,
-                root: definition.root,
-                quality: definition.quality,
-                slash: definition.slash,
-                instrument: definition.instrument,
-                kind: .standardChord
-            )
-        }
+        // MARK: Functions
 
+        /// Play a chord note with MIDI
+        /// - Parameter string: The string number to play
         private func playNote( _ string: StringNumber) {
             if self.loaded, appState.settings.app.soundForChordDefinitions {
-                let chord = getDefinition()
+                let chord = getDefinition
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
                     let preset = appState.settings.core.midiPreset
@@ -198,72 +259,28 @@ extension Views {
             }
         }
 
-        @ViewBuilder func diagramView() -> Body {
-            Views.ChordDiagram(
-                chord: getDefinition(),
-                width: 160,
-                settings: appState.editor.song.settings
-            )
-        }
-
-        var strings: [StringNumber] {
-            var result: [StringNumber] = []
-            for string in definition.instrument.strings {
-                var frets = [Fret]()
-                /// Don't play
-                frets.append(Fret(value: -1, label: "Don't play this string"))
-                for fret in (0...5) {
-                    /// Calculate the fret note
-                    /// - Note: Only add the base fret after the first row because the note can still be played open
-                    let fretNote = definition
-                        .instrument.offset[string] + (string == 0 ? 1 : definition.baseFret.rawValue) + 40 + fret
-                    /// Convert the fret to a label
-                    let label = ChordUtils.valueToNote(value: fretNote, scale: definition.root).display
-                    frets.append(Fret(value: fret, label: label))
-                }
-                result.append(StringNumber(id: string, frets: frets))
-                frets = [Fret]()
-            }
-            return result
-        }
+        // MARK: String, fret and finger structures
 
         struct StringNumber: Identifiable {
             let id: Int
             let frets: [Fret]
         }
 
-        struct Fret: ToggleGroupItem, CustomStringConvertible {
-            var description: String {
-                label
-            }
+        struct Fret {
             var icon: Adwaita.Icon? {
                 switch self.value {
-                case -1:
-                        .default(icon: .dialogError)
-                default:
-                    nil
+                case -1: .default(icon: .dialogError)
+                default: nil
                 }
             }
-            var showLabel: Bool { true }
-            var id: Int {
-                value
+            var showLabel: Bool {
+                switch self.value {
+                case -1: false
+                default: true
+                }
             }
             let value: Int
             let label : String
-        }
-
-        var fingers: [FingerNumber] {
-            var result: [FingerNumber] = []
-            for string in definition.instrument.strings {
-                var fingers = [Finger]()
-                fingers.append(Finger(value: 0, label: "Don't play this string"))
-                for finger in (1...5) {
-                    fingers.append(Finger(value: finger, label: "\(finger)"))
-                }
-                result.append(FingerNumber(id: string, fingers: fingers))
-                fingers = [Finger]()
-            }
-            return result
         }
 
         struct FingerNumber: Identifiable {
@@ -271,27 +288,21 @@ extension Views {
             let fingers: [Finger]
         }
 
-        struct Finger: ToggleGroupItem, CustomStringConvertible {
-            var description: String {
-                label
-            }
+        struct Finger {
             var icon: Adwaita.Icon? {
                 switch self.value {
-                case 0:
-                        .default(icon: .dialogError)
-                default:
-                    nil
+                case 0: .default(icon: .dialogError)
+                default: nil
                 }
             }
-            var showLabel: Bool { true }
-            var id: Int {
-                value
+            var showLabel: Bool {
+                switch self.value {
+                case 0: false
+                default: true
+                }
             }
             let value: Int
             let label : String
         }
     }
-
 }
-
-
