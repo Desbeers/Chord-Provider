@@ -33,8 +33,8 @@ extension AppState {
             self.editor.song.settings.fileURL = fileURL
             openSong(content: content, showEditor: self.settings.editor.showEditor)
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
-            self.addRecentSong()
         } catch {
+            self.editor.song.settings.fileURL = nil
             self.scene.toastMessage = "Could not open the song"
         }
     }

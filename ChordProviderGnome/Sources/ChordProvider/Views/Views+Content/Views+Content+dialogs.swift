@@ -88,6 +88,11 @@ extension Views.Content {
             .response("Save", appearance: .suggested, role: .default) {
                 if let fileURL = appState.editor.song.settings.fileURL {
                     appState.saveSong()
+                    /// Add it to the recent songs list
+                    recentSongs.addRecentSong(
+                        content: appState.scene.originalContent,
+                        settings: appState.editor.song.settings
+                    )
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
                         window.close()

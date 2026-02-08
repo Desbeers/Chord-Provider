@@ -19,6 +19,8 @@ extension Views {
         let window: AdwaitaWindow
         /// The state of the application
         @Binding var appState: AppState
+        /// The list of recent songs
+        @Binding var recentSongs: RecentSongs
         /// The artist browser
         @State var artists: [SongFileUtils.Artist] = []
         /// The song browser
@@ -34,6 +36,8 @@ extension Views {
         @State var search: String = ""
         /// The selected tag
         @State var selectedTab: String.ElementWrapper.ID = .init()
+        /// The songs folder
+        @State("SongsFolder") var songsFolder: URL? = nil
 
         // MARK: Main View
 
@@ -99,17 +103,17 @@ extension Views {
                         showLabel: \.showLabel
                     )
                     switch welcomeTab {
-                    case .mySongs: mySongs
-                    case .myTags: myTags
-                    case .recentSongs: recentSongs
+                    case .mySongs: mySongsView
+                    case .myTags: myTagsView
+                    case .recentSongs: recentSongsView
                     }
                     HStack {
                         switch welcomeTab {
                         case .recentSongs:
-                            if !appState.getRecentSongs().isEmpty {
+                            if !recentSongs.getRecentSongs().isEmpty {
                                 HStack {
                                     Button("Clear recent songs") {
-                                        appState.clearRecentSongs()
+                                        recentSongs.clearRecentSongs()
                                     }
                                     .halign(.start)
                                     .hexpand()
@@ -117,7 +121,7 @@ extension Views {
                             }
                         case .mySongs, .myTags:
                             HStack {
-                                let folder = appState.settings.app.songsFolder?.lastPathComponent
+                                let folder = songsFolder?.lastPathComponent
                                 Button(folder ?? "Select Folder", icon: .default(icon: .folder)) {
                                     appState.scene.openFolder.signal()
                                 }
@@ -148,7 +152,7 @@ extension Views {
             .folderImporter(
                 open: appState.scene.openFolder
             ) { folderURL in
-                appState.settings.app.songsFolder = folderURL
+                songsFolder = folderURL
                 getFolderContent()
             }
 
@@ -160,7 +164,8 @@ extension Views {
                     window: window,
                     welcomeTab: welcomeTab,
                     appState: $appState,
-                    search: $search
+                    search: $search,
+                    songsFolder: songsFolder
                 )
             }
         }
@@ -176,7 +181,7 @@ extension Views.Welcome {
     /// Get the content of a folder with songs
     func getFolderContent() {
         Idle {
-            if let url = appState.settings.app.songsFolder {
+            if let url = songsFolder {
                 let content = SongFileUtils.getSongsFromFolder(
                     url: url,
                     settings: appState.editor.song.settings,
@@ -187,7 +192,7 @@ extension Views.Welcome {
                 /// Don't show tags with links; they are very specific for the song
                 let tags = songs.compactMap(\.metadata.tags).flatMap { $0 }.filter { !$0.content.contains("http") }
                 /// Make sure the tags are unique
-                self.tags = Array(Set(tags).sorted())
+                self.tags = tags.uniqued(by: \.content).sorted()
                 /// The songs are loaded
                 loadingState = .loaded
             } else {
@@ -246,23 +251,27 @@ extension Views.Welcome {
     /// - Returns: A `Body`
     @ViewBuilder func openButton(
         fileURL: URL,
-        song: Song,
+        metadata: Song.Metadata,
         songTitleOnly: Bool = false
     ) -> Body {
         HStack {
             Button("") {
                 appState.openSong(fileURL: fileURL)
+                recentSongs.addRecentSong(
+                    content: appState.scene.originalContent,
+                    settings: appState.editor.song.settings
+                )
                 appState.scene.showToast.signal()
             }
             .child {
                 HStack {
                     VStack {
-                        Text(song.metadata.title)
+                        Text(metadata.title)
                             .halign(.start)
                             .style(songTitleOnly ? .plainButton : .subtitle)
                             .hexpand()
                         if !songTitleOnly {
-                            Text(song.metadata.artist)
+                            Text(metadata.artist)
                                 .halign(.start)
                                 .style(.plainButton)
                         }
@@ -274,7 +283,7 @@ extension Views.Welcome {
             }
             .hasFrame(false)
             .tooltip(fileURL.path.escapeSpecialCharacters())
-            if let tags = song.metadata.tags  {
+            if let tags = metadata.tags  {
                 Views.Tags(tags: tags)
                     .valign(.center)
             }

@@ -1,5 +1,5 @@
 //
-//  Views+Welcome+mySongs.swift
+//  Views+Welcome+mySongsView.swift
 //  ChordProvider
 //
 //  © 2025 Nick Berendsen
@@ -13,7 +13,7 @@ extension Views.Welcome {
     // MARK: My Songs View
 
     /// The `View` with *My Songs* content
-    @ViewBuilder var mySongs: Body {
+    @ViewBuilder var mySongsView: Body {
         VStack {
             ScrollView {
                 HStack {
@@ -35,7 +35,7 @@ extension Views.Welcome {
                                 VStack {
                                     ForEach(artist.songs) { song in
                                         if let url = song.settings.fileURL {
-                                            openButton(fileURL: url, song: song, songTitleOnly: true)
+                                            openButton(fileURL: url, metadata: song.metadata, songTitleOnly: true)
                                         }
                                     }
                                 }
@@ -58,7 +58,7 @@ extension Views.Welcome {
                             VStack(spacing: 10) {
                                 ForEach(result) { song in
                                     if let fileURL = song.settings.fileURL {
-                                        openButton(fileURL: fileURL, song: song)
+                                        openButton(fileURL: fileURL, metadata: song.metadata)
                                     }
                                 }
                             }

@@ -25,6 +25,11 @@ extension Views.Content {
                 extensions: ChordPro.fileExtensions
             ) { fileURL in
                 appState.openSong(fileURL: fileURL)
+                /// Add it to the recent songs list
+                recentSongs.addRecentSong(
+                    content: appState.scene.originalContent,
+                    settings: appState.editor.song.settings
+                )
                 appState.scene.showToast.signal()
             }
 
@@ -39,6 +44,11 @@ extension Views.Content {
                 case .chordPro:
                     appState.editor.song.settings.fileURL = fileURL
                     appState.saveSong()
+                    /// Add it to the recent songs list
+                    recentSongs.addRecentSong(
+                        content: appState.scene.originalContent,
+                        settings: appState.editor.song.settings
+                    )
                     /// Set the toast
                     appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"
                 default:

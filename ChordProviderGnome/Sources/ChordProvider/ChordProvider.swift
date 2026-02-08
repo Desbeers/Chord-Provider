@@ -17,12 +17,18 @@ import SourceView
         /// - Note: Give it an unique ID so Files does not open new windows
         let id: UUID = UUID()
         self.app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(id.uuidString)")
+        DatabaseInformation.setPath(AdwaitaApp.userDataDir().appendingPathComponent("nl.desbeers.chordprovider.sqlite").path)
     }
     /// The application
     let app: AdwaitaApp
     /// The state of the application
     /// - Note: This will load all the settings
-    @State private var appState = AppState()
+    @State("AppState") private var appState = AppState()
+    /// The list of recent songs
+    @State("RecentSongs") private var recentSongs = RecentSongs()
+    /// The size of the application window
+    /// - Note: Will be used when opening a new instance of **ChordProvider**
+    @State("WindowSize") private var windowSize: AppState.WindowSize = .init(width: 800, height: 600)
     /// The body of the `Scene`
     var scene: Scene {
 
@@ -32,7 +38,9 @@ import SourceView
             Views.Content(
                 app: app,
                 window: window,
-                appState: $appState
+                appState: $appState,
+                recentSongs: $recentSongs
+
             )
             .inspectOnAppear { storage in
                 /// Init the `GtkSourceView`controller
@@ -50,11 +58,16 @@ import SourceView
                     /// - Note: Hide the editor because it is flashing if a song is directly opened
                     appState.settings.editor.showEditor = false
                     appState.openSong(fileURL: url)
+                    /// Add it to the recent songs list
+                    recentSongs.addRecentSong(
+                        content: appState.scene.originalContent,
+                        settings: appState.editor.song.settings
+                    )
                 }
             }
         }
         /// - Note: It will remember the window size when opening a new window
-        .size(width: $appState.window.width, height: $appState.window.height)
+        .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 800, height: 600)
         .minSize(width: 800, height: 600)
         .onClose {

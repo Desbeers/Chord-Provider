@@ -12,8 +12,6 @@ extension AppSettings {
 
     /// Settings for all **Chord Provider** scenes
     struct App: Codable, Equatable {
-        /// The songs folder
-        var songsFolder: URL?
         /// The page layout
         var columnPaging: Bool = true
         /// The zoom factor of the Render `View`

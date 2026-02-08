@@ -27,6 +27,8 @@ extension Views.Toolbar {
         var window: AdwaitaWindow
         /// The state of the application
         @Binding var appState: AppState
+        /// The list of recent songs
+        @Binding var recentSongs: RecentSongs
         /// The body of the `View`
         var view: Body {
             /// Bool if the song is transposed
@@ -97,6 +99,11 @@ extension Views.Toolbar {
                             appState.editor.song.settings.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.saveSong()
+                            /// Add it to the recent songs list
+                            recentSongs.addRecentSong(
+                                content: appState.scene.originalContent,
+                                settings: appState.editor.song.settings
+                            )
                         }
                         .keyboardShortcut("s".ctrl())
                         MenuButton("Save As…") {
@@ -153,6 +160,8 @@ extension Views.Toolbar {
         @Binding var appState: AppState
         /// The search string
         @Binding var search: String
+        /// The songs folder
+        let songsFolder: URL?
         /// The body of the `View`
         var view: Body {
             HeaderBar {
@@ -160,7 +169,7 @@ extension Views.Toolbar {
             }
             end: {
                 HStack(spacing: 5) {
-                    if welcomeTab == .mySongs, appState.settings.app.songsFolder != nil {
+                    if welcomeTab == .mySongs, songsFolder != nil {
                         SearchEntry()
                             .text($search)
                             .placeholderText("Search")

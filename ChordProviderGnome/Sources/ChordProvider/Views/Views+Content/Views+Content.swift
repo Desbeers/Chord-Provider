@@ -19,6 +19,8 @@ extension Views {
         var window: AdwaitaWindow
         /// The state of the application
         @Binding var appState: AppState
+        /// The list of recent songs
+        @Binding var recentSongs: RecentSongs
 
         // MARK: Content View
 
@@ -26,10 +28,15 @@ extension Views {
         var view: Body {
             VStack {
                 if appState.scene.showWelcomeView {
-                    Views.Welcome(app: app, window: window, appState: $appState)
-                        .vexpand()
-                        .hexpand()
-                        .transition(.crossfade)
+                    Views.Welcome(
+                        app: app,
+                        window: window,
+                        appState: $appState,
+                        recentSongs: $recentSongs
+                    )
+                    .vexpand()
+                    .hexpand()
+                    .transition(.crossfade)
                 } else {
                     Views.Render(appState: $appState)
                         .hexpand()
@@ -39,7 +46,8 @@ extension Views {
                             Views.Toolbar.Main(
                                 app: app,
                                 window: window,
-                                appState: $appState
+                                appState: $appState,
+                                recentSongs: $recentSongs
                             )
                         }
                         .dialog(visible: $appState.scene.showDebugDialog, width: 800, height: 600) {

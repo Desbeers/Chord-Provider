@@ -1,5 +1,5 @@
 //
-//  Views+Welcome+myTags.swift
+//  Views+Welcome+myTagsView.swift
 //  ChordProvider
 //
 //  © 2025 Nick Berendsen
@@ -13,7 +13,7 @@ extension Views.Welcome {
     // MARK: Tags View
 
     /// The `View` with *My Tags* content
-    @ViewBuilder var myTags: Body {
+    @ViewBuilder var myTagsView: Body {
         VStack(spacing: 20) {
             if tags.isEmpty {
                 StatusPage(
@@ -44,7 +44,7 @@ extension Views.Welcome {
                             VStack {
                                 ForEach(songs) { song in
                                     if let fileURL = song.settings.fileURL {
-                                        openButton(fileURL: fileURL, song: song)
+                                        openButton(fileURL: fileURL, metadata: song.metadata)
                                     }
                                 }
                             }

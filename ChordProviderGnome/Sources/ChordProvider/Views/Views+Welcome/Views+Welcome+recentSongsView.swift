@@ -1,5 +1,5 @@
 //
-//  Views+Welcome+recentSongs.swift
+//  Views+Welcome+recentSongsView.swift
 //  ChordProvider
 //
 //  © 2025 Nick Berendsen
@@ -13,10 +13,10 @@ extension Views.Welcome {
     // MARK: Recent Songs View
 
     /// The `View` with **Recent** songs
-    @ViewBuilder var recentSongs: Body {
+    @ViewBuilder var recentSongsView: Body {
         VStack(spacing: 20) {
             ScrollView {
-                if appState.getRecentSongs().isEmpty {
+                if recentSongs.getRecentSongs().isEmpty {
                     StatusPage(
                         "No recent songs",
                         icon: .default(icon: .folderMusic),
@@ -25,8 +25,8 @@ extension Views.Welcome {
                     .frame(minWidth: 350)
                 } else {
                     VStack(spacing: 10) {
-                        ForEach(appState.getRecentSongs()) { recent in
-                            openButton(fileURL: recent.url, song: recent.song)
+                        ForEach(recentSongs.getRecentSongs()) { recent in
+                            openButton(fileURL: recent.url, metadata: recent.metadata)
                         }
                     }
                     .halign(.center)

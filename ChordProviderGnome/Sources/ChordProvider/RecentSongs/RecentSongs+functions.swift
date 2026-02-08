@@ -1,5 +1,5 @@
 //
-//  AppState+recent.swift
+//  RecentSongs+functions.swift
 //  ChordProvider
 //
 //  © 2025 Nick Berendsen
@@ -8,28 +8,28 @@
 import Foundation
 import ChordProviderCore
 
-extension AppState {
+extension RecentSongs {
 
     /// Add a *Recent song*
-    /// - Note: This will be the current song in the editor
-    mutating func addRecentSong() {
-        if let fileURL = self.editor.song.settings.fileURL {
-            var recentSongs = self.recentSongs
+    mutating func addRecentSong(content: String, settings: ChordProviderSettings) {
+        if let fileURL = settings.fileURL {
+            var recentSongs = self.items
             /// Keep only relevant information
             let recent = ChordProParser.parse(
-                song: Song(id: UUID(), content: self.scene.originalContent),
-                settings: self.editor.song.settings,
+                song: Song(id: UUID(), content: content),
+                settings: settings,
                 getOnlyMetadata: true
             )
             recentSongs.append(
-                RecentSong(
+                Item(
                     url: fileURL,
-                    song: recent,
+                    settings: settings,
+                    metadata: recent.metadata,
                     lastOpened: Date.now
                 )
             )
             /// Update the list
-            self.recentSongs = Array(
+            self.items = Array(
                 recentSongs
                     .sorted(using: KeyPathComparator(\.lastOpened, order: .reverse))
                     .uniqued(by: \.id)
@@ -40,15 +40,15 @@ extension AppState {
 
     /// Clear the *Recent songs* list
     mutating func clearRecentSongs() {
-        self.recentSongs = []
+        self.items = []
     }
 
     /// Get *Recent songs*
-    func getRecentSongs() -> [RecentSong] {
-        var recent: [RecentSong] = []
+    func getRecentSongs() -> [Item] {
+        var recent: [Item] = []
         /// Check if the file still exists
-        for song in self.recentSongs where FileManager.default.fileExists(atPath: song.url.path) {
-            recent.append(song)
+        for item in self.items where FileManager.default.fileExists(atPath: item.url.path) {
+            recent.append(item)
         }
         /// Return to the `View`
         return recent
