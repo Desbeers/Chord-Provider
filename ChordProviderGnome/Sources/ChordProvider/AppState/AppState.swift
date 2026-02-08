@@ -14,7 +14,14 @@ import CAdw
 /// The state of **Chord Provider**
 struct AppState {
     /// The shared application settings
-    var settings = AppSettings()
+    var settings = AppSettings() {
+        didSet {
+            /// Update the style if needed
+            if settings.editor.fontSize != oldValue.editor.fontSize || settings.app.zoom != oldValue.app.zoom {
+                self.setStyle()
+            }
+        }
+    }
     /// The state of the `Scene`
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()

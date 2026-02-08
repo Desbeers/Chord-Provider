@@ -13,10 +13,6 @@ extension Widgets {
     /// The `AdwaitaWidget` for wrapping the song in columns
     public struct Columns<Element>: AdwaitaWidget where Element: Identifiable {
 
-        /// Additional update functions for type extensions.
-        var updateFunctions: [(ViewStorage, WidgetData, Bool) -> Void] = []
-        /// Additional appear functions for type extensions.
-        var appearFunctions: [(ViewStorage, WidgetData) -> Void] = []
         /// The dynamic widget elements.
         var elements: [Element]
         /// The dynamic widget content.
@@ -37,11 +33,6 @@ extension Widgets {
             let storage = ViewStorage(adw_wrap_box_new()?.opaque())
             gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_VERTICAL)
             adw_wrap_box_set_line_spacing(storage.opaquePointer, 20)
-            for function in appearFunctions {
-                function(storage, data)
-            }
-            update(storage, data: data, updateProperties: true, type: type)
-
             return storage
         }
 
@@ -51,7 +42,12 @@ extension Widgets {
         ///     - modifiers: Modify views before being updated
         ///     - updateProperties: Whether to update the view's properties.
         ///     - type: The view render data type.
-        public func update<Data>(_ storage: ViewStorage, data: WidgetData, updateProperties: Bool, type: Data.Type) where Data: ViewRenderData {
+        public func update<Data>(
+            _ storage: ViewStorage,
+            data: WidgetData,
+            updateProperties: Bool,
+            type: Data.Type
+        ) where Data: ViewRenderData {
             storage.modify { widget in
                 var contentStorage: [ViewStorage] = storage.content[.mainContent] ?? []
                 let old = storage.fields["element"] as? [Element] ?? []
@@ -79,9 +75,6 @@ extension Widgets {
                 for (index, element) in elements.enumerated() {
                     content(element).updateStorage(contentStorage[index], data: data, updateProperties: updateProperties, type: type)
                 }
-            }
-            for function in updateFunctions {
-                function(storage, data, updateProperties)
             }
             if updateProperties {
                 storage.previousState = self

@@ -46,10 +46,7 @@ extension Widgets {
         ///     - type: The view render data type.
         /// - Returns: The view storage.
         func container<Data>(data: WidgetData, type: Data.Type) -> ViewStorage where Data: ViewRenderData {
-            let storage = ViewStorage(gtk_image_new()?.opaque())
-            update(storage, data: data, updateProperties: true, type: type)
-
-            return storage
+            ViewStorage(gtk_image_new()?.opaque())
         }
 
         /// Update the stored content.
@@ -58,7 +55,12 @@ extension Widgets {
         ///     - data: Data passed to widgets
         ///     - updateProperties: Whether to update the view's properties.
         ///     - type: The view render data type.
-        func update<Data>(_ storage: ViewStorage, data: WidgetData, updateProperties: Bool, type: Data.Type) where Data: ViewRenderData {
+        func update<Data>(
+            _ storage: ViewStorage,
+            data: WidgetData,
+            updateProperties: Bool,
+            type: Data.Type
+        ) where Data: ViewRenderData {
             storage.modify { widget in
                 if let resource, updateProperties, (storage.previousState as? Self)?.resource != resource {
                     gtk_image_set_from_file(widget, resource)

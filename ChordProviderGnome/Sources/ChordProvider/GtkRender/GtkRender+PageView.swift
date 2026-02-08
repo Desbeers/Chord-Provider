@@ -35,7 +35,6 @@ extension GtkRender {
                     .transition(.crossfade)
                 }
             }
-            .style("document")
             .hexpand()
         }
         /// The sections

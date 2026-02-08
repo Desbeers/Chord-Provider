@@ -268,6 +268,8 @@ extension Markup {
 .chord {
     font-size: \(1.1 * baseFontSize * zoom)px;
     color: var(--chordprovider-accent-color);
+    margin-top: \(3 * zoom)px;    
+    margin-bottom: \(1 * zoom)px;
 }
 .chord-error {
     font-size: \(1.1 * baseFontSize * zoom)px;
