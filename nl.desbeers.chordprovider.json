@@ -1,5 +1,5 @@
 {
-  "app-id": "nl.desbeers.chordprovider",
+  "id": "nl.desbeers.chordprovider",
   "runtime": "org.gnome.Platform",
   "runtime-version": "49",
   "sdk": "org.gnome.Sdk",
@@ -42,7 +42,7 @@
         }
       ],
       "build-commands": [
-        "cd ChordProviderGnome && swift build -c release --static-swift-stdlib",
+        "swift build -c release --static-swift-stdlib --package-path ChordProviderGnome",
         "install -Dm755 ChordProviderGnome/.build/release/ChordProvider /app/bin/ChordProvider",
         "cp -r ChordProviderGnome/.build/release/ChordProvider_ChordProvider.resources/ /app/bin",
         "cp -r ChordProviderGnome/.build/release/ChordProviderCore_ChordProviderCore.resources/ /app/bin",
@@ -50,12 +50,12 @@
         "install -Dm644 ChordProviderGnome/Sources/ChordProvider/Resources/nl.desbeers.chordprovider.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",
         "install -Dm644 ChordProviderGnome/Sources/ChordProvider/Resources/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg",
         "install -Dm644 ChordProviderGnome/Sources/ChordProvider/Resources/nl.desbeers.chordprovider-mime.svg /app/share/icons/hicolor/scalable/mimetypes/nl.desbeers.chordprovider-doc.svg",
-	"install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.metainfo.xml /app/share/metainfo/nl.desbeers.chordprovider.metainfo.xml",
-	"install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.desktop /app/share/applications/nl.desbeers.chordprovider.desktop",
-	"mkdir -p /app/share/mime/packages/",
-	"install -m644 -p -t /app/share/mime/packages ChordProviderGnome/data/nl.desbeers.chordprovider.mime.xml",
-	"update-mime-database /app/share/mime",
-	"desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop"
+        "install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.metainfo.xml /app/share/metainfo/nl.desbeers.chordprovider.metainfo.xml",
+        "install -Dm644 ChordProviderGnome/data/nl.desbeers.chordprovider.desktop /app/share/applications/nl.desbeers.chordprovider.desktop",
+        "mkdir -p /app/share/mime/packages/",
+        "install -m644 -p -t /app/share/mime/packages ChordProviderGnome/data/nl.desbeers.chordprovider.mime.xml",
+        "update-mime-database /app/share/mime",
+        "desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop"
       ]
     }
   ]
