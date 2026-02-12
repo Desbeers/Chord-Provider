@@ -3,6 +3,20 @@
 
 import PackageDescription
 
+/// The dependencies.
+var dependencies: [Package.Dependency] = [
+	.package(
+            url: "https://git.aparoksha.dev/aparoksha/adwaita-swift",
+            branch: "main",
+            traits: ["exposeGeneratedAppearUpdateFunctions"],
+        ),
+        .package(path: "../ChordProviderCore")
+]
+
+#if os(Linux)
+dependencies.append(.package(url: "https://github.com/stephencelis/CSQLite", from: "3.50.4"))
+#endif
+
 let package = Package(
     name: "ChordProvider",
     platforms: [
@@ -14,14 +28,7 @@ let package = Package(
             targets: ["SourceView"]
         )
     ],
-    dependencies: [
-        .package(
-            url: "https://git.aparoksha.dev/aparoksha/adwaita-swift",
-            branch: "main",
-            traits: ["exposeGeneratedAppearUpdateFunctions"],
-        ),
-        .package(path: "../ChordProviderCore")
-    ],
+    dependencies: dependencies,
     targets: [
         .target(
             name: "SourceView",

@@ -15,3 +15,6 @@ build/
 
 ## Swift
 Package.resolved
+
+## VSCode
+.vscode

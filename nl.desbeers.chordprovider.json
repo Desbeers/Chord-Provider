@@ -12,6 +12,7 @@
     "--socket=fallback-x11",
     "--device=dri",
     "--socket=wayland",
+    "--filesystem=host",
     "--filesystem=xdg-run/pipewire-0"
   ],
   "build-options": {

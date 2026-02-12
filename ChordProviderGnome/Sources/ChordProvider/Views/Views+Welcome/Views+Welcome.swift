@@ -282,7 +282,7 @@ extension Views.Welcome {
                 .frame(minWidth: songTitleOnly ? 0 : 300)
             }
             .hasFrame(false)
-            .tooltip(fileURL.path.escapeSpecialCharacters())
+            .tooltip(fileURL.lastPathComponent.escapeSpecialCharacters())
             if let tags = metadata.tags  {
                 Views.Tags(tags: tags)
                     .valign(.center)
