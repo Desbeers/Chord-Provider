@@ -66,7 +66,7 @@ extension GtkRender {
             case .strum:
                 if !appState.editor.song.settings.lyricsOnly {
                     SectionHeader(section: section)
-                    StrumSection(section: section, zoom: appState.settings.app.zoom)
+                    StrumSection(section: section, zoom: appState.settings.theme.zoom)
                 }
             case .repeatChorus:
                 let label = section.lines.first?.plain

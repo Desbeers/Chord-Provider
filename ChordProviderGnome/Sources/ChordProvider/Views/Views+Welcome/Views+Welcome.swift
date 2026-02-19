@@ -194,7 +194,7 @@ extension Views.Welcome {
                 /// Make sure the tags are unique
                 self.tags = tags.uniqued(by: \.content).sorted()
                 /// The songs are loaded
-                loadingState = .loaded
+                loadingState = songs.isEmpty ? .error : .loaded
             } else {
                 loadingState = .error
             }

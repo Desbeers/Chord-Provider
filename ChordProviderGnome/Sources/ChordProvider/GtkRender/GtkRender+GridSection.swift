@@ -64,7 +64,7 @@ extension GtkRender {
                     SingleChord(part: part, settings: settings.core)
                 } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
-                        .pixelSize(Int(14 * settings.app.zoom))
+                        .pixelSize(Int(14 * settings.theme.zoom))
                         .style(.svgIcon)
                 } else {
                     Text(part.withMarkup(part.text ?? " "))

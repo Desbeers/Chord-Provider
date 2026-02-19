@@ -12,6 +12,8 @@ import ChordProviderCore
 struct AppSettings: Codable, Equatable {
     /// Application settings for all scenes
     var app = App()
+    /// The theme settings
+    var theme = Theme()
     /// The editor settings
     var editor = Editor()
     /// The core settings

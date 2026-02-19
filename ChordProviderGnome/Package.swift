@@ -65,11 +65,10 @@ let package = Package(
             ],
         ),
         .executableTarget(
-            name: "Generate",
+            name: "GenerateSnippets",
             dependencies: [
                 .product(name: "ChordProviderCore", package: "ChordProviderCore"),
             ],
-            path: "Generate",
         ),
         .systemLibrary(
             name: "CGtkSourceView",

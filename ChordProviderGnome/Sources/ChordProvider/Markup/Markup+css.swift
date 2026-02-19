@@ -122,20 +122,30 @@ extension Markup {
     static let baseFontSize: Double = 12.5
 
     /// The CSS declarations
-    static func css(zoom: Double, dark: Bool, editorFontSize: Int) -> String {
+    static func css(theme: AppSettings.Theme, dark: Bool) -> String {
 """
 :root {
     --chordprovider-accent-bg-color: \(dark ? "#57575a" : "#c8d3ca");
     --chordprovider-accent-color: \(dark ? "#cee3da" : "#78847f");
+    --chordprovider-telecaster-color: \(dark ? "#070b1d" : "#f8f4e2");
+    --chordprovider-telecaster-bg-color: \(dark ? "#57575a" : "#e4ebe6");
 }
+/* Window Background */
+\(theme.colorfullWindow ? """
+/* Window Background */
+
+window {
+    background-image: linear-gradient(315deg, var(--chordprovider-telecaster-color), var(--chordprovider-telecaster-bg-color));
+}
+""" : "")
 
 /* Text Styles */
 
 .standard, .section-strum {
-    font-size: \(baseFontSize * zoom)px;
+    font-size: \(baseFontSize * theme.zoom)px;
 }
 .empty-line {
-    font-size: \(baseFontSize * zoom * 0.25)px;
+    font-size: \(baseFontSize * theme.zoom * 0.25)px;
 }
 .bold {
     font-weight: bold;
@@ -158,11 +168,11 @@ extension Markup {
 /* Sections */
 
 .section-header {
-    font-size: \(1.2 * baseFontSize * zoom)px;
+    font-size: \(1.2 * baseFontSize * theme.zoom)px;
     font-weight: bold;
 }
 .section-chorus {
-    font-size: \(1 * baseFontSize * zoom)px;
+    font-size: \(1 * baseFontSize * theme.zoom)px;
     font-weight: bold;
     color: \(dark ? "#fff" : "#000");
     background-color: var(--chordprovider-accent-bg-color);
@@ -170,17 +180,17 @@ extension Markup {
     border-radius: 0.5em;
 }
 .section-grid {
-    font-size: \(1.1 * baseFontSize * zoom)px;
+    font-size: \(1.1 * baseFontSize * theme.zoom)px;
 }
 .section-textblock {
-    font-size: \(baseFontSize * zoom)px;
+    font-size: \(baseFontSize * theme.zoom)px;
 }
 .section-tab {
-    font-size: \(baseFontSize * zoom)px;
+    font-size: \(baseFontSize * theme.zoom)px;
     font-family: monospace;
 }
 .section-repeat-chorus {
-    font-size: \(1 * baseFontSize * zoom)px;
+    font-size: \(1 * baseFontSize * theme.zoom)px;
     color: \(dark ? "#fff" : "#000");
     background-color: var(--chordprovider-accent-bg-color);
     padding: 0.5em;
@@ -228,7 +238,7 @@ extension Markup {
 .chord-diagram-button {
     margin: 0;
     padding: 0;
-    font-size: \(1.1 * baseFontSize * zoom)px;
+    font-size: \(1.1 * baseFontSize * theme.zoom)px;
     color: var(--chordprovider-accent-color);
 }
 
@@ -251,7 +261,7 @@ extension Markup {
 /* Labels */
 
 .comment-label {
-    font-size: \(0.8 * baseFontSize * zoom)px;
+    font-size: \(0.8 * baseFontSize * theme.zoom)px;
     color: \(dark ? "#eee" : "#000");
     background-color: \(dark ? "#5b574c" : "#f1e8c9");
     padding: 0.5em;
@@ -266,13 +276,13 @@ extension Markup {
 /* Chords */
 
 .chord {
-    font-size: \(1.1 * baseFontSize * zoom)px;
+    font-size: \(1.1 * baseFontSize * theme.zoom)px;
     color: var(--chordprovider-accent-color);
-    margin-top: \(3 * zoom)px;    
-    margin-bottom: \(1 * zoom)px;
+    margin-top: \(3 * theme.zoom)px;    
+    margin-bottom: \(1 * theme.zoom)px;
 }
 .chord-error {
-    font-size: \(1.1 * baseFontSize * zoom)px;
+    font-size: \(1.1 * baseFontSize * theme.zoom)px;
     color: var(--destructive-color);
 }
 .selected-chord {
@@ -316,7 +326,7 @@ extension Markup {
 /* Editor */
 
 textview { 
-    font-family: Monospace; font-size: \(editorFontSize)pt;
+    font-family: Monospace; font-size: \(theme.editorFontSize.rawValue)pt;
 }
 
 gutter {

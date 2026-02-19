@@ -139,6 +139,15 @@ extension Views.Content {
                             .active($appState.editor.song.settings.diagram.showNotes)
                     }
             }
+            .preferencesPage("Style", icon: .default(icon: .applicationsGraphics)) { page in
+                page
+                    .group("Window") {
+                        SwitchRow()
+                            .title("Colorful Window")
+                            .subtitle("Use a more colorful style for the window background")
+                            .active($appState.settings.theme.colorfullWindow)
+                    }
+            }
             .preferencesPage("Editor", icon: .default(icon: .textEditor)) { page in
                 page
                     .group("Options for the editor") {
@@ -150,7 +159,7 @@ extension Views.Content {
                             .title("Wrap Lines")
                             .subtitle("Wrap lines when they are too long")
                             .active($appState.settings.editor.wrapLines)
-                        ComboRow("Font Size", selection: $appState.settings.editor.fontSize, values: AppSettings.Editor.Font.allCases)
+                        ComboRow("Font Size", selection: $appState.settings.theme.editorFontSize, values: AppSettings.Theme.Font.allCases)
                             .subtitle("Select the font size for the editor")
                     }
             }

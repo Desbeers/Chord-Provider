@@ -14,9 +14,8 @@ extension AppState {
     mutating func setStyle() {
         let isDark = adw_style_manager_get_dark(styleManager) == 1 ? true : false
         let css = Markup.css(
-            zoom: self.settings.app.zoom,
-            dark: isDark,
-            editorFontSize: self.settings.editor.fontSize.rawValue
+            theme: self.settings.theme,
+            dark: isDark
         )
         addCssFromString(css)
     }

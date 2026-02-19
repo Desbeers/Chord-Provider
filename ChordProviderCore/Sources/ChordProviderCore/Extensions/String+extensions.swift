@@ -101,7 +101,8 @@ extension String {
         }
         /// The unique ID of the wrapped `String`
         /// - Note: Don't use the `String` itself because its not guaranteed to be unique
-        public let id = UUID()
+        public var id = UUID()
+        /// The actual string content
         public var content: String
     }
 }

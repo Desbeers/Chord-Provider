@@ -17,7 +17,7 @@ struct AppState {
     var settings = AppSettings() {
         didSet {
             /// Update the style if needed
-            if settings.editor.fontSize != oldValue.editor.fontSize || settings.app.zoom != oldValue.app.zoom {
+            if settings.theme != oldValue.theme {
                 self.setStyle()
             }
         }

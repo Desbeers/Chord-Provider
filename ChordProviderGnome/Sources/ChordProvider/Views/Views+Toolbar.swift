@@ -115,16 +115,16 @@ extension Views.Toolbar {
                         MenuSection {
                             Submenu("Zoom") {
                                 MenuButton("Zoom In") {
-                                    appState.settings.app.zoom = min(appState.settings.app.zoom + 0.05, 2.0)
+                                    appState.settings.theme.zoom = min(appState.settings.theme.zoom + 0.05, 2.0)
                                 }
                                 .keyboardShortcut("plus".ctrl())
                                 MenuButton("Zoom Out") {
-                                    appState.settings.app.zoom = max(appState.settings.app.zoom - 0.05, 0.6)
+                                    appState.settings.theme.zoom = max(appState.settings.theme.zoom - 0.05, 0.6)
                                 }
                                 .keyboardShortcut("minus".ctrl())
                                 MenuSection {
                                     MenuButton("Reset Zoom") {
-                                        appState.settings.app.zoom = 1
+                                        appState.settings.theme.zoom = 1
                                     }
                                     .keyboardShortcut("0".ctrl())
                                 }
