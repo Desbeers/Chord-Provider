@@ -25,8 +25,6 @@ struct AppState {
     /// The state of the `Scene`
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
-    /// The list of *Recent songs*
-    //var recentSongs: [RecentSong] = []
     /// The source view bridge
     var editor = SourceViewBridge(song: Song(id: UUID(), content: "")) {
         didSet {

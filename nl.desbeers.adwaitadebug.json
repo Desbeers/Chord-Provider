@@ -1,0 +1,52 @@
+{
+  "id": "nl.desbeers.adwaitadebug",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "49",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.swift6"
+  ],
+  "command": "AdwaitaDebug",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--device=dri",
+    "--socket=wayland"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/swift6/bin",
+    "prepend-ld-library-path": "/usr/lib/sdk/swift6/lib"
+  },
+  "cleanup": [
+    "/include",
+    "/lib/pkgconfig",
+    "/man",
+    "/share/doc",
+    "/share/gtk-doc",
+    "/share/man",
+    "/share/pkgconfig",
+    "*.la",
+    "*.a"
+  ],
+  "modules": [
+    {
+      "name": "AdwaitaDebug",
+      "builddir": true,
+      "buildsystem": "simple",
+      "sources": [
+        {
+          "type": "dir",
+          "path": "."
+        }
+      ],
+      "build-commands": [
+        "swift build -c debug --static-swift-stdlib --package-path AdwaitaDebug",
+        "install -Dm755 AdwaitaDebug/.build/debug/AdwaitaDebug /app/bin/AdwaitaDebug",
+        "install -Dm644 AdwaitaDebug/data/nl.desbeers.adwaitadebug.metainfo.xml /app/share/metainfo/nl.desbeers.adwaitadebug.metainfo.xml",
+        "install -Dm644 AdwaitaDebug/data/nl.desbeers.adwaitadebug.desktop /app/share/applications/nl.desbeers.adwaitadebug.desktop",
+        "install -Dm644 AdwaitaDebug/data/icons/nl.desbeers.adwaitadebug.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.adwaitadebug.svg",
+        "install -Dm644 AdwaitaDebug/data/icons/nl.desbeers.adwaitadebug-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.adwaitadebug-symbolic.svg"
+      ]
+    }
+  ]
+}

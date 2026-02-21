@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+
+Name=Adwaita Debug
+Comment=Debug adwaita-swift
+Categories=Development;GNOME;
+
+Icon=nl.desbeers.adwaitadebug
+Exec=AdwaitaDebug
+Terminal=false

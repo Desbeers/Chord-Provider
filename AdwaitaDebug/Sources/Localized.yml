@@ -1,0 +1,33 @@
+default: en
+
+about:
+    de: "Info zu AdwaitaTemplate"
+    en: "About AdwaitaTemplate"
+
+closeWindow:
+    de: "Fenster schliessen"
+    en: "Close Window"
+
+generalShortcuts:
+    de: "Allgemein"
+    en: "General"
+
+helloWorld:
+    de: "Hallo, Welt!"
+    en: "Hello, world!"
+
+keyboardShortcuts:
+    de: "Tastenkürzel"
+    en: "Keyboard Shortcuts"
+
+mainMenu:
+    de: "Hauptmenü"
+    en: "Main Menu"
+
+newWindow:
+    de: "Neues Fenster"
+    en: "New Window"
+
+quitShortcut:
+    de: "App beenden"
+    en: "Quit the Application"

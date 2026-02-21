@@ -118,6 +118,7 @@ extension Views.Toolbar {
                                     appState.settings.theme.zoom = min(appState.settings.theme.zoom + 0.05, 2.0)
                                 }
                                 .keyboardShortcut("plus".ctrl())
+                                .keyboardShortcut("equal".ctrl())
                                 MenuButton("Zoom Out") {
                                     appState.settings.theme.zoom = max(appState.settings.theme.zoom - 0.05, 0.6)
                                 }
