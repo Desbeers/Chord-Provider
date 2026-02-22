@@ -38,8 +38,8 @@ struct AppState {
     var controller: SourceViewController?
     /// The `Adwaita` style manager
     let styleManager = adw_style_manager_get_default()
-    /// The current CSS provider
-    var currentCssProvider: UnsafeMutablePointer<GtkCssProvider>?
+    /// The CSS provider
+    var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
 }
 
 extension AppState {

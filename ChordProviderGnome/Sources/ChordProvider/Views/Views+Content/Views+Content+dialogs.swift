@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import CAdw
 
 extension Views.Content {
 
@@ -141,7 +142,16 @@ extension Views.Content {
             }
             .preferencesPage("Style", icon: .default(icon: .applicationsGraphics)) { page in
                 page
-                    .group("Window") {
+                    .group("Appearance") {
+                        ComboRow(
+                            "Color Scheme", 
+                            selection: $appState.settings.theme.appearance.onSet { value in 
+                                /// Apply the appearance directly or else its one step behind
+                                adw_style_manager_set_color_scheme(appState.styleManager, value.colorScheme) 
+                            }, 
+                            values: AppSettings.Theme.Appearance.allCases
+                        )
+                            .subtitle("Preferred Color Scheme")
                         SwitchRow()
                             .title("Colorful Window")
                             .subtitle("Use a more colorful style for the window background")

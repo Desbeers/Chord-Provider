@@ -9,6 +9,7 @@ import Foundation
 import Adwaita
 import ChordProviderCore
 import SourceView
+import CAdw
 
 /// The **Chord Provider** application
 @main struct ChordProvider: App {
@@ -45,6 +46,14 @@ import SourceView
             .inspectOnAppear { storage in
                 /// Init the `GtkSourceView`controller
                 appState.controller = SourceViewController(bridge: $appState.editor, language: .chordpro)
+                /// Attach the CSS provider to the default display
+                if let display = gdk_display_get_default() {
+                    gtk_style_context_add_provider_for_display(
+                        display,
+                        appState.cssProvider.opaque(),
+                        guint(GTK_STYLE_PROVIDER_PRIORITY_APPLICATION)
+                    )
+                }
                 /// Init the css style
                 appState.setStyle()
                 /// Add a *notification* for style changes
