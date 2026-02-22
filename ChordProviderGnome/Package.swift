@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 6.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -9,12 +9,12 @@ var dependencies: [Package.Dependency] = [
             url: "https://git.aparoksha.dev/aparoksha/adwaita-swift",
             branch: "main",
             traits: ["exposeGeneratedAppearUpdateFunctions"],
-        ),
-        .package(path: "../ChordProviderCore")
+    ),
+    .package(path: "../ChordProviderCore")
 ]
 
 #if os(Linux)
-dependencies.append(.package(url: "https://github.com/stephencelis/CSQLite", from: "3.50.4"))
+    dependencies.append(.package(url: "https://github.com/stephencelis/CSQLite", from: "3.50.4"))
 #endif
 
 let package = Package(

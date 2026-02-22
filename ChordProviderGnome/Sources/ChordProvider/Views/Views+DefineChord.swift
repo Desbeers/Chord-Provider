@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import CAdw
 
 extension Views {
 
@@ -165,6 +166,15 @@ extension Views {
                                     icon: \.icon,
                                     showLabel: \.showLabel
                                 )
+                                // .inspectOnAppear { ViewStorage in
+                                // #if exposeGeneratedAppearUpdateFunctions
+                                //     updateFunctions.append { storage, _, updateProperties in
+                                //         print("Update!")
+                                //     }
+                                // #else
+                                //     print("NO TRAIT")
+                                // #endif
+                                // }
                                 .vertical()
                                 .flat()
                                 .round()

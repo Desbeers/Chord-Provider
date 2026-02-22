@@ -66,20 +66,22 @@ extension Utils {
             /// Louder but safe volume
             fluid_settings_setnum(settings, "synth.gain", 0.9)
 
+            fluid_settings_setint(settings, "audio.period-size", 512)
+            fluid_settings_setint(settings, "audio.periods", 3)
+
+            fluid_settings_setint(settings, "synth.polyphony", 64)
+
+            fluid_settings_setint(settings, "synth.reverb.active", 0)
+            fluid_settings_setint(settings, "synth.chorus.active", 0)
+
             /// Platform specific settings
 #if os(macOS)
             fluid_settings_setstr(settings, "audio.driver", "coreaudio")
 #elseif os(Linux)
             fluid_settings_setstr(settings, "audio.driver", "pipewire")
-            fluid_settings_setint(settings, "audio.realtime-prio", 0)
 #endif
             synth = new_fluid_synth(settings)
             guard let synth else { return }
-
-            /// Natural sound
-            /// - Note: Barely any difference
-            fluid_synth_chorus_on(synth, 1, 1)
-            fluid_synth_reverb_on(synth, 1, 1)
 
             /// Load the driver
             driver = new_fluid_audio_driver(settings, synth)
