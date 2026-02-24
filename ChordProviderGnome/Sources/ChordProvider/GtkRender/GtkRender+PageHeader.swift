@@ -60,7 +60,9 @@ extension GtkRender {
                         Button("More…") {
                             showMoreMetadata.toggle()
                         }
+                        .style(.pageHeaderButton)
                         .flat()
+                        .padding(1, .top)
                         .popover(visible: $showMoreMetadata) {
                             ForEach(additionalMetadata) { item in
                                 Text(item.content)
@@ -85,7 +87,7 @@ extension GtkRender {
             HStack(spacing: 5) {
                 Widgets.BundleImage(name: name)
                     .pixelSize(16)
-                    .valign(.baselineCenter)
+                    .valign(.center)
                     .style(.svgIcon)
                 Text(value)
             }

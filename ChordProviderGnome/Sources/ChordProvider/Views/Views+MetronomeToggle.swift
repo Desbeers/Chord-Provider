@@ -51,13 +51,13 @@ extension Views {
                                 }
                             }
                         })
-                        .style(.metronomeButton)
+                        .style(.pageHeaderButton)
                         .flat()
                         .padding(1, .top)
                     }
                 }
             }
-            .valign(.baselineCenter)
+            .valign(.center)
             .onUpdate {
                 if tempo == nil && appState.scene.playMetronome {
                     /// Set the correct state of the button

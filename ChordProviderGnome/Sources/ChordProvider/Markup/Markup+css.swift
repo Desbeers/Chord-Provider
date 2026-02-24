@@ -73,8 +73,8 @@ extension Markup {
         case chordDiagramButton = "chord-diagram-button"
         /// Button used to play a chord with MIDI
         case midiButton = "midi-button"
-        /// Button used to start the metronome
-        case metronomeButton = "metronome-button"
+        /// Button in the page header
+        case pageHeaderButton = "page-header-button"
 
         // MARK: Labels
 
@@ -127,14 +127,14 @@ extension Markup {
 :root {
     --chordprovider-accent-bg-color: \(dark ? "#57575a" : "#c8d3ca");
     --chordprovider-accent-color: \(dark ? "#cee3da" : "#78847f");
-    --chordprovider-telecaster-color: \(dark ? "#070b1d" : "#f8f4e2");
-    --chordprovider-telecaster-bg-color: \(dark ? "#57575a" : "#e4ebe6");
+    --chordprovider-telecaster-color: \(dark ? "#363426" : "#f8f4e2");
+    --chordprovider-telecaster-bg-color: \(dark ? "#121f16" : "#DCE3DD");
 }
-/* Window Background */
+
 \(theme.colorfullWindow ? """
 /* Window Background */
 
-window {
+window, dialog sheet {
     background-image: linear-gradient(315deg, var(--chordprovider-telecaster-color), var(--chordprovider-telecaster-bg-color));
 }
 """ : "")
@@ -249,7 +249,7 @@ window {
     color: var(--chordprovider-accent-color);
 }
 
-.metronome-button {
+.page-header-button {
     margin: 4px;
     padding: 0 4px;
 }
@@ -263,9 +263,9 @@ window {
 .comment-label {
     font-size: \(0.8 * baseFontSize * theme.zoom)px;
     color: \(dark ? "#eee" : "#000");
-    background-color: \(dark ? "#5b574c" : "#f1e8c9");
+    background-color: \(dark ? "#5b574c" : "#f6f1df");
     padding: 0.5em;
-    border-radius: 0.5em;
+    border-radius: 0.4em;
 }
 
 .add-to-editor-label {

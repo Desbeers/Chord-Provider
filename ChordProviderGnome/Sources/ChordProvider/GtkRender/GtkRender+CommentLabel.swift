@@ -29,6 +29,7 @@ extension GtkRender {
                     .halign(.start)
             }
             .style(.commentLabel)
+            .card()
             .halign(.start)
             .padding()
         }
