@@ -44,15 +44,15 @@ extension Views {
                             .active($appState.editor.song.settings.diagram.showNotes)
                     }
             }
-            .preferencesPage("Style", icon: .default(icon: .applicationsGraphics)) { page in
+            .preferencesPage("Appearance", icon: .default(icon: .applicationsGraphics)) { page in
                 page
                     .group("Appearance") {
                         ComboRow(
-                            "Color Scheme", 
-                            selection: $appState.settings.theme.appearance.onSet { value in 
+                            "Color Scheme",
+                            selection: $appState.settings.theme.appearance.onSet { value in
                                 /// Apply the appearance directly or else its one step behind
-                                adw_style_manager_set_color_scheme(appState.styleManager, value.colorScheme) 
-                            }, 
+                                adw_style_manager_set_color_scheme(appState.styleManager, value.colorScheme)
+                            },
                             values: AppSettings.Theme.Appearance.allCases
                         )
                             .subtitle("Preferred Color Scheme")
@@ -60,6 +60,12 @@ extension Views {
                             .title("Colorful Window")
                             .subtitle("Use a more colorful style for the window background")
                             .active($appState.settings.theme.colorfullWindow)
+                        ComboRow(
+                            "Color Theme",
+                            selection: $appState.settings.theme.colorScheme,
+                            values: AppSettings.ColorScheme.allCases
+                        )
+                            .subtitle("Preferred Color Theme")
                     }
             }
             .preferencesPage("Editor", icon: .default(icon: .textEditor)) { page in

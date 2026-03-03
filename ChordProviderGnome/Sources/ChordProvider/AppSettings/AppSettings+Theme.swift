@@ -15,7 +15,9 @@ extension AppSettings {
         /// Appearance
         var appearance: Appearance = .system
         /// Colorfull Window
-        var colorfullWindow: Bool = false
+        var colorfullWindow: Bool = true
+        /// Color scheme
+        var colorScheme: ColorScheme = .green
         /// The zoom factor of the Render `View`
         var zoom: Double = 1
         /// The font size of the editor

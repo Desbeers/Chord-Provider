@@ -75,7 +75,7 @@ public func draw_chord(
     else { return }
 
     let manager = adw_style_manager_get_default()
-    let dark_mode = adw_style_manager_get_dark(manager)
+    let darkMode = adw_style_manager_get_dark(manager) == 1 ? true : false
 
     var drawnBarres = Set<Int>()
 
@@ -83,7 +83,10 @@ public func draw_chord(
         .fromOpaque(userData)
         .takeUnretainedValue()
 
-    let color: Double = dark_mode == 0 ? 0 : 1
+    let color: Double = darkMode ? 1 : 0
+    let dotColor: Double = darkMode ? 0.8 : 0.4
+    let fingerColor: Double = darkMode ? 0 : 1
+    let bgColor: Double = darkMode ? 0.8 : 0.4
     let strings = data.definition.instrument.strings.count
     let width = Double(width)
     let height = Double(height)
@@ -126,7 +129,7 @@ public func draw_chord(
         cairo_set_line_width(cr, 0.2)
     } else {
         let xOffset = margin * (data.definition.baseFret.rawValue > 9 ? 0.2 : 0.4)
-        cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
+        cairo_set_source_rgb(cr, bgColor, bgColor, bgColor)
         cairo_move_to(cr, xOffset, margin + fretSpacing / 1.5)
         cairo_show_text(cr, "\(data.definition.baseFret.rawValue)")
     }
@@ -147,7 +150,7 @@ public func draw_chord(
         if fret == -1 {
             /// Muted string: draw X
             let xOffset = radius / 2
-            cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
+            cairo_set_source_rgb(cr, bgColor, bgColor, bgColor)
             cairo_move_to(cr, x - xOffset, margin - radius * 1.5)
             cairo_line_to(cr, x + xOffset, margin - xOffset)
             cairo_move_to(cr, x + xOffset, margin - radius * 1.5)
@@ -156,7 +159,7 @@ public func draw_chord(
             cairo_stroke(cr)
         } else if fret == 0 {
             /// Open string: draw open circle
-            cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
+            cairo_set_source_rgb(cr, bgColor, bgColor, bgColor)
             cairo_arc(cr, x, margin - radius, radius / 2, 0, 2 * Double.pi)
             cairo_set_line_width(cr, 1)
             cairo_stroke(cr)
@@ -175,23 +178,23 @@ public func draw_chord(
                 cairo_arc(cr, x + radius, y + height - radius, radius, 90 * degrees, 180 * degrees)
                 cairo_arc(cr, x + radius, y + radius, radius, 180 * degrees, 270 * degrees)
                 cairo_close_path(cr)
-                cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
+                cairo_set_source_rgb(cr, dotColor, dotColor, dotColor)
                 cairo_fill_preserve(cr)
                 if finger > 0 {
                     cairo_move_to(cr, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + (fontSize / 0.9))
-                    cairo_set_source_rgb(cr, 1, 1, 1)
+                    cairo_set_source_rgb(cr, fingerColor, fingerColor, fingerColor)
                     cairo_show_text(cr, "\(finger)")
                     cairo_new_path(cr)
                 }
             } else if !drawnBarres.contains(fret) {
                 /// Finger position: draw filled circle
                 let y = margin + Double(fret) * fretSpacing - fretSpacing / 2
-                cairo_set_source_rgb(cr, 0.551, 0.551, 0.551)
+                cairo_set_source_rgb(cr, dotColor, dotColor, dotColor)
                 cairo_arc(cr, x, y, radius, 0, 2 * G_PI)
                 cairo_fill_preserve(cr)
                 if finger > 0 {
                     cairo_move_to(cr, x - (fontSize / 3.2), y + (fontSize / 2.4))
-                    cairo_set_source_rgb(cr, 1, 1, 1)
+                    cairo_set_source_rgb(cr, fingerColor, fingerColor, fingerColor)
                     cairo_show_text(cr, "\(finger)")
                     cairo_new_path(cr)
                 }
@@ -203,7 +206,7 @@ public func draw_chord(
     /// Draw notes
 
     if data.showNotes {
-        cairo_set_source_rgb(cr, 0.5, 0.5, 0.5)
+        cairo_set_source_rgb(cr, bgColor, bgColor, bgColor)
         for index in 0..<strings {
             let component = data.definition.components[index]
             var offset: Double = 0

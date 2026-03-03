@@ -29,13 +29,16 @@ extension Views {
                     Views.Editor(appState: $appState)
                 } end: {
                     if appState.editor.song.hasContent {
-                        HStack {
-                            GtkRender.PageView(appState: $appState)
-                            Separator()
-                            Views.Chords(appState: $appState)
+                        VStack {
+	                        GtkRender.PageHeader(appState: $appState)
+                            HStack {
+                                GtkRender.PageView(appState: $appState)
+                                Separator()
+                                Views.Chords(appState: $appState)
+                            }
+                            .hexpand()
+                            .vexpand()
                         }
-                        .hexpand()
-                        .vexpand()
                     } else {
                         StatusPage(
                             "Loading",

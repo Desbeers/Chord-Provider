@@ -21,6 +21,9 @@ extension Markup {
         /// The define dialog
         case define
 
+        /// The welcome image
+        case welcomeImage = "welcome-image"
+
         // MARK: Text Styles
 
         /// Standard text or default-styled element
@@ -68,13 +71,16 @@ extension Markup {
         /// Button with minimal or no styling
         case plainButton = "plain-button"
         /// Button associated with a chord action or selection
-        case chordButton = "chord-button"
-        /// Button used to display or open a chord diagram
         case chordDiagramButton = "chord-diagram-button"
         /// Button used to play a chord with MIDI
         case midiButton = "midi-button"
         /// Button in the page header
         case pageHeaderButton = "page-header-button"
+
+        // MARK: Toggles
+
+        /// Toggle used to display or open a chord diagram
+        case chordDiagramToggle = "chord-diagram-toggle"
 
         // MARK: Labels
 
@@ -119,80 +125,119 @@ extension Markup {
     }
 
     /// The base font size
-    static let baseFontSize: Double = 12.5
+    static let baseFontSize: Double = 1
 
     /// The CSS declarations
     static func css(theme: AppSettings.Theme, dark: Bool) -> String {
-"""
+
+        let colors = theme.colorScheme.colors(dark: dark)
+
+return """
 :root {
-    --chordprovider-accent-bg-color: \(dark ? "#57575a" : "#c8d3ca");
-    --chordprovider-accent-color: \(dark ? "#cee3da" : "#78847f");
-    --chordprovider-telecaster-color: \(dark ? "#363426" : "#f8f4e2");
-    --chordprovider-telecaster-bg-color: \(dark ? "#121f16" : "#DCE3DD");
+    --chordprovider-window-start: \(colors.windowStart);
+    --chordprovider-window-end: \(colors.windowEnd);
+
+    --chordprovider-chord-color: \(colors.chordColor);
+
+    --chordprovider-label-bg-color: \(colors.labelBackgroundColor);
 }
 
 \(theme.colorfullWindow ? """
+
 /* Window Background */
 
 window, dialog sheet {
-    background-image: linear-gradient(315deg, var(--chordprovider-telecaster-color), var(--chordprovider-telecaster-bg-color));
+    background-image: linear-gradient(135deg, var(--chordprovider-window-start), var(--chordprovider-window-end));
 }
 """ : "")
+
+\(theme.colorScheme != .accent ? """
+
+/* Accent Color */
+
+:root {
+    --accent-bg-color: \(colors.accentBackgroundColor);
+}
+""" : "")
+
+/* Links: make the always blue insead of accent color */
+
+label.link {
+    --accent-color: \(dark ? "#8ed5fe" : "#1974cf");
+}
+\(dark && theme.colorfullWindow ? """
+
+/* Popovers */
+
+popover contents, popover arrow {
+    background: var(--chordprovider-window-end);
+}
+
+""" : "")
+
+/* Welcome image */
+
+.welcome-image {
+    border-radius: 20px;
+    /* filter: opacity(0.5) drop-shadow(0 0 0 var(--accent-color)); */
+    /* filter: invert(\(dark ? 90 : 0)%); */
+    background: var(--accent-bg-color);
+}
 
 /* Text Styles */
 
 .standard, .section-strum {
-    font-size: \(baseFontSize * theme.zoom)px;
+    font-size: \(baseFontSize * theme.zoom)rem;
 }
 .empty-line {
-    font-size: \(baseFontSize * theme.zoom * 0.25)px;
+    font-size: \(baseFontSize * theme.zoom * 0.25)rem;
 }
 .bold {
     font-weight: bold;
 }
 .song-title {
-    font-size: \(1.4 * baseFontSize)px;
+    font-size: \(1.4 * baseFontSize)rem;
     font-weight: bold;
 }
 .song-subtitle {
-    font-size: \(1.2 * baseFontSize)px;
+    font-size: \(1.2 * baseFontSize)rem;
     font-weight: normal;
 }
 .caption {
-    font-size: 10px;
+    font-size: \(0.8 * baseFontSize)rem;
 }
 .metadata {
-    font-size: \(baseFontSize)px;
+    font-size: \(baseFontSize)rem;
 }
 
 /* Sections */
 
 .section-header {
-    font-size: \(1.2 * baseFontSize * theme.zoom)px;
+    font-size: \(1.2 * baseFontSize * theme.zoom)rem;
     font-weight: bold;
 }
 .section-chorus {
-    font-size: \(1 * baseFontSize * theme.zoom)px;
+    font-size: \(1 * baseFontSize * theme.zoom)rem;
     font-weight: bold;
     color: \(dark ? "#fff" : "#000");
-    background-color: var(--chordprovider-accent-bg-color);
+    background-color: var(--chordprovider-label-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
 .section-grid {
-    font-size: \(1.1 * baseFontSize * theme.zoom)px;
+    font-size: \(1.1 * baseFontSize * theme.zoom)rem;
 }
 .section-textblock {
-    font-size: \(baseFontSize * theme.zoom)px;
+    font-size: \(baseFontSize * theme.zoom)rem;
 }
 .section-tab {
-    font-size: \(baseFontSize * theme.zoom)px;
+    font-size: \(baseFontSize * theme.zoom)rem;
     font-family: monospace;
 }
 .section-repeat-chorus {
-    font-size: \(1 * baseFontSize * theme.zoom)px;
+    font-size: \(1 * baseFontSize * theme.zoom)rem;
     color: \(dark ? "#fff" : "#000");
-    background-color: var(--chordprovider-accent-bg-color);
+    background-color: var(--chordprovider-label-bg-color);
     padding: 0.5em;
     border-radius: 0.5em;
 }
@@ -200,7 +245,7 @@ window, dialog sheet {
 /* Buttons */
 
 .tag-label, .tag-button {
-    font-size: \(0.8 * baseFontSize)px;
+    font-size: \(0.8 * baseFontSize)rem;
     font-weight: normal;
     color: \(dark ? "#eee" : "#000");
     background-color: var(--headerbar-shade-color);
@@ -210,7 +255,7 @@ window, dialog sheet {
 }
 
 .editor-button {
-    font-size: \(0.8 * baseFontSize)px;
+    font-size: \(0.8 * baseFontSize)rem;
     font-weight: normal;
     background: none;
     transition: 0.15s;
@@ -224,29 +269,19 @@ window, dialog sheet {
     background-color: var(--shade-color);
 }
 .plain-button {
-    color: var(--chordprovider-accent-color);
-    font-size: \(baseFontSize)px;
+    font-size: \(baseFontSize)rem;
     font-weight: normal;
 }
-.chord-button {
-    padding: 5px 0 0 0;
-}
-.chord-button .chord, .chord-diagram-button {
-    font-size: \(baseFontSize)px;
-    font-weight: bold;
-}
 .chord-diagram-button {
-    margin: 0;
     padding: 0;
-    font-size: \(1.1 * baseFontSize * theme.zoom)px;
-    color: var(--chordprovider-accent-color);
+    font-size: \(baseFontSize)rem;
 }
 
 .midi-button {
     margin: 0;
-    padding: 0 4px;
-    font-size: \(1.1 * baseFontSize)px;
-    color: var(--chordprovider-accent-color);
+    padding: 0 0.2rem;
+    font-size: \(baseFontSize)rem;
+    color: var(--chordprovider-chord-color);
 }
 
 .page-header-button {
@@ -258,12 +293,20 @@ window, dialog sheet {
     opacity: 0.4;
 }
 
+/* Toggles */
+
+.chord-diagram-toggle {
+    margin: 0;
+    padding: 0;
+    font-size: \(baseFontSize * theme.zoom)rem;
+}
+
 /* Labels */
 
 .comment-label {
-    font-size: \(0.8 * baseFontSize * theme.zoom)px;
+    font-size: \(0.8 * baseFontSize * theme.zoom)rem;
     color: \(dark ? "#eee" : "#000");
-    background-color: \(dark ? "#5b574c" : "#f6f1df");
+    background-color: \(dark ? "#606130" : "#f6f1df");
     padding: 0.5em;
     border-radius: 0.4em;
 }
@@ -276,13 +319,11 @@ window, dialog sheet {
 /* Chords */
 
 .chord {
-    font-size: \(1.1 * baseFontSize * theme.zoom)px;
-    color: var(--chordprovider-accent-color);
     margin-top: \(3 * theme.zoom)px;    
     margin-bottom: \(1 * theme.zoom)px;
+    color: var(--chordprovider-chord-color);
 }
 .chord-error {
-    font-size: \(1.1 * baseFontSize * theme.zoom)px;
     color: var(--destructive-color);
 }
 .selected-chord {
@@ -337,7 +378,7 @@ gutterrenderer {
 }
 
 popover button {
-    font-size: 10px;
+    font-size: \(0.8 * baseFontSize)rem;
     padding: 2px 8px;
     font-weight: normal;
 }

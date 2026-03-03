@@ -29,7 +29,7 @@ extension GtkRender {
                             .style(.chord)
                     }
                     .flat()
-                    .style(.chordDiagramButton)
+                    .style(.chordDiagramToggle)
                     .popover(visible: $openChordDiagram) {
                         if openChordDiagram {
                             VStack(spacing: 0) {

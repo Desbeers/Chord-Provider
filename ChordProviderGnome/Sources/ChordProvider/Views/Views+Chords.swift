@@ -32,7 +32,7 @@ extension Views {
                     .child {
                         ChordDiagram(chord: chord, settings: appState.editor.song.settings)
                     }
-                    .style(.chordButton)
+                    .style(.chordDiagramButton)
                     .flat(true)
                     .halign(.center)
                 }

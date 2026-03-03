@@ -38,46 +38,38 @@ extension GtkRender {
         @State private var showMoreMetadata: Bool = false
         /// The body of the `View`
         var view: Body {
-            VStack {
-                Text(appState.editor.song.metadata.title)
-                    .style(.title)
-                Text(subtitle)
-                    .style(.subtitle)
-                    .padding(5, .top)
-                /// Metadata
-                HStack {
-                    if let key = metadata.key {
-                        metadata(name: "key", value: key.display)
+            /// Metadata
+            HStack {
+                if let key = metadata.key {
+                    metadata(name: "key", value: key.display)
+                }
+                if let capo = metadata.capo {
+                    metadata(name: "capo", value: capo)
+                }
+                if let time = metadata.time {
+                    metadata(name: "time", value: time)
+                }
+                Views.MetronomeToggle(appState: $appState)
+                if let additionalMetadata = additionalMetadata() {
+                    Button("More…") {
+                        showMoreMetadata.toggle()
                     }
-                    if let capo = metadata.capo {
-                        metadata(name: "capo", value: capo)
-                    }
-                    if let time = metadata.time {
-                        metadata(name: "time", value: time)
-                    }
-                    Views.MetronomeToggle(appState: $appState)
-                    if let additionalMetadata = additionalMetadata() {
-                        Button("More…") {
-                            showMoreMetadata.toggle()
-                        }
-                        .style(.pageHeaderButton)
-                        .flat()
-                        .padding(1, .top)
-                        .popover(visible: $showMoreMetadata) {
-                            ForEach(additionalMetadata) { item in
-                                Text(item.content)
-                                    .useMarkup()
-                            }
+                    .style(.pageHeaderButton)
+                    .flat()
+                    .padding(1, .top)
+                    .popover(visible: $showMoreMetadata) {
+                        ForEach(additionalMetadata) { item in
+                            Text(item.content)
+                                .useMarkup()
                         }
                     }
                 }
-                .style(.metadata)
-                .halign(.center)
-                .card()
-                .padding(.top)
             }
-            .padding(.top)
+            .style(.metadata)
+            .halign(.center)
+            .card()
         }
+
         /// Show metadata with an icon
         /// - Parameters:
         ///   - name: Name of the icon

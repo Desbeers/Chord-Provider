@@ -209,4 +209,12 @@ public enum ChordUtils {
         /// Return the fingers that should be barred
         return barres.isEmpty ? nil : barres
     }
+
+    public static func getChordDefinition(_ definition: ChordDefinition) -> [ChordDefinition] {
+        return getAllChordsForInstrument(instrument: definition.instrument)
+            .matching(root: definition.root)
+            .matching(quality: definition.quality)
+            .matching(slash: definition.slash)
+            .matching(baseFret: definition.baseFret)
+    }
 }

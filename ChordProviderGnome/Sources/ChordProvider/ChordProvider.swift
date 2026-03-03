@@ -79,6 +79,7 @@ import CAdw
         .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 800, height: 600)
         .minSize(width: 800, height: 600)
+        .title("Chord Provider")
         .onClose {
             if appState.contentIsModified {
                 appState.scene.saveDoneAction = .closeWindow

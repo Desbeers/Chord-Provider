@@ -29,35 +29,40 @@ extension Views {
         var view: Body {
             let chords = getChords()
             VStack {
-                if search.isEmpty {
-                    ToggleGroup(
-                        selection: $chord,
-                        values: Chord.Root.naturalAndSharp.dropFirst().dropLast(),
-                        id: \.self,
-                        label: \.display
-                    )
-                    .transition(.coverUpDown)
-                }
-                ScrollView {
-                    if chords.isEmpty {
-                        StatusPage(
-                            "No chords found",
-                            icon: .default(icon: .systemSearch),
-                            description: "Oops! We couldn't find any chords that match your search."
+                VStack {
+                    if search.isEmpty {
+                        ToggleGroup(
+                            selection: $chord,
+                            values: Chord.Root.naturalAndSharp.dropFirst().dropLast(),
+                            id: \.self,
+                            label: \.display
                         )
-                    } else {
-                        FlowBox(chords, selection: $selection) { chord in
-                            VStack {
-                                MidiPlayer(chord: chord, preset: preset)
-                                ChordDiagram(chord: chord, settings: settings)
-                            }
-                        }
-                        .valign(.start)
-                        .padding()
+                        .transition(.coverUpDown)
+                        .padding([.leading,.trailing, .top])
                     }
+                    ScrollView {
+                        if chords.isEmpty {
+                            StatusPage(
+                                "No chords found",
+                                icon: .default(icon: .systemSearch),
+                                description: "Oops! We couldn't find any chords that match your search."
+                            )
+                        } else {
+                            FlowBox(chords, selection: $selection) { chord in
+                                VStack {
+                                    MidiPlayer(chord: chord, preset: preset)
+                                    ChordDiagram(chord: chord, settings: settings)
+                                }
+                            }
+                            .valign(.start)
+                            .padding()
+                        }
+                    }
+                    .vexpand()
+                    //Separator()
                 }
-                .vexpand()
-                Separator()
+                .padding()
+                .card()
                 VStack {
                     if let chord = chords.first(where: { $0.id == selection }) {
                         HStack(spacing: 10) {

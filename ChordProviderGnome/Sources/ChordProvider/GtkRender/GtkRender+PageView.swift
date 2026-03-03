@@ -18,24 +18,10 @@ extension GtkRender {
         @Binding var appState: AppState
         /// The body of the `View`
         var view: Body {
-            VStack {
-                switch appState.settings.app.columnPaging {
-                case true:
-                    PageHeader(appState: $appState)
-                    ScrollView {
-                        sections
-                    }
-                    .vexpand()
-                    .transition(.crossfade)
-                case false:
-                    ScrollView {
-                        PageHeader(appState: $appState)
-                        sections
-                    }
-                    .vexpand()
-                    .transition(.crossfade)
-                }
+            ScrollView {
+                sections
             }
+            .vexpand()
             .hexpand()
             .inspectOnAppear { storage in
 

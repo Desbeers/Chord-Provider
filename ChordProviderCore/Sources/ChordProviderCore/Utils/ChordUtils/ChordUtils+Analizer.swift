@@ -70,10 +70,8 @@ extension ChordUtils {
                 }
             }
             /// Check notes
-            for combination in combinations {
-                if notes.uniqued(by: \.id).sorted().contains(combination.map(\.note).sorted()) {
-                    return .correct
-                }
+            for combination in combinations where notes.uniqued(by: \.id).sorted() == combination.map(\.note).sorted() {
+                return .correct
             }
             /// No match found
             return .wrongNotes

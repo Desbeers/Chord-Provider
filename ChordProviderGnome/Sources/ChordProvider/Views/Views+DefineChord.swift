@@ -39,8 +39,6 @@ extension Views {
         @State private var definition: ChordDefinition
         /// The slash is *optional* so it needs its own handler
         @State private var slash: Chord.Root = .none
-        /// Don't play optional MIDI before the`View` is completely loaded
-        @State var loaded: Bool = false
         /// Calculated definition
         var define: String {
             "{define-\(definition.instrument.rawValue) \(definition.define)}"
@@ -51,15 +49,15 @@ extension Views {
             for string in definition.instrument.strings {
                 var frets = [Fret]()
                 /// Don't play
-                frets.append(Fret(value: -1, label: "Don't play this string"))
+                frets.append(Fret(id: -1, label: "Don't play this string"))
                 for fret in (0...5) {
                     /// Calculate the fret note
                     /// - Note: Only add the base fret after the first row because the note can still be played open
                     let fretNote = definition
-                        .instrument.offset[string] + (string == 0 ? 1 : definition.baseFret.rawValue) + 40 + fret
+                        .instrument.offset[string] + (fret == 0 ? 1 : definition.baseFret.rawValue) + 40 + fret
                     /// Convert the fret to a label
                     let label = ChordUtils.valueToNote(value: fretNote, scale: definition.root).display
-                    frets.append(Fret(value: fret, label: label))
+                    frets.append(Fret(id: fret, label: label))
                 }
                 result.append(StringNumber(id: string, frets: frets))
                 frets = [Fret]()
@@ -100,7 +98,9 @@ extension Views {
                 Text(define)
                     .caption()
                 ToggleGroup(
-                    selection: $definition.root,
+                    selection: $definition.root.onSet { _ in
+                        lookupChord()
+                    },
                     values: Chord.Root.allCases.dropFirst().dropLast(),
                     id: \.self,
                     label: \.display
@@ -110,19 +110,26 @@ extension Views {
                 HStack(spacing: 10) {
                     Text("Quality:")
                     DropDown(
-                        selection: $definition.quality,
+                        selection: $definition.quality.onSet { _ in
+                            lookupChord()
+                        },
                         values: Array(Chord.Quality.allCases.dropFirst().dropLast())
                     )
                     /// Disable above when a definition is edited
                     .insensitive(!newChord)
                     Text("Base fret:")
                     DropDown(
-                        selection: $definition.baseFret,
+                        selection: $definition.baseFret.onSet { _ in
+                            lookupChord()
+                        },
                         values: Chord.BaseFret.allCases
                     )
                     Text("Optional bass:")
                     DropDown(
-                        selection: $slash.onSet { definition.slash = $0 == .none ? nil : $0 },
+                        selection: $slash.onSet {
+                            definition.slash = $0 == .none ? nil : $0
+                            lookupChord()
+                        },
                         values: Array(Chord.Root.allCases.dropFirst())
                     )
                     /// Disable above when a definition is edited
@@ -153,29 +160,38 @@ extension Views {
                     }
                     VStack(spacing: 10) {
                         Text("Frets")
+                           .padding(.top)
                         Separator()
                         VStack {
                             ForEach(strings, horizontal: true) { string in
-                                ToggleGroup(
-                                    selection: $definition.frets[string.id].onSet { _ in
-                                        playNote(string)
-                                    },
-                                    values: string.frets,
-                                    id: \.value,
-                                    label: \.label,
-                                    icon: \.icon,
-                                    showLabel: \.showLabel
-                                )
-                                .vertical()
-                                .flat()
-                                .round()
+                                /// I cannot use a `ToggleGroup` because the chord names change with the base fret
+                                ForEach(string.frets) { button in
+                                    if let icon = button.icon {
+                                        Button(icon: icon) {
+                                            definition.frets[string.id] = button.id
+                                            playNote(string)
+                                        }
+                                        .style("circular")
+                                        .flat(definition.frets[string.id] != button.id)
+                                    } else {
+                                        Button(button.label) {
+                                            dump(button.id)
+                                            definition.frets[string.id] = button.id
+                                            playNote(string)
+                                        }
+                                        .style("circular")
+                                        .flat(definition.frets[string.id] != button.id)
+                                    }
+                                }
                             }
                         }
                         .vexpand()
+                        .padding()
                     }
-                    Separator()
+                    .card()
                     VStack(spacing: 10) {
                         Text("Fingers")
+                            .padding(.top)
                         Separator()
                         VStack {
                             ForEach(fingers, horizontal: true) { finger in
@@ -193,7 +209,9 @@ extension Views {
                             }
                         }
                         .vexpand()
+                        .padding()
                     }
+                    .card()
                 }
                 Separator()
                 HStack {
@@ -235,12 +253,6 @@ extension Views {
                         )
                     }
             }
-            .onUpdate {
-                /// Set loaded state, optional enabling MIDI sounds
-                if !self.loaded {
-                    self.loaded = true
-                }
-            }
         }
 
         // MARK: Functions
@@ -248,7 +260,7 @@ extension Views {
         /// Play a chord note with MIDI
         /// - Parameter string: The string number to play
         private func playNote( _ string: StringNumber) {
-            if self.loaded, appState.settings.app.soundForChordDefinitions {
+            if appState.settings.app.soundForChordDefinitions {
                 let chord = getDefinition
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
@@ -260,6 +272,13 @@ extension Views {
             }
         }
 
+        /// Try to find a chord in the database
+        private func lookupChord() {
+            if let definition = ChordUtils.getChordDefinition(self.definition).first {
+              self.definition = definition
+            }
+        }
+
         // MARK: String, fret and finger structures
 
         struct StringNumber: Identifiable {
@@ -267,20 +286,20 @@ extension Views {
             let frets: [Fret]
         }
 
-        struct Fret {
+        struct Fret: Identifiable {
             var icon: Adwaita.Icon? {
-                switch self.value {
+                switch self.id {
                 case -1: .default(icon: .dialogError)
                 default: nil
                 }
             }
             var showLabel: Bool {
-                switch self.value {
+                switch self.id {
                 case -1: false
                 default: true
                 }
             }
-            let value: Int
+            let id: Int
             let label : String
         }
 

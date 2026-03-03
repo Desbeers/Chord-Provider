@@ -79,7 +79,6 @@ extension Views.Toolbar {
                         isOn: $appState.scene.showDebugDialog
                     )
                     .tooltip("See how your song is parsed")
-                    .accent(appState.editor.song.hasWarnings)
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
                             /// Reset metronome
@@ -139,8 +138,8 @@ extension Views.Toolbar {
             }
             .headerBarTitle {
                 WindowTitle(
-                    subtitle: appState.subtitle,
-                    title: "Chord Provider"
+                    subtitle: appState.editor.song.hasContent ? appState.subtitle : "Loading your song",
+                    title: appState.editor.song.hasContent ? appState.title : "Chord Provider"
                 )
             }
         }

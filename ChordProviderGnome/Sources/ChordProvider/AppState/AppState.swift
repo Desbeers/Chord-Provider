@@ -46,11 +46,25 @@ extension AppState {
 
     // MARK: Calculated stuff
 
+    /// The title of the `Scene`
+    var title: String {
+        return self.editor.song.metadata.title
+    }
+
     /// The subtitle of the `Scene`
-    /// - Note: Using the URL, *not* the metadata of the song
     var subtitle: String {
-        let lastPathComponent = editor.song.settings.fileURL?.deletingPathExtension().lastPathComponent
-        return "\(lastPathComponent ?? "New Song")\(contentIsModified ? " - modified" : "")"
+        let metadata = self.editor.song.metadata
+        var subtitle: [String] = [metadata.subtitle ?? metadata.artist]
+            if let album = metadata.album {
+                subtitle.append(album)
+            }
+            if let year = metadata.year {
+                subtitle.append(year)
+            }
+            if contentIsModified {
+            	subtitle.append("modified")
+            }
+            return subtitle.joined(separator: " · ")
     }
 
     /// Bool if the content of the song is modified
