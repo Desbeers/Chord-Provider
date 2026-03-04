@@ -13,23 +13,13 @@ import ChordProviderCore
 extension Widgets {
 
     /// The `AdwaitaWidget` for a chord diagram
-    struct Diagram: AdwaitaWidget {
+    struct ChordDiagram: AdwaitaWidget {
         /// The chord definition
         let chord: ChordDefinition
-        /// The settings of the application
-        let settings: ChordProviderSettings
         /// The width of the diagram
         let width: Double
-        /// Init the `widget`
-        public init(
-            chord: ChordDefinition,
-            width: Double = 100,
-            settings: ChordProviderSettings
-        ) {
-            self.chord = chord
-            self.settings = settings
-            self.width = width
-        }
+        /// The core settings
+        let coreSettings: ChordProviderSettings
         /// The view storage.
         /// - Parameters:
         ///     - data: The widget data.
@@ -39,7 +29,7 @@ extension Widgets {
             data: WidgetData,
             type: Data.Type
         ) -> ViewStorage where Data: ViewRenderData {
-            let context = Context(definition: chord, showNotes: settings.diagram.showNotes)
+            let context = Context(definition: chord, showNotes: coreSettings.diagram.showNotes)
             //convert(context: context)
             let drawingArea = gtk_drawing_area_new()
             gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
@@ -79,7 +69,7 @@ public func draw_chord(
 
     var drawnBarres = Set<Int>()
 
-    let data = Unmanaged<Widgets.Diagram.Context>
+    let data = Unmanaged<Widgets.ChordDiagram.Context>
         .fromOpaque(userData)
         .takeUnretainedValue()
 

@@ -25,11 +25,16 @@ import CAdw
     /// The state of the application
     /// - Note: This will load all the settings
     @State("AppState") private var appState = AppState()
+    /// The state of the database
+    @State private var databaseState = DatabaseState()
     /// The list of recent songs
     @State("RecentSongs") private var recentSongs = RecentSongs()
     /// The size of the application window
     /// - Note: Will be used when opening a new instance of **ChordProvider**
     @State("WindowSize") private var windowSize: AppState.WindowSize = .init(width: 800, height: 600)
+    /// The size of the database window
+    /// - Note: Will be used when opening a new instance of the database
+    @State("DatabaseWindowSize") private var databaseWindowSize: AppState.WindowSize = .init(width: 800, height: 600)
     /// The body of the `Scene`
     var scene: Scene {
 
@@ -79,6 +84,7 @@ import CAdw
         .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 800, height: 600)
         .minSize(width: 800, height: 600)
+        .maximized($windowSize.maximized)
         .title("Chord Provider")
         .onClose {
             if appState.contentIsModified {
@@ -92,12 +98,27 @@ import CAdw
 
         // MARK: Database Window
 
-        Window(id: "database", open: 0) { _ in
-            Views.Database()
+        Window(id: "database", open: 0) { window in
+            Views.Database(
+                window: window,
+                databaseState: $databaseState,
+                appSettings: $appState.settings
+            )
         }
-        /// - Note: I don't store its window size
+        /// - Note: It will remember the window size when opening a new window
+        .size(width: $databaseWindowSize.width, height: $databaseWindowSize.height)
         .minSize(width: 800, height: 600)
         .defaultSize(width: 800, height: 600)
         .title("Chords Database")
+        .maximized($databaseWindowSize.maximized)
+        .onClose {
+            if databaseState.databaseIsModified {
+                databaseState.exportDoneAction = .closeWindow
+                databaseState.showChangedDatatabaseDialog = true
+                return .cancel
+            } else {
+                return .close
+            }
+        }
     }
 }

@@ -53,7 +53,7 @@ extension Utils {
         // MARK: Play Token
 
         /// Current play token
-        /// - Note: Used for canceling a chord when we start a new one
+        /// - Note: Used for cancelling a chord when we start a new one
         var playToken: UUID = UUID()
 
         // MARK: Init
@@ -91,7 +91,7 @@ extension Utils {
             if let sfPath = MidiUtils.soundFont {
                 soundFontID = fluid_synth_sfload(synth, sfPath.path(), 1)
             } else {
-                print("Souns not found!")
+                print("Sound font not found!")
             }
         }
     }

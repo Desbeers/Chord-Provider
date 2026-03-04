@@ -30,7 +30,7 @@ extension Views {
                         chordDialog.toggle()
                     }
                     .child {
-                        ChordDiagram(chord: chord, settings: appState.editor.song.settings)
+                        ChordDiagram(chord: chord, coreSettings: appState.settings.core)
                     }
                     .style(.chordDiagramButton)
                     .flat(true)

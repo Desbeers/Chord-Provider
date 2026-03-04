@@ -110,8 +110,6 @@ extension Views.Content {
                 }
             }
 
-
-
         // MARK: Shortcuts Dialog
 
             .shortcutsDialog(visible: $appState.scene.showShortcutsDialog)

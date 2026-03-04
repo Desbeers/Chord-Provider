@@ -34,7 +34,7 @@ extension GtkRender {
                         if openChordDiagram {
                             VStack(spacing: 0) {
                                 Views.MidiPlayer(chord: chord, preset: settings.midiPreset)
-                                Views.ChordDiagram(chord: chord, settings: settings)
+                                Views.ChordDiagram(chord: chord, coreSettings: settings)
                             }
                         }
                     }

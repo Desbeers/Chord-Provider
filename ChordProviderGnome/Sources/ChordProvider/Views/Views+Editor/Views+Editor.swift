@@ -86,7 +86,7 @@ extension Views {
             .dialog(visible: $appState.editor.showEditDirectiveDialog) {
                 switch appState.editor.handleDirective {
                 case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
-                    Views.DefineChord(appState: $appState)
+                    Views.Editor.DefineChord(appState: $appState)
                 default:
                     Edit(appState: $appState)
                 }

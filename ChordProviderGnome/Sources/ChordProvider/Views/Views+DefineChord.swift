@@ -14,31 +14,18 @@ extension Views {
 
     /// The `View` to define a chord
     struct DefineChord: View {
-        init(appState: Binding<AppState>) {
-            var newChord = true
-            var definition = ChordDefinition(name: "C", instrument: appState.wrappedValue.editor.song.settings.instrument)!
-            /// Check if we are called as *edit* the definition instead of a new one
-            if appState.editor.showEditDirectiveDialog.wrappedValue {
-                if let currentDefinition = try? ChordDefinition(
-                    definition: appState.editor.currentLine.plain.wrappedValue ?? "",
-                    kind: .customChord, instrument: appState.editor.song.settings.instrument.wrappedValue
-                ) {
-                    definition = currentDefinition
-                    newChord = false
-                }
-            }
-            self._appState = appState
-            self._definition = State(wrappedValue: definition)
-            self.newChord = newChord
-        }
-        /// The state of the application
-        @Binding var appState: AppState
+        /// The state of the chord definition
+        @Binding var definition: ChordDefinition
         /// Bool if the chord definition is new
         let newChord: Bool
-        /// The state of the chord definition
-        @State private var definition: ChordDefinition
+        /// The application settings
+        let appSettings: AppSettings
         /// The slash is *optional* so it needs its own handler
         @State private var slash: Chord.Root = .none
+        /// Label for not pplaying a string
+        static let doNotPlay = "Don't play this string"
+        /// Toast signal when a definition is copied
+        @State private var copied = Signal()
         /// Calculated definition
         var define: String {
             "{define-\(definition.instrument.rawValue) \(definition.define)}"
@@ -49,7 +36,7 @@ extension Views {
             for string in definition.instrument.strings {
                 var frets = [Fret]()
                 /// Don't play
-                frets.append(Fret(id: -1, label: "Don't play this string"))
+                frets.append(Fret(id: -1, label: DefineChord.doNotPlay))
                 for fret in (0...5) {
                     /// Calculate the fret note
                     /// - Note: Only add the base fret after the first row because the note can still be played open
@@ -62,19 +49,27 @@ extension Views {
                 result.append(StringNumber(id: string, frets: frets))
                 frets = [Fret]()
             }
+            /// Mirror if needed
+            if appSettings.core.diagram.mirror {
+                result.reverse()
+            }
             return result
         }
         /// Calculated finger positions
-        var fingers: [FingerNumber] {
-            var result: [FingerNumber] = []
+        var fingers: [StringNumber] {
+            var result: [StringNumber] = []
             for string in definition.instrument.strings {
-                var fingers = [Finger]()
-                fingers.append(Finger(value: 0, label: "Don't play this string"))
+                var fingers = [Fret]()
+                fingers.append(Fret(id: 0, label: DefineChord.doNotPlay))
                 for finger in (1...5) {
-                    fingers.append(Finger(value: finger, label: "\(finger)"))
+                    fingers.append(Fret(id: finger, label: "\(finger)"))
                 }
-                result.append(FingerNumber(id: string, fingers: fingers))
-                fingers = [Finger]()
+                result.append(StringNumber(id: string, frets: fingers))
+                fingers = [Fret]()
+            }
+            /// Mirror if needed
+            if appSettings.core.diagram.mirror {
+                result.reverse()
             }
             return result
         }
@@ -95,8 +90,17 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             VStack(spacing: 10) {
-                Text(define)
-                    .caption()
+                HStack {
+                    Text(define)
+                    Button(icon: .default(icon: .editCopy)) {
+                        AdwaitaApp.copy(define)
+                        copied.signal()
+                    }
+                    .flat(true)
+                    .padding(.leading)
+                }
+                .caption()
+                .halign(.center)
                 ToggleGroup(
                     selection: $definition.root.onSet { _ in
                         lookupChord()
@@ -140,12 +144,12 @@ extension Views {
                         let definition = getDefinition
                         MidiPlayer(
                             chord: definition,
-                            preset: appState.settings.core.midiPreset
+                            preset: appSettings.core.midiPreset
                         )
                         Views.ChordDiagram(
                             chord: definition,
                             width: 160,
-                            settings: appState.editor.song.settings
+                            coreSettings: appSettings.core
                         )
                         Text(definition.notesLabel)
                             .useMarkup()
@@ -173,9 +177,9 @@ extension Views {
                                         }
                                         .style("circular")
                                         .flat(definition.frets[string.id] != button.id)
+                                        .tooltip(button.label)
                                     } else {
                                         Button(button.label) {
-                                            dump(button.id)
                                             definition.frets[string.id] = button.id
                                             playNote(string)
                                         }
@@ -197,8 +201,8 @@ extension Views {
                             ForEach(fingers, horizontal: true) { finger in
                                 ToggleGroup(
                                     selection: $definition.fingers[finger.id],
-                                    values: finger.fingers,
-                                    id: \.value,
+                                    values: finger.frets,
+                                    id: \.id,
                                     label: \.label,
                                     icon: \.icon,
                                     showLabel: \.showLabel
@@ -213,34 +217,6 @@ extension Views {
                     }
                     .card()
                 }
-                Separator()
-                HStack {
-                    SwitchRow()
-                        .title("Play notes")
-                        .active($appState.settings.app.soundForChordDefinitions)
-                    HStack(spacing: 10) {
-                        DropDown(
-                            selection: $appState.settings.core.midiPreset,
-                            values: MidiUtils.Preset.allCases
-                        )
-                        .insensitive(!appState.settings.app.soundForChordDefinitions)
-                        Separator()
-                        Button("Cancel") {
-                            appState.editor.showEditDirectiveDialog = false
-                        }
-                        Button("\(newChord ? "Add" : "Update") Definition") {
-                            if newChord {
-                                appState.editor.command = .appendText(text: define)
-                            } else {
-                                appState.editor.command = .replaceLineText(text: define)
-                            }
-                            appState.editor.showEditDirectiveDialog = false
-                        }
-                        .suggested()
-                    }
-                    .valign(.center)
-                }
-                .halign(.center)
             }
             .style(.define)
             .padding([.leading, .trailing, .bottom])
@@ -253,6 +229,7 @@ extension Views {
                         )
                     }
             }
+            .toast("Copied definition to clipboard", signal: copied)
         }
 
         // MARK: Functions
@@ -260,11 +237,11 @@ extension Views {
         /// Play a chord note with MIDI
         /// - Parameter string: The string number to play
         private func playNote( _ string: StringNumber) {
-            if appState.settings.app.soundForChordDefinitions {
+            if appSettings.app.soundForChordDefinitions {
                 let chord = getDefinition
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
-                    let preset = appState.settings.core.midiPreset
+                    let preset = appSettings.core.midiPreset
                     Task {
                         await Utils.MidiPlayer.shared.playNotes([Int32(note)], preset: preset)
                     }
@@ -281,48 +258,34 @@ extension Views {
 
         // MARK: String, fret and finger structures
 
+        /// The strings of the instrument
         struct StringNumber: Identifiable {
+            /// The ID of the string
             let id: Int
+            /// The frets of the string
             let frets: [Fret]
         }
 
+        /// The frets of the instrument
         struct Fret: Identifiable {
+            /// The ID of the fret
+            let id: Int
+            /// The label of the fret
+            let label: String
+            /// The optional icon of the fret
             var icon: Adwaita.Icon? {
-                switch self.id {
-                case -1: .default(icon: .dialogError)
+                switch self.label {
+                case DefineChord.doNotPlay: .default(icon: .dialogError)
                 default: nil
                 }
             }
+            /// Bool to show a label
             var showLabel: Bool {
-                switch self.id {
-                case -1: false
+                switch self.label {
+                case DefineChord.doNotPlay: false
                 default: true
                 }
             }
-            let id: Int
-            let label : String
-        }
-
-        struct FingerNumber: Identifiable {
-            let id: Int
-            let fingers: [Finger]
-        }
-
-        struct Finger {
-            var icon: Adwaita.Icon? {
-                switch self.value {
-                case 0: .default(icon: .dialogError)
-                default: nil
-                }
-            }
-            var showLabel: Bool {
-                switch self.value {
-                case 0: false
-                default: true
-                }
-            }
-            let value: Int
-            let label : String
         }
     }
 }

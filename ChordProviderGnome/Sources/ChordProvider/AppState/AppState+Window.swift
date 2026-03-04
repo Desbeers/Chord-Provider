@@ -15,5 +15,7 @@ extension AppState {
         var width = 800
         /// The height of the window
         var height = 600
+        /// Bool if the window is maximized
+        var maximized: Bool = false
     }
 }

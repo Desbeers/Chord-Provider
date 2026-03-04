@@ -43,7 +43,10 @@ extension Views.Debug {
                                 sectionPart(
                                     row: ExpanderRow().title("Chord <b>\(chord.display)</b>").rows {
                                         HStack {
-                                            Views.ChordDiagram(chord: chord, settings: appState.editor.song.settings)
+                                            Views.ChordDiagram(
+                                                chord: chord,
+                                                coreSettings: appState.settings.core
+                                            )
                                                 .valign(.start)
                                             sourceView(content)
                                                 .hexpand()
