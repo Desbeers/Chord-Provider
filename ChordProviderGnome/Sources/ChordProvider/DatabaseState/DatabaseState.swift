@@ -13,8 +13,6 @@ import CAdw
 
 /// The state of **Chord Provider** chord database
 struct DatabaseState {
-    /// The selected instrument
-    var instrument: Chord.Instrument = .guitar
     /// The selected chord
     var chord: Chord.Root = .c
     /// All the chords for an intrument

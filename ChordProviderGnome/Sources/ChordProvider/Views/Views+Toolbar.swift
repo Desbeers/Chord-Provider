@@ -55,7 +55,7 @@ extension Views.Toolbar {
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
                     DropDown(
-                        selection: $appState.editor.song.settings.instrument.onSet { _ in
+                        selection: $appState.settings.core.instrument.onSet { _ in
                             appState.editor.command = .updateSong
                         },
                         values: Chord.Instrument.allCases

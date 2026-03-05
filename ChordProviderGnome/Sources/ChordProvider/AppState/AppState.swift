@@ -20,19 +20,16 @@ struct AppState {
             if settings.theme != oldValue.theme {
                 self.setStyle()
             }
+            if settings.core != oldValue.core {
+                self.editor.song.settings = settings.core
+            }
         }
     }
     /// The state of the `Scene`
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
     /// The source view bridge
-    var editor = SourceViewBridge(song: Song(id: UUID(), content: "")) {
-        didSet {
-            if editor.song.settings != oldValue.song.settings {
-                self.settings.core = self.editor.song.settings
-            }
-        }
-    }
+    var editor = SourceViewBridge(song: Song(id: UUID(), content: ""))
     /// The `GtkSourceEditor`class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
     var controller: SourceViewController?

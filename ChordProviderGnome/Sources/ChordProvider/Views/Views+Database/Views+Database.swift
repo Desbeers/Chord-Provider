@@ -15,21 +15,22 @@ extension Views {
     struct Database: View {
         /// The `AdwaitaWindow`
         var window: AdwaitaWindow
+        /// The application state
+        @Binding var appState: AppState
         /// The database state
         @Binding var databaseState: DatabaseState
-        /// The shared application settings
-        @Binding var appSettings: AppSettings
         /// The body of the `View`
         var view: Body {
             VStack {
                 ToggleGroup(
-                    selection: $databaseState.instrument.onSet {  _ in
+                    selection: $appState.settings.core.instrument.onSet {  _ in
                         if databaseState.databaseIsModified {
                             databaseState.exportDoneAction = .switchInstrument
                             databaseState.showChangedDatatabaseDialog = true
                         } else {
-                            self.databaseState.allChords = getAllChordsForInstrument()
-                            self.databaseState.filteredChords = getFilteredChords()
+                            databaseState.allChords = getAllChordsForInstrument()
+                            databaseState.filteredChords = getFilteredChords()
+                            appState.editor.command = .updateSong
                         }
                     },
                     values: Chord.Instrument.allCases,
@@ -61,8 +62,8 @@ extension Views {
                             FlowBox(databaseState.filteredChords, id: \.self, selection: $databaseState.definition) { chord in
                                 if let chord {
                                     VStack {
-                                        MidiPlayer(chord: chord, preset: appSettings.core.midiPreset)
-                                        ChordDiagram(chord: chord, width: 120, coreSettings: appSettings.core)
+                                        MidiPlayer(chord: chord, preset: appState.settings.core.midiPreset)
+                                        ChordDiagram(chord: chord, width: 120, coreSettings: appState.settings.core)
                                     }
                                 }
                             }
@@ -77,10 +78,10 @@ extension Views {
                 HStack(spacing: 10) {
                     SwitchRow()
                         .title("Left-handed chords")
-                        .active($appSettings.core.diagram.mirror)
+                        .active($appState.settings.core.diagram.mirror)
                     HStack {
                         DropDown(
-                            selection: $appSettings.core.midiPreset,
+                            selection: $appState.settings.core.midiPreset,
                             values: MidiUtils.Preset.allCases
                         )
                         Text(" ")
@@ -106,8 +107,8 @@ extension Views {
                 visible: $databaseState.showEditDefinitionDialog
             ) {
                 DefineChord(
-                    databaseState: $databaseState,
-                    appSettings: $appSettings
+                    appState: $appState,
+                    databaseState: $databaseState
                 )
             }
             .topToolbar {
@@ -126,7 +127,7 @@ extension Views {
                 }
                 .headerBarTitle {
                     WindowTitle(
-                        subtitle: "\(appSettings.core.instrument.label)\(databaseState.databaseIsModified ? " · modified" : "")",
+                        subtitle: "\(appState.settings.core.instrument.label)\(databaseState.databaseIsModified ? " · modified" : "")",
                         title: "Chords Databse"
                     )
                 }
@@ -139,7 +140,7 @@ extension Views {
             }
             .fileExporter(
                 open: databaseState.exportDatabase,
-                initialName: "\(appSettings.core.instrument.label)"
+                initialName: "\(appState.settings.core.instrument.label)"
             ) { fileURL in
                 if let export  = try? ChordUtils.exportToJSON(definitions: databaseState.allChords) {
                     try? export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
@@ -173,7 +174,7 @@ extension Views {
             )
             .response("Cancel", role: .close) {
                 /// Revert the instrument
-                appSettings.core.instrument = databaseState.allChords.first?.instrument ?? .guitar
+                appState.settings.core.instrument = databaseState.allChords.first?.instrument ?? .guitar
 
             }
             .response("Discard", appearance: .destructive, role: .none) {
@@ -184,6 +185,7 @@ extension Views {
                     case .switchInstrument:
                         self.databaseState.allChords = getAllChordsForInstrument()
                         self.databaseState.filteredChords = getFilteredChords()
+                        appState.editor.command = .updateSong
                 }
             }
             .response("Export", appearance: .suggested, role: .default) {
@@ -194,7 +196,7 @@ extension Views {
         /// Get all chords for an instrument
         /// - Returns: All the chords
         private func getAllChordsForInstrument() -> [ChordDefinition] {
-            ChordUtils.getAllChordsForInstrument(instrument: databaseState.instrument)
+            ChordUtils.getAllChordsForInstrument(instrument: appState.settings.core.instrument)
         }
 
         /// Get all filtered chords

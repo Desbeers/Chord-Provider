@@ -101,8 +101,8 @@ import CAdw
         Window(id: "database", open: 0) { window in
             Views.Database(
                 window: window,
-                databaseState: $databaseState,
-                appSettings: $appState.settings
+                appState: $appState,
+                databaseState: $databaseState
             )
         }
         /// - Note: It will remember the window size when opening a new window

@@ -14,21 +14,21 @@ extension Views.Database {
 
     /// The `View` to edit or add a chord definition
     struct DefineChord: View {
-        init(databaseState: Binding<DatabaseState>, appSettings: Binding<AppSettings>) {
+        init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>) {
             if let definition = databaseState.definition.wrappedValue {
                 self._definition = State(wrappedValue: definition)
             } else {
-                let definition = ChordDefinition(name: "C", instrument: databaseState.wrappedValue.instrument)!
+                let definition = ChordDefinition(name: "C", instrument: appState.wrappedValue.settings.core.instrument)!
                 self._definition = State(wrappedValue: definition)
             }
             self._databaseState = databaseState
-            self._appSettings = appSettings
+            self._appState = appState
             self.newChord = databaseState.wrappedValue.newChord
         }
+        /// The state of the application
+        @Binding var appState: AppState
         /// The state of the database
         @Binding var databaseState: DatabaseState
-        /// The app settings
-        @Binding var appSettings: AppSettings
         /// Bool if the chord definition is new
         let newChord: Bool
         /// The state of the chord definition
@@ -36,12 +36,16 @@ extension Views.Database {
         /// The bdy of the `View`
         var view: Body {
             VStack(spacing: 10) {
-                Views.DefineChord(definition: $definition, newChord: newChord, appSettings: appSettings)
+                Views.DefineChord(
+                    definition: $definition,
+                    newChord: newChord,
+                    appSettings: appState.settings
+                )
                 Separator()
                 HStack {
                     SwitchRow()
                         .title("Play notes")
-                        .active($appSettings.app.soundForChordDefinitions)
+                        .active($appState.settings.app.soundForChordDefinitions)
                     HStack(spacing: 10) {
                         Text(" ")
                             .hexpand()

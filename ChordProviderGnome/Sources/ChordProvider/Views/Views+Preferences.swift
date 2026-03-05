@@ -27,21 +27,21 @@ extension Views {
                         SwitchRow()
                             .title("Show only lyrics")
                             .subtitle("Hide all the chords")
-                            .active($appState.editor.song.settings.lyricsOnly)
+                            .active($appState.settings.core.lyricsOnly)
                         SwitchRow()
                             .title("Repeat whole chorus")
                             .subtitle("Show the whole chorus with the same label")
-                            .active($appState.editor.song.settings.repeatWholeChorus)
+                            .active($appState.settings.core.repeatWholeChorus)
                     }
                     .group("Chord Diagrams") {
                         SwitchRow()
                             .title("Show left-handed chords")
                             .subtitle("Flip the chord diagrams")
-                            .active($appState.editor.song.settings.diagram.mirror)
+                            .active($appState.settings.core.diagram.mirror)
                         SwitchRow()
                             .title("Show notes")
                             .subtitle("Show the notes of a chord in the diagram")
-                            .active($appState.editor.song.settings.diagram.showNotes)
+                            .active($appState.settings.core.diagram.showNotes)
                     }
             }
             .preferencesPage("Appearance", icon: .default(icon: .applicationsGraphics)) { page in
