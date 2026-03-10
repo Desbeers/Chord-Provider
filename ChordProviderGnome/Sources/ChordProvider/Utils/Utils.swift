@@ -53,30 +53,12 @@ enum Utils {
     /// - Parameter content: The string
     /// - Returns: A full link if the content has a simple link, else just the text
     static func convertSimpleLinks(_ content: String) -> String {
-        let link = Regex {
-            Regex {
-                "http"
-                Optionally { "s" }
-                "://"
-                OneOrMore {
-                    CharacterClass(
-                        ("A"..."Z"),
-                        ("a"..."z"),
-                        .digit,
-                        .anyOf(":/?&=%._~-#@!$'*+,;")
-                    )
-                }
-            }
+        if let url = URL(string: content),
+            let host = url.host {
+            let domain = host.replacingOccurrences(of: "^www\\.", with: "", options: .regularExpression)
+            return "<a href=\"\(content)\">\(domain)</a>"
+        } else {
+            return content
         }
-        var content = content
-        /// Convert simple links
-        if !content.contains("<"), content.contains("http") {
-            let matches = content.matches(of: link)
-            for match in matches {
-                let escapedLink = String(match.0).escapeSpecialCharacters()
-                content = content.replacing(match.0, with: "<a href=\"\(escapedLink)\">\(escapedLink)</a>")
-            }
-        }
-        return content
     }
 }

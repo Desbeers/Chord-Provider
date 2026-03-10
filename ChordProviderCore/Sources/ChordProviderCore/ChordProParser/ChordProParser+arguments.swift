@@ -40,12 +40,11 @@ extension ChordProParser {
         currentSection: inout Song.Section
     ) -> ChordProParser.DirectiveArguments {
         var arguments = DirectiveArguments()
-        /// Check if the label contains formatting attributes; skip html tags and http links
+        /// Check if the label contains formatting attributes; skip html tags
         if
             let parsedArgument,
             parsedArgument.contains("="),
             !parsedArgument.contains("<")
-            //!parsedArgument.contains("http")
         {
             let attributes = parsedArgument.matches(of: ChordPro.RegexDefinitions.formattingAttributes)
             /// Map the attributes in a dictionary

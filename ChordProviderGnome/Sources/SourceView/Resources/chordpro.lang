@@ -18,7 +18,7 @@
 
     <definitions>
 
-        <define-regex id="attribute-name">[a-z0-9:_-]+</define-regex>
+        <define-regex id="attribute-name">\b[a-z0-9:_-]+\b</define-regex>
 
         <define-regex id="net-address" extended="true">
             \b(?:https?|ftp):\/\/[^\s/$.?#].[^\s&gt;]*\b
@@ -41,7 +41,7 @@
             </include>
         </context>
 
-        <context id="tag" class="no-spell-check">
+        <context id="tag" class="no-spell-check" end-at-line-end="true" >
             <start>&lt;/?[a-z0-9_-]+</start>
             <end>/?&gt;</end>
             <include>
@@ -98,7 +98,7 @@
 
                 <!-- Attribute in the form: name=value -->
                 <context id="attrib-unquoted" style-ref="attrib-value" class="no-spell-check">
-                    <start>\%{attribute-name}\s*=\s*</start>
+                    <start>\b%{attribute-name}(?=[^?\n]*=)\s*=\s*</start>
                     <end>(?=&gt;|\s)</end>
                     <include>
                         <context sub-pattern="0" where="start" style-ref="attrib-name"/>

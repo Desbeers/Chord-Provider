@@ -203,7 +203,7 @@ extension Views.Editor {
 
         private var enableSubmit: Bool {
             var result = false
-            result  = formState == initialState ? false : true
+            result = formState == initialState ? false : true
             result = ChordPro.Directive.withPlainArgument.contains(directive) && formState.plain.isEmpty ? false : result
             return result
         }

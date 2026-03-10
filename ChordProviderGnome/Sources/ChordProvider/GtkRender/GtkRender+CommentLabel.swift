@@ -23,10 +23,12 @@ extension GtkRender {
         var view: Body {
             HStack(spacing: 10) {
                 Symbol(icon: .default(icon: .userInvisible))
-                Text(comment)
-                    .useMarkup()
-                    .wrap()
-                    .halign(.start)
+                let lines: [String.ElementWrapper] = comment.wrap(by: 100)
+                ForEach(lines) { line in
+                    Text(line.content)
+                        .useMarkup()
+                        .halign(.start)
+                }
             }
             .style(.commentLabel)
             .card()

@@ -42,12 +42,16 @@ extension ChordProParser {
         if let match = text.firstMatch(of: ChordPro.RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
-
             /// Handle known directives
             if let directive = getDirective(parsedDirective.lowercased()) {
-
-                var arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
-
+                var arguments = DirectiveArguments()
+                if directive.directive.attributes.first == .plain {
+                    /// Just set the argument a *plain*
+                    arguments[.plain] = parsedArgument
+                } else {
+                    /// Parse the arguments
+                    arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
+                }
                 if directive.warning {
                     currentSection.addWarning(
                         "Short directive for <b>\(directive.directive.details.label)</b>; the long version is preferable"

@@ -2,7 +2,7 @@
 {artist ChordPro viewer and editor}
 # You can have more than one composer
 {composer Nick Berendsen}
-{composer And some secret person}
+{composer And somebody else}
 # Same for arranger and lyricist
 {arranger Nick Berendsen}
 {lyricist Nick Berendsen}
@@ -24,7 +24,8 @@
 While I hope you like <b>Chord Provider</b>, it is just my hobby project and not a complete implementation of the standard.
 
 Please visit the official <b><i>ChordPro</i></b> website for the full experience:
-{comment <a href="https://www.chordpro.org">ChordPro.org</a>}
+# Note: Just a simple link
+{comment https://ChordPro.org}
 {end_of_textblock}
 
 {start_of_textblock Functionality}
@@ -34,6 +35,8 @@ Please visit the official <b><i>ChordPro</i></b> website for the full experience
 - It can transpose your song.
 - It has a fancy dialog to add chord definitions.
 - It has a database with a lot of chords.
+- It can play chords and notes with MIDI.
+- It has a basic metronome.
 
 <b>Chord Provider</b> can <i>not</i> do the following:
 

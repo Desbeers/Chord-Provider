@@ -60,7 +60,6 @@ extension Views {
                                 inserts.showMore.toggle()
                             }
                             .flat()
-                            /// - Note: This is fine
                             Separator()
                             addInsert(directive: .comment)
                         }

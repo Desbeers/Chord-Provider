@@ -43,7 +43,7 @@ extension Views {
         /// Show a list of tags
         @ViewBuilder private func tagLabels() -> Body {
             ForEach(tags, horizontal: horizontal) { tag in
-                Text(tag.content)
+                Text(Utils.convertSimpleLinks(tag.content))
                     .useMarkup()
                     .style(horizontal ? .tagLabel : .none)
                     .padding(5)
