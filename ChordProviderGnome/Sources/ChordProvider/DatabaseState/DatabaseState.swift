@@ -7,9 +7,7 @@
 
 import Foundation
 import ChordProviderCore
-import SourceView
 import Adwaita
-import CAdw
 
 /// The state of **Chord Provider** chord database
 struct DatabaseState {
@@ -32,7 +30,7 @@ struct DatabaseState {
     /// Bool to show a dialog when the window is closed or the instrument has changed and the database is altered
     var showChangedDatatabaseDialog: Bool = false
     /// The action after exporting the database
-    var exportDoneAction: ExportDoneAction = .closeWindow  
+    var exportDoneAction: ExportDoneAction = .closeWindow
 
     // MARK: Signals
 
@@ -41,7 +39,7 @@ struct DatabaseState {
 }
 
 extension DatabaseState {
-    
+
     /// The action for the changed database dialog
     enum ExportDoneAction {
         /// Close the window

@@ -87,7 +87,8 @@ extension Utils {
             driver = new_fluid_audio_driver(settings, synth)
 
             /// Load the SoundFont
-            /// - Note: Don't reset the channels (3th argument) because its only a small SoundFont that does not have the standard channels
+            /// - Note: Don't reset the channels (3th argument)
+            ///         because its only a small SoundFont that does not have the standard channels
             if let sfPath = MidiUtils.soundFont {
                 soundFontID = fluid_synth_sfload(synth, sfPath.path(), 1)
             } else {

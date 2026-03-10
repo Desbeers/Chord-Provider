@@ -74,13 +74,13 @@ extension Markup {
         case chordDiagramButton = "chord-diagram-button"
         /// Button used to play a chord with MIDI
         case midiButton = "midi-button"
-        /// Button in the page header
-        case pageHeaderButton = "page-header-button"
 
         // MARK: Toggles
 
         /// Toggle used to display or open a chord diagram
         case chordDiagramToggle = "chord-diagram-toggle"
+        /// Toggle in the page header
+        case pageHeaderToggle = "page-header-toggle"
 
         // MARK: Labels
 
@@ -90,7 +90,6 @@ extension Markup {
         case commentLabel = "comment-label"
         /// Label displaying a a addition to the editor
         case addToEditorLabel = "add-to-editor-label"
-
 
         // MARK: Chords
 
@@ -190,7 +189,7 @@ popover contents, popover arrow {
     font-size: \(baseFontSize * theme.zoom)rem;
 }
 .empty-line {
-    font-size: \(baseFontSize * theme.zoom * 0.25)rem;
+    padding: 0.5rem;
 }
 .bold {
     font-weight: bold;
@@ -284,11 +283,6 @@ popover contents, popover arrow {
     color: var(--chordprovider-chord-color);
 }
 
-.page-header-button {
-    margin: 4px;
-    padding: 0 4px;
-}
-
 .midi-button image {
     opacity: 0.4;
 }
@@ -299,6 +293,12 @@ popover contents, popover arrow {
     margin: 0;
     padding: 0;
     font-size: \(baseFontSize * theme.zoom)rem;
+}
+
+.page-header-toggle {
+    margin: 4px;
+    padding: 0 4px;
+    font-weight: normal;
 }
 
 /* Labels */
@@ -319,7 +319,7 @@ popover contents, popover arrow {
 /* Chords */
 
 .chord {
-    margin-top: \(3 * theme.zoom)px;    
+    margin-top: \(3 * theme.zoom)px;
     margin-bottom: \(1 * theme.zoom)px;
     color: var(--chordprovider-chord-color);
 }
@@ -366,7 +366,7 @@ popover contents, popover arrow {
 
 /* Editor */
 
-textview { 
+textview {
     font-family: Monospace; font-size: \(theme.editorFontSize.rawValue)pt;
 }
 

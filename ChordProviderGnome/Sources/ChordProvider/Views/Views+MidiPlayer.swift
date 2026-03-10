@@ -32,7 +32,7 @@ extension Views {
         /// The MIDI preset
         let preset: MidiUtils.Preset
         /// The body of the `View`
-        var view: Body {    
+        var view: Body {
             Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
                 Task {
                     await Utils.MidiPlayer.shared.playNotes(notes, preset: preset)

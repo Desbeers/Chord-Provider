@@ -16,20 +16,20 @@ extension GtkRender {
         /// The current section of the song
         let section: Song.Section
         /// The core settings
-        let settings: ChordProviderSettings
+        let coreSettings: ChordProviderSettings
         /// The body of the `View`
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if settings.lyricsOnly {
+                        if coreSettings.lyricsOnly {
                             Text(line.plain ?? "")
                                 .halign(.start)
                         } else if let parts = line.parts {
                             PartsView(
                                 parts: parts,
-                                settings: settings
+                                coreSettings: coreSettings
                             )
                         }
                     case .emptyLine:

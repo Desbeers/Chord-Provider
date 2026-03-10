@@ -7,7 +7,6 @@
 
 import Foundation
 import Adwaita
-import SourceView
 
 extension AppState {
 
@@ -24,6 +23,8 @@ extension AppState {
         /// The original content of the song when opened or created
         /// - Note: To check if the song is changed
         var originalContent = ""
+        /// What to do when a song is saved
+        var saveDoneAction: SaveDoneAction = .noAction
 
         // MARK: Signals
 
@@ -33,8 +34,6 @@ extension AppState {
         var saveSongAs = Signal()
         /// A signal to open a folder
         var openFolder = Signal()
-        /// What to do when a song is saved
-        var saveDoneAction: SaveDoneAction = .noAction
 
         // MARK: Dialogs
 

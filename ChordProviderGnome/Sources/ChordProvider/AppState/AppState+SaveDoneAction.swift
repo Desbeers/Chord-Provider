@@ -5,9 +5,8 @@
 //  © 2025 Nick Berendsen
 //
 
-
 extension AppState {
-    
+
     /// The action after a song is saved
     enum SaveDoneAction {
         /// Close the window

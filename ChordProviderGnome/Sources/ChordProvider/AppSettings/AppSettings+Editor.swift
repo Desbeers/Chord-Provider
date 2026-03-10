@@ -21,5 +21,3 @@ extension AppSettings {
         var splitter: Int = 400
     }
 }
-
-

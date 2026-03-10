@@ -50,7 +50,10 @@ extension Views {
                                 recentSongs: $recentSongs
                             )
                         }
-                        .dialog(visible: $appState.scene.showDebugDialog, width: 800, height: 600) {
+                        .dialog(
+                            visible: $appState.scene.showDebugDialog,
+                            width: 800, height: 600
+                        ) {
                             Views.Debug(appState: $appState)
                         }
                 }
@@ -63,7 +66,10 @@ extension Views {
             // MARK: Toast
 
             /// The **Toast** message
-            .toast(appState.scene.toastMessage.escapeSpecialCharacters(), signal: appState.scene.showToast)
+            .toast(
+                appState.scene.toastMessage.escapeSpecialCharacters(),
+                signal: appState.scene.showToast
+            )
         }
     }
 }

@@ -26,7 +26,6 @@ extension Views {
             self.width = width
             self.coreSettings = coreSettings
         }
-        
         /// The chord definition
         let chord: ChordDefinition
         /// The width of the diagram

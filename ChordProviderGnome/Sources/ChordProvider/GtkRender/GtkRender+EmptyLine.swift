@@ -15,7 +15,7 @@ extension GtkRender {
         /// The body of the `View`
         var view: Body {
             Views.Empty()
-                .padding(4)
+                .style(.emptyLine)
         }
     }
 }

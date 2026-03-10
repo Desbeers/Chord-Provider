@@ -16,7 +16,10 @@ extension Views.Debug {
     @ViewBuilder var json: Body {
         VStack {
             NavigationSplitView {
-                List(JSONPage.allCases, selection: $appState.scene.selectedDebugJSONSection) { element in
+                List(
+                    JSONPage.allCases,
+                    selection: $appState.scene.selectedDebugJSONSection
+                ) { element in
                     Text(element.description)
                         .halign(.start)
                         .padding()
@@ -55,7 +58,7 @@ extension Views.Debug {
                                 )
                             }
                         case .settings:
-                            let metadata = try? JSONUtils.encode(appState.editor.song.settings)
+                            let metadata = try? JSONUtils.encode(appState.settings.core)
                             sourceView(metadata)
                         }
                     }

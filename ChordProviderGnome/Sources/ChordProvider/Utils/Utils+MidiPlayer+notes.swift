@@ -65,8 +65,8 @@ extension Utils.MidiPlayer {
         /// Fade out
         for step in 0..<fadeSteps {
             guard myToken == playToken else { break }
-            let t = Double(step) / Double(fadeSteps - 1)
-            let gain = pow(minGain, pow(t, curve))
+            let time = Double(step) / Double(fadeSteps - 1)
+            let gain = pow(minGain, pow(time, curve))
             let volume = Int32(Double(startVolume) * gain)
 
             fluid_synth_cc(synth, channel, 11, volume)

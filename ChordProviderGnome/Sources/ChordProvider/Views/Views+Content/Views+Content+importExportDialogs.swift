@@ -28,7 +28,7 @@ extension Views.Content {
                 /// Add it to the recent songs list
                 recentSongs.addRecentSong(
                     content: appState.scene.originalContent,
-                    settings: appState.editor.song.settings
+                    coreSettings: appState.settings.core
                 )
                 appState.scene.showToast.signal()
             }
@@ -38,16 +38,16 @@ extension Views.Content {
         /// The **File Exporter**
             .fileExporter(
                 open: appState.scene.saveSongAs,
-                initialName: appState.editor.song.initialName(format: appState.editor.song.settings.export.format)
+                initialName: appState.editor.song.initialName(format: appState.settings.core.export.format)
             ) { fileURL in
-                switch appState.editor.song.settings.export.format {
+                switch appState.settings.core.export.format {
                 case .chordPro:
-                    appState.editor.song.settings.fileURL = fileURL
+                    appState.settings.core.fileURL = fileURL
                     appState.saveSong()
                     /// Add it to the recent songs list
                     recentSongs.addRecentSong(
                         content: appState.scene.originalContent,
-                        settings: appState.editor.song.settings
+                        coreSettings: appState.settings.core
                     )
                     /// Set the toast
                     appState.scene.toastMessage = "Saved as '\(fileURL.deletingPathExtension().lastPathComponent)'"

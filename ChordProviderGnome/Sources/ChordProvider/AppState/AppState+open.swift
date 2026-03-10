@@ -16,9 +16,12 @@ extension AppState {
     ///   - showEditor: Bool to show the editor
     mutating func openSample(_ sample: Utils.Samples, showEditor: Bool) {
         if
-            let sampleSong = Bundle.module.url(forResource: "Samples/Songs/\(sample.rawValue)", withExtension: "chordpro"),
+            let sampleSong = Bundle.module.url(
+                forResource: "Samples/Songs/\(sample.rawValue)",
+                withExtension: "chordpro"
+            ),
             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-            self.editor.song.settings.fileURL = nil
+            self.settings.core.fileURL = nil
             openSong(content: content, showEditor: showEditor, templateURL: sampleSong)
         } else {
             print("Error loading sample song")
@@ -30,11 +33,11 @@ extension AppState {
     mutating func openSong(fileURL: URL) {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
-            self.editor.song.settings.fileURL = fileURL
+            self.settings.core.fileURL = fileURL
             openSong(content: content, showEditor: self.settings.editor.showEditor)
             self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
         } catch {
-            self.editor.song.settings.fileURL = nil
+            self.settings.core.fileURL = nil
             self.scene.toastMessage = "Could not open the song"
         }
     }
@@ -46,7 +49,7 @@ extension AppState {
     ///   - templateURL: The optional template URL of the song
     mutating private func openSong(content: String, showEditor: Bool, templateURL: URL? = nil) {
         /// Reset transpose
-        self.editor.song.settings.transpose = 0
+        self.settings.core.transpose = 0
         self.editor.song.metadata.transpose = 0
         /// Don't show the previous song because the rendering has some delay
         self.editor.song.hasContent = false
@@ -55,7 +58,7 @@ extension AppState {
         self.scene.originalContent = content
         self.settings.editor.showEditor = showEditor
         if let templateURL {
-            self.editor.song.settings.templateURL = templateURL
+            self.settings.core.templateURL = templateURL
         }
         /// Close the welcome `View`
         self.scene.showWelcomeView = false

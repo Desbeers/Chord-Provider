@@ -16,13 +16,13 @@ extension GtkRender {
         /// The parts of the song line
         let parts: [Song.Section.Line.Part]
         /// The core settings
-        let settings: ChordProviderSettings
+        let coreSettings: ChordProviderSettings
         /// The body of the `View`
         var view: Body {
             ForEach(parts, horizontal: true) { part in
                 Box {
                     if part.chordDefinition != nil {
-                        SingleChord(part: part, settings: settings)
+                        SingleChord(part: part, coreSettings: coreSettings)
                             .halign(.start)
                             .padding(5, .trailing)
                     } else {

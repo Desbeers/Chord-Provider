@@ -75,17 +75,19 @@ import CAdw
                     /// Add it to the recent songs list
                     recentSongs.addRecentSong(
                         content: appState.scene.originalContent,
-                        settings: appState.editor.song.settings
+                        coreSettings: appState.settings.core
                     )
                 }
             }
         }
+        .devel(appState.settings.app.debug)
         /// - Note: It will remember the window size when opening a new window
         .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 800, height: 600)
         .minSize(width: 800, height: 600)
         .maximized($windowSize.maximized)
-        .title("Chord Provider")
+        /// This is what you see in the Gnome overview
+        .title(appState.overviewTitle)
         .onClose {
             if appState.contentIsModified {
                 appState.scene.saveDoneAction = .closeWindow
@@ -111,6 +113,7 @@ import CAdw
         .defaultSize(width: 800, height: 600)
         .title("Chords Database")
         .maximized($databaseWindowSize.maximized)
+        .devel(appState.settings.app.debug)
         .onClose {
             if databaseState.databaseIsModified {
                 databaseState.exportDoneAction = .closeWindow

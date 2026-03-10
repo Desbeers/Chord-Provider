@@ -26,6 +26,8 @@ extension AppSettings {
 }
 
 extension AppSettings.Theme {
+
+    /// The appearance of the application
     enum Appearance: Int, Codable, Equatable, CaseIterable, CustomStringConvertible, Identifiable {
         /// Default appearance
         case system = 0
@@ -64,12 +66,19 @@ extension AppSettings.Theme {
 
     /// The font size of the editor
     enum Font: Int, Codable, CaseIterable, CustomStringConvertible, Identifiable {
+        /// Smaller font
         case smaller = 10
+        /// Small font
         case small = 11
+        /// Standard font
         case standard = 12
+        /// Large font
         case large = 13
+        /// Larger font
         case larger = 14
-
+        /// Identifiable protocol
+        var id: Self { self }
+        /// CustomStringConvertible protocol
         var description: String {
             switch self {
             case .smaller: "Smaller"
@@ -79,6 +88,5 @@ extension AppSettings.Theme {
             case .larger: "Larger"
             }
         }
-        var id: Self { self }
     }
 }

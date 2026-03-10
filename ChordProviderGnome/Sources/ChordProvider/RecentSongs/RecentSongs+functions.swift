@@ -11,19 +11,19 @@ import ChordProviderCore
 extension RecentSongs {
 
     /// Add a *Recent song*
-    mutating func addRecentSong(content: String, settings: ChordProviderSettings) {
-        if let fileURL = settings.fileURL {
+    mutating func addRecentSong(content: String, coreSettings: ChordProviderSettings) {
+        if let fileURL = coreSettings.fileURL {
             var recentSongs = self.items
             /// Keep only relevant information
             let recent = ChordProParser.parse(
                 song: Song(id: UUID(), content: content),
-                settings: settings,
+                settings: coreSettings,
                 getOnlyMetadata: true
             )
             recentSongs.append(
                 Item(
                     url: fileURL,
-                    settings: settings,
+                    settings: coreSettings,
                     metadata: recent.metadata,
                     lastOpened: Date.now
                 )

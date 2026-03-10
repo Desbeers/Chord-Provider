@@ -10,11 +10,7 @@ import Foundation
 extension Chord {
 
     /// The instruments we know about
-    public enum Instrument: String, CaseIterable, Codable, Identifiable, Sendable, CustomStringConvertible {
-
-        /// Make ``Instrument`` identifiable
-        public var id: Self { self }
-
+    public enum Instrument: String, CaseIterable, Codable, Sendable {
         /// Guitar Standard E tuning
         case guitar
         /// Guitalele
@@ -24,12 +20,17 @@ extension Chord {
     }
 }
 
-extension Chord.Instrument {
+extension Chord.Instrument: Identifiable, CustomStringConvertible {
 
-    /// The description of the instrument
+    /// Identifiable protocol
+    public var id: Self { self }
+    /// CustomStringConvertible protocol
     public var description: String {
         rawValue.capitalized
     }
+}
+
+extension Chord.Instrument {
 
     /// The label of the instrument
     public var label: String {

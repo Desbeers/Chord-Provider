@@ -14,6 +14,8 @@ extension Views.Content {
     /// The dialogs for the *Content view*
     var dialogs: AnyView {
 
+        // MARK: Preferences Dialog
+
         /// The `View` for the preferences
         Views.Preferences(appState: $appState)
 
@@ -54,10 +56,9 @@ extension Views.Content {
             .alertDialog(
                 visible: $appState.scene.showCloseDialog,
                 heading: "Save Changes?",
-                //body: "Changes which are not saved will be permanently lost.",
                 id: "dirty-dialog",
-                /// - Note: Use `extraChild` instead of `body` so I can use markup
-                extraChild:  {
+                /// - Note: I use `extraChild` instead of `body` so I can use markup
+                extraChild: {
                     VStack {
                         Text("<b>\(appState.editor.song.metadata.title)</b> is modified.")
                             .useMarkup()
@@ -86,12 +87,12 @@ extension Views.Content {
                 }
             }
             .response("Save", appearance: .suggested, role: .default) {
-                if let fileURL = appState.editor.song.settings.fileURL {
+                if let fileURL = appState.settings.core.fileURL {
                     appState.saveSong()
                     /// Add it to the recent songs list
                     recentSongs.addRecentSong(
                         content: appState.scene.originalContent,
-                        settings: appState.editor.song.settings
+                        coreSettings: appState.settings.core
                     )
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
@@ -105,7 +106,7 @@ extension Views.Content {
                     }
                 } else {
                     /// The song has not yet been saved; show the *Save As* dialog
-                    appState.editor.song.settings.export.format = .chordPro
+                    appState.settings.core.export.format = .chordPro
                     appState.scene.saveSongAs.signal()
                 }
             }

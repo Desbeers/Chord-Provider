@@ -14,6 +14,9 @@ extension GtkRender {
     /// The `View` for repeating a chorus
     struct RepeatChorus: View {
         /// Init the `View`
+        /// - Parameters:
+        ///   - label: The optional label
+        ///   - section: The current section
         init(label: String? = nil, section: Song.Section) {
             self.label = label ?? section.label
         }

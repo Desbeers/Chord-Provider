@@ -34,7 +34,7 @@ extension Views {
         var view: Body {
             Box {
                 if let tempo {
-                    HStack{
+                    HStack {
                         Widgets.BundleImage(name: "tempo")
                             .pixelSize(16)
                             .valign(.baselineCenter)
@@ -51,7 +51,7 @@ extension Views {
                                 }
                             }
                         })
-                        .style(.pageHeaderButton)
+                        .style(.pageHeaderToggle)
                         .flat()
                         .padding(1, .top)
                     }

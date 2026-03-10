@@ -61,7 +61,7 @@ extension GtkRender {
             /// - Note: I cannot set the style conditional
             Box {
                 if part.chordDefinition != nil {
-                    SingleChord(part: part, settings: settings.core)
+                    SingleChord(part: part, coreSettings: settings.core)
                 } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
                         .pixelSize(Int(14 * settings.theme.zoom))

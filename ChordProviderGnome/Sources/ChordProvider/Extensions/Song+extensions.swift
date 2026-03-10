@@ -8,7 +8,7 @@
 import ChordProviderCore
 
 extension Song {
-    
+
     /// The tooltip for the transpose toggle button
     var transposeTooltip: String {
         var text = "Transpose"
@@ -25,7 +25,10 @@ extension Song {
 
     /// The intentional name of the song file
     func initialName(format: ChordProviderSettings.Export.Format) -> String {
-        var name = settings.fileURL?.deletingPathExtension().lastPathComponent ?? "\(metadata.artist) - \(metadata.title)"
+        /// The optional current URL
+        let fileURL = settings.fileURL?.deletingPathExtension().lastPathComponent
+        /// Use the current URL if exists or else use the metadata
+        var name = fileURL ?? "\(metadata.artist) - \(metadata.title)"
         /// Add the extension
         name.append(".\(format.rawValue)")
         return name

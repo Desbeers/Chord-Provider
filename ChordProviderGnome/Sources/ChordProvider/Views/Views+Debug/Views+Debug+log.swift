@@ -10,9 +10,9 @@ import Adwaita
 import ChordProviderCore
 
 extension Views.Debug {
-    
+
     // MARK: Log View
-    
+
     /// The `Body` for the log messages
     @ViewBuilder var log: Body {
         ScrollView {

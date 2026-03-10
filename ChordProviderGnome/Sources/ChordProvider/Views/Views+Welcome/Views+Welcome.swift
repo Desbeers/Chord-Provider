@@ -61,27 +61,27 @@ extension Views {
                             appState.openSample(.swingLowSweetChariot, showEditor: true)
                         }
                         .padding()
-                        #if DEBUG
-                        Menu("Debug Songs") {
-                            /// - Note: I cannot use a `ForEach` to populate the menu. It will be empty.
-                            MenuButton(Utils.Samples.pangoMarkup.rawValue) {
-                                appState.openSample(Utils.Samples.pangoMarkup, showEditor: true)
+                        if appState.settings.app.debug {
+                            Menu("Debug Songs") {
+                                /// - Note: I cannot use a `ForEach` to populate the menu. It will be empty.
+                                MenuButton(Utils.Samples.pangoMarkup.rawValue) {
+                                    appState.openSample(Utils.Samples.pangoMarkup, showEditor: true)
+                                }
+                                MenuButton(Utils.Samples.debugWarnings.rawValue) {
+                                    appState.openSample(Utils.Samples.debugWarnings, showEditor: true)
+                                }
+                                MenuButton(Utils.Samples.transpose.rawValue) {
+                                    appState.openSample(Utils.Samples.transpose, showEditor: true)
+                                }
+                                MenuButton(Utils.Samples.chordDefinitions.rawValue) {
+                                    appState.openSample(Utils.Samples.chordDefinitions, showEditor: true)
+                                }
+                                MenuButton(Utils.Samples.mollyMalone.rawValue) {
+                                    appState.openSample(Utils.Samples.mollyMalone, showEditor: true)
+                                }
                             }
-                            MenuButton(Utils.Samples.debugWarnings.rawValue) {
-                                appState.openSample(Utils.Samples.debugWarnings, showEditor: true)
-                            }
-                            MenuButton(Utils.Samples.transpose.rawValue) {
-                                appState.openSample(Utils.Samples.transpose, showEditor: true)
-                            }
-                            MenuButton(Utils.Samples.chordDefinitions.rawValue) {
-                                appState.openSample(Utils.Samples.chordDefinitions, showEditor: true)
-                            }
-                            MenuButton(Utils.Samples.mollyMalone.rawValue) {
-                                appState.openSample(Utils.Samples.mollyMalone, showEditor: true)
-                            }
+                            .padding()
                         }
-                        .padding()
-                        #endif
                         /// - Note: This should be a spacer
                         Separator()
                             .style("spacer")
@@ -186,7 +186,7 @@ extension Views.Welcome {
             if let url = songsFolder {
                 let content = SongFileUtils.getSongsFromFolder(
                     url: url,
-                    settings: appState.editor.song.settings,
+                    settings: appState.settings.core,
                     getOnlyMetadata: true
                 )
                 artists = content.artists
@@ -261,7 +261,7 @@ extension Views.Welcome {
                 appState.openSong(fileURL: fileURL)
                 recentSongs.addRecentSong(
                     content: appState.scene.originalContent,
-                    settings: appState.editor.song.settings
+                    coreSettings: appState.settings.core
                 )
                 appState.scene.showToast.signal()
             }
@@ -285,7 +285,7 @@ extension Views.Welcome {
             }
             .hasFrame(false)
             .tooltip(fileURL.lastPathComponent.escapeSpecialCharacters())
-            if let tags = metadata.tags  {
+            if let tags = metadata.tags {
                 Views.Tags(tags: tags)
                     .valign(.center)
             }

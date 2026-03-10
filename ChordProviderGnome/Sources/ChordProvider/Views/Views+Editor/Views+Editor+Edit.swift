@@ -43,11 +43,19 @@ extension Views.Editor {
                 ForEach(directive.attributes) { attribute in
                     switch attribute {
                     case .plain:
-                        PlainField(label: directive.details.label, prompt: directive.details.label, value: $formState.plain)
-                            .padding(.bottom)
+                        PlainField(
+                            label: directive.details.label,
+                            prompt: directive.details.label,
+                            value: $formState.plain
+                        )
+                        .padding(.bottom)
                     case .label:
-                        PlainField(label: "Label", prompt: directive.details.label, value: $formState.label)
-                            .padding(.bottom)
+                        PlainField(
+                            label: "Label",
+                            prompt: directive.details.label,
+                            value: $formState.label
+                        )
+                        .padding(.bottom)
                     case .align:
                         AlignPicker(label: "Align", value: $formState.align)
                             .padding(.bottom)
@@ -56,8 +64,12 @@ extension Views.Editor {
                             .padding(.bottom)
                     case .src:
                         // TODO: Make this a file picker
-                        PlainField(label: "File", prompt: directive.details.label, value: $formState.src)
-                            .padding(.bottom)
+                        PlainField(
+                            label: "File",
+                            prompt: directive.details.label,
+                            value: $formState.src
+                        )
+                        .padding(.bottom)
                     case .width:
                         NumberSpinner(
                             label: "Optional Width",

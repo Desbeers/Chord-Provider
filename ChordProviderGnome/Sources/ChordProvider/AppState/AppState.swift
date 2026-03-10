@@ -20,6 +20,7 @@ struct AppState {
             if settings.theme != oldValue.theme {
                 self.setStyle()
             }
+            /// Update the core settings of the song if needed
             if settings.core != oldValue.core {
                 self.editor.song.settings = settings.core
             }
@@ -55,13 +56,17 @@ extension AppState {
             if let album = metadata.album {
                 subtitle.append(album)
             }
-            if let year = metadata.year {
-                subtitle.append(year)
-            }
             if contentIsModified {
-            	subtitle.append("modified")
+            	    subtitle.append("modified")
             }
             return subtitle.joined(separator: " · ")
+    }
+
+    /// The title in the Gnome overview
+    var overviewTitle: String {
+        let appName = "Chord Provider"
+        let fileName = settings.core.fileURL?.deletingPathExtension().lastPathComponent
+        return scene.showWelcomeView ? appName : fileName ?? appName
     }
 
     /// Bool if the content of the song is modified

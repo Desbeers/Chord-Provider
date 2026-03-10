@@ -26,9 +26,9 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             switch horizontal {
-                case true:
+            case true:
                 tagLabels()
-            case false :
+            case false:
                 Text("Tags…")
                     .style(.tagButton)
                     .padding(5)

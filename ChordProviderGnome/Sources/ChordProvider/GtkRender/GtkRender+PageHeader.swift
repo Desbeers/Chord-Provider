@@ -18,20 +18,10 @@ extension GtkRender {
         init(appState: Binding<AppState>) {
             self._appState = appState
             let metadata = appState.editor.song.metadata.wrappedValue
-            var subtitle: [String] = [metadata.subtitle ?? metadata.artist]
-            if let album = metadata.album {
-                subtitle.append(album)
-            }
-            if let year = metadata.year {
-                subtitle.append(year)
-            }
-            self.subtitle = subtitle.joined(separator: " · ")
             self.metadata = metadata
         }
         /// The state of the application
         @Binding var appState: AppState
-        /// The subtitle
-        let subtitle: String
         /// The metadata
         let metadata: Song.Metadata
         /// Bool to show more metadata
@@ -50,19 +40,19 @@ extension GtkRender {
                     metadata(name: "time", value: time)
                 }
                 Views.MetronomeToggle(appState: $appState)
+                    .tooltip("Play the metronome")
                 if let additionalMetadata = additionalMetadata() {
-                    Button("More…") {
-                        showMoreMetadata.toggle()
-                    }
-                    .style(.pageHeaderButton)
-                    .flat()
-                    .padding(1, .top)
-                    .popover(visible: $showMoreMetadata) {
-                        ForEach(additionalMetadata) { item in
-                            Text(item.content)
-                                .useMarkup()
+                    Toggle("More…", isOn: $showMoreMetadata)
+                        .style(.pageHeaderToggle)
+                        .flat()
+                        .tooltip("Show more information about the song")
+                        .popover(visible: $showMoreMetadata) {
+                            ForEach(additionalMetadata) { item in
+                                Text(item.content)
+                                    .useMarkup()
+                                    .padding(4)
+                            }
                         }
-                    }
                 }
             }
             .style(.metadata)
@@ -86,8 +76,13 @@ extension GtkRender {
             .padding()
         }
 
+        /// Collect additional metadata
+        /// - Returns: An array of metadata
         private func additionalMetadata() -> [String.ElementWrapper]? {
             var result = [String.ElementWrapper]()
+            if let year = metadata.year {
+                appendMetadata([year.toElementWrapper], label: "Year", result: &result)
+            }
             if let duration = metadata.formatDuration {
                 appendMetadata([duration.toElementWrapper], label: "Duration", result: &result)
             }
@@ -106,7 +101,16 @@ extension GtkRender {
             return result.isEmpty ? nil : result
         }
 
-        private func appendMetadata(_ metadata: [String.ElementWrapper], label: String, result: inout [String.ElementWrapper]) {
+        /// Append a metadata item
+        /// - Parameters:
+        ///   - metadata: The metadata to add
+        ///   - label: The label of the metadata
+        ///   - result: The current array of metadata items
+        private func appendMetadata(
+            _ metadata: [String.ElementWrapper],
+            label: String,
+            result: inout [String.ElementWrapper]
+        ) {
             result.append(.init(content: "<b>\(label)\(metadata.count > 1 ? "s" : "")</b>"))
             for item in metadata {
                 result.append(.init(content: "\(item.content)"))

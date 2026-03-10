@@ -5,9 +5,9 @@
 //  © 2025 Nick Berendsen
 //
 
+import ChordProviderCore
 import Adwaita
 import CAdw
-import ChordProviderCore
 
 extension AnyView {
 
@@ -24,18 +24,20 @@ extension AnyView {
     /// Add a CSS style to a log entry
     /// - Parameter name: The `LogUtils/Level``
     /// - Returns: A level `AnyView`
-    func logLevelStyle(_ level : LogUtils.Level) -> AnyView {
+    func logLevelStyle(_ level: LogUtils.Level) -> AnyView {
         style(.log).style("log-\(level.rawValue)")
     }
 }
 
 extension AnyView {
-    
+
     /// Orientate a `Widget` vertical
     /// - Returns: A modified `AnyView`
     public func vertical() -> AnyView {
         inspect { storage, updateProperties in
-            gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_VERTICAL)
+            if updateProperties {
+                gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_VERTICAL)
+            }
         }
     }
 
@@ -43,7 +45,9 @@ extension AnyView {
     /// - Returns: A modified `AnyView`
     public func horizontal() -> AnyView {
         inspect { storage, updateProperties in
-            gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_HORIZONTAL)
+            if updateProperties {
+                gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_HORIZONTAL)
+            }
         }
     }
 }

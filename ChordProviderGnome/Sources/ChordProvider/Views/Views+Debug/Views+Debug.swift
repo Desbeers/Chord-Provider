@@ -101,7 +101,7 @@ extension Views {
             /// Generated JSON messages
             case json = "JSON output"
         }
-        
+
         /// The pages of the *JSON* View
         enum JSONPage: String, Identifiable, CaseIterable, Codable, CustomStringConvertible {
             /// Make it identifiable

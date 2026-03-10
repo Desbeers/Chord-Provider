@@ -48,7 +48,7 @@ enum Utils {
         /// Use the align argument by default
         return getTextAlignment(arguments)
     }
-    
+
     /// Convert simple links to a full link
     /// - Parameter content: The string
     /// - Returns: A full link if the content has a simple link, else just the text

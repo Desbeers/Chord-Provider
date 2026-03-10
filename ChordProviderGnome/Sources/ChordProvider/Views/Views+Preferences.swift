@@ -67,6 +67,12 @@ extension Views {
                         )
                             .subtitle("Preferred Color Theme")
                     }
+                    .group("Debug") {
+                        SwitchRow()
+                            .title("Debug")
+                            .subtitle("Show debug additions to improve Chord Provider")
+                            .active($appState.settings.app.debug)
+                    }
             }
             .preferencesPage("Editor", icon: .default(icon: .textEditor)) { page in
                 page
@@ -79,15 +85,23 @@ extension Views {
                             .title("Wrap Lines")
                             .subtitle("Wrap lines when they are too long")
                             .active($appState.settings.editor.wrapLines)
-                        ComboRow("Font Size", selection: $appState.settings.theme.editorFontSize, values: AppSettings.Theme.Font.allCases)
-                            .subtitle("Select the font size for the editor")
+                        ComboRow(
+                            "Font Size",
+                            selection: $appState.settings.theme.editorFontSize,
+                            values: AppSettings.Theme.Font.allCases
+                        )
+                        .subtitle("Select the font size for the editor")
                     }
             }
             .preferencesPage("Midi", icon: .default(icon: .mediaPlaybackStart)) { page in
                 page
                     .group("Options for the MIDI player") {
-                        ComboRow("Instrument", selection: $appState.settings.core.midiPreset, values: MidiUtils.Preset.allCases)
-                            .subtitle("Select the instrument for playing chord with MIDI")
+                        ComboRow(
+                            "Instrument",
+                            selection: $appState.settings.core.midiPreset,
+                            values: MidiUtils.Preset.allCases
+                        )
+                        .subtitle("Select the instrument for playing chord with MIDI")
                         SwitchRow()
                             .title("Sound for Chord Definitions")
                             .subtitle("Use sound when defining a Chord")

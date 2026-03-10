@@ -25,14 +25,14 @@ extension Views {
                     CountButton(
                         appState: $appState.onSet { _ in appState.editor.command = .updateSong },
                         icon: .goPrevious) {
-                            $0.editor.song.settings.transpose = max($0.editor.song.settings.transpose - 1, -11)
+                            $0.settings.core.transpose = max($0.settings.core.transpose - 1, -11)
                         }
                     Text("\(appState.editor.song.transposing) semitones")
                         .frame(minWidth: 150)
                     CountButton(
                         appState: $appState.onSet { _ in appState.editor.command = .updateSong },
                         icon: .goNext) {
-                            $0.editor.song.settings.transpose = min($0.editor.song.settings.transpose + 1, 11)
+                            $0.settings.core.transpose = min($0.settings.core.transpose + 1, 11)
                         }
                 }
                 .halign(.center)

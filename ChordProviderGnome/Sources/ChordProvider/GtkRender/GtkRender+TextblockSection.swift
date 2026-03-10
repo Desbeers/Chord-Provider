@@ -14,6 +14,9 @@ extension GtkRender {
     /// The `View` for a textblock section
     struct TextblockSection: View {
         /// Init the `View`
+        /// - Parameters:
+        ///   - section: The current section
+        ///   - maxLenght: The maximum length of a single line
         init(section: Song.Section, maxLenght: Int) {
             self.section = section
             self.maxLenght = maxLenght

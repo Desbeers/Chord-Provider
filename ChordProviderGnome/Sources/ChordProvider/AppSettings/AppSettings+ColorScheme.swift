@@ -9,11 +9,15 @@ import Foundation
 
 extension AppSettings {
 
+    /// The color scheme for the application
     enum ColorScheme: String, Codable, Equatable, CaseIterable, CustomStringConvertible, Identifiable {
+        /// The system accent color
         case accent
+        /// Greenish color
         case green
+        /// Reddish color
         case red
-
+        /// Identifiable protocol
         var id: Self { self }
         /// CustomStringConvertible protocol
         var description: String {
@@ -26,7 +30,7 @@ extension AppSettings {
                 "Red Delight"
             }
         }
-
+        /// The colors for the color scheme
         func colors(dark: Bool) -> Colors {
         switch self {
             case .accent:

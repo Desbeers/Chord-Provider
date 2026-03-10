@@ -13,7 +13,6 @@ struct RecentSongs: Codable {
     var items: [Item] = []
 }
 
-
 extension RecentSongs {
 
     /// The structure for a recent song item

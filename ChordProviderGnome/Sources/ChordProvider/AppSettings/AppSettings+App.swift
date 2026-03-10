@@ -16,5 +16,7 @@ extension AppSettings {
         var columnPaging: Bool = true
         /// Use sound for chord definitions
         var soundForChordDefinitions: Bool = false
+        /// Debug stuff
+        var debug: Bool = false
     }
 }

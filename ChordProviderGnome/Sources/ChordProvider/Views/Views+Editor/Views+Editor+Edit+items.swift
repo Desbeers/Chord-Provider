@@ -122,7 +122,7 @@ extension Views.Editor.Edit {
         /// The selected value
         @Binding var value: Int
         /// The optional help
-        var help: String? = nil
+        var help: String?
         /// The body of the `View`
         var view: Body {
             HStack {
@@ -130,8 +130,6 @@ extension Views.Editor.Edit {
                 VStack {
                     SpinRow("", value: $value, min: start, max: end)
                         .suffix { Text(suffix) }
-                    //.subtitle(help ?? "")
-                    //.subtitle("A value of 0 will not scale")
                     if let help {
                         Text(help)
                             .caption()
@@ -145,6 +143,11 @@ extension Views.Editor.Edit {
     }
 
     struct KeyPicker: View {
+
+        /// Init the key picker
+        /// - Parameters:
+        ///   - label: The label for the key picker
+        ///   - value: The key picker value
         init(label: String, value: Binding<String>) {
             self.label = label
             self._value = value
@@ -154,16 +157,14 @@ extension Views.Editor.Edit {
             self._root = State(wrappedValue: key.root ?? .c)
             self._quality = State(wrappedValue: key.quality ?? .major)
         }
-        
         /// The label of the text field
         let label: String
         /// The value of the text field
         @Binding var value: String
-
+        /// The selected root
         @State private var root: Chord.Root
-
+        /// The selected quality
         @State private var quality: Chord.Quality
-
         /// The body of the `View`
         var view: Body {
             HStack {
@@ -186,19 +187,22 @@ extension Views.Editor.Edit {
     }
 
     struct AlignPicker: View {
+
+        /// Init the alignment picker
+        /// - Parameters:
+        ///   - label: The label for the alignment picker
+        ///   - value: The alignment picker value
         init(label: String, value: Binding<String>) {
             self.label = label
             self._value = value
             self._selection = State(wrappedValue: Views.Editor.Edit.AlignmentStyle(rawValue: value.wrappedValue) ?? .default)
         }
-
         /// The label of the text field
         let label: String
         /// The value of the text field
         @Binding var value: String
-
+        /// The selected alignment
         @State private var selection: Views.Editor.Edit.AlignmentStyle
-
         /// The body of the `View`
         var view: Body {
             HStack {

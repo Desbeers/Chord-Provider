@@ -30,7 +30,7 @@ extension Views.Welcome {
                             .padding()
                     }
                 } content: {
-                    let selection = tags.first(where:  {$0.id.uuidString == selectedTab.datatypeValue } )
+                    let selection = tags.first(where: { $0.id.uuidString == selectedTab.datatypeValue })
                     let songs = songs.filter { $0.metadata.tags?.map(\.content).contains(selection?.content ?? "") ?? false }
                     ScrollView {
                         if songs.isEmpty {

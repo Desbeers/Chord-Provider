@@ -33,7 +33,9 @@ extension Views.Toolbar {
         var view: Body {
             /// Bool if the song is transposed
             let transposed = Binding(
-                get: { appState.editor.song.transposing != 0 },
+                get: {
+                    appState.editor.song.transposing != 0
+                },
                 set: {
                     /// Needed but unused
                     _ = $0
@@ -49,8 +51,7 @@ extension Views.Toolbar {
                     ToggleButton(
                         icon: .default(icon: .objectFlipVertical),
                         isOn: transposed
-                    )
-                    .toggled {
+                    ) {
                         appState.scene.showTransposeDialog = true
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
@@ -95,18 +96,18 @@ extension Views.Toolbar {
                         }
                         .keyboardShortcut("o".ctrl())
                         MenuButton("Save") {
-                            appState.editor.song.settings.export.format = .chordPro
+                            appState.settings.core.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.saveSong()
                             /// Add it to the recent songs list
                             recentSongs.addRecentSong(
                                 content: appState.scene.originalContent,
-                                settings: appState.editor.song.settings
+                                coreSettings: appState.settings.core
                             )
                         }
                         .keyboardShortcut("s".ctrl())
                         MenuButton("Save As…") {
-                            appState.editor.song.settings.export.format = .chordPro
+                            appState.settings.core.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.scene.saveSongAs.signal()
                         }

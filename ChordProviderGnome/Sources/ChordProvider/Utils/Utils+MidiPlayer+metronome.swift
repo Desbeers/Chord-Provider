@@ -33,31 +33,24 @@ extension Utils.MidiPlayer {
 
     /// Set metronome meter: "4/4", "6/8", "7/8=2+2+3"
     func setMetronomeMeter(_ meter: String) {
-
         let mainParts = meter.split(separator: "=")
         let signaturePart = mainParts[0]
         let additivePart = mainParts.count > 1 ? mainParts[1] : nil
-
         let sigParts = signaturePart.split(separator: "/")
-        guard
-            sigParts.count == 2,
-            let num = Int(sigParts[0]),
-            let den = Int(sigParts[1])
+        guard sigParts.count == 2,
+                let num = Int(sigParts[0]),
+                let den = Int(sigParts[1])
         else { return }
-
         // MARK: Additive meters (explicit grouping)
-        if
-            let additivePart,
+        if let additivePart,
             let groups = parseAdditiveGroups(additivePart),
-            groups.reduce(0, +) == num
-        {
+            groups.reduce(0, +) == num {
             var accents: [Int] = []
             var index = 0
-            for g in groups {
+            for group in groups {
                 accents.append(index)
-                index += g
+                index += group
             }
-
             timeSignature = TimeSignature(
                 numerator: num,
                 denominator: den,
@@ -67,18 +60,15 @@ extension Utils.MidiPlayer {
             )
             return
         }
-
         // MARK: Compound meters (6/8, 9/8, 12/8)
         if den == 8, num % 3 == 0 {
             let groups = Array(repeating: 3, count: num / 3)
-
             var accents: [Int] = []
             var index = 0
-            for g in groups {
+            for group in groups {
                 accents.append(index)
-                index += g
+                index += group
             }
-
             timeSignature = TimeSignature(
                 numerator: num,
                 denominator: den,
@@ -88,7 +78,6 @@ extension Utils.MidiPlayer {
             )
             return
         }
-
         // MARK: Simple meters
         timeSignature = TimeSignature(
             numerator: num,
@@ -98,7 +87,6 @@ extension Utils.MidiPlayer {
             quarterNoteMultiplier: 1.0
         )
     }
-
 
     // MARK: Metronome loop
 

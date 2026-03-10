@@ -130,7 +130,9 @@ extension Views {
                     /// Nothing to do
                 }
                 .response("Cleanup", appearance: .suggested, role: .default) {
-                    appState.editor.command = .replaceAllText(text: appState.editor.song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n"))
+                    appState.editor.command = .replaceAllText(
+                        text: appState.editor.song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+                    )
                 }
             }
             .style(.caption)
@@ -157,9 +159,13 @@ extension Views {
             .flat()
         }
 
+        /// Toggles for grouped inserts
         struct Inserts {
+            /// Insert metadata
             var showMetadata: Bool = false
+            /// Insert environments
             var showEnvironment: Bool = false
+            /// Insert others
             var showMore: Bool = false
         }
     }
