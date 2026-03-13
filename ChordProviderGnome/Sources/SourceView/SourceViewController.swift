@@ -101,7 +101,7 @@ public final class SourceViewController {
     deinit {
         print("DEINT CONTROLLER")
     }
-    
+
     /// Set the style of the editor
     /// - Parameters:
     ///   - buffer: The text buffer
@@ -111,7 +111,7 @@ public final class SourceViewController {
         let theme = isDark == 1 ? "Adwaita-dark" : "Adwaita"
         let manager = gtk_source_style_scheme_manager_get_default()
         let scheme = gtk_source_style_scheme_manager_get_scheme(manager, theme)
-        gtk_source_buffer_set_style_scheme(buffer.opaquePointer?.cast(), scheme);
+        gtk_source_buffer_set_style_scheme(buffer.opaquePointer?.cast(), scheme)
     }
 
     // MARK: Cursor movement
@@ -145,7 +145,6 @@ public final class SourceViewController {
         gtk_source_buffer_set_language(buffer.opaquePointer?.cast(), lang)
     }
 
-
     // MARK: Current line information
 
     func updateCurrentLine() {
@@ -163,7 +162,6 @@ public final class SourceViewController {
             gtk_text_buffer_get_insert(bufferPtr)
         )
         let currentLineNumber = Int(gtk_text_iter_get_line(&iter) + 1)
-
 
         let number = bridgeBinding.song.lines.wrappedValue
 
@@ -249,7 +247,7 @@ extension SourceViewController {
             sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
             let lines = bridge.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
             bridge.songLines = lines
-            for line in lines.filter( { $0.warnings != nil } ) {
+            for line in lines.filter({ $0.warnings != nil }) {
                 sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
             }
             /// Update the bridge
@@ -297,7 +295,6 @@ public func sourceview_insert_cb(
     /// Schedule undo snapshot / any other callbacks
     controller.scheduleSnapshot()
 }
-
 
 @_cdecl("sourceview_delete_cb")
 public func sourceview_delete_cb(

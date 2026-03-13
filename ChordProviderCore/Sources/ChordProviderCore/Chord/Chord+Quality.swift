@@ -15,7 +15,7 @@ extension Chord {
 
         /// Identifiable protocol
         public var id: Self { self }
-        
+
         /// CustomStringConvertible protocol
         public var description: String {
             switch self {

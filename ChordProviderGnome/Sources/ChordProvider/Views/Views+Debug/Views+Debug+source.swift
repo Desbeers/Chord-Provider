@@ -71,7 +71,7 @@ extension Views.Debug {
         }
         .padding()
     }
-    
+
     /// Get the source of the song
     /// - Returns: The source in a ``Source`` array
     private func getSource() -> [Source] {
@@ -81,7 +81,7 @@ extension Views.Debug {
         }
         return source
     }
-    
+
     /// The structure for a source line
     private struct Source: Identifiable {
         /// The ID of the source line

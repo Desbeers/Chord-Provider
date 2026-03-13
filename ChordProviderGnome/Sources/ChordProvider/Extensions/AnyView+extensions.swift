@@ -22,8 +22,8 @@ extension AnyView {
 extension AnyView {
 
     /// Add a CSS style to a log entry
-    /// - Parameter name: The `LogUtils/Level``
-    /// - Returns: A level `AnyView`
+    /// - Parameter level: The `LogUtils/Level``
+    /// - Returns: A modified `AnyView`
     func logLevelStyle(_ level: LogUtils.Level) -> AnyView {
         style(.log).style("log-\(level.rawValue)")
     }

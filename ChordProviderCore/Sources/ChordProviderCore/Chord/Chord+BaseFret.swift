@@ -22,12 +22,11 @@ extension Chord {
             return formatter.string(from: NSNumber(value: Int32(self.rawValue))) ?? "ERROR"
         }
 
-        /// Implement Comparable
+        /// Comparable protocol
         public static func < (lhs: Self, rhs: Self) -> Bool {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
         }
 
-        // swiftlint:disable identifier_name
         case one = 1
         case two
         case three

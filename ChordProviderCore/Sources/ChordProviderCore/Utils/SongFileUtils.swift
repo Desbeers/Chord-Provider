@@ -99,12 +99,8 @@ extension SongFileUtils {
         artists = grouped.map { artist -> Artist in
             Artist(name: artist.key, sortName: artist.key.removePrefixes(sortTokens), songs: artist.value)
         }
-        .sorted { (lhs: Artist, rhs: Artist) -> Bool in
-            lhs.sortName.compare(rhs.sortName, options: [.diacriticInsensitive, .caseInsensitive]) == .orderedAscending
-        }
-        songs = songs.sorted { (lhs: Song, rhs: Song) -> Bool in
-            lhs.metadata.sortTitle.compare(rhs.metadata.sortTitle, options: [.diacriticInsensitive, .caseInsensitive]) == .orderedAscending
-        }
+        .sorted(using: KeyPathComparator(\.sortName))
+        songs.sort(using: KeyPathComparator(\.metadata.sortTitle))
         return (songs, artists)
     }
 }

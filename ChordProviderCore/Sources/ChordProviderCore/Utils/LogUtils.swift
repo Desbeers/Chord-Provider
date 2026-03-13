@@ -24,9 +24,19 @@ public class LogUtils: @unchecked Sendable {
     ///   - category: The category of the log
     ///   - lineNumber: The optional line number
     ///   - message: The message
-    public func setLog(level: LogUtils.Level = .notice, category: LogUtils.Category, lineNumber: Int? = nil, message: String) {
+    public func setLog(
+        level: LogUtils.Level = .notice,
+        category: LogUtils.Category,
+        lineNumber: Int? = nil,
+        message: String
+    ) {
         singletonQueue.sync {
-            let message = LogUtils.LogMessage(level: level, category: category, lineNumber: lineNumber, message: message)
+            let message = LogUtils.LogMessage(
+                level: level,
+                category: category,
+                lineNumber: lineNumber,
+                message: message
+            )
             logs.append(message)
         }
     }

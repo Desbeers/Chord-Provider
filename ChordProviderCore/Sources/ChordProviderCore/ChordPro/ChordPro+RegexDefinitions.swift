@@ -241,7 +241,8 @@ extension ChordPro {
                 }
             }
         }
-        /// The regex for spitting a song line string into parts, separated by markup block or plain text, including spaces
+        /// The regex for spitting a song line string into parts,
+        /// separated by markup block or plain text, including spaces
         nonisolated(unsafe) static let lineSeparator = Regex {
             ChoiceOf {
                 Capture(markupBlock)

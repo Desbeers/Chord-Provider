@@ -30,7 +30,6 @@ extension Widgets {
             type: Data.Type
         ) -> ViewStorage where Data: ViewRenderData {
             let context = Context(definition: chord, showNotes: coreSettings.diagram.showNotes)
-            //convert(context: context)
             let drawingArea = gtk_drawing_area_new()
             gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
             gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))

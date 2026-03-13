@@ -35,7 +35,7 @@ extension Views {
             Box {
                 if let tempo {
                     HStack {
-                        Widgets.BundleImage(name: "tempo")
+                        Widgets.BundleImage(icon: "tempo")
                             .pixelSize(16)
                             .valign(.baselineCenter)
                             .style(.svgIcon)

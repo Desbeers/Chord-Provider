@@ -69,7 +69,6 @@ extension ChordProParser {
         /// Calculate the source
         line.calculateSource()
 
-
         /// Add optional warnings
         if let warnings = currentSection.warnings {
             for warning in warnings {

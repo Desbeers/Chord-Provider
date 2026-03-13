@@ -25,7 +25,21 @@ extension ChordPro.Instrument {
     /// Instrument chord
     public struct Chord: Equatable, Codable, Sendable {
 
-        public init(name: String, display: String? = nil, base: Int? = nil, frets: [Int]? = nil, fingers: [Int]? = nil) {
+        /// Init a *ChordPro* chord definition
+        /// - Parameters:
+        ///   - name: Name of the chord
+        ///   - display: Optional display name of the chord
+        ///   - base: Base fret of the chord
+        ///   - frets: Fretting
+        ///   - fingers: Fingering
+        ///
+        public init(
+            name: String,
+            display: String? = nil,
+            base: Int? = nil,
+            frets: [Int]? = nil,
+            fingers: [Int]? = nil
+        ) {
             self.name = name
             self.display = display
             self.base = base

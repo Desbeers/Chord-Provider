@@ -9,7 +9,7 @@ import Foundation
 import ChordProviderCore
 
 extension Widgets.ChordDiagram {
-    
+
     /// The context of a chord diagram drawing
     final class Context {
 

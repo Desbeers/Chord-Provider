@@ -25,7 +25,12 @@ extension Song.Section.Line {
     /// The structure of a strum
     public struct Strum: Equatable, Codable, Identifiable, Hashable, Sendable {
         /// Init the struct
-        public init(id: Int = 0, action: Song.Section.Line.Strum.Action = .none, beat: String = "", tuplet: String = "&") {
+        public init(
+            id: Int = 0,
+            action: Song.Section.Line.Strum.Action = .none,
+            beat: String = "",
+            tuplet: String = "&"
+        ) {
             self.id = id
             self.action = action
             self.beat = beat
@@ -55,25 +60,25 @@ extension Song.Section.Line {
     /// Convert strum characters in the source to fancy symbols
     static var strumCharacterDict: [String: Song.Section.Line.Strum.Action] {
         [
-            "u":    .up,
-            "up":   .up,
-            "u+":   .upAccent,
-            "ua":   .upArpeggio,
-            "ua+":  .upArpeggioAccent,
-            "ux":   .upMuted,
-            "ux+":  .upMutedAccent,
-            "us":   .upStaccato,
-            "us+":  .upStaccatoAccent,
-            "d":    .down,
-            "dn":   .down,
-            "d+":   .downAccent,
-            "da":   .downArpeggio,
-            "da+":  .downArpeggioAccent,
-            "dx":   .downMuted,
-            "dx+":  .downMutedAccent,
-            "ds":   .downStaccato,
-            "ds+":  .downStaccatoAccent,
-            ".":    .none
+            "u": .up,
+            "up": .up,
+            "u+": .upAccent,
+            "ua": .upArpeggio,
+            "ua+": .upArpeggioAccent,
+            "ux": .upMuted,
+            "ux+": .upMutedAccent,
+            "us": .upStaccato,
+            "us+": .upStaccatoAccent,
+            "d": .down,
+            "dn": .down,
+            "d+": .downAccent,
+            "da": .downArpeggio,
+            "da+": .downArpeggioAccent,
+            "dx": .downMuted,
+            "dx+": .downMutedAccent,
+            "ds": .downStaccato,
+            "ds+": .downStaccatoAccent,
+            ".": .none
         ]
     }
 }

@@ -18,7 +18,9 @@ import CAdw
         /// - Note: Give it an unique ID so Files does not open new windows
         let id: UUID = UUID()
         self.app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(id.uuidString)")
-        DatabaseInformation.setPath(AdwaitaApp.userDataDir().appendingPathComponent("nl.desbeers.chordprovider.sqlite").path)
+        DatabaseInformation.setPath(
+            AdwaitaApp.userDataDir().appendingPathComponent("nl.desbeers.chordprovider.sqlite").path
+        )
     }
     /// The application
     let app: AdwaitaApp
@@ -66,7 +68,8 @@ import CAdw
                     appState.setStyle()
                 }
                 /// Open a song when passed as argument at launch
-                /// - Note: When opened again with another argument; it will create a new instance because the application will have a another ID
+                /// - Note: When opened again with another argument; 
+                ///         it will create a new instance because the application will have a another ID
                 if let fileURL = CommandLine.arguments[safe: 1] {
                     let url = URL(filePath: fileURL)
                     /// - Note: Hide the editor because it is flashing if a song is directly opened

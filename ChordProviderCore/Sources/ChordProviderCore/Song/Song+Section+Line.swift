@@ -119,7 +119,7 @@ extension Song.Section {
             let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
             addWarning(warning, level: level)
         }
-        
+
         /// Calculate the source of the line
         mutating func calculateSource() {
             if let directive {
@@ -138,5 +138,3 @@ extension Song.Section {
         }
     }
 }
-
-

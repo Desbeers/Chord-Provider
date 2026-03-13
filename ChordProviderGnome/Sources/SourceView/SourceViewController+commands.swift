@@ -140,12 +140,6 @@ extension SourceViewController {
         gtk_text_buffer_end_user_action(buffer)
     }
 
-
-
-
-
-
-
     /// Insert a directive in the editor at the cursor position
     /// - Parameter directive: The `Directive` to add
     func insertDirective(_ directive: ChordPro.Directive) {

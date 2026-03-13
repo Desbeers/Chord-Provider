@@ -89,8 +89,18 @@ extension ChordProParser {
                                 )
                             } else {
                                 /// Unknown strum; fill the space and add a warning
-                                let chord = ChordDefinition(text: "?", kind: .textChord, instrument: song.settings.instrument)
-                                parts.append(Song.Section.Line.Part(id: partID, chordDefinition: chord, text: chord.display))
+                                let chord = ChordDefinition(
+                                    text: "?",
+                                    kind: .textChord,
+                                    instrument: song.settings.instrument
+                                )
+                                parts.append(
+                                    Song.Section.Line.Part(
+                                        id: partID,
+                                        chordDefinition: chord,
+                                        text: chord.display
+                                    )
+                                )
                                 line.addWarning("Unknown stroke", level: .error)
                             }
                         case false:

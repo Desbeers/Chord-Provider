@@ -10,7 +10,7 @@ import ChordProviderCore
 
 public struct SourceViewBridge: Equatable {
     /// Confirm to `Equatable`
-    public static func ==(lhs: SourceViewBridge, rhs: SourceViewBridge) -> Bool {
+    public static func == (lhs: SourceViewBridge, rhs: SourceViewBridge) -> Bool {
         lhs.currentLine == rhs.currentLine && lhs.song.content == rhs.song.content
     }
 

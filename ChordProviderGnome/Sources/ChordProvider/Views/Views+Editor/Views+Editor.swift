@@ -37,7 +37,9 @@ extension Views {
                             Separator()
                             ForEach(ChordPro.Directive.metadataDirectives) { directive in
                                 addInsert(directive: directive)
-                                    .insensitive(appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long))
+                                    .insensitive(
+                                        appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long)
+                                    )
                             }
                         }
                     Toggle("Environment", isOn: $inserts.showEnvironment)

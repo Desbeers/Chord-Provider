@@ -73,7 +73,12 @@ extension Widgets {
                 storage.fields["element"] = elements
                 storage.content[.mainContent] = contentStorage
                 for (index, element) in elements.enumerated() {
-                    content(element).updateStorage(contentStorage[index], data: data, updateProperties: updateProperties, type: type)
+                    content(element).updateStorage(
+                        contentStorage[index],
+                        data: data,
+                        updateProperties: updateProperties,
+                        type: type
+                    )
                 }
             }
             if updateProperties {

@@ -20,8 +20,8 @@ extension Widgets {
         var resource: String?
 
         /// Initialize `BundleImage` for an icon
-        public init(name: String) {
-            if let url = ImageUtils.getImageFromBundle("Icons/\(name)") {
+        public init(icon: String) {
+            if let url = ImageUtils.getImageFromBundle("Icons/\(icon)") {
                 self.resource = url.path
             }
         }

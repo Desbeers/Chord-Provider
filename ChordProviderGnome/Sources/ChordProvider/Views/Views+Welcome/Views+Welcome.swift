@@ -240,7 +240,6 @@ extension Views.Welcome {
     }
 }
 
-
 extension Views.Welcome {
 
     // MARK: Open Button

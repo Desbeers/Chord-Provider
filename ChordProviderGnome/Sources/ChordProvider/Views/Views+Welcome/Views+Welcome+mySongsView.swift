@@ -56,6 +56,13 @@ extension Views.Welcome {
                             .transition(.crossfade)
                         } else {
                             VStack(spacing: 10) {
+                                HStack {
+                                    Symbol(icon: .default(icon: .systemSearch))
+                                        .padding()
+                                    Text("Searching for '<i>\(search)</i>'")
+                                        .useMarkup()
+                                }
+                                .style(.title)
                                 ForEach(result) { song in
                                     if let fileURL = song.settings.fileURL {
                                         openButton(fileURL: fileURL, metadata: song.metadata)

@@ -29,8 +29,7 @@ extension ChordDefinition {
             .matching(root: root)
             .matching(quality: self.quality)
             .matching(slash: self.slash)
-            .first
-        {
+            .first {
             self = chord
             self.kind = kind == .customChord ? .customTransposedChord : .transposedChord
             /// Save the transpose value

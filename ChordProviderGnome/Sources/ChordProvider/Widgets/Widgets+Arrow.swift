@@ -81,9 +81,9 @@ public func draw_arrow(
         .takeUnretainedValue()
 
     let manager = adw_style_manager_get_default()
-    let dark_mode = adw_style_manager_get_dark(manager)
+    let darkMode = adw_style_manager_get_dark(manager)
 
-    let color: Double = dark_mode == 0 ? 0.5 : 0.8
+    let color: Double = darkMode == 0 ? 0.5 : 0.8
 
     /// Arrowhead size
     let arrowLength = Double(data.length) / 4

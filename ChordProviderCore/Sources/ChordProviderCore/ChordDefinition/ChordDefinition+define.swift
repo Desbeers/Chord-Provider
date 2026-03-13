@@ -15,7 +15,8 @@ extension ChordDefinition {
     /// ```swift
     /// {define G base-fret 1 frets 3 2 0 0 0 3 fingers 2 1 0 0 0 3}
     /// ```
-    /// For more information about the *{define}* directive, see [Directives: define](https://www.chordpro.org/chordpro/directives-define/)
+    /// For more information about the *{define}* directive,
+    /// see [Directives: define](https://www.chordpro.org/chordpro/directives-define/)
     ///
     /// - Parameter define: ChordPro string definition of the chord
     /// - Parameter instrument: The ``Chord/Instrument`` to use
@@ -82,12 +83,13 @@ extension ChordDefinition {
     ///  ```
     ///
     /// - Parameters:
-    ///   -  chord: A **ChordPro** JSON chord
+    ///   - chord: A **ChordPro** JSON chord
     ///   - instrument: The ``Chord/Instrument`` to use
     /// - Throws: An error when the root and quality is not found
     /// - Returns: A  ``ChordDefinition`` structure
     ///
-    /// - Note: The chords in the  **Chord Provider** database are in the same JSON format as used in the official **ChordPro** implementation.
+    /// - Note: The chords in the  **Chord Provider** database are in the same
+    ///   JSON format as used in the official **ChordPro** implementation.
     static func define(from chord: ChordPro.Instrument.Chord, instrument: Chord.Instrument) throws -> ChordDefinition {
         let elements = ChordUtils.Analizer.findChordElements(chord: chord.name)
         guard

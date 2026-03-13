@@ -67,7 +67,7 @@ extension GtkRender {
         /// - Returns: A View
         @ViewBuilder private func metadata(name: String, value: String) -> Body {
             HStack(spacing: 5) {
-                Widgets.BundleImage(name: name)
+                Widgets.BundleImage(icon: name)
                     .pixelSize(16)
                     .valign(.center)
                     .style(.svgIcon)

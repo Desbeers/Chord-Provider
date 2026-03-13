@@ -37,8 +37,10 @@ extension Song.Section {
                 if parts.count < maxColumns {
 
                     for column in (parts.count..<maxColumns) {
-                        let cell = Song.Section.Line.GridCell(id: partID, parts: [Song.Section.Line.Part(id: partID, text: "")])
-
+                        let cell = Song.Section.Line.GridCell(
+                            id: partID,
+                            parts: [Song.Section.Line.Part(id: partID, text: "")]
+                        )
                         elements[column].cells.append(cell)
                         partID += 1
                     }

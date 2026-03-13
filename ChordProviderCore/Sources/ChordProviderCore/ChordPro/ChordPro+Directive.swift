@@ -155,13 +155,17 @@ extension ChordPro {
 
         /// # Chord diagrams
 
-        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitar
+        /// This directive defines a chord in terms of fret/string positions and,
+        /// optionally, finger settings for a guitar
         case defineGuitar = "define-guitar"
-        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a guitalele
+        /// This directive defines a chord in terms of fret/string positions and, optionally,
+        /// finger settings for a guitalele
         case defineGuitalele = "define-guitalele"
-        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings for a ukulele
+        /// This directive defines a chord in terms of fret/string positions and, optionally,
+        /// finger settings for a ukulele
         case defineUkulele = "define-ukulele"
-        /// This directive defines a chord in terms of fret/string positions and, optionally, finger settings
+        /// This directive defines a chord in terms of fret/string positions and,
+        /// optionally, finger settings
         case define
 
         // MARK: Output related directives
@@ -174,7 +178,8 @@ extension ChordPro {
 
         // MARK: Transposition
 
-        /// This directive indicates that the remainder of the song should be transposed the number of semitones according to the given value
+        /// This directive indicates that the remainder of the song should be transposed
+        /// the number of semitones according to the given value
         case transpose
 
         // MARK: Custom metadata directives

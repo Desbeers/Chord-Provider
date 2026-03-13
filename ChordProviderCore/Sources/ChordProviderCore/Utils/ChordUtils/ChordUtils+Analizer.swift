@@ -18,7 +18,9 @@ extension ChordUtils {
         /// Find the root, quality and optional bass of a named chord
         /// - Parameter chord: The name of the chord as `String`
         /// - Returns: The root, quality and optional slash
-        static func findChordElements(chord: String) -> (root: Chord.Root?, quality: Chord.Quality?, slash: Chord.Root?) {
+        static func findChordElements(
+            chord: String
+        ) -> (root: Chord.Root?, quality: Chord.Quality?, slash: Chord.Root?) {
             var root: Chord.Root?
             var quality: Chord.Quality?
             var slash: Chord.Root?
