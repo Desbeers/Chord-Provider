@@ -185,6 +185,14 @@ extension Chord.Root {
     }
 }
 
+extension Chord.Root {
+    
+    /// Init the Root with a `Substring``
+    init?(_ substring: Substring) {
+        self.init(rawValue: String(substring))
+    }
+}
+
 extension Array where Element == Chord.Root {
 
     /// Convert an array of ``Chord/Root`` notes to a sorted array of note values

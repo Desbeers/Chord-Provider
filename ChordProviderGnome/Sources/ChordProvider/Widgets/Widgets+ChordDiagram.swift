@@ -57,7 +57,6 @@ public func draw_chord(
     _ height: Int32,
     _ userData: UnsafeMutableRawPointer?
 ) {
-
     guard
         let cr,
         let userData

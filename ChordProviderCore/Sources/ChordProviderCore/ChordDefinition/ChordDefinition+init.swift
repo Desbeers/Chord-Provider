@@ -79,7 +79,7 @@ extension ChordDefinition {
         /// Parse the chord name
         let elements = ChordUtils.Analizer.findChordElements(chord: name)
         /// Get the chords for the instrument
-        let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument)
+        let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument.type)
         /// See if we can find it
         guard
             let root = elements.root,
@@ -96,7 +96,7 @@ extension ChordDefinition {
         self.root = chord.root
         self.quality = chord.quality
         self.slash = elements.slash
-        self.instrument = instrument
+        self.instrument = chord.instrument
         self.kind = .standardChord
         /// Calculated values
         addCalculatedValues()

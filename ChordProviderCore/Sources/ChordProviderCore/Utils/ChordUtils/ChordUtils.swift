@@ -19,10 +19,13 @@ public enum ChordUtils {
     /// Get all the ukulele chords in a ``ChordDefinition`` array
     static let ukulele = ChordUtils.importInstrument(.ukulele)
 
+    /// Testing
+    static let testing = ChordUtils.importInstrument(.testing)
+
     /// Get all chord definitions for an instrument
     /// - Parameter instrument: The ``Chord/Instrument``
     /// - Returns: An ``ChordDefinition`` array
-    public static func getAllChordsForInstrument(instrument: Chord.Instrument) -> [ChordDefinition] {
+    public static func getAllChordsForInstrument(instrument: Chord.InstrumentType) -> [ChordDefinition] {
         switch instrument {
         case .guitar:
             ChordUtils.guitar
@@ -30,13 +33,31 @@ public enum ChordUtils {
             ChordUtils.guitalele
         case .ukulele:
             ChordUtils.ukulele
+        case .testing:
+            ChordUtils.testing
         }
     }
 
     /// Import a definition database from a JSON database file
-    private static func importInstrument( _ instrument: Chord.Instrument) -> [ChordDefinition] {
+    private static func importInstrument( _ instrument: Chord.InstrumentType) -> [ChordDefinition] {
         let database = Bundle.module.decode(ChordPro.Instrument.self, from: instrument.database)
         var definitions: [ChordDefinition] = []
+        //let tuning = database.tuning.compactMap(Chord.Details.Tuning.init)
+        //let tuning = Chord.Details.Tuning(scientificPitch: "E4")
+        //dump(tuning)
+
+        let instrument = Chord.Instrument(
+            type: Chord.InstrumentType(rawValue: database.instrument.type) ?? .guitar,
+            description: database.instrument.description,
+            tuning: database.tuning
+        )
+
+        // for string in instrument.tuning {
+        //     print(string.note)
+        //     print(string.octave)
+        //     print(string.midi)
+        // }
+
         /// Get all chord definitions
         for chord in database.chords {
             if let result = ChordDefinition(chord: chord, instrument: instrument) {
@@ -95,9 +116,9 @@ public enum ChordUtils {
         let export = ChordPro.Instrument(
             instrument: .init(
                 description: instrument.description,
-                type: instrument.rawValue
+                type: instrument.type.rawValue
             ),
-            tuning: instrument.tuning,
+            tuning: instrument.tuning.map { "\($0.note)\($0.octave)" },
             chords: chords
         )
 
@@ -163,7 +184,7 @@ public enum ChordUtils {
                     components.append(Chord.Component(id: string, note: .none, midi: nil))
                 } else {
                     /// Add base fret if the fret is not 0 and the offset
-                    fret += instrument.offset[string] + (fret == 0 ? 1 : baseFret.rawValue) + 40
+                    fret += instrument.offsets[string] + (fret == 0 ? 1 : baseFret.rawValue) + 40
                     let key = valueToNote(value: fret, scale: root)
                     components.append(Chord.Component(id: string, note: key, midi: fret))
                 }
@@ -213,7 +234,7 @@ public enum ChordUtils {
     }
 
     public static func getChordDefinition(_ definition: ChordDefinition) -> [ChordDefinition] {
-        return getAllChordsForInstrument(instrument: definition.instrument)
+        return getAllChordsForInstrument(instrument: definition.instrument.type)
             .matching(root: definition.root)
             .matching(quality: definition.quality)
             .matching(slash: definition.slash)

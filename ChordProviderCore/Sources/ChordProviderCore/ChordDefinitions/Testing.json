@@ -1,0 +1,32 @@
+{
+  "chords" : [
+    {
+      "base" : 1,
+      "fingers" : [
+        1,
+        2,
+        3
+      ],
+      "frets" : [
+        1,
+        2,
+        3
+      ],
+      "name" : "C"
+    }
+  ],
+  "instrument" : {
+    "description" : "Testing, 3 strings, stupid tuning",
+    "type" : "ukulele"
+  },
+  "pdf" : {
+    "diagrams" : {
+      "vcells" : 6
+    }
+  },
+  "tuning" : [
+    "A1",
+    "B2",
+    "C3"
+  ]
+}

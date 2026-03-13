@@ -13,7 +13,7 @@ extension Chord {
     enum Scales {
 
         /// The note to value dictionary
-        static var noteValueDict: [Chord.Root: Int] {
+        static let noteValueDict: [Chord.Root: Int] =
             [
                 Chord.Root.c: 0,
                 Chord.Root.cSharp: 1,
@@ -33,10 +33,9 @@ extension Chord {
                 Chord.Root.bFlat: 10,
                 Chord.Root.b: 11
             ]
-        }
 
         /// The value to note dictionary
-        static var valueNoteDict: [Int: [Chord.Root]] {
+        static let valueNoteDict: [Int: [Chord.Root]] =
             [
                 0: [Chord.Root.c],
                 1: [Chord.Root.dFlat, Chord.Root.cSharp],
@@ -51,10 +50,9 @@ extension Chord {
                 10: [Chord.Root.bFlat, Chord.Root.aSharp],
                 11: [Chord.Root.b]
             ]
-        }
 
         /// The sharped scale dictionary
-        static var sharpedScale: [Int: Chord.Root] {
+        static let sharpedScale: [Int: Chord.Root] =
             [
                 0: Chord.Root.c,
                 1: Chord.Root.cSharp,
@@ -69,10 +67,9 @@ extension Chord {
                 10: Chord.Root.aSharp,
                 11: Chord.Root.b
             ]
-        }
 
         /// The flatted scale dictionary
-        static var flattedScale: [Int: Chord.Root] {
+        static let flattedScale: [Int: Chord.Root] =
             [
                 0: Chord.Root.c,
                 1: Chord.Root.dFlat,
@@ -87,10 +84,9 @@ extension Chord {
                 10: Chord.Root.bFlat,
                 11: Chord.Root.b
             ]
-        }
 
         /// The scale to value dictionary
-        static var scaleValueDict: [Chord.Root: [Int: Chord.Root]] {
+        static let scaleValueDict: [Chord.Root: [Int: Chord.Root]] =
             [
                 Chord.Root.aFlat: flattedScale,
                 Chord.Root.a: sharpedScale,
@@ -110,6 +106,5 @@ extension Chord {
                 Chord.Root.g: sharpedScale,
                 Chord.Root.gSharp: sharpedScale
             ]
-        }
     }
 }

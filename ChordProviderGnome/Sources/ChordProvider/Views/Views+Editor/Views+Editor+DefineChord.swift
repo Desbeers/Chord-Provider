@@ -43,7 +43,7 @@ extension Views.Editor {
         @State private var definition: ChordDefinition
                 /// Calculated definition
         var define: String {
-            "{define-\(definition.instrument.rawValue) \(definition.define)}"
+            "{define-\(definition.instrument.type.rawValue) \(definition.define)}"
         }
 
         var view: Body {

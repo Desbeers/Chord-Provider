@@ -28,7 +28,7 @@ extension Views {
         @State private var copied = Signal()
         /// Calculated definition
         var define: String {
-            "{define-\(definition.instrument.rawValue) \(definition.define)}"
+            "{define-\(definition.instrument.type.rawValue) \(definition.define)}"
         }
         /// Calculated note values for the strings
         var strings: [StringNumber] {
@@ -41,7 +41,7 @@ extension Views {
                     /// Calculate the fret note
                     /// - Note: Only add the base fret after the first row because the note can still be played open
                     let fretNote = definition
-                        .instrument.offset[string] + (fret == 0 ? 1 : definition.baseFret.rawValue) + 40 + fret
+                        .instrument.offsets[string] + (fret == 0 ? 1 : definition.baseFret.rawValue) + 40 + fret
                     /// Convert the fret to a label
                     let label = ChordUtils.valueToNote(value: fretNote, scale: definition.root).display
                     frets.append(Fret(id: fret, label: label))

@@ -6,99 +6,82 @@
 //
 
 import Foundation
+import RegexBuilder
 
 extension Chord {
 
-    /// The instruments we know about
-    public enum Instrument: String, CaseIterable, Codable, Sendable {
-        /// Guitar Standard E tuning
-        case guitar
-        /// Guitalele
-        case guitalele
-        /// Ukulele Standard G tuning
-        case ukulele
-    }
-}
+    public struct Instrument: Codable, Sendable, Hashable {
 
-extension Chord.Instrument: Identifiable, CustomStringConvertible {
+        public init(type: InstrumentType, description: String, tuning: [String]) {
+            self.type = type
+            self.description = description
+            self.tuning = tuning.compactMap(Chord.Instrument.Tuning.init)
+        }
 
-    /// Identifiable protocol
-    public var id: Self { self }
-    /// CustomStringConvertible protocol
-    public var description: String {
-        rawValue.capitalized
+        /// The type of instrument
+        public var type: InstrumentType
+        /// The description of the instrument
+        public var description: String
+        /// The tuning of the instrument
+        public var tuning: [Tuning]
     }
 }
 
 extension Chord.Instrument {
 
-    /// The label of the instrument
-    public var label: String {
-        switch self {
-        case .guitar:
-            "Guitar, 6 strings, standard tuning"
-        case .guitalele:
-            "Guitalele, 6 strings, standard tuning"
-        case .ukulele:
-            "Ukulele, 4 strings, standard tuning"
-        }
-    }
-
-    /// The tuning of the instrument
-    public var tuning: [String] {
-        var tuning: [String] = []
-        for string in strings {
-            let octave = ((offset[string] + 41) / 12) - 1
-            tuning.append("\(stringNames[string].display)\(octave)")
-        }
-        return tuning
-    }
-
-    /// The strings of the instrument
+        /// String numbers based on the tuning
     public var strings: [Int] {
-        switch self {
-        case .ukulele:
-            [0, 1, 2, 3]
-        default:
-            [0, 1, 2, 3, 4, 5]
-        }
+        // switch self.type {
+        // case .ukulele:
+        //     [0, 1, 2, 3]
+        // case .testing:
+        //     [0, 1, 2]
+        // default:
+        //     [0, 1, 2, 3, 4, 5]
+        // }
+        Array(self.tuning.indices)
+        //Array(0..<tuning.count)
     }
-    /// The names of the strings
-    public var stringNames: [Chord.Root] {
-        switch self {
-        case .guitar:
-            [.e, .a, .d, .g, .b, .e]
-        case .guitalele:
-            [.a, .d, .g, .c, .e, .a]
-        case .ukulele:
-            [.g, .c, .e, .a]
-        }
+
+    public struct Tuning: Codable, Sendable, Hashable {
+        /// The note of the tuning
+        public var note: Chord.Root
+        /// The octave of the tuning
+        public var octave: Int
     }
-    /// The offset for each string from the base 'E'
-    ///  - Note: Start with -1, because of the BaseFret value in `ChordDefinition`
-    public var offset: [Int] {
-        switch self {
-        case .guitar:
-            [-1, 4, 9, 14, 18, 23]
-        case .guitalele:
-            [4, 9, 14, 19, 23, 28]
-        case .ukulele:
-            [26, 19, 23, 28]
-        }
+
+    public var offsets: [Int] {
+        tuning.map { $0.midi - 41 }
     }
 }
 
-extension Chord.Instrument {
+extension Chord.Instrument.Tuning {
 
-    /// The databases for the instruments in the `Resources` folder
-    public var database: String {
-        switch self {
-        case .guitar:
-            "ChordDefinitions/GuitarStandardETuning"
-        case .guitalele:
-            "ChordDefinitions/GuitaleleStandardATuning"
-        case .ukulele:
-            "ChordDefinitions/UkuleleStandardGTuning"
-        }
+    /// Regex for parsing a tune element
+    private nonisolated(unsafe) static let regex = Regex {
+        TryCapture {
+            CharacterClass("A"..."G")
+            Optionally { ChoiceOf { "#"; "b" } }
+        } transform: { Chord.Root($0) }
+
+        TryCapture {
+            OneOrMore(.digit)
+        } transform: { Int($0) }
+    }
+
+    /// Init the instrument tuning
+    /// - Parameter scientificPitch: The pich element
+    init?(scientificPitch: String) {
+        guard let match = scientificPitch.wholeMatch(of: Self.regex) else { return nil }
+        (note, octave) = (match.1, match.2)
+    }
+}
+
+extension Chord.Instrument.Tuning {
+
+    /// MIDI note number
+    public var midi: Int {
+        let pitchClass = note.value
+        return pitchClass + (octave + 1) * 12
     }
 }

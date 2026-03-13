@@ -23,7 +23,7 @@ extension Views.Database {
             }
             .fileExporter(
                 open: databaseState.exportDatabase,
-                initialName: "\(appState.settings.core.instrument.label)"
+                initialName: "\(appState.settings.core.instrument.type.label)"
             ) { fileURL in
                 if let export  = try? ChordUtils.exportToJSON(definitions: databaseState.allChords) {
                     try? export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
@@ -43,7 +43,7 @@ extension Views.Database {
                 id: "dirty-database-dialog",
                 /// - Note: Use `extraChild` instead of `body` so I can use markup
                 extraChild: {
-                    let instrument = databaseState.allChords.first?.instrument ?? .guitar
+                    let instrument = databaseState.allChords.first?.instrument.type ?? .guitar
                     VStack {
                         Text("The <b>\(instrument.description)</b> database is modified.")
                             .useMarkup()
@@ -57,7 +57,7 @@ extension Views.Database {
             )
             .response("Cancel", role: .close) {
                 /// Revert the instrument
-                appState.settings.core.instrument = databaseState.allChords.first?.instrument ?? .guitar
+                appState.settings.core.instrument.type = databaseState.allChords.first?.instrument.type ?? .guitar
 
             }
             .response("Discard", appearance: .destructive, role: .none) {

@@ -242,6 +242,7 @@ extension SourceViewController {
             /// Get the values of the bridge binding
             var bridge = bridgeBinding.wrappedValue
             bridge.song.content = text
+            //dump(bridge.song.settings.instrument)
             bridge.song = ChordProParser.parse(song: bridge.song, settings: bridge.song.settings)
             /// Clear all markers and add new ones if needed
             sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")

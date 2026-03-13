@@ -56,10 +56,10 @@ extension Views.Toolbar {
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
                     DropDown(
-                        selection: $appState.settings.core.instrument.onSet { _ in
+                        selection: $appState.settings.core.instrument.type.onSet { _ in
                             appState.editor.command = .updateSong
                         },
-                        values: Chord.Instrument.allCases
+                        values: Chord.InstrumentType.instruments(debug: appState.settings.app.debug)
                     )
                     .tooltip("Select your instrument")
                     Toggle(

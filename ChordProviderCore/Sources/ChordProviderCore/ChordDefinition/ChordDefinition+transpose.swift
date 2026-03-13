@@ -21,7 +21,7 @@ extension ChordDefinition {
         self.transposed = transpose
         let newName = self.name
         /// Get the chords for the instrument
-        let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument)
+        let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument.type)
         /// Transpose the root
         let root = ChordUtils.transposeNote(note: self.root, transpose: transpose, scale: scale)
         /// Find it in the database

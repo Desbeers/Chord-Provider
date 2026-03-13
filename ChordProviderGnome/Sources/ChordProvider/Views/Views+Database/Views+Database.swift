@@ -24,7 +24,7 @@ extension Views {
             VStack {
                 HStack {
                     ToggleGroup(
-                        selection: $appState.settings.core.instrument.onSet {  _ in
+                        selection: $appState.settings.core.instrument.type.onSet {  _ in
                             if databaseState.databaseIsModified {
                                 databaseState.exportDoneAction = .switchInstrument
                                 databaseState.showChangedDatatabaseDialog = true
@@ -34,7 +34,7 @@ extension Views {
                                 appState.editor.command = .updateSong
                             }
                         },
-                        values: Chord.Instrument.allCases,
+                        values: Chord.InstrumentType.instruments(debug: appState.settings.app.debug),
                         id: \.self,
                         label: \.description
                     )
@@ -127,7 +127,7 @@ extension Views {
                     }
                 }
                 .headerBarTitle {
-                    let subtitle = appState.settings.core.instrument.label
+                    let subtitle = appState.settings.core.instrument.type.label
                     WindowTitle(
                         subtitle: "\(subtitle)\(databaseState.databaseIsModified ? " · modified" : "")",
                         title: "Chords Databse"
@@ -147,7 +147,7 @@ extension Views {
         /// Get all chords for an instrument
         /// - Returns: All the chords
         func getAllChordsForInstrument() -> [ChordDefinition] {
-            ChordUtils.getAllChordsForInstrument(instrument: appState.settings.core.instrument)
+            ChordUtils.getAllChordsForInstrument(instrument: appState.settings.core.instrument.type)
         }
 
         /// Get all filtered chords
