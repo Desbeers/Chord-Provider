@@ -1,6 +1,6 @@
 # Chord Provider
 
-## A [ChordPro](https://www.chordpro.org) viewer and editor for Linux and macOS
+## A [ChordPro](https://www.chordpro.org) viewer and editor for Linux
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
 
@@ -14,13 +14,9 @@ While I hope you like **Chord Provider**, as *musician* or *programmer*, it is j
 
 **Chord Provider** is written in Swift.
 
-![Chord Provider on macOS](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-macOS.jpg)
-
 ![Chord Provider on Linux](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
 
-There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native.
-
-Mine are. For `Linux`  written with [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift) and for `macOS` written in `SwifttUI`.
+There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native. Mine is.
 
 ### The icon
 
@@ -34,56 +30,9 @@ On macOS *Tahoe*, the application icon is not allowed to go out of its squarish 
 
 **In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
 
-I consider to drop it...
+While the source-code is still here; it does not compile anymore.
 
-### What can **Chord Provider** do?
-
-- It will view your **ChordPro** files.
-- It can export your song as a PDF document or a whole folder with **ChordPro** songs to a PDF with a *Table of Contents*.
-- It has a fancy editor to edit your songs.
-- It can play the chords with MIDI with a guitar instrument that you can select in the `settings`.
-- It can play audio songs or videos when stored next to the **ChordPro** file.
-- It has a *database* with a lot of chords.
-- *left-handed* chords support.
-
-### A *true* macOS application
-
-- It has a *quicklook* plugin for **ChordPro** files. Select a song in the *Finder* and press `space`.
-- It makes *thumbnails* for your **ChordPro** files with the **Chord Provider** icon and the name on the song below. True eye candy!
-
-Besides that; its an interesting project for *macOS* programmers. It renders PDF's; use the `ViewThatFits` magic to show a song in columns, playing MIDI with *CoreAudio* and deals with the `DocumentGroup` beast...
-
-It's editor is written from scratch; in `AppKit`.
-
-While I studied a lot of code from other projects to learn; in the end, its all included. I don't like dependencies!
-
-### Binaries
-
-I like `Swift` and `SwiftUI` but I don’t like the more and more lockdown of my beloved *macOS*. I don’t have a `Developer` account but that should't be needed to bring an *Open Source* applications to the Mac.
-
-> Apple loved *Open Source* when it needed it. Not anymore.
-
-I have no intension to bring **Chord Provider** to the Apple Store but I also can't provide an *easy* compiled binary here on GitHub because it is not notarised and signed by the almighty gatekeeper. The provided *release* is only *ad-hoc* signed.
-
-Well, the source is free!
-
-> *Open Source* software projects should get a free account.
-
-Please read the **Read me First**.
-
-### Limitations
-
-Some other guitar applications claim the *ownership* of **ChordPro** files and then the *quicklook* does not work anymore. **Chord Provider** does not own them; nobody should...
-
-### How to compile
-
-Xcode 26 is required.
-
-1. Clone the project.
-2. Change the signing certificate to your own.
-2. Build and run!
-
-**Chord Provider** does not use any external packages
+I don't care; same like Apple does not care about *Open Source* anymore.
 
 ## Linux
 
