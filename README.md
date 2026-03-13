@@ -22,8 +22,6 @@ There are many [ChordPro](https://www.chordpro.org) parsers in this world, howev
 
 A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An *Olympic White*. That is the color of the shape. The background is a suitable modification of her 'plate'.
 
-On macOS *Tahoe*, the application icon is not allowed to go out of its squarish boundary anymore; another lost of macOS identity... Now it has its own ugly *glass* icon, sorry for that...
-
 ## macOS
 
 **I lost my interest in `macOS`.**
