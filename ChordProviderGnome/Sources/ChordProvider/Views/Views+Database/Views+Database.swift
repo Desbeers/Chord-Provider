@@ -24,14 +24,12 @@ extension Views {
             VStack {
                 HStack {
                     ToggleGroup(
-                        selection: $appState.settings.core.instrument.type.onSet {  _ in
+                        selection: $appState.settings.core.instrumentType.onSet {  _ in
                             if databaseState.databaseIsModified {
                                 databaseState.exportDoneAction = .switchInstrument
                                 databaseState.showChangedDatatabaseDialog = true
                             } else {
-                                databaseState.allChords = getAllChordsForInstrument()
-                                databaseState.filteredChords = getFilteredChords()
-                                appState.editor.command = .updateSong
+                                updateDatabase()
                             }
                         },
                         values: Chord.InstrumentType.instruments(debug: appState.settings.app.debug),
@@ -100,18 +98,24 @@ extension Views {
                         )
                         Text(" ")
                             .hexpand()
-                        if let definition = databaseState.definition {
-                            Button("Edit \(definition.display)") {
-                                databaseState.newChord = false
-                                databaseState.showEditDefinitionDialog.toggle()
+                        /// TODO: Work in progress
+                        if appState.settings.app.debug {
+                            /// I have to make this an `HStack`` again or else the buttons will grow
+                            HStack {
+                                if let definition = databaseState.definition {
+                                    Button("Edit \(definition.display)") {
+                                        databaseState.newChord = false
+                                        databaseState.showEditDefinitionDialog.toggle()
+                                    }
+                                    .padding(.trailing)
+                                }
+                                Button("New Definition") {
+                                    databaseState.newChord = true
+                                    databaseState.showEditDefinitionDialog.toggle()
+                                }
                             }
                             .padding(.trailing)
                         }
-                        Button("New Definition") {
-                            databaseState.newChord = true
-                            databaseState.showEditDefinitionDialog.toggle()
-                        }
-                        .padding(.trailing)
                     }
                     .valign(.center)
                 }
@@ -120,14 +124,17 @@ extension Views {
             .topToolbar {
                 HeaderBar { }
                 end: {
-                    Menu(icon: .default(icon: .openMenu)) {
-                        MenuButton("Export Database") {
-                            databaseState.exportDatabase.signal()
+                    /// TODO: Work in progress
+                    if appState.settings.app.debug {
+                        Menu(icon: .default(icon: .openMenu)) {
+                            MenuButton("Export Database") {
+                                databaseState.exportDatabase.signal()
+                            }
                         }
                     }
                 }
                 .headerBarTitle {
-                    let subtitle = appState.settings.core.instrument.type.label
+                    let subtitle = appState.settings.core.database.instrument.description
                     WindowTitle(
                         subtitle: "\(subtitle)\(databaseState.databaseIsModified ? " · modified" : "")",
                         title: "Chords Databse"
@@ -147,7 +154,14 @@ extension Views {
         /// Get all chords for an instrument
         /// - Returns: All the chords
         func getAllChordsForInstrument() -> [ChordDefinition] {
-            ChordUtils.getAllChordsForInstrument(instrument: appState.settings.core.instrument.type)
+            appState.settings.core.database.definitions
+        }
+
+        func updateDatabase() {
+            appState.settings.core.database = ChordsDatabase(bundle: appState.settings.core.instrumentType)
+            databaseState.allChords = getAllChordsForInstrument()
+            databaseState.filteredChords = getFilteredChords()
+            appState.editor.command = .updateSong
         }
 
         /// Get all filtered chords

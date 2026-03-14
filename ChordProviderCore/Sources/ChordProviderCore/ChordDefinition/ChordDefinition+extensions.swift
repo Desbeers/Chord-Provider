@@ -97,21 +97,8 @@ extension ChordDefinition {
 
     /// Mirror `Barres` for a left-handed chord
     mutating public func mirrorChordDiagram() {
-        let strings = self.instrument.strings.count
         self.frets = self.frets.reversed()
         self.fingers = self.fingers.reversed()
-        self.components = self.components.reversed()
-        if let barres = self.barres {
-            self.barres = barres.map { barre in
-                return Chord.Barre(
-                    finger: barre.finger,
-                    fret: barre.fret,
-                    startIndex: strings - barre.endIndex,
-                    endIndex: strings - barre.startIndex
-                )
-            }
-        }
-        /// Mark the definition as mirrored
         self.mirrored = true
     }
 
@@ -121,31 +108,5 @@ extension ChordDefinition {
         var copy = self
         copy.mirrorChordDiagram()
         return copy
-    }
-}
-
-extension ChordDefinition {
-
-    /// Add calculated values to a ``ChordDefinition``
-    mutating public func addCalculatedValues() {
-        self.transposedName = self.name
-        getComponents()
-        getBarres()
-    }
-
-    mutating func getComponents() {
-        self.components = ChordUtils.fretsToComponents(
-            root: root,
-            frets: frets,
-            baseFret: baseFret,
-            instrument: instrument
-        )
-    }
-
-    mutating func getBarres() {
-        self.barres = ChordUtils.fingersToBarres(
-            frets: frets,
-            fingers: fingers
-        )
     }
 }

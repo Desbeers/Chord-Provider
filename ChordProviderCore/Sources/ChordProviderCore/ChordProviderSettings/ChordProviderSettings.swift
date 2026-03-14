@@ -10,26 +10,25 @@ import Foundation
 public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringConvertible {
     /// Init the settings
     public init(
-        instrument: Chord.Instrument = .init(
-            type: .guitar, 
-            description: Chord.InstrumentType.guitar.label,
-            tuning: ["E2", "A2", "D3", "G3", "B3", "E4"]
-        ),
+        instrumentType: Chord.InstrumentType = .guitar,
         lyricsOnly: Bool = false,
         repeatWholeChorus: Bool = false,
         transpose: Int = 0
     ) {
-        self.instrument = instrument
+        self.instrumentType = instrumentType
         self.lyricsOnly = lyricsOnly
         self.repeatWholeChorus = repeatWholeChorus
         self.transpose = transpose
     }
     /// Confirm to `CustomStringConvertible`
     public var description: String {
-        "instrument: \(instrument) transpose: \(transpose)" + diagram.description
+        "instrument: \(instrumentType) transpose: \(transpose)" + diagram.description
     }
-    /// The instrument for the song
-    public var instrument: Chord.Instrument
+
+    public var database = ChordsDatabase()
+
+    /// The type of instrument for the song
+    public var instrumentType: Chord.InstrumentType
     /// The MIDI preset
     public var midiPreset: MidiUtils.Preset = .acousticNylonGuitar
     /// Show only lyrics
@@ -57,7 +56,8 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     }
     /// The coding keys
     enum CodingKeys: CodingKey {
-        case instrument
+        case database
+        case instrumentType
         case midiPreset
         case lyricsOnly
         case repeatWholeChorus

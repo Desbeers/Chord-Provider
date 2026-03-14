@@ -10,67 +10,6 @@ import Foundation
 /// Utilities to handle chords
 public enum ChordUtils {
 
-    /// Get all the guitar chords in a ``ChordDefinition`` array
-    static let guitar = ChordUtils.importInstrument(.guitar)
-
-    /// Get all the guitalele chords in a ``ChordDefinition`` array
-    static let guitalele = ChordUtils.importInstrument(.guitalele)
-
-    /// Get all the ukulele chords in a ``ChordDefinition`` array
-    static let ukulele = ChordUtils.importInstrument(.ukulele)
-
-    /// Testing
-    static let testing = ChordUtils.importInstrument(.testing)
-
-    /// Get all chord definitions for an instrument
-    /// - Parameter instrument: The ``Chord/Instrument``
-    /// - Returns: An ``ChordDefinition`` array
-    public static func getAllChordsForInstrument(instrument: Chord.InstrumentType) -> [ChordDefinition] {
-        switch instrument {
-        case .guitar:
-            ChordUtils.guitar
-        case .guitalele:
-            ChordUtils.guitalele
-        case .ukulele:
-            ChordUtils.ukulele
-        case .testing:
-            ChordUtils.testing
-        }
-    }
-
-    /// Import a definition database from a JSON database file
-    private static func importInstrument( _ instrument: Chord.InstrumentType) -> [ChordDefinition] {
-        let database = Bundle.module.decode(ChordPro.Instrument.self, from: instrument.database)
-        var definitions: [ChordDefinition] = []
-        //let tuning = database.tuning.compactMap(Chord.Details.Tuning.init)
-        //let tuning = Chord.Details.Tuning(scientificPitch: "E4")
-        //dump(tuning)
-
-        let instrument = Chord.Instrument(
-            type: Chord.InstrumentType(rawValue: database.instrument.type) ?? .guitar,
-            description: database.instrument.description,
-            tuning: database.tuning
-        )
-
-        // for string in instrument.tuning {
-        //     print(string.note)
-        //     print(string.octave)
-        //     print(string.midi)
-        // }
-
-        /// Get all chord definitions
-        for chord in database.chords {
-            if let result = ChordDefinition(chord: chord, instrument: instrument) {
-                definitions.append(result)
-            }
-        }
-        return definitions.sorted(
-            using: [
-                KeyPathComparator(\.baseFret), KeyPathComparator(\.frets.description)
-            ]
-        )
-    }
-
     /// Export the definitions to a JSON string
     /// - Parameters:
     ///   - definitions: The chord definitions
@@ -231,13 +170,5 @@ public enum ChordUtils {
         }
         /// Return the fingers that should be barred
         return barres.isEmpty ? nil : barres
-    }
-
-    public static func getChordDefinition(_ definition: ChordDefinition) -> [ChordDefinition] {
-        return getAllChordsForInstrument(instrument: definition.instrument.type)
-            .matching(root: definition.root)
-            .matching(quality: definition.quality)
-            .matching(slash: definition.slash)
-            .matching(baseFret: definition.baseFret)
     }
 }

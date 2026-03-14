@@ -25,7 +25,7 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if song.settings.instrument.type == type {
+        if song.settings.database.instrument.type == type {
             processDefine(
                 directive: directive,
                 arguments: arguments,
@@ -66,11 +66,15 @@ extension ChordProParser {
             var definedChord = try ChordDefinition(
                 definition: label,
                 kind: .customChord,
-                instrument: song.settings.instrument
+                instrument: song.settings.database.instrument
             )
             if song.transposing != 0 {
                 /// Transpose the chord; this will disable diagrams
-                definedChord.transpose(transpose: song.transposing, scale: song.metadata.key?.root ?? .c)
+                definedChord.transpose(
+                    transpose: song.transposing,
+                    scale: song.metadata.key?.root ?? .c,
+                    chords: song.settings.database.definitions
+                )
             }
             /// Add the chord as a new definition
             song.chords.append(definedChord)

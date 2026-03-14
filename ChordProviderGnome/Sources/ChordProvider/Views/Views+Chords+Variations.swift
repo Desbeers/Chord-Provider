@@ -20,7 +20,10 @@ extension Views.Chords {
         ) {
             self._appState = appState
             self._chordDialog = chordDialog
-            var chords = Views.Chords.Variations.getChordDefinitions(chord: selectedChord)
+            var chords = appState.wrappedValue.settings.core.database.definitions
+                .matching(root: selectedChord.root)
+                .matching(quality: selectedChord.quality)
+                .matching(slash: selectedChord.slash)
             if selectedChord.kind == .customChord {
                 chords = [selectedChord] + chords
             }
@@ -66,7 +69,7 @@ extension Views.Chords {
                                 .hexpand()
                             Button("Add") {
                                 chordDialog.toggle()
-                                appState.editor.command = .appendText(text: "{define-\(appState.settings.core.instrument.type.rawValue) \(chord.define)}")
+                                appState.editor.command = .appendText(text: "{define-\(chord.instrument.type.rawValue) \(chord.define)}")
                             }
                             .suggested()
                         }
@@ -103,15 +106,6 @@ extension Views.Chords {
                         )
                     }
             }
-        }
-        /// Get all chord definitions for the selected chord name
-        /// - Returns: An array of chord definitions`
-        private static func getChordDefinitions(chord: ChordDefinition) -> [ChordDefinition] {
-            let allChords = ChordUtils.getAllChordsForInstrument(instrument: chord.instrument.type)
-            return allChords
-                .matching(root: chord.root)
-                .matching(quality: chord.quality)
-                .matching(slash: chord.slash)
         }
     }
 }

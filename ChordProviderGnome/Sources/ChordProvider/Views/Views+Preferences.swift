@@ -70,7 +70,7 @@ extension Views {
                     .group("Debug") {
                         SwitchRow()
                             .title("Debug")
-                            .subtitle("Show debug additions to improve Chord Provider")
+                            .subtitle("Show debug additions, it needs a restart")
                             .active($appState.settings.app.debug)
                     }
             }

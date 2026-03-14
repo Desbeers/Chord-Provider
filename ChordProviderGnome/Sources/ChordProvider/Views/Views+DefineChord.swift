@@ -251,8 +251,17 @@ extension Views {
 
         /// Try to find a chord in the database
         private func lookupChord() {
-            if let definition = ChordUtils.getChordDefinition(self.definition).first {
-              self.definition = definition
+            if newChord {
+                let definition = appSettings.core.database.definitions
+                    .matching(root: definition.root)
+                    .matching(quality: definition.quality)
+                    .matching(slash: definition.slash)
+                    .matching(baseFret: definition.baseFret)
+
+
+                if let definition = definition.first {
+                    self.definition = definition
+                }
             }
         }
 

@@ -14,23 +14,13 @@ While I hope you like **Chord Provider**, as *musician* or *programmer*, it is j
 
 **Chord Provider** is written in Swift.
 
-![Chord Provider on Linux](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
 
 There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native. Mine is.
 
 ### The icon
 
 A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An *Olympic White*. That is the color of the shape. The background is a suitable modification of her 'plate'.
-
-## macOS
-
-**I lost my interest in `macOS`.**
-
-**In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
-
-While the source-code is still here; it does not compile anymore.
-
-I don't care; same like Apple does not care about *Open Source* anymore.
 
 ## Linux
 
@@ -47,6 +37,18 @@ I don't care; same like Apple does not care about *Open Source* anymore.
 ### How to compile
 
 Clone the source and build with `builder` as *Flatpak*.
+
+## macOS
+
+**I lost my interest in `macOS`.**
+
+**In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
+
+While the source-code is still here; it does not compile anymore.
+
+I don't care; same like Apple does not care about *Open Source* anymore.
+
+`ChordProviderGnome` compiles on macOS with the correct stuff added with `homebrew`.
 
 ## Limitations
 

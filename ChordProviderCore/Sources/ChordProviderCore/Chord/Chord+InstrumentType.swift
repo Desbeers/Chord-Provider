@@ -17,8 +17,8 @@ extension Chord {
         case guitalele
         /// Ukulele Standard G tuning
         case ukulele
-        /// Testing
-        case testing
+        /// Custom
+        case custom = "Custom Tuning"
     }
 }
 
@@ -27,7 +27,7 @@ extension Chord.InstrumentType {
     public static func instruments(debug: Bool) -> [Chord.InstrumentType] {
         var instruments: [Chord.InstrumentType] = [.guitar, .guitalele, .ukulele]
         if debug {
-            instruments.append(.testing)
+            instruments.append(.custom)
         }
         return instruments
     }
@@ -54,8 +54,8 @@ extension Chord.InstrumentType {
             "Guitalele, 6 strings, standard tuning"
         case .ukulele:
             "Ukulele, 4 strings, standard tuning"
-        case .testing:
-            "Testing, 3 strings, stupid tuning"
+        case .custom:
+            "Custom tuning"
         }
     }
 }
@@ -71,7 +71,7 @@ extension Chord.InstrumentType {
             "ChordDefinitions/GuitaleleStandardATuning"
         case .ukulele:
             "ChordDefinitions/UkuleleStandardGTuning"
-        case .testing:
+        case .custom:
             "ChordDefinitions/Testing"
         }
     }

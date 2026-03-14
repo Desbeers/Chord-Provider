@@ -55,13 +55,28 @@ extension Views.Toolbar {
                         appState.scene.showTransposeDialog = true
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
-                    DropDown(
-                        selection: $appState.settings.core.instrument.type.onSet { _ in
-                            appState.editor.command = .updateSong
-                        },
-                        values: Chord.InstrumentType.instruments(debug: appState.settings.app.debug)
-                    )
-                    .tooltip("Select your instrument")
+                    Menu(appState.settings.core.database.instrument.type.description) {
+                        MenuSection {
+                            /// I can not populate this with a loop...
+                            MenuButton(Chord.InstrumentType.guitar.label) {
+                                updateDatabase(.guitar)
+                            }
+                            MenuButton(Chord.InstrumentType.guitalele.label) {
+                                 updateDatabase(.guitalele)
+                            }
+                            MenuButton(Chord.InstrumentType.ukulele.label) {
+                                updateDatabase(.ukulele)
+                            }
+                        }
+                        if appState.settings.app.debug {
+                            MenuSection {
+                                MenuButton(Chord.InstrumentType.custom.label) {
+                                    updateDatabase(.custom)
+                                }
+                            }
+                        }
+                    }
+                    .tooltip(appState.settings.core.database.instrument.description)
                     Toggle(
                         icon: .default(icon: .viewDual),
                         isOn: $appState.settings.app.columnPaging
@@ -143,6 +158,14 @@ extension Views.Toolbar {
                     title: appState.editor.song.hasContent ? appState.title : "Chord Provider"
                 )
             }
+        }
+
+        /// Update the chords database
+        /// - Parameter instrumentType: The type of instrument
+        private func updateDatabase( _ instrumentType: Chord.InstrumentType) {
+            appState.settings.core.database = ChordsDatabase(bundle: instrumentType)
+            appState.settings.core.instrumentType = instrumentType
+            appState.editor.command = .updateSong
         }
     }
 }

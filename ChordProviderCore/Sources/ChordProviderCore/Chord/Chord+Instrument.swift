@@ -29,18 +29,9 @@ extension Chord {
 
 extension Chord.Instrument {
 
-        /// String numbers based on the tuning
+    /// String numbers based on the tuning
     public var strings: [Int] {
-        // switch self.type {
-        // case .ukulele:
-        //     [0, 1, 2, 3]
-        // case .testing:
-        //     [0, 1, 2]
-        // default:
-        //     [0, 1, 2, 3, 4, 5]
-        // }
         Array(self.tuning.indices)
-        //Array(0..<tuning.count)
     }
 
     public struct Tuning: Codable, Sendable, Hashable {

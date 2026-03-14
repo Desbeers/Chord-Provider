@@ -51,6 +51,8 @@ import CAdw
 
             )
             .inspectOnAppear { storage in
+                /// Load the chords
+                appState.settings.core.database = ChordsDatabase(bundle: appState.settings.core.instrumentType)
                 /// Init the `GtkSourceView`controller
                 appState.controller = SourceViewController(bridge: $appState.editor, language: .chordpro)
                 /// Attach the CSS provider to the default display

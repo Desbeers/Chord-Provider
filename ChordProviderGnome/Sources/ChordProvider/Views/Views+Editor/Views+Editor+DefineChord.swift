@@ -17,15 +17,14 @@ extension Views.Editor {
         init(appState: Binding<AppState>) {
             var newChord = true
             var definition = ChordDefinition(
-                name: "C",
-                instrument: appState.wrappedValue.settings.core.instrument
-            )!
+                instrument: appState.wrappedValue.settings.core.database.instrument
+            )
             /// Check if we are called as *edit* the definition instead of a new one
             if appState.editor.showEditDirectiveDialog.wrappedValue {
                 if let currentDefinition = try? ChordDefinition(
                     definition: appState.editor.currentLine.plain.wrappedValue ?? "",
                     kind: .customChord,
-                    instrument: appState.settings.core.instrument.wrappedValue
+                    instrument: appState.wrappedValue.settings.core.database.instrument
                 ) {
                     definition = currentDefinition
                     newChord = false

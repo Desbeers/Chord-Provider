@@ -20,13 +20,12 @@ extension Views {
         /// The selected chord
         // swiftlint:disable:next force_unwrapping
         @State private var selectedChord = ChordDefinition(
-            name: "C", 
             instrument: Chord.Instrument(
                 type: .guitar, 
                 description: Chord.InstrumentType.guitar.description, 
                 tuning: ["E2", "A2", "D3", "G3", "B3", "E4"]
             )
-        )!
+        )
         /// The body of the `View`
         var view: Body {
             ScrollView {

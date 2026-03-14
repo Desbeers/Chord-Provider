@@ -23,7 +23,7 @@ extension Views.Database {
             }
             .fileExporter(
                 open: databaseState.exportDatabase,
-                initialName: "\(appState.settings.core.instrument.type.label)"
+                initialName: "\(appState.settings.core.database.instrument.type.label)"
             ) { fileURL in
                 if let export  = try? ChordUtils.exportToJSON(definitions: databaseState.allChords) {
                     try? export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
@@ -57,7 +57,7 @@ extension Views.Database {
             )
             .response("Cancel", role: .close) {
                 /// Revert the instrument
-                appState.settings.core.instrument.type = databaseState.allChords.first?.instrument.type ?? .guitar
+                appState.settings.core.database.instrument.type = databaseState.allChords.first?.instrument.type ?? .guitar
 
             }
             .response("Discard", appearance: .destructive, role: .none) {
@@ -66,9 +66,7 @@ extension Views.Database {
                 case .closeWindow:
                     window.close()
                 case .switchInstrument:
-                    self.databaseState.allChords = getAllChordsForInstrument()
-                    self.databaseState.filteredChords = getFilteredChords()
-                    appState.editor.command = .updateSong
+                    updateDatabase()
                 }
             }
             .response("Export", appearance: .suggested, role: .default) {

@@ -55,10 +55,22 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     /// The status of the chord definition
     public var status: Status = .correct
 
-    // MARK: Calculated values by the init()
+    // MARK: Calculated values
 
     /// The fingers you have to bar for the chord
-    public var barres: [Chord.Barre]?
+    public var barres: [Chord.Barre]? {
+        ChordUtils.fingersToBarres(
+            frets: frets,
+            fingers: fingers
+        )
+    }
     /// The components of the chord definition
-    public var components: [Chord.Component] = []
+    public var components: [Chord.Component] {
+        ChordUtils.fretsToComponents(
+            root: root,
+            frets: frets,
+            baseFret: baseFret,
+            instrument: instrument
+        )
+    }
 }

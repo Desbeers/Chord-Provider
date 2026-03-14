@@ -32,8 +32,6 @@ extension ChordDefinition {
         self.slash = slash
         self.instrument = instrument
         self.kind = kind
-        /// Calculated values
-        addCalculatedValues()
     }
 
     // MARK: Init with a **ChordPro** definition
@@ -61,8 +59,6 @@ extension ChordDefinition {
             self.slash = definition.slash
             self.instrument = instrument
             self.kind = kind
-            /// Calculated values
-            addCalculatedValues()
         } catch {
             throw error
         }
@@ -75,11 +71,11 @@ extension ChordDefinition {
     /// - Parameters:
     ///   - name: The name of the chord, e.g 'Am7'
     ///   - instrument: The ``Chord/Instrument`` for this definition
-    public init?(name: String, instrument: Chord.Instrument) {
+    public init?(name: String, chords: [ChordDefinition]) {
         /// Parse the chord name
         let elements = ChordUtils.Analizer.findChordElements(chord: name)
-        /// Get the chords for the instrument
-        let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument.type)
+        // /// Get the chords for the instrument
+        // let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument.type)
         /// See if we can find it
         guard
             let root = elements.root,
@@ -98,8 +94,6 @@ extension ChordDefinition {
         self.slash = elements.slash
         self.instrument = chord.instrument
         self.kind = .standardChord
-        /// Calculated values
-        addCalculatedValues()
     }
 
     // MARK: Init with a ChordPro JSON chord
@@ -122,8 +116,6 @@ extension ChordDefinition {
             self.slash = definition.slash
             self.instrument = definition.instrument
             self.kind = .standardChord
-            /// Calculated values
-            addCalculatedValues()
         } catch {
             return nil
         }
@@ -155,5 +147,20 @@ extension ChordDefinition {
         self.slash = nil
         self.instrument = instrument
         self.kind = kind
+    }
+
+    // MARK: Init an empty C chord for the diagram editor
+
+    public init(instrument: Chord.Instrument) {
+        /// Set the properties
+        self.id = UUID()
+        self.frets = Array(repeating: 0, count: instrument.strings.count)
+        self.fingers = Array(repeating: 0, count: instrument.strings.count)
+        self.baseFret = .one
+        self.root = .c
+        self.quality = .major
+        self.slash = nil
+        self.instrument = instrument
+        self.kind = .customChord
     }
 }

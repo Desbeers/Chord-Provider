@@ -18,7 +18,8 @@ extension Views.Database {
             if let definition = databaseState.definition.wrappedValue {
                 self._definition = State(wrappedValue: definition)
             } else {
-                let definition = ChordDefinition(name: "C", instrument: appState.wrappedValue.settings.core.instrument)!
+                /// Create a new definition
+                let definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.database.instrument)
                 self._definition = State(wrappedValue: definition)
             }
             self._databaseState = databaseState
@@ -55,6 +56,7 @@ extension Views.Database {
                         Button("\(newChord ? "Add" : "Update") Definition") {
                             switch newChord {
                                 case true:
+                                    appState.settings.core.database.definitions.append(definition)
                                     databaseState.chord = definition.root
                                     databaseState.allChords.append(definition)
                                     databaseState.filteredChords.append(definition)
@@ -64,6 +66,9 @@ extension Views.Database {
                                         ]
                                     )
                                 case false:
+                                    if let index = appState.settings.core.database.definitions.firstIndex(where: { $0.id == definition.id } ) {
+                                        appState.settings.core.database.definitions[index] = definition
+                                    }
                                     if let index = databaseState.allChords.firstIndex(where: { $0.id == definition.id } ) {
                                         databaseState.allChords[index] = definition
                                     }
@@ -74,6 +79,7 @@ extension Views.Database {
                             databaseState.databaseIsModified = true
                             databaseState.definition = definition
                             databaseState.showEditDefinitionDialog = false
+                            appState.editor.command = .updateSong
                         }
                         .suggested()
                         .padding(.trailing)
