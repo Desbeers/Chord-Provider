@@ -19,6 +19,8 @@ extension Chord {
         case ukulele
         /// Custom
         case custom = "Custom Tuning"
+        /// List of build-in instruments
+        public static let buildIn: [InstrumentType] = [.guitar, .guitalele, .ukulele]
     }
 }
 

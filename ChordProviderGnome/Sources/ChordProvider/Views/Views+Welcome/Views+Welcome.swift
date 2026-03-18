@@ -62,25 +62,8 @@ extension Views {
                         }
                         .padding()
                         if appState.settings.app.debug {
-                            Menu("Debug Songs") {
-                                /// - Note: I cannot use a `ForEach` to populate the menu. It will be empty.
-                                MenuButton(Utils.Samples.pangoMarkup.rawValue) {
-                                    appState.openSample(Utils.Samples.pangoMarkup, showEditor: true)
-                                }
-                                MenuButton(Utils.Samples.debugWarnings.rawValue) {
-                                    appState.openSample(Utils.Samples.debugWarnings, showEditor: true)
-                                }
-                                MenuButton(Utils.Samples.transpose.rawValue) {
-                                    appState.openSample(Utils.Samples.transpose, showEditor: true)
-                                }
-                                MenuButton(Utils.Samples.chordDefinitions.rawValue) {
-                                    appState.openSample(Utils.Samples.chordDefinitions, showEditor: true)
-                                }
-                                MenuButton(Utils.Samples.mollyMalone.rawValue) {
-                                    appState.openSample(Utils.Samples.mollyMalone, showEditor: true)
-                                }
-                            }
-                            .padding()
+                            debugSongsMenu()
+                                .padding()
                         }
                         /// - Note: This should be a spacer
                         Separator()
@@ -171,6 +154,16 @@ extension Views {
                 )
             }
         }
+
+        /// Debug songs menu
+        private func debugSongsMenu() -> Menu {
+            var result: [MenuButton] = []
+            for sample in Utils.Samples.debugSamples {
+                result.append(MenuButton(sample.rawValue) { appState.openSample(sample, showEditor: true) } )
+            }
+            return Menu("Debug Songs") { result}
+        }
+
     }
 }
 

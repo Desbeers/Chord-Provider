@@ -56,18 +56,7 @@ extension Views.Toolbar {
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
                     Menu(appState.settings.core.database.instrument.type.description) {
-                        MenuSection {
-                            /// I can not populate this with a loop...
-                            MenuButton(Chord.InstrumentType.guitar.label) {
-                                updateDatabase(.guitar)
-                            }
-                            MenuButton(Chord.InstrumentType.guitalele.label) {
-                                 updateDatabase(.guitalele)
-                            }
-                            MenuButton(Chord.InstrumentType.ukulele.label) {
-                                updateDatabase(.ukulele)
-                            }
-                        }
+                        instrumentMenu()
                         if appState.settings.app.debug {
                             MenuSection {
                                 MenuButton(Chord.InstrumentType.custom.label) {
@@ -166,6 +155,15 @@ extension Views.Toolbar {
             appState.settings.core.database = ChordsDatabase(bundle: instrumentType)
             appState.settings.core.instrumentType = instrumentType
             appState.editor.command = .updateSong
+        }
+
+        /// Menu section with all build-in instruments
+        private func instrumentMenu() -> MenuSection {
+            var result: [MenuButton] = []
+            for instrument in Chord.InstrumentType.buildIn {
+                result.append(MenuButton(instrument.label) { updateDatabase(instrument) })
+            }
+            return MenuSection { result }
         }
     }
 }

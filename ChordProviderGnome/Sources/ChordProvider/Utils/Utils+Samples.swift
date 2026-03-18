@@ -33,5 +33,14 @@ extension Utils {
 
         /// Identifiable protocol
         var id: Self { self }
+
+        /// Debug samples
+        static let debugSamples: [Samples] = [
+            .pangoMarkup,
+            .debugWarnings,
+            .transpose,
+            .chordDefinitions,
+            .mollyMalone
+        ]
     }
 }
