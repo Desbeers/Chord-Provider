@@ -8,17 +8,17 @@
 import Foundation
 
 /// All errors that can happen in Chord Provider Core
-enum ChordProviderError: String, LocalizedError {
+enum ChordProviderError: LocalizedError {
     case fileNotFound
-    case jsonDecoderError
+    case jsonDecoderError(error: String)
     case noChordsDefined
 
     var errorDescription: String? {
         switch self {
         case .fileNotFound:
             "The file is not found"
-        case .jsonDecoderError:
-            "JSON decoder error"
+        case .jsonDecoderError(let error):
+            error
         case .noChordsDefined:
             "No chords are defined"
         }

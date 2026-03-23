@@ -40,7 +40,7 @@ extension Views.Content {
 
         // MARK: Transpose Song Dialog
 
-        /// The dialog to ** Transpose Song**
+        /// The dialog for **Transpose Song**
             .dialog(
                 visible: $appState.scene.showTransposeDialog,
                 title: "Transpose the song",
@@ -49,6 +49,30 @@ extension Views.Content {
             ) {
                 Views.Transpose(appState: $appState)
             }
+
+        // MARK: Error Dialog
+
+        /// The **Alert dialog** for an error
+        .alertDialog(
+            visible: $appState.scene.showErrorDialog,
+            heading: appState.scene.errorTitle,
+            id: "error-dialog",
+            /// - Note: I use `extraChild` instead of `body` so I can use markup
+            extraChild: {
+                VStack {
+                    Text(appState.scene.errorMessage)
+                        .style(.bold)
+                    Text(appState.scene.errorDetails)
+                        .wrap()
+                        .monospace()
+                        .vexpand()
+                        .padding()
+                }
+            }
+        )
+        .response("OK", role: .default) {
+            /// Do nothing
+        }
 
         // MARK: Save Song dialog
 

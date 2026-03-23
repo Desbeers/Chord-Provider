@@ -28,7 +28,7 @@ import CAdw
     /// - Note: This will load all the settings
     @State("AppState") private var appState = AppState()
     /// The state of the database
-    @State private var databaseState = DatabaseState()
+    @State("DatabaseState") private var databaseState = DatabaseState()
     /// The list of recent songs
     @State("RecentSongs") private var recentSongs = RecentSongs()
     /// The size of the application window
@@ -52,7 +52,16 @@ import CAdw
             )
             .inspectOnAppear { storage in
                 /// Load the chords
-                appState.settings.core.database = ChordsDatabase(bundle: appState.settings.core.instrumentType)
+                if appState.settings.app.instrument.modified {
+                    /// Somehow the state is still modified; go back to default
+                    /// - Note: This can happen after a crash or a forced quit
+                    appState.settings.app.instrument = Chord.buildIn[0]
+                }
+                do {
+                    appState.settings.core.database = try ChordsDatabase(instrument: appState.settings.app.instrument)
+                } catch {
+                    print(error)
+                }
                 /// Init the `GtkSourceView`controller
                 appState.controller = SourceViewController(bridge: $appState.editor, language: .chordpro)
                 /// Attach the CSS provider to the default display
@@ -88,8 +97,8 @@ import CAdw
         .devel(appState.settings.app.debug)
         /// - Note: It will remember the window size when opening a new window
         .size(width: $windowSize.width, height: $windowSize.height)
-        .defaultSize(width: 800, height: 600)
-        .minSize(width: 800, height: 600)
+        .defaultSize(width: 1024, height: 800)
+        .minSize(width: 1024, height: 800)
         .maximized($windowSize.maximized)
         /// This is what you see in the Gnome overview
         .title(appState.overviewTitle)
@@ -115,12 +124,12 @@ import CAdw
         /// - Note: It will remember the window size when opening a new window
         .size(width: $databaseWindowSize.width, height: $databaseWindowSize.height)
         .minSize(width: 800, height: 600)
-        .defaultSize(width: 800, height: 600)
+        .defaultSize(width: 1024, height: 600)
         .title("Chords Database")
         .maximized($databaseWindowSize.maximized)
         .devel(appState.settings.app.debug)
         .onClose {
-            if databaseState.databaseIsModified {
+            if appState.modifiedInstrument != nil {
                 databaseState.exportDoneAction = .closeWindow
                 databaseState.showChangedDatatabaseDialog = true
                 return .cancel

@@ -1,0 +1,38 @@
+{
+  "chords" : [
+    {
+      "base" : 1,
+      "fingers" : [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "frets" : [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name" : "D"
+    }
+  ],
+  "instrument" : {
+    "description" : "Guitar, 5 strings, stupid tuning",
+    "type" : "guitar"
+  },
+  "pdf" : {
+    "diagrams" : {
+      "vcells" : 6
+    }
+  },
+  "tuning" : [
+    "A1",
+    "B2",
+    "C3",
+    "D4",
+    "E5"
+  ]
+}

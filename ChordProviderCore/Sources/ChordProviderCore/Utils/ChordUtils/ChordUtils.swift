@@ -12,16 +12,10 @@ public enum ChordUtils {
 
     /// Export the definitions to a JSON string
     /// - Parameters:
-    ///   - definitions: The chord definitions
+    ///   - database: The chords databse
     /// - Returns: A JSON string with chord definitions in **ChordPro** format
-    public static func exportToJSON(definitions: [ChordDefinition]) throws -> String {
-        guard
-            /// The first definition is needed to find the instrument
-            let instrument = definitions.first?.instrument
-        else {
-            throw ChordProviderError.noChordsDefined
-        }
-        let basicAndSharps = definitions.filter { $0.root.accidental != .flat }
+    public static func exportToJSON(database: ChordsDatabase) throws -> String {
+        let basicAndSharps = database.definitions.filter { $0.root.accidental != .flat }
         var chords = basicAndSharps.map { chord in
             ChordPro.Instrument.Chord(
                 name: chord.name,
@@ -31,7 +25,7 @@ public enum ChordUtils {
                 fingers: chord.fingers
             )
         }
-        let flats = definitions.filter { $0.root.accidental == .sharp }
+        let flats = database.definitions.filter { $0.root.accidental == .sharp }
         chords += flats.map { chord in
             /// Make an editable copy
             var copy = chord
@@ -54,10 +48,10 @@ public enum ChordUtils {
         )
         let export = ChordPro.Instrument(
             instrument: .init(
-                description: instrument.description,
-                type: instrument.type.rawValue
+                description: database.instrument.label,
+                type: database.instrument.type.rawValue
             ),
-            tuning: instrument.tuning.map { "\($0.note)\($0.octave)" },
+            tuning: database.instrument.tuning.map { "\($0.note)\($0.octave)" },
             chords: chords
         )
 

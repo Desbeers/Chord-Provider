@@ -20,11 +20,7 @@ extension Views {
         /// The selected chord
         // swiftlint:disable:next force_unwrapping
         @State private var selectedChord = ChordDefinition(
-            instrument: Chord.Instrument(
-                type: .guitar, 
-                description: Chord.InstrumentType.guitar.description, 
-                tuning: ["E2", "A2", "D3", "G3", "B3", "E4"]
-            )
+            instrument: Chord.buildIn[0]
         )
         /// The body of the `View`
         var view: Body {

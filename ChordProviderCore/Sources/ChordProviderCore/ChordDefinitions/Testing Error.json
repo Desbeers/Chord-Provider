@@ -15,8 +15,8 @@
       "name" : "D"
     }
   ],
-  "instrument" : {
-    "description" : "Testing, 3 strings, stupid tuning",
+  "instrumentError" : {
+    "description" : "Ukulele, 3 strings, stupid tuning",
     "type" : "ukulele"
   },
   "pdf" : {

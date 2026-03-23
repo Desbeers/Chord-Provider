@@ -1325,7 +1325,7 @@
     }
   ],
   "instrument" : {
-    "description" : "Guitalele, 6 strings, standard tuning",
+    "description" : "Standard Tuning",
     "type" : "guitalele"
   },
   "pdf" : {

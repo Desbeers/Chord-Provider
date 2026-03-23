@@ -8,30 +8,94 @@
 import Foundation
 
 public struct ChordsDatabase: Codable, Sendable, Equatable {
+    /// The instrument
+    public var instrument: Chord.Instrument
+    /// The chord definitions
+    public var definitions: [ChordDefinition] = []
+    /// Items to save in the database
+    enum CodingKeys: String, CodingKey {
+        /// Only save the instrument
+        case instrument
+    }
+}
+
+extension ChordsDatabase {
 
     /// Init an empty database
     public init() {
-        let instrument = Chord.Instrument(
-            type: .guitar, 
-            description: Chord.InstrumentType.guitar.label,
-            tuning: ["E2", "A2", "D3", "G3", "B3", "E4"]
-        )
+        let instrument = Chord.buildIn[0]
         self.instrument = instrument
         self.definitions = []
     }
 
-    /// Init the database with a standard instrument from the resource bundle
-    public init(bundle: Chord.InstrumentType) {
-        let database = Bundle.module.decode(ChordPro.Instrument.self, from: bundle.database)
-        var definitions: [ChordDefinition] = []
+    /// Init the database with **ChordPro** JSON
+    public init(json: String, fileURL: URL?) throws {
+        do {
+            let data = Data(json.utf8)
+            let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
+            let result = ChordsDatabase.processDatabase(database: database, fileURL: fileURL)
+            self.instrument = result.instrument
+            self.definitions = result.definitions
+        } catch {
+            throw error
+        }
+    }
 
+
+    /// Init the database with an URL
+    public init(url: URL) throws {
+        do {
+            let data = try Data(contentsOf: url)
+            let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
+            let result = ChordsDatabase.processDatabase(database: database, fileURL: url)
+            self.instrument = result.instrument
+            self.definitions = result.definitions
+        } catch {
+            throw error
+        }
+    }
+
+    /// Init the database with an instrument
+    public init(instrument: Chord.Instrument) throws {
+        do {
+            if let bundle = instrument.bundle {
+                let database = try Bundle.module.decode(ChordPro.Instrument.self, from: bundle)
+                let result = ChordsDatabase.processDatabase(database: database, bundle: instrument.bundle)
+                self.instrument = result.instrument
+                self.definitions = result.definitions
+            } else if let url = instrument.fileURL {
+                let data = try Data(contentsOf: url)
+                let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
+                let result = ChordsDatabase.processDatabase(database: database, fileURL: url)
+                self.instrument = result.instrument
+                self.definitions = result.definitions
+            } else {
+                print("ERROR")
+                self.instrument = Chord.buildIn[0]
+                self.definitions = []
+            }
+        } catch {
+            throw error
+        }
+    }
+}
+
+extension ChordsDatabase {
+
+    private static func processDatabase(
+        database: ChordPro.Instrument,
+        bundle: String? = nil,
+        fileURL: URL? = nil
+    ) -> (instrument: Chord.Instrument, definitions: [ChordDefinition]) {
         let instrument = Chord.Instrument(
             type: Chord.InstrumentType(rawValue: database.instrument.type) ?? .guitar,
-            description: database.instrument.description,
-            tuning: database.tuning
+            label: database.instrument.description,
+            tuning: database.tuning,
+            bundle: bundle,
+            fileURL: fileURL
         )
-
         /// Get all chord definitions
+        var definitions: [ChordDefinition] = []
         for chord in database.chords {
             if let result = ChordDefinition(chord: chord, instrument: instrument) {
                 definitions.append(result)
@@ -42,46 +106,6 @@ public struct ChordsDatabase: Codable, Sendable, Equatable {
                 KeyPathComparator(\.baseFret), KeyPathComparator(\.frets.description)
             ]
         )
-        self.instrument = instrument
-        self.definitions = definitions
-    }
-
-    public var instrument: Chord.Instrument
-
-    public var definitions: [ChordDefinition] = []
-
-        /// Items to save in the database
-    enum CodingKeys: String, CodingKey {
-        /// Only save the instrument
-        case instrument
-    }
-}
-
-extension ChordsDatabase {
-
-    /// The instruments we know about
-    public enum BuildIn: String, CaseIterable, Codable, Sendable {
-        /// Guitar Standard E tuning
-        case guitar
-        /// Guitalele
-        case guitalele
-        /// Ukulele Standard G tuning
-        case ukulele
-
-        case testing
-
-        /// The databases for the instruments in the `Resources` folder
-        public var database: String {
-            switch self {
-            case .guitar:
-                "ChordDefinitions/GuitarStandardETuning"
-            case .guitalele:
-                "ChordDefinitions/GuitaleleStandardATuning"
-            case .ukulele:
-                "ChordDefinitions/UkuleleStandardGTuning"
-            case .testing:
-                "ChordDefinitions/Testing"
-            }
-        }
+        return (instrument, definitions)
     }
 }

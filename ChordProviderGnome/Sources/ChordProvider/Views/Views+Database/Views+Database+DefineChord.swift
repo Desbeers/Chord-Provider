@@ -15,16 +15,17 @@ extension Views.Database {
     /// The `View` to edit or add a chord definition
     struct DefineChord: View {
         init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>) {
-            if let definition = databaseState.definition.wrappedValue {
+            self.newChord = databaseState.wrappedValue.newChord
+            if !newChord, let definition = databaseState.definition.wrappedValue {
                 self._definition = State(wrappedValue: definition)
             } else {
-                /// Create a new definition
-                let definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.database.instrument)
+                /// Create a new definition with the current root
+                var definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.database.instrument)
+                definition.root = databaseState.wrappedValue.chord
                 self._definition = State(wrappedValue: definition)
             }
             self._databaseState = databaseState
             self._appState = appState
-            self.newChord = databaseState.wrappedValue.newChord
         }
         /// The state of the application
         @Binding var appState: AppState
@@ -54,29 +55,21 @@ extension Views.Database {
                             databaseState.showEditDefinitionDialog = false
                         }
                         Button("\(newChord ? "Add" : "Update") Definition") {
+                            /// Set the instrument as modified
+                            var modifiedInstrument = appState.settings.app.instrument
+                            modifiedInstrument.modified = true
+                            appState.modifiedInstrument = modifiedInstrument
+                            appState.settings.app.instrument = modifiedInstrument
                             switch newChord {
                                 case true:
                                     appState.settings.core.database.definitions.append(definition)
-                                    databaseState.chord = definition.root
-                                    databaseState.allChords.append(definition)
-                                    databaseState.filteredChords.append(definition)
-                                    databaseState.filteredChords.sort( 
-                                        using: [
-                                            KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
-                                        ]
-                                    )
                                 case false:
                                     if let index = appState.settings.core.database.definitions.firstIndex(where: { $0.id == definition.id } ) {
                                         appState.settings.core.database.definitions[index] = definition
                                     }
-                                    if let index = databaseState.allChords.firstIndex(where: { $0.id == definition.id } ) {
-                                        databaseState.allChords[index] = definition
-                                    }
-                                    if let index = databaseState.filteredChords.firstIndex(where: { $0.id == definition.id } ) {
-                                        databaseState.filteredChords[index] = definition
-                                    }
                             }
-                            databaseState.databaseIsModified = true
+                            databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                            databaseState.chord = definition.root
                             databaseState.definition = definition
                             databaseState.showEditDefinitionDialog = false
                             appState.editor.command = .updateSong

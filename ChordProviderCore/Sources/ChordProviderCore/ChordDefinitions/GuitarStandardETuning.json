@@ -56032,7 +56032,7 @@
     }
   ],
   "instrument" : {
-    "description" : "Guitar, 6 strings, standard tuning",
+    "description" : "Standard Tuning",
     "type" : "guitar"
   },
   "pdf" : {

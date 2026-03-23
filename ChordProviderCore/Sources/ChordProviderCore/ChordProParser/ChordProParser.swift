@@ -114,26 +114,8 @@ public enum ChordProParser {
         let lines = song.sections.flatMap(\.lines)
         /// Check if the song has warnings or errors
         song.hasWarnings = !lines.compactMap(\.warnings).isEmpty
-        /// Get all chords
-        /// - Note: Defined chords that are not used will be ignored
-        var result = Set<ChordDefinition>()
-        for line in lines {
-            /// Chords in lyrics, chorus etcetera
-            line.parts?.forEach { part in
-                if let chord = part.chordDefinition {
-                    result.insert(chord)
-                }
-            }
-            /// Chords in grids
-            line.grid?.flatMap(\.cells).forEach { grid in
-                grid.parts.forEach { part in
-                    if let chord = part.chordDefinition {
-                        result.insert(chord)
-                    }
-                }
-            }
-        }
-        song.chords = Array(result).sorted()
+        /// Sort all chords
+        song.chords.sort()
 
         LogUtils.shared.setLog(
             level: song.hasWarnings ? .notice : .info,

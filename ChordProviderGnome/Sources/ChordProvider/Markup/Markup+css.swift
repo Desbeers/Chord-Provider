@@ -148,6 +148,10 @@ return """
 window, dialog sheet {
     background-image: linear-gradient(135deg, var(--chordprovider-window-start), var(--chordprovider-window-end));
 }
+
+.sidebar-pane {
+	background-color: var(--chordprovider-window-start);
+}
 """ : "")
 
 \(theme.colorScheme != .accent ? """

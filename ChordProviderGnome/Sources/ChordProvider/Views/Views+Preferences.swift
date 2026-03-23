@@ -93,8 +93,45 @@ extension Views {
                         .subtitle("Select the font size for the editor")
                     }
             }
-            .preferencesPage("Midi", icon: .default(icon: .mediaPlaybackStart)) { page in
+            .preferencesPage("Chords", icon: .default(icon: .mediaPlaybackStart)) { page in
                 page
+                    .group("Custom Chord Definitions") {
+                        Form {
+                            if appState.settings.app.customInstruments.isEmpty {
+                                ActionRow("You have no custom chord definitions.")
+                            } else {
+                                ForEach(appState.settings.app.customInstruments) { instrument in
+                                    ActionRow(instrument.type.description)
+                                        .subtitle(instrument.label)
+                                        .suffix {
+                                            Button("Remove") {
+                                                if let index = appState.settings.app.customInstruments
+                                                    .firstIndex(where: { $0.hashValue == instrument.hashValue}) {
+                                                    appState.settings.app.customInstruments.remove(at: index)
+                                                }
+                                                if instrument == appState.settings.app.instrument {
+                                                    /// The instrument was selected; reset to default
+                                                    appState.settings.app.instrument = Chord.buildIn[0]
+                                                    appState.updateDatabase(instrument: Chord.buildIn[0])
+                                                }
+                                            }
+                                                .valign(.center)
+                                        }
+                                }
+                            }
+                            Button("Import chord definitions") {
+                                appState.scene.importDatabase.signal()
+                            }
+                            .halign(.end)
+                            .padding()
+                            .fileImporter(
+                                open: appState.scene.importDatabase,
+                                extensions: ["json"]
+                            ) { fileURL in
+                                appState.importDatabase(url: fileURL)
+                            }
+                        }
+                    }
                     .group("Options for the MIDI player") {
                         ComboRow(
                             "Instrument",

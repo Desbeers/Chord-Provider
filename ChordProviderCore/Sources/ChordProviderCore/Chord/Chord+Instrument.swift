@@ -10,20 +10,48 @@ import RegexBuilder
 
 extension Chord {
 
-    public struct Instrument: Codable, Sendable, Hashable {
+    public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStringConvertible {
 
-        public init(type: InstrumentType, description: String, tuning: [String]) {
+        public init(
+            type: InstrumentType,
+            label: String,
+            tuning: [String],
+            bundle: String? = nil,
+            fileURL: URL? = nil,
+            modified: Bool = false
+        ) {
             self.type = type
-            self.description = description
+            self.label = label
             self.tuning = tuning.compactMap(Chord.Instrument.Tuning.init)
+            self.bundle = bundle
+            self.fileURL = fileURL
+            self.modified = modified
+        }
+
+        /// Identifiable protocol
+        public var id: Self { self }
+
+        /// CustomStringConvertible protocol
+        public var description: String {
+            var result = [type.description, label]
+            if modified {
+                result.append("modified")
+            }
+            return result.joined(separator: " · ")
         }
 
         /// The type of instrument
         public var type: InstrumentType
-        /// The description of the instrument
-        public var description: String
+        /// The label of the instrument
+        public var label: String
         /// The tuning of the instrument
         public var tuning: [Tuning]
+        /// The optional path to the build-in bundle
+        public var bundle: String?
+        /// The optional URL to the custom definitions
+        public var fileURL: URL?
+        /// Bool if the database is modified
+        public var modified: Bool = false
     }
 }
 
@@ -34,11 +62,14 @@ extension Chord.Instrument {
         Array(self.tuning.indices)
     }
 
-    public struct Tuning: Codable, Sendable, Hashable {
+    public struct Tuning: Codable, Sendable, Hashable, Identifiable {
         /// The note of the tuning
         public var note: Chord.Root
         /// The octave of the tuning
         public var octave: Int
+
+        /// Identifiable protocol
+        public var id: Self { self }
     }
 
     public var offsets: [Int] {
@@ -58,6 +89,11 @@ extension Chord.Instrument.Tuning {
         TryCapture {
             OneOrMore(.digit)
         } transform: { Int($0) }
+    }
+
+    public init(note: Chord.Root, value: Int) {
+        self.note = note
+        self.octave = value
     }
 
     /// Init the instrument tuning

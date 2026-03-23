@@ -32,6 +32,7 @@ extension ChordDefinition {
         self.slash = slash
         self.instrument = instrument
         self.kind = kind
+        self.transposedName = self.name + "-0"
     }
 
     // MARK: Init with a **ChordPro** definition
@@ -59,6 +60,7 @@ extension ChordDefinition {
             self.slash = definition.slash
             self.instrument = instrument
             self.kind = kind
+            self.transposedName = self.name + "-0"
         } catch {
             throw error
         }
@@ -94,6 +96,7 @@ extension ChordDefinition {
         self.slash = elements.slash
         self.instrument = chord.instrument
         self.kind = .standardChord
+        self.transposedName = self.name + "-0"
     }
 
     // MARK: Init with a ChordPro JSON chord
@@ -116,6 +119,7 @@ extension ChordDefinition {
             self.slash = definition.slash
             self.instrument = definition.instrument
             self.kind = .standardChord
+            self.transposedName = self.name + "-0"
         } catch {
             return nil
         }
@@ -147,6 +151,7 @@ extension ChordDefinition {
         self.slash = nil
         self.instrument = instrument
         self.kind = kind
+        self.transposedName = self.name + "-0"
     }
 
     // MARK: Init an empty C chord for the diagram editor
@@ -162,5 +167,6 @@ extension ChordDefinition {
         self.slash = nil
         self.instrument = instrument
         self.kind = .customChord
+        self.transposedName = self.name + "-0"
     }
 }

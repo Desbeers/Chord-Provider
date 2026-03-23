@@ -55,17 +55,14 @@ extension Views.Toolbar {
                         appState.scene.showTransposeDialog = true
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
-                    Menu(appState.settings.core.database.instrument.type.description) {
-                        instrumentMenu()
-                        if appState.settings.app.debug {
-                            MenuSection {
-                                MenuButton(Chord.InstrumentType.custom.label) {
-                                    updateDatabase(.custom)
-                                }
-                            }
-                        }
-                    }
-                    .tooltip(appState.settings.core.database.instrument.description)
+                    DropDown(
+                        selection: $appState.settings.app.instrument.onSet { instrument in
+                            appState.updateDatabase(instrument: instrument)
+                        },
+                        values: appState.chordInstruments
+                    )
+                    .tooltip(appState.settings.app.instrument.label)
+                    //.insensitive(appState.modifiedInstrument != nil)
                     Toggle(
                         icon: .default(icon: .viewDual),
                         isOn: $appState.settings.app.columnPaging
@@ -147,23 +144,6 @@ extension Views.Toolbar {
                     title: appState.editor.song.hasContent ? appState.title : "Chord Provider"
                 )
             }
-        }
-
-        /// Update the chords database
-        /// - Parameter instrumentType: The type of instrument
-        private func updateDatabase( _ instrumentType: Chord.InstrumentType) {
-            appState.settings.core.database = ChordsDatabase(bundle: instrumentType)
-            appState.settings.core.instrumentType = instrumentType
-            appState.editor.command = .updateSong
-        }
-
-        /// Menu section with all build-in instruments
-        private func instrumentMenu() -> MenuSection {
-            var result: [MenuButton] = []
-            for instrument in Chord.InstrumentType.buildIn {
-                result.append(MenuButton(instrument.label) { updateDatabase(instrument) })
-            }
-            return MenuSection { result }
         }
     }
 }

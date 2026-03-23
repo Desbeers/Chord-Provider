@@ -9,14 +9,13 @@ import Foundation
 
 extension ChordDefinition {
 
-    /// The name of the chord for internal use
-    /// - Returns: A string with the name and transpose value of the chord
+    /// The name of the chord
+    /// - Returns: A string with the name and
     public var name: String {
         var name = self.root.rawValue + self.quality.rawValue
         if let slash = self.slash {
             name += "/\(slash.rawValue)"
         }
-        name += "-\(transposed)"
         return name
     }
 

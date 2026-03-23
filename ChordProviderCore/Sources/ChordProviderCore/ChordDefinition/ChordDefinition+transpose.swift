@@ -18,8 +18,7 @@ extension ChordDefinition {
         let kind = self.kind
         /// Get the new name by adding the transpose value, it will keep the original chord name
         /// - Note: For transposing custom chords
-        self.transposed = transpose
-        let newName = self.name
+        let newName = self.name + "-\(transpose)"
         // /// Get the chords for the instrument
         // let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument.type)
         /// Transpose the root

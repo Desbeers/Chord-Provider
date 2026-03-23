@@ -9,29 +9,35 @@ import Foundation
 
 extension Chord {
 
+    public static let buildIn: [Chord.Instrument] = [
+        Instrument(
+            type: .guitar,
+            label: "Standard Tuning",
+            tuning: ["E2", "A2", "D3", "G3", "B3", "E4"],
+            bundle: "ChordDefinitions/GuitarStandardETuning"
+            ),
+        Instrument(
+            type: .guitalele,
+            label: "Standard Tuning",
+            tuning: ["A2", "D3", "G3", "C4", "E4", "A4"],
+            bundle: "ChordDefinitions/GuitaleleStandardATuning"
+            ),
+        Instrument(
+            type: .ukulele,
+            label: "Standard Tuning",
+            tuning: ["G4", "C4", "E4", "A4"],
+            bundle: "ChordDefinitions/UkuleleStandardGTuning"
+            )
+    ]
+
     /// The instruments we know about
     public enum InstrumentType: String, CaseIterable, Codable, Sendable {
-        /// Guitar Standard E tuning
+        /// Guitar
         case guitar
         /// Guitalele
         case guitalele
-        /// Ukulele Standard G tuning
+        /// Ukulele
         case ukulele
-        /// Custom
-        case custom = "Custom Tuning"
-        /// List of build-in instruments
-        public static let buildIn: [InstrumentType] = [.guitar, .guitalele, .ukulele]
-    }
-}
-
-extension Chord.InstrumentType {
-
-    public static func instruments(debug: Bool) -> [Chord.InstrumentType] {
-        var instruments: [Chord.InstrumentType] = [.guitar, .guitalele, .ukulele]
-        if debug {
-            instruments.append(.custom)
-        }
-        return instruments
     }
 }
 
@@ -42,39 +48,5 @@ extension Chord.InstrumentType: Identifiable, CustomStringConvertible {
     /// CustomStringConvertible protocol
     public var description: String {
         rawValue.capitalized
-    }
-}
-
-extension Chord.InstrumentType {
-
-    /// The label of the instrument
-    public var label: String {
-        switch self {
-        case .guitar:
-            "Guitar, 6 strings, standard tuning"
-        case .guitalele:
-            "Guitalele, 6 strings, standard tuning"
-        case .ukulele:
-            "Ukulele, 4 strings, standard tuning"
-        case .custom:
-            "Custom tuning"
-        }
-    }
-}
-
-extension Chord.InstrumentType {
-
-    /// The databases for the instruments in the `Resources` folder
-    public var database: String {
-        switch self {
-        case .guitar:
-            "ChordDefinitions/GuitarStandardETuning"
-        case .guitalele:
-            "ChordDefinitions/GuitaleleStandardATuning"
-        case .ukulele:
-            "ChordDefinitions/UkuleleStandardGTuning"
-        case .custom:
-            "ChordDefinitions/Testing"
-        }
     }
 }

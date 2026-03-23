@@ -34,6 +34,8 @@ extension AppState {
         var saveSongAs = Signal()
         /// A signal to open a folder
         var openFolder = Signal()
+        /// A signal to import a chords database
+        var importDatabase = Signal()
 
         // MARK: Dialogs
 
@@ -51,6 +53,17 @@ extension AppState {
         /// Show the *Shortcuts* dialog
         /// - Note: Shortcuts don't work on macOS
         var showShortcutsDialog: Bool = false
+
+        // MARK: Errors
+
+        /// Show an error dialog
+        var showErrorDialog: Bool = false
+        /// The error title
+        var errorTitle: String = ""
+        /// The error message
+        var errorMessage: String = ""
+        /// The error details
+        var errorDetails: String = ""
 
         // MARK: Toasts
 

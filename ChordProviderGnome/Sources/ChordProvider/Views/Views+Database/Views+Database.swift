@@ -19,174 +19,234 @@ extension Views {
         @Binding var appState: AppState
         /// The database state
         @Binding var databaseState: DatabaseState
+        /// Bool if the sidebar is wide
+        @State private var wide = true
+
+        func label(instrument: Chord.Instrument) -> String {
+            var result: [String] = [instrument.bundle == nil ? instrument.fileURL?.lastPathComponent ?? "New" : "Build-in"]
+            if appState.modifiedInstrument?.modified == instrument.modified {
+                result.append("modified")
+            }
+            return result.joined(separator: " · ")
+        }
+
         /// The body of the `View`
         var view: Body {
-            VStack {
-                HStack {
-                    ToggleGroup(
-                        selection: $appState.settings.core.instrumentType.onSet {  _ in
-                            if databaseState.databaseIsModified {
-                                databaseState.exportDoneAction = .switchInstrument
-                                databaseState.showChangedDatatabaseDialog = true
-                            } else {
+            OverlaySplitView(visible: $databaseState.sidebarVisible) {
+                ScrollView {
+                    List(
+                        appState.chordInstruments,
+                        selection: $appState.settings.app.instrument.onSet {  _ in
+                            if appState.modifiedInstrument == nil {
                                 updateDatabase()
+                            } else {
+                                databaseState.exportDoneAction = .switchInstrument
+                                databaseState.showChangedDatatabaseDialog = true 
                             }
-                        },
-                        values: Chord.InstrumentType.instruments(debug: appState.settings.app.debug),
-                        id: \.self,
-                        label: \.description
-                    )
-                    .hexpand()
-                    .padding(.trailing)
-                    SearchEntry()
-                        .text($databaseState.search.onSet { _ in
-                                databaseState.filteredChords = getFilteredChords()
-                            }
-                        )
-                        .placeholderText("Search")
-                }
-                .padding(.horizontal)
-                VStack {
-                    if databaseState.search.isEmpty {
-                        ToggleGroup(
-                            selection: $databaseState.chord.onSet { _ in
-                                self.databaseState.filteredChords = getFilteredChords()
-                            },
-                            values: Chord.Root.naturalAndSharp.dropFirst().dropLast(),
-                            id: \.self,
-                            label: \.naturalAndSharpDisplay
-                        )
-                        .transition(.coverUpDown)
-                        .padding([.leading, .trailing, .top])
-                    }
-                    ScrollView {
-                        if databaseState.filteredChords.isEmpty {
-                            StatusPage(
-                                "No chords found",
-                                icon: .default(icon: .systemSearch),
-                                description: "Oops! We couldn't find any chords that match your search."
-                            )
-                        } else {
-                            FlowBox(
-                                databaseState.filteredChords,
-                                id: \.self,
-                                selection: $databaseState.definition
-                            ) { chord in
-                                if let chord {
-                                    VStack {
-                                        MidiPlayer(chord: chord, preset: appState.settings.core.midiPreset)
-                                        ChordDiagram(chord: chord, width: 120, coreSettings: appState.settings.core)
-                                    }
+                        }
+                    ) { element in
+                        HStack {
+                            VStack {
+                                Text(element.type.description)
+                                    .style(.bold)
+                                    .halign(.start)
+                                Text(label(instrument: element))
+                                    .style(.caption)
+                                    .halign(.start)
+                                Text(element.label)
+                                    .halign(.start)
+                                ForEach(element.tuning, horizontal: true) { tuning in
+                                    Text("\(tuning.note)\(tuning.octave) ")
                                 }
                             }
-                            .valign(.start)
-                            .padding()
+                            .hexpand()
+                            if element == appState.settings.app.instrument {
+                                VStack {
+                                    Button(icon: .default(icon: .textEditor)) {
+                                        databaseState.newDatabase = false
+                                        databaseState.showNewDatabaseDialog = true
+                                    }
+                                    .flat()
+                                    /// Build-in databases can not be edited
+                                    .insensitive(appState.settings.app.instrument.bundle != nil)
+                                    Button(icon: .default(icon: .editCopy)) {
+                                        var database = appState.settings.core.database
+                                        database.instrument.bundle = nil
+                                        database.instrument.fileURL = nil
+                                        database.instrument.label += " (copy)"
+                                        database.instrument.modified = true
+                                        /// Add the copy
+                                        appState.modifiedInstrument = database.instrument
+                                        appState.settings.app.instrument = database.instrument
+                                        appState.settings.core.database = database
+                                    }
+                                    .flat()
+                                    .insensitive(appState.modifiedInstrument != nil)
+                                }
+                                .halign(.end)
+                                .transition(.crossfade)
+                            }
                         }
+                        //.halign(.start)
+                        .hexpand()
+                        .padding()
                     }
-                    .vexpand()
+                    .sidebarStyle()
                 }
-                .padding()
-                .card()
-                HStack(spacing: 10) {
-                    SwitchRow()
-                        .title("Left-handed chords")
-                        .active($appState.settings.core.diagram.mirror)
+                .hscrollbarPolicy(.never)
+                .vexpand()
+                .topToolbar {
+                    HeaderBar.end {
+                        menu
+                    }
+                    .headerBarTitle {
+                        WindowTitle(subtitle: "", title: "Instruments")
+                    }
+                }
+                Separator()
+                    .padding(.horizontal)
+                SwitchRow()
+                    .title("Left-handed chords")
+                    .active($appState.settings.core.diagram.mirror)
+                    .padding(.bottom)
+            } content: {
+                VStack {
+                    VStack {
+                        if databaseState.search.isEmpty {
+                            ToggleGroup(
+                                selection: $databaseState.chord.onSet { _ in
+                                    databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                                },
+                                values: Chord.Root.naturalAndSharp.dropFirst().dropLast(),
+                                id: \.self,
+                                label: \.naturalAndSharpDisplay
+                            )
+                            .padding([.leading, .trailing, .top])
+                        }
+                        ScrollView {
+                            if databaseState.filteredChords.isEmpty {
+                                StatusPage(
+                                    "No chords found",
+                                    icon: .default(icon: .systemSearch),
+                                    description: "Couldn't find any \(databaseState.search.isEmpty ? "\(databaseState.chord.naturalAndSharpDisplay) chords" : "chords that match your search")."
+                                )
+                                .transition(.crossfade)
+                            } else {
+                                FlowBox(
+                                    databaseState.filteredChords,
+                                    id: \.self,
+                                    selection: $databaseState.definition
+                                ) { chord in
+                                    if let chord {
+                                        VStack {
+                                            MidiPlayer(chord: chord, preset: appState.settings.core.midiPreset)
+                                            ChordDiagram(chord: chord, width: 120, coreSettings: appState.settings.core)
+                                        }
+                                    }
+                                }
+                                .valign(.start)
+                                .padding()
+                                .transition(.crossfade)
+                            }
+                        }
+                        .vexpand()
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                    .card()
                     HStack {
-                        DropDown(
-                            selection: $appState.settings.core.midiPreset,
-                            values: MidiUtils.Preset.allCases
-                        )
                         Text(" ")
                             .hexpand()
-                        /// TODO: Work in progress
-                        if appState.settings.app.debug {
-                            /// I have to make this an `HStack`` again or else the buttons will grow
-                            HStack {
-                                if let definition = databaseState.definition {
-                                    Button("Edit \(definition.display)") {
-                                        databaseState.newChord = false
-                                        databaseState.showEditDefinitionDialog.toggle()
-                                    }
-                                    .padding(.trailing)
-                                }
-                                Button("New Definition") {
-                                    databaseState.newChord = true
-                                    databaseState.showEditDefinitionDialog.toggle()
-                                }
+                        if let definition = databaseState.definition {
+                            Button("Edit \(definition.display)") {
+                                databaseState.newChord = false
+                                databaseState.showEditDefinitionDialog.toggle()
                             }
                             .padding(.trailing)
                         }
+                        Button("New Definition") {
+                            databaseState.newChord = true
+                            databaseState.showEditDefinitionDialog.toggle()
+                        }
+                        .padding(.trailing)
                     }
-                    .valign(.center)
+                    .padding(.bottom)
                 }
-                .transition(.crossfade)
-            }
-            .topToolbar {
-                HeaderBar { }
-                end: {
-                    /// TODO: Work in progress
-                    if appState.settings.app.debug {
-                        Menu(icon: .default(icon: .openMenu)) {
-                            MenuButton("Export Database") {
-                                databaseState.exportDatabase.signal()
-                            }
+                .topToolbar {
+                    HeaderBar { 
+                        Toggle(icon: .default(icon: .sidebarShow), isOn: $databaseState.sidebarVisible)
+                            .tooltip("Toggle Sidebar")
+                    }
+                    end: {
+                        if databaseState.sidebarVisible {
+                            Text("").transition(.crossfade)
+                        } else {
+                            menu.transition(.crossfade)
+                        }
+                        SearchEntry()
+                            .text($databaseState.search.onSet { _ in
+                                    databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                                }
+                            )
+                            .placeholderText("Search")
+                    }
+                    .headerBarTitle {
+                        if databaseState.sidebarVisible {
+                            Text("")
+                                .transition(.crossfade)
+                        } else {
+                            WindowTitle(
+                                subtitle: appState.settings.app.instrument.description,
+                                title: "Chords Database"
+                            )
+                            .transition(.crossfade)
                         }
                     }
                 }
-                .headerBarTitle {
-                    let subtitle = appState.settings.core.database.instrument.description
-                    WindowTitle(
-                        subtitle: "\(subtitle)\(databaseState.databaseIsModified ? " · modified" : "")",
-                        title: "Chords Databse"
-                    )
+                .onAppear {
+                    Idle {
+                        databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                    }
+                }
+                .onUpdate {
+                    Idle {
+                        if databaseState.instrument != appState.settings.app.instrument {
+                            /// The database is changed in the main window; update it
+                            databaseState.instrument = appState.settings.app.instrument
+                            databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                        }
+                    }
                 }
             }
-            .onAppear {
-                Idle {
-                    self.databaseState.allChords = getAllChordsForInstrument()
-                    self.databaseState.filteredChords = getFilteredChords()
-                }
-            }
+            .collapsed(!wide)
+            .breakpoint(minWidth: 1000, matches: $wide)
             /// Add the dialogs
             dialogs
         }
 
-        /// Get all chords for an instrument
-        /// - Returns: All the chords
-        func getAllChordsForInstrument() -> [ChordDefinition] {
-            appState.settings.core.database.definitions
-        }
-
-        func updateDatabase() {
-            appState.settings.core.database = ChordsDatabase(bundle: appState.settings.core.instrumentType)
-            databaseState.allChords = getAllChordsForInstrument()
-            databaseState.filteredChords = getFilteredChords()
-            appState.editor.command = .updateSong
-        }
-
-        /// Get all filtered chords
-        /// - Returns: The filtered chords
-        func getFilteredChords() -> [ChordDefinition] {
-            self.databaseState.definition = nil
-            var result = [ChordDefinition]()
-            if databaseState.search.isEmpty {
-                result = databaseState.allChords
-                    .filter { $0.root == databaseState.chord }
-                    .sorted(
-                        using: [
-                            KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
-                        ]
-                    )
-            } else {
-                result = databaseState.allChords
-                    .filter { $0.name.starts(with: databaseState.search) }
-                    .sorted(
-                        using: [
-                            KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
-                        ]
-                    )
+        // The menu view
+        var menu: AnyView {
+            Menu(icon: .default(icon: .openMenu)) {
+                MenuButton("New Database") {
+                    databaseState.newDatabase = true
+                    databaseState.showNewDatabaseDialog = true
+                }
+                .insensitive()
+                MenuButton("Import Database") {
+                    databaseState.importDatabase.signal()
+                }
+                MenuButton("Export Database") {
+                    databaseState.exportDoneAction = .doNothing
+                    databaseState.exportDatabase.signal()
+                }
             }
-            return result
+        }
+
+        /// Update the database after a new instrument selection
+        func updateDatabase() {
+            databaseState.instrument = appState.settings.app.instrument
+            appState.updateDatabase(instrument: appState.settings.app.instrument)
+            databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
         }
     }
 }

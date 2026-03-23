@@ -47,7 +47,7 @@ extension ChordDefinition {
             }
             /// Fill the fingers if not set (complete)
             while fingers.count < instrument.strings.count { fingers.append(0) }
-            /// Throw an error if the defined frets does not mach the instrument
+            /// Throw an error if the defined frets does not match the instrument
             if frets.count < positions {
                 throw ChordDefinition.Status.notEnoughFrets
             }
@@ -98,10 +98,22 @@ extension ChordDefinition {
         else {
             throw ChordDefinition.Status.unknownChord
         }
+        /// Throw an error if the defined frets does not match the instrument
+        let positions = instrument.strings.count
+        if chord.frets?.count ?? 0 < positions {
+            throw ChordDefinition.Status.notEnoughFrets
+        }
+        if chord.frets?.count ?? 0 > positions {
+            throw ChordDefinition.Status.toManyFrets
+        }
+
+        /// Fill the fingers if not set (complete)
+        var fingers = chord.fingers ?? []
+        while fingers.count < instrument.strings.count { fingers.append(0) }
         let chordDefinition = ChordDefinition(
             id: UUID(),
             frets: chord.frets ?? [],
-            fingers: chord.fingers ?? [],
+            fingers: fingers,
             baseFret: Chord.BaseFret(rawValue: chord.base ?? 1) ?? .one,
             root: root,
             quality: quality,

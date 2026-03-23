@@ -38,6 +38,7 @@ extension Views {
                     await Utils.MidiPlayer.shared.playNotes(notes, preset: preset)
                 }
             }
+            .insensitive(!chord.kind.knownChord)
             .style(.midiButton)
             .flat(true)
             .halign(.center)

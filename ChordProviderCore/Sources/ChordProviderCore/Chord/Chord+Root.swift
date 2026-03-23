@@ -18,7 +18,7 @@ extension Chord {
 
         /// CustomStringConvertible protocol
         public var description: String {
-            self.display
+            self.rawValue
         }
 
         // swiftlint:disable identifier_name

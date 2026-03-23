@@ -38,6 +38,9 @@ struct AppState {
     let styleManager = adw_style_manager_get_default()
     /// The CSS provider
     var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
+    /// Modified Instrument
+    /// - Note: That can only be one
+    var modifiedInstrument: Chord.Instrument?
 }
 
 extension AppState {
@@ -74,6 +77,16 @@ extension AppState {
     var contentIsModified: Bool {
         editor.song.content != scene.originalContent
     }
+
+    /// Chord instruments
+    var chordInstruments: [Chord.Instrument] {
+        var instruments = Chord.buildIn
+        instruments.append(contentsOf: self.settings.app.customInstruments)
+        if let modifiedInstrument {
+            instruments.append(modifiedInstrument)
+        }
+        return instruments
+    }
 }
 
 extension AppState: Codable {
@@ -82,5 +95,29 @@ extension AppState: Codable {
     enum CodingKeys: String, CodingKey {
         /// Only save the settings
         case settings
+    }
+}
+
+extension AppState {
+
+    mutating func updateDatabase(instrument: Chord.Instrument) {
+        let database = try? ChordsDatabase(instrument: instrument)
+        self.settings.core.database = database ?? ChordsDatabase()
+        self.editor.command = .updateSong
+    }
+
+    mutating func importDatabase(url: URL) {
+        do {
+            let database = try ChordsDatabase(url: url)
+            self.settings.core.database = database
+            self.editor.command = .updateSong
+            /// Add this database to the custom list
+            self.settings.app.customInstruments.append(database.instrument)
+        } catch {
+            self.scene.errorTitle = "Could not open the definitions"
+            self.scene.errorMessage = "It looks like it is not a valid JSON file"
+            self.scene.errorDetails = error.localizedDescription
+            self.scene.showErrorDialog = true              
+        }
     }
 }
