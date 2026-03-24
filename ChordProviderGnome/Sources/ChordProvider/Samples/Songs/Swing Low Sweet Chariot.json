@@ -1,0 +1,2396 @@
+{
+  "chords" : [
+    {
+      "baseFret" : 1,
+      "fingers" : [
+        0,
+        0,
+        2,
+        0,
+        3,
+        0
+      ],
+      "frets" : [
+        -1,
+        0,
+        2,
+        0,
+        2,
+        0
+      ],
+      "id" : "EDE50B9A-D328-42C5-BEAF-748599FB8E9C",
+      "instrument" : {
+        "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+        "kind" : "guitar",
+        "label" : "Standard Tuning",
+        "modified" : false,
+        "tuning" : [
+          {
+            "note" : "E",
+            "octave" : 2
+          },
+          {
+            "note" : "A",
+            "octave" : 2
+          },
+          {
+            "note" : "D",
+            "octave" : 3
+          },
+          {
+            "note" : "G",
+            "octave" : 3
+          },
+          {
+            "note" : "B",
+            "octave" : 3
+          },
+          {
+            "note" : "E",
+            "octave" : 4
+          }
+        ]
+      },
+      "kind" : "standardChord",
+      "mirrored" : false,
+      "plain" : "",
+      "quality" : "7",
+      "root" : "A",
+      "status" : "correct",
+      "transposed" : 0,
+      "transposedName" : "A7-0"
+    },
+    {
+      "baseFret" : 1,
+      "fingers" : [
+        0,
+        0,
+        0,
+        1,
+        3,
+        2
+      ],
+      "frets" : [
+        -1,
+        -1,
+        0,
+        2,
+        3,
+        2
+      ],
+      "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+      "instrument" : {
+        "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+        "kind" : "guitar",
+        "label" : "Standard Tuning",
+        "modified" : false,
+        "tuning" : [
+          {
+            "note" : "E",
+            "octave" : 2
+          },
+          {
+            "note" : "A",
+            "octave" : 2
+          },
+          {
+            "note" : "D",
+            "octave" : 3
+          },
+          {
+            "note" : "G",
+            "octave" : 3
+          },
+          {
+            "note" : "B",
+            "octave" : 3
+          },
+          {
+            "note" : "E",
+            "octave" : 4
+          }
+        ]
+      },
+      "kind" : "standardChord",
+      "mirrored" : false,
+      "plain" : "",
+      "quality" : "",
+      "root" : "D",
+      "status" : "correct",
+      "transposed" : 0,
+      "transposedName" : "D-0"
+    },
+    {
+      "baseFret" : 1,
+      "fingers" : [
+        0,
+        0,
+        0,
+        2,
+        1,
+        3
+      ],
+      "frets" : [
+        -1,
+        -1,
+        0,
+        2,
+        1,
+        2
+      ],
+      "id" : "66D5B199-0026-4B17-A56D-CB76C1965724",
+      "instrument" : {
+        "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+        "kind" : "guitar",
+        "label" : "Standard Tuning",
+        "modified" : false,
+        "tuning" : [
+          {
+            "note" : "E",
+            "octave" : 2
+          },
+          {
+            "note" : "A",
+            "octave" : 2
+          },
+          {
+            "note" : "D",
+            "octave" : 3
+          },
+          {
+            "note" : "G",
+            "octave" : 3
+          },
+          {
+            "note" : "B",
+            "octave" : 3
+          },
+          {
+            "note" : "E",
+            "octave" : 4
+          }
+        ]
+      },
+      "kind" : "standardChord",
+      "mirrored" : false,
+      "plain" : "",
+      "quality" : "7",
+      "root" : "D",
+      "status" : "correct",
+      "transposed" : 0,
+      "transposedName" : "D7-0"
+    },
+    {
+      "baseFret" : 1,
+      "fingers" : [
+        2,
+        1,
+        0,
+        0,
+        0,
+        3
+      ],
+      "frets" : [
+        3,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      "id" : "97155154-049C-4B81-A256-A25036123D71",
+      "instrument" : {
+        "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+        "kind" : "guitar",
+        "label" : "Standard Tuning",
+        "modified" : false,
+        "tuning" : [
+          {
+            "note" : "E",
+            "octave" : 2
+          },
+          {
+            "note" : "A",
+            "octave" : 2
+          },
+          {
+            "note" : "D",
+            "octave" : 3
+          },
+          {
+            "note" : "G",
+            "octave" : 3
+          },
+          {
+            "note" : "B",
+            "octave" : 3
+          },
+          {
+            "note" : "E",
+            "octave" : 4
+          }
+        ]
+      },
+      "kind" : "standardChord",
+      "mirrored" : false,
+      "plain" : "",
+      "quality" : "",
+      "root" : "G",
+      "status" : "correct",
+      "transposed" : 0,
+      "transposedName" : "G-0"
+    }
+  ],
+  "content" : "# Example of a simple ChordPro song.\n\n{title Swing Low Sweet Chariot}\n{subtitle Traditional}\n{tag Sample}\n\n{start_of_chorus}\nSwing [D]low, sweet [G]chari[D]ot,\nComin’ for to carry me [A7]home.\nSwing [D7]low, sweet [G]chari[D]ot,\nComin’ for to [A7]carry me [D]home.\n{end_of_chorus}\n\n# Verse.\nI [D]looked over Jordan, and [G]what did I [D]see,\nComin’ for to carry me [A7]home.\nA [D]band of angels [G]comin’ after [D]me,\nComin’ for to [A7]carry me [D]home.\n\n# One more chorus.\n{chorus}\n",
+  "hasContent" : true,
+  "hasWarnings" : true,
+  "id" : "FE63C47E-9755-4808-916F-4F91F5675B54",
+  "lines" : 22,
+  "metadata" : {
+    "artist" : "Traditional",
+    "definedMetadata" : [
+      "subtitle",
+      "title"
+    ],
+    "key" : {
+      "baseFret" : 1,
+      "fingers" : [
+        0,
+        0,
+        0,
+        1,
+        3,
+        2
+      ],
+      "frets" : [
+        -1,
+        -1,
+        0,
+        2,
+        3,
+        2
+      ],
+      "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+      "instrument" : {
+        "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+        "kind" : "guitar",
+        "label" : "Standard Tuning",
+        "modified" : false,
+        "tuning" : [
+          {
+            "note" : "E",
+            "octave" : 2
+          },
+          {
+            "note" : "A",
+            "octave" : 2
+          },
+          {
+            "note" : "D",
+            "octave" : 3
+          },
+          {
+            "note" : "G",
+            "octave" : 3
+          },
+          {
+            "note" : "B",
+            "octave" : 3
+          },
+          {
+            "note" : "E",
+            "octave" : 4
+          }
+        ]
+      },
+      "kind" : "standardChord",
+      "mirrored" : false,
+      "plain" : "",
+      "quality" : "",
+      "root" : "D",
+      "status" : "correct",
+      "transposed" : 0,
+      "transposedName" : "D-0"
+    },
+    "longestLabel" : "Repeat Chorus",
+    "longestLine" : {
+      "context" : "none",
+      "lineLength" : "I  D looked over Jordan, and  G what did I  D see,",
+      "parts" : [
+        {
+          "id" : 1,
+          "lyrics" : [
+            {
+              "close" : "",
+              "open" : "",
+              "text" : "I "
+            }
+          ],
+          "text" : "I "
+        },
+        {
+          "chordDefinition" : {
+            "baseFret" : 1,
+            "fingers" : [
+              0,
+              0,
+              0,
+              1,
+              3,
+              2
+            ],
+            "frets" : [
+              -1,
+              -1,
+              0,
+              2,
+              3,
+              2
+            ],
+            "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+            "instrument" : {
+              "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+              "kind" : "guitar",
+              "label" : "Standard Tuning",
+              "modified" : false,
+              "tuning" : [
+                {
+                  "note" : "E",
+                  "octave" : 2
+                },
+                {
+                  "note" : "A",
+                  "octave" : 2
+                },
+                {
+                  "note" : "D",
+                  "octave" : 3
+                },
+                {
+                  "note" : "G",
+                  "octave" : 3
+                },
+                {
+                  "note" : "B",
+                  "octave" : 3
+                },
+                {
+                  "note" : "E",
+                  "octave" : 4
+                }
+              ]
+            },
+            "kind" : "standardChord",
+            "mirrored" : false,
+            "plain" : "",
+            "quality" : "",
+            "root" : "D",
+            "status" : "correct",
+            "transposed" : 0,
+            "transposedName" : "D-0"
+          },
+          "chordMarkup" : {
+            "close" : "",
+            "open" : "",
+            "text" : "D"
+          },
+          "id" : 2,
+          "lyrics" : [
+            {
+              "close" : "",
+              "open" : "",
+              "text" : "looked over Jordan, and "
+            }
+          ],
+          "text" : "looked over Jordan, and "
+        },
+        {
+          "chordDefinition" : {
+            "baseFret" : 1,
+            "fingers" : [
+              2,
+              1,
+              0,
+              0,
+              0,
+              3
+            ],
+            "frets" : [
+              3,
+              2,
+              0,
+              0,
+              0,
+              3
+            ],
+            "id" : "97155154-049C-4B81-A256-A25036123D71",
+            "instrument" : {
+              "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+              "kind" : "guitar",
+              "label" : "Standard Tuning",
+              "modified" : false,
+              "tuning" : [
+                {
+                  "note" : "E",
+                  "octave" : 2
+                },
+                {
+                  "note" : "A",
+                  "octave" : 2
+                },
+                {
+                  "note" : "D",
+                  "octave" : 3
+                },
+                {
+                  "note" : "G",
+                  "octave" : 3
+                },
+                {
+                  "note" : "B",
+                  "octave" : 3
+                },
+                {
+                  "note" : "E",
+                  "octave" : 4
+                }
+              ]
+            },
+            "kind" : "standardChord",
+            "mirrored" : false,
+            "plain" : "",
+            "quality" : "",
+            "root" : "G",
+            "status" : "correct",
+            "transposed" : 0,
+            "transposedName" : "G-0"
+          },
+          "chordMarkup" : {
+            "close" : "",
+            "open" : "",
+            "text" : "G"
+          },
+          "id" : 3,
+          "lyrics" : [
+            {
+              "close" : "",
+              "open" : "",
+              "text" : "what did I "
+            }
+          ],
+          "text" : "what did I "
+        },
+        {
+          "chordDefinition" : {
+            "baseFret" : 1,
+            "fingers" : [
+              0,
+              0,
+              0,
+              1,
+              3,
+              2
+            ],
+            "frets" : [
+              -1,
+              -1,
+              0,
+              2,
+              3,
+              2
+            ],
+            "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+            "instrument" : {
+              "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+              "kind" : "guitar",
+              "label" : "Standard Tuning",
+              "modified" : false,
+              "tuning" : [
+                {
+                  "note" : "E",
+                  "octave" : 2
+                },
+                {
+                  "note" : "A",
+                  "octave" : 2
+                },
+                {
+                  "note" : "D",
+                  "octave" : 3
+                },
+                {
+                  "note" : "G",
+                  "octave" : 3
+                },
+                {
+                  "note" : "B",
+                  "octave" : 3
+                },
+                {
+                  "note" : "E",
+                  "octave" : 4
+                }
+              ]
+            },
+            "kind" : "standardChord",
+            "mirrored" : false,
+            "plain" : "",
+            "quality" : "",
+            "root" : "D",
+            "status" : "correct",
+            "transposed" : 0,
+            "transposedName" : "D-0"
+          },
+          "chordMarkup" : {
+            "close" : "",
+            "open" : "",
+            "text" : "D"
+          },
+          "id" : 4,
+          "lyrics" : [
+            {
+              "close" : "",
+              "open" : "",
+              "text" : "see,"
+            }
+          ],
+          "text" : "see,"
+        }
+      ],
+      "plain" : "I looked over Jordan, and what did I see,",
+      "source" : "I [D]looked over Jordan, and [G]what did I [D]see,",
+      "sourceLineNumber" : 15,
+      "sourceParsed" : "I [D]looked over Jordan, and [G]what did I [D]see,",
+      "type" : "song_line"
+    },
+    "sortArtist" : "Traditional",
+    "sortTitle" : "Swing Low Sweet Chariot",
+    "subtitle" : "Traditional",
+    "tags" : [
+      {
+        "content" : "Sample",
+        "id" : "D85DF597-9181-4CAC-849A-6FECD29E2E7C"
+      }
+    ],
+    "title" : "Swing Low Sweet Chariot",
+    "transpose" : 0
+  },
+  "sections" : [
+    {
+      "environment" : "source_comment",
+      "id" : 1,
+      "lines" : [
+        {
+          "context" : "source_comment",
+          "plain" : "# Example of a simple ChordPro song.",
+          "source" : "# Example of a simple ChordPro song.",
+          "sourceLineNumber" : 1,
+          "sourceParsed" : "# Example of a simple ChordPro song.",
+          "type" : "source_comment"
+        }
+      ]
+    },
+    {
+      "environment" : "empty_line",
+      "id" : 2,
+      "lines" : [
+        {
+          "context" : "empty_line",
+          "source" : "",
+          "sourceLineNumber" : 2,
+          "sourceParsed" : "",
+          "type" : "empty_line"
+        }
+      ]
+    },
+    {
+      "environment" : "metadata",
+      "id" : 3,
+      "lines" : [
+        {
+          "context" : "metadata",
+          "directive" : "title",
+          "plain" : "Swing Low Sweet Chariot",
+          "source" : "{title Swing Low Sweet Chariot}",
+          "sourceLineNumber" : 3,
+          "sourceParsed" : "{title Swing Low Sweet Chariot}",
+          "type" : "metadata"
+        }
+      ]
+    },
+    {
+      "environment" : "metadata",
+      "id" : 4,
+      "lines" : [
+        {
+          "context" : "metadata",
+          "directive" : "subtitle",
+          "plain" : "Traditional",
+          "source" : "{subtitle Traditional}",
+          "sourceLineNumber" : 4,
+          "sourceParsed" : "{subtitle Traditional}",
+          "type" : "metadata"
+        }
+      ]
+    },
+    {
+      "environment" : "metadata",
+      "id" : 5,
+      "lines" : [
+        {
+          "context" : "metadata",
+          "directive" : "tag",
+          "plain" : "Sample",
+          "source" : "{tag Sample}",
+          "sourceLineNumber" : 5,
+          "sourceParsed" : "{tag Sample}",
+          "type" : "metadata"
+        }
+      ]
+    },
+    {
+      "environment" : "empty_line",
+      "id" : 6,
+      "lines" : [
+        {
+          "context" : "empty_line",
+          "source" : "",
+          "sourceLineNumber" : 6,
+          "sourceParsed" : "",
+          "type" : "empty_line"
+        }
+      ]
+    },
+    {
+      "environment" : "chorus",
+      "id" : 7,
+      "lines" : [
+        {
+          "context" : "chorus",
+          "directive" : "start_of_chorus",
+          "source" : "{start_of_chorus}",
+          "sourceLineNumber" : 7,
+          "sourceParsed" : "{start_of_chorus}",
+          "type" : "environment_directive"
+        },
+        {
+          "context" : "chorus",
+          "lineLength" : "Swing  D low, sweet  G chari D ot,",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "Swing "
+                }
+              ],
+              "text" : "Swing "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "low, sweet "
+                }
+              ],
+              "text" : "low, sweet "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  2,
+                  1,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "frets" : [
+                  3,
+                  2,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "id" : "97155154-049C-4B81-A256-A25036123D71",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "G",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "G-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "G"
+              },
+              "id" : 3,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "chari"
+                }
+              ],
+              "text" : "chari"
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 4,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "ot,"
+                }
+              ],
+              "text" : "ot,"
+            }
+          ],
+          "plain" : "Swing low, sweet chariot,",
+          "source" : "Swing [D]low, sweet [G]chari[D]ot,",
+          "sourceLineNumber" : 8,
+          "sourceParsed" : "Swing [D]low, sweet [G]chari[D]ot,",
+          "type" : "song_line"
+        },
+        {
+          "context" : "chorus",
+          "lineLength" : "Comin’ for to carry me  A7 home.",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "Comin’ for to carry me "
+                }
+              ],
+              "text" : "Comin’ for to carry me "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                "frets" : [
+                  -1,
+                  0,
+                  2,
+                  0,
+                  2,
+                  0
+                ],
+                "id" : "EDE50B9A-D328-42C5-BEAF-748599FB8E9C",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "7",
+                "root" : "A",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "A7-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "A7"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "home."
+                }
+              ],
+              "text" : "home."
+            }
+          ],
+          "plain" : "Comin’ for to carry me home.",
+          "source" : "Comin’ for to carry me [A7]home.",
+          "sourceLineNumber" : 9,
+          "sourceParsed" : "Comin’ for to carry me [A7]home.",
+          "type" : "song_line"
+        },
+        {
+          "context" : "chorus",
+          "lineLength" : "Swing  D7 low, sweet  G chari D ot,",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "Swing "
+                }
+              ],
+              "text" : "Swing "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  2,
+                  1,
+                  3
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  1,
+                  2
+                ],
+                "id" : "66D5B199-0026-4B17-A56D-CB76C1965724",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "7",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D7-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D7"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "low, sweet "
+                }
+              ],
+              "text" : "low, sweet "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  2,
+                  1,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "frets" : [
+                  3,
+                  2,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "id" : "97155154-049C-4B81-A256-A25036123D71",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "G",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "G-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "G"
+              },
+              "id" : 3,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "chari"
+                }
+              ],
+              "text" : "chari"
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 4,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "ot,"
+                }
+              ],
+              "text" : "ot,"
+            }
+          ],
+          "plain" : "Swing low, sweet chariot,",
+          "source" : "Swing [D7]low, sweet [G]chari[D]ot,",
+          "sourceLineNumber" : 10,
+          "sourceParsed" : "Swing [D7]low, sweet [G]chari[D]ot,",
+          "type" : "song_line"
+        },
+        {
+          "context" : "chorus",
+          "lineLength" : "Comin’ for to  A7 carry me  D home.",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "Comin’ for to "
+                }
+              ],
+              "text" : "Comin’ for to "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                "frets" : [
+                  -1,
+                  0,
+                  2,
+                  0,
+                  2,
+                  0
+                ],
+                "id" : "EDE50B9A-D328-42C5-BEAF-748599FB8E9C",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "7",
+                "root" : "A",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "A7-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "A7"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "carry me "
+                }
+              ],
+              "text" : "carry me "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 3,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "home."
+                }
+              ],
+              "text" : "home."
+            }
+          ],
+          "plain" : "Comin’ for to carry me home.",
+          "source" : "Comin’ for to [A7]carry me [D]home.",
+          "sourceLineNumber" : 11,
+          "sourceParsed" : "Comin’ for to [A7]carry me [D]home.",
+          "type" : "song_line"
+        },
+        {
+          "context" : "chorus",
+          "directive" : "end_of_chorus",
+          "source" : "{end_of_chorus}",
+          "sourceLineNumber" : 12,
+          "sourceParsed" : "{end_of_chorus}",
+          "type" : "environment_directive"
+        }
+      ]
+    },
+    {
+      "environment" : "empty_line",
+      "id" : 8,
+      "lines" : [
+        {
+          "context" : "empty_line",
+          "source" : "",
+          "sourceLineNumber" : 13,
+          "sourceParsed" : "",
+          "type" : "empty_line"
+        }
+      ]
+    },
+    {
+      "environment" : "source_comment",
+      "id" : 9,
+      "lines" : [
+        {
+          "context" : "source_comment",
+          "plain" : "# Verse.",
+          "source" : "# Verse.",
+          "sourceLineNumber" : 14,
+          "sourceParsed" : "# Verse.",
+          "type" : "source_comment"
+        }
+      ]
+    },
+    {
+      "autoCreated" : true,
+      "environment" : "verse",
+      "id" : 10,
+      "lines" : [
+        {
+          "context" : "verse",
+          "directive" : "start_of_verse",
+          "source" : "{start_of_verse}",
+          "sourceLineNumber" : -15,
+          "sourceParsed" : "{start_of_verse}",
+          "type" : "environment_directive"
+        },
+        {
+          "context" : "verse",
+          "lineLength" : "I  D looked over Jordan, and  G what did I  D see,",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "I "
+                }
+              ],
+              "text" : "I "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "looked over Jordan, and "
+                }
+              ],
+              "text" : "looked over Jordan, and "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  2,
+                  1,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "frets" : [
+                  3,
+                  2,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "id" : "97155154-049C-4B81-A256-A25036123D71",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "G",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "G-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "G"
+              },
+              "id" : 3,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "what did I "
+                }
+              ],
+              "text" : "what did I "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 4,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "see,"
+                }
+              ],
+              "text" : "see,"
+            }
+          ],
+          "plain" : "I looked over Jordan, and what did I see,",
+          "source" : "I [D]looked over Jordan, and [G]what did I [D]see,",
+          "sourceLineNumber" : 15,
+          "sourceParsed" : "I [D]looked over Jordan, and [G]what did I [D]see,",
+          "type" : "song_line",
+          "warnings" : [
+            {
+              "category" : "Song Parser",
+              "id" : "88EDEDAA-E567-478A-9E66-1B6D80185158",
+              "level" : "warning",
+              "message" : "No environment set, using <b>verse<\/b>",
+              "time" : 796041459.5164416
+            }
+          ]
+        },
+        {
+          "context" : "verse",
+          "lineLength" : "Comin’ for to carry me  A7 home.",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "Comin’ for to carry me "
+                }
+              ],
+              "text" : "Comin’ for to carry me "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                "frets" : [
+                  -1,
+                  0,
+                  2,
+                  0,
+                  2,
+                  0
+                ],
+                "id" : "EDE50B9A-D328-42C5-BEAF-748599FB8E9C",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "7",
+                "root" : "A",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "A7-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "A7"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "home."
+                }
+              ],
+              "text" : "home."
+            }
+          ],
+          "plain" : "Comin’ for to carry me home.",
+          "source" : "Comin’ for to carry me [A7]home.",
+          "sourceLineNumber" : 16,
+          "sourceParsed" : "Comin’ for to carry me [A7]home.",
+          "type" : "song_line"
+        },
+        {
+          "context" : "verse",
+          "lineLength" : "A  D band of angels  G comin’ after  D me,",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "A "
+                }
+              ],
+              "text" : "A "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "band of angels "
+                }
+              ],
+              "text" : "band of angels "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  2,
+                  1,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "frets" : [
+                  3,
+                  2,
+                  0,
+                  0,
+                  0,
+                  3
+                ],
+                "id" : "97155154-049C-4B81-A256-A25036123D71",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "G",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "G-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "G"
+              },
+              "id" : 3,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "comin’ after "
+                }
+              ],
+              "text" : "comin’ after "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 4,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "me,"
+                }
+              ],
+              "text" : "me,"
+            }
+          ],
+          "plain" : "A band of angels comin’ after me,",
+          "source" : "A [D]band of angels [G]comin’ after [D]me,",
+          "sourceLineNumber" : 17,
+          "sourceParsed" : "A [D]band of angels [G]comin’ after [D]me,",
+          "type" : "song_line"
+        },
+        {
+          "context" : "verse",
+          "lineLength" : "Comin’ for to  A7 carry me  D home.",
+          "parts" : [
+            {
+              "id" : 1,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "Comin’ for to "
+                }
+              ],
+              "text" : "Comin’ for to "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                "frets" : [
+                  -1,
+                  0,
+                  2,
+                  0,
+                  2,
+                  0
+                ],
+                "id" : "EDE50B9A-D328-42C5-BEAF-748599FB8E9C",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "7",
+                "root" : "A",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "A7-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "A7"
+              },
+              "id" : 2,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "carry me "
+                }
+              ],
+              "text" : "carry me "
+            },
+            {
+              "chordDefinition" : {
+                "baseFret" : 1,
+                "fingers" : [
+                  0,
+                  0,
+                  0,
+                  1,
+                  3,
+                  2
+                ],
+                "frets" : [
+                  -1,
+                  -1,
+                  0,
+                  2,
+                  3,
+                  2
+                ],
+                "id" : "3405CD44-19A2-44DC-A3FF-B1FA3F1EA253",
+                "instrument" : {
+                  "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+                  "kind" : "guitar",
+                  "label" : "Standard Tuning",
+                  "modified" : false,
+                  "tuning" : [
+                    {
+                      "note" : "E",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "A",
+                      "octave" : 2
+                    },
+                    {
+                      "note" : "D",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "G",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "B",
+                      "octave" : 3
+                    },
+                    {
+                      "note" : "E",
+                      "octave" : 4
+                    }
+                  ]
+                },
+                "kind" : "standardChord",
+                "mirrored" : false,
+                "plain" : "",
+                "quality" : "",
+                "root" : "D",
+                "status" : "correct",
+                "transposed" : 0,
+                "transposedName" : "D-0"
+              },
+              "chordMarkup" : {
+                "close" : "",
+                "open" : "",
+                "text" : "D"
+              },
+              "id" : 3,
+              "lyrics" : [
+                {
+                  "close" : "",
+                  "open" : "",
+                  "text" : "home."
+                }
+              ],
+              "text" : "home."
+            }
+          ],
+          "plain" : "Comin’ for to carry me home.",
+          "source" : "Comin’ for to [A7]carry me [D]home.",
+          "sourceLineNumber" : 18,
+          "sourceParsed" : "Comin’ for to [A7]carry me [D]home.",
+          "type" : "song_line"
+        },
+        {
+          "context" : "verse",
+          "directive" : "end_of_verse",
+          "source" : "{end_of_verse}",
+          "sourceLineNumber" : -19,
+          "sourceParsed" : "{end_of_verse}",
+          "type" : "environment_directive"
+        }
+      ]
+    },
+    {
+      "environment" : "empty_line",
+      "id" : 11,
+      "lines" : [
+        {
+          "context" : "empty_line",
+          "source" : "",
+          "sourceLineNumber" : 19,
+          "sourceParsed" : "",
+          "type" : "empty_line"
+        }
+      ]
+    },
+    {
+      "environment" : "source_comment",
+      "id" : 12,
+      "lines" : [
+        {
+          "context" : "source_comment",
+          "plain" : "# One more chorus.",
+          "source" : "# One more chorus.",
+          "sourceLineNumber" : 20,
+          "sourceParsed" : "# One more chorus.",
+          "type" : "source_comment"
+        }
+      ]
+    },
+    {
+      "environment" : "repeat_chorus",
+      "id" : 13,
+      "lines" : [
+        {
+          "context" : "repeat_chorus",
+          "directive" : "chorus",
+          "source" : "{chorus}",
+          "sourceLineNumber" : 21,
+          "sourceParsed" : "{chorus}",
+          "type" : "environment_directive"
+        }
+      ]
+    },
+    {
+      "environment" : "empty_line",
+      "id" : 14,
+      "lines" : [
+        {
+          "context" : "empty_line",
+          "source" : "",
+          "sourceLineNumber" : 22,
+          "sourceParsed" : "",
+          "type" : "empty_line"
+        }
+      ]
+    }
+  ],
+  "settings" : {
+    "database" : {
+      "instrument" : {
+        "bundle" : "ChordDefinitions\/GuitarStandardETuning",
+        "kind" : "guitar",
+        "label" : "Standard Tuning",
+        "modified" : false,
+        "tuning" : [
+          {
+            "note" : "E",
+            "octave" : 2
+          },
+          {
+            "note" : "A",
+            "octave" : 2
+          },
+          {
+            "note" : "D",
+            "octave" : 3
+          },
+          {
+            "note" : "G",
+            "octave" : 3
+          },
+          {
+            "note" : "B",
+            "octave" : 3
+          },
+          {
+            "note" : "E",
+            "octave" : 4
+          }
+        ]
+      }
+    },
+    "diagram" : {
+      "mirror" : false,
+      "showFingers" : true,
+      "showName" : true,
+      "showNotes" : true
+    },
+    "lyricsOnly" : false,
+    "midiPreset" : 1,
+    "repeatWholeChorus" : false,
+    "sortTokens" : [
+      "the",
+      "a",
+      "de",
+      "een",
+      "’t"
+    ]
+  }
+}
