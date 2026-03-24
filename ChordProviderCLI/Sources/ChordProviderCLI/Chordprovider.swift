@@ -7,7 +7,6 @@
 import Foundation
 import ArgumentParser
 import ChordProviderCore
-import ChordProviderHTML
 
 @main
 struct Chordprovider: AsyncParsableCommand {
@@ -23,10 +22,10 @@ struct Chordprovider: AsyncParsableCommand {
     public var source: String
     /// The output format
     @Option(name: [.long, .customShort("f")], help: "The output format.")
-    public var format: ChordProviderSettings.Export.Format = .html
+    public var format: ChordProviderSettings.Export.Format = .json
     /// The instrument
     @Option(name: [.long, .customShort("i")], help: "The instrument to use.")
-    public var instrument: Instrument = .guitar
+    public var instrument: Instrument.Kind = .guitar
     /// Clean source option
     @Flag(
         name: [.long, .customShort("c")],
@@ -69,12 +68,14 @@ struct Chordprovider: AsyncParsableCommand {
 
     /// The main function
     mutating func run() async throws {
+        /// Get the chords
+        let database = try? ChordsDatabase(instrument: Instrument[instrument])
         /// Set the settings
         var settings = ChordProviderSettings(
-            instrument: instrument,
             lyricsOnly: lyricsOnly,
             repeatWholeChorus: repeatWholeChorus
         )
+        settings.database = database ?? ChordsDatabase()
         settings.diagram.mirror = mirrorDiagram
         /// The default song
         var parsedSong = Song(id: UUID())
@@ -122,8 +123,6 @@ struct Chordprovider: AsyncParsableCommand {
             }
         case .chordPro:
             result = parsedSong.content
-        case .html:
-            result = HtmlRender.render(song: parsedSong, settings: settings)
         case .pdf:
             result = "Sorry, not yet implemented"
         }

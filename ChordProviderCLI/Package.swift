@@ -13,8 +13,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
-        .package(path: "../ChordProviderCore"),
-        .package(path: "../ChordProviderHTML")
+        .package(path: "../ChordProviderCore")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -23,8 +22,7 @@ let package = Package(
             name: "chordprovider",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                .product(name: "ChordProviderCore", package: "ChordProviderCore"),
-                .product(name: "ChordProviderHTML", package: "ChordProviderHTML")
+                .product(name: "ChordProviderCore", package: "ChordProviderCore") 
             ]
         )
     ]
