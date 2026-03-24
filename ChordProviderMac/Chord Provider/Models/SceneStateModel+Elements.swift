@@ -294,7 +294,7 @@ extension SceneStateModel {
     /// SwiftUI `View` with a `Picker` to select `fret` values
     struct FretsPicker: View {
         /// The instrument
-        let instrument: Chord.Instrument
+        let instrument: Instrument
         /// The order of the tuning
         let guitarTuningOrder: [Int]
         /// The binding to the observable state of the scene
@@ -344,7 +344,7 @@ extension SceneStateModel {
     /// SwiftUI `View` with a `Picker` to select `finger` values
     struct FingersPicker: View {
         /// The instrument
-        let instrument: Chord.Instrument
+        let instrument: Instrument
         /// The order of the tuning
         let guitarTuningOrder: [Int]
         /// The binding to the observable state of the scene
@@ -556,7 +556,7 @@ extension SceneStateModel {
         /// The body of the `View`
         var body: some View {
             Picker("Instrument", selection: $sceneState.settings.core.instrument) {
-                ForEach(Chord.Instrument.allCases, id: \.rawValue) { value in
+                ForEach(Instrument.allCases, id: \.rawValue) { value in
                     Text(value.description)
                         .tag(value)
                         .help(value.label)

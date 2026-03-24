@@ -49,7 +49,7 @@ public enum ChordUtils {
         let export = ChordPro.Instrument(
             instrument: .init(
                 description: database.instrument.label,
-                type: database.instrument.type.rawValue
+                type: database.instrument.kind.rawValue
             ),
             tuning: database.instrument.tuning.map { "\($0.note)\($0.octave)" },
             chords: chords
@@ -106,7 +106,7 @@ public enum ChordUtils {
         root: Chord.Root,
         frets: [Int],
         baseFret: Chord.BaseFret,
-        instrument: Chord.Instrument
+        instrument: Instrument
     ) -> [Chord.Component] {
         var components: [Chord.Component] = []
         if !frets.isEmpty {

@@ -9,7 +9,7 @@ import Foundation
 
 public struct ChordsDatabase: Codable, Sendable, Equatable {
     /// The instrument
-    public var instrument: Chord.Instrument
+    public var instrument: Instrument
     /// The chord definitions
     public var definitions: [ChordDefinition] = []
     /// Items to save in the database
@@ -23,7 +23,7 @@ extension ChordsDatabase {
 
     /// Init an empty database
     public init() {
-        let instrument = Chord.buildIn[0]
+        let instrument = Instrument[.guitar]
         self.instrument = instrument
         self.definitions = []
     }
@@ -56,7 +56,7 @@ extension ChordsDatabase {
     }
 
     /// Init the database with an instrument
-    public init(instrument: Chord.Instrument) throws {
+    public init(instrument: Instrument) throws {
         do {
             if let bundle = instrument.bundle {
                 let database = try Bundle.module.decode(ChordPro.Instrument.self, from: bundle)
@@ -71,7 +71,7 @@ extension ChordsDatabase {
                 self.definitions = result.definitions
             } else {
                 print("ERROR")
-                self.instrument = Chord.buildIn[0]
+                self.instrument = Instrument[.guitar]
                 self.definitions = []
             }
         } catch {
@@ -86,9 +86,9 @@ extension ChordsDatabase {
         database: ChordPro.Instrument,
         bundle: String? = nil,
         fileURL: URL? = nil
-    ) -> (instrument: Chord.Instrument, definitions: [ChordDefinition]) {
-        let instrument = Chord.Instrument(
-            type: Chord.InstrumentType(rawValue: database.instrument.type) ?? .guitar,
+    ) -> (instrument: Instrument, definitions: [ChordDefinition]) {
+        let instrument = Instrument(
+            kind: Instrument.Kind(rawValue: database.instrument.type) ?? .guitar,
             label: database.instrument.description,
             tuning: database.tuning,
             bundle: bundle,

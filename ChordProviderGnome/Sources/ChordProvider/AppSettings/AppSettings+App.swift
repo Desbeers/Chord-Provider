@@ -13,9 +13,9 @@ extension AppSettings {
     /// Settings for all **Chord Provider** scenes
     struct App: Codable, Equatable {
         /// The current instrument
-        var instrument: Chord.Instrument = Chord.buildIn[0]
+        var instrument: Instrument = Instrument[.guitar]
         /// Custom instruments
-        var customInstruments: [Chord.Instrument] = []
+        var customInstruments: [Instrument] = []
         /// The page layout
         var columnPaging: Bool = true
         /// Use sound for chord definitions

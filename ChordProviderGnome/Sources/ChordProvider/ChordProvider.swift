@@ -55,7 +55,7 @@ import CAdw
                 if appState.settings.app.instrument.modified {
                     /// Somehow the state is still modified; go back to default
                     /// - Note: This can happen after a crash or a forced quit
-                    appState.settings.app.instrument = Chord.buildIn[0]
+                    appState.settings.app.instrument = Instrument[.guitar]
                 }
                 do {
                     appState.settings.core.database = try ChordsDatabase(instrument: appState.settings.app.instrument)

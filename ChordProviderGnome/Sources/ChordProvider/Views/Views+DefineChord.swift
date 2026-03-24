@@ -28,7 +28,7 @@ extension Views {
         @State private var copied = Signal()
         /// Calculated definition
         var define: String {
-            "{define-\(definition.instrument.type.rawValue) \(definition.define)}"
+            "{define-\(definition.instrument.kind.rawValue) \(definition.define)}"
         }
         /// Calculated note values for the strings
         var strings: [StringNumber] {

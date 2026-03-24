@@ -26,7 +26,7 @@ struct Chordprovider: AsyncParsableCommand {
     public var format: ChordProviderSettings.Export.Format = .html
     /// The instrument
     @Option(name: [.long, .customShort("i")], help: "The instrument to use.")
-    public var instrument: Chord.Instrument = .guitar
+    public var instrument: Instrument = .guitar
     /// Clean source option
     @Flag(
         name: [.long, .customShort("c")],

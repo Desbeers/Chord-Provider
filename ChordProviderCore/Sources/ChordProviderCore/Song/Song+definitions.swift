@@ -13,7 +13,7 @@ extension Song {
     public var definitions: String {
         let definitions = self.chords.map(\.define)
         return definitions.map { definition in
-            "{define-\(self.settings.database.instrument.type.rawValue) \(definition)}"
+            "{define-\(self.settings.database.instrument.kind.rawValue) \(definition)}"
         }
             .joined(separator: "\n")
     }

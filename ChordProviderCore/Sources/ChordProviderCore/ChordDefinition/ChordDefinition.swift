@@ -47,7 +47,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     /// Plain text for an unknown or text chord
     public var plain: String = ""
     /// The instrument of the chord
-    public var instrument: Chord.Instrument
+    public var instrument: Instrument
     /// Bool if the diagram is mirrored
     public var mirrored: Bool = false
     /// The kind of chord definition

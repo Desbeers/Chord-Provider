@@ -23,7 +23,7 @@ struct ChordsDatabaseView: View {
     /// The `NSWindow` of this `View`
     @State var window: NSWindow?
     /// The current instrument
-    @State var currentInstrument: Chord.Instrument = .guitar
+    @State var currentInstrument: Instrument = .guitar
     /// The body of the `View`
     var body: some View {
         NavigationStack(path: $chordsDatabaseState.navigationStack.animation(.smooth)) {

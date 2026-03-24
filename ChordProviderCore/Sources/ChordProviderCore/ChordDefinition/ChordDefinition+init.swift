@@ -20,7 +20,7 @@ extension ChordDefinition {
         root: Chord.Root,
         quality: Chord.Quality,
         slash: Chord.Root?,
-        instrument: Chord.Instrument,
+        instrument: Instrument,
         kind: Kind = .customChord
     ) {
         self.id = id
@@ -41,11 +41,11 @@ extension ChordDefinition {
     /// - Parameters:
     ///   - definition: The **ChordPro** definition
     ///   - kind: The ``Kind`` of ``ChordDefinition``
-    ///   - instrument: The ``Chord/Instrument`` for this definition
+    ///   - instrument: The ``Instrument`` for this definition
     public init(
         definition: String,
         kind: Kind,
-        instrument: Chord.Instrument,
+        instrument: Instrument,
     ) throws {
         /// Parse the chord definition
         do {
@@ -105,8 +105,8 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - chord: The **ChordPro** JSON chord
-    ///   - instrument: The ``Chord/Instrument`` for this definition
-    public init?(chord: ChordPro.Instrument.Chord, instrument: Chord.Instrument) {
+    ///   - instrument: The ``Instrument`` for this definition
+    public init?(chord: ChordPro.Instrument.Chord, instrument: Instrument) {
         do {
             let definition = try ChordDefinition.define(from: chord, instrument: instrument)
             /// Set the properties
@@ -132,13 +132,13 @@ extension ChordDefinition {
     /// - Parameters:
     ///   - text: The name of the text chord
     ///   - kind: The ``Kind`` of ``ChordDefinition``
-    ///   - instrument: The ``Chord/Instrument`` for this definition
+    ///   - instrument: The ``Instrument`` for this definition
     ///
     /// This might be *true* text like in a grid (`*Label`) or an unknown chord
     public init(
         text: String,
         kind: Kind,
-        instrument: Chord.Instrument
+        instrument: Instrument
     ) {
         /// Set the properties
         self.id = UUID()
@@ -156,7 +156,7 @@ extension ChordDefinition {
 
     // MARK: Init an empty C chord for the diagram editor
 
-    public init(instrument: Chord.Instrument) {
+    public init(instrument: Instrument) {
         /// Set the properties
         self.id = UUID()
         self.frets = Array(repeating: 0, count: instrument.strings.count)

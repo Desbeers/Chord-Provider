@@ -19,13 +19,13 @@ extension ChordProParser {
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func processDefine(
-        type: Chord.InstrumentType,
+        kind: Instrument.Kind,
         directive: ChordPro.Directive,
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if song.settings.database.instrument.type == type {
+        if song.settings.database.instrument.kind == kind {
             processDefine(
                 directive: directive,
                 arguments: arguments,
@@ -35,7 +35,7 @@ extension ChordProParser {
         } else {
             /// The definition is for another instrument
             currentSection.addWarning(
-                "The chord definition is for <b>\(type.rawValue)</b> and will be ignored",
+                "The chord definition is for <b>\(kind.rawValue)</b> and will be ignored",
                 level: .notice
             )
             addSection(

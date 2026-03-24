@@ -40,7 +40,7 @@ struct AppState {
     var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
     /// Modified Instrument
     /// - Note: That can only be one
-    var modifiedInstrument: Chord.Instrument?
+    var modifiedInstrument: Instrument?
 }
 
 extension AppState {
@@ -79,8 +79,8 @@ extension AppState {
     }
 
     /// Chord instruments
-    var chordInstruments: [Chord.Instrument] {
-        var instruments = Chord.buildIn
+    var chordInstruments: [Instrument] {
+        var instruments = Instrument.buildIn
         instruments.append(contentsOf: self.settings.app.customInstruments)
         if let modifiedInstrument {
             instruments.append(modifiedInstrument)
@@ -100,7 +100,7 @@ extension AppState: Codable {
 
 extension AppState {
 
-    mutating func updateDatabase(instrument: Chord.Instrument) {
+    mutating func updateDatabase(instrument: Instrument) {
         let database = try? ChordsDatabase(instrument: instrument)
         self.settings.core.database = database ?? ChordsDatabase()
         self.editor.command = .updateSong

@@ -22,7 +22,7 @@ extension Views {
         /// Bool if the sidebar is wide
         @State private var wide = true
 
-        func label(instrument: Chord.Instrument) -> String {
+        func label(instrument: Instrument) -> String {
             var result: [String] = [instrument.bundle == nil ? instrument.fileURL?.lastPathComponent ?? "New" : "Build-in"]
             if appState.modifiedInstrument?.modified == instrument.modified {
                 result.append("modified")
@@ -47,7 +47,7 @@ extension Views {
                     ) { element in
                         HStack {
                             VStack {
-                                Text(element.type.description)
+                                Text(element.kind.description)
                                     .style(.bold)
                                     .halign(.start)
                                 Text(label(instrument: element))
@@ -227,11 +227,14 @@ extension Views {
         // The menu view
         var menu: AnyView {
             Menu(icon: .default(icon: .openMenu)) {
+                // MenuButton("Save Database") {
+                //     databaseState.newDatabase = true
+                //     databaseState.showNewDatabaseDialog = true
+                // }
                 MenuButton("New Database") {
                     databaseState.newDatabase = true
                     databaseState.showNewDatabaseDialog = true
                 }
-                .insensitive()
                 MenuButton("Import Database") {
                     databaseState.importDatabase.signal()
                 }

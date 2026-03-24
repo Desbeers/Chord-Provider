@@ -20,7 +20,7 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     }
     /// Confirm to `CustomStringConvertible`
     public var description: String {
-        "instrument: \(database.instrument.type) transpose: \(transpose)" + diagram.description
+        "instrument: \(database.instrument.kind) transpose: \(transpose)" + diagram.description
     }
     /// The databse with chord definitions for an instrument
     public var database = ChordsDatabase()

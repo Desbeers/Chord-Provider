@@ -22,8 +22,8 @@ extension ChordDefinition {
     /// - Parameter instrument: The ``Chord/Instrument`` to use
     /// - Throws: An ``ChordDefinition/Status/unknownChord`` error when the string cannot be parsed
     /// - Returns: A  ``ChordDefinition`` structure
-    static func define(from define: String, instrument: Chord.Instrument) throws -> ChordDefinition {
-        if let definition = define.firstMatch(of: ChordPro.RegexDefinitions.chordDefine) {
+    static func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
+        if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
 
             let positions = instrument.strings.count
 
@@ -90,7 +90,7 @@ extension ChordDefinition {
     ///
     /// - Note: The chords in the  **Chord Provider** database are in the same
     ///   JSON format as used in the official **ChordPro** implementation.
-    static func define(from chord: ChordPro.Instrument.Chord, instrument: Chord.Instrument) throws -> ChordDefinition {
+    static func define(from chord: ChordPro.Instrument.Chord, instrument: Instrument) throws -> ChordDefinition {
         let elements = ChordUtils.Analizer.findChordElements(chord: chord.name)
         guard
             let root = elements.root,

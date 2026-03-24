@@ -10,7 +10,7 @@ import Adwaita
 import ChordProviderCore
 
 extension Views.Database {
-    /// The dialogs for the *Content view*
+    /// The dialogs for the *Database View*
     var dialogs: AnyView {
         Views.Empty()
             .dialog(
@@ -62,9 +62,9 @@ extension Views.Database {
                 id: "dirty-database-dialog",
                 /// - Note: Use `extraChild` instead of `body` so I can use markup
                 extraChild: {
-                    let instrument = appState.modifiedInstrument ?? Chord.buildIn[0]
+                    let instrument = appState.modifiedInstrument ?? Instrument[.guitar]
                     VStack {
-                        Text("The <b>\(instrument.type), \(instrument.label)</b> database is modified.")
+                        Text("The <b>\(instrument.kind), \(instrument.label)</b> database is modified.")
                             .useMarkup()
                             .style(.subtitle)
                             .padding(.bottom)
@@ -86,7 +86,7 @@ extension Views.Database {
                 switch databaseState.exportDoneAction {
                 case .closeWindow:
                     /// Fall back to the default guitar
-                    appState.settings.app.instrument = Chord.buildIn[0]
+                    appState.settings.app.instrument = Instrument[.guitar]
                     updateDatabase()
                     window.close()
                 case .switchInstrument:

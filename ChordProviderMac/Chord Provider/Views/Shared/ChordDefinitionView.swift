@@ -320,7 +320,7 @@ extension ChordDefinitionView {
     /// The `Shape` of the grid
     struct GridShape: Shape {
         /// The instrument to use
-        let instrument: Chord.Instrument
+        let instrument: Instrument
         func path(in rect: CGRect) -> Path {
             let columns = instrument.strings.count - 1
             let width = rect.width

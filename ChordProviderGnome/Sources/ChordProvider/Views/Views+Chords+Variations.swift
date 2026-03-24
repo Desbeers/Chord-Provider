@@ -69,7 +69,9 @@ extension Views.Chords {
                                 .hexpand()
                             Button("Add") {
                                 chordDialog.toggle()
-                                appState.editor.command = .appendText(text: "{define-\(chord.instrument.type.rawValue) \(chord.define)}")
+                                appState.editor.command = .appendText(
+                                    text: "{define-\(chord.instrument.kind.rawValue) \(chord.define)}"
+                                )
                             }
                             .suggested()
                         }

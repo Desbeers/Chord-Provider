@@ -12,7 +12,12 @@ extension Chord {
     /// The structure of a chord barre
     public struct Barre: Equatable, Codable, Hashable, Sendable {
         /// Init the struct
-        public init(finger: Int = 0, fret: Int = 0, startIndex: Int = 0, endIndex: Int = 0) {
+        public init(
+            finger: Int = 0,
+            fret: Int = 0,
+            startIndex: Int = 0,
+            endIndex: Int = 0
+        ) {
             self.finger = finger
             self.fret = fret
             self.startIndex = startIndex

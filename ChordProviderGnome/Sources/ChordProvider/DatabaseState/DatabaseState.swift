@@ -14,7 +14,7 @@ struct DatabaseState: Codable {
     /// The selected chord
     var chord: Chord.Root = .c
     /// The current instrument
-    var instrument: Chord.Instrument = Chord.buildIn[0]
+    var instrument: Instrument = Instrument[.guitar]
     /// The filtered chords
     var filteredChords: [ChordDefinition] = []
     /// The optional search string

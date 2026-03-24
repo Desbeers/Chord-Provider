@@ -101,7 +101,7 @@ extension Views {
                                 ActionRow("You have no custom chord definitions.")
                             } else {
                                 ForEach(appState.settings.app.customInstruments) { instrument in
-                                    ActionRow(instrument.type.description)
+                                    ActionRow(instrument.kind.description)
                                         .subtitle(instrument.label)
                                         .suffix {
                                             Button("Remove") {
@@ -111,8 +111,8 @@ extension Views {
                                                 }
                                                 if instrument == appState.settings.app.instrument {
                                                     /// The instrument was selected; reset to default
-                                                    appState.settings.app.instrument = Chord.buildIn[0]
-                                                    appState.updateDatabase(instrument: Chord.buildIn[0])
+                                                    appState.settings.app.instrument = Instrument[.guitar]
+                                                    appState.updateDatabase(instrument: Instrument[.guitar])
                                                 }
                                             }
                                                 .valign(.center)

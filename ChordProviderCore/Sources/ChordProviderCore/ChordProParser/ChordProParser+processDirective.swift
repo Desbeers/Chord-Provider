@@ -39,7 +39,7 @@ extension ChordProParser {
         /// Keep the current text as source when we cannot handle the directive
         let sourceArgument: DirectiveArguments = [.source: text]
 
-        if let match = text.firstMatch(of: ChordPro.RegexDefinitions.directive) {
+        if let match = text.firstMatch(of: RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
             /// Handle known directives
@@ -141,7 +141,7 @@ extension ChordProParser {
 
                     case .define:
                         processDefine(
-                            type: song.settings.database.instrument.type,
+                            kind: song.settings.database.instrument.kind,
                             directive: .define,
                             arguments: arguments,
                             currentSection: &currentSection,
@@ -150,7 +150,7 @@ extension ChordProParser {
 
                     case .defineGuitar:
                         processDefine(
-                            type: .guitar,
+                            kind: .guitar,
                             directive: .defineGuitar,
                             arguments: arguments,
                             currentSection: &currentSection,
@@ -159,7 +159,7 @@ extension ChordProParser {
 
                     case .defineUkulele:
                         processDefine(
-                            type: .ukulele,
+                            kind: .ukulele,
                             directive: .defineUkulele,
                             arguments: arguments,
                             currentSection: &currentSection,
@@ -168,7 +168,7 @@ extension ChordProParser {
 
                     case .defineGuitalele:
                         processDefine(
-                            type: .guitalele,
+                            kind: .guitalele,
                             directive: .defineGuitalele,
                             arguments: arguments,
                             currentSection: &currentSection,

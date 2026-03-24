@@ -18,9 +18,8 @@ extension Views {
         /// Bool to open the chord dialog
         @State private var chordDialog: Bool = false
         /// The selected chord
-        // swiftlint:disable:next force_unwrapping
         @State private var selectedChord = ChordDefinition(
-            instrument: Chord.buildIn[0]
+            instrument: Instrument[.guitar]
         )
         /// The body of the `View`
         var view: Body {

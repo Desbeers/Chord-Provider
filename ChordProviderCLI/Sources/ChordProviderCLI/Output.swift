@@ -9,6 +9,6 @@ import Foundation
 import ArgumentParser
 import ChordProviderCore
 
-extension Chord.Instrument: @retroactive ExpressibleByArgument { }
+extension Instrument: @retroactive ExpressibleByArgument { }
 
 extension ChordProviderSettings.Export.Format: @retroactive ExpressibleByArgument { }
