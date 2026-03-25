@@ -23,7 +23,7 @@ struct ChordsDatabaseView: View {
     /// The `NSWindow` of this `View`
     @State var window: NSWindow?
     /// The current instrument
-    @State var currentInstrument: Instrument = .guitar
+    @State var currentInstrument: Instrument.Kind = .guitar
     /// The body of the `View`
     var body: some View {
         NavigationStack(path: $chordsDatabaseState.navigationStack.animation(.smooth)) {
@@ -85,7 +85,7 @@ struct ChordsDatabaseView: View {
         } message: {
             Text("Do you want to save the database before loading another instrument?")
         }
-        .task(id: sceneState.settings.core.instrument) {
+        .task(id: sceneState.settings.core.instrument.kind) {
             if window?.isDocumentEdited ?? false {
                 chordsDatabaseState.saveDatabaseConfirmation = true
             } else {
@@ -139,8 +139,9 @@ struct ChordsDatabaseView: View {
         .onChange(of: chordsDatabaseState.showExportSheet) {
             if chordsDatabaseState.showExportSheet {
                 do {
+                    let database = try ChordsDatabase(instrument: Instrument[currentInstrument])
                     chordsDatabaseState.exportData = try ChordUtils.exportToJSON(
-                        definitions: chordsDatabaseState.allChords
+                        database: database
                     )
                 } catch {
                     LogUtils.shared.setLog(
@@ -161,7 +162,7 @@ struct ChordsDatabaseView: View {
             isPresented: $chordsDatabaseState.showExportSheet,
             document: JSONDocument(string: chordsDatabaseState.exportData),
             contentTypes: [.json],
-            defaultFilename: "ChordPro \(currentInstrument.label) chords",
+            defaultFilename: "ChordPro \(currentInstrument.description) chords",
             onCompletion: { result in
                 switch result {
                 case .success(let url):
@@ -195,7 +196,7 @@ struct ChordsDatabaseView: View {
                 chordsDatabaseState.loadInstrumentAfterSaving = false
                 chordsDatabaseState.showExportSheet = false
                 chordsDatabaseState.saveDatabaseConfirmation = false
-                sceneState.settings.core.instrument = currentInstrument
+                sceneState.settings.core.instrument.kind = currentInstrument
             }
         )
         .navigationSubtitle(currentInstrument.description)
@@ -206,10 +207,9 @@ struct ChordsDatabaseView: View {
 
     /// Get all the chords for an instrument
     func getAllChords() {
-        currentInstrument = sceneState.settings.core.instrument
-        chordsDatabaseState
-            .allChords = ChordUtils
-            .getAllChordsForInstrument(instrument: currentInstrument)
+        currentInstrument = sceneState.settings.core.instrument.kind
+        let allChords = try? ChordsDatabase(instrument: sceneState.settings.core.instrument)
+        chordsDatabaseState.allChords = allChords?.definitions ?? []
     }
 
     /// Filter the chords

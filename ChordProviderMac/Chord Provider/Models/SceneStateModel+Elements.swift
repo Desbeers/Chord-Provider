@@ -314,7 +314,7 @@ extension SceneStateModel {
                                 /// - Note: Only add the base fret after the first row because the note can still be played open
                                 let fret = sceneState
                                     .definition
-                                    .instrument.offset[fret] + (value == 0 ? 1 : sceneState.definition.baseFret.rawValue) + 40 + value
+                                    .instrument.offsets[fret] + (value == 0 ? 1 : sceneState.definition.baseFret.rawValue) + 40 + value
                                 /// Convert the fret to a label
                                 let label = ChordUtils.valueToNote(value: fret, scale: sceneState.definition.root)
                                 Text(label.display)
@@ -322,7 +322,7 @@ extension SceneStateModel {
                             }
                         },
                         label: {
-                            Text("\(instrument.stringNames[fret].display)")
+                            Text("\(instrument.strings[fret])")
                                 .font(.title3)
                         }
                     )
@@ -362,7 +362,7 @@ extension SceneStateModel {
                             }
                         },
                         label: {
-                            Text("\(instrument.stringNames[finger].display)")
+                            Text("\(instrument.strings[finger])")
                                 .font(.title3)
                         }
                     )
@@ -555,11 +555,11 @@ extension SceneStateModel {
         @Bindable var sceneState: SceneStateModel
         /// The body of the `View`
         var body: some View {
-            Picker("Instrument", selection: $sceneState.settings.core.instrument) {
-                ForEach(Instrument.allCases, id: \.rawValue) { value in
+            Picker("Instrument", selection: $sceneState.settings.core.instrument.kind) {
+                ForEach(Instrument.Kind.allCases, id: \.rawValue) { value in
                     Text(value.description)
                         .tag(value)
-                        .help(value.label)
+                        .help(value.description)
                 }
             }
         }

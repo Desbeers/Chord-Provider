@@ -36,7 +36,7 @@ extension RenderView {
         var body: some View {
             VStack {
                 RenderView.ImageView(
-                    fileURL: document?.fileURL,
+                    fileURL: document?.fileURL ?? settings.core.templateURL,
                     arguments: arguments,
                     scale: settings.scale.magnifier,
                     maxWidth: settings.scale.maxSongLineWidth

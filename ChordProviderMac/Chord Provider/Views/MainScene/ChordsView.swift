@@ -119,7 +119,7 @@ extension ChordsView {
                                     if let range = document.text.range(of: selectedChord.define) {
                                         document.text = document.text.replacingCharacters(in: range, with: chord.define)
                                     } else {
-                                        document.text += "\n\n{define-\(chord.instrument.rawValue) \(chord.define)}"
+                                        document.text += "\n\n{define-\(chord.instrument.kind.rawValue) \(chord.define)}"
                                     }
                                 }
                                 self.defineChord = nil
@@ -142,11 +142,10 @@ extension ChordsView {
     /// Get all chord definitions for the selected chord name
     /// - Returns: An array of chord definitions`
     private func getChordDefinitions() -> [ChordDefinition] {
-        guard let selectedChord else {
+        guard let selectedChord, let allChords = try? ChordsDatabase(instrument: selectedChord.instrument) else {
             return []
         }
-        let allChords = ChordUtils.getAllChordsForInstrument(instrument: selectedChord.instrument)
-        return allChords
+        return allChords.definitions
             .matching(root: selectedChord.root)
             .matching(quality: selectedChord.quality)
             .matching(slash: selectedChord.slash)

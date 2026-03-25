@@ -85,8 +85,11 @@ struct MainView: View {
         .errorAlert(message: $sceneState.errorAlert)
         .task {
             sceneState.settings.core.fileURL = fileURL
+            sceneState.settings.core.templateURL = document.templateURL
             sceneState.song.settings.fileURL = fileURL
             sceneState.song.settings.templateURL = document.templateURL
+            let database = try? ChordsDatabase(instrument: Instrument[sceneState.settings.core.instrument.kind])
+            sceneState.settings.core.chordDefinitions = database?.definitions ?? []
             await renderSong()
             /// Always open the editor for a new file or a template
             if document.text == ChordProDocument.getSongTemplateContent() || document.templateURL != nil {
@@ -136,6 +139,8 @@ struct MainView: View {
             /// Reset chord cache; the theme might have changed
             RenderView.diagramCache.removeAllObjects()
             sceneState.settings.core = appState.settings.core
+            let database = try? ChordsDatabase(instrument: Instrument[sceneState.settings.core.instrument.kind])
+            sceneState.settings.core.chordDefinitions = database?.definitions ?? []
             Task {
                 await renderSong()
             }

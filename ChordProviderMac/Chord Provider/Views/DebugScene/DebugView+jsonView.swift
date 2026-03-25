@@ -33,12 +33,6 @@ extension DebugView {
                             ForEach(song.sections) { section in
                                 let content = try? JSONUtils.encode(section)
                                 JSONPart(label: "Section \(section.environment.rawValue)", content: content)
-    #if DEBUG
-                                Button("Decode") {
-                                    let decoded = try? JSONUtils.decode(content ?? "error", struct: Song.Section.self)
-                                    dump(decoded)
-                                }
-    #endif
                             }
                         case .chords:
                             let chords = try? JSONUtils.encode(song.chords)

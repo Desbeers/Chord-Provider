@@ -94,7 +94,7 @@ import ChordProviderCore
     /// Init the class
     init(id: AppSettings.AppWindowID = .mainView) {
         // swiftlint:disable:next force_unwrapping
-        self.definition = ChordDefinition(name: "C", instrument: .guitar)!
+        self.definition = ChordDefinition(instrument: Instrument[.guitar])
         /// Init the song with an unique ID
         self.song = Song(id: UUID(), content: "")
         /// Add the last used settings

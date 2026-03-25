@@ -65,6 +65,9 @@ struct HelpView: View {
                     settings.style = AppSettings.Style.ColorPreset.light.presets(style: settings.style)
                 }
                 var song = Song(id: UUID(), content: content)
+                settings.core.instrument = Instrument[.guitar]
+                let database = try? ChordsDatabase(instrument: Instrument[.guitar])
+                settings.core.chordDefinitions = database?.definitions ?? []
                 song.settings.fileURL = helpSong
                 song = ChordProParser.parse(song: song, settings: settings.core)
                 if let export = try? await SongExport.export(

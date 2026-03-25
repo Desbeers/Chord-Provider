@@ -16,12 +16,10 @@ extension EditorView {
         Button(
             action: {
                 /// If the directive is `define`, set the definition for a chord to its initial values
-                if
-                    directive == .define,
+                if directive == .define {
                     let chord = ChordDefinition(
-                        name: "C",
-                        instrument: sceneState.song.settings.instrument
-                    ) {
+                        instrument: Instrument[sceneState.song.settings.instrument.kind]
+                    )
                     sceneState.definition = chord
                 }
                 editDirective = directive

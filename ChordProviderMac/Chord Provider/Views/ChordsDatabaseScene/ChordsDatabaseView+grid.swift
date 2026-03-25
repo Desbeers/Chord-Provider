@@ -52,7 +52,7 @@ extension ChordsDatabaseView {
                         let quality: Chord.Quality = chordsDatabaseState.gridQuality == .none ? .major : chordsDatabaseState.gridQuality
                         var definition: String = "base-fret 1 frets x x x x x x fingers 0 0 0 0 0 0"
                         /// Different fingering for an ukulele
-                        if sceneState.song.settings.instrument == .ukulele {
+                        if sceneState.song.settings.instrument.kind == .ukulele {
                             definition = "base-fret 1 frets x x x x fingers 0 0 0 0"
                         }
 

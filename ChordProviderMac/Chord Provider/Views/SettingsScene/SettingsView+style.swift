@@ -52,7 +52,8 @@ extension SettingsView {
                                         if let themeURL = Bundle.main.url(forResource: theme.rawValue, withExtension: "json") {
                                             do {
                                                 let text = try String(contentsOf: themeURL, encoding: .utf8)
-                                                let style = try JSONUtils.decode(text, struct: AppSettings.Style.self)
+                                                let data = Data(text.utf8)
+                                                let style = try JSONUtils.decode(data, struct: AppSettings.Style.self)
                                                 appState.settings.style = style
                                             } catch {
                                                 LogUtils.shared.setLog(
@@ -160,7 +161,8 @@ extension SettingsView {
                 do {
                     try files.forEach { url in
                         let text = try String(contentsOf: url, encoding: .utf8)
-                        appState.settings.style = try JSONUtils.decode(text, struct: AppSettings.Style.self)
+                        let data = Data(text.utf8)
+                        appState.settings.style = try JSONUtils.decode(data, struct: AppSettings.Style.self)
                         LogUtils.shared.setLog(
                             level: .info,
                             category: .fileAccess,
