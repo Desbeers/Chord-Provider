@@ -20,7 +20,7 @@ extension Views.Chords {
         ) {
             self._appState = appState
             self._chordDialog = chordDialog
-            var chords = appState.wrappedValue.settings.core.database.definitions
+            var chords = appState.wrappedValue.settings.core.chordDefinitions
                 .matching(root: selectedChord.root)
                 .matching(quality: selectedChord.quality)
                 .matching(slash: selectedChord.slash)

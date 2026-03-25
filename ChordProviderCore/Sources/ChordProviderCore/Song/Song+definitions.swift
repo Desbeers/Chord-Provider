@@ -11,10 +11,6 @@ extension Song {
 
     /// Get all the chord definition in the song for the current instrument
     public var definitions: String {
-        let definitions = self.chords.map(\.define)
-        return definitions.map { definition in
-            "{define-\(self.settings.database.instrument.kind.rawValue) \(definition)}"
-        }
-            .joined(separator: "\n")
+        self.chords.map(\.define).joined(separator: "\n")
     }
 }

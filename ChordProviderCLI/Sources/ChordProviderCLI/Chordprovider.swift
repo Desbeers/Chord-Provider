@@ -75,7 +75,8 @@ struct Chordprovider: AsyncParsableCommand {
             lyricsOnly: lyricsOnly,
             repeatWholeChorus: repeatWholeChorus
         )
-        settings.database = database ?? ChordsDatabase()
+        settings.instrument = Instrument[instrument]
+        settings.chordDefinitions = database?.definitions ?? []
         settings.diagram.mirror = mirrorDiagram
         /// The default song
         var parsedSong = Song(id: UUID())

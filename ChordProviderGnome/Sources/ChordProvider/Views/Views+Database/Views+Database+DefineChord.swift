@@ -20,7 +20,7 @@ extension Views.Database {
                 self._definition = State(wrappedValue: definition)
             } else {
                 /// Create a new definition with the current root
-                var definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.database.instrument)
+                var definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.instrument)
                 definition.root = databaseState.wrappedValue.chord
                 self._definition = State(wrappedValue: definition)
             }
@@ -62,13 +62,13 @@ extension Views.Database {
                             appState.settings.app.instrument = modifiedInstrument
                             switch newChord {
                                 case true:
-                                    appState.settings.core.database.definitions.append(definition)
+                                    appState.settings.core.chordDefinitions.append(definition)
                                 case false:
-                                    if let index = appState.settings.core.database.definitions.firstIndex(where: { $0.id == definition.id } ) {
-                                        appState.settings.core.database.definitions[index] = definition
+                                    if let index = appState.settings.core.chordDefinitions.firstIndex(where: { $0.id == definition.id } ) {
+                                        appState.settings.core.chordDefinitions[index] = definition
                                     }
                             }
-                            databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                            databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
                             databaseState.chord = definition.root
                             databaseState.definition = definition
                             databaseState.showEditDefinitionDialog = false

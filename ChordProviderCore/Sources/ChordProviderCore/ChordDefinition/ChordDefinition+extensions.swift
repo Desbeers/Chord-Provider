@@ -10,7 +10,7 @@ import Foundation
 extension ChordDefinition {
 
     /// The name of the chord
-    /// - Returns: A string with the name and
+    /// - Returns: A string with the name
     public var name: String {
         var name = self.root.rawValue + self.quality.rawValue
         if let slash = self.slash {
@@ -71,7 +71,7 @@ extension ChordDefinition {
 
 extension ChordDefinition {
 
-    /// Convert a ``ChordDefinition`` into a **ChordPro** `{define}`
+    /// Convert a ``ChordDefinition`` into a **ChordPro** `{define}` directive
     public var define: String {
         var define = root.rawValue
         define += quality.rawValue
@@ -88,7 +88,7 @@ extension ChordDefinition {
         for finger in fingers {
             define += " \(finger)"
         }
-        return define
+        return "{define-\(instrument.kind.rawValue) \(define)}"
     }
 }
 

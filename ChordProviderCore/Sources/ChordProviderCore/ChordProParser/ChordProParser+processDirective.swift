@@ -141,7 +141,7 @@ extension ChordProParser {
 
                     case .define:
                         processDefine(
-                            kind: song.settings.database.instrument.kind,
+                            kind: song.settings.instrument.kind,
                             directive: .define,
                             arguments: arguments,
                             currentSection: &currentSection,

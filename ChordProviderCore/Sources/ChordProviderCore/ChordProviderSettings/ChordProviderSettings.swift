@@ -18,12 +18,14 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
         self.repeatWholeChorus = repeatWholeChorus
         self.transpose = transpose
     }
-    /// Confirm to `CustomStringConvertible`
+    /// CustomStringConvertible protocol
     public var description: String {
-        "instrument: \(database.instrument.kind) transpose: \(transpose)" + diagram.description
+        "instrument: \(instrument.kind) transpose: \(transpose)" + diagram.description
     }
-    /// The databse with chord definitions for an instrument
-    public var database = ChordsDatabase()
+    /// The instrument to use
+    public var instrument: Instrument = Instrument[.guitar]
+    /// The chord definitions for the instrument
+    public var chordDefinitions: [ChordDefinition] = []
     /// The MIDI preset
     public var midiPreset: MidiUtils.Preset = .acousticNylonGuitar
     /// Show only lyrics
@@ -51,7 +53,7 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     }
     /// The coding keys
     enum CodingKeys: CodingKey {
-        case database
+        case instrument
         case midiPreset
         case lyricsOnly
         case repeatWholeChorus

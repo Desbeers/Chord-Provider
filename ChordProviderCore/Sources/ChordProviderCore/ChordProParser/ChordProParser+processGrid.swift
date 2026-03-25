@@ -92,7 +92,7 @@ extension ChordProParser {
                                 let chord = ChordDefinition(
                                     text: "?",
                                     kind: .textChord,
-                                    instrument: song.settings.database.instrument
+                                    instrument: song.settings.instrument
                                 )
                                 parts.append(
                                     Song.Section.Line.Part(

@@ -10,6 +10,7 @@ import Foundation
 /// All errors that can happen in Chord Provider Core
 enum ChordProviderError: LocalizedError {
     case fileNotFound
+    case databaseNotFound
     case jsonDecoderError(error: String)
     case noChordsDefined
 
@@ -17,6 +18,8 @@ enum ChordProviderError: LocalizedError {
         switch self {
         case .fileNotFound:
             "The file is not found"
+        case .databaseNotFound:
+            "The database is not found"
         case .jsonDecoderError(let error):
             error
         case .noChordsDefined:

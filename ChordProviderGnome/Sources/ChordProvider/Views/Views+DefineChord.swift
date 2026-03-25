@@ -22,14 +22,10 @@ extension Views {
         let appSettings: AppSettings
         /// The slash is *optional* so it needs its own handler
         @State private var slash: Chord.Root = .none
-        /// Label for not pplaying a string
+        /// Label for not playing a string
         static let doNotPlay = "Don't play this string"
         /// Toast signal when a definition is copied
         @State private var copied = Signal()
-        /// Calculated definition
-        var define: String {
-            "{define-\(definition.instrument.kind.rawValue) \(definition.define)}"
-        }
         /// Calculated note values for the strings
         var strings: [StringNumber] {
             var result: [StringNumber] = []
@@ -91,9 +87,9 @@ extension Views {
         var view: Body {
             VStack(spacing: 10) {
                 HStack {
-                    Text(define)
+                    Text(definition.define)
                     Button(icon: .default(icon: .editCopy)) {
-                        AdwaitaApp.copy(define)
+                        AdwaitaApp.copy(definition.define)
                         copied.signal()
                     }
                     .flat(true)
@@ -252,12 +248,11 @@ extension Views {
         /// Try to find a chord in the database
         private func lookupChord() {
             if newChord {
-                let definition = appSettings.core.database.definitions
+                let definition = appSettings.core.chordDefinitions
                     .matching(root: definition.root)
                     .matching(quality: definition.quality)
                     .matching(slash: definition.slash)
                     .matching(baseFret: definition.baseFret)
-
 
                 if let definition = definition.first {
                     self.definition = definition

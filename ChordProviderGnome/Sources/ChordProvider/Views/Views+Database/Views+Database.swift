@@ -70,15 +70,14 @@ extension Views {
                                     /// Build-in databases can not be edited
                                     .insensitive(appState.settings.app.instrument.bundle != nil)
                                     Button(icon: .default(icon: .editCopy)) {
-                                        var database = appState.settings.core.database
-                                        database.instrument.bundle = nil
-                                        database.instrument.fileURL = nil
-                                        database.instrument.label += " (copy)"
-                                        database.instrument.modified = true
+                                        var instrument = appState.settings.core.instrument
+                                        instrument.bundle = nil
+                                        instrument.fileURL = nil
+                                        instrument.label += " (copy)"
+                                        instrument.modified = true
                                         /// Add the copy
-                                        appState.modifiedInstrument = database.instrument
-                                        appState.settings.app.instrument = database.instrument
-                                        appState.settings.core.database = database
+                                        appState.modifiedInstrument = instrument
+                                        appState.settings.app.instrument = instrument
                                     }
                                     .flat()
                                     .insensitive(appState.modifiedInstrument != nil)
@@ -87,7 +86,6 @@ extension Views {
                                 .transition(.crossfade)
                             }
                         }
-                        //.halign(.start)
                         .hexpand()
                         .padding()
                     }
@@ -115,7 +113,7 @@ extension Views {
                         if databaseState.search.isEmpty {
                             ToggleGroup(
                                 selection: $databaseState.chord.onSet { _ in
-                                    databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                                    databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
                                 },
                                 values: Chord.Root.naturalAndSharp.dropFirst().dropLast(),
                                 id: \.self,
@@ -173,7 +171,7 @@ extension Views {
                     .padding(.bottom)
                 }
                 .topToolbar {
-                    HeaderBar { 
+                    HeaderBar {
                         Toggle(icon: .default(icon: .sidebarShow), isOn: $databaseState.sidebarVisible)
                             .tooltip("Toggle Sidebar")
                     }
@@ -185,7 +183,7 @@ extension Views {
                         }
                         SearchEntry()
                             .text($databaseState.search.onSet { _ in
-                                    databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                                    databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
                                 }
                             )
                             .placeholderText("Search")
@@ -205,7 +203,7 @@ extension Views {
                 }
                 .onAppear {
                     Idle {
-                        databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                        databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
                     }
                 }
                 .onUpdate {
@@ -213,7 +211,7 @@ extension Views {
                         if databaseState.instrument != appState.settings.app.instrument {
                             /// The database is changed in the main window; update it
                             databaseState.instrument = appState.settings.app.instrument
-                            databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+                            databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
                         }
                     }
                 }
@@ -249,7 +247,7 @@ extension Views {
         func updateDatabase() {
             databaseState.instrument = appState.settings.app.instrument
             appState.updateDatabase(instrument: appState.settings.app.instrument)
-            databaseState.getFilteredChords(allChords: appState.settings.core.database.definitions)
+            databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
         }
     }
 }

@@ -57,11 +57,7 @@ import CAdw
                     /// - Note: This can happen after a crash or a forced quit
                     appState.settings.app.instrument = Instrument[.guitar]
                 }
-                do {
-                    appState.settings.core.database = try ChordsDatabase(instrument: appState.settings.app.instrument)
-                } catch {
-                    print(error)
-                }
+                appState.updateDatabase(instrument: appState.settings.app.instrument)
                 /// Init the `GtkSourceView`controller
                 appState.controller = SourceViewController(bridge: $appState.editor, language: .chordpro)
                 /// Attach the CSS provider to the default display

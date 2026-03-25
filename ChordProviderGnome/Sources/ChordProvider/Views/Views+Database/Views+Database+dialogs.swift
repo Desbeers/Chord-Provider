@@ -30,10 +30,14 @@ extension Views.Database {
             }
             .fileExporter(
                 open: databaseState.exportDatabase,
-                initialName: "\(appState.settings.core.database.instrument.label).json",
+                initialName: "\(appState.settings.core.instrument.label).json",
                 onSave: { fileURL in
                     do {
-                        let export  = try ChordUtils.exportToJSON(database: appState.settings.core.database)
+                        let database = ChordsDatabase(
+                            instrument: appState.settings.core.instrument,
+                            definitions: appState.settings.core.chordDefinitions
+                        )
+                        let export  = try ChordUtils.exportToJSON(database: database)
                         try export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
                         appState.modifiedInstrument = nil
                         switch databaseState.exportDoneAction {
@@ -123,7 +127,11 @@ extension Views.Database {
         else { return }
 
         do {
-            let export  = try ChordUtils.exportToJSON(database: appState.settings.core.database)
+            let database = ChordsDatabase(
+                instrument: appState.settings.core.instrument,
+                definitions: appState.settings.core.chordDefinitions
+            )
+            let export  = try ChordUtils.exportToJSON(database: database)
             try export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             /// Update the list of custom instruments
             instrument.modified = false

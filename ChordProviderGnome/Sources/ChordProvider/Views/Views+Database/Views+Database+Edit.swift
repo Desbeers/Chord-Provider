@@ -90,20 +90,22 @@ extension Views.Database {
                         database.instrument = result
                         database.definitions = []
                         appState.settings.app.instrument = database.instrument
-                        appState.settings.core.database = database
+                        appState.settings.core.instrument = database.instrument
+                        appState.settings.core.chordDefinitions = database.definitions
                         appState.editor.command = .updateSong
                     } else {
                         /// Reimport the database
                         var database = ChordsDatabase()
                         database.instrument = result
-                        database.definitions = appState.settings.core.database.definitions
+                        database.definitions = appState.settings.core.chordDefinitions
                         do {
                             let export  = try ChordUtils.exportToJSON(database: database)
                             let database = try ChordsDatabase(json: export, fileURL: result.fileURL)
                             /// Remember as modified
                             appState.modifiedInstrument = result
                             appState.settings.app.instrument = result
-                            appState.settings.core.database = database
+                            appState.settings.core.instrument = database.instrument
+                            appState.settings.core.chordDefinitions = database.definitions
                             appState.editor.command = .updateSong
                         } catch {
                             /// Nothing
