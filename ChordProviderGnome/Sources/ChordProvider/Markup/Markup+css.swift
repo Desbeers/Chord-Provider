@@ -40,7 +40,7 @@ extension Markup {
         case metadata
         /// Represents an intentionally empty line
         case emptyLine = "empty-line"
-        /// Error; a default
+        /// Error
         case error
         // Accent
         case accent

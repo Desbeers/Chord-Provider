@@ -151,7 +151,8 @@ extension ChordDefinition {
         self.slash = nil
         self.instrument = instrument
         self.kind = kind
-        self.transposedName = self.name + "-0"
+        self.status = kind == .textChord ? .text : .unknownChord
+        self.transposedName = text + "-0"
     }
 
     // MARK: Init an empty C chord for the diagram editor

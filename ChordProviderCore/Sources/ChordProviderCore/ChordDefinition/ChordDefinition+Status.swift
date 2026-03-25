@@ -37,6 +37,8 @@ extension ChordDefinition {
         case wrongFingers
         /// The definition is missing fingers
         case missingFingers
+        /// The definition is just text
+        case text
         /// The definition is correct
         case correct
 
