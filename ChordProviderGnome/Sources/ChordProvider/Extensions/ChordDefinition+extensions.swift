@@ -18,4 +18,9 @@ extension ChordDefinition {
         /// This should not happen
         return ""
     }
+
+    /// Tooltip for the chord
+    public var toolTip: String {
+        self.kind.knownChord ? "" : self.kind.description
+    }
 }

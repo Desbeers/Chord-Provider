@@ -26,7 +26,10 @@ extension GtkRender {
                     .child {
                         Text(part.withMarkup(chord))
                             .useMarkup()
+                            .tooltip(chord.toolTip)
+                            .style(chord.kind.knownChord ? .none : .underline)
                             .style(.chord)
+                            .id(chord)
                     }
                     .flat()
                     .style(.chordDiagramToggle)

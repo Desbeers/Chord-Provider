@@ -55,19 +55,11 @@ extension Views.Content {
         /// The **Alert dialog** for an error
         .alertDialog(
             visible: $appState.scene.showErrorDialog,
-            heading: appState.scene.errorTitle,
+            heading: appState.scene.error?.localizedDescription ?? "Error",
             id: "error-dialog",
             /// - Note: I use `extraChild` instead of `body` so I can use markup
             extraChild: {
-                VStack {
-                    Text(appState.scene.errorMessage)
-                        .style(.bold)
-                    Text(appState.scene.errorDetails)
-                        .wrap()
-                        .monospace()
-                        .vexpand()
-                        .padding()
-                }
+                Views.ErrorMessage(error: appState.scene.error)
             }
         )
         .response("OK", role: .default) {

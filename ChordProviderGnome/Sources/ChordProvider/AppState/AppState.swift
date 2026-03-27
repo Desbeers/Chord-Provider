@@ -97,36 +97,3 @@ extension AppState: Codable {
         case settings
     }
 }
-
-extension AppState {
-
-    mutating func updateDatabase(instrument: Instrument) {
-        do {
-            let database = try ChordsDatabase(instrument: instrument)
-            self.settings.core.instrument = database.instrument
-            self.settings.core.chordDefinitions = database.definitions
-            self.editor.command = .updateSong
-        } catch {
-            self.scene.errorTitle = "Could not update the definitions"
-            self.scene.errorMessage = "It looks like it is not a valid JSON file"
-            self.scene.errorDetails = error.localizedDescription
-            self.scene.showErrorDialog = true
-        }
-    }
-
-    mutating func importDatabase(url: URL) {
-        do {
-            let database = try ChordsDatabase(url: url)
-            self.settings.core.instrument = database.instrument
-            self.settings.core.chordDefinitions = database.definitions
-            self.editor.command = .updateSong
-            /// Add this database to the custom list
-            self.settings.app.customInstruments.append(database.instrument)
-        } catch {
-            self.scene.errorTitle = "Could not open the definitions"
-            self.scene.errorMessage = "It looks like it is not a valid JSON file"
-            self.scene.errorDetails = error.localizedDescription
-            self.scene.showErrorDialog = true              
-        }
-    }
-}

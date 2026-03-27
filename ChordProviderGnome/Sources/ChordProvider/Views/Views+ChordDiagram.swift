@@ -41,7 +41,7 @@ extension Views {
                     .frame(maxHeight: Int(width * 1.2))
                     .valign(.center)
                     .halign(.center)
-                    .id(coreSettings.diagram.description + chord.define)
+                    .id(coreSettings.diagram.description + chord.description)
             } else {
                 Text(chord.kind.description)
                     .wrap()

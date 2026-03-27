@@ -30,6 +30,8 @@ extension Markup {
         case standard
         /// Bold text styling
         case bold
+        /// Underline text styling
+        case underline
         /// Caption text, typically smaller or secondary
         case caption
         /// Primary song title
@@ -197,6 +199,9 @@ popover contents, popover arrow {
 }
 .bold {
     font-weight: bold;
+}
+.underline{
+    text-decoration: underline;
 }
 .song-title {
     font-size: \(1.4 * baseFontSize)rem;

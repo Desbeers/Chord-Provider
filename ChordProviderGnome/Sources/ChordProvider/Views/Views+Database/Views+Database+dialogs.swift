@@ -47,10 +47,7 @@ extension Views.Database {
                             break
                         }
                     } catch {
-                        appState.scene.errorTitle = "Could not export the database"
-                        appState.scene.errorMessage = "See below..."
-                        appState.scene.errorDetails = error.localizedDescription
-                        appState.scene.showErrorDialog = true     
+                        appState.scene.error  = .databaseExportError(error: error.localizedDescription)   
                     }
                 },
                 onClose: {
@@ -151,10 +148,7 @@ extension Views.Database {
                 break
             }
         } catch {
-            appState.scene.errorTitle = "Could not save the database"
-            appState.scene.errorMessage = "See below..."
-            appState.scene.errorDetails = error.localizedDescription
-            appState.scene.showErrorDialog = true
+            appState.scene.error = .fileNotSaved(error: error.localizedDescription)
         }
     }
 }

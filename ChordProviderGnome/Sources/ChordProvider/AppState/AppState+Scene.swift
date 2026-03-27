@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 import Adwaita
 
 extension AppState {
@@ -56,14 +57,15 @@ extension AppState {
 
         // MARK: Errors
 
+        // The error
+        var error: ChordProviderError? {
+            didSet {
+                /// Show the error dialog
+                showErrorDialog = true
+            }
+        }
         /// Show an error dialog
         var showErrorDialog: Bool = false
-        /// The error title
-        var errorTitle: String = ""
-        /// The error message
-        var errorMessage: String = ""
-        /// The error details
-        var errorDetails: String = ""
 
         // MARK: Toasts
 

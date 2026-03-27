@@ -96,34 +96,30 @@ extension Views {
             .preferencesPage("Chords", icon: .default(icon: .mediaPlaybackStart)) { page in
                 page
                     .group("Custom Chord Definitions") {
-                        Form {
-                            if appState.settings.app.customInstruments.isEmpty {
-                                ActionRow("You have no custom chord definitions.")
-                            } else {
+                        if !appState.settings.app.customInstruments.isEmpty {
+                            Form {
                                 ForEach(appState.settings.app.customInstruments) { instrument in
                                     ActionRow(instrument.kind.description)
                                         .subtitle(instrument.label)
                                         .suffix {
                                             Button("Remove") {
-                                                if let index = appState.settings.app.customInstruments
-                                                    .firstIndex(where: { $0.hashValue == instrument.hashValue}) {
-                                                    appState.settings.app.customInstruments.remove(at: index)
-                                                }
-                                                if instrument == appState.settings.app.instrument {
-                                                    /// The instrument was selected; reset to default
-                                                    appState.settings.app.instrument = Instrument[.guitar]
-                                                    appState.updateDatabase(instrument: Instrument[.guitar])
-                                                }
+                                                appState.removeDatabase(instrument: instrument)
                                             }
-                                                .valign(.center)
+                                            .valign(.center)
                                         }
                                 }
                             }
-                            Button("Import chord definitions") {
-                                appState.scene.importDatabase.signal()
+                            .padding(.bottom)
+                        }
+                        Form {
+                            ActionRow("Import chord definitions")
+                                .subtitle("The definitions should be in <b>ChordPro</b> format")
+                                .suffix {
+                                Button("Import") {
+                                    appState.scene.importDatabase.signal()
+                                }
+                                .valign(.center)
                             }
-                            .halign(.end)
-                            .padding()
                             .fileImporter(
                                 open: appState.scene.importDatabase,
                                 extensions: ["json"]

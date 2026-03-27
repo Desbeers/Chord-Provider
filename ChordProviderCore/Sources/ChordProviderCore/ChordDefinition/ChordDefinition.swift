@@ -8,7 +8,13 @@
 import Foundation
 
 /// The structure of a chord definition
-public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable, Comparable {
+public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable, Comparable, CustomStringConvertible {
+    
+    /// CustomStringConvertible protocol
+    public var description: String {
+        define + kind.rawValue + status.rawValue
+    }
+    
     /// Comparable protocol
     /// - Note: Used for sorting the chords
     public static func < (lhs: ChordDefinition, rhs: ChordDefinition) -> Bool {
