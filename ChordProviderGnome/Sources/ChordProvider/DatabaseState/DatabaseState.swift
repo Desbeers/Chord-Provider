@@ -13,16 +13,17 @@ import Adwaita
 struct DatabaseState: Codable {
     /// The selected chord
     var chord: Chord.Root = .c
-    /// The current instrument
-    var instrument: Instrument = Instrument[.guitar]
+    /// The current instrument ID
+    /// - Note: This is for internal use to keep track of modified instruments
+    var instrumentID: String = Instrument[.guitar].id
     /// The filtered chords
     var filteredChords: [ChordDefinition] = []
     /// The optional search string
     var search: String = ""
     /// The current selected definition
     var definition: ChordDefinition?
-    /// Bool to show the edit dialog
-    var showEditDefinitionDialog: Bool = false
+    /// Bool to show the definition dialog
+    var showDefinitionDialog: Bool = false
     /// Bool to show the new database dialog
     var showNewDatabaseDialog: Bool = false
     /// Bool if the chord database is new
@@ -31,8 +32,10 @@ struct DatabaseState: Codable {
     var newChord: Bool = false
     /// Bool to show a dialog when the window is closed or the instrument has changed and the database is altered
     var showChangedDatatabaseDialog: Bool = false
-    /// The action after exporting the database
-    var exportDoneAction: ExportDoneAction = .closeWindow
+    /// Bool to show a confirmation dialog to delete a chord
+    var showDeleteChordDialog: Bool = false
+    /// The action after saving an ``Instrument``
+    var saveDoneAction: SaveDoneAction = .closeWindow
     /// Bool if the sidebar is visible
     var sidebarVisible = true
 
@@ -53,19 +56,6 @@ extension DatabaseState {
 
 extension DatabaseState {
 
-    /// The action for the changed database dialog
-    enum ExportDoneAction {
-        /// Close the window
-        case closeWindow
-        /// Switch instrument
-        case switchInstrument
-        /// Do nothing
-        case doNothing
-    }
-}
-
-extension DatabaseState {
-
     /// Get all filtered chords
     /// - Returns: The filtered chords
     mutating func getFilteredChords(allChords: [ChordDefinition]) {
@@ -74,19 +64,9 @@ extension DatabaseState {
         if self.search.isEmpty {
             result = allChords
                 .filter { $0.root == self.chord }
-                .sorted(
-                    using: [
-                        KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
-                    ]
-                )
         } else {
             result = allChords
                 .filter { $0.name.starts(with: self.search) }
-                .sorted(
-                    using: [
-                        KeyPathComparator(\.root), KeyPathComparator(\.slash), KeyPathComparator(\.quality)
-                    ]
-                )
         }
         self.filteredChords = result
     }

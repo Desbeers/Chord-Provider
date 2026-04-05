@@ -15,15 +15,16 @@ extension Views.Database {
     /// The `View` to edit or add a chord definition
     struct DefineChord: View {
         init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>) {
+            /// Create a new definition with the current root
+            var definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.instrument)
+            definition.root = databaseState.wrappedValue.chord
             self.newChord = databaseState.wrappedValue.newChord
-            if !newChord, let definition = databaseState.definition.wrappedValue {
-                self._definition = State(wrappedValue: definition)
-            } else {
-                /// Create a new definition with the current root
-                var definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.instrument)
-                definition.root = databaseState.wrappedValue.chord
-                self._definition = State(wrappedValue: definition)
+            if !newChord, let currentDefinition = databaseState.definition.wrappedValue {
+                definition = currentDefinition
             }
+            /// Try to find the optional flat version
+            self.flatChordID = definition.findFlatFromSharp(chords: appState.wrappedValue.settings.core.chordDefinitions)?.id
+            self._definition = State(wrappedValue: definition)
             self._databaseState = databaseState
             self._appState = appState
         }
@@ -33,14 +34,24 @@ extension Views.Database {
         @Binding var databaseState: DatabaseState
         /// Bool if the chord definition is new
         let newChord: Bool
+        /// ID of the optional flats version
+        let flatChordID: UUID?
         /// The state of the chord definition
         @State private var definition: ChordDefinition
+        /// Help label
+        var helpLabel: String? {
+            if definition.root.accidental != .natural {
+                 return "When \(newChord ? "adding" : "updating") <b>\(definition.display)</b>, <b>\(definition.displayFlatForSharp)</b> will be \(newChord ? "added" : "updated") as well"
+            }
+            return nil
+        }
         /// The bdy of the `View`
         var view: Body {
             VStack(spacing: 10) {
                 Views.DefineChord(
                     definition: $definition,
                     newChord: newChord,
+                    mergeSharpAndFlat: true,
                     appSettings: appState.settings
                 )
                 Separator()
@@ -49,30 +60,49 @@ extension Views.Database {
                         .title("Play notes")
                         .active($appState.settings.app.soundForChordDefinitions)
                     HStack(spacing: 10) {
-                        Text(" ")
+                        Text("")
                             .hexpand()
+                        if let helpLabel {
+                            Text(helpLabel)
+                            .useMarkup()
+                            .caption()
+                            .padding()
+                        }
                         Button("Cancel") {
-                            databaseState.showEditDefinitionDialog = false
+                            databaseState.showDefinitionDialog = false
                         }
                         Button("\(newChord ? "Add" : "Update") Definition") {
-                            /// Set the instrument as modified
-                            var modifiedInstrument = appState.settings.app.instrument
-                            modifiedInstrument.modified = true
-                            appState.modifiedInstrument = modifiedInstrument
-                            appState.settings.app.instrument = modifiedInstrument
-                            switch newChord {
-                                case true:
-                                    appState.settings.core.chordDefinitions.append(definition)
-                                case false:
-                                    if let index = appState.settings.core.chordDefinitions.firstIndex(where: { $0.id == definition.id } ) {
-                                        appState.settings.core.chordDefinitions[index] = definition
-                                    }
+                            /// Mark the instrument as modified
+                            appState.markCurrentInstrumentAsModified()
+                            /// Update the database
+                            var chords = appState.settings.core.chordDefinitions
+                            /// Remove the current definition
+                            if let index = chords.firstIndex(where: { $0.id == definition.id }) {
+                                chords.remove(at: index)
                             }
-                            databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
-                            databaseState.chord = definition.root
-                            databaseState.definition = definition
-                            databaseState.showEditDefinitionDialog = false
-                            appState.editor.command = .updateSong
+                            /// Remove the optional flat version
+                            if let flatChordID, let index = chords.firstIndex(where: { $0.id == flatChordID } ) {
+                                chords.remove(at: index)
+                            }
+                            /// Add the definition                    
+                            chords.append(definition)
+                            if definition.root.accidental == .sharp {
+                                /// Add a flat version
+                                var flat = definition
+                                flat.root = definition.root.swapSharpForFlat
+                                flat.id = UUID()
+                                chords.append(flat)
+                            }
+                            /// Sort the chords
+                            chords.sort()
+                            Idle {
+                                appState.settings.core.chordDefinitions = chords
+                                databaseState.getFilteredChords(allChords: chords)
+                                databaseState.chord = definition.root
+                                databaseState.definition = definition
+                                databaseState.showDefinitionDialog = false
+                                appState.editor.command = .updateSong
+                            }
                         }
                         .suggested()
                         .padding(.trailing)

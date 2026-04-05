@@ -51,13 +51,8 @@ import CAdw
 
             )
             .inspectOnAppear { storage in
-                /// Load the chords
-                if appState.settings.app.instrument.modified {
-                    /// Somehow the state is still modified; go back to default
-                    /// - Note: This can happen after a crash or a forced quit
-                    appState.settings.app.instrument = Instrument[.guitar]
-                }
-                appState.updateDatabase(instrument: appState.settings.app.instrument)
+                /// Init the chords database
+                appState.initDatabase()
                 /// Init the `GtkSourceView`controller
                 appState.controller = SourceViewController(bridge: $appState.editor, language: .chordpro)
                 /// Attach the CSS provider to the default display
@@ -125,12 +120,13 @@ import CAdw
         .maximized($databaseWindowSize.maximized)
         .devel(appState.settings.app.debug)
         .onClose {
-            if appState.modifiedInstrument != nil {
-                databaseState.exportDoneAction = .closeWindow
+            if !appState.currentInstrument.modified {
+                return .close
+            } else {
+                /// The instrument is modified; show a *Dialog*
+                databaseState.saveDoneAction = .closeWindow
                 databaseState.showChangedDatatabaseDialog = true
                 return .cancel
-            } else {
-                return .close
             }
         }
     }

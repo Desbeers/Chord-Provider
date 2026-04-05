@@ -24,6 +24,8 @@ public enum ChordProviderError: LocalizedError {
     case databaseImportError(error: String)
     /// Error when exporting a database
     case databaseExportError(error: String)
+    /// Error when try to edit a directive
+    case directiveNotEditable(error: String)
 
     /// The description of the error
     public var errorDescription: String? {
@@ -42,6 +44,8 @@ public enum ChordProviderError: LocalizedError {
             "Import Failed"
         case .databaseExportError:
             "Export Failed"
+        case .directiveNotEditable:
+            "The directive is not editable"
         }
     }
 
@@ -62,6 +66,8 @@ public enum ChordProviderError: LocalizedError {
             error
         case .databaseExportError(let error):
             error
+        case .directiveNotEditable(let error):
+            error
         }
     }
 
@@ -78,6 +84,8 @@ public enum ChordProviderError: LocalizedError {
             "No chords are defined"
         case .databaseImportError:
             "It looks like the file is not a valid JSON ChordPro configuration"
+        case .directiveNotEditable:
+            "The directive contains too many errors"
         case .databaseExportError, .fileNotSaved:
             nil
         }

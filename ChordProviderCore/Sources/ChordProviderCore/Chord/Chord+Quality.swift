@@ -24,7 +24,7 @@ extension Chord {
             case .minor:
                 "minor"
             default:
-                self.rawValue
+                self.display
             }
         }
 
@@ -148,6 +148,7 @@ extension Chord {
         case none
 
         /// Implement Comparable
+        /// - Note: Used for sorting
         public static func < (lhs: Self, rhs: Self) -> Bool {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
         }

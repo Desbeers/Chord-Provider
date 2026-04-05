@@ -34,7 +34,7 @@ extension Views {
         let coreSettings: ChordProviderSettings
         /// The body of the `View`
         var  view: Body {
-            if chord.kind.knownChord {
+            if chord.knownChord {
                 Widgets.ChordDiagram(chord: chord, width: width, coreSettings: coreSettings)
                     .frame(minWidth: Int(width), minHeight: Int(width * 1.2))
                     .frame(maxWidth: Int(width))

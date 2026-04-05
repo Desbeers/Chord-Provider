@@ -36,7 +36,7 @@ extension ChordProParser {
             /// The definition is for another instrument
             currentSection.addWarning(
                 "The chord definition is for <b>\(kind.rawValue)</b> and will be ignored",
-                level: .notice
+                level: .error
             )
             addSection(
                 directive: directive,
@@ -68,18 +68,28 @@ extension ChordProParser {
                 kind: .customChord,
                 instrument: song.settings.instrument
             )
-            if song.transposing != 0 {
-                /// Transpose the chord; this will disable diagrams
-                definedChord.transpose(
-                    transpose: song.transposing,
-                    scale: song.metadata.key?.root ?? .c,
-                    chords: song.settings.chordDefinitions
+            if !definedChord.validationWarnings.isEmpty {
+                let error: Bool = !Set(definedChord.validationWarnings).isDisjoint(with: ChordDefinition.Status.errorStatus)
+                let warnings = definedChord.validationWarnings.map {$0.description}
+                currentSection.addWarning(
+                    "\(warnings.joined(separator: "\n"))",
+                    level: error ? .error : .warning
                 )
             }
-            /// Add the chord as a new definition
-            song.chords.append(definedChord)
+            if definedChord.status == .correct {
+                if song.transposing != 0 {
+                    /// Transpose the chord; this will disable diagrams
+                    definedChord.transpose(
+                        transpose: song.transposing,
+                        scale: song.metadata.key?.root ?? .c,
+                        chords: song.settings.chordDefinitions
+                    )
+                }
+                /// Add the chord as a new definition
+                song.chords.append(definedChord)
+            }
         } catch {
-            /// The definition could not be processed
+            /// The definition could not be processed at all
             currentSection.addWarning(
                 "Wrong chord definition: <b>\(error.localizedDescription)</b>",
                 level: .error

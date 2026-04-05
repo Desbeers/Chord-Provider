@@ -17,18 +17,18 @@ extension ChordsDatabase {
         self.definitions = []
     }
 
-    /// Init a Chords Database with **ChordPro** JSON
-    public init(json: String, fileURL: URL?) throws {
-        do {
-            let data = Data(json.utf8)
-            let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
-            let result = ChordsDatabase.processDatabase(database: database, fileURL: fileURL)
-            self.instrument = result.instrument
-            self.definitions = result.definitions
-        } catch {
-            throw error
-        }
-    }
+    // /// Init a Chords Database with **ChordPro** JSON
+    // public init(json: String, fileURL: URL?) throws {
+    //     do {
+    //         let data = Data(json.utf8)
+    //         let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
+    //         let result = ChordsDatabase.processDatabase(database: database, fileURL: fileURL)
+    //         self.instrument = result.instrument
+    //         self.definitions = result.definitions
+    //     } catch {
+    //         throw error
+    //     }
+    // }
 
     /// Init the database with an URL
     public init(url: URL) throws {

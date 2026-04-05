@@ -13,11 +13,17 @@ import CAdw
 extension Views {
 
     /// The `View` to define a chord
+    /// 
+    /// This `View` is *not* complete, it is just showing the edit dialog.
+    /// It is used by the Editor and by the Database views to show a complete `View`
     struct DefineChord: View {
         /// The state of the chord definition
         @Binding var definition: ChordDefinition
         /// Bool if the chord definition is new
         let newChord: Bool
+        /// Bool if `sharp` and `flat` should be merged
+        /// - Note: Used when editing a chord for the Database
+        let mergeSharpAndFlat: Bool
         /// The application settings
         let appSettings: AppSettings
         /// The slash is *optional* so it needs its own handler
@@ -80,7 +86,8 @@ extension Views {
                 quality: definition.quality,
                 slash: definition.slash,
                 instrument: definition.instrument,
-                kind: .standardChord
+                kind: .customChord,
+                status: .unknownStatus
             )
         }
         /// The body of the `View`
@@ -101,9 +108,9 @@ extension Views {
                     selection: $definition.root.onSet { _ in
                         lookupChord()
                     },
-                    values: Chord.Root.allCases.dropFirst().dropLast(),
+                    values: mergeSharpAndFlat ? Chord.Root.naturalAndSharp : Chord.Root.allCases.dropFirst().dropLast(),
                     id: \.self,
-                    label: \.display
+                    label: mergeSharpAndFlat ? \.naturalAndSharpDisplay : \.display
                 )
                 /// Disable above when a definition is edited
                 .insensitive(!newChord)
@@ -113,7 +120,9 @@ extension Views {
                         selection: $definition.quality.onSet { _ in
                             lookupChord()
                         },
-                        values: Array(Chord.Quality.allCases.dropFirst().dropLast())
+                        values: Array(Chord.Quality.allCases.dropFirst().dropLast()),
+                        id: \.id,
+                        description: \.description
                     )
                     /// Disable above when a definition is edited
                     .insensitive(!newChord)
@@ -130,7 +139,9 @@ extension Views {
                             definition.slash = $0 == .none ? nil : $0
                             lookupChord()
                         },
-                        values: Array(Chord.Root.allCases.dropFirst())
+                        values: Array(Chord.Root.allCases.dropFirst()),
+                        id: \.id,
+                        description: \.display
                     )
                     /// Disable above when a definition is edited
                     .insensitive(!newChord)
@@ -149,39 +160,41 @@ extension Views {
                         )
                         Text(definition.notesLabel)
                             .useMarkup()
-                        let validate = definition.validate
-                        Text(validate.description)
-                            .wrap()
-                            .style(validate == .correct ? .none : .error)
+                        if !definition.validationWarnings.isEmpty {                     
+                            ScrollView {
+                                HStack(spacing: 4) {
+                                    ForEach(definition.validationWarnings, id: \.description) { line in
+                                        Text("- \(line.description)")
+                                            .useMarkup()
+                                            .halign(.start)
+                                            .id(line.description)
+                                    }
+                                }
+                                .padding()
+                            }
+                            .hscrollbarPolicy(.never)
                             .caption()
-                            .padding(.top)
-                            .frame(maxWidth: 160)
-                            .id(validate.description)
+                            .halign(.center)
+                            .style(.error)
+                            .transition(.crossfade)
+                        }
                     }
+                    .frame(maxWidth: 300)
+                    .frame(minWidth: 300)
                     VStack(spacing: 10) {
                         Text("Frets")
                            .padding(.top)
                         Separator()
                         VStack {
                             ForEach(strings, horizontal: true) { string in
-                                /// I cannot use a `ToggleGroup` because the chord names change with the base fret
                                 ForEach(string.frets) { button in
-                                    if let icon = button.icon {
-                                        Button(icon: icon) {
-                                            definition.frets[string.id] = button.id
-                                            playNote(string)
-                                        }
-                                        .style("circular")
-                                        .flat(definition.frets[string.id] != button.id)
-                                        .tooltip(button.label)
-                                    } else {
-                                        Button(button.label) {
-                                            definition.frets[string.id] = button.id
-                                            playNote(string)
-                                        }
-                                        .style("circular")
-                                        .flat(definition.frets[string.id] != button.id)
+                                    Button(button, active: definition.frets[string.id] == button.id) {
+                                        definition.frets[string.id] = button.id
+                                        playNote(string)
                                     }
+                                    .style("circular")
+                                    .insensitive(button.id != -1 && !definition.notes.contains(button.label))
+                                    .id(definition.description)
                                 }
                             }
                         }
@@ -195,17 +208,14 @@ extension Views {
                         Separator()
                         VStack {
                             ForEach(fingers, horizontal: true) { finger in
-                                ToggleGroup(
-                                    selection: $definition.fingers[finger.id],
-                                    values: finger.frets,
-                                    id: \.id,
-                                    label: \.label,
-                                    icon: \.icon,
-                                    showLabel: \.showLabel
-                                )
-                                .vertical()
-                                .flat()
-                                .round()
+                                ForEach(finger.frets) { button in
+                                    Button(button, active: definition.fingers[finger.id] == button.id) {
+                                        definition.fingers[finger.id] = button.id
+                                    }
+                                    .style("circular")
+                                    .style(definition.correctFinger(string: finger.id) ? .none : definition.fingers[finger.id] == button.id ? .error : .none)
+                                    .id(definition.description)
+                                }
                             }
                         }
                         .vexpand()
@@ -221,7 +231,7 @@ extension Views {
                     .headerBarTitle {
                         WindowTitle(
                             subtitle: definition.quality.intervalsLabel,
-                            title: definition.display
+                            title: mergeSharpAndFlat ? definition.displaySharpAndFlat : definition.display
                         )
                     }
             }
@@ -256,6 +266,9 @@ extension Views {
 
                 if let definition = definition.first {
                     self.definition = definition
+                } else {
+                    self.definition.frets = Array(repeating: -1, count: self.definition.instrument.strings.count)
+                    self.definition.fingers = Array(repeating: 0, count: self.definition.instrument.strings.count)
                 }
             }
         }

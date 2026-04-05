@@ -27,7 +27,7 @@ extension GtkRender {
                         Text(part.withMarkup(chord))
                             .useMarkup()
                             .tooltip(chord.toolTip)
-                            .style(chord.kind.knownChord ? .none : .underline)
+                            .style(chord.knownChord ? .none : .underline)
                             .style(.chord)
                             .id(chord)
                     }

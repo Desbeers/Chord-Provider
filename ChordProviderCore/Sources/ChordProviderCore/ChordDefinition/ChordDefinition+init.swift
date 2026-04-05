@@ -9,35 +9,9 @@ import Foundation
 
 extension ChordDefinition {
 
-    // MARK: Init with all known values
-
-    /// Init the ``ChordDefinition`` with all known values
-    public init(
-        id: UUID,
-        frets: [Int],
-        fingers: [Int],
-        baseFret: Chord.BaseFret,
-        root: Chord.Root,
-        quality: Chord.Quality,
-        slash: Chord.Root?,
-        instrument: Instrument,
-        kind: Kind = .customChord
-    ) {
-        self.id = id
-        self.frets = frets
-        self.fingers = fingers
-        self.baseFret = baseFret
-        self.root = root
-        self.quality = quality
-        self.slash = slash
-        self.instrument = instrument
-        self.kind = kind
-        self.transposedName = self.name + "-0"
-    }
-
     // MARK: Init with a **ChordPro** definition
 
-    /// Init the ``ChordDefinition`` with a **ChordPro** definition
+    /// Init the ``ChoSta.cotusrdDefinition`` with a **ChordPro** definition
     /// - Parameters:
     ///   - definition: The **ChordPro** definition
     ///   - kind: The ``Kind`` of ``ChordDefinition``
@@ -49,18 +23,7 @@ extension ChordDefinition {
     ) throws {
         /// Parse the chord definition
         do {
-            let definition = try ChordDefinition.define(from: definition, instrument: instrument)
-            /// Set the properties
-            self.id = UUID()
-            self.frets = definition.frets
-            self.fingers = definition.fingers
-            self.baseFret = definition.baseFret
-            self.root = definition.root
-            self.quality = definition.quality
-            self.slash = definition.slash
-            self.instrument = instrument
-            self.kind = kind
-            self.transposedName = self.name + "-0"
+            self = try ChordDefinition.define(from: definition, instrument: instrument)
         } catch {
             throw error
         }
@@ -72,12 +35,10 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - name: The name of the chord, e.g 'Am7'
-    ///   - instrument: The ``Chord/Instrument`` for this definition
+    ///   - instrument: The ``Chord/Instrument`` for this definition if found in the database
     public init?(name: String, chords: [ChordDefinition]) {
         /// Parse the chord name
         let elements = ChordUtils.Analizer.findChordElements(chord: name)
-        // /// Get the chords for the instrument
-        // let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument.type)
         /// See if we can find it
         guard
             let root = elements.root,
@@ -87,16 +48,7 @@ extension ChordDefinition {
             return nil
         }
         /// Set the properties
-        self.id = chord.id
-        self.frets = chord.frets
-        self.fingers = chord.fingers
-        self.baseFret = chord.baseFret
-        self.root = chord.root
-        self.quality = chord.quality
-        self.slash = elements.slash
-        self.instrument = chord.instrument
-        self.kind = .standardChord
-        self.transposedName = self.name + "-0"
+        self = chord
     }
 
     // MARK: Init with a ChordPro JSON chord
@@ -108,18 +60,7 @@ extension ChordDefinition {
     ///   - instrument: The ``Instrument`` for this definition
     public init?(chord: ChordPro.Instrument.Chord, instrument: Instrument) {
         do {
-            let definition = try ChordDefinition.define(from: chord, instrument: instrument)
-            /// Set the properties
-            self.id = definition.id
-            self.frets = definition.frets
-            self.fingers = definition.fingers
-            self.baseFret = definition.baseFret
-            self.root = definition.root
-            self.quality = definition.quality
-            self.slash = definition.slash
-            self.instrument = definition.instrument
-            self.kind = .standardChord
-            self.transposedName = self.name + "-0"
+            self = try ChordDefinition.define(from: chord, instrument: instrument)
         } catch {
             return nil
         }
@@ -140,34 +81,49 @@ extension ChordDefinition {
         kind: Kind,
         instrument: Instrument
     ) {
-        /// Set the properties
-        self.id = UUID()
-        self.plain = text
-        self.frets = Array(repeating: 0, count: instrument.strings.count)
-        self.fingers = Array(repeating: 0, count: instrument.strings.count)
-        self.baseFret = .one
-        self.root = .none
-        self.quality = .none
-        self.slash = nil
-        self.instrument = instrument
-        self.kind = kind
-        self.status = kind == .textChord ? .text : .unknownChord
-        self.transposedName = text + "-0"
+        self.init(
+            id: UUID(),
+            plain: text,
+            frets: Array(repeating: 0, count: instrument.strings.count),
+            fingers: Array(repeating: 0, count: instrument.strings.count),
+            baseFret: .one,
+            root: .none,
+            quality: .none,
+            slash: nil,
+            instrument: instrument,
+            kind: kind,
+            status: kind == .textChord ? .text : .unknownChord
+        )
     }
 
     // MARK: Init an empty C chord for the diagram editor
 
+    /// Init with an empty `C`
+    /// - Parameter instrument: The ``Instrument`` for this definition
     public init(instrument: Instrument) {
-        /// Set the properties
-        self.id = UUID()
-        self.frets = Array(repeating: 0, count: instrument.strings.count)
-        self.fingers = Array(repeating: 0, count: instrument.strings.count)
-        self.baseFret = .one
-        self.root = .c
-        self.quality = .major
-        self.slash = nil
-        self.instrument = instrument
-        self.kind = .customChord
-        self.transposedName = self.name + "-0"
+        self.init(
+            id: UUID(),
+            frets: Array(repeating: -1, count: instrument.strings.count),
+            fingers: Array(repeating: 0, count: instrument.strings.count),
+            baseFret: .one,
+            root: .c,
+            quality: .major,
+            slash: nil,
+            instrument: instrument,
+            kind: .customChord,
+            status: .correct
+        )
+    }
+
+    /// Init with a `C`
+    /// 
+    /// If not found in the chords database, it will init an *empty* `C`
+    /// - Parameter instrument: The ``Instrument`` for this definition
+    public init(instrument: Instrument, chords: [ChordDefinition]) {
+        if let chord = chords.matching(root: .c).matching(quality: .major).matching(slash: nil).matching(baseFret: .one).first {
+            self = chord
+        } else {
+            self.init(instrument: instrument)
+        }
     }
 }

@@ -58,14 +58,11 @@ extension AppState {
         // MARK: Errors
 
         // The error
-        var error: ChordProviderError? {
-            didSet {
-                /// Show the error dialog
-                showErrorDialog = true
-            }
-        }
-        /// Show an error dialog
-        var showErrorDialog: Bool = false
+        private(set) var error: ChordProviderError?
+        /// Show an error dialog for the main window
+        var showMainErrorDialog: Bool = false
+        /// Show an error dialog for the database window
+        var showDatabaseErrorDialog: Bool = false
 
         // MARK: Toasts
 
@@ -78,5 +75,22 @@ extension AppState {
 
         /// Play metronome
         var playMetronome: Bool = false
+    }
+}
+
+extension AppState.Scene {
+
+    /// Throw an error and open a dialog
+    /// - Parameters:
+    ///   - error: The error
+    ///   - main: Bool if the error should be attached to the main window
+    mutating func throwError(error: ChordProviderError, main: Bool) {
+        self.error = error
+        /// Show the error dialog
+        if main {
+            showMainErrorDialog = true
+        } else {
+            showDatabaseErrorDialog = true
+        }
     }
 }

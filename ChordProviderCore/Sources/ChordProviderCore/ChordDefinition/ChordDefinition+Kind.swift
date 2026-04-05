@@ -29,16 +29,6 @@ extension ChordDefinition {
         /// A transposed chord that is unknown
         case transposedUnknownChord
 
-        /// Bool if the chord is considered 'known' and can have a diagram
-        public var knownChord: Bool {
-            switch self {
-            case .standardChord, .transposedChord, .customChord:
-                true
-            default:
-                false
-            }
-        }
-
         /// CustomStringConvertible protocol
         public var description: String {
             switch self {

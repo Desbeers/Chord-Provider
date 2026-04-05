@@ -12,9 +12,30 @@ import ChordProviderCore
 extension Views.Database {
     /// The dialogs for the *Database View*
     var dialogs: AnyView {
-        Views.Empty()
+        /// Attachment point
+        exportModifiedDialog
+
+            // MARK: Error Dialog
+
+            /// The **Alert dialog** for an error
+            .alertDialog(
+                visible: $appState.scene.showDatabaseErrorDialog,
+                heading: appState.scene.error?.localizedDescription ?? "Error",
+                id: "error-dialog",
+                /// - Note: I use `extraChild` instead of `body` so I can use markup
+                extraChild: {
+                    Views.ErrorMessage(error: appState.scene.error)
+                }
+            )
+            .response("OK", role: .default) {
+                /// Do nothing
+            }
+
+            // MARK: Definition Dialog
+
+            /// The **dialog** to add or edit a definition
             .dialog(
-                visible: $databaseState.showEditDefinitionDialog
+                visible: $databaseState.showDefinitionDialog
             ) {
                 DefineChord(
                     appState: $appState,
@@ -28,127 +49,68 @@ extension Views.Database {
             ) {
                 Edit(appState: $appState, databaseState: $databaseState, new: databaseState.newDatabase)
             }
+            /// Import database dialog
+            .fileImporter(
+                open: databaseState.importDatabase,
+                extensions: ["json"]
+            ) { fileURL in
+                appState.importDatabase(url: fileURL, main: false)
+            }
+            /// Export database dialog
             .fileExporter(
                 open: databaseState.exportDatabase,
                 initialName: "\(appState.settings.core.instrument.label).json",
                 onSave: { fileURL in
-                    do {
-                        let database = ChordsDatabase(
-                            instrument: appState.settings.core.instrument,
-                            definitions: appState.settings.core.chordDefinitions
-                        )
-                        let export  = try ChordUtils.exportToJSON(database: database)
-                        try export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-                        appState.modifiedInstrument = nil
-                        switch databaseState.exportDoneAction {
-                        case .closeWindow:
-                            window.close()
-                        default:
-                            break
-                        }
-                    } catch {
-                        appState.scene.error  = .databaseExportError(error: error.localizedDescription)   
-                    }
+                    var instrument = appState.currentInstrument
+                    /// An export will never be a build-in
+                    instrument.bundle = nil
+                    instrument.fileURL = fileURL
+                    save(instrument: instrument)
                 },
                 onClose: {
                     /// Export canceled; revert
-                    appState.modifiedInstrument = nil
                     updateDatabase()
                 }
             )
-            /// The **Alert dialog** when a database is changed but not yet saved
+            /// The **Alert dialog** when deleting a chord
             .alertDialog(
-                visible: $databaseState.showChangedDatatabaseDialog,
-                heading: "\(appState.modifiedInstrument?.fileURL == nil ? "Export" : "Save") Changes?",
-                id: "dirty-database-dialog",
+                visible: $databaseState.showDeleteChordDialog,
+                heading: "Delete Chord?",
+                id: "delete-chord-dialog",
                 /// - Note: Use `extraChild` instead of `body` so I can use markup
                 extraChild: {
-                    let instrument = appState.modifiedInstrument ?? Instrument[.guitar]
                     VStack {
-                        Text("The <b>\(instrument.kind), \(instrument.label)</b> database is modified.")
+                        Text("Are you sure you want to delete <b>\(databaseState.definition?.display ?? "")</b>?")
                             .useMarkup()
                             .style(.subtitle)
                             .padding(.bottom)
-                        Text("Changes which are not saved will be permanently lost.")
+                        Text("This can not be undone.")
                     }
                     /// - Note: Dirty trick to show all three buttons vertical
                     .frame(minWidth: 380)
                 }
             )
             .response("Cancel", role: .close) {
-                Idle {
-                    if let instrument = appState.modifiedInstrument {
-                        appState.settings.app.instrument = instrument
+                /// Nothing to do
+            }
+            .response("Delete", appearance: .destructive, role: .default) {
+                if let definition = databaseState.definition {
+                    /// Mark the instrument as modified
+                    //appState.markInstrumentAsModified()
+                    var chords = appState.settings.core.chordDefinitions
+                    if let index = chords.firstIndex(where: { $0.id == definition.id }) {
+                        chords.remove(at: index)
+                    }//
+                    if let flat = definition.findFlatFromSharp(chords: chords),
+                        let index = chords.firstIndex(where: { $0.id == flat.id }) {
+                        chords.remove(at: index)
+                    }
+                    Idle {
+                        appState.settings.core.chordDefinitions = chords
+                        databaseState.getFilteredChords(allChords: chords)
+                        appState.editor.command = .updateSong
                     }
                 }
             }
-            .response("Discard", appearance: .destructive, role: .none) {
-                appState.modifiedInstrument = nil
-                switch databaseState.exportDoneAction {
-                case .closeWindow:
-                    /// Fall back to the default guitar
-                    appState.settings.app.instrument = Instrument[.guitar]
-                    updateDatabase()
-                    window.close()
-                case .switchInstrument:
-                    updateDatabase()
-                case .doNothing:
-                    break
-                }
-            }
-            .response(appState.modifiedInstrument?.fileURL == nil ? "Export" : "Save", appearance: .suggested, role: .default) {
-                if appState.modifiedInstrument?.fileURL == nil  {
-                    /// Export the database
-                    databaseState.exportDatabase.signal()
-                } else {
-                    saveDatabase()
-                }
-            }
-            /// Import database dialog
-            .fileImporter(
-                open: databaseState.importDatabase,
-                extensions: ["json"]
-            ) { fileURL in
-                appState.importDatabase(url: fileURL)
-            }
-    }
-
-    func saveDatabase() {
-        /// Make sure we use the correct instrument,
-        /// when another is already selected the state is already changed.
-        /// So, use the modified instrument.
-        guard
-            var instrument = appState.modifiedInstrument,
-            let fileURL = instrument.fileURL,
-            let index = appState.settings.app.customInstruments.firstIndex(where: { $0.fileURL == fileURL})
-        else { return }
-
-        do {
-            let database = ChordsDatabase(
-                instrument: appState.settings.core.instrument,
-                definitions: appState.settings.core.chordDefinitions
-            )
-            let export  = try ChordUtils.exportToJSON(database: database)
-            try export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
-            /// Update the list of custom instruments
-            instrument.modified = false
-            appState.settings.app.customInstruments[index] = instrument
-            /// Clear the modified database
-            appState.modifiedInstrument = nil
-            switch databaseState.exportDoneAction {
-            case .closeWindow:
-                /// Select this instrument
-                appState.settings.app.instrument = instrument
-                updateDatabase()
-                window.close()
-            case .switchInstrument:
-                /// Switch the instrument
-                updateDatabase()
-            case .doNothing:
-                break
-            }
-        } catch {
-            appState.scene.error = .fileNotSaved(error: error.localizedDescription)
-        }
     }
 }

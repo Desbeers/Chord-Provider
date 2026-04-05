@@ -85,12 +85,38 @@ extension Views {
             .card()
             .padding()
             .dialog(visible: $appState.editor.showEditDirectiveDialog) {
-                switch appState.editor.handleDirective {
-                case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
-                    Views.Editor.DefineChord(appState: $appState)
-                default:
-                    Edit(appState: $appState)
+                let errors = appState.editor.currentLine.warnings?.compactMap(\.level).contains { $0 == .error} ?? false
+                if errors {
+                    errorMessage
+                } else {
+                    switch appState.editor.handleDirective {
+                    case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
+                        Views.Editor.DefineChord(appState: $appState)
+                    default:
+                        Edit(appState: $appState)
+                    }
                 }
+            }
+        }
+        @ViewBuilder
+        var errorMessage: Body {
+            VStack(spacing: 10) {
+                let error = appState.editor.currentLine.warnings?.compactMap(\.message).joined(separator: "\n")
+                Views.ErrorMessage(error: ChordProviderError.directiveNotEditable(error: error ?? "Unnown Error"))
+                Button("OK") {
+                appState.editor.showEditDirectiveDialog = false
+                }
+                .halign(.center)
+            }
+            .padding()
+            .topToolbar {
+                HeaderBar.empty()
+                    .headerBarTitle {
+                        WindowTitle(
+                            subtitle: "Directive not editable",
+                            title: "\(appState.editor.handleDirective?.details.label ?? "Error")"
+                        )
+                    }
             }
         }
         @ViewBuilder

@@ -34,36 +34,36 @@ extension Chord {
         case c = "C"
         /// C sharp
         case cSharp = "C#"
+        /// D flat
+        case dFlat = "Db"
         /// D
         case d = "D"
         /// D sharp
         case dSharp = "D#"
-        /// D flat
-        case dFlat = "Db"
+         /// E flat
+        case eFlat = "Eb"
         /// E
         case e = "E"
-        /// E flat
-        case eFlat = "Eb"
         /// F
         case f = "F"
         /// F sharp
         case fSharp = "F#"
+        /// G flat
+        case gFlat = "Gb"
         /// G
         case g = "G"
         /// G sharp
         case gSharp = "G#"
-        /// G flat
-        case gFlat = "Gb"
+        /// A flat
+        case aFlat = "Ab"
         /// A
         case a = "A"
         /// A sharp
         case aSharp = "A#"
-        /// A flat
-        case aFlat = "Ab"
-        /// B
-        case b = "B"
         /// B flat
         case bFlat = "Bb"
+        /// B
+        case b = "B"
 
         // MARK: Fallback
 
@@ -72,6 +72,7 @@ extension Chord {
         // swiftlint:enable identifier_name
 
         /// Implement Comparable
+        /// - Note: Used for sorting
         public static func < (lhs: Self, rhs: Self) -> Bool {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
         }
@@ -117,10 +118,10 @@ extension Chord {
 
         /// Natural and sharp notes
         public static var naturalAndSharp: [Chord.Root] {
-            [.all, .c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b, .none]
+            [.c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b]
         }
 
-        /// Display natural and sharp notes a string
+        /// Display natural and sharp notes as string
         public var naturalAndSharpDisplay: String {
             switch self {
             case .all:

@@ -10,7 +10,7 @@ import Foundation
 extension ChordDefinition {
 
     /// The name of the chord
-    /// - Returns: A string with the name
+    /// - Returns: A string with the name in plain text
     public var name: String {
         var name = self.root.rawValue + self.quality.rawValue
         if let slash = self.slash {
@@ -28,6 +28,23 @@ extension ChordDefinition {
             name = self.plain
         } else {
             name = self.root.display + self.quality.display
+            if let slash = self.slash {
+                name += "/\(slash.display)"
+            }
+        }
+        return name
+    }
+
+    /// Format the name of the chord for display with sharp and flat combined
+    /// - Returns: A formatted string with the name of the chord
+    public var displaySharpAndFlat: String {
+        var name: String = ""
+        if self.root == .none || self.quality == .none {
+            /// We don't know anything about this chord; so use the plain name
+            name = self.plain
+        } else {
+            let spacer = self.root.accidental == .natural ? "" : " "
+            name = "\(self.root.naturalAndSharpDisplay)\(spacer)\(self.quality.display)"
             if let slash = self.slash {
                 name += "/\(slash.display)"
             }
@@ -55,7 +72,7 @@ extension ChordDefinition {
 extension ChordDefinition {
 
     /// Try to validate a ``ChordDefinition``
-    public var validate: ChordDefinition.Status {
+    public var validate: [ChordDefinition.Status] {
         ChordUtils.Analizer.validateChord(chord: self)
     }
 }
@@ -94,18 +111,33 @@ extension ChordDefinition {
 
 extension ChordDefinition {
 
-    /// Mirror `Barres` for a left-handed chord
+    /// Mirror the definition for a left-handed chord
     mutating public func mirrorChordDiagram() {
         self.frets = self.frets.reversed()
         self.fingers = self.fingers.reversed()
         self.mirrored = true
     }
 
-    /// Mirror `Barres` for a left-handed chord
+    /// Mirror the definition for a left-handed chord
     /// - Returns: A mirrored ``ChordDefinition``
     public func mirroredDiagram() -> ChordDefinition {
         var copy = self
         copy.mirrorChordDiagram()
         return copy
+    }
+}
+
+extension ChordDefinition {
+    
+    /// Find the flat version of a sharp chord
+    /// - Parameter chords: All the known chords
+    /// - Returns: A flat version, if found
+    public func findFlatFromSharp(chords: [ChordDefinition]) -> ChordDefinition? {
+        var copy = self
+        if copy.root.accidental == .sharp {
+            copy.root = copy.root.swapSharpForFlat
+            return chords.first(where: { $0.define == copy.define })
+        }
+        return nil
     }
 }

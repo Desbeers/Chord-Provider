@@ -56,13 +56,19 @@ extension Views.Toolbar {
                     }
                     .tooltip(appState.editor.song.transposeTooltip)
                     DropDown(
-                        selection: $appState.settings.app.instrument.onSet { instrument in
-                            appState.updateDatabase(instrument: instrument)
+                        selection: $appState.settings.app.instrumentID.onSet { _ in
+                            appState.updateDatabase(main: true)
                         },
-                        values: appState.chordInstruments
+                        values: appState.settings.app.instruments,
+                        id: \.id,
+                        description: \.description
                     )
-                    .tooltip(appState.settings.app.instrument.label)
-                    //.insensitive(appState.modifiedInstrument != nil)
+                    .tooltip(appState.currentInstrument.status)
+                    /// Make sure that it updates labels by giving it an unique ID
+                    .id(appState.settings.app.instruments)
+                    /// Disable selection when an `Instrument` is modified in the `Database View`
+                    .insensitive(appState.currentInstrument.modified)
+                    //
                     Toggle(
                         icon: .default(icon: .viewDual),
                         isOn: $appState.settings.app.columnPaging

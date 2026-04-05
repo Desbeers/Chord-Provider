@@ -38,9 +38,6 @@ struct AppState {
     let styleManager = adw_style_manager_get_default()
     /// The CSS provider
     var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
-    /// Modified Instrument
-    /// - Note: That can only be one
-    var modifiedInstrument: Instrument?
 }
 
 extension AppState {
@@ -76,16 +73,6 @@ extension AppState {
     /// - Note: Comparing the source with the original source
     var contentIsModified: Bool {
         editor.song.content != scene.originalContent
-    }
-
-    /// Chord instruments
-    var chordInstruments: [Instrument] {
-        var instruments = Instrument.buildIn
-        instruments.append(contentsOf: self.settings.app.customInstruments)
-        if let modifiedInstrument {
-            instruments.append(modifiedInstrument)
-        }
-        return instruments
     }
 }
 

@@ -8,10 +8,11 @@
 import Foundation
 
 /// A **Chord Provider** instrument
-public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStringConvertible {
+public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStringConvertible, Comparable {
 
     /// Init a **Chord Provider** instrument
     /// - Parameters:
+    ///   - id: The ID of the instrument
     ///   - kind: The kind of instrument
     ///   - label: The label of the instrument
     ///   - tuning: The tuning of the instrument
@@ -35,7 +36,9 @@ public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStrin
     }
 
     /// Identifiable protocol
-    public var id: Self { self }
+    public var id: String {
+        bundle ?? fileURL?.path ?? "new"
+    }
 
     /// CustomStringConvertible protocol
     public var description: String {
@@ -44,6 +47,23 @@ public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStrin
             result.append("modified")
         }
         return result.joined(separator: " · ")
+    }
+
+    /// The status of the instrument
+    public var status: String {
+        var result: [String] = [self.bundle == nil ? self.fileURL?.lastPathComponent ?? "New" : "Build-in"]
+        if self.modified {
+            result.append("modified")
+        }
+        return result.joined(separator: " · ")
+    }
+
+    /// Comparable protocol
+    /// - Note: Used for sorting the instruments
+    public static func < (lhs: Instrument, rhs: Instrument) -> Bool {
+        (lhs.kind, lhs.fileURL?.path ?? "")
+        <
+        (rhs.kind, rhs.fileURL?.path ?? "")
     }
 
     /// The kind of instrument

@@ -34,21 +34,21 @@ extension Array where Element == ChordDefinition {
     /// - Parameter slash: The slash note
     /// - Returns: All matching chord definitions
     public func matching(slash: Chord.Root?) -> [ChordDefinition] {
-        return self.filter { $0.slash == slash }
+        self.filter { $0.slash == slash }
     }
 
     /// Find all chord definitions matching a base fret
     /// - Parameter baseFret: The base fret
     /// - Returns: All matching chord definitions
     public func matching(baseFret: Chord.BaseFret) -> [ChordDefinition] {
-        return self.filter { $0.baseFret == baseFret }
+        self.filter { $0.baseFret == baseFret }
     }
 
     /// Find all chord definitions matching a chord group
     /// - Parameter group: The group
     /// - Returns: All matching chord definitions
     public func matching(group: Chord.Group) -> [ChordDefinition] {
-        return self.filter { $0.quality.group == group }
+        self.filter { $0.quality.group == group }
     }
 }
 

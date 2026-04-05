@@ -54,7 +54,7 @@ extension Views.Content {
 
         /// The **Alert dialog** for an error
         .alertDialog(
-            visible: $appState.scene.showErrorDialog,
+            visible: $appState.scene.showMainErrorDialog,
             heading: appState.scene.error?.localizedDescription ?? "Error",
             id: "error-dialog",
             /// - Note: I use `extraChild` instead of `body` so I can use markup

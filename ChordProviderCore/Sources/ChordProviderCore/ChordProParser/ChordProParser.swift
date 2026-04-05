@@ -129,7 +129,7 @@ public enum ChordProParser {
                 allParts
                     .lazy
                     .compactMap(\.chordDefinition)
-                    .filter { $0.kind.knownChord }
+                    .filter { $0.knownChord }
             )
         }
         /// Sort the chords

@@ -38,7 +38,7 @@ extension ChordDefinition {
         } else {
             self.root = root
             self.kind = .transposedUnknownChord
-            self.status = .unknownChord
+            self.validationWarnings = [.unknownChord]
         }
     }
 }

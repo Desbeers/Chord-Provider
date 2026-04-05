@@ -21,27 +21,21 @@ extension Views {
         @Binding var databaseState: DatabaseState
         /// Bool if the sidebar is wide
         @State private var wide = true
-
-        func label(instrument: Instrument) -> String {
-            var result: [String] = [instrument.bundle == nil ? instrument.fileURL?.lastPathComponent ?? "New" : "Build-in"]
-            if appState.modifiedInstrument?.modified == instrument.modified {
-                result.append("modified")
-            }
-            return result.joined(separator: " · ")
-        }
-
-        /// The body of the `View`
+        /// The body of the `View`x
         var view: Body {
             OverlaySplitView(visible: $databaseState.sidebarVisible) {
                 ScrollView {
                     List(
-                        appState.chordInstruments,
-                        selection: $appState.settings.app.instrument.onSet {  _ in
-                            if appState.modifiedInstrument == nil {
-                                updateDatabase()
+                        appState.settings.app.instruments,
+                        id: \.id,
+                        selection: $databaseState.instrumentID.onSet {  _ in
+                            if appState.currentInstrument.modified {
+                                /// The instrument is modified; show a *Dialog*
+                                databaseState.saveDoneAction = .switchInstrument
+                                databaseState.showChangedDatatabaseDialog = true
                             } else {
-                                databaseState.exportDoneAction = .switchInstrument
-                                databaseState.showChangedDatatabaseDialog = true 
+                                /// Update to the new selected database
+                                updateDatabase()
                             }
                         }
                     ) { element in
@@ -50,7 +44,7 @@ extension Views {
                                 Text(element.kind.description)
                                     .style(.bold)
                                     .halign(.start)
-                                Text(label(instrument: element))
+                                Text(element.status)
                                     .style(.caption)
                                     .halign(.start)
                                 Text(element.label)
@@ -60,15 +54,16 @@ extension Views {
                                 }
                             }
                             .hexpand()
-                            if element == appState.settings.app.instrument {
+                            if element.id == appState.settings.app.instrumentID {
                                 VStack {
                                     Button(icon: .default(icon: .textEditor)) {
                                         databaseState.newDatabase = false
                                         databaseState.showNewDatabaseDialog = true
                                     }
                                     .flat()
+                                    .tooltip("Edit the instrument")
                                     /// Build-in databases can not be edited
-                                    .insensitive(appState.settings.app.instrument.bundle != nil)
+                                    .insensitive(element.bundle != nil)
                                     Button(icon: .default(icon: .editCopy)) {
                                         var instrument = appState.settings.core.instrument
                                         instrument.bundle = nil
@@ -76,11 +71,12 @@ extension Views {
                                         instrument.label += " (copy)"
                                         instrument.modified = true
                                         /// Add the copy
-                                        appState.modifiedInstrument = instrument
-                                        appState.settings.app.instrument = instrument
+                                        appState.settings.app.instruments.append(instrument)
+                                        appState.settings.app.instrumentID = instrument.id
                                     }
                                     .flat()
-                                    .insensitive(appState.modifiedInstrument != nil)
+                                    .tooltip("Duplicate the instrument")
+                                    .insensitive(appState.currentInstrument.modified)
                                 }
                                 .halign(.end)
                                 .transition(.crossfade)
@@ -115,7 +111,7 @@ extension Views {
                                 selection: $databaseState.chord.onSet { _ in
                                     databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
                                 },
-                                values: Chord.Root.naturalAndSharp.dropFirst().dropLast(),
+                                values: Chord.Root.naturalAndSharp,
                                 id: \.self,
                                 label: \.naturalAndSharpDisplay
                             )
@@ -156,15 +152,21 @@ extension Views {
                         Text(" ")
                             .hexpand()
                         if let definition = databaseState.definition {
-                            Button("Edit \(definition.display)") {
-                                databaseState.newChord = false
-                                databaseState.showEditDefinitionDialog.toggle()
+                            HStack {
+                                Button("Edit \(definition.display)") {
+                                    databaseState.newChord = false
+                                    databaseState.showDefinitionDialog.toggle()
+                                }
+                                .padding(.trailing)
+                                Button("Delete \(definition.display)") {
+                                    databaseState.showDeleteChordDialog = true
+                                }
+                                .padding(.trailing)
                             }
-                            .padding(.trailing)
                         }
                         Button("New Definition") {
                             databaseState.newChord = true
-                            databaseState.showEditDefinitionDialog.toggle()
+                            databaseState.showDefinitionDialog.toggle()
                         }
                         .padding(.trailing)
                     }
@@ -194,7 +196,7 @@ extension Views {
                                 .transition(.crossfade)
                         } else {
                             WindowTitle(
-                                subtitle: appState.settings.app.instrument.description,
+                                subtitle: appState.currentInstrument.description,
                                 title: "Chords Database"
                             )
                             .transition(.crossfade)
@@ -208,9 +210,9 @@ extension Views {
                 }
                 .onUpdate {
                     Idle {
-                        if databaseState.instrument != appState.settings.app.instrument {
-                            /// The database is changed in the main window; update it
-                            databaseState.instrument = appState.settings.app.instrument
+                        if !databaseState.showChangedDatatabaseDialog, databaseState.instrumentID != appState.settings.app.instrumentID {
+                            /// The instrument is changed from the main `View`; update it
+                            databaseState.instrumentID = appState.settings.app.instrumentID
                             databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
                         }
                     }
@@ -220,34 +222,6 @@ extension Views {
             .breakpoint(minWidth: 1000, matches: $wide)
             /// Add the dialogs
             dialogs
-        }
-
-        // The menu view
-        var menu: AnyView {
-            Menu(icon: .default(icon: .openMenu)) {
-                // MenuButton("Save Database") {
-                //     databaseState.newDatabase = true
-                //     databaseState.showNewDatabaseDialog = true
-                // }
-                MenuButton("New Database") {
-                    databaseState.newDatabase = true
-                    databaseState.showNewDatabaseDialog = true
-                }
-                MenuButton("Import Database") {
-                    databaseState.importDatabase.signal()
-                }
-                MenuButton("Export Database") {
-                    databaseState.exportDoneAction = .doNothing
-                    databaseState.exportDatabase.signal()
-                }
-            }
-        }
-
-        /// Update the database after a new instrument selection
-        func updateDatabase() {
-            databaseState.instrument = appState.settings.app.instrument
-            appState.updateDatabase(instrument: appState.settings.app.instrument)
-            databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
         }
     }
 }

@@ -15,20 +15,20 @@ extension Views.Editor {
     /// The `View` to edit or add a chord definition
     struct DefineChord: View {
         init(appState: Binding<AppState>) {
+            let instrument = appState.wrappedValue.settings.core.instrument
             var newChord = true
             var definition = ChordDefinition(
-                instrument: appState.wrappedValue.settings.core.instrument
+                instrument: instrument,
+                chords: appState.wrappedValue.settings.core.chordDefinitions
             )
             /// Check if we are called as *edit* the definition instead of a new one
-            if appState.editor.showEditDirectiveDialog.wrappedValue {
-                if let currentDefinition = try? ChordDefinition(
-                    definition: appState.editor.currentLine.plain.wrappedValue ?? "",
-                    kind: .customChord,
-                    instrument: appState.wrappedValue.settings.core.instrument
-                ) {
-                    definition = currentDefinition
-                    newChord = false
-                }
+            if let currentDefinition = try? ChordDefinition(
+                definition: appState.editor.currentLine.plain.wrappedValue ?? "",
+                kind: .customChord,
+                instrument: instrument
+            ) {
+                definition = currentDefinition
+                newChord = false
             }
             self._appState = appState
             self._definition = State(wrappedValue: definition)
@@ -40,14 +40,15 @@ extension Views.Editor {
         let newChord: Bool
         /// The state of the chord definition
         @State private var definition: ChordDefinition
-                /// Calculated definition
-        var define: String {
-            "{define-\(definition.instrument.kind.rawValue) \(definition.define)}"
-        }
-
+        /// The body of the `View`
         var view: Body {
             VStack(spacing: 10) {
-                Views.DefineChord(definition: $definition, newChord: newChord, appSettings: appState.settings)
+                Views.DefineChord(
+                    definition: $definition, 
+                    newChord: newChord,
+                    mergeSharpAndFlat: false,
+                    appSettings: appState.settings
+                )
                 Separator()
                 HStack {
                     SwitchRow()
@@ -66,9 +67,9 @@ extension Views.Editor {
                         }
                         Button("\(newChord ? "Add" : "Update") Definition") {
                             if newChord {
-                                appState.editor.command = .appendText(text: define)
+                                appState.editor.command = .appendText(text: definition.define)
                             } else {
-                                appState.editor.command = .replaceLineText(text: define)
+                                appState.editor.command = .replaceLineText(text: definition.define)
                             }
                             appState.editor.showEditDirectiveDialog = false
                         }

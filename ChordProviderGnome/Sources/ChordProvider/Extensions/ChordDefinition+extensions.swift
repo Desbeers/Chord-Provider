@@ -21,6 +21,23 @@ extension ChordDefinition {
 
     /// Tooltip for the chord
     public var toolTip: String {
-        self.kind.knownChord ? "" : self.kind.description
+        self.knownChord ? "" : self.kind.description
+    }
+
+    /// All notes for a chord, required and optional
+    public var notes: [String] {
+        if let elements = self.noteCombinations.first {
+            return elements.map(\.note.display)
+        }
+        /// This should not hapen
+        return []
+    }
+
+    /// Bool if a finger position is correct
+    public func correctFinger(string: Int) -> Bool {
+        if let finger = fingers[safe: string], let fret = frets[safe: string] {
+            return finger == 0 && (fret == -1 || fret == 0 ) ? true : finger > 0 && fret > 0 ? true : false
+        }
+        return true
     }
 }

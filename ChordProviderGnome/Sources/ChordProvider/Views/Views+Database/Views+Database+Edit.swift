@@ -18,7 +18,7 @@ extension Views.Database {
         init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>, new: Bool) {
             self._appState = appState
             self._databaseState = databaseState
-            var instrument = appState.wrappedValue.settings.app.instrument
+            var instrument = appState.wrappedValue.currentInstrument
             instrument.modified = true
             /// Fill-in the form, use the last instrument
             self._tunings = State(wrappedValue: instrument.tuning)
@@ -82,39 +82,44 @@ extension Views.Database {
                     }
                 }
                 .padding()
-                Button(new ? "Create" : "Update") {
-                    if new {
-                        /// Remember as modified
-                        appState.modifiedInstrument = result
-                        var database = ChordsDatabase()
-                        database.instrument = result
-                        database.definitions = []
-                        appState.settings.app.instrument = database.instrument
-                        appState.settings.core.instrument = database.instrument
-                        appState.settings.core.chordDefinitions = database.definitions
-                        appState.editor.command = .updateSong
-                    } else {
-                        /// Reimport the database
-                        var database = ChordsDatabase()
-                        database.instrument = result
-                        database.definitions = appState.settings.core.chordDefinitions
-                        do {
-                            let export  = try ChordUtils.exportToJSON(database: database)
-                            let database = try ChordsDatabase(json: export, fileURL: result.fileURL)
-                            /// Remember as modified
-                            appState.modifiedInstrument = result
-                            appState.settings.app.instrument = result
-                            appState.settings.core.instrument = database.instrument
-                            appState.settings.core.chordDefinitions = database.definitions
-                            appState.editor.command = .updateSong
-                        } catch {
-                            /// Nothing
+                HStack {
+                    if !new {
+                        Button("Remove") {
+                            databaseState.showNewDatabaseDialog = false
+                            appState.removeDatabase(instrument: appState.currentInstrument, main: true)
                         }
+                        .destructive()
+                        .padding(.trailing)
                     }
-                    databaseState.showNewDatabaseDialog = false
+                    Button(new ? "Create" : "Update") {
+                        databaseState.definition = nil
+                        var database = ChordsDatabase()
+                        database.instrument = result
+                        appState.settings.app.instrumentID = result.id
+                        if new {
+                            appState.settings.app.instruments.append(result)
+                            appState.settings.app.instruments.sort()
+                        } else {
+                            /// Update the instrument
+                            if let index = appState.settings.app.instruments.firstIndex(where: { $0.id == result.id }) {
+                                appState.settings.app.instruments[index] = result
+                            }
+                            /// Set all chord definitions with the updated instrument
+                            database.definitions = appState.settings.core.chordDefinitions.map { definition in
+                                var copy = definition
+                                copy.instrument = result
+                                return copy
+                            }
+                            /// Filter the chords
+                            databaseState.getFilteredChords(allChords: database.definitions)
+                        }
+                        /// Set the new or updated database
+                        appState.setDatabase(database)
+                        databaseState.showNewDatabaseDialog = false
+                    }
+                    /// Disable when the form is too empty or not changed
+                    .insensitive(description.isEmpty || tunings.isEmpty || result == instrument)
                 }
-                /// Disable when the form is too empty or not changed
-                .insensitive(description.isEmpty || tunings.isEmpty || result == instrument)
                 .halign(.center)
                 .padding()
             }

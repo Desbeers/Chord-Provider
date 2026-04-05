@@ -24,9 +24,6 @@ extension ChordDefinition {
     /// - Returns: A  ``ChordDefinition`` structure
     static func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
         if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
-
-            let positions = instrument.strings.count
-
             var frets: [Int] = []
             var fingers: [Int] = []
 
@@ -37,7 +34,6 @@ extension ChordDefinition {
             else {
                 throw ChordDefinition.Status.unknownChord
             }
-
             if let fretsDefinition = definition.3 {
                 frets = fretsDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? -1 }
             }
@@ -45,16 +41,10 @@ extension ChordDefinition {
             if let fingersDefinition = definition.4 {
                 fingers = fingersDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? 0 }
             }
-            /// Fill the fingers if not set (complete)
-            while fingers.count < instrument.strings.count { fingers.append(0) }
-            /// Throw an error if the defined frets does not match the instrument
-            if frets.count < positions {
-                throw ChordDefinition.Status.notEnoughFrets
+            /// Fill the fingers if none are set
+            if fingers.isEmpty {
+                fingers = Array(repeating: 0, count: instrument.strings.count)
             }
-            if frets.count > positions {
-                throw ChordDefinition.Status.toManyFrets
-            }
-
             let chordDefinition = ChordDefinition(
                 id: UUID(),
                 frets: frets,
@@ -63,7 +53,9 @@ extension ChordDefinition {
                 root: root,
                 quality: quality,
                 slash: elements.slash,
-                instrument: instrument
+                instrument: instrument,
+                kind: .customChord,
+                status: .unknownStatus
             )
             return chordDefinition
         }
@@ -104,7 +96,7 @@ extension ChordDefinition {
             throw ChordDefinition.Status.notEnoughFrets
         }
         if chord.frets?.count ?? 0 > positions {
-            throw ChordDefinition.Status.toManyFrets
+            throw ChordDefinition.Status.tooManyFrets
         }
 
         /// Fill the fingers if not set (complete)
@@ -118,7 +110,9 @@ extension ChordDefinition {
             root: root,
             quality: quality,
             slash: elements.slash,
-            instrument: instrument
+            instrument: instrument,
+            kind: .standardChord,
+            status: .correct
         )
         return chordDefinition
     }

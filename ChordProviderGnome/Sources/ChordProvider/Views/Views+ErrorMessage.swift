@@ -25,6 +25,7 @@ extension Views {
                     }
                     Text(error.failureReason ?? "Unknown reason")
                         .wrap()
+                        .useMarkup()
                         .monospace()
                         .vexpand()
                         .padding()

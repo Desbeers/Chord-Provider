@@ -96,14 +96,15 @@ extension Views {
             .preferencesPage("Chords", icon: .default(icon: .mediaPlaybackStart)) { page in
                 page
                     .group("Custom Chord Definitions") {
-                        if !appState.settings.app.customInstruments.isEmpty {
+                        let instruments = appState.settings.app.instruments.filter { $0.bundle == nil }
+                        if !instruments.isEmpty {
                             Form {
-                                ForEach(appState.settings.app.customInstruments) { instrument in
+                                ForEach(instruments) { instrument in
                                     ActionRow(instrument.kind.description)
                                         .subtitle(instrument.label)
                                         .suffix {
                                             Button("Remove") {
-                                                appState.removeDatabase(instrument: instrument)
+                                                appState.removeDatabase(instrument: instrument, main: true)
                                             }
                                             .valign(.center)
                                         }
@@ -124,7 +125,7 @@ extension Views {
                                 open: appState.scene.importDatabase,
                                 extensions: ["json"]
                             ) { fileURL in
-                                appState.importDatabase(url: fileURL)
+                                appState.importDatabase(url: fileURL, main: true)
                             }
                         }
                     }
