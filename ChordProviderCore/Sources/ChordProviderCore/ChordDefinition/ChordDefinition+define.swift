@@ -112,7 +112,7 @@ extension ChordDefinition {
             slash: elements.slash,
             instrument: instrument,
             kind: .standardChord,
-            status: .correct
+            status: .unknownStatus
         )
         return chordDefinition
     }

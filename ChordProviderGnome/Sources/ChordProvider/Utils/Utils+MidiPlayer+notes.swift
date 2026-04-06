@@ -15,7 +15,7 @@ extension Utils.MidiPlayer {
     /// - Parameters:
     ///   - notes: The notes to play
     ///   - preset: The MIDI preset
-    func playNotes(_ notes: [Int32], preset: MidiUtils.Preset) async {
+    func playNotes(_ notes: [Int], preset: MidiUtils.Preset) async {
         guard let synth, soundFontID >= 0 else { return }
         /// Cancel previous chord
         playToken = UUID()
@@ -40,7 +40,7 @@ extension Utils.MidiPlayer {
 
         /// Strum notes
         for note in notes {
-            fluid_synth_noteon(synth, channel, note, 110)
+            fluid_synth_noteon(synth, channel, Int32(note), 110)
             try? await Task.sleep(nanoseconds: 460_000_000 / UInt64(notes.count))
         }
 
@@ -75,7 +75,7 @@ extension Utils.MidiPlayer {
 
         /// Release notes
         for note in notes {
-            fluid_synth_noteoff(synth, channel, note)
+            fluid_synth_noteoff(synth, channel, Int32(note))
         }
     }
 

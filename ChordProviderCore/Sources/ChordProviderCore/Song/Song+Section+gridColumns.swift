@@ -35,7 +35,6 @@ extension Song.Section {
                 }
                 /// Fill the grid if needed
                 if parts.count < maxColumns {
-
                     for column in (parts.count..<maxColumns) {
                         let cell = Song.Section.Line.GridCell(
                             id: partID,

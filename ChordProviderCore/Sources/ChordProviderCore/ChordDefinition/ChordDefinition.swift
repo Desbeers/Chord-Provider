@@ -10,7 +10,7 @@ import Foundation
 /// The structure of a chord definition
 public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable, Comparable, CustomStringConvertible {
 
-        // MARK: Init with all known values
+    // MARK: Init with all known values
 
     /// Init the ``ChordDefinition`` with all known values
     public init(
@@ -36,12 +36,10 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
         self.slash = slash
         self.instrument = instrument
         self.kind = kind
-        self.transposedName =  (self.plain.isEmpty ? self.name : self.plain) + "-0"
+        self.transposedName = "\(plain.isEmpty ? name : plain)-0"
         if status == .unknownStatus {
             /// Validate the chord definition
             self.validationWarnings = self.validate
-        } else {
-            self.validationWarnings = [status]
         }
     }
 
@@ -123,6 +121,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
             fingers: fingers
         )
     }
+
     /// The components of the chord definition
     public var components: [Chord.Component] {
         ChordUtils.fretsToComponents(
@@ -131,5 +130,15 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
             baseFret: baseFret,
             instrument: instrument
         )
+    }
+
+    /// The MIDI notes of the chord definition
+    public var midiNotes: [Int] {
+        components.compactMap { value in
+            if let midi = value.midi {
+                return midi
+            }
+            return nil
+        }
     }
 }

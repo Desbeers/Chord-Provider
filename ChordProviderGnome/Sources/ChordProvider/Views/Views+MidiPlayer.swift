@@ -18,19 +18,14 @@ extension Views {
         ///   - chord: The chord definition
         ///   - preset: The MIDI preset
         init(chord: ChordDefinition, preset: MidiUtils.Preset) {
-            self.notes = chord.components.compactMap { value in
-                if let midi = value.midi {
-                    return Int32(midi)
-                }
-                return nil
-            }
+            self.notes = chord.midiNotes
             self.chord = chord
             self.preset = preset
         }
         /// The chord to play
         let chord: ChordDefinition
         /// The MIDI notes
-        let notes: [Int32]
+        let notes: [Int]
         /// The MIDI preset
         let preset: MidiUtils.Preset
         /// The body of the `View`

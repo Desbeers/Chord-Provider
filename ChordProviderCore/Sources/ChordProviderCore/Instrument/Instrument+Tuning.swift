@@ -10,7 +10,7 @@ import RegexBuilder
 
 extension Instrument {
 
-    public struct Tuning: Codable, Sendable, Hashable, Identifiable {
+    public struct Tuning: Codable, Sendable, Hashable, Identifiable, CustomStringConvertible {
 
         /// Init the instrument tuning with known values
         /// - Parameters:
@@ -24,6 +24,11 @@ extension Instrument {
 
         /// Identifiable protocol
         public var id: Self { self }
+
+        /// CustomStringConvertible protocol
+        public var description: String {
+            "\(note.rawValue)\(octave)"
+        }
 
         /// The note of the tuning
         public var note: Chord.Root
