@@ -15,15 +15,15 @@ extension GtkRender {
     struct SectionsView: View {
         /// Init the `View`
         /// - Parameter appState: The state of the application
-        init(appState: AppState) {
+        init(appState: Binding<AppState>) {
             /// Filter viewable sections
-            self.sections = appState.editor.song.sections.filter {
+            self.sections = appState.wrappedValue.editor.song.sections.filter {
                 ChordPro.Environment.content.contains($0.environment)
             }
-            self.appState = appState
+            self._appState = appState
         }
         /// The state of the application
-        let appState: AppState
+        @Binding var appState: AppState
         /// All the sections of the song, suitable for display
         let sections: [Song.Section]
         /// The body of the `View`
@@ -66,7 +66,7 @@ extension GtkRender {
                         section: section,
                         tempo: Int(appState.editor.song.metadata.tempo ?? "128") ?? 128,
                         coreSettings: appState.editor.coreSettings,
-                        zoom: appState.settings.theme.zoom
+                        appState: $appState
                     )
                 }
             case .strum:

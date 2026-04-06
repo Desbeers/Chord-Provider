@@ -50,7 +50,7 @@ extension GtkRender {
         }
         /// The sections
         var sections: AnyView {
-            GtkRender.SectionsView(appState: appState)
+            GtkRender.SectionsView(appState: $appState)
                 .halign(.center)
                 .padding(20)
         }

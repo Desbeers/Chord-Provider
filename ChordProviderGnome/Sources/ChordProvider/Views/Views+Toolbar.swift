@@ -89,8 +89,9 @@ extension Views.Toolbar {
                     .tooltip("See how your song is parsed")
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
-                            /// Reset metronome
+                            /// Reset MIDI stuff
                             appState.scene.playMetronome = false
+                            appState.scene.playGridChords = false
                             Task {
                                 await Utils.MidiPlayer.shared.stopMetronome()
                                 await Utils.MidiPlayer.shared.stopChords()

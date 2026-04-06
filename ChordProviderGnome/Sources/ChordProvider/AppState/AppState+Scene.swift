@@ -71,10 +71,12 @@ extension AppState {
         /// The toast message
         var toastMessage: String = ""
 
-        // MARK: Metronome
+        // MARK: MIDI
 
         /// Play metronome
         var playMetronome: Bool = false
+        /// Play grid chords
+        var playGridChords: Bool = false
     }
 }
 
