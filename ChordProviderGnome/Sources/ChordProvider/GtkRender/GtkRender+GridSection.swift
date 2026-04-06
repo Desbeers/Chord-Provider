@@ -20,7 +20,6 @@ extension GtkRender {
         ///   - appState: The state of the application
         init(
             section: Song.Section,
-            tempo: Int,
             coreSettings: ChordProviderSettings,
             appState: Binding<AppState>
         ) {
@@ -28,17 +27,18 @@ extension GtkRender {
             self.section = section.gridColumns()
             self.coreSettings = coreSettings
             self._appState = appState
-            let tempo = UInt64(60 / Double(tempo) * 1_000_000_000)
-            Task {
-                await Utils.MidiPlayer.shared.setGridChords(section: section, tempo: tempo, preset: coreSettings.midiPreset)
-            }
+            self.originalSection = section
         }
         /// The core settings
         let coreSettings: ChordProviderSettings
         /// The state of the application
         @Binding var appState: AppState
         /// The current section of the song
+        let originalSection: Song.Section
+        /// The current section of the song; wrapped in columns
         let section: Song.Section
+        /// Bool to play the chrds with MIDI
+        @State private var playGridChords: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -46,9 +46,15 @@ extension GtkRender {
                     switch line.type {
                     case .songLine:
                         if let elements = line.gridColumns?.grids {
-                            Toggle(icon: .default(icon: .mediaPlaybackStart), isOn: $appState.scene.playGridChords) {
-                                if appState.scene.playGridChords {
+                            Toggle(icon: .default(icon: .mediaPlaybackStart), isOn: $playGridChords) {
+                                if playGridChords {
+                                    let section = originalSection
+                                    let preset = coreSettings.midiPreset
                                     Task {
+                                        await Utils.MidiPlayer.shared.setGridChords(
+                                            section: section,
+                                            preset: preset
+                                        )
                                         await Utils.MidiPlayer.shared.startChords()
                                     }
                                 } else {

@@ -16,9 +16,8 @@ extension Utils.MidiPlayer {
     ///   - section: The grid section
     ///   - tempo: Tempo of the song
     ///   - preset: The MIDI preset to use
-    func setGridChords(section: Song.Section, tempo: UInt64, preset: MidiUtils.Preset) {
+    func setGridChords(section: Song.Section, preset: MidiUtils.Preset) {
         self.section = section
-        self.tempo = tempo
         self.preset = preset
     }
 
@@ -45,7 +44,8 @@ extension Utils.MidiPlayer {
                         for grid in grids {
                             for cell in grid.cells {
                                 for part in cell.parts {
-                                    if !Task.isCancelled, let chord = part.chordDefinition {
+                                    let tempo: UInt64 = UInt64(60 / Double(metronomeBPM) * 1_000_000_000)
+                                    if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord {
                                         let notes = chord.components.compactMap { value in
                                             if let midi = value.midi {
                                                 return Int32(midi)
@@ -58,6 +58,9 @@ extension Utils.MidiPlayer {
                                         try? await Task.sleep(nanoseconds: tempo)
                                     } else if part.text == "." {
                                         try? await Task.sleep(nanoseconds: tempo)
+                                    } else {
+                                        /// Something must be done or else the task will never cancel
+                                        try? await Task.sleep(nanoseconds: 1)
                                     }
                                 }
                             }

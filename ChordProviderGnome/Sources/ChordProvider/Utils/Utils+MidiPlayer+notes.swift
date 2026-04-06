@@ -41,7 +41,7 @@ extension Utils.MidiPlayer {
         /// Strum notes
         for note in notes {
             fluid_synth_noteon(synth, channel, note, 110)
-            try? await Task.sleep(nanoseconds: 80_000_000)
+            try? await Task.sleep(nanoseconds: 460_000_000 / UInt64(notes.count))
         }
 
         /// Sustain notes (cancellable)

@@ -53,7 +53,6 @@ extension Utils {
         /// Grid task
         var gridTask: Task<Void, Never>?
         var section: Song.Section?
-        var tempo: UInt64 = 128
         var preset: MidiUtils.Preset = .acousticNylonGuitar
 
         // MARK: Play Token
