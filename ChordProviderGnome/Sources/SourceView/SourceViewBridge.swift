@@ -48,7 +48,7 @@ public struct SourceViewBridge: Equatable {
 }
 
 extension SourceViewBridge: Codable {
-    
+
     /// Items to save in the database
     enum CodingKeys: String, CodingKey {
         /// Only save the settings

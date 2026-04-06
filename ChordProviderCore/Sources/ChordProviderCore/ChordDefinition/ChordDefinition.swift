@@ -43,14 +43,13 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
         } else {
             self.validationWarnings = [status]
         }
-        
     }
-    
+
     /// CustomStringConvertible protocol
     public var description: String {
         define + instrument.tuning.description + status.description
     }
-    
+
     /// Comparable protocol
     /// - Note: Used for sorting the chords
     public static func < (lhs: ChordDefinition, rhs: ChordDefinition) -> Bool {
@@ -104,7 +103,6 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     public var instrument: Instrument
     /// Bool if the diagram is mirrored
     public var mirrored: Bool = false
-
 
     // MARK: Calculated values
 

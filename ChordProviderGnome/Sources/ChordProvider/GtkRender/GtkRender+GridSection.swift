@@ -18,11 +18,15 @@ extension GtkRender {
         ///   - section: The Grid section
         ///   - coreSettings: The core settings
         ///   - zoom: The zoom factor
-        init(section: Song.Section, coreSettings: ChordProviderSettings, zoom: Double) {
+        init(section: Song.Section, tempo: Int, coreSettings: ChordProviderSettings, zoom: Double) {
             /// Convert the grids into columns
             self.section = section.gridColumns()
             self.coreSettings = coreSettings
             self.zoom = zoom
+            let tempo = UInt64(60 / Double(tempo) * 1_000_000_000)
+            Task {
+                await Utils.MidiPlayer.shared.setGridChords(section: section, tempo: tempo, preset: coreSettings.midiPreset)
+            }
         }
         /// The core settings
         let coreSettings: ChordProviderSettings
@@ -30,6 +34,8 @@ extension GtkRender {
         let zoom: Double
         /// The current section of the song
         let section: Song.Section
+        /// Toggle to play the grid with MIDI
+        @State private var playToggle: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -37,6 +43,19 @@ extension GtkRender {
                     switch line.type {
                     case .songLine:
                         if let elements = line.gridColumns?.grids {
+                            Toggle(icon: .default(icon: .mediaPlaybackStart), isOn: $playToggle) {
+                                if playToggle {
+                                    Task {
+                                        await Utils.MidiPlayer.shared.startChords()
+                                    }
+                                } else {
+                                    Task {
+                                        await Utils.MidiPlayer.shared.stopChords()
+                                    }
+                                }
+                            }
+                            .halign(.start)
+                            .flat()
                             ForEach(elements, horizontal: true) { element in
                                 Box {
                                     ForEach(element.cells, horizontal: false) { cell in

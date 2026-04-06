@@ -128,7 +128,7 @@ extension ChordDefinition {
 }
 
 extension ChordDefinition {
-    
+
     /// Find the flat version of a sharp chord
     /// - Parameter chords: All the known chords
     /// - Returns: A flat version, if found

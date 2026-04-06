@@ -41,8 +41,7 @@ extension Widgets {
                 drawingArea?.cast(),
                 draw_arrow,
                 Unmanaged.passRetained(context).toOpaque()
-            ) {
-                userData in
+            ) { userData in
                 Unmanaged<Context>.fromOpaque(userData!).release()
             }
             let content: [String: [ViewStorage]] = [:]

@@ -37,8 +37,7 @@ extension Widgets {
                 drawingArea?.cast(),
                 draw_chord,
                 Unmanaged.passRetained(context).toOpaque()
-            ) {
-                userData in
+            ) { userData in
                 Unmanaged<Context>.fromOpaque(userData!).release()
             }
             let storage = ViewStorage(drawingArea?.opaque())
@@ -152,9 +151,11 @@ public func draw_chord(
             cairo_set_line_width(cr, 1)
             cairo_stroke(cr)
         } else if fret > 0 {
-            if let barres = data.definition.barres, let barre = barres.first(where: { $0.fret == fret }), !drawnBarres.contains(barre.fret) {
-                drawnBarres.insert(barre.fret)
+            if let barres = data.definition.barres,
+                let barre = barres.first(where: { $0.fret == fret }),
+                !drawnBarres.contains(barre.fret) {
                 /// Draw barre
+                drawnBarres.insert(barre.fret)
                 let height = radius * 2
                 let x = margin + (stringSpacing * Double(barre.startIndex)) - (stringSpacing / 2)
                 let y = margin + Double(fret) * fretSpacing - fretSpacing + ((fretSpacing - height) / 2)

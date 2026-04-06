@@ -64,6 +64,7 @@ extension GtkRender {
                     SectionHeader(section: section)
                     GridSection(
                         section: section,
+                        tempo: Int(appState.editor.song.metadata.tempo ?? "128") ?? 128,
                         coreSettings: appState.editor.coreSettings,
                         zoom: appState.settings.theme.zoom
                     )

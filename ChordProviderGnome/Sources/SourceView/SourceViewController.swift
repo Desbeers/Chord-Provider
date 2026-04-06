@@ -151,7 +151,7 @@ public final class SourceViewController {
         else {
             return
         }
-
+        var bridge = bridgeBinding.wrappedValue
         var iter = GtkTextIter()
         gtk_text_buffer_get_iter_at_mark(
             bufferPtr,
@@ -160,13 +160,13 @@ public final class SourceViewController {
         )
         let currentLineNumber = Int(gtk_text_iter_get_line(&iter) + 1)
 
-        let number = bridgeBinding.song.lines.wrappedValue
+        let totalLines = bridge.song.lines
 
-        self.currentLine = bridgeBinding.songLines[safe: currentLineNumber - 1].wrappedValue ?? Song.Section.Line(sourceLineNumber: number)
+        self.currentLine = bridge.songLines[safe: currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: totalLines)
 
         isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
         hasSelection = gtk_text_buffer_get_has_selection(bufferPtr) != 0
-        var bridge = bridgeBinding.wrappedValue
+        
         bridge.currentLine = currentLine
         bridge.isAtBeginningOfLine = isAtBeginningOfLine
         bridge.hasSelection = hasSelection

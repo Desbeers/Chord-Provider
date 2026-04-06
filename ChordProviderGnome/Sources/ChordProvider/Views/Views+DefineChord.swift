@@ -162,7 +162,7 @@ extension Views {
                         )
                         Text(definition.notesLabel)
                             .useMarkup()
-                        if !definition.validationWarnings.isEmpty {                     
+                        if !definition.validationWarnings.isEmpty {
                             ScrollView {
                                 HStack(spacing: 4) {
                                     ForEach(definition.validationWarnings, id: \.description) { line in

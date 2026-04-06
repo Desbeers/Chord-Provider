@@ -68,7 +68,7 @@ let package = Package(
         .executableTarget(
             name: "GenerateSnippets",
             dependencies: [
-                .product(name: "ChordProviderCore", package: "ChordProviderCore"),
+                .product(name: "ChordProviderCore", package: "ChordProviderCore")
             ],
         ),
         .systemLibrary(

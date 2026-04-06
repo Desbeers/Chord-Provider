@@ -30,8 +30,7 @@ extension ChordProParser {
         } else {
             /// Check if this chord is already parsed
             if let match = song.chords
-                .last(where: { $0.transposedName == "\(chord)-\(song.transposing)" })
-            {
+                .last(where: { $0.transposedName == "\(chord)-\(song.transposing)" }) {
                 return match
             }
             if var databaseChord = ChordDefinition(name: chord, chords: song.settings.chordDefinitions) {

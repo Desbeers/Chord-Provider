@@ -187,7 +187,7 @@ extension Chord.Root {
 }
 
 extension Chord.Root {
-    
+
     /// Init the Root with a `Substring``
     init?(_ substring: Substring) {
         self.init(rawValue: String(substring))

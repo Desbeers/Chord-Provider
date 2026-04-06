@@ -15,7 +15,7 @@ extension ChordDefinition {
     public enum Status: LocalizedError, Codable, Hashable, Comparable {
 
         /// Comparable protocol
-        public static func <(lhs: Status, rhs: Status) -> Bool {
+        public static func < (lhs: Status, rhs: Status) -> Bool {
             lhs.sortOrder < rhs.sortOrder
         }
 

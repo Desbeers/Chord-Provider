@@ -82,7 +82,7 @@ extension Views.Database {
                                 chords.remove(at: index)
                             }
                             /// Remove the optional flat version
-                            if let flatChordID, let index = chords.firstIndex(where: { $0.id == flatChordID } ) {
+                            if let flatChordID, let index = chords.firstIndex(where: { $0.id == flatChordID }) {
                                 chords.remove(at: index)
                             }
                             /// Add the definition                    
