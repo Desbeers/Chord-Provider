@@ -93,6 +93,7 @@ extension Views.Toolbar {
                             appState.scene.playMetronome = false
                             Task {
                                 await Utils.MidiPlayer.shared.stopMetronome()
+                                await Utils.MidiPlayer.shared.stopChords()
                             }
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView
