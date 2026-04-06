@@ -65,7 +65,7 @@ extension Views {
                                     /// Build-in databases can not be edited
                                     .insensitive(element.bundle != nil)
                                     Button(icon: .default(icon: .editCopy)) {
-                                        var instrument = appState.settings.core.instrument
+                                        var instrument = appState.editor.coreSettings.instrument
                                         instrument.bundle = nil
                                         instrument.fileURL = nil
                                         instrument.label += " (copy)"
@@ -101,7 +101,7 @@ extension Views {
                     .padding(.horizontal)
                 SwitchRow()
                     .title("Left-handed chords")
-                    .active($appState.settings.core.diagram.mirror)
+                    .active($appState.editor.coreSettings.diagram.mirror)
                     .padding(.bottom)
             } content: {
                 VStack {
@@ -109,7 +109,7 @@ extension Views {
                         if databaseState.search.isEmpty {
                             ToggleGroup(
                                 selection: $databaseState.chord.onSet { _ in
-                                    databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
+                                    databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                                 },
                                 values: Chord.Root.naturalAndSharp,
                                 id: \.self,
@@ -133,8 +133,8 @@ extension Views {
                                 ) { chord in
                                     if let chord {
                                         VStack {
-                                            MidiPlayer(chord: chord, preset: appState.settings.core.midiPreset)
-                                            ChordDiagram(chord: chord, width: 120, coreSettings: appState.settings.core)
+                                            MidiPlayer(chord: chord, preset: appState.editor.coreSettings.midiPreset)
+                                            ChordDiagram(chord: chord, width: 120, coreSettings: appState.editor.coreSettings)
                                         }
                                     }
                                 }
@@ -185,7 +185,7 @@ extension Views {
                         }
                         SearchEntry()
                             .text($databaseState.search.onSet { _ in
-                                    databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
+                                    databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                                 }
                             )
                             .placeholderText("Search")
@@ -205,7 +205,7 @@ extension Views {
                 }
                 .onAppear {
                     Idle {
-                        databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
+                        databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                     }
                 }
                 .onUpdate {
@@ -213,7 +213,7 @@ extension Views {
                         if !databaseState.showChangedDatatabaseDialog, databaseState.instrumentID != appState.settings.app.instrumentID {
                             /// The instrument is changed from the main `View`; update it
                             databaseState.instrumentID = appState.settings.app.instrumentID
-                            databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
+                            databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                         }
                     }
                 }

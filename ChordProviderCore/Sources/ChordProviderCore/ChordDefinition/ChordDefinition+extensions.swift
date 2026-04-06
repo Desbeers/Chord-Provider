@@ -12,8 +12,8 @@ extension ChordDefinition {
     /// The name of the chord
     /// - Returns: A string with the name in plain text
     public var name: String {
-        var name = self.root.rawValue + self.quality.rawValue
-        if let slash = self.slash {
+        var name = root.rawValue + quality.rawValue
+        if let slash = slash {
             name += "/\(slash.rawValue)"
         }
         return name
@@ -23,12 +23,12 @@ extension ChordDefinition {
     /// - Returns: A formatted string with the name of the chord
     public var display: String {
         var name: String = ""
-        if self.root == .none || self.quality == .none {
+        if root == .none || quality == .none {
             /// We don't know anything about this chord; so use the plain name
-            name = self.plain
+            name = plain
         } else {
-            name = self.root.display + self.quality.display
-            if let slash = self.slash {
+            name = root.display + quality.display
+            if let slash = slash {
                 name += "/\(slash.display)"
             }
         }
@@ -39,13 +39,13 @@ extension ChordDefinition {
     /// - Returns: A formatted string with the name of the chord
     public var displaySharpAndFlat: String {
         var name: String = ""
-        if self.root == .none || self.quality == .none {
+        if root == .none || quality == .none {
             /// We don't know anything about this chord; so use the plain name
-            name = self.plain
+            name = plain
         } else {
-            let spacer = self.root.accidental == .natural ? "" : " "
-            name = "\(self.root.naturalAndSharpDisplay)\(spacer)\(self.quality.display)"
-            if let slash = self.slash {
+            let spacer = root.accidental == .natural ? "" : " "
+            name = "\(root.naturalAndSharpDisplay)\(spacer)\(quality.display)"
+            if let slash = slash {
                 name += "/\(slash.display)"
             }
         }
@@ -56,12 +56,12 @@ extension ChordDefinition {
     /// - Returns: A formatted string with the flat name of the chord
     public var displayFlatForSharp: String {
         var name: String = ""
-        if self.root == .none || self.quality == .none {
+        if root == .none || quality == .none {
             /// We don't know anything about this chord; so use the plain name
-            name = self.plain
+            name = plain
         } else {
-            name = self.root.swapSharpForFlat.display + self.quality.display
-            if let slash = self.slash {
+            name = root.swapSharpForFlat.display + quality.display
+            if let slash = slash {
                 name += "/\(slash.display)"
             }
         }

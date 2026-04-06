@@ -16,14 +16,18 @@ extension GtkRender {
         /// Init the `View`
         /// - Parameters:
         ///   - section: The Grid section
-        ///   - settings: The settings of the application
-        init(section: Song.Section, settings: AppSettings) {
+        ///   - coreSettings: The core settings
+        ///   - zoom: The zoom factor
+        init(section: Song.Section, coreSettings: ChordProviderSettings, zoom: Double) {
             /// Convert the grids into columns
             self.section = section.gridColumns()
-            self.settings = settings
+            self.coreSettings = coreSettings
+            self.zoom = zoom
         }
-        /// The settings of the application
-        let settings: AppSettings
+        /// The core settings
+        let coreSettings: ChordProviderSettings
+        /// The zoom factor
+        let zoom: Double
         /// The current section of the song
         let section: Song.Section
         /// The body of the `View`
@@ -57,14 +61,16 @@ extension GtkRender {
             .padding(10)
         }
 
-        @ViewBuilder func part(part: Song.Section.Line.Part) -> Body {
-            /// - Note: I cannot set the style conditional
+        /// Render a part of the grid
+        /// - Parameter part: The part to render
+        /// - Returns: A `View`
+        func part(part: Song.Section.Line.Part) -> AnyView {
             Box {
                 if part.chordDefinition != nil {
-                    SingleChord(part: part, coreSettings: settings.core)
+                    SingleChord(part: part, coreSettings: coreSettings)
                 } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
-                        .pixelSize(Int(14 * settings.theme.zoom))
+                        .pixelSize(Int(14 * zoom))
                         .style(.svgIcon)
                 } else {
                     Text(part.withMarkup(part.text ?? " "))

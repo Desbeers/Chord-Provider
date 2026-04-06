@@ -13,7 +13,7 @@ extension Views.Welcome {
     // MARK: Tags View
 
     /// The `View` with *My Tags* content
-    @ViewBuilder var myTagsView: Body {
+    var myTagsView: AnyView {
         VStack(spacing: 20) {
             if tags.isEmpty {
                 StatusPage(

@@ -13,7 +13,7 @@ extension Chord {
     public struct Interval: Hashable, Sendable, Identifiable, CustomStringConvertible {
         /// Make the struct identifiable
         public var id: String {
-            self.description
+            description
         }
 
         // swiftlint:disable identifier_name

@@ -59,15 +59,16 @@ extension DatabaseState {
     /// Get all filtered chords
     /// - Returns: The filtered chords
     mutating func getFilteredChords(allChords: [ChordDefinition]) {
-        self.definition = nil
+        /// Clear optional selected definition
+        definition = nil
         var result = [ChordDefinition]()
-        if self.search.isEmpty {
+        if search.isEmpty {
             result = allChords
-                .filter { $0.root == self.chord }
+                .filter { $0.root == chord }
         } else {
             result = allChords
-                .filter { $0.name.starts(with: self.search) }
+                .filter { $0.name.starts(with: search) }
         }
-        self.filteredChords = result
+        filteredChords = result
     }
 }

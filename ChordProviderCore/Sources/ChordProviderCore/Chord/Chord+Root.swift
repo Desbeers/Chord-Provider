@@ -18,7 +18,7 @@ extension Chord {
 
         /// CustomStringConvertible protocol
         public var description: String {
-            self.rawValue
+            rawValue
         }
 
         // swiftlint:disable identifier_name
@@ -127,7 +127,7 @@ extension Chord {
             case .all:
                 "All"
             case .c, .d, .e, .f, .g, .a, .b:
-                self.rawValue
+                rawValue
             case .cSharp:
                 "C♯/D♭"
             case .dSharp:
@@ -139,7 +139,7 @@ extension Chord {
             case .aSharp:
                 "A♯/B♭"
             case .dFlat, .eFlat, .gFlat, .aFlat, .bFlat:
-                self.rawValue
+                rawValue
             case .none:
                 "None"
             }

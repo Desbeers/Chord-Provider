@@ -15,11 +15,11 @@ extension Views.Editor {
     /// The `View` to edit or add a chord definition
     struct DefineChord: View {
         init(appState: Binding<AppState>) {
-            let instrument = appState.wrappedValue.settings.core.instrument
+            let instrument = appState.wrappedValue.editor.coreSettings.instrument
             var newChord = true
             var definition = ChordDefinition(
                 instrument: instrument,
-                chords: appState.wrappedValue.settings.core.chordDefinitions
+                chords: appState.wrappedValue.editor.coreSettings.chordDefinitions
             )
             /// Check if we are called as *edit* the definition instead of a new one
             if let currentDefinition = try? ChordDefinition(
@@ -44,9 +44,10 @@ extension Views.Editor {
         var view: Body {
             VStack(spacing: 10) {
                 Views.DefineChord(
-                    definition: $definition, 
+                    definition: $definition,
                     newChord: newChord,
                     mergeSharpAndFlat: false,
+                    coreSettings: appState.editor.coreSettings,
                     appSettings: appState.settings
                 )
                 Separator()
@@ -56,7 +57,7 @@ extension Views.Editor {
                         .active($appState.settings.app.soundForChordDefinitions)
                     HStack(spacing: 10) {
                         DropDown(
-                            selection: $appState.settings.core.midiPreset,
+                            selection: $appState.editor.coreSettings.midiPreset,
                             values: MidiUtils.Preset.allCases
                         )
                         .insensitive(!appState.settings.app.soundForChordDefinitions)

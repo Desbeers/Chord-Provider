@@ -24,6 +24,8 @@ extension Views {
         /// Bool if `sharp` and `flat` should be merged
         /// - Note: Used when editing a chord for the Database
         let mergeSharpAndFlat: Bool
+        /// The core settings
+        let coreSettings: ChordProviderSettings
         /// The application settings
         let appSettings: AppSettings
         /// The slash is *optional* so it needs its own handler
@@ -52,7 +54,7 @@ extension Views {
                 frets = [Fret]()
             }
             /// Mirror if needed
-            if appSettings.core.diagram.mirror {
+            if coreSettings.diagram.mirror {
                 result.reverse()
             }
             return result
@@ -70,7 +72,7 @@ extension Views {
                 fingers = [Fret]()
             }
             /// Mirror if needed
-            if appSettings.core.diagram.mirror {
+            if coreSettings.diagram.mirror {
                 result.reverse()
             }
             return result
@@ -151,12 +153,12 @@ extension Views {
                         let definition = getDefinition
                         MidiPlayer(
                             chord: definition,
-                            preset: appSettings.core.midiPreset
+                            preset: coreSettings.midiPreset
                         )
                         Views.ChordDiagram(
                             chord: definition,
                             width: 160,
-                            coreSettings: appSettings.core
+                            coreSettings: coreSettings
                         )
                         Text(definition.notesLabel)
                             .useMarkup()
@@ -247,7 +249,7 @@ extension Views {
                 let chord = getDefinition
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
-                    let preset = appSettings.core.midiPreset
+                    let preset = coreSettings.midiPreset
                     Task {
                         await Utils.MidiPlayer.shared.playNotes([Int32(note)], preset: preset)
                     }
@@ -258,7 +260,7 @@ extension Views {
         /// Try to find a chord in the database
         private func lookupChord() {
             if newChord {
-                let definition = appSettings.core.chordDefinitions
+                let definition = coreSettings.chordDefinitions
                     .matching(root: definition.root)
                     .matching(quality: definition.quality)
                     .matching(slash: definition.slash)

@@ -15,6 +15,8 @@ extension Views {
 
     /// A `View` with a metronome button
     struct MetronomeToggle: View {
+        /// Init the `View`
+        /// - Parameter appState: The application state
         init(appState: Binding<AppState>) {
             let metadata = appState.editor.song.metadata.wrappedValue
             self.tempo = metadata.tempo
@@ -28,9 +30,11 @@ extension Views {
                 }
             }
         }
+        /// The tempo of the metronome
         let tempo: String?
+        /// The state of the application
         @Binding var appState: AppState
-
+        /// The body of the `View`
         var view: Body {
             Box {
                 if let tempo {

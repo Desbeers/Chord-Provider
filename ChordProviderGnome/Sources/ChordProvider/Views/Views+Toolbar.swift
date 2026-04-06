@@ -103,18 +103,18 @@ extension Views.Toolbar {
                         }
                         .keyboardShortcut("o".ctrl())
                         MenuButton("Save") {
-                            appState.settings.core.export.format = .chordPro
+                            appState.editor.coreSettings.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.saveSong()
                             /// Add it to the recent songs list
                             recentSongs.addRecentSong(
                                 content: appState.scene.originalContent,
-                                coreSettings: appState.settings.core
+                                coreSettings: appState.editor.coreSettings
                             )
                         }
                         .keyboardShortcut("s".ctrl())
                         MenuButton("Save As…") {
-                            appState.settings.core.export.format = .chordPro
+                            appState.editor.coreSettings.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.scene.saveSongAs.signal()
                         }

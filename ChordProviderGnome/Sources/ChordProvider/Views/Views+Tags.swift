@@ -41,7 +41,7 @@ extension Views {
             }
         }
         /// Show a list of tags
-        @ViewBuilder private func tagLabels() -> Body {
+        private func tagLabels() -> AnyView {
             ForEach(tags, horizontal: horizontal) { tag in
                 Text(Utils.convertSimpleLinks(tag.content))
                     .useMarkup()

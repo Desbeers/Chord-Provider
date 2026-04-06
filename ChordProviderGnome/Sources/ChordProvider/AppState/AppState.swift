@@ -20,17 +20,13 @@ struct AppState {
             if settings.theme != oldValue.theme {
                 self.setStyle()
             }
-            /// Update the core settings of the song if needed
-            if settings.core != oldValue.core {
-                self.editor.song.settings = settings.core
-            }
         }
     }
     /// The state of the `Scene`
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
     /// The source view bridge
-    var editor = SourceViewBridge(song: Song(id: UUID(), content: ""))
+    var editor = SourceViewBridge()
     /// The `GtkSourceEditor`class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
     var controller: SourceViewController?
@@ -65,7 +61,7 @@ extension AppState {
     /// The title in the Gnome overview
     var overviewTitle: String {
         let appName = "Chord Provider"
-        let fileName = settings.core.fileURL?.deletingPathExtension().lastPathComponent
+        let fileName = editor.coreSettings.fileURL?.deletingPathExtension().lastPathComponent
         return scene.showWelcomeView ? appName : fileName ?? appName
     }
 
@@ -77,10 +73,12 @@ extension AppState {
 }
 
 extension AppState: Codable {
-    
+
     /// Items to save in the database
     enum CodingKeys: String, CodingKey {
         /// Only save the settings
         case settings
+        /// Core settings are in the editor
+        case editor
     }
 }

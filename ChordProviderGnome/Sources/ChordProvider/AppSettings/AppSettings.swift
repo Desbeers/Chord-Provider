@@ -16,6 +16,4 @@ struct AppSettings: Codable, Equatable {
     var theme = Theme()
     /// The editor settings
     var editor = Editor()
-    /// The core settings
-    var core = ChordProviderSettings()
 }

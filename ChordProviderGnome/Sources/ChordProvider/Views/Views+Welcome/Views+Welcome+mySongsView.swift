@@ -13,7 +13,7 @@ extension Views.Welcome {
     // MARK: My Songs View
 
     /// The `View` with *My Songs* content
-    @ViewBuilder var mySongsView: Body {
+    var mySongsView: AnyView {
         VStack {
             ScrollView {
                 HStack {

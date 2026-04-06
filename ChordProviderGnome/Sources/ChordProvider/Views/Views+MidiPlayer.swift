@@ -8,13 +8,15 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import CFluidSynth
 
 extension Views {
 
     /// A `View` that plays a Chord Definition
     struct MidiPlayer: View {
-        /// Init the struct
+        /// Init the `View`
+        /// - Parameters:
+        ///   - chord: The chord definition
+        ///   - preset: The MIDI preset
         init(chord: ChordDefinition, preset: MidiUtils.Preset) {
             self.notes = chord.components.compactMap { value in
                 if let midi = value.midi {

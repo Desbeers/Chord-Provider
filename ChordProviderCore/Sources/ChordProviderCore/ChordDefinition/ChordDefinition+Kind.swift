@@ -39,7 +39,7 @@ extension ChordDefinition {
             case .transposedUnknownChord:
                 "This transposed chord is unknown"
             default:
-                self.rawValue
+                rawValue
             }
         }
     }

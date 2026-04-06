@@ -14,7 +14,7 @@ extension Views.Debug {
 
     // MARK: Source View
 
-    /// The `Body` for the source view
+    /// The `View` for the source view
     @ViewBuilder var source: Body {
         ScrollView {
             VStack {

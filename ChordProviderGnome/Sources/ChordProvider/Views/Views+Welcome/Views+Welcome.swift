@@ -179,7 +179,7 @@ extension Views.Welcome {
             if let url = songsFolder {
                 let content = SongFileUtils.getSongsFromFolder(
                     url: url,
-                    settings: appState.settings.core,
+                    settings: appState.editor.coreSettings,
                     getOnlyMetadata: true
                 )
                 artists = content.artists
@@ -243,17 +243,17 @@ extension Views.Welcome {
     ///   - song: The song itself
     ///   - songTitleOnly: Show only the song title
     /// - Returns: A `Body`
-    @ViewBuilder func openButton(
+    func openButton(
         fileURL: URL,
         metadata: Song.Metadata,
         songTitleOnly: Bool = false
-    ) -> Body {
+    ) -> AnyView {
         HStack {
             Button("") {
                 appState.openSong(fileURL: fileURL)
                 recentSongs.addRecentSong(
                     content: appState.scene.originalContent,
-                    coreSettings: appState.settings.core
+                    coreSettings: appState.editor.coreSettings
                 )
                 appState.scene.showToast.signal()
             }

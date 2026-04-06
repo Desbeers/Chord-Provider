@@ -43,12 +43,11 @@ extension GtkRender {
         /// A `View` with a single section
         /// - Parameter section: The current section
         /// - Returns: A `View`
-        @ViewBuilder
-        private func sectionPart(_ section: Song.Section) -> Body {
+        @ViewBuilder private func sectionPart(_ section: Song.Section) -> Body {
             switch section.environment {
             case .verse, .bridge, .chorus:
                 SectionHeader(section: section)
-                LyricsSection(section: section, coreSettings: appState.settings.core)
+                LyricsSection(section: section, coreSettings: appState.editor.coreSettings)
             case .textblock:
                 if !section.label.isEmpty {
                     SectionHeader(section: section)
@@ -56,17 +55,21 @@ extension GtkRender {
                 let maxLenght = appState.editor.song.metadata.longestLine.lineLength?.count ?? 100
                 TextblockSection(section: section, maxLenght: maxLenght)
             case .tab:
-                if !appState.settings.core.lyricsOnly {
+                if !appState.editor.coreSettings.lyricsOnly {
                     SectionHeader(section: section)
                     TabSection(section: section)
                 }
             case .grid:
-                if !appState.settings.core.lyricsOnly {
+                if !appState.editor.coreSettings.lyricsOnly {
                     SectionHeader(section: section)
-                    GridSection(section: section, settings: appState.settings)
+                    GridSection(
+                        section: section,
+                        coreSettings: appState.editor.coreSettings,
+                        zoom: appState.settings.theme.zoom
+                    )
                 }
             case .strum:
-                if !appState.settings.core.lyricsOnly {
+                if !appState.editor.coreSettings.lyricsOnly {
                     SectionHeader(section: section)
                     StrumSection(section: section, zoom: appState.settings.theme.zoom)
                 }
@@ -74,19 +77,19 @@ extension GtkRender {
                 let label = section.lines.first?.plain
                 /// Check if we have to repeat the whole chorus
                 if
-                    appState.settings.core.repeatWholeChorus,
+                    appState.editor.coreSettings.repeatWholeChorus,
                     let lastChorus = appState.editor.song.sections.last(
                         where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
                     ) {
                     SectionHeader(label: label, section: lastChorus)
-                    LyricsSection(section: lastChorus, coreSettings: appState.settings.core)
+                    LyricsSection(section: lastChorus, coreSettings: appState.editor.coreSettings)
                 } else {
                     RepeatChorus(label: label, section: section)
                 }
             case .comment:
                 CommentLabel(comment: section.lines.first?.plain)
             case .image:
-                ImageSection(section: section, coreSettings: appState.settings.core)
+                ImageSection(section: section, coreSettings: appState.editor.coreSettings)
             default:
                 /// Not supported or not a viewable environment
                 Views.Empty()

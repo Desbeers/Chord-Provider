@@ -46,7 +46,7 @@ public final class SourceViewController {
 
     /// Init the controller
     /// - Parameters:
-    ///   - text: The editor text
+    ///   - bridge: The source view bridge
     ///   - language: The editor language
     public init(bridge: Binding<SourceViewBridge>, language: Language) {
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
@@ -97,9 +97,6 @@ public final class SourceViewController {
 
         /// Render the song
         scheduleSnapshot()
-    }
-    deinit {
-        print("DEINT CONTROLLER")
     }
 
     /// Set the style of the editor
@@ -242,7 +239,7 @@ extension SourceViewController {
             /// Get the values of the bridge binding
             var bridge = bridgeBinding.wrappedValue
             bridge.song.content = text
-            bridge.song = ChordProParser.parse(song: bridge.song, settings: bridge.song.settings)
+            bridge.song = ChordProParser.parse(song: bridge.song, settings: bridge.coreSettings)
             /// Clear all markers and add new ones if needed
             sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
             let lines = bridge.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}

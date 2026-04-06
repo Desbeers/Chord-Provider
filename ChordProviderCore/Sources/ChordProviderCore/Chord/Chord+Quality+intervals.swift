@@ -24,7 +24,7 @@ extension Chord.Quality {
 
     /// Show the intervals as a string
     public var intervalsLabel: String {
-        self.intervals.intervals.map { $0.description} .joined(separator: ", ")
+        intervals.intervals.map { $0.description} .joined(separator: ", ")
     }
 
     /// The intervals of a ``Chord/Quality``

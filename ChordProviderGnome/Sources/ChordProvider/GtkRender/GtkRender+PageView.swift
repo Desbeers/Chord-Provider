@@ -49,7 +49,7 @@ extension GtkRender {
             }
         }
         /// The sections
-        @ViewBuilder var sections: Body {
+        var sections: AnyView {
             GtkRender.SectionsView(appState: appState)
                 .halign(.center)
                 .padding(20)

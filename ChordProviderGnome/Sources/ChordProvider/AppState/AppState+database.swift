@@ -13,7 +13,7 @@ extension AppState {
     /// Init the chords database when starting the application
     mutating func initDatabase() {
         /// Cleanup
-        let allInstruments: [Instrument] = self.settings.app.instruments.compactMap { instrument in
+        let allInstruments: [Instrument] = settings.app.instruments.compactMap { instrument in
             var copy = instrument
             copy.modified = false
             /// Ignore new instruments that where not saved last time
@@ -21,10 +21,8 @@ extension AppState {
         }
         /// Make sure we always have the buildin instruments
         let result: Set<Instrument> = Set(Instrument.buildIn).union(allInstruments)
-
-        self.settings.app.instruments = Array(result).sorted()
-
-        self.updateDatabase(main: true)
+        settings.app.instruments = Array(result).sorted()
+        updateDatabase(main: true)
     }
 
     /// Import an instrument database
@@ -34,15 +32,15 @@ extension AppState {
     mutating func importDatabase(url: URL, main: Bool) {
         do {
             let database = try ChordsDatabase(url: url)
-            self.settings.app.instrumentID = database.instrument.id
-            self.setDatabase(database)
+            settings.app.instrumentID = database.instrument.id
+            setDatabase(database)
             /// Add this database to the custom list
-            if self.settings.app.instruments.first(where: { $0.fileURL == url }) == nil {
-                self.settings.app.instruments.append(database.instrument)
-                self.settings.app.instruments.sort()
+            if settings.app.instruments.first(where: { $0.fileURL == url }) == nil {
+                settings.app.instruments.append(database.instrument)
+                settings.app.instruments.sort()
             }
         } catch {
-            self.scene.throwError(
+            scene.throwError(
                 error: ChordProviderError.databaseImportError(error: error.localizedDescription),
                 main: main
             )
@@ -54,9 +52,9 @@ extension AppState {
     mutating func updateDatabase(main: Bool) {
         do {
             let database = try ChordsDatabase(instrument: currentInstrument)
-            self.setDatabase(database)
+            setDatabase(database)
         } catch {
-            self.scene.throwError(
+            scene.throwError(
                 error: .databaseImportError(error: error.localizedDescription),
                 main: main
             )
@@ -66,9 +64,9 @@ extension AppState {
     ///  Set the database information and update the song
     /// - Parameter database: The ``ChordsDatabase`` to set
     mutating func setDatabase(_ database: ChordsDatabase) {
-        self.settings.core.instrument = database.instrument
-        self.settings.core.chordDefinitions = database.definitions.sorted()
-        self.editor.command = .updateSong
+        editor.coreSettings.instrument = database.instrument
+        editor.coreSettings.chordDefinitions = database.definitions.sorted()
+        editor.command = .updateSong
     }
 
     /// Remove an instrument database
@@ -76,31 +74,34 @@ extension AppState {
     ///   - instrument: The ``Instrument`` to update
     ///   - main: Bool if errors are for the main window
     mutating func removeDatabase(instrument: Instrument, main: Bool) {
-        if instrument.id == self.settings.app.instrumentID {
+        if instrument.id == settings.app.instrumentID {
             /// The instrument was selected; reset to default
-            self.settings.app.instrumentID = Instrument[.guitar].id
-            self.updateDatabase(main: main)
+            settings.app.instrumentID = Instrument[.guitar].id
+            updateDatabase(main: main)
         }
-        if let index = self.settings.app.instruments
+        if let index = settings.app.instruments
             .firstIndex(where: { $0.id == instrument.id}) {
-            self.settings.app.instruments.remove(at: index)
+            settings.app.instruments.remove(at: index)
         }
     }
 
+    /// Get the current instrument
     var currentInstrument: Instrument {
-        if let active = self.settings.app.instruments.first(where: { $0.id == self.settings.app.instrumentID }) {
+        if let active = settings.app.instruments.first(where: { $0.id == settings.app.instrumentID }) {
             return active
         }
         /// Return default
         return Instrument[.guitar]
     }
 
+    /// Mark the current instrument as modified
     mutating func markCurrentInstrumentAsModified() {
-        if let index = self.settings.app.instruments.firstIndex(where: { $0.id == self.settings.app.instrumentID }) {
-            self.settings.app.instruments[index].modified = true
+        if let index = settings.app.instruments.firstIndex(where: { $0.id == settings.app.instrumentID }) {
+            settings.app.instruments[index].modified = true
         }
     }
 
+    /// Mark the current instrument as unmodified
     mutating func markCurrentInstrumentUnmodified() {
         if let index = settings.app.instruments.firstIndex(where: { $0.id == settings.app.instrumentID }) {
             if settings.app.instruments[index].id == "new" {

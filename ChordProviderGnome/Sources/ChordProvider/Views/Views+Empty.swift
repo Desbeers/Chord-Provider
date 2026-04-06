@@ -11,6 +11,7 @@ extension Views {
 
     /// A `View` that shows nothing
     struct Empty: View {
+        /// The body of the `View`
         var view: Body {}
     }
 }

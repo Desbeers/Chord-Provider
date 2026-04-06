@@ -12,8 +12,8 @@ extension Views.Debug {
 
     // MARK: JSON View
 
-    /// The `Body` for the json view
-    @ViewBuilder var json: Body {
+    /// The `View` for the json view
+    var json: AnyView {
         VStack {
             NavigationSplitView {
                 List(
@@ -48,7 +48,7 @@ extension Views.Debug {
                                         HStack {
                                             Views.ChordDiagram(
                                                 chord: chord,
-                                                coreSettings: appState.settings.core
+                                                coreSettings: appState.editor.coreSettings
                                             )
                                                 .valign(.start)
                                             sourceView(content)
@@ -58,7 +58,7 @@ extension Views.Debug {
                                 )
                             }
                         case .settings:
-                            let metadata = try? JSONUtils.encode(appState.settings.core)
+                            let metadata = try? JSONUtils.encode(appState.editor.coreSettings)
                             sourceView(metadata)
                         }
                     }

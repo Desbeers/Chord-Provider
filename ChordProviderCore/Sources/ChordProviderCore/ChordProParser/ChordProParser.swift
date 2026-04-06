@@ -32,15 +32,13 @@ public enum ChordProParser {
         settings: ChordProviderSettings,
         getOnlyMetadata: Bool = false
     ) -> Song {
-        /// Store the values of the current song
-        let old = song
         LogUtils.shared.setLog(
             level: .info,
             category: .songParser,
             message: "Parsing \(getOnlyMetadata ? "metadata from" : "") <b>\(settings.fileURL?.lastPathComponent ?? "New Song")</b>"
         )
         /// Start with a fresh song
-        var song = Song(id: song.id, content: old.content)
+        var song = Song(id: song.id, content: song.content)
         /// Add the settings
         song.settings = settings
         /// And add the first section
@@ -132,8 +130,11 @@ public enum ChordProParser {
                     .filter { $0.knownChord }
             )
         }
-        /// Sort the chords
+        /// Sort the used chords
         song.chords = Array(result).sorted()
+
+        /// Clear the provided chord definitions
+        song.settings.chordDefinitions = []
 
         /// Close the log
         LogUtils.shared.setLog(

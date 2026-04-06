@@ -13,7 +13,7 @@ extension Views.Welcome {
     // MARK: Recent Songs View
 
     /// The `View` with **Recent** songs
-    @ViewBuilder var recentSongsView: Body {
+    var recentSongsView: AnyView {
         VStack(spacing: 20) {
             ScrollView {
                 if recentSongs.getRecentSongs().isEmpty {

@@ -51,8 +51,8 @@ public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStrin
 
     /// The status of the instrument
     public var status: String {
-        var result: [String] = [self.bundle == nil ? self.fileURL?.lastPathComponent ?? "New" : "Build-in"]
-        if self.modified {
+        var result: [String] = [bundle == nil ? fileURL?.lastPathComponent ?? "New" : "Build-in"]
+        if modified {
             result.append("modified")
         }
         return result.joined(separator: " · ")

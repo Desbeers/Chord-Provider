@@ -21,7 +21,7 @@ extension AppState {
                 withExtension: "chordpro"
             ),
             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-            self.settings.core.fileURL = nil
+            editor.coreSettings.fileURL = nil
             openSong(content: content, showEditor: showEditor, templateURL: sampleSong)
         } else {
             print("Error loading sample song")
@@ -33,12 +33,12 @@ extension AppState {
     mutating func openSong(fileURL: URL) {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
-            self.settings.core.fileURL = fileURL
-            openSong(content: content, showEditor: self.settings.editor.showEditor)
-            self.scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
+            editor.coreSettings.fileURL = fileURL
+            openSong(content: content, showEditor: settings.editor.showEditor)
+            scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
         } catch {
-            self.settings.core.fileURL = nil
-            self.scene.toastMessage = "Could not open the song"
+            editor.coreSettings.fileURL = nil
+            scene.toastMessage = "Could not open the song"
         }
     }
 
@@ -49,18 +49,18 @@ extension AppState {
     ///   - templateURL: The optional template URL of the song
     mutating private func openSong(content: String, showEditor: Bool, templateURL: URL? = nil) {
         /// Reset transpose
-        self.settings.core.transpose = 0
-        self.editor.song.metadata.transpose = 0
+        editor.coreSettings.transpose = 0
+        editor.song.metadata.transpose = 0
         /// Don't show the previous song because the rendering has some delay
-        self.editor.song.hasContent = false
+        editor.song.hasContent = false
         /// - Note: Never set the content directly; it will be ignored and the song will not be updated
-        self.editor.command = .replaceAllText(text: content)
-        self.scene.originalContent = content
-        self.settings.editor.showEditor = showEditor
+        editor.command = .replaceAllText(text: content)
+        scene.originalContent = content
+        settings.editor.showEditor = showEditor
         if let templateURL {
-            self.settings.core.templateURL = templateURL
+            editor.coreSettings.templateURL = templateURL
         }
         /// Close the welcome `View`
-        self.scene.showWelcomeView = false
+        scene.showWelcomeView = false
     }
 }

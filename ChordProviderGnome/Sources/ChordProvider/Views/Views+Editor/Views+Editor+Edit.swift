@@ -13,6 +13,8 @@ extension Views.Editor {
 
     /// The `View` to edit a line
     struct Edit: View {
+        /// Init the `View`
+        /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             self._appState = appState
             self.directive = appState.editor.currentLine.directive.wrappedValue ?? appState.editor.handleDirective.wrappedValue ?? .title
@@ -20,19 +22,19 @@ extension Views.Editor {
             /// Store the initial values to disable the button if nothing has changed
             self.initialState = state
             self._formState = State(wrappedValue: state)
-            self.newDefinition = appState.editor.currentLine.directive.wrappedValue == nil
+            self.newDirective = appState.editor.currentLine.directive.wrappedValue == nil
         }
-
-        let directive: ChordPro.Directive
-
-        let newDefinition: Bool
-
         /// The state of the application
         @Binding var appState: AppState
-
+        /// The derective to edit
+        let directive: ChordPro.Directive
+        /// Bool if the directive is new
+        let newDirective: Bool
+        /// The initial state of the form
         let initialState: FormState
-
+        /// The resulting state of the form
         @State private var formState: FormState
+        /// The body of the `View`
         var view: Body {
             VStack {
                 Text(directive.details.help)
@@ -156,7 +158,7 @@ extension Views.Editor {
                         appState.editor.showEditDirectiveDialog = false
                         appState.editor.handleDirective = nil
                     }
-                    Button("\(newDefinition ? "Insert" : "Update") Directive") {
+                    Button("\(newDirective ? "Insert" : "Update") Directive") {
                         appState.editor.currentLine.plain = formState.plain.isEmpty ? nil : formState.plain
                         /// The directive might have plain argument that we have here as numeric
                         if ChordPro.Directive.withPlainArgument.contains(directive) {
@@ -201,11 +203,12 @@ extension Views.Editor {
             }
         }
 
+        /// Bool if the submit button is enabled
         private var enableSubmit: Bool {
             var result = false
             result = formState == initialState ? false : true
             result = ChordPro.Directive.withPlainArgument.contains(directive) && formState.plain.isEmpty ? false : result
-            return result
+            return newDirective && directive == .key ? true : result
         }
     }
 }

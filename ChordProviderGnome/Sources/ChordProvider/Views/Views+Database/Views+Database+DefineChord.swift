@@ -16,14 +16,14 @@ extension Views.Database {
     struct DefineChord: View {
         init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>) {
             /// Create a new definition with the current root
-            var definition = ChordDefinition(instrument: appState.wrappedValue.settings.core.instrument)
+            var definition = ChordDefinition(instrument: appState.wrappedValue.editor.coreSettings.instrument)
             definition.root = databaseState.wrappedValue.chord
             self.newChord = databaseState.wrappedValue.newChord
             if !newChord, let currentDefinition = databaseState.definition.wrappedValue {
                 definition = currentDefinition
             }
             /// Try to find the optional flat version
-            self.flatChordID = definition.findFlatFromSharp(chords: appState.wrappedValue.settings.core.chordDefinitions)?.id
+            self.flatChordID = definition.findFlatFromSharp(chords: appState.wrappedValue.editor.coreSettings.chordDefinitions)?.id
             self._definition = State(wrappedValue: definition)
             self._databaseState = databaseState
             self._appState = appState
@@ -52,6 +52,7 @@ extension Views.Database {
                     definition: $definition,
                     newChord: newChord,
                     mergeSharpAndFlat: true,
+                    coreSettings: appState.editor.coreSettings,
                     appSettings: appState.settings
                 )
                 Separator()
@@ -75,7 +76,7 @@ extension Views.Database {
                             /// Mark the instrument as modified
                             appState.markCurrentInstrumentAsModified()
                             /// Update the database
-                            var chords = appState.settings.core.chordDefinitions
+                            var chords = appState.editor.coreSettings.chordDefinitions
                             /// Remove the current definition
                             if let index = chords.firstIndex(where: { $0.id == definition.id }) {
                                 chords.remove(at: index)
@@ -96,7 +97,7 @@ extension Views.Database {
                             /// Sort the chords
                             chords.sort()
                             Idle {
-                                appState.settings.core.chordDefinitions = chords
+                                appState.editor.coreSettings.chordDefinitions = chords
                                 databaseState.getFilteredChords(allChords: chords)
                                 databaseState.chord = definition.root
                                 databaseState.definition = definition

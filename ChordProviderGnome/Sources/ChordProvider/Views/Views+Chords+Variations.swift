@@ -20,7 +20,7 @@ extension Views.Chords {
         ) {
             self._appState = appState
             self._chordDialog = chordDialog
-            var chords = appState.wrappedValue.settings.core.chordDefinitions
+            var chords = appState.wrappedValue.editor.coreSettings.chordDefinitions
                 .matching(root: selectedChord.root)
                 .matching(quality: selectedChord.quality)
                 .matching(slash: selectedChord.slash)
@@ -48,8 +48,8 @@ extension Views.Chords {
                 ScrollView {
                     FlowBox(chords, selection: $selectedVariationID) { chord in
                         VStack {
-                            Views.MidiPlayer(chord: chord, preset: appState.settings.core.midiPreset)
-                            Views.ChordDiagram(chord: chord, width: 120, coreSettings: appState.settings.core)
+                            Views.MidiPlayer(chord: chord, preset: appState.editor.coreSettings.midiPreset)
+                            Views.ChordDiagram(chord: chord, width: 120, coreSettings: appState.editor.coreSettings)
                                 .style(chord == selectedChord ? .selectedChord : .none)
                         }
                         .padding(4, .vertical)

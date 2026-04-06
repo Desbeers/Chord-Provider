@@ -24,7 +24,7 @@ extension Chord {
             case .minor:
                 "minor"
             default:
-                self.display
+                display
             }
         }
 

@@ -18,6 +18,6 @@ extension Views.Database {
         /// Update the databse
         appState.updateDatabase(main: false)
         /// Filter the chords
-        databaseState.getFilteredChords(allChords: appState.settings.core.chordDefinitions)
+        databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
     }
 }

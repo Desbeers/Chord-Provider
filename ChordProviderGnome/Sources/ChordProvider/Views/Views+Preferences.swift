@@ -27,21 +27,21 @@ extension Views {
                         SwitchRow()
                             .title("Show only lyrics")
                             .subtitle("Hide all the chords")
-                            .active($appState.settings.core.lyricsOnly)
+                            .active($appState.editor.coreSettings.lyricsOnly)
                         SwitchRow()
                             .title("Repeat whole chorus")
                             .subtitle("Show the whole chorus with the same label")
-                            .active($appState.settings.core.repeatWholeChorus)
+                            .active($appState.editor.coreSettings.repeatWholeChorus)
                     }
                     .group("Chord Diagrams") {
                         SwitchRow()
                             .title("Show left-handed chords")
                             .subtitle("Flip the chord diagrams")
-                            .active($appState.settings.core.diagram.mirror)
+                            .active($appState.editor.coreSettings.diagram.mirror)
                         SwitchRow()
                             .title("Show notes")
                             .subtitle("Show the notes of a chord in the diagram")
-                            .active($appState.settings.core.diagram.showNotes)
+                            .active($appState.editor.coreSettings.diagram.showNotes)
                     }
             }
             .preferencesPage("Appearance", icon: .default(icon: .applicationsGraphics)) { page in
@@ -132,7 +132,7 @@ extension Views {
                     .group("Options for the MIDI player") {
                         ComboRow(
                             "Instrument",
-                            selection: $appState.settings.core.midiPreset,
+                            selection: $appState.editor.coreSettings.midiPreset,
                             values: MidiUtils.Preset.allCases
                         )
                         .subtitle("Select the instrument for playing chord with MIDI")

@@ -23,9 +23,7 @@ extension Views {
                 set: { self.appState.settings.editor.splitter = $0 }
             )
             VStack {
-                HSplitView(
-                    splitter: binding
-                ) {
+                HSplitView(splitter: binding) {
                     Views.Editor(appState: $appState)
                 } end: {
                     if appState.editor.song.hasContent {

@@ -103,12 +103,12 @@ extension Views.Content {
                 }
             }
             .response("Save", appearance: .suggested, role: .default) {
-                if let fileURL = appState.settings.core.fileURL {
+                if let fileURL = appState.editor.coreSettings.fileURL {
                     appState.saveSong()
                     /// Add it to the recent songs list
                     recentSongs.addRecentSong(
                         content: appState.scene.originalContent,
-                        coreSettings: appState.settings.core
+                        coreSettings: appState.editor.coreSettings
                     )
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
@@ -122,7 +122,7 @@ extension Views.Content {
                     }
                 } else {
                     /// The song has not yet been saved; show the *Save As* dialog
-                    appState.settings.core.export.format = .chordPro
+                    appState.editor.coreSettings.export.format = .chordPro
                     appState.scene.saveSongAs.signal()
                 }
             }

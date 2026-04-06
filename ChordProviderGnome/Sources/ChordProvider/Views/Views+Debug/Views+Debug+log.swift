@@ -13,8 +13,8 @@ extension Views.Debug {
 
     // MARK: Log View
 
-    /// The `Body` for the log messages
-    @ViewBuilder var log: Body {
+    /// The `View` for the log messages
+    var log: AnyView {
         ScrollView {
             VStack(spacing: 0) {
                 ForEach(LogUtils.shared.fetchLog()) { line in

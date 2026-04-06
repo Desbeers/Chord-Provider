@@ -9,13 +9,17 @@ import Foundation
 import ChordProviderCore
 
 public struct SourceViewBridge: Equatable {
-    /// Confirm to `Equatable`
+
+    /// Equatable protocol
     public static func == (lhs: SourceViewBridge, rhs: SourceViewBridge) -> Bool {
         lhs.currentLine == rhs.currentLine && lhs.song.content == rhs.song.content
     }
 
     /// The song
-    public var song: Song
+    public var song = Song(id: UUID(), content: "")
+
+    /// The core settings
+    public var coreSettings = ChordProviderSettings()
 
     /// One-shot command for the editor
     public var command: SourceViewCommand?
@@ -35,12 +39,19 @@ public struct SourceViewBridge: Equatable {
 
     /// Show the *Edit directive* dialog
     public var showEditDirectiveDialog: Bool = false
+
     /// The directive to handle in the *Edit directive* dialog
     public var handleDirective: ChordPro.Directive?
 
-    public init(
-        song: Song
-    ) {
-        self.song = song
+    /// Init the bridge
+    public init() {}
+}
+
+extension SourceViewBridge: Codable {
+    
+    /// Items to save in the database
+    enum CodingKeys: String, CodingKey {
+        /// Only save the settings
+        case coreSettings
     }
 }

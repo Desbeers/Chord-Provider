@@ -80,7 +80,7 @@ import CAdw
                     /// Add it to the recent songs list
                     recentSongs.addRecentSong(
                         content: appState.scene.originalContent,
-                        coreSettings: appState.settings.core
+                        coreSettings: appState.editor.coreSettings
                     )
                 }
             }

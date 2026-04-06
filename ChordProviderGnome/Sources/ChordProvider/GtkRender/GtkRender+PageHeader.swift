@@ -65,7 +65,7 @@ extension GtkRender {
         ///   - name: Name of the icon
         ///   - value: The value of the metadata
         /// - Returns: A View
-        @ViewBuilder private func metadata(name: String, value: String) -> Body {
+        private func metadata(name: String, value: String) -> AnyView {
             HStack(spacing: 5) {
                 Widgets.BundleImage(icon: name)
                     .pixelSize(16)

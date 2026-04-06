@@ -14,6 +14,7 @@ extension Views {
 
     /// The `View` for editing a song
     struct Editor: View {
+        /// Init the `View`
         init(appState: Binding<AppState>) {
             self._appState = appState
         }
@@ -98,8 +99,8 @@ extension Views {
                 }
             }
         }
-        @ViewBuilder
-        var errorMessage: Body {
+        /// The `View` for the error message
+        var errorMessage: AnyView {
             VStack(spacing: 10) {
                 let error = appState.editor.currentLine.warnings?.compactMap(\.message).joined(separator: "\n")
                 Views.ErrorMessage(error: ChordProviderError.directiveNotEditable(error: error ?? "Unnown Error"))
@@ -119,8 +120,8 @@ extension Views {
                     }
             }
         }
-        @ViewBuilder
-        var lineInfo: Body {
+        /// The `View` with line information
+        var lineInfo: AnyView {
             HStack {
                 Text("Line \(appState.editor.currentLine.sourceLineNumber)")
                     .frame(maxWidth: 120)
@@ -165,8 +166,8 @@ extension Views {
             .style(.caption)
         }
 
-        @ViewBuilder
-        func addInsert(
+        /// The `View` with an insert button
+        @ViewBuilder func addInsert(
             directive: ChordPro.Directive,
             command: SourceViewCommand? = nil
         ) -> Body {

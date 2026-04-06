@@ -105,7 +105,7 @@ extension Views.Database {
                                 appState.settings.app.instruments[index] = result
                             }
                             /// Set all chord definitions with the updated instrument
-                            database.definitions = appState.settings.core.chordDefinitions.map { definition in
+                            database.definitions = appState.editor.coreSettings.chordDefinitions.map { definition in
                                 var copy = definition
                                 copy.instrument = result
                                 return copy

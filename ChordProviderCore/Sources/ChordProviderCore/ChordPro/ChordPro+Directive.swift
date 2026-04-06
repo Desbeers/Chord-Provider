@@ -35,7 +35,7 @@ extension ChordPro {
     public enum Directive: DirectiveSource, CaseIterable, Identifiable, Codable, Sendable {
         /// The ID of the directive
         public var id: String {
-            self.rawValue.long
+            rawValue.long
         }
         /// Bool if the directive is editable
         public var editable: Bool {

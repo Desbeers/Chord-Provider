@@ -13,7 +13,7 @@ extension Views {
 
     /// A `View` that shows an error message
     struct ErrorMessage: View {
-        /// The underlying error
+        /// The Chord Provider error
         let error: ChordProviderError?
         /// The body of the `View`
         var view: Body {
