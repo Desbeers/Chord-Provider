@@ -22,30 +22,28 @@ extension Views {
                 get: { self.appState.settings.editor.showEditor ? appState.settings.editor.splitter : 0 },
                 set: { self.appState.settings.editor.splitter = $0 }
             )
-            VStack {
-                HSplitView(splitter: binding) {
-                    Views.Editor(appState: $appState)
-                } end: {
-                    if appState.editor.song.hasContent {
-                        VStack {
-	                        GtkRender.PageHeader(appState: $appState)
-                            HStack {
-                                GtkRender.PageView(appState: $appState)
-                                Separator()
-                                Views.Chords(appState: $appState)
-                            }
-                            .hexpand()
-                            .vexpand()
+            HSplitView(splitter: binding) {
+                Views.Editor(appState: $appState)
+            } end: {
+                if appState.editor.song.hasContent {
+                    VStack {
+                        GtkRender.PageHeader(appState: $appState)
+                        HStack {
+                            GtkRender.PageView(appState: $appState)
+                            Separator()
+                            Views.Chords(appState: $appState)
                         }
-                    } else {
-                        StatusPage(
-                            "Loading",
-                            icon: .default(icon: .folderMusic),
-                            description: "Loading your song..."
-                        )
-                        .frame(minWidth: 350)
-                        .transition(.crossfade)
+                        .hexpand()
+                        .vexpand()
                     }
+                } else {
+                    StatusPage(
+                        "Loading",
+                        icon: .default(icon: .folderMusic),
+                        description: "Loading your song..."
+                    )
+                    .frame(minWidth: 350)
+                    .transition(.crossfade)
                 }
             }
         }

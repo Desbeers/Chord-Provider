@@ -33,6 +33,7 @@ extension GtkRender {
                 Widgets.Columns(sections) { section in
                     sectionPart(section)
                 }
+                .transition(.rotateLeftRight)
             case false:
                 ForEach(sections) { section in
                     sectionPart(section)
