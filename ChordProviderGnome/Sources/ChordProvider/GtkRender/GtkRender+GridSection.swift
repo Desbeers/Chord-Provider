@@ -28,6 +28,7 @@ extension GtkRender {
             self.coreSettings = coreSettings
             self._appState = appState
             self.originalSection = section
+            self.gridID = section.id
         }
         /// The core settings
         let coreSettings: ChordProviderSettings
@@ -37,8 +38,10 @@ extension GtkRender {
         let originalSection: Song.Section
         /// The current section of the song; wrapped in columns
         let section: Song.Section
-        /// Bool to play the chrds with MIDI
+        /// Bool to play the chords with MIDI
         @State private var playGridChords: Bool = false
+        /// The ID of the grid
+        let gridID: Int
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -48,6 +51,8 @@ extension GtkRender {
                         if let elements = line.gridColumns?.grids {
                             Toggle(icon: .default(icon: .mediaPlaybackStart), isOn: $playGridChords) {
                                 if playGridChords {
+                                    /// Set this grid as current
+                                    appState.scene.gridChordsID = gridID
                                     let section = originalSection
                                     let preset = coreSettings.midiPreset
                                     Task {
@@ -87,6 +92,14 @@ extension GtkRender {
                 }
             }
             .padding(10)
+            .onUpdate {
+                Idle {
+                    if playGridChords && appState.scene.gridChordsID != gridID {
+                        /// Another grid is started; uncheck the toggle button
+                        playGridChords = false
+                    }
+                }
+            }
         }
 
         /// Render a part of the grid

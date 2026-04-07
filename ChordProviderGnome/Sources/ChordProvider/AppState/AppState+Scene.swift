@@ -75,6 +75,8 @@ extension AppState {
 
         /// Play metronome
         var playMetronome: Bool = false
+        /// Play grid chords
+        var gridChordsID: Int = -1
     }
 }
 
