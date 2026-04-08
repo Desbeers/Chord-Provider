@@ -51,9 +51,9 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     /// Comparable protocol
     /// - Note: Used for sorting the chords
     public static func < (lhs: ChordDefinition, rhs: ChordDefinition) -> Bool {
-        (lhs.root, lhs.quality.rawValue, lhs.slash ?? .all, lhs.baseFret)
+        (lhs.root, lhs.quality, lhs.slash ?? .all, lhs.baseFret)
         <
-        (rhs.root, rhs.quality.rawValue, rhs.slash ?? .all, rhs.baseFret)
+        (rhs.root, rhs.quality, rhs.slash ?? .all, rhs.baseFret)
     }
 
     // MARK: Database items

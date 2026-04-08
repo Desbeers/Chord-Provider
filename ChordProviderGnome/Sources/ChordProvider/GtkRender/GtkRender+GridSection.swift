@@ -49,7 +49,7 @@ extension GtkRender {
                     switch line.type {
                     case .songLine:
                         if let elements = line.gridColumns?.grids {
-                            Toggle(icon: .default(icon: .mediaPlaybackStart), isOn: $playGridChords) {
+                            Toggle(icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart), isOn: $playGridChords) {
                                 if playGridChords {
                                     /// Set this grid as current
                                     appState.scene.gridChordsID = gridID

@@ -17,7 +17,13 @@ extension String {
             markup.open = String(match.1 ?? "")
             markup.text = String(match.2)
             markup.close = String(match.3 ?? "")
-            return markup
+        }
+        /// Handle optional brackets around the text
+        if markup.text.hasPrefix("("), markup.text.hasSuffix(")") {
+            markup.text.removeFirst()
+            markup.text.removeLast()
+            markup.open += "("
+            markup.close = ")" + markup.close
         }
         return markup
     }

@@ -138,7 +138,7 @@ extension ChordDefinition {
             }
         }
 
-        /// Bool if the status is considered an error
+        /// List of statuses that is considered an error
         public static var errorStatus: [Status] {
             [
                 .unknownStatus,
