@@ -14,10 +14,11 @@ extension DatabaseState {
         /// Switch instrument to the new selection
         case switchInstrument
         /// Use the instrument
-        /// - Note: Used when saving a database
         case useInstrument
         /// Import an instrument database
         case importDatabase
+        /// Make a new database
+        case newDatabase
         /// Do nothing
         case doNothing
     }

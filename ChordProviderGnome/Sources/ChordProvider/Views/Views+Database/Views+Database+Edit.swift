@@ -14,7 +14,7 @@ extension Views.Database {
 
     /// A `View` to edit or make a new database
     struct Edit: View {
-
+        /// Init the form
         init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>, new: Bool) {
             self._appState = appState
             self._databaseState = databaseState
@@ -33,16 +33,22 @@ extension Views.Database {
             self.instrument = instrument
             self.new = new
         }
-
+        /// The tuning of the instrument
         @State private var tunings: [Instrument.Tuning] = []
+        /// The kind of instrument
         @State private var kind: Instrument.Kind = .guitar
+        /// The description of te instrument
         @State private var description: String = ""
-
+        /// The state of the application
         @Binding var appState: AppState
+        /// The state of the database
         @Binding var databaseState: DatabaseState
+        /// The state of the instrument when opening the `View`
+        /// - Note: To enable the button
         let instrument: Instrument
+        /// Bool if the instrument is new
         let new: Bool
-
+        /// The calculated instrument with the values from the form
         var result: Instrument {
             Instrument(
                 kind: kind,
@@ -53,16 +59,20 @@ extension Views.Database {
                 modified: true
             )
         }
-
+        /// The body of the `View`
         var view: Body {
             VStack {
                 Form {
                     ToggleGroup(
-                        selection: $kind,
+                        selection: $kind.onSet { kind in
+                            /// Set the default tuning
+                            tunings = Instrument[kind].tuning
+                        },
                         values: Instrument.Kind.allCases,
                         id: \.id,
                         label: \.description
                     )
+                    .padding()
                     .insensitive(!new)
                     EntryRow("Description", text: $description)
                     Button("Add String") {
@@ -82,7 +92,39 @@ extension Views.Database {
                     }
                 }
                 .padding()
-                HStack {
+                Button(new ? "Create" : "Update") {
+                    databaseState.definition = nil
+                    var database = ChordsDatabase()
+                    database.instrument = result
+                    appState.settings.app.instrumentID = result.id
+                    if new {
+                        appState.settings.app.instruments.append(result)
+                        appState.settings.app.instruments.sort()
+                    } else {
+                        /// Update the instrument
+                        if let index = appState.settings.app.instruments.firstIndex(where: { $0.id == result.id }) {
+                            appState.settings.app.instruments[index] = result
+                        }
+                        /// Set all chord definitions with the updated instrument
+                        database.definitions = appState.editor.coreSettings.chordDefinitions.map { definition in
+                            var copy = definition
+                            copy.instrument = result
+                            return copy
+                        }
+                        /// Filter the chords
+                        databaseState.getFilteredChords(allChords: database.definitions)
+                    }
+                    /// Set the new or updated database
+                    appState.setDatabase(database, main: false)
+                    databaseState.showNewDatabaseDialog = false
+                }
+                /// Disable when the form is too empty or not changed
+                .insensitive(description.isEmpty || tunings.isEmpty || result == instrument)
+                .halign(.center)
+                .padding()
+            }
+            .topToolbar {
+                HeaderBar {
                     if !new {
                         Button("Remove") {
                             databaseState.showNewDatabaseDialog = false
@@ -91,40 +133,8 @@ extension Views.Database {
                         .destructive()
                         .padding(.trailing)
                     }
-                    Button(new ? "Create" : "Update") {
-                        databaseState.definition = nil
-                        var database = ChordsDatabase()
-                        database.instrument = result
-                        appState.settings.app.instrumentID = result.id
-                        if new {
-                            appState.settings.app.instruments.append(result)
-                            appState.settings.app.instruments.sort()
-                        } else {
-                            /// Update the instrument
-                            if let index = appState.settings.app.instruments.firstIndex(where: { $0.id == result.id }) {
-                                appState.settings.app.instruments[index] = result
-                            }
-                            /// Set all chord definitions with the updated instrument
-                            database.definitions = appState.editor.coreSettings.chordDefinitions.map { definition in
-                                var copy = definition
-                                copy.instrument = result
-                                return copy
-                            }
-                            /// Filter the chords
-                            databaseState.getFilteredChords(allChords: database.definitions)
-                        }
-                        /// Set the new or updated database
-                        appState.setDatabase(database)
-                        databaseState.showNewDatabaseDialog = false
-                    }
-                    /// Disable when the form is too empty or not changed
-                    .insensitive(description.isEmpty || tunings.isEmpty || result == instrument)
                 }
-                .halign(.center)
-                .padding()
-            }
-            .topToolbar {
-                HeaderBar.empty()
+                end: {}
                     .headerBarTitle {
                         WindowTitle(
                             subtitle: "\(kind.description) · \(tunings.count) strings",

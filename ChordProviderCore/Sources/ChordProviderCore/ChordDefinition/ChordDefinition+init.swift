@@ -11,7 +11,7 @@ extension ChordDefinition {
 
     // MARK: Init with a **ChordPro** definition
 
-    /// Init the ``ChoSta.cotusrdDefinition`` with a **ChordPro** definition
+    /// Init the ``ChordDefinition`` with a **ChordPro** definition
     /// - Parameters:
     ///   - definition: The **ChordPro** definition
     ///   - kind: The ``Kind`` of ``ChordDefinition``
@@ -58,11 +58,11 @@ extension ChordDefinition {
     /// - Parameters:
     ///   - chord: The **ChordPro** JSON chord
     ///   - instrument: The ``Instrument`` for this definition
-    public init?(chord: ChordPro.Instrument.Chord, instrument: Instrument) {
+    public init(chord: ChordPro.Instrument.Chord, instrument: Instrument) throws(ChordDefinition.Status) {
         do {
             self = try ChordDefinition.define(from: chord, instrument: instrument)
         } catch {
-            return nil
+            throw error
         }
     }
 
@@ -92,7 +92,7 @@ extension ChordDefinition {
             slash: nil,
             instrument: instrument,
             kind: kind,
-            status: kind == .textChord ? .text : .unknownChord
+            status: kind == .textChord ? .text : .unknownChord(chord: text)
         )
     }
 

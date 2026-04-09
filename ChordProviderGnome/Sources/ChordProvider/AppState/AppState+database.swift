@@ -33,15 +33,19 @@ extension AppState {
         do {
             let database = try ChordsDatabase(url: url)
             settings.app.instrumentID = database.instrument.id
-            setDatabase(database)
+            setDatabase(database, main: main)
             /// Add this database to the custom list
             if settings.app.instruments.first(where: { $0.fileURL == url }) == nil {
                 settings.app.instruments.append(database.instrument)
                 settings.app.instruments.sort()
             }
         } catch {
+            let result = ChordProviderError.databaseImportError(
+                error: error.errorDescription ?? "Unknown reason",
+                context: error.failureReason
+            )
             scene.throwError(
-                error: ChordProviderError.databaseImportError(error: error.localizedDescription),
+                error: result,
                 main: main
             )
         }
@@ -51,22 +55,41 @@ extension AppState {
     /// - Parameter main: Bool if errors are for the main window
     mutating func updateDatabase(main: Bool) {
         do {
-            let database = try ChordsDatabase(instrument: currentInstrument)
-            setDatabase(database)
+            if let fileURL = currentInstrument.fileURL {
+                /// Custom chord definitions
+                let database = try ChordsDatabase(url: fileURL)
+                setDatabase(database, main: main)
+            } else {
+                /// Build-in chord definitions
+                let database = try ChordsDatabase(instrument: currentInstrument)
+                setDatabase(database, main: main)
+            }
         } catch {
+            let result = ChordProviderError.databaseImportError(
+                error: error.errorDescription ?? "Unknown reason",
+                context: error.failureReason
+            )
             scene.throwError(
-                error: .databaseImportError(error: error.localizedDescription),
+                error: result,
                 main: main
             )
+            removeDatabase(instrument: currentInstrument, main: main)
         }
     }
 
     ///  Set the database information and update the song
     /// - Parameter database: The ``ChordsDatabase`` to set
-    mutating func setDatabase(_ database: ChordsDatabase) {
+    mutating func setDatabase(_ database: ChordsDatabase, main: Bool) {
         editor.coreSettings.instrument = database.instrument
         editor.coreSettings.chordDefinitions = database.definitions.sorted()
         editor.command = .updateSong
+        if !database.errors.isEmpty {
+            let warnings = database.errors.compactMap(\.failureReason).joined(separator: "\n")
+            scene.throwError(
+                error: ChordProviderError.databaseImportWarnings(warnings: warnings),
+                main: main
+            )
+        }
     }
 
     /// Remove an instrument database
@@ -102,7 +125,9 @@ extension AppState {
     }
 
     /// Mark the current instrument as unmodified
-    mutating func markCurrentInstrumentUnmodified() {
+    /// 
+    /// If the current instrument is *new*, it will be deleted from the list
+    mutating func markCurrentInstrumentAsUnmodified() {
         if let index = settings.app.instruments.firstIndex(where: { $0.id == settings.app.instrumentID }) {
             if settings.app.instruments[index].id == "new" {
                 /// It is a new database, remove it from the list

@@ -120,13 +120,13 @@ import CAdw
         .maximized($databaseWindowSize.maximized)
         .devel(appState.settings.app.debug)
         .onClose {
-            if !appState.currentInstrument.modified {
-                return .close
-            } else {
-                /// The instrument is modified; show a *Dialog*
+            if appState.currentInstrument.modified {
+               /// The instrument is modified; show a *Dialog* to save it
                 databaseState.saveDoneAction = .closeWindow
                 databaseState.showChangedDatatabaseDialog = true
-                return .cancel
+                return .cancel                
+            } else {
+                return .close
             }
         }
     }

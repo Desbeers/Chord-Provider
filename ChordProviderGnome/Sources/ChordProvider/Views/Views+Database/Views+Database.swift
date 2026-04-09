@@ -72,6 +72,8 @@ extension Views {
                                         instrument.modified = true
                                         /// Add the copy
                                         appState.settings.app.instruments.append(instrument)
+                                        appState.settings.app.instruments.sort()
+                                        /// Make it active
                                         appState.settings.app.instrumentID = instrument.id
                                     }
                                     .flat()
@@ -149,6 +151,22 @@ extension Views {
                     .padding(.bottom)
                     .card()
                     HStack {
+                        if appState.currentInstrument.bundle == nil {
+                            Button("Save") {
+                                if appState.currentInstrument.fileURL == nil {
+                                    /// A new instrument
+                                    databaseState.saveDoneAction = .useInstrument
+                                    databaseState.exportDatabase.signal()
+                                } else {
+                                    /// Just save it
+                                    databaseState.saveDoneAction = .doNothing
+                                    save(instrument: appState.currentInstrument)
+                                }
+                            }
+                            .padding(.leading)
+                            .insensitive(!appState.currentInstrument.modified)
+                            .transition(.crossfade)
+                        }
                         Text(" ")
                             .hexpand()
                         if let definition = databaseState.definition {

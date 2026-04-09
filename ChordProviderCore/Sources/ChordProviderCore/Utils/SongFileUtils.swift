@@ -37,7 +37,7 @@ extension SongFileUtils {
                 getOnlyMetadata: getOnlyMetadata
             )
         } catch {
-            throw ChordProviderError.fileNotFound
+            throw ChordProviderError.fileNotFound(url: fileURL)
         }
     }
 }
@@ -55,7 +55,7 @@ extension SongFileUtils {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
             return content
         } catch {
-            throw ChordProviderError.fileNotFound
+            throw ChordProviderError.fileNotFound(url: fileURL)
         }
     }
 }

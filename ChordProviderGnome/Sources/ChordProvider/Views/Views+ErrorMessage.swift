@@ -24,11 +24,17 @@ extension Views {
                             .style(.bold)
                     }
                     Text(error.failureReason ?? "Unknown reason")
-                        .wrap()
                         .useMarkup()
-                        .monospace()
                         .vexpand()
                         .padding()
+                    if let errorDescription = error.errorDescription {
+                        Text(errorDescription)
+                            .wrap()
+                            .useMarkup()
+                            .monospace()
+                            .vexpand()
+                            .padding()
+                    }
                 }
             } else {
                 Text("Unknown Error")

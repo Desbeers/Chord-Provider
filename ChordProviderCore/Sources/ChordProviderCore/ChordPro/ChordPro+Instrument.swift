@@ -23,7 +23,7 @@ extension ChordPro {
 extension ChordPro.Instrument {
 
     /// Instrument chord
-    public struct Chord: Equatable, Codable, Sendable {
+    public struct Chord: Equatable, Codable, Sendable, CustomStringConvertible {
 
         /// Init a *ChordPro* chord definition
         /// - Parameters:
@@ -45,6 +45,26 @@ extension ChordPro.Instrument {
             self.base = base
             self.frets = frets
             self.fingers = fingers
+        }
+
+        /// CustomStringConvertible protocol
+        public var description: String {
+            var define = name
+            define += " base-fret "
+            define += String(base ?? 1)
+            if let frets {
+                define += " frets "
+                for fret in frets {
+                    define += "\(fret == -1 ? "x" : fret.description) "
+                }
+            }
+            if let fingers {
+                define += "fingers"
+                for finger in fingers {
+                    define += " \(finger)"
+                }
+            }
+            return define
         }
 
         /// Name of the chord

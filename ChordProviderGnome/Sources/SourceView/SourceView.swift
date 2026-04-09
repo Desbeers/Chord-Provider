@@ -82,8 +82,6 @@ public struct SourceView: AdwaitaWidget {
                 gtk_source_view_set_highlight_current_line(storage.opaquePointer?.cast(), highlightCurrentLine.cBool)
             }
             storage.previousState = self
-        } else {
-            print("ERROR")
         }
     }
 

@@ -50,12 +50,12 @@ extension Views.Database {
                 }
             }
             .response("Discard", appearance: .destructive, role: .none) {
-                appState.markCurrentInstrumentUnmodified()
+                appState.markCurrentInstrumentAsUnmodified()
                 switch databaseState.saveDoneAction {
                 case .closeWindow:
                     /// Fall back to the default guitar
                     appState.settings.app.instrumentID = Instrument[.guitar].id
-                    appState.updateDatabase(main: true)
+                    appState.updateDatabase(main: false)
                     window.close()
                 case .importDatabase:
                     /// Fall back to the default guitar in case the import failed or is canceled
@@ -64,6 +64,8 @@ extension Views.Database {
                     databaseState.importDatabase.signal()
                 case .switchInstrument, .useInstrument:
                     updateDatabase()
+                case .newDatabase:
+                    databaseState.showNewDatabaseDialog = true
                 case .doNothing:
                     break
                 }

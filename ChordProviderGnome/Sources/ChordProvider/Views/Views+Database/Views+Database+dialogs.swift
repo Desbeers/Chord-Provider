@@ -20,7 +20,7 @@ extension Views.Database {
             /// The **Alert dialog** for an error
             .alertDialog(
                 visible: $appState.scene.showDatabaseErrorDialog,
-                heading: appState.scene.error?.localizedDescription ?? "Error",
+                heading: appState.scene.error?.description ?? "Error",
                 id: "error-dialog",
                 /// - Note: I use `extraChild` instead of `body` so I can use markup
                 extraChild: {
@@ -96,11 +96,11 @@ extension Views.Database {
             .response("Delete", appearance: .destructive, role: .default) {
                 if let definition = databaseState.definition {
                     /// Mark the instrument as modified
-                    //appState.markInstrumentAsModified()
+                    appState.markCurrentInstrumentAsModified()
                     var chords = appState.editor.coreSettings.chordDefinitions
                     if let index = chords.firstIndex(where: { $0.id == definition.id }) {
                         chords.remove(at: index)
-                    }//
+                    }
                     if let flat = definition.findFlatFromSharp(chords: chords),
                         let index = chords.firstIndex(where: { $0.id == flat.id }) {
                         chords.remove(at: index)

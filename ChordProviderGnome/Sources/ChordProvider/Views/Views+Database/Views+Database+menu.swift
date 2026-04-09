@@ -10,12 +10,22 @@ import Adwaita
 import ChordProviderCore
 
 extension Views.Database {
-    // The menu `View
+    /// The menu `View`
+    /// 
+    /// I did not add `Save` here on purpose because I'm unable
+    /// to disable the button when needed:
+    /// - The database is *build-in* and can not be saved
+    /// - The database is not modified
     var menu: AnyView {
         Menu(icon: .default(icon: .openMenu)) {
             MenuButton("New") {
-                databaseState.newDatabase = true
-                databaseState.showNewDatabaseDialog = true
+                if !appState.currentInstrument.modified {
+                    databaseState.newDatabase = true
+                    databaseState.showNewDatabaseDialog = true
+                } else {
+                    databaseState.saveDoneAction = .newDatabase
+                    databaseState.showChangedDatatabaseDialog = true
+                }
             }
             MenuButton("Import") {
                 if !appState.currentInstrument.modified {
@@ -23,15 +33,6 @@ extension Views.Database {
                 } else {
                     databaseState.saveDoneAction = .importDatabase
                     databaseState.showChangedDatatabaseDialog = true
-                }
-            }
-            MenuButton("Save") {
-                databaseState.saveDoneAction = .useInstrument
-                if appState.currentInstrument.fileURL == nil {
-                    /// Export the database, it is build-in and cannot be saved directly
-                    databaseState.exportDatabase.signal()
-                } else {
-                    save(instrument: appState.currentInstrument)
                 }
             }
             MenuButton("Save As…") {

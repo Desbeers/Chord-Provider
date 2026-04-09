@@ -90,7 +90,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     public var validationWarnings: [Status] = []
     /// The status of the chord definition
     public var status: Status {
-        Set(validationWarnings).isDisjoint(with: ChordDefinition.Status.errorStatus) ? .correct : .unknownChord
+        Set(validationWarnings).isDisjoint(with: ChordDefinition.Status.errorStatus) ? .correct : .unknownChord(chord: plain)
     }
 
     // MARK: Other items

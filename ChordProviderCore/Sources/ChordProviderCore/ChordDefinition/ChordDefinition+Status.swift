@@ -24,7 +24,7 @@ extension ChordDefinition {
         /// An unknown status
         case unknownStatus
         /// An unknown chord
-        case unknownChord
+        case unknownChord(chord: String)
         /// The definition is missing required notes
         case missingRequiredNotes(notes: String)
         /// The definition contains wrong notes
@@ -49,6 +49,10 @@ extension ChordDefinition {
         case notEnoughFingers
         /// The definition has no notes
         case noNotes
+        /// The definition has no frets
+        case noFrets
+        /// The definition has no base fret
+        case noBaseFret
         /// The definition has too many errors
         case tooManyErrors
         /// The definition is just text
@@ -64,39 +68,44 @@ extension ChordDefinition {
             case .unknownStatus:
                 "The status is unknown"
             case .missingRequiredNotes(let notes):
-                "The chord is missing required notes: <b>\(notes)</b>"
+                "The definition is missing required notes: <b>\(notes)</b>"
             case .tooManyFrets:
                 "The definition has too many frets and will be ignored"
             case .notEnoughFrets:
-                "The chord has not enough frets and will be ignored"
-            case .unknownChord:
-                "The chord is unknown"
+                "The definition has not enough frets and will be ignored"
+            case .unknownChord(let chord):
+                "The chord <b>\(chord)</b> is unknown"
             case .correct:
-                "The chord seems correct"
+                "The chord definition seems correct"
             case .wrongBassNote(let bass):
-                "The chord does not start with <b>\(bass)</b> as bass note"
+                "The definition does not start with <b>\(bass)</b> as bass note"
             case .wrongRootNote(let root):
-                "The chord does not start with <b>\(root)</b> as root note"
+                "The definition does not start with <b>\(root)</b> as root note"
             case .wrongNotes(let notes):
-                "The chord contains incorrect notes: <b>\(notes)</b>"
+                "The definition contains incorrect notes: <b>\(notes)</b>"
             case .wrongMutedFingers:
                 "Muted strings cannot have a finger position"
             case .wrongOpenFingers:
                 "Open strings cannot have a finger position"
             case .tooManyFingers:
-                "The chord has too many fingers and will be ignored"
+                "The definition has too many fingers and will be ignored"
             case .notEnoughFingers:
-                "The chord has not enough fingers and will be ignored"
+                "The definition has not enough fingers and will be ignored"
             case .missingFingers:
-                "The chord is missing fingers for fretted strings"
+                "The definition is missing fingers for fretted strings"
             case .noNotes:
-                "The chord has no notes"
+                "The definition has no notes"
+            case .noFrets:
+                "The definition has no frets"
+            case .noBaseFret:
+                "The definition has no base fret"
             case .tooManyErrors:
-                "The chord has too many errors and will be ignored"
+                "The definition has too many errors and will be ignored"
             default:
                 "Unknown"
             }
         }
+
         /// The error description of the status
         public var errorDescription: String? {
             description
@@ -133,8 +142,10 @@ extension ChordDefinition {
             case .wrongOpenFingers: 11
             case .missingFingers: 12
             case .noNotes: 13
-            case .text: 14
-            case .correct: 15
+            case .noFrets: 14
+            case .noBaseFret: 15
+            case .text: 16
+            case .correct: 17
             }
         }
 
@@ -142,11 +153,12 @@ extension ChordDefinition {
         public static var errorStatus: [Status] {
             [
                 .unknownStatus,
-                .unknownChord,
+                .noFrets,
                 .tooManyFrets,
                 .notEnoughFrets,
                 .tooManyFingers,
                 .notEnoughFingers,
+                .noBaseFret,
                 .tooManyErrors
             ]
         }

@@ -181,8 +181,9 @@ extension Views {
                             .transition(.crossfade)
                         }
                     }
-                    .frame(maxWidth: 300)
-                    .frame(minWidth: 300)
+                    /// Make sure all warnings fits or else the window will resize
+                    .frame(maxWidth: 340)
+                    .frame(minWidth: 340)
                     VStack(spacing: 10) {
                         Text("Frets")
                            .padding(.top)

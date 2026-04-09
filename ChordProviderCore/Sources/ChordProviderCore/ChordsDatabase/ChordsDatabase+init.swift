@@ -10,60 +10,51 @@ import Foundation
 /// Additional init's for a Chord Database
 extension ChordsDatabase {
 
-    /// Init an empty Chords Database, defaults to guitar as instrument
-    public init() {
-        let instrument = Instrument[.guitar]
+    /// Init a Chords Database with all known values
+    /// - Parameters:
+    ///   - instrument: The ``Instrument`` for the definitions
+    ///   - definitions: The ``ChordDefinitions``
+    public init(instrument: Instrument, definitions: [ChordDefinition]) {
         self.instrument = instrument
-        self.definitions = []
+        self.definitions = definitions
     }
 
-    // /// Init a Chords Database with **ChordPro** JSON
-    // public init(json: String, fileURL: URL?) throws {
-    //     do {
-    //         let data = Data(json.utf8)
-    //         let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
-    //         let result = ChordsDatabase.processDatabase(database: database, fileURL: fileURL)
-    //         self.instrument = result.instrument
-    //         self.definitions = result.definitions
-    //     } catch {
-    //         throw error
-    //     }
-    // }
-
     /// Init the database with an URL
-    public init(url: URL) throws {
+    public init(url: URL) throws(ChordProviderError) {
         do {
             let data = try Data(contentsOf: url)
             let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
             let result = ChordsDatabase.processDatabase(database: database, fileURL: url)
             self.instrument = result.instrument
             self.definitions = result.definitions
+            self.errors = result.errors
+        } catch ChordProviderError.jsonDecoderError(let error, let context) {
+            throw .jsonDecoderError(error: error, context: context)
+        } catch CocoaError.fileReadNoSuchFile {
+            throw .fileNotFound(url: url)
         } catch {
-            throw error
+            throw .databaseImportError(
+                error: error.localizedDescription
+            )
         }
     }
 
     /// Init the database with an instrument
     /// - Parameter instrument: The ``Instrument`` of the database
     /// - Throws: An error when it can not load a database
-    public init(instrument: Instrument) throws {
+    public init(instrument: Instrument) throws(ChordProviderError) {
         do {
             if let bundle = instrument.bundle {
                 let database = try Bundle.module.decode(ChordPro.Instrument.self, from: bundle)
                 let result = ChordsDatabase.processDatabase(database: database, bundle: instrument.bundle)
                 self.instrument = result.instrument
                 self.definitions = result.definitions
-            } else if let url = instrument.fileURL {
-                let data = try Data(contentsOf: url)
-                let database = try JSONUtils.decode(data, struct: ChordPro.Instrument.self)
-                let result = ChordsDatabase.processDatabase(database: database, fileURL: url)
-                self.instrument = result.instrument
-                self.definitions = result.definitions
             } else {
+                /// This should not happen because this function is only for build-in instruments
                 throw ChordProviderError.databaseNotFound
             }
         } catch {
-            throw error
+            throw .databaseImportError(error: error.localizedDescription)
         }
     }
 }
@@ -74,7 +65,7 @@ extension ChordsDatabase {
         database: ChordPro.Instrument,
         bundle: String? = nil,
         fileURL: URL? = nil
-    ) -> (instrument: Instrument, definitions: [ChordDefinition]) {
+    ) -> (instrument: Instrument, definitions: [ChordDefinition], errors: [ChordProviderError]) {
         let instrument = Instrument(
             kind: Instrument.Kind(rawValue: database.instrument.type) ?? .guitar,
             label: database.instrument.description,
@@ -82,18 +73,19 @@ extension ChordsDatabase {
             bundle: bundle,
             fileURL: fileURL
         )
+        var errors: [ChordProviderError] = []
         /// Get all chord definitions
         var definitions: [ChordDefinition] = []
         for chord in database.chords {
-            if let result = ChordDefinition(chord: chord, instrument: instrument) {
-                definitions.append(result)
+            do {
+                let definition = try ChordDefinition(chord: chord, instrument: instrument)
+                definitions.append(definition)
+            } catch {
+                let result = "<b>\(chord.description)</b>\n \(error.description)"
+                errors.append(.databaseImportWarning(warning: result))
             }
         }
-        definitions.sort(
-            using: [
-                KeyPathComparator(\.baseFret), KeyPathComparator(\.frets.description)
-            ]
-        )
-        return (instrument, definitions)
+        definitions.sort()
+        return (instrument, definitions, errors)
     }
 }

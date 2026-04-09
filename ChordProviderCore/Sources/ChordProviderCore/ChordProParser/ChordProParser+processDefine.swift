@@ -91,7 +91,7 @@ extension ChordProParser {
         } catch {
             /// The definition could not be processed at all
             currentSection.addWarning(
-                "Wrong chord definition: <b>\(error.localizedDescription)</b>",
+                "\(error.localizedDescription) and will be ignored",
                 level: .error
             )
         }

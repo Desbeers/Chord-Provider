@@ -22,26 +22,35 @@ extension ChordDefinition {
     /// - Parameter instrument: The ``Chord/Instrument`` to use
     /// - Throws: An ``ChordDefinition/Status/unknownChord`` error when the string cannot be parsed
     /// - Returns: A  ``ChordDefinition`` structure
-    static func define(from define: String, instrument: Instrument) throws -> ChordDefinition {
+    static func define(from define: String, instrument: Instrument) throws(ChordDefinition.Status) -> ChordDefinition {
         if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
             var frets: [Int] = []
             var fingers: [Int] = []
-
+            /// Find the chord elements
             let elements = ChordUtils.Analizer.findChordElements(chord: definition.1)
             guard
+                /// Make sure we have a root and a quality
                 let root = elements.root,
                 let quality = elements.quality
             else {
-                throw ChordDefinition.Status.unknownChord
+                throw .unknownChord(chord: definition.1)
+            }
+            guard
+                /// Make sure we have a base fret
+                let rawValue = definition.2,
+                let baseFret = Chord.BaseFret(rawValue: rawValue)
+            else {
+                throw .noBaseFret
             }
             if let fretsDefinition = definition.3 {
                 frets = fretsDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? -1 }
+            } else {
+                throw .noFrets
             }
-
             if let fingersDefinition = definition.4 {
                 fingers = fingersDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? 0 }
             }
-            /// Fill the fingers if none are set
+            /// Fill the fingers if none are set because fingers are optional
             if fingers.isEmpty {
                 fingers = Array(repeating: 0, count: instrument.strings.count)
             }
@@ -49,7 +58,7 @@ extension ChordDefinition {
                 id: UUID(),
                 frets: frets,
                 fingers: fingers,
-                baseFret: Chord.BaseFret(rawValue: definition.2 ?? 1) ?? .one,
+                baseFret: baseFret,
                 root: root,
                 quality: quality,
                 slash: elements.slash,
@@ -59,7 +68,7 @@ extension ChordDefinition {
             )
             return chordDefinition
         }
-        throw ChordDefinition.Status.unknownChord
+        throw .unknownChord(chord: "?")
     }
 
     /// Create a ``ChordDefinition`` structure from a **ChordPro** JSON chord
@@ -82,13 +91,13 @@ extension ChordDefinition {
     ///
     /// - Note: The chords in the  **Chord Provider** database are in the same
     ///   JSON format as used in the official **ChordPro** implementation.
-    static func define(from chord: ChordPro.Instrument.Chord, instrument: Instrument) throws -> ChordDefinition {
+    static func define(from chord: ChordPro.Instrument.Chord, instrument: Instrument) throws(ChordDefinition.Status) -> ChordDefinition {
         let elements = ChordUtils.Analizer.findChordElements(chord: chord.name)
         guard
             let root = elements.root,
             let quality = elements.quality
         else {
-            throw ChordDefinition.Status.unknownChord
+            throw ChordDefinition.Status.unknownChord(chord: chord.name)
         }
         /// Throw an error if the defined frets does not match the instrument
         let positions = instrument.strings.count

@@ -42,7 +42,7 @@ extension ChordUtils {
         static func validateChord(chord: ChordDefinition) -> [ChordDefinition.Status] {
             var result: Set<ChordDefinition.Status> = []
             if chord.quality == .none {
-                result.insert(.unknownChord)
+                result.insert(.unknownChord(chord: chord.plain))
                 return Array(result)
             }
             /// Check amount of frets

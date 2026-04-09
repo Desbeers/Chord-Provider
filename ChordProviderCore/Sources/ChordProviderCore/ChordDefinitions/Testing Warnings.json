@@ -1,0 +1,69 @@
+{
+  "chords" : [
+    {
+      "base" : 1,
+      "fingers" : [
+        1,
+        2,
+        3,
+        4
+      ],
+      "frets" : [
+        1,
+        2,
+        3,
+        4
+      ],
+      "name" : "D"
+    },
+    {
+      "base" : 1,
+      "fingers" : [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "frets" : [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "name" : "E"
+    },
+    {
+      "base" : 1,
+      "fingers" : [
+        1,
+        2,
+        3,
+        4
+      ],
+      "frets" : [
+        1,
+        2,
+        3,
+        4
+      ],
+      "name" : "Onzin"
+    },
+  ],
+  "instrument" : {
+    "description" : "Warnings",
+    "type" : "ukulele"
+  },
+  "pdf" : {
+    "diagrams" : {
+      "vcells" : 6
+    }
+  },
+  "tuning" : [
+    "A1",
+    "B2",
+    "C3",
+    "D4"
+  ]
+}
