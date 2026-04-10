@@ -60,7 +60,7 @@ extension ChordProParser {
         for text in grids where !text.isEmpty {
             var grid = Song.Section.Line.Grid(id: cellID, isStrumPattern: isStrumPattern)
             /// Check for pango markup
-            let markup = text.markup
+            let markup = text.markup(handleBrackets: true)
             /// Use the plain text only
             let text = markup.text
             switch text {

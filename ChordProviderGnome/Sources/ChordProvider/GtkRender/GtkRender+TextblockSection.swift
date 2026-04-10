@@ -38,7 +38,7 @@ extension GtkRender {
                     VStack {
                         switch line.type {
                         case .songLine:
-                            let lines: [String.ElementWrapper] = line.plain?.wrap(by: maxLenght) ?? [String.ElementWrapper(content: "")]
+                            let lines = line.parts?.map(\.lyricsText).joined().wrap(by: maxLenght) ?? []
                             ForEach(lines) { line in
                                 Text(line.content)
                                     .useMarkup()

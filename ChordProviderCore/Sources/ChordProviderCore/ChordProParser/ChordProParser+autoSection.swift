@@ -21,29 +21,12 @@ extension ChordProParser {
     ) {
         currentSection.environment = environment
         currentSection.autoCreated = true
-        if let firstLineIndex = currentSection.lines.firstIndex(where: { $0.type == .songLine }) {
-            let line = Song.Section.Line(
-                sourceLineNumber: -currentSection.lines[firstLineIndex].sourceLineNumber,
-                source: "{\(environment.directives.open.rawValue.long)}",
-                sourceParsed: "{\(environment.directives.open.rawValue.long)}",
-                directive: environment.directives.open,
-                arguments: nil,
-                type: .environmentDirective,
-                context: environment
-            )
-            /// Add a warning to the first line
-            currentSection
-                .lines[firstLineIndex]
-                .addWarning(
-                    "No environment set, using <b>\(environment.rawValue)</b>"
-                )
-            /// Set the new context
-            currentSection.lines[firstLineIndex].context = environment
-            /// Add the opening directive at the start
-            currentSection.lines.insert(line, at: 0)
-            /// Remember the longest label for an environment
-            /// - Note: Used in PDF output to calculate label offset
-            setLongestLabel(label: environment.label, song: &song)
+        /// Update all the lines
+        let lines = currentSection.lines.map { line in
+            var copy = line
+            copy.context = environment
+            return copy
         }
+        currentSection.lines = lines
     }
 }

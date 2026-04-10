@@ -17,40 +17,40 @@ extension GtkRender {
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             self._appState = appState
-            let metadata = appState.editor.song.metadata.wrappedValue
-            self.metadata = metadata
+            let metadata = GtkRender.PageHeader.collectMetadata(appState.editor.song.metadata.wrappedValue)
+            self.metadata = Array(metadata.prefix(4))
+            self.additionalMetadata = Array(metadata.dropFirst(4))
         }
         /// The state of the application
         @Binding var appState: AppState
         /// The metadata
-        let metadata: Song.Metadata
+        let metadata: [MetaData]
+        /// The additional metadata
+        let additionalMetadata: [MetaData]
         /// Bool to show more metadata
         @State private var showMoreMetadata: Bool = false
         /// The body of the `View`
         var view: Body {
             /// Metadata
             HStack {
-                if let key = metadata.key {
-                    metadata(name: "key", value: key.display)
-                }
-                if let capo = metadata.capo {
-                    metadata(name: "capo", value: capo)
-                }
-                if let time = metadata.time {
-                    metadata(name: "time", value: time)
+                ForEach(metadata, horizontal: true) { item in
+                    metadata(item)
                 }
                 Views.MetronomeToggle(appState: $appState)
                     .tooltip("Play the metronome")
-                if let additionalMetadata = additionalMetadata() {
+                if !additionalMetadata.isEmpty {
                     Toggle("More…", isOn: $showMoreMetadata)
                         .style(.pageHeaderToggle)
                         .flat()
                         .tooltip("Show more information about the song")
                         .popover(visible: $showMoreMetadata) {
                             ForEach(additionalMetadata) { item in
-                                Text(item.content)
+                                VStack {
+                                    Text(item.label)
                                     .useMarkup()
-                                    .padding(4)
+                                    Text(item.value)
+                                }
+                                .padding(4)
                             }
                         }
                 }
@@ -65,56 +65,118 @@ extension GtkRender {
         ///   - name: Name of the icon
         ///   - value: The value of the metadata
         /// - Returns: A View
-        private func metadata(name: String, value: String) -> AnyView {
+        private func metadata( _ metadata: MetaData) -> AnyView {
             HStack(spacing: 5) {
-                Widgets.BundleImage(icon: name)
+                Widgets.BundleImage(icon: metadata.icon)
                     .pixelSize(16)
                     .valign(.center)
                     .style(.svgIcon)
-                Text(value)
+                Text(metadata.value)
             }
             .padding()
+            .tooltip(metadata.label)
         }
 
-        /// Collect additional metadata
+        /// Collect metadata
         /// - Returns: An array of metadata
-        private func additionalMetadata() -> [String.ElementWrapper]? {
-            var result = [String.ElementWrapper]()
-            if let year = metadata.year {
-                appendMetadata([year.toElementWrapper], label: "Year", result: &result)
+        private static func collectMetadata(_ metadata: Song.Metadata) -> [MetaData] {
+            var result = [MetaData]()
+            if let key = metadata.key {
+                result.append(
+                    MetaData(
+                        icon: .key,
+                        label: "Key",
+                        value: key.display
+                    )
+                )
+            }
+            if let capo = metadata.capo {
+                result.append(
+                    MetaData(
+                        icon: .capo,
+                        label: "Capo",
+                        value: capo
+                    )
+                )
+            }
+            if let time = metadata.time {
+                result.append(
+                    MetaData(
+                        icon: .time,
+                        label: "Time",
+                        value: time
+                    )
+                )
             }
             if let duration = metadata.formatDuration {
-                appendMetadata([duration.toElementWrapper], label: "Duration", result: &result)
+                result.append(
+                    MetaData(
+                        icon: .duration,
+                        label: "Duration",
+                        value: duration
+                    )
+                )
             }
-            if let arrangers = metadata.arrangers {
-                appendMetadata(arrangers, label: "Arranger", result: &result)
-            }
-            if let lyricists = metadata.lyricists {
-                appendMetadata(lyricists, label: "Lyricist", result: &result)
-            }
-            if let composers = metadata.composers {
-                appendMetadata(composers, label: "Composer", result: &result)
+            if let year = metadata.year {
+                result.append(
+                    MetaData(
+                        icon: .year,
+                        label: "Year",
+                        value: year
+                    )
+                )
             }
             if let copyright = metadata.copyright {
-                appendMetadata(["© \(copyright)".toElementWrapper], label: "Copyright", result: &result)
+                result.append(
+                    MetaData(
+                        icon: .copyright,
+                        label: "Copyright",
+                        value: copyright
+                    )
+                )
             }
-            return result.isEmpty ? nil : result
+            if let arrangers = metadata.arrangers {
+                result.append(
+                    MetaData(
+                        icon: .person,
+                        label: "Arranger",
+                        value: arrangers.map(\.content).joined(separator: "\n")
+                    )
+                )
+            }
+            if let lyricists = metadata.lyricists {
+                result.append(
+                    MetaData(
+                        icon: .person,
+                        label: "Lyricist",
+                        value: lyricists.map(\.content).joined(separator: "\n")
+                    )
+                )
+            }
+            if let composers = metadata.composers {
+                result.append(
+                    MetaData(
+                        icon: .person,
+                        label: "Composer",
+                        value: composers.map(\.content).joined(separator: "\n")
+                    )
+                )
+            }
+            return result
         }
 
-        /// Append a metadata item
-        /// - Parameters:
-        ///   - metadata: The metadata to add
-        ///   - label: The label of the metadata
-        ///   - result: The current array of metadata items
-        private func appendMetadata(
-            _ metadata: [String.ElementWrapper],
-            label: String,
-            result: inout [String.ElementWrapper]
-        ) {
-            result.append(.init(content: "<b>\(label)\(metadata.count > 1 ? "s" : "")</b>"))
-            for item in metadata {
-                result.append(.init(content: "\(item.content)"))
-            }
+        /// Structure of a metadata item
+        struct MetaData: Identifiable {
+            /// Identifiable protocol
+            let id = UUID()
+            /// The icon to use
+            /// - Note: Used in the main part of the `View`
+            var icon: ImageUtils.Icon
+            /// The label
+            /// - Note: Used in the *more* part of the `View`
+            var label: String
+            /// The value
+            var value: String
         }
     }
 }

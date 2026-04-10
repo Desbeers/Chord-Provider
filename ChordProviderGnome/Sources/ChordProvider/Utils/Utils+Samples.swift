@@ -28,6 +28,10 @@ extension Utils {
         case transpose = "Transpose"
         /// Chord definitions
         case chordDefinitions = "Chord Definitions"
+        /// Brackets
+        case brackets = "Brackets"
+        /// Source Comments
+        case sourceComments = "Source Comments"
         /// Complicated sample
         case mollyMalone = "Molly Malone"
 
@@ -40,6 +44,8 @@ extension Utils {
             .debugWarnings,
             .transpose,
             .chordDefinitions,
+            .brackets,
+            .sourceComments,
             .mollyMalone
         ]
     }

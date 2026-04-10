@@ -43,7 +43,7 @@ extension ChordProParser {
             var part = Song.Section.Line.Part(id: partID)
             if let chord {
                 /// Check for pango markup
-                let markup = String(chord).markup
+                let markup = String(chord).markup(handleBrackets: true)
                 part.chordDefinition = processChord(
                     chord: markup.text,
                     line: &line,
@@ -57,7 +57,7 @@ extension ChordProParser {
             }
             if let lyric {
                 let parts = String(lyric).matches(of: RegexDefinitions.lineSeparator).map { match in
-                    String(match.0).markup
+                    String(match.0).markup(handleBrackets: false)
                 }
                 part.lyrics = parts
                 part.text = parts.map((\.text)).joined()
@@ -79,7 +79,7 @@ extension ChordProParser {
         /// Add the line
         currentSection.lines.append(line)
         /// Set the environment to Verse if not yet set and we have chords, else to Textblock
-        if currentSection.environment == .none {
+        if currentSection.environment == .none || currentSection.autoCreated ?? false {
             autoSection(
                 environment: haveChords ? .verse : .textblock,
                 currentSection: &currentSection,

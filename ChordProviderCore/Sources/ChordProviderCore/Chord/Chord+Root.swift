@@ -135,7 +135,7 @@ extension Chord {
             case .fSharp:
                 "F♯/G♭"
             case .gSharp:
-                "G♯/F♭"
+                "G♯/A♭"
             case .aSharp:
                 "A♯/B♭"
             case .dFlat, .eFlat, .gFlat, .aFlat, .bFlat:

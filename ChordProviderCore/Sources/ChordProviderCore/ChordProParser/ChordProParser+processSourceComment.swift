@@ -20,7 +20,8 @@ extension ChordProParser {
         song: inout Song
     ) {
         var arguments: ChordProParser.DirectiveArguments = [.plain: comment]
-        if !currentSection.lines.isEmpty && currentSection.autoCreated ?? false == false {
+        //let firstLine = currentSection.lines.first
+        if currentSection.lines.first != nil {
             /// A source comment inside a section
             let line = Song.Section.Line(
                 sourceLineNumber: song.lines,

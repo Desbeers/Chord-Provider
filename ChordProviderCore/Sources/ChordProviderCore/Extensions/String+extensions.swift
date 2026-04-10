@@ -10,7 +10,15 @@ import Foundation
 extension String {
 
     /// Wrapper for text that contains optional markup
-    var markup: Song.Markup {
+    /// - Parameter handleBrackets: Bool if brackets should be moved to the markup
+    /// - Returns:  ``Markup`` structure
+    /// 
+    /// Usuage of the *handleBrackets*:
+    /// 
+    /// - When parsing a chord we want to have a 'clean' name so everything around
+    ///   the chord name should be moved to the markup
+    /// - When parsing a lyric, only markup should be moved
+    func markup(handleBrackets: Bool) -> Song.Markup {
         /// Fallback; this should not happen
         var markup = Song.Markup(open: "<span color=\"red\">", text: self, close: "</span>")
         if let match = self.wholeMatch(of: RegexDefinitions.optionalMarkup) {
@@ -19,7 +27,7 @@ extension String {
             markup.close = String(match.3 ?? "")
         }
         /// Handle optional brackets around the text
-        if markup.text.hasPrefix("("), markup.text.hasSuffix(")") {
+        if handleBrackets, markup.text.hasPrefix("("), markup.text.hasSuffix(")") {
             markup.text.removeFirst()
             markup.text.removeLast()
             markup.open += "("

@@ -10,9 +10,24 @@
 import Foundation
 
 /// Utilities to deal with images
-/// - Note: Experimental code
 public enum ImageUtils {
     // Just a placeholder
+}
+
+public extension ImageUtils {
+
+    /// Available icons
+    enum Icon: String {
+        case capo
+        case copyright
+        case duration
+        case instrument
+        case key
+        case person
+        case tempo
+        case time
+        case year
+    }
 }
 
 public extension ImageUtils {

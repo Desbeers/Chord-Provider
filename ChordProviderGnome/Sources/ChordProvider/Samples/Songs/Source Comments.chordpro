@@ -1,0 +1,23 @@
+# Example of a simple ChordPro song.
+
+{title Source Comments}
+{subtitle Nick Berendsen}
+{tag Debug}
+
+{start_of_chorus}
+Swing [D]low, sweet [G]chari[D]ot,
+Comin’ for to carry me [A7]home.
+# This is an inline comment and should not break the verse
+Swing [D7]low, sweet [G]chari[D]ot,
+Comin’ for to [A7]carry me [D]home.
+{end_of_chorus}
+
+# Verse.
+I [D]looked over Jordan, and [G]what did I [D]see,
+Comin’ for to carry me [A7]home.
+# This is an inline comment and should not break the verse
+A [D]band of angels [G]comin’ after [D]me,
+Comin’ for to [A7]carry me [D]home.
+
+# One more chorus.
+{chorus}

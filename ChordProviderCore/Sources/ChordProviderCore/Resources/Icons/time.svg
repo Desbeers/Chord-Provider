@@ -6,13 +6,25 @@
    version="1.1"
    id="svg1"
    sodipodi:docname="time.svg"
-   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   inkscape:version="1.4.3 (0d15f75042, 2025-12-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs1" />
+     id="defs1">
+    <clipPath
+       id="presentation_clip_path"
+       clipPathUnits="userSpaceOnUse">
+   <rect
+   x="0"
+   y="0"
+   width="3810"
+   height="3810"
+   id="rect2" />
+
+  </clipPath>
+  </defs>
   <sodipodi:namedview
      id="namedview1"
      pagecolor="#ffffff"
@@ -22,15 +34,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="30.622437"
-     inkscape:cx="7.772079"
-     inkscape:cy="6.2699125"
+     inkscape:zoom="21.399644"
+     inkscape:cx="2.1262036"
+     inkscape:cy="4.275772"
      inkscape:window-width="1728"
-     inkscape:window-height="1043"
+     inkscape:window-height="1048"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="svg1"
      showgrid="true">
     <inkscape:grid
        id="grid1"
@@ -47,35 +59,11 @@
        enabled="true"
        visible="true" />
   </sodipodi:namedview>
-  <g
-     inkscape:groupmode="layer"
-     id="layer1"
-     inkscape:label="Group"
-     transform="translate(-0.09796738,-0.32655794)"
-     style="fill:none;stroke:#000000;stroke-opacity:1">
-    <path
-       d="m 8.1543455,14.376907 c 3.3122135,0 5.9972475,-2.678781 5.9972475,-5.9832794 0,-3.3044723 -2.685034,-5.9832797 -5.9972475,-5.9832797 -3.3121863,0 -5.9972473,2.6788074 -5.9972473,5.9832797 0,3.3044984 2.685061,5.9832794 5.9972473,5.9832794 z"
-       stroke="#808080"
-       stroke-width="0.4"
-       stroke-linecap="round"
-       stroke-linejoin="round"
-       id="path1-0"
-       style="display:inline;fill:none;stroke:#000000;stroke-width:1.02656;stroke-dasharray:none;stroke-opacity:1" />
-    <path
-       d="M 8.0563782,4.1190249 V 8.3772997"
-       stroke="#808080"
-       stroke-width="0.4"
-       stroke-linecap="round"
-       stroke-linejoin="round"
-       id="path2"
-       style="display:inline;stroke:#000000;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1;fill:none" />
-    <path
-       d="M 11.095215,11.38648 8.0563782,8.3772997"
-       stroke="#808080"
-       stroke-width="0.4"
-       stroke-linecap="round"
-       stroke-linejoin="round"
-       id="path3"
-       style="display:inline;stroke:#000000;stroke-width:0.8;stroke-dasharray:none;stroke-opacity:1;fill:none" />
-  </g>
+  <path
+     fill="#000000"
+     stroke="none"
+     d="m 12.919801,4.9574731 c 0,0.3802397 -0.09482,0.7558424 -0.279932,1.0897114 -0.185116,0.3338691 -0.451503,0.6028191 -0.77207,0.792939 -0.320567,0.1901199 -0.68177,0.2921354 -1.052002,0.2921354 -0.365718,0 -0.73595,-0.1020155 -1.0565173,-0.2921354 C 9.4387126,6.6500036 9.1723258,6.3810536 8.9872096,6.0471845 8.8020933,5.7133155 8.7072777,5.3377128 8.7072777,4.9574731 c 0,-0.3802398 0.094816,-0.7512054 0.2799319,-1.0850744 C 9.1723258,3.5385296 9.4387126,3.2649425 9.7592797,3.0748226 10.197238,2.8568803 10.847402,2.9310735 10.608105,2.8244209 9.4838629,2.3189802 9.0007546,2.2447871 8.0616284,2.369988 7.095412,2.5647449 5.7589631,2.5925674 5.3074601,7.0348804 4.8559571,11.477193 6.2962517,13.369118 8.747913,13.656616 c 2.451661,0.287498 2.727078,-1.066526 3.494633,-2.601396 0.343143,-0.0881 0.487623,-0.0371 0.623074,0.370966 -0.641134,1.53487 -1.092637,3.143933 -4.3750637,3.213489 C 6.6800292,14.514474 2.8603138,13.50823 3.1357307,8.1245919 3.4111475,2.7409536 7.1450773,1.5492266 8.3686504,1.4703964 c 3.0386156,-0.199394 4.0861026,2.0681332 4.2712186,2.3973652 0.180601,0.3338691 0.279932,0.7094717 0.279932,1.0897115 z"
+     id="path53-0"
+     style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.1;stroke-dasharray:none;stroke-opacity:0"
+     inkscape:label="time" />
 </svg>

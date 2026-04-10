@@ -1,0 +1,28 @@
+{title Brackets}
+{subtitle Nick Berendsen}
+{year 2026}
+
+{comment A chord wraped in brackets should still be correct}
+
+| A <span color="purple">(B)</span> <span color="green">C</span> (D) |
+
+{start_of_verse}
+I [(D)]looked over Jordan, and [G]what did I [D]see,
+Comin’ for to carry me [(A7)]home.
+{end_of_verse}
+
+{comment Below part should be a Verse because it has chords}
+
+(A band of angels comin’ after me),
+Comin’ for to [<span color="purple">A7</span>]carry me [D]home.
+
+{start_of_textblock: I'm a Textblock}
+# Chords will be stripped from textblocks
+I [(D)]looked over Jordan, and [G]what did I [D]see,
+Comin’ for to carry me [(A7)]home.]]]]
+{end_of_textblock}
+
+{comment Below part should be a Textblock because it has no chords}
+
+(A band of angels comin’ after me),
+Comin’ for to <b>carry</b> me home.]]
