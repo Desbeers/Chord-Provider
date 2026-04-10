@@ -13,11 +13,13 @@ extension ChordProParser {
     /// - Parameters:
     ///   - directive: The ``ChordPro/Directive`` to add to the line
     ///   - arguments: The optional arguments for the directive
+    ///   - part: The optional part to add to the new section
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func openSection(
         directive: ChordPro.Directive,
         arguments: DirectiveArguments,
+        part: Song.Section.Line.Part? = nil,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
@@ -63,6 +65,9 @@ extension ChordProParser {
             context: directive.details.environment,
             plain: plain
         )
+        if let part {
+            line.parts = [part]
+        }
         if source == nil {
             line.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
         }

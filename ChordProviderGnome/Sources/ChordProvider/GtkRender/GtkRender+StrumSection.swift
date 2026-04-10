@@ -17,6 +17,8 @@ extension GtkRender {
         let section: Song.Section
         /// The zoom value of the `View`
         let zoom: Double
+        /// The maximum length of a single line
+        let maxLenght: Int
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -64,7 +66,7 @@ extension GtkRender {
                             }
                         }
                     case .comment:
-                        CommentLabel(comment: line.plain)
+                        CommentLabel(line: line, maxLenght: maxLenght)
                     default:
                         Views.Empty()
                     }

@@ -16,15 +16,15 @@ extension Song.Section.Line {
             chordDefinition: ChordDefinition? = nil,
             text: String? = nil,
             strum: Song.Section.Line.Strum.Action? = nil,
-            textMarkup: Song.Markup? = nil,
-            chordMarkup: Song.Markup? = nil
+            chordMarkup: Song.Markup? = nil,
+            textMarkup: [Song.Markup]? = nil
         ) {
             self.id = id
             self.chordDefinition = chordDefinition
             self.text = text
             self.strum = strum
-            self.textMarkup = textMarkup
             self.chordMarkup = chordMarkup
+            self.textMarkup = textMarkup
         }
 
         /// The unique ID of the part
@@ -33,25 +33,27 @@ extension Song.Section.Line {
         public var chordDefinition: ChordDefinition?
         /// The optional text
         public var text: String?
-        /// The optional lyrics
-        public var lyrics: [Song.Markup]?
+
         /// The optional strum
         public var strum: Song.Section.Line.Strum.Action?
-        /// Pango formatting for the text
-        public var textMarkup: Song.Markup?
-        /// Pango formatting for the chord
+
+        // MARK: Markup
+
+        /// The optional text with markup
+        public var textMarkup: [Song.Markup]?
+        /// The opional markup formatting for the chord
         public var chordMarkup: Song.Markup?
-        /// Plain text with markup
-        public func withMarkup(_ text: String) -> String {
-            return "\(textMarkup?.open ?? "")\(text)\(textMarkup?.close ?? "")"
-        }
         /// Chord definition with markup
         public func withMarkup(_ chord: ChordDefinition) -> String {
             return "\(chordMarkup?.open ?? "")\(chord.display)\(chordMarkup?.close ?? "")"
         }
-        public var lyricsText: String {
-            if let lyrics {
-                return lyrics.map { lyric in "\(lyric.open)\(lyric.text)\(lyric.close)"}.joined()
+        /// All th text with markup
+        /// 
+        /// This will combine all text parts with markup into one string
+        /// -Note: In use when rendering a part of a lyric or chorus
+        public var allTextWithMarkup: String {
+            if let textMarkup {
+                return textMarkup.map { part in "\(part.open)\(part.text)\(part.close)"}.joined()
             }
             return ""
         }

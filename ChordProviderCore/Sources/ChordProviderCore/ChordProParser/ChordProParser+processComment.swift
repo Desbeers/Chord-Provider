@@ -20,14 +20,21 @@ extension ChordProParser {
         song: inout Song
     ) {
         let comment = arguments[.plain] ?? ""
+        /// Chop the comments in parts to deal with markup
+        let textMarkup = comment.matches(of: RegexDefinitions.lineSeparator).map { match in
+            String(match.0).markup(handleBrackets: false)
+        }
+        /// A comment should be rendered as part of a line, so create a part
+        let part = Song.Section.Line.Part(textMarkup: textMarkup)
         if currentSection.environment == .none || currentSection.environment == .metadata {
-            /// A  comment in its own section
+            /// A comment in its own section
             if comment.isEmpty {
                 currentSection.addWarning("The comment is empty")
             }
             addSection(
                 directive: .comment,
                 arguments: arguments,
+                part: part,
                 currentSection: &currentSection,
                 song: &song
             )
@@ -44,6 +51,8 @@ extension ChordProParser {
                 context: currentSection.environment,
                 plain: comment
             )
+            /// Add the part
+            line.parts = [part]
             if let warnings = currentSection.warnings {
                 for warning in warnings {
                     line.addWarning(warning, level: warning.level)

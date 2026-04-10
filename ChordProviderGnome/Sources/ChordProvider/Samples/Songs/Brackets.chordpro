@@ -17,9 +17,8 @@ Comin’ for to carry me [(A7)]home.
 Comin’ for to [<span color="purple">A7</span>]carry me [D]home.
 
 {start_of_textblock: I'm a Textblock}
-# Chords will be stripped from textblocks
-I [(D)]looked over Jordan, and [G]what did I [D]see,
-Comin’ for to carry me [(A7)]home.]]]]
+# Chords will be inline and not clickable
+I [(D)] looked over Jordan, and [<span color="purple"><i>G</i></span>] what did I [<span color="purple">D</span>] see, comin’ for to carry me [(A7)] home.
 {end_of_textblock}
 
 {comment Below part should be a Textblock because it has no chords}

@@ -66,9 +66,14 @@ extension Song {
         /// The longest label in the song
         /// - Note: Used in PDF output to calculate label offset
         public var longestLabel: String = ""
-        /// The longest line the song
+        /// The longest line in the song
         /// - Note: Used in the PDF and SwiftUI output
         public var longestLine = Song.Section.Line()
+        /// The longest line lenght the song
+        /// - Note: Used for rendering texblocks and comments
+        public var longestLineLenght: Int {
+            max(60, longestLine.lineLength?.count ?? 60)
+        }
 
         // MARK: Metadata directives that are defined
 

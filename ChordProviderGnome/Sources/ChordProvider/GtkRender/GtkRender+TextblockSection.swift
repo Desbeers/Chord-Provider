@@ -38,7 +38,7 @@ extension GtkRender {
                     VStack {
                         switch line.type {
                         case .songLine:
-                            let lines = line.parts?.map(\.lyricsText).joined().wrap(by: maxLenght) ?? []
+                            let lines = line.wholeTextWithMarkup(split: maxLenght).toElementWrapper
                             ForEach(lines) { line in
                                 Text(line.content)
                                     .useMarkup()
@@ -48,7 +48,7 @@ extension GtkRender {
                         case .emptyLine:
                             EmptyLine()
                         case .comment:
-                            CommentLabel(comment: line.plain)
+                            CommentLabel(line: line, maxLenght: maxLenght)
                         default:
                             Views.Empty()
                         }

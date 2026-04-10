@@ -29,7 +29,7 @@ extension GtkRender {
                         Text(" ")
                             .style(.chord)
                     }
-                    Text(part.lyricsText)
+                    Text(part.allTextWithMarkup)
                         .useMarkup()
                         .style(.standard)
                         .halign(.start)

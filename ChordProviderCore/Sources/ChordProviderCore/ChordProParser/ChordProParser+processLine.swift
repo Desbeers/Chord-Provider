@@ -38,35 +38,18 @@ extension ChordProParser {
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {
-
             let (_, chord, lyric) = match.output
-            var part = Song.Section.Line.Part(id: partID)
-            if let chord {
-                /// Check for pango markup
-                let markup = String(chord).markup(handleBrackets: true)
-                part.chordDefinition = processChord(
-                    chord: markup.text,
-                    line: &line,
-                    song: &song
-                )
-                line.lineLength = (line.lineLength ?? "") + " \(markup.text) "
-                /// Add optional markup
-                part.chordMarkup = markup
-                /// Because it has a chord; the section should be at least a verse
-                haveChords = true
-            }
-            if let lyric {
-                let parts = String(lyric).matches(of: RegexDefinitions.lineSeparator).map { match in
-                    String(match.0).markup(handleBrackets: false)
-                }
-                part.lyrics = parts
-                part.text = parts.map((\.text)).joined()
-                if let text = part.text {
-                    /// Add the lyrics to the 'plain' text
-                    line.plain = (line.plain ?? "") + text
-                    line.lineLength = (line.lineLength ?? "") + text
-                }
-            }
+
+            let chordMatch = String(chord ?? "")
+            let lyricMatch = String(lyric ?? "")
+            haveChords = chordMatch.isEmpty ? false : true
+            let part = processPart(
+                chord: chordMatch,
+                text: lyricMatch,
+                partID: partID,
+                line: &line,
+                song: &song
+            )
             /// Add the part
             parts.append(part)
             /// Increase the ID

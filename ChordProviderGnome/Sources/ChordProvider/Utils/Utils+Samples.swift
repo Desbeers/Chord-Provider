@@ -32,6 +32,8 @@ extension Utils {
         case brackets = "Brackets"
         /// Source Comments
         case sourceComments = "Source Comments"
+        /// Long Stuff
+        case longStuff = "Long Stuff"
         /// Complicated sample
         case mollyMalone = "Molly Malone"
 
@@ -46,6 +48,7 @@ extension Utils {
             .chordDefinitions,
             .brackets,
             .sourceComments,
+            .longStuff,
             .mollyMalone
         ]
     }

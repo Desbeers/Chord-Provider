@@ -45,20 +45,20 @@ extension GtkRender {
         /// - Parameter section: The current section
         /// - Returns: A `View`
         @ViewBuilder private func sectionPart(_ section: Song.Section) -> Body {
+            let maxLenght = appState.editor.song.metadata.longestLineLenght
             switch section.environment {
             case .verse, .bridge, .chorus:
                 SectionHeader(section: section)
-                LyricsSection(section: section, coreSettings: appState.editor.coreSettings)
+                LyricsSection(section: section, coreSettings: appState.editor.coreSettings, maxLenght: maxLenght)
             case .textblock:
                 if !section.label.isEmpty {
                     SectionHeader(section: section)
                 }
-                let maxLenght = appState.editor.song.metadata.longestLine.lineLength?.count ?? 100
                 TextblockSection(section: section, maxLenght: maxLenght)
             case .tab:
                 if !appState.editor.coreSettings.lyricsOnly {
                     SectionHeader(section: section)
-                    TabSection(section: section)
+                    TabSection(section: section, maxLenght: maxLenght)
                 }
             case .grid:
                 if !appState.editor.coreSettings.lyricsOnly {
@@ -72,7 +72,7 @@ extension GtkRender {
             case .strum:
                 if !appState.editor.coreSettings.lyricsOnly {
                     SectionHeader(section: section)
-                    StrumSection(section: section, zoom: appState.settings.theme.zoom)
+                    StrumSection(section: section, zoom: appState.settings.theme.zoom, maxLenght: maxLenght)
                 }
             case .repeatChorus:
                 let label = section.lines.first?.plain
@@ -83,12 +83,14 @@ extension GtkRender {
                         where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
                     ) {
                     SectionHeader(label: label, section: lastChorus)
-                    LyricsSection(section: lastChorus, coreSettings: appState.editor.coreSettings)
+                    LyricsSection(section: lastChorus, coreSettings: appState.editor.coreSettings, maxLenght: maxLenght)
                 } else {
                     RepeatChorus(label: label, section: section)
                 }
             case .comment:
-                CommentLabel(comment: section.lines.first?.plain)
+                if let line = section.lines.first {
+                    CommentLabel(line: line, maxLenght: maxLenght)
+                }
             case .image:
                 ImageSection(section: section, coreSettings: appState.editor.coreSettings)
             default:

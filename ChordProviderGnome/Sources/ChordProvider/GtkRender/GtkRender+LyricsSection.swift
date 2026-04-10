@@ -17,6 +17,8 @@ extension GtkRender {
         let section: Song.Section
         /// The core settings
         let coreSettings: ChordProviderSettings
+        /// The maximum length of a single line
+        let maxLenght: Int
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -35,7 +37,7 @@ extension GtkRender {
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
-                        CommentLabel(comment: line.plain)
+                        CommentLabel(line: line, maxLenght: maxLenght)
                     default:
                         Views.Empty()
                     }

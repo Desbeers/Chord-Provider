@@ -85,7 +85,7 @@ extension GtkRender {
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
-                        CommentLabel(comment: line.plain)
+                        CommentLabel(line: line, maxLenght: appState.editor.song.metadata.longestLineLenght)
                     default:
                         Views.Empty()
                     }
@@ -114,7 +114,7 @@ extension GtkRender {
                         .pixelSize(Int(14 * appState.settings.theme.zoom))
                         .style(.svgIcon)
                 } else {
-                    Text(part.withMarkup(part.text ?? " "))
+                    Text(part.text ?? " ")
                         .useMarkup()
                         .style(.sectionGrid)
                         .padding(5, .leading)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 import Adwaita
 
 extension GtkRender {
@@ -13,17 +14,22 @@ extension GtkRender {
     /// The `View` for a comment label
     struct CommentLabel: View {
         /// Init the `View`
-        /// - Parameter comment: The comment as optional `String`
-        init(comment: String?) {
-            self.comment = Utils.convertSimpleLinks(comment ?? "Empty Comment")
+        /// - Parameters 
+        ///   - line: The current line
+        ///   - maxLenght: The maximum length of a single line
+        init(line: Song.Section.Line, maxLenght: Int) {
+            self.line = line
+            self.maxLenght = maxLenght
         }
-        /// The comment as `String`
-        let comment: String
+        /// The current line of the song
+        let line: Song.Section.Line
+        /// The maximum length of a single line
+        let maxLenght: Int
         /// The body of the `View`
         var view: Body {
             HStack(spacing: 10) {
                 Symbol(icon: .default(icon: .userInvisible))
-                let lines: [String.ElementWrapper] = comment.wrap(by: 100)
+                let lines = line.wholeTextWithMarkup(split: maxLenght).toElementWrapper
                 ForEach(lines) { line in
                     Text(line.content)
                         .useMarkup()

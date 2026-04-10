@@ -87,6 +87,60 @@ extension Song.Section {
         public var label: String {
             arguments?[.plain] ?? arguments?[.label] ?? plain ?? context.label
         }
+        
+        /// The whole line with markup split by a lenght
+        /// - Parameter length: The maximum lengt of a String
+        /// - Returns: An Array of Strings
+        public func wholeTextWithMarkup(split length: Int) -> [String] {
+            var result: [String] = []
+            var currentLine = ""
+            var currentLength = 0
+            guard let parts else { return [] }
+            for part in parts {
+                if let chord = part.chordDefinition, var output = part.chordMarkup {
+                    /// Give it some extra styling
+                    output.open += "<b><i>"
+                    output.close = "</i></b>" + output.close + " "
+                    appendPart(plain: chord.name, output: "\(output.open)\(output.text)\(output.close)")
+                }
+                if let textParts = part.textMarkup {
+                    for part in textParts {
+                        if part.close.isEmpty {
+                            /// Just plain text, add word by word
+                            /// - Note: This is to split a long line as well
+                            let parts = part.text.split(separator: " ")
+                            for part in parts {
+                                let string = "\(String(part)) "
+                                appendPart(plain: string, output: string)
+                            }
+                        } else {
+                            /// Don't break the markup
+                            appendPart(plain: part.text, output: "\(part.open)\(part.text)\(part.close) ")
+                        }
+                    }
+                }
+            }
+            /// Add the remaining part
+            /// - Note: The last space will be removed here
+            result.append(currentLine.trimmingCharacters(in: .whitespaces))
+            /// Return the result
+            return result
+
+            /// Helper to add a part
+            /// - Parameters:
+            ///   - plain: The plain text
+            ///   - output: The text to output
+            func appendPart(plain: String, output: String) {
+                if currentLength + plain.count >= length {
+                    /// Reached the maximum lenght, add it to the result
+                    result.append(currentLine)
+                    currentLine = ""
+                    currentLength = 0
+                }
+                currentLine += output
+                currentLength += plain.count
+            }
+        }
 
         // MARK: Mutating functions
 
