@@ -21,8 +21,6 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        /// Check if we have chords, if so, set the environment to Verse if not yet set.
-        var haveChords: Bool = false
         /// Start with a fresh line:
         var line = Song.Section.Line(
             sourceLineNumber: song.lines,
@@ -30,41 +28,19 @@ extension ChordProParser {
             sourceParsed: text.trimmingCharacters(in: .whitespaces),
             type: .songLine
         )
-        var partID: Int = 1
-        /// All the parts in the line
-        var parts: [Song.Section.Line.Part] = []
-        /// Chop the line in parts
-        var matches = text.matches(of: RegexDefinitions.lineParts)
-        /// The last match is the newline character so completely empty; we don't need it
-        matches = matches.dropLast()
-        for match in matches {
-            let (_, chord, lyric) = match.output
-
-            let chordMatch = String(chord ?? "")
-            let lyricMatch = String(lyric ?? "")
-            haveChords = chordMatch.isEmpty ? false : true
-            let part = processPart(
-                chord: chordMatch,
-                text: lyricMatch,
-                partID: partID,
-                line: &line,
-                song: &song
-            )
-            /// Add the part
-            parts.append(part)
-            /// Increase the ID
-            partID += 1
-        }
-
-        line.parts = parts
+        processParts(text: text, line: &line, song: &song)
         /// Set the context
         line.context = currentSection.environment
         /// Add the line
         currentSection.lines.append(line)
         /// Set the environment to Verse if not yet set and we have chords, else to Textblock
         if currentSection.environment == .none || currentSection.autoCreated ?? false {
+            /// Check for chords
+            if !currentSection.haveChords {
+                currentSection.haveChords = line.parts?.compactMap(\.chordDefinition).isEmpty ?? false ? false : true
+            }
             autoSection(
-                environment: haveChords ? .verse : .textblock,
+                environment: currentSection.haveChords ? .verse : .textblock,
                 currentSection: &currentSection,
                 song: &song
             )

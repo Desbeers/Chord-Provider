@@ -40,6 +40,9 @@ extension Song {
         ///
         /// - Note: Automatically created sections will end with an 'newline', unlike defined sections.
         public var autoCreated: Bool?
+        /// Bool if the section have chords
+        /// - Note: For auto-created sections to see if it is a verse or a textblock
+        public var haveChords: Bool = false
         /// The optional arguments of the section; taken from the first line of the section
         public var arguments: ChordProParser.DirectiveArguments? {
             if let firstLine = lines.first {

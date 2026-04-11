@@ -20,12 +20,18 @@ extension ChordProParser {
         song: inout Song
     ) {
         let comment = arguments[.plain] ?? ""
-        /// Chop the comments in parts to deal with markup
-        let textMarkup = comment.matches(of: RegexDefinitions.lineSeparator).map { match in
-            String(match.0).markup(handleBrackets: false)
-        }
-        /// A comment should be rendered as part of a line, so create a part
-        let part = Song.Section.Line.Part(textMarkup: textMarkup)
+        /// A comment should be rendered as part of a line
+        var line = Song.Section.Line(
+            sourceLineNumber: song.lines,
+            source: "{\(ChordPro.Directive.comment) \(comment)}",
+            sourceParsed: "{\(ChordPro.Directive.comment) \(comment.trimmingCharacters(in: .whitespaces))}",
+            directive: .comment,
+            type: .comment,
+            context: currentSection.environment,
+            plain: comment
+        )
+        processParts(text: comment, line: &line, song: &song)
+        /// Check where the comment belongs
         if currentSection.environment == .none || currentSection.environment == .metadata {
             /// A comment in its own section
             if comment.isEmpty {
@@ -34,7 +40,7 @@ extension ChordProParser {
             addSection(
                 directive: .comment,
                 arguments: arguments,
-                part: part,
+                line: line,
                 currentSection: &currentSection,
                 song: &song
             )
@@ -42,17 +48,6 @@ extension ChordProParser {
             currentSection.environment = .none
         } else {
             /// A comment inside a section
-            var line = Song.Section.Line(
-                sourceLineNumber: song.lines,
-                source: "{\(ChordPro.Directive.comment) \(comment)}",
-                sourceParsed: "{\(ChordPro.Directive.comment) \(comment.trimmingCharacters(in: .whitespaces))}",
-                directive: .comment,
-                type: .comment,
-                context: currentSection.environment,
-                plain: comment
-            )
-            /// Add the part
-            line.parts = [part]
             if let warnings = currentSection.warnings {
                 for warning in warnings {
                     line.addWarning(warning, level: warning.level)

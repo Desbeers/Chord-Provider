@@ -5,14 +5,12 @@
 
 # Some warnings are on purpose
 
-{comment TODO: Chords are rendered as plain text in a comment}
-
-{comment A very long comment with a lot of text and some chords [A] [B], and also markup that should not <b>break</b> this very <i>long</i> line that really must be chopped in parts}
+{comment A very long comment with a lot of text and some chords [A] [B] [Q], and also markup that should not <b>break</b> this very <i>long</i> line that really must be chopped in parts}
 
 {start_of_chorus}
 Swing [D]low, sweet [Q]chari[D]ot,
 Comin’ for to carry me [A7]home.
-{comment A very inline long comment with a lot of text and also markup that should not <b>break</b> this very <i>long</i> line that really must be chopped in parts}
+{comment A very inline long comment with a lot of text and also markup and chords [A] [F] [Q] that should not <b>break</b> this very <i>long</i> line that really must be chopped in parts}
 Swing [D7]low, sweet [G]chari[D]ot, comin’ for to [A7]carry me [D]home.
 {end_of_chorus}
 

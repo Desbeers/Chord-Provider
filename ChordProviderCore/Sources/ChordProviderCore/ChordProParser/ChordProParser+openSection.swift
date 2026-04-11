@@ -13,13 +13,13 @@ extension ChordProParser {
     /// - Parameters:
     ///   - directive: The ``ChordPro/Directive`` to add to the line
     ///   - arguments: The optional arguments for the directive
-    ///   - part: The optional part to add to the new section
+    ///   - line: The optional line to add to the new section
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func openSection(
         directive: ChordPro.Directive,
         arguments: DirectiveArguments,
-        part: Song.Section.Line.Part? = nil,
+        line: Song.Section.Line? = nil,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
@@ -56,33 +56,35 @@ extension ChordProParser {
         let plain = arguments.removeValue(forKey: .plain)
 
         /// Add the single line
-        var line = Song.Section.Line(
-            sourceLineNumber: song.lines,
-            source: source ?? "ERROR, NO SOURCE GIVEN",
-            directive: ChordPro.Directive.customDirectives.contains(directive) ? nil : directive,
-            arguments: arguments.isEmpty ? nil : arguments,
-            type: directive.details.lineType,
-            context: directive.details.environment,
-            plain: plain
-        )
-        if let part {
-            line.parts = [part]
-        }
-        if source == nil {
-            line.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
-        }
-        /// Calculate the source
-        line.calculateSource()
-
-        /// Add optional warnings
-        if let warnings = currentSection.warnings {
-            for warning in warnings {
-                line.addWarning(warning, level: warning.level)
+        if let line {
+            /// Append the supplied line
+            currentSection.lines.append(line)
+        } else {
+            var line = Song.Section.Line(
+                sourceLineNumber: song.lines,
+                source: source ?? "ERROR, NO SOURCE GIVEN",
+                directive: ChordPro.Directive.customDirectives.contains(directive) ? nil : directive,
+                arguments: arguments.isEmpty ? nil : arguments,
+                type: directive.details.lineType,
+                context: directive.details.environment,
+                plain: plain
+            )
+            if source == nil {
+                line.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
             }
-        }
+            /// Calculate the source
+            line.calculateSource()
 
-        /// Append the line
-        currentSection.lines.append(line)
+            /// Add optional warnings
+            if let warnings = currentSection.warnings {
+                for warning in warnings {
+                    line.addWarning(warning, level: warning.level)
+                }
+            }
+
+            /// Append the line
+            currentSection.lines.append(line)
+        }
 
         /// Reset the warnings, there are handled now
         currentSection.resetWarnings()

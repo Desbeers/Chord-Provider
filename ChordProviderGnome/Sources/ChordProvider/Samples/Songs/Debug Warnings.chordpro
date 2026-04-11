@@ -72,21 +72,27 @@ Comin’ for to carry me [A7]home.
 # This should be a Verse because it has chords
 Swing low, sweet chariot,
 Comin’ for to carry me [A7]home.
+
 # This should also be a Verse
 Swing [D]low, sweet [G]chari[D]ot,
 Comin' for to carry me [A7]home.
+
 # This should be a Textblock because it has no chords
 Swing low, sweet chariot,
 Comin' for to carry me home.
+
 # This should be a Tab
 |-0-1-2-3-4-|
 |-5-6-7-8-9-|
+
 # And another Verse
 Swing [D]low, sweet [G]chari[D]ot,
 Comin' for to carry me [A7]home.
+
 # This should be a Grid
 | A B C D |
 | E F G A |
+
 # And a Textblock
 Swing low, sweet chariot,
 Comin' for to carry me home.
