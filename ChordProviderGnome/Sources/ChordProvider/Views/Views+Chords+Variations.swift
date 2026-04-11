@@ -48,7 +48,7 @@ extension Views.Chords {
                 ScrollView {
                     FlowBox(chords, selection: $selectedVariationID) { chord in
                         VStack {
-                            Views.MidiPlayer(chord: chord, preset: appState.editor.coreSettings.midiPreset)
+                            Views.MidiPlayer(chord: chord, coreSettings: appState.editor.coreSettings)
                             Views.ChordDiagram(chord: chord, width: 120, coreSettings: appState.editor.coreSettings)
                                 .style(chord == selectedChord ? .selectedChord : .none)
                         }

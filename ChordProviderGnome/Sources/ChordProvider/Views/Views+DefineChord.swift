@@ -153,7 +153,7 @@ extension Views {
                         let definition = getDefinition
                         MidiPlayer(
                             chord: definition,
-                            preset: coreSettings.midiPreset
+                            coreSettings: coreSettings
                         )
                         Views.ChordDiagram(
                             chord: definition,

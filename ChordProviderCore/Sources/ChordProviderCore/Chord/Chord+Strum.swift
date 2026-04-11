@@ -10,47 +10,92 @@ import Foundation
 extension Chord {
 
     /// The strum actions
-    public enum Strum: String, Codable, Sendable {
+    public enum Strum: String, Codable, Sendable, CaseIterable, Identifiable, CustomStringConvertible {
 
-        /// Up stroke
-        case up
-        /// Accent up stroke
-        case upAccent
-        /// Arpeggio up stroke
-        case upArpeggio
-        /// Arpeggio Accent up stroke
-        case upArpeggioAccent
-        /// Muted up stroke
-        case upMuted
-        /// Muted Accent up stroke
-        case upMutedAccent
-        /// Staccato up stroke
-        case upStaccato
-        /// Staccato Accent up stroke
-        case upStaccatoAccent
+        /// Identifiable protocol
+        public var id: Self {
+            self
+        }
+
+        /// CustomStringConvertible protocol
+        public var description: String {
+            self.rawValue
+        }
 
         /// Down stroke
-        case down
+        case down = "Down stroke"
         /// Accent down stroke
-        case downAccent
+        case downAccent = "Accent down stroke"
         /// Arpeggio down stroke
-        case downArpeggio
+        case downArpeggio = "Arpeggio down stroke"
         /// Arpeggio Accent down stroke
-        case downArpeggioAccent
+        case downArpeggioAccent = "Arpeggio Accent down stroke"
         /// Muted down stroke
-        case downMuted
+        case downMuted = "Muted down stroke"
         /// Muted Accent down stroke
-        case downMutedAccent
+        case downMutedAccent = "Muted Accent down stroke"
         /// Staccato down stroke
-        case downStaccato
+        case downStaccato = "Staccato down stroke"
         /// Staccato Accent down stroke
-        case downStaccatoAccent
+        case downStaccatoAccent = "Staccato Accent down stroke"
+
+        /// Up stroke
+        case up = "Up stroke"
+        /// Accent up stroke
+        case upAccent = "Accent up stroke"
+        /// Arpeggio up stroke
+        case upArpeggio = "Arpeggio up stroke"
+        /// Arpeggio Accent up stroke
+        case upArpeggioAccent = "Arpeggio Accent up stroke"
+        /// Muted up stroke
+        case upMuted = "Muted up stroke"
+        /// Muted Accent up stroke
+        case upMutedAccent = "Muted Accent up stroke"
+        /// Staccato up stroke
+        case upStaccato = "Staccato up stroke"
+        /// Staccato Accent up stroke
+        case upStaccatoAccent = "Staccato Accent up stroke"
 
         /// Do not stroke
         case none
 
         /// Spacer
         case spacer
+
+        public static var options: [Strum] {
+            var options = Strum.allCases
+            /// Remove none and spacer
+            options.removeLast()
+            options.removeLast()
+            return options
+        }
+
+        /// Playback settings
+        public var playbackSettings: Playback {
+            /// Get the default settings
+            var settings = Playback()
+            /// Accent
+            if rawValue.contains("Accent") {
+                settings.velocity = 1.4
+            }
+            /// Arpeggio
+            if rawValue.contains("Arpeggio") {
+                settings.spread = 0.1
+            }
+            /// Muted / Staccato
+            if rawValue.contains("Muted") {
+                settings.duration = 0.25
+                settings.velocity *= 0.8
+            } else if rawValue.contains("Staccato") {
+                settings.duration = 0.5
+            }
+            /// Tweak the *up* stroke
+            if rawValue.starts(with: "up") {
+                settings.velocity *= 0.9
+                settings.spread *= 0.8
+            }
+            return settings
+        }
 
         /// The symbol as String
         /// - Note: Only used on macOS, Linux has fancy SVG symbols :-)
@@ -135,70 +180,28 @@ extension Chord {
 
 extension Chord.Strum {
 
-    struct Playback {
+    /// Settings for playback
+    public struct Playback {
 
-        enum Direction {
-            case up
-            case down
+        /// Init the playback settings
+        /// - Parameters:
+        ///   - velocity: The velocity
+        ///   - spread: The spread
+        ///   - duration: The duration
+        public init(
+            velocity: Double = 1.0,
+            spread: TimeInterval = 0.025,
+            duration: Double = 1.0
+        ) {
+            self.velocity = velocity
+            self.spread = spread
+            self.duration = duration
         }
-
-        enum Articulation {
-            case normal
-            case staccato
-            case muted
-        }
-
-        // MARK: - Core
-
-        var direction: Direction = .down
-
-        /// Time between notes in a strum (seconds)
-        var spread: TimeInterval = 0.012
-
-        /// Overall velocity multiplier
-        var velocityMultiplier: Double = 1.0
-
-        /// Note length scaling
-        var durationMultiplier: Double = 1.0
-
-        /// Random timing variation (+/- seconds)
-        var timingJitter: TimeInterval = 0.002
-
-        /// Articulation affects duration & feel
-        var articulation: Articulation = .normal
-
-        // MARK: - Advanced shaping
-
-        /// Velocity shaping across strings (0...1 → multiplier)
-        var velocityCurve: (Double) -> Double = { progress in
-            // Default: slight decay for downstroke feel
-            1.0 - (progress * 0.2)
-        }
-
-        // MARK: - Derived helpers
-
-        func velocity(for index: Int, count: Int, base: Double) -> Double {
-            let progress = count > 1 ? Double(index) / Double(count - 1) : 0
-            return base
-                * velocityMultiplier
-                * velocityCurve(progress)
-        }
-
-        func duration(from base: TimeInterval) -> TimeInterval {
-            let articulationFactor: Double = {
-                switch articulation {
-                case .normal:   return 1.0
-                case .staccato: return 0.5
-                case .muted:    return 0.25
-                }
-            }()
-
-            return base * durationMultiplier * articulationFactor
-        }
-
-        func noteTime(base: TimeInterval, index: Int) -> TimeInterval {
-            let jitter = Double.random(in: -timingJitter...timingJitter)
-            return base + (Double(index) * spread) + jitter
-        }
+        /// Accent
+        public var velocity: Double
+        /// arpeggio
+        public var spread: TimeInterval
+        /// staccato or muted
+        public var duration: Double
     }
 }

@@ -30,7 +30,7 @@ extension Utils {
         /// The current SoundFont ID
         var soundFontID: Int32 = -1
         /// Initial volume
-        let startVolume: Int32 = 120
+        var startVolume: Int32 = 120
 
         // MARK: MIDI channels
 

@@ -25,7 +25,10 @@ extension Views {
         var view: Body {
             ScrollView {
                 ForEach(appState.editor.song.chords) { chord in
-                    MidiPlayer(chord: chord, preset: appState.editor.coreSettings.midiPreset)
+                    MidiPlayer(
+                        chord: chord,
+                        coreSettings: appState.editor.coreSettings
+                    )
                     Button("") {
                         selectedChord = chord
                         chordDialog.toggle()

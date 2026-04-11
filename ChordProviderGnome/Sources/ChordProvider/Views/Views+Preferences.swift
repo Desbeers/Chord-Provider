@@ -136,6 +136,12 @@ extension Views {
                             values: MidiUtils.Preset.allCases
                         )
                         .subtitle("Select the instrument for playing chord with MIDI")
+                        ComboRow(
+                            "Strum",
+                            selection: $appState.editor.coreSettings.chordStrum,
+                            values: Chord.Strum.options
+                        )
+                        .subtitle("The default strum when playing a chord")
                         SwitchRow()
                             .title("Sound for Chord Definitions")
                             .subtitle("Use sound when defining a Chord")

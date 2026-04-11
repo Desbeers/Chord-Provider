@@ -16,7 +16,7 @@ extension Utils.MidiPlayer {
         if let strum = chord.strum, strum.rawValue.starts(with: "up") {
             notes.reverse()
         }
-        await playNotes(notes, preset: preset, strum: chord.strum)
+        await playNotes(notes, preset: preset, strum: strum)
     }
 
     /// Play notes polyphonically
@@ -24,6 +24,7 @@ extension Utils.MidiPlayer {
     ///   - notes: The notes to play
     ///   - preset: The MIDI preset
     func playNotes(_ notes: [Int], preset: MidiUtils.Preset, strum: Chord.Strum?) async {
+        dump(strum)
         guard let synth, soundFontID >= 0 else { return }
         /// Cancel previous chord
         playToken = UUID()
@@ -40,19 +41,22 @@ extension Utils.MidiPlayer {
             0,
             program
         )
+
+        /// Get the playback settings for the strum
+        /// - Note: If no strum is given, use the default settings
+        let playbackSettings = strum?.playbackSettings ?? Chord.Strum.Playback()
+
         /// Reset the volume
         /// - Note: Because it might be decreased already during fade-out
+        startVolume = Int32(playbackSettings.velocity * 110)
         fluid_synth_cc(synth, channel, 11, startVolume)
-
-        let totalStrumTime: Double = 0.5
 
         // MARK: Play the chord
 
         /// Strum notes
         for note in notes {
             fluid_synth_noteon(synth, channel, Int32(note), 110)
-            //try? await Task.sleep(nanoseconds: 460_000_000 / UInt64(notes.count))
-            try? await Task.sleep(for: .seconds(totalStrumTime / Double(notes.count)))
+            try? await Task.sleep(for: .seconds(playbackSettings.spread))
         }
 
         /// Sustain notes (cancellable)

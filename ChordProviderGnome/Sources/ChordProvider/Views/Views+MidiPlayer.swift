@@ -17,24 +17,36 @@ extension Views {
         /// - Parameters:
         ///   - chord: The chord definition
         ///   - preset: The MIDI preset
-        init(chord: ChordDefinition, preset: MidiUtils.Preset) {
+        init(chord: ChordDefinition, coreSettings: ChordProviderSettings) {
             self.chord = chord
-            self.preset = preset
+            self.coreSettings = coreSettings
         }
         /// The chord to play
         let chord: ChordDefinition
-        /// The MIDI preset
-        let preset: MidiUtils.Preset
+        /// The core settings
+        let coreSettings: ChordProviderSettings
         /// The body of the `View`
         var view: Body {
-            Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
-                Task {
-                    await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: nil)
+            HStack {
+                Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
+                    Task {
+                        await Utils.MidiPlayer.shared.playChord(
+                            chord,
+                            preset: coreSettings.midiPreset,
+                            strum: coreSettings.chordStrum
+                        )
+                    }
+                }
+                .insensitive(!chord.knownChord)
+                .style(.midiButton)
+                .flat(true)
+                if let strum = chord.strum {
+                    Widgets.BundleImage(strum: strum)
+                        .pixelSize(12)
+                        .style(.svgIcon)
+                        .padding(.leading)
                 }
             }
-            .insensitive(!chord.knownChord)
-            .style(.midiButton)
-            .flat(true)
             .halign(.center)
             .padding(.top)
         }

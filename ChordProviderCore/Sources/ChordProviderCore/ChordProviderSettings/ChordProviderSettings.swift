@@ -28,6 +28,8 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     public var chordDefinitions: [ChordDefinition] = []
     /// The MIDI preset
     public var midiPreset: MidiUtils.Preset = .acousticNylonGuitar
+    /// The default chord strum
+    public var chordStrum: Chord.Strum = .down
     /// Show only lyrics
     public var lyricsOnly: Bool
     /// Repeat the whole last chorus when using a *{chorus}* directive
@@ -55,6 +57,7 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     enum CodingKeys: CodingKey {
         case instrument
         case midiPreset
+        case chordStrum
         case lyricsOnly
         case repeatWholeChorus
         case diagram

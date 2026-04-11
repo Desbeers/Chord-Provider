@@ -135,7 +135,7 @@ extension Views {
                                 ) { chord in
                                     if let chord {
                                         VStack {
-                                            MidiPlayer(chord: chord, preset: appState.editor.coreSettings.midiPreset)
+                                            MidiPlayer(chord: chord, coreSettings: appState.editor.coreSettings)
                                             ChordDiagram(chord: chord, width: 120, coreSettings: appState.editor.coreSettings)
                                         }
                                     }
