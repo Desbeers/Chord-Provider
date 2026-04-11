@@ -41,7 +41,7 @@ extension ChordProParser {
         let parts = text.trimmingCharacters(in: .whitespacesAndNewlines).split(separator: " ")
         for(index, character) in parts.enumerated() {
 
-            let value = Song.Section.Line.strumCharacterDict[String(character)]
+            let value = Chord.strumCharacterDict[String(character)]
             var strum = Song.Section.Line.Strum()
             strum.id = index
             strum.action = value ?? .none
@@ -63,7 +63,7 @@ extension ChordProParser {
         if !strums.isEmpty {
             result.append(Song.Section.Line.Strums(id: id, strums: strums))
         }
-        if strums.count == 1, strums.first?.action == Song.Section.Line.Strum.Action.none {
+        if strums.count == 1, strums.first?.action == Chord.Strum.none {
             /// It looks like the strum is not in a valid format, add a warning
             line.addWarning("The strum pattern does not look valid")
         } else {

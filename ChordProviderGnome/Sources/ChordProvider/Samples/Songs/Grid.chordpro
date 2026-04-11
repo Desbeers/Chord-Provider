@@ -1,0 +1,18 @@
+{title Grid}
+{artist Nick Berendsen}
+{tempo 60}
+
+{start_of_grid label="Griddy Grid!"}
+|s d  u  . u | d     . u  . |
+|  G7 G7 . C | Am    . Am . |
+|s d  .  . u | u     . .  . |
+|  G7 Am . C | Asus4 . Am . |
+
+{end_of_grid}
+
+{start_of_grid label="Griddy Grid!"}
+|s u+  .  ua ds | dx     . da us  |
+|  G7 G7 . C | Am    . . Am |
+|  G7 Am . C | Asus4 . . Am |
+{comment This is not really a nice melody, I know!}
+{end_of_grid}

@@ -47,8 +47,8 @@ extension ChordProParser {
         }
         /// Remember the longest line in the song
         if currentSection.environment == .chorus || currentSection.environment == .verse {
-            if line.lineLength?.count ?? 0 > song.metadata.longestLine.lineLength?.count ?? 0 {
-                song.metadata.longestLine = line
+            if let lineLength = line.lineLength, lineLength.count > song.metadata.longestLineLenght {
+                song.metadata.longestLine = lineLength
             }
         }
     }

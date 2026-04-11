@@ -252,7 +252,7 @@ extension Views {
                 if let note = notes[string.id] {
                     let preset = coreSettings.midiPreset
                     Task {
-                        await Utils.MidiPlayer.shared.playNotes([note], preset: preset)
+                        await Utils.MidiPlayer.shared.playNotes([note], preset: preset, strum: nil)
                     }
                 }
             }

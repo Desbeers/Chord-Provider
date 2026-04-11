@@ -47,6 +47,9 @@ extension Views {
                     .valign(.center)
                     .halign(.center)
                     .id(coreSettings.diagram.description + chord.description)
+                if let strum = chord.strum {
+                    Text("\(strum)")
+                }
             } else {
                 Text(chord.kind.description)
                     .wrap()

@@ -53,9 +53,8 @@ extension Utils.MidiPlayer {
                 for part in parts {
                     let tempo: UInt64 = UInt64(60 / Double(metronomeBPM) * 1_000_000_000)
                     if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord {
-                        let notes = chord.midiNotes
                         Task {
-                            await Utils.MidiPlayer.shared.playNotes(notes, preset: preset)
+                            await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: chord.strum)
                         }
                         try? await Task.sleep(nanoseconds: tempo)
                     } else {

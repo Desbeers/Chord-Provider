@@ -34,7 +34,7 @@ extension Widgets {
         }
 
         /// Initialize `BundleImage` for a strum
-        public init(strum: Song.Section.Line.Strum.Action) {
+        public init(strum: Chord.Strum) {
             if let url = ImageUtils.getImageFromBundle("Strums/\(strum.svgIcon)") {
                 self.resource = url.path
             }

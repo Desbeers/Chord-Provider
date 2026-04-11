@@ -93,6 +93,11 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
         Set(validationWarnings).isDisjoint(with: ChordDefinition.Status.errorStatus) ? .correct : .unknownChord(chord: plain)
     }
 
+    // MARK: Strum
+
+    /// The optional strumming of the chord
+    public var strum: Chord.Strum?
+
     // MARK: Other items
 
     /// Plain text for an unknown or text chord

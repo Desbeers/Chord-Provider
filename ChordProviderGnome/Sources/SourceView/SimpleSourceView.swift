@@ -44,6 +44,7 @@ public struct SimpleSourceView: AdwaitaWidget {
         buffer.notify(name: "dark", pointer: styleManager) {
             SourceViewController.setStyle(buffer: buffer, manager: styleManager)
         }
+        gtk_text_view_set_wrap_mode(storage.opaquePointer?.cast(), WrapMode.word.rawValue)
         /// Disable editing
         gtk_text_view_set_editable(storage.opaquePointer?.cast(), 0)
         return storage

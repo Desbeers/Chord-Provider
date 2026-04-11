@@ -15,7 +15,7 @@ extension Song.Section.Line {
             id: Int = 0,
             chordDefinition: ChordDefinition? = nil,
             text: String? = nil,
-            strum: Song.Section.Line.Strum.Action? = nil,
+            strum: Chord.Strum? = nil,
             chordMarkup: Song.Markup? = nil,
             textMarkup: [Song.Markup]? = nil
         ) {
@@ -35,7 +35,7 @@ extension Song.Section.Line {
         public var text: String?
 
         /// The optional strum
-        public var strum: Song.Section.Line.Strum.Action?
+        public var strum: Chord.Strum?
 
         // MARK: Markup
 

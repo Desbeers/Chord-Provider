@@ -75,12 +75,17 @@ extension ChordProParser {
                     if text.starts(with: "*") {
                         /// Insert as a string
                         let string = String(text.dropFirst())
-                        parts.append(Song.Section.Line.Part(id: partID, text: string))
+                        parts.append(
+                            Song.Section.Line.Part(
+                                id: partID,
+                                text: string
+                            )
+                        )
                     } else {
                         switch isStrumPattern {
                         case true:
                             /// Try to get the strum definition
-                            if let strum = Song.Section.Line.strumCharacterDict[String(text)] {
+                            if let strum = Chord.strumCharacterDict[String(text)] {
                                 parts.append(
                                     Song.Section.Line.Part(
                                         id: partID,
@@ -98,11 +103,20 @@ extension ChordProParser {
                                 line.addWarning("Unknown strum: <b>\(text)</b>", level: .error)
                             }
                         case false:
-                            let result = processChord(
+                            var result = processChord(
                                 chord: String(text),
                                 line: &line,
                                 song: &song,
                             )
+
+                            let previousLines = currentSection.lines.reversed()
+                            for line in previousLines {
+                                let allParts = line.grid?.flatMap(\.cells).flatMap(\.parts)
+                                if let part = allParts?[safe: partID - 1], let match = part.strum {
+                                    result.strum = match
+                                    break
+                                }
+                            }
                             parts.append(
                                 Song.Section.Line.Part(
                                     id: partID,
@@ -113,7 +127,6 @@ extension ChordProParser {
                             )
                         }
                     }
-                    partID += 1
                 }
                 grid.cells.append(Song.Section.Line.GridCell(id: partID, parts: parts))
             }

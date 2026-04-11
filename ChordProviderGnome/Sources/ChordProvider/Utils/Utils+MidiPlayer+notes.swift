@@ -11,11 +11,19 @@ import ChordProviderCore
 
 extension Utils.MidiPlayer {
 
+    func playChord(_ chord: ChordDefinition, preset: MidiUtils.Preset, strum: Chord.Strum?) async {
+        var notes = chord.midiNotes
+        if let strum = chord.strum, strum.rawValue.starts(with: "up") {
+            notes.reverse()
+        }
+        await playNotes(notes, preset: preset, strum: chord.strum)
+    }
+
     /// Play notes polyphonically
     /// - Parameters:
     ///   - notes: The notes to play
     ///   - preset: The MIDI preset
-    func playNotes(_ notes: [Int], preset: MidiUtils.Preset) async {
+    func playNotes(_ notes: [Int], preset: MidiUtils.Preset, strum: Chord.Strum?) async {
         guard let synth, soundFontID >= 0 else { return }
         /// Cancel previous chord
         playToken = UUID()
@@ -36,12 +44,15 @@ extension Utils.MidiPlayer {
         /// - Note: Because it might be decreased already during fade-out
         fluid_synth_cc(synth, channel, 11, startVolume)
 
+        let totalStrumTime: Double = 0.5
+
         // MARK: Play the chord
 
         /// Strum notes
         for note in notes {
             fluid_synth_noteon(synth, channel, Int32(note), 110)
-            try? await Task.sleep(nanoseconds: 460_000_000 / UInt64(notes.count))
+            //try? await Task.sleep(nanoseconds: 460_000_000 / UInt64(notes.count))
+            try? await Task.sleep(for: .seconds(totalStrumTime / Double(notes.count)))
         }
 
         /// Sustain notes (cancellable)
@@ -55,7 +66,7 @@ extension Utils.MidiPlayer {
             waited += sustainStep
         }
 
-        /// Fade out notes  (cancellable)
+        /// Fade out notes (cancellable)
         let fadeSteps = 60
         let fadeInterval: UInt64 = 60_000_000
         /// Minimum gain (-34 dB)

@@ -127,6 +127,11 @@ public enum ChordProParser {
                 allParts
                     .lazy
                     .compactMap(\.chordDefinition)
+                    .map {chord in
+                        var copy = chord
+                        copy.strum = nil
+                        return copy
+                    }
                     .filter { $0.knownChord }
             )
         }
