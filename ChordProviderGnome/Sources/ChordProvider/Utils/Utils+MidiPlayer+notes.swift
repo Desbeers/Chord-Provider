@@ -13,7 +13,7 @@ extension Utils.MidiPlayer {
 
     func playChord(_ chord: ChordDefinition, preset: MidiUtils.Preset, strum: Chord.Strum?) async {
         var notes = chord.midiNotes
-        if let strum = chord.strum, strum.rawValue.starts(with: "up") {
+        if let strum, Chord.Strum.upStrums.contains(strum) {
             notes.reverse()
         }
         await playNotes(notes, preset: preset, strum: strum)

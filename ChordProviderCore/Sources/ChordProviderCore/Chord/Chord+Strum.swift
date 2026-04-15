@@ -62,6 +62,20 @@ extension Chord {
         /// Spacer
         case spacer
 
+        /// List of upward strums
+        public static var upStrums: [Chord.Strum] {
+            [
+                .up,
+                .upMuted,
+                .upAccent,
+                .upArpeggio,
+                .upStaccato,
+                .upMutedAccent,
+                .upArpeggioAccent,
+                .upStaccatoAccent
+            ]
+        }
+
         public static var options: [Strum] {
             var options = Strum.allCases
             /// Remove none and spacer

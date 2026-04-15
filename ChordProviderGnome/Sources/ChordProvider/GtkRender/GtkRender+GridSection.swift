@@ -108,13 +108,13 @@ extension GtkRender {
         /// - Returns: A `View`
         func part(part: Song.Section.Line.Part) -> AnyView {
             Box {
-                // Text(part.cells?.description ?? "?")
+                // Text(part.chordDefinition?.display ?? part.strum?.description ?? "?")
                 //     .style(.error)
-                if part.chordDefinition != nil {
+                if part.chordDefinition != nil && part.chordDefinition?.kind != .textChord {
                     SingleChord(part: part, coreSettings: coreSettings)
                         .halign(.center)
                         .insensitive(part.hidden)
-                } else if let strum = part.strum {
+                } else if let strum = part.strum, strum != .spacer {
                     Widgets.BundleImage(strum: strum)
                         .pixelSize(Int(14 * appState.settings.theme.zoom))
                         .style(.svgIcon)
@@ -123,14 +123,16 @@ extension GtkRender {
                     Text(part.text?.escapeSpecialCharacters() ?? " ")
                         .useMarkup()
                         .style(.sectionGrid)
-                        .padding(5, .leading)
+                        //.padding(5, .leading)
                         .halign(.center)
                 }
             }
             //.hexpand()
             .halign(.center)
             .valign(.center)
-            .padding(2)
+            .padding(2, .trailing)
+            //.padding( 20 / (part.cells ?? 1), .trailing)
+            .id(part)
         }
     }
 }

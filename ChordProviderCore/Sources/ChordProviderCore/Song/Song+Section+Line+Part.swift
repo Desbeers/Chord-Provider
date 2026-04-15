@@ -10,7 +10,7 @@ import Foundation
 extension Song.Section.Line {
 
     /// A part in the ``Song/Section/Line``
-    public struct Part: Identifiable, Equatable, Codable, Sendable {
+    public struct Part: Identifiable, Equatable, Codable, Sendable, CustomStringConvertible {
         public init(
             id: Int = 0,
             chordDefinition: ChordDefinition? = nil,
@@ -27,6 +27,11 @@ extension Song.Section.Line {
             self.cells = cells
             self.chordMarkup = chordMarkup
             self.textMarkup = textMarkup
+        }
+
+        // CustomStringConvertible protocol
+        public var description: String {
+            chordDefinition?.description ?? text ?? strum?.description ?? id.description
         }
 
         /// The unique ID of the part

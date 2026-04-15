@@ -79,7 +79,7 @@ extension ChordDefinition {
     public init(
         text: String,
         kind: Kind,
-        instrument: Instrument
+        instrument: Instrument = Instrument[.guitar]
     ) {
         self.init(
             id: UUID(),

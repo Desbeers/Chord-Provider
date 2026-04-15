@@ -40,16 +40,24 @@ extension Song.Section {
                 }
             }
             counter.removeAll {$0 == 0}
-            if let max = counter.max() {
-                counter = Array(repeating: max, count: counter.count)
-            }
+            // if let max = counter.max() {
+            //     counter = Array(repeating: max, count: counter.count)
+            // }
             /// Create empty parts
             var parts: [Song.Section.Line.Part] = []
-            for index in gridLines.enumerated() {
-                parts.append(.init(id: index.offset, text: ""))
+            for (index, line) in gridLines.enumerated() {
+                var part = Song.Section.Line.Part(id: index, text: "")
+                if line.grids?.compactMap(\.isStrumPattern).contains(true) ?? false {
+                    part.strum = .spacer
+                } else {
+                    part.chordDefinition = ChordDefinition(text: ".", kind: .textChord)
+                    part.text = "."
+                }
+                parts.append(part)
             }
             /// Create an empty grid cell
-            let cell = Song.Section.Line.GridCell(
+            /// - Note: The ID will always be 0 because it is fattend
+            var cell = Song.Section.Line.GridCell(
                 id: 0,
                 parts: parts
             )
@@ -66,9 +74,11 @@ extension Song.Section {
                             let offset = (items / parts.count) - 1
                             for (id, part) in parts.enumerated() {
                                 let shift = offset == 0 || id == 0 ? 0 : offset * id
-                                var part = part
-                                part.cells = items
-                                columns[column + id + shift].cells[0].parts[row] = part
+                                var result = part
+                                /// Keep the part ID of the new columns
+                                result.id = columns[column + id + shift].cells[0].parts[row].id
+                                result.cells = items
+                                columns[column + id + shift].cells[0].parts[row] = result
                             }
                         }
                         column += items
@@ -79,36 +89,46 @@ extension Song.Section {
             /// Look for strum patterns
             for (index, column) in columns.enumerated() {
                 let parts = column.cells.flatMap(\.parts)
-                let strums = parts.filter { $0.strum != nil }.filter { $0.strum != Chord.Strum.none }
                 for (row, part) in parts.enumerated() {
-                    if !strums.isEmpty, let strum = nearestPart(to: row, in: strums) {
-                        if part.chordDefinition != nil {
-                            columns[index].cells[0].parts[row].chordDefinition?.strum = strum.strum
-                        //}
-                        } else if part.text == "." || part.text == "" {
-                            if let item = columns[safe: index - 1]?.cells[0].parts[safe: row], var chord = item.chordDefinition {
-                                chord.strum = strum.strum
-                                columns[index].cells[0].parts[row].text = nil
-                                columns[index].cells[0].parts[row].hidden = true
-                                columns[index].cells[0].parts[row].chordDefinition = chord
+                    if let strum = nearestStum(row: row, parts: parts) {
+                    //if let strum = parts[safe: row - 1]?.strum ?? parts[safe: row + 1]?.strum, strum != Chord.Strum.none, strum != Chord.Strum.spacer {
+                        if part.chordDefinition != nil, part.chordDefinition?.kind != .textChord {
+                            /// Add the strum to the chord definition
+                            columns[index].cells[0].parts[row].chordDefinition?.strum = strum
+                        } else if part.strum == nil {
+                            /// We have a strum but not a chord. Fill-in the nearest last chord on the left
+                            for previousColumn in (0...index - 1).reversed() {
+                                if let match = columns[safe: previousColumn]?.cells[0].parts[row], var chord = match.chordDefinition, chord.knownChord {
+                                    chord.strum = strum
+                                    columns[index].cells[0].parts[row].text = nil
+                                    columns[index].cells[0].parts[row].hidden = true
+                                    columns[index].cells[0].parts[row].chordDefinition = chord
+                                    break
+                                }
                             }
+                        
                         }
-                    }                    
+                    }                
                 }
             }
-
             /// Add a new line to the section
-            var newLine: Song.Section.Line = .init(type: .songLine)
-            newLine.grids = columns
+            let newLine: Song.Section.Line = .init(type: .songLine, grids: columns)
             newSection.lines.append(newLine)
             /// Reset the lines
             gridLines = []
         }
 
-        func nearestPart(to id: Int, in parts: [Song.Section.Line.Part]) -> Song.Section.Line.Part? {
-            return parts.min {
-                abs($0.id - id) < abs($1.id - id)
+        func nearestStum(row: Int, parts: [Song.Section.Line.Part]) -> Chord.Strum? {
+            /// Look above
+            if let strum = parts[safe: row - 1]?.strum, Chord.Strum.options.contains(strum) {
+                return strum
             }
+            /// Look below
+            if let strum = parts[safe: row + 1]?.strum, Chord.Strum.options.contains(strum) {
+                return strum
+            }
+            /// No strum found
+            return nil
         }
     }
 }

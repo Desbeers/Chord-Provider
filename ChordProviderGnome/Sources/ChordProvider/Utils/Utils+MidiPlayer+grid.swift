@@ -43,37 +43,32 @@ extension Utils.MidiPlayer {
             let cells = grids.flatMap(\.cells)
             let mappedParts = interleave(cells.map(\.parts))
             parts = mappedParts.filter { part in
-                part.chordDefinition != nil || part.text == "."
+                part.chordDefinition != nil
             }
         }
-        dump(parts)
-        print("Loop...")
         while !Task.isCancelled {
-            //if let grids = self.grids {
-                var cells = 0
-                for part in parts {
-                    if let cellsPart = part.cells {
-                        cells = cellsPart
-                    }
-                    let tempo: UInt64 = UInt64(60 / Double(metronomeBPM * cells) * 1_000_000_000)
-                    if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord {
-                        Task {
-                            //dump(chord.define)
-                            await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: chord.strum)
-                        }
-                        try? await Task.sleep(nanoseconds: tempo)
-                    } else {
-                        //dump(part.text)
-                        try? await Task.sleep(nanoseconds: tempo)
-                    }
+            var cells = 0
+            for part in parts {
+                if let cellsPart = part.cells {
+                    cells = cellsPart
                 }
-            //}
+                let tempo = 60 / (Double(metronomeBPM) * Double(cells))
+                if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord {
+                    Task {
+                        dump(chord.define)
+                        await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: chord.strum)
+                    }
+                    try? await Task.sleep(for: .seconds(tempo))
+                } else {
+                    print("TextChord")
+                    try? await Task.sleep(for: .seconds(tempo))
+                }
+            }
         }
     }
 
     func interleave<T>(_ input: [[T]]) -> [T] {
         guard let first = input.first else { return [] }
-        
         return (0..<first.count).flatMap { i in
             input.map { $0[i] }
         }

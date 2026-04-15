@@ -11,7 +11,11 @@ extension Song.Section.Line {
 
     /// A grid in the ``Song/Section/Line``
     public struct Grid: Identifiable, Equatable, Codable, Sendable {
-        public init(id: Int, isStrumPattern: Bool = false, cells: [GridCell] = []) {
+        public init(
+            id: Int,
+            isStrumPattern: Bool = false,
+            cells: [GridCell] = []
+        ) {
             self.id = id
             self.isStrumPattern = isStrumPattern
             self.cells = cells
@@ -30,7 +34,9 @@ extension Song.Section.Line {
             self.id = id
             self.parts = parts
         }
+        /// The ID of the cell
         public var id: Int
+        /// The parts of the cell
         public var parts: [Song.Section.Line.Part]
     }
 

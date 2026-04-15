@@ -31,8 +31,8 @@ extension ChordProParser {
             context: .grid
         )
         /// Give the structs an ID
-        var cellID: Int = 1
-        var partID: Int = 1
+        var cellID: Int = 0
+        var partID: Int = 0
         /// The optional omitted symbol
         var omittedSymbol: String?
         /// Bool if the line is a strum pattern
@@ -64,9 +64,16 @@ extension ChordProParser {
             /// Use the plain text only
             let text = markup.text
             switch text {
-            case "|", "||", " ", ".":
-                let part = Song.Section.Line.Part(id: partID, text: omittedSymbol ?? text)
-                grid.cells.append(Song.Section.Line.GridCell(id: partID, parts: [part]))
+                //case "|", "||", " ", ".":
+            case "|", "||", " ":
+                let part = Song.Section.Line.Part(
+                    id: partID,
+                    text: omittedSymbol ?? text,
+                    strum: .spacer
+                )
+                grid.cells.append(Song.Section.Line.GridCell(id: cellID, parts: [part]))
+                cellID += 1
+                partID += 1
             default:
                 var parts: [Song.Section.Line.Part] = []
                 /// Multiple chords can be put in a single cell by separating the chord names with a ~ (tilde)
@@ -78,7 +85,8 @@ extension ChordProParser {
                         parts.append(
                             Song.Section.Line.Part(
                                 id: partID,
-                                text: string
+                                text: string,
+                                strum: isStrumPattern ? .spacer : nil
                             )
                         )
                     } else {
@@ -103,26 +111,45 @@ extension ChordProParser {
                                 line.addWarning("Unknown strum: <b>\(text)</b>", level: .error)
                             }
                         case false:
-                            let result = processChord(
-                                chord: String(text),
-                                line: &line,
-                                song: &song,
-                            )
-                            parts.append(
-                                Song.Section.Line.Part(
-                                    id: partID,
-                                    chordDefinition: result,
-                                    text: result.display,
-                                    chordMarkup: markup
+                            if text == "." {
+                                /// Do not play a chord here
+                                /// Add it as a text chord
+                                let result = ChordDefinition(
+                                    text: String(text),
+                                    //text: "SKIP",
+                                    kind: .textChord
                                 )
-                            )
+                                parts.append(
+                                    Song.Section.Line.Part(
+                                        id: partID,
+                                        chordDefinition: result,
+                                        text: String(text)
+                                    )
+                                )
+                            } else {
+                                let result = processChord(
+                                    chord: String(text),
+                                    line: &line,
+                                    song: &song,
+                                )
+                                parts.append(
+                                    Song.Section.Line.Part(
+                                        id: partID,
+                                        chordDefinition: result,
+                                        text: result.display,
+                                        chordMarkup: markup
+                                    )
+                                )
+                            }
                         }
                     }
+                    partID += 1
                 }
-                grid.cells.append(Song.Section.Line.GridCell(id: partID, parts: parts))
+                grid.cells.append(Song.Section.Line.GridCell(id: cellID, parts: parts))
+                cellID += 1
             }
-            cellID += 1
-            partID += 1
+            // cellID += 1
+            // partID += 1
             line.addGrid(grid)
         }
         /// Set the context
