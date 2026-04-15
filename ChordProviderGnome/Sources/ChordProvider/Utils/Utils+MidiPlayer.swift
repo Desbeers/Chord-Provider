@@ -52,7 +52,7 @@ extension Utils {
 
         /// Grid task
         var gridTask: Task<Void, Never>?
-        var section: Song.Section?
+        var grids: [Song.Section.Line.Grid]?
         var preset: MidiUtils.Preset = .acousticNylonGuitar
 
         // MARK: Play Token

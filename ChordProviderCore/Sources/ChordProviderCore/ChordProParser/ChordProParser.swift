@@ -119,7 +119,7 @@ public enum ChordProParser {
             /// Collect all parts
             let allParts =
                 (line.parts ?? []) +
-                (line.grid?
+                (line.grids?
                     .flatMap(\.cells)
                     .flatMap(\.parts) ?? [])
             /// Add them to the set of known chords
@@ -127,11 +127,6 @@ public enum ChordProParser {
                 allParts
                     .lazy
                     .compactMap(\.chordDefinition)
-                    .map {chord in
-                        var copy = chord
-                        copy.strum = nil
-                        return copy
-                    }
                     .filter { $0.knownChord }
             )
         }

@@ -103,20 +103,11 @@ extension ChordProParser {
                                 line.addWarning("Unknown strum: <b>\(text)</b>", level: .error)
                             }
                         case false:
-                            var result = processChord(
+                            let result = processChord(
                                 chord: String(text),
                                 line: &line,
                                 song: &song,
                             )
-
-                            let previousLines = currentSection.lines.reversed()
-                            for line in previousLines {
-                                let allParts = line.grid?.flatMap(\.cells).flatMap(\.parts)
-                                if let part = allParts?[safe: partID - 1], let match = part.strum {
-                                    result.strum = match
-                                    break
-                                }
-                            }
                             parts.append(
                                 Song.Section.Line.Part(
                                     id: partID,

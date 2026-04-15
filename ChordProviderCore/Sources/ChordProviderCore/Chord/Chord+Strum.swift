@@ -86,8 +86,10 @@ extension Chord {
             if rawValue.contains("Muted") {
                 settings.duration = 0.25
                 settings.velocity *= 0.8
+                settings.fadeOut *= 0.15
             } else if rawValue.contains("Staccato") {
-                settings.duration = 0.5
+                settings.duration *= 0.4
+                settings.fadeOut *= 0.3
             }
             /// Tweak the *up* stroke
             if rawValue.starts(with: "up") {
@@ -191,11 +193,13 @@ extension Chord.Strum {
         public init(
             velocity: Double = 1.0,
             spread: TimeInterval = 0.025,
-            duration: Double = 1.0
+            duration: Double = 1.0,
+            fadeOut: Double = 0.06
         ) {
             self.velocity = velocity
             self.spread = spread
             self.duration = duration
+            self.fadeOut = fadeOut
         }
         /// Accent
         public var velocity: Double
@@ -203,5 +207,7 @@ extension Chord.Strum {
         public var spread: TimeInterval
         /// staccato or muted
         public var duration: Double
+
+        public var fadeOut: Double
     }
 }

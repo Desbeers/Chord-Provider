@@ -24,7 +24,7 @@ extension Song.Section {
             context: ChordPro.Environment = .none,
             warnings: [LogUtils.LogMessage]? = nil,
             parts: [Song.Section.Line.Part]? = nil,
-            grid: [Song.Section.Line.Grid]? = nil,
+            grids: [Song.Section.Line.Grid]? = nil,
             strums: [Song.Section.Line.Strums]? = nil,
             plain: String? = nil
         ) {
@@ -38,7 +38,7 @@ extension Song.Section {
             self.context = context
             self.warnings = warnings
             self.parts = parts
-            self.grid = grid
+            self.grids = grids
             self.strums = strums
             self.plain = plain
         }
@@ -68,11 +68,10 @@ extension Song.Section {
         /// The optional parts in the line
         /// - Note: A part mostly consist of some text with a chord
         public var parts: [Part]?
-        /// The  optional grid in the line
-        public var grid: [Grid]?
+        /// The  optional grids in the line
+        public var grids: [Grid]?
         /// The  optional grid columns in the line
-        /// - Note: there is a function to move grids into columns for rendering
-        public var gridColumns: GridColumns?
+        public var gridColumns: [Grid]?
         /// The optional strum pattern in the line
         public var strums: [Strums]?
         /// A plain text version of the line

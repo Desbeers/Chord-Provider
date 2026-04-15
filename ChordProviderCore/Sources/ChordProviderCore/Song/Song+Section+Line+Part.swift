@@ -16,6 +16,7 @@ extension Song.Section.Line {
             chordDefinition: ChordDefinition? = nil,
             text: String? = nil,
             strum: Chord.Strum? = nil,
+            cells: Int? = nil,
             chordMarkup: Song.Markup? = nil,
             textMarkup: [Song.Markup]? = nil
         ) {
@@ -23,6 +24,7 @@ extension Song.Section.Line {
             self.chordDefinition = chordDefinition
             self.text = text
             self.strum = strum
+            self.cells = cells
             self.chordMarkup = chordMarkup
             self.textMarkup = textMarkup
         }
@@ -33,9 +35,13 @@ extension Song.Section.Line {
         public var chordDefinition: ChordDefinition?
         /// The optional text
         public var text: String?
+        /// Bool if the chord should be hidden from view
+        public var hidden: Bool = false
 
         /// The optional strum
         public var strum: Chord.Strum?
+        /// The total cells of the strum
+        public var cells: Int?
 
         // MARK: Markup
 

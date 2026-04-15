@@ -48,16 +48,17 @@ extension GtkRender {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if let elements = line.gridColumns?.grids {
+                        if let elements = line.grids {
                             Toggle(icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart), isOn: $playGridChords) {
                                 if playGridChords {
                                     /// Set this grid as current
                                     appState.scene.gridChordsID = gridID
-                                    let section = originalSection
+                                    /// Capture stuff
+                                    let grids = elements
                                     let preset = coreSettings.midiPreset
                                     Task {
                                         await Utils.MidiPlayer.shared.setGridChords(
-                                            section: section,
+                                            grids: grids,
                                             preset: preset
                                         )
                                         await Utils.MidiPlayer.shared.startChords()
@@ -72,15 +73,15 @@ extension GtkRender {
                             .flat()
                             ForEach(elements, horizontal: true) { element in
                                 Box {
-                                    ForEach(element.cells, horizontal: false) { cell in
-                                        ForEach(cell.parts, horizontal: true) { item in
-                                            part(part: item)
-                                        }
+                                    ForEach(element.cells.flatMap(\.parts), horizontal: false) { item in
+                                        part(part: item)
                                     }
                                     .homogeneous()
                                 }
                                 .homogeneous()
+                                //.id(elements)
                             }
+                            //.homogeneous()
                         }
                     case .emptyLine:
                         EmptyLine()
@@ -107,20 +108,27 @@ extension GtkRender {
         /// - Returns: A `View`
         func part(part: Song.Section.Line.Part) -> AnyView {
             Box {
+                // Text(part.cells?.description ?? "?")
+                //     .style(.error)
                 if part.chordDefinition != nil {
                     SingleChord(part: part, coreSettings: coreSettings)
+                        .halign(.center)
+                        .insensitive(part.hidden)
                 } else if let strum = part.strum {
                     Widgets.BundleImage(strum: strum)
                         .pixelSize(Int(14 * appState.settings.theme.zoom))
                         .style(.svgIcon)
+                        .halign(.center)
                 } else {
-                    Text(part.text ?? " ")
+                    Text(part.text?.escapeSpecialCharacters() ?? " ")
                         .useMarkup()
                         .style(.sectionGrid)
                         .padding(5, .leading)
+                        .halign(.center)
                 }
             }
-            .homogeneous()
+            //.hexpand()
+            .halign(.center)
             .valign(.center)
             .padding(2)
         }

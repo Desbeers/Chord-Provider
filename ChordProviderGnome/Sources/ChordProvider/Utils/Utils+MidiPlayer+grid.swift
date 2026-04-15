@@ -13,11 +13,11 @@ extension Utils.MidiPlayer {
 
     /// Set the values for the grid
     /// - Parameters:
-    ///   - section: The grid section
+    ///   - grids: The grid section
     ///   - tempo: Tempo of the song
     ///   - preset: The MIDI preset to use
-    func setGridChords(section: Song.Section, preset: MidiUtils.Preset) {
-        self.section = section
+    func setGridChords(grids: [Song.Section.Line.Grid], preset: MidiUtils.Preset) {
+        self.grids = grids
         self.preset = preset
     }
 
@@ -37,31 +37,45 @@ extension Utils.MidiPlayer {
 
     /// Play the chords of the grid
     private func playChords() async {
+        print("Play...")
+        var parts: [Song.Section.Line.Part] = []
+        if let grids = self.grids {
+            let cells = grids.flatMap(\.cells)
+            let mappedParts = interleave(cells.map(\.parts))
+            parts = mappedParts.filter { part in
+                part.chordDefinition != nil || part.text == "."
+            }
+        }
+        dump(parts)
+        print("Loop...")
         while !Task.isCancelled {
-            if let section = section {
-                var parts: [Song.Section.Line.Part] = []
-                for line in section.lines {
-                    let allParts =
-                        //(line.parts ?? []) +
-                        (line.grid?
-                            .flatMap(\.cells)
-                            .flatMap(\.parts) ?? [])
-                    for part in allParts where part.chordDefinition != nil || part.text == "." {
-                        parts.append(part)
-                    }
-                }
+            //if let grids = self.grids {
+                var cells = 0
                 for part in parts {
-                    let tempo: UInt64 = UInt64(60 / Double(metronomeBPM) * 1_000_000_000)
+                    if let cellsPart = part.cells {
+                        cells = cellsPart
+                    }
+                    let tempo: UInt64 = UInt64(60 / Double(metronomeBPM * cells) * 1_000_000_000)
                     if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord {
                         Task {
+                            //dump(chord.define)
                             await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: chord.strum)
                         }
                         try? await Task.sleep(nanoseconds: tempo)
                     } else {
+                        //dump(part.text)
                         try? await Task.sleep(nanoseconds: tempo)
                     }
                 }
-            }
+            //}
+        }
+    }
+
+    func interleave<T>(_ input: [[T]]) -> [T] {
+        guard let first = input.first else { return [] }
+        
+        return (0..<first.count).flatMap { i in
+            input.map { $0[i] }
         }
     }
 }
