@@ -38,16 +38,18 @@ extension Song.Section.Line {
         public var id: Int
         /// The parts of the cell
         public var parts: [Song.Section.Line.Part]
+        /// The chords in the cell
+        public var chords: [ChordDefinition] = []
     }
 
     /// Add `grids` to a line
     /// - Parameter grid: The line with `grid` to add
     /// - Note: grids are *optionals* so we can not just 'insert' it
     mutating func addGrid(_ grid: Grid) {
-        if self.grids == nil {
-            self.grids = [grid]
+        if self.gridsLine == nil {
+            self.gridsLine = [grid]
         } else {
-            self.grids?.append(grid)
+            self.gridsLine?.append(grid)
         }
     }
 }

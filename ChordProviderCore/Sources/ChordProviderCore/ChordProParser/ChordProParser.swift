@@ -110,6 +110,15 @@ public enum ChordProParser {
         song.hasContent = Set(sections).isDisjoint(with: ChordPro.Environment.content) ? false : true
         /// Set some stuff
         let lines = song.sections.flatMap(\.lines)
+
+        /// Process grid
+        if lines.map(\.context).contains(.grid) {
+            for (index, section) in song.sections.enumerated() where section.environment == .grid {
+                let processedSection = ChordProParser.gridToColumns(section: section)
+                song.sections[index] = processedSection
+            }
+        }
+
         /// Check if the song has warnings or errors
         song.hasWarnings = !lines.compactMap(\.warnings).isEmpty
         /// Get all known chords that are in use
@@ -117,11 +126,7 @@ public enum ChordProParser {
         var result = Set<ChordDefinition>()
         for line in lines {
             /// Collect all parts
-            let allParts =
-                (line.parts ?? []) +
-                (line.grids?
-                    .flatMap(\.cells)
-                    .flatMap(\.parts) ?? [])
+            let allParts = (line.parts ?? [])
             /// Add them to the set of known chords
             result.formUnion(
                 allParts

@@ -27,6 +27,7 @@ public extension ImageUtils {
         case tempo
         case time
         case year
+        case composer
     }
 }
 

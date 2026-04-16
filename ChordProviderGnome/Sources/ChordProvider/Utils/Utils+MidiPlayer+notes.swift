@@ -24,7 +24,6 @@ extension Utils.MidiPlayer {
     ///   - notes: The notes to play
     ///   - preset: The MIDI preset
     func playNotes(_ notes: [Int], preset: MidiUtils.Preset, strum: Chord.Strum?) async {
-        dump(strum)
         guard let synth, soundFontID >= 0 else { return }
         /// Cancel previous chord
         playToken = UUID()

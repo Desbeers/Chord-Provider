@@ -51,6 +51,7 @@ public enum ChordUtils {
         root: Chord.Root,
         frets: [Int],
         baseFret: Chord.BaseFret,
+        capo: Int,
         instrument: Instrument
     ) -> [Chord.Component] {
         var components: [Chord.Component] = []
@@ -64,7 +65,7 @@ public enum ChordUtils {
                     /// Add base fret if the fret is not 0 and the offset
                     fret += instrument.offsets[string] + (fret == 0 ? 1 : baseFret.rawValue) + 40
                     let key = valueToNote(value: fret, scale: root)
-                    components.append(Chord.Component(id: string, note: key, midi: fret))
+                    components.append(Chord.Component(id: string, note: key, midi: fret + capo))
                 }
             }
         }

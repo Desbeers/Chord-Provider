@@ -23,8 +23,7 @@ extension GtkRender {
             coreSettings: ChordProviderSettings,
             appState: Binding<AppState>
         ) {
-            /// Convert the grids into columns
-            self.section = section.gridColumns()
+            self.section = section
             self.coreSettings = coreSettings
             self._appState = appState
             self.originalSection = section
@@ -48,13 +47,15 @@ extension GtkRender {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if let elements = line.grids {
+                        if let columns = line.grids {
+                            if !(columns.flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }).isEmpty {
+                            //if !columns.map(\.parts).filter { $0.chordDefinition?.knownChord ?? false }.isEmpty {
                             Toggle(icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart), isOn: $playGridChords) {
                                 if playGridChords {
                                     /// Set this grid as current
                                     appState.scene.gridChordsID = gridID
                                     /// Capture stuff
-                                    let grids = elements
+                                    let grids = columns
                                     let preset = coreSettings.midiPreset
                                     Task {
                                         await Utils.MidiPlayer.shared.setGridChords(
@@ -67,21 +68,25 @@ extension GtkRender {
                                     Task {
                                         await Utils.MidiPlayer.shared.stopChords()
                                     }
-                                }
+                                } 
                             }
                             .halign(.start)
                             .flat()
-                            ForEach(elements, horizontal: true) { element in
+                            }
+                            //.insensitive(columns.flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }.isEmpty)
+                            ForEach(columns, horizontal: true) { column in
                                 Box {
-                                    ForEach(element.cells.flatMap(\.parts), horizontal: false) { item in
+                                    ForEach(column.parts, horizontal: false) { item in
                                         part(part: item)
                                     }
                                     .homogeneous()
-                                }
+                                } 
                                 .homogeneous()
                                 //.id(elements)
                             }
                             //.homogeneous()
+                        } else {
+                            Text("Grid is empty")
                         }
                     case .emptyLine:
                         EmptyLine()
@@ -130,7 +135,7 @@ extension GtkRender {
             //.hexpand()
             .halign(.center)
             .valign(.center)
-            .padding(2, .trailing)
+            .padding(2, .horizontal)
             //.padding( 20 / (part.cells ?? 1), .trailing)
             .id(part)
         }

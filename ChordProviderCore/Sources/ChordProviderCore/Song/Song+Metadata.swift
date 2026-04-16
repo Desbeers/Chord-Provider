@@ -33,7 +33,7 @@ extension Song {
         /// The optional subtitle
         public var subtitle: String?
         /// The optional capo
-        public var capo: String?
+        public var capo: Int?
         /// The optional key
         public var key: ChordDefinition?
         /// The optional tempo

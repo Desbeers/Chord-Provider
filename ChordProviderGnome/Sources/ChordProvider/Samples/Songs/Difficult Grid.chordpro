@@ -1,0 +1,32 @@
+{title A Difficult Grid}
+{artist Nick Berendsen}
+{composer CodeShakingSheep}
+{tempo 87}
+
+{capo 2}
+
+{start_of_textblock label="A Difficult Grid" align="center"}
+A chalange by <b>CodeShakingSheep</b>
+Is it correct?
+{end_of_textblock}
+
+
+{comment Fancy Grid, no chords are given; no<b>play</b> button...}
+{start_of_grid shape="1x4"}
+|s *1~*&      *2~*&      *3~*&      *4~*&      |
+|  .          .          .          .          |
+|s dn~dn      d+~.~dn~up dn~up~dn~. d+~.~dn~up |
+|s *5~*&      *6~*&      *7~*&      *8~*&      |
+|  .          .          .          .          |
+|s dn~up~dn~. d+~.~dn~up .~up~.~up dn~up~dn~up |
+{end_of_grid}
+
+{comment Fancy Grid with chords added by me; that you can play with <i>MIDI</i>}
+{start_of_grid shape="1x4"}
+|s *1~*&      *2~*&      *3~*&      *4~*&       |
+|  Em          G          D          A7sus4     |
+|s dn~up      d+~.~dn~up dn~up~dn~. d+~.~dn~up  |
+|s *5~*&      *6~*&      *7~*&      *8~*&       |
+|  Em          G          D          A7sus4     |
+|s dn~up~dn~. d+~.~dn~up .~up~.~up  dn~up~dn~up |
+{end_of_grid}

@@ -41,6 +41,8 @@ extension ChordProParser {
                         chords: song.settings.chordDefinitions
                     )
                 }
+                /// Add the capo
+                databaseChord.capo = song.metadata.capo ?? 0
                 /// Add it to the chords list
                 song.chords.append(databaseChord)
                 /// Set chord as key if not set manually

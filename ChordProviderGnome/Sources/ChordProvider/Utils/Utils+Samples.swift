@@ -36,6 +36,8 @@ extension Utils {
         case longStuff = "Long Stuff"
         /// Grid
         case grid = "Grid"
+        /// Difficult grid
+        case difficultGrid = "Difficult Grid"
         /// Complicated sample
         case mollyMalone = "Molly Malone"
 
@@ -52,6 +54,7 @@ extension Utils {
             .sourceComments,
             .longStuff,
             .grid,
+            .difficultGrid,
             .mollyMalone
         ]
     }

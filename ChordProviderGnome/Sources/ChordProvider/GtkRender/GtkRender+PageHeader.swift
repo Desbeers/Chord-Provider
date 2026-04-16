@@ -95,7 +95,7 @@ extension GtkRender {
                     MetaData(
                         icon: .capo,
                         label: "Capo",
-                        value: capo
+                        value: String(capo)
                     )
                 )
             }
@@ -147,7 +147,7 @@ extension GtkRender {
             if let lyricists = metadata.lyricists {
                 result.append(
                     MetaData(
-                        icon: .person,
+                        icon: .composer,
                         label: "Lyricist",
                         value: lyricists.map(\.content).joined(separator: "\n")
                     )
@@ -156,7 +156,7 @@ extension GtkRender {
             if let composers = metadata.composers {
                 result.append(
                     MetaData(
-                        icon: .person,
+                        icon: .composer,
                         label: "Composer",
                         value: composers.map(\.content).joined(separator: "\n")
                     )

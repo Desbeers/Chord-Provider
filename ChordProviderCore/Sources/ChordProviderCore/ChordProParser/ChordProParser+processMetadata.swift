@@ -55,7 +55,9 @@ extension ChordProParser {
                 song.metadata.addComposer(label)
             }
         case .capo:
-            song.metadata.capo = label
+            if let label, let value = Int(label), value > 0 {
+                song.metadata.capo = value
+            }
         case .time:
             song.metadata.time = label
         case .key:

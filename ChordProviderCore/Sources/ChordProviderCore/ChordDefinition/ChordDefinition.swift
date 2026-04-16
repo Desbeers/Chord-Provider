@@ -72,6 +72,8 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     public var quality: Chord.Quality
     /// The note of an optional 'slash' chord
     public var slash: Chord.Root?
+    /// The capo value
+    public var capo: Int = 0
 
     // MARK: Transposing
 
@@ -133,6 +135,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
             root: root,
             frets: frets,
             baseFret: baseFret,
+            capo: capo,
             instrument: instrument
         )
     }
