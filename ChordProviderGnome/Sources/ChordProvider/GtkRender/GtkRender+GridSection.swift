@@ -46,32 +46,31 @@ extension GtkRender {
             VStack {
                 ForEach(section.lines) { line in
                     switch line.type {
-                    case .songLine:
-                        if let columns = line.grids {
+                    case .gridLineColumns:
+                        if let columns = line.gridColumns {
                             if !(columns.flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }).isEmpty {
-                            //if !columns.map(\.parts).filter { $0.chordDefinition?.knownChord ?? false }.isEmpty {
-                            Toggle(icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart), isOn: $playGridChords) {
-                                if playGridChords {
-                                    /// Set this grid as current
-                                    appState.scene.gridChordsID = gridID
-                                    /// Capture stuff
-                                    let grids = columns
-                                    let preset = coreSettings.midiPreset
-                                    Task {
-                                        await Utils.MidiPlayer.shared.setGridChords(
-                                            grids: grids,
-                                            preset: preset
-                                        )
-                                        await Utils.MidiPlayer.shared.startChords()
-                                    }
-                                } else {
-                                    Task {
-                                        await Utils.MidiPlayer.shared.stopChords()
-                                    }
-                                } 
-                            }
-                            .halign(.start)
-                            .flat()
+                                Toggle(icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart), isOn: $playGridChords) {
+                                    if playGridChords {
+                                        /// Set this grid as current
+                                        appState.scene.gridChordsID = gridID
+                                        /// Capture stuff
+                                        let grids = columns
+                                        let preset = coreSettings.midiPreset
+                                        Task {
+                                            await Utils.MidiPlayer.shared.setGridChords(
+                                                grids: grids,
+                                                preset: preset
+                                            )
+                                            await Utils.MidiPlayer.shared.startChords()
+                                        }
+                                    } else {
+                                        Task {
+                                            await Utils.MidiPlayer.shared.stopChords()
+                                        }
+                                    } 
+                                }
+                                .halign(.start)
+                                .flat()
                             }
                             //.insensitive(columns.flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }.isEmpty)
                             ForEach(columns, horizontal: true) { column in

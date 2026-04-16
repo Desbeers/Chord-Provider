@@ -23,7 +23,7 @@ extension ChordProParser {
             /// An image inside a section, **Chord Provider** does not support that
             let source = arguments[.source] ?? "ERROR"
             var line = Song.Section.Line(
-                sourceLineNumber: song.lines,
+                sourceLineNumber: song.totalLines,
                 source: source,
                 directive: .image,
                 arguments: arguments,

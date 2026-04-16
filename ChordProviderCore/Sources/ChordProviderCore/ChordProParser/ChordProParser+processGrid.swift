@@ -24,7 +24,7 @@ extension ChordProParser {
     ) {
         /// Start with a fresh line:
         var line = Song.Section.Line(
-            sourceLineNumber: song.lines,
+            sourceLineNumber: song.totalLines,
             source: text,
             sourceParsed: text.trimmingCharacters(in: .whitespaces),
             type: .songLine,
@@ -180,6 +180,7 @@ extension ChordProParser {
         for line in section.lines {
             if line.gridsLine != nil {
                 gridLines.append(line)
+                newSection.lines.append(line)
             } else {
                 if !gridLines.isEmpty {
                     processGrid()
@@ -272,7 +273,7 @@ extension ChordProParser {
                 }
             }
             /// Add a new line to the section
-            let newLine: Song.Section.Line = .init(type: .songLine, grids: columns)
+            let newLine: Song.Section.Line = .init(type: .gridLineColumns, context: .grid, gridColumns: columns)
             newSection.lines.append(newLine)
             /// Reset the lines
             gridLines = []

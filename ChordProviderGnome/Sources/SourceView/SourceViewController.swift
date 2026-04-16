@@ -160,7 +160,7 @@ public final class SourceViewController {
         )
         let currentLineNumber = Int(gtk_text_iter_get_line(&iter) + 1)
 
-        let totalLines = bridge.song.lines
+        let totalLines = bridge.song.totalLines
 
         self.currentLine = bridge.songLines[safe: currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: totalLines)
 

@@ -39,12 +39,13 @@ extension Utils.MidiPlayer {
     private func playChords() async {
         var parts: [Song.Section.Line.Part] = []
         if let grids = self.grids {
-            //let cells = grids.flatMap(\.cells)
             let mappedParts = interleave(grids.map(\.parts))
             parts = mappedParts.filter { part in
                 part.chordDefinition != nil
             }
         }
+        /// Add some empty chords at the end beacuse tghe player is looping
+        parts.append(contentsOf: Array(repeating: Song.Section.Line.Part(id: 0, chordDefinition: ChordDefinition(text: "", kind: .textChord)), count: 4))
         while !Task.isCancelled {
             var cells = 0
             for part in parts {

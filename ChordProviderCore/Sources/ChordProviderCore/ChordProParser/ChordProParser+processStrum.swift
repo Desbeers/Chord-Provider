@@ -30,7 +30,7 @@ extension ChordProParser {
 
         /// Start with a fresh line
         var line = Song.Section.Line(
-            sourceLineNumber: song.lines,
+            sourceLineNumber: song.totalLines,
             source: text,
             sourceParsed: text.trimmingCharacters(in: .whitespaces),
             type: .songLine,

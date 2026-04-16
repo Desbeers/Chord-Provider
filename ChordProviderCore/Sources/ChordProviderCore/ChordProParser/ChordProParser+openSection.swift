@@ -61,7 +61,7 @@ extension ChordProParser {
             currentSection.lines.append(line)
         } else {
             var line = Song.Section.Line(
-                sourceLineNumber: song.lines,
+                sourceLineNumber: song.totalLines,
                 source: source ?? "ERROR, NO SOURCE GIVEN",
                 directive: ChordPro.Directive.customDirectives.contains(directive) ? nil : directive,
                 arguments: arguments.isEmpty ? nil : arguments,

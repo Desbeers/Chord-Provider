@@ -25,7 +25,7 @@ extension Song.Section {
             warnings: [LogUtils.LogMessage]? = nil,
             parts: [Song.Section.Line.Part]? = nil,
             gridsLine: [Song.Section.Line.Grid]? = nil,
-            grids: [Song.Section.Line.GridCell]? = nil,
+            gridColumns: [Song.Section.Line.GridCell]? = nil,
             strums: [Song.Section.Line.Strums]? = nil,
             plain: String? = nil
         ) {
@@ -40,7 +40,7 @@ extension Song.Section {
             self.warnings = warnings
             self.parts = parts
             self.gridsLine = gridsLine
-            self.grids = grids
+            self.gridColumns = gridColumns
             self.strums = strums
             self.plain = plain
         }
@@ -71,10 +71,10 @@ extension Song.Section {
         /// - Note: A part mostly consist of some text with a chord
         public var parts: [Part]?
         /// The  optional grids in the line
-        /// - Note: This will be removed by the parser at the end and moved to *grid* in *columns
+        /// - Note: This will be removed by the parser at the end and moved to *grid* in *columns*
         public var gridsLine: [Grid]?
         /// The  optional grid columns in the line
-        public var grids: [GridCell]?
+        public var gridColumns: [GridCell]?
         /// The optional strum pattern in the line
         public var strums: [Strums]?
         /// A plain text version of the line

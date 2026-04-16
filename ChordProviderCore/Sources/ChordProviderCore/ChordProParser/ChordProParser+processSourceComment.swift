@@ -24,7 +24,7 @@ extension ChordProParser {
         if currentSection.lines.first != nil {
             /// A source comment inside a section
             let line = Song.Section.Line(
-                sourceLineNumber: song.lines,
+                sourceLineNumber: song.totalLines,
                 source: comment,
                 sourceParsed: comment.trimmingCharacters(in: .whitespaces),
                 directive: .sourceComment,

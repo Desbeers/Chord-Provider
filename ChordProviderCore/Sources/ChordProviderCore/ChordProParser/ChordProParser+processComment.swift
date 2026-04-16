@@ -22,7 +22,7 @@ extension ChordProParser {
         let comment = arguments[.plain] ?? ""
         /// A comment should be rendered as part of a line
         var line = Song.Section.Line(
-            sourceLineNumber: song.lines,
+            sourceLineNumber: song.totalLines,
             source: "{\(ChordPro.Directive.comment) \(comment)}",
             sourceParsed: "{\(ChordPro.Directive.comment) \(comment.trimmingCharacters(in: .whitespaces))}",
             directive: .comment,

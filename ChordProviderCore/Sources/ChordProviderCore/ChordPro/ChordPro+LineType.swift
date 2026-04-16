@@ -12,6 +12,7 @@ extension ChordPro {
     /// The type of the line in a **ChordPro** song
     public enum LineType: String, Codable, Sendable {
         case songLine = "song_line"
+        case gridLineColumns = "grid_line_columns"
         case emptyLine = "empty_line"
         case metadata
         case comment

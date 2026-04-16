@@ -49,7 +49,7 @@ public enum ChordProParser {
             let trimmed = text.trimmingCharacters(in: .whitespaces)
             let firstCharacter = trimmed.first
             /// Increase the line number
-            song.lines += 1
+            song.totalLines += 1
             /// Parse only metadata
             /// - Note: Used in file browser
             if getOnlyMetadata, firstCharacter == "{" {
@@ -92,7 +92,7 @@ public enum ChordProParser {
         }
         /// Close the last section if needed
         if !currentSection.lines.isEmpty {
-            song.lines += 1
+            song.totalLines += 1
             closeSection(
                 directive: currentSection.environment.directives.close,
                 currentSection: &currentSection,
@@ -116,6 +116,7 @@ public enum ChordProParser {
             for (index, section) in song.sections.enumerated() where section.environment == .grid {
                 let processedSection = ChordProParser.gridToColumns(section: section)
                 song.sections[index] = processedSection
+                //song.sections.insert(processedSection, at: index + 1)
             }
         }
 
@@ -126,7 +127,11 @@ public enum ChordProParser {
         var result = Set<ChordDefinition>()
         for line in lines {
             /// Collect all parts
-            let allParts = (line.parts ?? [])
+            let allParts =
+                (line.parts ?? []) +
+                (line.gridsLine?
+                    .flatMap(\.cells)
+                    .flatMap(\.parts) ?? [])
             /// Add them to the set of known chords
             result.formUnion(
                 allParts

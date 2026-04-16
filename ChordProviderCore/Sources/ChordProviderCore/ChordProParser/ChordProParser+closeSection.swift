@@ -63,7 +63,7 @@ extension ChordProParser {
         } else {
             /// Just add the closing line
             var line = Song.Section.Line(
-                sourceLineNumber: song.lines,
+                sourceLineNumber: song.totalLines,
                 source: "{\(directive.rawValue.long)}",
                 sourceParsed: "{\(closingDirective.rawValue.long)}",
                 directive: closingDirective,

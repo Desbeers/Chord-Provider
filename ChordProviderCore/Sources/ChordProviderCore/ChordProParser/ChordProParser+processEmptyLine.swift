@@ -20,7 +20,7 @@ extension ChordProParser {
         if currentSection.environment != .none && currentSection.autoCreated ?? false == false {
             /// Add an empty line to the section
             let line = Song.Section.Line(
-                sourceLineNumber: song.lines,
+                sourceLineNumber: song.totalLines,
                 source: "",
                 sourceParsed: "",
                 type: .emptyLine,

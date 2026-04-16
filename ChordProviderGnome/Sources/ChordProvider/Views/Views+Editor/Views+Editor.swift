@@ -159,7 +159,7 @@ extension Views {
                 }
                 .response("Cleanup", appearance: .suggested, role: .default) {
                     appState.editor.command = .replaceAllText(
-                        text: appState.editor.song.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
+                        text: appState.editor.song.allLines.map(\.sourceParsed).joined(separator: "\n")
                     )
                 }
             }
