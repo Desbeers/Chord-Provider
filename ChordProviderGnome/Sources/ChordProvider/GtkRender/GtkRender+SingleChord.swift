@@ -27,7 +27,7 @@ extension GtkRender {
                         Text(part.withMarkup(chord))
                             .useMarkup()
                             .tooltip(chord.toolTip)
-                            .style(chord.knownChord ? .none : .underline)
+                            .style(chord.style)
                             .style(.chord)
                             .id(chord)
                     }
@@ -38,6 +38,11 @@ extension GtkRender {
                             VStack(spacing: 0) {
                                 Views.MidiPlayer(chord: chord, coreSettings: coreSettings)
                                 Views.ChordDiagram(chord: chord, coreSettings: coreSettings)
+                                if chord.knownChord, let strum = chord.strum {
+                                    Text(strum.description)
+                                        .style(.caption)
+                                }
+
                             }
                         }
                     }

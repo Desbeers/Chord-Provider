@@ -54,12 +54,17 @@ extension Utils {
         var gridTask: Task<Void, Never>?
         var grids: [Song.Section.Line.GridCell]?
         var preset: MidiUtils.Preset = .acousticNylonGuitar
+        nonisolated(unsafe) var currentChord: Int = -1
 
         // MARK: Play Token
 
         /// Current play token
         /// - Note: Used for cancelling a chord when we start a new one
         var playToken: UUID = UUID()
+
+        nonisolated var getCurrentChord: Int {
+            currentChord
+        }
 
         // MARK: Init
 

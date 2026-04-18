@@ -242,7 +242,8 @@ extension SourceViewController {
             bridge.song = ChordProParser.parse(song: bridge.song, settings: bridge.coreSettings)
             /// Clear all markers and add new ones if needed
             sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-            let lines = bridge.song.sections.flatMap(\.lines).filter {$0.sourceLineNumber > 0}
+            /// Get all lines, removing anything added by the parser
+            let lines = bridge.song.allLines.filter {$0.sourceLineNumber > 0}
             bridge.songLines = lines
             for line in lines.filter({ $0.warnings != nil }) {
                 sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")

@@ -47,7 +47,7 @@ extension Utils.MidiPlayer {
 
         /// Reset the volume
         /// - Note: Because it might be decreased already during fade-out
-        startVolume = min(Int32(playbackSettings.velocity * 100), 120)
+        startVolume = min(Int32(playbackSettings.velocity * 90), 120)
         fluid_synth_cc(synth, channel, 11, startVolume)
 
         // MARK: Play the chord

@@ -40,4 +40,29 @@ extension ChordDefinition {
         }
         return true
     }
+
+    var style: Markup.Class {
+        if knownChord, let strum = self.strum {
+            switch strum {
+            case .downAccent, .upAccent:
+            .strokeAccent
+            case .downArpeggio, .upArpeggio:
+            .strokeArpeggio
+            case .downArpeggioAccent, .upArpeggioAccent:
+            .strokeArpeggioAccent
+            case .downMuted, .upMuted:
+            .strokeMuted
+            case .downMutedAccent, .upMutedAccent:
+            .strokeMutedAccent
+            case .downStaccato, .upStaccato:
+            .strokeStaccato
+            case .downStaccatoAccent, .upStaccatoAccent:
+            .strokeStaccatoAccent
+            default:
+            .none
+            }
+        } else {
+           knownChord ? .none : .chordError
+        }
+    }
 }

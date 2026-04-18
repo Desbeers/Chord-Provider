@@ -73,6 +73,8 @@ extension Views.Database {
                             databaseState.showDefinitionDialog = false
                         }
                         Button("\(newChord ? "Add" : "Update") Definition") {
+                            /// Give a new chord a new ID
+                            definition.id = newChord ? UUID() : definition.id
                             /// Mark the instrument as modified
                             appState.markCurrentInstrumentAsModified()
                             /// Update the database

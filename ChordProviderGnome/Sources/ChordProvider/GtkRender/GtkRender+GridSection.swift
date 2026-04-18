@@ -41,6 +41,7 @@ extension GtkRender {
         @State private var playGridChords: Bool = false
         /// The ID of the grid
         let gridID: Int
+        @State private var currentPartID: Int = -1
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -63,7 +64,12 @@ extension GtkRender {
                                             )
                                             await Utils.MidiPlayer.shared.startChords()
                                         }
+                                        /// Monitor the chords player
+                                        monitorChordsPlayer()
                                     } else {
+                                        Idle {
+                                            currentPartID = -1
+                                        }
                                         Task {
                                             await Utils.MidiPlayer.shared.stopChords()
                                         }
@@ -72,7 +78,6 @@ extension GtkRender {
                                 .halign(.start)
                                 .flat()
                             }
-                            //.insensitive(columns.flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }.isEmpty)
                             ForEach(columns, horizontal: true) { column in
                                 Box {
                                     ForEach(column.parts, horizontal: false) { item in
@@ -81,7 +86,6 @@ extension GtkRender {
                                     .homogeneous()
                                 } 
                                 .homogeneous()
-                                //.id(elements)
                             }
                             //.homogeneous()
                         } else {
@@ -100,8 +104,9 @@ extension GtkRender {
             .onUpdate {
                 Idle {
                     if playGridChords && appState.scene.gridChordsID != gridID {
-                        /// Another grid is started; uncheck the toggle button
+                        /// Another grid is started; uncheck the toggle button and reset current part
                         playGridChords = false
+                        currentPartID = -1
                     }
                 }
             }
@@ -110,13 +115,12 @@ extension GtkRender {
         /// Render a part of the grid
         /// - Parameter part: The part to render
         /// - Returns: A `View`
-        func part(part: Song.Section.Line.Part) -> AnyView {
+        private func part(part: Song.Section.Line.Part) -> AnyView {
             Box {
-                // Text(part.chordDefinition?.display ?? part.strum?.description ?? "?")
-                //     .style(.error)
-                if part.chordDefinition != nil && part.chordDefinition?.kind != .textChord {
+                if let chord = part.chordDefinition, chord.kind != .textChord {
                     SingleChord(part: part, coreSettings: coreSettings)
                         .halign(.center)
+                        .style(part.id == currentPartID && playGridChords ? .chordHighlight : .none)
                         .insensitive(part.hidden)
                 } else if let strum = part.strum, strum != .spacer {
                     Widgets.BundleImage(strum: strum)
@@ -127,16 +131,25 @@ extension GtkRender {
                     Text(part.text?.escapeSpecialCharacters() ?? " ")
                         .useMarkup()
                         .style(.sectionGrid)
-                        //.padding(5, .leading)
                         .halign(.center)
                 }
             }
-            //.hexpand()
             .halign(.center)
             .valign(.center)
             .padding(2, .horizontal)
-            //.padding( 20 / (part.cells ?? 1), .trailing)
-            .id(part)
+            .id(part.description + playGridChords.description + String(currentPartID))
+        }
+
+        /// Monitor the chords player for its current chord
+        /// - Note: This will cancel itself when the player is stopped
+        private func monitorChordsPlayer() {
+            Idle(delay: .seconds(0.01)) {
+                let chord = Utils.MidiPlayer.shared.currentChord
+                if chord != currentPartID {
+                    currentPartID = chord
+                }
+                return playGridChords
+            }
         }
     }
 }

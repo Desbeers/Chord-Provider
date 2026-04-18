@@ -14,6 +14,10 @@ extension Utils.MidiPlayer {
 
     /// Start the metronome
     func startMetronome() {
+        if self.gridTask != nil {
+            /// Restart the chords
+            startChords()
+        }
         stopMetronome()
         metronomeTask = Task { [weak self] in
             await self?.runMetronome()
@@ -31,8 +35,9 @@ extension Utils.MidiPlayer {
         metronomeBPM = max(20, min(bpm, 300))
     }
 
-    /// Set metronome meter: "4/4", "6/8", "7/8=2+2+3"
-    func setMetronomeMeter(_ meter: String) {
+    /// Set metronome time signature
+    /// - Note: "4/4", "6/8", "7/8=2+2+3" for example
+    func setMetronomeTimeSignature(_ meter: String) {
         let mainParts = meter.split(separator: "=")
         let signaturePart = mainParts[0]
         let additivePart = mainParts.count > 1 ? mainParts[1] : nil
@@ -101,6 +106,8 @@ extension Utils.MidiPlayer {
             0,
             0
         )
+
+        fluid_synth_cc(synth, metronomeChannel, 11, 120)
 
         var pulse: Int = 0
 

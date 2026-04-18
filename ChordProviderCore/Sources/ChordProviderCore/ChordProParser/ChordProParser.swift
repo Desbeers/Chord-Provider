@@ -116,7 +116,6 @@ public enum ChordProParser {
             for (index, section) in song.sections.enumerated() where section.environment == .grid {
                 let processedSection = ChordProParser.gridToColumns(section: section)
                 song.sections[index] = processedSection
-                //song.sections.insert(processedSection, at: index + 1)
             }
         }
 

@@ -24,7 +24,7 @@ extension Views {
             Task {
                 if let tempo = metadata.tempo, let bpm = Int(tempo) {
                     await Utils.MidiPlayer.shared.setMetronomeBPM(bpm)
-                    await Utils.MidiPlayer.shared.setMetronomeMeter(metadata.time ?? "4/4")
+                    await Utils.MidiPlayer.shared.setMetronomeTimeSignature(metadata.time ?? "4/4")
                 } else {
                     await Utils.MidiPlayer.shared.stopMetronome()
                 }

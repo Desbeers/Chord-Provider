@@ -23,6 +23,10 @@ extension Utils.MidiPlayer {
 
     /// Start the chords
     func startChords() {
+        if self.metronomeTask != nil {
+            /// Restart the metronome
+            startMetronome()
+        }
         stopChords()
         gridTask = Task { [weak self] in
             await self?.playChords()
@@ -44,8 +48,6 @@ extension Utils.MidiPlayer {
                 part.chordDefinition != nil
             }
         }
-        /// Add some empty chords at the end beacuse tghe player is looping
-        parts.append(contentsOf: Array(repeating: Song.Section.Line.Part(id: 0, chordDefinition: ChordDefinition(text: "", kind: .textChord)), count: 4))
         while !Task.isCancelled {
             var cells = 0
             for part in parts {
@@ -53,6 +55,7 @@ extension Utils.MidiPlayer {
                     cells = cellsPart
                 }
                 let tempo = 60 / (Double(metronomeBPM) * Double(cells))
+                self.currentChord = part.id
                 if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord {
                     Task {
                         await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: chord.strum)

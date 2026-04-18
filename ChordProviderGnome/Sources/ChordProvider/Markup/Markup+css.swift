@@ -101,6 +101,24 @@ extension Markup {
         case selectedChord = "selected-chord"
         /// Chord text indicating an error or invalid chord
         case chordError = "chord-error"
+        /// Chord-highlight
+        /// - Note: For playing grids
+        case chordHighlight = "chord-highlight"
+
+        /// Accent stroke
+        case strokeAccent = "stroke-accent"
+        /// Arpeggio stroke
+        case strokeArpeggio = "stroke-arpeggio"
+        /// Arpeggio Accent stroke
+        case strokeArpeggioAccent = "stroke-arpeggio-accent"
+        /// Muted stroke
+        case strokeMuted = "stroke-muted"
+        /// Muted Accent stroke
+        case strokeMutedAccent = "stroke-muted-accent"
+        /// Staccato stroke
+        case strokeStaccato = "stroke-staccato"
+        /// Staccato Accent stroke
+        case strokeStaccatoAccent = "stroke-staccato-accent"
 
         // MARK: Icons
 
@@ -339,6 +357,35 @@ popover contents, popover arrow {
     background: var(--card-bg-color);
     border-radius: 0.6em;
 }
+.chord-highlight {
+    background-color: var(--chordprovider-label-bg-color);
+    border-radius: 0.2em;
+}
+
+.stroke-accent {
+    font-size: 1.2em;
+}
+.stroke-arpeggio {
+    font-style: italic;
+}
+.stroke-arpeggio-accent {
+    font-size: 1.2em;
+    font-style: italic;
+}
+.stroke-muted {
+    opacity: 0.6;
+}
+.stroke-muted-accent {
+    font-size: 1.2em;
+    opacity: 0.6;
+}
+.stroke-staccato {
+    font-size: 0.8em;
+}
+.stroke-staccato-accent {
+    font-size: 0.95em;
+}
+
 
 /* Icons */
 
