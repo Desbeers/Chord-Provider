@@ -89,6 +89,12 @@ extension ChordPro {
 
         /// This directive introduce a comment line
         case comment = "comment|c"
+        /// This directive introduce a comment line using an italic typeface
+        case commentItalic = "comment_italic|ci"
+        /// This directive introduce a comment line with a box around the text
+        case commentBox = "comment_box|cb"
+        /// This is an alternative to comment
+        case highlight
         /// Specifies the name of the file containing the image
         case image
 

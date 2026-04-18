@@ -126,6 +126,7 @@ extension ChordPro.Directive {
         metadataDirectives + environmentDirectives + [
             .subtitle,
             .comment,
+            .highlight,
             .define,
             .defineGuitar,
             .defineGuitalele,

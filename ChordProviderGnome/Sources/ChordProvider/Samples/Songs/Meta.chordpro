@@ -12,3 +12,11 @@ La[A]
 {start_of_verse: label="Tussen Haakjes"}
 La[A]
 {end_of_verse}
+
+{comment_italic: Hello Italic}
+{comment_box: Hello Box}
+{highlight: Hello World!}
+
+{start_of_abc}
+ABC
+{end_of_abc}

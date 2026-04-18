@@ -174,6 +174,30 @@ extension ChordPro.Directive {
                 lineType: .comment,
                 buttonLabel: "Add a new comment"
             )
+        case .highlight:
+            Details(
+                label: "Highlight",
+                help: "This directive introduce an highlighted line",
+                environment: .comment,
+                lineType: .comment,
+                buttonLabel: "Add a new Highlight"
+            )
+        case .commentItalic:
+            Details(
+                label: "Comment in italic",
+                help: "This directive introduce a comment line using an italic typeface",
+                environment: .comment,
+                lineType: .comment,
+                buttonLabel: "Add a new comment"
+            )
+        case .commentBox:
+            Details(
+                label: "Comment in a box",
+                help: "This directive introduce a comment line with a box around the text",
+                environment: .comment,
+                lineType: .comment,
+                buttonLabel: "Add a new comment"
+            )
         case .image:
             Details(
                 label: "Image",

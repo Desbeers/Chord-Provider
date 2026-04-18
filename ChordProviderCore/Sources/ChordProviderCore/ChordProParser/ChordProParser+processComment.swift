@@ -11,10 +11,12 @@ extension ChordProParser {
 
     /// Process a comment
     /// - Parameters:
+    ///   - directive: The directive
     ///   - arguments: The optional arguments for the directive
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func processComment(
+        directive: ChordPro.Directive,
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
@@ -26,8 +28,8 @@ extension ChordProParser {
         var line = Song.Section.Line(
             sourceLineNumber: song.totalLines,
             source: source ?? "No source given, this is an error",
-            sourceParsed: "{\(ChordPro.Directive.comment): \(comment.trimmingCharacters(in: .whitespaces))}",
-            directive: .comment,
+            sourceParsed: "{\(directive): \(comment.trimmingCharacters(in: .whitespaces))}",
+            directive: directive,
             type: .comment,
             context: currentSection.environment
         )

@@ -89,8 +89,9 @@ extension ChordProParser {
 
                         // MARK: Formatting directives
 
-                    case .comment:
+                    case .comment, .highlight:
                         processComment(
+                            directive: directive,
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
@@ -123,7 +124,7 @@ extension ChordProParser {
 
                         /// ## Start of ABC
                     case .startOfABC:
-                        currentSection.addWarning("<b>ABC</b> is not supported in the output")
+                        currentSection.addWarning("The <b>ABC</b> environment is not supported in <i>Chord Provider</i>")
                         openSection(
                             directive: .startOfABC,
                             arguments: arguments,
@@ -206,9 +207,9 @@ extension ChordProParser {
 
                     default:
                         /// A known but unsupported directive
-                        currentSection.addWarning("<b>\(directive.details.label)</b> directive is not supported")
+                        currentSection.addWarning("The <b>\(directive.details.label)</b> directive is not supported in <i>Chord Provider</i>")
                         addSection(
-                            directive: directive,
+                            directive: .unknown,
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
