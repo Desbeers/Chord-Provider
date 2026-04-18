@@ -111,7 +111,7 @@ public enum ChordProParser {
         /// Set some stuff
         let lines = song.sections.flatMap(\.lines)
 
-        /// Process grid
+        /// Process grid into columns
         if lines.map(\.context).contains(.grid) {
             for (index, section) in song.sections.enumerated() where section.environment == .grid {
                 let processedSection = ChordProParser.gridToColumns(section: section)

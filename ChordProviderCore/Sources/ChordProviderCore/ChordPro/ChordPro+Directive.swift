@@ -82,6 +82,8 @@ extension ChordPro {
         case arranger
         /// This directive defines the writer of the lyrics of the song
         case lyricist
+        /// This directive defines a meta-data item
+        case meta
 
         /// # Formatting directives
 

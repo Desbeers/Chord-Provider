@@ -134,6 +134,11 @@ enum RegexDefinitions {
     ///
     nonisolated(unsafe) static let directive = Regex {
         "{"
+        Optionally {
+            "meta"
+            Optionally { ":" }
+            OneOrMore(.whitespace)
+        }
         Capture {
             OneOrMore {
                 CharacterClass(

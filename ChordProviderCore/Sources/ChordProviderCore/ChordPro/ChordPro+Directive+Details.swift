@@ -159,6 +159,13 @@ extension ChordPro.Directive {
                 environment: .metadata,
                 lineType: .metadata
             )
+        case .meta:
+            Details(
+                label: "Meta",
+                help: "This directive defines a meta-data item",
+                environment: .metadata,
+                lineType: .metadata
+            )
         case .comment:
             Details(
                 label: "Comment",
