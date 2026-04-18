@@ -36,22 +36,16 @@ extension ChordProParser {
         song: inout Song,
         getOnlyMetadata: Bool
     ) {
-        /// Keep the current text as source when we cannot handle the directive
-        let sourceArgument: DirectiveArguments = [.source: text]
+        /// Grab the directive to handle if unknown or not complete
+        let unparsedDirective = text.dropFirst().split(separator: " ").first ?? ""
 
         if let match = text.firstMatch(of: RegexDefinitions.directive) {
             let parsedDirective = match.1
             let parsedArgument = match.2
             /// Handle known directives
             if let directive = getDirective(parsedDirective.lowercased()) {
-                var arguments = DirectiveArguments()
-                if directive.directive.attributes.first == .plain {
-                    /// Just set the argument a *plain*
-                    arguments[.plain] = parsedArgument
-                } else {
-                    /// Parse the arguments
-                    arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
-                }
+                /// Parse the arguments
+                var arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
                 if directive.warning {
                     currentSection.addWarning(
                         "Short directive for <b>\(directive.directive.details.label)</b>; the long version is preferable"
@@ -60,9 +54,23 @@ extension ChordProParser {
                 /// Always use long directives
                 let directive = directive.directive
 
-                if arguments[.plain] != nil, text.starts(with: "{\(parsedDirective):") {
+                /// Get the optional arguments for a directive
+                let optionalAttributes = directive.attributes
+
+                if arguments[.plain] != nil, optionalAttributes.contains(.plain), text.starts(with: "{\(parsedDirective) ") {
                     currentSection.addWarning(
-                        "No need for a colon <b>:</b> for a simple argument",
+                        "It is preferable to use a colon <b>:</b> for a simple argument",
+                        //"No need for a colon <b>:</b> for a simple argument",
+                        level: .notice
+                    )
+                } else if arguments[.plain] != nil, !optionalAttributes.contains(.plain) {
+                    currentSection.addWarning(
+                        "It is always best to use the variant with explicit attribute\(optionalAttributes.count == 1 ? "" : "s")",
+                        level: .notice
+                    )
+                } else if arguments[.plain] == nil, text.starts(with: "{\(parsedDirective): ") {
+                    currentSection.addWarning(
+                        "It is not recommended to use a colon <b>:</b> when the directive has attributes",
                         level: .notice
                     )
                 }
@@ -82,7 +90,11 @@ extension ChordProParser {
                         // MARK: Formatting directives
 
                     case .comment:
-                        processComment(arguments: arguments, currentSection: &currentSection, song: &song)
+                        processComment(
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
 
                         // MARK: Environment directives
 
@@ -132,10 +144,20 @@ extension ChordProParser {
                                 currentSection.lines[index].arguments?[.plain] = adjustedString
                             }
                         }
-                        closeSection(directive: directive, currentSection: &currentSection, song: &song)
+                        closeSection(
+                            directive: directive,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
 
                     case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfStrum:
-                        closeSection(directive: directive, currentSection: &currentSection, song: &song)
+                        closeSection(
+                            directive: directive,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
 
                         // MARK: Chord diagrams
 
@@ -184,7 +206,7 @@ extension ChordProParser {
 
                     default:
                         /// A known but unsupported directive
-                        currentSection.addWarning("<b>\(directive.details.label)</b> is not supported")
+                        currentSection.addWarning("<b>\(directive.details.label)</b> directive is not supported")
                         addSection(
                             directive: directive,
                             arguments: arguments,
@@ -198,13 +220,14 @@ extension ChordProParser {
                 // MARK: Unknown directive
 
                 /// Add the unknown directive as a single line in a section
+                let warning = "\(unparsedDirective.isEmpty ? "This " : "<b>\(unparsedDirective)</b>") is an unknown directive"
                 currentSection.addWarning(
-                    "This is an unknown directive",
+                    warning,
                     level: .error
                 )
                 addSection(
                     directive: .unknown,
-                    arguments: sourceArgument,
+                    arguments: [.source: text],
                     currentSection: &currentSection,
                     song: &song
                 )
@@ -214,13 +237,14 @@ extension ChordProParser {
             // MARK: Not a (complete) directive
 
             /// Add the unknown directive as a single line in a section
+            let warning = "\(unparsedDirective.isEmpty ? "This " : "<b>\(unparsedDirective)</b>") is not a complete directive"
             currentSection.addWarning(
-                "This is not a complete directive",
+                warning,
                 level: .error
             )
             addSection(
                 directive: .unknown,
-                arguments: sourceArgument,
+                arguments: [.source: text],
                 currentSection: &currentSection,
                 song: &song
             )

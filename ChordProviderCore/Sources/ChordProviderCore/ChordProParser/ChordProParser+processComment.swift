@@ -20,15 +20,16 @@ extension ChordProParser {
         song: inout Song
     ) {
         let comment = arguments[.plain] ?? ""
+        /// Set the source
+        let source = arguments[.source]
         /// A comment should be rendered as part of a line
         var line = Song.Section.Line(
             sourceLineNumber: song.totalLines,
-            source: "{\(ChordPro.Directive.comment) \(comment)}",
-            sourceParsed: "{\(ChordPro.Directive.comment) \(comment.trimmingCharacters(in: .whitespaces))}",
+            source: source ?? "No source given, this is an error",
+            sourceParsed: "{\(ChordPro.Directive.comment): \(comment.trimmingCharacters(in: .whitespaces))}",
             directive: .comment,
             type: .comment,
-            context: currentSection.environment,
-            plain: comment
+            context: currentSection.environment
         )
         processParts(text: comment, line: &line, song: &song)
         /// Check where the comment belongs

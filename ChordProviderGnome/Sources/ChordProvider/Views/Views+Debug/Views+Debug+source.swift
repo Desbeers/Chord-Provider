@@ -37,7 +37,8 @@ extension Views.Debug {
                                         .logLevelStyle(warning.level)
                                         .halign(.start)
                                 }
-                                Text(line.source.source)
+                                Text("<b>Current source</b>: \(line.source.source)")
+                                .useMarkup()
                                     .style(.caption)
                                     .padding(5, .leading)
                                     .halign(.start)

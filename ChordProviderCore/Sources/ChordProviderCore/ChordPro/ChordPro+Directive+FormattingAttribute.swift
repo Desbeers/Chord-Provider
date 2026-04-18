@@ -23,7 +23,7 @@ extension ChordPro.Directive {
         case .key:
             [.key]
         case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
-            [.define]
+            [.plain]
         case .tempo:
             [.numeric]
         case .year, .copyright:
@@ -73,8 +73,6 @@ extension ChordPro.Directive {
 
         /// Numeric
         case numeric
-        /// Define
-        case define
         /// Key
         case key
         /// Source
@@ -102,10 +100,9 @@ extension ChordPro.Directive {
             case .height: 12
             case .tuplet: 13
             case .numeric: 14
-            case .define: 15
-            case .key: 16
-            case .source: 17
-            case .shape: 18
+            case .key: 15
+            case .source: 16
+            case .shape: 17
             }
         }
 

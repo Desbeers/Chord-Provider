@@ -1,7 +1,7 @@
-{title Meta!!}
+{title Meta!!!}
 {meta: artist Nick Berendsen}
 
-{start_of_verse Label!}
+{start_of_verse Plain Label!}
 La[A]
 {end_of_verse}
 
@@ -11,4 +11,4 @@ La[A]
 
 {start_of_verse: label="Tussen Haakjes"}
 La[A]
-{end_of_verse}]]
+{end_of_verse}

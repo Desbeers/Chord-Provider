@@ -18,6 +18,8 @@
 
     <definitions>
 
+        <define-regex id="word">\b[a-z_]+\b</define-regex>
+
         <define-regex id="attribute-name">\b[a-z0-9:_-]+\b</define-regex>
 
         <define-regex id="net-address" extended="true">
@@ -115,14 +117,23 @@
             </include>
         </context>
 
-        <context id="directive" end-at-line-end="true" >
+        <context id="directiveOther" end-at-line-end="true" >
+            <start>(\{)(\%{word})(:?)</start>
+            <end>\}</end>
+            <include>
+                <context sub-pattern="2" where="start" style-ref="def:identifier"/>
+                <context sub-pattern="3" where="start" style-ref="attrib-name"/>
+                <context ref="tag"/>
+                <context ref="arguments"/>
+            </include>
+        </context>
+
+        <context id="directiveKnown" end-at-line-end="true" >
             <start>(\{)(\%{all-directives})(:?)</start>
             <end>\}</end>
             <include>
                 <context sub-pattern="2" where="start" style-ref="def:type"/>
-                <context sub-pattern="3" where="start" style-ref="def:note"/>
-<!--                <context ref="bold"/>-->
-<!--                <context ref="italic"/>-->
+                <context sub-pattern="3" where="start" style-ref="attrib-name"/>
                 <context ref="tag"/>
                 <context ref="arguments"/>
             </include>
@@ -135,7 +146,8 @@
                 <context ref="bold"/>
                 <context ref="italic"/>
                 <context ref="chord"/>
-                <context ref="directive"/>
+                <context ref="directiveKnown"/>
+                <context ref="directiveOther"/>
                 <context ref="tag"/>
             </include>
         </context>

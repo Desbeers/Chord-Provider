@@ -13,11 +13,13 @@ extension ChordProParser {
     /// - Note: This will open a new empty section as well
     /// - Parameters:
     ///   - directive: The closing directive
+    ///   - arguments: The optional arguments for the directive
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     ///   - warning: Bool to add a warning that the section is not properly closed
     static func closeSection(
         directive: ChordPro.Directive,
+        arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song,
         warning: Bool = false
@@ -47,7 +49,7 @@ extension ChordProParser {
             let lastLineIndex = currentSection.lines.lastIndex(where: { $0.directive != .emptyLine }) {
             let line = Song.Section.Line(
                 sourceLineNumber: -(currentSection.lines[lastLineIndex].sourceLineNumber + 1),
-                source: "{\(directive.rawValue.long)}",
+                source: arguments[.source] ??  "No source given, this is an error",
                 sourceParsed: "{\(closingDirective.rawValue.long)}",
                 directive: closingDirective,
                 type: .environmentDirective,
@@ -64,7 +66,7 @@ extension ChordProParser {
             /// Just add the closing line
             var line = Song.Section.Line(
                 sourceLineNumber: song.totalLines,
-                source: "{\(directive.rawValue.long)}",
+                source: arguments[.source] ??  "No source given, this is an error",
                 sourceParsed: "{\(closingDirective.rawValue.long)}",
                 directive: closingDirective,
                 type: .environmentDirective,

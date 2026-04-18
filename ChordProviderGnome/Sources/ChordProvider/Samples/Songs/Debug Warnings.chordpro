@@ -1,9 +1,16 @@
-{t: Debug Warnings!}
-{st: Nick Berendsen}
+{t Debug Warnings!}
 
-{start_of_textblock label="Check"}
+{artist label="Test"}
+{tag Debug without column}
+
+{sov SHORT VERSE}
+La[A]
+{eov}
+
+
+{start_of_textblock: label="Check"}
 <big>Warnings/Errors</big>
- 
+{c Inline comment...} 
 <b>Directives</b>
 - Short directives
 - Directives with an `:`
@@ -26,9 +33,9 @@
 {define-guitalele A base-fret 1 frets 0 2 2 1 x 0 fingers 0 2 3 1 0 0}
 {define-ukulele A base-fret 1 frets 2 1 0 0 fingers 2 1 0 0}
 
-{comment: Normal sections}
+{c Normal sections}
 
-{start_of_verse}
+{start_of_verse Simple Label}
 Swing [D]low, sweet [G]chari[D]ot,
 
 {comment Emty lines are only supported in a defined environment; like here.}
@@ -55,7 +62,7 @@ Comin’ for to carry me [A7]home.
 # Incomplete directive
 {tag Not complete...
 # Unknown directive
-{something Not a known directive}
+{something_unknown Not a known directive}
 
 {comment: Not a closed section; the closing tag should be added for the Verse}
 

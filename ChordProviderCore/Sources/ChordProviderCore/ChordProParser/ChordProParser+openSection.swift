@@ -30,6 +30,7 @@ extension ChordProParser {
         if !currentSection.lines.isEmpty {
             closeSection(
                 directive: currentSection.environment.directives.close,
+                arguments: currentSection.lines.last?.arguments ?? DirectiveArguments(),
                 currentSection: &currentSection,
                 song: &song,
                 warning: shouldWarn
@@ -56,11 +57,11 @@ extension ChordProParser {
         let plain = arguments.removeValue(forKey: .plain)
 
         /// Add the single line
+        var result = Song.Section.Line()
         if let line {
-            /// Append the supplied line
-            currentSection.lines.append(line)
+            result = line
         } else {
-            var line = Song.Section.Line(
+            result = Song.Section.Line(
                 sourceLineNumber: song.totalLines,
                 source: source ?? "ERROR, NO SOURCE GIVEN",
                 directive: ChordPro.Directive.customDirectives.contains(directive) ? nil : directive,
@@ -70,21 +71,21 @@ extension ChordProParser {
                 plain: plain
             )
             if source == nil {
-                line.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
+                result.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
             }
             /// Calculate the source
-            line.calculateSource()
-
-            /// Add optional warnings
-            if let warnings = currentSection.warnings {
-                for warning in warnings {
-                    line.addWarning(warning, level: warning.level)
-                }
-            }
-
-            /// Append the line
-            currentSection.lines.append(line)
+            result.calculateSource()
         }
+
+        /// Add optional warnings
+        if let warnings = currentSection.warnings {
+            for warning in warnings {
+                result.addWarning(warning, level: warning.level)
+            }
+        }
+
+        /// Append the line
+        currentSection.lines.append(result)
 
         /// Reset the warnings, there are handled now
         currentSection.resetWarnings()

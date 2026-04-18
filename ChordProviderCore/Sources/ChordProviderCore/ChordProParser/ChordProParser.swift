@@ -95,6 +95,7 @@ public enum ChordProParser {
             song.totalLines += 1
             closeSection(
                 directive: currentSection.environment.directives.close,
+                arguments: currentSection.lines.last?.arguments ?? DirectiveArguments(),
                 currentSection: &currentSection,
                 song: &song
             )
