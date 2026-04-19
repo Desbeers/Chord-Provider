@@ -72,6 +72,25 @@ extension ChordPro.Directive {
 
     // MARK: Grouped directives
 
+    /// Array of unsupported ``ChordPro/Directive``
+    public static var unsupportedDirectives: [ChordPro.Directive] {
+        customDirectives +
+        [
+            .startOfLy,
+            .endOfLy,
+            .startOfABC,
+            .endOfABC,
+            .startOfSvg,
+            .endOfSvg,
+            .highlight,
+            .commentItalic,
+            .commentBox,
+            .columnBreak,
+            .meta,
+            .newPage
+        ]
+    }
+
     /// Array of **Metadata** ``ChordPro/Directive``
     public static var metadataDirectives: [ChordPro.Directive] {
         [

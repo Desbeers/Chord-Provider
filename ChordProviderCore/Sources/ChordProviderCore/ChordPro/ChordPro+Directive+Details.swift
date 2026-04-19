@@ -224,7 +224,7 @@ extension ChordPro.Directive {
             )
         case .chorus:
             Details(
-                label: "Label",
+                label: "Repeat Chorus",
                 help: "This directive indicates that the song chorus must be played here",
                 environment: .repeatChorus,
                 lineType: .environmentDirective,

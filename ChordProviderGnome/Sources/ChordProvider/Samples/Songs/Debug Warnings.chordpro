@@ -22,6 +22,7 @@ La[A]
 - Auto created environments
 - Environments that are not properly closed
 - Environment with wrong closing tag
+- Unsupported environments
 
 <b>Chords</b>
 - Unknown chords
@@ -63,6 +64,20 @@ Comin’ for to carry me [A7]home.
 {tag Not complete...
 # Unknown directive
 {something_unknown Not a known directive}
+
+{comment Unsupported environments}
+
+{start_of_abc}
+ABC
+{end_of_abc}
+
+{start_of_ly}
+Lilypound
+{end_of_ly}
+
+{start_of_svg}
+SVG
+{end_of_svg}
 
 {comment: Not a closed section; the closing tag should be added for the Verse}
 

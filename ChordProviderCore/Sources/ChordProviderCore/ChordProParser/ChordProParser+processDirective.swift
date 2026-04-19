@@ -63,7 +63,7 @@ extension ChordProParser {
                 if optionalAttributes == [.plain], arguments[.haveAttributes] != nil {
                     currentSection.addWarning(
                         "Attributes are not supported for <b>\(directive)</b>",
-                        level: .notice
+                        level: .error
                     )
                     addSection(
                         directive: directive,

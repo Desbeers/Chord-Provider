@@ -19,12 +19,12 @@ struct Generate {
 
         let directives = ChordPro.Directive.allCases
 
-        for directive in directives where !ChordPro.Directive.customDirectives.contains(directive) {
+        for directive in directives where !ChordPro.Directive.unsupportedDirectives.contains(directive) {
 
             var text = "\(directive.rawValue.long)"
 
             if ChordPro.Directive.withPlainArgument.contains(directive) {
-                text += " ${1:\(directive.details.defaultValue ?? directive.details.label)}"
+                text += ": ${1:\(directive.details.defaultValue ?? directive.details.label)}"
             }
 
             output += """
@@ -42,7 +42,7 @@ struct Generate {
 
         print(output)
         do {
-            try output.write(to: URL(string: "/Users/Desbeers/Desktop/chordpro.snippets")!, atomically: true, encoding: .utf8)
+            try output.write(to: URL(string: "/home/desbeers/Desktop/chordpro.snippets")!, atomically: true, encoding: .utf8)
         } catch {
             print(error)
         }
