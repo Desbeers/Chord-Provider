@@ -179,12 +179,12 @@ extension Song.Section {
         /// Calculate the source of the line
         mutating func calculateSource() {
             if let directive {
-                let column = plain == nil ? "" : ":"
+                let colon = plain == nil ? "" : ":"
                 if ChordPro.Directive.customDirectives.contains(directive) {
                     /// Just use the current source; its internal stuff and not a real directive
                     sourceParsed = source.trimmingCharacters(in: .whitespaces)
                 } else if let arguments = ChordProParser.argumentsToString(self) {
-                    sourceParsed = "{\(directive.rawValue.long)\(column) \(arguments)}"
+                    sourceParsed = "{\(directive.rawValue.long)\(colon) \(arguments)}"
                 } else {
                     /// Only a directive
                     sourceParsed = "{\(directive.rawValue.long)}"

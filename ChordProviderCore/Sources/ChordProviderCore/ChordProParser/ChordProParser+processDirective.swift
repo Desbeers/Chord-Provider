@@ -12,7 +12,7 @@ extension ChordProParser {
     /// Get the ``ChordPro/Directive`` from a `String`
     /// - Parameter directive: The directive as string
     /// - Returns: The optional directive with an optional warning if a 'short' directive is found
-    static func getDirective(_ directive: String) -> (directive: ChordPro.Directive, warning: Bool)? {
+    static func getDirective(_ directive: String) -> (directive: ChordPro.Directive, short: Bool)? {
         if let longDirective = ChordPro.Directive.allCases.first(where: { $0.rawValue.long == directive }) {
             return (longDirective, false)
         } else if let shortDirective = ChordPro.Directive.allCases.first(where: { $0.rawValue.short == directive }) {
@@ -44,23 +44,38 @@ extension ChordProParser {
             let parsedArgument = match.2
             /// Handle known directives
             if let directive = getDirective(parsedDirective.lowercased()) {
-                /// Parse the arguments
-                var arguments = stringToArguments(parsedArgument, currentSection: &currentSection)
-                if directive.warning {
+                /// Warn for short directive
+                if directive.short {
                     currentSection.addWarning(
                         "Short directive for <b>\(directive.directive.details.label)</b>; the long version is preferable"
                     )
                 }
-                /// Always use long directives
                 let directive = directive.directive
+                /// Parse the arguments
+                let directiveArguments = stringToArguments(parsedArgument)
+                var arguments = directiveArguments.arguments
+                /// Keep the original source
+                arguments[.source] = text
 
-                /// Get the optional arguments for a directive
+                /// Get the array of optional arguments for a directive
                 let optionalAttributes = directive.attributes
 
-                if arguments[.plain] != nil, optionalAttributes.contains(.plain), text.starts(with: "{\(parsedDirective) ") {
+                if optionalAttributes == [.plain], arguments[.haveAttributes] != nil {
+                    currentSection.addWarning(
+                        "Attributes are not supported for <b>\(directive)</b>",
+                        level: .notice
+                    )
+                    addSection(
+                        directive: directive,
+                        arguments: arguments,
+                        currentSection: &currentSection,
+                        song: &song
+                    )
+                    /// Fatal, nothing else to do here
+                    return
+                } else if arguments[.plain] != nil, optionalAttributes.contains(.plain), text.starts(with: "{\(parsedDirective) ") {
                     currentSection.addWarning(
                         "It is preferable to use a colon <b>:</b> for a simple argument",
-                        //"No need for a colon <b>:</b> for a simple argument",
                         level: .notice
                     )
                 } else if arguments[.plain] != nil, !optionalAttributes.contains(.plain) {
@@ -74,16 +89,38 @@ extension ChordProParser {
                         level: .notice
                     )
                 }
-                /// Keep the original source
-                arguments[.source] = text
+                /// Remove the attributes check
+                arguments[.haveAttributes] = nil
 
                 if ChordPro.Directive.metadataDirectives.contains(directive) {
 
                     // MARK: Metadata directives
 
                     /// Process metadata
-                    processMetadata(directive: directive, arguments: arguments, currentSection: &currentSection, song: &song)
+                    if arguments[.plain] != nil {
+                        processMetadata(directive: directive, arguments: arguments, currentSection: &currentSection, song: &song)
+                    } else {
+                        currentSection.addWarning(
+                            "Metadata <b>\(directive.details.label)</b> has no value",
+                            level: .error
+                        )
+                        addSection(
+                            directive: directive,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
+                        return
+                    }
                 } else if !getOnlyMetadata {
+                    /// Add optional arguments warnings
+                    /// - Note: Metadata cannot have arguments
+                    for warning in directiveArguments.warnings {
+                        currentSection.addWarning(
+                            warning,
+                            level: .notice
+                        )
+                    }
                     /// All other directives
                     switch directive {
 
@@ -122,11 +159,11 @@ extension ChordProParser {
                             song: &song
                         )
 
-                        /// ## Start of ABC
-                    case .startOfABC:
-                        currentSection.addWarning("The <b>ABC</b> environment is not supported in <i>Chord Provider</i>")
+                        /// ## Start of ABC, Lilipound, SVG
+                    case .startOfABC, .startOfLy, .startOfSvg:
+                        currentSection.addWarning("The <b>\(directive.details.buttonLabel ?? "")</b> environment is not supported in <i>Chord Provider</i>")
                         openSection(
-                            directive: .startOfABC,
+                            directive: directive,
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
@@ -152,7 +189,7 @@ extension ChordProParser {
                             song: &song
                         )
 
-                    case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfStrum:
+                    case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfStrum, .endOfLy, .endOfSvg:
                         closeSection(
                             directive: directive,
                             arguments: arguments,
@@ -202,7 +239,6 @@ extension ChordProParser {
 
                     case .image:
                         processImage(arguments: arguments, currentSection: &currentSection, song: &song)
-
                         // MARK: Unsupported directives
 
                     default:

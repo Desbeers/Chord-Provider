@@ -40,6 +40,12 @@ extension ChordPro {
         /// ABC environment
         case abc
 
+        /// Lilypond environment
+        case ly
+
+        /// SVG environment
+        case svg
+
         /// Textblock environment
         case textblock
 

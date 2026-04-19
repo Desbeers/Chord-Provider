@@ -31,10 +31,6 @@ extension ChordProParser {
             /// Set this metadata as defined
             song.metadata.definedMetadata.insert(directive.rawValue.long)
         }
-        /// Add a warning that attributes are not supported for metadata
-        if arguments[.label] != nil {
-            currentSection.addWarning("Metadata attributes are not supported", level: .notice)
-        }
         /// Get the label; fallback to the optional label but give a warning
         let label = arguments[.plain] ?? arguments[.label]
         /// Add the metadata to the song

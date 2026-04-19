@@ -311,6 +311,40 @@ extension ChordPro.Directive {
                 environment: .abc,
                 lineType: .environmentDirective
             )
+
+        case .startOfLy:
+            Details(
+                label: "Start of Lilypound",
+                help: "This directive indicates the start of Lilypound embedding",
+                environment: .ly,
+                lineType: .environmentDirective,
+                info: "The label is optional",
+                buttonLabel: "Lilypound"
+            )
+        case .endOfLy:
+            Details(
+                label: "End of Lilipound",
+                help: "This directive indicates the end of the Lilypound embedding",
+                environment: .ly,
+                lineType: .environmentDirective
+            )
+        case .startOfSvg:
+            Details(
+                label: "Start of SVG",
+                help: "This directive indicates the start of SVG embedding",
+                environment: .svg,
+                lineType: .environmentDirective,
+                info: "The label is optional",
+                buttonLabel: "SVG"
+            )
+        case .endOfSvg:
+            Details(
+                label: "End of SVG",
+                help: "This directive indicates the end of the SVG embedding",
+                environment: .svg,
+                lineType: .environmentDirective
+            )
+
         case .startOfTextblock:
             Details(
                 label: "Start of Textblock",

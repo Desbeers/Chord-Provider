@@ -31,15 +31,13 @@ extension ChordProParser {
     }
 
     /// Convert an argument string into arguments
-    /// - Parameters:
-    ///   - parsedArgument: The parsed argument string
-    ///   - currentSection: The current section of the song; this is to add optional warnings
-    /// - Returns: The arguments in a dictionary
+    /// - Parameter parsedArgument: The arguments as string
+    /// - Returns: The arguments in a dictionary and optional warnings
     static func stringToArguments(
-        _ parsedArgument: String?,
-        currentSection: inout Song.Section
-    ) -> ChordProParser.DirectiveArguments {
+        _ parsedArgument: String?
+    ) -> (arguments: ChordProParser.DirectiveArguments, warnings: [String]) {
         var arguments = DirectiveArguments()
+        var warnings: [String] = []
         /// Check if the label contains formatting attributes; skip html tags
         if
             let parsedArgument,
@@ -52,19 +50,20 @@ extension ChordProParser {
                 if let argument = ChordPro.Directive.FormattingAttribute(rawValue: $1.1.lowercased()) {
                     var value = $1.2
                     if value.first != "\"" || value.last != "\"" {
-                        currentSection.addWarning("Missing brackets around <b>\(value)</b>")
+                        warnings.append("Missing brackets around <b>\(value)</b>")
                     }
                     value.replace("\"", with: "")
                     $0[argument] = value
                 } else {
-                    currentSection.addWarning("Unknown <i>key</i>: <b>\($1.1)</b>")
+                    warnings.append("Unknown <i>key</i>: <b>\($1.1)</b>")
                 }
             }
+            arguments[.haveAttributes] = "true"
         } else {
             /// Set the argument as simply *plain*
             /// - Note: Later, this will be moved to its own part of a line because it is not a *real* argument
             arguments[.plain] = parsedArgument
         }
-        return arguments
+        return (arguments, warnings)
     }
 }

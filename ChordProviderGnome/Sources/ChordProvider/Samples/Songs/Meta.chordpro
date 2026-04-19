@@ -1,5 +1,9 @@
 {title Meta!!!}
-{meta: artist Nick Berendsen}
+#{meta: artist Nick Berendsen}
+
+{artist: name="Nick"}
+
+{key value="A"}
 
 {start_of_verse Plain Label!}
 La[A]
@@ -20,3 +24,11 @@ La[A]
 {start_of_abc}
 ABC
 {end_of_abc}
+
+{start_of_ly}
+Lilypound
+{end_of_ly}
+
+{start_of_svg}
+SVG
+{end_of_svg}

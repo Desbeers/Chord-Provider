@@ -42,7 +42,7 @@ extension Views.Editor {
                     .padding(.bottom)
                 Separator()
                     .padding(.bottom)
-                ForEach(directive.attributes) { attribute in
+                ForEach(directive.formAttributes) { attribute in
                     switch attribute {
                     case .plain:
                         PlainField(

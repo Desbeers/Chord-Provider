@@ -36,7 +36,7 @@ extension ChordProParser {
             /// The definition is for another instrument
             currentSection.addWarning(
                 "The chord definition is for <b>\(kind.rawValue)</b> and will be ignored",
-                level: .error
+                level: .warning
             )
             addSection(
                 directive: directive,

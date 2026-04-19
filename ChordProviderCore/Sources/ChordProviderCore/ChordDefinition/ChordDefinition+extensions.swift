@@ -105,7 +105,7 @@ extension ChordDefinition {
         for finger in fingers {
             define += " \(finger)"
         }
-        return "{define-\(instrument.kind.rawValue) \(define)}"
+        return "{define-\(instrument.kind.rawValue): \(define)}"
     }
 }
 

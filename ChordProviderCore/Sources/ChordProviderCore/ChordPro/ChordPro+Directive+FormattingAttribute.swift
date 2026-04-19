@@ -21,15 +21,29 @@ extension ChordPro.Directive {
         case .image:
             [.src, .width, .height, .scale, .align]
         case .key:
-            [.key]
+            [.plain]
         case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
             [.plain]
+        case .tempo:
+            [.plain]
+        case .year, .copyright:
+            [.plain]
+        default:
+            [.plain]
+        }
+    }
+
+        /// All the (optional) form attributes for a directive
+    public var formAttributes: [ChordPro.Directive.FormattingAttribute] {
+        switch self {
+        case .key:
+            [.key]
         case .tempo:
             [.numeric]
         case .year, .copyright:
             [.numeric]
         default:
-            [.plain]
+            attributes
         }
     }
 
@@ -77,6 +91,8 @@ extension ChordPro.Directive {
         case key
         /// Source
         case source
+        /// Have attributes
+        case haveAttributes
 
         /// Implement Comparable
         public static func < (lhs: FormattingAttribute, rhs: FormattingAttribute) -> Bool {
@@ -103,6 +119,7 @@ extension ChordPro.Directive {
             case .key: 15
             case .source: 16
             case .shape: 17
+            case .haveAttributes: 100
             }
         }
 

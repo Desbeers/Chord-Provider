@@ -24,6 +24,10 @@ extension ChordPro.Environment {
             (.startOfGrid, .endOfGrid)
         case .abc:
             (.startOfABC, .endOfABC)
+        case .ly:
+            (.startOfLy, .endOfLy)
+        case .svg:
+            (.startOfSvg, .endOfSvg)
         case .textblock:
             (.startOfTextblock, .endOfTextblock)
         case .strum:
@@ -55,6 +59,10 @@ extension ChordPro.Environment {
             ""
         case .abc:
             "ABC"
+        case .ly:
+            ""
+        case .svg:
+            ""
         case .textblock:
             ""
         case .strum:

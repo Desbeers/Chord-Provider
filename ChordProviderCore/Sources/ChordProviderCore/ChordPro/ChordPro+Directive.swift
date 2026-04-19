@@ -161,6 +161,20 @@ extension ChordPro {
         /// This directive indicates the end of the textblock
         case endOfTextblock = "end_of_textblock"
 
+        /// ## Lilipound
+
+        /// Start of Lilipound embedding
+        case startOfLy = "start_of_ly"
+        /// End of Lilipound embedding
+        case endOfLy = "end_of_ly"
+
+        /// ## SVG
+
+        /// Start of SVG embedding
+        case startOfSvg = "start_of_svg"
+        /// End of SVG embedding
+        case endOfSvg = "end_of_svg"
+
         /// # Chord diagrams
 
         /// This directive defines a chord in terms of fret/string positions and,

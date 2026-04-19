@@ -1,22 +1,22 @@
-{title Chord Provider Help}
-{artist ChordPro viewer and editor}
+{title: Chord Provider Help}
+{artist: ChordPro viewer and editor}
 # You can have more than one composer
-{composer Nick Berendsen}
-{composer And somebody else}
+{composer: Nick Berendsen}
+{composer: And somebody else}
 # Same for arranger and lyricist
-{arranger Nick Berendsen}
-{lyricist Nick Berendsen}
-{copyright 2025, Nick Berendsen}
-{tag Help Document}
-{tag <a href="https://github.com/Desbeers/Chord-Provider/">GitHub</a>}
-{tag <a href="https://github.com/Desbeers/Chord-Provider/issues/">Issues</a>}
-{time 4/4}
-{tempo 123}
-{capo II}
-{year 2026}
+{arranger: Nick Berendsen}
+{lyricist: Nick Berendsen}
+{copyright: 2025, Nick Berendsen}
+{tag: Help Document}
+{tag: <a href="https://github.com/Desbeers/Chord-Provider/">GitHub</a>}
+{tag: <a href="https://github.com/Desbeers/Chord-Provider/issues/">Issues</a>}
+{time: 4/4}
+{tempo: 123}
+{capo: II}
+{year: 2026}
 # Duration can be given in seconds or M:SS
-{duration 200}
-{key G}
+{duration: 200}
+{key: G}
 
 {start_of_textblock label="Introduction" align="center" flush="left"}
 <b><i>ChordPro</i></b> is an open standard text format, a simple text format for the notation of lyrics with chords.
@@ -25,10 +25,10 @@ While I hope you like <b>Chord Provider</b>, it is just my hobby project and not
 
 Please visit the official <b><i>ChordPro</i></b> website for the full experience:
 # Note: Just a simple link
-{comment https://ChordPro.org}
+{comment: https://ChordPro.org}
 {end_of_textblock}
 
-{start_of_textblock Functionality}
+{start_of_textblock label="Functionality"}
 <b>Chord Provider</b> can do the following:
 
 - It will view and/or edit <i>ChordPro</i> files.
@@ -50,40 +50,40 @@ Please visit the official <b><i>ChordPro</i></b> website for the full experience
 
 {end_of_textblock}
 
-{start_of_chorus Directives}
+{start_of_chorus label="Directives"}
 Not all official [D]directives are supported, [B]but most are.
 You can add [G7]chords to a verse or [C]chorus.
-{comment This is a <b>Chorus</b> and so it has a more prominent label}
+{comment: This is a <b>Chorus</b> and so it has a more prominent label}
 {end_of_chorus}
 
-{start_of_verse The Editor}
+{start_of_verse label="The Editor"}
 
 If a [D]directive can have [A]arguments;
 [C]click 3 times on the line to show a [D]dialog for that.
 
 {end_of_verse}
 
-{start_of_tab Tab Tab Tab!}
+{start_of_tab label="Tab Tab Tab!"}
 e|-------------|
 B|-------0-1-1-|
 G|-2-2---1-2-2-|
 D|-------------|
 A|-------------|
 E|-------------|
-{comment You can add <i>Tabs</i>}
+{comment: You can add <i>Tabs</i>}
 {end_of_tab}
 
 {start_of_grid label="Griddy Grid!"}
 |s u+  .  ua ds | dx     . da us  |
 |  G7 G7 . C | Am    . . Am |
 |  G7 G7 . C | Asus4 . . Am |
-{comment This is not really a nice melody, I know!}
+{comment: This is not really a nice melody, I know!}
 {end_of_grid}
 
 # STRUM PATTERNS:
 {start_of_strum label="Strum Me!" tuplet="2"}
 d . ua d x d u d um dm d u d ua da u
-{comment Basic strumming pattern is supported as well, not ChordPro standard}
+{comment: Basic strumming pattern is supported as well, not ChordPro standard}
 {end_of_strum}
 
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}
@@ -92,37 +92,37 @@ It is using the `{start_of_textblock}` environment.
 You can align it to your liking.
 
 You can use <i>italic</i> and <b>bold</b> Pango formats!
-{comment This implementation is only partly according the standard}
+{comment: This implementation is only partly according the standard}
 {end_of_textblock}
 
-{start_of_textblock Repeat}
+{start_of_textblock label="Repeat"}
 The below directive indicates that the Chorus must be repeated. In the Settings you can select 'Repeat whole chorus' and then the <i>Chorus</i> label will be replaced by the whole Chorus with the same label.
 {end_of_textblock}
 
 {chorus}
 
-{start_of_textblock Images}
+{start_of_textblock label="Images"}
 There is basic support for images.
 {end_of_textblock}
 
-{image align="left" width="400" src="HelpImage.png"}
+{image align="left" src="HelpImage.png" width="400"}
 
 {image align="left" scale="10" src="HelpImage.png"}
 
-{image align="center" height="40" src="HelpImage.png"}
+{image align="center" src="HelpImage.png" height="40"}
 
 {image align="right" scale="20" src="HelpImage.png"}
 
-{comment See the source for more info.}
+{comment: See the source for more info.}
 
-{define G7 base-fret 1 frets 2 4 5 5 4 2 fingers 1 2 4 4 3 1}
+{define-guitar: G7 base-fret 2 frets 2 4 2 3 2 2 fingers 1 3 1 2 1 1}
 
-{start_of_verse Custom Chords}
+{start_of_verse label="Custom Chords"}
 You cannot s[E]ee it in the output, [B]but I just
 redefined my favorite [G7]G7 Chord!
 {end_of_verse}
 
-{comment Define chords to your liking; the diagram is on the right.}
+{comment: Define chords to your liking; the diagram is on the right.}
 
 {start_of_textblock}
 If you select a <i>Chord Diagram</i> you can see its known variations and you can add the definition to your song.
@@ -149,10 +149,10 @@ I play guitar for more than 20 years; strumming my chords on a beautiful Telecas
 - Sometimes I just give myself a challenge to add something to the application because its like a crossword challenge
 {end_of_textblock}
 
-{comment <a href="https://github.com/Desbeers/Chord-Provider">Chord Provider on GitHub</a>}
+{comment: <a href="https://github.com/Desbeers/Chord-Provider">Chord Provider on GitHub</a>}
 
-{start_of_verse Bugs}
+{start_of_verse label="Bugs"}
 [B]Bugs are for free; no subscription in [C]<b>Chord Provider</b> [F]for [A]additional [F]features!
 However; If you really don't like the [B]bug, report it...
-{comment <a href="https://github.com/Desbeers/Chord-Provider/issues/new">Report issues</a>}
+{comment: <a href="https://github.com/Desbeers/Chord-Provider/issues/new">Report issues</a>}
 {end_of_verse}
