@@ -91,6 +91,10 @@ extension GtkRender {
                 if let line = section.lines.first {
                     CommentLabel(line: line, maxLenght: maxLenght)
                 }
+            case .chordDiagram:
+                if let line = section.lines.first {
+                    ChordDiagram(line: line, coreSettings: appState.editor.coreSettings)
+                }
             case .image:
                 ImageSection(section: section, coreSettings: appState.editor.coreSettings)
             default:

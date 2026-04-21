@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RegexBuilder
 
 extension ChordProParser {
 

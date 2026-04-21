@@ -18,6 +18,7 @@ extension ChordPro {
         case comment
         case sourceComment = "source_comment"
         case environmentDirective = "environment_directive"
+        case chordDiagram = "chord_diagram"
         case unknown
     }
 }

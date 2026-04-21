@@ -38,6 +38,8 @@ extension GtkRender {
                         EmptyLine()
                     case .comment:
                         CommentLabel(line: line, maxLenght: maxLenght)
+                    case .chordDiagram:
+                        ChordDiagram(line: line, coreSettings: coreSettings)
                     default:
                         Views.Empty()
                     }

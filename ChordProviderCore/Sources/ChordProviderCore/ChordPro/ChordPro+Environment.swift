@@ -60,6 +60,9 @@ extension ChordPro {
         /// A source comment
         case sourceComment = "source_comment"
 
+        /// A chord diagram
+        case chordDiagram = "chord_diagram"
+
         /// Not an environment
         case none
     }

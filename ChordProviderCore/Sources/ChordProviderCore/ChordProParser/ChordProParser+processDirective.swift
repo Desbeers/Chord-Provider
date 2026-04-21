@@ -226,6 +226,13 @@ extension ChordProParser {
                             song: &song
                         )
 
+                    case .chord:
+                        processChordDirective(
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
+
                     case .defineGuitalele:
                         processDefine(
                             kind: .guitalele,

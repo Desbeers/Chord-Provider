@@ -125,7 +125,7 @@ public enum ChordProParser {
         /// Get all known chords that are in use
         /// - Note: Defined chords that are not used will be ignored
         var result = Set<ChordDefinition>()
-        for line in lines {
+        for line in lines where line.directive != .chord {
             /// Collect all parts
             let allParts =
                 (line.parts ?? []) +

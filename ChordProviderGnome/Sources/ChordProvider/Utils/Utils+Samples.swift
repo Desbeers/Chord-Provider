@@ -38,6 +38,8 @@ extension Utils {
         case grid = "Grid"
         /// Difficult grid
         case difficultGrid = "Difficult Grid"
+        /// Inline Chords
+        case inlineChords = "Inline Chords"
         /// Complicated sample
         case mollyMalone = "Molly Malone"
 
@@ -55,6 +57,7 @@ extension Utils {
             .longStuff,
             .grid,
             .difficultGrid,
+            .inlineChords,
             .mollyMalone
         ]
     }

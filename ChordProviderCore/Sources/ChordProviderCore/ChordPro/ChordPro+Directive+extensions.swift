@@ -122,6 +122,7 @@ extension ChordPro.Directive {
             .defineGuitar,
             .defineUkulele,
             .defineGuitalele,
+            .chord,
             .comment
         ]
     }

@@ -51,31 +51,7 @@ extension ChordPro.Environment {
             "Verse"
         case .bridge:
             "Bridge"
-        case .comment:
-            ""
-        case .tab:
-            ""
-        case .grid:
-            ""
-        case .abc:
-            "ABC"
-        case .ly:
-            ""
-        case .svg:
-            ""
-        case .textblock:
-            ""
-        case .strum:
-            ""
-        case .metadata:
-            ""
-        case .image:
-            ""
-        case .emptyLine:
-            ""
-        case .sourceComment:
-            ""
-        case .none:
+        default:
             ""
         }
     }
@@ -106,7 +82,8 @@ extension ChordPro.Environment {
             .strum,
             .textblock,
             .comment,
-            .image
+            .image,
+            .chordDiagram
         ]
     }
 }

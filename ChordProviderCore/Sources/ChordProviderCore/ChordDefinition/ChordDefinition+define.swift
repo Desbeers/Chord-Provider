@@ -43,12 +43,12 @@ extension ChordDefinition {
                 throw .noBaseFret
             }
             if let fretsDefinition = definition.3 {
-                frets = fretsDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? -1 }
+                frets = fretsDefinition.components(separatedBy: .whitespacesAndNewlines).compactMap { Int($0) }
             } else {
                 throw .noFrets
             }
             if let fingersDefinition = definition.4 {
-                fingers = fingersDefinition.components(separatedBy: .whitespacesAndNewlines).map { Int($0) ?? 0 }
+                fingers = fingersDefinition.components(separatedBy: .whitespacesAndNewlines).compactMap { Int($0) }
             }
             /// Fill the fingers if none are set because fingers are optional
             if fingers.isEmpty {

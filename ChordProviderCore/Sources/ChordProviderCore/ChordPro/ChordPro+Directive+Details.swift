@@ -392,6 +392,14 @@ extension ChordPro.Directive {
                 environment: .metadata,
                 lineType: .metadata
             )
+        case .chord:
+            Details(
+                label: "Inline Chord Diagram",
+                defaultValue: "C",
+                help: "This directive defines an inline chord diagram",
+                environment: .chordDiagram,
+                lineType: .chordDiagram
+            )
         case .newPage:
             Details(
                 label: "New Page",

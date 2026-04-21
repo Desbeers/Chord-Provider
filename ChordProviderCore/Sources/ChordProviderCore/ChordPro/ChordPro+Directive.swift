@@ -189,6 +189,9 @@ extension ChordPro {
         /// This directive defines a chord in terms of fret/string positions and,
         /// optionally, finger settings
         case define
+        /// This directive is similar to *define* but it only displays the chord diagram
+        /// immediately in the song where the directive occurs
+        case chord
 
         // MARK: Output related directives
 
