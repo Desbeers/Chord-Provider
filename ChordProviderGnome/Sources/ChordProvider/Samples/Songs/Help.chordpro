@@ -11,8 +11,8 @@
 {tag: <a href="https://github.com/Desbeers/Chord-Provider/">GitHub</a>}
 {tag: <a href="https://github.com/Desbeers/Chord-Provider/issues/">Issues</a>}
 {time: 4/4}
-{tempo: 123}
-{capo: II}
+{tempo: 87}
+{capo: 2}
 {year: 2026}
 # Duration can be given in seconds or M:SS
 {duration: 200}
@@ -35,7 +35,7 @@ Please visit the official <b><i>ChordPro</i></b> website for the full experience
 - It can transpose your song.
 - It has a fancy dialog to add chord definitions.
 - It has a database with a lot of chords.
-- It can play chords and notes with MIDI.
+- It can play <i>Grids</i> and chords with MIDI.
 - It has a basic metronome.
 
 <b>Chord Provider</b> can <i>not</i> do the following:
@@ -73,18 +73,15 @@ E|-------------|
 {comment: You can add <i>Tabs</i>}
 {end_of_tab}
 
-{start_of_grid label="Griddy Grid!"}
-|s u+  .  ua ds | dx     . da us  |
-|  G7 G7 . C | Am    . . Am |
-|  G7 G7 . C | Asus4 . . Am |
-{comment: This is not really a nice melody, I know!}
+{start_of_grid label="Play along in a grid"}
+|s *1~*&      *2~*&      *3~*&      *4~*&       |
+|  Em          G          D          A7sus4     |
+|s dn~up      d+~.~dn~up dn~up~dn~. d+~.~dn~up  |
+|s *5~*&      *6~*&      *7~*&      *8~*&       |
+|  Em          G          D          A7sus4     |
+|s dn~up~dn~. d+~.~dn~up dn~up~.~up dn~up~dn~up |
+{comment: It is using the <b>tempo</b> directive of your song, if defined.}
 {end_of_grid}
-
-# STRUM PATTERNS:
-{start_of_strum label="Strum Me!" tuplet="2"}
-d . ua d x d u d um dm d u d ua da u
-{comment: Basic strumming pattern is supported as well, not ChordPro standard}
-{end_of_strum}
 
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}
 This is just a block with text.
@@ -120,12 +117,17 @@ There is basic support for images.
 {start_of_verse label="Custom Chords"}
 You cannot s[E]ee it in the output, [B]but I just
 redefined my favorite [G7]G7 Chord!
-{end_of_verse}
-
 {comment: Define chords to your liking; the diagram is on the right.}
+{end_of_verse}
 
 {start_of_textblock}
 If you select a <i>Chord Diagram</i> you can see its known variations and you can add the definition to your song.
+{end_of_textblock}
+
+{start_of_textblock label="I'll show my chord:"}
+It looks like this:
+{chord: G7 base-fret 2 frets 2 4 2 3 2 2 fingers 1 3 1 2 1 1}
+{comment: Because I added a <b>chord</b> directive}
 {end_of_textblock}
 
 {start_of_textblock label="About me" align="center" flush="left"}

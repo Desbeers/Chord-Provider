@@ -30,8 +30,6 @@ extension ChordPro {
         case tab
         /// Grid environment
         case grid
-        /// Strum environment
-        case strum
         /// Image environment
         case image
 

@@ -54,7 +54,7 @@ extension GtkRender {
                 if !section.label.isEmpty {
                     SectionHeader(section: section)
                 }
-                TextblockSection(section: section, maxLenght: maxLenght)
+                TextblockSection(section: section, maxLenght: maxLenght, coreSetting: appState.editor.coreSettings)
             case .tab:
                 if !appState.editor.coreSettings.lyricsOnly {
                     SectionHeader(section: section)
@@ -68,11 +68,6 @@ extension GtkRender {
                         coreSettings: appState.editor.coreSettings,
                         appState: $appState
                     )
-                }
-            case .strum:
-                if !appState.editor.coreSettings.lyricsOnly {
-                    SectionHeader(section: section)
-                    StrumSection(section: section, zoom: appState.settings.theme.zoom, maxLenght: maxLenght)
                 }
             case .repeatChorus:
                 let label = section.lines.first?.plain

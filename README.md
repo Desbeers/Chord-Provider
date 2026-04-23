@@ -29,7 +29,7 @@ A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An
 - It will view your **ChordPro** files.
 - It has a fancy editor to edit your songs.
 - It has a *database* with a lot of chords.
-- It can play the chords with MIDI.
+- It can play *Grids* and chords with MIDI.
 - It has a basic *metronome*.
 - *left-handed* chords support.
 

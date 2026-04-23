@@ -137,13 +137,6 @@ extension ChordPro {
         /// This directive indicates the end of the grid
         case endOfGrid = "end_of_grid|eog"
 
-        /// ### Strum
-
-        /// This directive indicates that the lines that follow defines a strum pattern
-        case startOfStrum = "start_of_strum|sos"
-        /// This directive indicates the end of the strum
-        case endOfStrum = "end_of_strum|eos"
-
         /// # Delegated environment directives
 
         /// ## ABC

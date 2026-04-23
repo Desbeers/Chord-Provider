@@ -56,8 +56,8 @@ extension Chord {
         /// Staccato Accent up stroke
         case upStaccatoAccent = "Staccato Accent up stroke"
 
-        /// Do not stroke
-        case none
+        /// Do not strum
+        case noStrum = "Do not play this chord"
 
         /// Spacer
         case spacer
@@ -159,7 +159,7 @@ extension Chord {
                 "strumarrow-down-stc"
             case .downStaccatoAccent:
                 "strumarrow-down-acc-stc"
-            case .none:
+            case .noStrum:
                 "none"
             case .spacer:
                 "spacer"
@@ -189,7 +189,7 @@ extension Chord {
             "dx+": .downMutedAccent,
             "ds": .downStaccato,
             "ds+": .downStaccatoAccent,
-            ".": .none
+            ".": .noStrum
         ]
     }
 }

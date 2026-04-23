@@ -65,9 +65,8 @@ extension Song.Section.Line {
         self.lineLength = try container.decodeIfPresent(String.self, forKey: .lineLength)
         self.warnings = try container.decodeIfPresent([LogUtils.LogMessage].self, forKey: .warnings)
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
-        self.gridColumns = try container.decodeIfPresent([Song.Section.Line.GridCell].self, forKey: .gridColumns)
+        self.gridColumns = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .gridColumns)
         self.gridsLine = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .gridsLine)
-        self.strums = try container.decodeIfPresent([Strums].self, forKey: .strums)
         self.plain = try container.decodeIfPresent(String.self, forKey: .plain)
     }
     /// :nodoc:
@@ -101,7 +100,6 @@ extension Song.Section.Line {
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.gridColumns, forKey: .gridColumns)
         try container.encodeIfPresent(self.gridsLine, forKey: .gridsLine)
-        try container.encodeIfPresent(self.strums, forKey: .strums)
         try container.encodeIfPresent(self.plain, forKey: .plain)
     }
 }

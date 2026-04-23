@@ -58,6 +58,8 @@ extension ChordDefinition {
             .strokeStaccato
             case .downStaccatoAccent, .upStaccatoAccent:
             .strokeStaccatoAccent
+            case .noStrum:
+            .strokeNone
             default:
             .none
             }

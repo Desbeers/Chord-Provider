@@ -49,13 +49,13 @@ extension GtkRender {
                     switch line.type {
                     case .gridLineColumns:
                         if let columns = line.gridColumns {
-                            if !(columns.flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }).isEmpty {
+                            if !(columns.flatMap(\.cells).flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }).isEmpty {
                                 Toggle(icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart), isOn: $playGridChords) {
                                     if playGridChords {
                                         /// Set this grid as current
                                         appState.scene.gridChordsID = gridID
                                         /// Capture stuff
-                                        let grids = columns
+                                        let grids = columns.flatMap(\.cells)
                                         let preset = coreSettings.midiPreset
                                         Task {
                                             await Utils.MidiPlayer.shared.setGridChords(
@@ -80,11 +80,11 @@ extension GtkRender {
                             }
                             ForEach(columns, horizontal: true) { column in
                                 Box {
-                                    ForEach(column.parts, horizontal: false) { item in
+                                    ForEach(column.cells.flatMap(\.parts), horizontal: false) { item in
                                         part(part: item)
                                     }
                                     .homogeneous()
-                                } 
+                                }
                                 .homogeneous()
                             }
                             //.homogeneous()
@@ -117,23 +117,43 @@ extension GtkRender {
         /// - Returns: A `View`
         private func part(part: Song.Section.Line.Part) -> AnyView {
             Box {
-                if let chord = part.chordDefinition, chord.kind != .textChord {
-                    SingleChord(part: part, coreSettings: coreSettings)
-                        .halign(.center)
-                        .style(part.id == currentPartID && playGridChords ? .chordHighlight : .none)
-                        .insensitive(part.hidden)
-                } else if let strum = part.strum, strum != .spacer {
+                // Text(part.strum?.beatItems.description ?? "-")
+                //     .style(.error)
+                if let chord = part.chordDefinition {
+                    if chord.strum == .noStrum || chord.kind == .textChord {
+                        Text(chord.kind == .textChord && chord.strum != .noStrum ? chord.plain : " . ")
+                            .style(.dimmed)
+                    } else {
+                        SingleChord(part: part, coreSettings: coreSettings)
+                            .halign(.center)
+                            .style(part.hidden ? .dimmed : .none)
+                    }
+                } else if let strum = part.strum?.strum, strum != .spacer {
                     Widgets.BundleImage(strum: strum)
                         .pixelSize(Int(14 * appState.settings.theme.zoom))
                         .style(.svgIcon)
                         .halign(.center)
-                } else {
-                    Text(part.text?.escapeSpecialCharacters() ?? " ")
+                } else if let barLineSymbol = part.strum?.barLineSymbol {
+                    Text(barLineSymbol.display)
                         .useMarkup()
                         .style(.sectionGrid)
                         .halign(.center)
+                } else if let strumPattern = part.strum?.strumPattern {
+                    Text(strumPattern.display)
+                        .useMarkup()
+                        .style(.sectionGrid)
+                        .halign(.center)
+                } else {
+                    Text(part.text?.escapeSpecialCharacters() ?? "   ")
+                        .useMarkup()
+                        /// Just for visual reason...
+                        .style(part.text == "&" ? .caption : .none)
+                        //.style(part.text == "&" ? .dimmed : .none)
+                        .style(.standard)
+                        .halign(.center)
                 }
             }
+            .style(part.id == currentPartID && playGridChords ? .chordHighlight : .none)
             .halign(.center)
             .valign(.center)
             .padding(2, .horizontal)

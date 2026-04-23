@@ -30,8 +30,6 @@ extension ChordPro.Environment {
             (.startOfSvg, .endOfSvg)
         case .textblock:
             (.startOfTextblock, .endOfTextblock)
-        case .strum:
-            (.startOfStrum, .endOfStrum)
         default:
             (.unknown, .unknown)
         }
@@ -79,7 +77,6 @@ extension ChordPro.Environment {
             .bridge,
             .tab,
             .grid,
-            .strum,
             .textblock,
             .comment,
             .image,

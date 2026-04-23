@@ -422,22 +422,6 @@ extension ChordPro.Directive {
                 lineType: .metadata,
                 info: "You can have more than one `tag` in the song."
             )
-        case .startOfStrum:
-            Details(
-                label: "Start of Strum",
-                help: "This directive indicates that the lines that follow defines a strum pattern",
-                environment: .strum,
-                lineType: .environmentDirective,
-                info: "- `Tuplet` is a generic term that describes a grouping of notes that would not normally occur within a beat.\n- The label is optional.",
-                buttonLabel: "Strum"
-            )
-        case .endOfStrum:
-            Details(
-                label: "End of Strum",
-                help: "This directive indicates the end of the strum",
-                environment: .strum,
-                lineType: .environmentDirective
-            )
         case .transpose:
             Details(
                 label: "Transpose",

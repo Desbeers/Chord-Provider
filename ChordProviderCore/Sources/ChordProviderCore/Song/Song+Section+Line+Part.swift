@@ -15,7 +15,7 @@ extension Song.Section.Line {
             id: Int = 0,
             chordDefinition: ChordDefinition? = nil,
             text: String? = nil,
-            strum: Chord.Strum? = nil,
+            strum: Strum? = nil,
             cells: Int? = nil,
             chordMarkup: Song.Markup? = nil,
             textMarkup: [Song.Markup]? = nil
@@ -24,14 +24,13 @@ extension Song.Section.Line {
             self.chordDefinition = chordDefinition
             self.text = text
             self.strum = strum
-            self.cells = cells
             self.chordMarkup = chordMarkup
             self.textMarkup = textMarkup
         }
 
         // CustomStringConvertible protocol
         public var description: String {
-            chordDefinition?.description ?? text ?? strum?.description ?? id.description
+            chordDefinition?.description ?? text ?? id.description
         }
 
         /// The unique ID of the part
@@ -44,9 +43,7 @@ extension Song.Section.Line {
         public var hidden: Bool = false
 
         /// The optional strum
-        public var strum: Chord.Strum?
-        /// The total cells of the strum
-        public var cells: Int?
+        public var strum: Strum?
 
         // MARK: Markup
 

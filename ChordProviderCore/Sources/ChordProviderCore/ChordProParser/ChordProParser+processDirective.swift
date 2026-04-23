@@ -36,6 +36,11 @@ extension ChordProParser {
         song: inout Song,
         getOnlyMetadata: Bool
     ) {
+        /// Remove nerdy stuff from the text
+        /// - Note: Just for *CodeShakingSheep* ;-)
+        let text = text.replacingOccurrences(of: "\\n", with: " ")
+        dump(text)
+
         /// Grab the directive to handle if unknown or not complete
         let unparsedDirective = text.dropFirst().split(separator: " ").first ?? ""
 
@@ -137,7 +142,7 @@ extension ChordProParser {
                         // MARK: Environment directives
 
                         /// ## Start of Chorus, Verse, Bridge, Tab, Grid, Textblock, Strum
-                    case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .startOfStrum:
+                    case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock:
 
                         if let label = arguments[.plain] {
                             arguments[.label] = label
@@ -189,7 +194,7 @@ extension ChordProParser {
                             song: &song
                         )
 
-                    case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfStrum, .endOfLy, .endOfSvg:
+                    case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfLy, .endOfSvg:
                         closeSection(
                             directive: directive,
                             arguments: arguments,

@@ -27,8 +27,6 @@ extension ChordProParser {
             processTab(text: text, currentSection: &currentSection, song: &song)
         case .grid:
             processGrid(text: text, currentSection: &currentSection, song: &song)
-        case .strum:
-            processStrum(text: text, currentSection: &currentSection, song: &song)
         default:
             /// Treat as normal song line
             processLine(text: text, currentSection: &currentSection, song: &song)

@@ -38,8 +38,6 @@ extension Song.Section.Line {
         public var id: Int
         /// The parts of the cell
         public var parts: [Song.Section.Line.Part]
-        /// The chords in the cell
-        public var chords: [ChordDefinition] = []
     }
 
     /// Add `grids` to a line

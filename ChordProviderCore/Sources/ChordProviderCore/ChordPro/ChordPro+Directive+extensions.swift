@@ -27,8 +27,6 @@ extension ChordPro.Directive {
             ("{\(label(.startOfGrid))}\n", "\n{\(label(.endOfGrid))}")
         case .startOfTextblock:
             ("{\(label(.startOfTextblock))}\n", "\n{\(label(.endOfTextblock))}")
-        case .startOfStrum:
-            ("{\(label(.startOfStrum))}\n", "\n{\(label(.endOfStrum))}")
             // MARK: Inline elements
         case .chorus:
             /// - Note: The chorus can have an optional label
@@ -136,8 +134,7 @@ extension ChordPro.Directive {
             .startOfTab,
             .startOfGrid,
             .startOfBridge,
-            .startOfTextblock,
-            .startOfStrum
+            .startOfTextblock
         ]
     }
 

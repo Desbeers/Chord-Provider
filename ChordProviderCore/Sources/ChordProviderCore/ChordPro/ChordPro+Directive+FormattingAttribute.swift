@@ -14,8 +14,6 @@ extension ChordPro.Directive {
         switch self {
         case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge:
             [.label]
-        case .startOfStrum:
-            [.label, .tuplet]
         case .startOfTextblock:
             [.label, .align, .flush]
         case .image:

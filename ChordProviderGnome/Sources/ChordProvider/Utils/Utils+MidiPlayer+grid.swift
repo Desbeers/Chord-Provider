@@ -49,14 +49,15 @@ extension Utils.MidiPlayer {
             }
         }
         while !Task.isCancelled {
-            var cells = 0
+            var cells = 1
             for part in parts {
-                if let cellsPart = part.cells {
+                if let cellsPart = part.strum?.beatItems {
                     cells = cellsPart
                 }
-                let tempo = 60 / (Double(metronomeBPM) * Double(cells))
-                self.currentChord = part.id
-                if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord {
+                // self.currentChord = part.id
+                let tempo = 60.0 / (Double(metronomeBPM) * Double(cells))
+                if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord, chord.strum != .noStrum {
+                    self.currentChord = part.id
                     Task {
                         await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: chord.strum)
                     }
@@ -70,8 +71,8 @@ extension Utils.MidiPlayer {
 
     func interleave<T>(_ input: [[T]]) -> [T] {
         guard let first = input.first else { return [] }
-        return (0..<first.count).flatMap { i in
-            input.map { $0[i] }
+        return (0..<first.count).flatMap { index in
+            input.map { $0[index] }
         }
     }
 }

@@ -46,6 +46,8 @@ extension Markup {
         case error
         // Accent
         case accent
+        /// Dimmed
+        case dimmed
 
         // MARK: Sections
 
@@ -119,6 +121,9 @@ extension Markup {
         case strokeStaccato = "stroke-staccato"
         /// Staccato Accent stroke
         case strokeStaccatoAccent = "stroke-staccato-accent"
+        /// No stroke
+        case strokeNone = "stroke-none"
+
 
         // MARK: Icons
 
@@ -234,6 +239,10 @@ popover contents, popover arrow {
 }
 .metadata {
     font-size: \(baseFontSize)rem;
+}
+
+.dimmed {
+    opacity: 0.5;
 }
 
 /* Sections */
@@ -384,6 +393,9 @@ popover contents, popover arrow {
 }
 .stroke-staccato-accent {
     font-size: 0.95em;
+}
+.stroke-none {
+    opacity: 0;
 }
 
 

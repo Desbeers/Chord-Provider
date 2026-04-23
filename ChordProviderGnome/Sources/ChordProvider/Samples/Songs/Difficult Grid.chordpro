@@ -5,29 +5,36 @@
 
 {capo 2}
 
-{start_of_textblock label="A Difficult Grid" align="center"}
-A chalange by <b>CodeShakingSheep</b>
-Is it correct?
-{end_of_textblock}
-
-La [A] [Ab] [A#] [A/F] [Em] [G] [D] [A7sus4]
-
-{comment Fancy Grid, no chords are given; no<b>play</b> button...}
-{start_of_grid shape="1x4"}
-|s *1~*&      *2~*&      *3~*&      *4~*&      |
-|  .          .          .          .          |
-|s dn~dn      d+~.~dn~up dn~up~dn~. d+~.~dn~up |
-|s *5~*&      *6~*&      *7~*&      *8~*&      |
-|  .          .          .          .          |
-|s dn~up~dn~. d+~.~dn~up .~up~.~up dn~up~dn~up |
+{start_of_grid Simple Grid}
+{comment: Simple grid that should respect <b>no</b> note here...}
+| C . D . E . F . |
 {end_of_grid}
 
-{comment Fancy Grid with chords added by me; that you can play with <i>MIDI</i>}
-{start_of_grid shape="1x4"}
+{start_of_textblock label="Difficult Grids" align="center"}
+A chalange by <b>CodeShakingSheep</b>
+Is it correct?
+
+When there is no chord defined in the grid, but there is a strum pattern; add the chord.
+{end_of_textblock}
+
+{comment: Below has chords that should not be played because it has no strum, they are completely hidden from the render}
+
+{start_of_grid shape="2x4"}
+{comment: The <b>(D)</b> is shifted...}
+|s *1 *2    *3                           *4 | *1 *2 *3                           *4 |
+|  C  . (D) .  | Em . (D) .  |
+|s dn dn~up .~up                         dn~up | dn dn~up .~up dn~up |
+| G . . . | Am . . . |
+|s dn dn~up .~up dn~up | dn dn~up .~up dn~up |
+{end_of_grid}
+
+{comment: Fancy Grid with chords added by me; that you can play with <i>MIDI</i>}
+{start_of_grid Nerdy Label\n(with a newline that I stripped)}
+{comment: With some <i>Purle Rain</i> Prince feeling}
 |s *1~*&      *2~*&      *3~*&      *4~*&       |
-|  Em          G          D          A7sus4     |
+|  Em          <span color="purple">G</span>          D          A7sus4     |
 |s dn~up      d+~.~dn~up dn~up~dn~. d+~.~dn~up  |
 |s *5~*&      *6~*&      *7~*&      *8~*&       |
 |  Em          G          D          A7sus4     |
-|s dn~up~dn~. d+~.~dn~up .~up~.~up  dn~up~dn~up |
+|s dn~up~dn~. d+~.~dn~up dn~up~.~up dn~up~dn~up |
 {end_of_grid}
