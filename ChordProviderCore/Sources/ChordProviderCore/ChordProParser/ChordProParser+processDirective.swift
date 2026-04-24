@@ -39,7 +39,6 @@ extension ChordProParser {
         /// Remove nerdy stuff from the text
         /// - Note: Just for *CodeShakingSheep* ;-)
         let text = text.replacingOccurrences(of: "\\n", with: " ")
-        dump(text)
 
         /// Grab the directive to handle if unknown or not complete
         let unparsedDirective = text.dropFirst().split(separator: " ").first ?? ""

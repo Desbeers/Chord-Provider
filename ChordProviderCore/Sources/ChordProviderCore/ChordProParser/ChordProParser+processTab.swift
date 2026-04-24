@@ -25,10 +25,10 @@ extension ChordProParser {
         var line = Song.Section.Line(
             sourceLineNumber: song.totalLines,
             source: text,
-            sourceParsed: text.trimmingCharacters(in: .whitespaces),
+            sourceParsed: text,
             type: .songLine,
             context: .tab,
-            plain: text.trimmingCharacters(in: .whitespaces),
+            plain: text,
         )
         /// Set the context
         line.context = currentSection.environment
