@@ -138,10 +138,8 @@ extension ChordProParser {
                             
                             }
                         } else if let chord = part.chordDefinition, chord.knownChord {
-                            /// Chord without strum, do not play by making it a text chord with empty text
-                            //columns[index].cells[0].parts[row].text = "."
+                            /// Chord without strum, do not play
                             columns[index].cells[0].parts[row].chordDefinition?.strum = .noStrum
-                            //columns[index].cells[0].parts[row].chordDefinition?.kind = .textChord
                         }         
                     }
                 }
@@ -156,9 +154,9 @@ extension ChordProParser {
 
         func nearestStum(row: Int, parts: [Song.Section.Line.Part]) -> Chord.Strum? {
             /// Look above
-            if let strum = parts[safe: row - 1]?.strum?.strum, Chord.Strum.options.contains(strum) {
-                return strum
-            }
+            // if let strum = parts[safe: row - 1]?.strum?.strum, Chord.Strum.options.contains(strum) {
+            //     return strum
+            // }
             /// Look below
             if let strum = parts[safe: row + 1]?.strum?.strum, Chord.Strum.options.contains(strum) {
                 return strum

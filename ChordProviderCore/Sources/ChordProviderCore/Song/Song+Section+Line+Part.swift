@@ -30,7 +30,7 @@ extension Song.Section.Line {
 
         // CustomStringConvertible protocol
         public var description: String {
-            chordDefinition?.description ?? text ?? id.description
+            "\(chordDefinition?.description ?? "")\(text ?? "")\(strum?.description ?? "")"
         }
 
         /// The unique ID of the part

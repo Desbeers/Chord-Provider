@@ -90,7 +90,7 @@ extension Chord {
             var settings = Playback()
             /// Accent
             if rawValue.contains("Accent") {
-                settings.velocity = 1.4
+                settings.velocity = 1.2
             }
             /// Arpeggio
             if rawValue.contains("Arpeggio") {
@@ -205,7 +205,7 @@ extension Chord.Strum {
         ///   - spread: The spread
         ///   - duration: The duration
         public init(
-            velocity: Double = 0.9,
+            velocity: Double = 1.0,
             spread: TimeInterval = 0.025,
             duration: Double = 1.0,
             fadeOut: Double = 0.06

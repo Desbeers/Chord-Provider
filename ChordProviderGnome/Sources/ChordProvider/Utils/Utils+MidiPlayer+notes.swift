@@ -40,6 +40,10 @@ extension Utils.MidiPlayer {
             0,
             program
         )
+        /// Set the tuning
+        // let genFineTune: Int32 = 8
+        // let detune: Float = -31.77
+        // fluid_synth_set_gen(synth, channel, genFineTune, detune)
 
         /// Get the playback settings for the strum
         /// - Note: If no strum is given, use the default settings

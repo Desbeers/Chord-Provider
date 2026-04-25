@@ -10,7 +10,7 @@ import Foundation
 extension Song.Section.Line.Part {
 
     /// The structure of a strum
-    public struct Strum: Equatable, Codable, Hashable, Sendable {
+    public struct Strum: Equatable, Codable, Hashable, Sendable, CustomStringConvertible {
         /// Init the struct
         public init(
             strumPattern: ChordPro.Grid.StrumPattern? = nil,
@@ -24,6 +24,10 @@ extension Song.Section.Line.Part {
             self.barLineSymbol = barLineSymbol
             self.beatItems = beatItems
             self.playable = playable
+        }
+        // CustomStringConvertible protocol
+        public var description: String {
+            "\(strumPattern?.rawValue ?? "")\(strum?.rawValue ?? "")\(barLineSymbol?.rawValue ?? "")"
         }
         /// The strum patter
         public var strumPattern: ChordPro.Grid.StrumPattern?

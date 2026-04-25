@@ -41,6 +41,7 @@ extension GtkRender {
         @State private var playGridChords: Bool = false
         /// The ID of the grid
         let gridID: Int
+        /// The part that is currently playing with MIDI 
         @State private var currentPartID: Int = -1
         /// The body of the `View`
         var view: Body {
@@ -87,7 +88,6 @@ extension GtkRender {
                                 }
                                 .homogeneous()
                             }
-                            //.homogeneous()
                         } else {
                             Text("Grid is empty")
                         }
@@ -127,6 +127,7 @@ extension GtkRender {
                         SingleChord(part: part, coreSettings: coreSettings)
                             .halign(.center)
                             .style(part.hidden ? .dimmed : .none)
+                            .id(chord.description + (chord.strum?.rawValue ?? ""))
                     }
                 } else if let strum = part.strum?.strum, strum != .spacer {
                     Widgets.BundleImage(strum: strum)
@@ -148,7 +149,6 @@ extension GtkRender {
                         .useMarkup()
                         /// Just for visual reason...
                         .style(part.text == "&" ? .caption : .none)
-                        //.style(part.text == "&" ? .dimmed : .none)
                         .style(.standard)
                         .halign(.center)
                 }
@@ -163,7 +163,7 @@ extension GtkRender {
         /// Monitor the chords player for its current chord
         /// - Note: This will cancel itself when the player is stopped
         private func monitorChordsPlayer() {
-            Idle(delay: .seconds(0.01)) {
+            Idle(delay: .seconds(0.005)) {
                 let chord = Utils.MidiPlayer.shared.currentChord
                 if chord != currentPartID {
                     currentPartID = chord

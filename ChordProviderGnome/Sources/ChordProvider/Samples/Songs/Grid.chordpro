@@ -1,143 +1,110 @@
 {title Grid}
 {artist Nick Berendsen}
-{tempo 60}
+{tempo 90}
 
 {start_of_grid label="All Strums!"}
-|s d d+ da da+ dn ds ds+ dx dx+ u u+ ua ua+ up us us+ ux ux+ |
 |  C C  C  C   C  C  C   C  C   C C  C  C   C  C  C   C  C   |
+|s d d+ da da+ dn ds ds+ dx dx+ u u+ ua ua+ up us us+ ux ux+ |
 {end_of_grid}
 
 {start_of_grid label="Funky Mess"}
-|s d u dx u+ ds u d+ ux d u+ ds dx u da |
 |  C C C  C  C  C  C C  C  C  C  C  C C |
+|s d u dx u+ ds u d+ ux d u+ ds dx u da |
 {end_of_grid}
 
 {start_of_grid label="Upstroke Party"}
-|s u u+ us ux u u+ ua u+ ux us u u+ ua |
 |  C C  C  C  C C  C  C  C  C  C C  C  |
+|s u u+ us ux u u+ ua u+ ux us u u+ ua |
 {end_of_grid}
 
 {start_of_grid label="Arpeggio Chaos"}
-|s da ua d ua+ da+ u d ua da+ u ua d |
 |  C  C  C C   C   C C C  C   C C  C |
+|s da ua d ua+ da+ u d ua da+ u ua d |
 {end_of_grid}
 
 {start_of_grid label="Muted Groove"}
-|s d dx u ux d dx u d+ dx u ux d dx ux |
 |  C C  C C  C C  C C  C  C C  C C  C  |
+|s d dx u ux d dx u d+ dx u ux d dx ux |
 {end_of_grid}
 
 {start_of_grid label="Almost Musical"}
-|s d u d+ u ds u d u+ d u ds u d |
 |  C C C  C C  C C C  C C C  C C |
+|s d u d+ u ds u d u+ d u ds u d |
 {end_of_grid}
 
 {start_of_grid label="Why Does This Work?"}
-|s d u ux d+ u us d u ux d+ u us d |
 |  C C C  C  C C  C C C  C  C C  C |
+|s d u ux d+ u us d u ux d+ u us d |
 {end_of_grid}
 
 {start_of_grid label="Chaos Ending"}
-|s d u d u d u dx d+ da+ u ux ds d |
 |  C C C C C C C  C  C   C C  C  C |
+|s d u d u d u dx d+ da+ u ux ds d |
 {end_of_grid}
 
 {comment Something more musical}
 
 {start_of_grid label="Classic Pop"}
-|s d u d  u d u d u |
 |  C G Am F G C F G |
+|s d u d  u d u d u |
 {end_of_grid}
 
 {start_of_grid label="Folk Feel"}
-|s d u d  u d u d u |
 |  G D Em C G D C G |
+|s d u d  u d u d u |
 {end_of_grid}
 
 {start_of_grid label="Singer Songwriter"}
-|s d u d  u d u d u |
 |  D A Bm G D A G D |
+|s d u d  u d u d u |
 {end_of_grid}
 
 {start_of_grid label="Lazy Sunday"}
-|s d d  u d u d  u d |
 |  C Am F G C Am G C |
+|s d d  u d u d  u d |
 {end_of_grid}
 
 {start_of_grid label="Slightly Bluesy"}
-|s d u d u d u d u |
 |  E A E B A E B E |
+|s d u d u d u d u |
 {end_of_grid}
 
 {start_of_grid label="Stepwise Motion Groove"}
-|s d dx u ux d+ u+ da ux ds u dx d+ u u |
 |  C D  E F  G  A  B  A  G  F E  D  C D |
+|s d dx u ux d+ u+ da ux ds u dx d+ u u |
 {end_of_grid}
 
 {start_of_grid label="Circle Walk"}
-|s da ua d u dx d+ ua ux u+ ds d ua u u |
 |  C  G  D A E  B  F  C  G  D  A E  B C |
+|s da ua d u dx d+ ua ux u+ ds d ua u u |
 {end_of_grid}
 
 {start_of_grid label="Falling Diagonal"}
-|s d u dx d+ u+ ds da ux u da+ d u+ ds us |
 |  C B A  G  F  E  D  C  B A   G F  E  D  |
+|s d u dx d+ u+ ds da ux u da+ d u+ ds us |
 {end_of_grid}
 
 {start_of_grid label="Ascending Lift"}
-|s dx u d ua u+ da ux d+ u ds da u+ dx ux |
 |  C  D E F  G  A  B  C  D E  F  G  A  B  |
+|s dx u d ua u+ da ux d+ u ds da u+ dx ux |
 {end_of_grid}
 
 {start_of_grid label="Pendulum Harmony"}
-|s d da u dx u+ d+ ua ds ux d u da+ u+ d da |
 |  C A  F D  B  G  E  C  A  F D B   G  E C  |
+|s d da u dx u+ d+ ua ds ux d u da+ u+ d da |
 {end_of_grid}
 
 {start_of_grid label="Alternating Blocks"}
-|s d u dx d+ u+ da ux ds u da u+ dx d u d |
 |  C F D  G  E  A  F  B  C G  D  A  E B C |
+|s d u dx d+ u+ da ux ds u da u+ dx d u d |
 {end_of_grid}
 
 {start_of_grid label="Harmonic Spiral"}
-|s da d u ua dx u+ d+ ds ua ux d u+ da u d |
 |  C  A F D  B  G  E  C  A  F  D B  G  E C |
+|s da d u ua dx u+ d+ ds ua ux d u+ da u d |
 {end_of_grid}
 
 {start_of_grid label="Tension Loop"}
-|s d dx u u+ da ds ux d+ ua u dx d u+ d+ u |
 |  C B  D F  A  G  E  C  D  F B  A G  E  C |
-{end_of_grid}
-
-{comment Debugging...}
-
-{comment: Strumming pattern 13: DDD DUDUD}
-{start_of_grid shape="1x4"}
-|s *1~*& *2~*& *3~*& *4~*& |
-| . . . . |
-|s dn~dn d+~.~dn~up dn~up~dn~. d+~.~dn~up |
-|s *5~*& *6~*& *7~*& *8~*& |
-| . . . . |
-|s dn~up~dn~. d+~.~dn~up .~up~.~up dn~up~dn~up |
-{end_of_grid}
-
-{start_of_grid label="Griddy Grid!"}
-|s d  dx . u |
-|  G7 G7 . C |
-|s d  .  . u |
-|  G7 Am . C |
-{end_of_grid}
-
-{start_of_grid label="Griddy Grid!"}
-|s d  u  . u | d     . u  . |
-|  G7 G7 . C | Am    . Am . |
-|s d  .  . u | u     . .  . |
-|  G7 Am . C | Asus4 . Am . |
-{end_of_grid}
-
-{start_of_grid label="Griddy Grid!"}
-|s u+  .  ua ds | dx     . da us  |
-|  G7 G7 . C | Am    . . Am |
-|  G7 Am . C | Asus4 . . Am |
-{comment This is not really a nice melody, I know!}
+|s d dx u u+ da ds ux d+ ua u dx d u+ d+ u |
 {end_of_grid}
