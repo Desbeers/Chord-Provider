@@ -142,15 +142,14 @@ enum RegexDefinitions {
         Capture {
             OneOrMore {
                 CharacterClass(
-                    .word,
-                    .anyOf("-")
+                    .word
                 )
             }
         }
         Optionally {
             OneOrMore {
                 CharacterClass(
-                    .anyOf(": -")
+                    .anyOf(": ")
                 )
             }
             TryCapture {
