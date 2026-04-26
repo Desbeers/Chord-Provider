@@ -91,6 +91,9 @@ extension GtkRender.GridSection {
                         /// The grid has changed; stop the player and reset current part
                         playGridChords = false
                         currentPartID = -1
+                        Task {
+                                await Utils.MidiPlayer.shared.stopChords()
+                        }
                     }
                 }
             }
