@@ -31,7 +31,7 @@ extension GtkRender {
                 Symbol(icon: .default(icon: .userInvisible))
                 let lines = line.wholeTextWithMarkup(split: maxLenght).toElementWrapper
                 ForEach(lines) { line in
-                    Text(line.content)
+                    Text(Utils.convertSimpleLinks(line.content))
                         .useMarkup()
                         .halign(.start)
                 }
