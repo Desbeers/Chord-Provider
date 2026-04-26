@@ -30,69 +30,6 @@ extension Utils.MidiPlayer {
         metronomeTask = nil
     }
 
-    /// Change the metronome BPM while running
-    func setMetronomeBPM(_ bpm: Int) {
-        metronomeBPM = max(20, min(bpm, 300))
-    }
-
-    /// Set metronome time signature
-    /// - Note: "4/4", "6/8", "7/8=2+2+3" for example
-    func setMetronomeTimeSignature(_ meter: String) {
-        let mainParts = meter.split(separator: "=")
-        let signaturePart = mainParts[0]
-        let additivePart = mainParts.count > 1 ? mainParts[1] : nil
-        let sigParts = signaturePart.split(separator: "/")
-        guard sigParts.count == 2,
-                let num = Int(sigParts[0]),
-                let den = Int(sigParts[1])
-        else { return }
-        // MARK: Additive meters (explicit grouping)
-        if let additivePart,
-            let groups = parseAdditiveGroups(additivePart),
-            groups.reduce(0, +) == num {
-            var accents: [Int] = []
-            var index = 0
-            for group in groups {
-                accents.append(index)
-                index += group
-            }
-            timeSignature = TimeSignature(
-                numerator: num,
-                denominator: den,
-                pulsesPerBar: num,
-                accentIndices: Set(accents),
-                quarterNoteMultiplier: den == 8 ? 0.5 : 1.0
-            )
-            return
-        }
-        // MARK: Compound meters (6/8, 9/8, 12/8)
-        if den == 8, num % 3 == 0 {
-            let groups = Array(repeating: 3, count: num / 3)
-            var accents: [Int] = []
-            var index = 0
-            for group in groups {
-                accents.append(index)
-                index += group
-            }
-            timeSignature = TimeSignature(
-                numerator: num,
-                denominator: den,
-                pulsesPerBar: num,
-                accentIndices: Set(accents),
-                quarterNoteMultiplier: 1.5
-            )
-            return
-        }
-        // MARK: Simple meters
-        timeSignature = TimeSignature(
-            numerator: num,
-            denominator: den,
-            pulsesPerBar: num,
-            accentIndices: [0],
-            quarterNoteMultiplier: 1.0
-        )
-    }
-
     // MARK: Metronome loop
 
     private func runMetronome() async {
@@ -157,13 +94,5 @@ extension Utils.MidiPlayer {
             accentIndices: [0],
             quarterNoteMultiplier: 1.0
         )
-    }
-
-    // MARK: Additive meter parsing
-
-    private func parseAdditiveGroups(_ string: Substring) -> [Int]? {
-        let groups = string.split(separator: "+").compactMap { Int($0) }
-        guard !groups.isEmpty else { return nil }
-        return groups
     }
 }

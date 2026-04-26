@@ -435,7 +435,7 @@ popover contents, popover arrow {
 /* Editor */
 
 textview {
-    font-family: Monospace; font-size: \(theme.editorFontSize.rawValue)pt;
+    font-family: Monospace; font-size: \(theme.editorFontSize)pt;
 }
 
 gutter {

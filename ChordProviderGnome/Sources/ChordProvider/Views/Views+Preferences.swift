@@ -15,13 +15,15 @@ extension Views {
     /// The `View` for the preferences
     struct Preferences: View {
         @Binding var appState: AppState
+
+        @State var tuningFrequency: String = ""
         /// The body of the `View`
         var view: Body {
             /// Just an attachment point for modifiers
             Views.Empty()
             /// The **Preference Dialog**
             .preferencesDialog(visible: $appState.scene.showPreferencesDialog)
-            .preferencesPage("General", icon: .default(icon: .folderMusic)) { page in
+            .preferencesPage("General", icon: .default(icon: .applicationsSystem)) { page in
                 page
                     .group("Display your song") {
                         SwitchRow()
@@ -33,19 +35,6 @@ extension Views {
                             .subtitle("Show the whole chorus with the same label")
                             .active($appState.editor.coreSettings.repeatWholeChorus)
                     }
-                    .group("Chord Diagrams") {
-                        SwitchRow()
-                            .title("Show left-handed chords")
-                            .subtitle("Flip the chord diagrams")
-                            .active($appState.editor.coreSettings.diagram.mirror)
-                        SwitchRow()
-                            .title("Show notes")
-                            .subtitle("Show the notes of a chord in the diagram")
-                            .active($appState.editor.coreSettings.diagram.showNotes)
-                    }
-            }
-            .preferencesPage("Appearance", icon: .default(icon: .applicationsGraphics)) { page in
-                page
                     .group("Appearance") {
                         ComboRow(
                             "Color Scheme",
@@ -85,16 +74,33 @@ extension Views {
                             .title("Wrap Lines")
                             .subtitle("Wrap lines when they are too long")
                             .active($appState.settings.editor.wrapLines)
-                        ComboRow(
-                            "Font Size",
-                            selection: $appState.settings.theme.editorFontSize,
-                            values: AppSettings.Theme.Font.allCases
-                        )
-                        .subtitle("Select the font size for the editor")
+                        ActionRow("Font Size")
+                            .subtitle("Set the font size for the editor")
+                            .suffix {
+                                HStack {
+                                    Views.Spinner(
+                                        start: 8,
+                                        end: 20,
+                                        suffix: "pt",
+                                        value: $appState.settings.theme.editorFontSize
+                                    )
+                                }
+                                .valign(.center)
+                            }
                     }
             }
-            .preferencesPage("Chords", icon: .default(icon: .mediaPlaybackStart)) { page in
+            .preferencesPage("Chords", icon: .default(icon: .folderMusic)) { page in
                 page
+                    .group("Chord Diagrams") {
+                        SwitchRow()
+                            .title("Show left-handed chords")
+                            .subtitle("Flip the chord diagrams")
+                            .active($appState.editor.coreSettings.diagram.mirror)
+                        SwitchRow()
+                            .title("Show notes")
+                            .subtitle("Show the notes of a chord in the diagram")
+                            .active($appState.editor.coreSettings.diagram.showNotes)
+                    }
                     .group("Custom Chord Definitions") {
                         let instruments = appState.settings.app.instruments.filter { $0.bundle == nil }
                         if !instruments.isEmpty {
@@ -129,24 +135,61 @@ extension Views {
                             }
                         }
                     }
+            }
+            .preferencesPage("MIDI", icon: .default(icon: .mediaPlaybackStart)) { page in
+                page
                     .group("Options for the MIDI player") {
                         ComboRow(
-                            "Instrument",
-                            selection: $appState.editor.coreSettings.midiPreset,
+                            "MIDI Instrument",
+                            selection: $appState.editor.coreSettings.midiPreset.onSet({ value in
+                                Task {
+                                    await Utils.MidiPlayer.shared.setPreset(value)
+                                }
+                            }
+                            ),
                             values: MidiUtils.Preset.allCases
                         )
-                        .subtitle("Select the instrument for playing chord with MIDI")
+                        .subtitle("Select the instrument when playing chords with MIDI")
                         ComboRow(
-                            "Strum",
+                            "Chord Strum",
                             selection: $appState.editor.coreSettings.chordStrum,
                             values: Chord.Strum.options
                         )
                         .subtitle("The default strum when playing a chord")
                         SwitchRow()
-                            .title("Sound for Chord Definitions")
-                            .subtitle("Use sound when defining a Chord")
+                            .title("Use sound for Chord Definitions")
+                            .subtitle("Play notes when editing a chord")
                             .active($appState.settings.app.soundForChordDefinitions)
                     }
+                    .group("Tuning Frequency") {
+                        ActionRow("Reference pitch")
+                            //.subtitle("The reference frequency")
+                            .suffix {
+                                HStack {
+                                    Views.Spinner(
+                                        start: 300,
+                                        end: 500,
+                                        suffix: "Hz",
+                                        value: $appState.editor.coreSettings.referenceFrequency.onSet({ value in
+                                            Task {
+                                                await Utils.MidiPlayer.shared.setReferenceFrequency(value)
+                                            }
+                                        })
+                                    )
+                                    Button("Default") {
+                                        appState.editor.coreSettings.referenceFrequency = 440
+                                    }
+                                    .padding(.leading)
+                                    .insensitive(appState.editor.coreSettings.referenceFrequency == 440)
+                                }
+                                .valign(.center)
+                            }
+                        Text("The tuning frequency sets the pitch of the A above middle C used as the reference.\nChanging it shifts all notes higher or lower and affecting the overall sound.")
+                            .useMarkup()
+                            .wrap()
+                            .padding()
+                            .style(.caption)
+                  }
             }
         }
     }

@@ -63,6 +63,13 @@ import CAdw
                         guint(GTK_STYLE_PROVIDER_PRIORITY_APPLICATION)
                     )
                 }
+                /// Init the MIDI player
+                let referenceFrequency = appState.editor.coreSettings.referenceFrequency
+                let preset = appState.editor.coreSettings.midiPreset
+                Task {
+                    await Utils.MidiPlayer.shared.setReferenceFrequency(referenceFrequency)
+                    await Utils.MidiPlayer.shared.setPreset(preset)
+                }
                 /// Init the css style
                 appState.setStyle()
                 /// Add a *notification* for style changes

@@ -91,7 +91,7 @@ extension Views.Toolbar {
                         MenuButton("Open") {
                             /// Reset MIDI stuff
                             appState.scene.playMetronome = false
-                            appState.scene.gridChordsID = -1
+                            appState.scene.gridChordsID = UUID()
                             Task {
                                 await Utils.MidiPlayer.shared.stopMetronome()
                                 await Utils.MidiPlayer.shared.stopChords()

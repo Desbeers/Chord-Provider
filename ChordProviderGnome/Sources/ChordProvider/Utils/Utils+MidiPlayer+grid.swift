@@ -11,16 +11,6 @@ import CFluidSynth
 
 extension Utils.MidiPlayer {
 
-    /// Set the values for the grid
-    /// - Parameters:
-    ///   - grids: The grid section
-    ///   - tempo: Tempo of the song
-    ///   - preset: The MIDI preset to use
-    func setGridChords(grids: [Song.Section.Line.GridCell], preset: MidiUtils.Preset) {
-        self.grids = grids
-        self.preset = preset
-    }
-
     /// Start the chords
     func startChords() {
         if self.metronomeTask != nil {
@@ -54,7 +44,6 @@ extension Utils.MidiPlayer {
                 if let cellsPart = part.strum?.beatItems {
                     cells = cellsPart
                 }
-                // self.currentChord = part.id
                 let tempo = 60.0 / (Double(metronomeBPM) * Double(cells))
                 if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord, chord.strum != .noStrum {
                     self.currentChord = part.id

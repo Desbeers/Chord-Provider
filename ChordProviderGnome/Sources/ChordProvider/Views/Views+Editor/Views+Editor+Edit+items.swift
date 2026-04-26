@@ -128,8 +128,12 @@ extension Views.Editor.Edit {
             HStack {
                 FieldLabel(label: label)
                 VStack {
-                    SpinRow("", value: $value, min: start, max: end)
-                        .suffix { Text(suffix) }
+                    Views.Spinner(
+                        start: start,
+                        end: end,
+                        suffix: suffix,
+                        value: $value
+                    )
                     if let help {
                         Text(help)
                             .caption()

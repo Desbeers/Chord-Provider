@@ -21,7 +21,7 @@ extension AppSettings {
         /// The zoom factor of the Render `View`
         var zoom: Double = 1
         /// The font size of the editor
-        var editorFontSize: Font = .standard
+        var editorFontSize: Int = 12
     }
 }
 
@@ -57,35 +57,6 @@ extension AppSettings.Theme {
                 ADW_COLOR_SCHEME_FORCE_DARK
             case .light:
                 ADW_COLOR_SCHEME_FORCE_LIGHT
-            }
-        }
-    }
-}
-
-extension AppSettings.Theme {
-
-    /// The font size of the editor
-    enum Font: Int, Codable, CaseIterable, CustomStringConvertible, Identifiable {
-        /// Smaller font
-        case smaller = 10
-        /// Small font
-        case small = 11
-        /// Standard font
-        case standard = 12
-        /// Large font
-        case large = 13
-        /// Larger font
-        case larger = 14
-        /// Identifiable protocol
-        var id: Self { self }
-        /// CustomStringConvertible protocol
-        var description: String {
-            switch self {
-            case .smaller: "Smaller"
-            case .small: "Small"
-            case .standard: "Standard"
-            case .large: "Large"
-            case .larger: "Larger"
             }
         }
     }

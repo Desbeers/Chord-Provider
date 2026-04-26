@@ -19,6 +19,15 @@ When there is no chord defined in the grid, but there is a strum pattern; add th
 
 {comment: Below has chords that should not be played because it has no strum, they are completely hidden from the render}
 
+{comment Fancy Grid, no chords are given; no<b>play</b> button...}
+{start_of_grid shape="1x4"}
+|s *1~*&      *2~*&      *3~*&      *4~*&      |
+|  .          .          .          .          |
+|s dn~dn      d+~.~dn~up dn~up~dn~. d+~.~dn~up |
+|s *5~*&      *6~*&      *7~*&      *8~*&      |
+|  .          .          .          .          |
+|s dn~up~dn~. d+~.~dn~up .~up~.~up dn~up~dn~up |
+
 {start_of_grid shape="2x4"}
 {comment: The <b>(D)</b> is shifted...}
 |s *1 *2    *3                           *4 | *1 *2 *3                           *4 |

@@ -28,6 +28,8 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     public var chordDefinitions: [ChordDefinition] = []
     /// The MIDI preset
     public var midiPreset: MidiUtils.Preset = .acousticNylonGuitar
+    /// The tuning reference frequency
+    public var referenceFrequency: Int = 440
     /// The default chord strum
     public var chordStrum: Chord.Strum = .down
     /// Show only lyrics
@@ -57,6 +59,7 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     enum CodingKeys: CodingKey {
         case instrument
         case midiPreset
+        case referenceFrequency
         case chordStrum
         case lyricsOnly
         case repeatWholeChorus

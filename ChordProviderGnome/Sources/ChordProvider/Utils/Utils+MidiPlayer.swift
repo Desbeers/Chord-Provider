@@ -52,7 +52,7 @@ extension Utils {
 
         /// Grid task
         var gridTask: Task<Void, Never>?
-        var grids: [Song.Section.Line.GridCell]?
+        nonisolated(unsafe) var grids: [Song.Section.Line.GridCell]?
         var preset: MidiUtils.Preset = .acousticNylonGuitar
         nonisolated(unsafe) var currentChord: Int = -1
 
@@ -66,10 +66,14 @@ extension Utils {
             currentChord
         }
 
+        nonisolated var getCurrentGrid: [Song.Section.Line.GridCell]? {
+            grids
+        }
+
         // MARK: Init
 
         /// Init the MIDI engine
-        init() {
+        private init() {
             settings = new_fluid_settings()
             guard let settings else { return }
 
@@ -102,45 +106,9 @@ extension Utils {
             if let sfPath = MidiUtils.soundFont {
                 soundFontID = fluid_synth_sfload(synth, sfPath.path(), 1)
             } else {
-                print("Sound font not found!")
+                /// This should not happen, the sound font is a part of the bundle
+                print("ERROR: Sound font not found!")
             }
-
-            // /// Apply A=432 Hz tuning
-            // let tuningBank: Int32 = 0
-            // let tuningProgram: Int32 = 0
-            // /// Build full 128-note tuning table (in cents)
-            // var tuning = [Double](repeating: 0.0, count: 128)
-
-            // /// Detune relative to A=440
-            // // let detune = -331.77
-            // let detune: Double = 31.77
-
-            // for index in 0..<128 {
-            //     tuning[index] = Double(index) * 100.0 + detune
-            // }
-            // /// Define tuning (this creates or replaces it)
-            // _ = tuning.withUnsafeBufferPointer { buffer in
-            //     fluid_synth_activate_key_tuning(
-            //         synth,
-            //         tuningBank,
-            //         tuningProgram,
-            //         "A432 tuning",
-            //         buffer.baseAddress,
-            //         /// apply immediately
-            //         1
-            //     )
-            // }
-            // /// Activate tuning on all MIDI channels
-            // for channel in 0..<16 {
-            //     fluid_synth_activate_tuning(
-            //         synth,
-            //         Int32(channel),
-            //         tuningBank,
-            //         tuningProgram,
-            //         /// apply immediately
-            //         1
-            //     )
-            // }
         }
     }
 }
