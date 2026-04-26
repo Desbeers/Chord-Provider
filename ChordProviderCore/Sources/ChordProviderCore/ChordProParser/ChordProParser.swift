@@ -37,8 +37,10 @@ public enum ChordProParser {
             category: .songParser,
             message: "Parsing \(getOnlyMetadata ? "metadata from" : "") <b>\(settings.fileURL?.lastPathComponent ?? "New Song")</b>"
         )
+        /// Strip optional Windows line endings
+        let content = song.content.replacingOccurrences(of: "\r\n", with: "\n")
         /// Start with a fresh song
-        var song = Song(id: song.id, content: song.content)
+        var song = Song(id: song.id, content: content)
         /// Add the settings
         song.settings = settings
         /// And add the first section
