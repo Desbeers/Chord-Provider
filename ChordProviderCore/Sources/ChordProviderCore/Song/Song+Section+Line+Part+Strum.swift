@@ -16,14 +16,18 @@ extension Song.Section.Line.Part {
             strumPattern: ChordPro.Grid.StrumPattern? = nil,
             strum: Chord.Strum? = nil,
             barLineSymbol: ChordPro.Grid.BarLineSymbol? = nil,
+            repeatingSymbol: ChordPro.Grid.RepeatingSymbol? = nil,
             beatItems: Int = 1,
-            playable: Bool = false
+            isPlayable: Bool = false,
+            isInMargin: Bool? = nil
         ) {
             self.strumPattern = strumPattern
             self.strum = strum
             self.barLineSymbol = barLineSymbol
+            self.repeatingSymbol = repeatingSymbol
             self.beatItems = beatItems
-            self.playable = playable
+            self.isPlayable = isPlayable
+            self.isInMargin = isInMargin
         }
         // CustomStringConvertible protocol
         public var description: String {
@@ -33,11 +37,15 @@ extension Song.Section.Line.Part {
         public var strumPattern: ChordPro.Grid.StrumPattern?
         /// The strum
         public var strum: Chord.Strum?
-        /// The barLineSymbol
+        /// The bar line symbol
         public var barLineSymbol: ChordPro.Grid.BarLineSymbol?
+        /// The repeating symbol
+        public var repeatingSymbol: ChordPro.Grid.RepeatingSymbol?
         /// The items in one beat
         public var beatItems: Int
-        /// Playable
-        public var playable: Bool
+        /// Bool if playable
+        public var isPlayable: Bool
+        /// Bool if the strum is in the margin of the grid
+        public var isInMargin: Bool?
     }
 }

@@ -47,7 +47,6 @@ extension ChordProParser {
             /// Clear the empty columns
             columnCounter.removeAll {$0 == 0}
 
-            
             var totalColumns = columnCounter.count
 
             let neededParts = columnCounter.max() ?? 1
@@ -63,7 +62,8 @@ extension ChordProParser {
             }
             for (columnIndex, column) in columns.enumerated() {
                 let dividerColumn = column.cells.flatMap(\.parts).compactMap(\.strum).compactMap(\.barLineSymbol)
-                if dividerColumn.isEmpty {
+                let marginColumn = column.cells.flatMap(\.parts).compactMap(\.strum).compactMap(\.isInMargin)
+                if dividerColumn.isEmpty && marginColumn.isEmpty {
                     columnCounter[columnIndex] = neededParts
                 }
             }
@@ -82,7 +82,6 @@ extension ChordProParser {
                     let part = Song.Section.Line.Part(
                         id: partID,
                         chordDefinition: playableLine[index] == true ? chord : nil,
-                        //text: playableLine[index] == true  ? "." : " ",
                         strum: .init(beatItems: neededParts)
                     )
                     columns[column].cells[0].parts.append(part)
@@ -95,7 +94,6 @@ extension ChordProParser {
                     var column = 0
                     for (index, neededParts) in columnCounter.enumerated() {
                         if let parts = grids[safe: index].flatMap(\.cells)?.flatMap(\.parts) {
-                            // let offset = (neededParts / parts.count) - 1
                             let missingParts = (neededParts - parts.count)
                             let offset = missingParts / parts.count
                             for (id, part) in parts.enumerated() {
@@ -110,6 +108,36 @@ extension ChordProParser {
                             }
                         }
                         column += neededParts
+                    }
+                }
+            }
+
+            /// Look for repeating
+            for (index, column) in columns.enumerated() {
+                let parts = column.cells[0].parts
+                for (row, part) in parts.enumerated() {
+                    if let repeating = part.strum?.repeatingSymbol {
+                        var repeatLastTwoMeasures: Bool = repeating == .repeatLastTwoMeasures ? true : false
+                        var repeatingParts: [Song.Section.Line.Part] = []
+                        for previousColumn in (0...index - 2).reversed() {
+                            let part = columns[previousColumn].cells[0].parts[row]
+                                if (part.strum?.barLineSymbol == nil && part.strum?.strumPattern == nil) || repeatLastTwoMeasures == true {
+                                    repeatingParts.append(part)
+                                    let strum = repeatingParts.compactMap(\.strum)
+                                    if !strum.compactMap(\.barLineSymbol).isEmpty || !strum.compactMap(\.strumPattern).isEmpty {
+                                        repeatLastTwoMeasures = false
+                                    }
+                                } else {
+                                    break
+                                }
+                        }
+                        if !repeatingParts.isEmpty {
+                            for (updateColumn, part) in repeatingParts.reversed().enumerated() {
+                                var part = part
+                                part.id = columns[index + updateColumn].cells[0].parts[row].id
+                                columns[index + updateColumn].cells[0].parts[row] = part
+                            }
+                        }
                     }
                 }
             }

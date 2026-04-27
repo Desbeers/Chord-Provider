@@ -308,3 +308,34 @@ extension RegexDefinitions {
         } transform: { Int($0) }
     }
 }
+
+extension RegexDefinitions {
+
+    nonisolated(unsafe) static let shape = Regex {
+        /// Optional left 
+        Optionally {
+            Capture {
+                OneOrMore(.digit)
+            }
+            "+"
+        }
+        
+        /// Measures
+        Capture {
+            OneOrMore(.digit)
+        }
+        
+        "x"
+        /// Beats
+        Capture {
+            OneOrMore(.digit)
+        }
+        /// Optional right
+        Optionally {
+            "+"
+            Capture {
+                OneOrMore(.digit)
+            }
+        }
+    }
+}

@@ -25,6 +25,7 @@ extension ChordPro.Grid {
         case endBarLine = "|."
         case startRepeatBarLine = "|:"
         case stopRepeatBarLine = ":|"
+        case combinedStopStartRepeatBarLine = ":|:"
         /// Display a bar line
         public var display: String {
             self.rawValue
@@ -42,5 +43,11 @@ extension ChordPro.Grid {
             case .strumWithoutSymbol: " "
             }
         }
+    }
+
+    /// Text that is some kind of repeating
+    public enum RepeatingSymbol: String, Sendable, Codable {
+        case playLikePreviousMeasure = "%"
+        case  repeatLastTwoMeasures = "%%"
     }
 }

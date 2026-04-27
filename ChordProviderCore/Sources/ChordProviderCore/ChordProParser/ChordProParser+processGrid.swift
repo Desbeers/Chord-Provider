@@ -22,11 +22,24 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
+        /// Try to get the shape
+        var shape = Song.Section.Line.Grid.Shape()
+        if let argument = currentSection.lines.first?.arguments?[.shape], let match = argument.wholeMatch(of: RegexDefinitions.shape) {
+            if let left = match.1, let value = Int(left) {
+                shape.left = value
+            }
+            shape.measures = Int(match.2) ?? shape.measures
+            shape.beats = Int(match.3) ?? shape.beats
+            if let right = match.4, let value = Int(right) {
+                shape.right = value
+            }
+        }
+
         /// Start with a fresh line:
         var line = Song.Section.Line(
             sourceLineNumber: song.totalLines,
             source: text,
-            sourceParsed: text.trimmingCharacters(in: .whitespaces),
+            sourceParsed: text,
             type: .songLine,
             context: .grid
         )
@@ -36,10 +49,24 @@ extension ChordProParser {
         /// The line can be a strum pattern
         var isStrumPattern: ChordPro.Grid.StrumPattern?
         /// Separate the grids
-        let grids = text.matches(of: RegexDefinitions.gridSeparator).map { match in
+        var grids = text.matches(of: RegexDefinitions.gridSeparator).map { match in
             String(match.0)
         }
-        for text in grids where !text.isEmpty {
+        /// Check if there is are margins at the beginning and add spaces if needed
+        if text.starts(with: " "), shape.left > 0 {
+            for _ in 0..<shape.left {
+                /// Insert a spacer
+                grids.insert(" ", at: 0)
+            }
+        }
+        /// Check if there is are margins at the end and add spaces if needed
+        if let last = text.last, shape.right > 0, String(last) == " " {
+            for _ in 0..<shape.right {
+                /// Append a spacer
+                grids.append(" ")
+            }
+        }
+        for (index, text) in grids.enumerated() where !text.isEmpty {
             var grid = Song.Section.Line.Grid(id: cellID)
             /// Check for pango markup
             let markup = text.markup(handleBrackets: true)
@@ -52,7 +79,12 @@ extension ChordProParser {
             for text in chords {
                 let text = String(text)
                 var part = Song.Section.Line.Part(id: partID)
-                if text.starts(with: "*") {
+                if text.starts(with: " ")  || index + 1 <= shape.left || index + 1 >= shape.totalCells {
+                    /// This is a spacer or text in the margin
+                    part.text = text
+                    part.strum = .init(isInMargin: true)
+                    parts.append(part)
+                } else if text.starts(with: "*") {
                     /// This is just text
                     part.text = String(text.dropFirst())
                     parts.append(part)
@@ -73,6 +105,10 @@ extension ChordProParser {
                     /// This is a *strum*
                     part.strum = .init(strum: strum)
                     parts.append(part)
+                } else if let repeating = ChordPro.Grid.RepeatingSymbol(rawValue: text) {
+                    /// This is a *repeating* indication
+                    part.strum = .init(repeatingSymbol: repeating)
+                    parts.append(part)
                 } else {
                     /// Now it should be a chord
                     if text == "." {
@@ -83,27 +119,25 @@ extension ChordProParser {
                             kind: .textChord
                         )
                         result.strum = .noStrum
-                        parts.append(
-                            Song.Section.Line.Part(
+                        let part = Song.Section.Line.Part(
                                 id: partID,
                                 chordDefinition: result,
                                 text: text
-                            )
                         )
+                        parts.append(part)
                     } else {
                         let result = processChord(
                             chord: String(text),
                             line: &line,
                             song: &song,
                         )
-                        parts.append(
-                            Song.Section.Line.Part(
+                        let part = Song.Section.Line.Part(
                                 id: partID,
                                 chordDefinition: result,
                                 text: result.display,
                                 chordMarkup: markup
-                            )
                         )
+                        parts.append(part)
                     }
                 }
                 partID += 1

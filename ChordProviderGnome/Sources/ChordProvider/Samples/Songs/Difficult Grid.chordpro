@@ -2,8 +2,24 @@
 {artist: Nick Berendsen}
 {composer: CodeShakingSheep}
 {tempo: 87}
-
 {capo: 2}
+
+{start_of_grid shape="1+4x2+2"}
+A    || G7 . | % . | %% . | . . | Test me
+{end_of_grid}
+
+{start_of_grid shape="1+4x2+3"}
+A    || G7 . | % . | %% . | . . | 
+ | C7 . | %  . || G7 . | % . || 
+ |: C7 . | %  . :|: G7 . | % . :| repeat 4 times
+#Coda | D7 . | Eb7 | D7 | G7 . | % . | 
+{end_of_grid}
+{start_of_grid shape="1+4x2+4"}
+A    || G7 . | % . | %% . | . . |
+     | C7 . | %  . || G7 . | % . ||
+     |: C7 . | %  . :|: G7 . | % . :|
+Coda | D7 . | Eb7 | D7 | G7 . | % . |
+{end_of_grid}
 
 {start_of_grid label="Simple Grid"}
 {comment: Simple grid that should respect <b>no</b> note here...}

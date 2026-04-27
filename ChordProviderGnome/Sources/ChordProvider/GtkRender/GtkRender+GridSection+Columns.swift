@@ -131,6 +131,11 @@ extension GtkRender.GridSection {
                         .useMarkup()
                         .style(.sectionGrid)
                         .halign(.center)
+                } else if let repeatingSymbol = part.strum?.repeatingSymbol {
+                    Text(repeatingSymbol.rawValue)
+                        .useMarkup()
+                        .style(.sectionGrid)
+                        .halign(.center)
                 } else {
                     Text(part.text?.escapeSpecialCharacters() ?? "   ")
                         .useMarkup()
