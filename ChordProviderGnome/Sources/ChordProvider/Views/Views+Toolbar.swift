@@ -94,7 +94,7 @@ extension Views.Toolbar {
                             appState.scene.gridChordsID = UUID()
                             Task {
                                 await Utils.MidiPlayer.shared.stopMetronome()
-                                await Utils.MidiPlayer.shared.stopChords()
+                                await Utils.MidiPlayer.shared.stopGrid()
                             }
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView

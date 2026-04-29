@@ -27,10 +27,13 @@ extension ChordProParser {
         }
         return newSection
 
+        /// Convert the collected grid lines into columns
         func processGrid() {
             /// The counter for columns
-            var columnCounter: [Int] = Array(repeating: 0, count: 100)
+            /// - Note: I go for a lot of columns but will clear afterwards
+            var columnsCounter: [Int] = Array(repeating: 0, count: 100)
             /// Bool if a line contains playable items
+            /// - Note: Those are lines with chords, this is later used to fill-in undefined chords
             var playableLine: [Bool] = Array(repeating: false, count: gridLines.count)
             /// Check the lines for the amount of cells in each column
             for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
@@ -40,36 +43,38 @@ extension ChordProParser {
                     playableLine[index] = strum.isEmpty ? true : false
                     /// Set the maximum items for each column
                     for (index, grid) in grids.enumerated() {
-                        columnCounter[index] = max(columnCounter[index], grid.cells.flatMap(\.parts).count)
+                        columnsCounter[index] = max(columnsCounter[index], grid.cells.flatMap(\.parts).count)
                     }
                 }
             }
-            /// Clear the empty columns
-            columnCounter.removeAll {$0 == 0}
-
-            var totalColumns = columnCounter.count
-
-            let neededParts = columnCounter.max() ?? 1
-            /// Create columns
+            /// Clear the empty columns from the counter
+            columnsCounter.removeAll {$0 == 0}
+            /// Set how many columns we have
+            var totalColumns = columnsCounter.count
+            /// Find how many parts each column should have
+            /// - Note: An *optional* but this should not fail
+            let neededParts = columnsCounter.max() ?? 1
+            /// Create all the columns
             var columns = (0 ..< totalColumns).enumerated().map { item in
                 Song.Section.Line.Grid(id: item.element)
             }
-
-            let gridToColumns = interleave(gridLines.compactMap(\.gridsLine))
-
+            /// Convert the the gridlines into columns
+            let gridToColumns = gridToColumns(gridLines.compactMap(\.gridsLine))
+            /// Fill the columns with the cells
             for grid in gridToColumns {
                 columns[grid.id].cells.append(contentsOf: grid.cells)
             }
+            /// Update the column counter
             for (columnIndex, column) in columns.enumerated() {
                 let dividerColumn = column.cells.flatMap(\.parts).compactMap(\.strum).compactMap(\.barLineSymbol)
                 let marginColumn = column.cells.flatMap(\.parts).compactMap(\.strum).compactMap(\.isInMargin)
                 if dividerColumn.isEmpty && marginColumn.isEmpty {
-                    columnCounter[columnIndex] = neededParts
+                    columnsCounter[columnIndex] = neededParts
                 }
             }
 
-            /// Update the columns
-            totalColumns = columnCounter.reduce(0, +)
+            /// Update the columns with empty parts
+            totalColumns = columnsCounter.reduce(0, +)
             columns = (0 ..< totalColumns).enumerated().map { item in
                 let gridCell = Song.Section.Line.GridCell(id: 0, parts: [])
                 return Song.Section.Line.Grid(id: item.element, cells: [gridCell])
@@ -77,7 +82,7 @@ extension ChordProParser {
             var partID = 0
             for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
                 for column in 0..<totalColumns {
-                    var chord = ChordDefinition(text: ".", kind: .textChord)
+                    var chord = ChordDefinition(text: "", kind: .textChord)
                     chord.strum = .noStrum
                     let part = Song.Section.Line.Part(
                         id: partID,
@@ -92,7 +97,7 @@ extension ChordProParser {
             for (rowIndex, line) in gridLines.enumerated() {
                 if let grids = line.gridsLine {
                     var column = 0
-                    for (index, neededParts) in columnCounter.enumerated() {
+                    for (index, neededParts) in columnsCounter.enumerated() {
                         if let parts = grids[safe: index].flatMap(\.cells)?.flatMap(\.parts) {
                             let missingParts = (neededParts - parts.count)
                             let offset = missingParts / parts.count
@@ -147,53 +152,63 @@ extension ChordProParser {
                 for (index, column) in columns.enumerated() {
                     let parts = column.cells[0].parts
                     for (row, part) in parts.enumerated() {
-                        if let strum = nearestStum(row: row, parts: parts) {
+                        if let strum = findNearestStum(row: row, parts: parts) {
                             if part.chordDefinition != nil, part.chordDefinition?.kind != .textChord {
                                 /// Add the strum to the chord definition
                                 columns[index].cells[0].parts[row].chordDefinition?.strum = strum
                             } else {
-                                /// We have a strum but not a chord. Fill-in the nearest last chord on the left
+                                /// We have a strum but not a chord
                                 for previousColumn in (0...index - 1).reversed() {
                                     if let match = columns[safe: previousColumn]?.cells[0].parts[row], var chord = match.chordDefinition, chord.kind != .textChord {
+                                        /// Add the strum to the chord
                                         chord.strum = strum
-                                        columns[index].cells[0].parts[row].chordMarkup = match.chordMarkup
-                                        columns[index].cells[0].parts[row].hidden = match.chordDefinition?.strum == .noStrum ? false : true
-                                        columns[index].cells[0].parts[row].chordDefinition = chord
-                                        columns[index].cells[0].parts[row].strum = match.strum
+                                        /// Update the part
+                                        var part = columns[index].cells[0].parts[row]
+                                        part.chordMarkup = match.chordMarkup
+                                        part.hidden = match.chordDefinition?.strum == .noStrum ? false : true
+                                        part.chordDefinition = chord
+                                        part.strum = match.strum
+                                        /// Update the row with the part
+                                        columns[index].cells[0].parts[row] = part
                                         break
                                     }
                                 }
-                            
                             }
                         } else if let chord = part.chordDefinition, chord.knownChord {
-                            /// Chord without strum, do not play
+                            /// This is a chord without a strum, do not play it
                             columns[index].cells[0].parts[row].chordDefinition?.strum = .noStrum
                         }         
                     }
                 }
             }
-
             /// Add a new line to the section
             let newLine: Song.Section.Line = .init(type: .gridLineColumns, context: .grid, gridColumns: columns)
             newSection.lines.append(newLine)
-            /// Reset the lines
+            /// Reset the grid lines
+            /// - Note: A *grid* environment can contain more than one grid, seperated by an empty line
             gridLines = []
         }
 
-        func nearestStum(row: Int, parts: [Song.Section.Line.Part]) -> Chord.Strum? {
-            /// Look above
-            // if let strum = parts[safe: row - 1]?.strum?.strum, Chord.Strum.options.contains(strum) {
-            //     return strum
-            // }
-            /// Look below
-            if let strum = parts[safe: row + 1]?.strum?.strum, Chord.Strum.options.contains(strum) {
-                return strum
+        /// Look down to find the first optional chord strum
+        /// - Parameters:
+        ///   - row: The row of the chord in the grid
+        ///   - parts: All parts of the column 
+        ///
+        /// - Returns: A strum if found, else nil
+        func findNearestStum(row: Int, parts: [Song.Section.Line.Part]) -> Chord.Strum? {
+            let rows = gridLines.count
+            for index in row..<rows {
+                if let strum = parts[safe: index + 1]?.strum?.strum {
+                    return strum
+                }
             }
-            /// No strum found
             return nil
         }
 
-        func interleave<T>(_ input: [[T]]) -> [T] {
+        /// Convert lines into columns
+        /// - Parameter input: The lines
+        /// - Returns: Columns
+        func gridToColumns<T>(_ input: [[T]]) -> [T] {
             guard let first = input.first else { return [] }
             return (0..<first.count).flatMap { index in
                 input.compactMap { $0[safe: index] }

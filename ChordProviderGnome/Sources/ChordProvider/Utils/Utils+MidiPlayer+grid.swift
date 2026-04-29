@@ -11,29 +11,30 @@ import CFluidSynth
 
 extension Utils.MidiPlayer {
 
-    /// Start the chords
-    func startChords() {
+    /// Start the grid
+    func startGrid() {
         if self.metronomeTask != nil {
-            /// Restart the metronome
+            /// Restart the metronome so it is in sync
             startMetronome()
         }
-        stopChords()
+        /// Stop any other grid
+        stopGrid()
         gridTask = Task { [weak self] in
-            await self?.playChords()
+            await self?.playGrid()
         }
     }
 
-    /// Stop the chords
-    func stopChords() {
+    /// Stop the grid
+    func stopGrid() {
         gridTask?.cancel()
         gridTask = nil
     }
 
     /// Play the chords of the grid
-    private func playChords() async {
+    private func playGrid() async {
         var parts: [Song.Section.Line.Part] = []
         if let grids = self.grids {
-            let mappedParts = interleave(grids.map(\.parts))
+            let mappedParts = flatMapParts(grids.map(\.parts))
             parts = mappedParts.filter { part in
                 part.chordDefinition != nil
             }
@@ -58,7 +59,10 @@ extension Utils.MidiPlayer {
         }
     }
 
-    func interleave<T>(_ input: [[T]]) -> [T] {
+    /// Flatmap grid parts
+    /// - Parameter input: The parts
+    /// - Returns: Fattened parts 
+    func flatMapParts<T>(_ input: [[T]]) -> [T] {
         guard let first = input.first else { return [] }
         return (0..<first.count).flatMap { index in
             input.map { $0[index] }

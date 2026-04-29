@@ -64,7 +64,7 @@ extension ChordDefinition {
             .none
             }
         } else {
-           knownChord ? .none : .chordError
+           knownChord || kind == .anyChord ? .none : .chordError
         }
     }
 }

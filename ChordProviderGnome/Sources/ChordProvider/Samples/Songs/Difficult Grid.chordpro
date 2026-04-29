@@ -3,22 +3,28 @@
 {composer: CodeShakingSheep}
 {tempo: 87}
 {capo: 2}
+{comment: Grid with margins and repeating symbols}
+{start_of_grid shape="1+4x2+2"}
+Hello    || G7 . | % . | %% . | . . | Test me
+{end_of_grid}
+
+{comment: If a colums in the grid has a strum, but <i>no chord</i>, it's looking back to the last chord on the left and add it <i>dimmed</i> (so its less noisy)}
 
 {start_of_grid shape="1+4x2+2"}
-A    || G7 . | % . | %% . | . . | Test me
+World    || G7 . | % . | %% . | . . | 
+ | C7 . | %  . || G7 . | % . || 
+ |: C7 . | %  . :|: G7 . | % . :| Repeat forever
+ |s d u | % . | % . | % . |
+{comment: Note that strums are only at the bottom; my parser looks down for strums all the way to the bottom.}
 {end_of_grid}
 
-{start_of_grid shape="1+4x2+3"}
+{start_of_grid shape="1+4x2+4" label="Not good..."}
+{comment: (This comment should be above the grid) Below is from the ChordPro website that does not render correct here... The last line has one more measure and im not sure that's ok...}
 A    || G7 . | % . | %% . | . . | 
- | C7 . | %  . || G7 . | % . || 
- |: C7 . | %  . :|: G7 . | % . :| repeat 4 times
-#Coda | D7 . | Eb7 | D7 | G7 . | % . | 
-{end_of_grid}
-{start_of_grid shape="1+4x2+4"}
-A    || G7 . | % . | %% . | . . |
-     | C7 . | %  . || G7 . | % . ||
-     |: C7 . | %  . :|: G7 . | % . :|
-Coda | D7 . | Eb7 | D7 | G7 . | % . |
+     | C7 . | %  . || G7 . | % . || 
+     |: C7 . | %  . :|: G7 . | % . :| 
+Coda | D7 . | Eb7 | D7 | G7 . | % . | Not so good
+{comment: (And this below)...}
 {end_of_grid}
 
 {start_of_grid label="Simple Grid"}
@@ -33,17 +39,17 @@ Is it correct?
 When there is no chord defined in the grid, but there is a strum pattern; add the chord.
 {end_of_textblock}
 
-{comment: Below has chords that should not be played because it has no strum, they are completely hidden from the render}
-
-{comment Fancy Grid, no chords are given; no<b>play</b> button...}
+{comment: Fancy Grid, no chords are given; no<b>play</b> button... Also, according the standard, a <b>/</b> indicates that  chord should be played.}
 {start_of_grid shape="1x4"}
 |s *1~*&      *2~*&      *3~*&      *4~*&      |
-|  .          .          .          .          |
+|  /          .          .          .          |
 |s dn~dn      d+~.~dn~up dn~up~dn~. d+~.~dn~up |
 |s *5~*&      *6~*&      *7~*&      *8~*&      |
 |  .          .          .          .          |
 |s dn~up~dn~. d+~.~dn~up .~up~.~up dn~up~dn~up |
+{end_of_grid}
 
+{comment: Below has chords that should not be played because it has no strum, they are completely hidden from the render}
 {start_of_grid shape="2x4"}
 {comment: The <b>(D)</b> is shifted...}
 |s *1 *2    *3                           *4 | *1 *2 *3                           *4 |
@@ -57,7 +63,7 @@ When there is no chord defined in the grid, but there is a strum pattern; add th
 {comment: With some <i>Purle Rain</i> Prince feeling}
 |s *1~*&      *2~*&      *3~*&      *4~*&       |
 |  Em          <span color="purple">G</span>          D          A7sus4     |
-|s dn~up      d+~.~dn~up dn~up~dn~. d+~.~dn~up  |
+|s dn~.~up      d+~.~dn~up dn~up~dn~. d+~.~dn~up  |
 |s *5~*&      *6~*&      *7~*&      *8~*&       |
 |  Em          G          D          A7sus4     |
 |s dn~up~dn~. d+~.~dn~up dn~up~.~up dn~up~dn~up |

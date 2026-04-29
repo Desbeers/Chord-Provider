@@ -28,6 +28,9 @@ extension ChordDefinition {
         case unknownChord
         /// A transposed chord that is unknown
         case transposedUnknownChord
+        /// Any chord
+        /// - Note: As can be used in a grid
+        case anyChord
 
         /// CustomStringConvertible protocol
         public var description: String {
@@ -38,6 +41,8 @@ extension ChordDefinition {
                 "A custom chord has no diagram when it is transposed"
             case .transposedUnknownChord:
                 "This transposed chord is unknown"
+            case .anyChord:
+                "A chord should be played here"
             default:
                 rawValue
             }

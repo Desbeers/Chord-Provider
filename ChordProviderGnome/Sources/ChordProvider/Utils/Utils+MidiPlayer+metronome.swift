@@ -15,8 +15,8 @@ extension Utils.MidiPlayer {
     /// Start the metronome
     func startMetronome() {
         if self.gridTask != nil {
-            /// Restart the chords
-            startChords()
+            /// Restart the grid to stay in sync
+            startGrid()
         }
         stopMetronome()
         metronomeTask = Task { [weak self] in

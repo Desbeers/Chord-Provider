@@ -53,7 +53,7 @@ extension GtkRender.GridSection {
                                 await Utils.MidiPlayer.shared.setGridChords(
                                     grids: grids
                                 )
-                                await Utils.MidiPlayer.shared.startChords()
+                                await Utils.MidiPlayer.shared.startGrid()
                             }
                             /// Monitor the chords player
                             monitorChordsPlayer()
@@ -62,7 +62,7 @@ extension GtkRender.GridSection {
                                 currentPartID = -1
                             }
                             Task {
-                                await Utils.MidiPlayer.shared.stopChords()
+                                await Utils.MidiPlayer.shared.stopGrid()
                             }
                         } 
                     }
@@ -92,7 +92,7 @@ extension GtkRender.GridSection {
                         playGridChords = false
                         currentPartID = -1
                         Task {
-                                await Utils.MidiPlayer.shared.stopChords()
+                                await Utils.MidiPlayer.shared.stopGrid()
                         }
                     }
                 }
@@ -108,7 +108,7 @@ extension GtkRender.GridSection {
                 //     .style(.error)
                 if let chord = part.chordDefinition {
                     if chord.strum == .noStrum || chord.kind == .textChord {
-                        Text(chord.kind == .textChord && chord.strum != .noStrum ? chord.plain : " . ")
+                        Text(chord.kind == .textChord && chord.strum != .noStrum ? chord.plain : "   .   ")
                             .style(.dimmed)
                     } else {
                         GtkRender.SingleChord(part: part, coreSettings: coreSettings)
@@ -140,7 +140,7 @@ extension GtkRender.GridSection {
                     Text(part.text?.escapeSpecialCharacters() ?? "   ")
                         .useMarkup()
                         /// Just for visual reason...
-                        .style(part.text == "&" ? .caption : .none)
+                        .style(part.text == "&" || part.strum?.isInMargin ?? false ? .caption : .none)
                         .style(.standard)
                         .halign(.center)
                 }

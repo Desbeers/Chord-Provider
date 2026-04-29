@@ -111,12 +111,12 @@ extension ChordProParser {
                     parts.append(part)
                 } else {
                     /// Now it should be a chord
-                    if text == "." {
-                        /// Do not play a chord here
+                    if text == "." || text == "/" {
+                        /// Do not play a chord here (".") or play some chord ("/") that is not defined
                         /// Add it as a text chord
                         var result = ChordDefinition(
-                            text: text,
-                            kind: .textChord
+                            text: text == "/" ? text : "",
+                            kind: text == "/" ? .anyChord : .textChord
                         )
                         result.strum = .noStrum
                         let part = Song.Section.Line.Part(
