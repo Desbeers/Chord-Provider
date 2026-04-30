@@ -47,9 +47,9 @@ extension ChordProParser {
         var cellID: Int = 0
         /// The ID of the part
         var partID: Int = 0
-        /// Bool if the line cis a strum pattern
-        var isStrumPattern: ChordPro.Grid.StrumPattern?
-        /// The seperated grid parts in a String Array
+        /// The optional active strum pattern for this line
+        var activeStrumPattern: ChordPro.Grid.StrumPattern?
+        /// The separated grid parts in a String Array
         var grids = text.matches(of: RegexDefinitions.gridSeparator).map { match in
             String(match.0)
         }
@@ -67,20 +67,25 @@ extension ChordProParser {
                 grids.append(" ")
             }
         }
-        for (index, text) in grids.enumerated() where !text.isEmpty {
+        for (index, gridText) in grids.enumerated() {
+            guard !gridText.isEmpty else { continue }
             var grid = Song.Section.Line.Grid(id: cellID)
-            /// Multiple chords can be put in a single cell by separating the chord names with a ~ (tilde)
-            let chords = text.split(separator: "~")
+            /// Multiple items can be put in a single cell by separating the chord names with a ~ (tilde)
+            let items = gridText.split(separator: "~")
             /// Collect the parts
             var parts: [Song.Section.Line.Part] = []
-            for text in chords {
+            for item in items {
                 /// Check for optional pango markup
-                var markup = String(text).markup(handleBrackets: true)
-                let haveMarkup = markup.open.isEmpty || markup.close.isEmpty ? false : true
+                var markup = String(item).markup(handleBrackets: true)
+                let haveMarkup = !markup.open.isEmpty && !markup.close.isEmpty
                 /// Use the plain text only
                 let text = markup.text
                 var part = Song.Section.Line.Part(id: partID)
-                if text.starts(with: " ")  || index + 1 <= shape.left || index + 1 >= shape.totalCells {
+                /// Check if it is a spacer or if it is text within the margins
+                let isWhitespace = text.starts(with: " ")
+                let isLeftMargin = index < shape.left
+                let isRightMargin = index >= shape.totalCells - shape.right
+                if isWhitespace || isLeftMargin || isRightMargin {
                     /// This is a spacer or text in the margin
                     part.text = text
                     part.strum = .init(isInMargin: true)
@@ -93,17 +98,17 @@ extension ChordProParser {
                     part.textMarkup = [markup]
                 } else if let strumPattern = ChordPro.Grid.StrumPattern.characterDictionary[text] {
                     /// This is a *strum pattern* indication, remember it
-                    isStrumPattern = strumPattern
+                    activeStrumPattern = strumPattern
                     part.strum = .init(strumPattern: strumPattern)
                 } else if let barLineSymbol = ChordPro.Grid.BarLineSymbol.characterDictionary[text] {
                     /// This is a *bar line symbol*
-                    if let isStrumPattern {
-                        part.strum = .init(strumPattern: isStrumPattern)
+                    if let activeStrumPattern {
+                        part.strum = .init(strumPattern: activeStrumPattern)
                     } else {
                         part.strum = .init(barLineSymbol: barLineSymbol)
                     }
-                } else if isStrumPattern != nil, let strum = Chord.Strum.characterDictionary[text] {
-                    /// This is a *strum*
+                } else if activeStrumPattern != nil, let strum = Chord.Strum.characterDictionary[text] {
+                    /// This is a *strum* and will be added like that only when the line has an active strum defined
                     part.strum = .init(strum: strum)
                 } else if let repeating = ChordPro.Grid.RepeatingSymbol.characterDictionary[text] {
                     /// This is a *repeating* indication
@@ -132,7 +137,7 @@ extension ChordProParser {
                 parts.append(part)
                 partID += 1
             }
-            grid.isStrumPattern = isStrumPattern == nil ? false : true
+            grid.isStrumPattern = activeStrumPattern != nil
             grid.cells.append(Song.Section.Line.GridCell(id: cellID, parts: parts))
             cellID += 1
             line.addGrid(grid)
