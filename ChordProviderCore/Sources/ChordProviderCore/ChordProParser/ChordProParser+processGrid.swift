@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RegexBuilder
 
 extension ChordProParser {
 
@@ -53,21 +52,21 @@ extension ChordProParser {
         var grids = text.matches(of: RegexDefinitions.gridSeparator).map { match in
             String(match.0)
         }
-        /// Check if there is are margins at the beginning and add spaces if needed
+        /// Check if there are margins at the beginning and add spaces if needed
         if text.starts(with: " "), shape.left > 0 {
             for _ in 0..<shape.left {
                 /// Insert a spacer
                 grids.insert(" ", at: 0)
             }
         }
-        /// Check if there is are margins at the end and add spaces if needed
+        /// Check if there are margins at the end and add spaces if needed
         if let last = text.last, shape.right > 0, String(last) == " " {
             for _ in 0..<shape.right {
                 /// Append a spacer
                 grids.append(" ")
             }
         }
-        for (index, gridText) in grids.enumerated() {
+        for (cellIndex, gridText) in grids.enumerated() {
             guard !gridText.isEmpty else { continue }
             var grid = Song.Section.Line.Grid(id: cellID)
             /// Multiple items can be put in a single cell by separating the chord names with a ~ (tilde)
@@ -75,69 +74,73 @@ extension ChordProParser {
             /// Collect the parts
             var parts: [Song.Section.Line.Part] = []
             for item in items {
-                /// Check for optional pango markup
-                var markup = String(item).markup(handleBrackets: true)
-                let haveMarkup = !markup.open.isEmpty && !markup.close.isEmpty
-                /// Use the plain text only
+                let markup = String(item).markup(handleBrackets: true)
                 let text = markup.text
+                /// Convert text into a grid token
+                let gridToken = parseGridTextToToken(
+                    text: text,
+                    cellIndex: cellIndex,
+                    shape: shape,
+                    markup: markup,
+                    activeStrumPattern: activeStrumPattern
+                )
+                /// Create a new part
                 var part = Song.Section.Line.Part(id: partID)
-                /// Check if it is a spacer or if it is text within the margins
-                let isWhitespace = text.starts(with: " ")
-                let isLeftMargin = index < shape.left
-                let isRightMargin = index >= shape.totalCells - shape.right
-                if isWhitespace || isLeftMargin || isRightMargin {
-                    /// This is a spacer or text in the margin
+                /// Fill the part
+                switch gridToken {
+                /// Text in the margin
+                case let .margin(text, markup):
                     part.text = text
                     part.strum = .init(isInMargin: true)
-                    part.textMarkup = [markup]
-                } else if text.starts(with: "*") {
-                    /// This is just text, strip the '*'
-                    let text = String(text.dropFirst())
+                    if let markup {
+                        part.textMarkup = [markup]
+                    }
+                /// Just plain text
+                case let .text(text, markup):
                     part.text = text
-                    markup.text = text
-                    part.textMarkup = [markup]
-                } else if let strumPattern = ChordPro.Grid.StrumPattern.characterDictionary[text] {
-                    /// This is a *strum pattern* indication, remember it
-                    activeStrumPattern = strumPattern
-                    part.strum = .init(strumPattern: strumPattern)
-                } else if let barLineSymbol = ChordPro.Grid.BarLineSymbol.characterDictionary[text] {
-                    /// This is a *bar line symbol*
+                    if let markup {
+                        part.textMarkup = [markup]
+                    }
+                /// Strum pattern symbol
+                case let .strumPattern(pattern):
+                    activeStrumPattern = pattern
+                    part.strum = .init(strumPattern: pattern)
+                /// Bar line symbol
+                case let .barLine(symbol):
                     if let activeStrumPattern {
                         part.strum = .init(strumPattern: activeStrumPattern)
                     } else {
-                        part.strum = .init(barLineSymbol: barLineSymbol)
+                        part.strum = .init(barLineSymbol: symbol)
                     }
-                } else if activeStrumPattern != nil, let strum = Chord.Strum.characterDictionary[text] {
-                    /// This is a *strum* and will be added like that only when the line has an active strum defined
+                /// Strum symbol
+                case let .strum(strum):
                     part.strum = .init(strum: strum)
-                } else if let repeating = ChordPro.Grid.RepeatingSymbol.characterDictionary[text] {
-                    /// This is a *repeating* indication
-                    part.strum = .init(repeatingSymbol: repeating)
-                } else {
-                    /// Now it should be a chord
-                    var chord = ChordDefinition(instrument: song.settings.instrument)
-                    if text == "." || text == "/" {
-                        /// Do not play a chord here (".") or play some chord ("/") that is not defined
-                        /// Add it as a text chord
-                        chord = ChordDefinition(
-                            text: text == "/" ? text : "",
+                /// Repeating symbol
+                case let .repeating(symbol):
+                    part.strum = .init(repeatingSymbol: symbol)
+                /// Chord
+                case let .chord(text, markup, isSpecial):
+                    /// isSpecial is for "." (don't play) and "/" (play any)
+                    if isSpecial {
+                        var chord = ChordDefinition(
+                            text: text == "/" ? "/" : "",
                             kind: text == "/" ? .anyChord : .textChord
                         )
                         chord.strum = .noStrum
+                        part.chordDefinition = chord
                     } else {
-                       chord = processChord(
-                            chord: String(text),
+                        let chord = processChord(
+                            chord: text,
                             line: &line,
-                            song: &song,
+                            song: &song
                         )
+                        part.chordDefinition = chord
                     }
-                    part.chordDefinition = chord
-                    part.chordMarkup = haveMarkup ? markup : nil
+                    part.chordMarkup = markup
                 }
                 parts.append(part)
                 partID += 1
             }
-            grid.isStrumPattern = activeStrumPattern != nil
             grid.cells.append(Song.Section.Line.GridCell(id: cellID, parts: parts))
             cellID += 1
             line.addGrid(grid)
@@ -154,5 +157,88 @@ extension ChordProParser {
                 song: &song
             )
         }
+    }
+}
+
+extension ChordProParser {
+
+    /// The token in the grid
+    private enum GridToken {
+        /// Text in the margin
+        case margin(text: String, markup: Song.Markup?)
+        /// Just plain text
+        case text(text: String, markup: Song.Markup?)
+        /// Strum pattern symbol
+        case strumPattern(ChordPro.Grid.StrumPattern)
+        /// Bar line symbol
+        case barLine(ChordPro.Grid.BarLineSymbol)
+        /// Strum symbol
+        case strum(Chord.Strum)
+        /// Repeating symbol
+        case repeating(ChordPro.Grid.RepeatingSymbol)
+        /// Chord
+        /// - Note: isSpecial for "." (don't play) and "/" (play any)
+        case chord(text: String, markup: Song.Markup?, isSpecial: Bool)
+    }
+}
+
+extension ChordProParser {
+
+    /// Parse the grid text into a grid token
+    /// - Parameters:
+    ///   - text: The text
+    ///   - cellIndex: The cell index of the text
+    ///   - shape: The optional shape argument of the grid directive
+    ///   - markup: The optional markup of the text
+    ///   - activeStrumPattern: The optional active strum pattern of the line
+    ///
+    /// - Returns: A grid token with its values
+    private static func parseGridTextToToken(
+        text: String,
+        cellIndex: Int,
+        shape: Song.Section.Line.Grid.Shape,
+        markup: Song.Markup,
+        activeStrumPattern: ChordPro.Grid.StrumPattern?
+    ) -> GridToken {
+        // Check if the text has markup
+        let hasMarkup = !markup.open.isEmpty && !markup.close.isEmpty
+        /// Check if it is a spacer or if it is text within the margins
+        /// - Note: Margins are determined by shape offsets and leading whitespace
+        let isWhitespace = text.starts(with: " ")
+        let isLeftMargin = cellIndex < shape.left
+        let isRightMargin = cellIndex >= shape.totalCells - shape.right
+        if isWhitespace || isLeftMargin || isRightMargin {
+            return .margin(text: text, markup: hasMarkup ? markup : nil)
+        }
+        /// Just plain text
+        /// - Note: The '*' will be removed
+        if text.starts(with: "*") {
+            let stripped = String(text.dropFirst())
+            var updatedMarkup = markup
+            updatedMarkup.text = stripped
+            return .text(text: stripped, markup: hasMarkup ? updatedMarkup : nil)
+        }
+        /// Strum pattern symbol
+        if let pattern = ChordPro.Grid.StrumPattern.characterDictionary[text] {
+            return .strumPattern(pattern)
+        }
+        /// Bar line symbol
+        if let bar = ChordPro.Grid.BarLineSymbol.characterDictionary[text] {
+            return .barLine(bar)
+        }
+        /// Strum symbol
+        /// - Note: This will be added like that only when the line has an active strum pattern defined
+        if activeStrumPattern != nil,
+            let strum = Chord.Strum.characterDictionary[text] {
+            return .strum(strum)
+        }
+        /// Repeating symbol
+        if let repeating = ChordPro.Grid.RepeatingSymbol.characterDictionary[text] {
+            return .repeating(repeating)
+        }
+        /// Chord
+        /// - Note: isSpecial for "." (don't play) and "/" (play any)
+        let isSpecial = (text == "." || text == "/")
+        return .chord(text: text, markup: hasMarkup ? markup : nil, isSpecial: isSpecial)
     }
 }
