@@ -108,12 +108,12 @@ extension GtkRender.GridSection {
                 //     .style(.error)
                 if let chord = part.chordDefinition {
                     if chord.strum == .noStrum || chord.kind == .textChord {
-                        Text(chord.kind == .textChord && chord.strum != .noStrum ? chord.plain : "   .   ")
+                        Text(chord.kind == .textChord && chord.strum != .noStrum ? chord.plain : " . ")
                             .style(.dimmed)
                     } else {
                         GtkRender.SingleChord(part: part, coreSettings: coreSettings)
                             .halign(.center)
-                            .style(part.hidden ? .dimmed : .none)
+                            .style(part.dimmed ? .dimmed : .none)
                             .id(chord.description + (chord.strum?.rawValue ?? ""))
                     }
                 } else if let strum = part.strum?.strum, strum != .spacer {
@@ -137,7 +137,7 @@ extension GtkRender.GridSection {
                         .style(.sectionGrid)
                         .halign(.center)
                 } else {
-                    Text(part.text?.escapeSpecialCharacters() ?? "   ")
+                    Text(part.allTextWithMarkup)
                         .useMarkup()
                         /// Just for visual reason...
                         .style(part.text == "&" || part.strum?.isInMargin ?? false ? .caption : .none)

@@ -162,10 +162,10 @@ extension Views {
                         )
                         Text(definition.notesLabel)
                             .useMarkup()
-                        if !definition.validationWarnings.isEmpty {
+                        if let warnings = definition.validationWarnings {
                             ScrollView {
                                 HStack(spacing: 4) {
-                                    ForEach(definition.validationWarnings, id: \.description) { line in
+                                    ForEach(warnings, id: \.description) { line in
                                         Text("- \(line.description)")
                                             .useMarkup()
                                             .halign(.start)

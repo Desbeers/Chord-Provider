@@ -23,44 +23,69 @@ extension Chord {
         }
 
         /// Down stroke
-        case down = "Down stroke"
+        case down
         /// Accent down stroke
-        case downAccent = "Accent down stroke"
+        case downAccent
         /// Arpeggio down stroke
-        case downArpeggio = "Arpeggio down stroke"
+        case downArpeggio
         /// Arpeggio Accent down stroke
-        case downArpeggioAccent = "Arpeggio Accent down stroke"
+        case downArpeggioAccent
         /// Muted down stroke
-        case downMuted = "Muted down stroke"
+        case downMuted
         /// Muted Accent down stroke
-        case downMutedAccent = "Muted Accent down stroke"
+        case downMutedAccent
         /// Staccato down stroke
-        case downStaccato = "Staccato down stroke"
+        case downStaccato
         /// Staccato Accent down stroke
-        case downStaccatoAccent = "Staccato Accent down stroke"
+        case downStaccatoAccent
 
         /// Up stroke
-        case up = "Up stroke"
+        case up
         /// Accent up stroke
-        case upAccent = "Accent up stroke"
+        case upAccent
         /// Arpeggio up stroke
-        case upArpeggio = "Arpeggio up stroke"
+        case upArpeggio
         /// Arpeggio Accent up stroke
-        case upArpeggioAccent = "Arpeggio Accent up stroke"
+        case upArpeggioAccent
         /// Muted up stroke
-        case upMuted = "Muted up stroke"
+        case upMuted
         /// Muted Accent up stroke
-        case upMutedAccent = "Muted Accent up stroke"
+        case upMutedAccent
         /// Staccato up stroke
-        case upStaccato = "Staccato up stroke"
+        case upStaccato
         /// Staccato Accent up stroke
-        case upStaccatoAccent = "Staccato Accent up stroke"
+        case upStaccatoAccent
 
         /// Do not strum
-        case noStrum = "Do not play this chord"
+        case noStrum
 
         /// Spacer
         case spacer
+
+        public var display: String {
+            switch self {
+            case .down: "Down stroke"
+            case .downAccent: "Accent down stroke"
+            case .downArpeggio: "Arpeggio down stroke"
+            case .downArpeggioAccent: "Arpeggio Accent down stroke"
+            case .downMuted: "Muted down stroke"
+            case .downMutedAccent: "Muted Accent down stroke"
+            case .downStaccato: "Staccato down stroke"
+            case .downStaccatoAccent: "Staccato Accent down stroke"
+
+            case .up: "Up stroke"
+            case .upAccent: "Accent up stroke"
+            case .upArpeggio: "Arpeggio up stroke"
+            case .upArpeggioAccent: "Arpeggio Accent up stroke"
+            case .upMuted: "Muted up stroke"
+            case .upMutedAccent: "Muted Accent up stroke"
+            case .upStaccato: "Staccato up stroke"
+            case .upStaccatoAccent: "Staccato Accent up stroke"
+
+            case .noStrum: "Do not play this chord"
+            case .spacer: ""
+            }
+        }
 
         /// List of upward strums
         public static var upStrums: [Chord.Strum] {
@@ -166,31 +191,31 @@ extension Chord {
             }
 
         }
-    }
 
-    /// Convert strum characters in the source to fancy symbols
-    static var strumCharacterDict: [String: Chord.Strum] {
-        [
-            "u": .up,
-            "up": .up,
-            "u+": .upAccent,
-            "ua": .upArpeggio,
-            "ua+": .upArpeggioAccent,
-            "ux": .upMuted,
-            "ux+": .upMutedAccent,
-            "us": .upStaccato,
-            "us+": .upStaccatoAccent,
-            "d": .down,
-            "dn": .down,
-            "d+": .downAccent,
-            "da": .downArpeggio,
-            "da+": .downArpeggioAccent,
-            "dx": .downMuted,
-            "dx+": .downMutedAccent,
-            "ds": .downStaccato,
-            "ds+": .downStaccatoAccent,
-            ".": .noStrum
-        ]
+        /// Convert strum characters
+        static var characterDictionary: [String: Chord.Strum] {
+            [
+                "u": .up,
+                "up": .up,
+                "u+": .upAccent,
+                "ua": .upArpeggio,
+                "ua+": .upArpeggioAccent,
+                "ux": .upMuted,
+                "ux+": .upMutedAccent,
+                "us": .upStaccato,
+                "us+": .upStaccatoAccent,
+                "d": .down,
+                "dn": .down,
+                "d+": .downAccent,
+                "da": .downArpeggio,
+                "da+": .downArpeggioAccent,
+                "dx": .downMuted,
+                "dx+": .downMutedAccent,
+                "ds": .downStaccato,
+                "ds+": .downStaccatoAccent,
+                ".": .noStrum
+            ]
+        }
     }
 }
 

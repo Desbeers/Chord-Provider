@@ -39,7 +39,7 @@ extension ChordUtils {
         /// Try to validate a ``ChordDefinition``
         /// - Parameter chord: The ``ChordDefinition``
         /// - Returns: The ``ChordDefinition/Status`` of the chord definition
-        static func validateChord(chord: ChordDefinition) -> [ChordDefinition.Status] {
+        static func validateChord(chord: ChordDefinition) -> [ChordDefinition.Status]? {
             var result: Set<ChordDefinition.Status> = []
             if chord.quality == .none {
                 result.insert(.unknownChord(chord: chord.plain))
@@ -118,7 +118,7 @@ extension ChordUtils {
             }
 
             /// Return the result
-            return Array(result).sorted()
+            return result.isEmpty ? nil : Array(result).sorted()
         }
 
         /// Get all possible note combinations for a ``ChordDefinition``

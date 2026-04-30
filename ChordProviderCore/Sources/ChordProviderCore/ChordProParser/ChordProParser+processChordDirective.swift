@@ -38,8 +38,8 @@ extension ChordProParser {
         var chordDefinition: ChordDefinition?
         do {
             chordDefinition = try ChordDefinition(definition: chord, kind: .customChord, instrument: song.settings.instrument)
-            if let chordDefinition, !chordDefinition.validationWarnings.isEmpty {
-                for warning in chordDefinition.validationWarnings {
+            if let chordDefinition, let warnings = chordDefinition.validationWarnings {
+                for warning in warnings {
                     currentSection.addWarning(warning.description)
                 }
             }

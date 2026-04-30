@@ -68,9 +68,9 @@ extension ChordProParser {
                 kind: .customChord,
                 instrument: song.settings.instrument
             )
-            if !definedChord.validationWarnings.isEmpty {
-                let error: Bool = !Set(definedChord.validationWarnings).isDisjoint(with: ChordDefinition.Status.errorStatus)
-                let warnings = definedChord.validationWarnings.map {$0.description}
+            if let warnings = definedChord.validationWarnings {
+                let error: Bool = !Set(warnings).isDisjoint(with: ChordDefinition.Status.errorStatus)
+                let warnings = warnings.map {$0.description}
                 currentSection.addWarning(
                     "\(warnings.joined(separator: "\n"))",
                     level: error ? .error : .warning

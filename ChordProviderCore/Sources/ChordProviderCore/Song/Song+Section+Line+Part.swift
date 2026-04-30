@@ -39,8 +39,8 @@ extension Song.Section.Line {
         public var chordDefinition: ChordDefinition?
         /// The optional text
         public var text: String?
-        /// Bool if the chord should be hidden from view
-        public var hidden: Bool = false
+        /// Bool if the part should be dimmed in a view
+        public var dimmed: Bool = false
 
         /// The optional strum
         public var strum: Strum?
@@ -52,18 +52,20 @@ extension Song.Section.Line {
         /// The opional markup formatting for the chord
         public var chordMarkup: Song.Markup?
         /// Chord definition with markup
-        public func withMarkup(_ chord: ChordDefinition) -> String {
-            return "\(chordMarkup?.open ?? "")\(chord.display)\(chordMarkup?.close ?? "")"
+        public var chordWithMarkup: String {
+            return "\(chordMarkup?.open ?? "")\(chordDefinition?.display ?? "?")\(chordMarkup?.close ?? "")"
         }
-        /// All th text with markup
+        /// All the text with markup
         /// 
         /// This will combine all text parts with markup into one string
-        /// -Note: In use when rendering a part of a lyric or chorus
+        /// - Note: In use when rendering a part of a lyric or chorus
         public var allTextWithMarkup: String {
             if let textMarkup {
-                return textMarkup.map { part in "\(part.open)\(part.text)\(part.close)"}.joined()
+                return textMarkup.compactMap { part in
+                    "\(part.open)\(part.text.escapeSpecialCharacters())\(part.close)"
+                }.joined()
             }
-            return ""
+            return text?.escapeSpecialCharacters() ?? ""
         }
     }
 }

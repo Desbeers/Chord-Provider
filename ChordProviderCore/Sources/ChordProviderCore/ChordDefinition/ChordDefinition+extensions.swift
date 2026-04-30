@@ -72,7 +72,7 @@ extension ChordDefinition {
 extension ChordDefinition {
 
     /// Try to validate a ``ChordDefinition``
-    public var validate: [ChordDefinition.Status] {
+    public var validate: [ChordDefinition.Status]? {
         ChordUtils.Analizer.validateChord(chord: self)
     }
 }

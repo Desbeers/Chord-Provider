@@ -43,12 +43,13 @@ extension ChordProParser {
             type: .songLine,
             context: .grid
         )
-        /// Give the structs an ID
+        /// The ID of the cell
         var cellID: Int = 0
+        /// The ID of the part
         var partID: Int = 0
-        /// The line can be a strum pattern
+        /// Bool if the line cis a strum pattern
         var isStrumPattern: ChordPro.Grid.StrumPattern?
-        /// Separate the grids
+        /// The seperated grid parts in a String Array
         var grids = text.matches(of: RegexDefinitions.gridSeparator).map { match in
             String(match.0)
         }
@@ -68,78 +69,67 @@ extension ChordProParser {
         }
         for (index, text) in grids.enumerated() where !text.isEmpty {
             var grid = Song.Section.Line.Grid(id: cellID)
-            /// Check for pango markup
-            let markup = text.markup(handleBrackets: true)
-            /// Use the plain text only
-            let text = markup.text
             /// Multiple chords can be put in a single cell by separating the chord names with a ~ (tilde)
             let chords = text.split(separator: "~")
             /// Collect the parts
             var parts: [Song.Section.Line.Part] = []
             for text in chords {
-                let text = String(text)
+                /// Check for optional pango markup
+                var markup = String(text).markup(handleBrackets: true)
+                let haveMarkup = markup.open.isEmpty || markup.close.isEmpty ? false : true
+                /// Use the plain text only
+                let text = markup.text
                 var part = Song.Section.Line.Part(id: partID)
                 if text.starts(with: " ")  || index + 1 <= shape.left || index + 1 >= shape.totalCells {
                     /// This is a spacer or text in the margin
                     part.text = text
                     part.strum = .init(isInMargin: true)
-                    parts.append(part)
+                    part.textMarkup = [markup]
                 } else if text.starts(with: "*") {
-                    /// This is just text
-                    part.text = String(text.dropFirst())
-                    parts.append(part)
-                } else if let strumPattern = ChordPro.Grid.StrumPattern(rawValue: text) {
+                    /// This is just text, strip the '*'
+                    let text = String(text.dropFirst())
+                    part.text = text
+                    markup.text = text
+                    part.textMarkup = [markup]
+                } else if let strumPattern = ChordPro.Grid.StrumPattern.characterDictionary[text] {
                     /// This is a *strum pattern* indication, remember it
                     isStrumPattern = strumPattern
                     part.strum = .init(strumPattern: strumPattern)
-                    parts.append(part)
-                } else if let barLineSymbol = ChordPro.Grid.BarLineSymbol(rawValue: text) {
+                } else if let barLineSymbol = ChordPro.Grid.BarLineSymbol.characterDictionary[text] {
                     /// This is a *bar line symbol*
                     if let isStrumPattern {
                         part.strum = .init(strumPattern: isStrumPattern)
                     } else {
                         part.strum = .init(barLineSymbol: barLineSymbol)
                     }
-                    parts.append(part)
-                } else if isStrumPattern != nil, let strum = Chord.strumCharacterDict[text] {
+                } else if isStrumPattern != nil, let strum = Chord.Strum.characterDictionary[text] {
                     /// This is a *strum*
                     part.strum = .init(strum: strum)
-                    parts.append(part)
-                } else if let repeating = ChordPro.Grid.RepeatingSymbol(rawValue: text) {
+                } else if let repeating = ChordPro.Grid.RepeatingSymbol.characterDictionary[text] {
                     /// This is a *repeating* indication
                     part.strum = .init(repeatingSymbol: repeating)
-                    parts.append(part)
                 } else {
                     /// Now it should be a chord
+                    var chord = ChordDefinition(instrument: song.settings.instrument)
                     if text == "." || text == "/" {
                         /// Do not play a chord here (".") or play some chord ("/") that is not defined
                         /// Add it as a text chord
-                        var result = ChordDefinition(
+                        chord = ChordDefinition(
                             text: text == "/" ? text : "",
                             kind: text == "/" ? .anyChord : .textChord
                         )
-                        result.strum = .noStrum
-                        let part = Song.Section.Line.Part(
-                                id: partID,
-                                chordDefinition: result,
-                                text: text
-                        )
-                        parts.append(part)
+                        chord.strum = .noStrum
                     } else {
-                        let result = processChord(
+                       chord = processChord(
                             chord: String(text),
                             line: &line,
                             song: &song,
                         )
-                        let part = Song.Section.Line.Part(
-                                id: partID,
-                                chordDefinition: result,
-                                text: result.display,
-                                chordMarkup: markup
-                        )
-                        parts.append(part)
                     }
+                    part.chordDefinition = chord
+                    part.chordMarkup = haveMarkup ? markup : nil
                 }
+                parts.append(part)
                 partID += 1
             }
             grid.isStrumPattern = isStrumPattern == nil ? false : true

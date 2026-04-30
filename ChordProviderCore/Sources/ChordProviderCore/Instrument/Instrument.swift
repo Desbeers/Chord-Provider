@@ -82,6 +82,17 @@ public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStrin
 
 extension Instrument {
 
+    /// The coding keys
+    enum CodingKeys: String, CodingKey {
+        case kind
+        case label
+        case tuning
+        case modified
+    }
+}
+
+extension Instrument {
+
     /// String numbers based on the tuning
     public var strings: [Int] {
         Array(self.tuning.indices)

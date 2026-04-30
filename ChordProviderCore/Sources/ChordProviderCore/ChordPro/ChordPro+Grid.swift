@@ -20,22 +20,45 @@ extension ChordPro.Grid {
 
     /// Text that is a bar line
     public enum BarLineSymbol: String, Sendable, Codable {
-        case singleBarLine = "|"
-        case doubleBarLine = "||"
-        case endBarLine = "|."
-        case startRepeatBarLine = "|:"
-        case stopRepeatBarLine = ":|"
-        case combinedStopStartRepeatBarLine = ":|:"
+
+        case singleBarLine
+        case doubleBarLine
+        case endBarLine
+        case startRepeatBarLine
+        case stopRepeatBarLine
+        case combinedStopStartRepeatBarLine
+
         /// Display a bar line
         public var display: String {
-            self.rawValue
+            switch self {
+            case .singleBarLine: "|"
+            case .doubleBarLine: "||"
+            case .endBarLine: "|."
+            case .startRepeatBarLine: "|:"
+            case .stopRepeatBarLine: ":|"
+            case .combinedStopStartRepeatBarLine: ":|:"
+            }
+        }
+
+        /// Convert bar line characters
+        public static var characterDictionary: [String: ChordPro.Grid.BarLineSymbol] {
+            [
+                "|": .singleBarLine,
+                "||": .doubleBarLine,
+                "|.": .endBarLine,
+                "|:":.startRepeatBarLine,
+                ":|": .stopRepeatBarLine,
+                ":|:": .combinedStopStartRepeatBarLine
+            ]
         }
     }
 
     /// Text that is a strum pattern
     public enum StrumPattern: String, Sendable, Codable {
-        case strumWithSymbol = "|S"
-        case strumWithoutSymbol = "|s"
+
+        case strumWithSymbol
+        case strumWithoutSymbol
+
         /// Display a strum pattern
         public var display: String {
             switch self {
@@ -43,11 +66,36 @@ extension ChordPro.Grid {
             case .strumWithoutSymbol: " "
             }
         }
+
+        /// Convert strum pattern characters
+        public static var characterDictionary: [String: ChordPro.Grid.StrumPattern] {
+            [
+                "|S": .strumWithSymbol,
+                "|s": .strumWithoutSymbol
+            ]
+        }
     }
 
     /// Text that is some kind of repeating
     public enum RepeatingSymbol: String, Sendable, Codable {
-        case playLikePreviousMeasure = "%"
-        case  repeatLastTwoMeasures = "%%"
+
+        case playLikePreviousMeasure
+        case  repeatLastTwoMeasures
+
+        /// Display a repeating symbol
+        public var display: String {
+            switch self {
+            case .playLikePreviousMeasure: "%"
+            case .repeatLastTwoMeasures: "&&"
+            }
+        }
+
+        /// Convert strum pattern characters
+        public static var characterDictionary: [String: ChordPro.Grid.RepeatingSymbol] {
+            [
+                "%": .playLikePreviousMeasure,
+                "%%": .repeatLastTwoMeasures
+            ]
+        }
     }
 }

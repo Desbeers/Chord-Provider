@@ -24,7 +24,7 @@ extension GtkRender {
             if let chord = part.chordDefinition {
                 Toggle("", isOn: $openChordDiagram)
                     .child {
-                        Text(part.withMarkup(chord))
+                        Text(part.chordWithMarkup)
                             .useMarkup()
                             .tooltip(chord.toolTip)
                             .style(chord.style)
@@ -39,7 +39,7 @@ extension GtkRender {
                                 Views.MidiPlayer(chord: chord, coreSettings: coreSettings)
                                 Views.ChordDiagram(chord: chord, coreSettings: coreSettings)
                                 if chord.knownChord, let strum = chord.strum {
-                                    Text(strum.description)
+                                    Text(strum.display)
                                         .style(.caption)
                                 }
 

@@ -121,6 +121,27 @@ extension String {
     }
 }
 
+extension String {
+    
+    /// Escape special characters
+    /// - Returns: A cleaned string
+    public func escapeSpecialCharacters() -> String {
+        if self.contains(["<", ">"]) {
+            /// The string contains Pango markup; don't escape
+            return self
+        } else {
+            /// Escape special markup characters
+            var escaped = self
+            escaped = escaped.replacingOccurrences(of: "&", with: "&amp;")
+            escaped = escaped.replacingOccurrences(of: "<", with: "&lt;")
+            escaped = escaped.replacingOccurrences(of: ">", with: "&gt;")
+            escaped = escaped.replacingOccurrences(of: "\"", with: "&quot;")
+            escaped = escaped.replacingOccurrences(of: "'", with: "&apos;")
+            return escaped
+        }
+    }
+}
+
 extension Array where Element == String {
 
     /// Make a `String` array identifiable

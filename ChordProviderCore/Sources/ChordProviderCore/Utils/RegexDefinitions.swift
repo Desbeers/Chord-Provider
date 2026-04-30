@@ -311,6 +311,7 @@ extension RegexDefinitions {
 
 extension RegexDefinitions {
 
+    /// Regex for parsing a shape argument for a grid directive
     nonisolated(unsafe) static let shape = Regex {
         /// Optional left 
         Optionally {
