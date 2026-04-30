@@ -107,8 +107,8 @@ extension GtkRender.GridSection {
                 // Text(part.strum?.beatItems.description ?? "-")
                 //     .style(.error)
                 if let chord = part.chordDefinition {
-                    if chord.strum == .noStrum || chord.kind == .textChord {
-                        Text(chord.kind == .textChord && chord.strum != .noStrum ? chord.plain : " . ")
+                    if chord.strum == .noStrum {
+                        Text(" . ")
                             .style(.dimmed)
                     } else {
                         GtkRender.SingleChord(part: part, coreSettings: coreSettings)

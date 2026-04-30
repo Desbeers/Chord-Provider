@@ -22,43 +22,37 @@ extension ChordProParser {
         line: inout Song.Section.Line,
         song: inout Song
     ) -> ChordDefinition {
-        /// First, check if the chord is just text
-        if chord.starts(with: "*") {
-            let text = String(chord.dropFirst())
-            return ChordDefinition(text: text, kind: .textChord, instrument: song.settings.instrument)
-        } else {
-            /// Check if this chord is already parsed
-            if let match = song.chords
-                .last(where: { $0.transposedName == "\(chord)-\(song.transposing)" }) {
-                return match
-            }
-            if var databaseChord = ChordDefinition(name: chord, chords: song.settings.chordDefinitions) {
-                if song.transposing != 0 {
-                    databaseChord.transpose(
-                        transpose: song.transposing,
-                        scale: song.metadata.key?.root ?? .c,
-                        chords: song.settings.chordDefinitions
-                    )
-                }
-                /// Add the capo
-                databaseChord.capo = song.metadata.capo ?? 0
-                /// Add it to the chords list
-                song.chords.append(databaseChord)
-                /// Set chord as key if not set manually
-                if song.metadata.key == nil {
-                    song.metadata.key = song.chords.first
-                }
-                return databaseChord
-            }
-            let unknownChord = ChordDefinition(
-                text: chord,
-                kind: song.transposing == 0 ? .unknownChord : .transposedUnknownChord,
-                instrument: song.settings.instrument
-            )
-            /// Add a warning that the chord is unknown
-            line.addWarning("Unknown chord: <b>\(chord)</b>", level: .error)
-            /// Return the unknown chord
-            return unknownChord
+        /// Check if this chord is already parsed
+        if let match = song.chords
+            .last(where: { $0.transposedName == "\(chord)-\(song.transposing)" }) {
+            return match
         }
+        if var databaseChord = ChordDefinition(name: chord, chords: song.settings.chordDefinitions) {
+            if song.transposing != 0 {
+                databaseChord.transpose(
+                    transpose: song.transposing,
+                    scale: song.metadata.key?.root ?? .c,
+                    chords: song.settings.chordDefinitions
+                )
+            }
+            /// Add the capo
+            databaseChord.capo = song.metadata.capo ?? 0
+            /// Add it to the chords list
+            song.chords.append(databaseChord)
+            /// Set chord as key if not set manually
+            if song.metadata.key == nil {
+                song.metadata.key = song.chords.first
+            }
+            return databaseChord
+        }
+        let unknownChord = ChordDefinition(
+            text: chord,
+            kind: song.transposing == 0 ? .unknownChord : .transposedUnknownChord,
+            instrument: song.settings.instrument
+        )
+        /// Add a warning that the chord is unknown
+        line.addWarning("Unknown chord: <b>\(chord)</b>", level: .error)
+        /// Return the unknown chord
+        return unknownChord
     }
 }

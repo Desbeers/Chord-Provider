@@ -92,7 +92,7 @@ extension ChordDefinition {
             slash: nil,
             instrument: instrument,
             kind: kind,
-            status: kind == .textChord ? .text : .unknownChord(chord: text)
+            status: .text
         )
     }
 

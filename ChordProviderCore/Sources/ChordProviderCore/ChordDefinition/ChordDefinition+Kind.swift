@@ -22,8 +22,6 @@ extension ChordDefinition {
         case customChord
         /// A custom defined chord that is transposed
         case customTransposedChord
-        /// The definition is just text; eg [*Text]
-        case textChord
         /// An unknown chord
         case unknownChord
         /// A transposed chord that is unknown

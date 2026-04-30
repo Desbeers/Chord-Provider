@@ -29,11 +29,17 @@ extension ChordProParser {
             if let chord {
                 /// Check for markup
                 let markup = String(chord).markup(handleBrackets: true)
-                part.chordDefinition = processChord(
-                    chord: markup.text,
-                    line: &line,
-                    song: &song
-                )
+                /// Check if it is just a text chord
+                if markup.text.first == "*" {
+                    /// It is...
+                    part.textChord = String(markup.text.dropFirst())
+                } else {
+                    part.chordDefinition = processChord(
+                        chord: markup.text,
+                        line: &line,
+                        song: &song
+                    )
+                }
                 if text == nil {
                     /// Add this chord to the length, it have no lyric attached
                     line.lineLength = (line.lineLength ?? "") + " \(markup.text)"

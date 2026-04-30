@@ -31,3 +31,11 @@ extension Song {
         public var close: String = ""
     }
 }
+
+extension Song.Markup {
+
+    /// Bool if the structure has actual markup
+    var hasMarkup: Bool {
+        !open.isEmpty && !close.isEmpty
+    }
+}

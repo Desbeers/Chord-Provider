@@ -118,25 +118,30 @@ extension ChordProParser {
                 /// Repeating symbol
                 case let .repeating(symbol):
                     part.strum = .init(repeatingSymbol: symbol)
-                /// Chord
-                case let .chord(text, markup, isSpecial):
-                    /// isSpecial is for "." (don't play) and "/" (play any)
-                    if isSpecial {
-                        var chord = ChordDefinition(
-                            text: text == "/" ? "/" : "",
-                            kind: text == "/" ? .anyChord : .textChord
-                        )
-                        chord.strum = .noStrum
-                        part.chordDefinition = chord
-                    } else {
-                        let chord = processChord(
-                            chord: text,
-                            line: &line,
-                            song: &song
-                        )
-                        part.chordDefinition = chord
-                    }
+                /// A specific Chord
+                case let .chord(text, markup):
+                    let chord = processChord(
+                        chord: text,
+                        line: &line,
+                        song: &song
+                    )
+                    part.chordDefinition = chord
                     part.chordMarkup = markup
+                /// Any chord
+                case .anyChord(let markup):
+                    var chord = ChordDefinition(
+                        text: "/",
+                        kind: .anyChord
+                    )
+                    chord.strum = .noStrum
+                    part.chordDefinition = chord
+                    part.chordMarkup = markup
+                /// Text that should be rendered in a chord slot
+                case let .textChord(text, markup):
+                    part.textChord = text
+                    if let markup {
+                        part.textMarkup = [markup]
+                    }
                 }
                 parts.append(part)
                 partID += 1
@@ -176,9 +181,13 @@ extension ChordProParser {
         case strum(Chord.Strum)
         /// Repeating symbol
         case repeating(ChordPro.Grid.RepeatingSymbol)
-        /// Chord
-        /// - Note: isSpecial for "." (don't play) and "/" (play any)
-        case chord(text: String, markup: Song.Markup?, isSpecial: Bool)
+        /// A specific chord
+        case chord(text: String, markup: Song.Markup?)
+        /// Any chord
+        case anyChord(markup: Song.Markup?)
+        /// Text Chord
+        /// - Note: Just text that should be rendered in a chord slot
+        case textChord(text: String, markup: Song.Markup?)
     }
 }
 
@@ -200,8 +209,6 @@ extension ChordProParser {
         markup: Song.Markup,
         activeStrumPattern: ChordPro.Grid.StrumPattern?
     ) -> GridToken {
-        // Check if the text has markup
-        let hasMarkup = !markup.open.isEmpty && !markup.close.isEmpty
         /// Check if it is a spacer or if it is text within the margins
         /// - Note: Margins are determined by shape offsets and leading whitespace
         let isWhitespace = text.starts(with: " ")
@@ -216,7 +223,7 @@ extension ChordProParser {
             let stripped = String(text.dropFirst())
             var updatedMarkup = markup
             updatedMarkup.text = stripped
-            return .text(text: stripped, markup: hasMarkup ? updatedMarkup : nil)
+            return .text(text: stripped, markup: updatedMarkup.hasMarkup ? updatedMarkup : nil)
         }
         /// Strum pattern symbol
         if let pattern = ChordPro.Grid.StrumPattern.characterDictionary[text] {
@@ -236,9 +243,17 @@ extension ChordProParser {
         if let repeating = ChordPro.Grid.RepeatingSymbol.characterDictionary[text] {
             return .repeating(repeating)
         }
-        /// Chord
-        /// - Note: isSpecial for "." (don't play) and "/" (play any)
-        let isSpecial = (text == "." || text == "/")
-        return .chord(text: text, markup: hasMarkup ? markup : nil, isSpecial: isSpecial)
+        /// We've been to all the special items in a grid, so eventualy, this must be a chord 
+        switch text {
+        case ".":
+            /// Don't play this chord
+            return .textChord(text: text, markup: markup.hasMarkup ? markup : nil)
+        case "/":
+            /// Any Chord
+            return .anyChord(markup: hasMarkup ? markup : nil)
+        default:
+            /// This should be a specific chord that will be parsed later
+            return .chord(text: text, markup: markup.hasMarkup ? markup : nil)
+        }
     }
 }

@@ -135,12 +135,13 @@ extension ChordProParser {
         var partID = 0
         for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
             for column in 0..<totalColumns {
-                var chord = ChordDefinition(text: "", kind: .textChord)
+                var chord = ChordDefinition(text: "", kind: .anyChord)
                 chord.strum = .noStrum
                 let part = Song.Section.Line.Part(
                     id: partID,
                     chordDefinition: analysis.playableLine[index] ? chord : nil,
                     strum: .init(beatItems: analysis.neededParts)
+
                 )
                 columns[column].cells[0].parts.append(part)
                 partID += 1
@@ -256,7 +257,7 @@ extension ChordProParser {
             let parts = column.cells[0].parts
             for (row, part) in parts.enumerated() {
                 if let strum = findNearestStrum(row: row, parts: parts, totalLines: totalLines) {
-                    if let chord = part.chordDefinition, chord.kind != .textChord {
+                    if  let chord = part.chordDefinition, chord.kind != .anyChord {
                         /// Add the strum to the chord definition
                         columns[index].cells[0].parts[row].chordDefinition?.strum = strum
                     } else {
@@ -264,7 +265,7 @@ extension ChordProParser {
                         guard index >= 1 else { continue }
                         /// We have a strum but not a chord
                         for previousColumn in (0...index - 1).reversed() {
-                            if let match = columns[safe: previousColumn]?.cells[0].parts[row], var chord = match.chordDefinition, chord.kind != .textChord {
+                            if let match = columns[safe: previousColumn]?.cells[0].parts[row], var chord = match.chordDefinition, chord.kind != .anyChord {
                                 /// Add the strum to the chord
                                 chord.strum = strum
                                 /// Update the part

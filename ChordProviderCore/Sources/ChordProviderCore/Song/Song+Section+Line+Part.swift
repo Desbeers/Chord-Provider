@@ -14,6 +14,7 @@ extension Song.Section.Line {
         public init(
             id: Int = 0,
             chordDefinition: ChordDefinition? = nil,
+            textChord: String? = nil,
             text: String? = nil,
             strum: Strum? = nil,
             cells: Int? = nil,
@@ -22,6 +23,7 @@ extension Song.Section.Line {
         ) {
             self.id = id
             self.chordDefinition = chordDefinition
+            self.textChord = textChord
             self.text = text
             self.strum = strum
             self.chordMarkup = chordMarkup
@@ -37,6 +39,8 @@ extension Song.Section.Line {
         public var id: Int
         /// The optional chord definition
         public var chordDefinition: ChordDefinition?
+        /// The optional text in a chord position
+        public var textChord: String?
         /// The optional text
         public var text: String?
         /// Bool if the part should be dimmed in a view
@@ -53,7 +57,7 @@ extension Song.Section.Line {
         public var chordMarkup: Song.Markup?
         /// Chord definition with markup
         public var chordWithMarkup: String {
-            return "\(chordMarkup?.open ?? "")\(chordDefinition?.display ?? "?")\(chordMarkup?.close ?? "")"
+            return "\(chordMarkup?.open ?? "")\(chordDefinition?.display ?? textChord ?? "?")\(chordMarkup?.close ?? "")"
         }
         /// All the text with markup
         /// 

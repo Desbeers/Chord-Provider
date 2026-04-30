@@ -25,6 +25,10 @@ extension GtkRender {
                         SingleChord(part: part, coreSettings: coreSettings)
                             .halign(.start)
                             .padding(5, .trailing)
+                    } else if let textChord = part.textChord {
+                        Text(textChord)
+                            .halign(.start)
+                            .padding(5, .trailing)
                     } else {
                         Text(" ")
                             .style(.chord)
