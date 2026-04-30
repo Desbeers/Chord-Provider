@@ -18,7 +18,10 @@ extension Views.Editor {
         init(appState: Binding<AppState>) {
             self._appState = appState
             self.directive = appState.editor.currentLine.directive.wrappedValue ?? appState.editor.handleDirective.wrappedValue ?? .title
-            let state = FormState(line: appState.editor.currentLine.wrappedValue)
+            let state = FormState(
+                line: appState.editor.currentLine.wrappedValue,
+                directive: self.directive
+            )
             /// Store the initial values to disable the button if nothing has changed
             self.initialState = state
             self._formState = State(wrappedValue: state)
@@ -178,9 +181,14 @@ extension Views.Editor {
                             appState.editor.currentLine.arguments = arguments
                         }
                         let directiveArgument = ChordProParser.argumentsToString(appState.editor.currentLine) ?? ""
+                        /// Optional column
+                        var column = "" 
+                        if ChordPro.Directive.withPlainArgument.contains(directive) {
+                            column = ":"
+                        }
                         /// Make space for optional arguments
                         let spacer = directiveArgument.isEmpty ? "" : " "
-                        let replacement = "{\(directive.rawValue.long)\(spacer)\(directiveArgument)}"
+                        let replacement = "{\(directive.rawValue.long)\(column)\(spacer)\(directiveArgument)}"
                         appState.editor.command = .replaceLineText(text: replacement)
                         appState.editor.showEditDirectiveDialog = false
                         appState.editor.handleDirective = nil
@@ -206,9 +214,10 @@ extension Views.Editor {
         /// Bool if the submit button is enabled
         private var enableSubmit: Bool {
             var result = false
-            result = formState == initialState ? false : true
+            result = formState == initialState ? formState.newDirective ? true : false : true
             result = ChordPro.Directive.withPlainArgument.contains(directive) && formState.plain.isEmpty ? false : result
-            return newDirective && directive == .key ? true : result
+            //return formState.newDirective ? true : result
+            return result
         }
     }
 }

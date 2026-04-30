@@ -32,8 +32,9 @@ extension Views.Editor.Edit {
     struct FormState: Equatable {
 
         /// Init with known values
-        init(line: Song.Section.Line) {
+        init(line: Song.Section.Line, directive: ChordPro.Directive) {
             self.plain = line.plain ?? ""
+            self.newDirective = false
             /// The plain text can be a numeric value
             self.numeric = Int(line.plain ?? "0") ?? 0
             /// Check the arguments
@@ -49,6 +50,10 @@ extension Views.Editor.Edit {
                 if let scaleArgument = arguments[.scale], let value = Int(scaleArgument.replacingOccurrences(of: "%", with: "")) {
                     self.scale = value
                 }
+            } else if line.plain == nil, let defaultValue = directive.details.defaultValue {
+                self.plain = defaultValue
+                self.numeric = Int(defaultValue) ?? 0
+                self.newDirective = true
             }
         }
 
@@ -72,6 +77,9 @@ extension Views.Editor.Edit {
         var numeric: Int = 0
         /// The scale of an item
         var scale: Int = 0
+
+        /// Bool if the directive is new
+        var newDirective: Bool
     }
 
     // MARK: Views
@@ -155,9 +163,7 @@ extension Views.Editor.Edit {
         init(label: String, value: Binding<String>) {
             self.label = label
             self._value = value
-
             let key = ChordUtils.findChordElements(chord: value.wrappedValue)
-
             self._root = State(wrappedValue: key.root ?? .c)
             self._quality = State(wrappedValue: key.quality ?? .major)
         }
