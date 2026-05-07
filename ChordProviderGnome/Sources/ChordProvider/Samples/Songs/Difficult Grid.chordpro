@@ -6,8 +6,8 @@
 {time: 4/4}
 {capo: 2}
 
-{start_of_grid shape="1+4x2+2"}
-<b>Hello</b>~*world    || G7 . | % . | %% . | . . | Test me
+{start_of_grid shape="2+4x2+2"}
+<b>Hello</b> world    || G7 . | % . | %% . | . . | Test me
 {end_of_grid}
 
 {comment: If a colums in the grid has a strum, but <i>no chord</i>, it's looking back to the last chord on the left and add it <i>dimmed</i> (so its less noisy)}
@@ -43,7 +43,7 @@ When there is no chord defined in the grid, but there is a strum pattern; add th
 
 {comment: Fancy Grid, no chords are given; no<b>play</b> button... Also, according the standard, a <b>/</b> indicates that  chord should be played.}
 {start_of_grid shape="1x4"}
-|s <big>*1</big>~*&      *2~*&      *3~*&      *4~*&      |
+|s <big>*1</big>~<span color="purple">*&</span>      *2~*&      *3~*&      *4~*&      |
 |  /          .          .          .          |
 |s dn~dn      d+~.~dn~up dn~up~dn~. d+~.~dn~up |
 |s *5~*&      *6~*&      *7~*&      *8~*&      |

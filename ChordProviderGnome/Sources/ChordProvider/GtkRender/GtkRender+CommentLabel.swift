@@ -29,7 +29,7 @@ extension GtkRender {
         var view: Body {
             HStack(spacing: 10) {
                 Symbol(icon: .default(icon: .userInvisible))
-                let lines = line.wholeTextWithMarkup(split: maxLenght).toElementWrapper
+                let lines = line.wholeText(split: maxLenght).toElementWrapper
                 ForEach(lines) { line in
                     Text(Utils.convertSimpleLinks(line.content))
                         .useMarkup()

@@ -46,7 +46,7 @@ extension ChordPro.Grid {
                 "|": .singleBarLine,
                 "||": .doubleBarLine,
                 "|.": .endBarLine,
-                "|:":.startRepeatBarLine,
+                "|:": .startRepeatBarLine,
                 ":|": .stopRepeatBarLine,
                 ":|:": .combinedStopStartRepeatBarLine
             ]
@@ -80,7 +80,7 @@ extension ChordPro.Grid {
     public enum RepeatingSymbol: String, Sendable, Codable {
 
         case playLikePreviousMeasure
-        case  repeatLastTwoMeasures
+        case repeatLastTwoMeasures
 
         /// Display a repeating symbol
         public var display: String {

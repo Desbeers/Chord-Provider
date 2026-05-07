@@ -16,7 +16,6 @@ The source code for Chord Provider is available on GitHub:
 https://github.com/Desbeers/Chord-Provider
 
 The project contains more than just this CLI version:
-- GUI version for macOS written in SwiftUI
 - GUI version for Linux written in Adwaita
 """
 

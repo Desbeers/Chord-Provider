@@ -94,7 +94,7 @@ public extension ImageUtils {
         var size = size
         var scale: Double = 1
         if let scaleArgument = arguments?[.scale], let value = Double(scaleArgument.replacing("%", with: "")) {
-            /// - Note: Never let is be zero or else it will disappear from the SwiftUI View
+            /// - Note: Never let is be zero or else it will disappear from the View
             scale = max(value / 100, 0.1)
         }
         if let widthArgument = arguments?[.width], let value = Double(widthArgument) {

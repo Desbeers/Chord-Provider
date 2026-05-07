@@ -21,7 +21,6 @@ extension Song.Section.Line {
         case parts
         case gridColumns
         case gridsLine
-        case strums
         case plain
         case type
         case context

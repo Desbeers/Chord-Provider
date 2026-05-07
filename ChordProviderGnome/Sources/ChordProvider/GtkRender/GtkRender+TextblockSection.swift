@@ -42,7 +42,7 @@ extension GtkRender {
                     VStack {
                         switch line.type {
                         case .songLine:
-                            let lines = line.wholeTextWithMarkup(split: maxLenght).toElementWrapper
+                            let lines = line.wholeText(split: maxLenght).toElementWrapper
                             ForEach(lines) { line in
                                 Text(line.content)
                                     .useMarkup()

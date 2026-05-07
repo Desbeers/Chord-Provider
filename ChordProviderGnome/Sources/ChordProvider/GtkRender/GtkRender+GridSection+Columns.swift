@@ -39,11 +39,24 @@ extension GtkRender.GridSection {
         @State private var gridID = UUID()
         /// The part that is currently playing with MIDI 
         @State private var currentPartID: Int = -1
+        /// Bool if the grid has playabale chords
+        var haveChords: Bool {
+            !(columns
+                .flatMap(\.cells)
+                .flatMap(\.parts)
+                .map(\.content)
+                .compactMap(\.getChord)
+                .filter { $0.definition.knownChord }
+            ).isEmpty
+        }
         /// The body of the `View`
         var view: Body {
             VStack {
-                if !(columns.flatMap(\.cells).flatMap(\.parts).filter { $0.chordDefinition?.knownChord ?? false }).isEmpty {
-                    Toggle(icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart), isOn: $playGridChords) {
+                if haveChords {
+                    Toggle(
+                        icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart),
+                        isOn: $playGridChords
+                    ) {
                         if playGridChords {
                             /// Set this grid as current
                             appState.scene.gridChordsID = gridID
@@ -64,7 +77,7 @@ extension GtkRender.GridSection {
                             Task {
                                 await Utils.MidiPlayer.shared.stopGrid()
                             }
-                        } 
+                        }
                     }
                     .halign(.start)
                     .flat()
@@ -77,7 +90,7 @@ extension GtkRender.GridSection {
                         .homogeneous()
                     }
                     .homogeneous()
-                    }
+                }
             }
              .padding(10)
             .onUpdate {
@@ -92,7 +105,7 @@ extension GtkRender.GridSection {
                         playGridChords = false
                         currentPartID = -1
                         Task {
-                                await Utils.MidiPlayer.shared.stopGrid()
+                            await Utils.MidiPlayer.shared.stopGrid()
                         }
                     }
                 }
@@ -104,52 +117,51 @@ extension GtkRender.GridSection {
         /// - Returns: A `View`
         private func part(part: Song.Section.Line.Part) -> AnyView {
             Box {
-                // Text(part.strum?.beatItems.description ?? "-")
-                //     .style(.error)
-                if let chord = part.chordDefinition {
-                    if chord.strum == .noStrum {
+                switch part.content {
+                case let .chord(definition, _, _):
+                    if definition.isSilent {
                         Text(" . ")
                             .style(.dimmed)
                     } else {
                         GtkRender.SingleChord(part: part, coreSettings: coreSettings)
                             .halign(.center)
                             .style(part.dimmed ? .dimmed : .none)
-                            .id(chord.description + (chord.strum?.rawValue ?? ""))
+                            .id(definition)
                     }
-                } else if let strum = part.strum?.strum, strum != .spacer {
-                    Widgets.BundleImage(strum: strum)
+
+                case let .anyChord(textPart, _, _),
+                    let .textChord(textPart),
+                    let .text(textPart),
+                    let .margin(textPart):
+                    Text(textPart.display)
+                        .useMarkup()
+                case let .strum(symbol):
+                    Widgets.BundleImage(strum: symbol)
                         .pixelSize(Int(14 * appState.settings.theme.zoom))
                         .style(.svgIcon)
                         .halign(.center)
-                } else if let barLineSymbol = part.strum?.barLineSymbol {
-                    Text(barLineSymbol.display)
-                        .useMarkup()
+                case let .barLine(symbol):
+                    Text(symbol.display)
                         .style(.sectionGrid)
                         .halign(.center)
-                } else if let strumPattern = part.strum?.strumPattern {
-                    Text(strumPattern.display)
-                        .useMarkup()
+                case let .strumPattern(symbol):
+                    Text(symbol.display)
                         .style(.sectionGrid)
                         .halign(.center)
-                } else if let repeatingSymbol = part.strum?.repeatingSymbol {
-                    Text(repeatingSymbol.rawValue)
-                        .useMarkup()
+                case let .repeating(symbol):
+                    Text(symbol.rawValue)
                         .style(.sectionGrid)
                         .halign(.center)
-                } else {
-                    Text(part.allTextWithMarkup)
-                        .useMarkup()
-                        /// Just for visual reason...
-                        .style(part.text == "&" || part.strum?.isInMargin ?? false ? .caption : .none)
-                        .style(.standard)
-                        .halign(.center)
+                case .lyric:
+                    /// A grid has no lyrics, comment or textblock
+                    Views.Empty()
                 }
             }
             .style(part.id == currentPartID && playGridChords ? .chordHighlight : .none)
             .halign(.center)
             .valign(.center)
             .padding(2, .horizontal)
-            .id(part.description + playGridChords.description + String(currentPartID))
+            .id(part.description + playGridChords.description + currentPartID.description)
         }
 
         /// Monitor the chords player for its current chord

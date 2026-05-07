@@ -21,10 +21,10 @@ extension GtkRender {
         var view: Body {
             if let parts = line.parts {
                 ForEach(parts, horizontal: true) { part in
-                    if let chord = part.chordDefinition, chord.knownChord {
+                    if let chord = part.content.getChord, chord.definition.knownChord {
                         VStack(spacing: 0) {
-                            Views.MidiPlayer(chord: chord, coreSettings: coreSettings)
-                            Views.ChordDiagram(chord: chord, width: 50, coreSettings: coreSettings)
+                            Views.MidiPlayer(chord: chord.definition, coreSettings: coreSettings)
+                            Views.ChordDiagram(chord: chord.definition, width: 50, coreSettings: coreSettings)
                         }
                     }
                 }

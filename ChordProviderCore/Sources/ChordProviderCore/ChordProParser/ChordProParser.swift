@@ -138,7 +138,8 @@ public enum ChordProParser {
             result.formUnion(
                 allParts
                     .lazy
-                    .compactMap(\.chordDefinition)
+                    .map(\.content)
+                    .compactMap(\.getChord?.definition)
                     .filter { $0.knownChord }
             )
         }

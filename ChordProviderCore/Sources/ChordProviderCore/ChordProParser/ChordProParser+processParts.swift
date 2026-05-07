@@ -26,39 +26,39 @@ extension ChordProParser {
         for match in matches {
             let (_, chord, text) = match.output
             var part = Song.Section.Line.Part(id: partID)
+            var lyric = Song.Section.Line.Part.Content.Lyric()
             if let chord {
-                /// Check for markup
-                let markup = String(chord).markup(handleBrackets: true)
+                /// Check for optional prefix or suffix
+                var textPart = String(chord).textPart(handleBrackets: true)
                 /// Check if it is just a text chord
-                if markup.text.first == "*" {
-                    /// It is...
-                    part.textChord = String(markup.text.dropFirst())
+                if textPart.text.first == "*" {
+                    /// It is, add it as a 'text chord'
+                    textPart.text = String(textPart.text.dropFirst())
+                    lyric.chordSlot = .text(textPart: textPart)
                 } else {
-                    part.chordDefinition = processChord(
-                        chord: markup.text,
+                    /// It is a chord definition
+                    let definition = processChord(
+                        chord: textPart.text,
                         line: &line,
                         song: &song
                     )
+                    textPart.text = definition.display
+                    lyric.chordSlot = .chord(definition: definition, textPart: textPart)
                 }
                 if text == nil {
                     /// Add this chord to the length, it have no lyric attached
-                    line.lineLength = (line.lineLength ?? "") + " \(markup.text)"
+                    line.lineLength = (line.lineLength ?? "") + " \(textPart.text)"
                 }
-                /// Add optional markup
-                part.chordMarkup = markup
             }
             if let text {
-                let parts = String(text).matches(of: RegexDefinitions.lineSeparator).map { match in
-                    String(match.0).markup(handleBrackets: false)
+                let textParts = String(text).matches(of: RegexDefinitions.lineSeparator).map { match in
+                    String(match.0).textPart(handleBrackets: false)
                 }
-                part.textMarkup = parts
-                part.text = parts.map((\.text)).joined()
-                if let text = part.text {
-                    /// Add the lyrics to the 'plain' text
-                    line.plain = (line.plain ?? "") + text
-                    line.lineLength = (line.lineLength ?? "") + text
-                }
+                /// Add the lyrics to the line lenght
+                line.lineLength = (line.lineLength ?? "") + textParts.flatMap(\.text)
+                lyric.textParts = textParts
             }
+            part.content = .lyric(content: lyric)
             /// Add the part
             parts.append(part)
             /// Increase the ID

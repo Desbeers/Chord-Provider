@@ -226,23 +226,6 @@ enum RegexDefinitions {
         }
     }
 
-    /// The regex for spitting a grid string into parts, separated by `space`, markup block or plain text
-    nonisolated(unsafe) static let gridSeparator = Regex {
-        Capture {
-            ChoiceOf {
-                markupBlock
-                Capture {
-                    OneOrMore {
-                        CharacterClass(
-                            .anyOf("<>"),
-                            .whitespace
-                        )
-                        .inverted
-                    }
-                }
-            }
-        }
-    }
     /// The regex for spitting a song line string into parts,
     /// separated by markup block or plain text, including spaces
     nonisolated(unsafe) static let lineSeparator = Regex {
@@ -253,14 +236,10 @@ enum RegexDefinitions {
     }
 
     /// The regex for optional nested markup around plain text
-    nonisolated(unsafe) static let optionalMarkup = Regex {
-        Optionally {
-            Capture(openTags)
-        }
+    nonisolated(unsafe) static let validMarkup = Regex {
+        Capture(openTags)
         Capture(textOnly)
-        Optionally {
-            Capture(closeTags)
-        }
+        Capture(closeTags)
     }
 
     // MARK: Building blocks

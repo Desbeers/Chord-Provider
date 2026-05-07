@@ -84,8 +84,8 @@ extension ChordProParser {
         for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
             if let grids = line.gridsLine {
                 /// Check if the line is playable or if it is a strum line
-                let strum = grids.flatMap(\.cells).flatMap(\.parts).compactMap(\.strum).compactMap(\.strumPattern)
-                result.playableLine[index] = strum.isEmpty ? true : false
+                let strum = grids.flatMap(\.cells).flatMap(\.parts).map(\.content).contains(where: \.hasStrumPattern)
+                result.playableLine[index] = !strum
                 /// Set the maximum items for each column
                 for (index, grid) in grids.enumerated() {
                     result.columnsCounter[index] = max(result.columnsCounter[index], grid.cells.flatMap(\.parts).count)
@@ -120,9 +120,9 @@ extension ChordProParser {
         }
         /// Update the column counter with the result of the current columns
         for (columnIndex, column) in columns.enumerated() {
-            let dividerColumn = column.cells.flatMap(\.parts).compactMap(\.strum).compactMap(\.barLineSymbol)
-            let marginColumn = column.cells.flatMap(\.parts).compactMap(\.strum).compactMap(\.isInMargin)
-            if dividerColumn.isEmpty && marginColumn.isEmpty {
+            let dividerColumn = column.cells.flatMap(\.parts).map(\.content).contains(where: \.hasBarLine)
+            let marginColumn = column.cells.flatMap(\.parts).map(\.content).contains(where: \.isInMargin)
+            if !dividerColumn && !marginColumn {
                 analysis.columnsCounter[columnIndex] = analysis.neededParts
             }
         }
@@ -135,13 +135,14 @@ extension ChordProParser {
         var partID = 0
         for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
             for column in 0..<totalColumns {
-                var chord = ChordDefinition(text: "", kind: .anyChord)
-                chord.strum = .noStrum
+                let anyChord = Song.Section.Line.Part.Content.anyChord(
+                    textPart: .init(),
+                    beatItems: 1,
+                    strum: .noStrum
+                )
                 let part = Song.Section.Line.Part(
                     id: partID,
-                    chordDefinition: analysis.playableLine[index] ? chord : nil,
-                    strum: .init(beatItems: analysis.neededParts)
-
+                    content: analysis.playableLine[index] ? anyChord : .text(textPart: .init())
                 )
                 columns[column].cells[0].parts.append(part)
                 partID += 1
@@ -176,8 +177,12 @@ extension ChordProParser {
                             var result = part
                             /// Keep the part ID of the new columns so its unique
                             result.id = columns[column + id + shift].cells[0].parts[rowIndex].id
-                            if part.chordDefinition != nil {
-                                result.strum = .init(beatItems: neededParts)
+                            if let chord = part.content.getChord {
+                                result.content = .chord(
+                                    definition: chord.definition,
+                                    textPart: chord.textPart,
+                                    beatItems: neededParts
+                                )
                             }
                             columns[column + id + shift].cells[0].parts[rowIndex] = result
                         }
@@ -215,7 +220,7 @@ extension ChordProParser {
         for (index, column) in columns.enumerated() {
             let parts = column.cells[0].parts
             for (row, part) in parts.enumerated() {
-                if let repeating = part.strum?.repeatingSymbol {
+                if let repeating = part.content.getRepeating {
                     /// Check if we have to repeat the last *two* measures
                     var repeatLastTwoMeasures: Bool = (repeating == .repeatLastTwoMeasures)
                     var repeatingParts: [Song.Section.Line.Part] = []
@@ -223,10 +228,10 @@ extension ChordProParser {
                     guard index >= 2 else { continue }
                     for previousColumn in (0...index - 2).reversed() {
                         let part = columns[previousColumn].cells[0].parts[row]
-                            if (part.strum?.barLineSymbol == nil && part.strum?.strumPattern == nil) || repeatLastTwoMeasures == true {
+                            if (!part.content.hasBarLine && !part.content.hasStrumPattern) || repeatLastTwoMeasures == true {
                                 repeatingParts.append(part)
-                                let strum = repeatingParts.compactMap(\.strum)
-                                if !strum.compactMap(\.barLineSymbol).isEmpty || !strum.compactMap(\.strumPattern).isEmpty {
+                                let repeatingContent = repeatingParts.map(\.content)
+                                if repeatingContent.contains(where: \.hasBarLine) || repeatingContent.contains(where: \.hasStrumPattern) {
                                     repeatLastTwoMeasures = false
                                 }
                             } else {
@@ -257,32 +262,44 @@ extension ChordProParser {
             let parts = column.cells[0].parts
             for (row, part) in parts.enumerated() {
                 if let strum = findNearestStrum(row: row, parts: parts, totalLines: totalLines) {
-                    if  let chord = part.chordDefinition, chord.kind != .anyChord {
+                    if var chord = part.content.getChord {
                         /// Add the strum to the chord definition
-                        columns[index].cells[0].parts[row].chordDefinition?.strum = strum
+                        chord.definition.strum = strum
+                        columns[index].cells[0].parts[row].content = .chord(
+                            definition: chord.definition,
+                            textPart: chord.textPart,
+                            beatItems: chord.beatItems
+                        )
                     } else {
                         /// Make sure we have at least 1 column
                         guard index >= 1 else { continue }
                         /// We have a strum but not a chord
                         for previousColumn in (0...index - 1).reversed() {
-                            if let match = columns[safe: previousColumn]?.cells[0].parts[row], var chord = match.chordDefinition, chord.kind != .anyChord {
+                            if let match = columns[safe: previousColumn]?.cells[0].parts[row], var chord = match.content.getChord {
                                 /// Add the strum to the chord
-                                chord.strum = strum
+                                chord.definition.strum = strum
                                 /// Update the part
                                 var part = columns[index].cells[0].parts[row]
-                                part.chordMarkup = match.chordMarkup
-                                part.dimmed = match.chordDefinition?.strum == .noStrum ? false : true
-                                part.chordDefinition = chord
-                                part.strum = match.strum
+                                part.dimmed = match.content.getChord?.definition.strum == .noStrum ? false : true
+                                part.content = .chord(
+                                    definition: chord.definition,
+                                    textPart: chord.textPart,
+                                    beatItems: chord.beatItems
+                                )
                                 /// Update the row with the part
                                 columns[index].cells[0].parts[row] = part
                                 break
                             }
                         }
                     }
-                } else if let chord = part.chordDefinition, chord.knownChord {
+                } else if var chord = part.content.getChord {
                     /// This is a chord without a strum, do not play it
-                    columns[index].cells[0].parts[row].chordDefinition?.strum = .noStrum
+                    chord.definition.strum = .noStrum
+                    columns[index].cells[0].parts[row].content = .chord(
+                        definition: chord.definition,
+                        textPart: chord.textPart,
+                        beatItems: chord.beatItems
+                    )
                 }
             }
         }
@@ -297,7 +314,7 @@ extension ChordProParser {
     /// - Returns: A strum if found, else nil
     static private func findNearestStrum(row: Int, parts: [Song.Section.Line.Part], totalLines: Int) -> Chord.Strum? {
         for index in (row + 1)..<totalLines {
-            if let strum = parts[safe: index]?.strum?.strum {
+            if let strum = parts[safe: index]?.content.getStrum {
                 return strum
             }
         }

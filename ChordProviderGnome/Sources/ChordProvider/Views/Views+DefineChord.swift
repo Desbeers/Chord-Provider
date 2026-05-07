@@ -197,7 +197,7 @@ extension Views {
                                     }
                                     .style("circular")
                                     .insensitive(button.id != -1 && !definition.notes.contains(button.label))
-                                    .id(definition.description)
+                                    .id(definition)
                                 }
                             }
                         }
@@ -217,7 +217,7 @@ extension Views {
                                     }
                                     .style("circular")
                                     .style(definition.correctFinger(string: finger.id) ? .none : definition.fingers[finger.id] == button.id ? .error : .none)
-                                    .id(definition.description)
+                                    .id(definition)
                                 }
                             }
                         }

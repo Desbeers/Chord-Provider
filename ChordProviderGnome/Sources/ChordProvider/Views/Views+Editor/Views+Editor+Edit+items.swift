@@ -98,7 +98,7 @@ extension Views.Editor.Edit {
         }
     }
 
-    /// SwiftUI `View` for a plain text field
+    /// `View` for a plain text field
     struct PlainField: View {
         /// The label of the text field
         let label: String
@@ -117,7 +117,7 @@ extension Views.Editor.Edit {
         }
     }
 
-    /// SwiftUI `View` slider to select a number
+    /// `View` slider to select a number
     struct NumberSpinner: View {
         /// The label for the slider
         let label: String

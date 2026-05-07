@@ -73,8 +73,6 @@ extension Song.Section {
         public var gridsLine: [Grid]?
         /// The  optional grid columns in the line
         public var gridColumns: [Grid]?
-        /// The optional strum pattern in the line
-        //public var strums: [Strums]?
         /// A plain text version of the line
         /// - Note: The lyrics of a line, a comment or a tab for example
         public var plain: String?
@@ -88,24 +86,27 @@ extension Song.Section {
             arguments?[.plain] ?? arguments?[.label] ?? plain ?? context.label
         }
         
-        /// The whole line with markup split by a lenght
+        /// The whole line with prefix and suffix split by a lenght based on a lyric
         /// - Parameter length: The maximum lengt of a String
         /// - Returns: An Array of Strings
-        public func wholeTextWithMarkup(split length: Int) -> [String] {
+        public func wholeText(split length: Int) -> [String] {
             var result: [String] = []
             var currentLine = ""
             var currentLength = 0
             guard let parts else { return [] }
             for part in parts {
-                if let chord = part.chordDefinition, var output = part.chordMarkup {
-                    /// Give it some extra styling
-                    output.open += "<b><i>"
-                    output.close = "</i></b>" + output.close + " "
-                    appendPart(plain: chord.name, output: "\(output.open)\(output.text)\(output.close)")
-                }
-                if let textParts = part.textMarkup {
-                    for part in textParts {
-                        if part.close.isEmpty {
+                switch part.content {
+                case let .lyric(lyric):
+                    switch lyric.chordSlot {
+                    case let .chord(definition, textPart):
+                        appendPart(plain: definition.display, output: textPart.display)
+                    case let .text(textPart):
+                        appendPart(plain: textPart.text, output: textPart.display)
+                    case .empty:
+                        break
+                    }
+                    for part in lyric.textParts {
+                        if part.suffix.isEmpty {
                             /// Just plain text, add word by word
                             /// - Note: This is to split a long line as well
                             let parts = part.text.split(separator: " ")
@@ -114,16 +115,18 @@ extension Song.Section {
                                 appendPart(plain: string, output: string)
                             }
                         } else {
-                            /// Don't break the markup
-                            appendPart(plain: part.text, output: "\(part.open)\(part.text)\(part.close) ")
+                            /// Don't break the textPart
+                            appendPart(plain: part.text, output: "\(part.display) ")
                         }
                     }
+                default:
+                    /// We only deal with lyrics
+                    continue
                 }
             }
             /// Add the remaining part
             /// - Note: The last space will be removed here
             result.append(currentLine.trimmingCharacters(in: .whitespaces))
-            /// Return the result
             return result
 
             /// Helper to add a part

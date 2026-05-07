@@ -45,7 +45,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
 
     /// CustomStringConvertible protocol
     public var description: String {
-        define + instrument.tuning.description + status.description
+        define + instrument.tuning.description + status.description + (strum?.description ?? "")
     }
 
     /// Comparable protocol
@@ -146,6 +146,11 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
             }
             return nil
         }
+    }
+
+    /// Bool if the chord is defined but should not be played
+    public var isSilent: Bool {
+        strum == .noStrum
     }
 }
 

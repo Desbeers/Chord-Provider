@@ -20,25 +20,36 @@ extension GtkRender {
         /// The body of the `View`
         var view: Body {
             ForEach(parts, horizontal: true) { part in
-                Box {
-                    if part.chordDefinition != nil {
-                        SingleChord(part: part, coreSettings: coreSettings)
-                            .halign(.start)
-                            .padding(5, .trailing)
-                    } else if let textChord = part.textChord {
-                        Text(textChord)
-                            .halign(.start)
-                            .padding(5, .trailing)
-                    } else {
-                        Text(" ")
-                            .style(.chord)
-                    }
-                    Text(part.allTextWithMarkup)
-                        .useMarkup()
-                        .style(.standard)
+                switch part.content {
+                case let .lyric(lyric):
+                    Box {
+                        Box {
+                            switch lyric.chordSlot {
+                            case .chord:
+                                /// Show the chord name with a toggle to open its diagram
+                                GtkRender.SingleChord(part: part, coreSettings: coreSettings)
+                                    .style(part.dimmed ? .dimmed : .none)
+                            case let .text(markup):
+                                /// Show the text in the chord slot
+                                Text(markup.display)
+                                    .useMarkup()
+                            case .empty:
+                                /// Fill the slot or else the lyric will move up
+                                Text(" ")
+                            }
+                        }
                         .halign(.start)
+                        .style(.chord)
+                        Text(lyric.display)
+                            .useMarkup()
+                            .style(.standard)
+                            .halign(.start)
+                    }
+                    .homogeneous()
+                default:
+                    /// Here we only render lyrics parts, nothing else
+                    Views.Empty()
                 }
-                .homogeneous()
             }
         }
     }

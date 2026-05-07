@@ -9,31 +9,30 @@ import Foundation
 
 extension String {
 
-    /// Wrapper for text that contains optional markup
-    /// - Parameter handleBrackets: Bool if brackets should be moved to the markup
-    /// - Returns:  ``Markup`` structure
+    /// Wrapper for text that contains optional prefix and suffix
+    /// - Parameter handleBrackets: Bool if brackets should be moved to the prefix and suffix
+    /// - Returns:  A ``Song//TextPart`` structure
     /// 
     /// Usuage of the *handleBrackets*:
     /// 
     /// - When parsing a chord we want to have a 'clean' name so everything around
-    ///   the chord name should be moved to the markup
-    /// - When parsing a lyric, only markup should be moved
-    func markup(handleBrackets: Bool) -> Song.Markup {
-        /// Fallback; this should not happen
-        var markup = Song.Markup(open: "<span color=\"red\">", text: self, close: "</span>")
-        if let match = self.wholeMatch(of: RegexDefinitions.optionalMarkup) {
-            markup.open = String(match.1 ?? "")
-            markup.text = String(match.2)
-            markup.close = String(match.3 ?? "")
+    ///   the chord name should be moved
+    func textPart(handleBrackets: Bool) ->Song.TextPart {
+        /// Fallback
+        var textPart = Song.TextPart(text: self)
+        if let match = self.wholeMatch(of: RegexDefinitions.validMarkup) {
+            textPart.prefix = String(match.1)
+            textPart.text = String(match.2)
+            textPart.suffix = String(match.3)
         }
         /// Handle optional brackets around the text
-        if handleBrackets, markup.text.hasPrefix("("), markup.text.hasSuffix(")") {
-            markup.text.removeFirst()
-            markup.text.removeLast()
-            markup.open += "("
-            markup.close = ")" + markup.close
+        if handleBrackets, textPart.text.hasPrefix("("), textPart.text.hasSuffix(")") {
+            textPart.text.removeFirst()
+            textPart.text.removeLast()
+            textPart.prefix += "("
+            textPart.suffix = ")" + textPart.suffix
         }
-        return markup
+        return textPart
     }
 }
 
@@ -125,7 +124,7 @@ extension String {
     
     /// Escape special characters
     /// - Returns: A cleaned string
-    public func escapeSpecialCharacters() -> String {
+    public var escapeSpecialCharacters: String {
         if self.contains(["<", ">"]) {
             /// The string contains Pango markup; don't escape
             return self

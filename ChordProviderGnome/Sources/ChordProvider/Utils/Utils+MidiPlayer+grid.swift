@@ -36,20 +36,21 @@ extension Utils.MidiPlayer {
         if let grids = self.grids {
             let mappedParts = flatMapParts(grids.map(\.parts))
             parts = mappedParts.filter { part in
-                part.chordDefinition != nil
+                part.content.hasPlayableChord
             }
         }
         while !Task.isCancelled {
             var cells = 1
             for part in parts {
-                if let cellsPart = part.strum?.beatItems {
-                    cells = cellsPart
+                let chord = part.content.getChord
+                if let chord {
+                    cells = chord.beatItems
                 }
                 let tempo = 60.0 / (Double(metronomeBPM) * Double(cells))
-                if !Task.isCancelled, let chord = part.chordDefinition, chord.knownChord, chord.strum != .noStrum {
+                if !Task.isCancelled, let chord, chord.definition.knownChord, chord.definition.strum != .noStrum {
                     self.currentChord = part.id
                     Task {
-                        await Utils.MidiPlayer.shared.playChord(chord, preset: preset, strum: chord.strum)
+                        await Utils.MidiPlayer.shared.playChord(chord.definition, preset: preset, strum: chord.definition.strum)
                     }
                     try? await Task.sleep(for: .seconds(tempo))
                 } else if !Task.isCancelled {

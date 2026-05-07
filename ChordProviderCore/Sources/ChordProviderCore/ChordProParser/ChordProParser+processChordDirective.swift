@@ -47,17 +47,20 @@ extension ChordProParser {
             chordDefinition = processChord(chord: chord, line: &line, song: &song)
         }
         if let chordDefinition {
-            let part = Song.Section.Line.Part(id: 0, chordDefinition: chordDefinition)
+            let part = Song.Section.Line.Part(id: 0, content: .chord(definition: chordDefinition, textPart: .init(), beatItems: 1))
             line.parts = [part]
         }
         /// Check where the chord belongs
         if currentSection.environment == .none || currentSection.environment == .metadata {
             /// Check if previous section is also  chord diagram
             /// If so, add it to that section
-            if song.sections.last?.environment == .chordDiagram,
+            if song.sections.last?.environment == .chordDiagram, let chordDefinition,
                 let sectionID = song.sections.lastIndex(where: { $0.lines.last?.parts != nil }),
                 var lastLine = song.sections[sectionID].lines.last {
-                let part = Song.Section.Line.Part(id: (lastLine.parts?.count ?? 0) + 1, chordDefinition: chordDefinition)
+                let part = Song.Section.Line.Part(
+                    id: (lastLine.parts?.count ?? 0) + 1,
+                    content: .chord(definition: chordDefinition, textPart: .init(), beatItems: 1)
+                )
                 lastLine.parts?.append(part)
                 song.sections[sectionID].lines = [lastLine]
                 line.parts = nil
