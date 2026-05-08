@@ -85,6 +85,14 @@ extension Song.Section.Line.Part {
             if case let .chord(definition, textPart, beatItems) = self {
                 return (definition, textPart, beatItems)
             }
+             if case let .lyric(lyric) = self {
+                switch lyric.chordSlot {
+                case let .chord(definition, textPart):
+                    return (definition, textPart, 1)
+                default:
+                    return nil
+                }
+             }
             return nil
         }
         /// Get a strum symbol
