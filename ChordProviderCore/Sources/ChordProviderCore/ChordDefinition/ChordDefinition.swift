@@ -172,7 +172,7 @@ extension ChordDefinition {
         case validationWarnings
         case strum
         case plain
-        // case instrument
+        case instrument
         case mirrored
     }
 }

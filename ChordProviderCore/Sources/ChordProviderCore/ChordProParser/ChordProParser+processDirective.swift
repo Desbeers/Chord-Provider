@@ -41,7 +41,7 @@ extension ChordProParser {
         let text = text.replacingOccurrences(of: "\\n", with: " ")
 
         /// Grab the directive to handle if unknown or not complete
-        let unparsedDirective = text.dropFirst().split(separator: " ").first ?? ""
+        let unparsedDirective = text.dropFirst().dropLast().split(separator: " ").first ?? ""
 
         if let match = text.firstMatch(of: RegexDefinitions.directive) {
             let parsedDirective = match.1

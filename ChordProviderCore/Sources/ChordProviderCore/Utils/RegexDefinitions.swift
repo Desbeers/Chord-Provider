@@ -142,7 +142,8 @@ enum RegexDefinitions {
         Capture {
             OneOrMore {
                 CharacterClass(
-                    .word
+                    .word,
+                    .anyOf("-")
                 )
             }
         }
