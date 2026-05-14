@@ -142,7 +142,7 @@ extension ChordProParser {
                 )
                 let part = Song.Section.Line.Part(
                     id: partID,
-                    content: analysis.playableLine[index] ? anyChord : .text(textPart: .init())
+                    content: analysis.playableLine[index] ? anyChord : .strum(symbol: .noStrum)
                 )
                 columns[column].cells[0].parts.append(part)
                 partID += 1

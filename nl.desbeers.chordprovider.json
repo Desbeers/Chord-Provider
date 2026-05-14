@@ -19,18 +19,22 @@
     "append-path": "/usr/lib/sdk/swift6/bin",
     "prepend-ld-library-path": "/usr/lib/sdk/swift6/lib"
   },
-  "cleanup": [
-    "/lib/pkgconfig",
-    "/man",
-    "/share/doc",
-    "/share/gtk-doc",
-    "/share/man",
-    "/share/pkgconfig",
-    "*.la",
-    "*.a"
-  ],
   "modules": [
-    "shared-modules/linux-audio/fluidsynth2.json",
+    {
+      "name": "fluidsynth",
+      "buildsystem": "cmake-ninja",
+      "config-opts": [
+        "-Denable-sdl3=OFF"
+      ],
+      "sources": [
+          {
+              "type": "git",
+              "url": "https://github.com/FluidSynth/fluidsynth.git",
+              "tag": "v2.5.4",
+              "commit": "57c19522838331da5aeae95433b0d776734907d8"
+          }
+      ]
+    },
     {
       "name": "ChordProvider",
       "builddir": true,
@@ -56,6 +60,11 @@
         "install -m644 -p -t /app/share/mime/packages ChordProviderGnome/data/nl.desbeers.chordprovider.mime.xml",
         "update-mime-database /app/share/mime",
         "desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop"
+      ],
+      "post-install": [
+        "rm -fr /app/include",
+        "rm -fr /app/lib/cmake /app/lib/debug /app/lib/pkgconfig",
+        "rm -fr /app/share/man"
       ]
     }
   ]
