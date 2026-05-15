@@ -60,11 +60,6 @@
         "install -m644 -p -t /app/share/mime/packages ChordProviderGnome/data/nl.desbeers.chordprovider.mime.xml",
         "update-mime-database /app/share/mime",
         "desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop"
-      ],
-      "post-install": [
-        "rm -fr /app/include",
-        "rm -fr /app/lib/cmake /app/lib/debug /app/lib/pkgconfig",
-        "rm -fr /app/share/man"
       ]
     }
   ]
