@@ -6,7 +6,7 @@ import PackageDescription
 /// The dependencies.
 var dependencies: [Package.Dependency] = [
 	.package(
-            url: "https://git.aparoksha.dev/aparoksha/adwaita-swift",
+            url: "https://git.aparoksha.dev/desbeers/adwaita-swift-gnome-50",
             branch: "main",
             traits: ["exposeGeneratedAppearUpdateFunctions"],
     ),
@@ -33,7 +33,7 @@ let package = Package(
         .target(
             name: "SourceView",
             dependencies: [
-                .product(name: "Adwaita", package: "adwaita-swift"),
+                .product(name: "Adwaita", package: "adwaita-swift-gnome-50"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore"),
                 "CSourceView"
             ],
@@ -54,7 +54,7 @@ let package = Package(
             dependencies: [
                 "SourceView",
                 "CFluidSynth",
-                .product(name: "Adwaita", package: "adwaita-swift"),
+                .product(name: "Adwaita", package: "adwaita-swift-gnome-50"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore")
             ],
             resources: [
