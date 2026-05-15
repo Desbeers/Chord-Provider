@@ -19,7 +19,7 @@ extension Chord {
 
         /// CustomStringConvertible protocol
         public var description: String {
-            self.rawValue
+            self.display
         }
 
         /// Down stroke

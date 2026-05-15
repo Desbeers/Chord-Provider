@@ -21,9 +21,6 @@ extension Markup {
         /// The define dialog
         case define
 
-        /// The welcome image
-        case welcomeImage = "welcome-image"
-
         // MARK: Text Styles
 
         /// Standard text or default-styled element
@@ -202,15 +199,6 @@ popover contents, popover arrow {
 }
 
 """ : "")
-
-/* Welcome image */
-
-.welcome-image {
-    border-radius: 20px;
-    /* filter: opacity(0.5) drop-shadow(0 0 0 var(--accent-color)); */
-    /* filter: invert(\(dark ? 90 : 0)%); */
-    background: var(--accent-bg-color);
-}
 
 /* Text Styles */
 

@@ -163,7 +163,6 @@ extension Views {
                     }
                     .group("Tuning Frequency") {
                         ActionRow("Reference pitch")
-                            //.subtitle("The reference frequency")
                             .suffix {
                                 HStack {
                                     Views.Spinner(

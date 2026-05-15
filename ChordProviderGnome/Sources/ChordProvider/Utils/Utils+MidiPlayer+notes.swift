@@ -40,15 +40,9 @@ extension Utils.MidiPlayer {
             0,
             program
         )
-        /// Set the tuning
-        // let genFineTune: Int32 = 8
-        // let detune: Float = -31.77
-        // fluid_synth_set_gen(synth, channel, genFineTune, detune)
-
         /// Get the playback settings for the strum
         /// - Note: If no strum is given, use the default settings
         let playbackSettings = strum?.playbackSettings ?? Chord.Strum.Playback()
-
         /// Reset the volume
         /// - Note: Because it might be decreased already during fade-out
         var volume = min(Int32(playbackSettings.velocity * 90), 120)

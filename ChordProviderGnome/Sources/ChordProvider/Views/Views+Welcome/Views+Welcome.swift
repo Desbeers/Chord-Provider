@@ -47,11 +47,11 @@ extension Views {
                 VStack {
                     Text("Create a new song")
                         .style(.title)
-                    Widgets.BundleImage(path: "nl.desbeers.chordprovider-welcome")
-                        .pixelSize(200)
-                        .style(.welcomeImage)
+                    Widgets.BundleImage(path: "nl.desbeers.chordprovider")
+                        .pixelSize(220)
+                        //.style(.welcomeImage)
                         .halign(.center)
-                        .padding(20)
+                        .padding(10)
                     VStack {
                         Button("Start with a new song") {
                             appState.openSample(.newSong, showEditor: true)
