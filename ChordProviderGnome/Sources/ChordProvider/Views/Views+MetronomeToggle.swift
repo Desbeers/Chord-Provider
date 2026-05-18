@@ -46,8 +46,9 @@ extension Views {
                         Toggle(tempo, isOn: $appState.scene.playMetronome.onSet { value in
                             switch value {
                             case true:
+                                let instrument = appState.editor.coreSettings.instrument
                                 Task {
-                                    await Utils.MidiPlayer.shared.startMetronome()
+                                    await Utils.MidiPlayer.shared.startMetronome(instrument: instrument)
                                 }
                             case false:
                                 Task {

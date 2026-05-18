@@ -54,7 +54,13 @@ extension Utils {
         var gridTask: Task<Void, Never>?
         nonisolated(unsafe) var grids: [Song.Section.Line.GridCell]?
         var preset: MidiUtils.Preset = .acousticNylonGuitar
-        nonisolated(unsafe) var currentChord: Int = -1
+        
+        
+        nonisolated(unsafe) var currentMidiID: Int = -1
+
+        /// Tab task
+        var tabTask: Task<Void, Never>?
+        nonisolated(unsafe) var tabs: [Song.Section.Line.Tab]?
 
         // MARK: Play Token
 
@@ -62,12 +68,16 @@ extension Utils {
         /// - Note: Used for cancelling a chord when we start a new one
         var playToken: UUID = UUID()
 
-        nonisolated var getCurrentChord: Int {
-            currentChord
+        nonisolated var getCurrentMidiID: Int {
+            currentMidiID
         }
 
         nonisolated var getCurrentGrid: [Song.Section.Line.GridCell]? {
             grids
+        }
+
+        nonisolated var getCurrentTab: [Song.Section.Line.Tab]? {
+            tabs
         }
 
         // MARK: Init

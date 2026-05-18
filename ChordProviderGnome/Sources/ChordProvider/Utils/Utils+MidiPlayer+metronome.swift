@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChordProviderCore
 import CFluidSynth
 
 extension Utils.MidiPlayer {
@@ -13,10 +14,14 @@ extension Utils.MidiPlayer {
     // MARK: Metronome API
 
     /// Start the metronome
-    func startMetronome() {
+    func startMetronome(instrument: Instrument) {
         if self.gridTask != nil {
             /// Restart the grid to stay in sync
-            startGrid()
+            startGrid(instrument: instrument)
+        }
+        if self.tabTask != nil {
+            /// Restart the tab to stay in sync
+            startTab(instrument: instrument)
         }
         stopMetronome()
         metronomeTask = Task { [weak self] in

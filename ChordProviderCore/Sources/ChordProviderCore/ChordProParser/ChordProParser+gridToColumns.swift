@@ -61,7 +61,7 @@ extension ChordProParser {
             resolveStrumming(columns: &columns, totalLines: gridLines.count)
         }
         /// Return a new line to the section
-        let newLine: Song.Section.Line = .init(type: .gridLineColumns, context: .grid, gridColumns: columns)
+        let newLine = Song.Section.Line(type: .gridLineColumns, context: .grid, gridColumns: columns)
         return newLine
     }
 

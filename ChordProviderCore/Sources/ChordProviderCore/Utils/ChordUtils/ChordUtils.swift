@@ -57,7 +57,7 @@ public enum ChordUtils {
         var components: [Chord.Component] = []
         if !frets.isEmpty {
             for string in instrument.strings {
-                var fret = frets[string]
+                var fret = frets[safe: string] ?? -1
                 /// Don't bother with ignored frets
                 if fret == -1 {
                     components.append(Chord.Component(id: string, note: .none, midi: nil))

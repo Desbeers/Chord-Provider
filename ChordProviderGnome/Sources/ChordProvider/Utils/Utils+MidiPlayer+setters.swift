@@ -91,6 +91,16 @@ extension Utils.MidiPlayer {
     }
 }
 
+
+extension Utils.MidiPlayer {
+
+    /// Set the values for the grid
+    /// - Parameter grids: The grid section
+    func setTabNotes(tabColumns: [Song.Section.Line.Tab], instrument: Instrument) {
+        self.tabs = tabColumns
+    }
+}
+
 extension Utils.MidiPlayer {
 
     /// Set the MIDI preset for the player

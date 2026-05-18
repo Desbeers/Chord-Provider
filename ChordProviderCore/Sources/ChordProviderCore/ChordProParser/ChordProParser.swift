@@ -122,6 +122,14 @@ public enum ChordProParser {
             }
         }
 
+        /// Process tab into columns
+        if lines.map(\.context).contains(.tab) {
+            for (index, section) in song.sections.enumerated() where section.environment == .tab {
+                let processedSection = ChordProParser.tabToNotes(section: section, instrument: settings.instrument)
+                song.sections[index] = processedSection
+            }
+        }
+
         /// Check if the song has warnings or errors
         song.hasWarnings = !lines.compactMap(\.warnings).isEmpty
         /// Get all known chords that are in use

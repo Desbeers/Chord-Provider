@@ -1,5 +1,5 @@
 //
-//  GtkRender+GridSection.swift
+//  GtkRender+GridSection+Columns.swift
 //  ChordProvider
 //
 //  © 2025 Nick Berendsen
@@ -59,14 +59,16 @@ extension GtkRender.GridSection {
                     ) {
                         if playGridChords {
                             /// Set this grid as current
-                            appState.scene.gridChordsID = gridID
+                            appState.scene.midiID = gridID
                             /// Capture the grids
                             let grids = columns.flatMap(\.cells)
+                            /// Get the instrument
+                            let instrument = coreSettings.instrument 
                             Task {
                                 await Utils.MidiPlayer.shared.setGridChords(
                                     grids: grids
                                 )
-                                await Utils.MidiPlayer.shared.startGrid()
+                                await Utils.MidiPlayer.shared.startGrid(instrument: instrument)
                             }
                             /// Monitor the chords player
                             monitorChordsPlayer()
@@ -92,10 +94,10 @@ extension GtkRender.GridSection {
                     .homogeneous()
                 }
             }
-             .padding(10)
+            .padding(10)
             .onUpdate {
                 Idle {
-                    if playGridChords && appState.scene.gridChordsID != gridID {
+                    if playGridChords && appState.scene.midiID != gridID {
                         /// Another grid is started; uncheck the toggle button and reset current part
                         playGridChords = false
                         currentPartID = -1
@@ -168,7 +170,7 @@ extension GtkRender.GridSection {
         /// - Note: This will cancel itself when the player is stopped
         private func monitorChordsPlayer() {
             Idle(delay: .seconds(0.005)) {
-                let chord = Utils.MidiPlayer.shared.currentChord
+                let chord = Utils.MidiPlayer.shared.getCurrentMidiID
                 if chord != currentPartID {
                     currentPartID = chord
                 }

@@ -58,7 +58,12 @@ extension GtkRender {
             case .tab:
                 if !appState.editor.coreSettings.lyricsOnly {
                     SectionHeader(section: section)
-                    TabSection(section: section, maxLenght: maxLenght)
+                    TabSection(
+                        section: section,
+                        coreSettings: appState.editor.coreSettings,
+                        appState: $appState,
+                        maxLenght: maxLenght
+                    )
                 }
             case .grid:
                 if !appState.editor.coreSettings.lyricsOnly {

@@ -91,10 +91,11 @@ extension Views.Toolbar {
                         MenuButton("Open") {
                             /// Reset MIDI stuff
                             appState.scene.playMetronome = false
-                            appState.scene.gridChordsID = UUID()
+                            appState.scene.midiID = UUID()
                             Task {
                                 await Utils.MidiPlayer.shared.stopMetronome()
                                 await Utils.MidiPlayer.shared.stopGrid()
+                                await Utils.MidiPlayer.shared.stopTab()
                             }
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView

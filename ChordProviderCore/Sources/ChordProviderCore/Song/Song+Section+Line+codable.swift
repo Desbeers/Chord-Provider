@@ -21,6 +21,7 @@ extension Song.Section.Line {
         case parts
         case gridColumns
         case gridsLine
+        case tabColumns
         case plain
         case type
         case context
@@ -66,6 +67,7 @@ extension Song.Section.Line {
         self.parts = try container.decodeIfPresent([Song.Section.Line.Part].self, forKey: .parts)
         self.gridColumns = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .gridColumns)
         self.gridsLine = try container.decodeIfPresent([Song.Section.Line.Grid].self, forKey: .gridsLine)
+        self.tabColumns = try container.decodeIfPresent([Song.Section.Line.Tab].self, forKey: .tabColumns)
         self.plain = try container.decodeIfPresent(String.self, forKey: .plain)
     }
     /// :nodoc:
@@ -99,6 +101,7 @@ extension Song.Section.Line {
         try container.encodeIfPresent(self.parts, forKey: .parts)
         try container.encodeIfPresent(self.gridColumns, forKey: .gridColumns)
         try container.encodeIfPresent(self.gridsLine, forKey: .gridsLine)
+        try container.encodeIfPresent(self.tabColumns, forKey: .tabColumns)
         try container.encodeIfPresent(self.plain, forKey: .plain)
     }
 }

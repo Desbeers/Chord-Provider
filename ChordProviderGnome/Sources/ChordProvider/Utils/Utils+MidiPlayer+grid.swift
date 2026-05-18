@@ -12,13 +12,14 @@ import CFluidSynth
 extension Utils.MidiPlayer {
 
     /// Start the grid
-    func startGrid() {
+    func startGrid(instrument: Instrument) {
+        /// Stop any other grid or tab tsk
+        stopGrid()
+        stopTab()
         if self.metronomeTask != nil {
             /// Restart the metronome so it is in sync
-            startMetronome()
+            startMetronome(instrument: instrument)
         }
-        /// Stop any other grid
-        stopGrid()
         gridTask = Task { [weak self] in
             await self?.playGrid()
         }
@@ -48,7 +49,7 @@ extension Utils.MidiPlayer {
                 }
                 let tempo = 60.0 / (Double(metronomeBPM) * Double(cells))
                 if !Task.isCancelled, let chord, chord.definition.knownChord, chord.definition.strum != .noStrum {
-                    self.currentChord = part.id
+                    self.currentMidiID = part.id
                     Task {
                         await Utils.MidiPlayer.shared.playChord(chord.definition, preset: preset, strum: chord.definition.strum)
                     }
