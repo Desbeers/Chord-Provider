@@ -56,7 +56,7 @@ extension GtkRender.TabSection {
                         if playTabNotes {
                             startTabPlayer()
                             /// Monitor the tab player
-                            monitorTabsPlayer()
+                            monitorTabPlayer()
                         } else {
                             Idle {
                                 currentPartID = -1
@@ -72,7 +72,10 @@ extension GtkRender.TabSection {
                 ForEach(columns, horizontal: true) { column in
                     Box {
                         ForEach(column.events, horizontal: false) { item in
-                            event(event: item, column: column.tick)
+                            event(
+                                event: item,
+                                column: column.columnID
+                            )
                         }
                         .homogeneous()
                     }
@@ -90,7 +93,10 @@ extension GtkRender.TabSection {
                     if playTabNotes, columns != Utils.MidiPlayer.shared.getCurrentTab {
                         /// The tab has changed; restart the player
                         currentPartID = -1
-                        startTabPlayer()
+                        playTabNotes = false
+                        Task {
+                            await Utils.MidiPlayer.shared.stopTab()
+                        }
                     }
                 }
             }
@@ -104,24 +110,25 @@ extension GtkRender.TabSection {
                         .style(.dimmed)
                 case .text(let text):
                     Text(text)
+                        .halign(.start)
                 case .barLine:
                     Text("|")
                 case .fret(let fret):
                     Text("\(fret)")
                         .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
-                case let .slide(from, to, direction):
-                    Text("\(from)\(direction.display)\(to)")
+                case let .transition(from, to, transition):
+                    Text("\(from)\(transition.display)\(to)")
                         .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
                 }
             }
             .style(.sectionTab)
-            .halign(.start)
+            .halign(.center)
             .id(playTabNotes.description + currentPartID.description)
         }
         
         /// Monitor the tab player for its current tab
         /// - Note: This will cancel itself when the player is stopped
-        private func monitorTabsPlayer() {
+        private func monitorTabPlayer() {
             Idle(delay: .seconds(0.005)) {
                 let chordID = Utils.MidiPlayer.shared.getCurrentMidiID
                 if chordID != currentPartID {
@@ -131,18 +138,17 @@ extension GtkRender.TabSection {
             }
         }
 
+        /// Start the tab player
         private func startTabPlayer() {
             /// Set this tab as current
             appState.scene.midiID = tabID
             // /// Capture the tab columns
             let columns = columns
-            let instrument = coreSettings.instrument
             Task {
                 await Utils.MidiPlayer.shared.setTabNotes(
-                    tabColumns: columns,
-                    instrument: instrument
+                    tabColumns: columns
                 )
-                await Utils.MidiPlayer.shared.startTab(instrument: instrument)
+                await Utils.MidiPlayer.shared.startTab()
             }
         }
     }

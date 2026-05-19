@@ -14,14 +14,14 @@ extension Utils.MidiPlayer {
     // MARK: Metronome API
 
     /// Start the metronome
-    func startMetronome(instrument: Instrument) {
+    func startMetronome() {
         if self.gridTask != nil {
             /// Restart the grid to stay in sync
-            startGrid(instrument: instrument)
+            startGrid()
         }
         if self.tabTask != nil {
             /// Restart the tab to stay in sync
-            startTab(instrument: instrument)
+            startTab()
         }
         stopMetronome()
         metronomeTask = Task { [weak self] in

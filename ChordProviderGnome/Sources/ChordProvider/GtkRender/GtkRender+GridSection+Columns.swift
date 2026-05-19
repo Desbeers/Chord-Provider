@@ -58,20 +58,9 @@ extension GtkRender.GridSection {
                         isOn: $playGridChords
                     ) {
                         if playGridChords {
-                            /// Set this grid as current
-                            appState.scene.midiID = gridID
-                            /// Capture the grids
-                            let grids = columns.flatMap(\.cells)
-                            /// Get the instrument
-                            let instrument = coreSettings.instrument 
-                            Task {
-                                await Utils.MidiPlayer.shared.setGridChords(
-                                    grids: grids
-                                )
-                                await Utils.MidiPlayer.shared.startGrid(instrument: instrument)
-                            }
-                            /// Monitor the chords player
-                            monitorChordsPlayer()
+                            startGridPlayer()
+                            /// Monitor the grid player
+                            monitorGridPlayer()
                         } else {
                             Idle {
                                 currentPartID = -1
@@ -166,15 +155,29 @@ extension GtkRender.GridSection {
             .id(part.description + playGridChords.description + currentPartID.description)
         }
 
-        /// Monitor the chords player for its current chord
+        /// Monitor the grid player for its current chord
         /// - Note: This will cancel itself when the player is stopped
-        private func monitorChordsPlayer() {
+        private func monitorGridPlayer() {
             Idle(delay: .seconds(0.005)) {
                 let chord = Utils.MidiPlayer.shared.getCurrentMidiID
                 if chord != currentPartID {
                     currentPartID = chord
                 }
                 return playGridChords
+            }
+        }
+
+        /// Start the grid player
+        private func startGridPlayer() {
+            /// Set this grid as current
+            appState.scene.midiID = gridID
+            /// Capture the grids
+            let grids = columns.flatMap(\.cells)
+            Task {
+                await Utils.MidiPlayer.shared.setGridChords(
+                    grids: grids
+                )
+                await Utils.MidiPlayer.shared.startGrid()
             }
         }
     }

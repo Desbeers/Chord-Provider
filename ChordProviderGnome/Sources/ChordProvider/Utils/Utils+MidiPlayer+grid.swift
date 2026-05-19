@@ -12,13 +12,13 @@ import CFluidSynth
 extension Utils.MidiPlayer {
 
     /// Start the grid
-    func startGrid(instrument: Instrument) {
+    func startGrid() {
         /// Stop any other grid or tab tsk
         stopGrid()
         stopTab()
         if self.metronomeTask != nil {
             /// Restart the metronome so it is in sync
-            startMetronome(instrument: instrument)
+            startMetronome()
         }
         gridTask = Task { [weak self] in
             await self?.playGrid()

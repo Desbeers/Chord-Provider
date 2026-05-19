@@ -96,7 +96,7 @@ extension Utils.MidiPlayer {
 
     /// Set the values for the grid
     /// - Parameter grids: The grid section
-    func setTabNotes(tabColumns: [Song.Section.Line.Tab], instrument: Instrument) {
+    func setTabNotes(tabColumns: [Song.Section.Line.Tab]) {
         self.tabs = tabColumns
     }
 }

@@ -7,27 +7,46 @@
 
 extension ChordProParser {
 
+    /// Convert tab lines into tab columns
+    /// - Parameters:
+    ///   - section: The section to convert
+    ///   - instrument: The instrument
+    ///
+    /// - Returns: An updated section
     public static func tabToNotes(section: Song.Section, instrument: Instrument) -> Song.Section {
+        /// Make a copy of the current sections
         var newSection = section
+        /// Clear all the lines but keep the rest
         newSection.lines = []
+        /// Collect the tab lines in the section
         var tabLines: [String] = []
         /// Go to all the lines
         for line in section.lines {
             if line.context == .tab, let content = line.plain {
-                /// Add the line to the grid lines for later processing
+                /// Add the line to the tab lines for later processing
                 tabLines.append(content)
             } else {
                 if !tabLines.isEmpty {
+                    /// Process the tab lines into columns
                     let tabColumns = parseTab(lines: tabLines, instrument: instrument)
-                    let line = Song.Section.Line(type: .tabLineColumns, context: .tab, tabColumns: tabColumns)
-                    newSection.lines.append(line)
-                    /// Reset the tab lines
+                    /// Append the columns
+                    /// - Note: Its 'sourceLinenNumber' is 0 so it is ignored in the 'source view'
+                    newSection.lines.append(
+                        Song.Section.Line(
+                            type: .tabLineColumns,
+                            context: .tab,
+                            tabColumns: tabColumns
+                        )
+                    )
+                    /// Empty the tab lines
                     /// - Note: A *tab* environment can contain more than one tab, seperated by an empty line
                     tabLines = []
                 }
             }
+            /// Always add an existing line
             newSection.lines.append(line)
         }
+        /// Return the updated section
         return newSection
     }
 
@@ -35,126 +54,142 @@ extension ChordProParser {
         lines: [String],
         instrument: Instrument
     ) -> [Song.Section.Line.Tab] {
-        /// Set the total amount of strings
-        let totalStrings = instrument.strings.count
-        /// Strip everything in front of the first pipe
-        /// - Note: Every line without a pipe will be ignored
-        let processed: [[Character]] = lines.compactMap { line in
+        /// Chop the tab lines into a tab matrix
+        let tabMatrix: [[Character]] = lines.compactMap { line in
             Array(line)
         }
-        /// Set the width based on the longest line
-        guard let width = processed.map(\.count).max() else {
+        /// Set the width based on the longest tab line
+        guard let tabWidth = tabMatrix.map(\.count).max() else {
             return []
         }
-
-        var ticks: [Song.Section.Line.Tab] = []
-
-        var visualColumn = 0
-        var tick = 0
-
-        while visualColumn < width {
+        /// The resulting tab columns
+        var tabColumns: [Song.Section.Line.Tab] = []
+        /// The column ID
+        var columnID = 0
+        /// The visual column ID
+        /// - Note: An item can occupy more than one column
+        var visualColumnID = 0
+        /// Process all columns
+        while visualColumnID < tabWidth {
             /// Create empty events with text
-            var events = processed.enumerated().map { string, _ in
+            // var events = tabMatrix.enumerated().map { line, _ in
+            //     Song.Section.Line.Tab.Event(
+            //         line: line,
+            //         content: .text(" ")
+            //     )
+            // }
+            var events = tabMatrix.indices.map { lineID in
                 Song.Section.Line.Tab.Event(
-                    string: string,
+                    line: lineID,
                     content: .text(" ")
                 )
             }
-
-            var consumedColumns = 1
-
-            for (stringIndex, chars) in processed.enumerated() {
-
-                guard visualColumn < chars.count, stringIndex < totalStrings else {
+            /// Keep track of how many columns an item is using
+            var usedColumns = 1
+            /// Process each column
+            for (lineID, lineCharacters) in tabMatrix.enumerated() {
+                /// Make sure we are withing the character range 
+                guard visualColumnID < lineCharacters.count else {
                     continue
                 }
-
-                let character = chars[visualColumn]
-
-                // MARK: Fret number
+                /// Get the character in the currently visible column
+                let character = lineCharacters[visualColumnID]
+                /// Check the content of the character
                 if character.isNumber {
-                    var visualColumnIndex = visualColumn
+
+                    // MARK: Fret number
+
+                    var visualColumnIndex = visualColumnID
                     var first = ""
+
                     // MARK: First fret
-                    while visualColumnIndex < chars.count && chars[visualColumnIndex].isNumber {
-                        first.append(chars[visualColumnIndex])
+
+                    while visualColumnIndex < lineCharacters.count && lineCharacters[visualColumnIndex].isNumber {
+                        first.append(lineCharacters[visualColumnIndex])
                         visualColumnIndex += 1
                     }
                     guard let fret = Int(first) else {
                         continue
                     }
-                    consumedColumns = max(
-                        consumedColumns,
+                    usedColumns = max(
+                        usedColumns,
                         first.count
                     )
+                    /// Set the content
+                    /// - Note: This can be overridden by a note transition
                     var content: Song.Section.Line.Tab.Content = .fret(fret)
 
-                    // MARK: Optinal Slide
-                    if visualColumnIndex < chars.count && (chars[visualColumnIndex] == "/" || chars[visualColumnIndex] == "\\") {
-                        let slideDirection: Song.Section.Line.Tab.SlideDirection = chars[visualColumnIndex] == "/" ? .up : .down
-                        visualColumnIndex += 1
-                        var second = ""
-                        while visualColumnIndex < chars.count && chars[visualColumnIndex].isNumber {
-                            second.append(chars[visualColumnIndex])
+                    // MARK: Optional transition
+
+                    if visualColumnIndex < lineCharacters.count {
+                        let symbol = String(lineCharacters[visualColumnIndex])
+                        if let transition = ChordPro.Tab.NoteTransition.characterDictionary[symbol] {
                             visualColumnIndex += 1
+                            var second = ""
+                            while visualColumnIndex < lineCharacters.count &&
+                                lineCharacters[visualColumnIndex].isNumber
+                            {
+                                second.append(lineCharacters[visualColumnIndex])
+                                visualColumnIndex += 1
+                            }
+                            if let secondFret = Int(second) {
+                                /// Set the content as a transition
+                                content = .transition(
+                                    from: fret,
+                                    to: secondFret,
+                                    transition: transition
+                                )
+                            }
+                            usedColumns = max(
+                                usedColumns,
+                                visualColumnIndex - visualColumnID
+                            )
                         }
-                        if let secondFret = Int(second) {
-                            content = .slide(from: fret, to: secondFret, direction: slideDirection)
-                        }
-                        consumedColumns = max(
-                            consumedColumns,
-                            visualColumnIndex - visualColumn
-                        )
                     }
-                    events[stringIndex] = Song.Section.Line.Tab.Event(
-                        string: stringIndex,
+                    /// Add the notes event
+                    events[lineID] = Song.Section.Line.Tab.Event(
+                        line: lineID,
                         content: content
                     )
                 } else if character == "|" {
-                    events[stringIndex] = Song.Section.Line.Tab.Event(
-                        string: stringIndex,
+
+                    // MARK: Bar
+
+                    events[lineID] = Song.Section.Line.Tab.Event(
+                        line: lineID,
                         content: .barLine
                     )
-                } else if character == " " {
-                    events[stringIndex] = Song.Section.Line.Tab.Event(
-                        string: stringIndex,
-                        content: .text(" ")
-                    )
                 } else if character == "-" {
-                    events[stringIndex] = Song.Section.Line.Tab.Event(
-                        string: stringIndex,
+
+                    // MARK: Rest
+
+                    events[lineID] = Song.Section.Line.Tab.Event(
+                        line: lineID,
                         content: .rest
                     )
-                //}
                 } else {
-                    var visualColumnIndex = visualColumn
-                    var text = ""
-                    // MARK: First fret
-                    while visualColumnIndex < chars.count && !(chars[visualColumnIndex].isWhitespace || chars[visualColumnIndex] == "|") {
-                        text.append(chars[visualColumnIndex])
-                        visualColumnIndex += 1
-                    }
-                    consumedColumns = max(
-                        consumedColumns,
-                        text.count
-                    )
-                    events[stringIndex] = Song.Section.Line.Tab.Event(
-                        string: stringIndex,
-                        content: .text(text)
+
+                    // MARK: Text
+
+                    events[lineID] = Song.Section.Line.Tab.Event(
+                        line: lineID,
+                        content: .text(String(character))
                     )
                 }
             }
-
-            ticks.append(
+            /// Add the column
+            tabColumns.append(
                 Song.Section.Line.Tab(
-                    tick: tick,
+                    instrument: instrument,
+                    columnID: columnID,
                     events: events
                 )
             )
-
-            visualColumn += consumedColumns
-            tick += 1
+            /// Keep track of the ID's
+            visualColumnID += usedColumns
+            columnID += 1
         }
-        return ticks
+        /// Return all the columns
+        return tabColumns
     }
 }
