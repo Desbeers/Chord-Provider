@@ -11,24 +11,6 @@ import ChordProviderCore
 
 extension Utils.MidiPlayer {
 
-    struct PlaybackNote: Sendable {
-        let string: Int
-        let note: Int
-        let articulation: Articulation
-
-        enum Articulation: Sendable {
-            case normal
-            case transit(to: Int, by: ChordPro.Tab.NoteTransition)
-        }
-    }
-
-    struct ActiveVoice {
-        let id: UUID
-        let notes: [Int32]
-        let channel: Int32
-        let volume: Int32
-    }
-
     // MARK: Play a note
 
     /// Perform a note

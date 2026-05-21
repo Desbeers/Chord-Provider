@@ -86,7 +86,7 @@ extension GtkRender.TabSection {
                         /// Another grid or tab is started; uncheck the toggle button
                         playTabNotes = false
                     }
-                    if playTabNotes, columns != Utils.MidiPlayer.shared.getCurrentTab {
+                    if playTabNotes, columns != Utils.MidiPlayer.shared.snapshot.tabs {
                         /// The tab has changed; stop the player
                         playTabNotes = false
                         Task {
@@ -142,8 +142,8 @@ extension GtkRender.TabSection {
         /// Monitor the tab player for its current tab
         /// - Note: This will cancel itself when the player is stopped
         private func monitorTabPlayer() {
-            Idle(delay: .seconds(0.005)) {
-                let chordID = Utils.MidiPlayer.shared.getCurrentMidiID
+            Idle(delay: .seconds(0.015)) {
+                let chordID = Utils.MidiPlayer.shared.snapshot.currentMidiID
                 if chordID != currentPartID {
                     currentPartID = chordID
                 }
@@ -158,9 +158,7 @@ extension GtkRender.TabSection {
             // /// Capture the tab columns
             let columns = columns
             Task {
-                await Utils.MidiPlayer.shared.setTabNotes(
-                    tabColumns: columns
-                )
+                await Utils.MidiPlayer.shared.setTabNotes(columns)
                 await Utils.MidiPlayer.shared.startTab()
             }
         }

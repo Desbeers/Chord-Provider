@@ -93,9 +93,7 @@ extension Views.Toolbar {
                             appState.scene.playMetronome = false
                             appState.scene.midiID = UUID()
                             Task {
-                                await Utils.MidiPlayer.shared.stopMetronome()
-                                await Utils.MidiPlayer.shared.stopGrid()
-                                await Utils.MidiPlayer.shared.stopTab()
+                                await Utils.MidiPlayer.shared.cancelPlaybackTasks()
                             }
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView

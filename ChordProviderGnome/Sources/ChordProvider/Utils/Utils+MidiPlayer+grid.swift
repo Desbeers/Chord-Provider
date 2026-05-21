@@ -7,40 +7,45 @@
 
 import Foundation
 import ChordProviderCore
-import CFluidSynth
 
 extension Utils.MidiPlayer {
 
     /// Start the grid
-    func startGrid() {
-        /// Stop any other grid or tab tsk
+    func startGrid() async {
+        guard let grids = snapshot.grids else {
+            /// There are no tabs to play
+            /// - Note: This should not happen...
+            return
+        }
+        let mappedParts = flatMapParts(grids.map(\.parts))
+        let parts = mappedParts.filter { part in
+            part.content.hasPlayableChord
+        }
+        /// Stop any other grid or tab task
         stopGrid()
         stopTab()
-        if self.metronomeTask != nil {
-            /// Restart the metronome so it is in sync
-            startMetronome()
+        /// Wait for the first accent
+        while !transport.isAccent {
+            try? await Task.sleep(for: .milliseconds(1))
         }
-        gridTask = Task { [weak self] in
-            await self?.playGrid()
+        /// Start the grid
+        playbackTasks.grid = Task {
+            await playGrids(parts)
         }
     }
 
     /// Stop the grid
     func stopGrid() {
-        currentMidiID = -1
-        gridTask?.cancel()
-        gridTask = nil
+        setCurrentMidiID(-1)
+        playbackTasks.grid?.cancel()
+        playbackTasks.grid = nil
     }
 
-    /// Play the chords of the grid
-    private func playGrid() async {
-        var parts: [Song.Section.Line.Part] = []
-        if let grids = self.grids {
-            let mappedParts = flatMapParts(grids.map(\.parts))
-            parts = mappedParts.filter { part in
-                part.content.hasPlayableChord
-            }
-        }
+    /// Play the chords in the grids
+    private func playGrids( _ parts: [Song.Section.Line.Part]) async {
+        /// Tick scheduling
+        var nextTick = ContinuousClock.now
+        /// Loop the grid until canceled
         while !Task.isCancelled {
             var cells = 1
             for part in parts {
@@ -48,16 +53,13 @@ extension Utils.MidiPlayer {
                 if let chord {
                     cells = chord.beatItems
                 }
-                let tempo = 60.0 / (Double(metronomeBPM) * Double(cells))
+                let tempo = 60.0 / (Double(metronome.bpm) * Double(cells))
+                nextTick += .seconds(tempo)
                 if !Task.isCancelled, let chord, chord.definition.knownChord, chord.definition.strum != .noStrum {
-                    self.currentMidiID = part.id
-                    Task {
-                        await Utils.MidiPlayer.shared.playChord(chord.definition, strum: chord.definition.strum)
-                    }
-                    try? await Task.sleep(for: .seconds(tempo))
-                } else if !Task.isCancelled {
-                    try? await Task.sleep(for: .seconds(tempo))
+                    setCurrentMidiID(part.id)
+                    await playChord(chord.definition, strum: chord.definition.strum)
                 }
+                try? await Task.sleep(until: nextTick)
             }
         }
     }

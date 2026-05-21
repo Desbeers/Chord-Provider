@@ -21,53 +21,35 @@ extension Utils {
 
         // MARK: FluidSynth state
 
-        /// The settings for FluentSynth
+        /// The settings for FluidSynth
         var settings: OpaquePointer?
-        /// The actual synth for FluentSynth
+        /// The actual synth for FluidSynth
         var synth: OpaquePointer?
-        /// The driver for FluentSynth
+        /// The driver for FluidSynth
         var driver: OpaquePointer?
         /// The current SoundFont ID
         var soundFontID: Int32 = -1
-        /// Initial volume
-        var startVolume: Int32 = 120
 
         // MARK: MIDI channels
 
         var activePlaybackIDs: [Int: UUID] = [:]
 
+        /// The transport state
+        /// - Note: This is to keep track on MIDI timing
+        var transport = TransportState()
+
         // MARK: Metronome state
 
-        /// Metronome task
-        var metronomeTask: Task<Void, Never>?
-        /// Metronome BPM
-        var metronomeBPM: Int = 120
-        /// Metronome channel (fixed)
-        let metronomeChannel: Int32 = 15
-        /// Time signature
-        var timeSignature: TimeSignature = .fourFour
+        /// Settings for the metronome
+        var metronome = MetronomeSettings()
 
-        /// Grid task
-        var gridTask: Task<Void, Never>?
-        nonisolated(unsafe) var grids: [Song.Section.Line.GridCell]?
-        
-        nonisolated(unsafe) var currentMidiID: Int = -1
+        /// MIDI playback tasks
+        var playbackTasks = PlaybackTasks()
 
-        /// Tab task
-        var tabTask: Task<Void, Never>?
-        nonisolated(unsafe) var tabs: [Song.Section.Line.Tab]?
-
-        nonisolated var getCurrentMidiID: Int {
-            currentMidiID
-        }
-
-        nonisolated var getCurrentGrid: [Song.Section.Line.GridCell]? {
-            grids
-        }
-
-        nonisolated var getCurrentTab: [Song.Section.Line.Tab]? {
-            tabs
-        }
+        /// Current playback snapshot
+        /// - Written only by the actor
+        /// - Read externally by the GTK render
+        nonisolated(unsafe) private(set) var snapshot = PlaybackSnapshot()
 
         // MARK: Init
 
@@ -109,5 +91,35 @@ extension Utils {
                 print("ERROR: Sound font not found!")
             }
         }
+    }
+}
+
+// MARK: Setters for items that should be readable by the GUI
+
+extension Utils.MidiPlayer {
+
+    /// Set the ID of the current MIDI note
+    /// - Parameter currentMidiID: The ID of the current MIDI note
+    func setCurrentMidiID(_ currentMidiID: Int) {
+        self.snapshot.currentMidiID = currentMidiID
+    }
+}
+
+extension Utils.MidiPlayer {
+
+    /// Set the values for the grid
+    /// - Parameter grids: The grid section
+    func setGridChords(_ grids: [Song.Section.Line.GridCell]) {
+        self.snapshot.grids = grids
+    }
+}
+
+
+extension Utils.MidiPlayer {
+
+    /// Set the values for the grid
+    /// - Parameter grids: The grid section
+    func setTabNotes(_ tabs: [Song.Section.Line.Tab]) {
+        self.snapshot.tabs = tabs
     }
 }

@@ -62,5 +62,9 @@ extension AppState {
         }
         /// Close the welcome `View`
         scene.showWelcomeView = false
+        /// Start the MIDI player transport
+        Task {
+            await Utils.MidiPlayer.shared.startTransport()
+        }
     }
 }

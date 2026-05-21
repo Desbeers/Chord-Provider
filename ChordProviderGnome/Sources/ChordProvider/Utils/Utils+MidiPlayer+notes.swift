@@ -22,7 +22,7 @@ extension Utils.MidiPlayer {
         /// Reset the volume
         /// - Note: Because it might be decreased already during fade-out
         var volume = min(Int32(playbackSettings.velocity * 90), 120)
-        if metronomeTask != nil {
+        if playbackTasks.metronome != nil {
             /// Reduce the notes volume a bit if the metronome is playing so you can here the metronome better
             volume -= 25
         }

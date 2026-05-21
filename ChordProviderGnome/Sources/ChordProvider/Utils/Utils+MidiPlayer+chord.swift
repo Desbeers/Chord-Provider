@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CFluidSynth
 import ChordProviderCore
 
 extension Utils.MidiPlayer {

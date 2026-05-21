@@ -23,6 +23,14 @@ extension Utils.MidiPlayer {
                 Int32(preset.rawValue)
             )
         }
+        /// Set the metronome channel
+        fluid_synth_program_select(
+            synth,
+            metronome.channel,
+            soundFontID,
+            0,
+            0
+        )
     }
 
     /// Reset all channels
@@ -35,9 +43,17 @@ extension Utils.MidiPlayer {
         activePlaybackIDs.removeAll()
     }
 
+    /// Cancel all playback tasks
+    func cancelPlaybackTasks() {
+        stopTab()
+        stopGrid()
+        stopMetronome()
+        stopTransport()
+    }
+
     /// Set the metronome speed
     func setMetronomeBPM(_ bpm: Int) {
-        metronomeBPM = max(20, min(bpm, 300))
+        metronome.bpm = max(20, min(bpm, 300))
     }
 
     /// Set metronome time signature
@@ -61,10 +77,10 @@ extension Utils.MidiPlayer {
                 accents.append(index)
                 index += group
             }
-            timeSignature = TimeSignature(
+            metronome.timeSignature = TimeSignature(
                 numerator: num,
                 denominator: den,
-                pulsesPerBar: num,
+                ticksPerBar: num,
                 accentIndices: Set(accents),
                 quarterNoteMultiplier: den == 8 ? 0.5 : 1.0
             )
@@ -79,20 +95,20 @@ extension Utils.MidiPlayer {
                 accents.append(index)
                 index += group
             }
-            timeSignature = TimeSignature(
+            metronome.timeSignature = TimeSignature(
                 numerator: num,
                 denominator: den,
-                pulsesPerBar: num,
+                ticksPerBar: num,
                 accentIndices: Set(accents),
                 quarterNoteMultiplier: 1.5
             )
             return
         }
         // MARK: Simple meters
-        timeSignature = TimeSignature(
+        metronome.timeSignature = TimeSignature(
             numerator: num,
             denominator: den,
-            pulsesPerBar: num,
+            ticksPerBar: num,
             accentIndices: [0],
             quarterNoteMultiplier: 1.0
         )
@@ -103,25 +119,6 @@ extension Utils.MidiPlayer {
         let groups = string.split(separator: "+").compactMap { Int($0) }
         guard !groups.isEmpty else { return nil }
         return groups
-    }
-}
-
-extension Utils.MidiPlayer {
-
-    /// Set the values for the grid
-    /// - Parameter grids: The grid section
-    func setGridChords(grids: [Song.Section.Line.GridCell]) {
-        self.grids = grids
-    }
-}
-
-
-extension Utils.MidiPlayer {
-
-    /// Set the values for the grid
-    /// - Parameter grids: The grid section
-    func setTabNotes(tabColumns: [Song.Section.Line.Tab]) {
-        self.tabs = tabColumns
     }
 }
 

@@ -14,90 +14,49 @@ extension Utils.MidiPlayer {
     // MARK: Metronome API
 
     /// Start the metronome
-    func startMetronome() {
-        if self.gridTask != nil {
-            /// Restart the grid to stay in sync
-            startGrid()
+    func startMetronome() async {
+        /// Wait for the first accent
+        while !transport.isAccent {
+            try? await Task.sleep(for: .milliseconds(1))
         }
-        if self.tabTask != nil {
-            /// Restart the tab to stay in sync
-            startTab()
-        }
-        stopMetronome()
-        metronomeTask = Task { [weak self] in
-            await self?.runMetronome()
+        playbackTasks.metronome = Task {
+            await runMetronome()
         }
     }
 
     /// Stop the metronome
     func stopMetronome() {
-        metronomeTask?.cancel()
-        metronomeTask = nil
+        playbackTasks.metronome?.cancel()
+        playbackTasks.metronome = nil
     }
 
     // MARK: Metronome loop
 
     private func runMetronome() async {
         guard let synth else { return }
-
-        /// Set the instrument; defaults to electrical guitar
-        fluid_synth_program_select(
-            synth,
-            metronomeChannel,
-            soundFontID,
-            0,
-            0
-        )
-
-        fluid_synth_cc(synth, metronomeChannel, 11, 120)
-
-        var pulse: Int = 0
-
+        /// Set the volume
+        fluid_synth_cc(synth, metronome.channel, 11, 120)
+        /// Set the note value
+        var note: Int32 = 76
+        /// Set the velocity value, higher for accent beats
+        var velocity: Int32 = 120
+        /// The tick counter
+        var lastTick = transport.tick
+        /// Loop the metronome until the task is canceled
         while !Task.isCancelled {
-
-            let intervalNs = UInt64(
-                60.0
-                / (Double(metronomeBPM) * timeSignature.quarterNoteMultiplier)
-                * 1_000_000_000
-            )
-
-            let isAccent = timeSignature.accentIndices.contains(pulse)
-
-            let note: Int32 = isAccent ? 76 : 81
-            let velocity: Int32 = isAccent ? 120 : 90
-
-            fluid_synth_noteon(synth, metronomeChannel, note, velocity)
-
-            try? await Task.sleep(nanoseconds: intervalNs)
-            fluid_synth_noteoff(synth, metronomeChannel, note)
-
-            pulse = (pulse + 1) % timeSignature.pulsesPerBar
+            lastTick = transport.tick
+            /// Stop the previous note
+            fluid_synth_noteoff(synth, metronome.channel, note)
+            /// Set the note value
+            note = transport.isAccent ? 76 : 81
+            /// Set the velocity value, higher for accent beats
+            velocity = transport.isAccent ? 120 : 90
+            /// Play the note with an optional small delay
+            try? await Task.sleep(for: .milliseconds(transport.isAccent ? 12 : 2))
+            fluid_synth_noteon(synth, metronome.channel, note, velocity)
+            while transport.tick == lastTick {
+                try? await Task.sleep(for: .milliseconds(1))
+            }
         }
-    }
-
-    // MARK: Time Signature
-
-    struct TimeSignature {
-
-        let numerator: Int
-        let denominator: Int
-
-        /// Total pulses (eighth notes in /8 meters)
-        let pulsesPerBar: Int
-
-        /// Accent positions (pulse indices)
-        let accentIndices: Set<Int>
-
-        /// Quarter-note length multiplier for BPM
-        let quarterNoteMultiplier: Double
-
-        /// Default 4/4 time
-        static let fourFour = TimeSignature(
-            numerator: 4,
-            denominator: 4,
-            pulsesPerBar: 4,
-            accentIndices: [0],
-            quarterNoteMultiplier: 1.0
-        )
     }
 }
