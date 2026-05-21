@@ -1,65 +1,67 @@
 # Chord Provider
 
-## A [ChordPro](https://www.chordpro.org) viewer and editor for Linux
+## A ChordPro viewer and editor for Linux
 
 ![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
 
 ## ChordPro
 
-**ChordPro** is an open standard text format and its has an [official reference implementation](https://www.chordpro.org/chordpro/chordpro-directives/).
+[ChordPro](https://www.chordpro.org) is an open standard text format for songs with chords and lyrics. It also has an [official reference implementation](https://www.chordpro.org/chordpro/chordpro-directives/).
 
-While I hope you like **Chord Provider**, as *musician* or *programmer*, it is just my hobby project.
+**Chord Provider** is my hobby project, written mainly for my own needs as a musician and programmer.
 
 ## Chord Provider
 
-**Chord Provider** is written in Swift.
+**Chord Provider** is written in Swift and uses [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift) for the GUI.
 
 ![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
 
-There are many [ChordPro](https://www.chordpro.org) parsers in this world, however, almost none are *really* native. Mine is.
+There are many ChordPro parsers and editors available, but very few feel truly native on Linux desktops. That is what I wanted to build.
 
-### The icon
+The application started as a macOS SwiftUI project, but was later rewritten for Linux with a native GNOME interface.
 
-A **Telecaster** shape, of course! In mid 2016, I felt in love with a guitar. An *Olympic White*. That is the color of the shape. The background is a suitable modification of her 'plate'.
+### Features
 
-## Linux
+- View and edit **ChordPro** files
+- Native Linux GUI with GNOME / libadwaita
+- Built-in chord database
+- MIDI playback for chords, grids and tabs
+- Basic metronome
+- Left-handed chord support
 
-### What can **Chord Provider** do?
+## The icon
 
-- It will view your **ChordPro** files.
-- It has a fancy editor to edit your songs.
-- It has a *database* with a lot of chords.
-- It can play *Grids*, *Tabs* and chords with MIDI.
-- It has a basic *metronome*.
-- *left-handed* chords support.
+Of course it is based on a **Telecaster**.
 
-### How to compile
+In 2016 I fell in love with an *Olympic White* Telecaster. The icon shape and colors are inspired by that guitar.
 
-Clone the source and build with `builder` as *Flatpak*.
+## Building
+
+The recommended way to build **Chord Provider** is as a Flatpak application.
+
+Clone the repository and build it with [Gnome Builder](https://apps.gnome.org/en-GB/Builder/).
 
 ## macOS
 
-**I lost my interest in `macOS`.**
+The project originally started as a native macOS SwiftUI application.
 
-**In `Tahoe` it became an ugly version of its *iStuff* and even more *lockdown*.**
+The old macOS source code is still available in the repository, but it is no longer maintained and does not compile anymore.
 
-While the source-code is still here; it does not compile anymore.
-
-I don't care; same like Apple does not care about *Open Source* anymore.
-
-`ChordProviderGnome` compiles on macOS with the correct stuff added with `homebrew`.
+The Linux version is now the primary project.
 
 ## Limitations
 
-Not all chords in the database are correct; especially the more complicated chords. Feel free to contribute!
+Not all chords in the database are correct, especially some of the more advanced chords. Contributions are welcome.
 
-It is not a complete implementation of the **ChordPro** standard. Again, this is my *hobby project* for my own needs. The [official ChordPro implementation](https://www.chordpro.org/) might serve you better. I contributed a lot to its [Open Source code](https://github.com/ChordPro/chordpro).
+This is also not a complete implementation of the full ChordPro standard. If you need full compatibility, the [official ChordPro implementation](https://www.chordpro.org/) may suit you better.
+
+I also contributed code to the official [ChordPro Open Source project](https://github.com/ChordPro/chordpro).
 
 ## Thanks
 
-[adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift)
+### Libraries and projects
 
-Stole code (and ideas) from:
+- [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift)
 - [Swifty Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
 - [SongPro for Swift](https://github.com/SongProOrg/songpro-swift)
 - [Conscriptor](https://github.com/dbarsamian/conscriptor)
@@ -67,9 +69,20 @@ Stole code (and ideas) from:
 - [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
 - [LNTextView](https://github.com/JonWorms/LNTextView)
 
-Learned a lot from Swift mailing lists:
+### Swift resources
+
+I learned a lot from Swift blogs and mailing lists, especially:
+
 - [Fatbobman](https://fatbobman.com/en/)
 - [SwiftLee](https://www.avanderlee.com)
 - [Swift with Majid](https://swiftwithmajid.com)
 
-I hope you learn something from my project as well!
+Hopefully somebody can learn something from this project as well.
+
+## A note about Swift
+
+I originally started learning Swift for macOS development and stayed with the language because I genuinely enjoy using it.
+
+I moved away from Apple platforms, but kept Swift. The language itself was never really the problem.
+
+And yes, my very first Swift course used Taylor Swift songs in many code examples, so that is how I accidentally learned about Taylor Swift and became a *real* Swifty :-D
