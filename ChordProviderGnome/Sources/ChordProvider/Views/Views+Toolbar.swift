@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 
 extension Views {
 
@@ -93,7 +94,7 @@ extension Views.Toolbar {
                             appState.scene.playMetronome = false
                             appState.scene.midiID = UUID()
                             Task {
-                                await Utils.MidiPlayer.shared.cancelPlaybackTasks()
+                                await ChordProviderMIDI.shared.cancelPlaybackTasks()
                             }
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView

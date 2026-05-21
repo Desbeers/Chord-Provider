@@ -7,6 +7,7 @@
 
 import Foundation
 import ChordProviderCore
+import ChordProviderMIDI
 
 extension AppState {
 
@@ -64,7 +65,7 @@ extension AppState {
         scene.showWelcomeView = false
         /// Start the MIDI player transport
         Task {
-            await Utils.MidiPlayer.shared.startTransport()
+            await ChordProviderMIDI.shared.startTransport()
         }
     }
 }

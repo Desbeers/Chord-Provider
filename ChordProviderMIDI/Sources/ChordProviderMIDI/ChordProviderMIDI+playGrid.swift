@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+grid.swift
-//  ChordProvider
+//  ChordProviderMIDI+playGrid.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -8,10 +8,10 @@
 import Foundation
 import ChordProviderCore
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
-    /// Start the grid
-    func startGrid() async {
+    /// Play the grid
+    public func playGrid() async {
         guard let grids = snapshot.grids else {
             /// There are no tabs to play
             /// - Note: This should not happen...
@@ -35,7 +35,7 @@ extension Utils.MidiPlayer {
     }
 
     /// Stop the grid
-    func stopGrid() {
+    public func stopGrid() {
         setCurrentMidiID(-1)
         playbackTasks.grid?.cancel()
         playbackTasks.grid = nil

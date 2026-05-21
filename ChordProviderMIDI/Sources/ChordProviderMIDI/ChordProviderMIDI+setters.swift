@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+setters.swift
-//  ChordProvider
+//  ChordProviderMIDI+setters.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -9,11 +9,11 @@ import Foundation
 import CFluidSynth
 import ChordProviderCore
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
     /// Set the program
     /// - Parameter preset: The MIDI preset
-    func setProgram(preset: MidiUtils.Preset) {
+    public func setProgram(preset: MidiUtils.Preset) {
         for channel in (0...10) {
             fluid_synth_program_select(
                 synth,
@@ -44,7 +44,7 @@ extension Utils.MidiPlayer {
     }
 
     /// Cancel all playback tasks
-    func cancelPlaybackTasks() {
+    public func cancelPlaybackTasks() {
         stopTab()
         stopGrid()
         stopMetronome()
@@ -52,13 +52,13 @@ extension Utils.MidiPlayer {
     }
 
     /// Set the metronome speed
-    func setMetronomeBPM(_ bpm: Int) {
+    public func setMetronomeBPM(_ bpm: Int) {
         metronome.bpm = max(20, min(bpm, 300))
     }
 
     /// Set metronome time signature
     /// - Note: "4/4", "6/8", "7/8=2+2+3" for example
-    func setMetronomeTimeSignature(_ meter: String) {
+    public func setMetronomeTimeSignature(_ meter: String) {
         let mainParts = meter.split(separator: "=")
         let signaturePart = mainParts[0]
         let additivePart = mainParts.count > 1 ? mainParts[1] : nil
@@ -122,11 +122,11 @@ extension Utils.MidiPlayer {
     }
 }
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
     /// Set the reference frequency of the player
     /// - Parameter referenceHz: The reference for A2
-    func setReferenceFrequency(_ referenceHz: Int) {
+    public func setReferenceFrequency(_ referenceHz: Int) {
         let referenceHz = Double(referenceHz)
         guard let synth else { return }
 

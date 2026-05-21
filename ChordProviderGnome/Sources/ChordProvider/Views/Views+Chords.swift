@@ -25,7 +25,7 @@ extension Views {
         var view: Body {
             ScrollView {
                 ForEach(appState.editor.song.chords) { chord in
-                    MidiPlayer(
+                    MidiPlayerButton(
                         chord: chord,
                         coreSettings: appState.editor.coreSettings
                     )

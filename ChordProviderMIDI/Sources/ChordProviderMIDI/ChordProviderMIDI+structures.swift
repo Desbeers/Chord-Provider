@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+structures.swift
-//  ChordProvider
+//  ChordProviderMIDI+structures.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -8,7 +8,7 @@
 import Foundation
 import ChordProviderCore
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
     // MARK: - Transport State
 
@@ -37,16 +37,16 @@ extension Utils.MidiPlayer {
     ///
     /// This structure contains the currently active MIDI event
     /// together with the grids and tabs that are being played.
-    struct PlaybackSnapshot {
+    public struct PlaybackSnapshot {
 
         /// Identifier of the currently playing MIDI event
-        var currentMidiID: Int = -1
+        public var currentMidiID: Int = -1
 
         /// Grid cells currently scheduled for playback
-        var grids: [Song.Section.Line.GridCell]?
+        public var grids: [Song.Section.Line.GridCell]?
 
         /// Tab lines currently scheduled for playback
-        var tabs: [Song.Section.Line.Tab]?
+        public var tabs: [Song.Section.Line.Tab]?
     }
 
     // MARK: - Metronome Settings
@@ -87,19 +87,31 @@ extension Utils.MidiPlayer {
     // MARK: - Playback Note
 
     /// A MIDI note scheduled for playback
-    struct PlaybackNote: Sendable {
+    public struct PlaybackNote: Sendable {
 
-        /// String number associated with the note
-        let string: Int
+
+        /// Public init
+        public init(
+            stringID: Int,
+            midiNote: Int,
+            articulation: Articulation
+        ) {
+            self.stringID = stringID
+            self.midiNote = midiNote
+            self.articulation = articulation
+        }
+
+        /// String ID associated with the note
+        public let stringID: Int
 
         /// MIDI note number
-        let note: Int
+        public let midiNote: Int
 
         /// Playback articulation
-        let articulation: Articulation
+        public let articulation: Articulation
 
         /// Playback articulation types
-        enum Articulation: Sendable {
+        public enum Articulation: Sendable {
 
             /// A normal note without transition
             case normal

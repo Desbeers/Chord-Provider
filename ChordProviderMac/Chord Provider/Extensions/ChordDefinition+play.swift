@@ -14,7 +14,7 @@ extension ChordDefinition {
     func play(instrument: MidiUtils.Preset = .acousticNylonGuitar) {
         Task {
             let components = self.mirrored ? self.components.reversed() : self.components
-            await MidiPlayer.shared.playChord(notes: components.compactMap(\.midi), instrument: instrument)
+            await ChordProviderMIDI.shared.playChord(notes: components.compactMap(\.midi), instrument: instrument)
         }
     }
 }

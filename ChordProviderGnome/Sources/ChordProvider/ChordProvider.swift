@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 import SourceView
 import CAdw
 
@@ -67,8 +68,8 @@ import CAdw
                 let referenceFrequency = appState.editor.coreSettings.referenceFrequency
                 let preset = appState.editor.coreSettings.midiPreset
                 Task {
-                    await Utils.MidiPlayer.shared.setReferenceFrequency(referenceFrequency)
-                    await Utils.MidiPlayer.shared.setProgram(preset: preset)
+                    await ChordProviderMIDI.shared.setReferenceFrequency(referenceFrequency)
+                    await ChordProviderMIDI.shared.setProgram(preset: preset)
                 }
                 /// Init the css style
                 appState.setStyle()

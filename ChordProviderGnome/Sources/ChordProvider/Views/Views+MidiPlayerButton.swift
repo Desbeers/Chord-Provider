@@ -1,5 +1,5 @@
 //
-//  Views+MidiPlayer.swift
+//  Views+MidiPlayerButton.swift
 //  ChordProvider
 //
 //  © 2025 Nick Berendsen
@@ -8,11 +8,12 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 
 extension Views {
 
-    /// A `View` that plays a Chord Definition
-    struct MidiPlayer: View {
+    /// A `View` with a button that plays a Chord Definition
+    struct MidiPlayerButton: View {
         /// Init the `View`
         /// - Parameters:
         ///   - chord: The chord definition
@@ -30,7 +31,7 @@ extension Views {
             HStack {
                 Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
                     Task {
-                        await Utils.MidiPlayer.shared.playChord(
+                        await ChordProviderMIDI.shared.playChord(
                             chord,
                             strum: chord.strum ?? coreSettings.chordStrum
                         )

@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+metronome.swift
-//  ChordProvider
+//  ChordProviderMIDI+playMetronome.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -9,12 +9,12 @@ import Foundation
 import ChordProviderCore
 import CFluidSynth
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
     // MARK: Metronome API
 
-    /// Start the metronome
-    func startMetronome() async {
+    /// Play the metronome
+    public func playMetronome() async {
         /// Wait for the first accent
         while !transport.isAccent {
             try? await Task.sleep(for: .milliseconds(1))
@@ -25,7 +25,7 @@ extension Utils.MidiPlayer {
     }
 
     /// Stop the metronome
-    func stopMetronome() {
+    public func stopMetronome() {
         playbackTasks.metronome?.cancel()
         playbackTasks.metronome = nil
     }

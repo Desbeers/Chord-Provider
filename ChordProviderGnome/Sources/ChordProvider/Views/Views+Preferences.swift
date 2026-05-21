@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 import CAdw
 
 extension Views {
@@ -143,7 +144,7 @@ extension Views {
                             "MIDI Instrument",
                             selection: $appState.editor.coreSettings.midiPreset.onSet({ preset in
                                 Task {
-                                    await Utils.MidiPlayer.shared.setProgram(preset: preset)
+                                    await ChordProviderMIDI.shared.setProgram(preset: preset)
                                 }
                             }
                             ),
@@ -171,7 +172,7 @@ extension Views {
                                         suffix: "Hz",
                                         value: $appState.editor.coreSettings.referenceFrequency.onSet({ value in
                                             Task {
-                                                await Utils.MidiPlayer.shared.setReferenceFrequency(value)
+                                                await ChordProviderMIDI.shared.setReferenceFrequency(value)
                                             }
                                         })
                                     )

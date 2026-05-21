@@ -10,7 +10,8 @@ var dependencies: [Package.Dependency] = [
             branch: "main",
             traits: ["exposeGeneratedAppearUpdateFunctions"],
     ),
-    .package(path: "../ChordProviderCore")
+    .package(path: "../ChordProviderCore"),
+    .package(path: "../ChordProviderMIDI")
 ]
 
 #if os(Linux)
@@ -53,7 +54,8 @@ let package = Package(
             name: "ChordProvider",
             dependencies: [
                 "SourceView",
-                "CFluidSynth",
+                "ChordProviderMIDI",
+                //"CFluidSynth",
                 .product(name: "Adwaita", package: "adwaita-swift-gnome-50"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore")
             ],
@@ -73,10 +75,6 @@ let package = Package(
         .systemLibrary(
             name: "CGtkSourceView",
             pkgConfig: "gtksourceview-5"
-        ),
-        .systemLibrary(
-            name: "CFluidSynth",
-            pkgConfig: "fluidsynth"
         )
     ]
 )

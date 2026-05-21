@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 
 extension GtkRender.TabSection {
 
@@ -59,7 +60,7 @@ extension GtkRender.TabSection {
                             monitorTabPlayer()
                         } else {
                             Task {
-                                await Utils.MidiPlayer.shared.stopTab()
+                                await ChordProviderMIDI.shared.stopTab()
                             }
                         }
                     }
@@ -86,11 +87,11 @@ extension GtkRender.TabSection {
                         /// Another grid or tab is started; uncheck the toggle button
                         playTabNotes = false
                     }
-                    if playTabNotes, columns != Utils.MidiPlayer.shared.snapshot.tabs {
+                    if playTabNotes, columns != ChordProviderMIDI.shared.snapshot.tabs {
                         /// The tab has changed; stop the player
                         playTabNotes = false
                         Task {
-                            await Utils.MidiPlayer.shared.stopTab()
+                            await ChordProviderMIDI.shared.stopTab()
                         }
                     }
                 }
@@ -110,9 +111,9 @@ extension GtkRender.TabSection {
                     Text("|")
                 case let .fret(display, fret):
                     Button("\(display)") {
-                        let note = Utils.MidiPlayer.PlaybackNote(
-                            string: 10,
-                            note: fret,
+                        let note = ChordProviderMIDI.PlaybackNote(
+                            stringID: 10,
+                            midiNote: fret,
                             articulation: .normal
                         )
                         playNotes([note])
@@ -122,9 +123,9 @@ extension GtkRender.TabSection {
                     .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
                 case let .transition(display, from, to, transition):
                     Button("\(display)") {
-                        let note = Utils.MidiPlayer.PlaybackNote(
-                            string: 10,
-                            note: from,
+                        let note = ChordProviderMIDI.PlaybackNote(
+                            stringID: 10,
+                            midiNote: from,
                             articulation: .transit(to: to, by: transition)
                         )
                         playNotes([note])
@@ -143,7 +144,7 @@ extension GtkRender.TabSection {
         /// - Note: This will cancel itself when the player is stopped
         private func monitorTabPlayer() {
             Idle(delay: .seconds(0.015)) {
-                let chordID = Utils.MidiPlayer.shared.snapshot.currentMidiID
+                let chordID = ChordProviderMIDI.shared.snapshot.currentMidiID
                 if chordID != currentPartID {
                     currentPartID = chordID
                 }
@@ -158,16 +159,16 @@ extension GtkRender.TabSection {
             // /// Capture the tab columns
             let columns = columns
             Task {
-                await Utils.MidiPlayer.shared.setTabNotes(columns)
-                await Utils.MidiPlayer.shared.startTab()
+                await ChordProviderMIDI.shared.setTabNotes(columns)
+                await ChordProviderMIDI.shared.startTab()
             }
         }
 
         /// Play single note from the tab
         /// - Note: A note can have a transition to another note
-        private func playNotes( _ notes: [Utils.MidiPlayer.PlaybackNote]) {
+        private func playNotes( _ notes: [ChordProviderMIDI.PlaybackNote]) {
             Task {
-                await Utils.MidiPlayer.shared.playNotes(notes, strum: nil)
+                await ChordProviderMIDI.shared.playNotes(notes, strum: nil)
             }
         }
     }

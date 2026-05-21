@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 
 extension GtkRender.GridSection {
 
@@ -63,7 +64,7 @@ extension GtkRender.GridSection {
                             monitorGridPlayer()
                         } else {
                             Task {
-                                await Utils.MidiPlayer.shared.stopGrid()
+                                await ChordProviderMIDI.shared.stopGrid()
                             }
                         }
                     }
@@ -87,11 +88,11 @@ extension GtkRender.GridSection {
                         /// Another grid is started; uncheck the toggle button
                         playGridChords = false
                     }
-                    if playGridChords, columns.flatMap(\.cells) != Utils.MidiPlayer.shared.snapshot.grids {
+                    if playGridChords, columns.flatMap(\.cells) != ChordProviderMIDI.shared.snapshot.grids {
                         /// The grid has changed; stop the player
                         playGridChords = false
                         Task {
-                            await Utils.MidiPlayer.shared.stopGrid()
+                            await ChordProviderMIDI.shared.stopGrid()
                         }
                     }
                 }
@@ -154,7 +155,7 @@ extension GtkRender.GridSection {
         /// - Note: This will cancel itself when the player is stopped
         private func monitorGridPlayer() {
             Idle(delay: .seconds(0.015)) {
-                let chord = Utils.MidiPlayer.shared.snapshot.currentMidiID
+                let chord = ChordProviderMIDI.shared.snapshot.currentMidiID
                 if chord != currentPartID {
                     currentPartID = chord
                 }
@@ -169,8 +170,8 @@ extension GtkRender.GridSection {
             /// Capture the grids
             let grids = columns.flatMap(\.cells)
             Task {
-                await Utils.MidiPlayer.shared.setGridChords(grids)
-                await Utils.MidiPlayer.shared.startGrid()
+                await ChordProviderMIDI.shared.setGridChords(grids)
+                await ChordProviderMIDI.shared.playGrid()
             }
         }
     }

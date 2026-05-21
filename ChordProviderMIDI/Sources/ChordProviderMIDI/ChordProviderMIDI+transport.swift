@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+transport.swift
-//  ChordProvider
+//  ChordProviderMIDI+transport.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -8,9 +8,9 @@
 import Foundation
 import ChordProviderCore
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
-    func startTransport() {
+    public func startTransport() {
         guard playbackTasks.transport == nil else { return }
         transport = TransportState()
         playbackTasks.transport = Task {
@@ -18,12 +18,10 @@ extension Utils.MidiPlayer {
         }
     }
 
-    func stopTransport() {
+    public func stopTransport() {
         guard playbackTasks.metronome == nil && playbackTasks.tab == nil && playbackTasks.grid == nil else {
-            print("Something else is playing")
             return
         }
-        print("Stop transport")
         playbackTasks.transport?.cancel()
         playbackTasks.transport = nil
     }

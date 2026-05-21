@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+playbackNote.swift
-//  ChordProvider
+//  ChordProviderMIDI+perform.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -9,9 +9,9 @@ import Foundation
 import CFluidSynth
 import ChordProviderCore
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
-    // MARK: Play a note
+    // MARK: Perform a note
 
     /// Perform a note
     /// - Parameters:

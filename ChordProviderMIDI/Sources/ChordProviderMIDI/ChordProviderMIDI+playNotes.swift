@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+notes.swift
-//  ChordProvider
+//  ChordProviderMIDI+playNotes.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -9,13 +9,13 @@ import Foundation
 import CFluidSynth
 import ChordProviderCore
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
     /// Play notes polyphonically
     /// - Parameters:
     ///   - notes: The notes to play
     ///   - preset: The MIDI preset
-    func playNotes(_ notes: [PlaybackNote], strum: Chord.Strum?) async {
+    public func playNotes(_ notes: [PlaybackNote], strum: Chord.Strum?) async {
         /// Get the playback settings for the strum
         /// - Note: If no strum is given, use the default settings
         let playbackSettings = strum?.playbackSettings ?? Chord.Strum.Playback()
@@ -38,7 +38,11 @@ extension Utils.MidiPlayer {
                     volume: volume
                 )
                 Task {
-                    await performNote(voice: voice, note: playbackNote.note, playbackSettings: playbackSettings)
+                    await performNote(
+                        voice: voice,
+                        note: playbackNote.midiNote,
+                        playbackSettings: playbackSettings
+                    )
                 }
             case let .transit(endNote, by):
                 let voice = setupActiveVoice(
@@ -50,7 +54,7 @@ extension Utils.MidiPlayer {
                         Task {
                             await performSlide(
                                 voice: voice,
-                                startNote: playbackNote.note,
+                                startNote: playbackNote.midiNote,
                                 endNote: endNote,
                                 playbackSettings: playbackSettings
                             )
@@ -59,7 +63,7 @@ extension Utils.MidiPlayer {
                         Task {
                             await performHammer(
                                 voice: voice,
-                                startNote: playbackNote.note,
+                                startNote: playbackNote.midiNote,
                                 endNote: endNote,
                                 playbackSettings: playbackSettings
                             )
@@ -77,11 +81,11 @@ extension Utils.MidiPlayer {
         volume: Int32
     ) -> ActiveVoice {
         let id = UUID()
-        var notes = [playbackNote.note]
+        var notes = [playbackNote.midiNote]
         if case let .transit(endNote, _) = playbackNote.articulation {
             notes.append(endNote)
         }
-        let channel = Int32(playbackNote.string)
+        let channel = Int32(playbackNote.stringID)
         /// Reset the channel
         fluid_synth_all_notes_off(synth, channel)
         fluid_synth_pitch_bend(synth, channel, 8192)
@@ -94,7 +98,7 @@ extension Utils.MidiPlayer {
             volume: volume
         )
         /// Store global for the next round of notes
-        activePlaybackIDs[playbackNote.string] = id
+        activePlaybackIDs[playbackNote.stringID] = id
         return voice
     }
 }

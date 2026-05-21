@@ -1,6 +1,6 @@
 //
-//  Utils+MidiPlayer+tab.swift
-//  ChordProvider
+//  ChordProviderMIDI+playTab.swift
+//  ChordProviderMIDI
 //
 //  © 2025 Nick Berendsen
 //
@@ -8,10 +8,10 @@
 import Foundation
 import ChordProviderCore
 
-extension Utils.MidiPlayer {
+extension ChordProviderMIDI {
 
-    /// Start the tab
-    func startTab() async {
+    /// Play the tab
+    public func startTab() async {
         guard let tabs = snapshot.tabs else {
             /// There are no tabs to play
             /// - Note: This should not happen...
@@ -31,7 +31,7 @@ extension Utils.MidiPlayer {
     }
 
     /// Stop the tab
-    func stopTab() {
+    public func stopTab() {
         setCurrentMidiID(-1)
         playbackTasks.tab?.cancel()
         playbackTasks.tab = nil
@@ -45,7 +45,7 @@ extension Utils.MidiPlayer {
         /// Loop the tabs until the task is canceled
         while !Task.isCancelled {
             for tab in tabs {
-                var notes: [Utils.MidiPlayer.PlaybackNote] = []
+                var notes: [ChordProviderMIDI.PlaybackNote] = []
                 let hasPlayableItem = tab.events.contains { $0.content.hasPlayableItem }
                 for (index, event) in tab.events.reversed().enumerated() {
                     if !Task.isCancelled {
@@ -57,9 +57,9 @@ extension Utils.MidiPlayer {
                         case .barLine:
                             break
                         case let .fret(_, fret):
-                            notes.append(.init(string: index, note: fret, articulation: .normal))
+                            notes.append(.init(stringID: index, midiNote: fret, articulation: .normal))
                         case let .transition(_, from, to, transition):
-                            notes.append(.init(string: index, note: from, articulation: .transit(to: to, by: transition)))
+                            notes.append(.init(stringID: index, midiNote: from, articulation: .transit(to: to, by: transition)))
                         }
                     }
                 }

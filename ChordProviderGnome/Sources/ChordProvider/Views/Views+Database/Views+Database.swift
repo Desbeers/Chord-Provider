@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 
 extension Views {
 
@@ -135,7 +136,7 @@ extension Views {
                                 ) { chord in
                                     if let chord {
                                         VStack {
-                                            MidiPlayer(chord: chord, coreSettings: appState.editor.coreSettings)
+                                            MidiPlayerButton(chord: chord, coreSettings: appState.editor.coreSettings)
                                             ChordDiagram(chord: chord, width: 120, coreSettings: appState.editor.coreSettings)
                                         }
                                     }

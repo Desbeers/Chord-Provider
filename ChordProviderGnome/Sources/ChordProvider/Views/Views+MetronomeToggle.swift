@@ -10,6 +10,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 
 extension Views {
 
@@ -23,10 +24,10 @@ extension Views {
             self._appState = appState
             Task {
                 if let tempo = metadata.tempo, let bpm = Int(tempo) {
-                    await Utils.MidiPlayer.shared.setMetronomeBPM(bpm)
-                    await Utils.MidiPlayer.shared.setMetronomeTimeSignature(metadata.time ?? "4/4")
+                    await ChordProviderMIDI.shared.setMetronomeBPM(bpm)
+                    await ChordProviderMIDI.shared.setMetronomeTimeSignature(metadata.time ?? "4/4")
                 } else {
-                    await Utils.MidiPlayer.shared.stopMetronome()
+                    await ChordProviderMIDI.shared.stopMetronome()
                 }
             }
         }
@@ -47,11 +48,11 @@ extension Views {
                             switch value {
                             case true:
                                 Task {
-                                    await Utils.MidiPlayer.shared.startMetronome()
+                                    await ChordProviderMIDI.shared.playMetronome()
                                 }
                             case false:
                                 Task {
-                                    await Utils.MidiPlayer.shared.stopMetronome()
+                                    await ChordProviderMIDI.shared.stopMetronome()
                                 }
                             }
                         })

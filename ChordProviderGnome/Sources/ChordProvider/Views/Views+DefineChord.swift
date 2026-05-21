@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
+import ChordProviderMIDI
 import CAdw
 
 extension Views {
@@ -151,7 +152,7 @@ extension Views {
                 HStack(spacing: 20) {
                     VStack {
                         let definition = getDefinition
-                        MidiPlayer(
+                        MidiPlayerButton(
                             chord: definition,
                             coreSettings: coreSettings
                         )
@@ -250,9 +251,13 @@ extension Views {
                 let chord = getDefinition
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
-                    let playbackNote = Utils.MidiPlayer.PlaybackNote(string: 10, note: note, articulation: .normal)
+                    let playbackNote = ChordProviderMIDI.PlaybackNote(
+                        stringID: 10, 
+                        midiNote: note, 
+                        articulation: .normal
+                    )
                     Task {
-                        await Utils.MidiPlayer.shared.playNotes([playbackNote], strum: nil)
+                        await ChordProviderMIDI.shared.playNotes([playbackNote], strum: nil)
                     }
                 }
             }
