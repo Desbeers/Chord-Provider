@@ -46,9 +46,9 @@ extension Song.Section.Line.Tab {
         /// A barLine
         case barLine
         /// A fret
-        case fret(Int)
+        case fret(display: String, note:Int)
         /// A note transition
-        case transition(from: Int, to: Int, transition: ChordPro.Tab.NoteTransition)
+        case transition(display: String, from: Int, to: Int, transition: ChordPro.Tab.NoteTransition)
 
         /// Bool if the content has a transition
         public var hasTransition: Bool {

@@ -27,25 +27,21 @@ extension Utils.MidiPlayer {
 
     /// Stop the tab
     func stopTab() {
+        currentMidiID = -1
         tabTask?.cancel()
         tabTask = nil
     }
 
-    /// Play the chords of the grid
+    /// Play the notes of the tab
     private func playTab() async {
         if let tabs = self.tabs {
             while !Task.isCancelled {
                 for tab in tabs {
-                    let baseMidi = tab.instrument.tuning.reversed().map(\.midi)
-                    let stringOffset = max(0, tab.events.count - tab.instrument.strings.count)
                     let tempo = 60.0 / (Double(metronomeBPM)) / 2
-                    var notes: [Int] = []
-                    var slides: [Int] = []
-                    let hasTransition = tab.events.map(\.content).contains(where: \.hasTransition)
+                    var notes: [Utils.MidiPlayer.PlaybackNote] = []
                     let hasPlayableItem = tab.events.map(\.content).contains(where: \.hasPlayableItem)
-                    for event in tab.events {
-                        let midi = baseMidi[safe: event.line - stringOffset]
-                        if !Task.isCancelled, let midi {
+                    for (index, event) in tab.events.reversed().enumerated() {
+                        if !Task.isCancelled {
                             switch event.content {
                             case .rest:
                                 break
@@ -53,37 +49,24 @@ extension Utils.MidiPlayer {
                                 break
                             case .barLine:
                                 break
-                            case .fret(let fret):
-                                notes.append((fret + midi))
-                                if hasTransition {
-                                    /// There is a transition in the column, keep this note when playing the slide
-                                    /// - Note: Sounds very fake...
-                                    slides.append((fret + midi))
-                                }
-                            case let .transition(from, to, _):
-                                notes.append((from + midi))
-                                slides.append((to + midi))
+                            case let .fret(_, fret):
+                                notes.append(.init(string: index, note: fret, articulation: .normal))
+                            case let .transition(_, from, to, transition):
+                                notes.append(.init(string: index, note: from, articulation: .transit(to: to, by: transition)))
                             }
                         }
                     }
-                    /// Play first note
+                    /// Play the notes
                     if !notes.isEmpty {
+                        /// Capture the notes
                         let notes = notes
                         Task {
-                            await Utils.MidiPlayer.shared.playNotes(notes, preset: preset, strum: .down)
+                            await Utils.MidiPlayer.shared.playNotes(notes, strum: .down)
                         }
                         self.currentMidiID = tab.columnID
                     }
                     /// Wait after playing a note or a rest
                     if hasPlayableItem {
-                        try? await Task.sleep(for: .seconds(tempo))
-                    }
-                    /// Play optional slide
-                    if !slides.isEmpty {
-                        let notes = slides
-                        Task {
-                            await Utils.MidiPlayer.shared.playNotes(notes, preset: preset, strum: .down)
-                        }
                         try? await Task.sleep(for: .seconds(tempo))
                     }
                 }

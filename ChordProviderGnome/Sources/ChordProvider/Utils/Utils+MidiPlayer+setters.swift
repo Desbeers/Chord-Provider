@@ -11,6 +11,30 @@ import ChordProviderCore
 
 extension Utils.MidiPlayer {
 
+    /// Set the program
+    /// - Parameter preset: The MIDI preset
+    func setProgram(preset: MidiUtils.Preset) {
+        for channel in (0...10) {
+            fluid_synth_program_select(
+                synth,
+                Int32(channel),
+                soundFontID,
+                0,
+                Int32(preset.rawValue)
+            )
+        }
+    }
+
+    /// Reset all channels
+    /// - Note: This will stop any note that is playing
+    func resetChannels() {
+        for channel in activePlaybackIDs.keys {
+            fluid_synth_all_notes_off(synth, Int32(channel))
+            fluid_synth_pitch_bend(synth, Int32(channel), 8192)
+        }
+        activePlaybackIDs.removeAll()
+    }
+
     /// Set the metronome speed
     func setMetronomeBPM(_ bpm: Int) {
         metronomeBPM = max(20, min(bpm, 300))
@@ -98,14 +122,6 @@ extension Utils.MidiPlayer {
     /// - Parameter grids: The grid section
     func setTabNotes(tabColumns: [Song.Section.Line.Tab]) {
         self.tabs = tabColumns
-    }
-}
-
-extension Utils.MidiPlayer {
-
-    /// Set the MIDI preset for the player
-    func setPreset(_ preset: MidiUtils.Preset) {
-        self.preset = preset
     }
 }
 

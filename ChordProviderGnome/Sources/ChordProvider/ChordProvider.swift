@@ -68,7 +68,7 @@ import CAdw
                 let preset = appState.editor.coreSettings.midiPreset
                 Task {
                     await Utils.MidiPlayer.shared.setReferenceFrequency(referenceFrequency)
-                    await Utils.MidiPlayer.shared.setPreset(preset)
+                    await Utils.MidiPlayer.shared.setProgram(preset: preset)
                 }
                 /// Init the css style
                 appState.setStyle()

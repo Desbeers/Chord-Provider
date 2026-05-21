@@ -32,7 +32,6 @@ extension Views {
                     Task {
                         await Utils.MidiPlayer.shared.playChord(
                             chord,
-                            preset: coreSettings.midiPreset,
                             strum: chord.strum ?? coreSettings.chordStrum
                         )
                     }

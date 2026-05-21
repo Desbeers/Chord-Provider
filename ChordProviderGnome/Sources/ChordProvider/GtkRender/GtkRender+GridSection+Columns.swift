@@ -62,9 +62,6 @@ extension GtkRender.GridSection {
                             /// Monitor the grid player
                             monitorGridPlayer()
                         } else {
-                            Idle {
-                                currentPartID = -1
-                            }
                             Task {
                                 await Utils.MidiPlayer.shared.stopGrid()
                             }
@@ -87,14 +84,12 @@ extension GtkRender.GridSection {
             .onUpdate {
                 Idle {
                     if playGridChords && appState.scene.midiID != gridID {
-                        /// Another grid is started; uncheck the toggle button and reset current part
+                        /// Another grid is started; uncheck the toggle button
                         playGridChords = false
-                        currentPartID = -1
                     }
                     if playGridChords, columns.flatMap(\.cells) != Utils.MidiPlayer.shared.getCurrentGrid {
-                        /// The grid has changed; stop the player and reset current part
+                        /// The grid has changed; stop the player
                         playGridChords = false
-                        currentPartID = -1
                         Task {
                             await Utils.MidiPlayer.shared.stopGrid()
                         }

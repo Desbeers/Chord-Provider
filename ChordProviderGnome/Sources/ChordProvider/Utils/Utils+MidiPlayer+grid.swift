@@ -27,6 +27,7 @@ extension Utils.MidiPlayer {
 
     /// Stop the grid
     func stopGrid() {
+        currentMidiID = -1
         gridTask?.cancel()
         gridTask = nil
     }
@@ -51,7 +52,7 @@ extension Utils.MidiPlayer {
                 if !Task.isCancelled, let chord, chord.definition.knownChord, chord.definition.strum != .noStrum {
                     self.currentMidiID = part.id
                     Task {
-                        await Utils.MidiPlayer.shared.playChord(chord.definition, preset: preset, strum: chord.definition.strum)
+                        await Utils.MidiPlayer.shared.playChord(chord.definition, strum: chord.definition.strum)
                     }
                     try? await Task.sleep(for: .seconds(tempo))
                 } else if !Task.isCancelled {

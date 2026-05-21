@@ -34,10 +34,7 @@ extension Utils {
 
         // MARK: MIDI channels
 
-        /// The MIDI channel allocator
-        var nextChannel: Int32 = 0
-        /// The maximum MIDI channels
-        let maxChannels: Int32 = 15
+        var activePlaybackIDs: [Int: UUID] = [:]
 
         // MARK: Metronome state
 
@@ -53,20 +50,12 @@ extension Utils {
         /// Grid task
         var gridTask: Task<Void, Never>?
         nonisolated(unsafe) var grids: [Song.Section.Line.GridCell]?
-        var preset: MidiUtils.Preset = .acousticNylonGuitar
-        
         
         nonisolated(unsafe) var currentMidiID: Int = -1
 
         /// Tab task
         var tabTask: Task<Void, Never>?
         nonisolated(unsafe) var tabs: [Song.Section.Line.Tab]?
-
-        // MARK: Play Token
-
-        /// Current play token
-        /// - Note: Used for cancelling a chord when we start a new one
-        var playToken: UUID = UUID()
 
         nonisolated var getCurrentMidiID: Int {
             currentMidiID

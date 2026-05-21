@@ -19,6 +19,7 @@ extension ChordPro {
 extension ChordPro.Tab {
 
     public enum NoteTransition: String, Sendable, Codable {
+        case slide
         case slideUp
         case slideDown
         case hammerOn
@@ -26,6 +27,7 @@ extension ChordPro.Tab {
 
         public var display: String {
             switch self {
+            case .slide: "s"
             case .slideUp: "/"
             case .slideDown: "\\"
             case .hammerOn: "h"
@@ -35,6 +37,7 @@ extension ChordPro.Tab {
 
         public static var characterDictionary: [String: Self] {
             [
+                "s": .slide,
                 "/": .slideUp,
                 "\\": .slideDown,
                 "h": .hammerOn,

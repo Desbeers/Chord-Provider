@@ -36,6 +36,8 @@ extension Utils {
         case longStuff = "Long Stuff"
         /// Grid
         case grid = "Grid"
+        /// Tab
+        case tab = "Tab"
         /// Difficult grid
         case difficultGrid = "Difficult Grid"
         /// Inline Chords
@@ -56,6 +58,7 @@ extension Utils {
             .sourceComments,
             .longStuff,
             .grid,
+            .tab,
             .difficultGrid,
             .inlineChords,
             .mollyMalone

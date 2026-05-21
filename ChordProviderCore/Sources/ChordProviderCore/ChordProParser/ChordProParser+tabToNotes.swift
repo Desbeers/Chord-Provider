@@ -54,6 +54,8 @@ extension ChordProParser {
         lines: [String],
         instrument: Instrument
     ) -> [Song.Section.Line.Tab] {
+        let baseMidi = instrument.tuning.reversed().map(\.midi)
+        let stringOffset = max(0, lines.count - instrument.strings.count)
         /// Chop the tab lines into a tab matrix
         let tabMatrix: [[Character]] = lines.compactMap { line in
             Array(line)
@@ -72,12 +74,6 @@ extension ChordProParser {
         /// Process all columns
         while visualColumnID < tabWidth {
             /// Create empty events with text
-            // var events = tabMatrix.enumerated().map { line, _ in
-            //     Song.Section.Line.Tab.Event(
-            //         line: line,
-            //         content: .text(" ")
-            //     )
-            // }
             var events = tabMatrix.indices.map { lineID in
                 Song.Section.Line.Tab.Event(
                     line: lineID,
@@ -92,6 +88,7 @@ extension ChordProParser {
                 guard visualColumnID < lineCharacters.count else {
                     continue
                 }
+                let midi = baseMidi[safe: lineID - stringOffset]
                 /// Get the character in the currently visible column
                 let character = lineCharacters[visualColumnID]
                 /// Check the content of the character
@@ -108,7 +105,7 @@ extension ChordProParser {
                         first.append(lineCharacters[visualColumnIndex])
                         visualColumnIndex += 1
                     }
-                    guard let fret = Int(first) else {
+                    guard let fret = Int(first), let midi else {
                         continue
                     }
                     usedColumns = max(
@@ -117,7 +114,7 @@ extension ChordProParser {
                     )
                     /// Set the content
                     /// - Note: This can be overridden by a note transition
-                    var content: Song.Section.Line.Tab.Content = .fret(fret)
+                    var content: Song.Section.Line.Tab.Content = .fret(display: "\(fret)", note: fret + midi)
 
                     // MARK: Optional transition
 
@@ -135,8 +132,9 @@ extension ChordProParser {
                             if let secondFret = Int(second) {
                                 /// Set the content as a transition
                                 content = .transition(
-                                    from: fret,
-                                    to: secondFret,
+                                    display: "\(fret)\(transition.display)\(secondFret)",
+                                    from: fret + midi,
+                                    to: secondFret + midi,
                                     transition: transition
                                 )
                             }

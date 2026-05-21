@@ -250,9 +250,9 @@ extension Views {
                 let chord = getDefinition
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
-                    let preset = coreSettings.midiPreset
+                    let playbackNote = Utils.MidiPlayer.PlaybackNote(string: 10, note: note, articulation: .normal)
                     Task {
-                        await Utils.MidiPlayer.shared.playNotes([note], preset: preset, strum: nil)
+                        await Utils.MidiPlayer.shared.playNotes([playbackNote], strum: nil)
                     }
                 }
             }

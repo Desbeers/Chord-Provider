@@ -141,9 +141,9 @@ extension Views {
                     .group("Options for the MIDI player") {
                         ComboRow(
                             "MIDI Instrument",
-                            selection: $appState.editor.coreSettings.midiPreset.onSet({ value in
+                            selection: $appState.editor.coreSettings.midiPreset.onSet({ preset in
                                 Task {
-                                    await Utils.MidiPlayer.shared.setPreset(value)
+                                    await Utils.MidiPlayer.shared.setProgram(preset: preset)
                                 }
                             }
                             ),

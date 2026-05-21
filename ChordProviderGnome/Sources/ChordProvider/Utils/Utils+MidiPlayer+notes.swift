@@ -11,35 +11,11 @@ import ChordProviderCore
 
 extension Utils.MidiPlayer {
 
-    func playChord(_ chord: ChordDefinition, preset: MidiUtils.Preset, strum: Chord.Strum?) async {
-        var notes = chord.midiNotes
-        if let strum, Chord.Strum.upStrums.contains(strum) {
-            notes.reverse()
-        }
-        await playNotes(notes, preset: preset, strum: strum)
-    }
-
     /// Play notes polyphonically
     /// - Parameters:
     ///   - notes: The notes to play
     ///   - preset: The MIDI preset
-    func playNotes(_ notes: [Int], preset: MidiUtils.Preset, strum: Chord.Strum?) async {
-        guard let synth, soundFontID >= 0 else { return }
-        /// Cancel previous chord
-        playToken = UUID()
-        let myToken = playToken
-        /// Get a MIDI channel
-        let channel = allocateChannel()
-        /// Get the program ID
-        let program = Int32(preset.rawValue)
-        /// Set the instrument
-        fluid_synth_program_select(
-            synth,
-            channel,
-            soundFontID,
-            0,
-            program
-        )
+    func playNotes(_ notes: [PlaybackNote], strum: Chord.Strum?) async {
         /// Get the playback settings for the strum
         /// - Note: If no strum is given, use the default settings
         let playbackSettings = strum?.playbackSettings ?? Chord.Strum.Playback()
@@ -50,60 +26,75 @@ extension Utils.MidiPlayer {
             /// Reduce the notes volume a bit if the metronome is playing so you can here the metronome better
             volume -= 25
         }
-        startVolume = volume
-        fluid_synth_cc(synth, channel, 11, startVolume)
 
-        // MARK: Play the chord
+        // MARK: Play the notes
 
         /// Strum notes
-        for note in notes {
-            fluid_synth_noteon(synth, channel, Int32(note), 110)
+        for playbackNote in notes {
+            switch playbackNote.articulation {
+            case .normal:
+                let voice = setupActiveVoice(
+                    playbackNote: playbackNote,
+                    volume: volume
+                )
+                Task {
+                    await performNote(voice: voice, note: playbackNote.note, playbackSettings: playbackSettings)
+                }
+            case let .transit(endNote, by):
+                let voice = setupActiveVoice(
+                    playbackNote: playbackNote,
+                    volume: volume                    
+                )
+                switch by {
+                    case .slide, .slideDown, .slideUp:
+                        Task {
+                            await performSlide(
+                                voice: voice,
+                                startNote: playbackNote.note,
+                                endNote: endNote,
+                                playbackSettings: playbackSettings
+                            )
+                        }
+                    case .hammerOn, .pullOff:
+                        Task {
+                            await performHammer(
+                                voice: voice,
+                                startNote: playbackNote.note,
+                                endNote: endNote,
+                                playbackSettings: playbackSettings
+                            )
+                        }                  
+                }
+            }
             try? await Task.sleep(for: .seconds(playbackSettings.spread))
-        }
-
-        /// Sustain notes (cancellable)
-        let sustainTime: Double = playbackSettings.duration
-        let sustainStep: Double = 0.1
-
-        var waited: Double = 0
-        /// Sustain
-        while waited < sustainTime {
-            guard myToken == playToken else { break }
-            try? await Task.sleep(for: .seconds(sustainStep))
-            waited += sustainStep
-        }
-
-        /// Fade out notes (cancellable)
-        let fadeSteps = 60
-        let fadeInterval: Double = playbackSettings.fadeOut
-        /// Minimum gain (-34 dB)
-        let minGain: Double = 0.02
-        //// Fade curve (1.0 = pure log, >1 = faster drop)
-        let curve: Double = 4.0
-        /// Fade out
-        for step in 0..<fadeSteps {
-            guard myToken == playToken else { break }
-            let time = Double(step) / Double(fadeSteps - 1)
-            let gain = pow(minGain, pow(time, curve))
-            let volume = Int32(Double(startVolume) * gain)
-
-            fluid_synth_cc(synth, channel, 11, volume)
-            try? await Task.sleep(for: .seconds(fadeInterval))
-        }
-
-        /// Release notes
-        for note in notes {
-            fluid_synth_noteoff(synth, channel, Int32(note))
         }
     }
 
-    // MARK: Channel management
-
-    /// AllocateChannel MIDI channel
-    /// - Returns: A new MIDI channel
-    private func allocateChannel() -> Int32 {
-        let channel = nextChannel
-        nextChannel = (nextChannel + 1) % maxChannels
-        return channel
+    /// Setup an active voice
+    /// - Returns: A new active voice
+    private func setupActiveVoice(
+        playbackNote: PlaybackNote,
+        volume: Int32
+    ) -> ActiveVoice {
+        let id = UUID()
+        var notes = [playbackNote.note]
+        if case let .transit(endNote, _) = playbackNote.articulation {
+            notes.append(endNote)
+        }
+        let channel = Int32(playbackNote.string)
+        /// Reset the channel
+        fluid_synth_all_notes_off(synth, channel)
+        fluid_synth_pitch_bend(synth, channel, 8192)
+        /// Set the volume
+        fluid_synth_cc(synth, channel, 11, volume)
+        let voice = ActiveVoice(
+            id: id,
+            notes: notes.map { Int32($0) },
+            channel: channel,
+            volume: volume
+        )
+        /// Store global for the next round of notes
+        activePlaybackIDs[playbackNote.string] = id
+        return voice
     }
 }

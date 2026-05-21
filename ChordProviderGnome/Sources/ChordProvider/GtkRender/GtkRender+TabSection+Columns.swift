@@ -58,9 +58,6 @@ extension GtkRender.TabSection {
                             /// Monitor the tab player
                             monitorTabPlayer()
                         } else {
-                            Idle {
-                                currentPartID = -1
-                            }
                             Task {
                                 await Utils.MidiPlayer.shared.stopTab()
                             }
@@ -86,13 +83,11 @@ extension GtkRender.TabSection {
             .onUpdate {
                 Idle {
                     if playTabNotes && appState.scene.midiID != tabID {
-                        /// Another grid or tab is started; uncheck the toggle button and reset current part
+                        /// Another grid or tab is started; uncheck the toggle button
                         playTabNotes = false
-                        currentPartID = -1
                     }
                     if playTabNotes, columns != Utils.MidiPlayer.shared.getCurrentTab {
-                        /// The tab has changed; restart the player
-                        currentPartID = -1
+                        /// The tab has changed; stop the player
                         playTabNotes = false
                         Task {
                             await Utils.MidiPlayer.shared.stopTab()
@@ -113,12 +108,30 @@ extension GtkRender.TabSection {
                         .halign(.start)
                 case .barLine:
                     Text("|")
-                case .fret(let fret):
-                    Text("\(fret)")
-                        .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
-                case let .transition(from, to, transition):
-                    Text("\(from)\(transition.display)\(to)")
-                        .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                case let .fret(display, fret):
+                    Button("\(display)") {
+                        let note = Utils.MidiPlayer.PlaybackNote(
+                            string: 10,
+                            note: fret,
+                            articulation: .normal
+                        )
+                        playNotes([note])
+                    }
+                    .flat()
+                    .style(.midiButton)
+                    .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                case let .transition(display, from, to, transition):
+                    Button("\(display)") {
+                        let note = Utils.MidiPlayer.PlaybackNote(
+                            string: 10,
+                            note: from,
+                            articulation: .transit(to: to, by: transition)
+                        )
+                        playNotes([note])
+                    }
+                    .flat()
+                    .style(.midiButton)
+                    .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
                 }
             }
             .style(.sectionTab)
@@ -149,6 +162,14 @@ extension GtkRender.TabSection {
                     tabColumns: columns
                 )
                 await Utils.MidiPlayer.shared.startTab()
+            }
+        }
+
+        /// Play single note from the tab
+        /// - Note: A note can have a transition to another note
+        private func playNotes( _ notes: [Utils.MidiPlayer.PlaybackNote]) {
+            Task {
+                await Utils.MidiPlayer.shared.playNotes(notes, strum: nil)
             }
         }
     }
