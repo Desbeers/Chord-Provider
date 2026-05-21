@@ -6,13 +6,15 @@
 
 ## ChordPro
 
-[ChordPro](https://www.chordpro.org) is an open standard text format for songs with chords and lyrics. It also has an [official reference implementation](https://www.chordpro.org/chordpro/chordpro-directives/).
+[ChordPro](https://www.chordpro.org) is an open standard text format for songs with chords and lyrics.
+
+It also has an [official reference implementation](https://www.chordpro.org/chordpro/chordpro-directives/).
 
 **Chord Provider** is my hobby project, written mainly for my own needs as a musician and programmer.
 
 ## Chord Provider
 
-**Chord Provider** is written in Swift and uses [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift) for the GUI.
+**Chord Provider** is written in Swift and uses [Adwaita for Swift](https://git.aparoksha.dev/aparoksha/adwaita-swift) for the GUI.
 
 ![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
 
@@ -39,7 +41,7 @@ In 2016 I fell in love with an *Olympic White* Telecaster. The icon shape and co
 
 The recommended way to build **Chord Provider** is as a Flatpak application.
 
-Clone the repository and build it with [Gnome Builder](https://apps.gnome.org/en-GB/Builder/).
+Clone the repository and build it with [GNOME Builder](https://apps.gnome.org/en-GB/Builder/).
 
 ## macOS
 
@@ -53,21 +55,19 @@ The Linux version is now the primary project.
 
 Not all chords in the database are correct, especially some of the more advanced chords. Contributions are welcome.
 
-This is also not a complete implementation of the full ChordPro standard. If you need full compatibility, the [official ChordPro implementation](https://www.chordpro.org/) may suit you better.
+This is also not a complete implementation of the full ChordPro standard.
+
+If you need full compatibility, the [official ChordPro implementation](https://www.chordpro.org/) may suit you better.
 
 I also contributed code to the official [ChordPro Open Source project](https://github.com/ChordPro/chordpro).
 
 ## Thanks
 
-### Libraries and projects
+### Dependencies
 
-- [adwaita-swift](https://git.aparoksha.dev/aparoksha/adwaita-swift)
-- [Swifty Chords](https://github.com/BeauNouvelle/SwiftyGuitarChords)
-- [SongPro for Swift](https://github.com/SongProOrg/songpro-swift)
-- [Conscriptor](https://github.com/dbarsamian/conscriptor)
-- [PdfBuilder](https://github.com/atrbx5/PdfBuilder)
-- [HighlightedTextEditor](https://github.com/kyle-n/HighlightedTextEditor)
-- [LNTextView](https://github.com/JonWorms/LNTextView)
+- [Adwaita for Swift](https://git.aparoksha.dev/aparoksha/adwaita-swift) for the GUI
+- [GTKSourceView](https://gitlab.gnome.org/GNOME/gtksourceview) for the editor
+- [FluidSynth](https://github.com/FluidSynth/fluidsynth) for playing MIDI
 
 ### Swift resources
 
@@ -83,6 +83,6 @@ Hopefully somebody can learn something from this project as well.
 
 I originally started learning Swift for macOS development and stayed with the language because I genuinely enjoy using it.
 
-I moved away from Apple platforms, but kept Swift. The language itself was never really the problem.
+I moved away from Apple platforms, but kept using Swift. The language itself was never really the problem.
 
 And yes, my very first Swift course used Taylor Swift songs in many code examples, so that is how I accidentally learned about Taylor Swift and became a *real* Swifty :-D
