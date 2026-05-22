@@ -103,9 +103,9 @@ extension Song.Section {
                 case let .lyric(lyric):
                     switch lyric.chordSlot {
                     case let .chord(definition, textPart):
-                        appendPart(plain: definition.display, output: textPart.display)
+                        appendPart(plain: "'\(definition.display)' ", output: "'<b>\(textPart.display)</b>' ")
                     case let .text(textPart):
-                        appendPart(plain: textPart.text, output: textPart.display)
+                        appendPart(plain: "'\(textPart.text)' ", output: "'<b>\(textPart.display)</b>' ")
                     case .empty:
                         break
                     }

@@ -116,7 +116,7 @@ There is basic support for images.
 {start_of_verse label="Custom Chords"}
 You cannot s[E]ee it in the output, [B]but I just
 redefined my favorite [G7]G7 Chord!
-{comment: Define chords to your liking; the diagram is on the right.}
+{comment: Define chords to your liking; the [G7] diagram is on the right.}
 {end_of_verse}
 
 {start_of_textblock}
