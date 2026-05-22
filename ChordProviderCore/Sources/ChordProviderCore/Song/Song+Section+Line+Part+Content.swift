@@ -71,7 +71,13 @@ extension Song.Section.Line.Part {
         }
         /// Bool if a lyric part has a chord
         public var lyricHasChord: Bool {
-            if case .lyric(let content) = self, content.chordSlot != .empty { true } else { false }
+            if case .lyric(let content) = self,
+            content.chordSlot != .empty { true } else { false }
+        }
+        /// Bool if a lyric part has text
+        public var lyricHasText: Bool {
+            if case .lyric(let content) = self,
+            !content.display.trimmingCharacters(in: .whitespaces).isEmpty { true } else { false }
         }
         /// Bool if the content is in the margin of a grid
         public var isInMargin: Bool {

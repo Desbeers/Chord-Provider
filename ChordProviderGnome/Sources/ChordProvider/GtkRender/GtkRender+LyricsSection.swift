@@ -31,6 +31,8 @@ extension GtkRender {
                         } else if let parts = line.parts {
                             PartsView(
                                 parts: parts,
+                                lineHasLyrics: line.hasLyrics,
+                                lineHasChords: line.hasChords,
                                 coreSettings: coreSettings
                             )
                         }

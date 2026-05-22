@@ -149,6 +149,18 @@ extension Song.Section {
             }
         }
 
+        /// Bool if the line has lyrics
+        public var hasLyrics: Bool {
+            let result = parts?.compactMap(\.content.lyricHasText) ?? [false]
+            return result.contains(true)
+        }
+
+        /// Bool if the line has chords
+        public var hasChords: Bool {
+            let result = parts?.compactMap(\.content.lyricHasChord) ?? [false]
+            return result.contains(true)
+        }
+
         // MARK: Mutating functions
 
         /// Add a single warning to the set of warnings

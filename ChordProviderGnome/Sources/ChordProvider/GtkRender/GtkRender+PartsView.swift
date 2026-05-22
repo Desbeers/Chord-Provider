@@ -15,6 +15,10 @@ extension GtkRender {
     struct PartsView: View {
         /// The parts of the song line
         let parts: [Song.Section.Line.Part]
+        /// Bool if the line has lyrics
+        let lineHasLyrics: Bool
+        /// Bool if the line has chords
+        let lineHasChords: Bool
         /// The core settings
         let coreSettings: ChordProviderSettings
         /// The body of the `View`
@@ -23,29 +27,34 @@ extension GtkRender {
                 switch part.content {
                 case let .lyric(lyric):
                     Box {
-                        Box {
-                            switch lyric.chordSlot {
-                            case .chord:
-                                /// Show the chord name with a toggle to open its diagram
-                                GtkRender.SingleChord(part: part, coreSettings: coreSettings)
-                                    .style(part.dimmed ? .dimmed : .none)
-                            case let .text(markup):
-                                /// Show the text in the chord slot
-                                Text(markup.display)
-                                    .useMarkup()
-                            case .empty:
-                                /// Fill the slot or else the lyric will move up
-                                Text(" ")
+                        if lineHasChords {
+                            Box {
+                                switch lyric.chordSlot {
+                                case let .chord(_, textPart):
+                                    /// Show the chord name with a toggle to open its diagram
+                                    GtkRender.SingleChord(part: part, coreSettings: coreSettings)
+                                        .style(part.dimmed ? .dimmed : .none)
+                                        .padding(lyric.display.count <  textPart.display.count ? 6 : 0, .trailing)
+                                case let .text(markup):
+                                    /// Show the text in the chord slot
+                                    Text(markup.display)
+                                        .useMarkup()
+                                case .empty:
+                                    /// Fill the slot or else the lyric will move up
+                                    Text(" ")
+                                }
                             }
-                        }
-                        .halign(.start)
-                        .style(.chord)
-                        Text(lyric.display)
-                            .useMarkup()
-                            .style(.standard)
                             .halign(.start)
+                            .style(.chord)
+                        }
+                        if lineHasLyrics {
+                            Text(lyric.display)
+                                .useMarkup()
+                                .style(.standard)
+                                .halign(.start)
+                        }
                     }
-                    .homogeneous()
+                    .homogeneous(lineHasLyrics && lineHasChords)
                 default:
                     /// Here we only render lyrics parts, nothing else
                     Views.Empty()
