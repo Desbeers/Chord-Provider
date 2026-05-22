@@ -12,7 +12,7 @@ extension ChordPro.Directive {
     /// All the (optional) attributes for a directive
     public var attributes: [ChordPro.Directive.FormattingAttribute] {
         switch self {
-        case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge:
+        case .startOfVerse, .startOfChorus, .startOfTab, .startOfGrid, .startOfBridge, .startOfCustomEnvironment:
             [.label]
         case .startOfTextblock:
             [.label, .align, .flush]

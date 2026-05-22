@@ -32,7 +32,7 @@ extension ChordPro.Directive {
             /// - Note: The chorus can have an optional label
             ("{\(label(.chorus))", "}")
         default:
-            ("{\(self.rawValue.long) ", "}")
+            ("{\(self.source.long) ", "}")
         }
     }
 
@@ -40,29 +40,7 @@ extension ChordPro.Directive {
     /// - Parameter directive: The ``ChordPro/Directive``
     /// - Returns: The raw value as `String`
     func label(_ directive: ChordPro.Directive) -> String {
-        directive.rawValue.long
-    }
-
-    /// The kind of directive (block, inline or optional label)
-    public var kind: Kind {
-        switch self {
-        case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .define:
-            return .block
-        case .chorus:
-            return .optionalLabel
-        default:
-            return .inline
-        }
-    }
-
-    /// The kind of directive (block, inline or optional label)
-    public enum Kind {
-        /// The directive is wrapped around text; e.g. **{start_of_chorus}[G7]Lalala!{end_of_chorus}**
-        case block
-        /// The directive is inline, e.g. **{comment Hello World!}**
-        case inline
-        /// The directive can have an optional label; e.g.**{chorus Repeat}** or just **{chorus}**
-        case optionalLabel
+        directive.source.long
     }
 }
 

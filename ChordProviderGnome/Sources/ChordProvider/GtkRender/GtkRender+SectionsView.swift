@@ -18,7 +18,7 @@ extension GtkRender {
         init(appState: Binding<AppState>) {
             /// Filter viewable sections
             self.sections = appState.wrappedValue.editor.song.sections.filter {
-                ChordPro.Environment.content.contains($0.environment)
+                $0.environment.hasContent
             }
             self._appState = appState
         }
@@ -47,7 +47,7 @@ extension GtkRender {
         @ViewBuilder private func sectionPart(_ section: Song.Section) -> Body {
             let maxLenght = appState.editor.song.metadata.longestLineLenght
             switch section.environment {
-            case .verse, .bridge, .chorus:
+            case .verse, .bridge, .chorus, .custom:
                 SectionHeader(section: section)
                 LyricsSection(section: section, coreSettings: appState.editor.coreSettings, maxLenght: maxLenght)
             case .textblock:

@@ -35,7 +35,7 @@ extension Views.Debug {
                             ForEach(appState.editor.song.sections) { section in
                                 let content = try? JSONUtils.encode(section)
                                 sectionPart(
-                                    row: ExpanderRow().title("Section <b>\(section.environment.rawValue)</b>").rows {
+                                    row: ExpanderRow().title("Section <b>\(section.environment)</b>").rows {
                                         sourceView(content)
                                     }
                                 )

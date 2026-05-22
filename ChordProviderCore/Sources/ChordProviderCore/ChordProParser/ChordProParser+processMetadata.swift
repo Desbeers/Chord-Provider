@@ -24,12 +24,12 @@ extension ChordProParser {
         song: inout Song
     ) {
         /// Check if the directive is already defined and add a warning if it should only be set once
-        if song.metadata.definedMetadata.contains(directive.rawValue.long),
+        if song.metadata.definedMetadata.contains(directive.source.long),
             ChordPro.Directive.singleDirectives.contains(directive) {
             currentSection.addWarning("Metadata <b>\(directive.details.label)</b> is redefined; previous one will be ignored", level: .error)
         } else if ChordPro.Directive.singleDirectives.contains(directive) {
             /// Set this metadata as defined
-            song.metadata.definedMetadata.insert(directive.rawValue.long)
+            song.metadata.definedMetadata.insert(directive.source.long)
         }
         /// Get the label; fallback to the optional label but give a warning
         let label = arguments[.plain] ?? arguments[.label]

@@ -39,7 +39,7 @@ extension Views {
                             ForEach(ChordPro.Directive.metadataDirectives) { directive in
                                 addInsert(directive: directive)
                                     .insensitive(
-                                        appState.editor.song.metadata.definedMetadata.contains(directive.rawValue.long)
+                                        appState.editor.song.metadata.definedMetadata.contains(directive.source.long)
                                     )
                             }
                         }

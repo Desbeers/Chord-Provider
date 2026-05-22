@@ -13,13 +13,20 @@ extension ChordProParser {
     /// - Parameter directive: The directive as string
     /// - Returns: The optional directive with an optional warning if a 'short' directive is found
     static func getDirective(_ directive: String) -> (directive: ChordPro.Directive, short: Bool)? {
-        if let longDirective = ChordPro.Directive.allCases.first(where: { $0.rawValue.long == directive }) {
+        if let longDirective = ChordPro.Directive.allCases.first(where: { $0.source.long == directive }) {
             return (longDirective, false)
-        } else if let shortDirective = ChordPro.Directive.allCases.first(where: { $0.rawValue.short == directive }) {
+        } else if let shortDirective = ChordPro.Directive.allCases.first(where: { $0.source.short == directive }) {
             return (shortDirective, true)
-        } else {
-            return nil
+        } else if let name = directive.split(separator: "_", maxSplits: 2).last, !name.isEmpty {
+            /// Custom environments
+            if directive.hasPrefix("start_of_") {
+                return (.startOfCustomEnvironment(name: directive), false)
+            }
+            if directive.hasPrefix("end_of_") {
+                return (.endOfCustomEnvironment(name: directive), false)
+            }
         }
+        return nil
     }
 
     // MARK: Process a directive
@@ -141,7 +148,7 @@ extension ChordProParser {
                         // MARK: Environment directives
 
                         /// ## Start of Chorus, Verse, Bridge, Tab, Grid, Textblock, Strum
-                    case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock:
+                    case .startOfChorus, .startOfVerse, .startOfBridge, .startOfTab, .startOfGrid, .startOfTextblock, .startOfCustomEnvironment:
 
                         if let label = arguments[.plain] {
                             arguments[.label] = label
@@ -193,7 +200,7 @@ extension ChordProParser {
                             song: &song
                         )
 
-                    case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfLy, .endOfSvg:
+                    case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfLy, .endOfSvg, .endOfCustomEnvironment:
                         closeSection(
                             directive: directive,
                             arguments: arguments,

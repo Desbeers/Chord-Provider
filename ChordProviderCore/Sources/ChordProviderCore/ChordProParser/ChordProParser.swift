@@ -109,8 +109,9 @@ public enum ChordProParser {
         /// Set default metadata if not defined in the song file
         setDefaults(song: &song, prefixes: settings.sortTokens)
         /// Check if the song has actual content
-        let sections = song.sections.uniqued(by: \.environment).map(\.environment)
-        song.hasContent = Set(sections).isDisjoint(with: ChordPro.Environment.content) ? false : true
+        song.hasContent = song.sections.contains {
+            $0.environment.hasContent
+        }
         /// Set some stuff
         let lines = song.sections.flatMap(\.lines)
 

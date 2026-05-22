@@ -28,8 +28,8 @@ extension ChordProParser {
         if (currentSection.autoCreated ?? false) == true, let firstLineIndex = currentSection.lines.firstIndex(where: { $0.type == .songLine }) {
             let line = Song.Section.Line(
                 sourceLineNumber: -currentSection.lines[firstLineIndex].sourceLineNumber,
-                source: "{\(currentSection.environment.directives.open.rawValue.long)}",
-                sourceParsed: "{\(currentSection.environment.directives.open.rawValue.long)}",
+                source: "{\(currentSection.environment.directives.open.source.long)}",
+                sourceParsed: "{\(currentSection.environment.directives.open.source.long)}",
                 directive: currentSection.environment.directives.open,
                 arguments: nil,
                 type: .environmentDirective,
@@ -39,7 +39,7 @@ extension ChordProParser {
             currentSection
                 .lines[firstLineIndex]
                 .addWarning(
-                    "No environment set, using <b>\(currentSection.environment.rawValue)</b>"
+                    "No environment set, using <b>\(currentSection.environment.label)</b>"
                 )
             currentSection.lines.insert(line, at: 0)
         }
@@ -50,14 +50,14 @@ extension ChordProParser {
             let line = Song.Section.Line(
                 sourceLineNumber: -(currentSection.lines[lastLineIndex].sourceLineNumber + 1),
                 source: arguments[.source] ??  "No source given, this is an error",
-                sourceParsed: "{\(closingDirective.rawValue.long)}",
+                sourceParsed: "{\(closingDirective.source.long)}",
                 directive: closingDirective,
                 type: .environmentDirective,
                 context: currentSection.environment
             )
             if warning {
                 currentSection.lines[lastLineIndex].addWarning(
-                    "The section is not properly closed with <b>{\(closingDirective.rawValue.long)}</b>",
+                    "The section is not properly closed with <b>{\(closingDirective.source.long)}</b>",
                     level: .error
                 )
             }
@@ -67,7 +67,7 @@ extension ChordProParser {
             var line = Song.Section.Line(
                 sourceLineNumber: song.totalLines,
                 source: arguments[.source] ??  "No source given, this is an error",
-                sourceParsed: "{\(closingDirective.rawValue.long)}",
+                sourceParsed: "{\(closingDirective.source.long)}",
                 directive: closingDirective,
                 type: .environmentDirective,
                 context: currentSection.environment
@@ -80,7 +80,7 @@ extension ChordProParser {
             }
             if directive != closingDirective {
                 line.addWarning(
-                    "Wrong closing directive, it should be <b>{\(closingDirective.rawValue.long)}</b>",
+                    "Wrong closing directive, it should be <b>{\(closingDirective.source.long)}</b>",
                     level: .error
                 )
             }

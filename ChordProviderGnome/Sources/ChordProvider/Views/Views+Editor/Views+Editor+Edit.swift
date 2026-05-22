@@ -188,7 +188,7 @@ extension Views.Editor {
                         }
                         /// Make space for optional arguments
                         let spacer = directiveArgument.isEmpty ? "" : " "
-                        let replacement = "{\(directive.rawValue.long)\(column)\(spacer)\(directiveArgument)}"
+                        let replacement = "{\(directive.source.long)\(column)\(spacer)\(directiveArgument)}"
                         appState.editor.command = .replaceLineText(text: replacement)
                         appState.editor.showEditDirectiveDialog = false
                         appState.editor.handleDirective = nil

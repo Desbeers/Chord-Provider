@@ -36,9 +36,13 @@ extension ChordProParser {
                 warning: shouldWarn
             )
         }
-
         /// Update the current section
-        currentSection.environment = directive.details.environment
+        if case let .startOfCustomEnvironment(name) = directive,
+        let name = name.split(separator: "_", maxSplits: 2).last, !name.isEmpty {
+            currentSection.environment = .custom(name: String(name))
+        } else {
+            currentSection.environment = directive.details.environment
+        }
 
         /// Remember the longest label for an environment
         /// - Note: Used in PDF output to calculate label offset

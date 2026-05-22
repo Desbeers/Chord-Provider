@@ -344,7 +344,6 @@ extension ChordPro.Directive {
                 environment: .svg,
                 lineType: .environmentDirective
             )
-
         case .startOfTextblock:
             Details(
                 label: "Start of Textblock",
@@ -445,6 +444,13 @@ extension ChordPro.Directive {
                 help: "An empty line in the source",
                 environment: .emptyLine,
                 lineType: .emptyLine
+            )
+        case .startOfCustomEnvironment, .endOfCustomEnvironment:
+            Details(
+                label: "Custom Environment",
+                help: "This is a Custom Environment that will be treated as Verse",
+                environment: .verse,
+                lineType: .environmentDirective
             )
         case .unknown:
             Details(

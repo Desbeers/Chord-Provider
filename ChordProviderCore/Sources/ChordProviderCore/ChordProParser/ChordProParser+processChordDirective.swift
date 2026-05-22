@@ -29,7 +29,7 @@ extension ChordProParser {
         var line = Song.Section.Line(
             sourceLineNumber: song.totalLines,
             source: source ?? "No source given, this is an error",
-            sourceParsed: "{\(ChordPro.Directive.chord.rawValue.long): \(chord.trimmingCharacters(in: .whitespaces))}",
+            sourceParsed: "{\(ChordPro.Directive.chord.source.long): \(chord.trimmingCharacters(in: .whitespaces))}",
             directive: ChordPro.Directive.chord,
             type: .chordDiagram,
             context: .chordDiagram

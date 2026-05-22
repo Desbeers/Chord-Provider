@@ -201,10 +201,10 @@ extension Song.Section {
                     /// Just use the current source; its internal stuff and not a real directive
                     sourceParsed = source.trimmingCharacters(in: .whitespaces)
                 } else if let arguments = ChordProParser.argumentsToString(self) {
-                    sourceParsed = "{\(directive.rawValue.long)\(colon) \(arguments)}"
+                    sourceParsed = "{\(directive.source.long)\(colon) \(arguments)}"
                 } else {
                     /// Only a directive
-                    sourceParsed = "{\(directive.rawValue.long)}"
+                    sourceParsed = "{\(directive.source.long)}"
                 }
             } else {
                 sourceParsed = source.trimmingCharacters(in: .whitespaces)

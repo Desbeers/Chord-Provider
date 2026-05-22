@@ -27,15 +27,15 @@ extension ChordPro {
 
     /// All the directives we know about
     /// - Note: **ChordPro** has more official directives
-    public static let knownDirectives = ChordPro.Directive.allCases.map(\.rawValue.long)
+    public static let knownDirectives = ChordPro.Directive.allCases.map(\.source.long)
 
     // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports
-    public enum Directive: DirectiveSource, CaseIterable, Identifiable, Codable, Sendable {
+    public enum Directive: Identifiable, Codable, Sendable, Equatable {
         /// The ID of the directive
         public var id: String {
-            rawValue.long
+            source.long
         }
         /// Bool if the directive is editable
         public var editable: Bool {
@@ -47,15 +47,15 @@ extension ChordPro {
         /// # Meta-data directives
 
         /// This directive defines the title of the song
-        case title = "title|t"
+        case title
         /// This directive defines the sorting title of the song
-        case sortTitle = "sorttitle"
+        case sortTitle
         /// This directive defines a subtitle of the song
-        case subtitle = "subtitle|st"
+        case subtitle
         /// This directive defines an artist
         case artist
         /// This directive defines the sorting of an artist
-        case sortArtist = "sortartist"
+        case sortArtist
         /// This directive defines a composer. Multiple composers can be specified using multiple directives
         case composer
         /// This directive defines an album this song occurs on
@@ -88,11 +88,11 @@ extension ChordPro {
         /// # Formatting directives
 
         /// This directive introduce a comment line
-        case comment = "comment|c"
+        case comment
         /// This directive introduce a comment line using an italic typeface
-        case commentItalic = "comment_italic|ci"
+        case commentItalic
         /// This directive introduce a comment line with a box around the text
-        case commentBox = "comment_box|cb"
+        case commentBox
         /// This is an alternative to comment
         case highlight
         /// Specifies the name of the file containing the image
@@ -103,82 +103,86 @@ extension ChordPro {
         /// ## Chorus
 
         /// This directive indicates that the lines that follow form the song’s chorus
-        case startOfChorus = "start_of_chorus|soc"
+        case startOfChorus
         /// This directive indicates the end of the chorus
-        case endOfChorus = "end_of_chorus|eoc"
+        case endOfChorus
         /// This directive indicates that the song chorus must be played here
         case chorus
 
         /// ## Verse
 
         /// Specifies that the following lines form a verse of the song
-        case startOfVerse = "start_of_verse|sov"
+        case startOfVerse
         /// Specifies the end of the verse
-        case endOfVerse = "end_of_verse|eov"
+        case endOfVerse
 
         /// ## Bridge
 
         /// Specifies that the following lines form a bridge of the song
-        case startOfBridge = "start_of_bridge|sob"
+        case startOfBridge
         /// Specifies the end of the bridge
-        case endOfBridge = "end_of_bridge|eob"
+        case endOfBridge
 
         /// ## Tab
 
         /// This directive indicates that the lines that follow form a section of guitar TAB instructions
-        case startOfTab = "start_of_tab|sot"
+        case startOfTab
         /// This directive indicates the end of the tab
-        case endOfTab = "end_of_tab|eot"
+        case endOfTab
 
         /// ## Grid
 
         /// This directive indicates that the lines that follow define a chord grid in the style of Jazz Grilles
-        case startOfGrid = "start_of_grid|sog"
+        case startOfGrid
         /// This directive indicates the end of the grid
-        case endOfGrid = "end_of_grid|eog"
+        case endOfGrid
+
+
+        case startOfCustomEnvironment(name : String)
+        case endOfCustomEnvironment(name : String)
 
         /// # Delegated environment directives
 
         /// ## ABC
 
         /// This directive indicates that the lines that follow define a piece of music written in ABC music notation
-        case startOfABC = "start_of_abc"
+        case startOfABC
         /// This directive indicates the end of the ABC
-        case endOfABC = "end_of_abc"
+        case endOfABC
 
         /// ## Textblock
 
         /// This directive indicates that the lines that follow define a piece of text that is combined into a
         /// single object that can be placed as an image
-        case startOfTextblock = "start_of_textblock"
+        case startOfTextblock
         /// This directive indicates the end of the textblock
-        case endOfTextblock = "end_of_textblock"
+        case endOfTextblock
 
         /// ## Lilipound
 
         /// Start of Lilipound embedding
-        case startOfLy = "start_of_ly"
+        case startOfLy
         /// End of Lilipound embedding
-        case endOfLy = "end_of_ly"
+        case endOfLy
 
         /// ## SVG
 
         /// Start of SVG embedding
-        case startOfSvg = "start_of_svg"
+        case startOfSvg
         /// End of SVG embedding
-        case endOfSvg = "end_of_svg"
+        case endOfSvg
 
         /// # Chord diagrams
 
         /// This directive defines a chord in terms of fret/string positions and,
         /// optionally, finger settings for a guitar
-        case defineGuitar = "define-guitar"
+        case defineGuitar
         /// This directive defines a chord in terms of fret/string positions and, optionally,
         /// finger settings for a guitalele
-        case defineGuitalele = "define-guitalele"
+        case defineGuitalele
         /// This directive defines a chord in terms of fret/string positions and, optionally,
         /// finger settings for a ukulele
-        case defineUkulele = "define-ukulele"
+        case defineUkulele
         /// This directive defines a chord in terms of fret/string positions and,
         /// optionally, finger settings
         case define
@@ -189,10 +193,10 @@ extension ChordPro {
         // MARK: Output related directives
 
         /// This directive forces a new page to be generated at the place where it occurs in the song
-        case newPage = "new_page|np"
+        case newPage
 
         /// When printing songs in multiple columns, this directive forces printing to continue in the next column
-        case columnBreak = "column_break|colb"
+        case columnBreak
 
         // MARK: Transposition
 
@@ -205,10 +209,47 @@ extension ChordPro {
         /// - Note: These are not *real* directives
 
         /// A comment in the source
-        case sourceComment = "source_comment"
+        case sourceComment
         /// An empty line
-        case emptyLine = "empty_line"
+        case emptyLine
         /// An unknown directive
         case unknown
     }
+}
+
+extension ChordPro.Directive {
+    public static let allCases: [ChordPro.Directive] = [
+        // MARK: Meta-data directives
+        .title, .sortTitle, .subtitle, .artist, .sortArtist, .composer,
+        .album, .year, .key, .time, .tempo, .capo, .instrument, .tag,
+        .copyright, .duration, .arranger, .lyricist, .meta,
+
+        // MARK: Formatting directives
+        .comment, .commentItalic, .commentBox, .highlight, .image,
+
+        // MARK: Environment directives
+        .startOfChorus, .endOfChorus, .chorus,
+        .startOfVerse, .endOfVerse,
+        .startOfBridge, .endOfBridge,
+        .startOfTab, .endOfTab,
+        .startOfGrid, .endOfGrid,
+
+        // MARK: Delegated environment directives
+        .startOfABC, .endOfABC,
+        .startOfTextblock, .endOfTextblock,
+        .startOfLy, .endOfLy,
+        .startOfSvg, .endOfSvg,
+
+        // MARK: Chord diagrams
+        .defineGuitar, .defineGuitalele, .defineUkulele, .define, .chord,
+
+        // MARK: Output related directives
+        .newPage, .columnBreak,
+
+        // MARK: Transposition
+        .transpose,
+
+        // MARK: Custom metadata directives
+        .sourceComment, .emptyLine, .unknown
+    ]
 }

@@ -30,10 +30,12 @@ extension ChordPro.Environment {
             (.startOfSvg, .endOfSvg)
         case .textblock:
             (.startOfTextblock, .endOfTextblock)
+        case .custom(let name):
+            (.startOfCustomEnvironment(name: "start_of_\(name)"), .endOfCustomEnvironment(name: "end_of_\(name)"))
         default:
             (.unknown, .unknown)
         }
-    }
+    }   
 }
 
 extension ChordPro.Environment {
@@ -67,10 +69,10 @@ extension ChordPro.Environment {
         ]
     }
 
-    /// Environments with song content
-    public static var content: [ChordPro.Environment] {
-        [
-            .metadata,
+    /// Bool if there is song content
+    public var hasContent: Bool {
+        switch self {
+        case .metadata,
             .chorus,
             .repeatChorus,
             .verse,
@@ -80,7 +82,11 @@ extension ChordPro.Environment {
             .textblock,
             .comment,
             .image,
-            .chordDiagram
-        ]
+            .chordDiagram,
+            .custom:
+            true
+        default:
+            false
+        }
     }
 }

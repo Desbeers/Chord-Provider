@@ -12,14 +12,14 @@ extension ChordPro {
     // MARK: 'ChordPro' section environments
 
     /// The environment of a section of the song
-    public enum Environment: String, Codable, Sendable {
+    public enum Environment: Codable, Sendable, Equatable, Hashable {
 
         // MARK: Official environments
 
         /// Chorus environment
         case chorus
         /// Repeat chorus environment
-        case repeatChorus = "repeat_chorus"
+        case repeatChorus
         /// Verse environment
         case verse
         /// Bridge environment
@@ -32,6 +32,8 @@ extension ChordPro {
         case grid
         /// Image environment
         case image
+        /// Custom environment
+        case custom(name: String)
 
         // MARK: Official delegated environment directives
 
@@ -53,13 +55,13 @@ extension ChordPro {
         case metadata
 
         /// An empty line in the source
-        case emptyLine = "empty_line"
+        case emptyLine
 
         /// A source comment
-        case sourceComment = "source_comment"
+        case sourceComment
 
         /// A chord diagram
-        case chordDiagram = "chord_diagram"
+        case chordDiagram
 
         /// Not an environment
         case none
