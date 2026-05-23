@@ -56,7 +56,7 @@ extension ChordProviderMIDI {
                             break
                         case .barLine:
                             break
-                        case let .fret(_, fret):
+                        case let .fret(_, fret, _):
                             notes.append(.init(stringID: index, midiNote: fret, articulation: .normal))
                         case let .transition(_, from, to, transition):
                             notes.append(.init(stringID: index, midiNote: from, articulation: .transit(to: to, by: transition)))

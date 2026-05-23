@@ -42,11 +42,11 @@ extension Song.Section.Line.Tab {
         /// Just plain text
         case text(String)
         /// A rest
-        case rest
+        case rest(display: String)
         /// A barLine
         case barLine
         /// A fret
-        case fret(display: String, note:Int)
+        case fret(display: String, note:Int, filler: String)
         /// A note transition
         case transition(display: String, from: Int, to: Int, transition: ChordPro.Tab.NoteTransition)
 

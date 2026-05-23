@@ -75,6 +75,8 @@ extension Markup {
         case chordDiagramButton = "chord-diagram-button"
         /// Button used to play a chord with MIDI
         case midiButton = "midi-button"
+        /// Button used to play a tab note with MIDI
+        case tabButton = "tab-button"
 
         // MARK: Toggles
 
@@ -309,6 +311,12 @@ popover contents, popover arrow {
 
 .midi-button image {
     opacity: 0.4;
+}
+
+.tab-button {
+    margin: 0;
+    padding: 0;
+    color: var(--chordprovider-chord-color);
 }
 
 /* Toggles */

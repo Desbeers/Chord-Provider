@@ -101,43 +101,31 @@ extension GtkRender.TabSection {
         private func event(event: Song.Section.Line.Tab.Event, column: Int) -> AnyView {
             Box {
                 switch event.content {
-                case .rest:
-                    Text("-")
+                case .rest(let display):
+                    Text(display)
                         .style(.dimmed)
                 case .text(let text):
                     Text(text)
                         .halign(.start)
                 case .barLine:
                     Text("|")
-                case let .fret(display, fret):
-                    Button("\(display)") {
-                        let note = ChordProviderMIDI.PlaybackNote(
-                            stringID: 10,
-                            midiNote: fret,
-                            articulation: .normal
-                        )
-                        playNotes([note])
+                case let .fret(display, fret, filler):
+                    HStack {
+                        Text(display)
+                            .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                            .id(playTabNotes.description + currentPartID.description)
+                        Text(filler)
                     }
-                    .flat()
-                    .style(.midiButton)
-                    .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                    .style(.tabButton)
                 case let .transition(display, from, to, transition):
-                    Button("\(display)") {
-                        let note = ChordProviderMIDI.PlaybackNote(
-                            stringID: 10,
-                            midiNote: from,
-                            articulation: .transit(to: to, by: transition)
-                        )
-                        playNotes([note])
-                    }
-                    .flat()
-                    .style(.midiButton)
-                    .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                    Text(display)
+                        .style(.tabButton)
+                        .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                        .id(playTabNotes.description + currentPartID.description)
                 }
             }
             .style(.sectionTab)
             .halign(.center)
-            .id(playTabNotes.description + currentPartID.description)
         }
         
         /// Monitor the tab player for its current tab
@@ -161,14 +149,6 @@ extension GtkRender.TabSection {
             Task {
                 await ChordProviderMIDI.shared.setTabNotes(columns)
                 await ChordProviderMIDI.shared.startTab()
-            }
-        }
-
-        /// Play single note from the tab
-        /// - Note: A note can have a transition to another note
-        private func playNotes( _ notes: [ChordProviderMIDI.PlaybackNote]) {
-            Task {
-                await ChordProviderMIDI.shared.playNotes(notes, strum: nil)
             }
         }
     }

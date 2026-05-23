@@ -114,7 +114,7 @@ extension ChordProParser {
                     )
                     /// Set the content
                     /// - Note: This can be overridden by a note transition
-                    var content: Song.Section.Line.Tab.Content = .fret(display: "\(fret)", note: fret + midi)
+                    var content: Song.Section.Line.Tab.Content = .fret(display: "\(fret)", note: fret + midi, filler: "")
 
                     // MARK: Optional transition
 
@@ -163,7 +163,7 @@ extension ChordProParser {
 
                     events[lineID] = Song.Section.Line.Tab.Event(
                         line: lineID,
-                        content: .rest
+                        content: .rest(display: "-")
                     )
                 } else {
 
@@ -175,6 +175,26 @@ extension ChordProParser {
                     )
                 }
             }
+            /// Make the grid even spaced
+
+            for (index, event) in events.enumerated() {
+                if case .rest = event.content {
+                    let rest = Song.Section.Line.Tab.Event(
+                        line: event.line,
+                        content: .rest(display: String(repeating: "-", count: usedColumns))
+                    )
+                    events[index] = rest
+                }
+                if case let .fret(display, note, _) = event.content {
+                    let filler = String(repeating: "-", count: usedColumns - display.count)
+                    let rest = Song.Section.Line.Tab.Event(
+                        line: event.line,
+                        content: .fret(display: display, note: note, filler: filler)
+                    )
+                    events[index] = rest
+                }
+            }
+            
             /// Add the column
             tabColumns.append(
                 Song.Section.Line.Tab(
