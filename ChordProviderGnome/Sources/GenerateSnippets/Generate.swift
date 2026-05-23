@@ -21,14 +21,14 @@ struct Generate {
 
         for directive in directives where !ChordPro.Directive.unsupportedDirectives.contains(directive) {
 
-            var text = "\(directive.rawValue.long)"
+            var text = "\(directive.source.long)"
 
             if ChordPro.Directive.withPlainArgument.contains(directive) {
                 text += ": ${1:\(directive.details.defaultValue ?? directive.details.label)}"
             }
 
             output += """
-    <snippet _name="\(directive.details.label)" trigger="{\(directive.rawValue.long)}" _description="\(directive.details.help)">
+    <snippet _name="\(directive.details.label)" trigger="{\(directive.source.long)}" _description="\(directive.details.help)">
         <text languages="chordpro">\(text)}</text>
     </snippet>
 
