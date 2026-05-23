@@ -30,6 +30,7 @@ extension ChordProParser {
             if let chord {
                 /// Check for optional prefix or suffix
                 var textPart = String(chord).textPart(handleBrackets: true)
+                textPart.suffix += " "
                 /// Check if it is just a text chord
                 if textPart.text.first == "*" {
                     /// It is, add it as a 'text chord'

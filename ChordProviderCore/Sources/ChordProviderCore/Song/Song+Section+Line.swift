@@ -103,9 +103,9 @@ extension Song.Section {
                 case let .lyric(lyric):
                     switch lyric.chordSlot {
                     case let .chord(definition, textPart):
-                        appendPart(plain: "'\(definition.display)' ", output: "'<b>\(textPart.display)</b>' ")
+                        appendPart(plain: "'\(definition.display)' ", output: "'<b>\(stripSpaces(textPart.display))</b>' ")
                     case let .text(textPart):
-                        appendPart(plain: "'\(textPart.text)' ", output: "'<b>\(textPart.display)</b>' ")
+                        appendPart(plain: "'\(textPart.text)' ", output: "'<b>\(stripSpaces(textPart.display))</b>' ")
                     case .empty:
                         break
                     }
@@ -146,6 +146,12 @@ extension Song.Section {
                 }
                 currentLine += output
                 currentLength += plain.count
+            }
+            /// Strip spaces fron chords
+            /// - Chords have a space added at the end to avoid sticking,
+            ///   but we show them *inline* now
+            func stripSpaces(_ text: String) -> String {
+                text.trimmingCharacters(in: .whitespaces)
             }
         }
 

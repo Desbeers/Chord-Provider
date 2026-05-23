@@ -33,13 +33,16 @@ extension GtkRender {
                                 case let .chord(_, textPart):
                                     /// Show the chord name with a toggle to open its diagram
                                     GtkRender.SingleChord(part: part, coreSettings: coreSettings)
-                                        .padding(lyric.display.count <=  textPart.display.count ? 6 : 0, .trailing)
                                 case let .text(markup):
-                                    /// Show the text in the chord slot
-                                    Text(markup.display)
-                                        .useMarkup()
-                                        .style(.standard)
-                                        .padding(lyric.display.count <=  markup.display.count ? 6 : 0, .trailing)
+                                    Toggle("", isOn: .constant(false))
+                                        .child {
+                                            Text(markup.display)
+                                                .useMarkup()
+                                                .style(.chord)
+                                        }
+                                        .flat()
+                                        .style(.chordDiagramToggle)
+                                        .insensitive()
                                 case .empty:
                                     /// Fill the slot or else the lyric will move up
                                     Text(" ")
