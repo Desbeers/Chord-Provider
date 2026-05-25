@@ -84,6 +84,9 @@ extension ChordProParser {
             var usedColumns = 1
             /// Process each column
             for (lineID, lineCharacters) in tabMatrix.enumerated() {
+                /// Bool if the line contains a 'rest' character
+                /// - Note: If 'true' the line is considered a real tab, else just text
+                let tabLine = lineCharacters.contains("-")
                 /// Make sure we are withing the character range 
                 guard visualColumnID < lineCharacters.count else {
                     continue
@@ -92,7 +95,7 @@ extension ChordProParser {
                 /// Get the character in the currently visible column
                 let character = lineCharacters[visualColumnID]
                 /// Check the content of the character
-                if character.isNumber {
+                if tabLine, character.isNumber, let midi {
 
                     // MARK: Fret number
 
@@ -105,7 +108,7 @@ extension ChordProParser {
                         first.append(lineCharacters[visualColumnIndex])
                         visualColumnIndex += 1
                     }
-                    guard let fret = Int(first), let midi else {
+                    guard let fret = Int(first) else {
                         continue
                     }
                     usedColumns = max(

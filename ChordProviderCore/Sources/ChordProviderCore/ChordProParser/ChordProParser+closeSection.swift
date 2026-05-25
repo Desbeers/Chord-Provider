@@ -39,7 +39,7 @@ extension ChordProParser {
             currentSection
                 .lines[firstLineIndex]
                 .addWarning(
-                    "No environment set, using <b>\(currentSection.environment.label)</b>"
+                    "No environment set, using <b>\(currentSection.environment)</b>"
                 )
             currentSection.lines.insert(line, at: 0)
         }

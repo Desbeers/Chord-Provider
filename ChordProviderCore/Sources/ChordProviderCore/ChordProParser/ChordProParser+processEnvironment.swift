@@ -28,8 +28,17 @@ extension ChordProParser {
         case .grid:
             processGrid(text: text, currentSection: &currentSection, song: &song)
         default:
-            /// Treat as normal song line
-            processLine(text: text, currentSection: &currentSection, song: &song)
+            /// Tab or Grid
+            if text.starts(with: "| ") {
+                /// Grid
+                processGrid(text: text, currentSection: &currentSection, song: &song)
+            } else if text.starts(with: "|") {
+                /// Tab
+                processTab(text: text, currentSection: &currentSection, song: &song)
+            } else {
+                /// Treat as normal song line
+                processLine(text: text, currentSection: &currentSection, song: &song)
+            }
         }
     }
 }

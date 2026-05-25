@@ -72,15 +72,6 @@ public enum ChordProParser {
                         song: &song,
                         getOnlyMetadata: getOnlyMetadata
                     )
-                case "|":
-                    /// Tab or Grid
-                    if text.starts(with: "| ") || currentSection.environment == .grid {
-                        /// Grid
-                        processGrid(text: text, currentSection: &currentSection, song: &song)
-                    } else {
-                        /// Tab
-                        processTab(text: text, currentSection: &currentSection, song: &song)
-                    }
                 case "#":
                     /// Source comment
                     processSourceComment(comment: text, currentSection: &currentSection, song: &song)
