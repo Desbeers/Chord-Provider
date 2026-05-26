@@ -30,6 +30,8 @@ extension Song {
         /// ```
         /// The lines in the section
         public var lines: [Line] = []
+        /// The optional tempo of the section
+        public var tempo: Int?
         /// Boolean if the section is automatic created
         ///
         /// This happens mostly for lines with text and chords that are not surrounded by a `{start_of_verse}` and `{end_of_verse}`

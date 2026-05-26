@@ -13,26 +13,12 @@ extension GtkRender {
 
     /// The `View` for a grid section
     struct GridSection: View {
-        /// Init the `View`
-        /// - Parameters:
-        ///   - section: The Grid section
-        ///   - coreSettings: The core settings
-        ///   - appState: The state of the application
-        init(
-            section: Song.Section,
-            coreSettings: ChordProviderSettings,
-            appState: Binding<AppState>
-        ) {
-            self.section = section
-            self.coreSettings = coreSettings
-            self._appState = appState
-        }
+        /// The current section of the song
+        let section: Song.Section
         /// The core settings
         let coreSettings: ChordProviderSettings
         /// The state of the application
         @Binding var appState: AppState
-        /// The current section of the song
-        let section: Song.Section
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -43,7 +29,9 @@ extension GtkRender {
                             Columns(
                                 columns: columns,
                                 coreSettings: coreSettings,
-                                appState: $appState
+                                appState: $appState,
+                                tempo: section.tempo
+
                             )
                         } else {
                             Text("The grid is empty")

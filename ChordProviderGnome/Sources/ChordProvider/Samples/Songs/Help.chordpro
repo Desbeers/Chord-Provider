@@ -11,7 +11,6 @@
 {tag: <a href="https://github.com/Desbeers/Chord-Provider/">GitHub</a>}
 {tag: <a href="https://github.com/Desbeers/Chord-Provider/issues/">Issues</a>}
 {time: 4/4}
-{tempo: 87}
 {capo: 2}
 {year: 2026}
 # Duration can be given in seconds or M:SS
@@ -59,10 +58,11 @@ You can add [G7]chords to a verse or [C]chorus.
 {start_of_verse label="The Editor"}
 If a [D]directive can have [A]arguments;
 [C]click 3 times on the line to show a [D]dialog for that.
-
 {end_of_verse}
 
-{start_of_tab label="Tab Tab Tab!"}
+{tempo: 188}
+
+{start_of_tab label="Tab Tab Tab!" tempo="188"}
   C        Cmaj7    Cadd9    C
 e|--------|--------|--------|--------|
 B|1----1--|0----0--|3----3--|1----1--|
@@ -71,7 +71,10 @@ D|--2---2-|--2---2-|--2---2-|--2---2-|
 A|3---3---|3---3---|3---3---|3---3---|
 E|--------|--------|--------|--------|
 {comment: You can add <i>Tabs</i> and play it with MIDI}
+{comment: It is using the <b>tempo</b> directive of your song, if defined already}
 {end_of_tab}
+
+{tempo: 87}
 
 {start_of_grid label="Play along in a grid"}
 |s *1~*&      *2~*&      *3~*&      *4~*&       |
@@ -80,7 +83,7 @@ E|--------|--------|--------|--------|
 |s *5~*&      *6~*&      *7~*&      *8~*&       |
 |  Em          G          D          A7sus4     |
 |s dn~up~dn~. d+~.~dn~up dn~up~.~up dn~up~dn~up |
-{comment: It is using the <b>tempo</b> directive of your song, if defined.}
+{comment: Same as for <i>Tabs</i>, you can define the tempo ahead of the <i>Grid</i>}
 {end_of_grid}
 
 {start_of_textblock label="Just a Text Block" align="right" flush="right"}
@@ -158,3 +161,6 @@ I play guitar for more than 20 years; strumming my chords on a beautiful Telecas
 However; If you really don't like the [B]bug, report it...
 {comment: <a href="https://github.com/Desbeers/Chord-Provider/issues/new">Report issues</a>}
 {end_of_verse}
+
+# The last tempo in the source will be the 'default' for the song
+{tempo: 128}

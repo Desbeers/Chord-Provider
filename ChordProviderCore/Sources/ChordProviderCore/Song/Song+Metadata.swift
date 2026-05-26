@@ -37,7 +37,7 @@ extension Song {
         /// The optional key
         public var key: ChordDefinition?
         /// The optional tempo
-        public var tempo: String?
+        public var tempo: Int?
         /// The optional time
         public var time: String?
         /// The optional year

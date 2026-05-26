@@ -142,7 +142,8 @@ extension ChordPro.Directive {
                 defaultValue: "128",
                 help: "This directive specifies the tempo in number of beats per minute for the song",
                 environment: .metadata,
-                lineType: .metadata
+                lineType: .metadata,
+                info: "Multiple specifications are possible, each specification applies from where it appears in the song"
             )
         case .capo:
             Details(

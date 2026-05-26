@@ -30,7 +30,7 @@ extension GtkRender {
                         if lineHasChords {
                             Box {
                                 switch lyric.chordSlot {
-                                case let .chord(_, textPart):
+                                case .chord:
                                     /// Show the chord name with a toggle to open its diagram
                                     GtkRender.SingleChord(part: part, coreSettings: coreSettings)
                                 case let .text(markup):

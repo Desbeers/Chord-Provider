@@ -20,11 +20,11 @@ extension Views {
         /// - Parameter appState: The application state
         init(appState: Binding<AppState>) {
             let metadata = appState.editor.song.metadata.wrappedValue
-            self.tempo = metadata.tempo
+            let tempo = metadata.tempo
             self._appState = appState
             Task {
-                if let tempo = metadata.tempo, let bpm = Int(tempo) {
-                    await ChordProviderMIDI.shared.setMetronomeBPM(bpm)
+                if tempo != nil {
+                    await ChordProviderMIDI.shared.setSongTempo(tempo)
                     await ChordProviderMIDI.shared.setMetronomeTimeSignature(metadata.time ?? "4/4")
                 } else {
                     await ChordProviderMIDI.shared.stopMetronome()
@@ -32,7 +32,9 @@ extension Views {
             }
         }
         /// The tempo of the metronome
-        let tempo: String?
+        var tempo: Int? {
+            ChordProviderMIDI.shared.snapshot.tempo
+        }
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`
@@ -44,7 +46,7 @@ extension Views {
                             .pixelSize(16)
                             .valign(.baselineCenter)
                             .style(.svgIcon)
-                        Toggle(tempo, isOn: $appState.scene.playMetronome.onSet { value in
+                        Toggle(String(tempo), isOn: $appState.scene.playMetronome.onSet { value in
                             switch value {
                             case true:
                                 Task {

@@ -43,6 +43,7 @@ extension ChordProParser {
         } else {
             currentSection.environment = directive.details.environment
         }
+        currentSection.tempo = song.metadata.tempo
 
         /// Remember the longest label for an environment
         /// - Note: Used in PDF output to calculate label offset

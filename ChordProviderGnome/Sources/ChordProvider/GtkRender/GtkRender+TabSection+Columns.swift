@@ -14,26 +14,14 @@ extension GtkRender.TabSection {
 
     /// The `View` for columns of a tab section
     struct Columns: View {
-        /// Init the `View`
-        /// - Parameters:
-        ///   - columns: The Tab columns
-        ///   - coreSettings: The core settings
-        ///   - appState: The state of the application
-        init(
-            columns: [Song.Section.Line.Tab],
-            coreSettings: ChordProviderSettings,
-            appState: Binding<AppState>
-        ) {
-            self.columns = columns
-            self.coreSettings = coreSettings
-            self._appState = appState
-        }
         /// The columns of the grid
         let columns: [Song.Section.Line.Tab]
         /// The core settings
         let coreSettings: ChordProviderSettings
         /// The state of the application
         @Binding var appState: AppState
+        /// The optional tempo
+        let tempo: Int?
         /// Bool to play the tab with MIDI
         @State private var playTabNotes: Bool = false
         /// The ID of the grid
@@ -50,22 +38,28 @@ extension GtkRender.TabSection {
         var view: Body {
             VStack {
                 if haveNotes {
-                    Toggle(
-                        icon: .default(icon: playTabNotes ? .mediaPlaybackStop : .mediaPlaybackStart),
-                        isOn: $playTabNotes
-                    ) {
-                        if playTabNotes {
-                            startTabPlayer()
-                            /// Monitor the tab player
-                            monitorTabPlayer()
-                        } else {
-                            Task {
-                                await ChordProviderMIDI.shared.stopTab()
+                    HStack {
+                        Toggle(
+                            icon: .default(icon: playTabNotes ? .mediaPlaybackStop : .mediaPlaybackStart),
+                            isOn: $playTabNotes
+                        ) {
+                            if playTabNotes {
+                                startTabPlayer()
+                                /// Monitor the tab player
+                                monitorTabPlayer()
+                            } else {
+                                Task {
+                                    await ChordProviderMIDI.shared.setCurrentTempo(nil)
+                                    await ChordProviderMIDI.shared.stopTab()
+                                }
                             }
                         }
+                        .flat()
+                        Text("\(tempo ?? appState.editor.song.metadata.tempo ?? 128) bpm")
+                            .style(.caption)
+                            .padding(2, .leading)
                     }
                     .halign(.start)
-                    .flat()
                 }
                 ForEach(columns, horizontal: true) { column in
                     Box {
@@ -94,6 +88,11 @@ extension GtkRender.TabSection {
                             await ChordProviderMIDI.shared.stopTab()
                         }
                     }
+                    if playTabNotes, let tempo, ChordProviderMIDI.shared.snapshot.currentTempo != tempo {
+                        Task {
+                            await ChordProviderMIDI.shared.setCurrentTempo(tempo)
+                        }
+                    }
                 }
             }
         }
@@ -109,7 +108,7 @@ extension GtkRender.TabSection {
                         .halign(.start)
                 case .barLine:
                     Text("|")
-                case let .fret(display, fret, filler):
+                case let .fret(display, _, filler):
                     HStack {
                         Text(display)
                             .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
@@ -117,7 +116,7 @@ extension GtkRender.TabSection {
                         Text(filler)
                     }
                     .style(.tabButton)
-                case let .transition(display, from, to, transition):
+                case let .transition(display, _, _, _):
                     Text(display)
                         .style(.tabButton)
                         .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
@@ -144,9 +143,11 @@ extension GtkRender.TabSection {
         private func startTabPlayer() {
             /// Set this tab as current
             appState.scene.midiID = tabID
-            // /// Capture the tab columns
+            // /// Capture stuff
             let columns = columns
+            let tempo = tempo
             Task {
+                await ChordProviderMIDI.shared.setCurrentTempo(tempo)
                 await ChordProviderMIDI.shared.setTabNotes(columns)
                 await ChordProviderMIDI.shared.startTab()
             }

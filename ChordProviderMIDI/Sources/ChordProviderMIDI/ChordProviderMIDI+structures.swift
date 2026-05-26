@@ -47,15 +47,25 @@ extension ChordProviderMIDI {
 
         /// Tab lines currently scheduled for playback
         public var tabs: [Song.Section.Line.Tab]?
+
+        /// Current tempo of the song
+        public var songTempo: Int?
+
+        /// Current tempo of the song
+        /// - Note: This is an optional override of the general song tempo when playing Tabs or Grids
+        public var currentTempo: Int?
+
+        /// The active tempo
+        /// - Note: Defaults to *current tempo* when set, else the optional *song tempo*
+        public var tempo: Int? {
+            currentTempo ?? songTempo
+        }
     }
 
     // MARK: - Metronome Settings
 
     /// Configuration for the metronome.
     struct MetronomeSettings {
-
-        /// Tempo in beats per minute
-        var bpm: Int = 120
 
         /// Fixed MIDI channel used by the metronome
         let channel: Int32 = 15
@@ -88,7 +98,6 @@ extension ChordProviderMIDI {
 
     /// A MIDI note scheduled for playback
     public struct PlaybackNote: Sendable {
-
 
         /// Public init
         public init(

@@ -43,19 +43,6 @@ extension ChordProviderMIDI {
         activePlaybackIDs.removeAll()
     }
 
-    /// Cancel all playback tasks
-    public func cancelPlaybackTasks() {
-        stopTab()
-        stopGrid()
-        stopMetronome()
-        stopTransport()
-    }
-
-    /// Set the metronome speed
-    public func setMetronomeBPM(_ bpm: Int) {
-        metronome.bpm = max(20, min(bpm, 300))
-    }
-
     /// Set metronome time signature
     /// - Note: "4/4", "6/8", "7/8=2+2+3" for example
     public func setMetronomeTimeSignature(_ meter: String) {

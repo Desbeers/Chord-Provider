@@ -7,10 +7,9 @@
 La[A]
 {eov}
 
-
-{start_of_textblock: label="Check"}
+{start_of_textblock: label="Check" height="200"}
 <big>Warnings/Errors</big>
-{c Inline comment...} 
+{c Inline comment...}
 <b>Directives</b>
 - Short directives
 - Directives with an `:`

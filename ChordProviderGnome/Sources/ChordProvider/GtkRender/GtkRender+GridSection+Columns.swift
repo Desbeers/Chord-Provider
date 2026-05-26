@@ -14,26 +14,14 @@ extension GtkRender.GridSection {
 
     /// The `View` for columns of a grid section
     struct Columns: View {
-        /// Init the `View`
-        /// - Parameters:
-        ///   - columns: The Grid columns
-        ///   - coreSettings: The core settings
-        ///   - appState: The state of the application
-        init(
-            columns: [Song.Section.Line.Grid],
-            coreSettings: ChordProviderSettings,
-            appState: Binding<AppState>
-        ) {
-            self.columns = columns
-            self.coreSettings = coreSettings
-            self._appState = appState
-        }
         /// The columns of the grid
         let columns: [Song.Section.Line.Grid]
         /// The core settings
         let coreSettings: ChordProviderSettings
         /// The state of the application
         @Binding var appState: AppState
+        /// The optional tempo
+        let tempo: Int?
         /// Bool to play the chords with MIDI
         @State private var playGridChords: Bool = false
         /// The ID of the grid
@@ -54,22 +42,28 @@ extension GtkRender.GridSection {
         var view: Body {
             VStack {
                 if haveChords {
-                    Toggle(
-                        icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart),
-                        isOn: $playGridChords
-                    ) {
-                        if playGridChords {
-                            startGridPlayer()
-                            /// Monitor the grid player
-                            monitorGridPlayer()
-                        } else {
-                            Task {
-                                await ChordProviderMIDI.shared.stopGrid()
+                    HStack {
+                        Toggle(
+                            icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart),
+                            isOn: $playGridChords
+                        ) {
+                            if playGridChords {
+                                startGridPlayer()
+                                /// Monitor the grid player
+                                monitorGridPlayer()
+                            } else {
+                                Task {
+                                    await ChordProviderMIDI.shared.setCurrentTempo(nil)
+                                    await ChordProviderMIDI.shared.stopGrid()
+                                }
                             }
                         }
+                        .flat()
+                        Text("\(tempo ?? appState.editor.song.metadata.tempo ?? 128) bpm")
+                            .style(.caption)
+                            .padding(2, .leading)
                     }
                     .halign(.start)
-                    .flat()
                 }
                 ForEach(columns, horizontal: true) { column in
                     Box {
@@ -93,6 +87,11 @@ extension GtkRender.GridSection {
                         playGridChords = false
                         Task {
                             await ChordProviderMIDI.shared.stopGrid()
+                        }
+                    }
+                    if playGridChords, let tempo, ChordProviderMIDI.shared.snapshot.currentTempo != tempo {
+                        Task {
+                            await ChordProviderMIDI.shared.setCurrentTempo(tempo)
                         }
                     }
                 }
@@ -169,7 +168,9 @@ extension GtkRender.GridSection {
             appState.scene.midiID = gridID
             /// Capture the grids
             let grids = columns.flatMap(\.cells)
+            let tempo = tempo
             Task {
+                await ChordProviderMIDI.shared.setCurrentTempo(tempo)
                 await ChordProviderMIDI.shared.setGridChords(grids)
                 await ChordProviderMIDI.shared.playGrid()
             }

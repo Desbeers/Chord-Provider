@@ -105,6 +105,28 @@ extension ChordProviderMIDI {
 
 extension ChordProviderMIDI {
 
+    /// Set the song tempo
+    public func setSongTempo(_ tempo: Int?) {
+        if let tempo {
+            snapshot.songTempo = max(20, min(tempo, 300))
+        } else  {
+            snapshot.songTempo = nil
+        }
+    }
+
+    /// Set the metronome tempo
+    /// - Note: This is an optional override of the general song tempo when playing Tabs or Grids
+    public func setCurrentTempo(_ tempo: Int?) {
+        if let tempo {
+            snapshot.currentTempo = max(20, min(tempo, 300))
+        } else  {
+            snapshot.currentTempo = nil
+        }
+    }
+}
+
+extension ChordProviderMIDI {
+
     /// Set the values for the grid
     /// - Parameter grids: The grid section
     public func setGridChords(_ grids: [Song.Section.Line.GridCell]) {
@@ -115,9 +137,22 @@ extension ChordProviderMIDI {
 
 extension ChordProviderMIDI {
 
-    /// Set the values for the grid
-    /// - Parameter grids: The grid section
+    /// Set the values for the tabs
+    /// - Parameter tabs: The grid section
     public func setTabNotes(_ tabs: [Song.Section.Line.Tab]) {
         self.snapshot.tabs = tabs
+    }
+}
+
+extension ChordProviderMIDI {
+    
+    /// Cancel all playback tasks
+    public func cancelPlaybackTasks() {
+        stopTab()
+        stopGrid()
+        stopMetronome()
+        stopTransport()
+        setSongTempo(nil)
+        setCurrentTempo(nil)
     }
 }

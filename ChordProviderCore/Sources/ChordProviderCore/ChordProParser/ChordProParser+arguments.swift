@@ -34,10 +34,11 @@ extension ChordProParser {
     /// - Parameter parsedArgument: The arguments as string
     /// - Returns: The arguments in a dictionary and optional warnings
     static func stringToArguments(
-        _ parsedArgument: String?
-    ) -> (arguments: ChordProParser.DirectiveArguments, warnings: [String]) {
+        _ directive: ChordPro.Directive,
+        _ parsedArgument: String?,
+    ) -> (arguments: ChordProParser.DirectiveArguments, warnings: [LogUtils.LogEntrance]) {
         var arguments = DirectiveArguments()
-        var warnings: [String] = []
+        var warnings: [LogUtils.LogEntrance] = []
         /// Check if the label contains formatting attributes; skip html tags
         if
             let parsedArgument,
@@ -50,12 +51,30 @@ extension ChordProParser {
                 if let argument = ChordPro.Directive.FormattingAttribute(rawValue: $1.1.lowercased()) {
                     var value = $1.2
                     if value.first != "\"" || value.last != "\"" {
-                        warnings.append("Missing brackets around <b>\(value)</b>")
+                        warnings.append(
+                            LogUtils.LogEntrance(
+                                level: .warning,
+                                message: "Missing brackets around <b>\(value)</b>"
+                            )
+                        )
                     }
                     value.replace("\"", with: "")
+                    if !directive.attributes.contains(argument) {
+                        warnings.append(
+                            LogUtils.LogEntrance(
+                                level: .error,
+                                message: "<b>\(argument)</b> is an unknown argument and will be ignored"
+                            )
+                        )
+                    }
                     $0[argument] = value
                 } else {
-                    warnings.append("Unknown <i>key</i>: <b>\($1.1)</b>")
+                    warnings.append(
+                        LogUtils.LogEntrance(
+                            level: .error,
+                            message: "<b>\($1.1)</b> is an unknown argument and will be ignored"
+                        )
+                    )
                 }
             }
             arguments[.haveAttributes] = "true"

@@ -59,6 +59,12 @@ public class LogUtils: @unchecked Sendable {
 
 extension LogUtils {
 
+    /// The structure for a log entrance
+    public struct LogEntrance {
+        public var level: LogUtils.Level
+        public var message: String
+    }
+
     /// The structure for a log message
     public struct LogMessage: Equatable, Identifiable, Sendable, Hashable, Codable {
         public init(

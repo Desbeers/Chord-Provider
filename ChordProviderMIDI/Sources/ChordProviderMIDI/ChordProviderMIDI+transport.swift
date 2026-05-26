@@ -38,7 +38,7 @@ extension ChordProviderMIDI {
 
             let tempo =
                 60.0 /
-                (Double(metronome.bpm) *
+                (Double(snapshot.tempo ?? 128) *
                 metronome.timeSignature.quarterNoteMultiplier)
 
             transport.nextTransportTime += .seconds(tempo / 2)

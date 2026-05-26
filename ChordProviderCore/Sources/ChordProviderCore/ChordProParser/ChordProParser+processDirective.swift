@@ -63,7 +63,7 @@ extension ChordProParser {
                 }
                 let directive = directive.directive
                 /// Parse the arguments
-                let directiveArguments = stringToArguments(parsedArgument)
+                let directiveArguments = stringToArguments(directive, parsedArgument)
                 var arguments = directiveArguments.arguments
                 /// Keep the original source
                 arguments[.source] = text
@@ -73,12 +73,12 @@ extension ChordProParser {
 
                 if optionalAttributes == [.plain], arguments[.haveAttributes] != nil {
                     currentSection.addWarning(
-                        "Attributes are not supported for <b>\(directive)</b>",
+                        "<b>\(directive.details.label)</b> does not support attributes and will be ignored",
                         level: .error
                     )
                     addSection(
-                        directive: directive,
-                        arguments: arguments,
+                        directive: .unknown,
+                        arguments: [.source: text],
                         currentSection: &currentSection,
                         song: &song
                     )
@@ -128,8 +128,8 @@ extension ChordProParser {
                     /// - Note: Metadata cannot have arguments
                     for warning in directiveArguments.warnings {
                         currentSection.addWarning(
-                            warning,
-                            level: .notice
+                            warning.message,
+                            level: warning.level
                         )
                     }
                     /// All other directives

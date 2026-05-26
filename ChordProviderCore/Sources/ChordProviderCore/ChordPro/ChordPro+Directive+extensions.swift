@@ -142,7 +142,6 @@ extension ChordPro.Directive {
             .year,
             .key,
             .time,
-            .tempo,
             .capo,
             .transpose,
             .copyright,

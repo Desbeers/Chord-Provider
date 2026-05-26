@@ -53,7 +53,7 @@ extension ChordProviderMIDI {
                 if let chord {
                     cells = chord.beatItems
                 }
-                let tempo = 60.0 / (Double(metronome.bpm) * Double(cells))
+                let tempo = 60.0 / (Double(snapshot.tempo ?? 128) * Double(cells))
                 nextTick += .seconds(tempo)
                 if !Task.isCancelled, let chord, chord.definition.knownChord, chord.definition.strum != .noStrum {
                     setCurrentMidiID(part.id)
