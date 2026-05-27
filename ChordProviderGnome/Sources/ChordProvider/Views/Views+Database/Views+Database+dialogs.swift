@@ -101,8 +101,8 @@ extension Views.Database {
                     if let index = chords.firstIndex(where: { $0.id == definition.id }) {
                         chords.remove(at: index)
                     }
-                    if let flat = definition.findFlatFromSharp(chords: chords),
-                        let index = chords.firstIndex(where: { $0.id == flat.id }) {
+                    if let shadow = definition.enharmonicEquivalent(in: chords),
+                        let index = chords.firstIndex(where: { $0.id == shadow.id }) {
                         chords.remove(at: index)
                     }
                     Idle {

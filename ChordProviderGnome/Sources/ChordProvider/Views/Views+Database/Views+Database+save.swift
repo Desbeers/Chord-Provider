@@ -30,6 +30,7 @@ extension Views.Database {
             return
         }
         do {
+
             /// Make an editable copy
             var instrument = instrument
             instrument.modified = false

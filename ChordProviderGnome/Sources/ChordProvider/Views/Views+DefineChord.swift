@@ -113,7 +113,7 @@ extension Views {
                     },
                     values: mergeSharpAndFlat ? Chord.Root.naturalAndSharp : Chord.Root.allCases.dropFirst().dropLast(),
                     id: \.self,
-                    label: mergeSharpAndFlat ? \.naturalAndSharpDisplay : \.display
+                    label: mergeSharpAndFlat ? \.naturalAndAccidentalDisplay : \.display
                 )
                 /// Disable above when a definition is edited
                 .insensitive(!newChord)
@@ -154,6 +154,7 @@ extension Views {
                         let definition = getDefinition
                         MidiPlayerButton(
                             chord: definition,
+                            showAccidental: newChord ? true : false,
                             coreSettings: coreSettings
                         )
                         Views.ChordDiagram(
@@ -235,7 +236,7 @@ extension Views {
                     .headerBarTitle {
                         WindowTitle(
                             subtitle: definition.quality.intervalsLabel,
-                            title: mergeSharpAndFlat ? definition.displaySharpAndFlat : definition.display
+                            title: mergeSharpAndFlat ? definition.displayNaturalOrAccidentals : definition.display
                         )
                     }
             }

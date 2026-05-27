@@ -10,7 +10,8 @@ import Foundation
 extension Chord.Quality {
 
     /// An array with all optional names for a ``Chord/Quality``
-    /// - Note: Used to lookup a quality from a **ChordPro** definition
+    /// - Note: Used to lookup a quality from a **ChordPro** definition,
+    ///         "()" will be stripped from the string before lookup
     var name: [String] {
         switch self {
         case .all:

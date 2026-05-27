@@ -102,6 +102,14 @@ extension Chord {
             }
         }
 
+        /// Display natural and accidental notes as string
+        public var naturalAndAccidentalDisplay: String {
+            if let shadow = self.swapSharpAndFlat {
+                return "\(self.display)/\(shadow.display)"
+            }
+            return self.display
+        }
+
         // swiftlint:disable indentation_width
 
         /// The accidental of the root
@@ -121,30 +129,6 @@ extension Chord {
             [.c, .cSharp, .d, .dSharp, .e, .f, .fSharp, .g, .gSharp, .a, .aSharp, .b]
         }
 
-        /// Display natural and sharp notes as string
-        public var naturalAndSharpDisplay: String {
-            switch self {
-            case .all:
-                "All"
-            case .c, .d, .e, .f, .g, .a, .b:
-                rawValue
-            case .cSharp:
-                "C♯/D♭"
-            case .dSharp:
-                "D♯/E♭"
-            case .fSharp:
-                "F♯/G♭"
-            case .gSharp:
-                "G♯/A♭"
-            case .aSharp:
-                "A♯/B♭"
-            case .dFlat, .eFlat, .gFlat, .aFlat, .bFlat:
-                rawValue
-            case .none:
-                "None"
-            }
-        }
-
         /// Swap sharp for flat
         public var swapSharpForFlat: Root {
             switch self {
@@ -160,6 +144,34 @@ extension Chord {
                     .bFlat
             default:
                     .none
+            }
+        }
+
+        /// Swap sharp and flat
+        public var swapSharpAndFlat: Root? {
+            switch self {
+            case .cSharp:
+                    .dFlat
+            case .dSharp:
+                    .eFlat
+            case .fSharp:
+                    .gFlat
+            case .gSharp:
+                    .aFlat
+            case .aSharp:
+                    .bFlat
+            case .dFlat:
+                    .cSharp
+            case .eFlat:
+                    .dSharp
+            case .gFlat:
+                    .fSharp
+            case .aFlat:
+                    .gSharp
+            case .bFlat:
+                    .aSharp
+            default:
+                    nil
             }
         }
 

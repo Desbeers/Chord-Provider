@@ -22,8 +22,8 @@ extension Views.Database {
             if !newChord, let currentDefinition = databaseState.definition.wrappedValue {
                 definition = currentDefinition
             }
-            /// Try to find the optional flat version
-            self.flatChordID = definition.findFlatFromSharp(chords: appState.wrappedValue.editor.coreSettings.chordDefinitions)?.id
+            /// Try to find the optional shadow version
+            self.shadowChord = definition.enharmonicEquivalent(in: appState.wrappedValue.editor.coreSettings.chordDefinitions)
             self._definition = State(wrappedValue: definition)
             self._databaseState = databaseState
             self._appState = appState
@@ -34,14 +34,15 @@ extension Views.Database {
         @Binding var databaseState: DatabaseState
         /// Bool if the chord definition is new
         let newChord: Bool
-        /// ID of the optional flats version
-        let flatChordID: UUID?
+        /// The optional shadow version
+        let shadowChord: ChordDefinition?
         /// The state of the chord definition
         @State private var definition: ChordDefinition
         /// Help label
         var helpLabel: String? {
-            if definition.root.accidental != .natural {
-                 return "When \(newChord ? "adding" : "updating") <b>\(definition.display)</b>, <b>\(definition.displayFlatForSharp)</b> will be \(newChord ? "added" : "updated") as well"
+            //if definition.root.accidental != .natural {
+            if let shadowChord {
+                 return "When \(newChord ? "adding" : "updating") <b>\(definition.display)</b>, <b>\(shadowChord.display)</b> will be \(newChord ? "added" : "updated") as well"
             }
             return nil
         }
@@ -83,18 +84,18 @@ extension Views.Database {
                             if let index = chords.firstIndex(where: { $0.id == definition.id }) {
                                 chords.remove(at: index)
                             }
-                            /// Remove the optional flat version
-                            if let flatChordID, let index = chords.firstIndex(where: { $0.id == flatChordID }) {
+                            /// Remove the optional shadow version
+                            if let shadowChord, let index = chords.firstIndex(where: { $0.id == shadowChord.id }) {
                                 chords.remove(at: index)
                             }
                             /// Add the definition                    
                             chords.append(definition)
-                            if definition.root.accidental == .sharp {
-                                /// Add a flat version
-                                var flat = definition
-                                flat.root = definition.root.swapSharpForFlat
-                                flat.id = UUID()
-                                chords.append(flat)
+                            if definition.root.accidental != .natural, let root = definition.root.swapSharpAndFlat {
+                                /// Add a shadow version
+                                var shadow = definition
+                                shadow.root = root
+                                shadow.id = UUID()
+                                chords.append(shadow)
                             }
                             /// Sort the chords
                             chords.sort()

@@ -22,48 +22,34 @@ extension ChordDefinition {
     /// Format the name of the chord for display
     /// - Returns: A formatted string with the name of the chord
     public var display: String {
-        var name: String = ""
         if root == .none || quality == .none {
             /// We don't know anything about this chord; so use the plain name
-            name = plain
+            return plain
         } else {
-            name = root.display + quality.display
+            var name = root.display + quality.display
             if let slash = slash {
                 name += "/\(slash.display)"
             }
+            return name
         }
-        return name
     }
 
-    /// Format the name of the chord for display with sharp and flat combined
+    /// Format the name of the chord for display with optional sharp and flat combined
     /// - Returns: A formatted string with the name of the chord
-    public var displaySharpAndFlat: String {
-        var name: String = ""
+    public var displayNaturalOrAccidentals: String {
+        var name: String = root.display
         if root == .none || quality == .none {
             /// We don't know anything about this chord; so use the plain name
-            name = plain
-        } else {
-            let spacer = root.accidental == .natural ? "" : " "
-            name = "\(root.naturalAndSharpDisplay)\(spacer)\(quality.display)"
-            if let slash = slash {
-                name += "/\(slash.display)"
+            return plain
+        } else if let shadow = root.swapSharpAndFlat {
+            name += shadow.display
+            if quality != .major {
+                name += "\u{200A}"
             }
         }
-        return name
-    }
-
-    /// Format the name of the chord with a flat version for display
-    /// - Returns: A formatted string with the flat name of the chord
-    public var displayFlatForSharp: String {
-        var name: String = ""
-        if root == .none || quality == .none {
-            /// We don't know anything about this chord; so use the plain name
-            name = plain
-        } else {
-            name = root.swapSharpForFlat.display + quality.display
-            if let slash = slash {
-                name += "/\(slash.display)"
-            }
+        name += quality.display
+        if let slash = slash {
+            name += "/\(slash.display)"
         }
         return name
     }
@@ -129,14 +115,14 @@ extension ChordDefinition {
 
 extension ChordDefinition {
 
-    /// Find the flat version of a sharp chord
-    /// - Parameter chords: All the known chords
-    /// - Returns: A flat version, if found
-    public func findFlatFromSharp(chords: [ChordDefinition]) -> ChordDefinition? {
-        var copy = self
-        if copy.root.accidental == .sharp {
-            copy.root = copy.root.swapSharpForFlat
-            return chords.first(where: { $0.define == copy.define })
+    /// Find the enharmonic equivalent of an accidental chord
+    /// - Parameter chordDefinitions: All known chord definitions
+    /// - Returns: The enharmonic equivalent, if found
+    public func enharmonicEquivalent(in chordDefinitions: [ChordDefinition]) -> ChordDefinition? {
+        if root.accidental != .natural, let equivalentRoot = root.swapSharpAndFlat {
+            var copy = self
+            copy.root = equivalentRoot
+            return chordDefinitions.first(where: { $0.define == copy.define })
         }
         return nil
     }

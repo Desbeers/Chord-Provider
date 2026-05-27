@@ -17,19 +17,23 @@ extension Views {
         /// Init the `View`
         /// - Parameters:
         ///   - chord: The chord definition
+        ///   - showAccidental: Bool if the name should display as accidental
         ///   - preset: The MIDI preset
-        init(chord: ChordDefinition, coreSettings: ChordProviderSettings) {
+        init(chord: ChordDefinition, showAccidental: Bool = false ,coreSettings: ChordProviderSettings) {
             self.chord = chord
             self.coreSettings = coreSettings
+            self.display = showAccidental ? chord.displayNaturalOrAccidentals : chord.display 
         }
         /// The chord to play
         let chord: ChordDefinition
         /// The core settings
         let coreSettings: ChordProviderSettings
+        /// Bool if the name should display as accidental
+        let display: String
         /// The body of the `View`
         var view: Body {
             HStack {
-                Button(chord.display, icon: .default(icon: .mediaPlaybackStart)) {
+                Button(display, icon: .default(icon: .mediaPlaybackStart)) {
                     Task {
                         await ChordProviderMIDI.shared.playChord(
                             chord,

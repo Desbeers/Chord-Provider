@@ -34,12 +34,16 @@ enum RegexDefinitions {
                     CharacterClass(
                         (.word),
                         (.digit),
-                        .anyOf("#?")
+                        .anyOf("#?+()")
                     )
                 }
             } transform: { quality in
+                /// Strip "()" from the quality
+                let quality = String(quality)
+                    .replacingOccurrences(of: "(", with: "")
+                    .replacingOccurrences(of: ")", with: "")
                 /// Try to find the name of the quality
-                for name in Chord.Quality.allCases where name.name.contains(String(quality)) {
+                for name in Chord.Quality.allCases where name.name.contains(quality) {
                     return name
                 }
                 /// The quality is unknown

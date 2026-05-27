@@ -116,7 +116,7 @@ extension Views {
                                 },
                                 values: Chord.Root.naturalAndSharp,
                                 id: \.self,
-                                label: \.naturalAndSharpDisplay
+                                label: \.naturalAndAccidentalDisplay
                             )
                             .padding([.leading, .trailing, .top])
                         }
@@ -125,7 +125,7 @@ extension Views {
                                 StatusPage(
                                     "No chords found",
                                     icon: .default(icon: .systemSearch),
-                                    description: "Couldn't find any \(databaseState.search.isEmpty ? "\(databaseState.chord.naturalAndSharpDisplay) chords" : "chords that match your search")."
+                                    description: "Couldn't find any \(databaseState.search.isEmpty ? "\(databaseState.chord.naturalAndAccidentalDisplay) chords" : "chords that match your search")."
                                 )
                                 .transition(.crossfade)
                             } else {
@@ -136,8 +136,16 @@ extension Views {
                                 ) { chord in
                                     if let chord {
                                         VStack {
-                                            MidiPlayerButton(chord: chord, coreSettings: appState.editor.coreSettings)
-                                            ChordDiagram(chord: chord, width: 120, coreSettings: appState.editor.coreSettings)
+                                            MidiPlayerButton(
+                                                chord: chord,
+                                                showAccidental: databaseState.search.isEmpty ? true : false,
+                                                coreSettings: appState.editor.coreSettings
+                                            )
+                                            ChordDiagram(
+                                                chord: chord,
+                                                width: 120,
+                                                coreSettings: appState.editor.coreSettings
+                                            )
                                         }
                                     }
                                 }
@@ -171,13 +179,14 @@ extension Views {
                         Text(" ")
                             .hexpand()
                         if let definition = databaseState.definition {
+                            let display = databaseState.search.isEmpty ? definition.displayNaturalOrAccidentals : definition.display
                             HStack {
-                                Button("Edit \(definition.display)") {
+                                Button("Edit \(display)") {
                                     databaseState.newChord = false
                                     databaseState.showDefinitionDialog.toggle()
                                 }
                                 .padding(.trailing)
-                                Button("Delete \(definition.display)") {
+                                Button("Delete \(display)") {
                                     databaseState.showDeleteChordDialog = true
                                 }
                                 .padding(.trailing)
