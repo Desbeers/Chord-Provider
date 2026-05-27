@@ -30,23 +30,23 @@ public struct SimpleSourceView: AdwaitaWidget {
         data: WidgetData,
         type: Data.Type
     ) -> ViewStorage {
-        let buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
-        SourceViewController.setupLanguage(buffer: buffer, language: language)
-        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), text, -1)
-        let storage = ViewStorage(
-            gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
-            content: ["buffer": [buffer]]
+        let textBuffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
+        SourceViewController.setupLanguage(textBuffer: textBuffer, language: language)
+        gtk_text_buffer_set_text(textBuffer.opaquePointer?.cast(), text, -1)
+        let sourceView = ViewStorage(
+            gtk_source_view_new_with_buffer(textBuffer.opaquePointer?.cast())?.opaque(),
+            content: ["textBuffer": [textBuffer]]
         )
         /// Set the style
         let styleManager = adw_style_manager_get_default()
-        SourceViewController.setStyle(sourceView: storage, buffer: buffer, manager: styleManager)
+        SourceViewController.setStyle(sourceView: sourceView, textBuffer: textBuffer, manager: styleManager)
         /// Add a *notification* for style changes
-        buffer.notify(name: "dark", pointer: styleManager) {
-            SourceViewController.setStyle(sourceView: storage, buffer: buffer, manager: styleManager)
+        textBuffer.notify(name: "dark", pointer: styleManager) {
+            SourceViewController.setStyle(sourceView: sourceView, textBuffer: textBuffer, manager: styleManager)
         }
-        gtk_text_view_set_wrap_mode(storage.opaquePointer?.cast(), WrapMode.word.rawValue)
+        gtk_text_view_set_wrap_mode(sourceView.opaquePointer?.cast(), WrapMode.word.rawValue)
         /// Disable editing
-        gtk_text_view_set_editable(storage.opaquePointer?.cast(), 0)
-        return storage
+        gtk_text_view_set_editable(sourceView.opaquePointer?.cast(), 0)
+        return sourceView
     }
 }

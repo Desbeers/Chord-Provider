@@ -50,20 +50,3 @@ sourceview_connect_signals(
     SourceViewClickCB click_cb,
     gpointer user_data
 );
-
-/* ============================================================
-   Marks
-   ============================================================ */
-
-void
-sourceview_add_mark(
-    GtkSourceBuffer *buffer,
-    gint line,
-    const gchar *category
-);
-
-void
-sourceview_clear_marks(
-    GtkSourceBuffer *buffer,
-    const gchar *category
-);

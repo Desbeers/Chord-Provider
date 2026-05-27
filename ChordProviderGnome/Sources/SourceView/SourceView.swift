@@ -42,9 +42,9 @@ public struct SourceView: AdwaitaWidget {
     ) -> ViewStorage {
         /// Get the controller class
         let controller = controller ?? SourceViewController(bridge: $bridge, language: language)
-        update(controller.storage, data: data, updateProperties: true, type: type)
+        update(controller.sourceView, data: data, updateProperties: true, type: type)
         /// Return the GTKSourceView
-        return controller.storage
+        return controller.sourceView
     }
 
     public func update<Data>(

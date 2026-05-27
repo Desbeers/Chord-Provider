@@ -36,23 +36,23 @@ extension SourceViewController {
             insertDirective(directive)
         case .replaceAllText(text: let text):
             /// Clear all markers
-            sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-            replaceAllText(buffer.opaquePointer?.cast(), text)
-            SourceViewController.moveCursorToFirstLine(storage: storage, buffer: buffer)
+            clearMarks(textBuffer: textBuffer)
+            replaceAllText(textBuffer.opaquePointer?.cast(), text)
+            SourceViewController.moveCursorToFirstLine(sourceView: sourceView, textBuffer: textBuffer)
         case .appendText(text: let text):
-            appendTextAndScroll(storage.opaquePointer?.cast(), text)
+            appendTextAndScroll(sourceView.opaquePointer?.cast(), text)
         case .replaceLineText(text: let text):
-            clearSelection(buffer.opaquePointer?.cast())
-            replaceFromCursorToNewline(buffer.opaquePointer?.cast(), text: text)
+            clearSelection(textBuffer.opaquePointer?.cast())
+            replaceFromCursorToNewline(textBuffer.opaquePointer?.cast(), text: text)
         case .clearSelection:
-            clearSelection(buffer.opaquePointer?.cast())
+            clearSelection(textBuffer.opaquePointer?.cast())
         case .updateSong:
             scheduleSnapshot()
         }
         updateCurrentLine()
         /// Refocus the editor
         /// - Note: It will loose focus because handling is done with a button
-        gtk_widget_grab_focus(storage.opaquePointer?.cast())
+        gtk_widget_grab_focus(sourceView.opaquePointer?.cast())
     }
 
     /// Clear any active selection in the text buffer
@@ -145,11 +145,11 @@ extension SourceViewController {
     func insertDirective(_ directive: ChordPro.Directive) {
         /// Close the *undo* group*
         defer {
-            gtk_text_buffer_end_user_action(buffer.opaquePointer?.cast())
+            gtk_text_buffer_end_user_action(textBuffer.opaquePointer?.cast())
         }
         /// Make sure we get the buffer
         guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
-            buffer.opaquePointer?.cast()
+            textBuffer.opaquePointer?.cast()
         else {
             return
         }

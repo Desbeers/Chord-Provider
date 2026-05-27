@@ -148,29 +148,3 @@ sourceview_connect_signals(GtkSourceView *view,
     g_signal_connect(buffer, "delete-range",
                      G_CALLBACK(on_delete_range), user_data);
 }
-
-/* ============================================================
-   Marks
-   ============================================================ */
-
-void
-sourceview_add_mark(GtkSourceBuffer *buffer,
-                    gint line,
-                    const gchar *category)
-{
-    GtkTextIter iter;
-    gtk_text_buffer_get_iter_at_line(GTK_TEXT_BUFFER(buffer), &iter, line - 1);
-
-    gtk_source_buffer_create_source_mark(buffer, NULL, category, &iter);
-}
-
-void
-sourceview_clear_marks(GtkSourceBuffer *buffer, const gchar *category)
-{
-    GtkTextIter start, end;
-
-    gtk_text_buffer_get_start_iter(GTK_TEXT_BUFFER(buffer), &start);
-    gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(buffer), &end);
-
-    gtk_source_buffer_remove_source_marks(buffer, &start, &end, category);
-}
