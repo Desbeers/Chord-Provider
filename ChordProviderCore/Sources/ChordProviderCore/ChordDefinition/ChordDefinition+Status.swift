@@ -68,39 +68,39 @@ extension ChordDefinition {
             case .unknownStatus:
                 "The status is unknown"
             case .missingRequiredNotes(let notes):
-                "The definition is missing required notes: <b>\(notes)</b>"
+                "The chord definition is missing required notes: <b>\(notes)</b>"
             case .tooManyFrets:
-                "The definition has too many frets and will be ignored"
+                "The chord definition has too many frets and will be ignored"
             case .notEnoughFrets:
-                "The definition has not enough frets and will be ignored"
+                "The chord definition has not enough frets and will be ignored"
             case .unknownChord(let chord):
                 "The chord <b>\(chord)</b> is unknown"
             case .correct:
                 "The chord definition seems correct"
             case .wrongBassNote(let bass):
-                "The definition does not start with <b>\(bass)</b> as bass note"
+                "The chord definition does not start with <b>\(bass)</b> as bass note"
             case .wrongRootNote(let root):
-                "The definition does not start with <b>\(root)</b> as root note"
+                "The chord definition does not start with <b>\(root)</b> as root note"
             case .wrongNotes(let notes):
-                "The definition contains incorrect notes: <b>\(notes)</b>"
+                "The chord definition contains incorrect notes: <b>\(notes)</b>"
             case .wrongMutedFingers:
                 "Muted strings cannot have a finger position"
             case .wrongOpenFingers:
                 "Open strings cannot have a finger position"
             case .tooManyFingers:
-                "The definition has too many fingers and will be ignored"
+                "The chord definition has too many fingers and will be ignored"
             case .notEnoughFingers:
-                "The definition has not enough fingers and will be ignored"
+                "The chord definition has not enough fingers and will be ignored"
             case .missingFingers:
-                "The definition is missing fingers for fretted strings"
+                "The chord definition is missing fingers for fretted strings"
             case .noNotes:
-                "The definition has no notes"
+                "The chord definition has no notes"
             case .noFrets:
-                "The definition has no frets"
+                "The chord definition has no frets"
             case .noBaseFret:
-                "The definition has no base fret"
+                "The chord definition has no base fret"
             case .tooManyErrors:
-                "The definition has too many errors and will be ignored"
+                "The chord definition has too many errors and will be ignored"
             default:
                 "Unknown"
             }

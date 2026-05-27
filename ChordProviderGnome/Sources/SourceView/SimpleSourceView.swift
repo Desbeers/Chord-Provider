@@ -39,10 +39,10 @@ public struct SimpleSourceView: AdwaitaWidget {
         )
         /// Set the style
         let styleManager = adw_style_manager_get_default()
-        SourceViewController.setStyle(buffer: buffer, manager: styleManager)
+        SourceViewController.setStyle(sourceView: storage, buffer: buffer, manager: styleManager)
         /// Add a *notification* for style changes
         buffer.notify(name: "dark", pointer: styleManager) {
-            SourceViewController.setStyle(buffer: buffer, manager: styleManager)
+            SourceViewController.setStyle(sourceView: storage, buffer: buffer, manager: styleManager)
         }
         gtk_text_view_set_wrap_mode(storage.opaquePointer?.cast(), WrapMode.word.rawValue)
         /// Disable editing

@@ -62,7 +62,7 @@ extension ChordProParser {
                     if !directive.attributes.contains(argument) {
                         warnings.append(
                             LogUtils.LogEntrance(
-                                level: .error,
+                                level: .warning,
                                 message: "<b>\(argument)</b> is an unknown argument and will be ignored"
                             )
                         )
@@ -71,7 +71,7 @@ extension ChordProParser {
                 } else {
                     warnings.append(
                         LogUtils.LogEntrance(
-                            level: .error,
+                            level: .warning,
                             message: "<b>\($1.1)</b> is an unknown argument and will be ignored"
                         )
                     )

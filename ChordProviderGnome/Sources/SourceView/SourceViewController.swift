@@ -50,13 +50,10 @@ public final class SourceViewController {
     ///   - language: The editor language
     public init(bridge: Binding<SourceViewBridge>, language: Language) {
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
-        SourceViewController.setupLanguage(buffer: buffer, language: language)
-        gtk_text_buffer_set_text(buffer.opaquePointer?.cast(), bridge.song.content.wrappedValue, -1)
         storage = ViewStorage(
             gtk_source_view_new_with_buffer(buffer.opaquePointer?.cast())?.opaque(),
             content: ["buffer": [buffer]]
         )
-        SourceViewController.moveCursorToFirstLine(storage: storage, buffer: buffer)
         /// Store the binding of the bridge
         storage.fields["bridgeBinding"] = bridge
 
@@ -66,12 +63,14 @@ public final class SourceViewController {
 
         // MARK: Style
 
+        /// Set the language for text highlight
+        SourceViewController.setupLanguage(buffer: buffer, language: language)
         /// Set the style
         let styleManager = adw_style_manager_get_default()
-        SourceViewController.setStyle(buffer: buffer, manager: styleManager)
+        SourceViewController.setStyle(sourceView: storage, buffer: buffer, manager: styleManager)
         /// Add a *notification* for style changes
         buffer.notify(name: "dark", pointer: styleManager) {
-            SourceViewController.setStyle(buffer: self.buffer, manager: styleManager)
+            SourceViewController.setStyle(sourceView: self.storage, buffer: self.buffer, manager: styleManager)
         }
 
         gtk_source_init()
@@ -90,25 +89,19 @@ public final class SourceViewController {
                 self.scheduleSnippetCheck()
             }
         }
-
-        // MARK: Marks
-
-        sourceview_install_marks(storage.opaquePointer?.cast(), "bookmark")
-
-        /// Render the song
-        scheduleSnapshot()
     }
 
     /// Set the style of the editor
     /// - Parameters:
     ///   - buffer: The text buffer
     ///   - styleManager: The `Adwaita` style manager
-    static func setStyle(buffer: ViewStorage, manager styleManager: OpaquePointer?) {
+    static func setStyle(sourceView: ViewStorage, buffer: ViewStorage, manager styleManager: OpaquePointer?) {
         let isDark = adw_style_manager_get_dark(styleManager)
         let theme = isDark == 1 ? "Adwaita-dark" : "Adwaita"
         let manager = gtk_source_style_scheme_manager_get_default()
         let scheme = gtk_source_style_scheme_manager_get_scheme(manager, theme)
         gtk_source_buffer_set_style_scheme(buffer.opaquePointer?.cast(), scheme)
+        setMarksStyle(sourceView: sourceView, darkMode: isDark == 1)
     }
 
     // MARK: Cursor movement
@@ -241,12 +234,17 @@ extension SourceViewController {
             bridge.song.content = text
             bridge.song = ChordProParser.parse(song: bridge.song, settings: bridge.coreSettings)
             /// Clear all markers and add new ones if needed
-            sourceview_clear_marks(buffer.opaquePointer?.cast(), "bookmark")
-            /// Get all lines, removing anything added by the parser
-            let lines = bridge.song.allLines.filter {$0.sourceLineNumber > 0}
-            bridge.songLines = lines
-            for line in lines.filter({ $0.warnings != nil }) {
-                sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), "bookmark")
+            for level in LogUtils.Level.allCases {
+                sourceview_clear_marks(buffer.opaquePointer?.cast(), level.rawValue)
+            }
+            if bridge.coreSettings.showWarnings {
+                /// Get all lines, removing anything added by the parser
+                let lines = bridge.song.allLines.filter {$0.sourceLineNumber > 0}
+                bridge.songLines = lines
+                for line in lines.filter({ $0.warnings != nil }) {
+                    let level = line.warnings?.compactMap(\.level).sorted().last ?? .info
+                    sourceview_add_mark(buffer.opaquePointer?.cast(), gint(line.sourceLineNumber), level.rawValue)
+                }
             }
             /// Update the bridge
             bridgeBinding.wrappedValue = bridge

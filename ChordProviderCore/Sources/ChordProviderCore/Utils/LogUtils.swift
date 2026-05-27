@@ -28,6 +28,7 @@ public class LogUtils: @unchecked Sendable {
         level: LogUtils.Level = .notice,
         category: LogUtils.Category,
         lineNumber: Int? = nil,
+        source: String? = nil,
         message: String
     ) {
         singletonQueue.sync {
@@ -35,6 +36,7 @@ public class LogUtils: @unchecked Sendable {
                 level: level,
                 category: category,
                 lineNumber: lineNumber,
+                source: source,
                 message: message
             )
             logs.append(message)
@@ -73,6 +75,7 @@ extension LogUtils {
             level: LogUtils.Level = .notice,
             category: LogUtils.Category,
             lineNumber: Int? = nil,
+            source: String? = nil,
             message: String = "There are currently no messages"
         ) {
             self.id = id
@@ -80,6 +83,7 @@ extension LogUtils {
             self.level = level
             self.category = category
             self.lineNumber = lineNumber
+            self.source = source
             self.message = message
         }
 
@@ -93,17 +97,30 @@ extension LogUtils {
         public var category: Category
         /// The optional line number of the **ChordPro** source
         public var lineNumber: Int?
+        /// The optional source
+        public var source: String?
         /// The log message itself
         public var message: String = "There are currently no messages"
+        /// Display the source line
+        public var displayLine: String? {
+            if let lineNumber, let source {
+                return "Line \(lineNumber): \(source)"
+            }
+            return nil
+        }
     }
 }
 
 extension LogUtils {
 
     /// The level of the log message
-    public enum Level: String, Sendable, Codable {
-        /// Debug
-        case debug
+    public enum Level: String, Sendable, Codable, CaseIterable, Comparable {
+
+        /// Comparable protocol
+        public static func < (lhs: LogUtils.Level, rhs: LogUtils.Level) -> Bool {
+            lhs.rawValue < rhs.rawValue
+        }
+
         /// Info
         case info
         /// Notice
@@ -112,8 +129,6 @@ extension LogUtils {
         case warning
         /// Error
         case error
-        /// Fault
-        case fault
     }
 }
 

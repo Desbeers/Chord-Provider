@@ -407,31 +407,36 @@ popover contents, popover arrow {
     padding: 4px;
     border-radius: 4px;
     margin: 4px;
+    background-color: color-mix(in srgb, currentColor var(--border-opacity), transparent);
     color: var(--dark-5);
 }
 .log-info {
-    background-color: var(--green-1);
+    color: var(--success-color);
 }
 .log-notice {
-    background-color: var(--blue-1);
+    color: var(--blue-5);
 }
 .log-warning {
-    background-color: var(--orange-1);
+    color: var(--warning-color);
 }
 .log-error {
-    background-color: var(--red-1);
+    color: var(--error-color);
 }
 .log-debug {
-    background-color: var(--yellow-1);
+    color: var(--yellow-1);
 }
 .log-fault {
-    background-color: var(--red-5);
+    color: var(--red-5);
 }
 
 /* Editor */
 
-textview {
-    font-family: Monospace; font-size: \(theme.editorFontSize)pt;
+.sourceview {
+    font-family: Monospace;
+}
+
+.editor.sourceview {
+    font-size: \(theme.editorFontSize)pt;
 }
 
 gutter {

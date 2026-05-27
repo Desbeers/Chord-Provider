@@ -58,7 +58,8 @@ extension ChordProParser {
                 /// Warn for short directive
                 if directive.short {
                     currentSection.addWarning(
-                        "Short directive for <b>\(directive.directive.details.label)</b>; the long version is preferable"
+                        "It is preferable to use the long version for <b>\(directive.directive.details.label)</b>",
+                        level: .notice
                     )
                 }
                 let directive = directive.directive
@@ -172,7 +173,10 @@ extension ChordProParser {
 
                         /// ## Start of ABC, Lilipound, SVG
                     case .startOfABC, .startOfLy, .startOfSvg:
-                        currentSection.addWarning("The <b>\(directive.details.buttonLabel ?? "")</b> environment is not supported in <i>Chord Provider</i>")
+                        currentSection.addWarning(
+                            "The <b>\(directive.details.buttonLabel ?? "")</b> environment is not supported in <i>Chord Provider</i>",
+                            level: .warning
+                        )
                         openSection(
                             directive: directive,
                             arguments: arguments,
@@ -261,7 +265,10 @@ extension ChordProParser {
 
                     default:
                         /// A known but unsupported directive
-                        currentSection.addWarning("The <b>\(directive.details.label)</b> directive is not supported in <i>Chord Provider</i>")
+                        currentSection.addWarning(
+                            "The <b>\(directive.details.label)</b> directive is not supported in <i>Chord Provider</i>",
+                            level: .warning
+                        )
                         addSection(
                             directive: .unknown,
                             arguments: arguments,

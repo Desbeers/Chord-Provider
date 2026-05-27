@@ -38,6 +38,8 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     public var repeatWholeChorus: Bool
     /// The optional transpose
     public var transpose: Int = 0
+    /// Bool if warnings should be shown
+    public var showWarnings: Bool = true
     /// Export settings
     public var export = Export()
     /// Diagram settings

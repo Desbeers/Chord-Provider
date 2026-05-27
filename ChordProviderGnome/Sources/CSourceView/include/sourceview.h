@@ -56,12 +56,6 @@ sourceview_connect_signals(
    ============================================================ */
 
 void
-sourceview_install_marks(
-    GtkSourceView *view,
-    const gchar *category
-);
-
-void
 sourceview_add_mark(
     GtkSourceBuffer *buffer,
     gint line,

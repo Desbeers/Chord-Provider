@@ -89,6 +89,18 @@ extension Views {
                                 .valign(.center)
                             }
                     }
+                    .group("Errors and Warnings") {
+                        SwitchRow()
+                            .title("Show errors and warnings in the editor")
+                            .active($appState.editor.coreSettings.showWarnings.onSet{ _ in
+                                appState.editor.command = .updateSong
+                            })
+                        Text("Parser information is aways available in the <b>debug</b> dalog.")
+                            .useMarkup()
+                            .wrap()
+                            .padding()
+                            .style(.caption)
+                    }
             }
             .preferencesPage("Chords", icon: .default(icon: .folderMusic)) { page in
                 page

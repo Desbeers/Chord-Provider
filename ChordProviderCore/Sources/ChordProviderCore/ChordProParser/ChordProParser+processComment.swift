@@ -38,7 +38,7 @@ extension ChordProParser {
         if currentSection.environment == .none || currentSection.environment == .metadata {
             /// A comment in its own section
             if comment.isEmpty {
-                currentSection.addWarning("The comment is empty")
+                currentSection.addWarning("The comment is empty", level: .warning)
             }
             addSection(
                 directive: .comment,

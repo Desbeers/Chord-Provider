@@ -79,9 +79,13 @@ extension Views {
                         .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                         .highlightCurrentLine(true)
                         .vexpand()
+                        .style("editor")
                 }
                 Separator()
-                lineInfo
+                if appState.editor.coreSettings.showWarnings {
+                    lineInfo
+                        .transition(.coverUpDown)
+                }
             }
             .card()
             .padding()

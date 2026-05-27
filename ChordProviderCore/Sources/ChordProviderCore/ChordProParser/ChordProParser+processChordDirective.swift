@@ -40,7 +40,7 @@ extension ChordProParser {
             chordDefinition = try ChordDefinition(definition: chord, kind: .customChord, instrument: song.settings.instrument)
             if let chordDefinition, let warnings = chordDefinition.validationWarnings {
                 for warning in warnings {
-                    currentSection.addWarning(warning.description)
+                    currentSection.addWarning(warning.description, level: .notice)
                 }
             }
         } catch {
@@ -66,7 +66,7 @@ extension ChordProParser {
                 line.parts = nil
             }
             if chord.isEmpty {
-                currentSection.addWarning("The chord is empty")
+                currentSection.addWarning("The chord is empty", level: .error)
             }
             addSection(
                 directive: .chord,

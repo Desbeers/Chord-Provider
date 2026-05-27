@@ -185,6 +185,7 @@ extension Song.Section {
                 level: level,
                 category: .songParser,
                 lineNumber: line,
+                source: source,
                 message: "\(warning.message)"
             )
         }

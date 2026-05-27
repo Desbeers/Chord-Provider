@@ -154,26 +154,6 @@ sourceview_connect_signals(GtkSourceView *view,
    ============================================================ */
 
 void
-sourceview_install_marks(GtkSourceView *view,
-                         const gchar *category)
-{
-    GtkSourceMarkAttributes *attrs =
-        gtk_source_mark_attributes_new();
-
-    GdkRGBA bg = { 1, 0, 0, 0.025 };
-    gtk_source_mark_attributes_set_background(attrs, &bg);
-    gtk_source_mark_attributes_set_icon_name(
-        attrs,
-        "emblem-important-symbolic"
-    );
-
-    gtk_source_view_set_mark_attributes(view, category, attrs, 1);
-    gtk_source_view_set_show_line_marks(view, TRUE);
-
-    g_object_unref(attrs);
-}
-
-void
 sourceview_add_mark(GtkSourceBuffer *buffer,
                     gint line,
                     const gchar *category)

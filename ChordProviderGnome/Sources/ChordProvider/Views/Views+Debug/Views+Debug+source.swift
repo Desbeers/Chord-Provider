@@ -28,7 +28,7 @@ extension Views.Debug {
                             sourceView(line.source.sourceParsed, language: .chordpro)
                                 .hexpand()
                         }
-                        .valign(.center)
+                        .valign(.end)
                         VStack(spacing: 0) {
                             if let warnings = line.source.warnings {
                                 ForEach(Array(warnings)) { warning in
@@ -38,7 +38,7 @@ extension Views.Debug {
                                         .halign(.start)
                                 }
                                 Text("<b>Current source</b>: \(line.source.source)")
-                                .useMarkup()
+                                    .useMarkup()
                                     .style(.caption)
                                     .padding(5, .leading)
                                     .halign(.start)
