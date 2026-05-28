@@ -2,63 +2,6 @@
 #include <string.h>
 
 /* ============================================================
-   Snippets
-   ============================================================ */
-
-void
-sourceview_add_snippets_path(const char *msg)
-{
-    GtkSourceSnippetManager *manager =
-        gtk_source_snippet_manager_get_default();
-
-    char **search_path = g_strdupv(
-        (char **)gtk_source_snippet_manager_get_search_path(manager));
-    gsize len = g_strv_length(search_path);
-
-    search_path = g_realloc_n(search_path, len + 2, sizeof(char *));
-    search_path[len++] = g_strdup(msg);
-    search_path[len] = NULL;
-
-    gtk_source_snippet_manager_set_search_path(
-        manager,
-        (const char * const *)search_path
-    );
-
-    g_strfreev(search_path);
-}
-
-/* ============================================================
-   Brackets check
-   ============================================================ */
-
-gboolean
-sourceview_check_for_brackets(GtkSourceView *view)
-{
-    GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-
-    GtkTextIter iter, start, end;
-    gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(buffer), &iter,
-                                     gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(buffer)));
-
-    start = iter;
-    gtk_text_iter_set_line_offset(&start, 0);
-
-    end = start;
-    gtk_text_iter_forward_to_line_end(&end);
-
-    gchar *line = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(buffer), &start, &end, FALSE);
-    if (!line) return FALSE;
-
-    gchar *p = line;
-    while (*p == ' ' || *p == '\t') p++;
-
-    gboolean result = (*p == '{') && (strchr(p, '}') == NULL);
-
-    g_free(line);
-    return result;
-}
-
-/* ============================================================
    Buffer signals (private trampolines)
    ============================================================ */
 

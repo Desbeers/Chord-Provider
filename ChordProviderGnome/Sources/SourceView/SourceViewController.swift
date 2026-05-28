@@ -127,9 +127,7 @@ public final class SourceViewController {
         if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
             let path = urlPath.deletingLastPathComponent().path()
             gtk_source_language_manager_append_search_path(manager, path)
-            path.withCString { cString in
-                sourceview_add_snippets_path(cString)
-            }
+            addSnippetsPath(path)
         }
         let lang = gtk_source_language_manager_get_language(manager, language.languageName)
         gtk_source_buffer_set_language(textBuffer.opaquePointer?.cast(), lang)
@@ -165,36 +163,6 @@ public final class SourceViewController {
         bridge.hasSelection = hasSelection
         bridgeBinding.wrappedValue = bridge
     }
-}
-
-// MARK: - Snippets
-
-extension SourceViewController {
-
-    func handleSnippets() {
-        let view: UnsafeMutablePointer<GtkSourceView>? = sourceView.opaquePointer?.cast()
-        snippetsAvailable = sourceview_check_for_brackets(view) == 1
-        if snippetsAvailable {
-            if !snippetsLoaded {
-                /// Load the snippets
-                gtk_source_completion_add_provider(completion, snippets?.opaque())
-                snippetsLoaded = true
-            }
-        } else if snippetsLoaded {
-            /// Remove the snippets
-            gtk_source_completion_remove_provider(completion, snippets?.opaque())
-            snippetsLoaded = false
-        }
-    }
-
-    func scheduleSnippetCheck() {
-        if snippetsIdle != nil { return }
-        snippetsIdle = Idle {
-            self.snippetsIdle = nil
-            self.handleSnippets()
-        }
-    }
-
 }
 
 // MARK: - Snapshots
