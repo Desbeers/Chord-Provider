@@ -1,8 +1,15 @@
 #include "sourceview.h"
-#include <string.h>
+
+typedef struct {
+    SourceViewInsertCB insert_cb;
+    SourceViewDeleteCB delete_cb;
+    SourceViewClickCB  click_cb;
+    SourceViewKeyCB    key_cb;
+    gpointer           user_data;
+} SourceViewSignals;
 
 /* ============================================================
-   Buffer signals (private trampolines)
+   Signal handlers
    ============================================================ */
 
 static gboolean
@@ -10,24 +17,19 @@ on_key_pressed(GtkEventControllerKey *controller,
                guint keyval,
                guint keycode,
                GdkModifierType state,
-               gpointer user_data)
+               gpointer data)
 {
-    SourceViewKeyCB cb =
-        g_object_get_data(G_OBJECT(controller), "key_cb");
+    SourceViewSignals *signals = data;
 
-    if (!cb) return FALSE;
+    if (!signals->key_cb)
+        return FALSE;
 
-    return cb(keyval, keycode, state, user_data);
-}
-
-static void
-on_cursor_notify(GObject *object,
-                 GParamSpec *pspec,
-                 gpointer user_data)
-{
-    SourceViewCursorCB cb =
-        g_object_get_data(object, "cursor_cb");
-    if (cb) cb(user_data);
+    return signals->key_cb(
+        keyval,
+        keycode,
+        state,
+        signals->user_data
+    );
 }
 
 static void
@@ -35,43 +37,51 @@ on_insert_text(GtkTextBuffer *buffer,
                GtkTextIter *location,
                gchar *text,
                gint len,
-               gpointer user_data)
+               gpointer data)
 {
-    SourceViewInsertCB cb =
-        g_object_get_data(G_OBJECT(buffer), "insert_cb");
-    if (!cb) return;
+    SourceViewSignals *signals = data;
 
-    cb(gtk_text_iter_get_offset(location), text, user_data);
+    if (!signals->insert_cb)
+        return;
+
+    signals->insert_cb(
+        gtk_text_iter_get_offset(location),
+        text,
+        signals->user_data
+    );
 }
 
 static void
 on_delete_range(GtkTextBuffer *buffer,
                 GtkTextIter *start,
                 GtkTextIter *end,
-                gpointer user_data)
+                gpointer data)
 {
-    SourceViewDeleteCB cb =
-        g_object_get_data(G_OBJECT(buffer), "delete_cb");
-    if (!cb) return;
+    SourceViewSignals *signals = data;
 
-    cb(gtk_text_iter_get_offset(start),
-       gtk_text_iter_get_offset(end),
-       user_data);
+    if (!signals->delete_cb)
+        return;
+
+    signals->delete_cb(
+        gtk_text_iter_get_offset(start),
+        gtk_text_iter_get_offset(end),
+        signals->user_data
+    );
 }
 
 static void
-on_click(
-    GtkGestureClick *gesture,
-    int click,
-    double x,
-    double y,
-    gpointer user_data
-) {
-    SourceViewClickCB cb =
-        g_object_get_data(G_OBJECT(gesture), "click_cb");
-    if (!cb) return;
+on_click(GtkGestureClick *gesture,
+         int click,
+         double x,
+         double y,
+         gpointer data)
+{
+    SourceViewSignals *signals = data;
 
-    cb(click, user_data);
+    if (!signals->click_cb)
+        return;
+
+    signals->click_cb(click, signals->user_data);
 }
 
 /* ============================================================
@@ -86,29 +96,58 @@ sourceview_connect_signals(GtkSourceView *view,
                            SourceViewKeyCB key_cb,
                            gpointer user_data)
 {
+    SourceViewSignals *signals =
+        g_new0(SourceViewSignals, 1);
+
+    signals->insert_cb = insert_cb;
+    signals->delete_cb = delete_cb;
+    signals->click_cb  = click_cb;
+    signals->key_cb    = key_cb;
+    signals->user_data = user_data;
+
+    /* Click gesture */
 
     GtkGesture *gesture = gtk_gesture_click_new();
-    gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(gesture), GDK_BUTTON_PRIMARY);
+
+    gtk_gesture_single_set_button(
+        GTK_GESTURE_SINGLE(gesture),
+        GDK_BUTTON_PRIMARY
+    );
 
     gtk_widget_add_controller(
         GTK_WIDGET(view),
         GTK_EVENT_CONTROLLER(gesture)
     );
 
-    g_object_set_data(G_OBJECT(gesture), "click_cb", click_cb);
+    g_signal_connect_data(
+        gesture,
+        "pressed",
+        G_CALLBACK(on_click),
+        signals,
+        (GClosureNotify)g_free,
+        0
+    );
 
-    g_signal_connect(gesture, "pressed",
-                     G_CALLBACK(on_click), user_data);
+    /* Buffer signals */
 
     GtkTextBuffer *buffer =
         gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 
-    g_object_set_data(G_OBJECT(buffer), "insert_cb", insert_cb);
-    g_object_set_data(G_OBJECT(buffer), "delete_cb", delete_cb);
-    g_signal_connect(buffer, "insert-text",
-                     G_CALLBACK(on_insert_text), user_data);
-    g_signal_connect(buffer, "delete-range",
-                     G_CALLBACK(on_delete_range), user_data);
+    g_signal_connect(
+        buffer,
+        "insert-text",
+        G_CALLBACK(on_insert_text),
+        signals
+    );
+
+    g_signal_connect(
+        buffer,
+        "delete-range",
+        G_CALLBACK(on_delete_range),
+        signals
+    );
+
+    /* Key controller */
 
     GtkEventController *key =
         gtk_event_controller_key_new();
@@ -123,10 +162,10 @@ sourceview_connect_signals(GtkSourceView *view,
         key
     );
 
-    g_object_set_data(G_OBJECT(key), "key_cb", key_cb);
-
-    g_signal_connect(key,
-                    "key-pressed",
-                    G_CALLBACK(on_key_pressed),
-                    user_data);
+    g_signal_connect(
+        key,
+        "key-pressed",
+        G_CALLBACK(on_key_pressed),
+        signals
+    );
 }
