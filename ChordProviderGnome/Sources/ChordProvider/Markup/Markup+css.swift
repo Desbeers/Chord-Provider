@@ -327,6 +327,11 @@ popover contents, popover arrow {
     font-size: \(baseFontSize * theme.zoom)rem;
 }
 
+.chord-diagram-toggle:disabled {
+    filter: none;
+    opacity: 0.6;
+}
+
 .page-header-toggle {
     margin: 4px;
     padding: 0 4px;

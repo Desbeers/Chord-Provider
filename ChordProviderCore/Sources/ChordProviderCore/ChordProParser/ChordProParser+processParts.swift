@@ -36,6 +36,9 @@ extension ChordProParser {
                     /// It is, add it as a 'text chord'
                     textPart.text = String(textPart.text.dropFirst())
                     lyric.chordSlot = .text(textPart: textPart)
+                } else if textPart.text == "N.C." || textPart.text == "NC" {
+                    textPart.text = "X"
+                    lyric.chordSlot = .text(textPart: textPart)
                 } else {
                     /// It is a chord definition
                     let definition = processChord(
