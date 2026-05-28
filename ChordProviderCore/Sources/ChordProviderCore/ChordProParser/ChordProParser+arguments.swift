@@ -43,7 +43,8 @@ extension ChordProParser {
         if
             let parsedArgument,
             parsedArgument.contains("="),
-            !parsedArgument.contains("<")
+            !parsedArgument.contains("<"),
+            !parsedArgument.contains("://")
         {
             let attributes = parsedArgument.matches(of: RegexDefinitions.formattingAttributes)
             /// Map the attributes in a dictionary
@@ -68,6 +69,7 @@ extension ChordProParser {
                         )
                     }
                     $0[argument] = value
+                    arguments[.haveAttributes] = "true"
                 } else {
                     warnings.append(
                         LogUtils.LogEntrance(
@@ -77,7 +79,6 @@ extension ChordProParser {
                     )
                 }
             }
-            arguments[.haveAttributes] = "true"
         } else {
             /// Set the argument as simply *plain*
             /// - Note: Later, this will be moved to its own part of a line because it is not a *real* argument
