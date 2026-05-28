@@ -80,6 +80,7 @@ public final class SourceViewController {
             sourceview_insert_cb,
             sourceview_delete_cb,
             sourceview_click_cb,
+            sourceview_key_cb,
             Unmanaged.passUnretained(self).toOpaque()
         )
 
@@ -226,63 +227,82 @@ extension SourceViewController {
 
 // MARK: - Swift callbacks for `C` functions
 
+extension SourceViewController {
+
+    static func controller(from userData: UnsafeMutableRawPointer?) -> SourceViewController? {
+        guard let userData else { return nil }
+        return Unmanaged<SourceViewController>
+            .fromOpaque(userData)
+            .takeUnretainedValue()
+    }
+}
+
+/// Handle insert event
 @_cdecl("sourceview_insert_cb")
 public func sourceview_insert_cb(
     offset: Int32,
     text: UnsafePointer<CChar>?,
     userData: UnsafeMutableRawPointer?
 ) {
-    guard let userData, let text = text else { return }
-    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
-    /// Convert C string to Swift String
-    let insertedText = String(cString: text)
-
-    /// Check if the inserted text is exactly "["
-    if insertedText == "[" {
-        Idle {
-            guard let bufferPtr: UnsafeMutablePointer<GtkTextBuffer> =
-                    controller.textBuffer.opaquePointer?.cast()
-            else { return }
-
-            /// Get insert mark
-            guard let insertMark = gtk_text_buffer_get_insert(bufferPtr) else { return }
-
-            /// Insert closing bracket
-            var iter = GtkTextIter()
-            gtk_text_buffer_get_iter_at_mark(bufferPtr, &iter, insertMark)
-            gtk_text_buffer_insert(bufferPtr, &iter, "]", -1)
-
-            /// Move cursor back between brackets
-            gtk_text_iter_backward_char(&iter)
-            gtk_text_buffer_place_cursor(bufferPtr, &iter)
-        }
-    }
-
-    /// Schedule undo snapshot / any other callbacks
+    guard let controller = SourceViewController.controller(from: userData) else { return }
     controller.scheduleSnapshot()
 }
 
+/// Handle delete event
 @_cdecl("sourceview_delete_cb")
 public func sourceview_delete_cb(
     start: Int32,
     end: Int32,
     userData: UnsafeMutableRawPointer?
 ) {
-    guard let userData else { return }
-    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
+    guard let controller = SourceViewController.controller(from: userData) else { return }
     controller.scheduleSnapshot()
 }
 
+/// Handle click event
 @_cdecl("sourceview_click_cb")
 public func sourceview_click_cb(
     click: Int32,
     userData: UnsafeMutableRawPointer?
 ) {
     guard let userData, click == 3 else { return }
-    let controller = Unmanaged<SourceViewController>.fromOpaque(userData).takeUnretainedValue()
+    guard let controller = SourceViewController.controller(from: userData) else { return }
     guard let binding = controller.sourceView.fields["bridgeBinding"] as? Binding<SourceViewBridge> else { return }
     if let directive = controller.currentLine.directive, directive.editable {
         binding.handleDirective.wrappedValue = directive
         binding.showEditDirectiveDialog.wrappedValue = true
     }
+}
+
+/// Handle key event
+@_cdecl("sourceview_key_cb")
+public func sourceview_key_cb(
+    keyval: UInt32,
+    keycode: UInt32,
+    state: GdkModifierType,
+    userData: UnsafeMutableRawPointer?
+) -> gboolean {
+
+    guard let controller = SourceViewController.controller(from: userData) else {
+        return 0
+    }
+    guard state.rawValue == 0,
+          keyval == UInt32(GDK_KEY_bracketleft) else {
+        return 0
+    }
+    guard let bufferPointer: UnsafeMutablePointer<GtkTextBuffer> =
+          controller.textBuffer.opaquePointer?.cast() else {
+        return 0
+    }
+    gtk_text_buffer_insert_at_cursor(bufferPointer, "[", -1)
+    gtk_text_buffer_insert_at_cursor(bufferPointer, "]", -1)
+    var iter = GtkTextIter()
+    guard let mark = gtk_text_buffer_get_insert(bufferPointer) else {
+        return 1
+    }
+    gtk_text_buffer_get_iter_at_mark(bufferPointer, &iter, mark)
+    gtk_text_iter_backward_char(&iter)
+    gtk_text_buffer_place_cursor(bufferPointer, &iter)
+    // Return 1 because the bracket is aready handled now
+    return 1
 }

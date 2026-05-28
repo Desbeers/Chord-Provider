@@ -5,6 +5,21 @@
    Buffer signals (private trampolines)
    ============================================================ */
 
+static gboolean
+on_key_pressed(GtkEventControllerKey *controller,
+               guint keyval,
+               guint keycode,
+               GdkModifierType state,
+               gpointer user_data)
+{
+    SourceViewKeyCB cb =
+        g_object_get_data(G_OBJECT(controller), "key_cb");
+
+    if (!cb) return FALSE;
+
+    return cb(keyval, keycode, state, user_data);
+}
+
 static void
 on_cursor_notify(GObject *object,
                  GParamSpec *pspec,
@@ -59,11 +74,16 @@ on_click(
     cb(click, user_data);
 }
 
+/* ============================================================
+   Connect signals
+   ============================================================ */
+
 void
 sourceview_connect_signals(GtkSourceView *view,
                            SourceViewInsertCB insert_cb,
                            SourceViewDeleteCB delete_cb,
                            SourceViewClickCB click_cb,
+                           SourceViewKeyCB key_cb,
                            gpointer user_data)
 {
 
@@ -85,9 +105,28 @@ sourceview_connect_signals(GtkSourceView *view,
 
     g_object_set_data(G_OBJECT(buffer), "insert_cb", insert_cb);
     g_object_set_data(G_OBJECT(buffer), "delete_cb", delete_cb);
-
     g_signal_connect(buffer, "insert-text",
                      G_CALLBACK(on_insert_text), user_data);
     g_signal_connect(buffer, "delete-range",
                      G_CALLBACK(on_delete_range), user_data);
+
+    GtkEventController *key =
+        gtk_event_controller_key_new();
+
+    gtk_event_controller_set_propagation_phase(
+        key,
+        GTK_PHASE_CAPTURE
+    );
+
+    gtk_widget_add_controller(
+        GTK_WIDGET(view),
+        key
+    );
+
+    g_object_set_data(G_OBJECT(key), "key_cb", key_cb);
+
+    g_signal_connect(key,
+                    "key-pressed",
+                    G_CALLBACK(on_key_pressed),
+                    user_data);
 }
