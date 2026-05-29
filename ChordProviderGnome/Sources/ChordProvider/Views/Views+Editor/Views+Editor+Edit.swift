@@ -181,15 +181,8 @@ extension Views.Editor {
                             appState.editor.currentLine.arguments = arguments
                         }
                         let directiveArgument = ChordProParser.argumentsToString(appState.editor.currentLine) ?? ""
-                        /// Optional column
-                        var column = "" 
-                        if ChordPro.Directive.withPlainArgument.contains(directive) {
-                            column = ":"
-                        }
-                        /// Make space for optional arguments
-                        let spacer = directiveArgument.isEmpty ? "" : " "
-                        let replacement = "{\(directive.source.long)\(column)\(spacer)\(directiveArgument)}"
-                        appState.editor.command = .replaceLineText(text: replacement)
+                        let replacement = "\(directive.format.start)\(directiveArgument)\(directive.format.end)"
+                        appState.editor.command = .replaceLineText(replacement)
                         appState.editor.showEditDirectiveDialog = false
                         appState.editor.handleDirective = nil
                     }

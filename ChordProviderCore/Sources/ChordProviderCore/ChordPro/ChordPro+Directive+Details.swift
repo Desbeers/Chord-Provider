@@ -172,8 +172,7 @@ extension ChordPro.Directive {
                 label: "Comment",
                 help: "This directive introduce a comment line",
                 environment: .comment,
-                lineType: .comment,
-                buttonLabel: "Add a new comment"
+                lineType: .comment
             )
         case .highlight:
             Details(

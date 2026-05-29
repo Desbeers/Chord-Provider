@@ -68,9 +68,9 @@ extension Views.Editor {
                         }
                         Button("\(newChord ? "Add" : "Update") Definition") {
                             if newChord {
-                                appState.editor.command = .appendText(text: definition.define)
+                                appState.editor.command = .appendText(definition.define)
                             } else {
-                                appState.editor.command = .replaceLineText(text: definition.define)
+                                appState.editor.command = .replaceLineText(definition.define)
                             }
                             appState.editor.showEditDirectiveDialog = false
                         }

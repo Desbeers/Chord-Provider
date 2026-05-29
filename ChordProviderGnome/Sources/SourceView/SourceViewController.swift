@@ -14,9 +14,14 @@ import CSourceView
 public final class SourceViewController {
 
     /// The GTKSourceView
-    let sourceView: ViewStorage
+    let view: ViewStorage
     /// The GTKTextBuffer
-    let textBuffer: ViewStorage
+    let buffer: ViewStorage
+    /// Search settings
+    public let searchSettings: ViewStorage
+    /// Search context
+    public let searchContext: ViewStorage
+    var currentSearchIter = GtkTextIter()
     /// The current line in the editor
     var currentLine = Song.Section.Line()
     /// Bool if the editor is at the start of a line
@@ -24,6 +29,8 @@ public final class SourceViewController {
     public var isAtBeginningOfLine: Bool = false
     /// Bool if the editor has a selection
     public var hasSelection: Bool = false
+    // /// Current search
+    // var searchState = SearchState()
 
     // MARK: Snippets
 
@@ -35,7 +42,7 @@ public final class SourceViewController {
     /// Bool if the snippets are loaded in the completion provider
     var snippetsLoaded: Bool = false
     /// Idle handling of adding snippets
-    var snippetsIdle: Any?
+    var snippetsIdle: Idle?
     /// The completion object
     let completion: OpaquePointer?
 
@@ -49,34 +56,42 @@ public final class SourceViewController {
     ///   - bridge: The source view bridge
     ///   - language: The editor language
     public init(bridge: Binding<SourceViewBridge>, language: Language) {
-        textBuffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
-        sourceView = ViewStorage(
-            gtk_source_view_new_with_buffer(textBuffer.opaquePointer?.cast())?.opaque(),
-            content: ["textBuffer": [textBuffer]]
+
+        buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
+        searchSettings = ViewStorage(gtk_source_search_settings_new().opaque())
+
+        gtk_source_search_settings_set_wrap_around(searchSettings.opaquePointer?.cast(), 1)
+        searchContext = ViewStorage(
+            gtk_source_search_context_new(
+                buffer.sourceBufferPointer,
+                searchSettings.opaquePointer?.cast()
+            )
         )
-        /// Store the binding of the bridge
-        sourceView.fields["bridgeBinding"] = bridge
+        view = ViewStorage(
+            gtk_source_view_new_with_buffer(buffer.sourceBufferPointer).opaque(),
+            content: ["buffer": [buffer], "searchSettings": [searchSettings], "searchContext": [searchContext]]
+        )
+        // Store the binding of the bridge
+        view.fields["bridge"] = bridge
 
         // MARK: Snippets
 
-        completion = gtk_source_view_get_completion(sourceView.opaquePointer?.cast())
+        completion = gtk_source_view_get_completion(view.sourceViewPointer)
 
         // MARK: Style
 
-        /// Set the language for text highlight
-        SourceViewController.setupLanguage(textBuffer: textBuffer, language: language)
-        /// Set the style
-        let styleManager = adw_style_manager_get_default()
-        SourceViewController.setStyle(sourceView: sourceView, textBuffer: textBuffer, manager: styleManager)
-        /// Add a *notification* for style changes
-        textBuffer.notify(name: "dark", pointer: styleManager) {
-            SourceViewController.setStyle(sourceView: self.sourceView, textBuffer: self.textBuffer, manager: styleManager)
-        }
+        SourceViewController.initStyle(
+            view: view,
+            buffer: buffer,
+            language: language
+        )
 
         gtk_source_init()
-        /// Connect signal callbacks
+
+        // MARK: Connect signal callbacks
+
         sourceview_connect_signals(
-            sourceView.opaquePointer?.cast(),
+            view.sourceViewPointer,
             sourceview_insert_cb,
             sourceview_delete_cb,
             sourceview_click_cb,
@@ -84,144 +99,14 @@ public final class SourceViewController {
             Unmanaged.passUnretained(self).toOpaque()
         )
 
-        textBuffer.notify(name: "cursor-position") {
+        buffer.notify(name: "cursor-position") {
             self.lineNumberDebounce.schedule {
                 self.updateCurrentLine()
                 self.scheduleSnippetCheck()
             }
         }
-    }
 
-    /// Set the style of the editor
-    /// - Parameters:
-    ///   - textBuffer: The text buffer
-    ///   - styleManager: The `Adwaita` style manager
-    static func setStyle(sourceView: ViewStorage, textBuffer: ViewStorage, manager styleManager: OpaquePointer?) {
-        let isDark = adw_style_manager_get_dark(styleManager)
-        let theme = isDark == 1 ? "Adwaita-dark" : "Adwaita"
-        let manager = gtk_source_style_scheme_manager_get_default()
-        let scheme = gtk_source_style_scheme_manager_get_scheme(manager, theme)
-        gtk_source_buffer_set_style_scheme(textBuffer.opaquePointer?.cast(), scheme)
-        setMarksStyle(sourceView: sourceView, darkMode: isDark == 1)
-    }
-
-    // MARK: Cursor movement
-
-    static func moveCursorToFirstLine(sourceView: ViewStorage, textBuffer: ViewStorage) {
-        var iter = GtkTextIter()
-        gtk_text_buffer_get_start_iter(textBuffer.opaquePointer?.cast(), &iter)
-        /// Place cursor at start of line 0
-        gtk_text_buffer_place_cursor(textBuffer.opaquePointer?.cast(), &iter)
-        /// Scroll to cursor
-        if let insertMark = gtk_text_buffer_get_insert(textBuffer.opaquePointer?.cast()) {
-            gtk_text_view_scroll_mark_onscreen(
-                sourceView.opaquePointer?.cast(),
-                insertMark
-            )
-        }
-    }
-
-    // MARK: ChordPro language and snippets
-
-    static func setupLanguage(textBuffer: ViewStorage, language: Language) {
-        let manager = gtk_source_language_manager_get_default()
-        if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
-            let path = urlPath.deletingLastPathComponent().path()
-            gtk_source_language_manager_append_search_path(manager, path)
-            addSnippetsPath(path)
-        }
-        let lang = gtk_source_language_manager_get_language(manager, language.languageName)
-        gtk_source_buffer_set_language(textBuffer.opaquePointer?.cast(), lang)
-    }
-
-    // MARK: Current line information
-
-    func updateCurrentLine() {
-        guard
-            let bridgeBinding = sourceView.fields["bridgeBinding"] as? Binding<SourceViewBridge>,
-            let textBufferPtr: UnsafeMutablePointer<GtkTextBuffer> = textBuffer.opaquePointer?.cast()
-        else {
-            return
-        }
-        var bridge = bridgeBinding.wrappedValue
-        var iter = GtkTextIter()
-        gtk_text_buffer_get_iter_at_mark(
-            textBufferPtr,
-            &iter,
-            gtk_text_buffer_get_insert(textBufferPtr)
-        )
-        let currentLineNumber = Int(gtk_text_iter_get_line(&iter) + 1)
-
-        let totalLines = bridge.song.totalLines
-
-        self.currentLine = bridge.songLines[safe: currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: totalLines)
-
-        isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
-        hasSelection = gtk_text_buffer_get_has_selection(textBufferPtr) != 0
-        
-        bridge.currentLine = currentLine
-        bridge.isAtBeginningOfLine = isAtBeginningOfLine
-        bridge.hasSelection = hasSelection
-        bridgeBinding.wrappedValue = bridge
-    }
-}
-
-// MARK: - Snapshots
-//
-// Sync the text buffer to the Swift text binding
-
-extension SourceViewController {
-
-    func snapshotText() -> String {
-        var start = GtkTextIter()
-        var end = GtkTextIter()
-        gtk_text_buffer_get_start_iter(textBuffer.opaquePointer?.cast(), &start)
-        gtk_text_buffer_get_end_iter(textBuffer.opaquePointer?.cast(), &end)
-        guard let cStr = gtk_text_buffer_get_text(textBuffer.opaquePointer?.cast(), &start, &end, true.cBool) else {
-            return ""
-        }
-        return String(cString: cStr)
-    }
-
-    func scheduleSnapshot() {
-        snapshotDebounce.schedule {
-            if self.snippetsAvailable {
-                /// Don't flush the text or else the completion popup will flicker
-                return
-            }
-            guard
-                let textBuffer = self.sourceView.content["textBuffer"]?.first,
-                let bridgeBinding = self.sourceView.fields["bridgeBinding"] as? Binding<SourceViewBridge>
-            else {
-                return
-            }
-            /// Clear the log for a new parsing
-            LogUtils.shared.clearLog()
-            let text = self.snapshotText()
-            /// Get the values of the bridge binding
-            var bridge = bridgeBinding.wrappedValue
-            bridge.song.content = text
-            bridge.song = ChordProParser.parse(song: bridge.song, settings: bridge.coreSettings)
-            /// Clear all markers and add new ones if needed
-            self.clearMarks(textBuffer: textBuffer)
-            if bridge.coreSettings.showWarnings {
-                /// Get all lines, removing anything added by the parser
-                let lines = bridge.song.allLines.filter {$0.sourceLineNumber > 0}
-                bridge.songLines = lines
-                for line in lines.filter({ $0.warnings != nil }) {
-                    let level = line.warnings?.compactMap(\.level).sorted().last ?? .info
-                    self.addMark(
-                        textBuffer: textBuffer,
-                        lineNumber: line.sourceLineNumber,
-                        category: level.rawValue
-                    )
-                }
-            }
-            /// Update the bridge
-            bridgeBinding.wrappedValue = bridge
-            /// Update the current line
-            self.updateCurrentLine()
-        }
+        searchHighlight(false)
     }
 }
 
@@ -229,6 +114,39 @@ extension SourceViewController {
 
 extension SourceViewController {
 
+    /// Get  string from the buffer
+    /// - Parameters:
+    ///   - start: Start iterator
+    ///   - end: End iterator
+    /// - Returns: An optional String
+    func stringFromBuffer(start: inout GtkTextIter, end: inout GtkTextIter)-> String? {
+        guard let cString = gtk_text_buffer_get_text(
+            buffer.textBufferPointer,
+            &start,
+            &end,
+            0
+        ) else {
+            return nil
+        }
+        // Free memory on return
+        defer {
+            g_free(cString)
+        }
+        return String(cString: cString)
+    }
+
+    /// The current text iterator
+    func currentTextIter() -> GtkTextIter {
+        var iter = GtkTextIter()
+        guard let buffer = buffer.textBufferPointer else { return iter }
+        let textMark = gtk_text_buffer_get_insert(buffer)
+        gtk_text_buffer_get_iter_at_mark(buffer, &iter, textMark)
+        return iter
+    }
+
+    /// Helper to get the controller for 'C' callbacks
+    /// - Parameter userData: The user data
+    /// - Returns: The controller
     static func controller(from userData: UnsafeMutableRawPointer?) -> SourceViewController? {
         guard let userData else { return nil }
         return Unmanaged<SourceViewController>
@@ -265,9 +183,13 @@ public func sourceview_click_cb(
     click: Int32,
     userData: UnsafeMutableRawPointer?
 ) {
-    guard let userData, click == 3 else { return }
-    guard let controller = SourceViewController.controller(from: userData) else { return }
-    guard let binding = controller.sourceView.fields["bridgeBinding"] as? Binding<SourceViewBridge> else { return }
+    guard 
+        click == 3,
+        let controller = SourceViewController.controller(from: userData),
+        let binding = controller.view.fields["bridge"] as? Binding<SourceViewBridge>
+    else {
+        return
+    }
     if let directive = controller.currentLine.directive, directive.editable {
         binding.handleDirective.wrappedValue = directive
         binding.showEditDirectiveDialog.wrappedValue = true
@@ -282,27 +204,19 @@ public func sourceview_key_cb(
     state: GdkModifierType,
     userData: UnsafeMutableRawPointer?
 ) -> gboolean {
-
-    guard let controller = SourceViewController.controller(from: userData) else {
+    guard
+        state.rawValue == 0,
+        keyval == UInt32(GDK_KEY_bracketleft),
+        let controller = SourceViewController.controller(from: userData),
+        let buffer = controller.buffer.textBufferPointer
+    else {
         return 0
     }
-    guard state.rawValue == 0,
-          keyval == UInt32(GDK_KEY_bracketleft) else {
-        return 0
-    }
-    guard let bufferPointer: UnsafeMutablePointer<GtkTextBuffer> =
-          controller.textBuffer.opaquePointer?.cast() else {
-        return 0
-    }
-    gtk_text_buffer_insert_at_cursor(bufferPointer, "[", -1)
-    gtk_text_buffer_insert_at_cursor(bufferPointer, "]", -1)
-    var iter = GtkTextIter()
-    guard let mark = gtk_text_buffer_get_insert(bufferPointer) else {
-        return 1
-    }
-    gtk_text_buffer_get_iter_at_mark(bufferPointer, &iter, mark)
+    gtk_text_buffer_insert_at_cursor(buffer, "[", -1)
+    gtk_text_buffer_insert_at_cursor(buffer, "]", -1)
+    var iter = controller.currentTextIter()
     gtk_text_iter_backward_char(&iter)
-    gtk_text_buffer_place_cursor(bufferPointer, &iter)
-    // Return 1 because the bracket is aready handled now
+    gtk_text_buffer_place_cursor(buffer, &iter)
+    // Return 1 because the bracket is already handled now
     return 1
 }

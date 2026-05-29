@@ -14,16 +14,14 @@ extension Views {
 
     /// The `View` for editing a song
     struct Editor: View {
-        /// Init the `View`
-        init(appState: Binding<AppState>) {
-            self._appState = appState
-        }
         /// The state of the application
         @Binding var appState: AppState
         /// Confirmation for cleanup
         @State private var confirmCleanup: Bool = false
         /// Inserts
         @State private var inserts = Inserts()
+        /// Bool to show the search bar
+        @State private var showSearch: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -43,6 +41,7 @@ extension Views {
                                     )
                             }
                         }
+                        .insensitive(!appState.editor.isAtBeginningOfLine)
                     Toggle("Environment", isOn: $inserts.showEnvironment)
                         .style(.editorButton)
                         .popover(visible: $inserts.showEnvironment) {
@@ -51,26 +50,36 @@ extension Views {
                                 .padding(.bottom)
                             Separator()
                             ForEach(ChordPro.Directive.environmentDirectives) { directive in
-                                addInsert(directive: directive, command: .insertDirective(directive: directive))
+                                addInsert(directive: directive, command: .insertDirective(directive))
                             }
                         }
+                        .insensitive(!appState.editor.isAtBeginningOfLine)
                     Toggle("More...", isOn: $inserts.showMore)
                         .style(.editorButton)
                         .popover(visible: $inserts.showMore) {
                             addInsert(directive: .define)
                             Button("Add all Chord definitions") {
-                                appState.editor.command = .appendText(text: appState.editor.song.definitions)
+                                appState.editor.command = .appendText(appState.editor.song.definitions)
                                 inserts.showMore.toggle()
                             }
                             .flat()
                             Separator()
                             addInsert(directive: .comment)
                         }
+                        .insensitive(!appState.editor.isAtBeginningOfLine)
+                    Button(icon: .default(icon: .systemSearch)) {
+                        showSearch.toggle()
+                        appState.editor.command = .searchHighlight(showSearch)
+                    }
+                    .keyboardShortcut("f".ctrl())
+                    .flat(!showSearch)
                 }
                 .padding(5)
                 .halign(.center)
-                /// - Note: Disable all *inserts* when we are not a the beginning of a new line
-                .insensitive(!appState.editor.isAtBeginningOfLine)
+                if showSearch {
+                    SearchOptions(showSearch: $showSearch, appState: $appState)
+                    .transition(.coverDown)
+                }
                 Separator()
                 ScrollView {
                     SourceView(bridge: $appState.editor, controller: appState.controller, language: .chordpro)
@@ -163,7 +172,7 @@ extension Views {
                 }
                 .response("Cleanup", appearance: .suggested, role: .default) {
                     appState.editor.command = .replaceAllText(
-                        text: appState.editor.song.allLines.map(\.sourceParsed).joined(separator: "\n")
+                        appState.editor.song.allLines.map(\.sourceParsed).joined(separator: "\n")
                     )
                 }
             }
@@ -180,6 +189,8 @@ extension Views {
                 if let command {
                     /// Apply the command
                     appState.editor.command = command
+                } else if appState.editor.hasSelection {
+                    appState.editor.command = .insertDirective(directive)
                 } else {
                     /// Set the `directive`
                     appState.editor.handleDirective = directive

@@ -7,6 +7,7 @@
 
 import Foundation
 import ChordProviderCore
+import CGtkSourceView
 
 public struct SourceViewBridge: Equatable {
 
@@ -37,6 +38,9 @@ public struct SourceViewBridge: Equatable {
     /// Bool if the editor has a selection
     public var hasSelection: Bool = false
 
+    /// Search
+    public var search = SearchState()
+
     /// Show the *Edit directive* dialog
     public var showEditDirectiveDialog: Bool = false
 
@@ -53,5 +57,24 @@ extension SourceViewBridge: Codable {
     enum CodingKeys: String, CodingKey {
         /// Only save the settings
         case coreSettings
+    }
+}
+
+extension SourceViewBridge {
+    public struct SearchState {
+        /// Search
+        public var search: String = ""
+        /// Replace
+        public var replace: String = ""
+        /// Current search position
+        var currentIter = GtkTextIter()
+        /// Current match start
+        var matchStart = GtkTextIter()
+        /// Current match end
+        var matchEnd = GtkTextIter()
+        /// True when a match is active
+        public var hasMatch = false
+        /// True when there are matches
+        public var haveMatches = false
     }
 }

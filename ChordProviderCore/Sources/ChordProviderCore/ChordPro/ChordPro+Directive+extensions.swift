@@ -32,7 +32,7 @@ extension ChordPro.Directive {
             /// - Note: The chorus can have an optional label
             ("{\(label(.chorus))", "}")
         default:
-            ("{\(self.source.long) ", "}")
+            ("{\(self.source.long)\(ChordPro.Directive.withPlainArgument.contains(self) ? ":" : "") ", "}")
         }
     }
 

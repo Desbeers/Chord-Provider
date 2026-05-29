@@ -30,23 +30,22 @@ public struct SimpleSourceView: AdwaitaWidget {
         data: WidgetData,
         type: Data.Type
     ) -> ViewStorage {
-        let textBuffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
-        SourceViewController.setupLanguage(textBuffer: textBuffer, language: language)
-        gtk_text_buffer_set_text(textBuffer.opaquePointer?.cast(), text, -1)
-        let sourceView = ViewStorage(
-            gtk_source_view_new_with_buffer(textBuffer.opaquePointer?.cast())?.opaque(),
-            content: ["textBuffer": [textBuffer]]
+        let buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
+        gtk_text_buffer_set_text(buffer.textBufferPointer, text, -1)
+        let view = ViewStorage(
+            gtk_source_view_new_with_buffer(buffer.sourceBufferPointer)?.opaque(),
+            content: ["buffer": [buffer]]
         )
-        /// Set the style
-        let styleManager = adw_style_manager_get_default()
-        SourceViewController.setStyle(sourceView: sourceView, textBuffer: textBuffer, manager: styleManager)
-        /// Add a *notification* for style changes
-        textBuffer.notify(name: "dark", pointer: styleManager) {
-            SourceViewController.setStyle(sourceView: sourceView, textBuffer: textBuffer, manager: styleManager)
-        }
-        gtk_text_view_set_wrap_mode(sourceView.opaquePointer?.cast(), WrapMode.word.rawValue)
-        /// Disable editing
-        gtk_text_view_set_editable(sourceView.opaquePointer?.cast(), 0)
-        return sourceView
+        // Set the style
+        SourceViewController.initStyle(
+            view: view,
+            buffer: buffer,
+            language: language
+        )
+        // Wrap by word
+        gtk_text_view_set_wrap_mode(view.textViewPointer, WrapMode.word.rawValue)
+        // Disable editing
+        gtk_text_view_set_editable(view.textViewPointer, 0)
+        return view
     }
 }

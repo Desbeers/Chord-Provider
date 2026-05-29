@@ -42,9 +42,9 @@ public struct SourceView: AdwaitaWidget {
     ) -> ViewStorage {
         /// Get the controller class
         let controller = controller ?? SourceViewController(bridge: $bridge, language: language)
-        update(controller.sourceView, data: data, updateProperties: true, type: type)
+        update(controller.view, data: data, updateProperties: true, type: type)
         /// Return the GTKSourceView
-        return controller.sourceView
+        return controller.view
     }
 
     public func update<Data>(
@@ -55,31 +55,39 @@ public struct SourceView: AdwaitaWidget {
     ) {
         if
             updateProperties, let controller {
-            let bridgeBinding = $bridge
+            let bridge = $bridge
             Idle {
+               if controller.currentSearchText != bridge.search.search.wrappedValue {
+                    gtk_source_search_settings_set_search_text(
+                        controller.searchSettings.opaquePointer?.cast(),
+                        bridge.search.search.wrappedValue
+                    )
+                    controller.resetSearchPosition()
+                    controller.find(direction: .next)
+                }
                 /// Handle command (one-shot)
-                if let command = bridgeBinding.wrappedValue.command {
+                if let command = bridge.wrappedValue.command {
                     controller.handle(command)
-                    var newBridge = bridgeBinding.wrappedValue
+                    var newBridge = bridge.wrappedValue
                     newBridge.command = nil
-                    bridgeBinding.wrappedValue = newBridge
+                    bridge.wrappedValue = newBridge
                 }
                 if paddingEdges.contains(.top) {
-                    gtk_text_view_set_top_margin(storage.opaquePointer?.cast(), padding.cInt)
+                    gtk_text_view_set_top_margin(storage.textViewPointer, padding.cInt)
                 }
                 if paddingEdges.contains(.bottom) {
-                    gtk_text_view_set_bottom_margin(storage.opaquePointer?.cast(), padding.cInt)
+                    gtk_text_view_set_bottom_margin(storage.textViewPointer, padding.cInt)
                 }
                 if paddingEdges.contains(.leading) {
-                    gtk_text_view_set_left_margin(storage.opaquePointer?.cast(), padding.cInt)
+                    gtk_text_view_set_left_margin(storage.textViewPointer, padding.cInt)
                 }
                 if paddingEdges.contains(.trailing) {
-                    gtk_text_view_set_right_margin(storage.opaquePointer?.cast(), padding.cInt)
+                    gtk_text_view_set_right_margin(storage.textViewPointer, padding.cInt)
                 }
-                gtk_text_view_set_editable(storage.opaquePointer?.cast(), editable.cBool)
-                gtk_source_view_set_show_line_numbers(storage.opaquePointer?.cast(), numbers.cBool)
-                gtk_text_view_set_wrap_mode(storage.opaquePointer?.cast(), wrapMode.rawValue)
-                gtk_source_view_set_highlight_current_line(storage.opaquePointer?.cast(), highlightCurrentLine.cBool)
+                gtk_text_view_set_editable(storage.textViewPointer, editable.cBool)
+                gtk_source_view_set_show_line_numbers(storage.sourceViewPointer, numbers.cBool)
+                gtk_text_view_set_wrap_mode(storage.textViewPointer, wrapMode.rawValue)
+                gtk_source_view_set_highlight_current_line(storage.sourceViewPointer, highlightCurrentLine.cBool)
             }
             storage.previousState = self
         }
