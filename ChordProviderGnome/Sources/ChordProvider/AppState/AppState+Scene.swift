@@ -41,6 +41,8 @@ extension AppState {
         var importDatabase = Signal()
         /// A signal to focus search
         var focusSearch = Signal()
+        /// A signal to focus the editor
+        var focusEditor = Signal()
 
         // MARK: Dialogs
 

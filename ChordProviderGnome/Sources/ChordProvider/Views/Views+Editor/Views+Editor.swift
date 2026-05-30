@@ -18,56 +18,12 @@ extension Views {
         @Binding var appState: AppState
         /// Confirmation for cleanup
         @State private var confirmCleanup: Bool = false
-        /// Inserts
-        @State private var inserts = Inserts()
         /// The body of the `View`
         var view: Body {
             VStack {
-                /// - Note: Inserts for the editor
-                HStack(spacing: 5) {
-                    Toggle("Metadata", isOn: $inserts.showMetadata)
-                        .style(.editorButton)
-                        .popover(visible: $inserts.showMetadata) {
-                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
-                                .style(.addToEditorLabel)
-                                .padding(.bottom)
-                            Separator()
-                            ForEach(ChordPro.Directive.metadataDirectives) { directive in
-                                addInsert(directive: directive)
-                                    .insensitive(
-                                        appState.editor.song.metadata.definedMetadata.contains(directive.source.long)
-                                    )
-                            }
-                        }
-                        .insensitive(!appState.editor.isAtBeginningOfLine)
-                    Toggle("Environment", isOn: $inserts.showEnvironment)
-                        .style(.editorButton)
-                        .popover(visible: $inserts.showEnvironment) {
-                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
-                                .style(.addToEditorLabel)
-                                .padding(.bottom)
-                            Separator()
-                            ForEach(ChordPro.Directive.environmentDirectives) { directive in
-                                addInsert(directive: directive, command: .insertDirective(directive))
-                            }
-                        }
-                        .insensitive(!appState.editor.isAtBeginningOfLine)
-                    Toggle("More...", isOn: $inserts.showMore)
-                        .style(.editorButton)
-                        .popover(visible: $inserts.showMore) {
-                            addInsert(directive: .define)
-                            Button("Add all Chord definitions") {
-                                appState.editor.command = .appendText(appState.editor.song.definitions)
-                                inserts.showMore.toggle()
-                            }
-                            .flat()
-                            Separator()
-                            addInsert(directive: .comment)
-                        }
-                        .insensitive(!appState.editor.isAtBeginningOfLine)
-                }
-                .padding(5)
-                .halign(.center)
+                Inserts(appState: $appState)
+                    .padding(5)
+                    .halign(.center)
                 SearchOptions(appState: $appState)
                 Separator()
                 ScrollView {
@@ -79,6 +35,7 @@ extension Views {
                         .highlightSearchResult(appState.scene.showSearchBar)
                         .vexpand()
                         .style("editor")
+                        .focus(appState.scene.focusEditor)
                 }
                 Separator()
                 if appState.editor.coreSettings.showWarnings {
@@ -169,37 +126,5 @@ extension Views {
             .style(.caption)
         }
 
-        /// The `View` with an insert button
-        @ViewBuilder func addInsert(
-            directive: ChordPro.Directive,
-            command: SourceViewCommand? = nil
-        ) -> Body {
-            let label = "\(directive.details.buttonLabel ?? directive.details.label)"
-            Button(label) {
-                if let command {
-                    /// Apply the command
-                    appState.editor.command = command
-                } else if appState.editor.hasSelection {
-                    appState.editor.command = .insertDirective(directive)
-                } else {
-                    /// Set the `directive`
-                    appState.editor.handleDirective = directive
-                    /// Open the dialog
-                    appState.editor.showEditDirectiveDialog = true
-                }
-                inserts = .init()
-            }
-            .flat()
-        }
-
-        /// Toggles for grouped inserts
-        struct Inserts {
-            /// Insert metadata
-            var showMetadata: Bool = false
-            /// Insert environments
-            var showEnvironment: Bool = false
-            /// Insert others
-            var showMore: Bool = false
-        }
     }
 }

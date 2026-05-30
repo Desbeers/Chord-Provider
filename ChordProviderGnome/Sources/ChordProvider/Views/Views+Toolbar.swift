@@ -134,6 +134,9 @@ extension Views.Toolbar {
                                     appState.settings.editor.showEditor = true
                                     /// Focus the search field
                                     appState.scene.focusSearch.signal()
+                                } else if appState.settings.editor.showEditor {
+                                    /// Focus the editor
+                                    appState.scene.focusEditor.signal()
                                 }
                             }
                             .keyboardShortcut("f".ctrl())
