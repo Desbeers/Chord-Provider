@@ -22,7 +22,7 @@ public struct SourceViewBridge: Equatable {
     /// The core settings
     public var coreSettings = ChordProviderSettings()
 
-    /// One-shot command for the editor
+    /// The command for the editor
     public var command: SourceViewCommand?
 
     /// The current cursor line
@@ -61,6 +61,8 @@ extension SourceViewBridge: Codable {
 }
 
 extension SourceViewBridge {
+
+    /// The state of the search
     public struct SearchState {
         /// Search
         public var search: String = ""
@@ -72,9 +74,25 @@ extension SourceViewBridge {
         var matchStart = GtkTextIter()
         /// Current match end
         var matchEnd = GtkTextIter()
-        /// True when a match is active
+        /// Bool if a match is active
         public var hasMatch = false
-        /// True when there are matches
+        /// Bool if there are matches
         public var haveMatches = false
+        /// Bool to show replace options
+        public var showReplaceOptions: Bool = false
+
+        // MARK: Search options
+
+        public var regularExpressions: Bool = false
+        public var caseSensitive: Bool = false
+        public var matchWholeWordOnly: Bool = false
+    }
+
+    /// The search direction
+    public enum SearchDirection {
+        /// Next result
+        case next
+        /// Previous result
+        case previous
     }
 }

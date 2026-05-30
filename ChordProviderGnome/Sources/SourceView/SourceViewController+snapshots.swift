@@ -39,11 +39,6 @@ extension SourceViewController {
             else {
                 return
             }
-
-            gtk_text_buffer_get_start_iter(
-                buffer.textBufferPointer,
-                &self.currentSearchIter
-            )
             /// Clear the log for a new parsing
             LogUtils.shared.clearLog()
             /// Get the values of the bridge binding

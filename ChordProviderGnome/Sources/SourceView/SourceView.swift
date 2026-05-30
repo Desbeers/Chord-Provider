@@ -25,6 +25,7 @@ public struct SourceView: AdwaitaWidget {
     var wrapMode: WrapMode = .none
     var highlightCurrentLine: Bool = true
     var editable: Bool = true
+    var highlightSearchResult: Bool = false
     /// Init the editor
     public init(
         bridge: Binding<SourceViewBridge>,
@@ -63,9 +64,9 @@ public struct SourceView: AdwaitaWidget {
                         bridge.search.search.wrappedValue
                     )
                     controller.resetSearchPosition()
-                    controller.find(direction: .next)
+                    controller.search(direction: .next)
                 }
-                /// Handle command (one-shot)
+                /// Handle command
                 if let command = bridge.wrappedValue.command {
                     controller.handle(command)
                     var newBridge = bridge.wrappedValue
@@ -88,6 +89,11 @@ public struct SourceView: AdwaitaWidget {
                 gtk_source_view_set_show_line_numbers(storage.sourceViewPointer, numbers.cBool)
                 gtk_text_view_set_wrap_mode(storage.textViewPointer, wrapMode.rawValue)
                 gtk_source_view_set_highlight_current_line(storage.sourceViewPointer, highlightCurrentLine.cBool)
+
+                gtk_source_search_context_set_highlight(
+                    controller.searchContext.opaquePointer,
+                    highlightSearchResult ? 1 : 0
+                )
             }
             storage.previousState = self
         }
@@ -123,6 +129,12 @@ public struct SourceView: AdwaitaWidget {
     public func wrapMode(_ mode: WrapMode) -> Self {
         var newSelf = self
         newSelf.wrapMode = mode
+        return newSelf
+    }
+
+    public func highlightSearchResult(_ highlight: Bool) -> Self {
+        var newSelf = self
+        newSelf.highlightSearchResult = highlight
         return newSelf
     }
 }

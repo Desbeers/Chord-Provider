@@ -21,7 +21,6 @@ public final class SourceViewController {
     public let searchSettings: ViewStorage
     /// Search context
     public let searchContext: ViewStorage
-    var currentSearchIter = GtkTextIter()
     /// The current line in the editor
     var currentLine = Song.Section.Line()
     /// Bool if the editor is at the start of a line
@@ -29,8 +28,6 @@ public final class SourceViewController {
     public var isAtBeginningOfLine: Bool = false
     /// Bool if the editor has a selection
     public var hasSelection: Bool = false
-    // /// Current search
-    // var searchState = SearchState()
 
     // MARK: Snippets
 
@@ -48,7 +45,9 @@ public final class SourceViewController {
 
     // MARK: Debouncers
 
+    /// Line number debounce
     let lineNumberDebounce = Debouncer(delay: 0.1)
+    /// Snapshot debounce
     let snapshotDebounce = Debouncer(delay: 0.5)
 
     /// Init the controller
@@ -105,8 +104,6 @@ public final class SourceViewController {
                 self.scheduleSnippetCheck()
             }
         }
-
-        searchHighlight(false)
     }
 }
 

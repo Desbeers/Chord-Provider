@@ -17,6 +17,8 @@ extension AppState {
 
         /// Show the *Welcome* view
         var showWelcomeView: Bool = true
+        /// Bool to show the search bar
+        var showSearchBar: Bool = false
         /// The selected debug tab
         var selectedDebugTab: Views.Debug.Tab = .log
         /// The selected debug json section
@@ -37,6 +39,8 @@ extension AppState {
         var openFolder = Signal()
         /// A signal to import a chords database
         var importDatabase = Signal()
+        /// A signal to focus search
+        var focusSearch = Signal()
 
         // MARK: Dialogs
 

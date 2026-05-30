@@ -20,8 +20,6 @@ extension Views {
         @State private var confirmCleanup: Bool = false
         /// Inserts
         @State private var inserts = Inserts()
-        /// Bool to show the search bar
-        @State private var showSearch: Bool = false
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -67,19 +65,10 @@ extension Views {
                             addInsert(directive: .comment)
                         }
                         .insensitive(!appState.editor.isAtBeginningOfLine)
-                    Button(icon: .default(icon: .systemSearch)) {
-                        showSearch.toggle()
-                        appState.editor.command = .searchHighlight(showSearch)
-                    }
-                    .keyboardShortcut("f".ctrl())
-                    .flat(!showSearch)
                 }
                 .padding(5)
                 .halign(.center)
-                if showSearch {
-                    SearchOptions(showSearch: $showSearch, appState: $appState)
-                    .transition(.coverDown)
-                }
+                SearchOptions(appState: $appState)
                 Separator()
                 ScrollView {
                     SourceView(bridge: $appState.editor, controller: appState.controller, language: .chordpro)
@@ -87,6 +76,7 @@ extension Views {
                         .lineNumbers(appState.settings.editor.showLineNumbers)
                         .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                         .highlightCurrentLine(true)
+                        .highlightSearchResult(appState.scene.showSearchBar)
                         .vexpand()
                         .style("editor")
                 }

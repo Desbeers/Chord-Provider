@@ -12,34 +12,32 @@ import ChordProviderCore
 
 extension SourceViewController {
 
-    // struct SearchState {
-    //     /// Current search position
-    //     var currentIter = GtkTextIter()
-    //     /// Current match start
-    //     var matchStart = GtkTextIter()
-    //     /// Current match end
-    //     var matchEnd = GtkTextIter()
-    //     /// True when a match is active
-    //     var hasMatch = false
-    //     /// True when there are matches
-    //     var haveMatches = false
-    // }
-
-    public enum SearchDirection {
-        case next
-        case previous
-    }
-
     func getBridge() -> Binding<SourceViewBridge>? { 
         guard let bridge = view.fields["bridge"] as? Binding<SourceViewBridge> else { return nil }
         return bridge
     }
 
-    /// Set highlight of seach text
-    func searchHighlight(_ highlight: Bool) {
-        gtk_source_search_context_set_highlight(
-            searchContext.opaquePointer,
-            highlight ? 1 : 0
+    /// Set regular expressions option to seach text
+    func regularExpressions(_ enabled: Bool) {
+        gtk_source_search_settings_set_regex_enabled(
+            searchSettings.opaquePointer?.cast(),
+            enabled ? 1 : 0
+        )
+    }
+
+    /// Set match whole word only option to seach text
+    func matchWholeWordOnly(_ enabled: Bool) {
+        gtk_source_search_settings_set_at_word_boundaries(
+            searchSettings.opaquePointer?.cast(),
+            enabled ? 1 : 0
+        )
+    }
+
+    /// Set case sensitive option to seach text
+    func caseSensitive(_ enabled: Bool) {
+        gtk_source_search_settings_set_case_sensitive(
+            searchSettings.opaquePointer?.cast(),
+            enabled ? 1 : 0
         )
     }
 
@@ -62,7 +60,7 @@ extension SourceViewController {
         return String(cString: text)
     }
 
-    func find(direction: SearchDirection) {
+    func search(direction: SourceViewBridge.SearchDirection) {
         guard let bridge = getBridge() else { return }
         var start = GtkTextIter()
         var end = GtkTextIter()
@@ -92,7 +90,6 @@ extension SourceViewController {
             bridge.search.hasMatch.wrappedValue = false
             return
         }
-        bridge.search.hasMatch.wrappedValue = true
         bridge.search.currentIter.wrappedValue = direction == .next ? end : start
         bridge.search.matchStart.wrappedValue = start
         bridge.search.matchEnd.wrappedValue = end

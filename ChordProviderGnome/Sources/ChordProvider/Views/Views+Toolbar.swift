@@ -46,7 +46,12 @@ extension Views.Toolbar {
                 HStack(spacing: 5) {
                     Toggle(
                         icon: .default(icon: .textEditor),
-                        isOn: $appState.settings.editor.showEditor
+                        isOn: $appState.settings.editor.showEditor.onSet {state in
+                            if !state {
+                                /// Search is only in the editor, make sure its closed
+                                appState.scene.showSearchBar = false
+                            }
+                        }
                     )
                     .tooltip("Show the editor")
                     ToggleButton(
@@ -121,6 +126,18 @@ extension Views.Toolbar {
                             appState.scene.saveSongAs.signal()
                         }
                         .keyboardShortcut("s".ctrl().shift())
+                        MenuSection {
+                            MenuButton("Find/Replace") {
+                                appState.scene.showSearchBar.toggle()
+                                if appState.scene.showSearchBar {
+                                    /// Search is only in the editor, make sure its open
+                                    appState.settings.editor.showEditor = true
+                                    /// Focus the search field
+                                    appState.scene.focusSearch.signal()
+                                }
+                            }
+                            .keyboardShortcut("f".ctrl())
+                        }
                         MenuSection {
                             Submenu("Zoom") {
                                 MenuButton("Zoom In") {

@@ -133,14 +133,14 @@ extension Views.Content {
             .shortcutsSection("Song") { section in
                 section
                     .shortcutsItem("Open", accelerator: "o".ctrl())
-                    .shortcutsItem("Save", accelerator: " s".ctrl())
-                    .shortcutsItem("Save As", accelerator: " s".ctrl().shift())
+                    .shortcutsItem("Save", accelerator: "s".ctrl())
+                    .shortcutsItem("Find/Replace", accelerator: "f".ctrl())
             }
             .shortcutsSection("Zoom") { section in
                 section
                     .shortcutsItem("Zoom In", accelerator: "plus".ctrl())
-                    .shortcutsItem("Zoom Out", accelerator: " minus".ctrl())
-                    .shortcutsItem("Reset Zoom", accelerator: " 0".ctrl())
+                    .shortcutsItem("Zoom Out", accelerator: "minus".ctrl())
+                    .shortcutsItem("Reset Zoom", accelerator: "0".ctrl())
             }
             .shortcutsSection("General") { section in
                 section

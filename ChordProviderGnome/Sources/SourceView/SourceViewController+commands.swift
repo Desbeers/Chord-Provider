@@ -24,14 +24,23 @@ public enum SourceViewCommand {
     case clearSelection
     /// Schedule to update the song
     case updateSong
-    /// Find
-    case find(SourceViewController.SearchDirection)
-    /// Hightlight
-    case searchHighlight(Bool)
-    /// Replace search
+
+    // MARK: Search commands
+
+    /// Search
+    case search(SourceViewBridge.SearchDirection)
+    /// Replace match
     case replaceSearchMatch(with: String)
-        /// Replace all search
-    case replaceAllSearchMatches(with: String) 
+    /// Replace all matches
+    case replaceAllSearchMatches(with: String)
+
+    // MARK: Search options
+
+    case regularExpressions(Bool)
+
+    case matchWholeWordOnly(Bool)
+
+    case caseSensitive(Bool)
 }
 
 extension SourceViewController {
@@ -60,14 +69,24 @@ extension SourceViewController {
             clearSelection()
         case .updateSong:
             scheduleSnapshot()
-        case let .find(direction):
-            find(direction: direction)
-        case let .searchHighlight(highlight):
-            searchHighlight(highlight)
+        
+        // MARK: Search commands
+
+        case let .search(direction):
+            search(direction: direction)
         case let .replaceSearchMatch(replacement):
             replaceSearchMatch(with: replacement)
         case let .replaceAllSearchMatches(replacement):
             replaceAllSearchMatches(with: replacement)
+
+        // MARK: Search options
+
+        case let .regularExpressions(state):
+            regularExpressions(state)
+        case let .matchWholeWordOnly(state):
+            matchWholeWordOnly(state)
+        case let .caseSensitive(state):
+            caseSensitive(state)
         }
     }
 
