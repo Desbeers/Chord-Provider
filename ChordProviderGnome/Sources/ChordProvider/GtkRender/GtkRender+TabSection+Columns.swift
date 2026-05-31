@@ -42,7 +42,8 @@ extension GtkRender.TabSection {
                         Toggle(
                             icon: .default(icon: playTabNotes ? .mediaPlaybackStop : .mediaPlaybackStart),
                             isOn: $playTabNotes
-                        ) {
+                        )
+                        .clicked {
                             if playTabNotes {
                                 startTabPlayer()
                                 /// Monitor the tab player

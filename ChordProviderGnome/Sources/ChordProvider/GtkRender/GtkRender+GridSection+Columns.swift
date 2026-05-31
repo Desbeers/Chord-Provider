@@ -46,7 +46,8 @@ extension GtkRender.GridSection {
                         Toggle(
                             icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart),
                             isOn: $playGridChords
-                        ) {
+                        )
+                        .clicked {
                             if playGridChords {
                                 startGridPlayer()
                                 /// Monitor the grid player
