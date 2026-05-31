@@ -74,10 +74,8 @@ extension SourceViewBridge {
         var matchStart = GtkTextIter()
         /// Current match end
         var matchEnd = GtkTextIter()
-        /// Bool if a match is active
-        public var hasMatch = false
-        /// Bool if there are matches
-        public var haveMatches = false
+        /// The count of matches
+        public var matchesCount = 0
         /// Bool to show replace options
         public var showReplaceOptions: Bool = false
 
@@ -86,6 +84,37 @@ extension SourceViewBridge {
         public var regularExpressions: Bool = false
         public var caseSensitive: Bool = false
         public var matchWholeWordOnly: Bool = false
+
+        // MARK: Calculated stuff
+
+        /// Bool if a match is active
+        public var hasMatch: Bool {
+            var start = matchStart
+            var end = matchEnd
+            //return gtk_text_iter_compare(&start, &end) != 0
+            return gtk_text_iter_equal(&start, &end) == 0
+        }
+
+        public var matchDisplay: String {
+            if search.isEmpty || !haveMatches {
+                return ""
+            }
+            switch matchesCount {
+                case 1:
+                    return "1 match"
+                default:
+                    return "\(matchesCount) matches"
+            }
+        }
+
+        public var noResultsFound: Bool {
+            !search.isEmpty && !haveMatches
+        }
+
+        /// Bool if there are matches
+        public var haveMatches: Bool {
+            matchesCount > 0 ? true : false
+        }
     }
 
     /// The search direction

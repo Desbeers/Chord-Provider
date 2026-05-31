@@ -59,12 +59,7 @@ public struct SourceView: AdwaitaWidget {
             let bridge = $bridge
             Idle {
                if controller.currentSearchText != bridge.search.search.wrappedValue {
-                    gtk_source_search_settings_set_search_text(
-                        controller.searchSettings.opaquePointer?.cast(),
-                        bridge.search.search.wrappedValue
-                    )
-                    controller.resetSearchPosition()
-                    controller.search(direction: .next)
+                    controller.setSearchText(bridge.search.search.wrappedValue)
                 }
                 /// Handle command
                 if let command = bridge.wrappedValue.command {

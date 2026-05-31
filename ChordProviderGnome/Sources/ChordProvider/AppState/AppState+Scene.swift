@@ -39,10 +39,12 @@ extension AppState {
         var openFolder = Signal()
         /// A signal to import a chords database
         var importDatabase = Signal()
-        /// A signal to focus search
-        var focusSearch = Signal()
         /// A signal to focus the editor
         var focusEditor = Signal()
+        /// A signal to focus search in the editor
+        var focusSearch = Signal()
+        /// A signal to focus replace in the editor
+        var focusReplace = Signal()
 
         // MARK: Dialogs
 

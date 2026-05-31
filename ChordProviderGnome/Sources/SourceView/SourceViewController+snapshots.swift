@@ -16,33 +16,21 @@ import ChordProviderCore
 
 extension SourceViewController {
 
-    func snapshotText() -> String? {
-        guard let buffer = buffer.textBufferPointer else { return "" }
-        var start = GtkTextIter()
-        var end = GtkTextIter()
-        gtk_text_buffer_get_start_iter(buffer, &start)
-        gtk_text_buffer_get_end_iter(buffer, &end)
-        return stringFromBuffer(start: &start, end: &end)
-    }
-
+    /// Schedule a snapshot to update the song render in the UI
     func scheduleSnapshot() {
         snapshotDebounce.schedule { [self] in
-            resetSearchPosition()
             if snippetsAvailable {
                 // Don't flush the text or else the completion popup will flicker
                 return
             }
             guard
-                let buffer = view.content["buffer"]?.first,
-                let bridge = view.fields["bridge"] as? Binding<SourceViewBridge>,
-                let text = snapshotText()
-            else {
-                return
-            }
+                let bridge = bridgeBinding()
+            else { return }
+            var values = bridge.wrappedValue
+            /// Get all the text from the buffer
+            let text = bufferText
             /// Clear the log for a new parsing
             LogUtils.shared.clearLog()
-            /// Get the values of the bridge binding
-            var values = bridge.wrappedValue
             values.song.content = text
             values.song = ChordProParser.parse(song: values.song, settings: values.coreSettings)
             /// Clear all markers and add new ones if needed
@@ -54,16 +42,43 @@ extension SourceViewController {
                 for line in lines.filter({ $0.warnings != nil }) {
                     let level = line.warnings?.compactMap(\.level).sorted().last ?? .info
                     addMark(
-                        buffer: buffer,
                         lineNumber: line.sourceLineNumber,
                         category: level.rawValue
                     )
                 }
             }
-            /// Update the bridge
             bridge.wrappedValue = values
             /// Update the current line
             updateCurrentLine()
         }
     }
+}
+
+extension SourceViewController {
+
+    // MARK: Current line information
+
+    /// Update the information about the current line
+    func updateCurrentLine() {
+        guard
+            let bridge = bridgeBinding()
+        else {
+            return
+        }
+        var values = bridge.wrappedValue
+        var iter = cursorPosition
+        let currentLineNumber = Int(gtk_text_iter_get_line(&iter)) + 1
+
+        let totalLines = values.song.totalLines
+
+        let currentLine = values.songLines[safe: currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: totalLines)
+
+        isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
+        hasSelection = gtk_text_buffer_get_has_selection(textBuffer) != 0
+        
+        values.currentLine = currentLine
+        values.isAtBeginningOfLine = isAtBeginningOfLine
+        values.hasSelection = hasSelection
+        bridge.wrappedValue = values
+    }    
 }

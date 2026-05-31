@@ -93,7 +93,6 @@ import CAdw
                 }
             }
         }
-        .devel(appState.settings.app.debug)
         /// - Note: It will remember the window size when opening a new window
         .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 1024, height: 800)
@@ -126,7 +125,6 @@ import CAdw
         .defaultSize(width: 1024, height: 600)
         .title("Chords Database")
         .maximized($databaseWindowSize.maximized)
-        .devel(appState.settings.app.debug)
         .onClose {
             if appState.currentInstrument.modified {
                /// The instrument is modified; show a *Dialog* to save it

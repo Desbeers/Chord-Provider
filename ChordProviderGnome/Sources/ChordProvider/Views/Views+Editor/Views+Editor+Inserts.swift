@@ -20,7 +20,6 @@ extension Views.Editor {
         @State private var insert = Insert()
         /// The body of the `View`
         var view: Body {
-            /// - Note: Inserts for the editor
             HStack(spacing: 5) {
                 Toggle("Metadata", isOn: $insert.showMetadata)
                     .style(.editorButton)

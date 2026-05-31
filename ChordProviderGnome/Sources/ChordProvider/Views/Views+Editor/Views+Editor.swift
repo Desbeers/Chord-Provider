@@ -125,6 +125,5 @@ extension Views {
             }
             .style(.caption)
         }
-
     }
 }

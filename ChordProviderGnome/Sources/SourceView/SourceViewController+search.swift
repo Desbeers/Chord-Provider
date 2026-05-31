@@ -12,7 +12,18 @@ import ChordProviderCore
 
 extension SourceViewController {
 
-    func getBridge() -> Binding<SourceViewBridge>? { 
+    func setSearchText(_ text: String) {
+        guard let bridge = view.fields["bridge"] as? Binding<SourceViewBridge> else { return }
+        gtk_source_search_settings_set_search_text(
+            searchSettings.opaquePointer?.cast(),
+            text
+        )
+        bridge.search.matchEnd.wrappedValue = bridge.search.matchStart.wrappedValue
+        clearSelection()
+        getMatchesCount()
+}
+
+    func bridgeBinding() -> Binding<SourceViewBridge>? { 
         guard let bridge = view.fields["bridge"] as? Binding<SourceViewBridge> else { return nil }
         return bridge
     }
@@ -41,14 +52,16 @@ extension SourceViewController {
         )
     }
 
-    /// Reset the search position
-    func resetSearchPosition() {
-        guard let bridge = getBridge() else { return }
-        bridge.search.hasMatch.wrappedValue = false
+    func resetSearch() {
+        guard let bridge = bridgeBinding() else { return }
+        bridge.search.wrappedValue = SourceViewBridge.SearchState()
+        var start = GtkTextIter()
         gtk_text_buffer_get_start_iter(
-            buffer.textBufferPointer,
-            &bridge.search.currentIter.wrappedValue
+            textBuffer,
+            &start
         )
+        bridge.search.matchStart.wrappedValue = start
+        bridge.search.matchEnd.wrappedValue = start
     }
 
     var currentSearchText: String {
@@ -61,76 +74,64 @@ extension SourceViewController {
     }
 
     func search(direction: SourceViewBridge.SearchDirection) {
-        guard let bridge = getBridge() else { return }
+        guard let bridgeWrapper = bridgeBinding()  else { 
+            return
+        }
+        var selectionRange = selectedRange ?? (cursorPosition, cursorPosition)
+        var bridge = bridgeWrapper.wrappedValue
+        defer {
+            bridgeWrapper.wrappedValue = bridge
+        }
         var start = GtkTextIter()
         var end = GtkTextIter()
         var wrapped: gboolean = 0
         var found: gboolean = 0
         switch direction {
         case .next:
-            _ = gtk_text_iter_forward_char(&bridge.search.currentIter.wrappedValue)
             found = gtk_source_search_context_forward(
                 searchContext.opaquePointer,
-                &bridge.search.currentIter.wrappedValue,
+                &selectionRange.end,
                 &start,
                 &end,
                 &wrapped
             )
         case .previous:
-            _ = gtk_text_iter_backward_char(&bridge.search.currentIter.wrappedValue)
             found = gtk_source_search_context_backward(
                 searchContext.opaquePointer,
-                &bridge.search.currentIter.wrappedValue,
+                &selectionRange.start,
                 &start,
                 &end,
                 &wrapped
             )
         }
         guard found != 0 else {
-            bridge.search.hasMatch.wrappedValue = false
+            bridge.search.matchStart = bridge.search.matchEnd
             return
         }
-        bridge.search.currentIter.wrappedValue = direction == .next ? end : start
-        bridge.search.matchStart.wrappedValue = start
-        bridge.search.matchEnd.wrappedValue = end
+        bridge.search.matchStart = start
+        bridge.search.matchEnd = end
         gtk_text_buffer_select_range(
-            buffer.textBufferPointer,
-            &bridge.search.matchStart.wrappedValue,
-            &bridge.search.matchEnd.wrappedValue
+            textBuffer,
+            &start,
+            &end
         )
         scrollToCursor()
-        bridge.search.hasMatch.wrappedValue = true
-        bridge.search.haveMatches.wrappedValue = true
     }
 
-    func haveSearchOccurrences() {
-        guard let bridge = getBridge() else { return }
-        let count = gtk_source_search_context_get_occurrences_count(
-            searchContext.opaquePointer
-        )
-        bridge.search.haveMatches.wrappedValue = count > 0 ? true : false
-    }
-
-    func replaceAllSearchMatches(with replacement: String) {
-        guard 
-            let bridge = getBridge(),
-            bridge.search.haveMatches.wrappedValue else {
-            return
+    func getMatchesCount() {
+        Idle { [self] in
+            guard let bridge = bridgeBinding() else { return }
+            let count = gtk_source_search_context_get_occurrences_count(
+                searchContext.opaquePointer
+            )
+            bridge.search.matchesCount.wrappedValue = Int(count)
         }
-        gtk_source_search_context_replace_all(
-            searchContext.opaquePointer,
-            replacement,
-            -1,
-            nil
-        )
-        bridge.search.hasMatch.wrappedValue = false
-        bridge.search.haveMatches.wrappedValue = false
     }
-    
+
     func replaceSearchMatch(with replacement: String) {
         guard 
-            let bridge = getBridge(),
-            bridge.search.hasMatch.wrappedValue else {
+            let bridge = bridgeBinding(),
+            bridge.wrappedValue.search.hasMatch else {
             return
         }
 
@@ -145,7 +146,29 @@ extension SourceViewController {
             -1,
             nil
         )
-        bridge.search.hasMatch.wrappedValue = false
-        haveSearchOccurrences()
+        getMatchesCount()
+        search(direction: .next)
+    }
+
+    func replaceAllSearchMatches(with replacement: String) {
+        guard 
+            let bridge = bridgeBinding(),
+            bridge.search.matchesCount.wrappedValue > 0 else {
+            return
+        }
+        gtk_source_search_context_replace_all(
+            searchContext.opaquePointer,
+            replacement,
+            -1,
+            nil
+        )
+        var start = GtkTextIter()
+        gtk_text_buffer_get_start_iter(
+            textBuffer,
+            &start
+        )
+        bridge.search.matchStart.wrappedValue = start
+        bridge.search.matchEnd.wrappedValue = start
+        getMatchesCount()
     }
 }

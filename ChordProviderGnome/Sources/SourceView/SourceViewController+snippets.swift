@@ -54,12 +54,12 @@ extension SourceViewController {
     /// Check if the line starts with a `{` and does not contain a `}`
     /// - Returns: Bool if the snippets should be available
     func checkSnippetBrackets() -> Bool {
-        var start = currentTextIter()
+        var start = cursorPosition
         gtk_text_iter_set_line_offset(&start, 0)
         var end = start
         gtk_text_iter_forward_to_line_end(&end)
         guard let line = gtk_text_buffer_get_text(
-            buffer.textBufferPointer,
+            textBuffer,
             &start,
             &end,
             0

@@ -15,14 +15,20 @@ public final class SourceViewController {
 
     /// The GTKSourceView
     let view: ViewStorage
+    /// The the pointer to the GTKSourceBuffer
+    var sourceBuffer: UnsafeMutablePointer<GtkSourceBuffer>? {
+        buffer.sourceBufferPointer
+    }
     /// The GTKTextBuffer
     let buffer: ViewStorage
+    /// The the pointer to the GTKTextBuffer
+    var textBuffer: UnsafeMutablePointer<GtkTextBuffer>? {
+        buffer.textBufferPointer
+    }
     /// Search settings
     public let searchSettings: ViewStorage
     /// Search context
     public let searchContext: ViewStorage
-    /// The current line in the editor
-    var currentLine = Song.Section.Line()
     /// Bool if the editor is at the start of a line
     /// - Note: Used to check if 'insert' commands are available
     public var isAtBeginningOfLine: Bool = false
@@ -111,36 +117,6 @@ public final class SourceViewController {
 
 extension SourceViewController {
 
-    /// Get  string from the buffer
-    /// - Parameters:
-    ///   - start: Start iterator
-    ///   - end: End iterator
-    /// - Returns: An optional String
-    func stringFromBuffer(start: inout GtkTextIter, end: inout GtkTextIter)-> String? {
-        guard let cString = gtk_text_buffer_get_text(
-            buffer.textBufferPointer,
-            &start,
-            &end,
-            0
-        ) else {
-            return nil
-        }
-        // Free memory on return
-        defer {
-            g_free(cString)
-        }
-        return String(cString: cString)
-    }
-
-    /// The current text iterator
-    func currentTextIter() -> GtkTextIter {
-        var iter = GtkTextIter()
-        guard let buffer = buffer.textBufferPointer else { return iter }
-        let textMark = gtk_text_buffer_get_insert(buffer)
-        gtk_text_buffer_get_iter_at_mark(buffer, &iter, textMark)
-        return iter
-    }
-
     /// Helper to get the controller for 'C' callbacks
     /// - Parameter userData: The user data
     /// - Returns: The controller
@@ -183,12 +159,13 @@ public func sourceview_click_cb(
     guard 
         click == 3,
         let controller = SourceViewController.controller(from: userData),
-        let binding = controller.view.fields["bridge"] as? Binding<SourceViewBridge>
+        let binding = controller.bridgeBinding()
     else {
         return
     }
-    if let directive = controller.currentLine.directive, directive.editable {
-        binding.handleDirective.wrappedValue = directive
+    let directive = binding.currentLine.directive.wrappedValue
+    if let directive, directive.editable {
+        binding.handleDirective.wrappedValue = binding.currentLine.directive.wrappedValue
         binding.showEditDirectiveDialog.wrappedValue = true
     }
 }
@@ -205,13 +182,13 @@ public func sourceview_key_cb(
         state.rawValue == 0,
         keyval == UInt32(GDK_KEY_bracketleft),
         let controller = SourceViewController.controller(from: userData),
-        let buffer = controller.buffer.textBufferPointer
+        let buffer = controller.textBuffer
     else {
         return 0
     }
     gtk_text_buffer_insert_at_cursor(buffer, "[", -1)
     gtk_text_buffer_insert_at_cursor(buffer, "]", -1)
-    var iter = controller.currentTextIter()
+    var iter = controller.cursorPosition
     gtk_text_iter_backward_char(&iter)
     gtk_text_buffer_place_cursor(buffer, &iter)
     // Return 1 because the bracket is already handled now

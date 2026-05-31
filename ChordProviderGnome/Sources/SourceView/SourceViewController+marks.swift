@@ -36,12 +36,10 @@ extension SourceViewController {
 
     /// Add  mark to a line in the source editor
     /// - Parameters:
-    ///   - buffer: The buffer with the text
     ///   - lineNumber: The source line number
     ///   - category: The category of the mark
     ///
     func addMark(
-        buffer: ViewStorage,
         lineNumber: Int,
         category: String
     ) {
@@ -51,12 +49,12 @@ extension SourceViewController {
         let lineIndex = gint(lineNumber - 1)
         var iter = GtkTextIter()
         gtk_text_buffer_get_iter_at_line(
-            buffer.textBufferPointer,
+            textBuffer,
             &iter,
             lineIndex
         )
         gtk_source_buffer_create_source_mark(
-            buffer.sourceBufferPointer,
+            sourceBuffer,
             nil,
             category,
             &iter
@@ -69,16 +67,16 @@ extension SourceViewController {
         var start = GtkTextIter()
         var end = GtkTextIter()
         gtk_text_buffer_get_start_iter(
-            buffer.textBufferPointer,
+            textBuffer,
             &start
         )
         gtk_text_buffer_get_end_iter(
-            buffer.textBufferPointer,
+            textBuffer,
             &end
         )
         for category in LogUtils.Level.allCases {
             gtk_source_buffer_remove_source_marks(
-                buffer.sourceBufferPointer,
+                sourceBuffer,
                 &start,
                 &end,
                 category.rawValue
