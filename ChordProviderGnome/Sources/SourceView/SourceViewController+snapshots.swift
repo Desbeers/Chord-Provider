@@ -66,7 +66,6 @@ extension SourceViewController {
             return
         }
         if !bridge.search.search.wrappedValue.isEmpty {
-            print("match-position")
             self.currentMatchIndex()
         }
         var values = bridge.wrappedValue

@@ -197,7 +197,6 @@ extension SourceViewController {
         ) != 0, wrapped == 0 {
             index += 1
             if gtk_text_iter_equal(&matchStart, &currentMatchStart) != 0 {
-                dump(index)
                 bridge.search.currentMatchIndex.wrappedValue = index
                 return
             }
