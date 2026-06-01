@@ -68,14 +68,14 @@ extension SourceViewBridge {
         public var search: String = ""
         /// Replace
         public var replace: String = ""
-        /// Current search position
-        var currentIter = GtkTextIter()
         /// Current match start
         var matchStart = GtkTextIter()
         /// Current match end
         var matchEnd = GtkTextIter()
         /// The count of matches
         public var matchesCount = 0
+        /// The index of the current match index
+        public var currentMatchIndex = 0
         /// Bool to show replace options
         public var showReplaceOptions: Bool = false
 
@@ -89,22 +89,24 @@ extension SourceViewBridge {
 
         /// Bool if a match is active
         public var hasMatch: Bool {
-            var start = matchStart
-            var end = matchEnd
-            //return gtk_text_iter_compare(&start, &end) != 0
-            return gtk_text_iter_equal(&start, &end) == 0
+            currentMatchIndex > 0
         }
 
         public var matchDisplay: String {
+            var result = ""
             if search.isEmpty || !haveMatches {
                 return ""
             }
+            if currentMatchIndex > 0 {
+                result += "\(currentMatchIndex) of "
+            }
             switch matchesCount {
                 case 1:
-                    return "1 match"
+                    result += "1 match"
                 default:
-                    return "\(matchesCount) matches"
+                    result += "\(matchesCount) matches"
             }
+            return result
         }
 
         public var noResultsFound: Bool {
@@ -113,7 +115,7 @@ extension SourceViewBridge {
 
         /// Bool if there are matches
         public var haveMatches: Bool {
-            matchesCount > 0 ? true : false
+            matchesCount > 0
         }
     }
 

@@ -18,7 +18,7 @@ extension SourceViewController {
             searchSettings.opaquePointer?.cast(),
             text
         )
-        bridge.search.matchEnd.wrappedValue = bridge.search.matchStart.wrappedValue
+        bridge.search.currentMatchIndex.wrappedValue = 0
         clearSelection()
 }
 
@@ -167,5 +167,47 @@ extension SourceViewController {
         )
         bridge.search.matchStart.wrappedValue = start
         bridge.search.matchEnd.wrappedValue = start
+    }
+
+    func currentMatchIndex() {
+        guard let bridge = bridgeBinding() else {
+            return
+        }
+        var cursor = cursorPosition
+        var matchStartPosition = bridge.search.matchStart.wrappedValue
+        guard gtk_text_iter_equal(&cursor, &matchStartPosition) == 1 else {
+            /// The selection is gone, reset the match index
+            bridge.search.currentMatchIndex.wrappedValue = 0
+            return
+        }
+
+        var currentMatchStart = bridge.search.matchStart.wrappedValue
+        var start = bufferRange.start
+        var matchStart = GtkTextIter()
+        var matchEnd = GtkTextIter()
+        var wrapped: gboolean = 0
+        var index = 0
+
+        while gtk_source_search_context_forward(
+            searchContext.opaquePointer,
+            &start,
+            &matchStart,
+            &matchEnd,
+            &wrapped
+        ) != 0, wrapped == 0 {
+            index += 1
+            if gtk_text_iter_equal(&matchStart, &currentMatchStart) != 0 {
+                dump(index)
+                bridge.search.currentMatchIndex.wrappedValue = index
+                return
+            }
+            if gtk_text_iter_equal(&matchStart, &matchEnd) != 0 {
+                start = matchEnd
+                gtk_text_iter_forward_char(&start)
+            } else {
+                start = matchEnd
+            }
+        }
+        bridge.search.currentMatchIndex.wrappedValue = 0
     }
 }

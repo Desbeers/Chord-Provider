@@ -65,6 +65,10 @@ extension SourceViewController {
         else {
             return
         }
+        if !bridge.search.search.wrappedValue.isEmpty {
+            print("match-position")
+            self.currentMatchIndex()
+        }
         var values = bridge.wrappedValue
         var iter = cursorPosition
         let currentLineNumber = Int(gtk_text_iter_get_line(&iter)) + 1
