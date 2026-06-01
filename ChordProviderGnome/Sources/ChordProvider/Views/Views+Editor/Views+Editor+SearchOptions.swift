@@ -45,7 +45,7 @@ extension Views.Editor {
                         .tooltip("Next")
                     }
                     .style("linked")
-                    .insensitive(!appState.editor.search.haveMatches)
+                    .insensitive(appState.editor.search.noResultsFound)
                     // Below should be a toggle but I can't attach
                     // keyboard shortcuts to them
                     Button(icon: .default(icon: .editFindReplace)) {
@@ -98,6 +98,7 @@ extension Views.Editor {
                     .insensitive(appState.editor.search.replace.isEmpty || !appState.editor.search.haveMatches)
                 }
                 .style("linked")
+                .insensitive(appState.editor.search.search == appState.editor.search.replace)
             }
         }
         /// The options `View`

@@ -20,7 +20,6 @@ extension SourceViewController {
         )
         bridge.search.matchEnd.wrappedValue = bridge.search.matchStart.wrappedValue
         clearSelection()
-        getMatchesCount()
 }
 
     func bridgeBinding() -> Binding<SourceViewBridge>? { 
@@ -146,7 +145,6 @@ extension SourceViewController {
             -1,
             nil
         )
-        getMatchesCount()
         search(direction: .next)
     }
 
@@ -169,6 +167,5 @@ extension SourceViewController {
         )
         bridge.search.matchStart.wrappedValue = start
         bridge.search.matchEnd.wrappedValue = start
-        getMatchesCount()
     }
 }

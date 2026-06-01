@@ -110,6 +110,12 @@ public final class SourceViewController {
                 self.scheduleSnippetCheck()
             }
         }
+
+        searchContext.notify(name: "occurrences-count") {
+            if !bridge.search.search.wrappedValue.isEmpty {
+                self.getMatchesCount()
+            }
+        }
     }
 }
 
