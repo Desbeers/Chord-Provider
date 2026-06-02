@@ -126,9 +126,9 @@ extension SourceViewController {
     /// Group the action on one *undo* group
     /// - Parameter action: The action to perform
     private func withUndoGroup(_ action: () -> Void) {
-        gtk_text_buffer_begin_user_action(textBuffer)
+        gtk_text_buffer_begin_user_action(buffer.textBufferPointer)
         defer {
-            gtk_text_buffer_end_user_action(textBuffer)
+            gtk_text_buffer_end_user_action(buffer.textBufferPointer)
         }
 
         action()
@@ -141,10 +141,10 @@ extension SourceViewController {
     private func replaceAllText(_ text: String) {
         withUndoGroup {
             var range = bufferRange
-            gtk_text_buffer_delete(textBuffer, &range.start, &range.end)
+            gtk_text_buffer_delete(buffer.textBufferPointer, &range.start, &range.end)
             text.withCString { cString in
                 gtk_text_buffer_insert(
-                    textBuffer,
+                    buffer.textBufferPointer,
                     &range.start,
                     cString,
                     -1
@@ -164,11 +164,11 @@ extension SourceViewController {
             gtk_text_iter_forward_to_line_end(&end)
 
             // Delete everything up to the newline
-            gtk_text_buffer_delete(textBuffer, &start, &end)
+            gtk_text_buffer_delete(buffer.textBufferPointer, &start, &end)
 
             // Insert replacement text at cursor
             text.withCString {
-                gtk_text_buffer_insert_at_cursor(textBuffer, $0, -1)
+                gtk_text_buffer_insert_at_cursor(buffer.textBufferPointer, $0, -1)
             }
         }
     }
@@ -183,7 +183,7 @@ extension SourceViewController {
             var directiveStart = directive.format.start
             var directiveEnd = directive.format.end
 
-            if gtk_text_buffer_get_has_selection(textBuffer) == 0 {
+            if gtk_text_buffer_get_has_selection(buffer.textBufferPointer) == 0 {
                 insertDirectiveWithoutSelection()
             } else {
                 insertDirectiveWithSelection()
@@ -205,7 +205,7 @@ extension SourceViewController {
                 let insert = "\(directiveStart)\(directiveEnd)\n"
 
                 // Insert the directive
-                gtk_text_buffer_insert(textBuffer, &insertIter, insert, -1)
+                gtk_text_buffer_insert(buffer.textBufferPointer, &insertIter, insert, -1)
 
                 /// Move the cursor
                 var cursorIter = cursorPosition
@@ -219,7 +219,7 @@ extension SourceViewController {
                     gtk_text_iter_backward_char(&cursorIter)
                     gtk_text_iter_backward_char(&cursorIter)
                 }
-                gtk_text_buffer_place_cursor(textBuffer, &cursorIter)
+                gtk_text_buffer_place_cursor(buffer.textBufferPointer, &cursorIter)
             }
 
             // MARK: Insert with a selection
@@ -234,9 +234,9 @@ extension SourceViewController {
                 guard let selection = selectedText, var range = selectedRange else { return }
                 let directive = "\(directiveStart)\(selection)\(directiveEnd)\n"
                 // Delete everything that is selected
-                gtk_text_buffer_delete(textBuffer, &range.start, &range.end)
+                gtk_text_buffer_delete(buffer.textBufferPointer, &range.start, &range.end)
                 // Insert the directive
-                gtk_text_buffer_insert(textBuffer, &range.start, directive, -1)
+                gtk_text_buffer_insert(buffer.textBufferPointer, &range.start, directive, -1)
             }
         }
     }
@@ -248,22 +248,22 @@ extension SourceViewController {
             var range = bufferRange
             // Ensure we start on a new line
             if gtk_text_iter_starts_line(&range.end) == 0 {
-                gtk_text_buffer_insert(textBuffer, &range.end, "\n", 1)
-                gtk_text_buffer_get_end_iter(textBuffer, &range.end)
+                gtk_text_buffer_insert(buffer.textBufferPointer, &range.end, "\n", 1)
+                gtk_text_buffer_get_end_iter(buffer.textBufferPointer, &range.end)
             }
             // Blank line BEFORE
-            gtk_text_buffer_insert(textBuffer, &range.end, "\n", 1)
-            gtk_text_buffer_get_end_iter(textBuffer, &range.end)
+            gtk_text_buffer_insert(buffer.textBufferPointer, &range.end, "\n", 1)
+            gtk_text_buffer_get_end_iter(buffer.textBufferPointer, &range.end)
             // Insert text
             text.withCString { cString in
-                gtk_text_buffer_insert(textBuffer, &range.end, cString, -1)
+                gtk_text_buffer_insert(buffer.textBufferPointer, &range.end, cString, -1)
             }
-            gtk_text_buffer_get_end_iter(textBuffer, &range.end)
+            gtk_text_buffer_get_end_iter(buffer.textBufferPointer, &range.end)
             // Blank line AFTER
-            gtk_text_buffer_insert(textBuffer, &range.end, "\n\n", 2)
-            gtk_text_buffer_get_end_iter(textBuffer, &range.end)
+            gtk_text_buffer_insert(buffer.textBufferPointer, &range.end, "\n\n", 2)
+            gtk_text_buffer_get_end_iter(buffer.textBufferPointer, &range.end)
             // Move cursor to end
-            gtk_text_buffer_place_cursor(textBuffer, &range.end)
+            gtk_text_buffer_place_cursor(buffer.textBufferPointer, &range.end)
             // Scroll to cursor
             scrollToCursor()
         }

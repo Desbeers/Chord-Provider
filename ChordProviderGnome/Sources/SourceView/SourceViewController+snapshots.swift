@@ -24,7 +24,7 @@ extension SourceViewController {
                 return
             }
             guard
-                let bridge = bridgeBinding()
+                let bridge = bridgeBinding
             else { return }
             var values = bridge.wrappedValue
             /// Get all the text from the buffer
@@ -60,13 +60,11 @@ extension SourceViewController {
 
     /// Update the information about the current line
     func updateCurrentLine() {
-        guard
-            let bridge = bridgeBinding()
-        else {
+        guard let bridge = bridgeBinding else {
             return
         }
         if !bridge.search.search.wrappedValue.isEmpty {
-            self.currentMatchIndex()
+            self.setCurrentMatchIndex()
         }
         var values = bridge.wrappedValue
         var iter = cursorPosition
@@ -77,7 +75,7 @@ extension SourceViewController {
         let currentLine = values.songLines[safe: currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: totalLines)
 
         isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
-        hasSelection = gtk_text_buffer_get_has_selection(textBuffer) != 0
+        hasSelection = gtk_text_buffer_get_has_selection(buffer.textBufferPointer) != 0
         
         values.currentLine = currentLine
         values.isAtBeginningOfLine = isAtBeginningOfLine

@@ -38,10 +38,9 @@ extension Views {
                         .focus(appState.scene.focusEditor)
                 }
                 Separator()
-                if appState.editor.coreSettings.showWarnings {
-                    lineInfo
-                        .transition(.coverUpDown)
-                }
+                    .bottomToolbar(visible: appState.editor.coreSettings.showWarnings) {
+                        lineInfo
+                    }
             }
             .card()
             .padding()

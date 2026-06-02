@@ -49,12 +49,12 @@ extension SourceViewController {
         let lineIndex = gint(lineNumber - 1)
         var iter = GtkTextIter()
         gtk_text_buffer_get_iter_at_line(
-            textBuffer,
+            buffer.textBufferPointer,
             &iter,
             lineIndex
         )
         gtk_source_buffer_create_source_mark(
-            sourceBuffer,
+            buffer.sourceBufferPointer,
             nil,
             category,
             &iter
@@ -67,16 +67,16 @@ extension SourceViewController {
         var start = GtkTextIter()
         var end = GtkTextIter()
         gtk_text_buffer_get_start_iter(
-            textBuffer,
+            buffer.textBufferPointer,
             &start
         )
         gtk_text_buffer_get_end_iter(
-            textBuffer,
+            buffer.textBufferPointer,
             &end
         )
         for category in LogUtils.Level.allCases {
             gtk_source_buffer_remove_source_marks(
-                sourceBuffer,
+                buffer.sourceBufferPointer,
                 &start,
                 &end,
                 category.rawValue

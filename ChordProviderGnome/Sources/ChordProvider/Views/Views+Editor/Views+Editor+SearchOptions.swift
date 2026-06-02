@@ -31,7 +31,7 @@ extension Views.Editor {
                     Symbol(icon: .default(icon: .systemSearch))
                     Entry("Search", text: $appState.editor.search.search)
                         .focus(appState.scene.focusSearch)
-                        .warning(appState.editor.search.noResultsFound)
+                        .warning(appState.editor.search.noMatches)
                     HStack {
                         Button(icon: .default(icon: .goUp)) {
                             appState.editor.command = .search(.previous)
@@ -45,7 +45,7 @@ extension Views.Editor {
                         .tooltip("Next")
                     }
                     .style("linked")
-                    .insensitive(appState.editor.search.noResultsFound)
+                    .insensitive(appState.editor.search.noMatches)
                     // Below should be a toggle but I can't attach
                     // keyboard shortcuts to them
                     Button(icon: .default(icon: .editFindReplace)) {
@@ -59,7 +59,7 @@ extension Views.Editor {
                     }
                     .keyboardShortcut("h".ctrl(), active: appState.scene.showSearchBar)
                     .flat(!appState.editor.search.showReplaceOptions)
-                    Text(appState.editor.search.matchDisplay)
+                    Text(appState.editor.search.countDisplay)
                     Text("")
                         .hexpand()
                     options

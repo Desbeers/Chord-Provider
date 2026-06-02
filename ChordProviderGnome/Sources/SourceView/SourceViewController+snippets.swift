@@ -59,7 +59,7 @@ extension SourceViewController {
         var end = start
         gtk_text_iter_forward_to_line_end(&end)
         guard let line = gtk_text_buffer_get_text(
-            textBuffer,
+            buffer.textBufferPointer,
             &start,
             &end,
             0

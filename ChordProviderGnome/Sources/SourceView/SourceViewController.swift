@@ -15,16 +15,8 @@ public final class SourceViewController {
 
     /// The GTKSourceView
     let view: ViewStorage
-    /// The the pointer to the GTKSourceBuffer
-    var sourceBuffer: UnsafeMutablePointer<GtkSourceBuffer>? {
-        buffer.sourceBufferPointer
-    }
     /// The GTKTextBuffer
     let buffer: ViewStorage
-    /// The the pointer to the GTKTextBuffer
-    var textBuffer: UnsafeMutablePointer<GtkTextBuffer>? {
-        buffer.textBufferPointer
-    }
     /// Search settings
     public let searchSettings: ViewStorage
     /// Search context
@@ -64,12 +56,11 @@ public final class SourceViewController {
 
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         searchSettings = ViewStorage(gtk_source_search_settings_new().opaque())
-
-        gtk_source_search_settings_set_wrap_around(searchSettings.opaquePointer?.cast(), 1)
+        gtk_source_search_settings_set_wrap_around(searchSettings.searchSettingsPointer, 1)
         searchContext = ViewStorage(
             gtk_source_search_context_new(
                 buffer.sourceBufferPointer,
-                searchSettings.opaquePointer?.cast()
+                searchSettings.searchSettingsPointer
             )
         )
         view = ViewStorage(
@@ -113,7 +104,7 @@ public final class SourceViewController {
 
         searchContext.notify(name: "occurrences-count") {
             if !bridge.search.search.wrappedValue.isEmpty {
-                self.getMatchesCount()
+                self.matchesCount()
             }
         }
     }
@@ -165,7 +156,7 @@ public func sourceview_click_cb(
     guard 
         click == 3,
         let controller = SourceViewController.controller(from: userData),
-        let binding = controller.bridgeBinding()
+        let binding = controller.bridgeBinding
     else {
         return
     }
@@ -188,7 +179,7 @@ public func sourceview_key_cb(
         state.rawValue == 0,
         keyval == UInt32(GDK_KEY_bracketleft),
         let controller = SourceViewController.controller(from: userData),
-        let buffer = controller.textBuffer
+        let buffer = controller.buffer.textBufferPointer
     else {
         return 0
     }

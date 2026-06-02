@@ -53,4 +53,9 @@ extension ViewStorage {
     var widgetPointer: UnsafeMutablePointer<GtkWidget>? {
         opaquePointer?.cast()
     }
+
+    /// The pointer to the search settings
+    var searchSettingsPointer: UnsafeMutablePointer<GtkSourceSearchSettings>? {
+        opaquePointer?.cast()
+    }
 }

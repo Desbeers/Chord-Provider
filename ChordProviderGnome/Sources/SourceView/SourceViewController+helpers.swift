@@ -19,7 +19,7 @@ extension SourceViewController {
     /// - Returns: The cursor iterator
     var cursorPosition: GtkTextIter {
         var iter = GtkTextIter()
-        guard let buffer = textBuffer else { return iter }
+        guard let buffer = buffer.textBufferPointer else { return iter }
         let textMark = gtk_text_buffer_get_insert(buffer)
         gtk_text_buffer_get_iter_at_mark(buffer, &iter, textMark)
         return iter
@@ -30,8 +30,8 @@ extension SourceViewController {
     var bufferRange: (start: GtkTextIter, end: GtkTextIter) {
         var start = GtkTextIter()
         var end = GtkTextIter()
-        gtk_text_buffer_get_start_iter(textBuffer, &start)
-        gtk_text_buffer_get_end_iter(textBuffer, &end)
+        gtk_text_buffer_get_start_iter(buffer.textBufferPointer, &start)
+        gtk_text_buffer_get_end_iter(buffer.textBufferPointer, &end)
         return (start, end)
     }
 
@@ -41,7 +41,7 @@ extension SourceViewController {
         var start = GtkTextIter()
         var end = GtkTextIter()
         guard gtk_text_buffer_get_selection_bounds(
-            textBuffer,
+            buffer.textBufferPointer,
             &start,
             &end
         ) != 0 else {
@@ -66,7 +66,7 @@ extension SourceViewController {
     /// - Returns: An optional String
     private func bufferString(start: inout GtkTextIter, end: inout GtkTextIter)-> String? {
         guard let cString = gtk_text_buffer_get_text(
-            textBuffer,
+            buffer.textBufferPointer,
             &start,
             &end,
             0
@@ -93,7 +93,7 @@ extension SourceViewController {
 
     /// Clear any active selection in the text buffer
     func clearSelection() {
-        guard let buffer = textBuffer,
+        guard let buffer = buffer.textBufferPointer,
             var range = selectedRange else { 
                 return
         }
@@ -105,7 +105,7 @@ extension SourceViewController {
 
     /// Move the cursor to the first line of the song and scroll to it
     func moveCursorToFirstLine() {
-        guard let buffer = textBuffer else { return }
+        guard let buffer = buffer.textBufferPointer else { return }
         var iter = GtkTextIter()
         gtk_text_buffer_get_start_iter(buffer, &iter)
         gtk_text_buffer_place_cursor(buffer, &iter)
@@ -114,7 +114,7 @@ extension SourceViewController {
 
     /// Scroll to the current cursor position
     func scrollToCursor() {
-        guard let buffer = textBuffer else {
+        guard let buffer = buffer.textBufferPointer else {
             return
         }
         let insertMark = gtk_text_buffer_get_insert(buffer)
