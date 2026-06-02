@@ -59,3 +59,5 @@ extension ViewStorage {
         opaquePointer?.cast()
     }
 }
+
+extension GtkTextIter: @unchecked @retroactive Sendable {}

@@ -9,7 +9,7 @@ import Foundation
 import ChordProviderCore
 import CGtkSourceView
 
-public struct SourceViewBridge: Equatable {
+public struct SourceViewBridge: Equatable, Sendable {
 
     /// Equatable protocol
     public static func == (lhs: SourceViewBridge, rhs: SourceViewBridge) -> Bool {

@@ -13,7 +13,7 @@ import ChordProviderCore
 extension SourceViewBridge {
 
     /// The state of the search
-    public struct SearchState {
+    public struct SearchState: Sendable {
         /// Search
         public var search: String = ""
         /// Replace
@@ -73,7 +73,7 @@ extension SourceViewBridge {
     }
 
     /// The search direction
-    public enum SearchDirection {
+    public enum SearchDirection: Sendable {
         /// Next match
         case next
         /// Previous match
