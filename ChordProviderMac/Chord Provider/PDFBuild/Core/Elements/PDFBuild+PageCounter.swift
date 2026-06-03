@@ -12,7 +12,7 @@ extension PDFBuild {
     // MARK: A PDF **page counter** element
 
     /// A PDF **page counter** element
-    /// 
+    ///
     /// - Keep a list of items for the TOC
     /// - Drawing of the **page counter**
     class PageCounter: PDFElement {

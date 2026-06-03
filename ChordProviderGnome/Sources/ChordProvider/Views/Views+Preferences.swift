@@ -60,7 +60,7 @@ extension Views {
                     .group("Debug") {
                         SwitchRow()
                             .title("Debug")
-                            .subtitle("Show debug additions, it needs a restart")
+                            .subtitle("Show debug additions")
                             .active($appState.settings.app.debug)
                     }
             }
@@ -80,11 +80,16 @@ extension Views {
                             .suffix {
                                 HStack {
                                     Views.Spinner(
-                                        start: 8,
-                                        end: 20,
-                                        suffix: "pt",
+                                        start: 80,
+                                        end: 200,
+                                        suffix: "%",
                                         value: $appState.settings.theme.editorFontSize
                                     )
+                                    Button("Default") {
+                                        appState.settings.theme.editorFontSize = 100
+                                    }
+                                    .padding(.leading)
+                                    .insensitive(appState.settings.theme.editorFontSize == 100)
                                 }
                                 .valign(.center)
                             }
@@ -104,6 +109,26 @@ extension Views {
             }
             .preferencesPage("Chords", icon: .default(icon: .folderMusic)) { page in
                 page
+                    .group("Chord Display") {
+                        ActionRow("Font Size")
+                            .subtitle("Relative to the lyrics")
+                            .suffix {
+                                HStack {
+                                    Views.Spinner(
+                                        start: 80,
+                                        end: 150,
+                                        suffix: "%",
+                                        value: $appState.settings.theme.chordsFontSize
+                                    )
+                                    Button("Default") {
+                                        appState.settings.theme.chordsFontSize = 100
+                                    }
+                                    .padding(.leading)
+                                    .insensitive(appState.settings.theme.chordsFontSize == 100)
+                                }
+                                .valign(.center)
+                            }
+                    }
                     .group("Chord Diagrams") {
                         SwitchRow()
                             .title("Show left-handed chords")

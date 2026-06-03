@@ -12,12 +12,11 @@ import ChordProviderCore
 extension Views.Database {
 
     /// Save the database
-    /// 
+    /// - Parameter instrument: The instrument to use
+    ///
     /// Make sure we use the correct instrument,
     /// when another is already selected the state is already changed.
     /// So, use the modified instrument when not nil.
-    /// 
-    /// - Parameter instrument: The instrument to use
     func save(instrument: Instrument) {
         guard
             let fileURL = instrument.fileURL

@@ -125,7 +125,7 @@ extension AppState {
     }
 
     /// Mark the current instrument as unmodified
-    /// 
+    ///
     /// If the current instrument is *new*, it will be deleted from the list
     mutating func markCurrentInstrumentAsUnmodified() {
         if let index = settings.app.instruments.firstIndex(where: { $0.id == settings.app.instrumentID }) {

@@ -31,7 +31,7 @@ extension ChordProParser {
             }
             newSection.lines.append(line)
         }
-        // MIDI
+        // MIDI events
         newSection.gridEvents = {
             var result: [Song.Section.Line.GridCell] = []
             for line in newSection.lines {
@@ -57,24 +57,28 @@ extension ChordProParser {
     }
 
     /// Convert the collected grid lines into columns
+    /// - Parameters:
+    ///   - gridLines: The grid lines
+    ///   - lastPartID: The ID of the last part
+    /// - Returns: Grids in a columns array
     static private func processGrid(_ gridLines: [Song.Section.Line], lastPartID: Int) -> Song.Section.Line {
-        /// Analize the grid
+        /// The grid analizing
         var analysis = analyzeGrid(gridLines: gridLines)
-        /// Build the columns
+        /// The resulting grid columns
         var columns = buildColumns(gridLines: gridLines, analysis: &analysis, lastPartID: lastPartID)
-        /// Fill the columns with parts in the correct column
+        // Fill the columns with parts in the correct column
         fillColumns(
             gridLines: gridLines,
             analysis: analysis,
             columns: &columns
         )
-        /// Look for repeating
+        // Look for repeating
         resolveRepeats(columns: &columns)
-        /// Look for strum patterns if the grid contains strums
+        // Look for strum patterns if the grid contains strums
         if analysis.playableLine.contains(false) {
             resolveStrumming(columns: &columns, totalLines: gridLines.count)
         }
-        /// Return a new line to the section
+        /// The new line for the section
         let newLine = Song.Section.Line(type: .gridLineColumns, context: .grid, gridColumns: columns)
         return newLine
     }
@@ -115,7 +119,6 @@ extension ChordProParser {
     ///   - gridLines: The grid lines
     ///   - analysis: The analysis of the grid
     ///   - lastPartID: The last ID of the grid
-    ///
     /// - Returns: Grid columns with empty parts
     static private func buildColumns(
         gridLines: [Song.Section.Line],
@@ -237,10 +240,11 @@ extension ChordProParser {
             let parts = column.cells[0].parts
             for (row, part) in parts.enumerated() {
                 if let repeating = part.content.getRepeating {
-                    /// Check if we have to repeat the last *two* measures
+                    /// Bool we have to repeat the last *two* measures
                     var repeatLastTwoMeasures: Bool = (repeating == .repeatLastTwoMeasures)
+                    /// The repeating parts
                     var repeatingParts: [Song.Section.Line.Part] = []
-                    /// Make sure we have at least 2 columns
+                    // Make sure we have at least 2 columns
                     guard index >= 2 else { continue }
                     for previousColumn in (0...index - 2).reversed() {
                         let part = columns[previousColumn].cells[0].parts[row]
@@ -279,7 +283,7 @@ extension ChordProParser {
             for (row, part) in parts.enumerated() {
                 if let strum = findNearestStrum(row: row, parts: parts, totalLines: totalLines) {
                     if var chord = part.content.getChord {
-                        /// Add the strum to the chord definition
+                        // Add the strum to the chord definition
                         chord.definition.strum = strum
                         columns[index].cells[0].parts[row].content = .chord(
                             definition: chord.definition,
@@ -287,14 +291,14 @@ extension ChordProParser {
                             beatItems: chord.beatItems
                         )
                     } else {
-                        /// Make sure we have at least 1 column
+                        // Make sure we have at least 1 column
                         guard index >= 1 else { continue }
-                        /// We have a strum but not a chord
+                        // We have a strum but not a chord
                         for previousColumn in (0...index - 1).reversed() {
                             if let match = columns[safe: previousColumn]?.cells[0].parts[row], var chord = match.content.getChord {
-                                /// Add the strum to the chord
+                                // Add the strum to the chord
                                 chord.definition.strum = strum
-                                /// Update the part
+                                /// The updated part
                                 var part = columns[index].cells[0].parts[row]
                                 part.dimmed = match.content.getChord?.definition.strum == .noStrum ? false : true
                                 part.content = .chord(
@@ -302,14 +306,14 @@ extension ChordProParser {
                                     textPart: chord.textPart,
                                     beatItems: chord.beatItems
                                 )
-                                /// Update the row with the part
+                                // Update the row with the part
                                 columns[index].cells[0].parts[row] = part
                                 break
                             }
                         }
                     }
                 } else if var chord = part.content.getChord {
-                    /// This is a chord without a strum, do not play it
+                    // This is a chord without a strum, do not play it
                     chord.definition.strum = .noStrum
                     columns[index].cells[0].parts[row].content = .chord(
                         definition: chord.definition,
@@ -326,7 +330,6 @@ extension ChordProParser {
     ///   - row: The row of the chord in the grid
     ///   - parts: All parts of the column 
     ///   - totalLines: The total lines of the grid
-    /// 
     /// - Returns: A strum if found, else nil
     static private func findNearestStrum(row: Int, parts: [Song.Section.Line.Part], totalLines: Int) -> Chord.Strum? {
         for index in (row + 1)..<totalLines {

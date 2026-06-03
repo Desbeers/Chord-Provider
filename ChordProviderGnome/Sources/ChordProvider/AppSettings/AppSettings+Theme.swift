@@ -15,13 +15,15 @@ extension AppSettings {
         /// Appearance
         var appearance: Appearance = .system
         /// Colorfull Window
-        var colorfullWindow: Bool = true
+        var colorfullWindow: Bool = false
         /// Color scheme
-        var colorScheme: ColorScheme = .green
+        var colorScheme: ColorScheme = .accent
         /// The zoom factor of the Render `View`
         var zoom: Double = 1
         /// The font size of the editor
-        var editorFontSize: Int = 12
+        var editorFontSize: Int = 100
+        /// The font size for chords
+        var chordsFontSize: Int = 100
     }
 }
 

@@ -29,7 +29,7 @@ extension GtkRender.TabSection {
                         ForEach(column.events, horizontal: false) { item in
                             event(
                                 event: item,
-                                column: column.columnID
+                                columnID: column.columnID
                             )
                         }
                         .homogeneous()
@@ -40,7 +40,12 @@ extension GtkRender.TabSection {
             .padding(10)
         }
 
-        private func event(event: Song.Section.Line.Tab.Event, column: Int) -> AnyView {
+        /// The `View` for a tab event
+        /// - Parameters:
+        ///   - event: The tab event
+        ///   - columnID: The ID of the colums
+        /// - Returns: The event `View`
+        private func event(event: Song.Section.Line.Tab.Event, columnID: Int) -> AnyView {
             Box {
                 switch event.content {
                 case .rest(let display):
@@ -54,7 +59,7 @@ extension GtkRender.TabSection {
                 case let .fret(display, _, filler):
                     HStack {
                         Text(display)
-                            .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                            .style(columnID == currentPartID && playTabNotes ? .chordHighlight : .none)
                             .id(playTabNotes.description + currentPartID.description)
                         Text(filler)
                     }
@@ -62,7 +67,7 @@ extension GtkRender.TabSection {
                 case let .transition(display, _, _, _):
                     Text(display)
                         .style(.tabButton)
-                        .style(column == currentPartID && playTabNotes ? .chordHighlight : .none)
+                        .style(columnID == currentPartID && playTabNotes ? .chordHighlight : .none)
                         .id(playTabNotes.description + currentPartID.description)
                 }
             }

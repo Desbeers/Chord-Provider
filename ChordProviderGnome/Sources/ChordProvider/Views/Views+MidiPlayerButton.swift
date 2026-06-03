@@ -33,7 +33,7 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             HStack {
-                Button(display, icon: .default(icon: .mediaPlaybackStart)) {
+                Button("") {
                     Task {
                         await ChordProviderMIDI.shared.playChord(
                             chord,
@@ -41,15 +41,19 @@ extension Views {
                         )
                     }
                 }
+                .child{
+                    HStack(spacing: 5) {
+                        Symbol(icon: .default(icon: .mediaPlaybackStart))
+                        Text("\(display)")
+                        if let strum = chord.strum {
+                            Widgets.BundleImage(strum: strum)
+                                .pixelSize(12)
+                        }
+                    }
+                }
                 .insensitive(!chord.knownChord)
                 .style(.midiButton)
                 .flat(true)
-                if let strum = chord.strum {
-                    Widgets.BundleImage(strum: strum)
-                        .pixelSize(12)
-                        .style(.svgIcon)
-                        .padding(.leading)
-                }
             }
             .halign(.center)
             .padding(.top)

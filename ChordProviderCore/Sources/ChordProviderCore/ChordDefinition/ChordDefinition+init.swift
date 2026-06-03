@@ -116,9 +116,9 @@ extension ChordDefinition {
     }
 
     /// Init with a `C`
-    /// 
-    /// If not found in the chords database, it will init an *empty* `C`
     /// - Parameter instrument: The ``Instrument`` for this definition
+    ///
+    /// If not found in the chords database, it will init an *empty* `C`
     public init(instrument: Instrument, chords: [ChordDefinition]) {
         if let chord = chords.matching(root: .c).matching(quality: .major).matching(slash: nil).matching(baseFret: .one).first {
             self = chord

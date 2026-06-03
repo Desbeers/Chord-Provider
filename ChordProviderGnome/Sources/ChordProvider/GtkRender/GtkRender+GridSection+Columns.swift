@@ -81,7 +81,7 @@ extension GtkRender.GridSection {
                         .style(.sectionGrid)
                         .halign(.center)
                 case .lyric:
-                    /// A grid has no lyrics, comment or textblock
+                    // A grid has no lyrics, comment or textblock
                     Views.Empty()
                 }
             }

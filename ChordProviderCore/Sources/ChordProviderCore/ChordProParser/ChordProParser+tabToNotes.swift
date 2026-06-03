@@ -14,25 +14,26 @@ extension ChordProParser {
     ///
     /// - Returns: An updated section
     public static func tabToNotes(section: Song.Section, instrument: Instrument) -> Song.Section {
-        /// Make a copy of the current sections
+        /// Shadow copy of the current sections
         var newSection = section
-        /// Clear all the lines but keep the rest
+        // Clear all the lines but keep the rest
         newSection.lines = []
-        /// Collect the tab lines in the section
+        /// The tab lines in the section
         var tabLines: [String] = []
+        /// The ID of the last column
         var lastColumnID: Int = 0
-        /// Go to all the lines
+        // Go to all the lines
         for line in section.lines {
             if line.context == .tab, let content = line.plain {
-                /// Add the line to the tab lines for later processing
+                // Add the line to the tab lines for later processing
                 tabLines.append(content)
             } else {
                 if !tabLines.isEmpty {
-                    /// Process the tab lines into columns
+                    // Process the tab lines into columns
                     let tabColumns = parseTab(lines: tabLines, instrument: instrument, lastColumnID: lastColumnID)
                     lastColumnID += tabColumns.count
-                    /// Append the columns
-                    /// - Note: Its 'sourceLinenNumber' is 0 so it is ignored in the 'source view'
+                    // Append the columns
+                    // - Its 'sourceLinenNumber' is 0 so it is ignored in the 'source view'
                     newSection.lines.append(
                         Song.Section.Line(
                             type: .tabLineColumns,
@@ -40,15 +41,15 @@ extension ChordProParser {
                             tabColumns: tabColumns
                         )
                     )
-                    /// Empty the tab lines
-                    /// - Note: A *tab* environment can contain more than one tab, seperated by an empty line
+                    // Empty the tab lines
+                    // - A *tab* environment can contain more than one tab, seperated by an empty line
                     tabLines = []
                 }
             }
-            /// Always add an existing line
+            // Always add an existing line
             newSection.lines.append(line)
         }
-        /// MIDI
+        // MIDI events
         newSection.tabEvents = {
             var result: [Song.Section.Line.Tab] = []
             for line in newSection.lines {
@@ -61,6 +62,13 @@ extension ChordProParser {
         return newSection
     }
 
+    /// Convert the collected tabs lines into columns
+    /// - Parameters:
+    ///   - lines: The tab lines
+    ///   - instrument: The instrument
+    ///   - lastColumnID: The ID of the last column
+    ///
+    /// - Returns: Tabs in a column array
     static func parseTab(
         lines: [String],
         instrument: Instrument,
@@ -68,11 +76,11 @@ extension ChordProParser {
     ) -> [Song.Section.Line.Tab] {
         let baseMidi = instrument.tuning.reversed().map(\.midi)
         let stringOffset = max(0, lines.count - instrument.strings.count)
-        /// Chop the tab lines into a tab matrix
+        // Chop the tab lines into a tab matrix
         let tabMatrix: [[Character]] = lines.compactMap { line in
             Array(line)
         }
-        /// Set the width based on the longest tab line
+        // Set the width based on the longest tab line
         guard let tabWidth = tabMatrix.map(\.count).max() else {
             return []
         }
@@ -85,7 +93,7 @@ extension ChordProParser {
         var visualColumnID = 0
         /// Process all columns
         while visualColumnID < tabWidth {
-            /// Create empty events with text
+            /// Tab events
             var events = tabMatrix.indices.map { lineID in
                 Song.Section.Line.Tab.Event(
                     line: lineID,
@@ -99,14 +107,14 @@ extension ChordProParser {
                 /// Bool if the line contains a 'rest' character
                 /// - Note: If 'true' the line is considered a real tab, else just text
                 let tabLine = lineCharacters.contains("-")
-                /// Make sure we are withing the character range 
+                // Make sure we are withing the character range 
                 guard visualColumnID < lineCharacters.count else {
                     continue
                 }
                 let midi = baseMidi[safe: lineID - stringOffset]
-                /// Get the character in the currently visible column
+                /// The character in the currently visible column
                 let character = lineCharacters[visualColumnID]
-                /// Check the content of the character
+                // Check the content of the character
                 if tabLine, character.isNumber, let midi {
 
                     // MARK: Fret number
@@ -127,7 +135,7 @@ extension ChordProParser {
                         usedColumns,
                         first.count
                     )
-                    /// Set the content
+                    /// The content
                     /// - Note: This can be overridden by a note transition
                     var content: Song.Section.Line.Tab.Content = .fret(display: "\(fret)", note: fret + midi, filler: "")
 
@@ -145,7 +153,7 @@ extension ChordProParser {
                                 visualColumnIndex += 1
                             }
                             if let secondFret = Int(second) {
-                                /// Set the content as a transition
+                                // Set the content as a transition
                                 content = .transition(
                                     display: "\(fret)\(transition.display)\(secondFret)",
                                     from: fret + midi,
@@ -159,7 +167,7 @@ extension ChordProParser {
                             )
                         }
                     }
-                    /// Add the notes event
+                    // Add the notes event
                     events[lineID] = Song.Section.Line.Tab.Event(
                         line: lineID,
                         content: content
@@ -190,8 +198,7 @@ extension ChordProParser {
                     )
                 }
             }
-            /// Make the grid even spaced
-
+            // Make the grid even spaced
             for (index, event) in events.enumerated() {
                 if case .rest = event.content {
                     let rest = Song.Section.Line.Tab.Event(
@@ -209,8 +216,7 @@ extension ChordProParser {
                     events[index] = rest
                 }
             }
-            
-            /// Add the column
+            // Add the column
             tabColumns.append(
                 Song.Section.Line.Tab(
                     instrument: instrument,
@@ -218,11 +224,11 @@ extension ChordProParser {
                     events: events
                 )
             )
-            /// Keep track of the ID's
+            // Keep track of the ID's
             visualColumnID += usedColumns
             columnID += 1
         }
-        /// Return all the columns
+        // Return all the columns
         return tabColumns
     }
 }

@@ -67,18 +67,18 @@ struct Theme: Codable, Equatable {
 let helpSpinner: String = """
     /// All fine if I use an Int directly
     /// @State("editorFontSize") private var editorFontSize: Int = 12
-    /// 
+    ///
     /// All fine if I use the Theme struct directly
     /// @State("theme") private var theme = Theme()
-    /// 
+    ///
     /// Issues with a nested AppState struct containing Theme():
     /// @State("appstate") private var appState = AppState()
-    /// 
+    ///
     /// - If I go to Preferences, the value is reset to its initial state
     /// - If I change the value, close the Preferences and open it again; the application will crash.
-    /// 
+    ///
     /// Directly passing the Int as Binding: same issues.
-    /// 
+    ///
     /// I don't have any other issues with widgets and nested Structs
     /// See my ChordProvider application
 """

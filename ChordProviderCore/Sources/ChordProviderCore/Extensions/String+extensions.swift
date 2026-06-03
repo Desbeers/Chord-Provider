@@ -12,9 +12,8 @@ extension String {
     /// Wrapper for text that contains optional prefix and suffix
     /// - Parameter handleBrackets: Bool if brackets should be moved to the prefix and suffix
     /// - Returns:  A ``Song//TextPart`` structure
-    /// 
+    ///
     /// Usuage of the *handleBrackets*:
-    /// 
     /// - When parsing a chord we want to have a 'clean' name so everything around
     ///   the chord name should be moved
     func textPart(handleBrackets: Bool) ->Song.TextPart {

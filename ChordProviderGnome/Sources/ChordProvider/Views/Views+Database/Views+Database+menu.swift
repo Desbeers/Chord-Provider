@@ -11,7 +11,7 @@ import ChordProviderCore
 
 extension Views.Database {
     /// The menu `View`
-    /// 
+    ///
     /// I did not add `Save` here on purpose because I'm unable
     /// to disable the button when needed:
     /// - The database is *build-in* and can not be saved

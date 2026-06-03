@@ -152,7 +152,6 @@ extension Markup {
 
     /// The CSS declarations
     static func css(theme: AppSettings.Theme, dark: Bool) -> String {
-
         let colors = theme.colorScheme.colors(dark: dark)
 
 return """
@@ -324,7 +323,7 @@ popover contents, popover arrow {
 .chord-diagram-toggle {
     margin: 0;
     padding: 0;
-    font-size: \(baseFontSize * theme.zoom)rem;
+    font-size: \((Double(theme.chordsFontSize) / 100) * theme.zoom)rem;
 }
 
 .chord-diagram-toggle:disabled {
@@ -441,7 +440,7 @@ popover contents, popover arrow {
 }
 
 .editor.sourceview {
-    font-size: \(theme.editorFontSize)pt;
+    font-size: \(Double(theme.editorFontSize) / 8.33)pt;
 }
 
 gutter {

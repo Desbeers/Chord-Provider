@@ -14,7 +14,7 @@ import CAdw
 extension Views {
 
     /// The `View` to define a chord
-    /// 
+    ///
     /// This `View` is *not* complete, it is just showing the edit dialog.
     /// It is used by the Editor and by the Database views to show a complete `View`
     struct DefineChord: View {
