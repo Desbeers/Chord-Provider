@@ -51,9 +51,9 @@ public enum ChordProParser {
                 category: .songParser,
                 message: "Parsing done \(song.hasWarnings ? "with" : "without") notices or warnings in \(ms) ms"
             )
-            #if DEBUG
-            print("Parsing took \(ms) ms")
-            #endif
+            // #if DEBUG
+            // print("Parsing took \(ms) ms")
+            // #endif
         }
         LogUtils.shared.setLog(
             level: .info,

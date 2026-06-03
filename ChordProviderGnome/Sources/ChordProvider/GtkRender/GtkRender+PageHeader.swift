@@ -58,6 +58,7 @@ extension GtkRender {
             .style(.metadata)
             .halign(.center)
             .card()
+            .padding(2, .bottom)
         }
 
         /// Show metadata with an icon

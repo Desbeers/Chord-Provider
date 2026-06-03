@@ -24,7 +24,7 @@ extension GtkRender {
                     if let chord = part.content.getChord, chord.definition.knownChord {
                         VStack(spacing: 0) {
                             Views.MidiPlayerButton(chord: chord.definition, coreSettings: coreSettings)
-                            Views.ChordDiagram(chord: chord.definition, width: 50, coreSettings: coreSettings)
+                            Views.ChordDiagram(chord: chord.definition, width: 80, coreSettings: coreSettings)
                         }
                     }
                 }
