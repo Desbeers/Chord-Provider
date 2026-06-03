@@ -13,14 +13,6 @@ extension GtkRender {
 
     /// The `View` for a comment label
     struct CommentLabel: View {
-        /// Init the `View`
-        /// - Parameters 
-        ///   - line: The current line
-        ///   - maxLenght: The maximum length of a single line
-        init(line: Song.Section.Line, maxLenght: Int) {
-            self.line = line
-            self.maxLenght = maxLenght
-        }
         /// The current line of the song
         let line: Song.Section.Line
         /// The maximum length of a single line

@@ -16,7 +16,8 @@ extension RecentSongs {
             var recentSongs = self.items
             /// Keep only relevant information
             let recent = ChordProParser.parse(
-                song: Song(id: UUID(), content: content),
+                content: content,
+                song: Song(id: UUID()),
                 settings: coreSettings,
                 getOnlyMetadata: true
             )

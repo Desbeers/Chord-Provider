@@ -32,6 +32,14 @@ extension Song {
         public var lines: [Line] = []
         /// The optional tempo of the section
         public var tempo: Int?
+
+        // MARK: MIDI
+
+        /// Midi for Grids
+        public var gridEvents: [Song.Section.Line.GridCell]?
+        /// Midi for Tabs
+        public var tabEvents: [Song.Section.Line.Tab]?
+
         /// Boolean if the section is automatic created
         ///
         /// This happens mostly for lines with text and chords that are not surrounded by a `{start_of_verse}` and `{end_of_verse}`

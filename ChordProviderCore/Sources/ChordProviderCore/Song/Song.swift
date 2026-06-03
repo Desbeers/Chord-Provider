@@ -11,15 +11,11 @@ import Foundation
 public struct Song: Equatable, Codable, Identifiable, Sendable {
 
     /// Init the song
-    /// - Parameters:
-    ///   - id: The ID of the song
-    ///   - content: The content of the song
+    /// - Parameter id: The ID of the song
     public init(
-        id: UUID,
-        content: String = ""
+        id: UUID
     ) {
         self.id = id
-        self.content = content
     }
 
     /// The ID of the song

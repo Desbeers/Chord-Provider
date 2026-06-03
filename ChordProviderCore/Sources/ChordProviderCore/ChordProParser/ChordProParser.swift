@@ -23,24 +23,47 @@ public enum ChordProParser {
 
     /// Parse a **ChordPro** file into a ``Song`` structure
     /// - Parameters:
+    ///   - content: The (updated) content of the song
     ///   - song: The current ``Song``
     ///   - settings: The ``ChordProviderCore/ChordProviderSettings`` to use
     ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: An updated ``Song`` item
     public static func parse(
+        content: String,
         song: Song,
         settings: ChordProviderSettings,
         getOnlyMetadata: Bool = false
     ) -> Song {
+        let start = ContinuousClock.now
+        /// Start with a fresh song
+        var song = Song(id: song.id)
+        defer {
+            /// Close the log
+            let duration = start.duration(to: .now)
+            let ms = Int(
+                (
+                    Double(duration.components.attoseconds) / 1e15
+                    + Double(duration.components.seconds) * 1000
+                ).rounded()
+            )
+            LogUtils.shared.setLog(
+                level: song.hasWarnings ? .notice : .info,
+                category: .songParser,
+                message: "Parsing done \(song.hasWarnings ? "with" : "without") notices or warnings in \(ms) ms"
+            )
+            #if DEBUG
+            print("Parsing took \(ms) ms")
+            #endif
+        }
         LogUtils.shared.setLog(
             level: .info,
             category: .songParser,
-            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") <b>\(settings.fileURL?.lastPathComponent ?? "New Song")</b>"
+            message: "Parsing \(getOnlyMetadata ? "metadata from" : "") <b>\(settings.fileURL?.lastPathComponent.escapeSpecialCharacters ?? "New Song")</b>"
         )
         /// Strip optional Windows line endings
-        let content = song.content.replacingOccurrences(of: "\r\n", with: "\n")
-        /// Start with a fresh song
-        var song = Song(id: song.id, content: content)
+        let content = content.replacingOccurrences(of: "\r\n", with: "\n")
+        /// Add the content
+        song.content = content
         /// Add the settings
         song.settings = settings
         /// And add the first section
@@ -148,13 +171,6 @@ public enum ChordProParser {
 
         /// Clear the provided chord definitions
         song.settings.chordDefinitions = []
-
-        /// Close the log
-        LogUtils.shared.setLog(
-            level: song.hasWarnings ? .notice : .info,
-            category: .songParser,
-            message: "Parsing done \(song.hasWarnings ? "with" : "without") notices or warnings"
-        )
 
         /// All done!
         return song

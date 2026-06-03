@@ -13,6 +13,7 @@ extension ChordProParser {
         var newSection = section
         newSection.lines = []
         var gridLines: [Song.Section.Line] = []
+        var lastPartID: Int = 0
         /// Go to all the lines
         for line in section.lines {
             if line.gridsLine != nil {
@@ -20,8 +21,9 @@ extension ChordProParser {
                 gridLines.append(line)
             } else {
                 if !gridLines.isEmpty {
-                    let newLine = processGrid(gridLines)
+                    let newLine = processGrid(gridLines, lastPartID: lastPartID)
                     newSection.lines.append(newLine)
+                    lastPartID += (newLine.gridColumns?.map(\.cells).last?.last?.parts.last?.id ?? lastPartID) + 1
                     /// Reset the grid lines
                     /// - Note: A *grid* environment can contain more than one grid, seperated by an empty line
                     gridLines = []
@@ -29,6 +31,18 @@ extension ChordProParser {
             }
             newSection.lines.append(line)
         }
+        // MIDI
+        newSection.gridEvents = {
+            var result: [Song.Section.Line.GridCell] = []
+            for line in newSection.lines {
+                guard let grids = line.gridColumns else { continue }
+                for grid in grids {
+                    result.append(contentsOf: grid.cells)
+                }
+            }
+            return result
+        }()
+        // Return the updated section
         return newSection
     }
 
@@ -43,11 +57,11 @@ extension ChordProParser {
     }
 
     /// Convert the collected grid lines into columns
-    static private func processGrid(_ gridLines: [Song.Section.Line]) -> Song.Section.Line {
+    static private func processGrid(_ gridLines: [Song.Section.Line], lastPartID: Int) -> Song.Section.Line {
         /// Analize the grid
         var analysis = analyzeGrid(gridLines: gridLines)
         /// Build the columns
-        var columns = buildColumns(gridLines: gridLines, analysis: &analysis)
+        var columns = buildColumns(gridLines: gridLines, analysis: &analysis, lastPartID: lastPartID)
         /// Fill the columns with parts in the correct column
         fillColumns(
             gridLines: gridLines,
@@ -100,11 +114,13 @@ extension ChordProParser {
     /// - Parameters:
     ///   - gridLines: The grid lines
     ///   - analysis: The analysis of the grid
+    ///   - lastPartID: The last ID of the grid
     ///
     /// - Returns: Grid columns with empty parts
     static private func buildColumns(
         gridLines: [Song.Section.Line],
-        analysis: inout GridAnalysis
+        analysis: inout GridAnalysis,
+        lastPartID: Int
     ) -> [Song.Section.Line.Grid] {
         /// Set how many columns we have
         var totalColumns = analysis.columnsCounter.count
@@ -132,7 +148,7 @@ extension ChordProParser {
             let gridCell = Song.Section.Line.GridCell(id: 0, parts: [])
             return Song.Section.Line.Grid(id: item.element, cells: [gridCell])
         }
-        var partID = 0
+        var partID = lastPartID
         for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
             for column in 0..<totalColumns {
                 let anyChord = Song.Section.Line.Part.Content.anyChord(

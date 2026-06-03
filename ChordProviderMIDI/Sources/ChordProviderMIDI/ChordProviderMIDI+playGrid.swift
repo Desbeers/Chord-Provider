@@ -20,7 +20,7 @@ extension ChordProviderMIDI {
         let mappedParts = flatMapParts(grids.map(\.parts))
         let parts = mappedParts.filter { part in
             part.content.hasPlayableChord
-        }
+        }.sorted(using: KeyPathComparator(\.id))
         /// Stop any other grid or tab task
         stopGrid()
         stopTab()

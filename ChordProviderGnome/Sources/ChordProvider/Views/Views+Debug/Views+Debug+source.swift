@@ -32,7 +32,7 @@ extension Views.Debug {
                         VStack(spacing: 0) {
                             if let warnings = line.source.warnings {
                                 ForEach(Array(warnings)) { warning in
-                                    Text(warning.message)
+                                    Text(warning.message.escapeSpecialCharacters)
                                         .useMarkup()
                                         .logLevelStyle(warning.level)
                                         .halign(.start)

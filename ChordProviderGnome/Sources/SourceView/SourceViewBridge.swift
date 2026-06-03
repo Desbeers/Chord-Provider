@@ -17,7 +17,7 @@ public struct SourceViewBridge: Equatable, Sendable {
     }
 
     /// The song
-    public var song = Song(id: UUID(), content: "")
+    public var song = Song(id: UUID())
 
     /// The core settings
     public var coreSettings = ChordProviderSettings()

@@ -119,6 +119,7 @@ extension ChordProParser {
                     var textPart = textPart
                     textPart.text = definition.display
                     part.content = .chord(definition: definition, textPart: textPart, beatItems: 1)
+                    currentSection.haveChords = true
                 /// Any chord
                 case let .anyChord(textPart, strum):
                     var chord = ChordDefinition(

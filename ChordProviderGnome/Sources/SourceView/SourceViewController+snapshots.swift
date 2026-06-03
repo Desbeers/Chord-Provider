@@ -32,7 +32,7 @@ extension SourceViewController {
             /// Clear the log for a new parsing
             LogUtils.shared.clearLog()
             values.song.content = text
-            values.song = ChordProParser.parse(song: values.song, settings: values.coreSettings)
+            values.song = ChordProParser.parse(content: text, song: values.song, settings: values.coreSettings)
             /// Clear all markers and add new ones if needed
             clearMarks()
             if values.coreSettings.showWarnings {

@@ -20,6 +20,7 @@ extension ChordProParser {
         newSection.lines = []
         /// Collect the tab lines in the section
         var tabLines: [String] = []
+        var lastColumnID: Int = 0
         /// Go to all the lines
         for line in section.lines {
             if line.context == .tab, let content = line.plain {
@@ -28,7 +29,8 @@ extension ChordProParser {
             } else {
                 if !tabLines.isEmpty {
                     /// Process the tab lines into columns
-                    let tabColumns = parseTab(lines: tabLines, instrument: instrument)
+                    let tabColumns = parseTab(lines: tabLines, instrument: instrument, lastColumnID: lastColumnID)
+                    lastColumnID += tabColumns.count
                     /// Append the columns
                     /// - Note: Its 'sourceLinenNumber' is 0 so it is ignored in the 'source view'
                     newSection.lines.append(
@@ -46,13 +48,23 @@ extension ChordProParser {
             /// Always add an existing line
             newSection.lines.append(line)
         }
-        /// Return the updated section
+        /// MIDI
+        newSection.tabEvents = {
+            var result: [Song.Section.Line.Tab] = []
+            for line in newSection.lines {
+                guard let tabs = line.tabColumns else { continue }
+                result.append(contentsOf: tabs)
+            }
+            return result
+        }()
+        // Return the updated section
         return newSection
     }
 
     static func parseTab(
         lines: [String],
-        instrument: Instrument
+        instrument: Instrument,
+        lastColumnID: Int
     ) -> [Song.Section.Line.Tab] {
         let baseMidi = instrument.tuning.reversed().map(\.midi)
         let stringOffset = max(0, lines.count - instrument.strings.count)
@@ -67,7 +79,7 @@ extension ChordProParser {
         /// The resulting tab columns
         var tabColumns: [Song.Section.Line.Tab] = []
         /// The column ID
-        var columnID = 0
+        var columnID = lastColumnID
         /// The visual column ID
         /// - Note: An item can occupy more than one column
         var visualColumnID = 0

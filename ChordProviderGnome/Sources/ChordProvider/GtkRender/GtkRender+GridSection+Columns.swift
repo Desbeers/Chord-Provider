@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import ChordProviderMIDI
 
 extension GtkRender.GridSection {
 
@@ -23,49 +22,12 @@ extension GtkRender.GridSection {
         /// The optional tempo
         let tempo: Int?
         /// Bool to play the chords with MIDI
-        @State private var playGridChords: Bool = false
-        /// The ID of the grid
-        @State private var gridID = UUID()
+        @Binding var playGridChords: Bool
         /// The part that is currently playing with MIDI 
-        @State private var currentPartID: Int = -1
-        /// Bool if the grid has playabale chords
-        var haveChords: Bool {
-            !(columns
-                .flatMap(\.cells)
-                .flatMap(\.parts)
-                .map(\.content)
-                .compactMap(\.getChord)
-                .filter { $0.definition.knownChord }
-            ).isEmpty
-        }
+        @Binding var currentPartID: Int
         /// The body of the `View`
         var view: Body {
             VStack {
-                if haveChords {
-                    HStack {
-                        Toggle(
-                            icon: .default(icon: playGridChords ? .mediaPlaybackStop : .mediaPlaybackStart),
-                            isOn: $playGridChords
-                        )
-                        .clicked {
-                            if playGridChords {
-                                startGridPlayer()
-                                /// Monitor the grid player
-                                monitorGridPlayer()
-                            } else {
-                                Task {
-                                    await ChordProviderMIDI.shared.setCurrentTempo(nil)
-                                    await ChordProviderMIDI.shared.stopGrid()
-                                }
-                            }
-                        }
-                        .flat()
-                        Text("\(tempo ?? appState.editor.song.metadata.tempo ?? 128) bpm")
-                            .style(.caption)
-                            .padding(2, .leading)
-                    }
-                    .halign(.start)
-                }
                 ForEach(columns, horizontal: true) { column in
                     Box {
                         ForEach(column.cells.flatMap(\.parts), horizontal: false) { item in
@@ -77,26 +39,6 @@ extension GtkRender.GridSection {
                 }
             }
             .padding(10)
-            .onUpdate {
-                Idle {
-                    if playGridChords && appState.scene.midiID != gridID {
-                        /// Another grid is started; uncheck the toggle button
-                        playGridChords = false
-                    }
-                    if playGridChords, columns.flatMap(\.cells) != ChordProviderMIDI.shared.snapshot.grids {
-                        /// The grid has changed; stop the player
-                        playGridChords = false
-                        Task {
-                            await ChordProviderMIDI.shared.stopGrid()
-                        }
-                    }
-                    if playGridChords, let tempo, ChordProviderMIDI.shared.snapshot.currentTempo != tempo {
-                        Task {
-                            await ChordProviderMIDI.shared.setCurrentTempo(tempo)
-                        }
-                    }
-                }
-            }
         }
 
         /// Render a part of the grid
@@ -115,7 +57,6 @@ extension GtkRender.GridSection {
                             .style(part.dimmed ? .dimmed : .none)
                             .id(definition)
                     }
-
                 case let .anyChord(textPart, _, _),
                     let .textChord(textPart),
                     let .text(textPart),
@@ -149,32 +90,6 @@ extension GtkRender.GridSection {
             .valign(.center)
             .padding(2, .horizontal)
             .id(part.description + playGridChords.description + currentPartID.description)
-        }
-
-        /// Monitor the grid player for its current chord
-        /// - Note: This will cancel itself when the player is stopped
-        private func monitorGridPlayer() {
-            Idle(delay: .seconds(0.015)) {
-                let chord = ChordProviderMIDI.shared.snapshot.currentMidiID
-                if chord != currentPartID {
-                    currentPartID = chord
-                }
-                return playGridChords
-            }
-        }
-
-        /// Start the grid player
-        private func startGridPlayer() {
-            /// Set this grid as current
-            appState.scene.midiID = gridID
-            /// Capture the grids
-            let grids = columns.flatMap(\.cells)
-            let tempo = tempo
-            Task {
-                await ChordProviderMIDI.shared.setCurrentTempo(tempo)
-                await ChordProviderMIDI.shared.setGridChords(grids)
-                await ChordProviderMIDI.shared.playGrid()
-            }
         }
     }
 }

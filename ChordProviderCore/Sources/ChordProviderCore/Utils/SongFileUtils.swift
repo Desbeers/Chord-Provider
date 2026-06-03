@@ -29,9 +29,10 @@ extension SongFileUtils {
         var settings = settings
         do {
             let content = try String(contentsOf: fileURL, encoding: .utf8)
-            let song = Song(id: UUID(), content: content)
+            let song = Song(id: UUID())
             settings.fileURL = fileURL
             return ChordProParser.parse(
+                content: content,
                 song: song,
                 settings: settings,
                 getOnlyMetadata: getOnlyMetadata
