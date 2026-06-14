@@ -77,6 +77,9 @@ import CAdw
                 storage.notify(name: "dark", pointer: appState.styleManager) {
                     appState.setStyle()
                 }
+                storage.notify(name: "accent-color", pointer: appState.styleManager) {
+                    appState.setStyle()
+                }
                 /// Open a song when passed as argument at launch
                 /// - Note: When opened again with another argument; 
                 ///         it will create a new instance because the application will have a another ID

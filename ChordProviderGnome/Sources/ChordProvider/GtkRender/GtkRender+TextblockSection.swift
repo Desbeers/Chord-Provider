@@ -16,21 +16,17 @@ extension GtkRender {
         /// Init the `View`
         /// - Parameters:
         ///   - section: The current section
-        ///   - maxLenght: The maximum length of a single line
-        ///   - coreSettings: The core settings
-        init(section: Song.Section, maxLenght: Int, coreSetting: ChordProviderSettings) {
+        ///   - appState: The state of the application
+        init(section: Song.Section, appState: AppState) {
             self.section = section
-            self.maxLenght = maxLenght
-            self.coreSettings = coreSetting
+            self.appState = appState
             self.halign = Utils.getTextAlignment(section.arguments)
             self.flush = Utils.getTextFlush(section.arguments)
         }
         /// The current section of the song
         let section: Song.Section
-        /// The core settings
-        let coreSettings: ChordProviderSettings
-        /// The maximum length of a single line
-        let maxLenght: Int
+        /// The state of the application
+        let appState: AppState
         /// The horizontal alignment
         let halign: Alignment
         /// The alignment of multi-lines
@@ -42,19 +38,20 @@ extension GtkRender {
                     VStack {
                         switch line.type {
                         case .songLine:
-                            let lines = line.wholeText(split: maxLenght).toElementWrapper
+                            let lines = line.wholeText(split: appState.editor.song.metadata.longestLineLenght).toElementWrapper
                             ForEach(lines) { line in
                                 Text(line.content)
                                     .useMarkup()
+                                    .zoom(appState.settings.theme.zoom)
                                     .style(.sectionTextblock)
                                     .halign(flush)
                             }
                         case .emptyLine:
                             EmptyLine()
                         case .comment:
-                            CommentLabel(line: line, maxLenght: maxLenght)
+                            CommentLabel(line: line, appState: appState)
                         case .chordDiagram:
-                            ChordDiagram(line: line, coreSettings: coreSettings)
+                            ChordDiagram(line: line, appState: appState)
                         default:
                             Views.Empty()
                         }

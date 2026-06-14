@@ -17,11 +17,11 @@ extension GtkRender {
         /// The current section of the song
         let section: Song.Section
         /// The core settings
-        let coreSettings: ChordProviderSettings
+        //let coreSettings: ChordProviderSettings
         /// The state of the application
         @Binding var appState: AppState
         /// The maximum length of a single line
-        let maxLenght: Int
+        //let maxLenght: Int
         /// Bool to play the tab with MIDI
         @State private var playTabNotes: Bool = false
         /// The ID of the grid
@@ -56,17 +56,19 @@ extension GtkRender {
                 VStack {
                     Text("\(section.tempo ?? appState.editor.song.metadata.tempo ?? 128) bpm")
                         .style(.caption)
+                        .zoom(appState.settings.theme.zoom)
                         .padding()
                         .halign(.start)
                     ForEach(section.lines) { line in
                         switch line.type {
                         case .tabLineColumns:
-                            if let columns = line.tabColumns {
-                                Columns(
-                                    columns: columns,
-                                    tempo: section.tempo,
-                                    playTabNotes: $playTabNotes,
-                                    currentPartID: $currentPartID
+                            if let lines = line.tabLines {
+                                Lines(
+                                    lines: lines,
+                                    playingTabNotes: playTabNotes,
+                                    currentColumnID: currentPartID,
+                                    zoom: appState.settings.theme.zoom,
+                                    color: appState.pangoAccentColor
                                 )
                             } else {
                                 Text("The tab is empty")
@@ -74,7 +76,7 @@ extension GtkRender {
                         case .emptyLine:
                             Views.Empty()
                         case .comment:
-                            CommentLabel(line: line, maxLenght: maxLenght)
+                            CommentLabel(line: line, appState: appState)
                         default:
                             Views.Empty()
                         }
@@ -83,21 +85,23 @@ extension GtkRender {
             }
             .padding(10, [.top,.trailing, .bottom])
             .onUpdate {
-                Idle {
-                    if playTabNotes && appState.scene.midiID != tabID {
-                        /// Another grid or tab is started; uncheck the toggle button
-                        playTabNotes = false
-                    }
-                    if playTabNotes, let tabs = section.tabEvents, tabs != ChordProviderMIDI.shared.snapshot.tabs {
-                        /// The tab has changed; stop the player
-                        playTabNotes = false
-                        Task {
-                            await ChordProviderMIDI.shared.stopTab()
+                if playTabNotes {
+                    Idle {
+                        if appState.scene.midiID != tabID {
+                            /// Another grid or tab is started; uncheck the toggle button
+                            playTabNotes = false
                         }
-                    }
-                    if playTabNotes, let tempo = section.tempo, ChordProviderMIDI.shared.snapshot.currentTempo != tempo {
-                        Task {
-                            await ChordProviderMIDI.shared.setCurrentTempo(tempo)
+                        if let tabs = section.tabEvents, tabs != ChordProviderMIDI.shared.snapshot.tabs {
+                            /// The tab has changed; stop the player
+                            playTabNotes = false
+                            Task {
+                                await ChordProviderMIDI.shared.stopTab()
+                            }
+                        }
+                        if let tempo = section.tempo, ChordProviderMIDI.shared.snapshot.currentTempo != tempo {
+                            Task {
+                                await ChordProviderMIDI.shared.setCurrentTempo(tempo)
+                            }
                         }
                     }
                 }
@@ -107,7 +111,7 @@ extension GtkRender {
         /// Monitor the tab player for its current tab
         /// - Note: This will cancel itself when the player is stopped
         private func monitorTabPlayer() {
-            Idle(delay: .seconds(0.015)) {
+            Idle(delay: .seconds(0.15), priority: .low) {
                 let chordID = ChordProviderMIDI.shared.snapshot.currentMidiID
                 if chordID != currentPartID {
                     currentPartID = chordID

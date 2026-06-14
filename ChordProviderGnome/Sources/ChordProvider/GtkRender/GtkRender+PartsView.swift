@@ -19,8 +19,8 @@ extension GtkRender {
         let lineHasLyrics: Bool
         /// Bool if the line has chords
         let lineHasChords: Bool
-        /// The core settings
-        let coreSettings: ChordProviderSettings
+        /// The state of the application
+        let appState: AppState
         /// The body of the `View`
         var view: Body {
             ForEach(parts, horizontal: true) { part in
@@ -32,12 +32,13 @@ extension GtkRender {
                                 switch lyric.chordSlot {
                                 case .chord:
                                     /// Show the chord name with a toggle to open its diagram
-                                    GtkRender.SingleChord(part: part, coreSettings: coreSettings)
+                                    GtkRender.SingleChord(part: part, appState: appState)
                                 case let .text(markup):
                                     Toggle("", isOn: .constant(false))
                                         .child {
                                             Text(markup.display)
                                                 .useMarkup()
+                                                .zoom(appState.settings.theme.zoom)
                                                 .style(.chord)
                                         }
                                         .flat()
@@ -54,6 +55,7 @@ extension GtkRender {
                         if lineHasLyrics {
                             Text(lyric.display)
                                 .useMarkup()
+                                .zoom(appState.settings.theme.zoom)
                                 .style(.standard)
                                 .halign(.start)
                         }

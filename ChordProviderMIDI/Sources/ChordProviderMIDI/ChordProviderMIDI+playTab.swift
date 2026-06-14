@@ -39,14 +39,28 @@ extension ChordProviderMIDI {
 
     /// Play the notes of the tabs
     private func playTabs(_ tabs: [Song.Section.Line.Tab]) async {
+        // Get the total columns
+        guard let totalColumns = tabs.compactMap(\.events.last?.column).max() else {
+            return
+        }
+        /// All the columns
+        var columns = (0 ..< (totalColumns + 1)).map { item in
+            Song.Section.Line.Tab(lineID: item, plain: "")
+        }
+        // Fill the columns
+        for line in tabs where line.events.contains(where: \.content.hasPlayableItem) {
+            for event in line.events {
+                columns[event.column].events.append(event)
+            }
+        }
         /// The pulse counter
         /// - Note: I use subdivisions here because of 'rest' notes in the tablature
         var lastSubdivision = -1
-        /// Loop the tabs until the task is canceled
+        // Loop the tabs until the task is canceled
         while !Task.isCancelled {
-            for tab in tabs {
+            for tab in columns {
                 var notes: [ChordProviderMIDI.PlaybackNote] = []
-                let hasPlayableItem = tab.events.contains { $0.content.hasPlayableItem }
+                let hasPlayableItem = playableColumn(tab)
                 for (index, event) in tab.events.reversed().enumerated() {
                     if !Task.isCancelled {
                         switch event.content {
@@ -56,20 +70,21 @@ extension ChordProviderMIDI {
                             break
                         case .barLine:
                             break
-                        case let .fret(_, fret, _):
+                        case let .fret(_, fret):
                             notes.append(.init(stringID: index, midiNote: fret, articulation: .normal))
                         case let .transition(_, from, to, transition):
                             notes.append(.init(stringID: index, midiNote: from, articulation: .transit(to: to, by: transition)))
+                        case .filler:
+                            break
                         }
                     }
                 }
-                /// Play the notes
+                // Play the notes
                 if !notes.isEmpty {
-                    setCurrentMidiID(tab.columnID)
+                    setCurrentMidiID(tab.id)
                     await playNotes(notes, strum: .down)
                 }
-                /// Wait after playing a note or a rest when the item was playable
-                /// - Note: A *rest* is also a *playable* item
+                // Wait after playing a note or a rest when the item was playable
                 if hasPlayableItem {
                     lastSubdivision = transport.subdivision
                     while transport.subdivision == lastSubdivision {
@@ -77,6 +92,19 @@ extension ChordProviderMIDI {
                     }
                 }
             }
+        }
+
+        /// Bool if the column has playable items
+        /// - Parameter tab: The tab
+        /// - Returns: Bool if playable
+        func playableColumn(_ tab: Song.Section.Line.Tab) -> Bool {
+            guard tab.events.contains(where: { $0.content.hasPlayableItem }) == true else {
+                return false
+            }
+            if tab.events.contains(where: { $0.content.hasFiller }) && !tab.events.contains(where: { $0.content.hasNoteItem })  {
+                return false
+            }
+            return true
         }
     }
 }

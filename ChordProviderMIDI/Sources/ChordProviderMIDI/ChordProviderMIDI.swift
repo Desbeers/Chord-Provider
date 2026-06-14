@@ -138,7 +138,7 @@ extension ChordProviderMIDI {
 extension ChordProviderMIDI {
 
     /// Set the values for the tabs
-    /// - Parameter tabs: The grid section
+    /// - Parameter tabs: The tab lines
     public func setTabNotes(_ tabs: [Song.Section.Line.Tab]) {
         self.snapshot.tabs = tabs
     }
@@ -154,5 +154,11 @@ extension ChordProviderMIDI {
         stopTransport()
         setSongTempo(nil)
         setCurrentTempo(nil)
+    }
+
+    /// Stop all playback tasks
+    public func stopPlaybackTasks() {
+        stopTab()
+        stopGrid()
     }
 }

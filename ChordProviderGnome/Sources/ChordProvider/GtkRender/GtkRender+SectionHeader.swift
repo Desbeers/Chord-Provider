@@ -17,18 +17,23 @@ extension GtkRender {
         /// - Parameters:
         ///   - label: The optional label
         ///   - section: The current section
-        init(label: String? = nil, section: Song.Section) {
+        ///   - appState: The state of the application
+        init(label: String? = nil, section: Song.Section, appState: AppState) {
             self.label = label ?? section.label
             self.style = section.environment == .chorus ? .sectionChorus : .sectionHeader
+            self.zoom = appState.settings.theme.zoom
         }
         /// The label of the header
         let label: String
         /// The style of the header
         let style: Markup.Class
+        /// The zoom factor
+        let zoom: Double
         /// The body of the `View`
         var view: Body {
             if !label.isEmpty {
                 Text(label)
+                    .zoom(zoom)
                     .style(style)
                     .halign(.start)
                     .padding(.vertical)

@@ -15,16 +15,18 @@ extension GtkRender {
     struct CommentLabel: View {
         /// The current line of the song
         let line: Song.Section.Line
-        /// The maximum length of a single line
-        let maxLenght: Int
+        /// The state of the application
+        let appState: AppState
         /// The body of the `View`
         var view: Body {
             HStack(spacing: 10) {
                 Symbol(icon: .default(icon: .userInvisible))
-                let lines = line.wholeText(split: maxLenght).toElementWrapper
+                    .pixelSize(Int(14 * appState.settings.theme.zoom))
+                let lines = line.wholeText(split: appState.editor.song.metadata.longestLineLenght).toElementWrapper
                 ForEach(lines) { line in
                     Text(Utils.convertSimpleLinks(line.content))
                         .useMarkup()
+                        .zoom(appState.settings.theme.zoom)
                         .halign(.start)
                 }
             }

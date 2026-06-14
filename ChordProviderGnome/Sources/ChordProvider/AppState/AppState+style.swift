@@ -20,6 +20,7 @@ extension AppState {
             dark: isDark
         )
         addCssFromString(css)
+        pangoAccentColor = settings.theme.setPangoAccentColor(dark: isDark)
     }
 
     /// Set the style for the application from a CSS string

@@ -16,8 +16,6 @@ extension GtkRender {
     struct GridSection: View {
         /// The current section of the song
         let section: Song.Section
-        /// The core settings
-        let coreSettings: ChordProviderSettings
         /// The state of the application
         @Binding var appState: AppState
         /// Bool to play the chords with MIDI
@@ -54,6 +52,7 @@ extension GtkRender {
                 VStack {
                     Text("\(section.tempo ?? appState.editor.song.metadata.tempo ?? 128) bpm")
                         .style(.caption)
+                        .zoom(appState.settings.theme.zoom)
                         .padding()
                         .halign(.start)
                     ForEach(section.lines) { line in
@@ -62,11 +61,9 @@ extension GtkRender {
                             if let columns: [Song.Section.Line.Grid] = line.gridColumns {
                                 Columns(
                                     columns: columns,
-                                    coreSettings: coreSettings,
-                                    appState: $appState,
-                                    tempo: section.tempo,
-                                    playGridChords: $playGridChords,
-                                    currentPartID: $currentPartID
+                                    playingGridChords: playGridChords,
+                                    currentPartID: currentPartID,
+                                    appState: appState
 
                                 )
                             } else {
@@ -75,7 +72,7 @@ extension GtkRender {
                         case .emptyLine:
                             Views.Empty()
                         case .comment:
-                            CommentLabel(line: line, maxLenght: appState.editor.song.metadata.longestLineLenght)
+                            CommentLabel(line: line, appState: appState)
                         default:
                             Views.Empty()
                         }

@@ -15,17 +15,15 @@ extension GtkRender {
     struct LyricsSection: View {
         /// The current section of the song
         let section: Song.Section
-        /// The core settings
-        let coreSettings: ChordProviderSettings
-        /// The maximum length of a single line
-        let maxLenght: Int
+        /// The state of the application
+        let appState: AppState
         /// The body of the `View`
         var view: Body {
             VStack {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if coreSettings.lyricsOnly {
+                        if appState.editor.coreSettings.lyricsOnly {
                             Text(line.plain ?? "")
                                 .halign(.start)
                         } else if let parts = line.parts {
@@ -33,15 +31,15 @@ extension GtkRender {
                                 parts: parts,
                                 lineHasLyrics: line.hasLyrics,
                                 lineHasChords: line.hasChords,
-                                coreSettings: coreSettings
+                                appState: appState
                             )
                         }
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
-                        CommentLabel(line: line, maxLenght: maxLenght)
+                        CommentLabel(line: line, appState: appState)
                     case .chordDiagram:
-                        ChordDiagram(line: line, coreSettings: coreSettings)
+                        ChordDiagram(line: line, appState: appState)
                     default:
                         Views.Empty()
                     }

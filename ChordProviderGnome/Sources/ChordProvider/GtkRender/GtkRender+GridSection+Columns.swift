@@ -15,16 +15,12 @@ extension GtkRender.GridSection {
     struct Columns: View {
         /// The columns of the grid
         let columns: [Song.Section.Line.Grid]
-        /// The core settings
-        let coreSettings: ChordProviderSettings
-        /// The state of the application
-        @Binding var appState: AppState
-        /// The optional tempo
-        let tempo: Int?
-        /// Bool to play the chords with MIDI
-        @Binding var playGridChords: Bool
+        /// Bool if the the chords areplaying with MIDI
+        let playingGridChords: Bool
         /// The part that is currently playing with MIDI 
-        @Binding var currentPartID: Int
+        let currentPartID: Int
+        /// The state of the application
+        let appState: AppState
         /// The body of the `View`
         var view: Body {
             VStack {
@@ -50,12 +46,16 @@ extension GtkRender.GridSection {
                 case let .chord(definition, _, _):
                     if definition.isSilent {
                         Text(" . ")
+                            .zoom(appState.settings.theme.zoom)
                             .style(.dimmed)
                     } else {
-                        GtkRender.SingleChord(part: part, coreSettings: coreSettings)
-                            .halign(.center)
-                            .style(part.dimmed ? .dimmed : .none)
-                            .id(definition)
+                        GtkRender.SingleChord(
+                            part: part,
+                            highlight: part.id == currentPartID && playingGridChords,
+                            appState: appState
+                        )
+                        .halign(.center)
+                        .style(part.dimmed ? .dimmed : .none)
                     }
                 case let .anyChord(textPart, _, _),
                     let .textChord(textPart),
@@ -63,6 +63,7 @@ extension GtkRender.GridSection {
                     let .margin(textPart):
                     Text(textPart.display)
                         .useMarkup()
+                        .zoom(appState.settings.theme.zoom)
                 case let .strum(symbol):
                     Widgets.BundleImage(strum: symbol)
                         .pixelSize(Int(14 * appState.settings.theme.zoom))
@@ -70,14 +71,17 @@ extension GtkRender.GridSection {
                         .halign(.center)
                 case let .barLine(symbol):
                     Text(symbol.display)
+                        .zoom(appState.settings.theme.zoom)
                         .style(.sectionGrid)
                         .halign(.center)
                 case let .strumPattern(symbol):
                     Text(symbol.display)
+                        .zoom(appState.settings.theme.zoom)
                         .style(.sectionGrid)
                         .halign(.center)
                 case let .repeating(symbol):
                     Text(symbol.rawValue)
+                        .zoom(appState.settings.theme.zoom)
                         .style(.sectionGrid)
                         .halign(.center)
                 case .lyric:
@@ -85,11 +89,9 @@ extension GtkRender.GridSection {
                     Views.Empty()
                 }
             }
-            .style(part.id == currentPartID && playGridChords ? .chordHighlight : .none)
             .halign(.center)
             .valign(.center)
             .padding(2, .horizontal)
-            .id(part.description + playGridChords.description + currentPartID.description)
         }
     }
 }

@@ -41,9 +41,9 @@ extension ChordProviderMIDI {
                 (Double(snapshot.tempo ?? 128) *
                 metronome.timeSignature.quarterNoteMultiplier)
 
-            transport.nextTransportTime += .seconds(tempo / 2)
+            transport.nextTransportTime += .seconds(tempo / Double(metronome.timeSignature.ticksPerBar))
 
-            if transport.subdivision % 2 == 0 {
+            if transport.subdivision % 4 == 0 {
                 transport.tick =
                     (transport.tick + 1)
                     % metronome.timeSignature.ticksPerBar

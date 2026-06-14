@@ -80,6 +80,12 @@ extension Views.Toolbar {
                         icon: .default(icon: .viewDual),
                         isOn: $appState.settings.app.columnPaging
                     )
+                    .toggled {
+                        // Stop MIDI, the UI cannot follow anymore
+                        Task {
+                            await ChordProviderMIDI.shared.stopPlaybackTasks()
+                        }
+                    }
                     .tooltip("Show the song in columns")
                 }
             }
@@ -96,12 +102,8 @@ extension Views.Toolbar {
                     .tooltip("See how your song is parsed")
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
-                            /// Reset MIDI stuff
-                            appState.scene.playMetronome = false
-                            appState.scene.midiID = UUID()
-                            Task {
-                                await ChordProviderMIDI.shared.cancelPlaybackTasks()
-                            }
+                            // Reset MIDI
+                            resetMIDI()
                             if appState.contentIsModified {
                                 appState.scene.saveDoneAction = .showWelcomeView
                                 appState.scene.showCloseDialog = true
@@ -172,6 +174,15 @@ extension Views.Toolbar {
                     subtitle: appState.editor.song.hasContent ? appState.subtitle : "Loading your song",
                     title: appState.editor.song.hasContent ? appState.title : "Chord Provider"
                 )
+            }
+        }
+
+        /// Reset the MIDI player
+        private func resetMIDI() {
+            appState.scene.playMetronome = false
+            appState.scene.midiID = UUID()
+            Task {
+                await ChordProviderMIDI.shared.cancelPlaybackTasks()
             }
         }
     }

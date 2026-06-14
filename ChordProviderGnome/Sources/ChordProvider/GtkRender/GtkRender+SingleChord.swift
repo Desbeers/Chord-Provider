@@ -15,8 +15,10 @@ extension GtkRender {
     struct SingleChord: View {
         /// The part containing the chord
         let part: Song.Section.Line.Part
-        /// The core settings
-        let coreSettings: ChordProviderSettings
+        /// Highlight the chord
+        var highlight: Bool = false
+        /// The state of the application
+        let appState: AppState
         /// Bool to open the chord diagram
         @State private var openChordDiagram: Bool = false
         /// The body of the `View`
@@ -41,18 +43,26 @@ extension GtkRender {
                 .child {
                     Text(markup?.display ?? chord.display)
                         .useMarkup()
+                        .highlight(highlight, color: appState.pangoAccentColor)
+                        .zoom(appState.settings.theme.zoom)
                         .tooltip(chord.toolTip)
                         .style(chord.style)
                         .style(.chord)
-                        .id(chord)
+                        .id(chord.description + highlight.description)
                 }
                 .flat()
                 .style(.chordDiagramToggle)
                 .popover(visible: $openChordDiagram) {
                     if openChordDiagram {
                         VStack(spacing: 0) {
-                            Views.MidiPlayerButton(chord: chord, coreSettings: coreSettings)
-                            Views.ChordDiagram(chord: chord, coreSettings: coreSettings)
+                            Views.MidiPlayerButton(
+                                chord: chord,
+                                coreSettings: appState.editor.coreSettings
+                            )
+                            Views.ChordDiagram(
+                                chord: chord,
+                                coreSettings: appState.editor.coreSettings
+                            )
                             if chord.knownChord, let strum = chord.strum {
                                 Text(strum.display)
                                     .style(.caption)

@@ -26,7 +26,7 @@ extension Song.Section {
             parts: [Song.Section.Line.Part]? = nil,
             gridsLine: [Song.Section.Line.Grid]? = nil,
             gridColumns: [Song.Section.Line.Grid]? = nil,
-            tabColumns: [Song.Section.Line.Tab]? = nil,
+            tabLines: [Song.Section.Line.Tab]? = nil,
             plain: String? = nil
         ) {
             self.sourceLineNumber = sourceLineNumber
@@ -41,7 +41,7 @@ extension Song.Section {
             self.parts = parts
             self.gridsLine = gridsLine
             self.gridColumns = gridColumns
-            self.tabColumns = tabColumns
+            self.tabLines = tabLines
             self.plain = plain
         }
 
@@ -75,8 +75,8 @@ extension Song.Section {
         public var gridsLine: [Grid]?
         /// The  optional grid columns in the line
         public var gridColumns: [Grid]?
-        /// The  optional tab columns in the line
-        public var tabColumns: [Tab]?
+        /// The  optional tab lines
+        public var tabLines: [Tab]?
         /// A plain text version of the line
         /// - Note: The lyrics of a line, a comment or a tab for example
         public var plain: String?

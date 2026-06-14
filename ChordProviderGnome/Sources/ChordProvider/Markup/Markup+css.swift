@@ -102,9 +102,6 @@ extension Markup {
         case selectedChord = "selected-chord"
         /// Chord text indicating an error or invalid chord
         case chordError = "chord-error"
-        /// Chord-highlight
-        /// - Note: For playing grids
-        case chordHighlight = "chord-highlight"
 
         /// Accent stroke
         case strokeAccent = "stroke-accent"
@@ -204,7 +201,7 @@ popover contents, popover arrow {
 /* Text Styles */
 
 .standard, .section-strum {
-    font-size: \(baseFontSize * theme.zoom)rem;
+    font-size: \(baseFontSize)rem;
 }
 .empty-line {
     padding: 0.5rem;
@@ -237,11 +234,11 @@ popover contents, popover arrow {
 /* Sections */
 
 .section-header {
-    font-size: \(1.2 * baseFontSize * theme.zoom)rem;
+    font-size: \(1.2 * baseFontSize)rem;
     font-weight: bold;
 }
 .section-chorus {
-    font-size: \(1 * baseFontSize * theme.zoom)rem;
+    font-size: \(1 * baseFontSize)rem;
     font-weight: bold;
     color: \(dark ? "#fff" : "#000");
     background-color: var(--chordprovider-label-bg-color);
@@ -249,17 +246,17 @@ popover contents, popover arrow {
     border-radius: 0.5em;
 }
 .section-grid {
-    font-size: \(1.1 * baseFontSize * theme.zoom)rem;
+    font-size: \(1.1 * baseFontSize)rem;
 }
 .section-textblock {
-    font-size: \(baseFontSize * theme.zoom)rem;
+    font-size: \(baseFontSize)rem;
 }
 .section-tab {
-    font-size: \(baseFontSize * theme.zoom)rem;
-    font-family: monospace;
+    font-size: \(baseFontSize)rem;
+    font-family: "Adwaita Mono";
 }
 .section-repeat-chorus {
-    font-size: \(1 * baseFontSize * theme.zoom)rem;
+    font-size: \(1 * baseFontSize)rem;
     color: \(dark ? "#fff" : "#000");
     background-color: var(--chordprovider-label-bg-color);
     padding: 0.5em;
@@ -323,7 +320,7 @@ popover contents, popover arrow {
 .chord-diagram-toggle {
     margin: 0;
     padding: 0;
-    font-size: \((Double(theme.chordsFontSize) / 100) * theme.zoom)rem;
+    font-size: \((Double(theme.chordsFontSize) / 100))rem;
 }
 
 .chord-diagram-toggle:disabled {
@@ -340,7 +337,7 @@ popover contents, popover arrow {
 /* Labels */
 
 .comment-label {
-    font-size: \(0.8 * baseFontSize * theme.zoom)rem;
+    font-size: \(0.8 * baseFontSize)rem;
     color: \(dark ? "#eee" : "#000");
     background-color: \(dark ? "#606130" : "#f6f1df");
     padding: 0.5em;
@@ -355,8 +352,8 @@ popover contents, popover arrow {
 /* Chords */
 
 .chord {
-    margin-top: \(3 * theme.zoom)px;
-    margin-bottom: \(1 * theme.zoom)px;
+    margin-top: 3px;
+    margin-bottom: 1px;
     color: var(--chordprovider-chord-color);
 }
 .chord-error {
@@ -365,10 +362,6 @@ popover contents, popover arrow {
 .selected-chord {
     background: var(--card-bg-color);
     border-radius: 0.6em;
-}
-.chord-highlight {
-    background-color: var(--chordprovider-label-bg-color);
-    border-radius: 0.2em;
 }
 
 .stroke-accent {

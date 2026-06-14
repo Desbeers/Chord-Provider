@@ -64,9 +64,9 @@ If a [D]directive can have [A]arguments;
 {end_of_verse}
 
 # Tempo can be set anywhere in the song
-{tempo: 188}
+{tempo: 94}
 
-{start_of_tab label="Tab Tab Tab!" tempo="188"}
+{start_of_tab label="Tab Tab Tab!"}
   C        Cmaj7    Cadd9    C
 e|--------|--------|--------|--------|
 B|1----1--|0----0--|3----3--|1----1--|

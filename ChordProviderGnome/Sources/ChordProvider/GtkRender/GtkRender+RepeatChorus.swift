@@ -17,17 +17,23 @@ extension GtkRender {
         /// - Parameters:
         ///   - label: The optional label
         ///   - section: The current section
-        init(label: String? = nil, section: Song.Section) {
+        ///   - appState: The state of the application
+        init(label: String? = nil, section: Song.Section, appState: AppState) {
             self.label = label ?? section.label
+            self.zoom = appState.settings.theme.zoom
         }
         /// The label of the section
         let label: String
+        /// The zoom factor
+        let zoom: Double
         /// The body of the `View`
         var view: Body {
             if !label.isEmpty {
                 HStack(spacing: 10) {
                     Symbol(icon: .default(icon: .mediaPlaylistRepeat))
+                        .pixelSize(Int(14 * zoom))
                     Text(label)
+                        .zoom(zoom)
                 }
                 .style(.sectionRepeatChorus)
                 .halign(.start)

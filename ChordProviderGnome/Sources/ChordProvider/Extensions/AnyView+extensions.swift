@@ -51,3 +51,53 @@ extension AnyView {
         }
     }
 }
+
+extension AnyView {
+
+    /// Set the zoom factor of a `GtkLabel`
+    /// - Parameter zoom: The zoom factor
+    /// - Returns: Updated `AnyView`
+    public func zoom(_ scale: Double) -> AnyView {
+        inspect { storage, data, updateProperties in
+            if updateProperties {
+                let list: OpaquePointer
+                if let current = gtk_label_get_attributes(storage.opaquePointer) {
+                    list = pango_attr_list_copy(current)
+                } else {
+                    list = pango_attr_list_new()
+                }
+                pango_attr_list_insert(list, pango_attr_scale_new(scale))
+                gtk_label_set_attributes(storage.opaquePointer, list)
+                pango_attr_list_unref(list)
+            }
+        }
+    }
+}
+
+extension AnyView {
+
+    /// Highlight the background of a `GtlLabel`
+    /// - Parameters:
+    ///   - highlight: Bool to highlight or not
+    ///   - color: The accent color
+    /// - Returns: Updated `AnyView`
+    public func highlight(_ highlight: Bool, color: (red: UInt16, green: UInt16, blue: UInt16),) -> AnyView {
+        inspect { storage, data, updateProperties in
+            if updateProperties {
+                let list = pango_attr_list_new()
+                defer {
+                    gtk_label_set_attributes(storage.opaquePointer, list)
+                    pango_attr_list_unref(list)
+                }
+                guard highlight, let backgroundHighlight = pango_attr_background_new(
+                    color.red,
+                    color.green,
+                    color.blue
+                ) else { return }
+                pango_attr_list_insert(list, backgroundHighlight)
+                let alpha = pango_attr_background_alpha_new(16384) // 50%
+                pango_attr_list_insert(list, alpha)
+            }
+        }
+    }
+}

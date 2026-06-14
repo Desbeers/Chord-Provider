@@ -34,6 +34,8 @@ struct AppState {
     let styleManager = adw_style_manager_get_default()
     /// The CSS provider
     var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
+    /// The accent colors for Pango markup
+    var pangoAccentColor: (red: UInt16, green: UInt16, blue: UInt16) = (red: 0, green: 0, blue: 0)
 }
 
 extension AppState {
