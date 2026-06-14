@@ -1,17 +1,17 @@
 //
-//  Views+Content+importExportDialogs.swift
+//  Views+Main+importExportDialogs.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
 import Adwaita
 import ChordProviderCore
 
-extension Views.Content {
+extension Views.Main {
 
-    /// The dialogs for the *Content view* for file import and export
+    /// The dialogs for the *Main view* for file import and export
     var importExportDialogs: AnyView {
 
         /// Just an attachment point for modifiers

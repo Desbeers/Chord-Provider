@@ -1,15 +1,15 @@
 //
-//  Views+Transpose.swift
+//  Views+Main+Transpose.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
 import ChordProviderCore
 import Adwaita
 
-extension Views {
+extension Views.Main {
 
     /// The `View` for transposing a song
     struct Transpose: View {

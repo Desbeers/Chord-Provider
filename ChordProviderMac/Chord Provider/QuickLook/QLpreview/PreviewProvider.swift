@@ -2,7 +2,7 @@
 //  PreviewProvider.swift
 //  Chord Provider - QLpreview
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Cocoa

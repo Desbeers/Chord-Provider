@@ -2,7 +2,7 @@
 //  ChordProParser+tabToNotes.swift
 //  ChordProviderCore
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 extension ChordProParser {
@@ -93,7 +93,7 @@ extension ChordProParser {
                 /// Process all columns
                 while columnID < tabWidth {
                     /// Start with an empty text content
-                    var content: Song.Section.Line.Tab.Content = .text("")
+                    var content: Song.Section.Line.Tab.Event.Content = .text("")
                     /// Keep track of how many columns an item is using
                     var usedColumns = 1
                     let midi = baseMidi[safe: lineID - stringOffset]

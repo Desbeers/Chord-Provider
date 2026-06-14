@@ -2,7 +2,7 @@
 //  RenderView+PartsView.swift
 //  Chord Provider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import SwiftUI

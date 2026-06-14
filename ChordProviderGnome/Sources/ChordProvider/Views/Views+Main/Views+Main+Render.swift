@@ -1,15 +1,15 @@
 //
-//  Views+Render.swift
+//  Views+Main+Render.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
 import ChordProviderCore
 import Adwaita
 
-extension Views {
+extension Views.Main {
 
     /// The `View` for showing a rendered song
     struct Render: View {
@@ -31,7 +31,7 @@ extension Views {
                         HStack {
                             GtkRender.PageView(appState: $appState)
                             Separator()
-                            Views.Chords(appState: $appState)
+                            Views.Main.Chords(appState: $appState)
                         }
                         .hexpand()
                         .vexpand()

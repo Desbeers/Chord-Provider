@@ -2,7 +2,7 @@
 //  Samples.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 06/06/2025.
+//  © 2026 Nick Berendsen
 //
 
 import Foundation

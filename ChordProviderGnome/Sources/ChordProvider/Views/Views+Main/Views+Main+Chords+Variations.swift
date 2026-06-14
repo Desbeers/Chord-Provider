@@ -1,15 +1,15 @@
 //
-//  Views+Chords+Variations.swift
+//  Views+Main+Chords+Variations.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
 import Adwaita
 import ChordProviderCore
 
-extension Views.Chords {
+extension Views.Main.Chords {
 
     /// The `View` for all the chord variations
     struct Variations: View {

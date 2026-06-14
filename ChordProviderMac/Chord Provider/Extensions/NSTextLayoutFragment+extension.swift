@@ -2,7 +2,7 @@
 //  NSTextLayoutFragment+extension.swift
 //  Chord Provider
 //
-//  © 2024 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import SwiftUI

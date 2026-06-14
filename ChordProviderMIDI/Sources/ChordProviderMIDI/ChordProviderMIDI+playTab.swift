@@ -2,7 +2,7 @@
 //  ChordProviderMIDI+playTab.swift
 //  ChordProviderMIDI
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation

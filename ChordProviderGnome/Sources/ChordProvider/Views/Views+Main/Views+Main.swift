@@ -1,8 +1,8 @@
 //
-//  Views+Content.swift
+//  Views+Main.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
@@ -11,8 +11,8 @@ import ChordProviderCore
 
 extension Views {
 
-    /// The content `View` for the application
-    struct Content: View {
+    /// The main `View` for the application
+    struct Main: View {
         /// The `AdwaitaApp`
         var app: AdwaitaApp
         /// The `AdwaitaWindow`
@@ -22,9 +22,9 @@ extension Views {
         /// The list of recent songs
         @Binding var recentSongs: RecentSongs
 
-        // MARK: Content View
+        // MARK: Main View
 
-        /// The content `View`
+        /// The main `View`
         var view: Body {
             VStack {
                 if appState.scene.showWelcomeView {
@@ -38,12 +38,12 @@ extension Views {
                     .hexpand()
                     .transition(.crossfade)
                 } else {
-                    Views.Render(appState: $appState)
+                    Views.Main.Render(appState: $appState)
                         .hexpand()
                         .vexpand()
                         .transition(.crossfade)
                         .topToolbar {
-                            Views.Toolbar.Main(
+                            Toolbar.Main(
                                 app: app,
                                 window: window,
                                 appState: $appState,

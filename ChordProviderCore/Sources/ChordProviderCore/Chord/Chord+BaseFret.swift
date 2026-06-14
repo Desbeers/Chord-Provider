@@ -2,7 +2,7 @@
 //  Chord+BaseFret.swift
 //  ChordProviderCore
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation

@@ -2,7 +2,7 @@
 //  ImageUtils.swift
 //  ChordProviderCore
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 // Thanks to https://medium.com/ios-os-x-development/prefetching-images-size-without-downloading-them-entirely-in-swift-5c2f8a6f82e9
 //

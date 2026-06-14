@@ -1,15 +1,15 @@
 //
-//  Views+Content+dialogs.swift
+//  Views+Main+dialogs.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
 import Adwaita
 import ChordProviderCore
 
-extension Views.Content {
+extension Views.Main {
 
     /// The dialogs for the *Content view*
     var dialogs: AnyView {
@@ -17,7 +17,7 @@ extension Views.Content {
         // MARK: Preferences Dialog
 
         /// The `View` for the preferences
-        Views.Preferences(appState: $appState)
+        Preferences(appState: $appState)
 
         // MARK: About Dialog
 
@@ -47,7 +47,7 @@ extension Views.Content {
                 width: 260,
                 height: 180
             ) {
-                Views.Transpose(appState: $appState)
+                Transpose(appState: $appState)
             }
 
         // MARK: Error Dialog

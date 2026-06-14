@@ -2,7 +2,7 @@
 //  ArrowView.swift
 //  Chord Provider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 //  Modified from https://gist.github.com/ken-itakura/8939d79aad062999b062752ae6b38e09
 

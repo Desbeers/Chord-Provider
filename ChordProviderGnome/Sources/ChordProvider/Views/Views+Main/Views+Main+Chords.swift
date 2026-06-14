@@ -1,15 +1,15 @@
 //
-//  Views+Chords.swift
+//  Views+Main+Chords.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
 import Adwaita
 import ChordProviderCore
 
-extension Views {
+extension Views.Main {
 
     /// The `View` for all the chords in a song
     struct Chords: View {
@@ -25,7 +25,7 @@ extension Views {
         var view: Body {
             ScrollView {
                 ForEach(appState.editor.song.chords) { chord in
-                    MidiPlayerButton(
+                    Views.MidiPlayerButton(
                         chord: chord,
                         coreSettings: appState.editor.coreSettings
                     )
@@ -34,7 +34,7 @@ extension Views {
                         chordDialog.toggle()
                     }
                     .child {
-                        ChordDiagram(chord: chord, coreSettings: appState.editor.coreSettings)
+                        Views.ChordDiagram(chord: chord, coreSettings: appState.editor.coreSettings)
                     }
                     .style(.chordDiagramButton)
                     .flat(true)

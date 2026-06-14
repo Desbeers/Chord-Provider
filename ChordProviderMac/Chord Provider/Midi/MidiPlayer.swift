@@ -2,7 +2,7 @@
 //  MidiPlayer.swift
 //  Chord Provider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 //  Thanks: https://readdarek.com/how-to-play-midi-in-swift/
 

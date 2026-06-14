@@ -2,7 +2,7 @@
 //  Discussions.swift
 //  ChordProviderCLI
 //
-//  Created by Nick Berendsen on 03/09/2025.
+//  © 2026 Nick Berendsen
 //
 
 import Foundation

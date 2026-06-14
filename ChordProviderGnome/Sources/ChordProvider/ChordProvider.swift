@@ -2,7 +2,7 @@
 //  ChordProvider.swift
 //  ChordProvider
 //
-//  © 2025 Nick Berendsen
+//  © 2026 Nick Berendsen
 //
 
 import Foundation
@@ -44,7 +44,7 @@ import CAdw
         // MARK: Main Window
 
         Window(id: "main") { window in
-            Views.Content(
+            Views.Main(
                 app: app,
                 window: window,
                 appState: $appState,

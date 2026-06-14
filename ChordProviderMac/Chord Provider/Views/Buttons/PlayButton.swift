@@ -2,7 +2,7 @@
 //  PlayChordButton.swift
 //  Chord Provider
 //
-//  Created by Nick Berendsen on 24/05/2025.
+//  © 2026 Nick Berendsen
 //
 
 import SwiftUI
