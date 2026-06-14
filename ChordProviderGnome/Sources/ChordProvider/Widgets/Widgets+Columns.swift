@@ -31,7 +31,7 @@ extension Widgets {
         /// - Returns: The view storage.
         public func container<Data>(data: WidgetData, type: Data.Type) -> ViewStorage where Data: ViewRenderData {
             let storage = ViewStorage(adw_wrap_box_new()?.opaque())
-            gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_VERTICAL)
+            gtk_orientable_set_orientation(storage.opaquePointer, .GTK_ORIENTATION_VERTICAL)
             adw_wrap_box_set_line_spacing(storage.opaquePointer, 20)
             return storage
         }

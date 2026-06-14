@@ -36,7 +36,7 @@ extension AnyView {
     public func vertical() -> AnyView {
         inspect { storage, updateProperties in
             if updateProperties {
-                gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_VERTICAL)
+                gtk_orientable_set_orientation(storage.opaquePointer, .GTK_ORIENTATION_VERTICAL)
             }
         }
     }
@@ -46,7 +46,7 @@ extension AnyView {
     public func horizontal() -> AnyView {
         inspect { storage, updateProperties in
             if updateProperties {
-                gtk_orientable_set_orientation(storage.opaquePointer, GTK_ORIENTATION_HORIZONTAL)
+                gtk_orientable_set_orientation(storage.opaquePointer, .GTK_ORIENTATION_HORIZONTAL)
             }
         }
     }
