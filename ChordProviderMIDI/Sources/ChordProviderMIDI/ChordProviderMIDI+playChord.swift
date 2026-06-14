@@ -20,7 +20,7 @@ extension ChordProviderMIDI {
         if let strum, Chord.Strum.upStrums.contains(strum) {
             components.reverse()
         }
-        let playbackNotes = chord.components.compactMap { component in
+        let playbackNotes = components.compactMap { component in
             if let midi = component.midi {
                 return PlaybackNote(stringID: component.id, midiNote: midi, articulation: .normal)
             }

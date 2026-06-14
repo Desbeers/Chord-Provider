@@ -18,6 +18,9 @@ extension ChordProviderMIDI {
     /// beat subdivisions, and scheduling of the next transport tick.
     struct TransportState {
 
+        /// Current transport tempo
+        var tempo: Double = 0
+
         /// Current transport tick
         var tick: Int = 0
 

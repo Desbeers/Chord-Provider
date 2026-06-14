@@ -49,7 +49,6 @@ extension Views {
                         .style(.title)
                     Widgets.BundleImage(path: "nl.desbeers.chordprovider")
                         .pixelSize(220)
-                        //.style(.welcomeImage)
                         .halign(.center)
                         .padding(10)
                     VStack {

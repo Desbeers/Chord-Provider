@@ -24,6 +24,7 @@ extension ChordPro.Tab {
         case slideDown
         case hammerOn
         case pullOff
+        case bend
 
         public var display: String {
             switch self {
@@ -32,6 +33,7 @@ extension ChordPro.Tab {
             case .slideDown: "\\"
             case .hammerOn: "h"
             case .pullOff: "p"
+            case .bend: "b"
             }
         }
 
@@ -41,7 +43,8 @@ extension ChordPro.Tab {
                 "/": .slideUp,
                 "\\": .slideDown,
                 "h": .hammerOn,
-                "p": .pullOff
+                "p": .pullOff,
+                "b": .bend
             ]
         }
     }

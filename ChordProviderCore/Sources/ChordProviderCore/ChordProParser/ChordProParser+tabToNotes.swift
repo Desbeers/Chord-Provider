@@ -151,7 +151,6 @@ extension ChordProParser {
                                     usedColumns,
                                     visualColumnIndex - visualColumnID
                                 )
-                                // dump(usedColumns)
                             }
                         }
                     } else if character == "|" {

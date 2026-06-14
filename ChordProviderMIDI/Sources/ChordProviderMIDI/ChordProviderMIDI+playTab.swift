@@ -82,7 +82,10 @@ extension ChordProviderMIDI {
                 // Play the notes
                 if !notes.isEmpty {
                     setCurrentMidiID(tab.id)
-                    await playNotes(notes, strum: .down)
+                    let notes = notes
+                    Task {
+                        await playNotes(notes, strum: .down)
+                    }
                 }
                 // Wait after playing a note or a rest when the item was playable
                 if hasPlayableItem {

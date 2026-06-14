@@ -57,7 +57,11 @@ extension ChordProviderMIDI {
                 nextTick += .seconds(tempo)
                 if !Task.isCancelled, let chord, chord.definition.knownChord, chord.definition.strum != .noStrum {
                     setCurrentMidiID(part.id)
-                    await playChord(chord.definition, strum: chord.definition.strum)
+                    let definition = chord.definition
+                    let strum = chord.definition.strum
+                    Task {
+                        await playChord(definition, strum: strum)
+                    }
                 }
                 try? await Task.sleep(until: nextTick)
             }

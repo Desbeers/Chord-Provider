@@ -36,12 +36,12 @@ extension ChordProviderMIDI {
 
             try? await Task.sleep(until: transport.nextTransportTime)
 
-            let tempo =
+            transport.tempo =
                 60.0 /
                 (Double(snapshot.tempo ?? 128) *
                 metronome.timeSignature.quarterNoteMultiplier)
 
-            transport.nextTransportTime += .seconds(tempo / Double(metronome.timeSignature.ticksPerBar))
+            transport.nextTransportTime += .seconds(transport.tempo / Double(metronome.timeSignature.ticksPerBar))
 
             if transport.subdivision % 4 == 0 {
                 transport.tick =

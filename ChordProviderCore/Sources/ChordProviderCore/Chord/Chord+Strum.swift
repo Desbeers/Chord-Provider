@@ -125,7 +125,7 @@ extension Chord {
             if rawValue.contains("Muted") {
                 settings.duration = 0.25
                 settings.velocity *= 0.8
-                settings.fadeOut *= 0.15
+                settings.fadeOut *= 0.1
             } else if rawValue.contains("Staccato") {
                 settings.duration *= 0.4
                 settings.fadeOut *= 0.3

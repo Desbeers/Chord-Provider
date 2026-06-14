@@ -59,6 +59,15 @@ extension ChordProviderMIDI {
                                 playbackSettings: playbackSettings
                             )
                         }
+                    case .bend:
+                        Task {
+                            await performBend(
+                                voice: voice,
+                                startNote: playbackNote.midiNote,
+                                endNote: endNote,
+                                playbackSettings: playbackSettings
+                            )
+                        }
                     case .hammerOn, .pullOff:
                         Task {
                             await performHammer(
