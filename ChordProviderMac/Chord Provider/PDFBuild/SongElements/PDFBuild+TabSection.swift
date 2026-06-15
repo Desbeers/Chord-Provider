@@ -24,8 +24,8 @@ extension PDFBuild {
 
         /// Init the **tab section** element
         /// - Parameters:
-        ///    - section: The section with tabs
-        ///    - settings: The application settings
+        ///   - section: The section with tabs
+        ///   - settings: The application settings
         init(_ section: Song.Section, settings: AppSettings) {
             self.section = section
             self.settings = settings

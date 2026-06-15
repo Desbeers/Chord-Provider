@@ -13,7 +13,6 @@ extension ChordProviderMIDI {
     /// Play a chord definition
     /// - Parameters:
     ///   - chord: The chord definition
-    ///   - preset: The MIDI preset
     ///   - strum: The kind of strum
     public func playChord(_ chord: ChordDefinition, strum: Chord.Strum?) async {
         var components = chord.components

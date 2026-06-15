@@ -23,6 +23,7 @@ public class LogUtils: @unchecked Sendable {
     ///   - level: The level of the log
     ///   - category: The category of the log
     ///   - lineNumber: The optional line number
+    ///   - source: The raw source of the line
     ///   - message: The message
     public func setLog(
         level: LogUtils.Level = .notice,

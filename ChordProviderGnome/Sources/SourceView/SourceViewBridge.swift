@@ -38,10 +38,10 @@ public struct SourceViewBridge: Equatable, Sendable {
     /// Bool if the editor has a selection
     public var hasSelection: Bool = false
 
-    /// Search
+    /// The state of the search
     public var search = SearchState()
 
-    /// Show the *Edit directive* dialog
+    /// Bool to show the *Edit directive* dialog
     public var showEditDirectiveDialog: Bool = false
 
     /// The directive to handle in the *Edit directive* dialog

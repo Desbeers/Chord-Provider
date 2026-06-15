@@ -34,7 +34,7 @@ struct DatabaseState: Codable {
     var showChangedDatatabaseDialog: Bool = false
     /// Bool to show a confirmation dialog to delete a chord
     var showDeleteChordDialog: Bool = false
-    /// The action after saving an ``Instrument``
+    /// The action after saving an `Instrument`
     var saveDoneAction: SaveDoneAction = .closeWindow
     /// Bool if the sidebar is visible
     var sidebarVisible = true
@@ -56,9 +56,8 @@ extension DatabaseState {
 
 extension DatabaseState {
 
-    /// Get all filtered chords
-    /// - Returns: The filtered chords
-    mutating func getFilteredChords(allChords: [ChordDefinition]) {
+    /// Set all filtered chords
+    mutating func setFilteredChords(allChords: [ChordDefinition]) {
         /// Clear optional selected definition
         definition = nil
         var result = [ChordDefinition]()

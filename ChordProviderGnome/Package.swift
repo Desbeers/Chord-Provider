@@ -18,6 +18,13 @@ var dependencies: [Package.Dependency] = [
     dependencies.append(.package(url: "https://github.com/stephencelis/CSQLite", from: "3.50.4"))
 #endif
 
+dependencies.append(
+    .package(
+        url: "https://github.com/apple/swift-docc-plugin",
+        from: "1.0.0"
+    )
+)
+
 let package = Package(
     name: "ChordProvider",
     platforms: [

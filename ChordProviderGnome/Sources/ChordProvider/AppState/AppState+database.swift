@@ -78,7 +78,9 @@ extension AppState {
     }
 
     ///  Set the database information and update the song
-    /// - Parameter database: The ``ChordsDatabase`` to set
+    /// - Parameters:
+    ///   - database: The `ChordsDatabase` to set
+    ///   - main:Bool if the function comes from the `Main` View
     mutating func setDatabase(_ database: ChordsDatabase, main: Bool) {
         editor.coreSettings.instrument = database.instrument
         editor.coreSettings.chordDefinitions = database.definitions.sorted()
@@ -94,7 +96,7 @@ extension AppState {
 
     /// Remove an instrument database
     /// - Parameters:
-    ///   - instrument: The ``Instrument`` to update
+    ///   - instrument: The `Instrument` to update
     ///   - main: Bool if errors are for the main window
     mutating func removeDatabase(instrument: Instrument, main: Bool) {
         if instrument.id == settings.app.instrumentID {

@@ -42,8 +42,8 @@ extension Widgets {
 
         /// The view storage.
         /// - Parameters:
-        ///     - modifiers: Modify views before being updated.
-        ///     - type: The view render data type.
+        ///   - data: Data passed to widgets
+        ///   - type: The view render data type
         /// - Returns: The view storage.
         func container<Data>(data: WidgetData, type: Data.Type) -> ViewStorage where Data: ViewRenderData {
             ViewStorage(gtk_image_new()?.opaque())
@@ -51,10 +51,10 @@ extension Widgets {
 
         /// Update the stored content.
         /// - Parameters:
-        ///     - storage: The storage to update.
-        ///     - data: Data passed to widgets
-        ///     - updateProperties: Whether to update the view's properties.
-        ///     - type: The view render data type.
+        ///   - storage: The storage to update.
+        ///   - data: Data passed to widgets
+        ///   - updateProperties: Whether to update the view's properties
+        ///   - type: The view render data type
         func update<Data>(
             _ storage: ViewStorage,
             data: WidgetData,
@@ -74,11 +74,9 @@ extension Widgets {
             }
         }
 
-        /// The size in pixels to display icons at.
-        ///
-        /// If set to a value != -1, this property overrides the
-        /// ``iconSize(_:)`` property for images of type
-        /// `GTK_IMAGE_ICON_NAME`.
+        /// The size in pixels to display the icon
+        /// - Parameter pixelSize: The pixel size
+        /// - Returns: Modified Self
         func pixelSize(_ pixelSize: Int?) -> Self {
             modify { $0.pixelSize = pixelSize }
         }

@@ -12,8 +12,8 @@ extension ChordsDatabase {
 
     /// Init a Chords Database with all known values
     /// - Parameters:
-    ///   - instrument: The ``Instrument`` for the definitions
-    ///   - definitions: The ``ChordDefinitions``
+    ///   - instrument: The `Instrument` for the definitions
+    ///   - definitions: The `ChordDefinitions`
     public init(instrument: Instrument, definitions: [ChordDefinition]) {
         self.instrument = instrument
         self.definitions = definitions

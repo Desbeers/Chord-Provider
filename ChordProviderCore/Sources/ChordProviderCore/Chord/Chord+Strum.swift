@@ -229,6 +229,7 @@ extension Chord.Strum {
         ///   - velocity: The velocity
         ///   - spread: The spread
         ///   - duration: The duration
+        ///   - fadeOut: The fade-out duration
         public init(
             velocity: Double = 1.0,
             spread: TimeInterval = 0.025,

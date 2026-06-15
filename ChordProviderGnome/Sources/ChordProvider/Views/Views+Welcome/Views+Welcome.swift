@@ -239,7 +239,7 @@ extension Views.Welcome {
     /// Open a song
     /// - Parameters:
     ///   - fileURL: The URL of the song
-    ///   - song: The song itself
+    ///   - metadata: The metadata of the song
     ///   - songTitleOnly: Show only the song title
     /// - Returns: A `Body`
     func openButton(

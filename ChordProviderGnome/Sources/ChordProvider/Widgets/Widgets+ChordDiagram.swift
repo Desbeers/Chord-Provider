@@ -22,8 +22,8 @@ extension Widgets {
         let coreSettings: ChordProviderSettings
         /// The view storage.
         /// - Parameters:
-        ///     - data: The widget data.
-        ///     - type: The view render data type.
+        ///   - data: The widget data.
+        ///   - type: The view render data type.
         /// - Returns: The view storage.
         func container<Data>(
             data: WidgetData,

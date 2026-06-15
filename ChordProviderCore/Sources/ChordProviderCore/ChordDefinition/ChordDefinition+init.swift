@@ -35,7 +35,7 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - name: The name of the chord, e.g 'Am7'
-    ///   - instrument: The ``Chord/Instrument`` for this definition if found in the database
+    ///   - chords: All the known chords
     public init?(name: String, chords: [ChordDefinition]) {
         /// Parse the chord name
         let elements = ChordUtils.Analizer.findChordElements(chord: name)
@@ -116,7 +116,9 @@ extension ChordDefinition {
     }
 
     /// Init with a `C`
-    /// - Parameter instrument: The ``Instrument`` for this definition
+    /// - Parameters:
+    ///   - instrument: The ``Instrument`` for this definition
+    ///   - chords: All the known chords
     ///
     /// If not found in the chords database, it will init an *empty* `C`
     public init(instrument: Instrument, chords: [ChordDefinition]) {

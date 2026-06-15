@@ -18,8 +18,8 @@ extension Views {
         /// - Parameters:
         ///   - chord: The chord definition
         ///   - showAccidental: Bool if the name should display as accidental
-        ///   - preset: The MIDI preset
-        init(chord: ChordDefinition, showAccidental: Bool = false ,coreSettings: ChordProviderSettings) {
+        ///   - coreSettings: The core settings
+        init(chord: ChordDefinition, showAccidental: Bool = false, coreSettings: ChordProviderSettings) {
             self.chord = chord
             self.coreSettings = coreSettings
             self.display = showAccidental ? chord.displayNaturalOrAccidentals : chord.display 

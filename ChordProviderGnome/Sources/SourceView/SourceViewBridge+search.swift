@@ -14,13 +14,13 @@ extension SourceViewBridge {
 
     /// The state of the search
     public struct SearchState: Sendable {
-        /// Search
+        /// The search string
         public var search: String = ""
-        /// Replace
+        /// The replacement string
         public var replace: String = ""
-        /// Current match start
+        /// Start of the current match
         var matchStart = GtkTextIter()
-        /// Current match end
+        /// End of the current match
         var matchEnd = GtkTextIter()
         /// The count of matches
         public var matchesCount = 0
@@ -31,8 +31,11 @@ extension SourceViewBridge {
 
         // MARK: Search options
 
+        /// Bool to search with regulair expressions
         public var regularExpressions: Bool = false
+        /// Bool if search is case sensitive
         public var caseSensitive: Bool = false
+        /// Bool if whole words should be matched
         public var matchWholeWordOnly: Bool = false
 
         // MARK: Calculated stuff

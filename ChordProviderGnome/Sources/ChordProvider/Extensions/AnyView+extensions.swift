@@ -57,7 +57,7 @@ extension AnyView {
     /// Set the zoom factor of a `GtkLabel`
     /// - Parameter zoom: The zoom factor
     /// - Returns: Updated `AnyView`
-    public func zoom(_ scale: Double) -> AnyView {
+    public func zoom(_ zoom: Double) -> AnyView {
         inspect { storage, data, updateProperties in
             if updateProperties {
                 let list: OpaquePointer
@@ -66,7 +66,7 @@ extension AnyView {
                 } else {
                     list = pango_attr_list_new()
                 }
-                pango_attr_list_insert(list, pango_attr_scale_new(scale))
+                pango_attr_list_insert(list, pango_attr_scale_new(zoom))
                 gtk_label_set_attributes(storage.opaquePointer, list)
                 pango_attr_list_unref(list)
             }

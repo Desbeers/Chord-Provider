@@ -112,7 +112,7 @@ extension Views {
                         if databaseState.search.isEmpty {
                             ToggleGroup(
                                 selection: $databaseState.chord.onSet { _ in
-                                    databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                                    databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                                 },
                                 values: Chord.Root.naturalAndSharp,
                                 id: \.self,
@@ -213,7 +213,7 @@ extension Views {
                         }
                         SearchEntry()
                             .text($databaseState.search.onSet { _ in
-                                    databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                                    databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                                 }
                             )
                             .placeholderText("Search")
@@ -233,7 +233,7 @@ extension Views {
                 }
                 .onAppear {
                     Idle {
-                        databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                        databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                     }
                 }
                 .onUpdate {
@@ -241,7 +241,7 @@ extension Views {
                         if !databaseState.showChangedDatatabaseDialog, databaseState.instrumentID != appState.settings.app.instrumentID {
                             /// The instrument is changed from the main `View`; update it
                             databaseState.instrumentID = appState.settings.app.instrumentID
-                            databaseState.getFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                            databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
                         }
                     }
                 }

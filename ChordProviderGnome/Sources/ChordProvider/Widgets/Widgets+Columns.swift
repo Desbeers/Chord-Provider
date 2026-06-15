@@ -13,22 +13,22 @@ extension Widgets {
     /// The `AdwaitaWidget` for wrapping the song in columns
     public struct Columns<Element>: AdwaitaWidget where Element: Identifiable {
 
-        /// The dynamic widget elements.
+        /// The dynamic widget elements
         var elements: [Element]
-        /// The dynamic widget content.
+        /// The dynamic widget content
         var content: (Element) -> Body
 
-        /// Initialize `WrapBox`.
+        /// Initialize `WrapBox`
         public init(_ elements: [Element], @ViewBuilder content: @escaping (Element) -> Body) {
             self.elements = elements
             self.content = content
         }
 
-        /// The view storage.
+        /// The view storage
         /// - Parameters:
-        ///     - modifiers: Modify views before being updated.
-        ///     - type: The view render data type.
-        /// - Returns: The view storage.
+        ///   - data: Data passed to widgets
+        ///   - type: The view render data type
+        /// - Returns: The view storage
         public func container<Data>(data: WidgetData, type: Data.Type) -> ViewStorage where Data: ViewRenderData {
             let storage = ViewStorage(adw_wrap_box_new()?.opaque())
             gtk_orientable_set_orientation(storage.opaquePointer, .GTK_ORIENTATION_VERTICAL)
@@ -38,10 +38,10 @@ extension Widgets {
 
         /// Update the stored content.
         /// - Parameters:
-        ///     - storage: The storage to update.
-        ///     - modifiers: Modify views before being updated
-        ///     - updateProperties: Whether to update the view's properties.
-        ///     - type: The view render data type.
+        ///   - storage: The storage to update
+        ///   - data: Data passed to widgets
+        ///   - updateProperties: Whether to update the view's properties
+        ///   - type: The view render data type
         public func update<Data>(
             _ storage: ViewStorage,
             data: WidgetData,

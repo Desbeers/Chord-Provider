@@ -66,7 +66,7 @@ extension SongFileUtils {
     /// Get all songs from a folder
     /// - Parameters:
     ///   - url: The URL of the folder
-    ///   - settings: The ``AppSettings``
+    ///   - settings: The core settings
     ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: All songs by title and artists
     public static func getSongsFromFolder(

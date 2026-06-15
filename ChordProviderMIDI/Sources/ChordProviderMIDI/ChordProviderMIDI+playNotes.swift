@@ -14,7 +14,7 @@ extension ChordProviderMIDI {
     /// Play notes polyphonically
     /// - Parameters:
     ///   - notes: The notes to play
-    ///   - preset: The MIDI preset
+    ///   - strum: The kind of strum
     public func playNotes(_ notes: [PlaybackNote], strum: Chord.Strum?) async {
         /// Get the playback settings for the strum
         /// - Note: If no strum is given, use the default settings

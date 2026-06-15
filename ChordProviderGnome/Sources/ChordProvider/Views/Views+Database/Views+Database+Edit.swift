@@ -112,7 +112,7 @@ extension Views.Database {
                             return copy
                         }
                         /// Filter the chords
-                        databaseState.getFilteredChords(allChords: database.definitions)
+                        databaseState.setFilteredChords(allChords: database.definitions)
                     }
                     /// Set the new or updated database
                     appState.setDatabase(database, main: false)

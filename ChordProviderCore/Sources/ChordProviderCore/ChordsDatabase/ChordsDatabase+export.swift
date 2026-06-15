@@ -11,8 +11,6 @@ import Foundation
 extension ChordsDatabase {
 
     /// Export the definitions to a JSON string
-    /// - Parameters:
-    ///   - database: The chords databse
     /// - Returns: A JSON string with chord definitions in **ChordPro** format
     public func exportToJSON() throws -> String {
         let basicAndSharps = self.definitions.filter { $0.root.accidental != .flat }

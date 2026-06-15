@@ -101,7 +101,7 @@ extension Views.Database {
                             chords.sort()
                             Idle {
                                 appState.editor.coreSettings.chordDefinitions = chords
-                                databaseState.getFilteredChords(allChords: chords)
+                                databaseState.setFilteredChords(allChords: chords)
                                 databaseState.chord = definition.root
                                 databaseState.definition = definition
                                 databaseState.showDefinitionDialog = false

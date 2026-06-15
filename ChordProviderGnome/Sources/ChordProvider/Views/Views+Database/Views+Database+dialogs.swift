@@ -107,7 +107,7 @@ extension Views.Database {
                     }
                     Idle {
                         appState.editor.coreSettings.chordDefinitions = chords
-                        databaseState.getFilteredChords(allChords: chords)
+                        databaseState.setFilteredChords(allChords: chords)
                         appState.editor.command = .updateSong
                     }
                 }

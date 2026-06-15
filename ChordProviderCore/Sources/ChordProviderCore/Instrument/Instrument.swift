@@ -12,7 +12,6 @@ public struct Instrument: Codable, Sendable, Hashable, Identifiable, CustomStrin
 
     /// Init a **Chord Provider** instrument
     /// - Parameters:
-    ///   - id: The ID of the instrument
     ///   - kind: The kind of instrument
     ///   - label: The label of the instrument
     ///   - tuning: The tuning of the instrument

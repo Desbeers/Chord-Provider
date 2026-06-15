@@ -15,7 +15,7 @@ extension Instrument {
         /// Init the instrument tuning with known values
         /// - Parameters:
         ///   - note: The note of the tuning
-        ///   - value: The octave of the tuning
+        ///   - octave: The octave of the tuning
         ///
         public init(note: Chord.Root, octave: Int) {
             self.note = note
