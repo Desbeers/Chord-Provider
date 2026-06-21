@@ -78,20 +78,13 @@ extension Views.Main {
                         ActionRow("Font Size")
                             .subtitle("Set the font size for the editor")
                             .suffix {
-                                HStack {
-                                    Views.Spinner(
-                                        start: 80,
-                                        end: 200,
-                                        suffix: "%",
-                                        value: $appState.settings.theme.editorFontSize
-                                    )
-                                    Button("Default") {
-                                        appState.settings.theme.editorFontSize = 100
-                                    }
-                                    .padding(.leading)
-                                    .insensitive(appState.settings.theme.editorFontSize == 100)
-                                }
-                                .valign(.center)
+                                Views.Spinner(
+                                    min: 80,
+                                    max: 200,
+                                    defaultValue: 100,
+                                    suffix: "%",
+                                    value: $appState.settings.theme.editorFontSize
+                                )
                             }
                     }
                     .group("Errors and Warnings") {
@@ -113,20 +106,13 @@ extension Views.Main {
                         ActionRow("Font Size")
                             .subtitle("Relative to the lyrics")
                             .suffix {
-                                HStack {
-                                    Views.Spinner(
-                                        start: 80,
-                                        end: 150,
-                                        suffix: "%",
-                                        value: $appState.settings.theme.chordsFontSize
-                                    )
-                                    Button("Default") {
-                                        appState.settings.theme.chordsFontSize = 100
-                                    }
-                                    .padding(.leading)
-                                    .insensitive(appState.settings.theme.chordsFontSize == 100)
-                                }
-                                .valign(.center)
+                                Views.Spinner(
+                                    min: 80,
+                                    max: 150,
+                                    defaultValue: 100,
+                                    suffix: "%",
+                                    value: $appState.settings.theme.chordsFontSize
+                                )
                             }
                     }
                     .group("Chord Diagrams") {
@@ -202,24 +188,17 @@ extension Views.Main {
                     .group("Tuning Frequency") {
                         ActionRow("Reference pitch")
                             .suffix {
-                                HStack {
-                                    Views.Spinner(
-                                        start: 300,
-                                        end: 500,
-                                        suffix: "Hz",
-                                        value: $appState.editor.coreSettings.referenceFrequency.onSet({ value in
-                                            Task {
-                                                await ChordProviderMIDI.shared.setReferenceFrequency(value)
-                                            }
-                                        })
-                                    )
-                                    Button("Default") {
-                                        appState.editor.coreSettings.referenceFrequency = 440
+                                Views.Spinner(
+                                    min: 300,
+                                    max: 500,
+                                    defaultValue: 440,
+                                    suffix: "Hz",
+                                    value: $appState.editor.coreSettings.referenceFrequency.onSet { value in
+                                        Task {
+                                            await ChordProviderMIDI.shared.setReferenceFrequency(value)
+                                        }
                                     }
-                                    .padding(.leading)
-                                    .insensitive(appState.editor.coreSettings.referenceFrequency == 440)
-                                }
-                                .valign(.center)
+                                )
                             }
                         Text("The tuning frequency sets the pitch of the A above middle C used as the reference.\nChanging it shifts all notes higher or lower and affecting the overall sound.")
                             .useMarkup()

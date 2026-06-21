@@ -11,89 +11,95 @@ import ChordProviderCore
 
 extension ChordProviderMIDI {
 
+    /// Helper to get the pitch bend between two notes
+    /// - Parameters:
+    ///   - from: Start note
+    ///   - to:: End note
+    /// - Returns: The pitch bend
+    func pitchBend(from: Int, to:Int) -> Int32 {
+        let semitoneDistance = to - from
+        let bendRange = 12.0
+        return  Int32(
+            8192 - Double(semitoneDistance) / bendRange * 8192.0
+        )
+    }
+
     // MARK: Perform a note
 
     /// Perform a note
     /// - Parameters:
     ///   - voice: The Active Voice
-    ///   - note: The start note
+    ///   - note: The note
+    ///   - transitionNote: The optional transition note
     ///   - playbackSettings: The playback settings
     func performNote(
         voice: ActiveVoice,
         note: Int,
+        transitionNote: Int?,
         playbackSettings: Chord.Strum.Playback
     ) async {
-        fluid_synth_noteon(
-            synth,
-            voice.channel,
-            Int32(note),
-            110
-        )
-        await sustainAndFadeNote(
-            voice: voice,
-            playbackSettings: playbackSettings
-        )
+        if let transitionNote {
+            let bend = pitchBend(from: note, to: transitionNote)
+            fluid_synth_pitch_bend(
+                synth,
+                voice.channel,
+                max(0, min(16383, bend))
+            )
+            // Play only the destination note.
+            fluid_synth_noteon(
+                synth,
+                voice.channel,
+                Int32(transitionNote),
+                110
+            )
+        } else {
+            fluid_synth_noteon(
+                synth,
+                voice.channel,
+                Int32(note),
+                110
+            )
+            await sustainAndFadeNote(
+                voice: voice,
+                playbackSettings: playbackSettings
+            )
+        }
     }
 
     /// Slide a note using semitone-by-semitone pitch bends
     /// - Parameters:
     ///   - voice: The Active Voice
-    ///   - note: The start note
+    ///   - startNote: The start note
+    ///   - endNote: The end note
+    ///   - transitionNote: The optional transition note
     ///   - playbackSettings: The playback settings
     func performSlide(
         voice: ActiveVoice,
         startNote: Int,
         endNote: Int,
+        transitionNote: Int?,
         playbackSettings: Chord.Strum.Playback
     ) async {
-        let semitoneDistance = endNote - startNote
-        let semitones = abs(semitoneDistance)
-        guard semitones > 0 else { return }
         let duration = transport.tempo / Double(metronome.timeSignature.ticksPerBar)
-        let segmentDuration = duration / Double(semitones)
-        // The bend range spans the whole slide.
-        fluid_synth_pitch_wheel_sens(
-            synth,
-            voice.channel,
-            Int32(semitones)
-        )
-        // Start fully bent.
-        let initialBend = semitoneDistance > 0 ? 0 : 16383
-        fluid_synth_pitch_bend(
-            synth,
-            voice.channel,
-            Int32(initialBend)
-        )
-        // Play only the destination note.
-        fluid_synth_noteon(
-            synth,
-            voice.channel,
-            Int32(endNote),
-            110
-        )
-        for segment in 1...semitones {
+        let semitoneDistance = abs(endNote - startNote)
+        let bendStart = pitchBend(from: startNote, to: transitionNote ?? startNote)
+        let bendEnd = pitchBend(from: endNote, to: transitionNote ?? endNote)
+        let segmentDuration = duration / Double(abs(semitoneDistance))
+        let distance = Double(bendEnd - bendStart) / Double(semitoneDistance)
+        var value = Double(bendStart)
+        for _ in 1...semitoneDistance {
             guard activePlaybackIDs[Int(voice.channel)] == voice.id else {
                 break
             }
-
-            let bend: Double
-
-            if semitoneDistance > 0 {
-                bend = Double(segment) * 8192.0 / Double(semitones)
-            } else {
-                bend = 16383.0 - Double(segment) * 8191.0 / Double(semitones)
-            }
-
+            value += distance
             fluid_synth_pitch_bend(
                 synth,
                 voice.channel,
-                Int32(bend.rounded())
+                Int32(value.rounded())
             )
 
             try? await Task.sleep(for: .seconds(segmentDuration))
         }
-        // Finish perfectly centered
-        fluid_synth_pitch_bend(synth, voice.channel, 8192)
         await sustainAndFadeNote(
             voice: voice,
             playbackSettings: playbackSettings
@@ -103,64 +109,21 @@ extension ChordProviderMIDI {
     /// Hammer a note using a pitch bend
     /// - Parameters:
     ///   - voice: The Active Voice
-    ///   - startNote: The start note
-    ///   - endNote: The end note
+    ///   - note: The note to hammer
+    ///   - transitionNote: The optional transition note
     ///   - playbackSettings: The playback settings
     func performHammer(
         voice: ActiveVoice,
-        startNote: Int,
-        endNote: Int,
+        note: Int,
+        transitionNote: Int?,
         playbackSettings: Chord.Strum.Playback
     ) async {
-
-        let semitoneDistance = endNote - startNote
-        guard semitoneDistance != 0 else {
-            await sustainAndFadeNote(
-                voice: voice,
-                playbackSettings: playbackSettings
-            )
-            return
-        }
-
-        fluid_synth_pitch_wheel_sens(
-            synth,
-            voice.channel,
-            Int32(abs(semitoneDistance))
-        )
-
-        // Start fully bent so the destination note sounds as the start note.
-        let initialBend = semitoneDistance > 0 ? 0 : 16383
-
+        let bend = pitchBend(from: note, to: transitionNote ?? note)
         fluid_synth_pitch_bend(
             synth,
             voice.channel,
-            Int32(initialBend)
+            max(0, min(16383, bend))
         )
-
-        // Play only the destination note.
-        fluid_synth_noteon(
-            synth,
-            voice.channel,
-            Int32(endNote),
-            110
-        )
-
-        // Wait until the next subdivision.
-        let lastSubdivision = transport.subdivision
-        while transport.subdivision == lastSubdivision {
-            guard activePlaybackIDs[Int(voice.channel)] == voice.id else {
-                return
-            }
-            try? await Task.sleep(for: .milliseconds(1))
-        }
-
-        // Instantly "hammer" onto the new fret.
-        fluid_synth_pitch_bend(
-            synth,
-            voice.channel,
-            8192
-        )
-
         await sustainAndFadeNote(
             voice: voice,
             playbackSettings: playbackSettings
@@ -172,60 +135,35 @@ extension ChordProviderMIDI {
     ///   - voice: The Active Voice
     ///   - startNote: The start note
     ///   - endNote: The end note
+    ///   - transitionNote: The optional transition note
     ///   - playbackSettings: The playback settings
     func performBend(
         voice: ActiveVoice,
         startNote: Int,
         endNote: Int,
+        transitionNote: Int?,
         playbackSettings: Chord.Strum.Playback
     ) async {
         let duration = transport.tempo / Double(metronome.timeSignature.ticksPerBar)
-        let semitoneDistance = endNote - startNote
-        let bendRange = abs(semitoneDistance)
-        fluid_synth_pitch_wheel_sens(
-            synth,
-            voice.channel,
-            Int32(bendRange)
-        )
-        /// Start fully bent
-        let initialBend = semitoneDistance > 0 ? 0 : 16383
-
-        fluid_synth_pitch_bend(
-            synth,
-            voice.channel,
-            Int32(initialBend)
-        )
-        /// Play destination note
-        fluid_synth_noteon(
-            synth,
-            voice.channel,
-            Int32(endNote),
-            110
-        )
+        let bendStart = pitchBend(from: startNote, to: transitionNote ?? startNote)
+        let bendEnd = pitchBend(from: endNote, to: transitionNote ?? endNote)
         let steps = 50
-        for step in 0...steps {
+        let distance = Double(bendEnd - bendStart) / Double(steps)
+        var value = Double(bendStart)
+        for _ in 0...steps {
             guard activePlaybackIDs[Int(voice.channel)] == voice.id else {
                 break
             }
-            let t = Double(step) / Double(steps)
-            /// Interpolate toward center
-            let bend: Double
-            if semitoneDistance > 0 {
-                bend = t * 8192
-            } else {
-                bend = 16383 - (t * 8191)
-            }
+            value += distance
             fluid_synth_pitch_bend(
                 synth,
                 voice.channel,
-                Int32(bend)
+                Int32(value.rounded())
             )
             try? await Task.sleep(
                 for: .seconds(duration / Double(steps))
             )
         }
-        /// Finish perfectly centered
-        fluid_synth_pitch_bend(synth, voice.channel, 8192)
         await sustainAndFadeNote(
             voice: voice,
             playbackSettings: playbackSettings

@@ -32,7 +32,8 @@ extension Widgets {
             let context = Context(definition: chord, showNotes: coreSettings.diagram.showNotes)
             let drawingArea = gtk_drawing_area_new()
             gtk_drawing_area_set_content_width(drawingArea?.cast(), Int32(width))
-            gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * 1.2))
+            let heightFactor = coreSettings.diagram.showNotes ? 1.2 : 1.1
+            gtk_drawing_area_set_content_height(drawingArea?.cast(), Int32(width * heightFactor))
             gtk_drawing_area_set_draw_func(
                 drawingArea?.cast(),
                 draw_chord,
@@ -76,9 +77,8 @@ public func draw_chord(
     let bgColor: Double = darkMode ? 0.8 : 0.4
     let strings = data.definition.instrument.strings.count
     let width = Double(width)
-    let height = Double(height)
     let margin: Double = width * 0.2
-    let fretSpacing: Double = (height - 2 * margin) / 5.0
+    let fretSpacing: Double = ((width * 1.2) - 2 * margin) / 5.0
     let stringSpacing: Double = (width - 2 * margin) / Double(strings - 1)
 
     let radius = width * 0.06
@@ -102,7 +102,7 @@ public func draw_chord(
     for index in 0..<strings {
         let x = margin + Double(index) * stringSpacing
         cairo_move_to(cr, x, margin)
-        cairo_line_to(cr, x, height - margin)
+        cairo_line_to(cr, x, (width * 1.2) - margin)
     }
     cairo_stroke(cr)
 
@@ -203,7 +203,7 @@ public func draw_chord(
                 offset = note.rawValue.count == 1 ? 1.1 : 1.25
             }
             let y = (margin / offset) + Double(index) * stringSpacing
-            cairo_move_to(cr, y, height - fontSize * 1.4)
+            cairo_move_to(cr, y, (width * 1.2) - fontSize * 1.4)
             let text = component.note != .none ? component.note.display : " "
             cairo_show_text(cr, text)
         }

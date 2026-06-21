@@ -62,7 +62,6 @@ let package = Package(
             dependencies: [
                 "SourceView",
                 "ChordProviderMIDI",
-                //"CFluidSynth",
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore")
             ],

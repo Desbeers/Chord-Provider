@@ -22,6 +22,11 @@ extension ChordProviderMIDI {
                 0,
                 Int32(preset.rawValue)
             )
+            fluid_synth_pitch_wheel_sens(
+                synth,
+                Int32(channel),
+                12
+            )
         }
         /// Set the metronome channel
         fluid_synth_program_select(

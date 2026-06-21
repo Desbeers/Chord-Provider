@@ -20,7 +20,7 @@ public struct SourceView: AdwaitaWidget {
 
     var padding = 0
     var paddingEdges: Set<Edge> = []
-    var numbers = false
+    var lineNumbers = false
     var language: Language
     var wrapMode: WrapMode = .none
     var highlightCurrentLine: Bool = true
@@ -41,10 +41,10 @@ public struct SourceView: AdwaitaWidget {
         data: WidgetData,
         type: Data.Type
     ) -> ViewStorage {
-        /// Get the controller class
+        // Get the controller class
         let controller = controller ?? SourceViewController(bridge: $bridge, language: language)
         update(controller.view, data: data, updateProperties: true, type: type)
-        /// Return the GTKSourceView
+        // Return the GTKSourceView
         return controller.view
     }
 
@@ -61,7 +61,7 @@ public struct SourceView: AdwaitaWidget {
                if controller.currentSearchText != bridge.search.search.wrappedValue {
                     controller.setSearchText(bridge.search.search.wrappedValue)
                 }
-                /// Handle command
+                // Handle command
                 if let command = bridge.wrappedValue.command {
                     controller.handle(command)
                     var newBridge = bridge.wrappedValue
@@ -81,7 +81,7 @@ public struct SourceView: AdwaitaWidget {
                     gtk_text_view_set_right_margin(storage.textViewPointer, padding.cInt)
                 }
                 gtk_text_view_set_editable(storage.textViewPointer, editable.cBool)
-                gtk_source_view_set_show_line_numbers(storage.sourceViewPointer, numbers.cBool)
+                gtk_source_view_set_show_line_numbers(storage.sourceViewPointer, lineNumbers.cBool)
                 gtk_text_view_set_wrap_mode(storage.textViewPointer, wrapMode.rawValue)
                 gtk_source_view_set_highlight_current_line(storage.sourceViewPointer, highlightCurrentLine.cBool)
 
@@ -97,39 +97,39 @@ public struct SourceView: AdwaitaWidget {
     // MARK: View modifiers
 
     public func innerPadding(_ padding: Int = 10, edges: Set<Edge> = .all) -> Self {
-        var newSelf = self
-        newSelf.padding = padding
-        newSelf.paddingEdges = edges
-        return newSelf
+        modify {
+            $0.padding = padding
+            $0.paddingEdges = paddingEdges
+        }
     }
 
-    public func lineNumbers(_ visible: Bool = true) -> Self {
-        var newSelf = self
-        newSelf.numbers = visible
-        return newSelf
+    public func lineNumbers(_ lineNumbers: Bool = true) -> Self {
+        modify {
+            $0.lineNumbers = lineNumbers
+        }
     }
 
     public func editable(_ editable: Bool = true) -> Self {
-        var newSelf = self
-        newSelf.editable = editable
-        return newSelf
+        modify {
+            $0.editable = editable
+        }
     }
 
-    public func highlightCurrentLine(_ highlight: Bool = true) -> Self {
-        var newSelf = self
-        newSelf.highlightCurrentLine = highlight
-        return newSelf
+    public func highlightCurrentLine(_ highlightCurrentLine: Bool = true) -> Self {
+        modify {
+            $0.highlightCurrentLine = highlightCurrentLine
+        }
     }
 
     public func wrapMode(_ mode: WrapMode) -> Self {
-        var newSelf = self
-        newSelf.wrapMode = mode
-        return newSelf
+        modify  {
+            $0.wrapMode = wrapMode
+        }
     }
 
-    public func highlightSearchResult(_ highlight: Bool) -> Self {
-        var newSelf = self
-        newSelf.highlightSearchResult = highlight
-        return newSelf
+    public func highlightSearchResult(_ highlightSearchResult: Bool) -> Self {
+        modify {
+            $0.highlightSearchResult = highlightSearchResult
+        }
     }
 }

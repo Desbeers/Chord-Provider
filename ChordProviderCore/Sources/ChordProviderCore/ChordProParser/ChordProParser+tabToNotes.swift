@@ -77,125 +77,158 @@ extension ChordProParser {
         let baseMidi = instrument.tuning.reversed().map(\.midi)
         let stringOffset = max(0, lines.count - instrument.strings.count)
         let tabLines = lines.enumerated().compactMap { (lineID, line) in
+            /// The base MIDI for the string
+            let midi = baseMidi[safe: lineID - stringOffset]
             /// The column ID
             var columnID = lastColumnID
             /// The visual column ID
-            /// - Note: An item can occupy more than one column
             var visualColumnID = 0
-            if line.contains("-") {
-                /// Real tab
-                let tabWidth = lastColumnID + line.count
-                /// The column ID
-
-                let lineCharacters: [String.Element] = Array(line)
-
-                var events: [Song.Section.Line.Tab.Event] = []
-                /// Process all columns
-                while columnID < tabWidth {
-                    /// Start with an empty text content
-                    var content: Song.Section.Line.Tab.Event.Content = .text("")
+            // Check if this line is a real tab or just text
+            if line.contains("-") && line.contains("|") {
+                let totalColumns = lastColumnID + line.count
+                let lineCharacters = Array(line)
+                /// The events of the line
+                var events = (0 ..< line.count).enumerated().map { item in
+                    Song.Section.Line.Tab.Event(column: item.element, content: .filler)
+                }
+                // Process all columns
+                while columnID < totalColumns {
                     /// Keep track of how many columns an item is using
                     var usedColumns = 1
-                    let midi = baseMidi[safe: lineID - stringOffset]
                     let character = lineCharacters[visualColumnID]
-
                     // Check the content of the character
                     if character.isNumber, let midi {
-
-                        // MARK: Fret number
-
-                        var visualColumnIndex = visualColumnID
-                        var first = ""
-
-                        // MARK: First fret
-
-                        while visualColumnIndex < lineCharacters.count && lineCharacters[visualColumnIndex].isNumber {
-                            first.append(lineCharacters[visualColumnIndex])
-                            visualColumnIndex += 1
-                        }
-                        guard let fret = Int(first) else {
-                            continue
-                        }
-                        usedColumns = max(
-                            usedColumns,
-                            first.count
+                        parseNumber(
+                            columnID: columnID,
+                            visualColumnID: &visualColumnID,
+                            lineCharacters: lineCharacters,
+                            usedColumns: &usedColumns,
+                            events: &events,
+                            midi: midi
                         )
-                        /// The content
-                        /// - Note: This can be overridden by a note transition
-                        content = .fret(display: "\(fret)", note: fret + midi)
-
-                        // MARK: Optional transition
-
-                        if visualColumnIndex < lineCharacters.count {
-                            let symbol = String(lineCharacters[visualColumnIndex])
-                            if let transition = ChordPro.Tab.NoteTransition.characterDictionary[symbol] {
-                                visualColumnIndex += 1
-                                var second = ""
-                                while visualColumnIndex < lineCharacters.count &&
-                                    lineCharacters[visualColumnIndex].isNumber
-                                {
-                                    second.append(lineCharacters[visualColumnIndex])
-                                    visualColumnIndex += 1
-                                }
-                                if let secondFret = Int(second) {
-                                    // Set the content as a transition
-                                    content = .transition(
-                                        display: "\(fret)\(transition.display)\(secondFret)",
-                                        from: fret + midi,
-                                        to: secondFret + midi,
-                                        transition: transition
-                                    )
-                                }
-                                
-                                usedColumns = max(
-                                    usedColumns,
-                                    visualColumnIndex - visualColumnID
-                                )
-                            }
-                        }
-                    } else if character == "|" {
-                        // MARK: Bar
-                        content = .barLine
-                    } else if character == "-" {
-                        // MARK: Rest
-                        content = .rest(display: "-")
                     } else {
-                        // MARK: Text
-                        content = .text(String(character))
-                    }
-                    events.append(
-                        Song.Section.Line.Tab.Event(
+                        /// Start with an empty text content
+                        var content: Song.Section.Line.Tab.Event.Content = .text
+                        if character == "|" {
+                            // MARK: Bar
+                            content = .barLine
+                        } else if character == "-" {
+                            // MARK: Rest
+                            content = .rest
+                        } else {
+                            // MARK: Text
+                            content = .text
+                        }
+                        events[visualColumnID] = Song.Section.Line.Tab.Event(
                             column: columnID,
                             content: content,
                             startIndex: visualColumnID,
                             endIndex: visualColumnID + usedColumns
                         )
-                    )
-                    if usedColumns > 1 {
-                        content = .filler
-                        for index in (1..<usedColumns)  {
-                            events.append(
-                                Song.Section.Line.Tab.Event(
-                                    column: columnID + index,
-                                    content: content
-                                )
-                            )
-                        }
                     }
                     // Keep track of the ID's
                     visualColumnID += usedColumns
                     columnID += usedColumns
                 }
-
                 return Song.Section.Line.Tab(lineID: lineID, plain: line, events: events)
             } else {
                 let result = Song.Section.Line.Tab.Event(
                     column: 1,
-                    content: .text(line)
+                    content: .text
                 )
                 return Song.Section.Line.Tab(lineID: lineID, plain: line, events: [result])
             }
         }
         return tabLines
+
+        /// Helper to parse a number with optional transitions
+        func parseNumber(
+            columnID: Int,
+            visualColumnID: inout Int,
+            lineCharacters: [String.Element],
+            usedColumns: inout Int,
+            events: inout [Song.Section.Line.Tab.Event] , 
+            midi: IndexingIterator<Array<Int>>.Element
+        ) {
+            // MARK: Fret number
+
+            var visualColumnIndex = visualColumnID
+            var first = ""
+
+            // MARK: First fret
+
+            while visualColumnIndex < lineCharacters.count && lineCharacters[visualColumnIndex].isNumber {
+                first.append(lineCharacters[visualColumnIndex])
+                visualColumnIndex += 1
+            }
+            guard var firstNote = Int(first) else {
+                return
+            }
+            firstNote += midi
+
+            var from = firstNote
+
+            usedColumns = max(
+                usedColumns,
+                first.count
+            )
+
+            events[visualColumnID] = Song.Section.Line.Tab.Event(
+                    column: columnID,
+                    content: .fret(note: firstNote),
+                    startIndex: visualColumnID,
+                    endIndex: visualColumnID + usedColumns
+            )
+
+            /// Bool if the note has a transition
+            var isTransition: Bool {
+                if ((lineCharacters[safe: visualColumnIndex]?.isNumber) == true) {
+                    return true
+                }
+                let symbol = String(lineCharacters[safe: visualColumnIndex] ?? .init(""))
+                let transition = ChordPro.Tab.Technique.characterDictionary[symbol]
+                return transition == nil ? false : true
+            }
+
+            // MARK: Optional transition
+
+            if visualColumnIndex < lineCharacters.count {
+                var transitionNotes: [Int] = []
+                while isTransition, let symbolCharacter = lineCharacters[safe: visualColumnIndex] {
+                    let symbol = String(symbolCharacter)
+                    if let transition = ChordPro.Tab.Technique.characterDictionary[symbol] {
+                        visualColumnIndex += 1
+                        var second = ""
+                        while visualColumnIndex < lineCharacters.count && lineCharacters[visualColumnIndex].isNumber {
+                            second.append(lineCharacters[visualColumnIndex])
+                            visualColumnIndex += 1
+                        }
+                        if var secondNote = Int(second) {
+                            secondNote += midi
+                            transitionNotes.append(secondNote)
+                            let transition = ChordPro.Tab.Transition(
+                                from: from,
+                                to: secondNote,
+                                technique: transition
+                            )
+                            events[visualColumnID + usedColumns + second.count] = Song.Section.Line.Tab.Event(
+                                    column: columnID + usedColumns + second.count,
+                                    content: .transition(transition: transition),
+                                    startIndex: visualColumnID + usedColumns,
+                                    endIndex: visualColumnIndex
+                            )
+                            from = secondNote
+                        }
+                        usedColumns = max(
+                            usedColumns,
+                            visualColumnIndex - visualColumnID
+                        )
+                    } else {
+                        visualColumnIndex += 1
+                    }
+                }
+                events[visualColumnID].transitionNote = transitionNotes.last
+            }
+        }
     }
 }

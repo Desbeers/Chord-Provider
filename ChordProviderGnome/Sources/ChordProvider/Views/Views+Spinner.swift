@@ -12,10 +12,12 @@ extension Views {
 
     /// The `View` for a custom spinner
     struct Spinner: View {
-        /// Start
-        let start: Int
-        /// End
-        let end: Int
+        /// Min
+        let min: Int
+        /// Max
+        let max: Int
+        /// Optional default
+        var defaultValue: Int?
         /// The suffix for the displayed value
         let suffix: String
         /// The selected value
@@ -23,33 +25,19 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             HStack {
-                CountButton(
-                    value: $value,
-                    icon: .goPrevious) {
-                        $0 = max($0 - 1, start)
+                SpinRow("", value: $value, min: min, max: max)
+                    .suffix {
+                        Text(suffix)
                     }
-                Text("\(value) \(suffix)")
-                    .frame(minWidth: 100)
-                CountButton(
-                    value: $value,
-                    icon: .goNext) {
-                        $0 = min($0 + 1, end)
+                    .frame(minWidth: 200)
+                if let defaultValue {
+                    Button("Default") {
+                        value = defaultValue
                     }
-            }
-            .halign(.center)
-        }
-
-        /// The button for the spinner
-        private struct CountButton: View {
-            @Binding var value: Int
-            var icon: Icon.DefaultIcon
-            var action: (inout Int) -> Void
-            /// The body of the `View`
-            var view: Body {
-                Button(icon: .default(icon: icon)) {
-                    action(&value)
+                    .padding(.leading)
+                    .insensitive(value == defaultValue)
+                    .valign(.center)
                 }
-                .circular()
             }
         }
     }

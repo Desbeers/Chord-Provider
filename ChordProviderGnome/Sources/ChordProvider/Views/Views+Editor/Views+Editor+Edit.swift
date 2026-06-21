@@ -78,7 +78,8 @@ extension Views.Editor {
                     case .width:
                         NumberSpinner(
                             label: "Optional Width",
-                            start: 0, end: 1000,
+                            min: 0,
+                            max: 1000,
                             suffix: "points",
                             value: $formState.width,
                             help: attribute.help
@@ -87,7 +88,8 @@ extension Views.Editor {
                     case .height:
                         NumberSpinner(
                             label: "Optional Height",
-                            start: 0, end: 1000,
+                            min: 0,
+                            max: 1000,
                             suffix: "points",
                             value: $formState.height,
                             help: attribute.help
@@ -96,7 +98,8 @@ extension Views.Editor {
                     case .scale:
                         NumberSpinner(
                             label: "Optional Scale",
-                            start: 0, end: 100,
+                            min: 0,
+                            max: 100,
                             suffix: "%",
                             value: $formState.scale,
                             help: attribute.help
@@ -105,7 +108,8 @@ extension Views.Editor {
                     case .tuplet:
                         NumberSpinner(
                             label: "Optional Tuplet",
-                            start: 2, end: 4,
+                            min: 2,
+                            max: 4,
                             suffix: "",
                             value: $formState.tuplet,
                             help: attribute.help
@@ -116,7 +120,8 @@ extension Views.Editor {
                         case .year, .copyright:
                             NumberSpinner(
                                 label: directive.details.label,
-                                start: 1900, end: 2030,
+                                min: 1900,
+                                max: 2030,
                                 suffix: "",
                                 value: $formState.numeric,
                                 help: attribute.help
@@ -125,7 +130,8 @@ extension Views.Editor {
                         case .tempo:
                             NumberSpinner(
                                 label: "Tempo",
-                                start: 60, end: 240,
+                                min: 60,
+                                max: 240,
                                 suffix: "bpm",
                                 value: $formState.numeric,
                                 help: attribute.help
@@ -134,7 +140,8 @@ extension Views.Editor {
                         default:
                             NumberSpinner(
                                 label: "Unknown",
-                                start: 0, end: 100,
+                                min: 0,
+                                max: 100,
                                 suffix: "",
                                 value: $formState.numeric,
                                 help: attribute.help

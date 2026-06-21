@@ -253,9 +253,8 @@ extension Views {
                 let notes = chord.components.map(\.midi)
                 if let note = notes[string.id] {
                     let playbackNote = ChordProviderMIDI.PlaybackNote(
-                        stringID: 10, 
-                        midiNote: note, 
-                        articulation: .normal
+                        stringID: 10,
+                        articulation: .normal(note: note)
                     )
                     Task {
                         await ChordProviderMIDI.shared.playNotes([playbackNote], strum: nil)

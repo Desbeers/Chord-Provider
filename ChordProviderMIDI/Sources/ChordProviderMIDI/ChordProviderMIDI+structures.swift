@@ -105,19 +105,25 @@ extension ChordProviderMIDI {
         /// Public init
         public init(
             stringID: Int,
-            midiNote: Int,
+            // midiNote: Int,
+            transitionNote: Int? = nil,
             articulation: Articulation
         ) {
             self.stringID = stringID
-            self.midiNote = midiNote
+            // self.midiNote = midiNote
+            self.transtionNote = transitionNote
             self.articulation = articulation
         }
 
         /// String ID associated with the note
         public let stringID: Int
 
-        /// MIDI note number
-        public let midiNote: Int
+        // /// MIDI note number
+        // public let midiNote: Int
+
+        /// Optional MIDI transition note
+        /// - Note: This is the last note of all the connected transitions 
+        public let transtionNote: Int?
 
         /// Playback articulation
         public let articulation: Articulation
@@ -126,14 +132,14 @@ extension ChordProviderMIDI {
         public enum Articulation: Sendable {
 
             /// A normal note without transition
-            case normal
+            case normal(note: Int)
 
             /// A note that transitions to another MIDI note
             ///
             /// - Parameters:
             ///   - to: Destination MIDI note
-            ///   - by: Transition type
-            case transit(to: Int, by: ChordPro.Tab.NoteTransition)
+            ///   - by: Technique type
+            case transit(from: Int, to: Int, by: ChordPro.Tab.Technique)
         }
     }
 

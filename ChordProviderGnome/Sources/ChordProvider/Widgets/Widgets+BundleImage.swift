@@ -28,8 +28,8 @@ extension Widgets {
 
         /// Initialize `BundleImage` from a path
         public init(path: String) {
-            if let urlPath = Bundle.module.url(forResource: path, withExtension: "svg") {
-                self.resource = urlPath.path
+            if let url = Bundle.module.url(forResource: path, withExtension: "svg") {
+                self.resource = url.path
             }
         }
 

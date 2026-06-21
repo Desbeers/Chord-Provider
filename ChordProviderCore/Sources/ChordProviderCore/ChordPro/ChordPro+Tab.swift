@@ -18,13 +18,20 @@ extension ChordPro {
 
 extension ChordPro.Tab {
 
-    public enum NoteTransition: String, Sendable, Codable {
+    public struct Transition: Sendable, Codable, Equatable {
+        public let from: Int
+        public let to: Int
+        public let technique: Technique
+    }
+
+    public enum Technique: String, Sendable, Codable {
         case slide
         case slideUp
         case slideDown
         case hammerOn
         case pullOff
-        case bend
+        case bendUp
+        case releaseBend
 
         public var display: String {
             switch self {
@@ -33,7 +40,8 @@ extension ChordPro.Tab {
             case .slideDown: "\\"
             case .hammerOn: "h"
             case .pullOff: "p"
-            case .bend: "b"
+            case .bendUp: "b"
+            case .releaseBend: "r"
             }
         }
 
@@ -44,7 +52,8 @@ extension ChordPro.Tab {
                 "\\": .slideDown,
                 "h": .hammerOn,
                 "p": .pullOff,
-                "b": .bend
+                "b": .bendUp,
+                "r": .releaseBend
             ]
         }
     }

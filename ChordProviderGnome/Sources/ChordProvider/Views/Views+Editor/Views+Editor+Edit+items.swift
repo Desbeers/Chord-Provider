@@ -121,10 +121,10 @@ extension Views.Editor.Edit {
     struct NumberSpinner: View {
         /// The label for the slider
         let label: String
-        /// Start
-        let start: Int
-        /// End
-        let end: Int
+        /// Min
+        let min: Int
+        /// Max
+        let max: Int
         /// The suffix for the displayed value
         let suffix: String
         /// The selected value
@@ -137,8 +137,8 @@ extension Views.Editor.Edit {
                 FieldLabel(label: label)
                 VStack {
                     Views.Spinner(
-                        start: start,
-                        end: end,
+                        min: min,
+                        max: max,
                         suffix: suffix,
                         value: $value
                     )

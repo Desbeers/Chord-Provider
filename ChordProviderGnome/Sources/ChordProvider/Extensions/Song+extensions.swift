@@ -58,6 +58,7 @@ extension Song.Section.Line.Tab {
         for event in events {
             switch event.content {
                 case .fret, .transition:
+                //case .transition:
                     let bold = pango_attr_weight_new(PANGO_WEIGHT_ULTRAHEAVY)
                     bold?.pointee.start_index = UInt32(event.startIndex)
                     bold?.pointee.end_index = UInt32(event.endIndex)

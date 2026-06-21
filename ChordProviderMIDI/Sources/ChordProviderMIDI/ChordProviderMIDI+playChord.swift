@@ -21,7 +21,7 @@ extension ChordProviderMIDI {
         }
         let playbackNotes = components.compactMap { component in
             if let midi = component.midi {
-                return PlaybackNote(stringID: component.id, midiNote: midi, articulation: .normal)
+                return PlaybackNote(stringID: component.id, articulation: .normal(note: midi))
             }
             return nil
         }

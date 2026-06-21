@@ -56,6 +56,9 @@ extension ChordProviderMIDI {
         /// The pulse counter
         /// - Note: I use subdivisions here because of 'rest' notes in the tablature
         var lastSubdivision = -1
+
+        var transitionNote: Int? = nil
+
         // Loop the tabs until the task is canceled
         while !Task.isCancelled {
             for tab in columns {
@@ -70,10 +73,23 @@ extension ChordProviderMIDI {
                             break
                         case .barLine:
                             break
-                        case let .fret(_, fret):
-                            notes.append(.init(stringID: index, midiNote: fret, articulation: .normal))
-                        case let .transition(_, from, to, transition):
-                            notes.append(.init(stringID: index, midiNote: from, articulation: .transit(to: to, by: transition)))
+                        case let .fret(note):
+                            transitionNote = event.transitionNote
+                            notes.append(
+                                .init(
+                                    stringID: index,
+                                    transitionNote: transitionNote,
+                                    articulation: .normal(note: note)
+                                )
+                            )
+                        case let .transition(transition):
+                            notes.append(
+                                .init(
+                                    stringID: index,
+                                    transitionNote: transitionNote,
+                                    articulation: .transit(from: transition.from, to: transition.to, by: transition.technique)
+                                )
+                            )
                         case .filler:
                             break
                         }

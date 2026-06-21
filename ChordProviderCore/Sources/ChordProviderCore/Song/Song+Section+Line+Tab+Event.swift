@@ -18,7 +18,9 @@ extension Song.Section.Line.Tab {
         /// The column of the tab event
         public let column: Int
         /// The content of the tab event
-        public let content: Content
+        public var content: Content
+        /// The optional transition note
+        public var transitionNote: Int? = nil
         /// The start index of the event
         public var startIndex: Int = 0
         /// The end index of the event
@@ -31,21 +33,26 @@ extension Song.Section.Line.Tab.Event {
     /// The content of the tab
     public enum Content: Codable, Sendable, Equatable {
         /// Just plain text
-        case text(String)
+        case text
         /// A rest
-        case rest(display: String)
+        case rest
         /// A barLine
         case barLine
         /// A fret
-        case fret(display: String, note:Int)
+        case fret(note:Int)
         /// A note transition
-        case transition(display: String, from: Int, to: Int, transition: ChordPro.Tab.NoteTransition)
+        case transition(transition: ChordPro.Tab.Transition)
         /// A filler
         case filler
 
         /// Bool if the content has a transition
         public var hasFiller: Bool {
             if case .filler = self { true } else { false }
+        }
+        
+        /// Bool if the content has a rest
+        public var hasRest: Bool {
+            if case .rest = self { true } else { false }
         }
 
         /// Bool if the content has a playable item
