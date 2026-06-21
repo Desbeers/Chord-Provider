@@ -16,12 +16,16 @@ extension ChordProviderMIDI {
     ///   - from: Start note
     ///   - to:: End note
     /// - Returns: The pitch bend
-    func pitchBend(from: Int, to:Int) -> Int32 {
-        let semitoneDistance = to - from
+    func pitchBend(
+        from startNote: Int,
+        to endNote: Int
+    ) -> Int32 {
         let bendRange = 12.0
-        return  Int32(
-            8192 - Double(semitoneDistance) / bendRange * 8192.0
-        )
+        let semitones = Double(endNote - startNote)
+
+        let bend = 8192.0 - semitones / bendRange * 8192.0
+
+        return Int32(bend.rounded())
     }
 
     // MARK: Perform a note
@@ -174,7 +178,10 @@ extension ChordProviderMIDI {
     /// - Parameters:
     ///   - voice: The voice
     ///   - playbackSettings: The playback settings
-    func sustainAndFadeNote(voice: ActiveVoice, playbackSettings: Chord.Strum.Playback) async {
+    func sustainAndFadeNote(
+        voice: ActiveVoice,
+        playbackSettings: Chord.Strum.Playback
+    ) async {
         guard activePlaybackIDs[Int(voice.channel)] == voice.id else {
             return
         }

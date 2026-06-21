@@ -89,7 +89,7 @@ extension ChordProParser {
                 let lineCharacters = Array(line)
                 /// The events of the line
                 var events = (0 ..< line.count).enumerated().map { item in
-                    Song.Section.Line.Tab.Event(column: item.element, content: .filler)
+                    ChordPro.Tab.Event(column: item.element, content: .filler)
                 }
                 // Process all columns
                 while columnID < totalColumns {
@@ -108,7 +108,7 @@ extension ChordProParser {
                         )
                     } else {
                         /// Start with an empty text content
-                        var content: Song.Section.Line.Tab.Event.Content = .text
+                        var content: ChordPro.Tab.Event.Content = .filler
                         if character == "|" {
                             // MARK: Bar
                             content = .barLine
@@ -119,7 +119,7 @@ extension ChordProParser {
                             // MARK: Text
                             content = .text
                         }
-                        events[visualColumnID] = Song.Section.Line.Tab.Event(
+                        events[visualColumnID] = ChordPro.Tab.Event(
                             column: columnID,
                             content: content,
                             startIndex: visualColumnID,
@@ -132,7 +132,7 @@ extension ChordProParser {
                 }
                 return Song.Section.Line.Tab(lineID: lineID, plain: line, events: events)
             } else {
-                let result = Song.Section.Line.Tab.Event(
+                let result = ChordPro.Tab.Event(
                     column: 1,
                     content: .text
                 )
@@ -147,7 +147,7 @@ extension ChordProParser {
             visualColumnID: inout Int,
             lineCharacters: [String.Element],
             usedColumns: inout Int,
-            events: inout [Song.Section.Line.Tab.Event] , 
+            events: inout [ChordPro.Tab.Event] , 
             midi: IndexingIterator<Array<Int>>.Element
         ) {
             // MARK: Fret number
@@ -173,7 +173,7 @@ extension ChordProParser {
                 first.count
             )
 
-            events[visualColumnID] = Song.Section.Line.Tab.Event(
+            events[visualColumnID] = ChordPro.Tab.Event(
                     column: columnID,
                     content: .fret(note: firstNote),
                     startIndex: visualColumnID,
@@ -186,7 +186,7 @@ extension ChordProParser {
                     return true
                 }
                 let symbol = String(lineCharacters[safe: visualColumnIndex] ?? .init(""))
-                let transition = ChordPro.Tab.Technique.characterDictionary[symbol]
+                let transition = ChordPro.Tab.Transition.Technique.characterDictionary[symbol]
                 return transition == nil ? false : true
             }
 
@@ -196,7 +196,7 @@ extension ChordProParser {
                 var transitionNotes: [Int] = []
                 while isTransition, let symbolCharacter = lineCharacters[safe: visualColumnIndex] {
                     let symbol = String(symbolCharacter)
-                    if let transition = ChordPro.Tab.Technique.characterDictionary[symbol] {
+                    if let transition = ChordPro.Tab.Transition.Technique.characterDictionary[symbol] {
                         visualColumnIndex += 1
                         var second = ""
                         while visualColumnIndex < lineCharacters.count && lineCharacters[visualColumnIndex].isNumber {
@@ -209,9 +209,9 @@ extension ChordProParser {
                             let transition = ChordPro.Tab.Transition(
                                 from: from,
                                 to: secondNote,
-                                technique: transition
+                                by: transition
                             )
-                            events[visualColumnID + usedColumns + second.count] = Song.Section.Line.Tab.Event(
+                            events[visualColumnID + usedColumns + second.count] = ChordPro.Tab.Event(
                                     column: columnID + usedColumns + second.count,
                                     content: .transition(transition: transition),
                                     startIndex: visualColumnID + usedColumns,

@@ -11,7 +11,7 @@ extension Song.Section.Line {
 
     public struct Tab: Identifiable, Equatable, Codable, Sendable {
         /// Init
-        public init(lineID: Int, plain: String, events: [Event] = []) {
+        public init(lineID: Int, plain: String, events: [ChordPro.Tab.Event] = []) {
             self.lineID = lineID
             self.plain = plain
             self.events = events
@@ -25,6 +25,6 @@ extension Song.Section.Line {
         /// The line ID
         public let lineID: Int
         /// The events in the column of the tab
-        public var events: [Event] = []
+        public var events: [ChordPro.Tab.Event] = []
     }
 }

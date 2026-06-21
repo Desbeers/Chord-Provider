@@ -84,10 +84,16 @@ extension ChordProviderMIDI {
                             )
                         case let .transition(transition):
                             notes.append(
-                                .init(
+                                ChordProviderMIDI.PlaybackNote(
                                     stringID: index,
                                     transitionNote: transitionNote,
-                                    articulation: .transit(from: transition.from, to: transition.to, by: transition.technique)
+                                    articulation: .transition(
+                                        ChordPro.Tab.Transition(
+                                            from: transition.from,
+                                            to: transition.to,
+                                            by: transition.technique
+                                        )
+                                    )
                                 )
                             )
                         case .filler:

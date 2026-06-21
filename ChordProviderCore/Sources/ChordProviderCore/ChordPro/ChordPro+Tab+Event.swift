@@ -1,5 +1,5 @@
 //
-//  Song+Section+Line+Tab+Event.swift
+//  ChordPro+Tab+Event.swift
 //  ChordProviderCore
 //
 //  © 2026 Nick Berendsen
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Song.Section.Line.Tab {
+extension ChordPro.Tab {
 
     /// The event of a tab
     public struct Event: Identifiable, Equatable, Codable, Sendable {
@@ -28,7 +28,7 @@ extension Song.Section.Line.Tab {
     }
 }
 
-extension Song.Section.Line.Tab.Event {
+extension ChordPro.Tab.Event {
 
     /// The content of the tab
     public enum Content: Codable, Sendable, Equatable {
