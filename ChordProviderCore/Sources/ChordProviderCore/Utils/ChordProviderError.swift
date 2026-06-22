@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All errors that can happen in Chord Provider Core
+/// All errors that can happen in **Chord Provider**  Core
 public enum ChordProviderError: LocalizedError, Equatable {
 
     /// A file is not found

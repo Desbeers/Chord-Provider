@@ -11,6 +11,7 @@ var dependencies: [Package.Dependency] = [
             traits: ["exposeGeneratedAppearUpdateFunctions"],
     ),
     .package(path: "../ChordProviderCore"),
+    .package(path: "../ChordProviderCLI"),
     .package(path: "../ChordProviderMIDI")
 ]
 
@@ -58,13 +59,15 @@ let package = Package(
             publicHeadersPath: "include"
         ),
         .executableTarget(
-            name: "ChordProvider",
+            name: "ChordProviderGUI",
             dependencies: [
                 "SourceView",
                 "ChordProviderMIDI",
+                .product(name: "chordprovider", package: "ChordProviderCLI"),
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 .product(name: "ChordProviderCore", package: "ChordProviderCore")
             ],
+            path: "Sources/ChordProvider",
             resources: [
                 .copy("Resources/nl.desbeers.chordprovider.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),

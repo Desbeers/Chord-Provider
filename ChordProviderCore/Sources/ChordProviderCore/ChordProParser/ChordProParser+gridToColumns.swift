@@ -9,7 +9,7 @@ extension ChordProParser {
 
     /// Convert grids into columns for display in GTK or PDF
     /// - Returns: A new ``Song/Section``
-    public static func gridToColumns(section: Song.Section) -> Song.Section {
+    static func gridToColumns(section: Song.Section) -> Song.Section {
         var newSection = section
         newSection.lines = []
         var gridLines: [Song.Section.Line] = []

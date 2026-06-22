@@ -48,9 +48,9 @@ extension Widgets {
 }
 
 /// Draw a chord diagram with *Cairo*
-/// - Note: Declare C function implementations as `public` to ensure they're not optimized away.
+@_documentation(visibility: private)
 @_cdecl("draw_chord")
-public func draw_chord(
+func draw_chord(
     _ area: UnsafeMutablePointer<GtkDrawingArea>?,
     _ cr: OpaquePointer?,
     _ width: Int32,

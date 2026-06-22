@@ -127,7 +127,7 @@ extension SourceViewController {
 
 /// Handle insert event
 @_cdecl("sourceview_insert_cb")
-public func sourceview_insert_cb(
+func sourceview_insert_cb(
     offset: Int32,
     text: UnsafePointer<CChar>?,
     userData: UnsafeMutableRawPointer?
@@ -138,7 +138,7 @@ public func sourceview_insert_cb(
 
 /// Handle delete event
 @_cdecl("sourceview_delete_cb")
-public func sourceview_delete_cb(
+func sourceview_delete_cb(
     start: Int32,
     end: Int32,
     userData: UnsafeMutableRawPointer?
@@ -149,7 +149,7 @@ public func sourceview_delete_cb(
 
 /// Handle click event
 @_cdecl("sourceview_click_cb")
-public func sourceview_click_cb(
+func sourceview_click_cb(
     click: Int32,
     userData: UnsafeMutableRawPointer?
 ) {
@@ -169,7 +169,7 @@ public func sourceview_click_cb(
 
 /// Handle key event
 @_cdecl("sourceview_key_cb")
-public func sourceview_key_cb(
+func sourceview_key_cb(
     keyval: UInt32,
     keycode: UInt32,
     state: GdkModifierType,

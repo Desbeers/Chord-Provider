@@ -91,8 +91,7 @@ struct Chordprovider: AsyncParsableCommand {
             parsedSong = try SongFileUtils.parseSongFile(fileURL: url, settings: settings)
         } catch {
             /// The URL is not valid so the direct source will be used
-            parsedSong.content = source
-            parsedSong = ChordProParser.parse(song: parsedSong, settings: settings)
+            parsedSong = ChordProParser.parse(content: source, song: parsedSong, settings: settings)
             /// Write to stdout if no output URL is given
             if output == nil {
                 stdout = true
@@ -104,8 +103,7 @@ struct Chordprovider: AsyncParsableCommand {
             result = parsedSong.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
             /// Parse again to reset the warnings
             LogUtils.shared.clearLog()
-            parsedSong.content = result
-            parsedSong = ChordProParser.parse(song: parsedSong, settings: settings)
+            parsedSong = ChordProParser.parse(content: result, song: parsedSong, settings: settings)
         }
 
         /// Set the destination URL

@@ -13,7 +13,7 @@ extension ChordProParser {
     ///   - instrument: The instrument
     ///
     /// - Returns: An updated section
-    public static func tabToNotes(section: Song.Section, instrument: Instrument) -> Song.Section {
+    static func tabToNotes(section: Song.Section, instrument: Instrument) -> Song.Section {
         /// Shadow copy of the current sections
         var newSection = section
         // Clear all the lines but keep the rest

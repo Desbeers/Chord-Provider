@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// Structure for a database with with definitions for an instrument
+/// The structure for a database with instrument definitions
 public struct ChordsDatabase: Codable, Sendable, Equatable {
 
     /// Init an empty Chords Database, defaults to guitar as instrument

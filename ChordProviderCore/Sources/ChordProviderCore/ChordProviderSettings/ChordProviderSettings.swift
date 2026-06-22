@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// The **Chord Provider** Core settings
 public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringConvertible {
     /// Init the settings
     public init(

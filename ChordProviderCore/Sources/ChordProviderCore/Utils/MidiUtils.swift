@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Utilities to deal with MIDI
 public enum MidiUtils {
     /// The URL of the SoundFont in the bundle
     public static let soundFont: URL? = Bundle.module.url(forResource: "GuitarSoundFont", withExtension: "sf2")
