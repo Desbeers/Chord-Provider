@@ -16,7 +16,6 @@ extension ChordProParser {
     ///   - arguments: The optional arguments for the directive
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
-    /// - Returns: The processed `chord` as String
     static func processChordDirective(
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
@@ -37,7 +36,7 @@ extension ChordProParser {
         /// Try to find the definition
         var chordDefinition: ChordDefinition?
         do {
-            chordDefinition = try ChordDefinition(definition: chord, kind: .customChord, instrument: song.settings.instrument)
+            chordDefinition = try ChordDefinition(definition: chord, instrument: song.settings.instrument)
             if let chordDefinition, let warnings = chordDefinition.validationWarnings {
                 for warning in warnings {
                     currentSection.addWarning(warning.description, level: .notice)
@@ -51,7 +50,7 @@ extension ChordProParser {
             line.parts = [part]
         }
         /// Check where the chord belongs
-        if currentSection.environment == .none || currentSection.environment == .metadata {
+        if currentSection.environment == .unknown || currentSection.environment == .metadata {
             /// Check if previous section is also  chord diagram
             /// If so, add it to that section
             if song.sections.last?.environment == .chordDiagram, let chordDefinition,
@@ -75,8 +74,8 @@ extension ChordProParser {
                 currentSection: &currentSection,
                 song: &song
             )
-            /// Set the environment to none again
-            currentSection.environment = .none
+            /// Set the environment to unknown again
+            currentSection.environment = .unknown
         } else {
             /// A comment inside a section
             if let warnings = currentSection.warnings {

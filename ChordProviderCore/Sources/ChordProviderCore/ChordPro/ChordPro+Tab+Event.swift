@@ -20,7 +20,7 @@ extension ChordPro.Tab {
         /// The content of the tab event
         public var content: Content
         /// The optional transition note
-        public var transitionNote: Int? = nil
+        public var transitionNote: Int?
         /// The start index of the event
         public var startIndex: Int = 0
         /// The end index of the event
@@ -39,7 +39,7 @@ extension ChordPro.Tab.Event {
         /// A barLine
         case barLine
         /// A fret
-        case fret(note:Int)
+        case fret(note: Int)
         /// A note transition
         case transition(transition: ChordPro.Tab.Transition)
         /// A filler
@@ -49,7 +49,7 @@ extension ChordPro.Tab.Event {
         public var hasFiller: Bool {
             if case .filler = self { true } else { false }
         }
-        
+
         /// Bool if the content has a rest
         public var hasRest: Bool {
             if case .rest = self { true } else { false }

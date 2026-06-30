@@ -60,7 +60,7 @@ public enum ChordUtils {
                 var fret = frets[safe: string] ?? -1
                 /// Don't bother with ignored frets
                 if fret == -1 {
-                    components.append(Chord.Component(id: string, note: .none, midi: nil))
+                    components.append(Chord.Component(id: string, note: .unknown, midi: nil))
                 } else {
                     /// Add base fret if the fret is not 0 and the offset
                     fret += instrument.offsets[string] + (fret == 0 ? 1 : baseFret.rawValue) + 40

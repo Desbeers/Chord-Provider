@@ -16,7 +16,8 @@ extension ChordProParser {
         /// Return a simple argument (no `key=value` as a plain string
         if let plain = line.plain {
             return "\(plain)"
-        } else if let arguments = line.arguments {
+        }
+        if let arguments = line.arguments {
             /// Go to all `key=value` items, skipping .plain and source (that should not be there anyway)
             var string: [String] = []
             for key in arguments.keys.sorted(by: <) where key != .plain && key != .source {
@@ -31,7 +32,9 @@ extension ChordProParser {
     }
 
     /// Convert an argument string into arguments
-    /// - Parameter parsedArgument: The arguments as string
+    /// - Parameters:
+    ///   - directive: The ``ChordPro/Directive`` that has the arguments
+    ///   - parsedArgument: The arguments as string
     /// - Returns: The arguments in a dictionary and optional warnings
     static func stringToArguments(
         _ directive: ChordPro.Directive,
@@ -47,10 +50,10 @@ extension ChordProParser {
             !parsedArgument.contains("://")
         {
             let attributes = parsedArgument.matches(of: RegexDefinitions.formattingAttributes)
-            /// Map the attributes in a dictionary
-            arguments = attributes.reduce(into: DirectiveArguments()) {
-                if let argument = ChordPro.Directive.FormattingAttribute(rawValue: $1.1.lowercased()) {
-                    var value = $1.2
+            // Map the attributes in a dictionary
+            arguments = attributes.reduce(into: DirectiveArguments()) { directiveArguments, output in
+                if let argument = ChordPro.Directive.FormattingAttribute(rawValue: output.1.lowercased()) {
+                    var value = output.2
                     if value.first != "\"" || value.last != "\"" {
                         warnings.append(
                             LogUtils.LogEntrance(
@@ -68,13 +71,13 @@ extension ChordProParser {
                             )
                         )
                     }
-                    $0[argument] = value
+                    directiveArguments[argument] = value
                     arguments[.haveAttributes] = "true"
                 } else {
                     warnings.append(
                         LogUtils.LogEntrance(
                             level: .warning,
-                            message: "<b>\($1.1)</b> is an unknown argument and will be ignored"
+                            message: "<b>\(output.1)</b> is an unknown argument and will be ignored"
                         )
                     )
                 }

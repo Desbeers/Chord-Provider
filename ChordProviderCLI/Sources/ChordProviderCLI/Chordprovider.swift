@@ -1,8 +1,9 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
 //
-// Swift Argument Parser
-// https://swiftpackageindex.com/apple/swift-argument-parser/documentation
+//  Chordprovider.swift
+//  ChordProviderCLI
+//
+//  © 2026 Nick Berendsen
+//
 
 import Foundation
 import ArgumentParser
@@ -19,13 +20,13 @@ struct Chordprovider: AsyncParsableCommand {
                 valueName: "source"
             )
     )
-    public var source: String
+    var source: String
     /// The output format
     @Option(name: [.long, .customShort("f")], help: "The output format.")
-    public var format: ChordProviderSettings.Export.Format = .json
+    var format: ChordProviderSettings.Export.Format = .json
     /// The instrument
     @Option(name: [.long, .customShort("i")], help: "The instrument to use.")
-    public var instrument: Instrument.Kind = .guitar
+    var instrument: Instrument.Kind = .guitar
     /// Clean source option
     @Flag(
         name: [.long, .customShort("c")],
@@ -55,9 +56,10 @@ struct Chordprovider: AsyncParsableCommand {
             ArgumentHelp(
                 "The output file.",
                 discussion: outputDiscussion,
-                valueName: "file")
+                valueName: "file"
+            )
     )
-    public var output: String?
+    var output: String?
 
     /// The configuration
     static let configuration = CommandConfiguration(
@@ -67,7 +69,7 @@ struct Chordprovider: AsyncParsableCommand {
     )
 
     /// The main function
-    mutating func run() async throws {
+    mutating func run() throws {
         /// Get the chords
         let database = try? ChordsDatabase(instrument: Instrument[instrument])
         /// Set the settings
@@ -99,7 +101,7 @@ struct Chordprovider: AsyncParsableCommand {
         }
 
         /// Clean the source if requested
-        if format == .chordPro && cleanSource {
+        if format == .chordPro, cleanSource {
             result = parsedSong.sections.flatMap(\.lines).map(\.sourceParsed).joined(separator: "\n")
             /// Parse again to reset the warnings
             LogUtils.shared.clearLog()

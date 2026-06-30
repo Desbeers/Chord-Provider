@@ -1,0 +1,46 @@
+@Tutorial {
+    @Intro(title: "Grids and Tabs") {
+        View Grids and Tabs and play them with MIDI
+
+        @Image(source: card-large-song, alt: "Grid and Tabs.")
+    }
+
+    @Section(title: "View and play Tabs") {
+        @ContentAndMedia {
+            A `Tab` in **ChordPro** looks like this:
+
+            ```yaml
+            {start_of_tab label="Tab Tab Tab!"}
+              C        Cmaj7    Cadd9    C
+            e|--------|--------|--------|--------|
+            B|1----1--|0----0--|3----3--|1----1--|
+            G|---0---0|---0---0|---0---0|---0---0|
+            D|--2---2-|--2---2-|--2---2-|--2---2-|
+            A|3---3---|3---3---|3---3---|3---3---|
+            E|--------|--------|--------|--------|
+            {end_of_tab}
+            ```
+            @Image(source: card-large-midi-tab, alt: "Tabs.")
+        }
+
+        @Steps {
+
+            @Step {
+                Define a Tab like this.
+
+                @Code(name: "Define a Tab in the song.yaml", file: "Tab.swift") {
+                    @Image(source: card-large-midi-tab, alt: "Tab.")
+                }
+            }
+
+            @Step {
+                Set the tempo for the Tab.
+                > Note: You can actually change the tempo while playing the Tab.
+
+	            @Code(name: "Set the tempo for the Tab.yaml", file: "Tab+Tempo.swift", previousFile: "Tab.swift") {
+                    @Image(source: card-large-midi-tab, alt: "Tab.")
+                }
+            }
+        }
+    }
+}

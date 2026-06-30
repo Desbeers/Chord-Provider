@@ -20,7 +20,7 @@ extension Song {
             arguments?[.label] ?? arguments?[.plain] ?? environment.label
         }
         /// The `Environment type` of the section
-        public var environment: ChordPro.Environment = .none
+        public var environment: ChordPro.Environment = .unknown
         /// The optional ``ChordPro/Directive`` as string when the section contains only one line
         ///
         /// Examples:
@@ -49,7 +49,7 @@ extension Song {
         /// The editor will show a warning when the section is automatically created with an assumed ``ChordPro/Environment``.
         ///
         /// - Note: Automatically created sections will end with an 'newline', unlike defined sections.
-        public var autoCreated: Bool?
+        public var autoCreated: Bool = false
         /// Bool if the section have chords
         /// - Note: For auto-created sections to see if it is a verse or a textblock
         public var haveChords: Bool = false

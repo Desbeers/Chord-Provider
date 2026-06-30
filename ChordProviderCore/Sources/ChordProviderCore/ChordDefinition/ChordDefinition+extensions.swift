@@ -13,7 +13,7 @@ extension ChordDefinition {
     /// - Returns: A string with the name in plain text
     public var name: String {
         var name = root.rawValue + quality.rawValue
-        if let slash = slash {
+        if let slash {
             name += "/\(slash.rawValue)"
         }
         return name
@@ -22,33 +22,33 @@ extension ChordDefinition {
     /// Format the name of the chord for display
     /// - Returns: A formatted string with the name of the chord
     public var display: String {
-        if root == .none || quality == .none {
+        if root == .unknown || quality == .unknown {
             /// We don't know anything about this chord; so use the plain name
             return plain
-        } else {
-            var name = root.display + quality.display
-            if let slash = slash {
-                name += "/\(slash.display)"
-            }
-            return name
         }
+        var name = root.display + quality.display
+        if let slash {
+            name += "/\(slash.display)"
+        }
+        return name
     }
 
     /// Format the name of the chord for display with optional sharp and flat combined
     /// - Returns: A formatted string with the name of the chord
     public var displayNaturalOrAccidentals: String {
         var name: String = root.display
-        if root == .none || quality == .none {
+        if root == .unknown || quality == .unknown {
             /// We don't know anything about this chord; so use the plain name
             return plain
-        } else if let shadow = root.swapSharpAndFlat {
+        }
+        if let shadow = root.swapSharpAndFlat {
             name += shadow.display
             if quality != .major {
                 name += "\u{200A}"
             }
         }
         name += quality.display
-        if let slash = slash {
+        if let slash {
             name += "/\(slash.display)"
         }
         return name
@@ -122,7 +122,7 @@ extension ChordDefinition {
         if root.accidental != .natural, let equivalentRoot = root.swapSharpAndFlat {
             var copy = self
             copy.root = equivalentRoot
-            return chordDefinitions.first(where: { $0.define == copy.define })
+            return chordDefinitions.first { $0.define == copy.define }
         }
         return nil
     }

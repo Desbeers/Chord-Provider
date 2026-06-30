@@ -62,7 +62,6 @@ extension ChordPro.Directive {
             .commentItalic,
             .commentBox,
             .columnBreak,
-            .meta,
             .newPage
         ]
     }

@@ -127,25 +127,44 @@ extension ChordDefinition {
 
         private var sortOrder: Int {
             switch self {
-            case .tooManyErrors: -1
-            case .unknownStatus: 0
-            case .unknownChord: 1
-            case .tooManyFrets: 2
-            case .notEnoughFrets: 3
-            case .tooManyFingers: 4
-            case .notEnoughFingers: 5
-            case .missingRequiredNotes: 6
-            case .wrongNotes: 7
-            case .wrongBassNote: 8
-            case .wrongRootNote: 9
-            case .wrongMutedFingers: 10
-            case .wrongOpenFingers: 11
-            case .missingFingers: 12
-            case .noNotes: 13
-            case .noFrets: 14
-            case .noBaseFret: 15
-            case .text: 16
-            case .correct: 17
+            case .tooManyErrors:
+                -1
+            case .unknownStatus:
+                0
+            case .unknownChord:
+                1
+            case .tooManyFrets:
+                2
+            case .notEnoughFrets:
+                3
+            case .tooManyFingers:
+                4
+            case .notEnoughFingers:
+                5
+            case .missingRequiredNotes:
+                6
+            case .wrongNotes:
+                7
+            case .wrongBassNote:
+                8
+            case .wrongRootNote:
+                9
+            case .wrongMutedFingers:
+                10
+            case .wrongOpenFingers:
+                11
+            case .missingFingers:
+                12
+            case .noNotes:
+                13
+            case .noFrets:
+                14
+            case .noBaseFret:
+                15
+            case .text:
+                16
+            case .correct:
+                17
             }
         }
 

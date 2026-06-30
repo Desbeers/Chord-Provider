@@ -19,8 +19,8 @@ extension ChordDefinition {
     /// see [Directives: define](https://www.chordpro.org/chordpro/directives-define/)
     ///
     /// - Parameter define: ChordPro string definition of the chord
-    /// - Parameter instrument: The ``Chord/Instrument`` to use
-    /// - Throws: An ``ChordDefinition/Status/unknownChord`` error when the string cannot be parsed
+    /// - Parameter instrument: The ``Instrument`` to use
+    /// - Throws: An ``ChordDefinition/Status/unknownChord(chord:)`` error when the string cannot be parsed
     /// - Returns: A  ``ChordDefinition`` structure
     static func define(from define: String, instrument: Instrument) throws(ChordDefinition.Status) -> ChordDefinition {
         if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
@@ -60,7 +60,7 @@ extension ChordDefinition {
             if fingers.isEmpty {
                 fingers = Array(repeating: 0, count: instrument.strings.count)
             }
-            let chordDefinition = ChordDefinition(
+            return ChordDefinition(
                 id: UUID(),
                 frets: frets,
                 fingers: fingers,
@@ -72,7 +72,6 @@ extension ChordDefinition {
                 kind: .customChord,
                 status: .unknownStatus
             )
-            return chordDefinition
         }
         throw .unknownChord(chord: "?")
     }
@@ -91,7 +90,7 @@ extension ChordDefinition {
     ///
     /// - Parameters:
     ///   - chord: A **ChordPro** JSON chord
-    ///   - instrument: The ``Chord/Instrument`` to use
+    ///   - instrument: The ``Instrument`` to use
     /// - Throws: An error when the root and quality is not found
     /// - Returns: A  ``ChordDefinition`` structure
     ///
@@ -116,8 +115,10 @@ extension ChordDefinition {
 
         /// Fill the fingers if not set (complete)
         var fingers = chord.fingers ?? []
-        while fingers.count < instrument.strings.count { fingers.append(0) }
-        let chordDefinition = ChordDefinition(
+        while fingers.count < instrument.strings.count {
+            fingers.append(0)
+        }
+        return ChordDefinition(
             id: UUID(),
             frets: chord.frets ?? [],
             fingers: fingers,
@@ -129,6 +130,5 @@ extension ChordDefinition {
             kind: .standardChord,
             status: .unknownStatus
         )
-        return chordDefinition
     }
 }

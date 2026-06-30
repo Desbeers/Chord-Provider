@@ -35,4 +35,3 @@ extension Song.Section.Line {
         public var dimmed: Bool = false
     }
 }
-

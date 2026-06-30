@@ -1,0 +1,42 @@
+{
+  "theme": {
+    "typography": {
+      "html-font": "\"Noto Sans\", Sans",
+      "html-font-mono": "\"Noto Sans Mono\", monospace"
+    },
+    "border-radius": "5px",
+    "button": {
+        "border-radius": "20px"
+    },
+    "color": {
+      "documentation-intro-fill": {
+        "light": "linear-gradient(270deg, var(--color-telecaster-background), var(--color-telecaster-plate))",
+        "dark": "linear-gradient(90deg, var(--color-telecaster-background), var(--color-telecaster-plate))"
+      },
+      "documentation-intro-accent": "var(--color-fill-gray-quaternary)",
+      "fill": "var(--color-telecaster-body)",
+      "link": {
+        "light": "var(--color-telecaster-background)",
+        "dark": "var(--color-telecaster-plate)"
+      },
+      "nav-root-title": "var(--color-telecaster-plate)",
+      "nav-background": "var(--color-telecaster-background)",
+      "nav-link-color": "var(--color-telecaster-background)",
+      "nav-dark-link-color": "var(--color-telecaster-background)",
+      "telecaster-body": {
+        "light": "#fffffc",
+        "dark": "#1f1e1a"
+      },
+      "telecaster-plate": "#c3d1cb",
+      "telecaster-background": "#47534b",
+      "fill-gray-quaternary": {
+        "light": "var(--color-telecaster-plate)",
+        "dark": "var(--color-telecaster-background)"
+      },
+      "navigator-item-hover": {
+        "light": "var(--color-telecaster-plate)",
+        "dark": "var(--color-telecaster-background)"
+      }
+    }
+  }
+}

@@ -15,7 +15,9 @@ extension Song {
     public struct Metadata: Equatable, Codable, Sendable {
 
         /// Init the metadata with default values
-        public init() {}
+        public init() {
+            // Just defaults
+        }
 
         // MARK: Metadata directives
 
@@ -116,7 +118,7 @@ extension Song {
         }
 
         /// Add a *composer*
-        /// - Parameter lyricist: The lyricist
+        /// - Parameter composer: The composer
         mutating func addComposer(_ composer: String?) {
             if let composer, (composers?.append(.init(content: composer))) == nil {
                 composers = [.init(content: composer)]
@@ -128,23 +130,28 @@ extension Song {
         /// Format a duration given as "300" or "3:20" into "Xm Ys"
         public var formatDuration: String? {
             /// Duration is *optional*
-            guard let duration else { return nil }
+            guard let duration else {
+                return nil
+            }
 
             let totalSeconds: Int
 
             /// Parse duration
             if duration.contains(":") {
                 let parts = duration.split(separator: ":")
-                guard
-                    parts.count == 2,
+                guard parts.count == 2,
                     let minutes = Int(parts[0]),
                     let seconds = Int(parts[1]),
-                    seconds >= 0 && seconds < 60
-                else { return nil }
-
+                    seconds >= 0,
+                    seconds < 60
+                else {
+                    return nil
+                }
                 totalSeconds = minutes * 60 + seconds
             } else {
-                guard let seconds = Int(duration), seconds >= 0 else { return nil }
+                guard let seconds = Int(duration), seconds >= 0 else {
+                    return nil
+                }
                 totalSeconds = seconds
             }
 

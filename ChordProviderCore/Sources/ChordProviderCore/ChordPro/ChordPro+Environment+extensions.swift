@@ -31,11 +31,14 @@ extension ChordPro.Environment {
         case .textblock:
             (.startOfTextblock, .endOfTextblock)
         case .custom(let name):
-            (.startOfCustomEnvironment(name: "start_of_\(name)"), .endOfCustomEnvironment(name: "end_of_\(name)"))
+            (
+                .startOfCustomEnvironment(name: "start_of_\(name)"),
+                .endOfCustomEnvironment(name: "end_of_\(name)")
+            )
         default:
             (.unknown, .unknown)
         }
-    }   
+    }
 }
 
 extension ChordPro.Environment {
@@ -65,7 +68,7 @@ extension ChordPro.Environment {
             .metadata,
             .abc,
             .sourceComment,
-            .none
+            .unknown
         ]
     }
 

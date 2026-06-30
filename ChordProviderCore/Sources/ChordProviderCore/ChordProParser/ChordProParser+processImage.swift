@@ -19,7 +19,7 @@ extension ChordProParser {
         currentSection: inout Song.Section,
         song: inout Song
     ) {
-        if !currentSection.lines.isEmpty && currentSection.autoCreated ?? false == false {
+        if !currentSection.lines.isEmpty, currentSection.autoCreated == false {
             /// An image inside a section, **Chord Provider** does not support that
             let source = arguments[.source] ?? "ERROR"
             var line = Song.Section.Line(

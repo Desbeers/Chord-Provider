@@ -56,8 +56,8 @@ extension ChordProviderMIDI {
         let additivePart = mainParts.count > 1 ? mainParts[1] : nil
         let sigParts = signaturePart.split(separator: "/")
         guard sigParts.count == 2,
-                let num = Int(sigParts[0]),
-                let den = Int(sigParts[1])
+            let num = Int(sigParts[0]),
+            let den = Int(sigParts[1])
         else { return }
         // MARK: Additive meters (explicit grouping)
         if let additivePart,
@@ -79,7 +79,7 @@ extension ChordProviderMIDI {
             return
         }
         // MARK: Compound meters (6/8, 9/8, 12/8)
-        if den == 8, num % 3 == 0 {
+        if den == 8, num.isMultiple(of: 3) {
             let groups = Array(repeating: 3, count: num / 3)
             var accents: [Int] = []
             var index = 0
@@ -109,7 +109,9 @@ extension ChordProviderMIDI {
     /// Additive meter parsing
     private func parseAdditiveGroups(_ string: Substring) -> [Int]? {
         let groups = string.split(separator: "+").compactMap { Int($0) }
-        guard !groups.isEmpty else { return nil }
+        guard !groups.isEmpty else {
+            return nil
+        }
         return groups
     }
 }
@@ -120,7 +122,9 @@ extension ChordProviderMIDI {
     /// - Parameter referenceHz: The reference for A2
     public func setReferenceFrequency(_ referenceHz: Int) {
         let referenceHz = Double(referenceHz)
-        guard let synth else { return }
+        guard let synth else {
+            return
+        }
 
         let tuningBank: Int32 = 0
         let tuningProgram: Int32 = 0

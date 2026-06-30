@@ -14,11 +14,9 @@ extension ChordDefinition {
     /// Init the ``ChordDefinition`` with a **ChordPro** definition
     /// - Parameters:
     ///   - definition: The **ChordPro** definition
-    ///   - kind: The ``Kind`` of ``ChordDefinition``
     ///   - instrument: The ``Instrument`` for this definition
     public init(
         definition: String,
-        kind: Kind,
         instrument: Instrument,
     ) throws {
         /// Parse the chord definition
@@ -87,8 +85,8 @@ extension ChordDefinition {
             frets: Array(repeating: 0, count: instrument.strings.count),
             fingers: Array(repeating: 0, count: instrument.strings.count),
             baseFret: .one,
-            root: .none,
-            quality: .none,
+            root: .unknown,
+            quality: .unknown,
             slash: nil,
             instrument: instrument,
             kind: kind,

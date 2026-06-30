@@ -40,7 +40,7 @@ extension Chord {
         case d = "D"
         /// D sharp
         case dSharp = "D#"
-         /// E flat
+        /// E flat
         case eFlat = "Eb"
         /// E
         case e = "E"
@@ -67,8 +67,8 @@ extension Chord {
 
         // MARK: Fallback
 
-        /// None
-        case none = "None"
+        /// Unknown
+        case unknown = "Unknown"
         // swiftlint:enable identifier_name
 
         /// Implement Comparable
@@ -80,25 +80,44 @@ extension Chord {
         /// The display of Root
         public var display: String {
             switch self {
-            case .all:      "All"
-            case .c:        "C"
-            case .cSharp:   "C♯"
-            case .dFlat:    "D♭"
-            case .d:        "D"
-            case .dSharp:   "D♯"
-            case .eFlat:    "E♭"
-            case .e:        "E"
-            case .f:        "F"
-            case .fSharp:   "F♯"
-            case .gFlat:    "G♭"
-            case .g:        "G"
-            case .gSharp:   "G♯"
-            case .aFlat:    "A♭"
-            case .a:        "A"
-            case .aSharp:   "A♯"
-            case .bFlat:    "B♭"
-            case .b:        "B"
-            case .none:     "None"
+            case .all:
+                "All"
+            case .c:
+                "C"
+            case .cSharp:
+                "C♯"
+            case .dFlat:
+                "D♭"
+            case .d:
+                "D"
+            case .dSharp:
+                "D♯"
+            case .eFlat:
+                "E♭"
+            case .e:
+                "E"
+            case .f:
+                "F"
+            case .fSharp:
+                "F♯"
+            case .gFlat:
+                "G♭"
+            case .g:
+                "G"
+            case .gSharp:
+                "G♯"
+            case .aFlat:
+                "A♭"
+            case .a:
+                "A"
+            case .aSharp:
+                "A♯"
+            case .bFlat:
+                "B♭"
+            case .b:
+                "B"
+            case .unknown:
+                "Unknown"
             }
         }
 
@@ -110,17 +129,15 @@ extension Chord {
             return self.display
         }
 
-        // swiftlint:disable indentation_width
-
         /// The accidental of the root
         public var accidental: Accidental {
             switch self {
-            case .all, .c, .d, .e, .f, .g, .a, .b, .none:
-                    .natural
+            case .all, .c, .d, .e, .f, .g, .a, .b, .unknown:
+                .natural
             case .cSharp, .dSharp, .fSharp, .gSharp, .aSharp:
-                    .sharp
+                .sharp
             case .dFlat, .eFlat, .gFlat, .aFlat, .bFlat:
-                    .flat
+                .flat
             }
         }
 
@@ -133,17 +150,17 @@ extension Chord {
         public var swapSharpForFlat: Root {
             switch self {
             case .cSharp:
-                    .dFlat
+                .dFlat
             case .dSharp:
-                    .eFlat
+                .eFlat
             case .fSharp:
-                    .gFlat
+                .gFlat
             case .gSharp:
-                    .aFlat
+                .aFlat
             case .aSharp:
-                    .bFlat
+                .bFlat
             default:
-                    .none
+                .unknown
             }
         }
 
@@ -151,31 +168,29 @@ extension Chord {
         public var swapSharpAndFlat: Root? {
             switch self {
             case .cSharp:
-                    .dFlat
+                .dFlat
             case .dSharp:
-                    .eFlat
+                .eFlat
             case .fSharp:
-                    .gFlat
+                .gFlat
             case .gSharp:
-                    .aFlat
+                .aFlat
             case .aSharp:
-                    .bFlat
+                .bFlat
             case .dFlat:
-                    .cSharp
+                .cSharp
             case .eFlat:
-                    .dSharp
+                .dSharp
             case .gFlat:
-                    .fSharp
+                .fSharp
             case .aFlat:
-                    .gSharp
+                .gSharp
             case .bFlat:
-                    .aSharp
+                .aSharp
             default:
-                    nil
+                nil
             }
         }
-
-        // swiftlint:enable indentation_width
     }
 }
 

@@ -1,0 +1,64 @@
+@Tutorials(name: "Chord Provider") {
+
+    @Intro(title: "Introduction") {
+        The basics of **Chord Provider** and its **ChordPro** file format
+        @Image(source: "card-large-song-edit", alt: "Chord Provider")
+    }
+
+    @Volume(name: "ChordPro") {
+        Get familiar with the **ChordPro** standard
+        @Image(source: "card-large-source.png", alt: "The GNOME logo.")
+
+        @Chapter(name: "The ChordPro standards") {
+            A simple text format for the notation of lyrics with chords
+            @TutorialReference(tutorial: "doc:ChordProFileFormat")
+            @TutorialReference(tutorial: "doc:ChordProReferenceImplementation")
+            @Image(source: "icon-mime.png", alt: "ChordPro file icon")
+        }
+    }
+
+    @Volume(name: "Chord Provider") {
+        Get familiar with the basics of **Chord Provider**
+        @Image(source: "icon-app.png", alt: "Chord Provider icon.")
+
+        @Chapter(name: "The Basics") {
+            Get started with **Chord Provider**
+            @TutorialReference(tutorial: "doc:ChordProviderBasics")
+            @TutorialReference(tutorial: "doc:ChordProviderDirectives")
+            @Image(source: "card-large-welcome.png", alt: "Chord Provider welcome")
+        }
+
+	    @Chapter(name: "The Editor") {
+            Edit your songs with ease
+            @TutorialReference(tutorial: "doc:ChordProviderEditor")
+            @TutorialReference(tutorial: "doc:ChordProviderDefineChords")
+            @Image(source: "card-large-editor.png", alt: "Chord Provider editor")
+        }
+
+        @Chapter(name: "Play Grids and Tabs") {
+            Play Grids and Tabs with MIDI
+            @TutorialReference(tutorial: "doc:ChordProviderMIDI")
+            @Image(source: "card-large-midi-tab.png", alt: "Chord Provider MIDI")
+        }
+    }
+
+    @Resources {
+        Explore more resources for learning about creating beautiful apps with _Adwaita for Swift._
+        @Documentation(destination: "https://adwaita-swift.aparoksha.dev") {
+            Browse and search detailed API documentation.
+
+            - [Keyboard shortcuts](https://adwaita-swift.aparoksha.dev/documentation/adwaita/keyboardshortcuts)
+            - [Creating widgets](https://adwaita-swift.aparoksha.dev/documentation/adwaita/creatingwidgets)
+            - [Publishing apps](https://adwaita-swift.aparoksha.dev/documentation/adwaita/publishingapps)
+        }
+
+        @SampleCode(destination: "https://www.example.com/sloth-code/") {
+            Download and explore sample code projects to get to know SlothCreator.
+
+
+            - [SlothyRoad: Building a Fun, Yet Slow Game](https://www.example.com/sloth-code/slothyroad/)
+            - [SpeedySloth: Designing a Faster, More Powerful Sloth](https://www.example.com/sloth-code/speedy/)
+            - [SmoothSloth: Adding a Smooth and Glossy Coat to Your Sloth](https://www.example.com/sloth-code/smooth/)
+        }
+    }
+}

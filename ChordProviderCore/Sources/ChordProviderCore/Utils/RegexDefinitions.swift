@@ -47,7 +47,7 @@ enum RegexDefinitions {
                     return name
                 }
                 /// The quality is unknown
-                return Chord.Quality.none
+                return Chord.Quality.unknown
             }
         }
         Optionally {
@@ -107,7 +107,7 @@ enum RegexDefinitions {
                     )
                 }
             } transform: { fingers in
-                return String(fingers).trimmingCharacters(in: .whitespacesAndNewlines)
+                String(fingers).trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
     }
@@ -123,7 +123,7 @@ enum RegexDefinitions {
                 )
             }
         } transform: { root in
-            Chord.Root(rawValue: String(root)) ?? Chord.Root.none
+            Chord.Root(rawValue: String(root)) ?? Chord.Root.unknown
         }
     }
 
@@ -163,8 +163,8 @@ enum RegexDefinitions {
                         .anyOf("}").inverted
                     )
                 }
-            } transform: {
-                $0.trimmingCharacters(in: .whitespacesAndNewlines)
+            } transform: { output in
+                output.trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }
         "}"
@@ -193,8 +193,8 @@ enum RegexDefinitions {
             Optionally {
                 "\""
             }
-        } transform: {
-            $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        } transform: { output in
+            output.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
 
@@ -304,12 +304,10 @@ extension RegexDefinitions {
             }
             "+"
         }
-        
         /// Measures
         Capture {
             OneOrMore(.digit)
         }
-        
         "x"
         /// Beats
         Capture {

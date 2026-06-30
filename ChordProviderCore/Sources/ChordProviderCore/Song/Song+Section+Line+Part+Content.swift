@@ -91,34 +91,42 @@ extension Song.Section.Line.Part {
             if case let .chord(definition, textPart, beatItems) = self {
                 return (definition, textPart, beatItems)
             }
-             if case let .lyric(lyric) = self {
+            if case let .lyric(lyric) = self {
                 switch lyric.chordSlot {
                 case let .chord(definition, textPart):
                     return (definition, textPart, 1)
                 default:
                     return nil
                 }
-             }
+            }
             return nil
         }
         /// Get a strum symbol
         public var getStrum: Chord.Strum? {
-            if case let .strum(symbol) = self { return symbol }
+            if case let .strum(symbol) = self {
+                return symbol
+            }
             return nil
         }
         /// Get a strum pattern symbol
         public var getStrumPattern: ChordPro.Grid.StrumPattern? {
-            if case let .strumPattern(symbol) = self { return symbol }
+            if case let .strumPattern(symbol) = self {
+                return symbol
+            }
             return nil
         }
         /// Get a bar line symbol
         public var getBarLine: ChordPro.Grid.BarLineSymbol? {
-            if case let .barLine(symbol) = self { return symbol }
+            if case let .barLine(symbol) = self {
+                return symbol
+            }
             return nil
         }
         /// Get a repeating symbol
         public var getRepeating: ChordPro.Grid.RepeatingSymbol? {
-            if case let .repeating(symbol) = self { return symbol }
+            if case let .repeating(symbol) = self {
+                return symbol
+            }
             return nil
         }
     }

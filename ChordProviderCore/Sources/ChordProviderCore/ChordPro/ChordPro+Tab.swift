@@ -13,5 +13,4 @@ extension ChordPro {
     public enum Tab {
         // Just a placeholder
     }
-
 }

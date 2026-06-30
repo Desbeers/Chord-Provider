@@ -24,14 +24,14 @@ extension Chord.Quality {
 
     /// Show the intervals as a string
     public var intervalsLabel: String {
-        intervals.intervals.map { $0.description} .joined(separator: ", ")
+        intervals.intervals.map(\.description).joined(separator: ", ")
     }
 
     /// The intervals of a ``Chord/Quality``
     public var intervals: (intervals: [Chord.Interval], optional: [Chord.Interval]) {
         switch self {
 
-            // MARK: - Triad
+        // MARK: - Triad
 
         case .major:
             /// C    E    G
@@ -46,7 +46,7 @@ extension Chord.Quality {
             /// C    Eb    Gb
             ([.P1, .m3, .d5], [])
 
-            // MARK: - Seventh
+        // MARK: - Seventh
 
         case .seven:
             /// C E G (optional)   Bb
@@ -92,7 +92,7 @@ extension Chord.Quality {
             /// C    Eb    Gb    Bb
             ([.P1, .m3, .d5, .m7], [])
 
-            // MARK: - Suspended
+        // MARK: - Suspended
 
         case .susTwo:
             /// C    D    G
@@ -107,9 +107,9 @@ extension Chord.Quality {
             /// C    F    G (optional)    Bb
             ([.P1, .P4, .P5, .m7], [.P5])
 
-            // MARK: - Extended
+        // MARK: - Extended
 
-            // MARK: Nine
+        // MARK: Nine
 
         case .nine:
             /// C    E    G (optional)    Bb    D
@@ -130,7 +130,7 @@ extension Chord.Quality {
             /// C    E    G (optional)    Bb    D (o)    F#
             ([.P1, .M3, .P5, .m7, .M9, .d12], [.P5])
 
-            // MARK: eleven
+        // MARK: eleven
 
         case .eleven:
             /// C    E    G (optional)    Bb    D (optional)    F
@@ -145,7 +145,7 @@ extension Chord.Quality {
             /// C    Eb    G (optional)    B    D (optional)    F
             ([.P1, .m3, .P5, .M7, .M9, .P11], [.P5, .M9])
 
-            // MARK: Thirteen
+        // MARK: Thirteen
 
         case .thirteen:
             /// C    E    G (optional)    Bb    D (optional)    F (optional)    A
@@ -157,7 +157,7 @@ extension Chord.Quality {
             /// C    Eb    G (optional)    Bb    D (optional)    F (optional)    A
             ([.P1, .m3, .P5, .m7, .M9, .P11, .M13], [.P5, .M9, .P11])
 
-            // MARK: - Added
+        // MARK: - Added
 
         case .five:
             /// C    G
@@ -175,7 +175,7 @@ extension Chord.Quality {
             /// C    Eb    G (optional)    A    D
             ([.P1, .m3, .P5, .M6, .M9], [.P5])
         case .addFour:
-            /// C    E    F   G  (optional) 
+            /// C    E    F   G  (optional)
             ([.P1, .M3, .P4, .P5], [.P5])
         case .addNine:
             /// C    E    G (optional)    D
@@ -187,15 +187,15 @@ extension Chord.Quality {
             /// C    Eb    G (optional)    D
             ([.P1, .m3, .P5, .M9], [.P5])
 
-            // MARK: - Augmented
+        // MARK: - Augmented
 
         case .augNine:
             /// C    E    G#    Bb    D
             ([.P1, .M3, .A5, .m7, .M9], [])
 
-            // MARK: - Unknown
+        // MARK: - Unknown
 
-        case .all, .none:
+        case .all, .unknown:
             ([], [])
         }
     }

@@ -13,7 +13,7 @@ extension ChordProParser {
 
     /// Process a chord definition for a specific instrument
     /// - Parameters:
-    ///   - instrument: The instrument
+    ///   - kind: The ``Instrument/Kind`` to use
     ///   - directive: The directive
     ///   - arguments: The directive arguments
     ///   - currentSection: The current ``Song/Section``
@@ -65,12 +65,11 @@ extension ChordProParser {
         do {
             var definedChord = try ChordDefinition(
                 definition: label,
-                kind: .customChord,
                 instrument: song.settings.instrument
             )
             if let warnings = definedChord.validationWarnings {
                 let error: Bool = !Set(warnings).isDisjoint(with: ChordDefinition.Status.errorStatus)
-                let warnings = warnings.map {$0.description}
+                let warnings = warnings.map(\.description)
                 currentSection.addWarning(
                     "\(warnings.joined(separator: "\n"))",
                     level: error ? .error : .warning

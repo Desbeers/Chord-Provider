@@ -1,0 +1,42 @@
+@Tutorial(time: 0) {
+
+    @Intro(title: "Supported Directives") {
+        **Chord Provider** supports *most* of the official **ChordPro** directives, but not *all* of them.
+
+        Learn what directives **Chord Provider** supports
+        @Image(source: "card-large-song-edit", alt: "Chord Provider editor")
+    }
+
+    @Section(title: "Supported directives") {
+        @ContentAndMedia {
+            **Chord Provider** support *most* official directives, but not *all*.
+        }
+        @Steps {
+            @Step {
+                **Chord Provider** support *most* official directives, but not *all*.
+
+                This is the list of supported directives
+
+                @Code(name: "Supported directives.yaml", file: "supported-directives.swift")
+            }
+        }
+    }
+
+
+    @Section(title: "Unsupported directives") {
+
+        @ContentAndMedia {
+            Since **Chord Provider** is a *screen only* viewer, I do not support any page related directive.
+        }
+
+        @Steps {
+            @Step {
+                This is the list of unsupported directives.
+
+                > Note: I have no plans to support them in the future...
+
+                @Code(name: "Unsupported directives.yaml", file: "unsupported-directives.swift")
+            }
+        }
+    }
+}

@@ -38,7 +38,7 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     /// - A line with line number of 0 is not a *real* line but a processed addition
     /// - Negative linenumbers are added by the parser and should give a warning
     public var allLines: [Song.Section.Line] {
-        sections.flatMap(\.lines).filter { $0.sourceLineNumber != 0}
+        sections.flatMap(\.lines).filter { $0.sourceLineNumber != 0 }
     }
 
     // MARK: Settings

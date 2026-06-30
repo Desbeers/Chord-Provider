@@ -16,8 +16,6 @@ extension Chord {
             description
         }
 
-        // swiftlint:disable identifier_name
-
         /// Quality of the interval
         var quality: Quality
         /// Degree of the interval
@@ -136,8 +134,6 @@ extension Chord {
         /// Augmented fifteenth
         static let A15 = Interval(quality: .augmented, degree: 15, semitones: 25)
 
-        // swiftlint:enable identifier_name
-
         // MARK: CustomStringConvertible
 
         /// Returns the name of the interval.
@@ -173,22 +169,32 @@ extension Chord.Interval {
         /// Returns the notation of the interval quality
         var notation: String {
             switch self {
-            case .perfect: "P"
-            case .minor: "m"
-            case .major: "M"
-            case .augmented: "A"
-            case .diminished: "d"
+            case .perfect:
+                "P"
+            case .minor:
+                "m"
+            case .major:
+                "M"
+            case .augmented:
+                "A"
+            case .diminished:
+                "d"
             }
         }
 
         /// Returns the name of the interval quality
         var description: String {
             switch self {
-            case .perfect: "Perfect"
-            case .minor: "Minor"
-            case .major: "Major"
-            case .augmented: "Augmented"
-            case .diminished: "Diminished"
+            case .perfect:
+                "Perfect"
+            case .minor:
+                "Minor"
+            case .major:
+                "Major"
+            case .augmented:
+                "Augmented"
+            case .diminished:
+                "Diminished"
             }
         }
     }

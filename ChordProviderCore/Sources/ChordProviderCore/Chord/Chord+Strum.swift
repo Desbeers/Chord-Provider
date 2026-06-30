@@ -64,26 +64,44 @@ extension Chord {
 
         public var display: String {
             switch self {
-            case .down: "Down stroke"
-            case .downAccent: "Accent down stroke"
-            case .downArpeggio: "Arpeggio down stroke"
-            case .downArpeggioAccent: "Arpeggio Accent down stroke"
-            case .downMuted: "Muted down stroke"
-            case .downMutedAccent: "Muted Accent down stroke"
-            case .downStaccato: "Staccato down stroke"
-            case .downStaccatoAccent: "Staccato Accent down stroke"
+            case .down:
+                "Down stroke"
+            case .downAccent:
+                "Accent down stroke"
+            case .downArpeggio:
+                "Arpeggio down stroke"
+            case .downArpeggioAccent:
+                "Arpeggio Accent down stroke"
+            case .downMuted:
+                "Muted down stroke"
+            case .downMutedAccent:
+                "Muted Accent down stroke"
+            case .downStaccato:
+                "Staccato down stroke"
+            case .downStaccatoAccent:
+                "Staccato Accent down stroke"
 
-            case .up: "Up stroke"
-            case .upAccent: "Accent up stroke"
-            case .upArpeggio: "Arpeggio up stroke"
-            case .upArpeggioAccent: "Arpeggio Accent up stroke"
-            case .upMuted: "Muted up stroke"
-            case .upMutedAccent: "Muted Accent up stroke"
-            case .upStaccato: "Staccato up stroke"
-            case .upStaccatoAccent: "Staccato Accent up stroke"
+            case .up:
+                "Up stroke"
+            case .upAccent:
+                "Accent up stroke"
+            case .upArpeggio:
+                "Arpeggio up stroke"
+            case .upArpeggioAccent:
+                "Arpeggio Accent up stroke"
+            case .upMuted:
+                "Muted up stroke"
+            case .upMutedAccent:
+                "Muted Accent up stroke"
+            case .upStaccato:
+                "Staccato up stroke"
+            case .upStaccatoAccent:
+                "Staccato Accent up stroke"
 
-            case .noStrum: "Do not play this chord"
-            case .spacer: ""
+            case .noStrum:
+                "Do not play this chord"
+            case .spacer:
+                ""
             }
         }
 
@@ -189,7 +207,6 @@ extension Chord {
             case .spacer:
                 "spacer"
             }
-
         }
 
         /// Convert strum characters
@@ -243,11 +260,11 @@ extension Chord.Strum {
         }
         /// Accent
         public var velocity: Double
-        /// arpeggio
+        /// Arpeggio
         public var spread: TimeInterval
-        /// staccato or muted
+        /// Staccato or muted
         public var duration: Double
-
+        /// Fade out
         public var fadeOut: Double
     }
 }

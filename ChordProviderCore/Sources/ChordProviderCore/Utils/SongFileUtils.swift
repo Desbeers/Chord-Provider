@@ -53,8 +53,7 @@ extension SongFileUtils {
         fileURL: URL
     ) throws -> String {
         do {
-            let content = try String(contentsOf: fileURL, encoding: .utf8)
-            return content
+            return try String(contentsOf: fileURL, encoding: .utf8)
         } catch {
             throw ChordProviderError.fileNotFound(url: fileURL)
         }

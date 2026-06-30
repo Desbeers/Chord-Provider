@@ -16,7 +16,9 @@ public class LogUtils: @unchecked Sendable {
     /// The queue for setting a log
     private let singletonQueue = DispatchQueue(label: "nl.desbeers.chordprovider.serial.queue")
     /// Private init
-    private init() {}
+    private init() {
+        // Private init so we are sure we have only one instance of the class
+    }
 
     /// Set a log entry
     /// - Parameters:
@@ -48,7 +50,7 @@ public class LogUtils: @unchecked Sendable {
     /// - Returns: All the log entries
     public func fetchLog() -> [LogUtils.LogMessage] {
         singletonQueue.sync {
-            return logs
+            logs
         }
     }
 
@@ -64,7 +66,9 @@ extension LogUtils {
 
     /// The structure for a log entrance
     public struct LogEntrance {
+        /// The log level
         public var level: LogUtils.Level
+        /// The log message
         public var message: String
     }
 
@@ -89,7 +93,7 @@ extension LogUtils {
         }
 
         /// The unique ID of the log message
-        public var id: UUID = UUID()
+        public var id = UUID()
         /// The date and time of the log message
         public var time: Date = .now
         /// The level of the log message

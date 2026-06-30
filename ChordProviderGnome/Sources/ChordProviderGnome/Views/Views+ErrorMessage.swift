@@ -1,0 +1,44 @@
+//
+//  Views+ErrorMessage.swift
+//  ChordProviderGnome
+//
+//  © 2026 Nick Berendsen
+//
+
+import Foundation
+import ChordProviderCore
+import Adwaita
+
+extension Views {
+
+    /// A `View` that shows an error message
+    struct ErrorMessage: View {
+        /// The Chord Provider error
+        let error: ChordProviderError?
+        /// The body of the `View`
+        var view: Body {
+            if let error {
+                VStack {
+                    if let recoverySuggestion = error.recoverySuggestion {
+                        Text(recoverySuggestion)
+                            .style(.bold)
+                    }
+                    Text(error.failureReason ?? "Unknown reason")
+                        .useMarkup()
+                        .vexpand()
+                        .padding()
+                    if let errorDescription = error.errorDescription {
+                        Text(errorDescription)
+                            .wrap()
+                            .useMarkup()
+                            .monospace()
+                            .vexpand()
+                            .padding()
+                    }
+                }
+            } else {
+                Text("Unknown Error")
+            }
+        }
+    }
+}

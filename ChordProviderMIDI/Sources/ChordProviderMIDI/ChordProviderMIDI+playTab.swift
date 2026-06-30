@@ -56,49 +56,47 @@ extension ChordProviderMIDI {
         /// The pulse counter
         /// - Note: I use subdivisions here because of 'rest' notes in the tablature
         var lastSubdivision = -1
-
-        var transitionNote: Int? = nil
+        /// The optional transition note
+        var transitionNote: Int?
 
         // Loop the tabs until the task is canceled
         while !Task.isCancelled {
             for tab in columns {
                 var notes: [ChordProviderMIDI.PlaybackNote] = []
                 let hasPlayableItem = playableColumn(tab)
-                for (index, event) in tab.events.reversed().enumerated() {
-                    if !Task.isCancelled {
-                        switch event.content {
-                        case .rest:
-                            break
-                        case .text:
-                            break
-                        case .barLine:
-                            break
-                        case let .fret(note):
-                            transitionNote = event.transitionNote
-                            notes.append(
-                                .init(
-                                    stringID: index,
-                                    transitionNote: transitionNote,
-                                    articulation: .normal(note: note)
-                                )
+                for (index, event) in tab.events.reversed().enumerated() where !Task.isCancelled {
+                    switch event.content {
+                    case .rest:
+                        break
+                    case .text:
+                        break
+                    case .barLine:
+                        break
+                    case let .fret(note):
+                        transitionNote = event.transitionNote
+                        notes.append(
+                            .init(
+                                stringID: index,
+                                transitionNote: transitionNote,
+                                articulation: .normal(note: note)
                             )
-                        case let .transition(transition):
-                            notes.append(
-                                ChordProviderMIDI.PlaybackNote(
-                                    stringID: index,
-                                    transitionNote: transitionNote,
-                                    articulation: .transition(
-                                        ChordPro.Tab.Transition(
-                                            from: transition.from,
-                                            to: transition.to,
-                                            by: transition.technique
-                                        )
+                        )
+                    case let .transition(transition):
+                        notes.append(
+                            ChordProviderMIDI.PlaybackNote(
+                                stringID: index,
+                                transitionNote: transitionNote,
+                                articulation: .transition(
+                                    ChordPro.Tab.Transition(
+                                        from: transition.from,
+                                        to: transition.to,
+                                        by: transition.technique
                                     )
                                 )
                             )
-                        case .filler:
-                            break
-                        }
+                        )
+                    case .filler:
+                        break
                     }
                 }
                 // Play the notes
@@ -123,12 +121,17 @@ extension ChordProviderMIDI {
         /// - Parameter tab: The tab
         /// - Returns: Bool if playable
         func playableColumn(_ tab: Song.Section.Line.Tab) -> Bool {
-            guard tab.events.contains(where: { $0.content.hasPlayableItem }) == true else {
+            guard tab.events.contains(where: \.content.hasPlayableItem) else {
                 return false
             }
-            if tab.events.contains(where: { $0.content.hasFiller }) && !tab.events.contains(where: { $0.content.hasNoteItem })  {
+
+            if tab.events.contains(where: \.content.hasFiller), !tab.events.contains(where: \.content.hasNoteItem) {
                 return false
             }
+
+            // if tab.events.contains(where: { $0.content.hasFiller }) && !tab.events.contains(where: { $0.content.hasNoteItem }) {
+            //     return false
+            // }
             return true
         }
     }

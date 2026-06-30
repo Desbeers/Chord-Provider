@@ -11,12 +11,12 @@ extension String {
 
     /// Wrapper for text that contains optional prefix and suffix
     /// - Parameter handleBrackets: Bool if brackets should be moved to the prefix and suffix
-    /// - Returns:  A ``Song//TextPart`` structure
+    /// - Returns:  A ``Song/TextPart`` structure
     ///
     /// Usuage of the *handleBrackets*:
     /// - When parsing a chord we want to have a 'clean' name so everything around
     ///   the chord name should be moved
-    func textPart(handleBrackets: Bool) ->Song.TextPart {
+    func textPart(handleBrackets: Bool) -> Song.TextPart {
         /// Fallback
         var textPart = Song.TextPart(text: self)
         if let match = self.wholeMatch(of: RegexDefinitions.validMarkup) {
@@ -120,23 +120,22 @@ extension String {
 }
 
 extension String {
-    
+
     /// Escape special characters
     /// - Returns: A cleaned string
     public var escapeSpecialCharacters: String {
         if self.contains(["<", ">"]) {
             /// The string contains Pango markup; don't escape
             return self
-        } else {
-            /// Escape special markup characters
-            var escaped = self
-            escaped = escaped.replacingOccurrences(of: "&", with: "&amp;")
-            escaped = escaped.replacingOccurrences(of: "<", with: "&lt;")
-            escaped = escaped.replacingOccurrences(of: ">", with: "&gt;")
-            escaped = escaped.replacingOccurrences(of: "\"", with: "&quot;")
-            escaped = escaped.replacingOccurrences(of: "'", with: "&apos;")
-            return escaped
         }
+        /// Escape special markup characters
+        var escaped = self
+        escaped = escaped.replacingOccurrences(of: "&", with: "&amp;")
+        escaped = escaped.replacingOccurrences(of: "<", with: "&lt;")
+        escaped = escaped.replacingOccurrences(of: ">", with: "&gt;")
+        escaped = escaped.replacingOccurrences(of: "\"", with: "&quot;")
+        escaped = escaped.replacingOccurrences(of: "'", with: "&apos;")
+        return escaped
     }
 }
 

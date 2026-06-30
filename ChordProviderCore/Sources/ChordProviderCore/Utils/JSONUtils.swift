@@ -22,8 +22,7 @@ extension JSONUtils {
         encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         do {
             let encodedData = try encoder.encode(value)
-            let content = String(data: encodedData, encoding: .utf8) ?? "error"
-            return content
+            return String(data: encodedData, encoding: .utf8) ?? "error"
         } catch {
             LogUtils.shared.setLog(
                 level: .error,
@@ -41,8 +40,7 @@ extension JSONUtils {
     public static func decode<T: Decodable>(_ data: Data, struct: T.Type) throws(ChordProviderError) -> T {
         let decoder = JSONDecoder()
         do {
-            let content = try decoder.decode(T.self, from: data)
-            return content
+            return try decoder.decode(`struct`.self, from: data)
         } catch DecodingError.keyNotFound(let key, let context) {
             throw .jsonDecoderError(
                 error: "Failed to decode due to missing key '\(key.stringValue)' not found",
@@ -55,7 +53,7 @@ extension JSONUtils {
             )
         } catch DecodingError.valueNotFound(let type, let context) {
             throw .jsonDecoderError(
-                error: "Failed to decode due to missing \(type) value", 
+                error: "Failed to decode due to missing \(type) value",
                 context: "\(context.debugDescription)"
             )
         } catch DecodingError.dataCorrupted(_) {

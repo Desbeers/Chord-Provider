@@ -13,6 +13,7 @@ extension ChordDefinition {
     /// - Parameters:
     ///   - transpose: The transpose value
     ///   - scale: The scale of the chord
+    ///   - chords: All the known chords
     mutating func transpose(transpose: Int, scale: Chord.Root, chords: [ChordDefinition]) {
         /// Keep the current status
         let kind = self.kind

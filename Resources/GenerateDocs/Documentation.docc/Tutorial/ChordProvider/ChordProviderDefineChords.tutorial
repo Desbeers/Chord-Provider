@@ -1,0 +1,18 @@
+@Article(time: 0) {
+
+    @Intro(title: "Define chords") {
+        Define chords
+
+        @Image(source: "card-large-define", alt: "ChordPro source file")
+    }
+
+    @ContentAndMedia {
+        # Define chords
+        **Chord Provider** has a very nice dialog where you can define your own chords.
+
+        ![Define chords.](card-large-define)
+
+        > Important: The dialog will add the chord definition at the bottom of your song.
+          However, if you want to use it, the definiton must be *above* its first use in your song.
+    }
+}

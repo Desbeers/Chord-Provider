@@ -198,14 +198,6 @@ extension ChordPro.Directive {
                 lineType: .comment,
                 buttonLabel: "Add a new comment"
             )
-        case .image:
-            Details(
-                label: "Image",
-                help: "Specifies the name of the file containing the image",
-                environment: .image,
-                lineType: .environmentDirective,
-                info: "Aspect ratio will be kept. A size of zero means using the original size."
-            )
         case .startOfChorus:
             Details(
                 label: "Start of Chorus",
@@ -295,6 +287,14 @@ extension ChordPro.Directive {
                 environment: .grid,
                 lineType: .environmentDirective
             )
+        case .image:
+            Details(
+                label: "Image",
+                help: "Specifies the name of the file containing the image",
+                environment: .image,
+                lineType: .environmentDirective,
+                info: "Aspect ratio will be kept. A size of zero means using the original size."
+            )
         case .startOfABC:
             Details(
                 label: "Start of ABC",
@@ -311,7 +311,6 @@ extension ChordPro.Directive {
                 environment: .abc,
                 lineType: .environmentDirective
             )
-
         case .startOfLy:
             Details(
                 label: "Start of Lilypound",
@@ -365,7 +364,7 @@ extension ChordPro.Directive {
                 label: "Chord Definition",
                 help: "This directive defines a chord in terms of fret/string positions and, optionally, finger settings",
                 environment: .metadata,
-                lineType: .metadata
+                lineType: .chordDiagram
             )
         case .defineGuitar:
             Details(
@@ -373,7 +372,7 @@ extension ChordPro.Directive {
                 defaultValue: "C base-fret 1 frets x 3 2 0 1 0 fingers 0 3 2 0 1 0",
                 help: "This directive defines a guitar chord in terms of fret/string positions and, optionally, finger settings",
                 environment: .metadata,
-                lineType: .metadata
+                lineType: .chordDiagram
             )
         case .defineGuitalele:
             Details(
@@ -381,7 +380,7 @@ extension ChordPro.Directive {
                 defaultValue: "C base-fret 1 frets 3 2 0 0 0 3 fingers 2 1 0 0 0 3",
                 help: "This directive defines a guitalele chord in terms of fret/string positions and, optionally, finger settings",
                 environment: .metadata,
-                lineType: .metadata
+                lineType: .chordDiagram
             )
         case .defineUkulele:
             Details(
@@ -389,7 +388,7 @@ extension ChordPro.Directive {
                 defaultValue: "C base-fret 1 frets 0 0 0 3 fingers 0 0 0 3",
                 help: "This directive defines a ukulele chord in terms of fret/string positions and, optionally, finger settings",
                 environment: .metadata,
-                lineType: .metadata
+                lineType: .chordDiagram
             )
         case .chord:
             Details(
@@ -456,7 +455,7 @@ extension ChordPro.Directive {
             Details(
                 label: "Unknown",
                 help: "This directive is unknown",
-                environment: .none,
+                environment: .unknown,
                 lineType: .unknown
             )
         }

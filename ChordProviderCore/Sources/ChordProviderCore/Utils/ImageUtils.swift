@@ -14,10 +14,10 @@ public enum ImageUtils {
     // Just a placeholder
 }
 
-public extension ImageUtils {
+extension ImageUtils {
 
     /// Available icons
-    enum Icon: String {
+    public enum Icon: String {
         case capo
         case copyright
         case duration
@@ -31,12 +31,12 @@ public extension ImageUtils {
     }
 }
 
-public extension ImageUtils {
+extension ImageUtils {
 
     /// Get the URL of a SVG file in the bundle
     /// - Parameter name: The name of the file
     /// - Returns: An optional URL
-    static func getImageFromBundle(_ name: String) -> URL? {
+    public static func getImageFromBundle(_ name: String) -> URL? {
         if let url = Bundle.module.url(forResource: name, withExtension: "svg") {
             return url
         }
@@ -44,12 +44,12 @@ public extension ImageUtils {
     }
 }
 
-public extension ImageUtils {
+extension ImageUtils {
 
     /// Get the format of an image from its data
     /// - Parameter data: The data of the image
     /// - Returns: The format of the image
-    static func getImageFormat(data: Data) -> Format {
+    public static func getImageFormat(data: Data) -> Format {
         var format: Format = .unknown
         /// Evaluate the format of the image
         var length = UInt16(0)
@@ -68,10 +68,10 @@ public extension ImageUtils {
     }
 }
 
-public extension ImageUtils {
+extension ImageUtils {
 
     /// Image format
-    enum Format {
+    public enum Format {
         /// jpeg image
         case jpeg
         /// png image
@@ -83,14 +83,14 @@ public extension ImageUtils {
     }
 }
 
-public extension ImageUtils {
+extension ImageUtils {
 
     /// Get the size of an image based on the image arguments
     /// - Parameters:
     ///   - size: The true size of the image
     ///   - arguments: The arguments of the image in the song
     /// - Returns: The `CGSize` of the image
-    static func getImageSizeFromArguments(size: CGSize, arguments: ChordProParser.DirectiveArguments?) -> CGSize {
+    public static func getImageSizeFromArguments(size: CGSize, arguments: ChordProParser.DirectiveArguments?) -> CGSize {
         var size = size
         var scale: Double = 1
         if let scaleArgument = arguments?[.scale], let value = Double(scaleArgument.replacing("%", with: "")) {
@@ -107,17 +107,16 @@ public extension ImageUtils {
             size.width *= (value / size.height)
             size.height = value
         }
-        let scaled = CGSize(width: size.width * scale, height: size.height * scale)
-        return scaled
+        return CGSize(width: size.width * scale, height: size.height * scale)
     }
 }
 
-public extension ImageUtils {
+extension ImageUtils {
 
     /// Get the size of an image based on its data
     /// - Parameter data: The data of the image
     /// - Returns: The size of the image, if found
-    static func getImageSize(data: Data) -> CGSize? {
+    public static func getImageSize(data: Data) -> CGSize? {
 
         let format = getImageFormat(data: data)
 
@@ -128,7 +127,6 @@ public extension ImageUtils {
             var height: UInt32 = 0
             (data as NSData).getBytes(&width, range: NSRange(location: 16, length: 4))
             (data as NSData).getBytes(&height, range: NSRange(location: 20, length: 4))
-
             return CGSize(width: Double(width.byteSwapped), height: Double(height.byteSwapped))
 
         case .gif:
@@ -136,12 +134,11 @@ public extension ImageUtils {
             var height: UInt16 = 0
             (data as NSData).getBytes(&width, range: NSRange(location: 6, length: 2))
             (data as NSData).getBytes(&height, range: NSRange(location: 8, length: 2))
-
             return CGSize(width: Double(width), height: Double(height))
 
         case .jpeg:
             var index: Int = 4
-            var blockLength: UInt16 = UInt16(data[index]) * 256 + UInt16(data[index+1])
+            var blockLength: UInt16 = UInt16(data[index]) * 256 + UInt16(data[index + 1])
             repeat {
                 /// Increase the file index to get to the next block
                 index += Int(blockLength)
@@ -154,21 +151,18 @@ public extension ImageUtils {
                     return nil
                 }
                 /// if marker type is SOF0, SOF1, SOF2
-                if data[index+1] >= 0xC0 && data[index+1] <= 0xC3 {
+                if data[index + 1] >= 0xC0, data[index + 1] <= 0xC3 {
                     /// "Start of frame" marker which contains the file size
                     var width: UInt16 = 0
                     var height: UInt16 = 0
                     (data as NSData).getBytes(&height, range: NSRange(location: index + 5, length: 2))
                     (data as NSData).getBytes(&width, range: NSRange(location: index + 7, length: 2))
-
-                    let size = CGSize(width: Double(width.byteSwapped), height: Double(height.byteSwapped) )
-                    return size
-                } else {
-                    /// Skip the block marker
-                    index += 2
-                    /// Go to the next block
-                    blockLength = UInt16(data[index]) * 256 + UInt16(data[index+1])
+                    return CGSize(width: Double(width.byteSwapped), height: Double(height.byteSwapped) )
                 }
+                /// Skip the block marker
+                index += 2
+                /// Go to the next block
+                blockLength = UInt16(data[index]) * 256 + UInt16(data[index + 1])
             } while (index < data.count)
             return nil
 

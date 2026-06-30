@@ -1,0 +1,37 @@
+@Article(time: 5) {
+
+    @Intro(title: "The ChordPro file format") {
+        Learn about the ChordPro file format, a simple text format for the notation of lyrics with chords.
+
+        @Image(source: "card-large-source", alt: "ChordPro source file")
+    }
+
+    @ContentAndMedia {
+        # The ChordPro file format
+        
+        The ChordPro file format is a simple text file format.
+        Any text editor or word processor can be used to create and maintain them.
+        The text files can have arbitrary names and arbitrary types (extensions).
+        Common filename extensions for ChordPro files are `.chordpro`, `.cho`, `.crd`, `.chopro`, `.chord` and `.pro`. 
+
+        ![ChordPro source.](card-large-source)
+
+        **Chord Provider** is using this format because of its simplicity and open standard.
+        Also, and even more important, it does not *lock* the user into the application.
+        
+        Songs in **ChordPro** format can be opened and viewed in any application that can open a text file.
+
+        It is just *plain text* that can be parsed for a more pleasant viewing like I do in **Chord Provider**.
+
+        ![The rendered ChordPro song.](card-large-sweet)
+    }
+
+    @ContentAndMedia {
+        # Read more on ChordPro.org
+
+        The **ChordPro** language standard has its own home where you can find more information:
+
+        - [The official website](https://www.chordpro.org)
+        - [Introduction to ChordPro](https://www.chordpro.org/chordpro/chordpro-introduction/)
+    }
+}

@@ -13,11 +13,9 @@ extension ChordProParser {
     /// - Parameters:
     ///   - environment: The ``ChordPro/Environment`` of the section
     ///   - currentSection: The current ``Song/Section``
-    ///   - song: The whole ``Song``
     static func autoSection(
         environment: ChordPro.Environment,
-        currentSection: inout Song.Section,
-        song: inout Song
+        currentSection: inout Song.Section
     ) {
         currentSection.environment = environment
         currentSection.autoCreated = true

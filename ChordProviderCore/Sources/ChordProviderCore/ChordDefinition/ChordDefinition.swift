@@ -57,7 +57,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     // MARK: Database items
 
     /// The ID of the chord
-    public var id: UUID = UUID()
+    public var id = UUID()
     /// The fret positions of the chord
     public var frets: [Int]
     /// The finger positions of the chord
@@ -86,11 +86,12 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     /// The kind of chord definition
     public var kind: Kind
     /// The validation warnings
-    /// - Note: Should be nill for a correct chord definition
+    /// - Note: Should be nil for a correct chord definition
     public var validationWarnings: [Status]?
     /// The status of the chord definition
     public var status: Status {
-        Set(validationWarnings ?? []).isDisjoint(with: ChordDefinition.Status.errorStatus) ? .correct : .unknownChord(chord: plain)
+        Set(validationWarnings ?? []).isDisjoint(with: ChordDefinition.Status.errorStatus)
+            ? .correct : .unknownChord(chord: plain)
     }
 
     // MARK: Strum

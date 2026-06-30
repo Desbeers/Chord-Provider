@@ -63,7 +63,7 @@ extension ChordPro {
         /// A chord diagram
         case chordDiagram
 
-        /// Not an environment
-        case none
+        /// Unknown environment
+        case unknown
     }
 }

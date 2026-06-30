@@ -35,7 +35,7 @@ extension ChordProParser {
     /// - Parameter arguments: The arguments of the directive in the song
     /// - Returns: The offset as `CGSize`
     public static func getOffset(_ arguments: ChordProParser.DirectiveArguments?) -> CGSize {
-        var offset = CGSize(width: 0, height: 0)
+        var offset = CGSize.zero
         if let x = arguments?[.x], let value = Double(x) {
             offset.width = value
         }

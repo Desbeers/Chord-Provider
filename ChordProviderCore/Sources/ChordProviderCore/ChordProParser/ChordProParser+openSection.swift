@@ -26,14 +26,13 @@ extension ChordProParser {
 
         /// Close the current section if it has lines and give it a warning if the environment is not auto-created
         /// - Note: a new section will be created in that function
-        let shouldWarn = !(currentSection.autoCreated ?? false)
         if !currentSection.lines.isEmpty {
             closeSection(
                 directive: currentSection.environment.directives.close,
                 arguments: currentSection.lines.last?.arguments ?? DirectiveArguments(),
                 currentSection: &currentSection,
                 song: &song,
-                warning: shouldWarn
+                warning: currentSection.autoCreated
             )
         }
         /// Update the current section

@@ -1,0 +1,26 @@
+@Article(time: 5) {
+
+    @Intro(title: "The ChordPro reference implementation") {
+        Learn about the ChordPro reference implementation.
+
+        @Image(source: "card-large-chordpro-app", alt: "Chord Pro application.")
+    }
+
+    @ContentAndMedia {
+        # The ChordPro reference implementation
+
+        While **Chord Provider** serves me well, it is just my hobby project.
+        The official **ChordPro** *reference implementation* is much more powerful:
+
+        - Runs on Linux, macOS and Windows.
+        - Very configurable.
+        - Create and print PDF's.
+        - Change the looks of your song.
+        - Make a songbook with all our song.
+        - Use *ABC* and *Lilypond* notations.
+
+        Read more about the [official reference-implementation](https://chordpro.org/chordpro/chordpro-reference-implementation/).
+
+        ![Chord Pro application.](card-large-chordpro-app)
+    }
+}

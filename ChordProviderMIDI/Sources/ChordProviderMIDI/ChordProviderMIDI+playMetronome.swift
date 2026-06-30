@@ -33,7 +33,9 @@ extension ChordProviderMIDI {
     // MARK: Metronome loop
 
     private func runMetronome() async {
-        guard let synth else { return }
+        guard let synth else {
+            return
+        }
         /// Set the volume
         fluid_synth_cc(synth, metronome.channel, 11, 120)
         /// Set the note value

@@ -1,0 +1,16 @@
+@Article(time: 0) {
+
+    @Intro(title: "The Chord Provider Basics") {
+        Learn about the **Chord Provider** Basics
+
+        @Image(source: "card-large-song", alt: "ChordPro source file")
+    }
+
+    @ContentAndMedia {
+        # The Basics
+        **Chord Provider** is a simple *ChordPro* viewer and editor.
+        Its aim is just to show your song on screen and play it.
+
+        ![Opened Song.](card-large-song)
+    }
+}

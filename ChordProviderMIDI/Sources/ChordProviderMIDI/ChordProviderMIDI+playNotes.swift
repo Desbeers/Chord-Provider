@@ -48,38 +48,38 @@ extension ChordProviderMIDI {
             case let .transition(transit):
                 let voice = setupActiveVoice(
                     playbackNote: playbackNote,
-                    volume: volume                    
+                    volume: volume
                 )
                 switch transit.technique {
-                    case .slide, .slideDown, .slideUp:
-                        Task {
-                            await performSlide(
-                                voice: voice,
-                                startNote: transit.from,
-                                endNote: transit.to,
-                                transitionNote: playbackNote.transtionNote,
-                                playbackSettings: playbackSettings
-                            )
-                        }
-                    case .bendUp, .releaseBend:
-                        Task {
-                            await performBend(
-                                voice: voice,
-                                startNote: transit.from,
-                                endNote: transit.to,
-                                transitionNote: playbackNote.transtionNote,
-                                playbackSettings: playbackSettings
-                            )
-                        }
-                    case .hammerOn, .pullOff:
-                        Task {
-                            await performHammer(
-                                voice: voice,
-                                note: transit.to,
-                                transitionNote: playbackNote.transtionNote,
-                                playbackSettings: playbackSettings
-                            )
-                        }                  
+                case .slide, .slideDown, .slideUp:
+                    Task {
+                        await performSlide(
+                            voice: voice,
+                            startNote: transit.from,
+                            endNote: transit.to,
+                            transitionNote: playbackNote.transtionNote,
+                            playbackSettings: playbackSettings
+                        )
+                    }
+                case .bendUp, .releaseBend:
+                    Task {
+                        await performBend(
+                            voice: voice,
+                            startNote: transit.from,
+                            endNote: transit.to,
+                            transitionNote: playbackNote.transtionNote,
+                            playbackSettings: playbackSettings
+                        )
+                    }
+                case .hammerOn, .pullOff:
+                    Task {
+                        await performHammer(
+                            voice: voice,
+                            note: transit.to,
+                            transitionNote: playbackNote.transtionNote,
+                            playbackSettings: playbackSettings
+                        )
+                    }
                 }
             }
             try? await Task.sleep(for: .seconds(playbackSettings.spread))
@@ -97,16 +97,16 @@ extension ChordProviderMIDI {
         let channel = Int32(playbackNote.stringID)
 
         switch playbackNote.articulation {
-            case let .normal(note):
-                notes.append(note)
-                // Reset the channel
-                fluid_synth_all_notes_off(synth, channel)
-                fluid_synth_pitch_bend(synth, channel, 8192)
-                // Set the volume
-                fluid_synth_cc(synth, channel, 11, volume)
-            case let .transition(transit):
-                notes.append(transit.from)
-                notes.append(transit.to)
+        case let .normal(note):
+            notes.append(note)
+            // Reset the channel
+            fluid_synth_all_notes_off(synth, channel)
+            fluid_synth_pitch_bend(synth, channel, 8192)
+            // Set the volume
+            fluid_synth_cc(synth, channel, 11, volume)
+        case let .transition(transit):
+            notes.append(transit.from)
+            notes.append(transit.to)
         }
         let voice = ActiveVoice(
             id: id,

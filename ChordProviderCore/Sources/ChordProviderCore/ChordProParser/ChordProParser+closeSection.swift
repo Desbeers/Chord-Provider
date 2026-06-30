@@ -25,7 +25,7 @@ extension ChordProParser {
         warning: Bool = false
     ) {
         /// Add the opening directive for automatic created sections
-        if (currentSection.autoCreated ?? false) == true, let firstLineIndex = currentSection.lines.firstIndex(where: { $0.type == .songLine }) {
+        if currentSection.autoCreated, let firstLineIndex = currentSection.lines.firstIndex(where: { $0.type == .songLine }) {
             let line = Song.Section.Line(
                 sourceLineNumber: -currentSection.lines[firstLineIndex].sourceLineNumber,
                 source: "{\(currentSection.environment.directives.open.source.long)}",
@@ -45,11 +45,11 @@ extension ChordProParser {
         }
         /// Add the closing directive for an automatic created environment or if a environment is not properly closed
         let closingDirective = currentSection.environment.directives.close
-        if (currentSection.autoCreated ?? false) || warning,
+        if currentSection.autoCreated || warning,
             let lastLineIndex = currentSection.lines.lastIndex(where: { $0.directive != .emptyLine }) {
             let line = Song.Section.Line(
                 sourceLineNumber: -(currentSection.lines[lastLineIndex].sourceLineNumber + 1),
-                source: arguments[.source] ??  "No source given, this is an error",
+                source: arguments[.source] ?? "No source given, this is an error",
                 sourceParsed: "{\(closingDirective.source.long)}",
                 directive: closingDirective,
                 type: .environmentDirective,
@@ -66,7 +66,7 @@ extension ChordProParser {
             /// Just add the closing line
             var line = Song.Section.Line(
                 sourceLineNumber: song.totalLines,
-                source: arguments[.source] ??  "No source given, this is an error",
+                source: arguments[.source] ?? "No source given, this is an error",
                 sourceParsed: "{\(closingDirective.source.long)}",
                 directive: closingDirective,
                 type: .environmentDirective,

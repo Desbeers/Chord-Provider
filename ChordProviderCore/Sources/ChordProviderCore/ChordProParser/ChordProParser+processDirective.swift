@@ -15,9 +15,11 @@ extension ChordProParser {
     static func getDirective(_ directive: String) -> (directive: ChordPro.Directive, short: Bool)? {
         if let longDirective = ChordPro.Directive.allCases.first(where: { $0.source.long == directive }) {
             return (longDirective, false)
-        } else if let shortDirective = ChordPro.Directive.allCases.first(where: { $0.source.short == directive }) {
+        }
+        if let shortDirective = ChordPro.Directive.allCases.first(where: { $0.source.short == directive }) {
             return (shortDirective, true)
-        } else if let name = directive.split(separator: "_", maxSplits: 2).last, !name.isEmpty {
+        }
+        if let name = directive.split(separator: "_", maxSplits: 2).last, !name.isEmpty {
             /// Custom environments
             if directive.hasPrefix("start_of_") {
                 return (.startOfCustomEnvironment(name: directive), false)
@@ -85,7 +87,8 @@ extension ChordProParser {
                     )
                     /// Fatal, nothing else to do here
                     return
-                } else if arguments[.plain] != nil, optionalAttributes.contains(.plain), text.starts(with: "{\(parsedDirective) ") {
+                }
+                if arguments[.plain] != nil, optionalAttributes.contains(.plain), text.starts(with: "{\(parsedDirective) ") {
                     currentSection.addWarning(
                         "It is preferable to use a colon <b>:</b> for a simple argument",
                         level: .notice
@@ -189,7 +192,7 @@ extension ChordProParser {
                     case .endOfTab:
                         /// Make sure tab lines have the same length because of scaling
                         let tabs: [String] = currentSection.lines.map(\.arguments).compactMap { element -> String in
-                            return element?[.plain] ?? "error"
+                            element?[.plain] ?? "error"
                         }
                         if let maxLength = tabs.max(by: { $1.count > $0.count })?.count {
                             for index in currentSection.lines.indices where currentSection.lines[index].type == .songLine {

@@ -21,7 +21,7 @@ extension Song.Section {
             directive: ChordPro.Directive? = nil,
             arguments: ChordProParser.DirectiveArguments? = nil,
             type: ChordPro.LineType = .unknown,
-            context: ChordPro.Environment = .none,
+            context: ChordPro.Environment = .unknown,
             warnings: [LogUtils.LogMessage]? = nil,
             parts: [Song.Section.Line.Part]? = nil,
             gridsLine: [Song.Section.Line.Grid]? = nil,
@@ -66,7 +66,7 @@ extension Song.Section {
         /// The type of the line
         public var type: ChordPro.LineType = .unknown
         /// The context of the line
-        public var context: ChordPro.Environment = .none
+        public var context: ChordPro.Environment = .unknown
         /// The optional parts in the line
         /// - Note: A part mostly consist of some text with a chord
         public var parts: [Part]?
@@ -89,7 +89,7 @@ extension Song.Section {
         public var label: String {
             arguments?[.plain] ?? arguments?[.label] ?? plain ?? context.label
         }
-        
+
         /// The whole line with prefix and suffix split by a lenght based on a lyric
         /// - Parameter length: The maximum lengt of a String
         /// - Returns: An Array of Strings
@@ -97,15 +97,23 @@ extension Song.Section {
             var result: [String] = []
             var currentLine = ""
             var currentLength = 0
-            guard let parts else { return [] }
+            guard let parts else {
+                return []
+            }
             for part in parts {
                 switch part.content {
-                case let .lyric(lyric):
+                case .lyric(let lyric):
                     switch lyric.chordSlot {
                     case let .chord(definition, textPart):
-                        appendPart(plain: "'\(definition.display)' ", output: "'<b>\(stripSpaces(textPart.display))</b>' ")
+                        appendPart(
+                            plain: "'\(definition.display)' ",
+                            output: "'<b>\(stripSpaces(textPart.display))</b>' "
+                        )
                     case let .text(textPart):
-                        appendPart(plain: "'\(textPart.text)' ", output: "'<b>\(stripSpaces(textPart.display))</b>' ")
+                        appendPart(
+                            plain: "'\(textPart.text)' ",
+                            output: "'<b>\(stripSpaces(textPart.display))</b>' "
+                        )
                     case .empty:
                         break
                     }

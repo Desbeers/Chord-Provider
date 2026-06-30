@@ -144,8 +144,8 @@ extension Chord {
 
         // MARK: Fallback
 
-        /// None
-        case none
+        /// Unknown
+        case unknown
 
         /// Implement Comparable
         /// - Note: Used for sorting
@@ -154,55 +154,103 @@ extension Chord {
         }
 
         /// The display of Quality
+        /// - Note: `\u{200A}` is a *half space* character
         public var display: String {
             switch self {
-            case .all:                      "All"
-            case .major:                    ""
-            case .minor:                    "m"
-            case .dim:                      "\u{200A}dim"
-            case .dimSeven:                 "\u{200A}dim⁷"
-            case .susTwo:                   "\u{200A}sus²"
-            case .susFour:                  "\u{200A}sus⁴"
-            case .sevenSusTwo:              "⁷sus²"
-            case .sevenSusFour:             "⁷sus⁴"
-            case .five:                     "⁵"
-            case .aug:                      "\u{200A}aug"
-            case .six:                      "⁶"
-            case .sixNine:                  "⁶ᐟ⁹"
-            case .seven:                    "⁷"
-            case .sevenFlatFive:            "⁷♭⁵"
-            case .augSeven:                 "\u{200A}aug⁷"
-            case .nine:                     "⁹"
-            case .nineFlatFive:             "⁹♭⁵"
-            case .augNine:                  "\u{200A}aug⁹"
-            case .sevenFlatNine:            "⁷♭⁹"
-            case .sevenSharpNine:           "⁷♯⁹"
-            case .sevenSharpFive:           "⁷♯⁵"
-            case .eleven:                   "¹¹"
-            case .nineSharpEleven:          "⁹♯¹¹"
-            case .thirteen:                 "¹³"
-            case .minorThirteen:            "m¹³"
-            case .majorSeven:               "\u{200A}maj⁷"
-            case .majorSevenFlatFive:       "\u{200A}maj⁷♭⁵"
-            case .majorSevenSharpFive:      "\u{200A}maj⁷♯⁵"
-            case .majorNine:                "\u{200A}maj⁹"
-            case .majorEleven:              "\u{200A}maj¹¹"
-            case .majorThirteen:            "\u{200A}maj¹³"
-            case .minorSix:                 "m⁶"
-            case .minorSixNine:             "m⁶ᐟ⁹"
-            case .minorSeven:               "m⁷"
-            case .minorSevenFlatFive:       "m⁷♭⁵"
-            case .minorNine:                "m⁹"
-            case .minorEleven:              "m¹¹"
-            case .minorMajorSeven:          "m\u{200A}Maj⁷"
-            case .minorMajorSevenFlatFive:  "m\u{200A}Maj⁷♭⁵"
-            case .minorMajorNine:           "m\u{200A}Maj⁹"
-            case .minorMajorEleven:         "m\u{200A}Maj¹¹"
-            case .addFour:                  "\u{200A}add⁴"
-            case .addNine:                  "\u{200A}add⁹"
-            case .minorAddNine:             "m\u{200A}add⁹"
-            case .addEleven:                "\u{200A}add¹¹"
-            case .none:                     "None"
+            case .all:
+                "All"
+            case .major:
+                ""
+            case .minor:
+                "m"
+            case .dim:
+                "\u{200A}dim"
+            case .dimSeven:
+                "\u{200A}dim⁷"
+            case .susTwo:
+                "\u{200A}sus²"
+            case .susFour:
+                "\u{200A}sus⁴"
+            case .sevenSusTwo:
+                "⁷sus²"
+            case .sevenSusFour:
+                "⁷sus⁴"
+            case .five:
+                "⁵"
+            case .aug:
+                "\u{200A}aug"
+            case .six:
+                "⁶"
+            case .sixNine:
+                "⁶ᐟ⁹"
+            case .seven:
+                "⁷"
+            case .sevenFlatFive:
+                "⁷♭⁵"
+            case .augSeven:
+                "\u{200A}aug⁷"
+            case .nine:
+                "⁹"
+            case .nineFlatFive:
+                "⁹♭⁵"
+            case .augNine:
+                "\u{200A}aug⁹"
+            case .sevenFlatNine:
+                "⁷♭⁹"
+            case .sevenSharpNine:
+                "⁷♯⁹"
+            case .sevenSharpFive:
+                "⁷♯⁵"
+            case .eleven:
+                "¹¹"
+            case .nineSharpEleven:
+                "⁹♯¹¹"
+            case .thirteen:
+                "¹³"
+            case .minorThirteen:
+                "m¹³"
+            case .majorSeven:
+                "\u{200A}maj⁷"
+            case .majorSevenFlatFive:
+                "\u{200A}maj⁷♭⁵"
+            case .majorSevenSharpFive:
+                "\u{200A}maj⁷♯⁵"
+            case .majorNine:
+                "\u{200A}maj⁹"
+            case .majorEleven:
+                "\u{200A}maj¹¹"
+            case .majorThirteen:
+                "\u{200A}maj¹³"
+            case .minorSix:
+                "m⁶"
+            case .minorSixNine:
+                "m⁶ᐟ⁹"
+            case .minorSeven:
+                "m⁷"
+            case .minorSevenFlatFive:
+                "m⁷♭⁵"
+            case .minorNine:
+                "m⁹"
+            case .minorEleven:
+                "m¹¹"
+            case .minorMajorSeven:
+                "m\u{200A}Maj⁷"
+            case .minorMajorSevenFlatFive:
+                "m\u{200A}Maj⁷♭⁵"
+            case .minorMajorNine:
+                "m\u{200A}Maj⁹"
+            case .minorMajorEleven:
+                "m\u{200A}Maj¹¹"
+            case .addFour:
+                "\u{200A}add⁴"
+            case .addNine:
+                "\u{200A}add⁹"
+            case .minorAddNine:
+                "m\u{200A}add⁹"
+            case .addEleven:
+                "\u{200A}add¹¹"
+            case .unknown:
+                "Unknown"
             }
         }
 
@@ -212,24 +260,27 @@ extension Chord {
         ///
         /// The intention for the group is for developers to offer different filter types for chart lookup.
         var group: Chord.Group {
-            // swiftlint:disable line_length
             switch self {
-            case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine, .majorEleven, .majorThirteen, .addFour, .addNine, .addEleven:
-                    .major
-            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive, .minorMajorSeven, .minorMajorSevenFlatFive, .minorMajorNine, .minorMajorEleven, .minorAddNine, .minorNine, .minorThirteen:
-                    .minor
+            case .major, .majorSeven, .majorSevenFlatFive, .majorSevenSharpFive, .majorNine,
+                .majorEleven, .majorThirteen, .addFour, .addNine, .addEleven:
+                .major
+            case .minor, .minorSix, .minorSixNine, .minorSeven, .minorEleven, .minorSevenFlatFive,
+                .minorMajorSeven, .minorMajorSevenFlatFive, .minorMajorNine, .minorMajorEleven,
+                .minorAddNine, .minorNine, .minorThirteen:
+                .minor
             case .dim, .dimSeven:
-                    .diminished
+                .diminished
             case .susTwo, .susFour, .sevenSusTwo, .sevenSusFour:
-                    .suspended
+                .suspended
             case .aug, .augSeven, .augNine:
-                    .augmented
-            case .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive, .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen, .sevenSharpFive:
-                    .other
-            case .all, .none:
-                    .intern
+                .augmented
+            case .five, .six, .sixNine, .seven, .sevenFlatFive, .nine, .nineFlatFive,
+                .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen,
+                .sevenSharpFive:
+                .other
+            case .all, .unknown:
+                .intern
             }
-            // swiftlint:enable line_length
         }
     }
 }

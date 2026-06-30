@@ -44,7 +44,9 @@ extension Instrument.Tuning {
     /// For example: "E2"
     /// - Parameter scientificPitch: The pitch element
     init?(scientificPitch: String) {
-        guard let match = scientificPitch.wholeMatch(of: RegexDefinitions.tune) else { return nil }
+        guard let match = scientificPitch.wholeMatch(of: RegexDefinitions.tune) else {
+            return nil
+        }
         (note, octave) = (match.1, match.2)
     }
 }

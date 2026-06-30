@@ -13,10 +13,10 @@ public enum MidiUtils {
     public static let soundFont: URL? = Bundle.module.url(forResource: "GuitarSoundFont", withExtension: "sf2")
 }
 
-public extension MidiUtils {
+extension MidiUtils {
 
     /// The preset for playing MIDI
-    enum Preset: Int, CaseIterable, CustomStringConvertible, Identifiable, Codable, Sendable {
+    public enum Preset: Int, CaseIterable, CustomStringConvertible, Identifiable, Codable, Sendable {
         public var description: String {
             switch self {
             case .acousticNylonGuitar:
@@ -42,6 +42,5 @@ public extension MidiUtils {
         case electricYazzGuitar = 4
         /// Electric muted guitar
         case electricMutedGuitar = 5
-
     }
 }

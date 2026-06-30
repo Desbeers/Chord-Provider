@@ -34,15 +34,14 @@ extension ChordProParser {
         /// Add the line
         currentSection.lines.append(line)
         /// Set the environment to Verse if not yet set and we have chords, else to Textblock
-        if currentSection.environment == .none || currentSection.autoCreated ?? false {
+        if currentSection.environment == .unknown || currentSection.autoCreated {
             /// Check for chords
             if !currentSection.haveChords {
                 currentSection.haveChords = line.parts?.map(\.content).compactMap(\.lyricHasChord).contains(true) ?? false
             }
             autoSection(
                 environment: currentSection.haveChords ? .verse : .textblock,
-                currentSection: &currentSection,
-                song: &song
+                currentSection: &currentSection
             )
         }
         /// Remember the longest line in the song

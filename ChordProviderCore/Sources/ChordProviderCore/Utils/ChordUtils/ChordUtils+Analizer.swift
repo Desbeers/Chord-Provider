@@ -27,7 +27,7 @@ extension ChordUtils {
             if let match = chord.wholeMatch(of: RegexDefinitions.chordString) {
                 root = match.1
                 if let qualityMatch = match.2 {
-                    quality = qualityMatch == .none ? nil : qualityMatch
+                    quality = qualityMatch == .unknown ? nil : qualityMatch
                 } else {
                     quality = .major
                 }
@@ -41,7 +41,7 @@ extension ChordUtils {
         /// - Returns: The ``ChordDefinition/Status`` of the chord definition
         static func validateChord(chord: ChordDefinition) -> [ChordDefinition.Status]? {
             var result: Set<ChordDefinition.Status> = []
-            if chord.quality == .none {
+            if chord.quality == .unknown {
                 result.insert(.unknownChord(chord: chord.plain))
                 return Array(result)
             }
@@ -65,13 +65,13 @@ extension ChordUtils {
                 return Array(result).sorted()
             }
             /// Get the lowest note of the chord
-            guard let baseNote = chord.components.filter({ $0.note != .none }) .sorted(using: KeyPathComparator(\.midi)).first?.note else {
+            guard let baseNote = chord.components.filter({ $0.note != .unknown }) .sorted(using: KeyPathComparator(\.midi)).first?.note else {
                 /// The definition has no notes att all
                 result.insert(.noNotes)
                 return Array(result)
             }
             /// Get all chord notes
-            let notes = chord.components.filter { $0.note != .none } .uniqued(by: \.note).map(\.note)
+            let notes = chord.components.filter { $0.note != .unknown } .uniqued(by: \.note).map(\.note)
             /// Get all note combinations
             let combinations = chord.noteCombinations
             /// Check slash note
@@ -86,15 +86,15 @@ extension ChordUtils {
             /// Check finger positions
             for index in chord.frets.enumerated() {
                 /// Check that muted frets have no finger defined
-                if chord.frets[index.offset] == -1 && chord.fingers[safe: index.offset] != 0 {
+                if chord.frets[index.offset] == -1, chord.fingers[safe: index.offset] != 0 {
                     result.insert(.wrongMutedFingers)
                 }
                 /// Check that open frets have no finger defined
-                if chord.frets[index.offset] == 0 && chord.fingers[safe: index.offset] != 0 {
+                if chord.frets[index.offset] == 0, chord.fingers[safe: index.offset] != 0 {
                     result.insert(.wrongOpenFingers)
                 }
                 /// Check that a fretted note has a finger defined
-                if chord.frets[index.offset] > 0 && chord.fingers[safe: index.offset] == 0 {
+                if chord.frets[index.offset] > 0, chord.fingers[safe: index.offset] == 0 {
                     result.insert(.missingFingers)
                 }
             }

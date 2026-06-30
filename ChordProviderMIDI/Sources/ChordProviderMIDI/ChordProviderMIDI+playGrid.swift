@@ -13,18 +13,19 @@ extension ChordProviderMIDI {
     /// Play the grid
     public func playGrid() async {
         guard let grids = snapshot.grids else {
-            /// There are no tabs to play
-            /// - Note: This should not happen...
+            // There are no tabs to play
+            // - Note: This should not happen...
             return
         }
         let mappedParts = flatMapParts(grids.map(\.parts))
-        let parts = mappedParts.filter { part in
-            part.content.hasPlayableChord
-        }.sorted(using: KeyPathComparator(\.id))
-        /// Stop any other grid or tab task
+        let parts = mappedParts
+            .filter(\.content.hasPlayableChord)
+            .sorted(using: KeyPathComparator(\.id))
+
+        // Stop any other grid or tab task
         stopGrid()
         stopTab()
-        /// Wait for the first accent
+        // Wait for the first accent
         while !transport.isAccent {
             try? await Task.sleep(for: .milliseconds(1))
         }
@@ -72,7 +73,9 @@ extension ChordProviderMIDI {
     /// - Parameter input: The parts
     /// - Returns: Fattened parts 
     func flatMapParts<T>(_ input: [[T]]) -> [T] {
-        guard let first = input.first else { return [] }
+        guard let first = input.first else {
+            return []
+        }
         return (0..<first.count).flatMap { index in
             input.map { $0[index] }
         }

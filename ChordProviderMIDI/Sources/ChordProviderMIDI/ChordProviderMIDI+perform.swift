@@ -13,8 +13,8 @@ extension ChordProviderMIDI {
 
     /// Helper to get the pitch bend between two notes
     /// - Parameters:
-    ///   - from: Start note
-    ///   - to:: End note
+    ///   - startNote: Start note
+    ///   - endNote: End note
     /// - Returns: The pitch bend
     func pitchBend(
         from startNote: Int,

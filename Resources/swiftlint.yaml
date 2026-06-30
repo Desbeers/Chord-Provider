@@ -1,0 +1,91 @@
+#####################################################
+#                                                   #
+# Chord Provider Swiftlint rules                    #
+#                                                   #
+#####################################################
+
+analyzer_rules:
+  - capture_variable
+  - explicit_self
+  - typesafe_array_init
+  - unused_declaration
+  - unused_import
+
+opt_in_rules:
+  - all
+
+disabled_rules:
+  - closure_body_length
+  - contrasted_opening_brace
+  - discouraged_optional_collection
+  - explicit_acl
+  - explicit_enum_raw_value
+  - explicit_top_level_acl
+  - explicit_type_interface
+  - extension_access_modifier
+  - file_name
+  - function_default_parameter_at_end
+  - local_doc_comment
+  - modifier_order
+  - no_grouping_extension
+  - no_magic_numbers
+  - number_separator
+  - prefer_self_in_static_references
+  - prefixed_toplevel_constant
+  - private_swiftui_state
+  - raw_value_for_camel_cased_codable_enum
+  - required_deinit
+  - sorted_enum_cases
+  - sorted_imports
+  - todo
+  - type_contents_order
+  - unused_parameter
+  - vertical_whitespace_between_cases
+  #  I like an empty line after opening an extension
+  - vertical_whitespace_opening_braces
+
+cyclomatic_complexity:
+  ignores_case_statements: true
+  warning: 20
+
+file_length:
+    warning: 600
+
+function_body_length:
+  warning: 500
+
+function_parameter_count:
+    warning: 7
+
+identifier_name:
+  min_length: 2
+  excluded:
+    - x
+    - y
+
+indentation_width:
+  indentation_width: 4
+  include_compiler_directives: false
+
+legacy_objc_type:
+  allowed_types: [NSNumber, NSRange, NSData]
+
+line_length:
+  ignores_urls: true
+  ignores_function_declarations: true
+  ignores_comments: true
+  warning: 200
+
+nesting:
+  type_level: 2
+
+opening_brace:
+  ignore_multiline_type_headers: true
+  ignore_multiline_statement_conditions: true
+  ignore_multiline_function_signatures: true
+
+type_body_length:
+    warning: 350
+
+large_tuple:
+    warning: 4

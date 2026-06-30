@@ -21,6 +21,7 @@ extension Song.Section.Line.Grid {
             self.beats = beats
             self.right = right
         }
+
         public var left: Int
         public var measures: Int
         public var beats: Int

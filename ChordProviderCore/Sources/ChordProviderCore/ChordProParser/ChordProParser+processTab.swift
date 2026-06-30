@@ -35,11 +35,10 @@ extension ChordProParser {
         /// Add the line"
         currentSection.lines.append(line)
         /// Mark the section as Tab if not set
-        if currentSection.environment == .none {
+        if currentSection.environment == .unknown {
             autoSection(
                 environment: .tab,
-                currentSection: &currentSection,
-                song: &song
+                currentSection: &currentSection
             )
         }
     }

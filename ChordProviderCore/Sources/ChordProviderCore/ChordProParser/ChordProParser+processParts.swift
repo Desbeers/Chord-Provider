@@ -12,10 +12,10 @@ extension ChordProParser {
     // MARK: Process parts of a line
 
     static func processParts(
-            text: String,
-            line: inout Song.Section.Line,
-            song: inout Song
-        ) {
+        text: String,
+        line: inout Song.Section.Line,
+        song: inout Song
+    ) {
         var partID: Int = 1
         /// All the parts in the line
         var parts: [Song.Section.Line.Part] = []

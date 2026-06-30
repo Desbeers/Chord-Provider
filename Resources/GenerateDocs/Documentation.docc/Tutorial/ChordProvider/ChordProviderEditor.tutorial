@@ -1,0 +1,27 @@
+@Article(time: 10) {
+    @Intro(title: "Edit your songs") {
+        Edit your songs with a fancy editor
+
+        @Image(source: card-large-editor, alt: "The song editor.")
+    }
+    @ContentAndMedia {
+        # Basic functionality
+        **Chord Provider** has a pretty fancy editor for your songs:
+
+        - Highlight the *ChordPro* directives, attributes and chords.
+        - Search and Replace.
+        - Directive *completion*.
+        - Unlimited *undo*.
+        - Toolbar with most common directives.
+
+        @Image(source: card-large-editor, alt: "The song editor.")
+    }
+    @ContentAndMedia {
+        # Edit directives
+        If you *tripple click* on a directive in the editor you can edit its arguments in a dialog.
+
+        > Note: Not all directives have arguments.
+
+        @Image(source: card-large-editor, alt: "The song editor.")
+    }
+}

@@ -30,8 +30,10 @@ extension ChordProParser {
             } else {
                 if !tabLines.isEmpty {
                     // Process the tab lines into columns
-                    let tabColumns = parseTab(lines: tabLines, instrument: instrument, lastColumnID: lastColumnID)
-                    lastColumnID += (tabColumns.last?.events.last?.id ?? 0) + 1 
+                    let tabColumns = parseTab(
+                        lines: tabLines, instrument: instrument, lastColumnID: lastColumnID
+                    )
+                    lastColumnID += (tabColumns.last?.events.last?.id ?? 0) + 1
                     // Append the columns
                     // - Its 'sourceLinenNumber' is 0 so it is ignored in the 'source view'
                     newSection.lines.append(
@@ -76,7 +78,7 @@ extension ChordProParser {
     ) -> [Song.Section.Line.Tab] {
         let baseMidi = instrument.tuning.reversed().map(\.midi)
         let stringOffset = max(0, lines.count - instrument.strings.count)
-        let tabLines = lines.enumerated().compactMap { (lineID, line) in
+        let tabLines = lines.enumerated().compactMap { lineID, line in
             /// The base MIDI for the string
             let midi = baseMidi[safe: lineID - stringOffset]
             /// The column ID
@@ -84,11 +86,11 @@ extension ChordProParser {
             /// The visual column ID
             var visualColumnID = 0
             // Check if this line is a real tab or just text
-            if line.contains("-") && line.contains("|") {
+            if line.contains("-"), line.contains("|") {
                 let totalColumns = lastColumnID + line.count
                 let lineCharacters = Array(line)
                 /// The events of the line
-                var events = (0 ..< line.count).enumerated().map { item in
+                var events = (0..<line.count).enumerated().map { item in
                     ChordPro.Tab.Event(column: item.element, content: .filler)
                 }
                 // Process all columns
@@ -131,13 +133,12 @@ extension ChordProParser {
                     columnID += usedColumns
                 }
                 return Song.Section.Line.Tab(lineID: lineID, plain: line, events: events)
-            } else {
-                let result = ChordPro.Tab.Event(
-                    column: 1,
-                    content: .text
-                )
-                return Song.Section.Line.Tab(lineID: lineID, plain: line, events: [result])
             }
+            let result = ChordPro.Tab.Event(
+                column: 1,
+                content: .text
+            )
+            return Song.Section.Line.Tab(lineID: lineID, plain: line, events: [result])
         }
         return tabLines
 
@@ -147,8 +148,8 @@ extension ChordProParser {
             visualColumnID: inout Int,
             lineCharacters: [String.Element],
             usedColumns: inout Int,
-            events: inout [ChordPro.Tab.Event] , 
-            midi: IndexingIterator<Array<Int>>.Element
+            events: inout [ChordPro.Tab.Event],
+            midi: IndexingIterator<[Int]>.Element
         ) {
             // MARK: Fret number
 
@@ -157,7 +158,7 @@ extension ChordProParser {
 
             // MARK: First fret
 
-            while visualColumnIndex < lineCharacters.count && lineCharacters[visualColumnIndex].isNumber {
+            while visualColumnIndex < lineCharacters.count, lineCharacters[visualColumnIndex].isNumber {
                 first.append(lineCharacters[visualColumnIndex])
                 visualColumnIndex += 1
             }
@@ -174,15 +175,15 @@ extension ChordProParser {
             )
 
             events[visualColumnID] = ChordPro.Tab.Event(
-                    column: columnID,
-                    content: .fret(note: firstNote),
-                    startIndex: visualColumnID,
-                    endIndex: visualColumnID + usedColumns
+                column: columnID,
+                content: .fret(note: firstNote),
+                startIndex: visualColumnID,
+                endIndex: visualColumnID + usedColumns
             )
 
             /// Bool if the note has a transition
             var isTransition: Bool {
-                if ((lineCharacters[safe: visualColumnIndex]?.isNumber) == true) {
+                if lineCharacters[safe: visualColumnIndex]?.isNumber == true {
                     return true
                 }
                 let symbol = String(lineCharacters[safe: visualColumnIndex] ?? .init(""))
@@ -196,10 +197,12 @@ extension ChordProParser {
                 var transitionNotes: [Int] = []
                 while isTransition, let symbolCharacter = lineCharacters[safe: visualColumnIndex] {
                     let symbol = String(symbolCharacter)
-                    if let transition = ChordPro.Tab.Transition.Technique.characterDictionary[symbol] {
+                    if let transition = ChordPro.Tab.Transition.Technique.characterDictionary[
+                        symbol]
+                    {
                         visualColumnIndex += 1
                         var second = ""
-                        while visualColumnIndex < lineCharacters.count && lineCharacters[visualColumnIndex].isNumber {
+                        while visualColumnIndex < lineCharacters.count, lineCharacters[visualColumnIndex].isNumber {
                             second.append(lineCharacters[visualColumnIndex])
                             visualColumnIndex += 1
                         }
@@ -211,12 +214,13 @@ extension ChordProParser {
                                 to: secondNote,
                                 by: transition
                             )
-                            events[visualColumnID + usedColumns + second.count] = ChordPro.Tab.Event(
+                            events[visualColumnID + usedColumns + second.count] = ChordPro.Tab
+                                .Event(
                                     column: columnID + usedColumns + second.count,
                                     content: .transition(transition: transition),
                                     startIndex: visualColumnID + usedColumns,
                                     endIndex: visualColumnIndex
-                            )
+                                )
                             from = secondNote
                         }
                         usedColumns = max(

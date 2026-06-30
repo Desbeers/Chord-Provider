@@ -13,7 +13,6 @@ extension ChordPro {
     public enum Grid {
         // Just a placeholder
     }
-
 }
 
 extension ChordPro.Grid {
@@ -31,12 +30,18 @@ extension ChordPro.Grid {
         /// Display a bar line
         public var display: String {
             switch self {
-            case .singleBarLine: "|"
-            case .doubleBarLine: "||"
-            case .endBarLine: "|."
-            case .startRepeatBarLine: "|:"
-            case .stopRepeatBarLine: ":|"
-            case .combinedStopStartRepeatBarLine: ":|:"
+            case .singleBarLine:
+                "|"
+            case .doubleBarLine:
+                "||"
+            case .endBarLine:
+                "|."
+            case .startRepeatBarLine:
+                "|:"
+            case .stopRepeatBarLine:
+                ":|"
+            case .combinedStopStartRepeatBarLine:
+                ":|:"
             }
         }
 
@@ -62,8 +67,10 @@ extension ChordPro.Grid {
         /// Display a strum pattern
         public var display: String {
             switch self {
-            case .strumWithSymbol: "|"
-            case .strumWithoutSymbol: " "
+            case .strumWithSymbol:
+                "|"
+            case .strumWithoutSymbol:
+                " "
             }
         }
 
@@ -85,8 +92,10 @@ extension ChordPro.Grid {
         /// Display a repeating symbol
         public var display: String {
             switch self {
-            case .playLikePreviousMeasure: "%"
-            case .repeatLastTwoMeasures: "&&"
+            case .playLikePreviousMeasure:
+                "%"
+            case .repeatLastTwoMeasures:
+                "&&"
             }
         }
 

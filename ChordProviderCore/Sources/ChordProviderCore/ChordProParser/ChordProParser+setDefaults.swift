@@ -10,7 +10,9 @@ import Foundation
 extension ChordProParser {
 
     /// Set default metadata if not defined in the song file
-    /// - Parameter song: The ``Song``
+    /// - Parameters:
+    ///   - song: The ``Song``
+    ///   - prefixes: The prefixes for song or artist name
     static func setDefaults(song: inout Song, prefixes: [String]) {
         /// Set the sort title  if not set
         if song.metadata.sortTitle.isEmpty {

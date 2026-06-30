@@ -35,7 +35,7 @@ extension ChordProParser {
         )
         processParts(text: comment, line: &line, song: &song)
         /// Check where the comment belongs
-        if currentSection.environment == .none || currentSection.environment == .metadata {
+        if currentSection.environment == .unknown || currentSection.environment == .metadata {
             /// A comment in its own section
             if comment.isEmpty {
                 currentSection.addWarning("The comment is empty", level: .warning)
@@ -48,7 +48,7 @@ extension ChordProParser {
                 song: &song
             )
             /// Set the environment to none again
-            currentSection.environment = .none
+            currentSection.environment = .unknown
         } else {
             /// A comment inside a section
             if let warnings = currentSection.warnings {

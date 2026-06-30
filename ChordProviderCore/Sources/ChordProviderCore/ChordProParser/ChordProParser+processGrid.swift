@@ -23,7 +23,9 @@ extension ChordProParser {
     ) {
         /// Try to get the shape
         var shape = Song.Section.Line.Grid.Shape()
-        if let argument = currentSection.lines.first?.arguments?[.shape], let match = argument.wholeMatch(of: RegexDefinitions.shape) {
+        if let argument = currentSection.lines.first?.arguments?[.shape],
+            let match = argument.wholeMatch(of: RegexDefinitions.shape)
+        {
             if let left = match.1, let value = Int(left) {
                 shape.left = value
             }
@@ -144,11 +146,10 @@ extension ChordProParser {
         /// Add the line"
         currentSection.lines.append(line)
         /// Mark the section as Grid if not set
-        if currentSection.environment == .none {
+        if currentSection.environment == .unknown {
             autoSection(
                 environment: .grid,
-                currentSection: &currentSection,
-                song: &song
+                currentSection: &currentSection
             )
         }
     }
@@ -225,14 +226,15 @@ extension ChordProParser {
         /// Strum symbol
         /// - Note: This will be added like that only when the line has an active strum pattern defined
         if activeStrumPattern != nil,
-            let strum = Chord.Strum.characterDictionary[text] {
+            let strum = Chord.Strum.characterDictionary[text]
+        {
             return .strum(strum)
         }
         /// Repeating symbol
         if let repeating = ChordPro.Grid.RepeatingSymbol.characterDictionary[text] {
             return .repeating(repeating)
         }
-        /// We've been to all the special items in a grid, so eventualy, this must be a chord 
+        /// We've been to all the special items in a grid, so eventualy, this must be a chord
         switch text {
         case ".":
             /// Don't play this chord

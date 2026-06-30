@@ -123,9 +123,7 @@ public enum ChordProParser {
         /// Set default metadata if not defined in the song file
         setDefaults(song: &song, prefixes: settings.sortTokens)
         /// Check if the song has actual content
-        song.hasContent = song.sections.contains {
-            $0.environment.hasContent
-        }
+        song.hasContent = song.sections.contains(where: \.environment.hasContent)
         /// Set some stuff
         let lines = song.sections.flatMap(\.lines)
 
@@ -163,7 +161,7 @@ public enum ChordProParser {
                     .lazy
                     .map(\.content)
                     .compactMap(\.getChord?.definition)
-                    .filter { $0.knownChord }
+                    .filter(\.knownChord)
             )
         }
         /// Sort the used chords

@@ -9,7 +9,6 @@ import Foundation
 import ChordProviderCore
 import CFluidSynth
 
-
 /// Actor-based MIDI player
 public actor ChordProviderMIDI {
 
@@ -55,7 +54,9 @@ public actor ChordProviderMIDI {
     /// Init the MIDI engine
     private init() {
         settings = new_fluid_settings()
-        guard let settings else { return }
+        guard let settings else {
+            return
+        }
 
         /// Louder but safe volume
         fluid_settings_setnum(settings, "synth.gain", 0.9)
@@ -75,7 +76,9 @@ public actor ChordProviderMIDI {
         fluid_settings_setstr(settings, "audio.driver", "pipewire")
 #endif
         synth = new_fluid_synth(settings)
-        guard let synth else { return }
+        guard let synth else {
+            return
+        }
 
         /// Load the driver
         driver = new_fluid_audio_driver(settings, synth)
@@ -109,7 +112,7 @@ extension ChordProviderMIDI {
     public func setSongTempo(_ tempo: Int?) {
         if let tempo {
             snapshot.songTempo = max(20, min(tempo, 300))
-        } else  {
+        } else {
             snapshot.songTempo = nil
         }
     }
@@ -119,7 +122,7 @@ extension ChordProviderMIDI {
     public func setCurrentTempo(_ tempo: Int?) {
         if let tempo {
             snapshot.currentTempo = max(20, min(tempo, 300))
-        } else  {
+        } else {
             snapshot.currentTempo = nil
         }
     }
@@ -134,7 +137,6 @@ extension ChordProviderMIDI {
     }
 }
 
-
 extension ChordProviderMIDI {
 
     /// Set the values for the tabs
@@ -145,7 +147,7 @@ extension ChordProviderMIDI {
 }
 
 extension ChordProviderMIDI {
-    
+
     /// Cancel all playback tasks
     public func cancelPlaybackTasks() {
         stopTab()

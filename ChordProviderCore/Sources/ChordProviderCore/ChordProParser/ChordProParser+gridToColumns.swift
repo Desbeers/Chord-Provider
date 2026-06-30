@@ -79,8 +79,7 @@ extension ChordProParser {
             resolveStrumming(columns: &columns, totalLines: gridLines.count)
         }
         /// The new line for the section
-        let newLine = Song.Section.Line(type: .gridLineColumns, context: .grid, gridColumns: columns)
-        return newLine
+        return Song.Section.Line(type: .gridLineColumns, context: .grid, gridColumns: columns)
     }
 
     /// Analyze the grid
@@ -141,7 +140,7 @@ extension ChordProParser {
         for (columnIndex, column) in columns.enumerated() {
             let dividerColumn = column.cells.flatMap(\.parts).map(\.content).contains(where: \.hasBarLine)
             let marginColumn = column.cells.flatMap(\.parts).map(\.content).contains(where: \.isInMargin)
-            if !dividerColumn && !marginColumn {
+            if !dividerColumn, !marginColumn {
                 analysis.columnsCounter[columnIndex] = analysis.neededParts
             }
         }
@@ -217,19 +216,17 @@ extension ChordProParser {
         ///   - totalParts: The total available parts
         ///   - neededParts: The amount of parts that are needed
         func calculatePartShift(
-                partID: Int,
-                totalParts: Int,
-                neededParts: Int
+            partID: Int,
+            totalParts: Int,
+            neededParts: Int
         ) -> Int {
             /// Check how many parts are missing
             let missingParts = (neededParts - totalParts)
             /// Calculate the offset
             let offset = missingParts / totalParts
-            /// Calculate the shift
-            /// - Note: The first part of measure will never shift
-            let shift = offset == 0 || partID == 0 ? 0 : offset * partID
             /// Return the shift
-            return shift
+            /// - Note: The first part of measure will never shift
+            return offset == 0 || partID == 0 ? 0 : offset * partID
         }
     }
 
@@ -344,7 +341,9 @@ extension ChordProParser {
     /// - Parameter input: The lines
     /// - Returns: Columns
     static private func convertGridToColumns<T>(_ input: [[T]]) -> [T] {
-        guard let first = input.first else { return [] }
+        guard let first = input.first else {
+            return []
+        }
         return (0..<first.count).flatMap { index in
             input.compactMap { $0[safe: index] }
         }

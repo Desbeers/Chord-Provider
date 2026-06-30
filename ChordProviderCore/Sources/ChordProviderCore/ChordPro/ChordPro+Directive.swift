@@ -32,11 +32,17 @@ extension ChordPro {
     // MARK: 'ChordPro' directives
 
     /// The directives Chord Provider supports
-    public enum Directive: Identifiable, Codable, Sendable, Equatable {
+    public enum Directive: Identifiable, Codable, Sendable, Equatable, Comparable {
         /// The ID of the directive
         public var id: String {
             source.long
         }
+        /// Comparable protocol
+        /// - Note: Used for sorting
+        public static func < (lhs: Self, rhs: Self) -> Bool {
+            allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1
+        }
+
         /// Bool if the directive is editable
         public var editable: Bool {
             ChordPro.Directive.editableDirectives.contains(self)
@@ -95,8 +101,6 @@ extension ChordPro {
         case commentBox
         /// This is an alternative to comment
         case highlight
-        /// Specifies the name of the file containing the image
-        case image
 
         /// # Environment directives
 
@@ -137,9 +141,15 @@ extension ChordPro {
         /// This directive indicates the end of the grid
         case endOfGrid
 
+        /// ## Image
 
-        case startOfCustomEnvironment(name : String)
-        case endOfCustomEnvironment(name : String)
+        /// Specifies the name of the file containing the image
+        case image
+
+        /// ## Image
+
+        case startOfCustomEnvironment(name: String)
+        case endOfCustomEnvironment(name: String)
 
         /// # Delegated environment directives
 
@@ -152,8 +162,7 @@ extension ChordPro {
 
         /// ## Textblock
 
-        /// This directive indicates that the lines that follow define a piece of text that is combined into a
-        /// single object that can be placed as an image
+        /// This directive indicates that the lines that follow define a piece of text
         case startOfTextblock
         /// This directive indicates the end of the textblock
         case endOfTextblock
@@ -218,6 +227,8 @@ extension ChordPro {
 }
 
 extension ChordPro.Directive {
+
+    /// All directive cases
     public static let allCases: [ChordPro.Directive] = [
         // MARK: Meta-data directives
         .title, .sortTitle, .subtitle, .artist, .sortArtist, .composer,
@@ -225,7 +236,7 @@ extension ChordPro.Directive {
         .copyright, .duration, .arranger, .lyricist, .meta,
 
         // MARK: Formatting directives
-        .comment, .commentItalic, .commentBox, .highlight, .image,
+        .comment, .commentItalic, .commentBox, .highlight,
 
         // MARK: Environment directives
         .startOfChorus, .endOfChorus, .chorus,
@@ -239,6 +250,7 @@ extension ChordPro.Directive {
         .startOfTextblock, .endOfTextblock,
         .startOfLy, .endOfLy,
         .startOfSvg, .endOfSvg,
+        .image,
 
         // MARK: Chord diagrams
         .defineGuitar, .defineGuitalele, .defineUkulele, .define, .chord,

@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 extension ChordPro.Tab {
 
     public struct Transition: Sendable, Codable, Equatable {
@@ -54,16 +53,23 @@ extension ChordPro.Tab.Transition {
         /// Release a bended note
         case releaseBend
 
-        /// Display 
+        /// Display
         public var display: String {
             switch self {
-            case .slide: "s"
-            case .slideUp: "/"
-            case .slideDown: "\\"
-            case .hammerOn: "h"
-            case .pullOff: "p"
-            case .bendUp: "b"
-            case .releaseBend: "r"
+            case .slide:
+                "s"
+            case .slideUp:
+                "/"
+            case .slideDown:
+                "\\"
+            case .hammerOn:
+                "h"
+            case .pullOff:
+                "p"
+            case .bendUp:
+                "b"
+            case .releaseBend:
+                "r"
             }
         }
 

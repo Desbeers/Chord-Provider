@@ -46,5 +46,4 @@ extension ChordDefinition {
             }
         }
     }
-
 }
