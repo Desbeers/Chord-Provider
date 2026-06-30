@@ -32,9 +32,8 @@ gui: editorsnippets
 	@echo "Build GUI"
 	@swift build \
 		--quiet \
-		
+		--package-path=ChordProviderGnome
 	@echo "GUI build done"
---package-path=ChordProviderGnome
 run: gui
 	@echo "Run GUI"
 	@$(ROOT_DIR)/ChordProviderGnome/.build/debug/ChordProviderGnome
