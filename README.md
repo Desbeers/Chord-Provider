@@ -2,7 +2,7 @@
 
 ## A ChordPro viewer and editor for Linux
 
-![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Images/icon.png)
+![Icon](https://github.com/Desbeers/Chord-Provider/raw/main/Resources/GenerateDocs/Documentation.docc/Images/icon-app.png)
 
 ## ChordPro
 
@@ -16,7 +16,7 @@ It also has an [official reference implementation](https://www.chordpro.org/chor
 
 **Chord Provider** is written in Swift and uses [Adwaita for Swift](https://git.aparoksha.dev/aparoksha/adwaita-swift) for the GUI.
 
-![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Images/screenshot-adwaita-2.png)
+![Chord Provider](https://github.com/Desbeers/Chord-Provider/raw/main/Resources/GenerateDocs/Documentation.docc/Images/card-large-song-edit.png)
 
 There are many ChordPro parsers and editors available, but very few feel truly native on Linux desktops. That is what I wanted to build.
 
