@@ -13,8 +13,21 @@ import ChordProviderCore
 
 extension Views.Welcome {
 
-    // MARK: Get folder content
+    /// Open a sample song from the application bundle
+    /// - Parameters:
+    ///   - sample: The sample song
+    ///   - showEditor: Bool to show the editor
+    func openSample(_ sample: Utils.Samples, showEditor: Bool) {
+        appState.openSample(sample, showEditor: showEditor)
+        setRandomSong()
+    }
 
+    /// Set a random song from the library
+    func setRandomSong() {
+        randomSong = songs.randomElement()
+    }
+
+    // MARK: Get folder content
     /// Get the content of a folder with songs
     func getFolderContent() {
         Idle {
@@ -31,6 +44,8 @@ extension Views.Welcome {
 
                 /// Make sure the tags are unique
                 self.tags = tags.uniqued(by: \.content).sorted()
+
+                setRandomSong()
                 /// The songs are loaded
                 loadingState = songs.isEmpty ? .error : .loaded
             } else {
@@ -85,6 +100,7 @@ extension Views.Welcome {
     ///   - fileURL: The URL of the song
     ///   - metadata: The metadata of the song
     ///   - songTitleOnly: Show only the song title
+    ///   - showTags: Show the optional t
     /// - Returns: A `Body`
     func openButton(
         fileURL: URL,
@@ -99,6 +115,7 @@ extension Views.Welcome {
                     content: appState.scene.originalContent,
                     coreSettings: appState.editor.coreSettings
                 )
+                setRandomSong()
                 appState.scene.showToast.signal()
             }
             .child {

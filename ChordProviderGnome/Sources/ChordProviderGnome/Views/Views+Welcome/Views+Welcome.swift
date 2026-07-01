@@ -25,6 +25,8 @@ extension Views {
         @State var artists: [SongFileUtils.Artist] = []
         /// The song browser
         @State var songs: [Song] = []
+        /// Random song
+        @State var randomSong: Song?
         /// The tags browser
         @State var tags: [String.ElementWrapper] = []
         /// The loading state
@@ -56,11 +58,11 @@ extension Views {
                         .padding(10)
                     VStack {
                         Button("Start with a new song") {
-                            appState.openSample(.newSong, showEditor: true)
+                            openSample(.newSong, showEditor: true)
                         }
                         .padding()
                         Button("Open a sample song") {
-                            appState.openSample(.swingLowSweetChariot, showEditor: true)
+                            openSample(.swingLowSweetChariot, showEditor: true)
                         }
                         .padding()
                         if appState.settings.app.debug {
@@ -72,7 +74,7 @@ extension Views {
                             .style("spacer")
                             .vexpand()
                         Button("Help") {
-                            appState.openSample(.help, showEditor: false)
+                            openSample(.help, showEditor: false)
                         }
                     }
                     .frame(maxWidth: 250)
@@ -117,24 +119,41 @@ extension Views {
                                     appState.scene.openFolder.signal()
                                 }
                                 .tooltip("The folder with you songs")
+                                .padding(.trailing)
+                                if let randomSong, let url = randomSong.settings.fileURL {
+                                    HStack {
+                                        Button(icon: .default(icon: .mediaPlaylistShuffle)) {
+                                            setRandomSong()
+                                        }
+                                        .flat()
+                                        openButton(
+                                            fileURL: url,
+                                            metadata: randomSong.metadata,
+                                            songTitleOnly: true,
+                                            showTags: false
+                                        )
+                                    }
+                                }
                             }
                             .halign(.start)
                             .hexpand()
                         }
-                        if songsFolder != nil, let randomSong = songs.randomElement(), let url = randomSong.settings.fileURL {
-                            HStack {
-                                Symbol(icon: .default(icon: .mediaPlaylistShuffle))
-                                    .padding(4, .trailing)
-                                openButton(
-                                    fileURL: url,
-                                    metadata: randomSong.metadata,
-                                    songTitleOnly: true,
-                                    showTags: false
-                                )
-                            }
-                            .halign(.end)
-                            .padding(.trailing)
-                        }
+                        // if let randomSong, let url = randomSong.settings.fileURL {
+                        //     HStack {
+                        //         Button(icon: .default(icon: .mediaPlaylistShuffle)) {
+                        //             setRandomSong()
+                        //         }
+                        //         .flat()
+                        //         openButton(
+                        //             fileURL: url,
+                        //             metadata: randomSong.metadata,
+                        //             songTitleOnly: true,
+                        //             showTags: false
+                        //         )
+                        //     }
+                        //     .halign(.start)
+                        //     .padding(.leading)
+                        // }
                         Button("Open another song") {
                             appState.scene.openSong.signal()
                         }
@@ -178,7 +197,7 @@ extension Views {
         private func debugSongsMenu() -> Menu {
             var result: [MenuButton] = []
             for sample in Utils.Samples.debugSamples {
-                result.append(MenuButton(sample.rawValue) { appState.openSample(sample, showEditor: true) })
+                result.append(MenuButton(sample.rawValue) { openSample(sample, showEditor: true) })
             }
             return Menu("Debug Songs") { result }
         }
