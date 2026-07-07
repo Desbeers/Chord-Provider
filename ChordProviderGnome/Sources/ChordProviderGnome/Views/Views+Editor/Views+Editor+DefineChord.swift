@@ -23,7 +23,7 @@ extension Views.Editor {
             )
             /// Check if we are called as *edit* the definition instead of a new one
             if let currentDefinition = try? ChordDefinition(
-                definition: appState.editor.currentLine.plain.wrappedValue ?? "",
+                define: appState.editor.currentLine.plain.wrappedValue ?? "",
                 instrument: instrument
             ) {
                 definition = currentDefinition

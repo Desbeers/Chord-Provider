@@ -9,13 +9,23 @@ import Foundation
 
 /// The structure of a chord definition
 public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable, Comparable, CustomStringConvertible {
-
-    // MARK: Init with all known values
-
+    
     /// Init the ``ChordDefinition`` with all known values
+    /// - Parameters:
+    ///   - id: The ID of the ``ChordDefinition``
+    ///   - plain: The plain text for an unknown or text chord
+    ///   - frets: The fret positions of the ``ChordDefinition``
+    ///   - fingers: The finger positions of the ``ChordDefinition``
+    ///   - baseFret: The base fret of the ``ChordDefinition``
+    ///   - root: The root of the ``ChordDefinition``
+    ///   - quality: The quality of the ``ChordDefinition``
+    ///   - slash: The bass note of an optional 'slash' chord
+    ///   - instrument: The instrument of the ``ChordDefinition``
+    ///   - kind: The kind of ``ChordDefinition``
+    ///   - status: The status of the ``ChordDefinition``
     public init(
         id: UUID,
-        plain: String = "",
+        plain: String,
         frets: [Int],
         fingers: [Int],
         baseFret: Chord.BaseFret,
@@ -24,7 +34,7 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
         slash: Chord.Root?,
         instrument: Instrument,
         kind: Kind,
-        status: Status = .unknownStatus
+        status: Status
     ) {
         self.id = id
         self.plain = plain
@@ -38,8 +48,10 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
         self.kind = kind
         self.transposedName = "\(plain.isEmpty ? name : plain)-0"
         if status == .unknownStatus {
-            /// Validate the chord definition
-            self.validationWarnings = self.validate
+            // Validate the chord definition
+            self.validationWarnings = ChordUtils.Analizer.validateChord(chord: self)
+            self.status = Set(validationWarnings ?? []).isDisjoint(with: ChordDefinition.Status.errorStatus)
+            ? .correct : .unknownChord(chord: plain)
         }
     }
 
@@ -54,23 +66,23 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
         lhs.define < rhs.define
     }
 
-    // MARK: Database items
+    // MARK: Basic properties
 
-    /// The ID of the chord
+    /// The ID of the ``ChordDefinition``
     public var id = UUID()
-    /// The fret positions of the chord
+    /// The fret positions of the ``ChordDefinition``
     public var frets: [Int]
-    /// The finger positions of the chord
+    /// The finger positions of the ``ChordDefinition``
     public var fingers: [Int]
-    /// The base fret of the chord
+    /// The base fret of the ``ChordDefinition``
     public var baseFret: Chord.BaseFret
-    /// The root of the chord
+    /// The root of the ``ChordDefinition``
     public var root: Chord.Root
-    /// The quality of the chord
+    /// The quality of the ``ChordDefinition``
     public var quality: Chord.Quality
-    /// The note of an optional 'slash' chord
+    /// The bass note of an optional 'slash' chord
     public var slash: Chord.Root?
-    /// The capo value
+    /// The capo value of the ``ChordDefinition``
     public var capo: Int = 0
 
     // MARK: Transposing
@@ -79,101 +91,27 @@ public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Senda
     public var transposed: Int = 0
     /// The transposed name of the chord
     /// - Note: This will be the original name of the chord as defined in the source with the transpose value added
-    public var transposedName: String = ""
+    var transposedName: String = ""
 
     // MARK: Validation
 
-    /// The kind of chord definition
+    /// The kind of ``ChordDefinition``
     public var kind: Kind
     /// The validation warnings
-    /// - Note: Should be nil for a correct chord definition
-    public var validationWarnings: [Status]?
-    /// The status of the chord definition
-    public var status: Status {
-        Set(validationWarnings ?? []).isDisjoint(with: ChordDefinition.Status.errorStatus)
-            ? .correct : .unknownChord(chord: plain)
-    }
+    /// - Note: Should be nil for a correct ``ChordDefinition``
+    internal(set) public var validationWarnings: [Status]?
+    /// The status of the ``ChordDefinition``
+    public var status: Status = .unknownStatus
 
     // MARK: Strum
 
-    /// The optional strumming of the chord
+    /// The optional strumming of the ``ChordDefinition``
     public var strum: Chord.Strum?
 
     // MARK: Other items
 
-    /// Plain text for an unknown or text chord
+    /// The plain text for an unknown or text chord
     public var plain: String
-    /// The instrument of the chord
+    /// The instrument of the ``ChordDefinition``
     public var instrument: Instrument = Instrument[.guitar]
-    /// Bool if the diagram is mirrored
-    public var mirrored: Bool = false
-
-    // MARK: Calculated values
-
-    /// Bool if the chord is considered 'known' and can have a diagram
-    public var knownChord: Bool {
-        switch self.kind {
-        case .standardChord, .transposedChord, .customChord:
-            self.status == .correct ? true : false
-        default:
-            false
-        }
-    }
-
-    /// The fingers you have to bar for the chord
-    public var barres: [Chord.Barre]? {
-        ChordUtils.fingersToBarres(
-            frets: frets,
-            fingers: fingers
-        )
-    }
-
-    /// The components of the chord definition
-    public var components: [Chord.Component] {
-        ChordUtils.fretsToComponents(
-            root: root,
-            frets: frets,
-            baseFret: baseFret,
-            capo: capo,
-            instrument: instrument
-        )
-    }
-
-    /// The MIDI notes of the chord definition
-    public var midiNotes: [Int] {
-        components.compactMap { value in
-            if let midi = value.midi {
-                return midi
-            }
-            return nil
-        }
-    }
-
-    /// Bool if the chord is defined but should not be played
-    public var isSilent: Bool {
-        strum == .noStrum
-    }
-}
-
-extension ChordDefinition {
-
-    /// Coding keys
-    enum CodingKeys: String, CodingKey {
-        // case id
-        case frets
-        case fingers
-        case baseFret
-        case root
-        case quality
-        case slash
-        case capo
-        case transposed
-        case transposedName
-        case kind
-        case validationWarnings
-        case strum
-        case plain
-        case instrument
-        case mirrored
-    }
 }

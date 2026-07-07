@@ -63,7 +63,7 @@ extension ChordProParser {
             }
             currentSection.lines.insert(line, at: lastLineIndex + 1)
         } else {
-            /// Just add the closing line
+            /// The closing line
             var line = Song.Section.Line(
                 sourceLineNumber: song.totalLines,
                 source: arguments[.source] ?? "No source given, this is an error",
@@ -72,11 +72,9 @@ extension ChordProParser {
                 type: .environmentDirective,
                 context: currentSection.environment
             )
-            /// Add optional warnings
-            if let warnings = currentSection.warnings {
-                for warning in warnings {
-                    line.addWarning(warning)
-                }
+            // Add optional warnings
+            for warning in currentSection.warnings {
+                line.addWarning(warning)
             }
             if directive != closingDirective {
                 line.addWarning(
@@ -87,10 +85,10 @@ extension ChordProParser {
             currentSection.lines.append(line)
         }
 
-        /// Clear any warnings in the section; they should be handled now
+        // Clear any warnings in the section; they should be handled now
         currentSection.resetWarnings()
 
-        /// Close the current section
+        // Close the current section
         song.sections.append(currentSection)
         currentSection = Song.Section(id: song.sections.count + 1)
     }

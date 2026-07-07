@@ -60,7 +60,7 @@ extension AppState {
             return subtitle.joined(separator: " · ")
     }
 
-    /// The title in the Gnome overview
+    /// The title in the GNOME overview
     var overviewTitle: String {
         let appName = "Chord Provider"
         let fileName = editor.coreSettings.fileURL?.deletingPathExtension().lastPathComponent

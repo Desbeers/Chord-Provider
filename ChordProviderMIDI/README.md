@@ -6,4 +6,4 @@ It is using FluidSynth:
 
 https://github.com/fluidsynth/fluidsynth
 
-I use it to play grids, tabs and chords in My ChordProvider for Gnome application.
+I use it to play grids, tabs and chords in my Chord Provider for GNOME application.

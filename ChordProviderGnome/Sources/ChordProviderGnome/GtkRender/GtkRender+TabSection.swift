@@ -58,17 +58,13 @@ extension GtkRender {
                     ForEach(section.lines) { line in
                         switch line.type {
                         case .tabLineColumns:
-                            if let lines = line.tabLines {
-                                Lines(
-                                    lines: lines,
-                                    playingTabNotes: playTabNotes,
-                                    currentColumnID: currentPartID,
-                                    zoom: appState.settings.theme.zoom,
-                                    color: appState.pangoAccentColor
-                                )
-                            } else {
-                                Text("The tab is empty")
-                            }
+                            Lines(
+                                lines: line.tabLines,
+                                playingTabNotes: playTabNotes,
+                                currentColumnID: currentPartID,
+                                zoom: appState.settings.theme.zoom,
+                                color: appState.pangoAccentColor
+                            )
                         case .emptyLine:
                             Views.Empty()
                         case .comment:

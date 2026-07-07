@@ -101,7 +101,7 @@ extension Views.Main.Chords {
                 HeaderBar.empty()
                     .headerBarTitle {
                         WindowTitle(
-                            subtitle: selectedChord.quality.intervalsLabel,
+                            subtitle: selectedChord.displayIntervals,
                             title: "Chord Variations for '\(selectedChord.display)'"
                         )
                     }

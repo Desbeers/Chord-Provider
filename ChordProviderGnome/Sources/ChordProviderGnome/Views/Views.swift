@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// All the `Views` for **Chord provider**
+/// All the `Views` for **Chord Provider**
 enum Views {
     // Just a placeholder
 }

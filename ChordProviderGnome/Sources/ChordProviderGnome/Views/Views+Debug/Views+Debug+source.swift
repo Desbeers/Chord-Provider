@@ -22,7 +22,7 @@ extension Views.Debug {
                     VStack {
                         HStack {
                             Text("\(line.id)")
-                                .style(line.source.warnings == nil ? .noStyle : .bold)
+                                .style(line.source.warnings.isEmpty ? .noStyle : .bold)
                                 .frame(minWidth: 40)
                                 .halign(.end)
                             sourceView(line.source.sourceParsed, language: .chordpro)
@@ -30,8 +30,8 @@ extension Views.Debug {
                         }
                         .valign(.end)
                         VStack(spacing: 0) {
-                            if let warnings = line.source.warnings {
-                                ForEach(Array(warnings)) { warning in
+                            if !line.source.warnings.isEmpty {
+                                ForEach(Array(line.source.warnings)) { warning in
                                     Text(warning.message.escapeSpecialCharacters)
                                         .useMarkup()
                                         .logLevelStyle(warning.level)

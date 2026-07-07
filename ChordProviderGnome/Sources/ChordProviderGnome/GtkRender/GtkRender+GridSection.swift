@@ -58,16 +58,12 @@ extension GtkRender {
                     ForEach(section.lines) { line in
                         switch line.type {
                         case .gridLineColumns:
-                            if let columns: [Song.Section.Line.Grid] = line.gridColumns {
-                                Columns(
-                                    columns: columns,
-                                    playingGridChords: playGridChords,
-                                    currentPartID: currentPartID,
-                                    appState: appState
-                                )
-                            } else {
-                                Text("The grid is empty")
-                            }
+                            Columns(
+                                columns: line.gridColumns,
+                                playingGridChords: playGridChords,
+                                currentPartID: currentPartID,
+                                appState: appState
+                            )
                         case .emptyLine:
                             Views.Empty()
                         case .comment:

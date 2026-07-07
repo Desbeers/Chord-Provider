@@ -13,16 +13,16 @@ extension ChordProParser {
 
     /// Process a chord
     /// - Parameters:
-    ///   - chord: The `chord` as String
+    ///   - chord: The name of the chord as String
     ///   - line: The current line of the section
     ///   - song: The whole ``Song``
-    /// - Returns: The processed `chord` as String
+    /// - Returns: The processed chord name as ``ChordDefinition``
     static func processChord(
         chord: String,
         line: inout Song.Section.Line,
         song: inout Song
     ) -> ChordDefinition {
-        /// Check if this chord is already parsed
+        // Check if this chord is already parsed
         if let match = song.chords
             .last(where: { $0.transposedName == "\(chord)-\(song.transposing)" }) {
             return match

@@ -9,7 +9,7 @@ import Foundation
 
 extension ChordDefinition {
 
-    /// The kind of chord definition
+    /// The kind of ``ChordDefinition``
     public enum Kind: String, Sendable, Codable, CustomStringConvertible {
 
         // MARK: Definition Kinds

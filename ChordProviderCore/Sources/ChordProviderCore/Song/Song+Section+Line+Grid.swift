@@ -40,10 +40,6 @@ extension Song.Section.Line {
     /// - Parameter grid: The line with `grid` to add
     /// - Note: grids are *optionals* so we can not just 'insert' it
     mutating func addGrid(_ grid: Grid) {
-        if self.gridsLine == nil {
-            self.gridsLine = [grid]
-        } else {
-            self.gridsLine?.append(grid)
-        }
+        self.gridsLine.append(grid)
     }
 }

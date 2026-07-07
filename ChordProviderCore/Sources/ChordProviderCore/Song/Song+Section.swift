@@ -60,22 +60,20 @@ extension Song {
             }
             return nil
         }
-        /// Optional warnings for this section
-        private(set) public var warnings: [LogUtils.LogMessage]?
-        /// - Note: warnings are *optionals* so we can not just 'insert' it
+        /// Optional warnings for this section, can be empty
+        private(set) public var warnings: [LogUtils.LogMessage] = []
+
+        /// Add a warning
+        /// - Parameters:
+        ///   - warning: The warning as Sting
+        ///   - level: The level of te warning
         mutating func addWarning(_ warning: String, level: LogUtils.Level) {
-
             let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
-
-            if self.warnings == nil {
-                self.warnings = [warning]
-            } else {
-                self.warnings?.append(warning)
-            }
+            warnings.append(warning)
         }
         /// Reset all the warnings
         mutating func resetWarnings() {
-            self.warnings = nil
+            self.warnings = []
         }
     }
 }

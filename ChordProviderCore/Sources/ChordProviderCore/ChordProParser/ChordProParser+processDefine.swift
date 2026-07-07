@@ -64,7 +64,7 @@ extension ChordProParser {
         let label = arguments[.plain] ?? ""
         do {
             var definedChord = try ChordDefinition(
-                definition: label,
+                define: label,
                 instrument: song.settings.instrument
             )
             if let warnings = definedChord.validationWarnings {

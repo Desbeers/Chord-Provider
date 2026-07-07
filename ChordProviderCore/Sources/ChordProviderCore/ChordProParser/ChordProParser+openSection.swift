@@ -24,8 +24,8 @@ extension ChordProParser {
         song: inout Song
     ) {
 
-        /// Close the current section if it has lines and give it a warning if the environment is not auto-created
-        /// - Note: a new section will be created in that function
+        // Close the current section if it has lines and give it a warning if the environment is not auto-created
+        // - Note: a new section will be created in that function
         if !currentSection.lines.isEmpty {
             closeSection(
                 directive: currentSection.environment.directives.close,
@@ -35,7 +35,7 @@ extension ChordProParser {
                 warning: currentSection.autoCreated
             )
         }
-        /// Update the current section
+        // Update the current section
         if case let .startOfCustomEnvironment(name) = directive,
         let name = name.split(separator: "_", maxSplits: 2).last, !name.isEmpty {
             currentSection.environment = .custom(name: String(name))
@@ -44,23 +44,23 @@ extension ChordProParser {
         }
         currentSection.tempo = song.metadata.tempo
 
-        /// Remember the longest label for an environment
-        /// - Note: Used in PDF output to calculate label offset
+        // Remember the longest label for an environment
+        // - Note: Used in PDF output to calculate label offset
         if ChordPro.Directive.environmentDirectives.contains(directive) {
             let label = arguments[.label] ?? arguments[.plain] ?? directive.details.environment.label
             setLongestLabel(label: label, song: &song)
         }
 
-        /// Set arguments
+        /// The directive arguments
         var arguments = arguments
 
-        /// Set the source
+        /// The source of the directive
         let source = arguments.removeValue(forKey: .source)
 
-        /// Make a plain argument just plain
+        /// The plain argument
         let plain = arguments.removeValue(forKey: .plain)
 
-        /// Add the single line
+        /// The resulting line
         var result = Song.Section.Line()
         if let line {
             result = line
@@ -77,21 +77,19 @@ extension ChordProParser {
             if source == nil {
                 result.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
             }
-            /// Calculate the source
+            // Calculate the source
             result.calculateSource()
         }
 
-        /// Add optional warnings
-        if let warnings = currentSection.warnings {
-            for warning in warnings {
-                result.addWarning(warning, level: warning.level)
-            }
+        // Add optional warnings
+        for warning in currentSection.warnings {
+            result.addWarning(warning, level: warning.level)
         }
 
-        /// Append the line
+        // Append the line
         currentSection.lines.append(result)
 
-        /// Reset the warnings, there are handled now
+        // Reset the warnings, there are handled now
         currentSection.resetWarnings()
     }
 }

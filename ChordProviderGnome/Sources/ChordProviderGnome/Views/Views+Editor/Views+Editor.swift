@@ -45,7 +45,7 @@ extension Views {
             .card()
             .padding()
             .dialog(visible: $appState.editor.showEditDirectiveDialog) {
-                let errors = appState.editor.currentLine.warnings?.compactMap(\.level).contains { $0 == .error } ?? false
+                let errors = appState.editor.currentLine.warnings.compactMap(\.level).contains { $0 == .error }
                 if errors {
                     errorMessage
                 } else {
@@ -61,8 +61,8 @@ extension Views {
         /// The `View` for the error message
         var errorMessage: AnyView {
             VStack(spacing: 10) {
-                let error = appState.editor.currentLine.warnings?.compactMap(\.message).joined(separator: "\n")
-                Views.ErrorMessage(error: ChordProviderError.directiveNotEditable(error: error ?? "Unnown Error"))
+                let error = appState.editor.currentLine.warnings.compactMap(\.message).joined(separator: "\n")
+                Views.ErrorMessage(error: ChordProviderError.directiveNotEditable(error: error))
                 Button("OK") {
                 appState.editor.showEditDirectiveDialog = false
                 }
@@ -87,15 +87,10 @@ extension Views {
                     .halign(.start)
                     .padding()
                 ScrollView {
-                    if let warnings = appState.editor.currentLine.warnings {
-                        Text(warnings.map(\.message).joined(separator: "\n"))
-                            .useMarkup()
-                            .halign(.start)
-                            .hexpand()
-                    } else {
-                        Text(" ")
-                            .hexpand()
-                    }
+                    Text(appState.editor.currentLine.warnings.map(\.message).joined(separator: "\n"))
+                        .useMarkup()
+                        .halign(.start)
+                        .hexpand()
                 }
                 Button("Cleanup") {
                     confirmCleanup.toggle()

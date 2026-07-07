@@ -9,7 +9,7 @@ import Foundation
 
 extension ChordDefinition {
 
-    /// Create a ``ChordDefinition`` structure from a **ChordPro** *{define}* directive
+    /// Init a Chord Definition structure from a **ChordPro** *{define}* directive
     ///
     /// *{define}* example:
     /// ```swift
@@ -18,11 +18,14 @@ extension ChordDefinition {
     /// For more information about the *{define}* directive,
     /// see [Directives: define](https://www.chordpro.org/chordpro/directives-define/)
     ///
-    /// - Parameter define: ChordPro string definition of the chord
-    /// - Parameter instrument: The ``Instrument`` to use
+    /// - Parameter define: The **ChordPro** definition of the chord
+    /// - Parameter instrument: The ``Instrument`` for this definition
+    ///
     /// - Throws: An ``ChordDefinition/Status/unknownChord(chord:)`` error when the string cannot be parsed
-    /// - Returns: A  ``ChordDefinition`` structure
-    static func define(from define: String, instrument: Instrument) throws(ChordDefinition.Status) -> ChordDefinition {
+    public init(
+        define: String,
+        instrument: Instrument,
+    ) throws(ChordDefinition.Status) {     
         if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
             var frets: [Int] = []
             var fingers: [Int] = []
@@ -60,8 +63,9 @@ extension ChordDefinition {
             if fingers.isEmpty {
                 fingers = Array(repeating: 0, count: instrument.strings.count)
             }
-            return ChordDefinition(
+            self = ChordDefinition(
                 id: UUID(),
+                plain: "",
                 frets: frets,
                 fingers: fingers,
                 baseFret: baseFret,
@@ -72,11 +76,12 @@ extension ChordDefinition {
                 kind: .customChord,
                 status: .unknownStatus
             )
+        } else {
+            throw .unknownChord(chord: "?")
         }
-        throw .unknownChord(chord: "?")
     }
 
-    /// Create a ``ChordDefinition`` structure from a **ChordPro** JSON chord
+    /// Init a Chord Definition structure from a **ChordPro** JSON chord
     ///
     /// *JSON* example:
     /// ```json
@@ -89,14 +94,14 @@ extension ChordDefinition {
     ///  ```
     ///
     /// - Parameters:
-    ///   - chord: A **ChordPro** JSON chord
-    ///   - instrument: The ``Instrument`` to use
+    ///   - chord: A **ChordPro** JSON chord definition
+    ///   - instrument: The ``Instrument`` for this definition
+    ///
     /// - Throws: An error when the root and quality is not found
-    /// - Returns: A  ``ChordDefinition`` structure
     ///
     /// - Note: The chords in the  **Chord Provider** database are in the same
     ///   JSON format as used in the official **ChordPro** implementation.
-    static func define(from chord: ChordPro.Instrument.Chord, instrument: Instrument) throws(ChordDefinition.Status) -> ChordDefinition {
+    public init(chord: ChordPro.Instrument.Chord, instrument: Instrument) throws(ChordDefinition.Status) {
         let elements = ChordUtils.Analizer.findChordElements(chord: chord.name)
         guard
             let root = elements.root,
@@ -104,12 +109,13 @@ extension ChordDefinition {
         else {
             throw ChordDefinition.Status.unknownChord(chord: chord.name)
         }
-        /// Throw an error if the defined frets does not match the instrument
-        let positions = instrument.strings.count
-        if chord.frets?.count ?? 0 < positions {
+        /// The amount of strings for the instrument 
+        let instrumentStrings = instrument.strings.count
+        // Throw an error if the defined frets does not match the instrument
+        if chord.frets?.count ?? 0 < instrumentStrings {
             throw ChordDefinition.Status.notEnoughFrets
         }
-        if chord.frets?.count ?? 0 > positions {
+        if chord.frets?.count ?? 0 > instrumentStrings {
             throw ChordDefinition.Status.tooManyFrets
         }
 
@@ -118,8 +124,9 @@ extension ChordDefinition {
         while fingers.count < instrument.strings.count {
             fingers.append(0)
         }
-        return ChordDefinition(
+        self = ChordDefinition(
             id: UUID(),
+            plain: "",
             frets: chord.frets ?? [],
             fingers: fingers,
             baseFret: Chord.BaseFret(rawValue: chord.base ?? 1) ?? .one,

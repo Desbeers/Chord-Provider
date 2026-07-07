@@ -9,8 +9,6 @@ import Foundation
 
 extension ChordDefinition {
 
-    // MARK: The status of a `ChordDefinition`
-
     /// The status of the ``ChordDefinition``
     public enum Status: LocalizedError, Codable, Hashable, Comparable {
 

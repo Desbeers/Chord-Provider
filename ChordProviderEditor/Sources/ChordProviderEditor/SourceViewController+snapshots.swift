@@ -39,8 +39,8 @@ extension SourceViewController {
                 /// Get all lines, removing anything added by the parser
                 let lines = values.song.allLines.filter { $0.sourceLineNumber > 0 }
                 values.songLines = lines
-                for line in lines.filter({ $0.warnings != nil }) {
-                    let level = line.warnings?.compactMap(\.level).min() ?? .info
+                for line in lines.filter({ line in !line.warnings.isEmpty }) {
+                    let level = line.warnings.compactMap(\.level).min() ?? .info
                     addMark(
                         lineNumber: line.sourceLineNumber,
                         category: level.rawValue

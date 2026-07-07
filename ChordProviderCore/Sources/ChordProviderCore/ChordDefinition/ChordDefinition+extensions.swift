@@ -9,8 +9,13 @@ import Foundation
 
 extension ChordDefinition {
 
-    /// The name of the chord
+    /// The calculated name of the ``ChordDefinition``
+    ///
     /// - Returns: A string with the name in plain text
+    /// 
+    /// - Note: This can be different from the name as set in the source file
+    ///         because this value is contructed from the ``root``, ``quality``
+    ///         and ``slash`` enum values..
     public var name: String {
         var name = root.rawValue + quality.rawValue
         if let slash {
@@ -19,62 +24,76 @@ extension ChordDefinition {
         return name
     }
 
-    /// Format the name of the chord for display
-    /// - Returns: A formatted string with the name of the chord
-    public var display: String {
-        if root == .unknown || quality == .unknown {
-            /// We don't know anything about this chord; so use the plain name
-            return plain
+    /// Bool if the ``ChordDefinition`` is considered 'known' and can have a diagram
+    public var knownChord: Bool {
+        switch self.kind {
+        case .standardChord, .transposedChord, .customChord:
+            self.status == .correct ? true : false
+        default:
+            false
         }
-        var name = root.display + quality.display
-        if let slash {
-            name += "/\(slash.display)"
-        }
-        return name
     }
 
-    /// Format the name of the chord for display with optional sharp and flat combined
-    /// - Returns: A formatted string with the name of the chord
-    public var displayNaturalOrAccidentals: String {
-        var name: String = root.display
-        if root == .unknown || quality == .unknown {
-            /// We don't know anything about this chord; so use the plain name
-            return plain
-        }
-        if let shadow = root.swapSharpAndFlat {
-            name += shadow.display
-            if quality != .major {
-                name += "\u{200A}"
+    /// The fingers you have to bar for the ``ChordDefinition``
+    public var barres: [Chord.Barre]? {
+        ChordUtils.fingersToBarres(
+            frets: frets,
+            fingers: fingers
+        )
+    }
+
+    /// The components of the ``ChordDefinition``
+    public var components: [Chord.Component] {
+        ChordUtils.fretsToComponents(
+            root: root,
+            frets: frets,
+            baseFret: baseFret,
+            capo: capo,
+            instrument: instrument
+        )
+    }
+
+    /// The MIDI notes of the ``ChordDefinition``
+    public var midiNotes: [Int] {
+        components.compactMap { value in
+            if let midi = value.midi {
+                return midi
             }
+            return nil
         }
-        name += quality.display
-        if let slash {
-            name += "/\(slash.display)"
-        }
-        return name
     }
-}
-
-extension ChordDefinition {
-
-    /// Try to validate a ``ChordDefinition``
-    public var validate: [ChordDefinition.Status]? {
-        ChordUtils.Analizer.validateChord(chord: self)
-    }
-}
-
-extension ChordDefinition {
 
     /// Get all possible note combinations for a ``ChordDefinition``
+    ///
     /// - Returns: An array with ``Chord/Note`` arrays
-    public var noteCombinations: [[Chord.Note]] {
+    var noteCombinations: [[Chord.Note]] {
         ChordUtils.Analizer.noteCombinations(chord: self)
     }
-}
 
-extension ChordDefinition {
+    /// All required and optional notes for a chord
+    public var notes: [String] {
+        if let elements = self.noteCombinations.first {
+            return elements.map(\.note.display)
+        }
+        // This should not happen
+        return []
+    }
 
-    /// Convert a ``ChordDefinition`` into a **ChordPro** `{define}` directive
+    /// Bool if a finger position is correct
+    ///
+    /// - Parameter string: The string number, from *low* to *high*
+    ///
+    /// - Returns: Bool if the finger position is correct
+    public func correctFinger(string: Int) -> Bool {
+        if let finger = fingers[safe: string], let fret = frets[safe: string] {
+            return finger == 0 && (fret == -1 || fret == 0 ) ? true : finger > 0 && fret > 0 ? true : false
+        }
+        return true
+    }
+
+    /// Convert the ``ChordDefinition`` into a **ChordPro** `{define}` directive
+    ///
+    /// - Returns: The **ChordPro** `{define}` directive for the ``ChordDefinition``
     public var define: String {
         var define = root.rawValue
         define += quality.rawValue
@@ -93,30 +112,23 @@ extension ChordDefinition {
         }
         return "{define-\(instrument.kind.rawValue): \(define)}"
     }
-}
 
-extension ChordDefinition {
-
-    /// Mirror the definition for a left-handed chord
+    /// Mirror the ``ChordDefinition`` for a left-handed diagram
     mutating public func mirrorChordDiagram() {
         self.frets = self.frets.reversed()
         self.fingers = self.fingers.reversed()
-        self.mirrored = true
     }
-
-    /// Mirror the definition for a left-handed chord
-    /// - Returns: A mirrored ``ChordDefinition``
-    public func mirroredDiagram() -> ChordDefinition {
-        var copy = self
-        copy.mirrorChordDiagram()
-        return copy
-    }
-}
-
-extension ChordDefinition {
 
     /// Find the enharmonic equivalent of an accidental chord
+    /// 
+    /// - Examples:
+    /// ```
+    /// F# -> Gb
+    /// Eb -> D#
+    /// ```
+    ///
     /// - Parameter chordDefinitions: All known chord definitions
+    ///
     /// - Returns: The enharmonic equivalent, if found
     public func enharmonicEquivalent(in chordDefinitions: [ChordDefinition]) -> ChordDefinition? {
         if root.accidental != .natural, let equivalentRoot = root.swapSharpAndFlat {

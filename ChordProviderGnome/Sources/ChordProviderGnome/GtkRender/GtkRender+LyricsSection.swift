@@ -26,9 +26,9 @@ extension GtkRender {
                         if appState.editor.coreSettings.lyricsOnly {
                             Text(line.plain ?? "")
                                 .halign(.start)
-                        } else if let parts = line.parts {
+                        } else {
                             PartsView(
-                                parts: parts,
+                                parts: line.parts,
                                 lineHasLyrics: line.hasLyrics,
                                 lineHasChords: line.hasChords,
                                 appState: appState

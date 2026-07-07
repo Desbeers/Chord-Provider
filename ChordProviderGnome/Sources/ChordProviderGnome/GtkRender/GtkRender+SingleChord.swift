@@ -45,7 +45,7 @@ extension GtkRender {
                         .useMarkup()
                         .highlight(highlight, color: appState.pangoAccentColor)
                         .zoom(appState.settings.theme.zoom)
-                        .tooltip(chord.toolTip)
+                        .tooltip(chord.displayToolTip)
                         .style(chord.style)
                         .style(.chord)
                         .id(chord.description + highlight.description)

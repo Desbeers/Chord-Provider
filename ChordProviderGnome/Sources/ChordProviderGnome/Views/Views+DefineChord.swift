@@ -82,6 +82,7 @@ extension Views {
         var getDefinition: ChordDefinition {
             ChordDefinition(
                 id: definition.id,
+                plain: "",
                 frets: definition.frets,
                 fingers: definition.fingers,
                 baseFret: definition.baseFret,
@@ -162,7 +163,7 @@ extension Views {
                             width: 160,
                             coreSettings: coreSettings
                         )
-                        Text(definition.notesLabel)
+                        Text(definition.displayAllNotes)
                             .useMarkup()
                         if let warnings = definition.validationWarnings {
                             ScrollView {
@@ -235,7 +236,7 @@ extension Views {
                 HeaderBar.empty()
                     .headerBarTitle {
                         WindowTitle(
-                            subtitle: definition.quality.intervalsLabel,
+                            subtitle: definition.displayIntervals,
                             title: mergeSharpAndFlat ? definition.displayNaturalOrAccidentals : definition.display
                         )
                     }

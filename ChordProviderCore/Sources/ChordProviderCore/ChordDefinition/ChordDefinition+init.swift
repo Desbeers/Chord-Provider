@@ -9,35 +9,15 @@ import Foundation
 
 extension ChordDefinition {
 
-    // MARK: Init with a **ChordPro** definition
-
-    /// Init the ``ChordDefinition`` with a **ChordPro** definition
-    /// - Parameters:
-    ///   - definition: The **ChordPro** definition
-    ///   - instrument: The ``Instrument`` for this definition
-    public init(
-        definition: String,
-        instrument: Instrument,
-    ) throws {
-        /// Parse the chord definition
-        do {
-            self = try ChordDefinition.define(from: definition, instrument: instrument)
-        } catch {
-            throw error
-        }
-    }
-
-    // MARK: Init with a name
-
-    /// Init the ``ChordDefinition`` with the name of a chord
+    /// Init a Chord Definition with the name of a chord as plain text
     ///
     /// - Parameters:
     ///   - name: The name of the chord, e.g 'Am7'
     ///   - chords: All the known chords
     public init?(name: String, chords: [ChordDefinition]) {
-        /// Parse the chord name
+        // The elements of the chord definition
         let elements = ChordUtils.Analizer.findChordElements(chord: name)
-        /// See if we can find it
+        // See if we can find it in the list of known chords
         guard
             let root = elements.root,
             let quality = elements.quality,
@@ -45,28 +25,11 @@ extension ChordDefinition {
         else {
             return nil
         }
-        /// Set the properties
+        // Set the properties of the chord definition
         self = chord
     }
 
-    // MARK: Init with a ChordPro JSON chord
-
-    /// Init the ``ChordDefinition`` with a  **ChordPro** JSON chord
-    ///
-    /// - Parameters:
-    ///   - chord: The **ChordPro** JSON chord
-    ///   - instrument: The ``Instrument`` for this definition
-    public init(chord: ChordPro.Instrument.Chord, instrument: Instrument) throws(ChordDefinition.Status) {
-        do {
-            self = try ChordDefinition.define(from: chord, instrument: instrument)
-        } catch {
-            throw error
-        }
-    }
-
-    // MARK: Init with text
-
-    /// Init the ``ChordDefinition`` with a text instead of a chord
+    /// Init a Chord Definition with a text instead of a chord
     ///
     /// - Parameters:
     ///   - text: The name of the text chord
@@ -94,13 +57,14 @@ extension ChordDefinition {
         )
     }
 
-    // MARK: Init an empty C chord for the diagram editor
-
-    /// Init with an empty `C`
+    /// Init a Chord Definition with an empty C chord for the chord diagram editor
     /// - Parameter instrument: The ``Instrument`` for this definition
+    /// 
+    /// This is for the chord diagram editor
     public init(instrument: Instrument) {
         self.init(
             id: UUID(),
+            plain: "",
             frets: Array(repeating: -1, count: instrument.strings.count),
             fingers: Array(repeating: 0, count: instrument.strings.count),
             baseFret: .one,
@@ -113,12 +77,12 @@ extension ChordDefinition {
         )
     }
 
-    /// Init with a `C`
+    /// Init a Chord Definition with a `C` chord
     /// - Parameters:
     ///   - instrument: The ``Instrument`` for this definition
     ///   - chords: All the known chords
     ///
-    /// If not found in the chords database, it will init an *empty* `C`
+    /// If not found in the chords database, it will init an *empty* `C` chord
     public init(instrument: Instrument, chords: [ChordDefinition]) {
         if let chord = chords.matching(root: .c).matching(quality: .major).matching(slash: nil).matching(baseFret: .one).first {
             self = chord

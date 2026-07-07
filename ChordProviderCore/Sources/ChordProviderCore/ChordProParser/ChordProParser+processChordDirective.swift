@@ -36,7 +36,7 @@ extension ChordProParser {
         /// Try to find the definition
         var chordDefinition: ChordDefinition?
         do {
-            chordDefinition = try ChordDefinition(definition: chord, instrument: song.settings.instrument)
+            chordDefinition = try ChordDefinition(define: chord, instrument: song.settings.instrument)
             if let chordDefinition, let warnings = chordDefinition.validationWarnings {
                 for warning in warnings {
                     currentSection.addWarning(warning.description, level: .notice)
@@ -57,12 +57,12 @@ extension ChordProParser {
                 let sectionID = song.sections.lastIndex(where: { $0.lines.last?.parts != nil }),
                 var lastLine = song.sections[sectionID].lines.last {
                 let part = Song.Section.Line.Part(
-                    id: (lastLine.parts?.count ?? 0) + 1,
+                    id: lastLine.parts.count + 1,
                     content: .chord(definition: chordDefinition, textPart: .init(), beatItems: 1)
                 )
-                lastLine.parts?.append(part)
+                lastLine.parts.append(part)
                 song.sections[sectionID].lines = [lastLine]
-                line.parts = nil
+                line.parts = []
             }
             if chord.isEmpty {
                 currentSection.addWarning("The chord is empty", level: .error)
@@ -77,17 +77,15 @@ extension ChordProParser {
             /// Set the environment to unknown again
             currentSection.environment = .unknown
         } else {
-            /// A comment inside a section
-            if let warnings = currentSection.warnings {
-                for warning in warnings {
-                    line.addWarning(warning, level: warning.level)
-                }
+            // A chord inside a section, add optional warnings
+            for warning in currentSection.warnings {
+                line.addWarning(warning, level: warning.level)
             }
             if chord.isEmpty {
-                line.addWarning("The comment is empty")
+                line.addWarning("The chord is empty", level: .warning)
             }
             currentSection.lines.append(line)
-            /// Clear any warnings
+            // Clear any warnings
             currentSection.resetWarnings()
         }
     }

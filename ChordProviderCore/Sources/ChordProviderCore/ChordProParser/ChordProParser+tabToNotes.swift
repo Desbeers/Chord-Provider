@@ -55,8 +55,7 @@ extension ChordProParser {
         newSection.tabEvents = {
             var result: [Song.Section.Line.Tab] = []
             for line in newSection.lines {
-                guard let tabs = line.tabLines else { continue }
-                result.append(contentsOf: tabs)
+                result.append(contentsOf: line.tabLines)
             }
             return result
         }()

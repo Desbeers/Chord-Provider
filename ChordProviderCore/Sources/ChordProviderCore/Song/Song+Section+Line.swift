@@ -22,11 +22,11 @@ extension Song.Section {
             arguments: ChordProParser.DirectiveArguments? = nil,
             type: ChordPro.LineType = .unknown,
             context: ChordPro.Environment = .unknown,
-            warnings: [LogUtils.LogMessage]? = nil,
-            parts: [Song.Section.Line.Part]? = nil,
-            gridsLine: [Song.Section.Line.Grid]? = nil,
-            gridColumns: [Song.Section.Line.Grid]? = nil,
-            tabLines: [Song.Section.Line.Tab]? = nil,
+            warnings: [LogUtils.LogMessage] = [],
+            parts: [Song.Section.Line.Part] = [],
+            gridsLine: [Song.Section.Line.Grid] = [],
+            gridColumns: [Song.Section.Line.Grid] = [],
+            tabLines: [Song.Section.Line.Tab] = [],
             plain: String? = nil
         ) {
             self.sourceLineNumber = sourceLineNumber
@@ -69,19 +69,19 @@ extension Song.Section {
         public var context: ChordPro.Environment = .unknown
         /// The optional parts in the line
         /// - Note: A part mostly consist of some text with a chord
-        public var parts: [Part]?
+        public var parts: [Part] = []
         /// The  optional grids in the line
         /// - Note: This will be processed by the parser at the end and added to *columns*
-        public var gridsLine: [Grid]?
+        public var gridsLine: [Grid]
         /// The  optional grid columns in the line
-        public var gridColumns: [Grid]?
+        public var gridColumns: [Grid]
         /// The  optional tab lines
-        public var tabLines: [Tab]?
+        public var tabLines: [Tab]
         /// A plain text version of the line
         /// - Note: The lyrics of a line, a comment or a tab for example
         public var plain: String?
-        /// Optional warnings about the content of the line
-        public var warnings: [LogUtils.LogMessage]?
+        /// Optional warnings about the content of the line, can be empty
+        public var warnings: [LogUtils.LogMessage]
 
         // MARK: Calculated values
 
@@ -97,9 +97,6 @@ extension Song.Section {
             var result: [String] = []
             var currentLine = ""
             var currentLength = 0
-            guard let parts else {
-                return []
-            }
             for part in parts {
                 switch part.content {
                 case .lyric(let lyric):
@@ -165,13 +162,13 @@ extension Song.Section {
 
         /// Bool if the line has lyrics
         public var hasLyrics: Bool {
-            let result = parts?.compactMap(\.content.lyricHasText) ?? [false]
+            let result = parts.compactMap(\.content.lyricHasText)
             return result.contains(true)
         }
 
         /// Bool if the line has chords
         public var hasChords: Bool {
-            let result = parts?.compactMap(\.content.lyricHasChord) ?? [false]
+            let result = parts.compactMap(\.content.lyricHasChord)
             return result.contains(true)
         }
 
@@ -181,13 +178,8 @@ extension Song.Section {
         /// - Parameters:
         ///   - warning: The warning as ``LogUtils/LogMessage``
         ///   - level: The level of the warning
-        /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: LogUtils.LogMessage, level: LogUtils.Level = .warning) {
-            if self.warnings == nil {
-                self.warnings = [warning]
-            } else {
-                self.warnings?.append(warning)
-            }
+            self.warnings.append(warning)
             let line = sourceLineNumber
             LogUtils.shared.setLog(
                 level: level,

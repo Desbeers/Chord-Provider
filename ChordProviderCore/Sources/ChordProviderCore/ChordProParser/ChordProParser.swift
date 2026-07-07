@@ -25,7 +25,7 @@ public enum ChordProParser {
     /// - Parameters:
     ///   - content: The (updated) content of the song
     ///   - song: The current ``Song``
-    ///   - settings: The ``ChordProviderCore/ChordProviderSettings`` to use
+    ///   - settings: The ``/ChordProviderCore/ChordProviderSettings`` to use
     ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: An updated ``Song`` item
     public static func parse(
@@ -151,10 +151,11 @@ public enum ChordProParser {
         for line in lines where line.directive != .chord {
             /// Collect all parts
             let allParts =
-                (line.parts ?? []) +
-                (line.gridsLine?
+                (line.parts) +
+                (line.gridsLine
                     .flatMap(\.cells)
-                    .flatMap(\.parts) ?? [])
+                    .flatMap(\.parts)
+                )
             /// Add them to the set of known chords
             result.formUnion(
                 allParts

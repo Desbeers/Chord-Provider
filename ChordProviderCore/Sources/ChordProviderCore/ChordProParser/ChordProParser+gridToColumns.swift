@@ -10,22 +10,25 @@ extension ChordProParser {
     /// Convert grids into columns for display in GTK or PDF
     /// - Returns: A new ``Song/Section``
     static func gridToColumns(section: Song.Section) -> Song.Section {
+        /// Copy of the current section
         var newSection = section
         newSection.lines = []
+        /// All the gridlines in the section
         var gridLines: [Song.Section.Line] = []
+        /// The ID of the last created grid part
         var lastPartID: Int = 0
-        /// Go to all the lines
+        // Go to all the lines of te section
         for line in section.lines {
-            if line.gridsLine != nil {
-                /// Add the line to the grid lines for later processing
+            if !line.gridsLine.isEmpty {
+                // Add the line to the grid lines for later processing
                 gridLines.append(line)
             } else {
                 if !gridLines.isEmpty {
                     let newLine = processGrid(gridLines, lastPartID: lastPartID)
                     newSection.lines.append(newLine)
-                    lastPartID += (newLine.gridColumns?.map(\.cells).last?.last?.parts.last?.id ?? lastPartID) + 1
-                    /// Reset the grid lines
-                    /// - Note: A *grid* environment can contain more than one grid, seperated by an empty line
+                    lastPartID += (newLine.gridColumns.map(\.cells).last?.last?.parts.last?.id ?? lastPartID) + 1
+                    // Reset the grid lines
+                    // - Note: A *grid* environment can contain more than one grid, seperated by an empty line
                     gridLines = []
                 }
             }
@@ -35,8 +38,7 @@ extension ChordProParser {
         newSection.gridEvents = {
             var result: [Song.Section.Line.GridCell] = []
             for line in newSection.lines {
-                guard let grids = line.gridColumns else { continue }
-                for grid in grids {
+                for grid in line.gridColumns {
                     result.append(contentsOf: grid.cells)
                 }
             }
@@ -62,7 +64,7 @@ extension ChordProParser {
     ///   - lastPartID: The ID of the last part
     /// - Returns: Grids in a columns array
     static private func processGrid(_ gridLines: [Song.Section.Line], lastPartID: Int) -> Song.Section.Line {
-        /// The grid analizing
+        /// The grid analisis
         var analysis = analyzeGrid(gridLines: gridLines)
         /// The resulting grid columns
         var columns = buildColumns(gridLines: gridLines, analysis: &analysis, lastPartID: lastPartID)
@@ -78,7 +80,7 @@ extension ChordProParser {
         if analysis.playableLine.contains(false) {
             resolveStrumming(columns: &columns, totalLines: gridLines.count)
         }
-        /// The new line for the section
+        // Return the new line for the section
         return Song.Section.Line(type: .gridLineColumns, context: .grid, gridColumns: columns)
     }
 
@@ -86,27 +88,25 @@ extension ChordProParser {
     /// - Parameter gridLines: The grid lines
     /// - Returns:A structure with grid analyses
     static private func analyzeGrid(gridLines: [Song.Section.Line] ) -> GridAnalysis {
-        /// Find the maximimum amount of colums
+        /// The maximimum colums of the grid
         let maxColumns = gridLines
             .compactMap(\.gridsLine)
             .map(\.count)
             .max() ?? 0
-        /// Create result structure
+        /// Thre resulting grid analysis
         var result = GridAnalysis(
             columnsCounter: Array(repeating: 0, count: maxColumns),
             neededParts: 0,
             playableLine: Array(repeating: false, count: gridLines.count)
         )
-        /// Check the lines for the amount of cells in each column
-        for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
-            if let grids = line.gridsLine {
-                /// Check if the line is playable or if it is a strum line
-                let strum = grids.flatMap(\.cells).flatMap(\.parts).map(\.content).contains(where: \.hasStrumPattern)
-                result.playableLine[index] = !strum
-                /// Set the maximum items for each column
-                for (index, grid) in grids.enumerated() {
-                    result.columnsCounter[index] = max(result.columnsCounter[index], grid.cells.flatMap(\.parts).count)
-                }
+        // Check the lines for the amount of cells in each column
+        for (index, line) in gridLines.enumerated() where !line.gridsLine.isEmpty {
+            /// Check if the line is playable or if it is a strum line
+            let strum = line.gridsLine.flatMap(\.cells).flatMap(\.parts).map(\.content).contains(where: \.hasStrumPattern)
+            result.playableLine[index] = !strum
+            /// Set the maximum items for each column
+            for (index, grid) in line.gridsLine.enumerated() {
+                result.columnsCounter[index] = max(result.columnsCounter[index], grid.cells.flatMap(\.parts).count)
             }
         }
         result.neededParts = result.columnsCounter.max() ?? 1
@@ -124,19 +124,19 @@ extension ChordProParser {
         analysis: inout GridAnalysis,
         lastPartID: Int
     ) -> [Song.Section.Line.Grid] {
-        /// Set how many columns we have
+        /// The total columns of the grid
         var totalColumns = analysis.columnsCounter.count
-        /// Create all the columns
+        /// The columns of the
         var columns = (0 ..< totalColumns).enumerated().map { item in
             Song.Section.Line.Grid(id: item.element)
         }
-        /// Convert the the gridlines into columns
+        /// The gridlines converted into columns
         let gridToColumns = convertGridToColumns(gridLines.compactMap(\.gridsLine))
-        /// Fill the columns with the cells
+        // Fill the columns with the cells
         for grid in gridToColumns {
             columns[grid.id].cells.append(contentsOf: grid.cells)
         }
-        /// Update the column counter with the result of the current columns
+        // Update the column counter with the result of the current columns
         for (columnIndex, column) in columns.enumerated() {
             let dividerColumn = column.cells.flatMap(\.parts).map(\.content).contains(where: \.hasBarLine)
             let marginColumn = column.cells.flatMap(\.parts).map(\.content).contains(where: \.isInMargin)
@@ -144,14 +144,14 @@ extension ChordProParser {
                 analysis.columnsCounter[columnIndex] = analysis.neededParts
             }
         }
-        /// Recreate the columns with empty parts based on the columns counter
+        // Recreate the columns with empty parts based on the columns counter
         totalColumns = analysis.columnsCounter.reduce(0, +)
         columns = (0 ..< totalColumns).enumerated().map { item in
             let gridCell = Song.Section.Line.GridCell(id: 0, parts: [])
             return Song.Section.Line.Grid(id: item.element, cells: [gridCell])
         }
         var partID = lastPartID
-        for (index, line) in gridLines.enumerated() where line.gridsLine != nil {
+        for (index, line) in gridLines.enumerated() where !line.gridsLine.isEmpty {
             for column in 0..<totalColumns {
                 let anyChord = Song.Section.Line.Part.Content.anyChord(
                     textPart: .init(),
@@ -179,34 +179,33 @@ extension ChordProParser {
         analysis: GridAnalysis,
         columns: inout [Song.Section.Line.Grid]
     ) {
-        /// Fill the columns with parts in the correct column
+        // Fill the columns with parts in the correct column
         for (rowIndex, line) in gridLines.enumerated() {
-            if let grids = line.gridsLine {
-                var column = 0
-                for (index, neededParts) in analysis.columnsCounter.enumerated() {
-                    if let parts = grids[safe: index].flatMap(\.cells)?.flatMap(\.parts) {
-                        for (id, part) in parts.enumerated() {
-                            /// Calculate the optional shift of the part
-                            let shift = calculatePartShift(
-                                partID: id,
-                                totalParts: parts.count,
-                                neededParts: neededParts
+            /// The ID of the column
+            var columnID = 0
+            for (index, neededParts) in analysis.columnsCounter.enumerated() {
+                if let parts = line.gridsLine[safe: index].flatMap(\.cells)?.flatMap(\.parts) {
+                    for (id, part) in parts.enumerated() {
+                        // Calculate the optional shift of the part
+                        let shift = calculatePartShift(
+                            partID: id,
+                            totalParts: parts.count,
+                            neededParts: neededParts
+                        )
+                        var result = part
+                        /// Keep the part ID of the new columns so its unique
+                        result.id = columns[columnID + id + shift].cells[0].parts[rowIndex].id
+                        if let chord = part.content.getChord {
+                            result.content = .chord(
+                                definition: chord.definition,
+                                textPart: chord.textPart,
+                                beatItems: neededParts
                             )
-                            var result = part
-                            /// Keep the part ID of the new columns so its unique
-                            result.id = columns[column + id + shift].cells[0].parts[rowIndex].id
-                            if let chord = part.content.getChord {
-                                result.content = .chord(
-                                    definition: chord.definition,
-                                    textPart: chord.textPart,
-                                    beatItems: neededParts
-                                )
-                            }
-                            columns[column + id + shift].cells[0].parts[rowIndex] = result
                         }
+                        columns[columnID + id + shift].cells[0].parts[rowIndex] = result
                     }
-                    column += neededParts
                 }
+                columnID += neededParts
             }
         }
 
@@ -222,10 +221,10 @@ extension ChordProParser {
         ) -> Int {
             /// Check how many parts are missing
             let missingParts = (neededParts - totalParts)
-            /// Calculate the offset
+            // The calculate offset
             let offset = missingParts / totalParts
-            /// Return the shift
-            /// - Note: The first part of measure will never shift
+            // Return the shift
+            // - Note: The first part of measure will never shift
             return offset == 0 || partID == 0 ? 0 : offset * partID
         }
     }

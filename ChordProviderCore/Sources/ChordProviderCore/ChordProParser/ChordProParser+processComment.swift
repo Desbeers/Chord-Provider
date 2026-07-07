@@ -51,13 +51,11 @@ extension ChordProParser {
             currentSection.environment = .unknown
         } else {
             /// A comment inside a section
-            if let warnings = currentSection.warnings {
-                for warning in warnings {
-                    line.addWarning(warning, level: warning.level)
-                }
+            for warning in currentSection.warnings {
+                line.addWarning(warning, level: warning.level)
             }
             if comment.isEmpty {
-                line.addWarning("The comment is empty")
+                line.addWarning("The comment is empty", level: .warning)
             }
             currentSection.lines.append(line)
             /// Clear any warnings

@@ -1,5 +1,5 @@
 //
-//  ChordProviderGnome.swift
+//  ChordProviderApp.swift
 //  ChordProviderGnome
 //
 //  © 2026 Nick Berendsen
@@ -12,7 +12,7 @@ import ChordProviderEditor
 import ChordProviderMIDI
 import Foundation
 
-/// The **Chord Provider** Gnome application
+/// The **Chord Provider** GNOME application
 @main
 struct ChordProviderApp: App {
     /// Init the application
@@ -114,7 +114,7 @@ struct ChordProviderApp: App {
         .defaultSize(width: 1024, height: 800)
         .minSize(width: 1024, height: 800)
         .maximized($windowSize.maximized)
-        /// This is what you see in the Gnome overview
+        /// This is what you see in the GNOME overview
         .title(appState.overviewTitle)
         .onClose {
             if appState.contentIsModified {

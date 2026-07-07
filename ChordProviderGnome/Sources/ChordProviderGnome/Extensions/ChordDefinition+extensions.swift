@@ -9,40 +9,9 @@ import ChordProviderCore
 
 extension ChordDefinition {
 
-    /// Make a String with all the notes in a chord
-    public var notesLabel: String {
-        if let elements = self.noteCombinations.first {
-            let notes = elements.map { $0.required ? "<b>\($0.note.display)</b>" : $0.note.display }
-            return "<b>\(self.display)</b> contains \(notes.joined(separator: ", "))"
-        }
-        /// This should not happen
-        return ""
-    }
-
-    /// Tooltip for the chord
-    public var toolTip: String {
-        self.knownChord ? "" : self.kind.description
-    }
-
-    /// All notes for a chord, required and optional
-    public var notes: [String] {
-        if let elements = self.noteCombinations.first {
-            return elements.map(\.note.display)
-        }
-        /// This should not hapen
-        return []
-    }
-
-    /// Bool if a finger position is correct
-    public func correctFinger(string: Int) -> Bool {
-        if let finger = fingers[safe: string], let fret = frets[safe: string] {
-            return finger == 0 && (fret == -1 || fret == 0 ) ? true : finger > 0 && fret > 0 ? true : false
-        }
-        return true
-    }
-
+    /// The style of a Chord Definition ``/ChordProviderCore/Chord/Strum`` value
     var style: Markup.Class {
-        if knownChord, let strum = self.strum {
+        if knownChord, let strum {
             switch strum {
             case .downAccent, .upAccent:
                 .strokeAccent

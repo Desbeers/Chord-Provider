@@ -37,7 +37,7 @@ extension ChordProParser {
         if currentSection.environment == .unknown || currentSection.autoCreated {
             /// Check for chords
             if !currentSection.haveChords {
-                currentSection.haveChords = line.parts?.map(\.content).compactMap(\.lyricHasChord).contains(true) ?? false
+                currentSection.haveChords = line.parts.map(\.content).compactMap(\.lyricHasChord).contains(true)
             }
             autoSection(
                 environment: currentSection.haveChords ? .verse : .textblock,

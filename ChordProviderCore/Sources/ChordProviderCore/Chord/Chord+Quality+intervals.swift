@@ -22,11 +22,6 @@ import Foundation
 
 extension Chord.Quality {
 
-    /// Show the intervals as a string
-    public var intervalsLabel: String {
-        intervals.intervals.map(\.description).joined(separator: ", ")
-    }
-
     /// The intervals of a ``Chord/Quality``
     public var intervals: (intervals: [Chord.Interval], optional: [Chord.Interval]) {
         switch self {

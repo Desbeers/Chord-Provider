@@ -44,7 +44,7 @@ extension GtkRender.GridSection {
             Box {
                 switch part.content {
                 case let .chord(definition, _, _):
-                    if definition.isSilent {
+                    if definition.strum == .noStrum {
                         Text(" . ")
                             .zoom(appState.settings.theme.zoom)
                             .style(.dimmed)

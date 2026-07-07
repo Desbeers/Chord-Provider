@@ -9,7 +9,7 @@ import Foundation
 
 extension Chord {
 
-    /// The root of a chord
+    /// The base fret of a chord
     public enum BaseFret: Int, CaseIterable, Codable, Comparable, Sendable, Identifiable, CustomStringConvertible {
 
         /// Identifiable protocol
