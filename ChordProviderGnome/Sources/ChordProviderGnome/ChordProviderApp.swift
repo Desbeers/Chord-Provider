@@ -63,13 +63,13 @@ struct ChordProviderApp: App {
                 recentSongs: $recentSongs
             )
             .inspectOnAppear { storage in
-                /// Init the chords database
+                // Init the chords database
                 appState.initDatabase()
-                /// Init the `GtkSourceView`controller
+                // Init the `GtkSourceView`controller
                 appState.controller = SourceViewController(
                     bridge: $appState.editor, language: .chordpro
                 )
-                /// Attach the CSS provider to the default display
+                // Attach the CSS provider to the default display
                 if let display = gdk_display_get_default() {
                     gtk_style_context_add_provider_for_display(
                         display,
@@ -77,31 +77,33 @@ struct ChordProviderApp: App {
                         guint(GTK_STYLE_PROVIDER_PRIORITY_APPLICATION)
                     )
                 }
-                /// Init the MIDI player
+                // Init the MIDI player
                 let referenceFrequency = appState.editor.coreSettings.referenceFrequency
                 let preset = appState.editor.coreSettings.midiPreset
                 Task {
                     await ChordProviderMIDI.shared.setReferenceFrequency(referenceFrequency)
                     await ChordProviderMIDI.shared.setProgram(preset: preset)
                 }
-                /// Init the css style
+                // Init the css style
                 appState.setStyle()
-                /// Add a *notification* for style changes
+                // Add a *notification* for style changes
                 storage.notify(name: "dark", pointer: appState.styleManager) {
                     appState.setStyle()
                 }
                 storage.notify(name: "accent-color", pointer: appState.styleManager) {
                     appState.setStyle()
                 }
-                /// Open a song when passed as argument at launch
-                /// - Note: When opened again with another argument;
-                ///         it will create a new instance because the application will have a another ID
+                // Get the songs from the library
+                appState.getFolderContent()
+                // Open a song when passed as argument at launch
+                // - Note: When opened again with another argument;
+                //         it will create a new instance because the application will have a another ID
                 if let fileURL = CommandLine.arguments[safe: 1] {
                     let url = URL(filePath: fileURL)
-                    /// - Note: Hide the editor because it is flashing if a song is directly opened
+                    // - Note: Hide the editor because it is flashing if a song is directly opened
                     appState.settings.editor.showEditor = false
                     appState.openSong(fileURL: url)
-                    /// Add it to the recent songs list
+                    // Add it to the recent songs list
                     recentSongs.addRecentSong(
                         content: appState.scene.originalContent,
                         coreSettings: appState.editor.coreSettings
@@ -109,12 +111,12 @@ struct ChordProviderApp: App {
                 }
             }
         }
-        /// - Note: It will remember the window size when opening a new window
+        // - Note: It will remember the window size when opening a new window
         .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 1024, height: 800)
         .minSize(width: 1024, height: 800)
         .maximized($windowSize.maximized)
-        /// This is what you see in the GNOME overview
+        // This is what you see in the GNOME overview
         .title(appState.overviewTitle)
         .onClose {
             if appState.contentIsModified {

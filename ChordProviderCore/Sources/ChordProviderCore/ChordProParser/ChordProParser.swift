@@ -144,7 +144,7 @@ public enum ChordProParser {
         }
 
         /// Check if the song has warnings or errors
-        song.hasWarnings = !lines.compactMap(\.warnings).isEmpty
+        song.hasWarnings = !lines.flatMap(\.warnings).isEmpty
         /// Get all known chords that are in use
         /// - Note: Defined chords that are not used will be ignored
         var result = Set<ChordDefinition>()

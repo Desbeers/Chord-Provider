@@ -1,5 +1,5 @@
 //
-//  Views+Welcome+recentSongsView.swift
+//  Views+Home+recentSongsView.swift
 //  ChordProviderGnome
 //
 //  © 2026 Nick Berendsen
@@ -8,7 +8,7 @@
 import Foundation
 import Adwaita
 
-extension Views.Welcome {
+extension Views.Home {
 
     // MARK: Recent Songs View
 
@@ -30,6 +30,7 @@ extension Views.Welcome {
                         }
                     }
                     .halign(.center)
+                    .frame(minWidth: 400)
                     .padding()
                 }
             }

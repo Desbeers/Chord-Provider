@@ -13,7 +13,7 @@ import CAdw
 
 /// The state of **Chord Provider**
 struct AppState {
-    /// The shared application settings
+    /// The application settings
     var settings = AppSettings() {
         didSet {
             /// Update the style if needed
@@ -25,9 +25,11 @@ struct AppState {
     /// The state of the `Scene`
     /// - Note: Stuff that is only relevant for the current instance of **ChordProvider**
     var scene = Scene()
+    /// The settings for the Home `View`
+    var home = Home()
     /// The source view bridge
     var editor = SourceViewBridge()
-    /// The `GtkSourceEditor`class to communicate with `Swift`
+    /// The `GtkSourceEditor` class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
     var controller: SourceViewController?
     /// The `Adwaita` style manager
@@ -64,7 +66,7 @@ extension AppState {
     var overviewTitle: String {
         let appName = "Chord Provider"
         let fileName = editor.coreSettings.fileURL?.deletingPathExtension().lastPathComponent
-        return scene.showWelcomeView ? appName : fileName ?? appName
+        return scene.showHomeView ? appName : fileName ?? appName
     }
 
     /// Bool if the content of the song is modified
@@ -82,5 +84,7 @@ extension AppState: Codable {
         case settings
         /// Core settings are in the editor
         case editor
+        /// Home settings
+        case home
     }
 }

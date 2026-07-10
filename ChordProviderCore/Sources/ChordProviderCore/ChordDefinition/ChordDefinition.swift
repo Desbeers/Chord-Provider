@@ -9,7 +9,7 @@ import Foundation
 
 /// The structure of a chord definition
 public struct ChordDefinition: Equatable, Codable, Identifiable, Hashable, Sendable, Comparable, CustomStringConvertible {
-    
+
     /// Init the ``ChordDefinition`` with all known values
     /// - Parameters:
     ///   - id: The ID of the ``ChordDefinition``

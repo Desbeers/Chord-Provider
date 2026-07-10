@@ -25,7 +25,7 @@
             Get started with **Chord Provider**
             @TutorialReference(tutorial: "doc:ChordProviderBasics")
             @TutorialReference(tutorial: "doc:ChordProviderDirectives")
-            @Image(source: "card-large-welcome.png", alt: "Chord Provider welcome")
+            @Image(source: "card-large-home.png", alt: "Chord Provider home")
         }
 
 	    @Chapter(name: "The Editor") {

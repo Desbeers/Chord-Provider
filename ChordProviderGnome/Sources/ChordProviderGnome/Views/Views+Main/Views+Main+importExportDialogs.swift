@@ -57,9 +57,9 @@ extension Views.Main {
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
                     window.close()
-                case .showWelcomeView:
+                case .showHomeView:
                     appState.scene.showToast.signal()
-                    appState.scene.showWelcomeView = true
+                    appState.scene.showHomeView = true
                 case .noAction:
                     appState.scene.showToast.signal()
                 }

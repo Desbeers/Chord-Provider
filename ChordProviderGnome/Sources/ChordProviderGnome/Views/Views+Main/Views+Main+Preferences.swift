@@ -15,9 +15,8 @@ extension Views.Main {
 
     /// The `View` for the preferences
     struct Preferences: View {
+        /// The state of the application
         @Binding var appState: AppState
-
-        @State var tuningFrequency: String = ""
         /// The body of the `View`
         var view: Body {
             /// Just an attachment point for modifiers
@@ -36,11 +35,15 @@ extension Views.Main {
                             .subtitle("Show the whole chorus with the same label")
                             .active($appState.editor.coreSettings.repeatWholeChorus)
                     }
+                    .group("Sorting of songs and artists") {
+                        Views.SortTokens(sortTokens: $appState.editor.coreSettings.sortTokens)
+                            .card()
+                    }
                     .group("Appearance") {
                         ComboRow(
                             "Color Scheme",
                             selection: $appState.settings.theme.appearance.onSet { value in
-                                /// Apply the appearance directly or else its one step behind
+                                // Apply the appearance directly or else its one step behind
                                 adw_style_manager_set_color_scheme(appState.styleManager, value.colorScheme)
                             },
                             values: AppSettings.Theme.Appearance.allCases

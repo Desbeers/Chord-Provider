@@ -25,22 +25,28 @@ A **ChordPro** file parser, viewer and editor for Linux
         ```
         ![Song](card-large-song.png)
     }
-    @Tab("Welcome screen") {
+    @Tab("Home screen") {
         ```
         Open songs from your library with *ChordPro* songs.
         ```
-        ![Welcome](card-large-welcome.png)
+        ![Home](card-large-home.png)
     }
     @Tab("Editor screen") {
+        ```
         Edit a song with *live* updates.
-        ![Welcome](card-large-editor.png)
+        ```
+        ![Editor](card-large-editor.png)
     }
     @Tab("MIDI player") {
+        ```
         Play Grids and Tabs with MIDI.
+        ```
         ![MIDI](card-large-midi-tab.png)
     }
     @Tab("Terminal") {
+        ```
         Use **Chord Provider** in the `Terminal`.
+        ```
         ![MIDI](card-large-cli.png)
     }
 }

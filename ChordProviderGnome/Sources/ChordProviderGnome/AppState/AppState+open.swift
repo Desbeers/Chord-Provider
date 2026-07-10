@@ -49,23 +49,25 @@ extension AppState {
     ///   - showEditor: Bool to show the editor
     ///   - templateURL: The optional template URL of the song
     mutating private func openSong(content: String, showEditor: Bool, templateURL: URL? = nil) {
-        /// Search must be closed
+        // Search must be closed
         scene.showSearchBar = false
-        /// Reset transpose
+        // Reset transpose
         editor.coreSettings.transpose = 0
         editor.song.metadata.transpose = 0
-        /// Don't show the previous song because the rendering has some delay
+        // Don't show the previous song because the rendering has some delay
         editor.song.hasContent = false
-        /// - Note: Never set the content directly; it will be ignored and the song will not be updated
+        // - Note: Never set the content directly; it will be ignored and the song will not be updated
         editor.command = .openNewSong(content)
         scene.originalContent = content
         settings.editor.showEditor = showEditor
         if let templateURL {
             editor.coreSettings.templateURL = templateURL
         }
-        /// Close the welcome `View`
-        scene.showWelcomeView = false
-        /// Start the MIDI player transport
+        // Set a new random song for the Home `View`
+        setRandomSong()
+        // Close the Home `View`
+        scene.showHomeView = false
+        // Start the MIDI player transport
         Task {
             await ChordProviderMIDI.shared.startTransport()
         }

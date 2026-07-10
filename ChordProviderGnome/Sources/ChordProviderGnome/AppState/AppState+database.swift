@@ -110,7 +110,7 @@ extension AppState {
         }
     }
 
-    /// Get the current instrument
+    /// The current selected instrument
     var currentInstrument: Instrument {
         if let active = settings.app.instruments.first(where: { $0.id == settings.app.instrumentID }) {
             return active

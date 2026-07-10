@@ -25,7 +25,7 @@ extension ChordDefinition {
     public init(
         define: String,
         instrument: Instrument,
-    ) throws(ChordDefinition.Status) {     
+    ) throws(ChordDefinition.Status) {
         if let definition = define.firstMatch(of: RegexDefinitions.chordDefine) {
             var frets: [Int] = []
             var fingers: [Int] = []

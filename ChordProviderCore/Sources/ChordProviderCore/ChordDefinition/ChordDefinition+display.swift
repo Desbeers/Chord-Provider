@@ -9,7 +9,6 @@ import Foundation
 
 extension ChordDefinition {
 
-
     /// Display the name of the ``ChordDefinition``
     ///
     /// - Returns: A formatted string with the name of the chord

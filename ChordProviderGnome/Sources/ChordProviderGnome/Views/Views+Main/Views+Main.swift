@@ -27,8 +27,8 @@ extension Views {
         /// The main `View`
         var view: Body {
             VStack {
-                if appState.scene.showWelcomeView {
-                    Views.Welcome(
+                if appState.scene.showHomeView {
+                    Views.Home(
                         app: app,
                         window: window,
                         appState: $appState,

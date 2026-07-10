@@ -105,10 +105,10 @@ extension Views.Toolbar {
                             // Reset MIDI
                             resetMIDI()
                             if appState.contentIsModified {
-                                appState.scene.saveDoneAction = .showWelcomeView
+                                appState.scene.saveDoneAction = .showHomeView
                                 appState.scene.showCloseDialog = true
                             } else {
-                                appState.scene.showWelcomeView = true
+                                appState.scene.showHomeView = true
                             }
                         }
                         .keyboardShortcut("o".ctrl())
@@ -190,20 +190,14 @@ extension Views.Toolbar {
 
 extension Views.Toolbar {
 
-    /// The  toolbar for the Welcome `View`
-    struct Welcome: View {
+    /// The  toolbar for the Home `View`
+    struct Home: View {
         /// The `AdwaitaApp`
         var app: AdwaitaApp
         /// The `AdwaitaWindow`
         var window: AdwaitaWindow
-        /// The selected tab
-        let welcomeTab: Views.Welcome.WelcomeTab
         /// The state of the application
         @Binding var appState: AppState
-        /// The search string
-        @Binding var search: String
-        /// The songs folder
-        let songsFolder: URL?
         /// The body of the `View`
         var view: Body {
             HeaderBar {
@@ -211,9 +205,9 @@ extension Views.Toolbar {
             }
             end: {
                 HStack(spacing: 5) {
-                    if welcomeTab == .mySongs, songsFolder != nil {
+                    if appState.home.tab == .mySongs, appState.home.songsFolder != nil {
                         SearchEntry()
-                            .text($search)
+                            .text($appState.home.search)
                             .placeholderText("Search")
                             .transition(.crossfade)
                     }

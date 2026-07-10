@@ -11,8 +11,8 @@ extension AppState {
     enum SaveDoneAction {
         /// Close the window
         case closeWindow
-        /// Show the welcome view
-        case showWelcomeView
+        /// Show the home view
+        case showHomeView
         /// Do nothing
         case noAction
     }

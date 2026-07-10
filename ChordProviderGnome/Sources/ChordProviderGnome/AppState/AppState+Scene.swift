@@ -15,8 +15,8 @@ extension AppState {
     /// - Note: These settings are not saved
     struct Scene {
 
-        /// Show the *Welcome* view
-        var showWelcomeView: Bool = true
+        /// Show the *Home* view
+        var showHomeView: Bool = true
         /// Bool to show the search bar
         var showSearchBar: Bool = false
         /// The selected debug tab

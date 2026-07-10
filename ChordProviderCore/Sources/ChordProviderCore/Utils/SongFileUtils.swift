@@ -72,11 +72,8 @@ extension SongFileUtils {
         url: URL,
         settings: ChordProviderSettings,
         getOnlyMetadata: Bool = false
-    ) -> (songs: [Song], artists: [Artist]) {
-        /// List of articles to ignore when sorting songs and artists
-        let sortTokens: [String] = ["the", "a", "de", "een", "’t"]
+    ) -> [Song] {
         var songs: [Song] = []
-        var artists: [Artist] = []
         if let items = FileManager.default.enumerator(at: url, includingPropertiesForKeys: nil) {
             while let item = items.nextObject() as? URL {
                 if
@@ -90,32 +87,69 @@ extension SongFileUtils {
                 }
             }
         }
-        /// Use the Dictionary(grouping:) function so that all the artists are grouped together.
-        let grouped = Dictionary(grouping: songs) { (occurrence: Song) -> String in
-            occurrence.metadata.artist
+        return songs.sorted { (lhs: Song, rhs: Song) -> Bool in
+            lhs.metadata.sortTitle.localizedStandardCompare(rhs.metadata.sortTitle) == .orderedAscending
         }
-        /// We now map over the dictionary and create our artist objects.
-        /// Then we want to sort them so that they are in the correct order.
-        artists = grouped.map { artist -> Artist in
-            Artist(name: artist.key, sortName: artist.key.removePrefixes(sortTokens), songs: artist.value)
+    }
+
+    /// Group songs by a metadata
+    /// - Parameters:
+    ///   - songs: The songs to group
+    ///   - group: The metadata group
+    ///   - sortTokens: The sort tokens for sorting the songs in the group
+    ///
+    /// - Returns: An array of grouped songs
+    public static func groupSongs(
+        _ songs: [Song],
+        group: Group,
+        sortTokens: [String]
+    ) -> [SongFileUtils.Grouping] {
+        let grouped = Dictionary(grouping: songs) { (occurrence: Song) -> String in
+            switch group {
+            case .artist:
+                return occurrence.metadata.artist
+            case .title:
+                return String(occurrence.metadata.sortTitle.first?.uppercased() ?? "?")
+            case .year:
+                return occurrence.metadata.year ?? "Unknown Year"
+            case .key:
+                return occurrence.metadata.key?.display ?? "Unknown Key"
+            case .tempo:
+                return "\(occurrence.metadata.tempo?.description ?? "Unknown") bpm"
+            }
+        }
+        // We now map over the dictionary and create our grouped objects.
+        // Then we want to sort them so that they are in the correct order.
+        return grouped.map { grouping -> Grouping in
+            Grouping(name: grouping.key, sortName: grouping.key.removePrefixes(sortTokens), songs: grouping.value)
         }
         .sorted(using: KeyPathComparator(\.sortName))
-        songs.sort(using: KeyPathComparator(\.metadata.sortTitle))
-        return (songs, artists)
     }
 }
 
 extension SongFileUtils {
 
-    /// The structure for an artist
-    public struct Artist: Identifiable, Codable {
+    /// The structure for grouped songs
+    public struct Grouping: Identifiable, Codable {
         /// The unique ID
         public var id: String { name }
-        /// Name of the artist
+        /// Name of the grouping
         public let name: String
-        /// Sorting name of the artist
+        /// Sorting name of the grouping
         public let sortName: String
-        /// Songs of the artist
+        /// Songs of the group
         public let songs: [Song]
+    }
+}
+
+extension SongFileUtils {
+
+    /// The group of song metadata
+    public enum Group: String, CaseIterable, Codable {
+        case artist
+        case title
+        case year
+        case key
+        case tempo
     }
 }

@@ -84,6 +84,8 @@ extension Markup {
         case chordDiagramToggle = "chord-diagram-toggle"
         /// Toggle in the page header
         case pageHeaderToggle = "page-header-toggle"
+        /// Toggle in the Home *My Songs* `view`
+        case homeSongsSortToggle = "home-songs-sort-toggle"
 
         // MARK: Labels
 
@@ -331,6 +333,12 @@ popover contents, popover arrow {
     margin: 4px;
     padding: 0 4px;
     font-weight: normal;
+}
+
+.home-songs-sort-toggle toggle {
+	font-size: 0.8em;
+	padding: 0.2em 1em;
+	min-height: 0;
 }
 
 /* Labels */

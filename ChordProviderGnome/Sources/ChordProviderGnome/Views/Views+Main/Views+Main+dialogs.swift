@@ -92,8 +92,8 @@ extension Views.Main {
                 case .closeWindow:
                     /// Close the window
                     window.close()
-                case .showWelcomeView:
-                    appState.scene.showWelcomeView = true
+                case .showHomeView:
+                    appState.scene.showHomeView = true
                 case .noAction:
                     return
                 }
@@ -109,8 +109,8 @@ extension Views.Main {
                     switch appState.scene.saveDoneAction {
                     case .closeWindow:
                         window.close()
-                    case .showWelcomeView:
-                        appState.scene.showWelcomeView = true
+                    case .showHomeView:
+                        appState.scene.showHomeView = true
                     case .noAction:
                         /// Set the toast
                         appState.scene.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"
