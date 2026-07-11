@@ -75,13 +75,13 @@ extension Views.Home {
 
     /// The `View` with grouped songs
     var mySongsGroupView: AnyView {
-        FlowBox(appState.home.groupings) { artist in
+        FlowBox(appState.home.groupings) { group in
             VStack {
-                Text(artist.name)
+                Text(group.display)
                     .style(.subtitle)
                     .halign(.start)
                 Separator()
-                ForEach(artist.songs) { song in
+                ForEach(group.songs) { song in
                     if let url = song.settings.fileURL {
                         openButton(
                             fileURL: url,

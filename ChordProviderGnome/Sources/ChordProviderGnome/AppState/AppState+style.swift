@@ -25,10 +25,7 @@ extension AppState {
 
     /// Set the style for the application from a CSS string
     /// - Parameter css: The CSS string
-    mutating private func addCssFromString(_ css: String?) {
-        guard let css else {
-            return
-        }
+    mutating private func addCssFromString(_ css: String) {
         css.withCString { cssCString in
             gtk_css_provider_load_from_string(cssProvider, cssCString)
         }

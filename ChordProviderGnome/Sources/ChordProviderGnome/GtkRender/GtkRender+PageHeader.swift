@@ -123,7 +123,7 @@ extension GtkRender {
                     MetaData(
                         icon: .year,
                         label: "Year",
-                        value: year
+                        value: "\(year)"
                     )
                 )
             }

@@ -111,19 +111,29 @@ extension SongFileUtils {
             case .title:
                 return String(occurrence.metadata.sortTitle.first?.uppercased() ?? "?")
             case .year:
-                return occurrence.metadata.year ?? "Unknown Year"
+                return occurrence.metadata.year?.description ?? "Unknown Year"
             case .key:
                 return occurrence.metadata.key?.display ?? "Unknown Key"
             case .tempo:
-                return "\(occurrence.metadata.tempo?.description ?? "Unknown") bpm"
+                return "\(occurrence.metadata.tempo?.description ?? "Unknown")"
             }
         }
         // We now map over the dictionary and create our grouped objects.
         // Then we want to sort them so that they are in the correct order.
-        return grouped.map { grouping -> Grouping in
-            Grouping(name: grouping.key, sortName: grouping.key.removePrefixes(sortTokens), songs: grouping.value)
+        let grouping = grouped.map { grouping -> Grouping in
+            Grouping(
+                group: group,
+                name: grouping.key,
+                sortString: grouping.key.removePrefixes(sortTokens),
+                songs: grouping.value
+            )
         }
-        .sorted(using: KeyPathComparator(\.sortName))
+        if group == .tempo || group == .year {
+            // Sort by number
+            return grouping.sorted(using: KeyPathComparator(\.sortNumber))
+        }
+        // Sort by string
+        return grouping.sorted(using: KeyPathComparator(\.sortString))
     }
 }
 
@@ -133,10 +143,20 @@ extension SongFileUtils {
     public struct Grouping: Identifiable, Codable {
         /// The unique ID
         public var id: String { name }
+        /// The group
+        let group: Group
         /// Name of the grouping
-        public let name: String
-        /// Sorting name of the grouping
-        public let sortName: String
+        let name: String
+        /// Display of the grouping
+        public var display: String {
+            name + group.suffix
+        }
+        /// Sorting string of the grouping
+        let sortString: String
+        /// Sorting number of the grouping
+        var sortNumber: Int {
+            Int(name) ?? 9999
+        }
         /// Songs of the group
         public let songs: [Song]
     }
@@ -151,5 +171,14 @@ extension SongFileUtils {
         case year
         case key
         case tempo
+        /// The suffix for the group
+        var suffix: String {
+            switch self {
+            case .tempo:
+                " bpm"
+            default:
+                ""
+            }
+        }
     }
 }

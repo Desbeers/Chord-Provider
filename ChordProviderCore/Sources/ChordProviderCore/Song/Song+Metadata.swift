@@ -43,7 +43,7 @@ extension Song {
         /// The optional time
         public var time: String?
         /// The optional year
-        public var year: String?
+        public var year: Int?
         /// The optional album
         public var album: String?
         /// The optional URL to the audio file

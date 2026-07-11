@@ -73,7 +73,9 @@ extension ChordProParser {
                 song.metadata.tempo = Int(label)
             }
         case .year:
-            song.metadata.year = label
+            if let label {
+                song.metadata.year = Int(label)
+            }
         case .album:
             song.metadata.album = label
         case .transpose:
