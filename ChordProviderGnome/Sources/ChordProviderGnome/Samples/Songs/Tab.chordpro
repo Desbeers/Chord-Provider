@@ -3,9 +3,9 @@
 
 {tempo: 128}
 
-{comment: Slides, Hammer-ons and Pull-offs}
+{capo: 6}
 
-{tempo: 198}
+{comment: Slides, Hammer-ons and Pull-offs}
 
 {start_of_tab}
 |-----------------------------|
@@ -15,8 +15,6 @@
 |-----------------------------|
 |-----------------------------|
 {end_of_tab}
-
-{tempo: 148}
 
 {start_of_tab}
 |-----------------------------|

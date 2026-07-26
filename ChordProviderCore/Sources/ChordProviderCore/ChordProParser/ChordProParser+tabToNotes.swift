@@ -11,9 +11,14 @@ extension ChordProParser {
     /// - Parameters:
     ///   - section: The section to convert
     ///   - instrument: The instrument
+    ///   - capo: The optional capo value
     ///
     /// - Returns: An updated section
-    static func tabToNotes(section: Song.Section, instrument: Instrument) -> Song.Section {
+    static func tabToNotes(
+        section: Song.Section,
+        instrument: Instrument,
+        capo: Int?
+    ) -> Song.Section {
         /// Shadow copy of the current sections
         var newSection = section
         // Clear all the lines but keep the rest
@@ -31,7 +36,10 @@ extension ChordProParser {
                 if !tabLines.isEmpty {
                     // Process the tab lines into columns
                     let tabColumns = parseTab(
-                        lines: tabLines, instrument: instrument, lastColumnID: lastColumnID
+                        lines: tabLines,
+                        instrument: instrument,
+                        capo: capo,
+                        lastColumnID: lastColumnID
                     )
                     lastColumnID += (tabColumns.last?.events.last?.id ?? 0) + 1
                     // Append the columns
@@ -68,14 +76,18 @@ extension ChordProParser {
     ///   - lines: The tab lines
     ///   - instrument: The instrument
     ///   - lastColumnID: The ID of the last column
+    ///   - capo: The optional capo value
     ///
     /// - Returns: Tabs in a column array
     static func parseTab(
         lines: [String],
         instrument: Instrument,
+        capo: Int?,
         lastColumnID: Int
     ) -> [Song.Section.Line.Tab] {
-        let baseMidi = instrument.tuning.reversed().map(\.midi)
+        let baseMidi = instrument.tuning.reversed().map { tuning in
+            tuning.midi + (capo ?? 0)
+        }
         let stringOffset = max(0, lines.count - instrument.strings.count)
         let tabLines = lines.enumerated().compactMap { lineID, line in
             /// The base MIDI for the string
