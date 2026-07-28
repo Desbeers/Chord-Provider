@@ -33,6 +33,7 @@ extension GtkRender {
         var view: Body {
             if !label.isEmpty {
                 Text(label)
+                    .useMarkup()
                     .zoom(zoom)
                     .style(style)
                     .halign(.start)

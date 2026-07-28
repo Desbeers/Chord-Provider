@@ -33,6 +33,7 @@ extension GtkRender {
                     Symbol(icon: .default(icon: .mediaPlaylistRepeat))
                         .pixelSize(Int(14 * zoom))
                     Text(label)
+                        .useMarkup()
                         .zoom(zoom)
                 }
                 .style(.sectionRepeatChorus)
