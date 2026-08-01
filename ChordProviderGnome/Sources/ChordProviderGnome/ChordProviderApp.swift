@@ -15,17 +15,9 @@ import Foundation
 /// The **Chord Provider** GNOME application
 @main
 struct ChordProviderApp: App {
-    /// Init the application
-    init() {
-        /// - Note: Give it an unique ID so Files does not open new windows
-        let id = UUID()
-        self.app = AdwaitaApp(id: "nl.desbeers.chordprovider._\(id.uuidString)")
-        DatabaseInformation.setPath(
-            AdwaitaApp.userDataDir().appendingPathComponent("nl.desbeers.chordprovider.sqlite").path
-        )
-    }
+
     /// The application
-    let app: AdwaitaApp
+    let app = AdwaitaApp(id: "nl.desbeers.chordprovider")
     /// The state of the application
     /// - Note: This will load all the settings
     @State("AppState")
@@ -95,21 +87,20 @@ struct ChordProviderApp: App {
                 }
                 // Get the songs from the library
                 appState.getFolderContent()
-                // Open a song when passed as argument at launch
-                // - Note: When opened again with another argument;
-                //         it will create a new instance because the application will have a another ID
-                if let fileURL = CommandLine.arguments[safe: 1] {
-                    let url = URL(filePath: fileURL)
-                    // - Note: Hide the editor because it is flashing if a song is directly opened
-                    appState.settings.editor.showEditor = false
-                    appState.openSong(fileURL: url)
-                    // Add it to the recent songs list
-                    recentSongs.addRecentSong(
-                        content: appState.scene.originalContent,
-                        coreSettings: appState.editor.coreSettings
-                    )
-                }
             }
+        }
+        // Open a song when passed as argument at launch
+        .onOpen { urls in
+            guard let url = urls.first else {
+                return
+            }
+            app.showWindow("main")
+            appState.settings.editor.showEditor = false
+            appState.openSong(fileURL: url)
+            recentSongs.addRecentSong(
+                content: appState.scene.originalContent,
+                coreSettings: appState.editor.coreSettings
+            )
         }
         // - Note: It will remember the window size when opening a new window
         .size(width: $windowSize.width, height: $windowSize.height)
