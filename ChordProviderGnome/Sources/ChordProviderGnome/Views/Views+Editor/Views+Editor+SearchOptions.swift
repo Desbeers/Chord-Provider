@@ -30,7 +30,7 @@ extension Views.Editor {
                 HStack(spacing: 5) {
                     Symbol(icon: .default(icon: .systemSearch))
                     Entry("Search", text: $appState.editor.search.search)
-                        .focus(appState.scene.focusSearch)
+                        .focus($appState.scene.focusSearch)
                         .warning(appState.editor.search.noMatches)
                     HStack {
                         Button(icon: .default(icon: .goUp)) {
@@ -86,7 +86,7 @@ extension Views.Editor {
             HStack(spacing: 5) {
                 Symbol(icon: .default(icon: .editFindReplace))
                 Entry("Replace", text: $appState.editor.search.replace)
-                    .focus(appState.scene.focusReplace)
+                    .focus($appState.scene.focusReplace)
                 HStack {
                     Button("Replace") {
                         appState.editor.command = .replaceSearchMatch(with: appState.editor.search.replace)

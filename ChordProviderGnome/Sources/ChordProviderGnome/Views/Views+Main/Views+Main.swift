@@ -69,7 +69,7 @@ extension Views {
             /// The **Toast** message
             .toast(
                 appState.scene.toastMessage.escapeSpecialCharacters,
-                signal: appState.scene.showToast
+                signal: $appState.scene.showToast
             )
         }
     }

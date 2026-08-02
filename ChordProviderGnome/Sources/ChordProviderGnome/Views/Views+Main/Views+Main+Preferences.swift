@@ -155,7 +155,7 @@ extension Views.Main {
                                     .valign(.center)
                                 }
                             .fileImporter(
-                                open: appState.scene.importDatabase,
+                                open: $appState.scene.importDatabase,
                                 extensions: ["json"]
                             ) { fileURL in
                                 appState.importDatabase(url: fileURL, main: true)

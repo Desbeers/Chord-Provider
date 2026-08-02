@@ -21,7 +21,7 @@ extension Views.Main {
 
         /// The **File Importer**
             .fileImporter(
-                open: appState.scene.openSong,
+                open: $appState.scene.openSong,
                 extensions: ChordPro.fileExtensions
             ) { fileURL in
                 appState.openSong(fileURL: fileURL)
@@ -37,7 +37,7 @@ extension Views.Main {
 
         /// The **File Exporter**
             .fileExporter(
-                open: appState.scene.saveSongAs,
+                open: $appState.scene.saveSongAs,
                 initialName: appState.editor.song.initialName(format: appState.editor.coreSettings.export.format)
             ) { fileURL in
                 switch appState.editor.coreSettings.export.format {

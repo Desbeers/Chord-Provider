@@ -50,14 +50,14 @@ extension Views.Database {
             }
             /// Import database dialog
             .fileImporter(
-                open: databaseState.importDatabase,
+                open: $databaseState.importDatabase,
                 extensions: ["json"]
             ) { fileURL in
                 appState.importDatabase(url: fileURL, main: false)
             }
             /// Export database dialog
             .fileExporter(
-                open: databaseState.exportDatabase,
+                open: $databaseState.exportDatabase,
                 initialName: "\(appState.editor.coreSettings.instrument.label).json",
                 onSave: { fileURL in
                     var instrument = appState.currentInstrument

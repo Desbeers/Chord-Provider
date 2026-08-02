@@ -241,7 +241,7 @@ extension Views {
                         )
                     }
             }
-            .toast("Copied definition to clipboard", signal: copied)
+            .toast("Copied definition to clipboard", signal: $copied)
         }
 
         // MARK: Functions

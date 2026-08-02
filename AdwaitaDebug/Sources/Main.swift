@@ -38,9 +38,9 @@ struct Main: View {
                 // The **Toast** message
                 .toast(
                     appState.scene.toastMessage,
-                    signal: appState.scene.showToast
+                    signal: $appState.scene.showToast
                 )
-                .fileImporter(open: appState.scene.openFile) { url in
+                .fileImporter(open: $appState.scene.openFile) { url in
                     appState.scene.toastMessage = url.lastPathComponent
                     appState.scene.showToast.signal()
                 }
@@ -67,9 +67,9 @@ struct Main: View {
                 // The **Toast** message
                 .toast(
                     toastMessage,
-                    signal: showToast
+                    signal: $showToast
                 )
-                .fileImporter(open: openFile) { url in
+                .fileImporter(open: $openFile) { url in
                     toastMessage = url.lastPathComponent
                     showToast.signal()
                 }
