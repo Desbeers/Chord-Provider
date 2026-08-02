@@ -50,7 +50,7 @@ extension Widgets {
         ) where Data: ViewRenderData {
             storage.modify { widget in
                 var contentStorage: [ViewStorage] = storage.content[.mainContent] ?? []
-                let old = storage.fields["element"] as? [Element] ?? []
+                let old = storage.fields[.element] as? [Element] ?? []
                 old.identifiableTransform(
                     to: elements,
                     functions: .init { index in
@@ -70,7 +70,7 @@ extension Widgets {
                         contentStorage.insert(child, at: index)
                     }
                 )
-                storage.fields["element"] = elements
+                storage.fields[.element] = elements
                 storage.content[.mainContent] = contentStorage
                 for (index, element) in elements.enumerated() {
                     content(element).updateStorage(

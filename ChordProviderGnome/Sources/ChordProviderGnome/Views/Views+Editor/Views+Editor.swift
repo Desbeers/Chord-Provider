@@ -35,7 +35,7 @@ extension Views {
                         .highlightSearchResult(appState.scene.showSearchBar)
                         .vexpand()
                         .style("editor")
-                        //.focus($appState.scene.focusEditor)
+                        .focus($appState.scene.focusEditor)
                 }
                 Separator()
                     .bottomToolbar(visible: appState.editor.coreSettings.showWarnings) {
