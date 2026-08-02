@@ -101,6 +101,8 @@ struct ChordProviderApp: App {
                 // Just open the *home* window
                 return
             }
+            appState.scene.showHomeView = false
+            app.showWindow("main")
             if appState.contentIsModified {
                 // The current song is modified; show a dialog
                 appState.scene.saveDoneAction = .openURL(url)
@@ -108,7 +110,6 @@ struct ChordProviderApp: App {
                 return
             }
             // Open the song
-            app.showWindow("main")
             appState.settings.editor.showEditor = false
             appState.openSong(fileURL: url)
             // Add it to the recent songs list
