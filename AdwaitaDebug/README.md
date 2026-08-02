@@ -1,0 +1,3 @@
+# Adwaita Debug
+
+Bughunting; nothing else to see here...
