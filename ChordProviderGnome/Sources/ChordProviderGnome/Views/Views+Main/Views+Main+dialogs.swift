@@ -83,17 +83,18 @@ extension Views.Main {
                 .frame(minWidth: 380)
             }
             .response("Cancel", role: .close) {
-                /// Do nothing
+                // Do nothing
             }
             .response("Discard", appearance: .destructive, role: .none) {
                 /// Make the source 'clean' so we can close the window
                 appState.scene.originalContent = appState.editor.song.content
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
-                    /// Close the window
                     window.close()
                 case .showHomeView:
                     appState.scene.showHomeView = true
+                case .openURL(let url):
+                    appState.openSong(fileURL: url)
                 case .noAction:
                     return
                 }
@@ -111,6 +112,8 @@ extension Views.Main {
                         window.close()
                     case .showHomeView:
                         appState.scene.showHomeView = true
+                    case .openURL(let url):
+                        appState.openSong(fileURL: url)
                     case .noAction:
                         /// Set the toast
                         appState.scene.toastMessage = "Saved \(fileURL.deletingPathExtension().lastPathComponent)"

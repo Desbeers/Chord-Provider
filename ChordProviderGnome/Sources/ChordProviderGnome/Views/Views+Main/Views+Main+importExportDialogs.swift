@@ -60,6 +60,9 @@ extension Views.Main {
                 case .showHomeView:
                     appState.scene.showToast.signal()
                     appState.scene.showHomeView = true
+                case .openURL(let url):
+                    appState.scene.showToast.signal()
+                    appState.openSong(fileURL: url)
                 case .noAction:
                     appState.scene.showToast.signal()
                 }

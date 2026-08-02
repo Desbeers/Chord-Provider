@@ -15,7 +15,6 @@ import Foundation
 /// The **Chord Provider** GNOME application
 @main
 struct ChordProviderApp: App {
-
     /// The application
     let app = AdwaitaApp(id: "nl.desbeers.chordprovider")
     /// The state of the application
@@ -89,19 +88,6 @@ struct ChordProviderApp: App {
                 appState.getFolderContent()
             }
         }
-        // Open a song when passed as argument at launch
-        .onOpen { urls in
-            guard let url = urls.first else {
-                return
-            }
-            app.showWindow("main")
-            appState.settings.editor.showEditor = false
-            appState.openSong(fileURL: url)
-            recentSongs.addRecentSong(
-                content: appState.scene.originalContent,
-                coreSettings: appState.editor.coreSettings
-            )
-        }
         // - Note: It will remember the window size when opening a new window
         .size(width: $windowSize.width, height: $windowSize.height)
         .defaultSize(width: 1024, height: 800)
@@ -109,6 +95,28 @@ struct ChordProviderApp: App {
         .maximized($windowSize.maximized)
         // This is what you see in the GNOME overview
         .title(appState.overviewTitle)
+        // Open a song when an URL is passed as argument
+        .onOpen { urls in
+            guard let url = urls.first else {
+                // Just open the *home* window
+                return
+            }
+            if appState.contentIsModified {
+                // The current song is modified; show a dialog
+                appState.scene.saveDoneAction = .openURL(url)
+                appState.scene.showCloseDialog = true
+                return
+            }
+            // Open the song
+            app.showWindow("main")
+            appState.settings.editor.showEditor = false
+            appState.openSong(fileURL: url)
+            // Add it to the recent songs list
+            recentSongs.addRecentSong(
+                content: appState.scene.originalContent,
+                coreSettings: appState.editor.coreSettings
+            )
+        }
         .onClose {
             if appState.contentIsModified {
                 appState.scene.saveDoneAction = .closeWindow

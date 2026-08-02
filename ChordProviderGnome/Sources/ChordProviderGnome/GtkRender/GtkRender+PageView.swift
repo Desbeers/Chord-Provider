@@ -29,12 +29,22 @@ extension GtkRender {
 
                 let gesture = gtk_gesture_zoom_new()
                 var zoomStart = appState.settings.theme.zoom
-                /// *begin* signal
-                storage.connectSignal(name: "begin", argCount: 1, pointer: gesture) { _ in
+                // *begin* signal
+                storage.connectSignal(
+                    name: "begin",
+                    id: "zoom-begin",
+                    type: .oneArg,
+                    pointer: gesture
+                ) { _ in
                     zoomStart = appState.settings.theme.zoom
                 }
-                /// *scale-changed* signal
-                storage.connectSignal(name: "scale-changed", pointer: gesture) {
+                // *scale-changed* signal
+                storage.connectSignal(
+                    name: "scale-changed",
+                    id: "zoom-end",
+                    type: .noArgs,
+                    pointer: gesture
+                ) {
                     let delta = gtk_gesture_zoom_get_scale_delta(gesture)
                     let newZoom = zoomStart * delta
                     let step: Double = 0.05
@@ -44,6 +54,8 @@ extension GtkRender {
                             appState.settings.theme.zoom = min(max(stepped, 0.5), 2.0)
                         }
                     }
+                    // Need to return `nil` or else we get a compile error
+                    return nil
                 }
                 gtk_widget_add_controller(storage.opaquePointer?.cast(), gesture)
             }
