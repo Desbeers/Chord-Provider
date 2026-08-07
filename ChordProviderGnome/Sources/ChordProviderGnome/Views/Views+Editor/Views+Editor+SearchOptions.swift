@@ -44,7 +44,7 @@ extension Views.Editor {
                         .keyboardShortcut("g".ctrl(), active: appState.scene.showSearchBar)
                         .tooltip("Next")
                     }
-                    .style("linked")
+                    .linked()
                     .insensitive(appState.editor.search.noMatches)
                     // Below should be a toggle but I can't attach
                     // keyboard shortcuts to them
@@ -97,7 +97,7 @@ extension Views.Editor {
                     }
                     .insensitive(appState.editor.search.replace.isEmpty || !appState.editor.search.haveMatches)
                 }
-                .style("linked")
+                .linked()
                 .insensitive(appState.editor.search.search == appState.editor.search.replace)
             }
         }

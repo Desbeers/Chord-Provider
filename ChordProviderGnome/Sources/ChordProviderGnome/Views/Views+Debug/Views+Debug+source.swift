@@ -67,7 +67,7 @@ extension Views.Debug {
                     .useMarkup()
                     .halign(.start)
             }
-            .style("caption")
+            .caption()
             .hexpand()
         }
         .padding()

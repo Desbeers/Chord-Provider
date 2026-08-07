@@ -21,6 +21,9 @@ extension Markup {
         /// The define dialog
         case define
 
+        /// The editor view
+        case editor
+
         // MARK: Text Styles
 
         /// Standard text or default-styled element

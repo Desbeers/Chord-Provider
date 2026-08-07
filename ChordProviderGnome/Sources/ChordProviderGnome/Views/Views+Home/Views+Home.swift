@@ -47,9 +47,8 @@ extension Views {
                             debugSongsMenu()
                                 .padding()
                         }
-                        /// - Note: This should be a spacer
                         Separator()
-                            .style("spacer")
+                            .spacer()
                             .vexpand()
                         Button("Help") {
                             appState.openSample(.help, showEditor: false)

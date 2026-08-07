@@ -179,7 +179,7 @@ extension Views.Editor.Edit {
         var view: Body {
             HStack {
                 FieldLabel(label: label)
-                Box {
+                HStack {
                     DropDown(
                         selection: $root.onSet { root in value = "\(root.rawValue)\(quality.rawValue)" },
                         values: Array(Chord.Root.allCases.dropFirst().dropLast())
@@ -190,7 +190,6 @@ extension Views.Editor.Edit {
                     )
                 }
                 .linked()
-                .horizontal()
             }
             .halign(.center)
         }

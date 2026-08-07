@@ -31,29 +31,6 @@ extension AnyView {
 
 extension AnyView {
 
-    /// Orientate a `Widget` vertical
-    /// - Returns: A modified `AnyView`
-    public func vertical() -> AnyView {
-        inspect { storage, updateProperties in
-            if updateProperties {
-                gtk_orientable_set_orientation(storage.opaquePointer, .GTK_ORIENTATION_VERTICAL)
-            }
-        }
-    }
-
-    /// Orientate a `Widget` horizontal
-    /// - Returns: A modified `AnyView`
-    public func horizontal() -> AnyView {
-        inspect { storage, updateProperties in
-            if updateProperties {
-                gtk_orientable_set_orientation(storage.opaquePointer, .GTK_ORIENTATION_HORIZONTAL)
-            }
-        }
-    }
-}
-
-extension AnyView {
-
     /// Set the zoom factor of a `GtkLabel`
     /// - Parameter zoom: The zoom factor
     /// - Returns: Updated `AnyView`

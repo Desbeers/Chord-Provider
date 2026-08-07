@@ -41,7 +41,7 @@ extension Views.Main {
                 .padding()
                 if appState.editor.song.metadata.transpose != 0 {
                     Text("The song is \(appState.editor.song.metadata.transpose) semitones transposed in the source")
-                        .style("caption")
+                        .caption()
                 }
                 Button("Close") {
                     appState.scene.showTransposeDialog = false

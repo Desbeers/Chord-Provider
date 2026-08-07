@@ -198,7 +198,7 @@ extension Views {
                                         definition.frets[string.id] = button.id
                                         playNote(string)
                                     }
-                                    .style("circular")
+                                    .circular()
                                     .insensitive(button.id != -1 && !definition.notes.contains(button.label))
                                     .id(definition)
                                 }
@@ -218,7 +218,7 @@ extension Views {
                                     Button(button, active: definition.fingers[finger.id] == button.id) {
                                         definition.fingers[finger.id] = button.id
                                     }
-                                    .style("circular")
+                                    .circular()
                                     .style(definition.correctFinger(string: finger.id) ? .noStyle : definition.fingers[finger.id] == button.id ? .error : .noStyle)
                                     .id(definition)
                                 }

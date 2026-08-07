@@ -34,7 +34,7 @@ extension Views {
                         .highlightCurrentLine(true)
                         .highlightSearchResult(appState.scene.showSearchBar)
                         .vexpand()
-                        .style("editor")
+                        .style(.editor)
                         .focus($appState.scene.focusEditor)
                 }
                 Separator()
