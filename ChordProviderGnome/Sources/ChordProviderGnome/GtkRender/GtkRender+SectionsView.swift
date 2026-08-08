@@ -28,9 +28,11 @@ extension GtkRender {
         var view: Body {
             switch appState.settings.app.columnPaging {
             case true:
-                Widgets.Columns(sections) { section in
+                WrapBox(sections) { section in
                     sectionPart(section)
                 }
+                .orientation(.vertical)
+                .lineSpacing(20)
                 .transition(.rotateLeftRight)
             case false:
                 ForEach(sections) { section in

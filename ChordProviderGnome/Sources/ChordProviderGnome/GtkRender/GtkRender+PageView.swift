@@ -54,8 +54,6 @@ extension GtkRender {
                             appState.settings.theme.zoom = min(max(stepped, 0.5), 2.0)
                         }
                     }
-                    // Need to return `nil` or else we get a compile error
-                    return nil
                 }
                 gtk_widget_add_controller(storage.opaquePointer?.cast(), gesture)
             }

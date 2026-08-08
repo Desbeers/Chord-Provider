@@ -52,18 +52,21 @@ extension Views {
                     .padding(.trailing)
                 }
                 .valign(.center)
-                FlowBox(tokens, selection: nil) { token in
+                WrapBox(tokens) { token in
                     HStack {
                         Text(token.content)
-                            .hexpand()
-                        Button(icon: .default(icon: .editDelete)) {
+                            .padding(.leading)
+                        Button(icon: .default(icon: .windowClose)) {
                             tokens = tokens.filter { $0.id != token.id }
                             sortTokens = tokens.map(\.content)
                         }
                         .flat()
+                        .circular()
                     }
                     .frameStyle()
                 }
+                .lineSpacing(4)
+                .childSpacing(4)
                 .valign(.center)
                 .padding()
             }
