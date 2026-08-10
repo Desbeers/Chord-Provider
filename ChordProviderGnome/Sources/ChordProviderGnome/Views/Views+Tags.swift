@@ -15,20 +15,20 @@ extension Views {
         /// Init the `View`
         init(tags: [String.ElementWrapper]) {
             self.tags = tags
-            self.horizontal = tags.count > 2 ? false : true
+            self.orientation = tags.count > 2 ? .vertical : .horizontal
         }
         /// The tags
         let tags: [String.ElementWrapper]
-        /// Horizontal view
-        let horizontal: Bool
+        /// Orientation of the view
+        let orientation: Orientation
         /// Bool to show the popup
         @State private var showPopover: Bool = false
         /// The body of the `View`
         var view: Body {
-            switch horizontal {
-            case true:
+            switch orientation {
+            case .horizontal:
                 tagLabels()
-            case false:
+            case .vertical:
                 Text("Tags…")
                     .style(.tagButton)
                     .padding(5)
@@ -42,12 +42,13 @@ extension Views {
         }
         /// Show a list of tags
         private func tagLabels() -> AnyView {
-            ForEach(tags, horizontal: horizontal) { tag in
+            ForEach(tags) { tag in
                 Text(Utils.convertSimpleLinks(tag.content))
                     .useMarkup()
-                    .style(horizontal ? .tagLabel : .noStyle)
+                    .style(orientation == .horizontal ? .tagLabel : .noStyle)
                     .padding(5)
             }
+            .orientation(orientation)
         }
     }
 }

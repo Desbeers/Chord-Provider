@@ -19,7 +19,7 @@ extension GtkRender {
         let appState: AppState
         /// The body of the `View`
         var view: Body {
-            ForEach(line.parts, horizontal: true) { part in
+            ForEach(line.parts) { part in
                 if let chord = part.content.getChord, chord.definition.knownChord {
                     VStack(spacing: 0) {
                         Views.MidiPlayerButton(
@@ -35,6 +35,7 @@ extension GtkRender {
                     }
                 }
             }
+            .orientation(.horizontal)
         }
     }
 }

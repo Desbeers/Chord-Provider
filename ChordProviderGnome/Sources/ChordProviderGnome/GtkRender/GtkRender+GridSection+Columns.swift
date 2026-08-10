@@ -24,15 +24,16 @@ extension GtkRender.GridSection {
         /// The body of the `View`
         var view: Body {
             VStack {
-                ForEach(columns, horizontal: true) { column in
+                ForEach(columns) { column in
                     Box {
-                        ForEach(column.cells.flatMap(\.parts), horizontal: false) { item in
+                        ForEach(column.cells.flatMap(\.parts)) { item in
                             part(part: item)
                         }
                         .homogeneous()
                     }
                     .homogeneous()
                 }
+                .orientation(.horizontal)
             }
             .padding(10)
         }

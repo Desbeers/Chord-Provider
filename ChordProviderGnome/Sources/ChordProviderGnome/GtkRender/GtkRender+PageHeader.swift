@@ -33,9 +33,10 @@ extension GtkRender {
         var view: Body {
             /// Metadata
             HStack {
-                ForEach(metadata, horizontal: true) { item in
+                ForEach(metadata) { item in
                     metadata(item)
                 }
+                .orientation(.horizontal)
                 Views.MetronomeToggle(appState: $appState)
                     .tooltip("Play the metronome")
                 if !additionalMetadata.isEmpty {

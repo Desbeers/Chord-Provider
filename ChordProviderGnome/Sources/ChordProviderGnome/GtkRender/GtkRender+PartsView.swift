@@ -23,7 +23,7 @@ extension GtkRender {
         let appState: AppState
         /// The body of the `View`
         var view: Body {
-            ForEach(parts, horizontal: true) { part in
+            ForEach(parts) { part in
                 switch part.content {
                 case let .lyric(lyric):
                     Box {
@@ -66,6 +66,7 @@ extension GtkRender {
                     Views.Empty()
                 }
             }
+            .orientation(.horizontal)
         }
     }
 }

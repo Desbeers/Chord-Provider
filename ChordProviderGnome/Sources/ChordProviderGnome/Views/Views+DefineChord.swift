@@ -192,7 +192,7 @@ extension Views {
                             .padding(.top)
                         Separator()
                         VStack {
-                            ForEach(strings, horizontal: true) { string in
+                            ForEach(strings) { string in
                                 ForEach(string.frets) { button in
                                     Button(button, active: definition.frets[string.id] == button.id) {
                                         definition.frets[string.id] = button.id
@@ -203,6 +203,7 @@ extension Views {
                                     .id(definition)
                                 }
                             }
+                            .orientation(.horizontal)
                         }
                         .vexpand()
                         .padding()
@@ -213,7 +214,7 @@ extension Views {
                             .padding(.top)
                         Separator()
                         VStack {
-                            ForEach(fingers, horizontal: true) { finger in
+                            ForEach(fingers) { finger in
                                 ForEach(finger.frets) { button in
                                     Button(button, active: definition.fingers[finger.id] == button.id) {
                                         definition.fingers[finger.id] = button.id
@@ -223,6 +224,7 @@ extension Views {
                                     .id(definition)
                                 }
                             }
+                            .orientation(.horizontal)
                         }
                         .vexpand()
                         .padding()

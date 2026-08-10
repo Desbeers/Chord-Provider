@@ -50,9 +50,10 @@ extension Views {
                                     .halign(.start)
                                 Text(element.label)
                                     .halign(.start)
-                                ForEach(element.tuning, horizontal: true) { tuning in
+                                ForEach(element.tuning) { tuning in
                                     Text("\(tuning.note)\(tuning.octave) ")
                                 }
+                                .orientation(.horizontal)
                             }
                             .hexpand()
                             if element.id == appState.settings.app.instrumentID {

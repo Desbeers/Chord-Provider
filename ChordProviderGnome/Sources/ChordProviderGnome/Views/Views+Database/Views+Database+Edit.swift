@@ -83,10 +83,11 @@ extension Views.Database {
                     .padding()
                     .halign(.center)
                     if !tunings.isEmpty {
-                        ForEach(tunings, horizontal: true) { tune in
+                        ForEach(tunings) { tune in
                             TuningPicker(tune: tune, tunings: $tunings, new: new)
                                 .padding(2, .horizontal)
                         }
+                        .orientation(.horizontal)
                         .halign(.center)
                         .padding()
                     }
