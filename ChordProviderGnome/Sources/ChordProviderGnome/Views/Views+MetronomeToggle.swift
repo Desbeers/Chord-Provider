@@ -21,6 +21,7 @@ extension Views {
         init(appState: Binding<AppState>) {
             let metadata = appState.editor.song.metadata.wrappedValue
             let tempo = metadata.tempo
+            self.songTempo = tempo
             self._appState = appState
             Task {
                 if tempo != nil {
@@ -31,22 +32,24 @@ extension Views {
                 }
             }
         }
+        /// The tempo of the song
+        let songTempo: Int?
         /// The tempo of the metronome
         var tempo: Int? {
-            ChordProviderMIDI.shared.snapshot.tempo
+            ChordProviderMIDI.shared.snapshot.tempo ?? songTempo
         }
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`
         var view: Body {
             Box {
-                if let tempo {
+                if songTempo != nil  {
                     HStack {
                         Widgets.BundleImage(icon: .tempo)
                             .pixelSize(16)
                             .valign(.baselineCenter)
                             .style(.svgIcon)
-                        Toggle(String(tempo), isOn: $appState.scene.playMetronome.onSet { value in
+                        Toggle(String(tempo ?? 0), isOn: $appState.scene.playMetronome.onSet { value in
                             switch value {
                             case true:
                                 Task {
