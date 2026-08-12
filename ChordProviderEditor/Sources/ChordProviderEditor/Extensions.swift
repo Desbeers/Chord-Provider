@@ -11,6 +11,20 @@ import Adwaita
 import CAdw
 import CGtkSourceView
 
+extension GtkTextIter {
+
+    var dump: String {
+        var iter = self
+
+        let offset = gtk_text_iter_get_offset(&iter)
+        let line = gtk_text_iter_get_line(&iter)
+        let lineOffset = gtk_text_iter_get_line_offset(&iter)
+        let character = gtk_text_iter_get_char(&iter)
+
+        return "GtkTextIter(offset: \(offset), line: \(line), lineOffset: \(lineOffset), character:  \(character))"
+    }
+}
+
 extension LogUtils.Level {
 
     var style: (color: String, icon: String) {

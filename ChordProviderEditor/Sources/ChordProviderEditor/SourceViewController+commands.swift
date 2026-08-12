@@ -109,13 +109,14 @@ extension SourceViewController {
     private func replaceFromCursorToNewline(text: String) {
         withUndoGroup {
             var start = cursorPosition
-            var end = cursorPosition
 
-            // Find end of line
-            gtk_text_iter_forward_to_line_end(&end)
-
-            // Delete everything up to the newline
-            gtk_text_buffer_delete(buffer.textBufferPointer, &start, &end)
+            // Delete everything up to the newline if the newline is not at the start
+            // The int value of a newline character  = 10
+            if gtk_text_iter_get_char(&start) != 10 {
+                var end = cursorPosition
+                gtk_text_iter_forward_to_line_end(&end)
+                gtk_text_buffer_delete(buffer.textBufferPointer, &start, &end)
+            }
 
             // Insert replacement text at cursor
             text.withCString { unsafePointer in
@@ -154,7 +155,6 @@ extension SourceViewController {
                 gtk_text_iter_set_line_offset(&insertIter, 0)
 
                 let insert = "\(directiveStart)\(directiveEnd)\n"
-
                 // Insert the directive
                 gtk_text_buffer_insert(buffer.textBufferPointer, &insertIter, insert, -1)
 
