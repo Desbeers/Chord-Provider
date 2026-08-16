@@ -51,7 +51,10 @@ extension Views.Database {
             /// Import database dialog
             .fileImporter(
                 open: $databaseState.importDatabase,
-                extensions: ["json"]
+                filters: [
+                    .mimeType("application/json", name: "Chord Database")
+                ],
+                acceptLabel: "Import"
             ) { fileURL in
                 appState.importDatabase(url: fileURL, main: false)
             }

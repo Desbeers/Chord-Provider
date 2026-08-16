@@ -3,10 +3,11 @@
   <mime-type type="application/x-chordpro">
     <sub-class-of type="text/plain"/>
     <generic-icon name="nl.desbeers.chordprovider-doc"/>
-    <glob pattern="*.cho" weight="80"/>
     <glob pattern="*.chordpro" weight="100"/>
     <glob pattern="*.chopro" weight="100"/>
+    <glob pattern="*.cho" weight="80"/>
     <glob pattern="*.crd" weight="50"/>
-    <comment>ChordPro song</comment>
+    <glob pattern="*.pro" weight="40"/>
+    <comment>ChordPro lead sheet document</comment>
   </mime-type>
 </mime-info>

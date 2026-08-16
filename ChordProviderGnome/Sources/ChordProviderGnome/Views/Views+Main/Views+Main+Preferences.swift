@@ -156,7 +156,10 @@ extension Views.Main {
                                 }
                             .fileImporter(
                                 open: $appState.scene.importDatabase,
-                                extensions: ["json"]
+                                filters: [
+                                    .mimeType("application/json", name: "Chords Database")
+                                ],
+                                acceptLabel: "Import"
                             ) { fileURL in
                                 appState.importDatabase(url: fileURL, main: true)
                             }

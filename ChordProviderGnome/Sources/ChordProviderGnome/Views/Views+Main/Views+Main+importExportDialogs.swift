@@ -22,7 +22,10 @@ extension Views.Main {
         /// The **File Importer**
             .fileImporter(
                 open: $appState.scene.openSong,
-                extensions: ChordPro.fileExtensions
+                filters: [
+                    .mimeType("application/x-chordpro", name: "ChordPro songs"),
+                    .extensions(["*"], name: "All Files"),
+                ]
             ) { fileURL in
                 appState.openSong(fileURL: fileURL)
                 /// Add it to the recent songs list
