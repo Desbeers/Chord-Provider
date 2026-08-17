@@ -43,14 +43,6 @@ The recommended way to build **Chord Provider** is as a Flatpak application.
 
 Clone the repository and build it with [GNOME Builder](https://apps.gnome.org/en-GB/Builder/).
 
-## macOS
-
-The project originally started as a native macOS SwiftUI application.
-
-The old macOS source code is still available in the repository, but it is no longer maintained and does not compile anymore.
-
-The Linux version is now the primary project.
-
 ## Limitations
 
 Not all chords in the database are correct, especially some of the more advanced chords. Contributions are welcome.
