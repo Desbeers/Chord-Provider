@@ -18,8 +18,8 @@ cli:
 	@echo "Build CLI"
 	@swift build \
 		--quiet \
-		--package-path=ChordProviderCLI
-	@cp ./ChordProviderCLI/.build/debug/ChordProviderCLI ./ChordProviderCLI/.build/debug/chordprovider
+		--product ChordProviderCLI
+	@cp .build/debug/ChordProviderCLI .build/debug/chordprovider
 	@echo "CLI build done"
 
 #####################################################
@@ -32,11 +32,11 @@ gui: editorsnippets
 	@echo "Build GUI"
 	@swift build \
 		--quiet \
-		--package-path=ChordProviderGnome
+		--product ChordProviderGnome
 	@echo "GUI build done"
 run: gui
 	@echo "Run GUI"
-	@$(ROOT_DIR)/ChordProviderGnome/.build/debug/ChordProviderGnome
+	@$(ROOT_DIR)/.build/debug/ChordProviderGnome
 	@echo "GUI stopped"
 
 #####################################################
@@ -47,8 +47,10 @@ run: gui
 
 editorsnippets:
 	@echo "Build GenerateSnippets"
-	swift build --package-path ChordProviderEditor --product GenerateSnippets
-	@$(ROOT_DIR)/ChordProviderEditor/.build/debug/GenerateSnippets
+	swift build \
+		--quiet \
+		--product GenerateSnippets
+	@$(ROOT_DIR)/.build/debug/GenerateSnippets
 	@echo "Generated Snippets"
 
 #####################################################
