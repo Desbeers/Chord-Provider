@@ -20,15 +20,18 @@ extension ChordDefinition {
         /// Get the new name by adding the transpose value, it will keep the original chord name
         /// - Note: For transposing custom chords
         let newName = self.name + "-\(transpose)"
-        // /// Get the chords for the instrument
-        // let chords = ChordUtils.getAllChordsForInstrument(instrument: instrument.type)
         /// Transpose the root
         let root = ChordUtils.transposeNote(note: self.root, transpose: transpose, scale: scale)
+        /// Transpose the slash, if set
+        var slash = self.slash
+        if let slashNote = slash {
+            slash = ChordUtils.transposeNote(note: slashNote, transpose: transpose, scale: scale)
+        }
         /// Find it in the database
         if let chord = chords
             .matching(root: root)
             .matching(quality: self.quality)
-            .matching(slash: self.slash)
+            .matching(slash: slash)
             .first {
             self = chord
             self.kind = kind == .customChord ? .customTransposedChord : .transposedChord
