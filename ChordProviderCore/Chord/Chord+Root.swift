@@ -65,10 +65,8 @@ extension Chord {
         /// B
         case b = "B"
 
-        // MARK: Fallback
-
-        /// Unknown
-        case unknown = "Unknown"
+        /// None
+        case none = "None"
         // swiftlint:enable identifier_name
 
         /// Comparable protocol
@@ -116,8 +114,8 @@ extension Chord {
                 "B♭"
             case .b:
                 "B"
-            case .unknown:
-                "Unknown"
+            case .none:
+                "None"
             }
         }
 
@@ -132,7 +130,7 @@ extension Chord {
         /// The accidental of the root
         public var accidental: Accidental {
             switch self {
-            case .all, .c, .d, .e, .f, .g, .a, .b, .unknown:
+            case .all, .c, .d, .e, .f, .g, .a, .b, .none:
                 .natural
             case .cSharp, .dSharp, .fSharp, .gSharp, .aSharp:
                 .sharp
@@ -160,7 +158,7 @@ extension Chord {
             case .aSharp:
                 .bFlat
             default:
-                .unknown
+                .none
             }
         }
 

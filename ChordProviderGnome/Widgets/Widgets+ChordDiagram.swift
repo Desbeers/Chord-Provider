@@ -201,12 +201,12 @@ func draw_chord(
         for index in 0..<strings {
             let component = data.definition.components[index]
             var offset: Double = 0
-            if let note = component.note != .unknown ? component.note : nil {
+            if let note = component.note != .none ? component.note : nil {
                 offset = note.rawValue.count == 1 ? 1.1 : 1.25
             }
             let y = (margin / offset) + Double(index) * stringSpacing
             cairo_move_to(currentState, y, (width * 1.2) - fontSize * 1.4)
-            let text = component.note != .unknown ? component.note.display : " "
+            let text = component.note != .none ? component.note.display : " "
             cairo_show_text(currentState, text)
         }
     }

@@ -211,7 +211,6 @@ extension Song.Section {
         /// - Parameters:
         ///   - warning: The warning a `String`
         ///   - level: The level of the warning
-        /// - Note: warnings are *optionals* so we can not just 'insert' it
         mutating func addWarning(_ warning: String, level: LogUtils.Level) {
             let lineWarning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
             addWarning(lineWarning, level: level)

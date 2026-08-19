@@ -139,7 +139,7 @@ struct ChordProviderApp: App {
         }
         /// - Note: It will remember the window size when opening a new window
         .size(width: $databaseWindowSize.width, height: $databaseWindowSize.height)
-        .minSize(width: 800, height: 600)
+        .minSize(width: 1000, height: 600)
         .defaultSize(width: 1024, height: 600)
         .title("Chords Database")
         .maximized($databaseWindowSize.maximized)

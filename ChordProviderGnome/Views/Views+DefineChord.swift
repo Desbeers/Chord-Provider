@@ -31,7 +31,7 @@ extension Views {
         /// The application settings
         let appSettings: AppSettings
         /// The slash is *optional* so it needs its own handler
-        @State private var slash: Chord.Root = .unknown
+        @State private var slash: Chord.Root = .none
         /// Label for not playing a string
         static let doNotPlay = "Don't play this string"
         /// Toast signal when a definition is copied
@@ -141,7 +141,7 @@ extension Views {
                     Text("Optional bass:")
                     DropDown(
                         selection: $slash.onSet { slash in
-                            definition.slash = slash == .unknown ? nil : slash
+                            definition.slash = slash == .none ? nil : slash
                             lookupChord()
                         },
                         values: Array(Chord.Root.allCases.dropFirst()),

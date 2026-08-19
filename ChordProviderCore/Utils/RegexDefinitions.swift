@@ -47,7 +47,7 @@ enum RegexDefinitions {
                     return name
                 }
                 /// The quality is unknown
-                return Chord.Quality.unknown
+                return Chord.Quality.none
             }
         }
         Optionally {
@@ -123,7 +123,7 @@ enum RegexDefinitions {
                 )
             }
         } transform: { root in
-            Chord.Root(rawValue: String(root)) ?? Chord.Root.unknown
+            Chord.Root(rawValue: String(root)) ?? Chord.Root.none
         }
     }
 

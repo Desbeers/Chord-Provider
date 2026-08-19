@@ -143,10 +143,10 @@ extension Chord {
         /// Augmented 9
         case augNine = "aug9"
 
-        // MARK: Fallback
+        // MARK: None
 
-        /// Unknown
-        case unknown
+        /// None
+        case none
 
         /// Comparable protocol
         /// - Note: Used for sorting
@@ -155,7 +155,7 @@ extension Chord {
         }
 
         /// The display of Quality
-        /// - Note: `\u{200A}` is a *half space* character
+        /// - Note: `\u{200A}` is a *hair space* character
         public var display: String {
             switch self {
             case .all:
@@ -250,8 +250,8 @@ extension Chord {
                 "m\u{200A}add⁹"
             case .addEleven:
                 "\u{200A}add¹¹"
-            case .unknown:
-                "Unknown"
+            case .none:
+                "None"
             }
         }
 
@@ -279,7 +279,7 @@ extension Chord {
                 .sevenFlatNine, .sevenSharpNine, .eleven, .nineSharpEleven, .thirteen,
                 .sevenSharpFive:
                 .other
-            case .all, .unknown:
+            case .all, .none:
                 .intern
             }
         }

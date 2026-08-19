@@ -13,7 +13,7 @@ extension ChordDefinition {
     ///
     /// - Returns: A formatted string with the name of the chord
     public var display: String {
-        if root == .unknown || quality == .unknown {
+        if root == .none || quality == .none {
             /// We don't know anything about this chord; so use the plain name
             return plain
         }
@@ -29,7 +29,7 @@ extension ChordDefinition {
     /// - Returns: A formatted string with the name of the chord
     public var displayNaturalOrAccidentals: String {
         var name: String = root.display
-        if root == .unknown || quality == .unknown {
+        if root == .none || quality == .none {
             /// We don't know anything about this chord; so use the plain name
             return plain
         }

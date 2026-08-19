@@ -147,7 +147,7 @@
     },
     {
       "base" : 1,
-      "display" : "Amaj⁷",
+      "display" : "A maj⁷",
       "fingers" : [
         0,
         3,
@@ -168,7 +168,7 @@
     },
     {
       "base" : 1,
-      "display" : "Asus²",
+      "display" : "A sus²",
       "fingers" : [
         0,
         1,
@@ -292,7 +292,7 @@
     },
     {
       "base" : 1,
-      "display" : "Bmaj⁷",
+      "display" : "B maj⁷",
       "fingers" : [
         1,
         0,
@@ -496,7 +496,7 @@
     },
     {
       "base" : 1,
-      "display" : "Cmaj⁷",
+      "display" : "C maj⁷",
       "fingers" : [
         2,
         0,
@@ -517,7 +517,7 @@
     },
     {
       "base" : 1,
-      "display" : "Csus²",
+      "display" : "C sus²",
       "fingers" : [
         1,
         0,
@@ -743,7 +743,7 @@
     },
     {
       "base" : 1,
-      "display" : "Dmaj⁷",
+      "display" : "D maj⁷",
       "fingers" : [
         0,
         0,
@@ -764,7 +764,7 @@
     },
     {
       "base" : 1,
-      "display" : "Dsus²",
+      "display" : "D sus²",
       "fingers" : [
         0,
         0,
@@ -785,7 +785,7 @@
     },
     {
       "base" : 1,
-      "display" : "Dsus⁴",
+      "display" : "D sus⁴",
       "fingers" : [
         0,
         0,
@@ -909,7 +909,7 @@
     },
     {
       "base" : 1,
-      "display" : "Emaj⁷",
+      "display" : "E maj⁷",
       "fingers" : [
         0,
         1,
@@ -930,7 +930,7 @@
     },
     {
       "base" : 1,
-      "display" : "Esus²",
+      "display" : "E sus²",
       "fingers" : [
         0,
         1,
@@ -1013,7 +1013,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fadd⁹",
+      "display" : "F add⁹",
       "fingers" : [
         0,
         2,
@@ -1075,7 +1075,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fmaj⁷",
+      "display" : "F maj⁷",
       "fingers" : [
         0,
         3,
@@ -1096,7 +1096,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fsus²",
+      "display" : "F sus²",
       "fingers" : [
         0,
         1,
@@ -1262,7 +1262,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gmaj⁷",
+      "display" : "G maj⁷",
       "fingers" : [
         0,
         0,
@@ -1283,7 +1283,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gsus²",
+      "display" : "G sus²",
       "fingers" : [
         0,
         0,
@@ -1304,7 +1304,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gsus²",
+      "display" : "G sus²",
       "fingers" : [
         0,
         0,
@@ -1325,7 +1325,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gsus⁴",
+      "display" : "G sus⁴",
       "fingers" : [
         0,
         0,

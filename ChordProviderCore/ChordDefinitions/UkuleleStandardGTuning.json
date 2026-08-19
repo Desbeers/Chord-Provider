@@ -188,7 +188,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯add⁹",
+      "display" : "A♯ add⁹",
       "fingers" : [
         3,
         2,
@@ -205,7 +205,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯aug",
+      "display" : "A♯ aug",
       "fingers" : [
         4,
         2,
@@ -222,7 +222,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯aug⁷",
+      "display" : "A♯ aug⁷",
       "fingers" : [
         1,
         2,
@@ -239,7 +239,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯dim",
+      "display" : "A♯ dim",
       "fingers" : [
         3,
         1,
@@ -256,7 +256,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯dim⁷",
+      "display" : "A♯ dim⁷",
       "fingers" : [
         0,
         2,
@@ -392,7 +392,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯mMaj⁷",
+      "display" : "A♯m Maj⁷",
       "fingers" : [
         4,
         1,
@@ -409,7 +409,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯madd⁹",
+      "display" : "A♯m add⁹",
       "fingers" : [
         2,
         1,
@@ -426,7 +426,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯maj⁷",
+      "display" : "A♯ maj⁷",
       "fingers" : [
         3,
         2,
@@ -443,7 +443,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯maj⁹",
+      "display" : "A♯ maj⁹",
       "fingers" : [
         1,
         0,
@@ -460,7 +460,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯sus²",
+      "display" : "A♯ sus²",
       "fingers" : [
         3,
         0,
@@ -477,7 +477,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♯sus⁴",
+      "display" : "A♯ sus⁴",
       "fingers" : [
         3,
         4,
@@ -663,7 +663,7 @@
     },
     {
       "base" : 1,
-      "display" : "Aadd⁹",
+      "display" : "A add⁹",
       "fingers" : [
         2,
         1,
@@ -680,6 +680,7 @@
     },
     {
       "base" : 1,
+      "display" : "A aug",
       "fingers" : [
         2,
         1,
@@ -696,7 +697,7 @@
     },
     {
       "base" : 1,
-      "display" : "Aaug⁷",
+      "display" : "A aug⁷",
       "fingers" : [
         0,
         1,
@@ -866,7 +867,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭add⁹",
+      "display" : "A♭ add⁹",
       "fingers" : [
         1,
         1,
@@ -883,7 +884,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭aug",
+      "display" : "A♭ aug",
       "fingers" : [
         1,
         0,
@@ -900,7 +901,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭aug⁷",
+      "display" : "A♭ aug⁷",
       "fingers" : [
         1,
         4,
@@ -917,7 +918,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭dim",
+      "display" : "A♭ dim",
       "fingers" : [
         1,
         2,
@@ -934,7 +935,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭dim⁷",
+      "display" : "A♭ dim⁷",
       "fingers" : [
         1,
         3,
@@ -1070,7 +1071,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭mMaj⁷",
+      "display" : "A♭m Maj⁷",
       "fingers" : [
         0,
         2,
@@ -1087,7 +1088,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭madd⁹",
+      "display" : "A♭m add⁹",
       "fingers" : [
         3,
         2,
@@ -1104,7 +1105,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭maj⁷",
+      "display" : "A♭ maj⁷",
       "fingers" : [
         1,
         3,
@@ -1121,7 +1122,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭maj⁹",
+      "display" : "A♭ maj⁹",
       "fingers" : [
         0,
         0,
@@ -1138,7 +1139,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭sus²",
+      "display" : "A♭ sus²",
       "fingers" : [
         1,
         3,
@@ -1155,7 +1156,7 @@
     },
     {
       "base" : 1,
-      "display" : "A♭sus⁴",
+      "display" : "A♭ sus⁴",
       "fingers" : [
         1,
         2,
@@ -1172,6 +1173,7 @@
     },
     {
       "base" : 2,
+      "display" : "A dim",
       "fingers" : [
         1,
         2,
@@ -1188,7 +1190,7 @@
     },
     {
       "base" : 1,
-      "display" : "Adim⁷",
+      "display" : "A dim⁷",
       "fingers" : [
         1,
         3,
@@ -1340,7 +1342,7 @@
     },
     {
       "base" : 1,
-      "display" : "AmMaj⁷",
+      "display" : "Am Maj⁷",
       "fingers" : [
         1,
         0,
@@ -1357,7 +1359,7 @@
     },
     {
       "base" : 1,
-      "display" : "Amadd⁹",
+      "display" : "Am add⁹",
       "fingers" : [
         1,
         0,
@@ -1374,7 +1376,7 @@
     },
     {
       "base" : 1,
-      "display" : "Amaj⁷",
+      "display" : "A maj⁷",
       "fingers" : [
         1,
         2,
@@ -1391,7 +1393,7 @@
     },
     {
       "base" : 1,
-      "display" : "Amaj⁹",
+      "display" : "A maj⁹",
       "fingers" : [
         3,
         1,
@@ -1408,7 +1410,7 @@
     },
     {
       "base" : 2,
-      "display" : "Asus²",
+      "display" : "A sus²",
       "fingers" : [
         2,
         3,
@@ -1425,7 +1427,7 @@
     },
     {
       "base" : 1,
-      "display" : "Asus⁴",
+      "display" : "A sus⁴",
       "fingers" : [
         1,
         2,
@@ -1594,7 +1596,7 @@
     },
     {
       "base" : 1,
-      "display" : "Badd⁹",
+      "display" : "B add⁹",
       "fingers" : [
         3,
         2,
@@ -1611,6 +1613,7 @@
     },
     {
       "base" : 1,
+      "display" : "B aug",
       "fingers" : [
         4,
         2,
@@ -1627,7 +1630,7 @@
     },
     {
       "base" : 1,
-      "display" : "Baug⁷",
+      "display" : "B aug⁷",
       "fingers" : [
         1,
         2,
@@ -1814,7 +1817,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭add⁹",
+      "display" : "B♭ add⁹",
       "fingers" : [
         3,
         2,
@@ -1831,7 +1834,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭aug",
+      "display" : "B♭ aug",
       "fingers" : [
         4,
         2,
@@ -1848,7 +1851,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭aug⁷",
+      "display" : "B♭ aug⁷",
       "fingers" : [
         1,
         2,
@@ -1865,7 +1868,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭dim",
+      "display" : "B♭ dim",
       "fingers" : [
         3,
         1,
@@ -1882,7 +1885,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭dim⁷",
+      "display" : "B♭ dim⁷",
       "fingers" : [
         0,
         2,
@@ -2018,7 +2021,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭mMaj⁷",
+      "display" : "B♭m Maj⁷",
       "fingers" : [
         4,
         1,
@@ -2035,7 +2038,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭madd⁹",
+      "display" : "B♭m add⁹",
       "fingers" : [
         2,
         1,
@@ -2052,7 +2055,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭maj⁷",
+      "display" : "B♭ maj⁷",
       "fingers" : [
         3,
         2,
@@ -2069,7 +2072,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭maj⁹",
+      "display" : "B♭ maj⁹",
       "fingers" : [
         1,
         0,
@@ -2086,7 +2089,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭sus²",
+      "display" : "B♭ sus²",
       "fingers" : [
         3,
         0,
@@ -2103,7 +2106,7 @@
     },
     {
       "base" : 1,
-      "display" : "B♭sus⁴",
+      "display" : "B♭ sus⁴",
       "fingers" : [
         3,
         4,
@@ -2120,6 +2123,7 @@
     },
     {
       "base" : 1,
+      "display" : "B dim",
       "fingers" : [
         4,
         2,
@@ -2136,7 +2140,7 @@
     },
     {
       "base" : 1,
-      "display" : "Bdim⁷",
+      "display" : "B dim⁷",
       "fingers" : [
         1,
         3,
@@ -2271,7 +2275,7 @@
     },
     {
       "base" : 1,
-      "display" : "BmMaj⁷",
+      "display" : "Bm Maj⁷",
       "fingers" : [
         2,
         1,
@@ -2288,7 +2292,7 @@
     },
     {
       "base" : 1,
-      "display" : "Bmadd⁹",
+      "display" : "Bm add⁹",
       "fingers" : [
         3,
         1,
@@ -2305,7 +2309,7 @@
     },
     {
       "base" : 1,
-      "display" : "Bmaj⁷",
+      "display" : "B maj⁷",
       "fingers" : [
         4,
         3,
@@ -2322,7 +2326,7 @@
     },
     {
       "base" : 3,
-      "display" : "Bmaj⁹",
+      "display" : "B maj⁹",
       "fingers" : [
         2,
         1,
@@ -2339,7 +2343,7 @@
     },
     {
       "base" : 1,
-      "display" : "Bsus²",
+      "display" : "B sus²",
       "fingers" : [
         4,
         1,
@@ -2356,7 +2360,7 @@
     },
     {
       "base" : 1,
-      "display" : "Bsus⁴",
+      "display" : "B sus⁴",
       "fingers" : [
         3,
         4,
@@ -2542,7 +2546,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯add⁹",
+      "display" : "C♯ add⁹",
       "fingers" : [
         1,
         3,
@@ -2559,7 +2563,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯aug",
+      "display" : "C♯ aug",
       "fingers" : [
         3,
         1,
@@ -2576,7 +2580,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯aug⁷",
+      "display" : "C♯ aug⁷",
       "fingers" : [
         2,
         1,
@@ -2593,7 +2597,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯dim",
+      "display" : "C♯ dim",
       "fingers" : [
         0,
         1,
@@ -2610,7 +2614,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯dim⁷",
+      "display" : "C♯ dim⁷",
       "fingers" : [
         0,
         1,
@@ -2746,7 +2750,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯mMaj⁷",
+      "display" : "C♯m Maj⁷",
       "fingers" : [
         1,
         0,
@@ -2763,7 +2767,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯madd⁹",
+      "display" : "C♯m add⁹",
       "fingers" : [
         1,
         3,
@@ -2780,7 +2784,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯maj⁷",
+      "display" : "C♯ maj⁷",
       "fingers" : [
         1,
         1,
@@ -2797,7 +2801,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯maj⁹",
+      "display" : "C♯ maj⁹",
       "fingers" : [
         4,
         2,
@@ -2814,7 +2818,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯sus²",
+      "display" : "C♯ sus²",
       "fingers" : [
         1,
         2,
@@ -2831,7 +2835,7 @@
     },
     {
       "base" : 1,
-      "display" : "C♯sus⁴",
+      "display" : "C♯ sus⁴",
       "fingers" : [
         1,
         1,
@@ -3000,7 +3004,7 @@
     },
     {
       "base" : 1,
-      "display" : "Cadd⁹",
+      "display" : "C add⁹",
       "fingers" : [
         0,
         2,
@@ -3017,6 +3021,7 @@
     },
     {
       "base" : 1,
+      "display" : "C aug",
       "fingers" : [
         1,
         0,
@@ -3033,7 +3038,7 @@
     },
     {
       "base" : 1,
-      "display" : "Caug⁷",
+      "display" : "C aug⁷",
       "fingers" : [
         1,
         0,
@@ -3050,6 +3055,7 @@
     },
     {
       "base" : 1,
+      "display" : "C dim",
       "fingers" : [
         0,
         2,
@@ -3066,7 +3072,7 @@
     },
     {
       "base" : 1,
-      "display" : "Cdim⁷",
+      "display" : "C dim⁷",
       "fingers" : [
         1,
         3,
@@ -3201,7 +3207,7 @@
     },
     {
       "base" : 1,
-      "display" : "CmMaj⁷",
+      "display" : "Cm Maj⁷",
       "fingers" : [
         2,
         1,
@@ -3218,7 +3224,7 @@
     },
     {
       "base" : 1,
-      "display" : "Cmadd⁹",
+      "display" : "Cm add⁹",
       "fingers" : [
         3,
         1,
@@ -3235,7 +3241,7 @@
     },
     {
       "base" : 1,
-      "display" : "Cmaj⁷",
+      "display" : "C maj⁷",
       "fingers" : [
         0,
         0,
@@ -3252,7 +3258,7 @@
     },
     {
       "base" : 1,
-      "display" : "Cmaj⁹",
+      "display" : "C maj⁹",
       "fingers" : [
         1,
         0,
@@ -3269,7 +3275,7 @@
     },
     {
       "base" : 1,
-      "display" : "Csus²",
+      "display" : "C sus²",
       "fingers" : [
         0,
         1,
@@ -3286,7 +3292,7 @@
     },
     {
       "base" : 1,
-      "display" : "Csus⁴",
+      "display" : "C sus⁴",
       "fingers" : [
         0,
         0,
@@ -3472,7 +3478,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯add⁹",
+      "display" : "D♯ add⁹",
       "fingers" : [
         0,
         3,
@@ -3489,7 +3495,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯aug",
+      "display" : "D♯ aug",
       "fingers" : [
         0,
         2,
@@ -3506,7 +3512,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯aug⁷",
+      "display" : "D♯ aug⁷",
       "fingers" : [
         2,
         1,
@@ -3523,7 +3529,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯dim",
+      "display" : "D♯ dim",
       "fingers" : [
         1,
         3,
@@ -3540,7 +3546,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯dim⁷",
+      "display" : "D♯ dim⁷",
       "fingers" : [
         1,
         3,
@@ -3676,7 +3682,7 @@
     },
     {
       "base" : 4,
-      "display" : "D♯mMaj⁷",
+      "display" : "D♯m Maj⁷",
       "fingers" : [
         2,
         1,
@@ -3693,7 +3699,7 @@
     },
     {
       "base" : 5,
-      "display" : "D♯madd⁹",
+      "display" : "D♯m add⁹",
       "fingers" : [
         3,
         1,
@@ -3710,7 +3716,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯maj⁷",
+      "display" : "D♯ maj⁷",
       "fingers" : [
         1,
         1,
@@ -3727,7 +3733,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯maj⁹",
+      "display" : "D♯ maj⁹",
       "fingers" : [
         0,
         2,
@@ -3744,7 +3750,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯sus²",
+      "display" : "D♯ sus²",
       "fingers" : [
         3,
         4,
@@ -3761,7 +3767,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♯sus⁴",
+      "display" : "D♯ sus⁴",
       "fingers" : [
         1,
         3,
@@ -3947,7 +3953,7 @@
     },
     {
       "base" : 1,
-      "display" : "Dadd⁹",
+      "display" : "D add⁹",
       "fingers" : [
         1,
         3,
@@ -3964,6 +3970,7 @@
     },
     {
       "base" : 1,
+      "display" : "D aug",
       "fingers" : [
         4,
         2,
@@ -3980,7 +3987,7 @@
     },
     {
       "base" : 1,
-      "display" : "Daug⁷",
+      "display" : "D aug⁷",
       "fingers" : [
         2,
         1,
@@ -4150,7 +4157,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭add⁹",
+      "display" : "D♭ add⁹",
       "fingers" : [
         1,
         3,
@@ -4167,7 +4174,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭aug",
+      "display" : "D♭ aug",
       "fingers" : [
         3,
         1,
@@ -4184,7 +4191,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭aug⁷",
+      "display" : "D♭ aug⁷",
       "fingers" : [
         2,
         1,
@@ -4201,7 +4208,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭dim",
+      "display" : "D♭ dim",
       "fingers" : [
         0,
         1,
@@ -4218,7 +4225,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭dim⁷",
+      "display" : "D♭ dim⁷",
       "fingers" : [
         0,
         1,
@@ -4354,7 +4361,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭mMaj⁷",
+      "display" : "D♭m Maj⁷",
       "fingers" : [
         1,
         0,
@@ -4371,7 +4378,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭madd⁹",
+      "display" : "D♭m add⁹",
       "fingers" : [
         1,
         3,
@@ -4388,7 +4395,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭maj⁷",
+      "display" : "D♭ maj⁷",
       "fingers" : [
         1,
         1,
@@ -4405,7 +4412,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭maj⁹",
+      "display" : "D♭ maj⁹",
       "fingers" : [
         4,
         2,
@@ -4422,7 +4429,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭sus²",
+      "display" : "D♭ sus²",
       "fingers" : [
         1,
         2,
@@ -4439,7 +4446,7 @@
     },
     {
       "base" : 1,
-      "display" : "D♭sus⁴",
+      "display" : "D♭ sus⁴",
       "fingers" : [
         1,
         1,
@@ -4456,6 +4463,7 @@
     },
     {
       "base" : 1,
+      "display" : "D dim",
       "fingers" : [
         1,
         3,
@@ -4472,7 +4480,7 @@
     },
     {
       "base" : 1,
-      "display" : "Ddim⁷",
+      "display" : "D dim⁷",
       "fingers" : [
         1,
         3,
@@ -4607,7 +4615,7 @@
     },
     {
       "base" : 3,
-      "display" : "DmMaj⁷",
+      "display" : "Dm Maj⁷",
       "fingers" : [
         2,
         1,
@@ -4624,7 +4632,7 @@
     },
     {
       "base" : 4,
-      "display" : "Dmadd⁹",
+      "display" : "Dm add⁹",
       "fingers" : [
         2,
         1,
@@ -4641,7 +4649,7 @@
     },
     {
       "base" : 1,
-      "display" : "Dmaj⁷",
+      "display" : "D maj⁷",
       "fingers" : [
         1,
         1,
@@ -4658,7 +4666,7 @@
     },
     {
       "base" : 3,
-      "display" : "Dmaj⁹",
+      "display" : "D maj⁹",
       "fingers" : [
         2,
         3,
@@ -4675,7 +4683,7 @@
     },
     {
       "base" : 1,
-      "display" : "Dsus²",
+      "display" : "D sus²",
       "fingers" : [
         2,
         3,
@@ -4692,7 +4700,7 @@
     },
     {
       "base" : 1,
-      "display" : "Dsus⁴",
+      "display" : "D sus⁴",
       "fingers" : [
         0,
         2,
@@ -4861,7 +4869,7 @@
     },
     {
       "base" : 1,
-      "display" : "Eadd⁹",
+      "display" : "E add⁹",
       "fingers" : [
         1,
         4,
@@ -4878,6 +4886,7 @@
     },
     {
       "base" : 1,
+      "display" : "E aug",
       "fingers" : [
         1,
         0,
@@ -4894,7 +4903,7 @@
     },
     {
       "base" : 1,
-      "display" : "Eaug⁷",
+      "display" : "E aug⁷",
       "fingers" : [
         1,
         2,
@@ -5064,7 +5073,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭add⁹",
+      "display" : "E♭ add⁹",
       "fingers" : [
         0,
         3,
@@ -5081,7 +5090,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭aug",
+      "display" : "E♭ aug",
       "fingers" : [
         0,
         2,
@@ -5098,7 +5107,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭aug⁷",
+      "display" : "E♭ aug⁷",
       "fingers" : [
         2,
         1,
@@ -5115,7 +5124,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭dim",
+      "display" : "E♭ dim",
       "fingers" : [
         1,
         3,
@@ -5132,7 +5141,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭dim⁷",
+      "display" : "E♭ dim⁷",
       "fingers" : [
         1,
         3,
@@ -5268,7 +5277,7 @@
     },
     {
       "base" : 4,
-      "display" : "E♭mMaj⁷",
+      "display" : "E♭m Maj⁷",
       "fingers" : [
         2,
         1,
@@ -5285,7 +5294,7 @@
     },
     {
       "base" : 5,
-      "display" : "E♭madd⁹",
+      "display" : "E♭m add⁹",
       "fingers" : [
         3,
         1,
@@ -5302,7 +5311,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭maj⁷",
+      "display" : "E♭ maj⁷",
       "fingers" : [
         1,
         1,
@@ -5319,7 +5328,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭maj⁹",
+      "display" : "E♭ maj⁹",
       "fingers" : [
         0,
         2,
@@ -5336,7 +5345,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭sus²",
+      "display" : "E♭ sus²",
       "fingers" : [
         3,
         4,
@@ -5353,7 +5362,7 @@
     },
     {
       "base" : 1,
-      "display" : "E♭sus⁴",
+      "display" : "E♭ sus⁴",
       "fingers" : [
         1,
         3,
@@ -5370,6 +5379,7 @@
     },
     {
       "base" : 1,
+      "display" : "E dim",
       "fingers" : [
         0,
         4,
@@ -5386,7 +5396,7 @@
     },
     {
       "base" : 1,
-      "display" : "Edim⁷",
+      "display" : "E dim⁷",
       "fingers" : [
         0,
         2,
@@ -5521,7 +5531,7 @@
     },
     {
       "base" : 1,
-      "display" : "EmMaj⁷",
+      "display" : "Em Maj⁷",
       "fingers" : [
         0,
         3,
@@ -5538,7 +5548,7 @@
     },
     {
       "base" : 1,
-      "display" : "Emadd⁹",
+      "display" : "Em add⁹",
       "fingers" : [
         0,
         3,
@@ -5555,7 +5565,7 @@
     },
     {
       "base" : 1,
-      "display" : "Emaj⁷",
+      "display" : "E maj⁷",
       "fingers" : [
         1,
         3,
@@ -5572,7 +5582,7 @@
     },
     {
       "base" : 4,
-      "display" : "Emaj⁹",
+      "display" : "E maj⁹",
       "fingers" : [
         4,
         2,
@@ -5589,7 +5599,7 @@
     },
     {
       "base" : 1,
-      "display" : "Esus²",
+      "display" : "E sus²",
       "fingers" : [
         3,
         4,
@@ -5606,7 +5616,7 @@
     },
     {
       "base" : 1,
-      "display" : "Esus⁴",
+      "display" : "E sus⁴",
       "fingers" : [
         1,
         2,
@@ -5809,7 +5819,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯add⁹",
+      "display" : "F♯ add⁹",
       "fingers" : [
         1,
         1,
@@ -5826,7 +5836,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯aug",
+      "display" : "F♯ aug",
       "fingers" : [
         4,
         2,
@@ -5843,7 +5853,7 @@
     },
     {
       "base" : 2,
-      "display" : "F♯aug⁷",
+      "display" : "F♯ aug⁷",
       "fingers" : [
         1,
         4,
@@ -5860,7 +5870,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯dim",
+      "display" : "F♯ dim",
       "fingers" : [
         1,
         0,
@@ -5877,7 +5887,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯dim⁷",
+      "display" : "F♯ dim⁷",
       "fingers" : [
         1,
         3,
@@ -6013,7 +6023,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯mMaj⁷",
+      "display" : "F♯m Maj⁷",
       "fingers" : [
         1,
         4,
@@ -6030,7 +6040,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯madd⁹",
+      "display" : "F♯m add⁹",
       "fingers" : [
         1,
         2,
@@ -6047,7 +6057,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯maj⁷",
+      "display" : "F♯ maj⁷",
       "fingers" : [
         2,
         4,
@@ -6064,7 +6074,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯maj⁹",
+      "display" : "F♯ maj⁹",
       "fingers" : [
         1,
         4,
@@ -6081,7 +6091,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯sus²",
+      "display" : "F♯ sus²",
       "fingers" : [
         1,
         0,
@@ -6098,7 +6108,7 @@
     },
     {
       "base" : 1,
-      "display" : "F♯sus⁴",
+      "display" : "F♯ sus⁴",
       "fingers" : [
         4,
         1,
@@ -6267,7 +6277,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fadd⁹",
+      "display" : "F add⁹",
       "fingers" : [
         0,
         0,
@@ -6284,6 +6294,7 @@
     },
     {
       "base" : 1,
+      "display" : "F aug",
       "fingers" : [
         3,
         1,
@@ -6300,7 +6311,7 @@
     },
     {
       "base" : 1,
-      "display" : "Faug⁷",
+      "display" : "F aug⁷",
       "fingers" : [
         2,
         3,
@@ -6317,6 +6328,7 @@
     },
     {
       "base" : 1,
+      "display" : "F dim",
       "fingers" : [
         1,
         0,
@@ -6333,7 +6345,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fdim⁷",
+      "display" : "F dim⁷",
       "fingers" : [
         1,
         3,
@@ -6468,7 +6480,7 @@
     },
     {
       "base" : 1,
-      "display" : "FmMaj⁷",
+      "display" : "Fm Maj⁷",
       "fingers" : [
         1,
         4,
@@ -6485,7 +6497,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fmadd⁹",
+      "display" : "Fm add⁹",
       "fingers" : [
         0,
         3,
@@ -6502,7 +6514,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fmaj⁷",
+      "display" : "F maj⁷",
       "fingers" : [
         2,
         4,
@@ -6519,7 +6531,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fmaj⁹",
+      "display" : "F maj⁹",
       "fingers" : [
         0,
         3,
@@ -6536,7 +6548,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fsus²",
+      "display" : "F sus²",
       "fingers" : [
         0,
         0,
@@ -6553,7 +6565,7 @@
     },
     {
       "base" : 1,
-      "display" : "Fsus⁴",
+      "display" : "F sus⁴",
       "fingers" : [
         3,
         0,
@@ -6739,7 +6751,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯add⁹",
+      "display" : "G♯ add⁹",
       "fingers" : [
         1,
         1,
@@ -6756,7 +6768,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯aug",
+      "display" : "G♯ aug",
       "fingers" : [
         1,
         0,
@@ -6773,7 +6785,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯aug⁷",
+      "display" : "G♯ aug⁷",
       "fingers" : [
         1,
         4,
@@ -6790,7 +6802,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯dim",
+      "display" : "G♯ dim",
       "fingers" : [
         1,
         2,
@@ -6807,7 +6819,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯dim⁷",
+      "display" : "G♯ dim⁷",
       "fingers" : [
         1,
         3,
@@ -6943,7 +6955,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯mMaj⁷",
+      "display" : "G♯m Maj⁷",
       "fingers" : [
         0,
         2,
@@ -6960,7 +6972,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯madd⁹",
+      "display" : "G♯m add⁹",
       "fingers" : [
         3,
         2,
@@ -6977,7 +6989,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯maj⁷",
+      "display" : "G♯ maj⁷",
       "fingers" : [
         1,
         3,
@@ -6994,7 +7006,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯maj⁹",
+      "display" : "G♯ maj⁹",
       "fingers" : [
         0,
         0,
@@ -7011,7 +7023,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯sus²",
+      "display" : "G♯ sus²",
       "fingers" : [
         1,
         3,
@@ -7028,7 +7040,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♯sus⁴",
+      "display" : "G♯ sus⁴",
       "fingers" : [
         1,
         2,
@@ -7181,7 +7193,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gadd⁹",
+      "display" : "G add⁹",
       "fingers" : [
         0,
         1,
@@ -7198,6 +7210,7 @@
     },
     {
       "base" : 1,
+      "display" : "G aug",
       "fingers" : [
         0,
         2,
@@ -7214,7 +7227,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gaug⁷",
+      "display" : "G aug⁷",
       "fingers" : [
         0,
         3,
@@ -7401,7 +7414,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭add⁹",
+      "display" : "G♭ add⁹",
       "fingers" : [
         1,
         1,
@@ -7418,7 +7431,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭aug",
+      "display" : "G♭ aug",
       "fingers" : [
         4,
         2,
@@ -7435,7 +7448,7 @@
     },
     {
       "base" : 2,
-      "display" : "G♭aug⁷",
+      "display" : "G♭ aug⁷",
       "fingers" : [
         1,
         4,
@@ -7452,7 +7465,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭dim",
+      "display" : "G♭ dim",
       "fingers" : [
         1,
         0,
@@ -7469,7 +7482,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭dim⁷",
+      "display" : "G♭ dim⁷",
       "fingers" : [
         1,
         3,
@@ -7605,7 +7618,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭mMaj⁷",
+      "display" : "G♭m Maj⁷",
       "fingers" : [
         1,
         4,
@@ -7622,7 +7635,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭madd⁹",
+      "display" : "G♭m add⁹",
       "fingers" : [
         1,
         2,
@@ -7639,7 +7652,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭maj⁷",
+      "display" : "G♭ maj⁷",
       "fingers" : [
         2,
         4,
@@ -7656,7 +7669,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭maj⁹",
+      "display" : "G♭ maj⁹",
       "fingers" : [
         1,
         4,
@@ -7673,7 +7686,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭sus²",
+      "display" : "G♭ sus²",
       "fingers" : [
         1,
         0,
@@ -7690,7 +7703,7 @@
     },
     {
       "base" : 1,
-      "display" : "G♭sus⁴",
+      "display" : "G♭ sus⁴",
       "fingers" : [
         4,
         1,
@@ -7707,6 +7720,7 @@
     },
     {
       "base" : 1,
+      "display" : "G dim",
       "fingers" : [
         0,
         1,
@@ -7723,7 +7737,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gdim⁷",
+      "display" : "G dim⁷",
       "fingers" : [
         0,
         2,
@@ -7858,7 +7872,7 @@
     },
     {
       "base" : 1,
-      "display" : "GmMaj⁷",
+      "display" : "Gm Maj⁷",
       "fingers" : [
         0,
         2,
@@ -7875,7 +7889,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gmadd⁹",
+      "display" : "Gm add⁹",
       "fingers" : [
         2,
         1,
@@ -7892,7 +7906,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gmaj⁷",
+      "display" : "G maj⁷",
       "fingers" : [
         0,
         1,
@@ -7909,7 +7923,7 @@
     },
     {
       "base" : 3,
-      "display" : "Gmaj⁹",
+      "display" : "G maj⁹",
       "fingers" : [
         2,
         4,
@@ -7926,7 +7940,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gsus²",
+      "display" : "G sus²",
       "fingers" : [
         0,
         2,
@@ -7943,7 +7957,7 @@
     },
     {
       "base" : 1,
-      "display" : "Gsus⁴",
+      "display" : "G sus⁴",
       "fingers" : [
         0,
         1,
