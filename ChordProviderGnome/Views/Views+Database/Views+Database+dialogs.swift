@@ -10,6 +10,7 @@ import Adwaita
 import ChordProviderCore
 
 extension Views.Database {
+
     /// The dialogs for the *Database View*
     var dialogs: AnyView {
         /// Attachment point

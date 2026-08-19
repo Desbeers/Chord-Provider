@@ -13,6 +13,7 @@ extension ChordPro {
     ///
     /// The source is defined as `long|short`, eg: `start_of_chorus|soc`
     public struct DirectiveSource: Equatable, Codable, ExpressibleByStringLiteral {
+
         /// The long version of the directive
         public var long: String
         /// The short version of the directive

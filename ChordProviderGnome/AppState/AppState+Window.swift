@@ -11,6 +11,7 @@ extension AppState {
 
     /// The structure for the window size
     struct WindowSize: Codable, Equatable, Sendable {
+
         /// The width of the window
         var width = 800
         /// The height of the window

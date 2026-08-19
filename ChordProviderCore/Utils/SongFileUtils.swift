@@ -141,6 +141,7 @@ extension SongFileUtils {
 
     /// The structure for grouped songs
     public struct Grouping: Identifiable, Codable {
+
         /// The unique ID
         public var id: String { name }
         /// The group

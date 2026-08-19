@@ -9,6 +9,7 @@ import Foundation
 
 /// Utilities for logging
 public class LogUtils: @unchecked Sendable {
+
     /// The shared instance of the logger
     public static let shared = LogUtils()
     /// All the logs

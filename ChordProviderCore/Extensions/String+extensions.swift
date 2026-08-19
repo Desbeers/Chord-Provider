@@ -102,6 +102,7 @@ extension String {
 
     /// A wrapper for a `String` to make it identifiable
     public struct ElementWrapper: Identifiable, Equatable, Hashable, Comparable, Sendable, Codable {
+
         /// Comparable protocol conformance
         public static func < (lhs: String.ElementWrapper, rhs: String.ElementWrapper) -> Bool {
             lhs.content < rhs.content

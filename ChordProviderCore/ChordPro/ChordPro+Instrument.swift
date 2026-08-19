@@ -11,6 +11,7 @@ extension ChordPro {
 
     /// A **ChordPro** Instrument
     public struct Instrument: Codable, Sendable {
+
         /// The instrument
         let instrument: Instrument
         /// The tuning of the instrument
@@ -81,6 +82,7 @@ extension ChordPro.Instrument {
 
     /// The instrument
     public struct Instrument: Codable, Sendable {
+
         /// The description of the instrument
         let description, type: String
     }

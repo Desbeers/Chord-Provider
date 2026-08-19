@@ -13,6 +13,7 @@ extension Song.Section {
     ///
     /// This is a line in the source document, parsed into components
     public struct Line: Identifiable, Equatable, Codable, Sendable {
+
         /// Init a line
         /// - Parameters:
         ///   - sourceLineNumber: The line number in the **ChordPro** document

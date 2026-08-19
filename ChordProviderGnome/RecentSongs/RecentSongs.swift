@@ -19,6 +19,7 @@ extension RecentSongs {
 
     /// The structure for a recent song item
     struct Item: Codable, Hashable, Identifiable {
+
         /// The ID of the song
         var id: String {
             url.absoluteString

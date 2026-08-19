@@ -11,6 +11,7 @@ extension Song.Section.Line {
 
     /// A part in the ``Song/Section/Line``
     public struct Part: Identifiable, Equatable, Codable, Sendable, CustomStringConvertible {
+
         /// Init the *Part*
         public init(
             id: Int = 0,

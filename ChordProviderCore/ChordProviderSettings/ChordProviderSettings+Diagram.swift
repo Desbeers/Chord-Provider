@@ -11,6 +11,7 @@ extension ChordProviderSettings {
 
     /// Settings for displaying chord diagrams
     public struct Diagram: Equatable, Codable, Sendable, CustomStringConvertible {
+
         /// Confirm to `CustomStringConvertible`
         public var description: String {
             "showName: \(showName) showNotes: \(showNotes) showFingers: \(showFingers) mirror: \(mirror)"

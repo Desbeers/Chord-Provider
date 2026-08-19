@@ -68,7 +68,7 @@ custom_rules:
 
     empty_first_line:
         name: 'Empty First Line'
-        regex: '(^[ a-zA-Z ]*(?:protocol|extension|class|struct) (?!(?:var|let))[ a-zA-Z:]*\{\n *\S+)'
+        regex: '^[ \t]*(?:(?:open|public|internal|package|fileprivate|private|final|nonisolated|indirect)\s+)*(?:protocol|extension|class|struct)\b[^{]*\{\n[ \t]*\S+'
         message: 'There should be an empty line after a declaration'
         severity: error
 

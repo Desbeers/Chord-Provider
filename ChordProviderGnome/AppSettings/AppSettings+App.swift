@@ -12,6 +12,7 @@ extension AppSettings {
 
     /// Settings for all **Chord Provider** scenes
     struct App: Codable, Equatable {
+
         /// The current instrument ID
         var instrumentID: String = Instrument[.guitar].id
         /// All the instruments

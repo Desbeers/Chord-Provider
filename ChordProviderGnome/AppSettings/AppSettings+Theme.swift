@@ -12,6 +12,7 @@ extension AppSettings {
 
     /// Settings for the theme
     struct Theme: Codable, Equatable {
+
         /// Appearance
         var appearance: Appearance = .system
         /// Colorfull Window

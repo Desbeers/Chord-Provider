@@ -10,6 +10,7 @@ import ChordProviderCore
 
 /// The settings for **Chord Provider**
 struct AppSettings: Codable, Equatable {
+
     /// Application settings for all scenes
     var app = App()
     /// The theme settings

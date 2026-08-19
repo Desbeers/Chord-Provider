@@ -11,6 +11,7 @@ extension Chord {
 
     /// The structure of a chord barre
     public struct Barre: Equatable, Codable, Hashable, Sendable {
+
         /// Init the struct
         public init(
             finger: Int = 0,

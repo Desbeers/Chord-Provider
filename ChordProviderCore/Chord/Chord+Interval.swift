@@ -11,7 +11,8 @@ extension Chord {
 
     /// The structure for an interval
     public struct Interval: Hashable, Sendable, Identifiable, CustomStringConvertible {
-        /// Make the struct identifiable
+
+        /// Identifiable protocol
         public var id: String {
             description
         }

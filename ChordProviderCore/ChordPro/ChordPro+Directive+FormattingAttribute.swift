@@ -96,7 +96,7 @@ extension ChordPro.Directive {
         /// Have attributes
         case haveAttributes
 
-        /// Implement Comparable
+        /// Comparable protocol
         public static func < (lhs: FormattingAttribute, rhs: FormattingAttribute) -> Bool {
             lhs.order < rhs.order
         }

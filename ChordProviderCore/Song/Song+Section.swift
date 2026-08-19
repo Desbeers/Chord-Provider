@@ -13,6 +13,7 @@ extension Song {
 
     /// A section in the ``Song``
     public struct Section: Identifiable, Equatable, Codable, Sendable {
+
         /// The unique ID of the section
         public var id: Int
         /// The label of the section

@@ -11,6 +11,7 @@ extension ChordPro.Tab {
 
     /// The event of a tab
     public struct Event: Identifiable, Equatable, Codable, Sendable {
+
         /// Identifiable protocol
         public var id: Int {
             column

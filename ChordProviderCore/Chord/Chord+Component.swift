@@ -10,6 +10,7 @@ extension Chord {
 
     /// The structure of a chord component
     public struct Component: Identifiable, Hashable, Sendable, Codable {
+
         /// The unique ID
         public var id: Int
         /// The note

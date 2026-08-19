@@ -137,6 +137,7 @@ extension Song.Section.Line.Part.Content {
     /// A lyric part that may contain text, something in the chord slot, or both
     /// - Note: The chord slot may contain a real chord, text, or be empty
     public struct Lyric: Equatable, Codable, Sendable {
+
         /// The text parts of the lyric, it can be empty
         public var textParts: [Song.TextPart] = []
         /// The chord slot of the lyric

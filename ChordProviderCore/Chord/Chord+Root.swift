@@ -71,7 +71,7 @@ extension Chord {
         case unknown = "Unknown"
         // swiftlint:enable identifier_name
 
-        /// Implement Comparable
+        /// Comparable protocol
         /// - Note: Used for sorting
         public static func < (lhs: Self, rhs: Self) -> Bool {
             allCases.firstIndex(of: lhs) ?? 0 < allCases.firstIndex(of: rhs) ?? 1

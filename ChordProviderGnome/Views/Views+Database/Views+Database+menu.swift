@@ -10,6 +10,7 @@ import Adwaita
 import ChordProviderCore
 
 extension Views.Database {
+
     /// The menu `View`
     ///
     /// I did not add `Save` here on purpose because I'm unable

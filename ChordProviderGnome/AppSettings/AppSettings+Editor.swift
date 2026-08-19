@@ -11,6 +11,7 @@ extension AppSettings {
 
     /// Settings for the source editor
     struct Editor: Codable, Equatable {
+
         /// Bool if the editor is shown
         var showEditor: Bool = false
         /// Bool if the editor is showing line numbers

@@ -11,6 +11,7 @@ extension ChordProviderSettings {
 
     /// Export settings
     public struct Export: Equatable, Codable, Sendable {
+
         /// The export file format
         public var format: Format = .chordPro
     }

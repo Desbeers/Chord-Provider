@@ -11,6 +11,7 @@ extension Chord {
 
     /// The structure of a chord note and if the note is required
     public struct Note: Identifiable, Hashable, Sendable, Codable {
+
         /// Identifiable protocol
         public var id: String {
             note.rawValue
