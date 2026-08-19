@@ -13,6 +13,7 @@ extension Views.Main {
 
     /// The `View` for transposing a song
     struct Transpose: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`
@@ -55,9 +56,14 @@ extension Views.Main {
             .padding()
         }
 
+        /// A `View` for a counter button
         private struct CountButton: View {
+
+            /// The state of the application
             @Binding var appState: AppState
+            /// The system icon for the button
             var icon: Icon.DefaultIcon
+            /// The button tion
             var action: (inout AppState) -> Void
             /// The body of the `View`
             var view: Body {

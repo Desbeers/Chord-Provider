@@ -19,7 +19,7 @@ extension ChordProParser {
     static func addSection(
         directive: ChordPro.Directive,
         arguments: DirectiveArguments,
-        line: Song.Section.Line? = nil,
+        line: Song.Section.Line?,
         currentSection: inout Song.Section,
         song: inout Song
     ) {

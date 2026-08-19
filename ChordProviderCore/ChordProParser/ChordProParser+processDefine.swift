@@ -41,6 +41,7 @@ extension ChordProParser {
             addSection(
                 directive: directive,
                 arguments: arguments,
+                line: nil,
                 currentSection: &currentSection,
                 song: &song
             )
@@ -69,9 +70,9 @@ extension ChordProParser {
             )
             if let warnings = definedChord.validationWarnings {
                 let error: Bool = !Set(warnings).isDisjoint(with: ChordDefinition.Status.errorStatus)
-                let warnings = warnings.map(\.description)
+                let descriptions = warnings.map(\.description)
                 currentSection.addWarning(
-                    "\(warnings.joined(separator: "\n"))",
+                    "\(descriptions.joined(separator: "\n"))",
                     level: error ? .error : .warning
                 )
             }
@@ -97,6 +98,7 @@ extension ChordProParser {
         addSection(
             directive: directive,
             arguments: arguments,
+            line: nil,
             currentSection: &currentSection,
             song: &song
         )

@@ -9,6 +9,7 @@ import Foundation
 
 extension ChordPro.Tab {
 
+    /// The transition of two notes in a tab
     public struct Transition: Sendable, Codable, Equatable {
 
         /// A transition from one MIDI note to another

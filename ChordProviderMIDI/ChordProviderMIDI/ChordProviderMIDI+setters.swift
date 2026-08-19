@@ -121,7 +121,7 @@ extension ChordProviderMIDI {
     /// Set the reference frequency of the player
     /// - Parameter referenceHz: The reference for A2
     public func setReferenceFrequency(_ referenceHz: Int) {
-        let referenceHz = Double(referenceHz)
+        let reference = Double(referenceHz)
         guard let synth else {
             return
         }
@@ -132,7 +132,7 @@ extension ChordProviderMIDI {
         /// Build the tuning table
         var tuning = [Double](repeating: 0.0, count: 128)
 
-        let detuneCents = 1200.0 * log2(referenceHz / 440.0)
+        let detuneCents = 1200.0 * log2(reference / 440.0)
         for note in 0..<128 {
             tuning[note] = Double(note) * 100.0 + detuneCents
         }
@@ -143,7 +143,7 @@ extension ChordProviderMIDI {
                 synth,
                 tuningBank,
                 tuningProgram,
-                "A\(Int(referenceHz)) tuning",
+                "A\(Int(reference)) tuning",
                 buffer.baseAddress,
                 1
             )

@@ -65,7 +65,7 @@ extension AppState {
 
         // MARK: Errors
 
-        // The error
+        /// The error
         private(set) var error: ChordProviderError?
         /// Show an error dialog for the main window
         var showMainErrorDialog: Bool = false

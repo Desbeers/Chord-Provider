@@ -13,6 +13,7 @@ extension Views.Editor {
 
     /// The `View` to edit a line
     struct Edit: View {
+
         /// Init the `View`
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {

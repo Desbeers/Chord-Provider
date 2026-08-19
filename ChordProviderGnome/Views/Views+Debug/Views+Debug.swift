@@ -14,6 +14,7 @@ extension Views {
 
     /// The `View` for showing debug messages
     struct Debug: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// The `Body` of the `View`
@@ -58,7 +59,7 @@ extension Views {
         ///   - text: The text to show
         ///   - language: The language of the text
         /// - Returns: An `AnyView`
-        func sourceView(_ text: String?, language: Language = .json) -> AnyView {
+        func sourceView(_ text: String?, language: Language) -> AnyView {
             SimpleSourceView(text: text ?? "", language: language)
         }
 

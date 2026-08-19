@@ -13,13 +13,14 @@ extension GtkRender {
 
     /// The `View` for the song header
     struct PageHeader: View {
+
         /// Init the `View`
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             self._appState = appState
-            let metadata = GtkRender.PageHeader.collectMetadata(appState.editor.song.metadata.wrappedValue)
-            self.metadata = Array(metadata.prefix(4))
-            self.additionalMetadata = Array(metadata.dropFirst(4))
+            let allMetadata = GtkRender.PageHeader.collectMetadata(appState.editor.song.metadata.wrappedValue)
+            self.metadata = Array(allMetadata.prefix(4))
+            self.additionalMetadata = Array(allMetadata.dropFirst(4))
         }
         /// The state of the application
         @Binding var appState: AppState
@@ -69,7 +70,7 @@ extension GtkRender {
         /// - Returns: A View
         private func metadata( _ metadata: MetaData) -> AnyView {
             HStack(spacing: 5) {
-                Widgets.BundleImage(icon: metadata.icon)
+                Image(core: "Icons/\(metadata.icon)")
                     .pixelSize(16)
                     .valign(.center)
                     .style(.svgIcon)
@@ -169,6 +170,7 @@ extension GtkRender {
 
         /// Structure of a metadata item
         struct MetaData: Identifiable {
+
             /// Identifiable protocol
             let id = UUID()
             /// The icon to use

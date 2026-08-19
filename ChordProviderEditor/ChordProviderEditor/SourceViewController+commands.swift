@@ -185,11 +185,11 @@ extension SourceViewController {
                 guard let selection = selectedText, var range = selectedRange else {
                     return
                 }
-                let directive = "\(directiveStart)\(selection)\(directiveEnd)\n"
+                let directiveString = "\(directiveStart)\(selection)\(directiveEnd)\n"
                 // Delete everything that is selected
                 gtk_text_buffer_delete(buffer.textBufferPointer, &range.start, &range.end)
                 // Insert the directive
-                gtk_text_buffer_insert(buffer.textBufferPointer, &range.start, directive, -1)
+                gtk_text_buffer_insert(buffer.textBufferPointer, &range.start, directiveString, -1)
             }
         }
     }

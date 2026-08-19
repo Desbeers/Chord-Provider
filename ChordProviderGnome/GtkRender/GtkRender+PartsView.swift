@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for parts of a song lyric
     struct PartsView: View {
+
         /// The parts of the song line
         let parts: [Song.Section.Line.Part]
         /// Bool if the line has lyrics

@@ -95,9 +95,8 @@ extension SourceViewController {
 
     /// Clear any active selection in the text buffer
     func clearSelection() {
-        guard let buffer = buffer.textBufferPointer,
-            var range = selectedRange else {
-                return
+        guard let buffer = buffer.textBufferPointer, var range = selectedRange else {
+            return
         }
         // Collapse selection by placing cursor at the start of the selection
         gtk_text_buffer_place_cursor(buffer, &range.start)

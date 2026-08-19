@@ -10,6 +10,7 @@ import RegexBuilder
 
 extension Instrument {
 
+    /// The tuning of an instrument
     public struct Tuning: Codable, Sendable, Hashable, Identifiable, CustomStringConvertible {
 
         /// Init the instrument tuning with known values

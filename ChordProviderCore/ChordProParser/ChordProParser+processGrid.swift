@@ -75,10 +75,9 @@ extension ChordProParser {
             var parts: [Song.Section.Line.Part] = []
             for item in items {
                 let textPart = String(item).textPart(handleBrackets: true)
-                let text = textPart.text
                 /// Convert text into a grid token
                 let gridToken = parseGridTextToToken(
-                    text: text,
+                    text: textPart.text,
                     cellIndex: cellIndex,
                     shape: shape,
                     textPart: textPart,
@@ -114,7 +113,7 @@ extension ChordProParser {
                 /// A specific Chord
                 case let .chord(textPart):
                     let definition = processChord(
-                        chord: text,
+                        chord: textPart.text,
                         line: &line,
                         song: &song
                     )
@@ -125,7 +124,7 @@ extension ChordProParser {
                 /// Any chord
                 case let .anyChord(textPart, strum):
                     var chord = ChordDefinition(
-                        text: text,
+                        text: textPart.text,
                         kind: .anyChord
                     )
                     part.content = .anyChord(textPart: textPart, beatItems: 1, strum: strum)
@@ -164,13 +163,13 @@ extension ChordProParser {
         /// Just plain text
         case text(textPart: Song.TextPart)
         /// Strum pattern symbol
-        case strumPattern(ChordPro.Grid.StrumPattern)
+        case strumPattern(_: ChordPro.Grid.StrumPattern)
         /// Bar line symbol
-        case barLine(ChordPro.Grid.BarLineSymbol)
+        case barLine(_: ChordPro.Grid.BarLineSymbol)
         /// Strum symbol
-        case strum(Chord.Strum)
+        case strum(_: Chord.Strum)
         /// Repeating symbol
-        case repeating(ChordPro.Grid.RepeatingSymbol)
+        case repeating(_: ChordPro.Grid.RepeatingSymbol)
         /// A specific chord
         case chord(textPart: Song.TextPart)
         /// Any chord

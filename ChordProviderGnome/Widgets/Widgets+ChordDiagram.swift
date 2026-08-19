@@ -14,6 +14,7 @@ extension Widgets {
 
     /// The `AdwaitaWidget` for a chord diagram
     struct ChordDiagram: AdwaitaWidget {
+
         /// The chord definition
         let chord: ChordDefinition
         /// The width of the diagram
@@ -54,8 +55,8 @@ extension Widgets {
 func draw_chord(
     _ area: UnsafeMutablePointer<GtkDrawingArea>?,
     _ currentState: OpaquePointer?,
-    _ width: Int32,
-    _ height: Int32,
+    _ diagramWidth: Int32,
+    _ diagramHeight: Int32,
     _ userData: UnsafeMutableRawPointer?
 ) {
     guard
@@ -77,7 +78,7 @@ func draw_chord(
     let fingerColor: Double = darkMode ? 0 : 1
     let bgColor: Double = darkMode ? 0.8 : 0.4
     let strings = data.definition.instrument.strings.count
-    let width = Double(width)
+    let width = Double(diagramWidth)
     let margin: Double = width * 0.2
     let fretSpacing: Double = ((width * 1.2) - 2 * margin) / 5.0
     let stringSpacing: Double = (width - 2 * margin) / Double(strings - 1)
@@ -157,21 +158,21 @@ func draw_chord(
                 !drawnBarres.contains(barre.fret) {
                 /// Draw barre
                 drawnBarres.insert(barre.fret)
-                let height = radius * 2
-                let x = margin + (stringSpacing * Double(barre.startIndex)) - (stringSpacing / 2)
-                let y = margin + Double(fret) * fretSpacing - fretSpacing + ((fretSpacing - height) / 2)
-                let width = Double(barre.length) * stringSpacing
+                let barreHeight = radius * 2
+                let barreX = margin + (stringSpacing * Double(barre.startIndex)) - (stringSpacing / 2)
+                let barreY = margin + Double(fret) * fretSpacing - fretSpacing + ((fretSpacing - barreHeight) / 2)
+                let barreWidth = Double(barre.length) * stringSpacing
 
                 cairo_new_sub_path(currentState)
-                cairo_arc(currentState, x + width - radius, y + radius, radius, -90 * degrees, 0 * degrees)
-                cairo_arc(currentState, x + width - radius, y + height - radius, radius, 0 * degrees, 90 * degrees)
-                cairo_arc(currentState, x + radius, y + height - radius, radius, 90 * degrees, 180 * degrees)
-                cairo_arc(currentState, x + radius, y + radius, radius, 180 * degrees, 270 * degrees)
+                cairo_arc(currentState, barreX + barreWidth - radius, barreY + radius, radius, -90 * degrees, 0 * degrees)
+                cairo_arc(currentState, barreX + barreWidth - radius, barreY + barreHeight - radius, radius, 0 * degrees, 90 * degrees)
+                cairo_arc(currentState, barreX + radius, barreY + barreHeight - radius, radius, 90 * degrees, 180 * degrees)
+                cairo_arc(currentState, barreX + radius, barreY + radius, radius, 180 * degrees, 270 * degrees)
                 cairo_close_path(currentState)
                 cairo_set_source_rgb(currentState, dotColor, dotColor, dotColor)
                 cairo_fill_preserve(currentState)
                 if finger > 0 {
-                    cairo_move_to(currentState, x + ((Double(barre.length) - 0.5) / 2 * stringSpacing), y + (fontSize / 0.9))
+                    cairo_move_to(currentState, barreX + ((Double(barre.length) - 0.5) / 2 * stringSpacing), barreY + (fontSize / 0.9))
                     cairo_set_source_rgb(currentState, fingerColor, fingerColor, fingerColor)
                     cairo_show_text(currentState, "\(finger)")
                     cairo_new_path(currentState)

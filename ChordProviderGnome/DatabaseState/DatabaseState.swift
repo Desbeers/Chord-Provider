@@ -11,6 +11,7 @@ import Adwaita
 
 /// The state of **Chord Provider** chord database
 struct DatabaseState: Codable {
+
     /// The selected chord
     var chord: Chord.Root = .c
     /// The current instrument ID
@@ -48,8 +49,10 @@ struct DatabaseState: Codable {
 }
 
 extension DatabaseState {
+
     /// Items to save in the database
     enum CodingKeys: String, CodingKey {
+        /// Visibility of the sidebar
         case sidebarVisible
     }
 }

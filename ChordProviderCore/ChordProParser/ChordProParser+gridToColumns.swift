@@ -50,6 +50,7 @@ extension ChordProParser {
 
     /// The structure of a grid analyze
     struct GridAnalysis {
+
         /// Counter for required columns
         var columnsCounter: [Int]
         /// The amount of parts that are needed in a measurement
@@ -100,13 +101,13 @@ extension ChordProParser {
             playableLine: Array(repeating: false, count: gridLines.count)
         )
         // Check the lines for the amount of cells in each column
-        for (index, line) in gridLines.enumerated() where !line.gridsLine.isEmpty {
+        for (lineIndex, line) in gridLines.enumerated() where !line.gridsLine.isEmpty {
             /// Check if the line is playable or if it is a strum line
             let strum = line.gridsLine.flatMap(\.cells).flatMap(\.parts).map(\.content).contains(where: \.hasStrumPattern)
-            result.playableLine[index] = !strum
+            result.playableLine[lineIndex] = !strum
             /// Set the maximum items for each column
-            for (index, grid) in line.gridsLine.enumerated() {
-                result.columnsCounter[index] = max(result.columnsCounter[index], grid.cells.flatMap(\.parts).count)
+            for (columnIndex, grid) in line.gridsLine.enumerated() {
+                result.columnsCounter[columnIndex] = max(result.columnsCounter[columnIndex], grid.cells.flatMap(\.parts).count)
             }
         }
         result.neededParts = result.columnsCounter.max() ?? 1
@@ -243,9 +244,9 @@ extension ChordProParser {
                     // Make sure we have at least 2 columns
                     guard index >= 2 else { continue }
                     for previousColumn in (0...index - 2).reversed() {
-                        let part = columns[previousColumn].cells[0].parts[row]
-                            if (!part.content.hasBarLine && !part.content.hasStrumPattern) || repeatLastTwoMeasures == true {
-                                repeatingParts.append(part)
+                        let previousPart = columns[previousColumn].cells[0].parts[row]
+                            if (!previousPart.content.hasBarLine && !previousPart.content.hasStrumPattern) || repeatLastTwoMeasures == true {
+                                repeatingParts.append(previousPart)
                                 let repeatingContent = repeatingParts.map(\.content)
                                 if repeatingContent.contains(where: \.hasBarLine) || repeatingContent.contains(where: \.hasStrumPattern) {
                                     repeatLastTwoMeasures = false
@@ -255,10 +256,10 @@ extension ChordProParser {
                             }
                     }
                     if !repeatingParts.isEmpty {
-                        for (updateColumn, part) in repeatingParts.reversed().enumerated() {
-                            var part = part
-                            part.id = columns[index + updateColumn].cells[0].parts[row].id
-                            columns[index + updateColumn].cells[0].parts[row] = part
+                        for (updateColumn, previousPart) in repeatingParts.reversed().enumerated() {
+                            var updatedPart = previousPart
+                            updatedPart.id = columns[index + updateColumn].cells[0].parts[row].id
+                            columns[index + updateColumn].cells[0].parts[row] = updatedPart
                         }
                     }
                 }
@@ -295,15 +296,15 @@ extension ChordProParser {
                                 // Add the strum to the chord
                                 chord.definition.strum = strum
                                 /// The updated part
-                                var part = columns[index].cells[0].parts[row]
-                                part.dimmed = match.content.getChord?.definition.strum == .noStrum ? false : true
-                                part.content = .chord(
+                                var updatedPart = columns[index].cells[0].parts[row]
+                                updatedPart.dimmed = match.content.getChord?.definition.strum == .noStrum ? false : true
+                                updatedPart.content = .chord(
                                     definition: chord.definition,
                                     textPart: chord.textPart,
                                     beatItems: chord.beatItems
                                 )
                                 // Update the row with the part
-                                columns[index].cells[0].parts[row] = part
+                                columns[index].cells[0].parts[row] = updatedPart
                                 break
                             }
                         }

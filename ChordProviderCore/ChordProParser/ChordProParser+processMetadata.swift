@@ -98,6 +98,7 @@ extension ChordProParser {
         addSection(
             directive: directive,
             arguments: arguments,
+            line: nil,
             currentSection: &currentSection,
             song: &song
         )

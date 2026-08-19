@@ -4,7 +4,7 @@ import PackageDescription
 
 /// The dependencies
 var dependencies: [Package.Dependency] = [
-	.package(
+    .package(
         url: "https://git.aparoksha.dev/aparoksha/adwaita-swift",
         branch: "main",
         traits: ["exposeGeneratedAppearUpdateFunctions"],
@@ -23,6 +23,7 @@ var dependencies: [Package.Dependency] = [
     dependencies.append(.package(url: "https://github.com/stephencelis/CSQLite", from: "3.50.4"))
 #endif
 
+/// The **Chord Provider** package
 let package = Package(
     name: "ChordProvider",
     platforms: [
@@ -64,7 +65,7 @@ let package = Package(
         .library(
             name: "ChordProviderEditor",
             targets: ["ChordProviderEditor"]
-        ),
+        )
     ],
     dependencies: dependencies,
     targets: [

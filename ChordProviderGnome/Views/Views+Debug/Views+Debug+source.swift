@@ -83,6 +83,7 @@ extension Views.Debug {
 
     /// The structure for a source line
     private struct Source: Identifiable {
+
         /// The ID of the source line
         let id: Int
         /// The actual line

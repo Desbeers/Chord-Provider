@@ -23,20 +23,20 @@ public enum ChordProParser {
 
     /// Parse a **ChordPro** file into a ``Song`` structure
     /// - Parameters:
-    ///   - content: The (updated) content of the song
-    ///   - song: The current ``Song``
+    ///   - currentContent: The (updated) content of the song
+    ///   - currentSong: The current ``Song``
     ///   - settings: The ``/ChordProviderCore/ChordProviderSettings`` to use
     ///   - getOnlyMetadata: Bool to get only metadata of the song, defaults to `false`
     /// - Returns: An updated ``Song`` item
     public static func parse(
-        content: String,
-        song: Song,
+        content currentContent: String,
+        song currentSong: Song,
         settings: ChordProviderSettings,
         getOnlyMetadata: Bool = false
     ) -> Song {
         let start = ContinuousClock.now
         /// Start with a fresh song
-        var song = Song(id: song.id)
+        var song = Song(id: currentSong.id)
         defer {
             /// Close the log
             let duration = start.duration(to: .now)
@@ -61,7 +61,7 @@ public enum ChordProParser {
             message: "Parsing \(getOnlyMetadata ? "metadata from" : "") <b>\(settings.fileURL?.lastPathComponent.escapeSpecialCharacters ?? "New Song")</b>"
         )
         /// Strip optional Windows line endings
-        let content = content.replacingOccurrences(of: "\r\n", with: "\n")
+        let content = currentContent.replacingOccurrences(of: "\r\n", with: "\n")
         /// Add the content
         song.content = content
         /// Add the settings
@@ -113,7 +113,8 @@ public enum ChordProParser {
                 directive: currentSection.environment.directives.close,
                 arguments: currentSection.lines.last?.arguments ?? DirectiveArguments(),
                 currentSection: &currentSection,
-                song: &song
+                song: &song,
+                warning: false
             )
         }
         /// Set the first chord as key if not set manually

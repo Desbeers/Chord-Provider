@@ -38,6 +38,7 @@ extension ChordProParser {
             addSection(
                 directive: .sourceComment,
                 arguments: arguments,
+                line: nil,
                 currentSection: &currentSection,
                 song: &song
             )

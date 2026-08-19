@@ -13,6 +13,7 @@ extension Views.Editor {
 
     /// The `View` with search options
     struct SearchOptions: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// Bool to show the options

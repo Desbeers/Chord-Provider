@@ -9,12 +9,14 @@ import ChordProviderCore
 // swiftlint:disable indentation_width
 // swiftlint:disable convenience_type
 
+/// Generate snippets for the editor
 @main
 struct Generate {
+
     /// The main function
     static func main() {
         var path = FileManager.default.currentDirectoryPath
-        path += "/ChordProviderEditor/Sources/ChordProviderEditor/Resources/chordpro.snippets"
+        path += "/ChordProviderEditor/ChordProviderEditor/Resources/chordpro.snippets"
         var output = """
 <?xml version="1.0" encoding="UTF-8"?>
 <snippets _group="ChordPro">

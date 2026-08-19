@@ -22,8 +22,8 @@ extension Views.Debug {
                         Text(line.level.rawValue.capitalized)
                             .frame(minWidth: 100)
                             .halign(.start)
-                        if let line = line.lineNumber {
-                            Text("Line \(line): ")
+                        if let lineNumber = line.lineNumber {
+                            Text("Line \(lineNumber): ")
                         }
                         Text(line.message)
                             .useMarkup()

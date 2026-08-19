@@ -17,6 +17,10 @@ extension MidiUtils {
 
     /// The preset for playing MIDI
     public enum Preset: Int, CaseIterable, CustomStringConvertible, Identifiable, Codable, Sendable {
+
+        /// Identifiable protocol
+        public var id: Self { self }
+        /// CustomStringConvertible protocol
         public var description: String {
             switch self {
             case .acousticNylonGuitar:
@@ -31,7 +35,7 @@ extension MidiUtils {
                 "Electric Muted Guitar"
             }
         }
-        public var id: Self { self }
+
         /// Acoustic nylon guitar
         case acousticNylonGuitar = 1
         /// Acoustic steel guitar

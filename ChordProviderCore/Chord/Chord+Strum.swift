@@ -62,6 +62,7 @@ extension Chord {
         /// Spacer
         case spacer
 
+        /// Display a stroke as text
         public var display: String {
             switch self {
             case .down:
@@ -119,12 +120,13 @@ extension Chord {
             ]
         }
 
+        /// All strum options
         public static var options: [Strum] {
-            var options = Strum.allCases
+            var allOptions = Strum.allCases
             /// Remove none and spacer
-            options.removeLast()
-            options.removeLast()
-            return options
+            allOptions.removeLast()
+            allOptions.removeLast()
+            return allOptions
         }
 
         /// Playback settings

@@ -14,10 +14,13 @@ extension Views.Editor {
 
     /// The `View` to edit or add a chord definition
     struct DefineChord: View {
+
+        /// Init the chord define `View`
+        /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             let instrument = appState.wrappedValue.editor.coreSettings.instrument
-            var newChord = true
-            var definition = ChordDefinition(
+            var chordIsNew = true
+            var chordDefinition = ChordDefinition(
                 instrument: instrument,
                 chords: appState.wrappedValue.editor.coreSettings.chordDefinitions
             )
@@ -26,12 +29,12 @@ extension Views.Editor {
                 define: appState.editor.currentLine.plain.wrappedValue ?? "",
                 instrument: instrument
             ) {
-                definition = currentDefinition
-                newChord = false
+                chordDefinition = currentDefinition
+                chordIsNew = false
             }
             self._appState = appState
-            self._definition = State(wrappedValue: definition)
-            self.newChord = newChord
+            self._definition = State(wrappedValue: chordDefinition)
+            self.newChord = chordIsNew
         }
         /// The state of the application
         @Binding var appState: AppState

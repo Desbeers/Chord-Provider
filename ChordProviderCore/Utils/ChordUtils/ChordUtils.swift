@@ -29,11 +29,11 @@ public enum ChordUtils {
 
     /// Return note by index in a scale
     public static func valueToNote(value: Int, scale: Chord.Root) -> Chord.Root {
-        let value = value < 0 ? (12 + value) : (value % 12)
-        guard let value = Chord.Scales.scaleValueDict[scale]?[value] else {
+        let scaleValue = value < 0 ? (12 + value) : (value % 12)
+        guard let note = Chord.Scales.scaleValueDict[scale]?[scaleValue] else {
             return .c
         }
-        return value
+        return note
     }
 
     /// Transpose the chord
@@ -41,7 +41,7 @@ public enum ChordUtils {
     ///   - transpose: Transpose key
     ///   - note: The root note
     ///   - scale: Key scale
-    static func transposeNote(note: Chord.Root, transpose: Int, scale: Chord.Root = .c) -> Chord.Root {
+    static func transposeNote(note: Chord.Root, transpose: Int, scale: Chord.Root) -> Chord.Root {
         let value = noteToValue(note: note) + transpose
         return valueToNote(value: value, scale: scale)
     }

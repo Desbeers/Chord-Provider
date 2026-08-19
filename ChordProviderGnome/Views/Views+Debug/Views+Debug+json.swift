@@ -30,13 +30,13 @@ extension Views.Debug {
                         switch appState.scene.selectedDebugJSONSection {
                         case .metadata:
                             let metadata = try? JSONUtils.encode(appState.editor.song.metadata)
-                            sourceView(metadata)
+                            sourceView(metadata, language: .json)
                         case .sections:
                             ForEach(appState.editor.song.sections) { section in
                                 let content = try? JSONUtils.encode(section)
                                 sectionPart(
                                     row: ExpanderRow().title("Section <b>\(section.environment)</b>").rows {
-                                        sourceView(content)
+                                        sourceView(content, language: .json)
                                     }
                                 )
                             }
@@ -48,10 +48,11 @@ extension Views.Debug {
                                         HStack {
                                             Views.ChordDiagram(
                                                 chord: chord,
+                                                width: 100,
                                                 coreSettings: appState.editor.coreSettings
                                             )
                                                 .valign(.start)
-                                            sourceView(content)
+                                            sourceView(content, language: .json)
                                                 .hexpand()
                                         }
                                     }
@@ -59,7 +60,7 @@ extension Views.Debug {
                             }
                         case .settings:
                             let metadata = try? JSONUtils.encode(appState.editor.coreSettings)
-                            sourceView(metadata)
+                            sourceView(metadata, language: .json)
                         }
                     }
                     .padding()

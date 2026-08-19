@@ -13,6 +13,7 @@ extension Views {
 
     /// The main `View` for the application
     struct Main: View {
+
         /// The `AdwaitaApp`
         var app: AdwaitaApp
         /// The `AdwaitaWindow`

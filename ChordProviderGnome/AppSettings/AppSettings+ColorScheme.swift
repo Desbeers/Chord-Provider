@@ -64,6 +64,7 @@ extension AppSettings {
 
     /// Colors for styles
     struct Colors {
+
         /// Color for the window in the left top corner
         var windowStart: String
         /// Color for the window in the right bottom corner

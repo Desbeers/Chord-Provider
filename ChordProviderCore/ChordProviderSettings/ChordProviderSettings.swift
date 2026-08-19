@@ -60,13 +60,21 @@ public struct ChordProviderSettings: Equatable, Codable, Sendable, CustomStringC
     }
     /// The coding keys
     enum CodingKeys: CodingKey {
+        /// Instrument
         case instrument
+        /// MIDI preset
         case midiPreset
+        /// Reference frequency
         case referenceFrequency
+        /// Chord strum
         case chordStrum
+        /// Lyrics only
         case lyricsOnly
+        /// Repeat the whole chorus
         case repeatWholeChorus
+        /// Chord diagram
         case diagram
+        /// Sort tokens
         case sortTokens
     }
     /// The temporary directory

@@ -83,9 +83,14 @@ extension Instrument {
 
     /// The coding keys
     enum CodingKeys: String, CodingKey {
+
+        /// Kind
         case kind
+        /// Label
         case label
+        /// Tuning
         case tuning
+        /// Modified
         case modified
     }
 }

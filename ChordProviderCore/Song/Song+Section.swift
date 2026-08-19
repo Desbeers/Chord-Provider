@@ -68,8 +68,8 @@ extension Song {
         ///   - warning: The warning as Sting
         ///   - level: The level of te warning
         mutating func addWarning(_ warning: String, level: LogUtils.Level) {
-            let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
-            warnings.append(warning)
+            let sectionWarning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
+            warnings.append(sectionWarning)
         }
         /// Reset all the warnings
         mutating func resetWarnings() {

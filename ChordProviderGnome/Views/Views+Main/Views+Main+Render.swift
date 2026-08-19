@@ -13,6 +13,7 @@ extension Views.Main {
 
     /// The `View` for showing a rendered song
     struct Render: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`

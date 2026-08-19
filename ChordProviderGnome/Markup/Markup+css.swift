@@ -44,7 +44,7 @@ extension Markup {
         case emptyLine = "empty-line"
         /// Error
         case error
-        // Accent
+        /// Accent
         case accent
         /// Dimmed
         case dimmed
@@ -174,7 +174,7 @@ window, dialog sheet {
 }
 
 .sidebar-pane {
-	background-color: var(--chordprovider-window-start);
+    background-color: var(--chordprovider-window-start);
 }
 """ : "")
 
@@ -339,9 +339,9 @@ popover contents, popover arrow {
 }
 
 .home-songs-sort-toggle toggle {
-	font-size: 0.8em;
-	padding: 0.2em 1em;
-	min-height: 0;
+    font-size: 0.8em;
+    padding: 0.2em 1em;
+    min-height: 0;
 }
 
 /* Labels */

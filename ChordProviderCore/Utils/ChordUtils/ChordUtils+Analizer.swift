@@ -106,15 +106,15 @@ extension ChordUtils {
             let allowedNotes = combinations.first?.map(\.note) ?? []
             let wrongNotes   = played.filter { !allowedNotes.contains($0) }
             if !wrongNotes.isEmpty {
-                let notes = wrongNotes.map(\.description).joined(separator: ", ")
-                result.insert(.wrongNotes(notes: notes))
+                let notesString = wrongNotes.map(\.description).joined(separator: ", ")
+                result.insert(.wrongNotes(notes: notesString))
             }
             /// The notes required for the chord, excluding optional notes
             let requiredNotes = combinations.last?.map(\.note) ?? []
             let missingNotes = requiredNotes.filter { !played.contains($0) }
             if !missingNotes.isEmpty {
-                let notes = missingNotes.map(\.description).joined(separator: ", ")
-                result.insert(.missingRequiredNotes(notes: notes))
+                let notesString = missingNotes.map(\.description).joined(separator: ", ")
+                result.insert(.missingRequiredNotes(notes: notesString))
             }
 
             /// Return the result

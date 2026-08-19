@@ -146,9 +146,11 @@ extension ChordPro {
         /// Specifies the name of the file containing the image
         case image
 
-        /// ## Image
+        /// ## Custom environment
 
+        /// This directive indicates the start of a custom environment
         case startOfCustomEnvironment(name: String)
+        /// This directive indicates the end of a custom environment
         case endOfCustomEnvironment(name: String)
 
         /// # Delegated environment directives

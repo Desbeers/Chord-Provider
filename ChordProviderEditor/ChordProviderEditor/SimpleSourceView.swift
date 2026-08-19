@@ -13,6 +13,7 @@ import CGtkSourceView
 
 /// A simple code widget for highlighting text only
 public struct SimpleSourceView: AdwaitaWidget {
+
     /// The text
     var text: String
     /// The ``Language``
@@ -25,7 +26,11 @@ public struct SimpleSourceView: AdwaitaWidget {
         self.text = text
         self.language = language
     }
-
+    /// The view storage.
+    /// - Parameters:
+    ///   - data: The widget data.
+    ///   - type: The view render data type.
+    /// - Returns: The view storage.
     public func container<Data>(
         data: WidgetData,
         type: Data.Type

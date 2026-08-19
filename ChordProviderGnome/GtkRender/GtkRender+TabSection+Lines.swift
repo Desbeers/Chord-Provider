@@ -14,6 +14,7 @@ extension GtkRender.TabSection {
 
     /// The `View` for lines of a tab section
     struct Lines: View {
+
         /// The lines of the tab
         let lines: [Song.Section.Line.Tab]
         /// Bool if the tab is playing with MIDI
@@ -29,6 +30,7 @@ extension GtkRender.TabSection {
             VStack {
                 ForEach(lines) { line in
                     Text(line.plain)
+                        .zoom(zoom)
                         .halign(.start)
                         .inspect { storage, _ in
                             line.highlight(
@@ -38,7 +40,6 @@ extension GtkRender.TabSection {
                                 currentColumnID: currentColumnID
                             )
                         }
-                        .zoom(zoom)
                 }
             }
             .style(.sectionTab)

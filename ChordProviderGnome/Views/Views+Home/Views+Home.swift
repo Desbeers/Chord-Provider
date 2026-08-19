@@ -13,6 +13,7 @@ extension Views {
 
     /// The `View` for the start page of **Chord Provider**
     struct Home: View {
+
         /// The app
         let app: AdwaitaApp
         /// The window
@@ -30,7 +31,7 @@ extension Views {
                 VStack {
                     Text("Create a new song")
                         .style(.title)
-                    Widgets.BundleImage(path: "nl.desbeers.chordprovider")
+                    Image(bundle: "nl.desbeers.chordprovider")
                         .pixelSize(220)
                         .halign(.center)
                         .padding(10)

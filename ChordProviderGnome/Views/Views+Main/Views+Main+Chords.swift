@@ -13,6 +13,7 @@ extension Views.Main {
 
     /// The `View` for all the chords in a song
     struct Chords: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// Bool to open the chord dialog
@@ -27,6 +28,7 @@ extension Views.Main {
                 ForEach(appState.editor.song.chords) { chord in
                     Views.MidiPlayerButton(
                         chord: chord,
+                        showAccidental: false,
                         coreSettings: appState.editor.coreSettings
                     )
                     Button("") {
@@ -34,7 +36,7 @@ extension Views.Main {
                         chordDialog.toggle()
                     }
                     .child {
-                        Views.ChordDiagram(chord: chord, coreSettings: appState.editor.coreSettings)
+                        Views.ChordDiagram(chord: chord, width: 100, coreSettings: appState.editor.coreSettings)
                     }
                     .style(.chordDiagramButton)
                     .flat(true)

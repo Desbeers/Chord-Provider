@@ -22,6 +22,7 @@ extension Views.Toolbar {
 
     /// The  toolbar for the Main `View`
     struct Main: View {
+
         /// The `AdwaitaApp`
         var app: AdwaitaApp
         /// The `AdwaitaWindow`
@@ -192,6 +193,7 @@ extension Views.Toolbar {
 
     /// The  toolbar for the Home `View`
     struct Home: View {
+
         /// The `AdwaitaApp`
         var app: AdwaitaApp
         /// The `AdwaitaWindow`
@@ -230,7 +232,9 @@ extension Views.Toolbar {
 
 extension Views.Toolbar {
 
+    /// Shared items for the toolbar
     private struct Shared: View {
+
         /// The `AdwaitaApp`
         var app: AdwaitaApp
         /// The `AdwaitaWindow`

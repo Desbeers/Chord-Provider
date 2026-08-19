@@ -18,15 +18,25 @@ extension ImageUtils {
 
     /// Available icons
     public enum Icon: String {
+        /// Capo
         case capo
+        /// Copyright
         case copyright
+        /// Duration
         case duration
+        /// Instrument
         case instrument
+        /// Key
         case key
+        /// Person
         case person
+        /// Tempo
         case tempo
+        /// Time
         case time
+        /// Year
         case year
+        /// Composer
         case composer
     }
 }

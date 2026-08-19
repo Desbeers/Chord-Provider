@@ -20,11 +20,17 @@ extension ChordPro.Grid {
     /// Text that is a bar line
     public enum BarLineSymbol: String, Sendable, Codable {
 
+        /// Single Bar Line
         case singleBarLine
+        /// Double Bar Line
         case doubleBarLine
+        /// End Bar Line
         case endBarLine
+        /// Start Repeat Bar Line
         case startRepeatBarLine
+        /// Stop Repeat Bar Line
         case stopRepeatBarLine
+        /// Combined Stop-Start Repeat Bar Line
         case combinedStopStartRepeatBarLine
 
         /// Display a bar line
@@ -61,7 +67,9 @@ extension ChordPro.Grid {
     /// Text that is a strum pattern
     public enum StrumPattern: String, Sendable, Codable {
 
+        /// Strum with a symbol
         case strumWithSymbol
+        /// Strum without a symbol
         case strumWithoutSymbol
 
         /// Display a strum pattern
@@ -86,7 +94,9 @@ extension ChordPro.Grid {
     /// Text that is some kind of repeating
     public enum RepeatingSymbol: String, Sendable, Codable {
 
+        /// Play like the previous measure
         case playLikePreviousMeasure
+        /// Repeat the last two measures
         case repeatLastTwoMeasures
 
         /// Display a repeating symbol

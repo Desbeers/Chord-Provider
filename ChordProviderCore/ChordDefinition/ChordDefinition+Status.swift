@@ -123,6 +123,7 @@ extension ChordDefinition {
             }
         }
 
+        /// Sorting order of errors
         private var sortOrder: Int {
             switch self {
             case .tooManyErrors:

@@ -12,6 +12,7 @@ extension GtkRender {
 
     /// The `View` for an empty line
     struct EmptyLine: View {
+
         /// The body of the `View`
         var view: Body {
             Views.Empty()

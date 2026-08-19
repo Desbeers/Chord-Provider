@@ -13,6 +13,7 @@ import CGtkSourceView
 
 extension GtkTextIter {
 
+    /// Debug a TGtkTextIter
     var dump: String {
         var iter = self
 
@@ -27,6 +28,7 @@ extension GtkTextIter {
 
 extension LogUtils.Level {
 
+    /// The style of a log entry
     var style: (color: String, icon: String) {
         switch self {
         case .info:

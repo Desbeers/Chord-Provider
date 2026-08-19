@@ -14,6 +14,7 @@ extension Views.Editor {
 
     /// The `View` for inserts
     struct Inserts: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// Inserts
@@ -29,7 +30,7 @@ extension Views.Editor {
                             .padding(.bottom)
                         Separator()
                         ForEach(ChordPro.Directive.metadataDirectives) { directive in
-                            addInsert(directive: directive)
+                            addInsert(directive: directive, command: nil)
                                 .insensitive(
                                     appState.editor.song.metadata.definedMetadata.contains(directive.source.long)
                                 )
@@ -51,14 +52,14 @@ extension Views.Editor {
                 Toggle("More...", isOn: $insert.showMore)
                     .style(.editorButton)
                     .popover(visible: $insert.showMore) {
-                        addInsert(directive: .define)
+                        addInsert(directive: .define, command: nil)
                         Button("Add all Chord definitions") {
                             appState.editor.command = .appendText(appState.editor.song.definitions)
                             insert.showMore.toggle()
                         }
                         .flat()
                         Separator()
-                        addInsert(directive: .comment)
+                        addInsert(directive: .comment, command: nil)
                     }
                     .insensitive(!appState.editor.isAtBeginningOfLine)
             }
@@ -69,7 +70,7 @@ extension Views.Editor {
         @ViewBuilder
         func addInsert(
             directive: ChordPro.Directive,
-            command: SourceViewCommand? = nil
+            command: SourceViewCommand?
         ) -> Body {
             let label = "\(directive.details.buttonLabel ?? directive.details.label)"
             Button(label) {
@@ -91,6 +92,7 @@ extension Views.Editor {
 
         /// Toggles for grouped inserts
         struct Insert {
+
             /// Insert metadata
             var showMetadata: Bool = false
             /// Insert environments

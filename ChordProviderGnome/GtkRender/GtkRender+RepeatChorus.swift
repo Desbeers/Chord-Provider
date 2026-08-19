@@ -13,12 +13,13 @@ extension GtkRender {
 
     /// The `View` for repeating a chorus
     struct RepeatChorus: View {
+
         /// Init the `View`
         /// - Parameters:
         ///   - label: The optional label
         ///   - section: The current section
         ///   - appState: The state of the application
-        init(label: String? = nil, section: Song.Section, appState: AppState) {
+        init(label: String?, section: Song.Section, appState: AppState) {
             self.label = label ?? section.label
             self.zoom = appState.settings.theme.zoom
         }

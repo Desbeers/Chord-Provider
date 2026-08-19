@@ -12,6 +12,7 @@ extension Views {
 
     /// The `View` for a chord diagram
     struct ChordDiagram: View {
+
         /// Init the `View`
         /// - Parameters:
         ///   - chord: The chord definition
@@ -19,7 +20,7 @@ extension Views {
         ///   - coreSettings: The core settings
         init(
             chord: ChordDefinition,
-            width: Double = 100,
+            width: Double,
             coreSettings: ChordProviderSettings
         ) {
             var chord = chord

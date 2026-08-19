@@ -11,13 +11,23 @@ import ChordProviderCore
 
 extension Views.Editor.Edit {
 
+    /// Alignment Style
     enum AlignmentStyle: String, Codable, CaseIterable, CustomStringConvertible {
-        case `default`, left, center, right
+        /// Default alignment
+        case `default`
+        /// Left alignment
+        case left
+        /// Center alignment
+        case center
+        /// Right alignment
+        case right
         /// Make it identifiable
         var id: Self { self }
+        /// CustomStringConvertible protocol
         var description: String {
             self.rawValue.capitalized
         }
+        /// The alignment style as string
         var result: String {
             switch self {
             case .default:
@@ -31,13 +41,16 @@ extension Views.Editor.Edit {
     /// The structure of the form items
     struct FormState: Equatable {
 
-        /// Init with known values
+        /// Init the form with known values
+        /// - Parameters:
+        ///   - line: The current line in the editor
+        ///   - directive: The directive to edit
         init(line: Song.Section.Line, directive: ChordPro.Directive) {
             self.plain = line.plain ?? ""
             self.newDirective = false
-            /// The plain text can be a numeric value
+            // The plain text can be a numeric value
             self.numeric = Int(line.plain ?? "0") ?? 0
-            /// Check the arguments
+            // Check the arguments
             if let arguments = line.arguments {
                 self.label = arguments[.label] ?? ""
                 self.align = arguments[.align] ?? ""
@@ -84,7 +97,9 @@ extension Views.Editor.Edit {
 
     // MARK: Views
 
+    /// The label of a field
     struct FieldLabel: View {
+
         /// The label of the text field
         let label: String
         /// The body of the `View`
@@ -100,6 +115,7 @@ extension Views.Editor.Edit {
 
     /// `View` for a plain text field
     struct PlainField: View {
+
         /// The label of the text field
         let label: String
         /// The prompt of the text field
@@ -119,6 +135,7 @@ extension Views.Editor.Edit {
 
     /// `View` slider to select a number
     struct NumberSpinner: View {
+
         /// The label for the slider
         let label: String
         /// Min
@@ -154,6 +171,7 @@ extension Views.Editor.Edit {
         }
     }
 
+    /// The `View` for a key picker
     struct KeyPicker: View {
 
         /// Init the key picker
@@ -195,6 +213,7 @@ extension Views.Editor.Edit {
         }
     }
 
+    /// The `View` for an align picker
     struct AlignPicker: View {
 
         /// Init the alignment picker

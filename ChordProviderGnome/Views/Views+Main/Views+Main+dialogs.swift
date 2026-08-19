@@ -47,7 +47,7 @@ extension Views.Main {
                         "Swift Community https://www.swift.org/community/"
                     ],
                     label: "Thanks to"
-                ),
+                )
             ],
             links: [
                 .website(URL(string: "https://github.com/Desbeers/Chord-Provider")),

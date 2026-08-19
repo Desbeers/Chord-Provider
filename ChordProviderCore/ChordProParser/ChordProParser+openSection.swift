@@ -19,7 +19,7 @@ extension ChordProParser {
     static func openSection(
         directive: ChordPro.Directive,
         arguments: DirectiveArguments,
-        line: Song.Section.Line? = nil,
+        line: Song.Section.Line?,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
@@ -75,7 +75,7 @@ extension ChordProParser {
                 plain: plain
             )
             if source == nil {
-                result.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN")
+                result.addWarning("<b>CHORD PROVIDER</b> ERROR, NO SOURCE GIVEN", level: .error)
             }
             // Calculate the source
             result.calculateSource()

@@ -30,13 +30,17 @@ extension ChordProParser {
                 context: .image
             )
             line.calculateSource()
-            line.addWarning("Images inside a <b>\(currentSection.environment.label)</b> section is not supported")
+            line.addWarning(
+                "Images inside a <b>\(currentSection.environment.label)</b> section is not supported",
+                level: .warning
+            )
             currentSection.lines.append(line)
         } else {
             /// An image in its own section
             addSection(
                 directive: .image,
                 arguments: arguments,
+                line: nil,
                 currentSection: &currentSection,
                 song: &song
             )

@@ -86,7 +86,8 @@ extension Views.Home {
                         openButton(
                             fileURL: url,
                             metadata: song.metadata,
-                            songTitleOnly: appState.home.groupSort == .artist ? true : false
+                            songTitleOnly: appState.home.groupSort == .artist ? true : false,
+                            showTags: true
                         )
                     }
                 }
@@ -112,7 +113,12 @@ extension Views.Home {
             .halign(.center)
             ForEach(appState.home.searchResult) { song in
                 if let fileURL = song.settings.fileURL {
-                    openButton(fileURL: fileURL, metadata: song.metadata)
+                    openButton(
+                        fileURL: fileURL,
+                        metadata: song.metadata,
+                        songTitleOnly: false,
+                        showTags: true
+                    )
                 }
             }
             .halign(.center)

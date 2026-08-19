@@ -12,6 +12,7 @@ extension Views {
 
     /// The `View` for a custom spinner
     struct Spinner: View {
+
         /// Min
         let min: Int
         /// Max

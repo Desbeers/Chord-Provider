@@ -22,7 +22,7 @@ extension ChordProParser {
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song,
-        warning: Bool = false
+        warning: Bool
     ) {
         /// Add the opening directive for automatic created sections
         if currentSection.autoCreated, let firstLineIndex = currentSection.lines.firstIndex(where: { $0.type == .songLine }) {
@@ -39,7 +39,8 @@ extension ChordProParser {
             currentSection
                 .lines[firstLineIndex]
                 .addWarning(
-                    "No environment set, using <b>\(currentSection.environment)</b>"
+                    "No environment set, using <b>\(currentSection.environment)</b>",
+                    level: .warning
                 )
             currentSection.lines.insert(line, at: 0)
         }
@@ -73,8 +74,8 @@ extension ChordProParser {
                 context: currentSection.environment
             )
             // Add optional warnings
-            for warning in currentSection.warnings {
-                line.addWarning(warning)
+            for sectionWarning in currentSection.warnings {
+                line.addWarning(sectionWarning, level: .warning)
             }
             if directive != closingDirective {
                 line.addWarning(

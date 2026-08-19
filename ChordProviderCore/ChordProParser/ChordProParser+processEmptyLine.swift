@@ -34,6 +34,7 @@ extension ChordProParser {
             addSection(
                 directive: .emptyLine,
                 arguments: arguments,
+                line: nil,
                 currentSection: &currentSection,
                 song: &song
             )

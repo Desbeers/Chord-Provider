@@ -14,6 +14,7 @@ extension Views {
 
     /// The `View` for editing a song
     struct Editor: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// Confirmation for cleanup

@@ -128,7 +128,7 @@ extension ChordProviderMIDI {
             /// A normal note without transition
             case normal(note: Int)
             /// A note that transitions to another MIDI note
-            case transition(ChordPro.Tab.Transition)
+            case transition(_: ChordPro.Tab.Transition)
         }
     }
 

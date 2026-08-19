@@ -13,6 +13,22 @@ extension Song.Section {
     ///
     /// This is a line in the source document, parsed into components
     public struct Line: Identifiable, Equatable, Codable, Sendable {
+        /// Init a line
+        /// - Parameters:
+        ///   - sourceLineNumber: The line number in the **ChordPro** document
+        ///   - source: The source of the line
+        ///   - sourceParsed: The parsed source
+        ///   - lineLength: The length of the line, the lyrics and loose chords
+        ///   - directive: The optional `Directive` of the section
+        ///   - arguments: The optional arguments of the directive
+        ///   - type: The type of the line
+        ///   - context: The context of the line
+        ///   - warnings: Optional warnings about the content of the line
+        ///   - parts: The optional parts in the line
+        ///   - gridsLine: The  optional grids in the line
+        ///   - gridColumns: The  optional grid columns in the line
+        ///   - tabLines: The  optional tab lines
+        ///   - plain: A plain text version of the line
         public init(
             sourceLineNumber: Int = 0,
             source: String = "",
@@ -80,7 +96,7 @@ extension Song.Section {
         /// A plain text version of the line
         /// - Note: The lyrics of a line, a comment or a tab for example
         public var plain: String?
-        /// Optional warnings about the content of the line, can be empty
+        /// Optional warnings about the content of the line
         public var warnings: [LogUtils.LogMessage]
 
         // MARK: Calculated values
@@ -114,18 +130,18 @@ extension Song.Section {
                     case .empty:
                         break
                     }
-                    for part in lyric.textParts {
-                        if part.suffix.isEmpty {
+                    for textPart in lyric.textParts {
+                        if textPart.suffix.isEmpty {
                             /// Just plain text, add word by word
                             /// - Note: This is to split a long line as well
-                            let parts = part.text.split(separator: " ")
-                            for part in parts {
-                                let string = "\(String(part)) "
+                            let splitParts = textPart.text.split(separator: " ")
+                            for splitPart in splitParts {
+                                let string = "\(String(splitPart)) "
                                 appendPart(plain: string, output: string)
                             }
                         } else {
                             /// Don't break the textPart
-                            appendPart(plain: part.text, output: "\(part.display) ")
+                            appendPart(plain: textPart.text, output: "\(textPart.display) ")
                         }
                     }
                 default:
@@ -178,7 +194,7 @@ extension Song.Section {
         /// - Parameters:
         ///   - warning: The warning as ``LogUtils/LogMessage``
         ///   - level: The level of the warning
-        mutating func addWarning(_ warning: LogUtils.LogMessage, level: LogUtils.Level = .warning) {
+        mutating func addWarning(_ warning: LogUtils.LogMessage, level: LogUtils.Level) {
             self.warnings.append(warning)
             let line = sourceLineNumber
             LogUtils.shared.setLog(
@@ -195,9 +211,9 @@ extension Song.Section {
         ///   - warning: The warning a `String`
         ///   - level: The level of the warning
         /// - Note: warnings are *optionals* so we can not just 'insert' it
-        mutating func addWarning(_ warning: String, level: LogUtils.Level = .warning) {
-            let warning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
-            addWarning(warning, level: level)
+        mutating func addWarning(_ warning: String, level: LogUtils.Level) {
+            let lineWarning = LogUtils.LogMessage(level: level, category: .songParser, message: warning)
+            addWarning(lineWarning, level: level)
         }
 
         /// Calculate the source of the line
@@ -207,8 +223,8 @@ extension Song.Section {
                 if ChordPro.Directive.customDirectives.contains(directive) {
                     /// Just use the current source; its internal stuff and not a real directive
                     sourceParsed = source.trimmingCharacters(in: .whitespaces)
-                } else if let arguments = ChordProParser.argumentsToString(self) {
-                    sourceParsed = "{\(directive.source.long)\(colon) \(arguments)}"
+                } else if let stringArguments = ChordProParser.argumentsToString(self) {
+                    sourceParsed = "{\(directive.source.long)\(colon) \(stringArguments)}"
                 } else {
                     /// Only a directive
                     sourceParsed = "{\(directive.source.long)}"

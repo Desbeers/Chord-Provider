@@ -24,7 +24,7 @@ extension Views.Main {
                 open: $appState.scene.openSong,
                 filters: [
                     .mimeType("application/x-chordpro", name: "ChordPro songs"),
-                    .extensions(["*"], name: "All Files"),
+                    .extensions(["*"], name: "All Files")
                 ]
             ) { fileURL in
                 appState.openSong(fileURL: fileURL)

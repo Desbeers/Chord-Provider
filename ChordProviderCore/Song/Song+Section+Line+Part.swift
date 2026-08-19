@@ -20,7 +20,7 @@ extension Song.Section.Line {
             self.content = content
         }
 
-        // CustomStringConvertible protocol
+        /// CustomStringConvertible protocol
         public var description: String {
             "\(content)"
         }

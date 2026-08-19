@@ -13,6 +13,7 @@ extension ChordPro.Directive {
 
     /// Details of a directive
     public struct Details {
+
         /// The label of the directive
         public var label: String
         /// Default value when the directive needs an argument

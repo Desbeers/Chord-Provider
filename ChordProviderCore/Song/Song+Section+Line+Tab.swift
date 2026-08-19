@@ -9,8 +9,14 @@ import Foundation
 
 extension Song.Section.Line {
 
+    /// Structure for a tab in a line
     public struct Tab: Identifiable, Equatable, Codable, Sendable {
-        /// Init
+
+        /// Init a tab
+        /// - Parameters:
+        ///   - lineID: The ID of the line
+        ///   - plain: The tab in plain text
+        ///   - events: The tab event
         public init(lineID: Int, plain: String, events: [ChordPro.Tab.Event] = []) {
             self.lineID = lineID
             self.plain = plain

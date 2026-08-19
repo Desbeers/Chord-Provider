@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for a chord diagram
     struct ChordDiagram: View {
+
         /// The current line of the song
         let line: Song.Section.Line
         /// The state of the application
@@ -24,6 +25,7 @@ extension GtkRender {
                     VStack(spacing: 0) {
                         Views.MidiPlayerButton(
                             chord: chord.definition,
+                            showAccidental: false,
                             coreSettings: appState.editor.coreSettings,
                         )
                         Views.ChordDiagram(

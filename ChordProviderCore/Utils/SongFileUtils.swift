@@ -166,10 +166,15 @@ extension SongFileUtils {
 
     /// The group of song metadata
     public enum Group: String, CaseIterable, Codable {
+        /// Artist
         case artist
+        /// Title
         case title
+        /// Year
         case year
+        /// Key
         case key
+        /// Tempo
         case tempo
         /// The suffix for the group
         var suffix: String {

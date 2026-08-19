@@ -13,6 +13,7 @@ extension GtkRender.GridSection {
 
     /// The `View` for columns of a grid section
     struct Columns: View {
+
         /// The columns of the grid
         let columns: [Song.Section.Line.Grid]
         /// Bool if the the chords areplaying with MIDI
@@ -66,7 +67,7 @@ extension GtkRender.GridSection {
                         .useMarkup()
                         .zoom(appState.settings.theme.zoom)
                 case let .strum(symbol):
-                    Widgets.BundleImage(strum: symbol)
+                    Image(core: "Strums/\(symbol.svgIcon)")
                         .pixelSize(Int(14 * appState.settings.theme.zoom))
                         .style(.svgIcon)
                         .halign(.center)

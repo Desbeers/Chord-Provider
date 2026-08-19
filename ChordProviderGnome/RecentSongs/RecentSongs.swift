@@ -10,6 +10,7 @@ import ChordProviderCore
 
 /// The recent songs opened in **Chord Provider**
 struct RecentSongs: Codable {
+
     /// The list of recent songs
     var items: [Item] = []
 }

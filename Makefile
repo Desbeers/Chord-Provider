@@ -47,7 +47,7 @@ run: gui
 
 editorsnippets:
 	@echo "Build GenerateSnippets"
-	swift build \
+	@swift build \
 		--quiet \
 		--product GenerateSnippets
 	@$(ROOT_DIR)/.build/debug/GenerateSnippets

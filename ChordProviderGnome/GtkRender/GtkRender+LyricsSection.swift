@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for a lyrics section
     struct LyricsSection: View {
+
         /// The current section of the song
         let section: Song.Section
         /// The state of the application

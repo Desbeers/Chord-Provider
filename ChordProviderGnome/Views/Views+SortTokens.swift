@@ -13,6 +13,7 @@ extension Views {
 
     /// The `View` to edit or add sort tokens
     struct SortTokens: View {
+
         /// The sort tokens
         @Binding var  sortTokens: [String]
         /// The token to add

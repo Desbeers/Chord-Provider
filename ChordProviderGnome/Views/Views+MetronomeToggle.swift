@@ -16,16 +16,17 @@ extension Views {
 
     /// A `View` with a metronome button
     struct MetronomeToggle: View {
+
         /// Init the `View`
         /// - Parameter appState: The application state
         init(appState: Binding<AppState>) {
             let metadata = appState.editor.song.metadata.wrappedValue
-            let tempo = metadata.tempo
-            self.songTempo = tempo
+            let definedTempo = metadata.tempo
+            self.songTempo = definedTempo
             self._appState = appState
             Task {
-                if tempo != nil {
-                    await ChordProviderMIDI.shared.setSongTempo(tempo)
+                if definedTempo != nil {
+                    await ChordProviderMIDI.shared.setSongTempo(definedTempo)
                     await ChordProviderMIDI.shared.setMetronomeTimeSignature(metadata.time ?? "4/4")
                 } else {
                     await ChordProviderMIDI.shared.stopMetronome()
@@ -43,9 +44,9 @@ extension Views {
         /// The body of the `View`
         var view: Body {
             Box {
-                if songTempo != nil  {
+                if songTempo != nil {
                     HStack {
-                        Widgets.BundleImage(icon: .tempo)
+                        Image(core: "Icons/\(ImageUtils.Icon.tempo)")
                             .pixelSize(16)
                             .valign(.baselineCenter)
                             .style(.svgIcon)

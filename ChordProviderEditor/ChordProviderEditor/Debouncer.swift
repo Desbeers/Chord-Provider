@@ -10,6 +10,7 @@ import CGtkSourceView
 
 /// A simple GTK debouncer to update the UI
 final class Debouncer {
+
     /// The debounce delay
     private let delayMS: guint
     /// The ID of the task
@@ -67,6 +68,7 @@ extension Debouncer {
 
     /// Class wrapper for the task so it can be handed by `C`
     final class ClosureTask {
+
         /// The task to execute
         let task: () -> Void
         /// Init the closure in a class

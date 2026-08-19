@@ -32,6 +32,7 @@ extension ChordProviderMIDI {
 
     // MARK: Metronome loop
 
+    /// Run the metronome
     private func runMetronome() async {
         guard let synth else {
             return

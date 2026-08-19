@@ -14,23 +14,24 @@ extension Views.Database {
 
     /// A `View` to edit or make a new database
     struct Edit: View {
+
         /// Init the form
         init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>, new: Bool) {
             self._appState = appState
             self._databaseState = databaseState
-            var instrument = appState.wrappedValue.currentInstrument
-            instrument.modified = true
-            /// Fill-in the form, use the last instrument
-            self._tunings = State(wrappedValue: instrument.tuning)
-            self._kind = State(wrappedValue: instrument.kind)
+            var currentInstrument = appState.wrappedValue.currentInstrument
+            currentInstrument.modified = true
+            /// Fill-in the form, use the last currentInstrument
+            self._tunings = State(wrappedValue: currentInstrument.tuning)
+            self._kind = State(wrappedValue: currentInstrument.kind)
             /// Make the description empty for a new database
-            self._description = State(wrappedValue: "\(new ? "" : instrument.label)")
+            self._description = State(wrappedValue: "\(new ? "" : currentInstrument.label)")
             /// Make other stuff empty al well for a new database
             if new {
-                instrument.bundle = nil
-                instrument.fileURL = nil
+                currentInstrument.bundle = nil
+                currentInstrument.fileURL = nil
             }
-            self.instrument = instrument
+            self.instrument = currentInstrument
             self.new = new
         }
         /// The tuning of the instrument
@@ -151,8 +152,14 @@ extension Views.Database {
 
 extension Views.Database.Edit {
 
+    /// The `View` for a tuning picker
     struct TuningPicker: View {
 
+        /// Init the tuning picker `View`
+        /// - Parameters:
+        ///   - tune: The current tuning
+        ///   - tunings: The tuning values
+        ///   - new: Bool if the tuning is new
         init(tune: Instrument.Tuning, tunings: Binding<[Instrument.Tuning]>, new: Bool) {
             self.tune = tune
             self._tunings = tunings
@@ -160,16 +167,19 @@ extension Views.Database.Edit {
             self.tuneID = tunings.wrappedValue.firstIndex { $0.id == tune.id } ?? 0
             self.new = new
         }
-
+        /// The tuning
         let tune: Instrument.Tuning
+        /// The ID of the tuning
         let tuneID: Int
+        /// Bool if the tuning is new
         let new: Bool
+        /// The tuning values
         @Binding var tunings: [Instrument.Tuning]
-
+        /// The octave
         @State private var octave: Element.ID
-
+        /// The tuning elements
         let elements = (1...12).map { Element(id: $0) }
-
+        /// The body of the `View`
         var view: Body {
             VStack {
                 DropDown(
@@ -191,8 +201,12 @@ extension Views.Database.Edit {
         }
     }
 
+    /// A tuning element
     struct Element: Identifiable, CustomStringConvertible, Equatable {
+
+        /// The ID of the element
         var id: Int
+        /// CustomStringConvertible protocol
         var description: String { String(id) }
     }
 }

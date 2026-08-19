@@ -21,20 +21,20 @@ public enum SourceViewCommand: Sendable {
     // MARK: Inserts
 
     /// Open new song
-    case openNewSong(String)
+    case openNewSong(_: String)
     /// Insert a `Directive` at the cursor position
-    case insertDirective(ChordPro.Directive)
+    case insertDirective(_: ChordPro.Directive)
     /// Replace all text
-    case replaceAllText(String)
+    case replaceAllText(_: String)
     /// Append text to the end of the source
-    case appendText(String)
+    case appendText(_: String)
     /// Replace all text on a specific line in the editor
-    case replaceLineText(String)
+    case replaceLineText(_: String)
 
     // MARK: Search commands
 
     /// Search
-    case search(SourceViewBridge.SearchDirection)
+    case search(_: SourceViewBridge.SearchDirection)
     /// Replace match
     case replaceSearchMatch(with: String)
     /// Replace all matches
@@ -43,11 +43,11 @@ public enum SourceViewCommand: Sendable {
     // MARK: Search options
 
     /// Use regular expressions
-    case regularExpressions(Bool)
+    case regularExpressions(_: Bool)
     /// Search must match whole words
-    case matchWholeWordOnly(Bool)
+    case matchWholeWordOnly(_: Bool)
     /// Search is case sensitive
-    case caseSensitive(Bool)
+    case caseSensitive(_: Bool)
 
     // MARK: Other
 

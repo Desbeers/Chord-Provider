@@ -14,12 +14,17 @@ extension SourceViewController {
 
     // MARK: Style
 
+    /// Init the text highlighting
+    /// - Parameters:
+    ///   - view: The View storage
+    ///   - buffer: The text buffer
+    ///   - language: The language for text highlighting
     static func initStyle(view: ViewStorage, buffer: ViewStorage, language: Language) {
-        /// Set the language for text highlight
+        // Set the language for text highlight
         SourceViewController.initLanguage(buffer: buffer, language: language)
-        /// Set the style
+        // Set the style
         SourceViewController.updateStyle(view: view, buffer: buffer)
-        /// Add a *notification* for style changes
+        // Add a *notification* for style changes
         buffer.notify(name: "dark", pointer: adw_style_manager_get_default()) {
             SourceViewController.updateStyle(view: view, buffer: buffer)
         }
@@ -41,6 +46,10 @@ extension SourceViewController {
 
     // MARK: Language
 
+    /// Init the text highlighting language
+    /// - Parameters:
+    ///   - buffer: The text buffer
+    ///   - language: The language for text highlighting
     static func initLanguage(buffer: ViewStorage, language: Language) {
         let manager = gtk_source_language_manager_get_default()
         if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {

@@ -208,9 +208,7 @@ extension ChordProParser {
                 var transitionNotes: [Int] = []
                 while isTransition, let symbolCharacter = lineCharacters[safe: visualColumnIndex] {
                     let symbol = String(symbolCharacter)
-                    if let transition = ChordPro.Tab.Transition.Technique.characterDictionary[
-                        symbol]
-                    {
+                    if let transitionTechnique = ChordPro.Tab.Transition.Technique.characterDictionary[symbol] {
                         visualColumnIndex += 1
                         var second = ""
                         while visualColumnIndex < lineCharacters.count, lineCharacters[visualColumnIndex].isNumber {
@@ -223,7 +221,7 @@ extension ChordProParser {
                             let transition = ChordPro.Tab.Transition(
                                 from: from,
                                 to: secondNote,
-                                by: transition
+                                by: transitionTechnique
                             )
                             events[visualColumnID + usedColumns + second.count] = ChordPro.Tab
                                 .Event(

@@ -21,8 +21,8 @@ extension Views.Home {
     func openButton(
         fileURL: URL,
         metadata: Song.Metadata,
-        songTitleOnly: Bool = false,
-        showTags: Bool = true
+        songTitleOnly: Bool,
+        showTags: Bool
     ) -> AnyView {
         HStack {
             Button("") {

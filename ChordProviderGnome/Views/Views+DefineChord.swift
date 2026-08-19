@@ -18,6 +18,7 @@ extension Views {
     /// This `View` is *not* complete, it is just showing the edit dialog.
     /// It is used by the Editor and by the Database views to show a complete `View`
     struct DefineChord: View {
+
         /// The state of the chord definition
         @Binding var definition: ChordDefinition
         /// Bool if the chord definition is new
@@ -64,13 +65,13 @@ extension Views {
         var fingers: [StringNumber] {
             var result: [StringNumber] = []
             for string in definition.instrument.strings {
-                var fingers = [Fret]()
-                fingers.append(Fret(id: 0, label: DefineChord.doNotPlay))
+                var frets: [Fret] = []
+                frets.append(Fret(id: 0, label: DefineChord.doNotPlay))
                 for finger in (1...5) {
-                    fingers.append(Fret(id: finger, label: "\(finger)"))
+                    frets.append(Fret(id: finger, label: "\(finger)"))
                 }
-                result.append(StringNumber(id: string, frets: fingers))
-                fingers = [Fret]()
+                result.append(StringNumber(id: string, frets: frets))
+                frets = []
             }
             /// Mirror if needed
             if coreSettings.diagram.mirror {
@@ -152,20 +153,20 @@ extension Views {
                 }
                 HStack(spacing: 20) {
                     VStack {
-                        let definition = getDefinition
+                        let currentDefinition = getDefinition
                         MidiPlayerButton(
-                            chord: definition,
+                            chord: currentDefinition,
                             showAccidental: newChord ? true : false,
                             coreSettings: coreSettings
                         )
                         Views.ChordDiagram(
-                            chord: definition,
+                            chord: currentDefinition,
                             width: 160,
                             coreSettings: coreSettings
                         )
-                        Text(definition.displayAllNotes)
+                        Text(currentDefinition.displayAllNotes)
                             .useMarkup()
-                        if let warnings = definition.validationWarnings {
+                        if let warnings = currentDefinition.validationWarnings {
                             ScrollView {
                                 HStack(spacing: 4) {
                                     ForEach(warnings, id: \.description) { line in
@@ -269,14 +270,14 @@ extension Views {
         /// Try to find a chord in the database
         private func lookupChord() {
             if newChord {
-                let definition = coreSettings.chordDefinitions
+                let definitions = coreSettings.chordDefinitions
                     .matching(root: definition.root)
                     .matching(quality: definition.quality)
                     .matching(slash: definition.slash)
                     .matching(baseFret: definition.baseFret)
 
-                if let definition = definition.first {
-                    self.definition = definition
+                if let newDefinition = definitions.first {
+                    self.definition = newDefinition
                 } else {
                     self.definition.frets = Array(repeating: -1, count: self.definition.instrument.strings.count)
                     self.definition.fingers = Array(repeating: 0, count: self.definition.instrument.strings.count)
@@ -288,6 +289,7 @@ extension Views {
 
         /// The strings of the instrument
         struct StringNumber: Identifiable {
+
             /// The ID of the string
             let id: Int
             /// The frets of the string
@@ -296,6 +298,7 @@ extension Views {
 
         /// The frets of the instrument
         struct Fret: Identifiable {
+
             /// The ID of the fret
             let id: Int
             /// The label of the fret

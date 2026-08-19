@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for a textblock section
     struct TextblockSection: View {
+
         /// Init the `View`
         /// - Parameters:
         ///   - section: The current section

@@ -30,6 +30,7 @@ public actor ChordProviderMIDI {
 
     // MARK: MIDI channels
 
+    /// The playback ID's for the channels
     var activePlaybackIDs: [Int: UUID] = [:]
 
     /// The transport state

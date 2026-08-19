@@ -160,7 +160,7 @@ extension Song {
             let seconds = totalSeconds % 60
 
             switch (minutes, seconds) {
-            case (0, 0):
+            case (_: 0, _: 0):
                 return "0s"
             case (0, _):
                 return "\(seconds)s"

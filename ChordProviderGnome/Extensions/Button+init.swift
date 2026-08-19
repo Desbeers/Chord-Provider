@@ -1,3 +1,10 @@
+//
+//  Button+init.swift
+//  ChordProviderGnome
+//
+//  © 2026 Nick Berendsen
+//
+
 import Adwaita
 import CAdw
 

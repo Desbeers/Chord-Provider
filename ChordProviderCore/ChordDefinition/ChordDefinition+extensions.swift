@@ -17,11 +17,11 @@ extension ChordDefinition {
     ///         because this value is contructed from the ``root``, ``quality``
     ///         and ``slash`` enum values..
     public var name: String {
-        var name = root.rawValue + quality.rawValue
+        var chordName = root.rawValue + quality.rawValue
         if let slash {
-            name += "/\(slash.rawValue)"
+            chordName += "/\(slash.rawValue)"
         }
-        return name
+        return chordName
     }
 
     /// Bool if the ``ChordDefinition`` is considered 'known' and can have a diagram
@@ -95,22 +95,22 @@ extension ChordDefinition {
     ///
     /// - Returns: The **ChordPro** `{define}` directive for the ``ChordDefinition``
     public var define: String {
-        var define = root.rawValue
-        define += quality.rawValue
+        var definition = root.rawValue
+        definition += quality.rawValue
         if let slash {
-            define += "/\(slash.rawValue)"
+            definition += "/\(slash.rawValue)"
         }
-        define += " base-fret "
-        define += String(baseFret.rawValue)
-        define += " frets "
+        definition += " base-fret "
+        definition += String(baseFret.rawValue)
+        definition += " frets "
         for fret in frets {
-            define += "\(fret == -1 ? "x" : fret.description) "
+            definition += "\(fret == -1 ? "x" : fret.description) "
         }
-        define += "fingers"
+        definition += "fingers"
         for finger in fingers {
-            define += " \(finger)"
+            definition += " \(finger)"
         }
-        return "{define-\(instrument.kind.rawValue): \(define)}"
+        return "{define-\(instrument.kind.rawValue): \(definition)}"
     }
 
     /// Mirror the ``ChordDefinition`` for a left-handed diagram

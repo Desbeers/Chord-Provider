@@ -13,6 +13,7 @@ extension AppState {
 
     /// Settings for the Home `View`
     struct Home: Codable {
+
         /// Sorting of the group
         var groupSort: SongFileUtils.Group = .artist
         /// The groupings browser
@@ -48,7 +49,9 @@ extension AppState.Home {
 
     /// Items to store in the database
     enum CodingKeys: String, CodingKey {
+        /// Sorting of a group
         case groupSort
+        /// The folder with songs
         case songsFolder
     }
 }

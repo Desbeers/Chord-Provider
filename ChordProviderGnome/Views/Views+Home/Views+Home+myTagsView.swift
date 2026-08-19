@@ -51,7 +51,12 @@ extension Views.Home {
                             VStack {
                                 ForEach(songs) { song in
                                     if let fileURL = song.settings.fileURL {
-                                        openButton(fileURL: fileURL, metadata: song.metadata)
+                                        openButton(
+                                            fileURL: fileURL,
+                                            metadata: song.metadata,
+                                            songTitleOnly: false,
+                                            showTags: true
+                                        )
                                     }
                                 }
                             }

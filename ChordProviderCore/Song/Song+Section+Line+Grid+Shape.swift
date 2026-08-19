@@ -9,7 +9,15 @@ import Foundation
 
 extension Song.Section.Line.Grid {
 
+    /// The shape of a grid
     public struct Shape: Codable, Sendable {
+
+        /// Init a shape
+        /// - Parameters:
+        ///   - left: Left margin
+        ///   - measures: Total measures
+        ///   - beats: Total beats
+        ///   - right: Right margin
         public init(
             left: Int = -1,
             measures: Int = 4,
@@ -21,12 +29,15 @@ extension Song.Section.Line.Grid {
             self.beats = beats
             self.right = right
         }
-
+        /// Left margin
         public var left: Int
+        /// Total measures
         public var measures: Int
+        /// Total beats
         public var beats: Int
+        /// Right margin
         public var right: Int
-
+        /// Calculated total amount of cells
         public var totalCells: Int {
             var total = (measures * beats) + measures + 2
             if left >= 1 {

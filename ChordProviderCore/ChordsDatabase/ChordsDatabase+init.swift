@@ -28,7 +28,7 @@ extension ChordsDatabase {
             self.instrument = result.instrument
             self.definitions = result.definitions
             self.errors = result.errors
-        } catch ChordProviderError.jsonDecoderError(let error, let context) {
+        } catch let ChordProviderError.jsonDecoderError(error, context) {
             throw .jsonDecoderError(error: error, context: context)
         } catch CocoaError.fileReadNoSuchFile {
             throw .fileNotFound(url: url)
@@ -61,6 +61,13 @@ extension ChordsDatabase {
 
 extension ChordsDatabase {
 
+    /// Process a database
+    /// - Parameters:
+    ///   - database: The database
+    ///   - bundle: The bundled database name
+    ///   - fileURL: The URL of the database
+    ///
+    /// - Returns: The instrument, chord definitions and optional errors
     private static func processDatabase(
         database: ChordPro.Instrument,
         bundle: String? = nil,

@@ -35,19 +35,19 @@ extension ChordProParser {
 
     /// Process a directive
     /// - Parameters:
-    ///   - text: The text to process
+    ///   - string: The directive to process
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     ///   - getOnlyMetadata: Bool to get only metadata of the song
     static func processDirective(
-        text: String,
+        text string: String,
         currentSection: inout Song.Section,
         song: inout Song,
         getOnlyMetadata: Bool
     ) {
         /// Remove nerdy stuff from the text
         /// - Note: Just for *CodeShakingSheep* ;-)
-        let text = text.replacingOccurrences(of: "\\n", with: " ")
+        let text = string.replacingOccurrences(of: "\\n", with: " ")
 
         /// Grab the directive to handle if unknown or not complete
         let unparsedDirective = text.dropFirst().dropLast().split(separator: " ").first ?? ""
@@ -56,15 +56,15 @@ extension ChordProParser {
             let parsedDirective = match.1
             let parsedArgument = match.2
             /// Handle known directives
-            if let directive = getDirective(parsedDirective.lowercased()) {
+            if let knownDirective = getDirective(parsedDirective.lowercased()) {
                 /// Warn for short directive
-                if directive.short {
+                if knownDirective.short {
                     currentSection.addWarning(
-                        "It is preferable to use the long version for <b>\(directive.directive.details.label)</b>",
+                        "It is preferable to use the long version for <b>\(knownDirective.directive.details.label)</b>",
                         level: .notice
                     )
                 }
-                let directive = directive.directive
+                let directive = knownDirective.directive
                 /// Parse the arguments
                 let directiveArguments = stringToArguments(directive, parsedArgument)
                 var arguments = directiveArguments.arguments
@@ -82,6 +82,7 @@ extension ChordProParser {
                     addSection(
                         directive: .unknown,
                         arguments: [.source: text],
+                        line: nil,
                         currentSection: &currentSection,
                         song: &song
                     )
@@ -122,6 +123,7 @@ extension ChordProParser {
                         addSection(
                             directive: directive,
                             arguments: arguments,
+                            line: nil,
                             currentSection: &currentSection,
                             song: &song
                         )
@@ -161,6 +163,7 @@ extension ChordProParser {
                         openSection(
                             directive: directive,
                             arguments: arguments,
+                            line: nil,
                             currentSection: &currentSection,
                             song: &song
                         )
@@ -170,6 +173,7 @@ extension ChordProParser {
                         addSection(
                             directive: directive,
                             arguments: arguments,
+                            line: nil,
                             currentSection: &currentSection,
                             song: &song
                         )
@@ -183,6 +187,7 @@ extension ChordProParser {
                         openSection(
                             directive: directive,
                             arguments: arguments,
+                            line: nil,
                             currentSection: &currentSection,
                             song: &song
                         )
@@ -204,7 +209,8 @@ extension ChordProParser {
                             directive: directive,
                             arguments: arguments,
                             currentSection: &currentSection,
-                            song: &song
+                            song: &song,
+                            warning: false
                         )
 
                     case .endOfChorus, .endOfVerse, .endOfBridge, .endOfGrid, .endOfABC, .endOfTextblock, .endOfLy, .endOfSvg, .endOfCustomEnvironment:
@@ -212,7 +218,8 @@ extension ChordProParser {
                             directive: directive,
                             arguments: arguments,
                             currentSection: &currentSection,
-                            song: &song
+                            song: &song,
+                            warning: false
                         )
 
                         // MARK: Chord diagrams
@@ -275,6 +282,7 @@ extension ChordProParser {
                         addSection(
                             directive: .unknown,
                             arguments: arguments,
+                            line: nil,
                             currentSection: &currentSection,
                             song: &song
                         )
@@ -293,6 +301,7 @@ extension ChordProParser {
                 addSection(
                     directive: .unknown,
                     arguments: [.source: text],
+                    line: nil,
                     currentSection: &currentSection,
                     song: &song
                 )
@@ -310,6 +319,7 @@ extension ChordProParser {
             addSection(
                 directive: .unknown,
                 arguments: [.source: text],
+                line: nil,
                 currentSection: &currentSection,
                 song: &song
             )

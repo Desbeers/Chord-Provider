@@ -12,8 +12,7 @@ public struct ChordsDatabase: Codable, Sendable, Equatable {
 
     /// Init an empty Chords Database, defaults to guitar as instrument
     public init() {
-        let instrument = Instrument[.guitar]
-        self.instrument = instrument
+        self.instrument = Instrument[.guitar]
         self.definitions = []
     }
 

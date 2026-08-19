@@ -14,6 +14,7 @@ extension Views {
 
     /// The `View` for showing the chord database
     struct Database: View {
+
         /// The `AdwaitaWindow`
         var window: AdwaitaWindow
         /// The application state

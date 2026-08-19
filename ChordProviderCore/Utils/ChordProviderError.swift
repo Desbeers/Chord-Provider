@@ -22,7 +22,7 @@ public enum ChordProviderError: LocalizedError, Equatable {
     case fileNotSaved(error: String)
     /// Warnings when importing a database
     case databaseImportWarnings(warnings: String)
-    // A single warnings when importing a database
+    /// A single warnings when importing a database
     case databaseImportWarning(warning: String)
     /// Error when importing a database
     case databaseImportError(error: String, context: String? = nil)

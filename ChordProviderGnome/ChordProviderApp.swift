@@ -15,6 +15,7 @@ import Foundation
 /// The **Chord Provider** GNOME application
 @main
 struct ChordProviderApp: App {
+
     /// The application
     let app = AdwaitaApp(id: "nl.desbeers.chordprovider")
     /// The state of the application

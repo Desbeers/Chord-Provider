@@ -14,17 +14,22 @@ extension Views.Database {
 
     /// The `View` to edit or add a chord definition
     struct DefineChord: View {
+
+        /// Init the chord define `View`
+        /// - Parameters:
+        ///   - appState: The state of the application
+        ///   - databaseState: The state of the database
         init(appState: Binding<AppState>, databaseState: Binding<DatabaseState>) {
             /// Create a new definition with the current root
-            var definition = ChordDefinition(instrument: appState.wrappedValue.editor.coreSettings.instrument)
-            definition.root = databaseState.wrappedValue.chord
+            var chordDefinition = ChordDefinition(instrument: appState.wrappedValue.editor.coreSettings.instrument)
+            chordDefinition.root = databaseState.wrappedValue.chord
             self.newChord = databaseState.wrappedValue.newChord
             if !newChord, let currentDefinition = databaseState.definition.wrappedValue {
-                definition = currentDefinition
+                chordDefinition = currentDefinition
             }
             /// Try to find the optional shadow version
-            self.shadowChord = definition.enharmonicEquivalent(in: appState.wrappedValue.editor.coreSettings.chordDefinitions)
-            self._definition = State(wrappedValue: definition)
+            self.shadowChord = chordDefinition.enharmonicEquivalent(in: appState.wrappedValue.editor.coreSettings.chordDefinitions)
+            self._definition = State(wrappedValue: chordDefinition)
             self._databaseState = databaseState
             self._appState = appState
         }

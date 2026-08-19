@@ -30,6 +30,7 @@ extension Chord {
 
         // MARK: All
 
+        /// All Qualities
         case all = "All Qualities"
 
         // MARK: Triad

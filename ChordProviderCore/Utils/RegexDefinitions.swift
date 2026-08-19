@@ -39,11 +39,11 @@ enum RegexDefinitions {
                 }
             } transform: { quality in
                 /// Strip "()" from the quality
-                let quality = String(quality)
+                let strippedQuality = String(quality)
                     .replacingOccurrences(of: "(", with: "")
                     .replacingOccurrences(of: ")", with: "")
                 /// Try to find the name of the quality
-                for name in Chord.Quality.allCases where name.name.contains(quality) {
+                for name in Chord.Quality.allCases where name.name.contains(strippedQuality) {
                     return name
                 }
                 /// The quality is unknown
@@ -249,6 +249,7 @@ enum RegexDefinitions {
 
     // MARK: Building blocks
 
+    /// The regex for open tags
     nonisolated(unsafe) private static let openTags = Regex {
         OneOrMore {
             "<"
@@ -257,6 +258,7 @@ enum RegexDefinitions {
         }
     }
 
+    /// The regex for closing tags
     nonisolated(unsafe) private static let closeTags = Regex {
         OneOrMore {
             "</"
@@ -265,12 +267,14 @@ enum RegexDefinitions {
         }
     }
 
+    /// The regex for text only
     nonisolated(unsafe) private static let textOnly = Regex {
         OneOrMore {
             CharacterClass.anyOf("<>").inverted
         }
     }
 
+    /// The regex for a block with markup
     nonisolated(unsafe) private static let markupBlock = Regex {
         openTags
         textOnly

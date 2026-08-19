@@ -35,14 +35,14 @@ public class LogUtils: @unchecked Sendable {
         message: String
     ) {
         singletonQueue.sync {
-            let message = LogUtils.LogMessage(
+            let logMessage = LogUtils.LogMessage(
                 level: level,
                 category: category,
                 lineNumber: lineNumber,
                 source: source,
                 message: message
             )
-            logs.append(message)
+            logs.append(logMessage)
         }
     }
 
@@ -66,6 +66,7 @@ extension LogUtils {
 
     /// The structure for a log entrance
     public struct LogEntrance {
+
         /// The log level
         public var level: LogUtils.Level
         /// The log message
@@ -74,6 +75,16 @@ extension LogUtils {
 
     /// The structure for a log message
     public struct LogMessage: Equatable, Identifiable, Sendable, Hashable, Codable {
+
+        /// Init a log message.
+        /// - Parameters:
+        ///   - id: The unique ID of the log message.
+        ///   - time: The date and time of the log message.
+        ///   - level: The level of the log message.
+        ///   - category: The category of the log message.
+        ///   - lineNumber: The optional line number of the **ChordPro** source.
+        ///   - source: The optional source.
+        ///   - message: The log message itself.
         public init(
             id: UUID = UUID(),
             time: Date = .now,

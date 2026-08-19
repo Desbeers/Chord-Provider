@@ -13,6 +13,7 @@ import CAdw
 
 /// The state of **Chord Provider**
 struct AppState {
+
     /// The application settings
     var settings = AppSettings() {
         didSet {
@@ -52,14 +53,14 @@ extension AppState {
     /// The subtitle of the `Scene`
     var subtitle: String {
         let metadata = self.editor.song.metadata
-        var subtitle: [String] = [metadata.subtitle ?? metadata.artist]
+        var result: [String] = [metadata.subtitle ?? metadata.artist]
             if let album = metadata.album {
-                subtitle.append(album)
+                result.append(album)
             }
             if contentIsModified {
-                subtitle.append("modified")
+                result.append("modified")
             }
-            return subtitle.joined(separator: " · ")
+            return result.joined(separator: " · ")
     }
 
     /// The title in the GNOME overview

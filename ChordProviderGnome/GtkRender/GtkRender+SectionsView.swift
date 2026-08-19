@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for all sections
     struct SectionsView: View {
+
         /// Init the `View`
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
@@ -48,16 +49,16 @@ extension GtkRender {
         private func sectionPart(_ section: Song.Section) -> Body {
             switch section.environment {
             case .verse, .bridge, .chorus, .custom:
-                SectionHeader(section: section, appState: appState)
+                SectionHeader(label: nil, section: section, appState: appState)
                 LyricsSection(section: section, appState: appState)
             case .textblock:
                 if !section.label.isEmpty {
-                    SectionHeader(section: section, appState: appState)
+                    SectionHeader(label: nil, section: section, appState: appState)
                 }
                 TextblockSection(section: section, appState: appState)
             case .tab:
                 if !appState.editor.coreSettings.lyricsOnly {
-                    SectionHeader(section: section, appState: appState)
+                    SectionHeader(label: nil, section: section, appState: appState)
                     TabSection(
                         section: section,
                         appState: $appState
@@ -65,7 +66,7 @@ extension GtkRender {
                 }
             case .grid:
                 if !appState.editor.coreSettings.lyricsOnly {
-                    SectionHeader(section: section, appState: appState)
+                    SectionHeader(label: nil, section: section, appState: appState)
                     GridSection(
                         section: section,
                         appState: $appState

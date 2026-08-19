@@ -11,8 +11,13 @@ extension ChordProParser {
 
     // MARK: Process parts of a line
 
+    /// Process parts of a line
+    /// - Parameters:
+    ///   - lineText: The whole text of the line
+    ///   - line: The current line
+    ///   - song: The whole ``Song``
     static func processParts(
-        text: String,
+        text lineText: String,
         line: inout Song.Section.Line,
         song: inout Song
     ) {
@@ -20,7 +25,7 @@ extension ChordProParser {
         /// All the parts in the line
         var parts: [Song.Section.Line.Part] = []
         /// Chop the line in parts
-        var matches = text.matches(of: RegexDefinitions.lineParts)
+        var matches = lineText.matches(of: RegexDefinitions.lineParts)
         /// The last match is the newline character so completely empty; we don't need it
         matches = matches.dropLast()
         for match in matches {

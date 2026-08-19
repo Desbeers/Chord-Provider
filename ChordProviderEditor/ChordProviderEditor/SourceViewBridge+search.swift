@@ -12,6 +12,7 @@ extension SourceViewBridge {
 
     /// The state of the search
     public struct SearchState: Sendable {
+
         /// The search string
         public var search: String = ""
         /// The replacement string

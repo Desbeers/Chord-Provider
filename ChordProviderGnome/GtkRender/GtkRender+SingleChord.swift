@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for a single chord in a part
     struct SingleChord: View {
+
         /// The part containing the chord
         let part: Song.Section.Line.Part
         /// Highlight the chord
@@ -42,9 +43,9 @@ extension GtkRender {
             Toggle("", isOn: $openChordDiagram)
                 .child {
                     Text(markup?.display ?? chord.display)
+                        .zoom(appState.settings.theme.zoom)
                         .useMarkup()
                         .highlight(highlight, color: appState.pangoAccentColor)
-                        .zoom(appState.settings.theme.zoom)
                         .tooltip(chord.displayToolTip)
                         .style(chord.style)
                         .style(.chord)
@@ -57,10 +58,12 @@ extension GtkRender {
                         VStack(spacing: 0) {
                             Views.MidiPlayerButton(
                                 chord: chord,
+                                showAccidental: false,
                                 coreSettings: appState.editor.coreSettings
                             )
                             Views.ChordDiagram(
                                 chord: chord,
+                                width: 100,
                                 coreSettings: appState.editor.coreSettings
                             )
                             if chord.knownChord, let strum = chord.strum {

@@ -9,8 +9,10 @@ import Foundation
 import ArgumentParser
 import ChordProviderCore
 
+/// The CLI application
 @main
 struct Chordprovider: AsyncParsableCommand {
+
     /// The **ChordPro** source
     @Argument(
         help:
@@ -69,7 +71,7 @@ struct Chordprovider: AsyncParsableCommand {
     )
 
     /// The main function
-    mutating func run() throws {
+    mutating func run() {
         /// Get the chords
         let database = try? ChordsDatabase(instrument: Instrument[instrument])
         /// Set the settings
@@ -128,7 +130,7 @@ struct Chordprovider: AsyncParsableCommand {
             result = "Sorry, not yet implemented"
         }
 
-        /// Output the result
+        // Output the result
         if stdout || format == .pdf {
             print(result)
         } else {
@@ -145,12 +147,17 @@ struct Chordprovider: AsyncParsableCommand {
         }
     }
 
+    /// Check if an URL exists
+    /// - Parameter url: The URL to check
+    /// - Throws: Error if URL does not exists
     func checkURL(_ url: URL) throws {
         guard FileManager.default.fileExists(atPath: url.path) else {
             throw ValidationError("File not found: \(url)")
         }
     }
 
+    /// Get messages
+    /// - Returns: The messages as an array
     func messages() -> [String] {
         LogUtils.shared.fetchLog()
             .map { message in

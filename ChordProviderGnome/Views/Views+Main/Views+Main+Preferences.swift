@@ -15,6 +15,7 @@ extension Views.Main {
 
     /// The `View` for the preferences
     struct Preferences: View {
+
         /// The state of the application
         @Binding var appState: AppState
         /// The body of the `View`

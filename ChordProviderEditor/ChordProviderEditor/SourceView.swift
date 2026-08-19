@@ -15,16 +15,23 @@ public struct SourceView: AdwaitaWidget {
 
     /// The editor bridge
     @Binding var bridge: SourceViewBridge
-
+    /// The editor controller
     let controller: SourceViewController?
-
+    /// Padding of the editor
     var padding = 0
+    /// The padding edges
     var paddingEdges: Set<Edge> = []
+    /// Bool to show the line numbers
     var lineNumbers = false
+    /// The language for text highlighting
     var language: Language
+    /// The text wrapmode
     var wrapMode: WrapMode = .none
+    /// Bool to highlight the current line
     var highlightCurrentLine: Bool = true
+    /// Bool if the text is editable
     var editable: Bool = true
+    /// Bool to highlight the search rsults
     var highlightSearchResult: Bool = false
     /// Init the editor
     public init(
@@ -37,17 +44,28 @@ public struct SourceView: AdwaitaWidget {
         self.controller = controller
     }
 
+    /// The view storage.
+    /// - Parameters:
+    ///   - data: The widget data.
+    ///   - type: The view render data type.
+    /// - Returns: The view storage.
     public func container<Data>(
         data: WidgetData,
         type: Data.Type
     ) -> ViewStorage {
         // Get the controller class
-        let controller = controller ?? SourceViewController(bridge: $bridge, language: language)
-        update(controller.view, data: data, updateProperties: true, type: type)
+        let sourceController = controller ?? SourceViewController(bridge: $bridge, language: language)
+        update(sourceController.view, data: data, updateProperties: true, type: type)
         // Return the GTKSourceView
-        return controller.view
+        return sourceController.view
     }
 
+    /// Update the stored content.
+    /// - Parameters:
+    ///   - storage: The storage to update.
+    ///   - sdata: Modify views before being updated
+    ///   - supdateProperties: Whether to update the view's properties.
+    ///   - stype: The view render data type.
     public func update<Data>(
         _ storage: ViewStorage,
         data: WidgetData,
@@ -55,17 +73,17 @@ public struct SourceView: AdwaitaWidget {
         type: Data.Type
     ) {
         if updateProperties, let controller {
-            let bridge = $bridge
+            let editor = $bridge
             Idle {
-                if controller.currentSearchText != bridge.search.search.wrappedValue {
-                    controller.setSearchText(bridge.search.search.wrappedValue)
+                if controller.currentSearchText != editor.search.search.wrappedValue {
+                    controller.setSearchText(editor.search.search.wrappedValue)
                 }
                 // Handle command
-                if let command = bridge.wrappedValue.command {
+                if let command = editor.wrappedValue.command {
                     controller.handle(command)
-                    var newBridge = bridge.wrappedValue
+                    var newBridge = editor.wrappedValue
                     newBridge.command = nil
-                    bridge.wrappedValue = newBridge
+                    editor.wrappedValue = newBridge
                 }
                 if paddingEdges.contains(.top) {
                     gtk_text_view_set_top_margin(storage.textViewPointer, padding.cInt)
@@ -95,6 +113,7 @@ public struct SourceView: AdwaitaWidget {
 
     // MARK: View modifiers
 
+    /// Set the inner padding
     public func innerPadding(_ padding: Int = 10, edges: Set<Edge> = .all) -> Self {
         modify { sourceView in
             sourceView.padding = padding
@@ -102,30 +121,35 @@ public struct SourceView: AdwaitaWidget {
         }
     }
 
+    /// Show the line numbers
     public func lineNumbers(_ lineNumbers: Bool = true) -> Self {
         modify { sourceView in
             sourceView.lineNumbers = lineNumbers
         }
     }
 
+    /// Set the text as editable
     public func editable(_ editable: Bool = true) -> Self {
         modify { sourceView in
             sourceView.editable = editable
         }
     }
 
+    /// Highlight the current line
     public func highlightCurrentLine(_ highlightCurrentLine: Bool = true) -> Self {
         modify { sourceView in
             sourceView.highlightCurrentLine = highlightCurrentLine
         }
     }
 
+    /// Set the wrap mode
     public func wrapMode(_ wrapMode: WrapMode) -> Self {
         modify { sourceView in
             sourceView.wrapMode = wrapMode
         }
     }
 
+    /// Highlight the search results
     public func highlightSearchResult(_ highlightSearchResult: Bool) -> Self {
         modify { sourceView in
             sourceView.highlightSearchResult = highlightSearchResult

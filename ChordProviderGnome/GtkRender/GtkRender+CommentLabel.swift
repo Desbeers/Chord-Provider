@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for a comment label
     struct CommentLabel: View {
+
         /// The current line of the song
         let line: Song.Section.Line
         /// The state of the application

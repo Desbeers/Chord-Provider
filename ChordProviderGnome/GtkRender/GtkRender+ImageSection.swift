@@ -13,6 +13,7 @@ extension GtkRender {
 
     /// The `View` for an image section
     struct ImageSection: View {
+
         /// Init the `View`
         /// - Parameters:
         ///   - section: The image section
@@ -25,10 +26,10 @@ extension GtkRender {
                     section.arguments?[.src] ?? "",
                     fileURL: fileURL
                 ),
-                let data = try? Data(contentsOf: url) {
-                self.data = data
-                if let size = ImageUtils.getImageSize(data: data) {
-                    self.size = ImageUtils.getImageSizeFromArguments(size: size, arguments: section.arguments)
+                let imageData = try? Data(contentsOf: url) {
+                self.data = imageData
+                if let imageSize = ImageUtils.getImageSize(data: imageData) {
+                    self.size = ImageUtils.getImageSizeFromArguments(size: imageSize, arguments: section.arguments)
                 }
             }
         }
@@ -42,8 +43,7 @@ extension GtkRender {
         var view: Body {
             VStack {
                 if let data, let size {
-                    Picture()
-                        .data(data)
+                    Picture(data: data)
                         .card()
                         .frame(minHeight: Int(size.height))
                         .frame(maxHeight: Int(size.height))

@@ -14,6 +14,7 @@ extension GtkRender {
 
     /// The `View` for a grid section
     struct GridSection: View {
+
         /// The current section of the song
         let section: Song.Section
         /// The state of the application
@@ -51,8 +52,8 @@ extension GtkRender {
                     .padding(2, .leading)
                 VStack {
                     Text("\(section.tempo ?? appState.editor.song.metadata.tempo ?? 128) bpm")
-                        .style(.caption)
                         .zoom(appState.settings.theme.zoom)
+                        .style(.caption)
                         .padding()
                         .halign(.start)
                     ForEach(section.lines) { line in
@@ -114,10 +115,10 @@ extension GtkRender {
             /// Set this grid as current
             appState.scene.midiID = gridID
             let tempo = section.tempo ?? 128
-            let columns = columns
+            let gridChords = columns
             Task {
                 await ChordProviderMIDI.shared.setCurrentTempo(tempo)
-                await ChordProviderMIDI.shared.setGridChords(columns)
+                await ChordProviderMIDI.shared.setGridChords(gridChords)
                 await ChordProviderMIDI.shared.playGrid()
             }
         }

@@ -13,6 +13,12 @@ extension Views.Main.Chords {
 
     /// The `View` for all the chord variations
     struct Variations: View {
+
+        /// Init the variations `View`
+        /// - Parameters:
+        ///   - appState: The state of the application
+        ///   - selectedChord: The selected chord
+        ///   - chordDialog: Bool to show the chord dialog
         init(
             appState: Binding<AppState>,
             selectedChord: ChordDefinition,
@@ -20,15 +26,15 @@ extension Views.Main.Chords {
         ) {
             self._appState = appState
             self._chordDialog = chordDialog
-            var chords = appState.wrappedValue.editor.coreSettings.chordDefinitions
+            var allChords = appState.wrappedValue.editor.coreSettings.chordDefinitions
                 .matching(root: selectedChord.root)
                 .matching(quality: selectedChord.quality)
                 .matching(slash: selectedChord.slash)
             if selectedChord.kind == .customChord {
-                chords = [selectedChord] + chords
+                allChords = [selectedChord] + allChords
             }
-            self.chords = chords
-            let current = chords.first { $0.define == selectedChord.define } ?? selectedChord
+            self.chords = allChords
+            let current = allChords.first { $0.define == selectedChord.define } ?? selectedChord
             self.selectedChord = current
             self._selectedVariationID = State(wrappedValue: current.id)
         }
@@ -48,9 +54,17 @@ extension Views.Main.Chords {
                 ScrollView {
                     FlowBox(chords, selection: $selectedVariationID) { chord in
                         VStack {
-                            Views.MidiPlayerButton(chord: chord, coreSettings: appState.editor.coreSettings)
-                            Views.ChordDiagram(chord: chord, width: 120, coreSettings: appState.editor.coreSettings)
-                                .style(chord == selectedChord ? .selectedChord : .noStyle)
+                            Views.MidiPlayerButton(
+                                chord: chord,
+                                showAccidental: false,
+                                coreSettings: appState.editor.coreSettings
+                            )
+                            Views.ChordDiagram(
+                                chord: chord,
+                                width: 120,
+                                coreSettings: appState.editor.coreSettings
+                            )
+                            .style(chord == selectedChord ? .selectedChord : .noStyle)
                         }
                         .padding(4, .vertical)
                     }

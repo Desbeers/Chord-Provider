@@ -26,7 +26,12 @@ extension Views.Home {
                 } else {
                     VStack(spacing: 10) {
                         ForEach(recentSongs.getRecentSongs()) { recent in
-                            openButton(fileURL: recent.url, metadata: recent.metadata)
+                            openButton(
+                                fileURL: recent.url,
+                                metadata: recent.metadata,
+                                songTitleOnly: false,
+                                showTags: true
+                            )
                         }
                     }
                     .halign(.center)

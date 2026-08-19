@@ -14,12 +14,13 @@ extension Views {
 
     /// A `View` with a button that plays a Chord Definition
     struct MidiPlayerButton: View {
+
         /// Init the `View`
         /// - Parameters:
         ///   - chord: The chord definition
         ///   - showAccidental: Bool if the name should display as accidental
         ///   - coreSettings: The core settings
-        init(chord: ChordDefinition, showAccidental: Bool = false, coreSettings: ChordProviderSettings) {
+        init(chord: ChordDefinition, showAccidental: Bool, coreSettings: ChordProviderSettings) {
             self.chord = chord
             self.coreSettings = coreSettings
             self.display = showAccidental ? chord.displayNaturalOrAccidentals : chord.display
@@ -46,7 +47,7 @@ extension Views {
                         Symbol(icon: .default(icon: .mediaPlaybackStart))
                         Text("\(display)")
                         if let strum = chord.strum {
-                            Widgets.BundleImage(strum: strum)
+                            Image(core: "Strums/\(strum.svgIcon)")
                                 .pixelSize(12)
                         }
                     }

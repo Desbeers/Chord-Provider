@@ -12,7 +12,7 @@ extension AppState {
     /// The action after a song is saved
     enum SaveDoneAction {
         /// Open URL
-        case openURL(URL)
+        case openURL(_: URL)
         /// Close the window
         case closeWindow
         /// Show the home view
