@@ -14,20 +14,18 @@ extension ChordProParser {
     /// Process a chord definition for a specific instrument
     /// - Parameters:
     ///   - kind: The ``Instrument/Kind`` to use
-    ///   - directive: The directive
     ///   - arguments: The directive arguments
     ///   - currentSection: The current ``Song/Section``
     ///   - song: The whole ``Song``
     static func processDefine(
         kind: Instrument.Kind,
-        directive: ChordPro.Directive,
         arguments: DirectiveArguments,
         currentSection: inout Song.Section,
         song: inout Song
     ) {
         if song.settings.instrument.kind == kind {
             processDefine(
-                directive: directive,
+                directive: kind.directive,
                 arguments: arguments,
                 currentSection: &currentSection,
                 song: &song
@@ -39,7 +37,7 @@ extension ChordProParser {
                 level: .error
             )
             addSection(
-                directive: directive,
+                directive: kind.directive,
                 arguments: arguments,
                 line: nil,
                 currentSection: &currentSection,

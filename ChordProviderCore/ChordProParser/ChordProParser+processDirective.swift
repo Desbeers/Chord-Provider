@@ -227,7 +227,6 @@ extension ChordProParser {
                     case .define:
                         processDefine(
                             kind: song.settings.instrument.kind,
-                            directive: .define,
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
@@ -236,23 +235,6 @@ extension ChordProParser {
                     case .defineGuitar:
                         processDefine(
                             kind: .guitar,
-                            directive: .defineGuitar,
-                            arguments: arguments,
-                            currentSection: &currentSection,
-                            song: &song
-                        )
-
-                    case .defineUkulele:
-                        processDefine(
-                            kind: .ukulele,
-                            directive: .defineUkulele,
-                            arguments: arguments,
-                            currentSection: &currentSection,
-                            song: &song
-                        )
-
-                    case .chord:
-                        processChordDirective(
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
@@ -261,7 +243,21 @@ extension ChordProParser {
                     case .defineGuitalele:
                         processDefine(
                             kind: .guitalele,
-                            directive: .defineGuitalele,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
+
+                    case .defineUkulele:
+                        processDefine(
+                            kind: .ukulele,
+                            arguments: arguments,
+                            currentSection: &currentSection,
+                            song: &song
+                        )
+
+                    case .chord:
+                        processChordDirective(
                             arguments: arguments,
                             currentSection: &currentSection,
                             song: &song
