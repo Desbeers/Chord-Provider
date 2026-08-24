@@ -35,9 +35,12 @@ extension Instrument {
         /// The definition
         var directive: ChordPro.Directive {
             switch self {
-            case .guitar : .defineGuitar
-            case .guitalele: .defineGuitalele
-            case .ukulele: .defineUkulele
+            case .guitar:
+                .defineGuitar
+            case .guitalele:
+                .defineGuitalele
+            case .ukulele:
+                .defineUkulele
             }
         }
     }

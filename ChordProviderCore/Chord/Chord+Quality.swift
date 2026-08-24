@@ -145,8 +145,10 @@ extension Chord {
 
         // MARK: None
 
+        // swiftlint:disable discouraged_none_name
         /// None
         case none
+        // swiftlint:enable discouraged_none_name
 
         /// Comparable protocol
         /// - Note: Used for sorting

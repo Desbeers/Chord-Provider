@@ -65,8 +65,10 @@ extension Chord {
         /// B
         case b = "B"
 
+        // swiftlint:disable discouraged_none_name
         /// None
         case none = "None"
+        // swiftlint:enable discouraged_none_name
         // swiftlint:enable identifier_name
 
         /// Comparable protocol
