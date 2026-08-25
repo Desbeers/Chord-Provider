@@ -41,8 +41,42 @@ disabled_rules:
   - type_contents_order
   - unused_parameter
   - vertical_whitespace_between_cases
+  - accessibility_label_for_image
   #  I like an empty line after opening an extension
   - vertical_whitespace_opening_braces
+
+# Custom Rules
+custom_rules:
+
+    fatal_error:
+        name: 'Fatal Error'
+        regex: 'fatalError.*\(.*\)'
+        message: 'Fatal error should not be used.'
+        severity: error
+
+    enum_case_parameter:
+        name: 'Enum Case Parameter'
+        regex: 'case [a-zA-Z0-9]*\([a-zA-Z0-9\.<>?,\n\t =]+\)'
+        message: 'The associated values of an enum case should have parameters.'
+        severity: warning
+
+    tab:
+        name: 'Whitespaces Instead of Tab'
+        regex: '\t'
+        message: 'Spaces should be used instead of tabs.'
+        severity: warning
+
+    empty_first_line:
+        name: 'Empty First Line'
+        regex: '^[ \t]*(?:(?:open|public|internal|package|fileprivate|private|final|nonisolated|indirect)\s+)*(?:protocol|extension|class|struct)\b[^{]*\{\n[ \t]*\S+'
+        message: 'There should be an empty line after a declaration'
+        severity: error
+
+missing_docs:
+    warning: [internal, private]
+    error: [open, public]
+    excludes_extensions: true
+    excludes_inherited_types: false
 
 cyclomatic_complexity:
   ignores_case_statements: true
@@ -89,3 +123,8 @@ type_body_length:
 
 large_tuple:
     warning: 4
+
+excluded:
+    - ../Resources/
+    - ../.build/
+    - ../.flatpak/
