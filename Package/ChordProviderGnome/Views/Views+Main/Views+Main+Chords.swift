@@ -43,6 +43,7 @@ extension Views.Main {
                     .halign(.center)
                 }
             }
+            .vexpand()
             .frame(minWidth: 110)
             .dialog(
                 visible: $chordDialog,

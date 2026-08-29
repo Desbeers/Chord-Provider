@@ -24,11 +24,13 @@ extension GtkRender {
                 Symbol(icon: .default(icon: .userInvisible))
                     .pixelSize(Int(14 * appState.settings.theme.zoom))
                 let lines = line.wholeText(split: appState.editor.song.metadata.longestLineLenght).toElementWrapper
-                ForEach(lines) { line in
-                    Text(Utils.convertSimpleLinks(line.content))
-                        .useMarkup()
-                        .zoom(appState.settings.theme.zoom)
-                        .halign(.start)
+                VStack {
+                    ForEach(lines) { line in
+                        Text(Utils.convertSimpleLinks(line.content))
+                            .useMarkup()
+                            .zoom(appState.settings.theme.zoom)
+                            .halign(.start)
+                    }
                 }
             }
             .style(.commentLabel)

@@ -34,7 +34,9 @@ extension Views.Main {
                                 GtkRender.PageView(appState: $appState)
                             }
                             Separator()
-                            Views.Main.Chords(appState: $appState)
+                            VStack {
+                                Views.Main.Chords(appState: $appState)
+                            }
                         }
                         .hexpand()
                         .vexpand()
