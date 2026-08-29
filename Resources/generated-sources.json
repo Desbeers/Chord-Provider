@@ -1,0 +1,69 @@
+[
+    {
+        "type": "git",
+        "url": "https://git.aparoksha.dev/aparoksha/adwaita-swift",
+        "disable-shallow-clone": true,
+        "commit": "1931991faa8c56e7cb5e4dfea92092bae23e0afd",
+        "dest": ".build/checkouts/adwaita-swift"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/stephencelis/CSQLite",
+        "disable-shallow-clone": true,
+        "commit": "8ad83035460a3d1029a2c5a0cca4f980297a9ca2",
+        "dest": ".build/checkouts/CSQLite"
+    },
+    {
+        "type": "git",
+        "url": "https://git.aparoksha.dev/aparoksha/levenshtein-transformations",
+        "disable-shallow-clone": true,
+        "commit": "06577a2c4c6419ed859e34a8fb7be87a3b8975da",
+        "dest": ".build/checkouts/levenshtein-transformations"
+    },
+    {
+        "type": "git",
+        "url": "https://git.aparoksha.dev/aparoksha/meta",
+        "disable-shallow-clone": true,
+        "commit": "394b376ac691fb3fd3a62f30066dccbe3fad2786",
+        "dest": ".build/checkouts/meta"
+    },
+    {
+        "type": "git",
+        "url": "https://git.aparoksha.dev/aparoksha/meta-sqlite",
+        "disable-shallow-clone": true,
+        "commit": "56bc247d90a381eed65e0adf37ff36b5a6d674d8",
+        "dest": ".build/checkouts/meta-sqlite"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/stephencelis/SQLite.swift",
+        "disable-shallow-clone": true,
+        "commit": "964c300fb0736699ce945c9edb56ecd62eba27a3",
+        "dest": ".build/checkouts/SQLite.swift"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/apple/swift-argument-parser.git",
+        "disable-shallow-clone": true,
+        "commit": "6a52f3251125d74daf04fcbd5e6f08a75d074382",
+        "dest": ".build/checkouts/swift-argument-parser"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/apple/swift-docc-plugin",
+        "disable-shallow-clone": true,
+        "commit": "647c708be89f834fa6a6d4945442793a77ddf5b6",
+        "dest": ".build/checkouts/swift-docc-plugin"
+    },
+    {
+        "type": "git",
+        "url": "https://github.com/swiftlang/swift-docc-symbolkit",
+        "disable-shallow-clone": true,
+        "commit": "b45d1f2ed151d057b54504d653e0da5552844e34",
+        "dest": ".build/checkouts/swift-docc-symbolkit"
+    },
+    {
+         "type": "file",
+         "path": "Resources/setup-offline.sh"
+    }
+]

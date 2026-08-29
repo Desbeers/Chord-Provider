@@ -6,6 +6,9 @@ Art/
 
 ## Build
 .build/
+.flatpak/
+.host/
+.cache/
 
 ## Jazzy stuff
 build/

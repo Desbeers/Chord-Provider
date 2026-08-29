@@ -30,7 +30,9 @@ extension Views.Main {
                     VStack {
                         GtkRender.PageHeader(appState: $appState)
                         HStack {
-                            GtkRender.PageView(appState: $appState)
+                            VStack {
+                                GtkRender.PageView(appState: $appState)
+                            }
                             Separator()
                             Views.Main.Chords(appState: $appState)
                         }

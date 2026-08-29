@@ -16,7 +16,7 @@ struct Generate {
     /// The main function
     static func main() {
         var path = FileManager.default.currentDirectoryPath
-        path += "/ChordProviderEditor/ChordProviderEditor/Resources/chordpro.snippets"
+        path += "/Package/ChordProviderEditor/ChordProviderEditor/Resources/chordpro.snippets"
         var output = """
 <?xml version="1.0" encoding="UTF-8"?>
 <snippets _group="ChordPro">

@@ -117,7 +117,7 @@ let package = Package(
             dependencies: [
                 "ChordProviderCore"
             ],
-            path: "Resources/GenerateDocSnippets",
+            path: "GenerateDocSnippets",
         ),
 
         // MARK: Libraries
@@ -175,7 +175,7 @@ let package = Package(
                 "ChordProviderMIDI",
                 "ChordProviderCLI"
             ],
-            path: "Resources/GenerateDocs",
+            path: "ChordProviderDocs",
         ),
 
         // MARK: System Libraries

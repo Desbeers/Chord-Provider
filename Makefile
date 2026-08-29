@@ -4,9 +4,11 @@
 #                                                   #
 #####################################################
 
-ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+APP_ID := nl.desbeers.chordprovider
 
 all: run
+
+ARCH := $(shell uname -m)
 
 #####################################################
 #                                                   #
@@ -17,9 +19,11 @@ all: run
 cli:
 	@echo "Build CLI"
 	@swift build \
-		--quiet \
+		--package-path Package \
+		--build-path .host \
+		--cache-path .cache \
 		--product ChordProviderCLI
-	@cp .build/debug/ChordProviderCLI .build/debug/chordprovider
+	@cp .host/debug/ChordProviderCLI .host/debug/chordprovider
 	@echo "CLI build done"
 
 #####################################################
@@ -31,12 +35,15 @@ cli:
 gui: editorsnippets
 	@echo "Build GUI"
 	@swift build \
-		--quiet \
+		--package-path Package \
+		--build-path .host \
+		--cache-path .cache \
+		--configuration release \
 		--product ChordProviderGnome
 	@echo "GUI build done"
 run: gui
 	@echo "Run GUI"
-	@$(ROOT_DIR)/.build/debug/ChordProviderGnome
+	@.host/release/ChordProviderGnome
 	@echo "GUI stopped"
 
 #####################################################
@@ -48,9 +55,11 @@ run: gui
 editorsnippets:
 	@echo "Build GenerateSnippets"
 	@swift build \
-		--quiet \
+		--package-path Package \
+		--build-path .host \
+		--cache-path .cache \
 		--product GenerateSnippets
-	@$(ROOT_DIR)/.build/debug/GenerateSnippets
+	@.host/debug/GenerateSnippets
 	@echo "Generated Snippets"
 
 #####################################################
@@ -73,7 +82,7 @@ docconvert:
 	@docc convert "./Resources/GenerateDocs/Documentation.docc" \
 		--hosting-base-path chord-provider \
 		--source-service github \
-		--checkout-path $(ROOT_DIR) \
+		--checkout-path . \
 		--source-service-base-url https://github.com/Desbeers/Chord-Provider/blob/main \
 		--experimental-enable-custom-templates \
 		--fallback-display-name ChordProvider \
@@ -99,7 +108,7 @@ docsnippets:
 	@swift build \
 		--quiet \
 		--product GenerateDocSnippets
-	@$(ROOT_DIR)/.build/debug/GenerateDocSnippets
+	@.build/debug/GenerateDocSnippets
 	@echo "Generated Documentation Snippets"
 
 #####################################################
@@ -144,9 +153,82 @@ docserver:
 
 lint:
 	@echo "Linting..."
-	@swiftlint lint --quiet --config ./Resources/swiftlint.yaml ./ChordProviderCore/Sources/
-	@swiftlint lint --quiet --config ./Resources/swiftlint.yaml ./ChordProviderGnome/Sources/
-	@swiftlint lint --quiet --config ./Resources/swiftlint.yaml ./ChordProviderEditor/Sources/
-	@swiftlint lint --quiet --config ./Resources/swiftlint.yaml ./ChordProviderMIDI/Sources/
-	@swiftlint lint --quiet --config ./Resources/swiftlint.yaml ./ChordProviderCLI/Sources/
+	@flatpak run \
+		--command=/usr/lib/sdk/swift6/bin/swiftlint \
+		--filesystem="$(PWD)" \
+		--share=network \
+		org.gnome.Sdk//50 \
+		lint --config ./Resources/swiftlint.yaml ./Package/
 	@echo "Linting done."
+
+#####################################################
+#                                                   #
+# Flatpak                                           #
+#                                                   #
+#####################################################
+
+FLATPAK_DIR := .flatpak
+FLATPAK_STATE := $(FLATPAK_DIR)/state
+FLATPAK_BUILD := $(FLATPAK_DIR)/build
+FLATPAK_REPO := $(FLATPAK_DIR)/repo
+FLATPAK_SWIFT := $(FLATPAK_DIR)/swift
+FLATPAK_MANIFEST := $(APP_ID).json
+FLATPAK_FILE := $(FLATPAK_DIR)/$(APP_ID).$(ARCH).flatpak
+
+flatpakInstall: swiftResolve
+	@echo "Install Flatpak"
+	@flatpak-builder \
+		--disable-rofiles-fuse \
+		--ccache \
+		--force-clean \
+		--state-dir=$(FLATPAK_STATE) \
+		--user \
+		--install \
+		$(FLATPAK_BUILD) \
+		$(FLATPAK_MANIFEST)
+	@echo "Installing Flatpak done"
+
+flatpakBundle: flatpakInstall
+	@echo "Create Flatpak bundle"
+	@flatpak \
+		build-bundle \
+		$(FLATPAK_REPO) \
+		$(FLATPAK_FILE) \
+		$(FLATPAK_ID)
+	@echo "Creating Flatpak bundle done"
+
+flatpakRun: flatpakInstall
+	@echo "Run Flatpak application"
+	@flatpak \
+		run $(APP_ID)
+	@echo "Stopped running Flatpak application"
+
+swiftResolve:
+	@echo "Resolve Swift package in Flatpak SDK"
+	@flatpak run \
+		--command=/usr/lib/sdk/swift6/bin/swift \
+		--filesystem="$(PWD)" \
+		--share=network \
+		org.gnome.Sdk//50 \
+		package resolve \
+		--package-path Package \
+		--cache-path .cache \
+		--build-path .flatpak/swift
+	@echo "Swift resolve done"
+
+#####################################################
+#                                                   #
+# CLEAN                                             #
+#                                                   #
+#####################################################
+
+clean:
+	@echo "Clean project files"
+	@rm -f \
+		Package.resolved \
+		Package/Package.resolved
+	@rm -rf \
+		.build \
+		.flatpak \
+		.host \
+		Package/.build

@@ -1,6 +1,6 @@
 #####################################################
 #                                                   #
-# Chord Provider Swiftlint rules                    #
+# Make Books Swiftlint rules                    #
 #                                                   #
 #####################################################
 
@@ -125,6 +125,8 @@ large_tuple:
     warning: 4
 
 excluded:
-    - ../Resources/
-    - ../.build/
-    - ../.flatpak/
+    - /*/Documentation*/
+    - /*/Resources/
+    - /*/.build/
+    - /*/.host/
+    - /*/.flatpak/
