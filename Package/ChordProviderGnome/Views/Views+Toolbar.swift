@@ -7,6 +7,7 @@
 
 import Foundation
 import Adwaita
+import CAdw
 import ChordProviderCore
 import ChordProviderMIDI
 
@@ -247,6 +248,20 @@ extension Views.Toolbar {
                 MenuButton("Chords Database") {
                     app.showWindow("database")
                 }
+            }
+            MenuSection {
+                MenuButton("Toggle Fullscreen") {
+                    if let gtkWindow = UnsafeMutableRawPointer(window.pointer)?.assumingMemoryBound(to: GtkWindow.self) {
+                        if gtk_window_is_fullscreen(gtkWindow) == 0 {
+                            gtk_window_fullscreen(gtkWindow)
+                        } else {
+                            gtk_window_unfullscreen(gtkWindow)
+                        }
+                    }
+                }
+                .keyboardShortcut("F11")
+            }
+            MenuSection {
                 MenuButton("Preferences") {
                     appState.scene.showPreferencesDialog = true
                 }
@@ -255,7 +270,7 @@ extension Views.Toolbar {
                     appState.scene.showShortcutsDialog = true
                 }
                 .keyboardShortcut("question".ctrl())
-                MenuButton("About Chord Provider", window: false) {
+                MenuButton("About Chord Provider") {
                     appState.scene.showAboutDialog = true
                 }
                 MenuButton("Quit", window: false) {
