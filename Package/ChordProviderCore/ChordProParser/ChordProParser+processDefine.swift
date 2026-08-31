@@ -62,7 +62,7 @@ extension ChordProParser {
     ) {
         let label = arguments[.plain] ?? ""
         do {
-            var definedChord = try ChordDefinition(
+            let definedChord = try ChordDefinition(
                 define: label,
                 instrument: song.settings.instrument
             )
@@ -75,16 +75,8 @@ extension ChordProParser {
                 )
             }
             if definedChord.status == .correct {
-                if song.transposing != 0 {
-                    /// Transpose the chord; this will disable diagrams
-                    definedChord.transpose(
-                        transpose: song.transposing,
-                        scale: song.metadata.key?.root ?? .c,
-                        chords: song.settings.chordDefinitions
-                    )
-                }
                 /// Add the chord as a new definition
-                song.chords.append(definedChord)
+                song.settings.chordDefinitions.insert(definedChord, at: 0)
             }
         } catch {
             /// The definition could not be processed at all
