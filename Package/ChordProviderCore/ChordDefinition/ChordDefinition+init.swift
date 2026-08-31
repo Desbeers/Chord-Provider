@@ -15,7 +15,7 @@ extension ChordDefinition {
     ///   - name: The name of the chord, e.g 'Am7'
     ///   - chords: All the known chords
     public init?(name: String, chords: [ChordDefinition]) {
-        // The elements of the chord definition
+        /// The elements of the chord definition
         let elements = ChordUtils.Analizer.findChordElements(chord: name)
         // See if we can find it in the list of known chords
         guard

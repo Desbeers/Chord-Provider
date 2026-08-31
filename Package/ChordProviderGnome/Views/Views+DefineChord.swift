@@ -168,7 +168,7 @@ extension Views {
                             .useMarkup()
                         if let warnings = currentDefinition.validationWarnings {
                             ScrollView {
-                                HStack(spacing: 4) {
+                                VStack(spacing: 4) {
                                     ForEach(warnings, id: \.description) { line in
                                         Text("- \(line.description)")
                                             .useMarkup()

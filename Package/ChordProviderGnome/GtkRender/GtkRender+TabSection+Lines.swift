@@ -19,7 +19,7 @@ extension GtkRender.TabSection {
         let lines: [Song.Section.Line.Tab]
         /// Bool if the tab is playing with MIDI
         let playingTabNotes: Bool
-        /// The column that is currently playing with MIDI 
+        /// The column that is currently playing with MIDI
         let currentColumnID: Int
         /// The zoom factor
         let zoom: Double
@@ -30,14 +30,14 @@ extension GtkRender.TabSection {
             VStack {
                 ForEach(lines) { line in
                     Text(line.plain)
-                        .zoom(zoom)
                         .halign(.start)
                         .inspect { storage, _ in
                             line.highlight(
                                 storage: storage,
                                 color: color,
                                 playingTabNotes: playingTabNotes,
-                                currentColumnID: currentColumnID
+                                currentColumnID: currentColumnID,
+                                zoom: zoom
                             )
                         }
                 }

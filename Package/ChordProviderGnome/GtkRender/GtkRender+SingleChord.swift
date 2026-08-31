@@ -43,9 +43,9 @@ extension GtkRender {
             Toggle("", isOn: $openChordDiagram)
                 .child {
                     Text(markup?.display ?? chord.display)
-                        .zoom(appState.settings.theme.zoom)
                         .useMarkup()
                         .highlight(highlight, color: appState.pangoAccentColor)
+                        .zoom(appState.settings.theme.zoom)
                         .tooltip(chord.displayToolTip)
                         .style(chord.style)
                         .style(.chord)

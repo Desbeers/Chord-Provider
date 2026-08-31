@@ -43,13 +43,15 @@ extension Song.Section.Line.Tab {
     /// - Parameters:
     ///   - storage: The view storage
     ///   - color: The accent color
-    ///   - playingTabNotes: Bool if the tab is playing with MIDI 
+    ///   - playingTabNotes: Bool if the tab is playing with MIDI
     ///   - currentColumnID: The current column ID
+    ///   - zoom: The zoom factor
     func highlight(
         storage: ViewStorage,
         color: (red: UInt16, green: UInt16, blue: UInt16),
         playingTabNotes: Bool,
-        currentColumnID: Int
+        currentColumnID: Int,
+        zoom: Double
     ) {
         let list = pango_attr_list_new()
         defer {
@@ -88,6 +90,7 @@ extension Song.Section.Line.Tab {
                 break
             }
         }
+        pango_attr_list_insert(list, pango_attr_scale_new(zoom))
         gtk_label_set_attributes(storage.opaquePointer, list)
     }
 }

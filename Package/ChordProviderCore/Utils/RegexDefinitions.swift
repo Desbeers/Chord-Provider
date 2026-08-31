@@ -102,6 +102,7 @@ enum RegexDefinitions {
             Capture {
                 OneOrMore {
                     CharacterClass(
+                        .anyOf("x"),
                         (.digit),
                         (.whitespace)
                     )
