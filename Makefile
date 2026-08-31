@@ -182,6 +182,7 @@ flatpakInstall: swiftResolve
 		--ccache \
 		--force-clean \
 		--state-dir=$(FLATPAK_STATE) \
+		--repo=$(FLATPAK_REPO) \
 		--user \
 		--install \
 		$(FLATPAK_BUILD) \
@@ -194,7 +195,7 @@ flatpakBundle: flatpakInstall
 		build-bundle \
 		$(FLATPAK_REPO) \
 		$(FLATPAK_FILE) \
-		$(FLATPAK_ID)
+		$(APP_ID)
 	@echo "Creating Flatpak bundle done"
 
 flatpakRun: flatpakInstall
