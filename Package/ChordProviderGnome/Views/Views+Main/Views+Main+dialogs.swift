@@ -32,7 +32,7 @@ extension Views.Main {
                 .comment("A <a href=\"https://www.chordpro.org/\">ChordPro</a> file parser and editor for GNOME.\n\nShow the song with the chords for guitar, guitalele or ukulele."),
                 .developers(["Nick Berendsen"]),
                 .copyright("© 2026 Nick Berendsen"),
-                .licenseType(.gpl3),
+                .licenseType(.gpl30),
                 .creditSection(
                     [
                         "Adwaita for Swift https://adwaita-swift.aparoksha.dev/",

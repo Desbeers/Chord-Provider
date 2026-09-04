@@ -80,11 +80,11 @@ extension AppSettings.Theme {
         var colorScheme: AdwColorScheme {
             switch self {
             case .system:
-                ADW_COLOR_SCHEME_DEFAULT
+                .ADW_COLOR_SCHEME_DEFAULT
             case .dark:
-                ADW_COLOR_SCHEME_FORCE_DARK
+                .ADW_COLOR_SCHEME_FORCE_DARK
             case .light:
-                ADW_COLOR_SCHEME_FORCE_LIGHT
+                .ADW_COLOR_SCHEME_FORCE_LIGHT
             }
         }
     }

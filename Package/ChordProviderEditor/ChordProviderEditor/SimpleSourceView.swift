@@ -48,7 +48,7 @@ public struct SimpleSourceView: AdwaitaWidget {
             language: language
         )
         // Wrap by word
-        gtk_text_view_set_wrap_mode(view.textViewPointer, WrapMode.word.rawValue)
+        gtk_text_view_set_wrap_mode(view.textViewPointer, WrapMode.word.gtkValue)
         // Disable editing
         gtk_text_view_set_editable(view.textViewPointer, 0)
         return view

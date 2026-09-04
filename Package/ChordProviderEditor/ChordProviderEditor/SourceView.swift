@@ -99,7 +99,7 @@ public struct SourceView: AdwaitaWidget {
                 }
                 gtk_text_view_set_editable(storage.textViewPointer, editable.cBool)
                 gtk_source_view_set_show_line_numbers(storage.sourceViewPointer, lineNumbers.cBool)
-                gtk_text_view_set_wrap_mode(storage.textViewPointer, wrapMode.rawValue)
+                gtk_text_view_set_wrap_mode(storage.textViewPointer, wrapMode.gtkValue)
                 gtk_source_view_set_highlight_current_line(storage.sourceViewPointer, highlightCurrentLine.cBool)
 
                 gtk_source_search_context_set_highlight(
