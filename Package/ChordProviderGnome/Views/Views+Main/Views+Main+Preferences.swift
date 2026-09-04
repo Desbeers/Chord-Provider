@@ -173,7 +173,7 @@ extension Views.Main {
                         ComboRow(
                             "MIDI Instrument",
                             selection: $appState.editor.coreSettings.midiPreset.onSet { preset in
-                                Task {
+                                Task { @concurrent in
                                     await ChordProviderMIDI.shared.setProgram(preset: preset)
                                 }
                             },
@@ -200,7 +200,7 @@ extension Views.Main {
                                     defaultValue: 440,
                                     suffix: "Hz",
                                     value: $appState.editor.coreSettings.referenceFrequency.onSet { value in
-                                        Task {
+                                        Task { @concurrent in
                                             await ChordProviderMIDI.shared.setReferenceFrequency(value)
                                         }
                                     }

@@ -35,7 +35,7 @@ extension Views {
         var view: Body {
             HStack {
                 Button("") {
-                    Task {
+                    Task { @concurrent in
                         await ChordProviderMIDI.shared.playChord(
                             chord,
                             strum: chord.strum ?? coreSettings.chordStrum

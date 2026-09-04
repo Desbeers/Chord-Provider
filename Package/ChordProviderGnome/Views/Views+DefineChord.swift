@@ -260,7 +260,7 @@ extension Views {
                         stringID: 10,
                         articulation: .normal(note: note)
                     )
-                    Task {
+                    Task { @concurrent in
                         await ChordProviderMIDI.shared.playNotes([playbackNote], strum: nil)
                     }
                 }

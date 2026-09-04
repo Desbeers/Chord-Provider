@@ -144,6 +144,7 @@ extension SourceViewController {
             // MARK: Insert without a selection
 
             /// Insert without a selection
+            @MainActor
             func insertDirectiveWithoutSelection() {
                 // *Repeat chorus* is an exception; it has no *start* and *end`* but it *is* an environment
                 // - Give it additional *newlines* because the cursor will be moved
@@ -176,9 +177,10 @@ extension SourceViewController {
             // MARK: Insert with a selection
 
             /// Insert with a selection
+            @MainActor
             func insertDirectiveWithSelection() {
                 // *Repeat chorus* is an exception; it has no *start* and *end`* but it *is* and environment
-                // - Add the selection as its label, so add a colon and give it some space 
+                // - Add the selection as its label, so add a colon and give it some space
                 if directive == .chorus {
                     directiveStart += ": "
                 }

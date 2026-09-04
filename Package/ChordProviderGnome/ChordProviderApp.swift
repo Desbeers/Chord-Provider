@@ -72,7 +72,7 @@ struct ChordProviderApp: App {
                 // Init the MIDI player
                 let referenceFrequency = appState.editor.coreSettings.referenceFrequency
                 let preset = appState.editor.coreSettings.midiPreset
-                Task {
+                Task { @concurrent in
                     await ChordProviderMIDI.shared.setReferenceFrequency(referenceFrequency)
                     await ChordProviderMIDI.shared.setProgram(preset: preset)
                 }

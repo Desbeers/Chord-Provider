@@ -42,6 +42,7 @@ disabled_rules:
   - unused_parameter
   - vertical_whitespace_between_cases
   - accessibility_label_for_image
+  - incompatible_concurrency_annotation
   #  I like an empty line after opening an extension
   - vertical_whitespace_opening_braces
 

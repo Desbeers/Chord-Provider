@@ -23,7 +23,7 @@ extension GtkRender {
         @State private var playTabNotes: Bool = false
         /// The ID of the grid
         @State private var tabID = UUID()
-        /// The part that is currently playing with MIDI 
+        /// The part that is currently playing with MIDI
         @State private var currentPartID: Int = -1
         /// The body of the `View`
         var view: Body {
@@ -39,7 +39,7 @@ extension GtkRender {
                             /// Monitor the tab player
                             monitorTabPlayer()
                         } else {
-                            Task {
+                            Task { @concurrent in
                                 await ChordProviderMIDI.shared.setCurrentTempo(nil)
                                 await ChordProviderMIDI.shared.stopTab()
                             }
@@ -120,7 +120,7 @@ extension GtkRender {
             /// Capture stuff
             let tabNotes = columns
             let tempo = section.tempo ?? 128
-            Task {
+            Task { @concurrent in
                 await ChordProviderMIDI.shared.setCurrentTempo(tempo)
                 await ChordProviderMIDI.shared.setTabNotes(tabNotes)
                 await ChordProviderMIDI.shared.startTab()

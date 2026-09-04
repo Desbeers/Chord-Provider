@@ -11,6 +11,7 @@ import ChordProviderCore
 import CChordProviderEditor
 
 /// The controller for the `GtkSourceView`
+@MainActor
 public final class SourceViewController {
 
     /// The GTKSourceView
@@ -119,7 +120,7 @@ extension SourceViewController {
     /// Helper to get the controller for 'C' callbacks
     /// - Parameter userData: The user data
     /// - Returns: The controller
-    static func controller(from userData: UnsafeMutableRawPointer?) -> SourceViewController? {
+    nonisolated static func controller(from userData: UnsafeMutableRawPointer?) -> SourceViewController? {
         guard let userData else {
             return nil
         }
@@ -140,7 +141,9 @@ func sourceview_insert_cb(
     guard let controller = SourceViewController.controller(from: userData) else {
         return
     }
-    controller.scheduleSnapshot()
+    MainActor.assumeIsolated {
+        controller.scheduleSnapshot()
+    }
 }
 
 /// Handle delete event
@@ -154,7 +157,9 @@ func sourceview_delete_cb(
     guard let controller = SourceViewController.controller(from: userData) else {
         return
     }
-    controller.scheduleSnapshot()
+    MainActor.assumeIsolated {
+        controller.scheduleSnapshot()
+    }
 }
 
 /// Handle click event
@@ -166,15 +171,23 @@ func sourceview_click_cb(
 ) {
     guard
         click == 3,
-        let controller = SourceViewController.controller(from: userData),
-        let binding = controller.bridgeBinding
+        let controller = SourceViewController.controller(from: userData)
     else {
         return
     }
-    let directive = binding.currentLine.directive.wrappedValue
-    if let directive, directive.editable {
-        binding.handleDirective.wrappedValue = binding.currentLine.directive.wrappedValue
-        binding.showEditDirectiveDialog.wrappedValue = true
+
+    MainActor.assumeIsolated {
+        guard let binding = controller.bridgeBinding else {
+            return
+        }
+
+        let directive = binding.currentLine.directive.wrappedValue
+
+        if let directive, directive.editable {
+            binding.handleDirective.wrappedValue =
+                binding.currentLine.directive.wrappedValue
+            binding.showEditDirectiveDialog.wrappedValue = true
+        }
     }
 }
 
@@ -190,18 +203,24 @@ func sourceview_key_cb(
     guard
         state.rawValue == 0,
         keyval == UInt32(GDK_KEY_bracketleft),
-        let controller = SourceViewController.controller(from: userData),
-        let buffer = controller.buffer.textBufferPointer
+        let controller = SourceViewController.controller(from: userData)
     else {
         return 0
     }
-    gtk_text_buffer_insert_at_cursor(buffer, "[", -1)
-    gtk_text_buffer_insert_at_cursor(buffer, "]", -1)
-    var iter = controller.cursorPosition
-    gtk_text_iter_backward_char(&iter)
-    gtk_text_buffer_place_cursor(buffer, &iter)
-    // Return 1 because the bracket is already handled now
-    return 1
+    return MainActor.assumeIsolated {
+        guard
+            let buffer = controller.buffer.textBufferPointer
+        else {
+            return 0
+        }
+        gtk_text_buffer_insert_at_cursor(buffer, "[", -1)
+        gtk_text_buffer_insert_at_cursor(buffer, "]", -1)
+        var iter = controller.cursorPosition
+        gtk_text_iter_backward_char(&iter)
+        gtk_text_buffer_place_cursor(buffer, &iter)
+        // Return 1 because the bracket is already handled now
+        return 1
+    }
 }
 
 // swiftlint:enable unused_parameter

@@ -3,6 +3,9 @@
 import Foundation
 import ChordProviderCore
 
+// swiftlint:disable convenience_type
+
+/// Generate snippets for the documentation
 @main
 struct Generate {
 
@@ -26,10 +29,12 @@ struct Generate {
         )
     }
 
+    /// The base URL
     static let baseURL = URL(
         fileURLWithPath: "\(FileManager.default.currentDirectoryPath)/Resources/GenerateDocs/Documentation.docc/Code/Generated/"
     )
 
+    /// Save the snippets
     static func saveSnippet(
         directives: [ChordPro.Directive],
         fileName: String
@@ -38,9 +43,9 @@ struct Generate {
             .appendingPathComponent(fileName)
         let groups = Dictionary(grouping: directives, by: \.details.lineType)
         var output: [String] = []
-        for (lineType, directives) in groups.sorted(using: KeyPathComparator(\.key)) {
+        for (lineType, allDirectives) in groups.sorted(using: KeyPathComparator(\.key)) {
             output.append("\n\(lineType.display.uppercased())\n")
-            for directive in directives.sorted() {
+            for directive in allDirectives.sorted() {
                 output += [
                     "\(directive.source.long):",
                     "  - \(directive.details.help)"
@@ -54,3 +59,5 @@ struct Generate {
         }
     }
 }
+
+// swiftlint:enable convenience_type

@@ -194,7 +194,7 @@ func draw_chord(
         cairo_new_path(currentState)
     }
 
-    /// Draw notes
+    // Draw notes
 
     if data.showNotes {
         cairo_set_source_rgb(currentState, bgColor, bgColor, bgColor)

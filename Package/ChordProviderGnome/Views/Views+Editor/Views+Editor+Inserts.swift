@@ -25,41 +25,47 @@ extension Views.Editor {
                 Toggle("Metadata", isOn: $insert.showMetadata)
                     .style(.editorButton)
                     .popover(visible: $insert.showMetadata) {
-                        Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
-                            .style(.addToEditorLabel)
-                            .padding(.bottom)
-                        Separator()
-                        ForEach(ChordPro.Directive.metadataDirectives) { directive in
-                            addInsert(directive: directive, command: nil)
-                                .insensitive(
-                                    appState.editor.song.metadata.definedMetadata.contains(directive.source.long)
-                                )
+                        VStack {
+                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
+                                .style(.addToEditorLabel)
+                                .padding(.bottom)
+                            Separator()
+                            ForEach(ChordPro.Directive.metadataDirectives) { directive in
+                                addInsert(directive: directive, command: nil)
+                                    .insensitive(
+                                        appState.editor.song.metadata.definedMetadata.contains(directive.source.long)
+                                    )
+                            }
                         }
                     }
                     .insensitive(!appState.editor.isAtBeginningOfLine)
                 Toggle("Environment", isOn: $insert.showEnvironment)
                     .style(.editorButton)
                     .popover(visible: $insert.showEnvironment) {
-                        Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
-                            .style(.addToEditorLabel)
-                            .padding(.bottom)
-                        Separator()
-                        ForEach(ChordPro.Directive.environmentDirectives) { directive in
-                            addInsert(directive: directive, command: .insertDirective(directive))
+                        VStack {
+                            Text("\(appState.editor.hasSelection ? "Wrap" : "Insert")")
+                                .style(.addToEditorLabel)
+                                .padding(.bottom)
+                            Separator()
+                            ForEach(ChordPro.Directive.environmentDirectives) { directive in
+                                addInsert(directive: directive, command: .insertDirective(directive))
+                            }
                         }
                     }
                     .insensitive(!appState.editor.isAtBeginningOfLine)
                 Toggle("More...", isOn: $insert.showMore)
                     .style(.editorButton)
                     .popover(visible: $insert.showMore) {
-                        addInsert(directive: .define, command: nil)
-                        Button("Add all Chord definitions") {
-                            appState.editor.command = .appendText(appState.editor.song.definitions)
-                            insert.showMore.toggle()
+                        VStack {
+                            addInsert(directive: .define, command: nil)
+                            Button("Add all Chord definitions") {
+                                appState.editor.command = .appendText(appState.editor.song.definitions)
+                                insert.showMore.toggle()
+                            }
+                            .flat()
+                            Separator()
+                            addInsert(directive: .comment, command: nil)
                         }
-                        .flat()
-                        Separator()
-                        addInsert(directive: .comment, command: nil)
                     }
                     .insensitive(!appState.editor.isAtBeginningOfLine)
             }

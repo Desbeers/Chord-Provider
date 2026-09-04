@@ -24,7 +24,7 @@ extension Views {
             let definedTempo = metadata.tempo
             self.songTempo = definedTempo
             self._appState = appState
-            Task {
+            Task { @concurrent in
                 if definedTempo != nil {
                     await ChordProviderMIDI.shared.setSongTempo(definedTempo)
                     await ChordProviderMIDI.shared.setMetronomeTimeSignature(metadata.time ?? "4/4")
@@ -53,11 +53,11 @@ extension Views {
                         Toggle(String(tempo ?? 0), isOn: $appState.scene.playMetronome.onSet { value in
                             switch value {
                             case true:
-                                Task {
+                                Task { @concurrent in
                                     await ChordProviderMIDI.shared.playMetronome()
                                 }
                             case false:
-                                Task {
+                                Task { @concurrent in
                                     await ChordProviderMIDI.shared.stopMetronome()
                                 }
                             }

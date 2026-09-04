@@ -23,7 +23,7 @@ extension GtkRender {
         @State private var playGridChords: Bool = false
         /// The ID of the grid
         @State private var gridID = UUID()
-        /// The part that is currently playing with MIDI 
+        /// The part that is currently playing with MIDI
         @State private var currentPartID: Int = -1
         /// The body of the `View`
         var view: Body {
@@ -39,7 +39,7 @@ extension GtkRender {
                             /// Monitor the grid player
                             monitorGridPlayer()
                         } else {
-                            Task {
+                            Task { @concurrent in
                                 await ChordProviderMIDI.shared.setCurrentTempo(nil)
                                 await ChordProviderMIDI.shared.stopGrid()
                             }
@@ -85,12 +85,12 @@ extension GtkRender {
                     if playGridChords, let grid = section.gridEvents, grid != ChordProviderMIDI.shared.snapshot.grids {
                         /// The grid has changed; stop the player
                         playGridChords = false
-                        Task {
+                        Task { @concurrent in
                             await ChordProviderMIDI.shared.stopGrid()
                         }
                     }
                     if playGridChords, let tempo = section.tempo, ChordProviderMIDI.shared.snapshot.currentTempo != tempo {
-                        Task {
+                        Task { @concurrent in
                             await ChordProviderMIDI.shared.setCurrentTempo(tempo)
                         }
                     }
@@ -116,7 +116,7 @@ extension GtkRender {
             appState.scene.midiID = gridID
             let tempo = section.tempo ?? 128
             let gridChords = columns
-            Task {
+            Task { @concurrent in
                 await ChordProviderMIDI.shared.setCurrentTempo(tempo)
                 await ChordProviderMIDI.shared.setGridChords(gridChords)
                 await ChordProviderMIDI.shared.playGrid()
