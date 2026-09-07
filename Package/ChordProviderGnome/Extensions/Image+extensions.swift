@@ -12,7 +12,7 @@ import Adwaita
 extension Image {
 
     /// Init the image with a file from the bundle.
-    /// - Parameter resource: The resource name.
+    /// - Parameter bundle: The resource name in the bundle.
     public init(bundle: String) {
         guard let url = Bundle.module.url(forResource: bundle, withExtension: "svg") else {
             self.init()
@@ -22,7 +22,7 @@ extension Image {
     }
 
     /// Init the image with a file from the Core bundle.
-    /// - Parameter resource: The resource name.
+    /// - Parameter core: The resource name in the core bundle.
     public init(core: String) {
         guard let url = ImageUtils.getImageFromBundle(core) else {
             self.init()

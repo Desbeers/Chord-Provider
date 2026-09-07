@@ -63,9 +63,9 @@ public struct SourceView: AdwaitaWidget {
     /// Update the stored content.
     /// - Parameters:
     ///   - storage: The storage to update.
-    ///   - sdata: Modify views before being updated
-    ///   - supdateProperties: Whether to update the view's properties.
-    ///   - stype: The view render data type.
+    ///   - data: Modify views before being updated
+    ///   - updateProperties: Whether to update the view's properties.
+    ///   - type: The view render data type.
     public func update<Data>(
         _ storage: ViewStorage,
         data: WidgetData,

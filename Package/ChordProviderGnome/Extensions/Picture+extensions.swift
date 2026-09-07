@@ -12,7 +12,7 @@ import Adwaita
 extension Picture {
 
     /// Init the picture with a file from the Core bundle.
-    /// - Parameter resource: The resource name.
+    /// - Parameter core: The resource name.
     public init(core: String) {
         guard let url = ImageUtils.getImageFromBundle(core) else {
             self.init()

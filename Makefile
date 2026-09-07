@@ -69,60 +69,15 @@ snippets:
 #                                                   #
 #####################################################
 
-docs: mergedocs docconvert
+documentation: mergeDocumentation convertDocumentation
 	@echo "Documentation created"
 
-#####################################################
-#                                                   #
-# Chord Provider Doc Convert                        #
-#                                                   #
-#####################################################
-
-docconvert:
-	@echo "Convert documentation"
-	@docc convert "./Resources/GenerateDocs/Documentation.docc" \
-		--hosting-base-path chord-provider \
-		--source-service github \
-		--checkout-path . \
-		--source-service-base-url https://github.com/Desbeers/Chord-Provider/blob/main \
-		--experimental-enable-custom-templates \
-		--fallback-display-name ChordProvider \
-		--fallback-bundle-identifier nl.desbeers.chordprovider \
-		--fallback-bundle-version 1 \
-		--output-dir ./Documentation/chord-provider \
-		--additional-symbol-graph-dir .build/aarch64-unknown-linux-gnu/extracted-symbols/
-	@cp ./Resources/favicon.svg ./Documentation/chord-provider/favicon.svg
-	@cp ./Resources/favicon.ico ./Documentation/chord-provider/favicon.ico
-	@cp ./Resources/redirect.html ./Documentation/index.html
-	@cp ./Resources/redirect.html ./Documentation/chord-provider/index.html
-	@cp ./Resources/redirect.html ./Documentation/chord-provider/documentation/index.html
-	@echo "Documentation converted"
-
-#####################################################
-#                                                   #
-# Chord Provider Doc Snippets                       #
-#                                                   #
-#####################################################
-
-docsnippets:
-	@echo "Build GenerateDocSnippets"
-	@swift build \
-		--quiet \
-		--product GenerateDocSnippets
-	@.build/debug/GenerateDocSnippets
-	@echo "Generated Documentation Snippets"
-
-#####################################################
-#                                                   #
-# Chord Provider Doc Merge                          #
-#                                                   #
-#####################################################
-
-mergedocs:
+mergeDocumentation:
 	@echo "Merge package targets"
 	@swift package \
-		--quiet \
-		--allow-writing-to-directory ./Documentation \
+		--package-path Package \
+		--build-path .host \
+		--allow-writing-to-directory Documentation \
 		generate-documentation \
 		--symbol-graph-minimum-access-level internal \
 		--experimental-skip-synthesized-symbols \
@@ -134,16 +89,36 @@ mergedocs:
 		--target ChordProviderCLI \
 		--disable-indexing \
 		--output-path ./Documentation
-	@rm -Rf ./Documentation/*
+	@rm -Rf Documentation/*
 	@echo "Package targets merged"
 
+convertDocumentation:
+	@echo "Convert documentation"
+	@docc convert "Package/ChordProviderDocs/Documentation.docc" \
+		--hosting-base-path chord-provider \
+		--source-service github \
+		--checkout-path . \
+		--source-service-base-url https://github.com/Desbeers/Chord-Provider/blob/main \
+		--experimental-enable-custom-templates \
+		--fallback-display-name ChordProvider \
+		--fallback-bundle-identifier $(APP_ID) \
+		--fallback-bundle-version 1 \
+		--output-dir Documentation/chord-provider \
+		--additional-symbol-graph-dir .host/$(ARCH)-unknown-linux-gnu/extracted-symbols/
+	@cp Resources/favicon.svg Documentation/chord-provider/favicon.svg
+	@cp Resources/favicon.ico Documentation/chord-provider/favicon.ico
+	@cp Resources/redirect.html Documentation/index.html
+	@cp Resources/redirect.html Documentation/chord-provider/index.html
+	@cp Resources/redirect.html Documentation/chord-provider/documentation/index.html
+	@echo "Documentation converted"
+
 #####################################################
 #                                                   #
-# Doc Server                                        #
+# Documentation Server                              #
 #                                                   #
 #####################################################
 
-docserver:
+documentationServer:
 	@python -m http.server -d ./Documentation
 
 #####################################################
