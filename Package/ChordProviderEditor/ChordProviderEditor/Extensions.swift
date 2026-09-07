@@ -83,12 +83,14 @@ extension WrapMode {
     /// The representation as its corresponding GLib type.
     public var gtkValue: GtkWrapMode {
         switch self {
-
-        case .none: .GTK_WRAP_NONE
-        case .character: .GTK_WRAP_CHAR
-        case .word: .GTK_WRAP_WORD
-        case .wordCharacter: .GTK_WRAP_WORD_CHAR
-
+        case .none:
+            .GTK_WRAP_NONE
+        case .character:
+            .GTK_WRAP_CHAR
+        case .word:
+            .GTK_WRAP_WORD
+        case .wordCharacter:
+            .GTK_WRAP_WORD_CHAR
         }
     }
 }

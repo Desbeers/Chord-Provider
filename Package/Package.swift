@@ -43,15 +43,10 @@ let package = Package(
             name: "ChordProviderGnome",
             targets: ["ChordProviderGnome"]
         ),
-        // Generate snippets for the editor
+        // Generate snippets for editor and documentation
         .executable(
             name: "GenerateSnippets",
             targets: ["GenerateSnippets"]
-        ),
-        // Generate snippets for the documentation
-        .executable(
-            name: "GenerateDocSnippets",
-            targets: ["GenerateDocSnippets"]
         ),
 
         // MARK: Libraries
@@ -103,21 +98,13 @@ let package = Package(
                 .copy("Samples")
             ]
         ),
-        // Generate snippets for the editor
+        // Generate snippets for editor and documentation
         .executableTarget(
             name: "GenerateSnippets",
             dependencies: [
                 "ChordProviderCore"
             ],
-            path: "ChordProviderEditor/GenerateSnippets"
-        ),
-        // Generate snippets for the documentation
-        .executableTarget(
-            name: "GenerateDocSnippets",
-            dependencies: [
-                "ChordProviderCore"
-            ],
-            path: "GenerateDocSnippets",
+            path: "GenerateSnippets",
         ),
 
         // MARK: Libraries

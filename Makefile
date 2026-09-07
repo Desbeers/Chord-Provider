@@ -32,7 +32,7 @@ cli:
 #                                                   #
 #####################################################
 
-gui: editorsnippets
+gui:
 	@echo "Build GUI"
 	@swift build \
 		--package-path Package \
@@ -48,11 +48,12 @@ run: gui
 
 #####################################################
 #                                                   #
-# Chord Provider Editor Snippets                    #
+# Chord Provider Snippets                           #
 #                                                   #
+# This only has to run when directives are changed  #
 #####################################################
 
-editorsnippets:
+snippets:
 	@echo "Build GenerateSnippets"
 	@swift build \
 		--package-path Package \
@@ -68,7 +69,7 @@ editorsnippets:
 #                                                   #
 #####################################################
 
-docs: docsnippets mergedocs docconvert
+docs: mergedocs docconvert
 	@echo "Documentation created"
 
 #####################################################

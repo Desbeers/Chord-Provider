@@ -58,8 +58,7 @@
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.desktop /app/share/applications/nl.desbeers.chordprovider.desktop",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.mime.xml /app/share/mime/packages/nl.desbeers.chordprovider.mime.xml",
         "update-mime-database /app/share/mime",
-        "desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop",
-        "swiftlint --config Resources/swiftlint.yaml"
+        "desktop-file-install --rebuild-mime-info-cache --dir=/app/share/applications /app/share/applications/nl.desbeers.chordprovider.desktop"
       ]
     }
   ]
