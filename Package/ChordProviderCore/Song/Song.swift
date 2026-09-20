@@ -67,11 +67,4 @@ public struct Song: Equatable, Codable, Identifiable, Sendable {
     public var transposing: Int {
         settings.transpose + metadata.transpose
     }
-
-    // MARK: Search
-
-    /// Search
-    public var search: String {
-        "\(metadata.title) \(metadata.artist)"
-    }
 }

@@ -66,7 +66,7 @@ extension AppState.Home {
         } else {
             showGrouping = false
             searchResult = songs.filter { song in
-                song.search.localizedCaseInsensitiveContains(search)
+                song.content.localizedCaseInsensitiveContains(search)
             }
             libraryState = searchResult.isEmpty ? .emptySearch : .searchResults
         }
