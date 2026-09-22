@@ -20,7 +20,7 @@
 
         <define-regex id="word">\b[a-z_]+\b</define-regex>
 
-        <define-regex id="attribute-name">\b[a-z0-9:_-]+\b</define-regex>
+        <define-regex id="attribute-name">\b[\p{L}\p{N}:_-]+\b</define-regex>
 
         <define-regex id="net-address" extended="true">
             \b(?:https?|ftp):\/\/[^\s/$.?#].[^\s&gt;]*\b
