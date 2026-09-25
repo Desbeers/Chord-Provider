@@ -27,9 +27,6 @@ extension AppState {
         var search: String = ""
         /// The search results
         var searchResult: [Song] = []
-        /// The search debouncer
-        let searchDebouncer = Debouncer(delay: 0.5)
-
 
         /// Do the search
         mutating func doSearch() {
