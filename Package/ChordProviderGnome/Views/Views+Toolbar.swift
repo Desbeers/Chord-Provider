@@ -214,7 +214,9 @@ extension Views.Toolbar {
                             .placeholderText("Search")
                             .searchDelay(500)
                             .searchChanged {
-                                appState.library.doSearch()
+                                Idle {
+                                    appState.library.doSearch()
+                                }
                             }
                             .transition(.crossfade)
                     }
