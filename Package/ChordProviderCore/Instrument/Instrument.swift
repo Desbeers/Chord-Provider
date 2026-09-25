@@ -90,6 +90,8 @@ extension Instrument {
         case label
         /// Tuning
         case tuning
+        /// The optional URL to the custom definition
+        case fileURL
         /// Modified
         case modified
     }
