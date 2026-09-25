@@ -210,8 +210,12 @@ extension Views.Toolbar {
                 HStack(spacing: 5) {
                     if appState.home.tab == .mySongs, appState.home.songsFolder != nil {
                         SearchEntry()
-                            .text($appState.home.search)
+                            .text($appState.library.search)
                             .placeholderText("Search")
+                            .searchDelay(500)
+                            .searchChanged {
+                                appState.library.doSearch()
+                            }
                             .transition(.crossfade)
                     }
                     Menu(icon: .default(icon: .openMenu)) {

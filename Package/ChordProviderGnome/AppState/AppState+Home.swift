@@ -18,29 +18,14 @@ extension AppState {
         var groupSort: SongFileUtils.Group = .artist
         /// The groupings browser
         var groupings: [SongFileUtils.Grouping] = []
-        /// The songs browser
-        var songs: [Song] = []
-        /// The song browser
-        var searchResult: [Song] = []
         /// Random song
         var randomSong: Song?
         /// The tags browser
         var tags: [String.ElementWrapper] = []
         /// The selected tag
         var selectedTag: String.ElementWrapper.ID = .init()
-        /// The library state
-        /// - Note: For the song browser
-        var libraryState: LibraryState = .loading
         /// The tab to show on the Home `View`
         var tab: Tab = .mySongs
-        /// Bool to show the grouping toggles
-        var showGrouping: Bool = true
-        /// The optional search string
-        var search: String = "" {
-            didSet {
-                doSearch()
-            }
-        }
         /// The songs folder
         var songsFolder: URL?
     }
@@ -53,21 +38,6 @@ extension AppState.Home {
         case groupSort
         /// The folder with songs
         case songsFolder
-    }
-}
-
-extension AppState.Home {
-
-    /// Set the search results
-    mutating func doSearch() {
-        if search.isEmpty {
-            showGrouping = true
-            libraryState = .loaded
-        } else {
-            showGrouping = false
-            searchResult = songs.search(search)
-            libraryState = searchResult.isEmpty ? .emptySearch : .searchResults
-        }
     }
 }
 
@@ -102,24 +72,5 @@ extension AppState.Home {
         }
         /// Bool to show the label
         var showLabel: Bool { true }
-    }
-}
-
-extension AppState.Home {
-
-    /// The state of the song library
-    enum LibraryState: String {
-        /// Library is loading
-        case loading
-        /// Library is loaded
-        case loaded
-        /// Library has an error
-        case error
-        /// Show the search results
-        case searchResults
-        /// Empty search results
-        case emptySearch
-        /// No library folder selected
-        case noLibrarySelected
     }
 }

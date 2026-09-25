@@ -13,20 +13,20 @@ extension AppState {
 
     /// Set a random song from the library
     mutating func setRandomSong() {
-        home.randomSong = home.songs.randomElement()
+        home.randomSong = library.songs.randomElement()
     }
 
     /// Get the content of a folder with songs
     mutating func getFolderContent() {
         if let url = home.songsFolder {
-            home.songs = SongFileUtils.getSongsFromFolder(
+            library.songs = SongFileUtils.getSongsFromFolder(
                 url: url,
                 settings: editor.coreSettings,
                 getOnlyMetadata: true
             )
             groupSongs()
             /// Don't show tags with links; they are very specific for the song
-            let tags = home
+            let tags = library
                 .songs
                 .compactMap(\.metadata.tags)
                 .flatMap(\.self)
@@ -38,21 +38,21 @@ extension AppState {
             home.tags = tags.uniqued(by: \.content).sorted()
 
             /// The songs are loaded
-            home.libraryState = home.songs.isEmpty ? .error : .loaded
-            if home.libraryState == .loaded {
-                home.showGrouping = true
+            library.state = library.songs.isEmpty ? .error : .loaded
+            if library.state == .loaded {
+                library.showGrouping = true
                 setRandomSong()
             }
         } else {
-            home.showGrouping = false
-            home.libraryState = .noLibrarySelected
+            library.showGrouping = false
+            library.state = .noLibrarySelected
         }
     }
 
     /// Group the songs by a metadata item
     mutating func groupSongs() {
         home.groupings = SongFileUtils.groupSongs(
-            home.songs,
+            library.songs,
             group: home.groupSort,
             sortTokens: editor.coreSettings.sortTokens
         )

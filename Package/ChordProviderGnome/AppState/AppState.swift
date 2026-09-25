@@ -28,6 +28,8 @@ struct AppState {
     var scene = Scene()
     /// The settings for the Home `View`
     var home = Home()
+    /// The songs library
+    var library = Library()
     /// The source view bridge
     var editor = SourceViewBridge()
     /// The `GtkSourceEditor` class to communicate with `Swift`

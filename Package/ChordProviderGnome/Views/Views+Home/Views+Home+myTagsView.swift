@@ -36,7 +36,7 @@ extension Views.Home {
                     let selection = appState.home.tags.first { element in
                         element.id.uuidString == appState.home.selectedTag.datatypeValue
                     }
-                    let songs = appState.home.songs.filter { song in
+                    let songs = appState.library.songs.filter { song in
                         song.metadata.tags?.map(\.content).contains(selection?.content ?? "") ?? false
                     }
                     ScrollView {

@@ -17,7 +17,7 @@ extension Views.Home {
     var mySongsView: AnyView {
         ScrollView {
             Box {
-                switch appState.home.libraryState {
+                switch appState.library.state {
                 case .loading:
                     StatusPage(
                         "Loading songs",
@@ -53,9 +53,9 @@ extension Views.Home {
                 }
             }
             .transition(.crossfade)
-            .id(appState.home.libraryState.rawValue)
+            .id(appState.library.state.rawValue)
             .padding(.horizontal)
-            .topToolbar(visible: appState.home.showGrouping) {
+            .topToolbar(visible: appState.library.showGrouping) {
                 ToggleGroup(
                     selection: $appState.home.groupSort.onSet { _ in
                         appState.groupSongs()
@@ -105,13 +105,13 @@ extension Views.Home {
             HStack {
                 Symbol(icon: .default(icon: .systemSearch))
                     .padding()
-                Text("Searching for '<i>\(appState.home.search)</i>'")
+                Text("Searching for '<i>\(appState.library.search)</i>'")
                     .useMarkup()
             }
             .style(.title)
             .hexpand()
             .halign(.center)
-            ForEach(appState.home.searchResult) { song in
+            ForEach(appState.library.searchResult) { song in
                 if let fileURL = song.settings.fileURL {
                     openButton(
                         fileURL: fileURL,
@@ -124,6 +124,6 @@ extension Views.Home {
             .halign(.center)
         }
         .hexpand()
-        .frame(minWidth: appState.home.libraryState == .loaded ? 0 : 400)
+        .frame(minWidth: appState.library.state == .loaded ? 0 : 400)
     }
 }
