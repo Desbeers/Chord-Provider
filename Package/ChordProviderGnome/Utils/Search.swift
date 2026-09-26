@@ -16,54 +16,51 @@ enum Search {
 extension Search {
 
     /// A struct for searching the library a bit smart
-    /// - Note: Based on code from https://github.com/hacknicity/SmartSearchExample
     struct Matcher {
 
         /// Creates a new instance for testing matches against `query`.
         init(query: String) {
-            // Split `query` into tokens by whitespace and sort them by decreasing length
-            searchTokens = query
-                .split { $0.isWhitespace }
-                .sorted { $0.count > $1.count }
+            // Split `query` into tokens by whitespace
+            searchTokens = query.split { $0.isWhitespace }
         }
         /// Check if `candidateString` matches `searchString`.
         func matches(_ candidateString: String) -> Bool {
-            // If there are no search tokens, everything matches
             guard !searchTokens.isEmpty else {
                 return true
             }
-            // Split `candidateString` into tokens by whitespaces and chords
+            /// Regex to split a line into tokens by whitespaces and chordswhtespaces and chords
             let regex = /(\[[^\]]+\]|[^\s]+)/
-            var candidateStringTokens = candidateString.matches(of: regex).map(\.0)
-            // Iterate over each search token
-            for searchToken in searchTokens {
-                // We haven't matched this search token yet
-                var matchedSearchToken = false
-                // Iterate over each candidate string token
-                for (candidateStringTokenIndex, candidateStringToken) in candidateStringTokens.enumerated() {
-                    // Does `candidateStringToken` start with `searchToken`?
-                    if
-                        let range = candidateStringToken
-                            .range(
+
+            for line in candidateString.components(separatedBy: .newlines) {
+                let candidateStringTokens = line.matches(of: regex).map(\.0)
+                var candidateStringTokenIndex = 0
+                var matchedSearchTokens = 0
+
+                for searchToken in searchTokens {
+                    var matched = false
+                    while candidateStringTokenIndex < candidateStringTokens.count {
+                        let candidateStringToken = candidateStringTokens[candidateStringTokenIndex]
+                        candidateStringTokenIndex += 1
+                        if
+                            let range = candidateStringToken.range(
                                 of: searchToken,
                                 options: [.caseInsensitive, .diacriticInsensitive]
                             ),
-                        range.lowerBound == candidateStringToken
-                            .startIndex {
-                        matchedSearchToken = true
-                        // Remove the candidateStringToken so we don't match it again against a different searchToken.
-                        candidateStringTokens.remove(at: candidateStringTokenIndex)
-                        // Check the next search string token
+                            range.lowerBound == candidateStringToken.startIndex {
+                            matched = true
+                            matchedSearchTokens += 1
+                            break
+                        }
+                    }
+                    if !matched {
                         break
                     }
                 }
-                // If we failed to match `searchToken` against the candidate string tokens, there is no match
-                guard matchedSearchToken else {
-                    return false
+                if matchedSearchTokens == searchTokens.count {
+                    return true
                 }
             }
-            // If we match every `searchToken` against the candidate string tokens, `candidateString` is a match
-            return true
+            return false
         }
         /// The tokens to search for
         private(set) var searchTokens: [String.SubSequence]
