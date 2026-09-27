@@ -85,6 +85,21 @@ struct ChordProviderApp: App {
                 storage.notify(name: "accent-color", pointer: appState.styleManager) {
                     appState.setStyle()
                 }
+                // Fullscreen toolbar logic
+                let motion = gtk_event_controller_motion_new()
+                storage.connectSignal(
+                    name: "motion",
+                    id: "motion",
+                    type: .doubleDouble,
+                    pointer: motion
+                ) { args in
+                    guard appState.scene.fullscreen, let yValue = args[1] as? Double else {
+                        return
+                    }
+                    let range: Double = appState.scene.revealTopBar ? 60 : 5
+                    appState.scene.cursorAtTop = yValue < range ? true : false
+                }
+                gtk_widget_add_controller(storage.opaquePointer?.cast(), motion)
                 // Get the songs from the library
                 appState.getFolderContent()
             }

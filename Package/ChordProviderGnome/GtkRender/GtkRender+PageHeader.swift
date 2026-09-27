@@ -60,6 +60,7 @@ extension GtkRender {
             .style(.metadata)
             .halign(.center)
             .card()
+            .padding(appState.scene.fullscreen ? 8 : 0, .top)
             .padding(2, .bottom)
         }
 

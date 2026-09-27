@@ -5,8 +5,8 @@ import PackageDescription
 /// The dependencies
 var dependencies: [Package.Dependency] = [
     .package(
-        url: "https://git.aparoksha.dev/aparoksha/adwaita-swift",
-        branch: "main",
+        url: "https://codeberg.org/desbeers/adwaita-swift",
+        branch: "motion",
         traits: ["exposeGeneratedAppearUpdateFunctions"],
     ),
     .package(

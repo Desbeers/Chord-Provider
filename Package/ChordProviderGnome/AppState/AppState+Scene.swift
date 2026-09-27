@@ -28,6 +28,14 @@ extension AppState {
         var originalContent = ""
         /// What to do when a song is saved
         var saveDoneAction: SaveDoneAction = .noAction
+        /// Bool if the application is fullscreen
+        var fullscreen: Bool = false
+        /// Bool if the cursus is near or at the top of the window
+        var cursorAtTop: Bool = false
+        /// Bool to reveal the top bar
+        var revealTopBar: Bool {
+            !fullscreen || (fullscreen && cursorAtTop)
+        }
 
         // MARK: Signals
 
