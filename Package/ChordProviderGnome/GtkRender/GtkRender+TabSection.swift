@@ -87,12 +87,12 @@ extension GtkRender {
                         if let tabs = section.tabEvents, tabs != ChordProviderMIDI.shared.snapshot.tabs {
                             /// The tab has changed; stop the player
                             playTabNotes = false
-                            Task {
+                            Task { @concurrent in
                                 await ChordProviderMIDI.shared.stopTab()
                             }
                         }
                         if let tempo = section.tempo, ChordProviderMIDI.shared.snapshot.currentTempo != tempo {
-                            Task {
+                            Task { @concurrent in
                                 await ChordProviderMIDI.shared.setCurrentTempo(tempo)
                             }
                         }

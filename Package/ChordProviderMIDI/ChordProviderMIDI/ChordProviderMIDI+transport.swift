@@ -48,7 +48,7 @@ extension ChordProviderMIDI {
 
             transport.nextTransportTime += .seconds(transport.tempo / Double(metronome.timeSignature.ticksPerBar))
 
-            if transport.subdivision.isMultiple(of: 4) {
+            if transport.subdivision.isMultiple(of: metronome.timeSignature.ticksPerBar) {
                 transport.tick =
                     (transport.tick + 1)
                     % metronome.timeSignature.ticksPerBar

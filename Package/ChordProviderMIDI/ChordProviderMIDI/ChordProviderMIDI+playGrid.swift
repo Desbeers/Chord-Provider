@@ -71,7 +71,7 @@ extension ChordProviderMIDI {
 
     /// Flatmap grid parts
     /// - Parameter input: The parts
-    /// - Returns: Fattened parts 
+    /// - Returns: Fattened parts
     func flatMapParts<T>(_ input: [[T]]) -> [T] {
         guard let first = input.first else {
             return []

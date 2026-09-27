@@ -84,7 +84,7 @@ extension Views.Toolbar {
                     )
                     .toggled {
                         // Stop MIDI, the UI cannot follow anymore
-                        Task {
+                        Task { @concurrent in
                             await ChordProviderMIDI.shared.stopPlaybackTasks()
                         }
                     }
@@ -186,7 +186,7 @@ extension Views.Toolbar {
         private func resetMIDI() {
             appState.scene.playMetronome = false
             appState.scene.midiID = UUID()
-            Task {
+            Task { @concurrent in
                 await ChordProviderMIDI.shared.cancelPlaybackTasks()
             }
         }
