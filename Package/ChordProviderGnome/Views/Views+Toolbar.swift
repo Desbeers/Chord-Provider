@@ -44,7 +44,7 @@ extension Views.Toolbar {
                     _ = bool
                 }
             )
-            HeaderBar {
+            HeaderBar(fullscreen: $appState.scene.fullscreen) {
                 HStack(spacing: 5) {
                     Toggle(
                         icon: .default(icon: .textEditor),
@@ -169,7 +169,6 @@ extension Views.Toolbar {
                     }
                     .primary()
                     .tooltip("Main Menu")
-                    ExitFullscreen(window: window, appState: $appState)
                 }
             }
             .headerBarTitle {
@@ -178,8 +177,6 @@ extension Views.Toolbar {
                     title: appState.editor.song.hasContent ? appState.title : "Chord Provider"
                 )
             }
-            .showStartTitleButtons(!appState.scene.fullscreen)
-            .showEndTitleButtons(!appState.scene.fullscreen)
         }
 
         /// Reset the MIDI player
@@ -206,7 +203,7 @@ extension Views.Toolbar {
         @Binding var appState: AppState
         /// The body of the `View`
         var view: Body {
-            HeaderBar {
+            HeaderBar(fullscreen: $appState.scene.fullscreen) {
                 /// Nothing at the start
             }
             end: {
@@ -228,7 +225,6 @@ extension Views.Toolbar {
                     }
                     .primary()
                     .tooltip("Main Menu")
-                    ExitFullscreen(window: window, appState: $appState)
                 }
             }
             .headerBarTitle {
@@ -237,8 +233,6 @@ extension Views.Toolbar {
                     title: "Chord Provider"
                 )
             }
-            .showStartTitleButtons(!appState.scene.fullscreen)
-            .showEndTitleButtons(!appState.scene.fullscreen)
         }
     }
 }
@@ -263,15 +257,7 @@ extension Views.Toolbar {
             }
             MenuSection {
                 MenuButton("Toggle Fullscreen") {
-                    if let gtkWindow = UnsafeMutableRawPointer(window.pointer)?.assumingMemoryBound(to: GtkWindow.self) {
-                        if gtk_window_is_fullscreen(gtkWindow) == 0 {
-                            gtk_window_fullscreen(gtkWindow)
-                            appState.scene.fullscreen = true
-                        } else {
-                            gtk_window_unfullscreen(gtkWindow)
-                            appState.scene.fullscreen = false
-                        }
-                    }
+                    appState.scene.fullscreen.toggle()
                 }
                 .keyboardShortcut("F11")
             }
@@ -291,29 +277,6 @@ extension Views.Toolbar {
                     window.close()
                 }
                 .keyboardShortcut("q".ctrl())
-            }
-        }
-    }
-}
-
-extension Views.Toolbar {
-
-    /// Exit fullscreen button
-    private struct ExitFullscreen: View {
-        /// The `AdwaitaWindow`
-        var window: AdwaitaWindow
-        /// The state of the application
-        @Binding var appState: AppState
-        /// The body of the `View`
-        var view: Body {
-            if appState.scene.fullscreen {
-                Button(icon: .default(icon: .viewRestore)) {
-                    if let gtkWindow = UnsafeMutableRawPointer(window.pointer)?.assumingMemoryBound(to: GtkWindow.self) {
-                        gtk_window_unfullscreen(gtkWindow)
-                        appState.scene.fullscreen = false
-                    }
-                }
-                .tooltip("Leave Fullscreen")
             }
         }
     }

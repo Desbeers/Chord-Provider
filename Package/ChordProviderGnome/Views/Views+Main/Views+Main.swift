@@ -43,7 +43,7 @@ extension Views {
                         .hexpand()
                         .vexpand()
                         .transition(.crossfade)
-                        .topToolbar(visible: appState.scene.revealTopBar) {
+                        .topToolbar(fullscreen: appState.scene.fullscreen) {
                             Toolbar.Main(
                                 app: app,
                                 window: window,
@@ -51,8 +51,6 @@ extension Views {
                                 recentSongs: $recentSongs
                             )
                         }
-                        .extendContentToTopEdge(appState.scene.fullscreen)
-                        .topBarStyle(appState.scene.fullscreen ? .raised : .flat)
                         .dialog(
                             visible: $appState.scene.showDebugDialog,
                             width: 800,

@@ -140,15 +140,13 @@ extension Views {
 
             // MARK: Top Toolbar
 
-            .topToolbar(visible: appState.scene.revealTopBar) {
+            .topToolbar(fullscreen: appState.scene.fullscreen){
                 Views.Toolbar.Home(
                     app: app,
                     window: window,
                     appState: $appState
                 )
             }
-            .extendContentToTopEdge(appState.scene.fullscreen)
-            .topBarStyle(appState.scene.fullscreen ? .raised : .flat)
         }
 
         /// Debug songs menu

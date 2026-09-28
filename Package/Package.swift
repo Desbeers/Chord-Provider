@@ -6,7 +6,7 @@ import PackageDescription
 var dependencies: [Package.Dependency] = [
     .package(
         url: "https://codeberg.org/desbeers/adwaita-swift",
-        branch: "motion",
+        branch: "fullscreen",
         traits: ["exposeGeneratedAppearUpdateFunctions"],
     ),
     .package(
