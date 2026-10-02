@@ -164,6 +164,7 @@ extension Views.Main {
             section
                 .shortcutsItem("Show preferences", accelerator: "comma".ctrl())
                 .shortcutsItem("Show keyboard shortcuts", accelerator: "question".ctrl())
+                .shortcutsItem("Toggle Fullscreen", accelerator: "F11")
         }
         .shortcutsSection { section in
             section

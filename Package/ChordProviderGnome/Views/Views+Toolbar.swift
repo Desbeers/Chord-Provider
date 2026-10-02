@@ -7,7 +7,6 @@
 
 import Foundation
 import Adwaita
-import CAdw
 import ChordProviderCore
 import ChordProviderMIDI
 

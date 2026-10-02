@@ -22,7 +22,7 @@ extension SourceViewController {
         // MARK: Inserts
 
         case let .openNewSong(text):
-            replaceAllText(text)
+            insertAllText(text)
             resetSearch()
             moveCursorToFirstLine()
             refocusEditor()
@@ -86,6 +86,14 @@ extension SourceViewController {
     }
 
     // MARK: Command functions
+
+    /// Set all the text in the editor
+    /// - Parameter text: The text to insert
+    ///
+    /// - Note: This will reset the undo-history
+    private func insertAllText(_ text: String) {
+        gtk_text_buffer_set_text(buffer.textBufferPointer, text, -1)
+    }
 
     /// Replace all the text in the editor
     /// - Parameter text: The replacement `String`
