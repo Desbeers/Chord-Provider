@@ -45,6 +45,9 @@ extension Views.Toolbar {
             )
             HeaderBar(fullscreen: $appState.scene.fullscreen) {
                 HStack(spacing: 5) {
+                    Button(icon: .default(icon: .goPrevious)) {
+                        goBack()
+                    }
                     Toggle(
                         icon: .default(icon: .textEditor),
                         isOn: $appState.settings.editor.showEditor.onSet {state in
@@ -72,11 +75,11 @@ extension Views.Toolbar {
                         description: \.description
                     )
                     .tooltip(appState.currentInstrument.status)
-                    /// Make sure that it updates labels by giving it an unique ID
+                    // Make sure that it updates labels by giving it an unique ID
                     .id(appState.settings.app.instruments)
-                    /// Disable selection when an `Instrument` is modified in the `Database View`
+                    // Disable selection when an `Instrument` is modified in the `Database View`
                     .insensitive(appState.currentInstrument.modified)
-                    //
+                    // Column vs list
                     Toggle(
                         icon: .default(icon: .viewDual),
                         isOn: $appState.settings.app.columnPaging
@@ -103,14 +106,7 @@ extension Views.Toolbar {
                     .tooltip("See how your song is parsed")
                     Menu(icon: .default(icon: .openMenu)) {
                         MenuButton("Open") {
-                            // Reset MIDI
-                            resetMIDI()
-                            if appState.contentIsModified {
-                                appState.scene.saveDoneAction = .showHomeView
-                                appState.scene.showCloseDialog = true
-                            } else {
-                                appState.scene.showHomeView = true
-                            }
+                            goBack()
                         }
                         .keyboardShortcut("o".ctrl())
                         MenuButton("Save") {
@@ -175,6 +171,18 @@ extension Views.Toolbar {
                     subtitle: appState.editor.song.hasContent ? appState.subtitle : "Loading your song",
                     title: appState.editor.song.hasContent ? appState.title : "Chord Provider"
                 )
+            }
+        }
+
+        /// Go back to the home screen
+        private func goBack() {
+            // Reset MIDI
+            resetMIDI()
+            if appState.contentIsModified {
+                appState.scene.saveDoneAction = .showHomeView
+                appState.scene.showCloseDialog = true
+            } else {
+                appState.scene.showHomeView = true
             }
         }
 
