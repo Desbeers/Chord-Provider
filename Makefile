@@ -133,7 +133,7 @@ lint:
 		--command=/usr/lib/sdk/swift6/bin/swiftlint \
 		--filesystem="$(PWD)" \
 		--share=network \
-		org.gnome.Sdk//50 \
+		org.gnome.Sdk//51 \
 		lint --config ./Resources/swiftlint.yaml ./Package/
 	@echo "Linting done."
 
@@ -186,7 +186,7 @@ swiftResolve:
 		--command=/usr/lib/sdk/swift6/bin/swift \
 		--filesystem="$(PWD)" \
 		--share=network \
-		org.gnome.Sdk//50 \
+		org.gnome.Sdk//51 \
 		package resolve \
 		--package-path Package \
 		--cache-path .cache \
