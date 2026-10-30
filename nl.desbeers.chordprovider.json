@@ -1,7 +1,7 @@
 {
   "id": "nl.desbeers.chordprovider",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "50",
+  "runtime-version": "51",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
     "org.freedesktop.Sdk.Extension.swift6"
@@ -48,9 +48,9 @@
       "build-commands": [
         "swift build --configuration release --package-path Package --cache-path .cache --build-path .flatpak/swift --static-swift-stdlib --product ChordProviderGnome",
         "install -Dm755 .flatpak/swift/release/ChordProviderGnome /app/bin/ChordProvider",
-        "cp -r .flatpak/swift/release/ChordProvider_ChordProviderGnome.resources/ /app/bin",
-        "cp -r .flatpak/swift/release/ChordProvider_ChordProviderCore.resources/ /app/bin",
-        "cp -r .flatpak/swift/release/ChordProvider_ChordProviderEditor.resources/ /app/bin",
+        "cp -r .flatpak/swift/release/ChordProvider_ChordProviderGnome.bundle/ /app/bin",
+        "cp -r .flatpak/swift/release/ChordProvider_ChordProviderCore.bundle/ /app/bin",
+        "cp -r .flatpak/swift/release/ChordProvider_ChordProviderEditor.bundle/ /app/bin",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider.svg /app/share/icons/hicolor/scalable/apps/nl.desbeers.chordprovider.svg",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider-symbolic.svg /app/share/icons/hicolor/symbolic/apps/nl.desbeers.chordprovider-symbolic.svg",
         "install -Dm644 Package/ChordProviderGnome/Resources/nl.desbeers.chordprovider-mime.svg /app/share/icons/hicolor/scalable/mimetypes/nl.desbeers.chordprovider-doc.svg",

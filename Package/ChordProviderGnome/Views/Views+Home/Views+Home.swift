@@ -140,7 +140,7 @@ extension Views {
 
             // MARK: Top Toolbar
 
-            .topToolbar(fullscreen: appState.scene.fullscreen){
+            .topToolbar(fullscreen: appState.scene.fullscreen) {
                 Views.Toolbar.Home(
                     app: app,
                     window: window,
