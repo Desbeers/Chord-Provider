@@ -95,7 +95,7 @@ extension Views.Main {
                         SwitchRow()
                             .title("Show errors and warnings in the editor")
                             .active($appState.editor.coreSettings.showWarnings.onSet { _ in
-                                appState.editor.command = .updateSong
+                                appState.editor.command = .updateContent
                             })
                         Text("Parser information is aways available in the <b>debug</b> dalog.")
                             .useMarkup()

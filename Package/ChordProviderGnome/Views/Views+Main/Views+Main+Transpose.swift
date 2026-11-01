@@ -24,7 +24,7 @@ extension Views.Main {
                     .padding()
                 HStack {
                     CountButton(
-                        appState: $appState.onSet { _ in appState.editor.command = .updateSong },
+                        appState: $appState.onSet { _ in appState.editor.command = .updateContent },
                         icon: .goPrevious
                     ) { appState in
                         appState.editor.coreSettings.transpose = max(appState.editor.coreSettings.transpose - 1, -11)
@@ -32,7 +32,7 @@ extension Views.Main {
                     Text("\(appState.editor.song.transposing) semitones")
                         .frame(minWidth: 150)
                     CountButton(
-                        appState: $appState.onSet { _ in appState.editor.command = .updateSong },
+                        appState: $appState.onSet { _ in appState.editor.command = .updateContent },
                         icon: .goNext
                     ) { appState in
                         appState.editor.coreSettings.transpose = min(appState.editor.coreSettings.transpose + 1, 11)

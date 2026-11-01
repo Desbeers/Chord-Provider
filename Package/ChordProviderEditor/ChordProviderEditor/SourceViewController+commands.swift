@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import CGtkSourceView
-import ChordProviderCore
 
 extension SourceViewController {
 
@@ -21,13 +20,13 @@ extension SourceViewController {
 
         // MARK: Inserts
 
-        case let .openNewSong(text):
+        case let .openNewContent(text):
             insertAllText(text)
             resetSearch()
             moveCursorToFirstLine()
             refocusEditor()
-        case let .insertDirective(directive):
-            insertDirective(directive)
+        case let .insertMarker(start, end, block):
+            insertMarker(start: start, end: end, block: block)
             refocusEditor()
         case let .replaceAllText(text):
             replaceAllText(text)
@@ -63,7 +62,7 @@ extension SourceViewController {
 
         case .clearSelection:
             clearSelection()
-        case .updateSong:
+        case .updateContent:
             scheduleSnapshot()
         }
     }
@@ -133,15 +132,11 @@ extension SourceViewController {
         }
     }
 
-    /// Insert a directive in the editor at the cursor position
+    /// Insert a marker in the editor at the cursor position
     /// - Parameter directive: The `Directive` to add
-    private func insertDirective(_ directive: ChordPro.Directive) {
+    private func insertMarker(start: String, end: String, block: Bool) {
         withUndoGroup {
             var insertIter = cursorPosition
-
-            // Get the start and end values for the directive
-            var directiveStart = directive.format.start
-            var directiveEnd = directive.format.end
 
             if gtk_text_buffer_get_has_selection(buffer.textBufferPointer) == 0 {
                 insertDirectiveWithoutSelection()
@@ -154,23 +149,18 @@ extension SourceViewController {
             /// Insert without a selection
             @MainActor
             func insertDirectiveWithoutSelection() {
-                // *Repeat chorus* is an exception; it has no *start* and *end`* but it *is* an environment
-                // - Give it additional *newlines* because the cursor will be moved
-                if directive == .chorus {
-                    directiveEnd += "\n\n"
-                }
 
                 // Move to start of the current line
                 gtk_text_iter_set_line_offset(&insertIter, 0)
 
-                let insert = "\(directiveStart)\(directiveEnd)\n"
+                let insert = "\(start)\(end)\n"
                 // Insert the directive
                 gtk_text_buffer_insert(buffer.textBufferPointer, &insertIter, insert, -1)
 
                 /// Move the cursor
                 var cursorIter = cursorPosition
 
-                if ChordPro.Directive.environmentDirectives.contains(directive) {
+                if block {
                     /// Move the cursor up two lines to be in between the directives
                     gtk_text_iter_backward_line(&cursorIter)
                     gtk_text_iter_backward_line(&cursorIter)
@@ -187,15 +177,10 @@ extension SourceViewController {
             /// Insert with a selection
             @MainActor
             func insertDirectiveWithSelection() {
-                // *Repeat chorus* is an exception; it has no *start* and *end`* but it *is* and environment
-                // - Add the selection as its label, so add a colon and give it some space
-                if directive == .chorus {
-                    directiveStart += ": "
-                }
                 guard let selection = selectedText, var range = selectedRange else {
                     return
                 }
-                let directiveString = "\(directiveStart)\(selection)\(directiveEnd)\n"
+                let directiveString = "\(start)\(selection)\(end)\n"
                 // Delete everything that is selected
                 gtk_text_buffer_delete(buffer.textBufferPointer, &range.start, &range.end)
                 // Insert the directive

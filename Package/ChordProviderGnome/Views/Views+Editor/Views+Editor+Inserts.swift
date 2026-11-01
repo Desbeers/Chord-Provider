@@ -48,7 +48,15 @@ extension Views.Editor {
                                 .padding(.bottom)
                             Separator()
                             ForEach(ChordPro.Directive.environmentDirectives) { directive in
-                                addInsert(directive: directive, command: .insertDirective(directive))
+                                let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
+                                addInsert(
+                                    directive: directive,
+                                    command: .insertMarker(
+                                        start: directiveFormat.start,
+                                        end: directiveFormat.end,
+                                        block: directiveFormat.block
+                                    )
+                                )
                             }
                         }
                     }
@@ -84,7 +92,12 @@ extension Views.Editor {
                     /// Apply the command
                     appState.editor.command = command
                 } else if appState.editor.hasSelection {
-                    appState.editor.command = .insertDirective(directive)
+                    let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
+                    appState.editor.command = .insertMarker(
+                        start: directiveFormat.start,
+                        end: directiveFormat.end,
+                        block: directiveFormat.block
+                    )
                 } else {
                     /// Set the `directive`
                     appState.editor.handleDirective = directive

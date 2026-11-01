@@ -189,7 +189,8 @@ extension Views.Editor {
                             appState.editor.currentLine.arguments = arguments
                         }
                         let directiveArgument = ChordProParser.argumentsToString(appState.editor.currentLine) ?? ""
-                        let replacement = "\(directive.format.start)\(directiveArgument)\(directive.format.end)"
+                        let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
+                        let replacement = "\(directiveFormat.start)\(directiveArgument)\(directiveFormat.end)"
                         appState.editor.command = .replaceLineText(replacement)
                         appState.editor.showEditDirectiveDialog = false
                         appState.editor.handleDirective = nil

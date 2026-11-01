@@ -6,24 +6,23 @@
 //
 
 import Foundation
-import ChordProviderCore
 
 /// Command to pass to the editor
-/// 
+///
 /// Important:
-/// 
+///
 /// Always set or edit content with a *command*,
 /// or else the text will be ignored.
-/// 
+///
 /// Never touch the buffer content directly!
 public enum SourceViewCommand: Sendable {
 
     // MARK: Inserts
 
-    /// Open new song
-    case openNewSong(_: String)
-    /// Insert a `Directive` at the cursor position
-    case insertDirective(_: ChordPro.Directive)
+    /// Open new content
+    case openNewContent(_: String)
+    /// Insert a `Marker` at the cursor position
+    case insertMarker(start: String, end: String, block: Bool)
     /// Replace all text
     case replaceAllText(_: String)
     /// Append text to the end of the source
@@ -53,6 +52,6 @@ public enum SourceViewCommand: Sendable {
 
     /// Clear the current selection
     case clearSelection
-    /// Schedule to update the song
-    case updateSong
+    /// Schedule to update the content
+    case updateContent
 }

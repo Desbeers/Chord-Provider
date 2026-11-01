@@ -57,7 +57,7 @@ extension AppState {
         // Don't show the previous song because the rendering has some delay
         editor.song.hasContent = false
         // - Note: Never set the content directly; it will be ignored and the song will not be updated
-        editor.command = .openNewSong(content)
+        editor.command = .openNewContent(content)
         scene.originalContent = content
         settings.editor.showEditor = showEditor
         if let templateURL {

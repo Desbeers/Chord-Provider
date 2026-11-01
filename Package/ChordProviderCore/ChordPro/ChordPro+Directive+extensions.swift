@@ -12,27 +12,32 @@ extension ChordPro.Directive {
     // MARK: Directive extensions
 
     /// The start and end of the directive
-    public var format: (start: String, end: String) {
+    public func format(wrap: Bool) -> (start: String, end: String, block: Bool) {
         switch self {
             // MARK: Block elements
         case .startOfChorus:
-            ("{\(label(.startOfChorus))}\n", "\n{\(label(.endOfChorus))}")
+            ("{\(label(.startOfChorus))}\n", "\n{\(label(.endOfChorus))}", true)
         case .startOfVerse:
-            ("{\(label(.startOfVerse))}\n", "\n{\(label(.endOfVerse))}")
+            ("{\(label(.startOfVerse))}\n", "\n{\(label(.endOfVerse))}", true)
         case .startOfBridge:
-            ("{\(label(.startOfBridge))}\n", "\n{\(label(.endOfBridge))}")
+            ("{\(label(.startOfBridge))}\n", "\n{\(label(.endOfBridge))}", true)
         case .startOfTab:
-            ("{\(label(.startOfTab))}\n", "\n{\(label(.endOfTab))}")
+            ("{\(label(.startOfTab))}\n", "\n{\(label(.endOfTab))}", true)
         case .startOfGrid:
-            ("{\(label(.startOfGrid))}\n", "\n{\(label(.endOfGrid))}")
+            ("{\(label(.startOfGrid))}\n", "\n{\(label(.endOfGrid))}", true)
         case .startOfTextblock:
-            ("{\(label(.startOfTextblock))}\n", "\n{\(label(.endOfTextblock))}")
+            ("{\(label(.startOfTextblock))}\n", "\n{\(label(.endOfTextblock))}", true)
             // MARK: Inline elements
         case .chorus:
             /// - Note: The chorus can have an optional label
-            ("{\(label(.chorus))", "}")
+            switch wrap {
+            case true:
+                ("{\(label(.chorus)): ", "}", false)
+            case false:
+                ("{\(label(.chorus))", "}\n", false)
+            }
         default:
-            ("{\(self.source.long)\(ChordPro.Directive.withPlainArgument.contains(self) ? ":" : "") ", "}")
+            ("{\(self.source.long)\(ChordPro.Directive.withPlainArgument.contains(self) ? ":" : "") ", "}", false)
         }
     }
 

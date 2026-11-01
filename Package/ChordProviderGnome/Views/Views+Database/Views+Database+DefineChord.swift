@@ -92,7 +92,7 @@ extension Views.Database {
                             if let shadowChord, let index = chords.firstIndex(where: { $0.id == shadowChord.id }) {
                                 chords.remove(at: index)
                             }
-                            /// Add the definition                    
+                            /// Add the definition
                             chords.append(definition)
                             if definition.root.accidental != .natural, let root = definition.root.swapSharpAndFlat {
                                 /// Add a shadow version
@@ -109,7 +109,7 @@ extension Views.Database {
                                 databaseState.chord = definition.root
                                 databaseState.definition = definition
                                 databaseState.showDefinitionDialog = false
-                                appState.editor.command = .updateSong
+                                appState.editor.command = .updateContent
                             }
                         }
                         .suggested()
