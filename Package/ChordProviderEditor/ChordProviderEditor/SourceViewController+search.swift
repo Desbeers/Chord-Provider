@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import CGtkSourceView
-import ChordProviderCore
 
 extension SourceViewController {
 
@@ -98,7 +97,7 @@ extension SourceViewController {
     // MARK: Search and replace
 
     /// Search for a text
-    /// - Parameter direction: Searcj backwards or forwards 
+    /// - Parameter direction: Searcj backwards or forwards
     func search(direction: SourceViewBridge.SearchDirection) {
         guard let bridgeWrapper = bridgeBinding  else {
             return
