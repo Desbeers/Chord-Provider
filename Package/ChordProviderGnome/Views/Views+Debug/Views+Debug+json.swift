@@ -29,10 +29,10 @@ extension Views.Debug {
                     VStack {
                         switch appState.scene.selectedDebugJSONSection {
                         case .metadata:
-                            let metadata = try? JSONUtils.encode(appState.editor.song.metadata)
+                            let metadata = try? JSONUtils.encode(appState.song.metadata)
                             sourceView(metadata, language: .json)
                         case .sections:
-                            ForEach(appState.editor.song.sections) { section in
+                            ForEach(appState.song.sections) { section in
                                 let content = try? JSONUtils.encode(section)
                                 sectionPart(
                                     row: ExpanderRow().title("Section <b>\(section.environment)</b>").rows {
@@ -41,7 +41,7 @@ extension Views.Debug {
                                 )
                             }
                         case .chords:
-                            ForEach(appState.editor.song.chords) { chord in
+                            ForEach(appState.song.chords) { chord in
                                 let content = try? JSONUtils.encode(chord)
                                 sectionPart(
                                     row: ExpanderRow().title("Chord <b>\(chord.display)</b>").rows {
@@ -49,7 +49,7 @@ extension Views.Debug {
                                             Views.ChordDiagram(
                                                 chord: chord,
                                                 width: 100,
-                                                coreSettings: appState.editor.coreSettings
+                                                coreSettings: appState.settings.core
                                             )
                                                 .valign(.start)
                                             sourceView(content, language: .json)
@@ -59,7 +59,7 @@ extension Views.Debug {
                                 )
                             }
                         case .settings:
-                            let metadata = try? JSONUtils.encode(appState.editor.coreSettings)
+                            let metadata = try? JSONUtils.encode(appState.settings.core)
                             sourceView(metadata, language: .json)
                         }
                     }

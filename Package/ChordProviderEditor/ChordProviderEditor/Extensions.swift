@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import ChordProviderCore
 import Adwaita
 import CAdw
 import CGtkSourceView
 
 extension GtkTextIter {
 
-    /// Debug a TGtkTextIter
+    /// Debug a GtkTextIter
     var dump: String {
         var iter = self
 
@@ -26,9 +25,9 @@ extension GtkTextIter {
     }
 }
 
-extension LogUtils.Level {
+extension SourceMark.Level {
 
-    /// The style of a log entry
+    /// The style of a mark
     var style: (color: String, icon: String) {
         switch self {
         case .info:

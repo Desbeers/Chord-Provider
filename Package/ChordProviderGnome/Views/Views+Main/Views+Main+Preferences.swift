@@ -30,14 +30,14 @@ extension Views.Main {
                         SwitchRow()
                             .title("Show only lyrics")
                             .subtitle("Hide all the chords")
-                            .active($appState.editor.coreSettings.lyricsOnly)
+                            .active($appState.settings.core.lyricsOnly)
                         SwitchRow()
                             .title("Repeat whole chorus")
                             .subtitle("Show the whole chorus with the same label")
-                            .active($appState.editor.coreSettings.repeatWholeChorus)
+                            .active($appState.settings.core.repeatWholeChorus)
                     }
                     .group("Sorting of songs and artists") {
-                        Views.SortTokens(sortTokens: $appState.editor.coreSettings.sortTokens)
+                        Views.SortTokens(sortTokens: $appState.settings.core.sortTokens)
                             .card()
                     }
                     .group("Appearance") {
@@ -94,7 +94,7 @@ extension Views.Main {
                     .group("Errors and Warnings") {
                         SwitchRow()
                             .title("Show errors and warnings in the editor")
-                            .active($appState.editor.coreSettings.showWarnings.onSet { _ in
+                            .active($appState.settings.core.showWarnings.onSet { _ in
                                 appState.editor.command = .updateContent
                             })
                         Text("Parser information is aways available in the <b>debug</b> dalog.")
@@ -123,11 +123,11 @@ extension Views.Main {
                         SwitchRow()
                             .title("Show left-handed chords")
                             .subtitle("Flip the chord diagrams")
-                            .active($appState.editor.coreSettings.diagram.mirror)
+                            .active($appState.settings.core.diagram.mirror)
                         SwitchRow()
                             .title("Show notes")
                             .subtitle("Show the notes of a chord in the diagram")
-                            .active($appState.editor.coreSettings.diagram.showNotes)
+                            .active($appState.settings.core.diagram.showNotes)
                     }
                     .group("Custom Chord Definitions") {
                         let instruments = appState.settings.app.instruments.filter { $0.bundle == nil }
@@ -172,7 +172,7 @@ extension Views.Main {
                     .group("Options for the MIDI player") {
                         ComboRow(
                             "MIDI Instrument",
-                            selection: $appState.editor.coreSettings.midiPreset.onSet { preset in
+                            selection: $appState.settings.core.midiPreset.onSet { preset in
                                 Task { @concurrent in
                                     await ChordProviderMIDI.shared.setProgram(preset: preset)
                                 }
@@ -182,7 +182,7 @@ extension Views.Main {
                         .subtitle("Select the instrument when playing chords with MIDI")
                         ComboRow(
                             "Chord Strum",
-                            selection: $appState.editor.coreSettings.chordStrum,
+                            selection: $appState.settings.core.chordStrum,
                             values: Chord.Strum.options
                         )
                         .subtitle("The default strum when playing a chord")
@@ -199,7 +199,7 @@ extension Views.Main {
                                     max: 500,
                                     defaultValue: 440,
                                     suffix: "Hz",
-                                    value: $appState.editor.coreSettings.referenceFrequency.onSet { value in
+                                    value: $appState.settings.core.referenceFrequency.onSet { value in
                                         Task { @concurrent in
                                             await ChordProviderMIDI.shared.setReferenceFrequency(value)
                                         }

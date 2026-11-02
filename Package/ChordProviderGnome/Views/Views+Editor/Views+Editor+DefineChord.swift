@@ -18,15 +18,15 @@ extension Views.Editor {
         /// Init the chord define `View`
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
-            let instrument = appState.wrappedValue.editor.coreSettings.instrument
+            let instrument = appState.wrappedValue.settings.core.instrument
             var chordIsNew = true
             var chordDefinition = ChordDefinition(
                 instrument: instrument,
-                chords: appState.wrappedValue.editor.coreSettings.chordDefinitions
+                chords: appState.wrappedValue.settings.core.chordDefinitions
             )
             /// Check if we are called as *edit* the definition instead of a new one
             if let currentDefinition = try? ChordDefinition(
-                define: appState.editor.currentLine.plain.wrappedValue ?? "",
+                define: appState.currentLine.plain.wrappedValue ?? "",
                 instrument: instrument
             ) {
                 chordDefinition = currentDefinition
@@ -49,7 +49,7 @@ extension Views.Editor {
                     definition: $definition,
                     newChord: newChord,
                     mergeSharpAndFlat: false,
-                    coreSettings: appState.editor.coreSettings,
+                    coreSettings: appState.settings.core,
                     appSettings: appState.settings
                 )
                 Separator()
@@ -59,14 +59,14 @@ extension Views.Editor {
                         .active($appState.settings.app.soundForChordDefinitions)
                     HStack(spacing: 10) {
                         DropDown(
-                            selection: $appState.editor.coreSettings.midiPreset,
+                            selection: $appState.settings.core.midiPreset,
                             values: MidiUtils.Preset.allCases
                         )
                         .insensitive(!appState.settings.app.soundForChordDefinitions)
                         Text(" ")
                             .hexpand()
                         Button("Cancel") {
-                            appState.editor.showEditDirectiveDialog = false
+                            appState.showEditDirectiveDialog = false
                         }
                         Button("\(newChord ? "Add" : "Update") Definition") {
                             if newChord {
@@ -74,7 +74,7 @@ extension Views.Editor {
                             } else {
                                 appState.editor.command = .replaceLineText(definition.define)
                             }
-                            appState.editor.showEditDirectiveDialog = false
+                            appState.showEditDirectiveDialog = false
                         }
                         .suggested()
                         .padding(.trailing)

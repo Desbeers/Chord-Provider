@@ -29,7 +29,7 @@ extension Views.Home {
                 appState.openSong(fileURL: fileURL)
                 recentSongs.addRecentSong(
                     content: appState.scene.originalContent,
-                    coreSettings: appState.editor.coreSettings
+                    coreSettings: appState.settings.core
                 )
                 appState.scene.showToast.signal()
             }

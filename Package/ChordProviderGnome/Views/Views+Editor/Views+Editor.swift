@@ -28,29 +28,52 @@ extension Views {
                 SearchOptions(appState: $appState)
                 Separator()
                 ScrollView {
-                    SourceView(bridge: $appState.editor, controller: appState.controller, language: .chordpro)
-                        .innerPadding(10, edges: .all)
-                        .lineNumbers(appState.settings.editor.showLineNumbers)
-                        .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
-                        .highlightCurrentLine(true)
-                        .highlightSearchResult(appState.scene.showSearchBar)
-                        .vexpand()
-                        .style(.editor)
-                        .focus($appState.scene.focusEditor)
+                    SourceView(
+                        //controller: appState.controller
+                        bridge: $appState.editor,
+                        controller: appState.controller
+                        // language: .chordpro
+                    )
+                    .onTextChanged { content in
+                        appState.updateSong(content: content)
+                    }
+                    .onLineChanged {
+                        appState.setCurrentLine()
+                    }
+                    .onTripleClick {
+                        let directive = appState.currentLine.directive
+
+                        if let directive, directive.editable {
+                            appState.handleDirective =
+                                appState.currentLine.directive
+                            appState.showEditDirectiveDialog = true
+                        }
+                    }
+                    .innerPadding(10, edges: .all)
+                    .lineNumbers(appState.settings.editor.showLineNumbers)
+                    .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
+                    .highlightCurrentLine(true)
+                    .language(.chordpro)
+                    .languageResources(Bundle.module.url(forResource: "chordpro", withExtension: "lang"))
+                    //.highlightSearchResult(appState.editor.showSearchBar)
+                    .vexpand()
+                    .style(.editor)
+                    .focus($appState.scene.focusEditor)
                 }
                 Separator()
-                    .bottomToolbar(visible: appState.editor.coreSettings.showWarnings) {
+                    .bottomToolbar(visible: appState.settings.core.showWarnings) {
                         lineInfo
+                        //Text(appState.controller.isAtBeginningOfLine ? "true" : "false")
                     }
             }
             .card()
             .padding()
-            .dialog(visible: $appState.editor.showEditDirectiveDialog) {
-                let errors = appState.editor.currentLine.warnings.compactMap(\.level).contains { $0 == .error }
+            .dialog(visible: $appState.showEditDirectiveDialog) {
+                let errors = appState.currentLine.warnings.compactMap(\.level).contains { $0 == .error }
                 if errors {
                     errorMessage
                 } else {
-                    switch appState.editor.handleDirective {
+                    switch appState.handleDirective {
                     case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
                         Views.Editor.DefineChord(appState: $appState)
                     default:
@@ -62,10 +85,10 @@ extension Views {
         /// The `View` for the error message
         var errorMessage: AnyView {
             VStack(spacing: 10) {
-                let error = appState.editor.currentLine.warnings.compactMap(\.message).joined(separator: "\n")
+                let error = appState.currentLine.warnings.compactMap(\.message).joined(separator: "\n")
                 Views.ErrorMessage(error: ChordProviderError.directiveNotEditable(error: error))
                 Button("OK") {
-                appState.editor.showEditDirectiveDialog = false
+                appState.showEditDirectiveDialog = false
                 }
                 .halign(.center)
             }
@@ -75,7 +98,7 @@ extension Views {
                     .headerBarTitle {
                         WindowTitle(
                             subtitle: "Directive not editable",
-                            title: "\(appState.editor.handleDirective?.details.label ?? "Error")"
+                            title: "\(appState.handleDirective?.details.label ?? "Error")"
                         )
                     }
             }
@@ -83,12 +106,12 @@ extension Views {
         /// The `View` with line information
         var lineInfo: AnyView {
             HStack {
-                Text("Line \(appState.editor.currentLine.sourceLineNumber)")
+                Text("Line \(appState.currentLine.sourceLineNumber)")
                     .frame(maxWidth: 120)
                     .halign(.start)
                     .padding()
                 ScrollView {
-                    Text(appState.editor.currentLine.warnings.map(\.message).joined(separator: "\n"))
+                    Text(appState.currentLine.warnings.map(\.message).joined(separator: "\n"))
                         .useMarkup()
                         .halign(.start)
                         .hexpand()
@@ -97,7 +120,7 @@ extension Views {
                     confirmCleanup.toggle()
                 }
                 .padding()
-                .insensitive(!appState.editor.song.hasWarnings)
+                .insensitive(!appState.song.hasWarnings)
                 .halign(.end)
                 .valign(.center)
                 .alertDialog(
@@ -113,7 +136,7 @@ extension Views {
                 }
                 .response("Cleanup", appearance: .suggested, role: .default) {
                     appState.editor.command = .replaceAllText(
-                        appState.editor.song.allLines.map(\.sourceParsed).joined(separator: "\n")
+                        appState.song.allLines.map(\.sourceParsed).joined(separator: "\n")
                     )
                 }
             }

@@ -23,7 +23,7 @@ extension GtkRender {
             HStack(spacing: 10) {
                 Symbol(icon: .default(icon: .userInvisible))
                     .pixelSize(Int(14 * appState.settings.theme.zoom))
-                let lines = line.wholeText(split: appState.editor.song.metadata.longestLineLenght).toElementWrapper
+                let lines = line.wholeText(split: appState.song.metadata.longestLineLenght).toElementWrapper
                 VStack {
                     ForEach(lines) { line in
                         Text(Utils.convertSimpleLinks(line.content))

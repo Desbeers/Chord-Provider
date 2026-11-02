@@ -68,7 +68,7 @@ extension Views {
                                     /// Build-in databases can not be edited
                                     .insensitive(element.bundle != nil)
                                     Button(icon: .default(icon: .editCopy)) {
-                                        var instrument = appState.editor.coreSettings.instrument
+                                        var instrument = appState.settings.core.instrument
                                         instrument.bundle = nil
                                         instrument.fileURL = nil
                                         instrument.label += " (copy)"
@@ -106,7 +106,7 @@ extension Views {
                     .padding(.horizontal)
                 SwitchRow()
                     .title("Left-handed chords")
-                    .active($appState.editor.coreSettings.diagram.mirror)
+                    .active($appState.settings.core.diagram.mirror)
                     .padding(.bottom)
             } content: {
                 VStack {
@@ -114,7 +114,7 @@ extension Views {
                         if databaseState.search.isEmpty {
                             ToggleGroup(
                                 selection: $databaseState.chord.onSet { _ in
-                                    databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                                    databaseState.setFilteredChords(allChords: appState.settings.core.chordDefinitions)
                                 },
                                 values: Chord.Root.naturalAndSharp,
                                 id: \.self,
@@ -142,12 +142,12 @@ extension Views {
                                             MidiPlayerButton(
                                                 chord: chord,
                                                 showAccidental: databaseState.search.isEmpty ? true : false,
-                                                coreSettings: appState.editor.coreSettings
+                                                coreSettings: appState.settings.core
                                             )
                                             ChordDiagram(
                                                 chord: chord,
                                                 width: 120,
-                                                coreSettings: appState.editor.coreSettings
+                                                coreSettings: appState.settings.core
                                             )
                                         }
                                     }
@@ -216,7 +216,7 @@ extension Views {
                         }
                         SearchEntry()
                             .text($databaseState.search.onSet { _ in
-                                databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                                databaseState.setFilteredChords(allChords: appState.settings.core.chordDefinitions)
                             })
                             .placeholderText("Search")
                     }
@@ -235,7 +235,7 @@ extension Views {
                 }
                 .onAppear {
                     Idle {
-                        databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                        databaseState.setFilteredChords(allChords: appState.settings.core.chordDefinitions)
                     }
                 }
                 .onUpdate {
@@ -243,7 +243,7 @@ extension Views {
                         if !databaseState.showChangedDatatabaseDialog, databaseState.instrumentID != appState.settings.app.instrumentID {
                             /// The instrument is changed from the main `View`; update it
                             databaseState.instrumentID = appState.settings.app.instrumentID
-                            databaseState.setFilteredChords(allChords: appState.editor.coreSettings.chordDefinitions)
+                            databaseState.setFilteredChords(allChords: appState.settings.core.chordDefinitions)
                         }
                     }
                 }

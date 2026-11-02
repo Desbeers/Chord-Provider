@@ -21,7 +21,7 @@ extension Views.Editor {
         /// The body of the `View`
         var view: Body {
             Views.Empty()
-                .topToolbar(visible: appState.scene.showSearchBar) {
+                .topToolbar(visible: appState.editor.showSearchBar) {
                     search
                 }
         }

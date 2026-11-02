@@ -95,6 +95,8 @@ let package = Package(
                 .copy("Resources/nl.desbeers.chordprovider.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-symbolic.svg"),
                 .copy("Resources/nl.desbeers.chordprovider-mime.svg"),
+                .copy("Resources/chordpro.lang"),
+                .copy("Resources/chordpro.snippets"),
                 .copy("Samples")
             ]
         ),
@@ -125,14 +127,9 @@ let package = Package(
             name: "ChordProviderEditor",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
-                "ChordProviderCore",
                 "CChordProviderEditor"
             ],
-            path: "ChordProviderEditor/ChordProviderEditor",
-            resources: [
-                .copy("Resources/chordpro.lang"),
-                .copy("Resources/chordpro.snippets")
-            ]
+            path: "ChordProviderEditor/ChordProviderEditor"
         ),
         // C stuff for the editor library
         .target(

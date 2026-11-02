@@ -6,59 +6,31 @@
 //
 
 import Foundation
-import ChordProviderCore
 import CGtkSourceView
 
 /// The bridge between `GtkSourceView` and `Swift`
-public struct SourceViewBridge: Equatable, Sendable {
-
-    /// Equatable protocol
-    public static func == (lhs: SourceViewBridge, rhs: SourceViewBridge) -> Bool {
-        lhs.currentLine == rhs.currentLine && lhs.song.content == rhs.song.content
-    }
-
-    /// The song
-    public var song = Song(id: UUID())
-
-    /// The core settings
-    public var coreSettings = ChordProviderSettings()
-
+public struct SourceViewBridge: Sendable {
     /// The command for the editor
     public var command: SourceViewCommand?
-
-    /// The current cursor line
-    public var currentLine = Song.Section.Line()
+    /// The current line number of the cursor
+    public var currentLineNumber: Int = 0
+    /// The total number of lines
+    public var totalLineNumbers: Int = 0
 
     /// Bool if the editor is at the start of a line
     /// - Note: Used to check if 'insert' commands are available
     public var isAtBeginningOfLine: Bool = false
-
-    /// All the lines in the song
-    public var songLines = [Song.Section.Line]()
 
     /// Bool if the editor has a selection
     public var hasSelection: Bool = false
 
     /// The state of the search
     public var search = SearchState()
-
-    /// Bool to show the *Edit directive* dialog
-    public var showEditDirectiveDialog: Bool = false
-
-    /// The directive to handle in the *Edit directive* dialog
-    public var handleDirective: ChordPro.Directive?
+    /// Bool to show te search bar
+    public var showSearchBar: Bool = false
 
     /// Init the bridge
     public init() {
         // Init with default values
-    }
-}
-
-extension SourceViewBridge: Codable {
-
-    /// Items to save in the database
-    enum CodingKeys: String, CodingKey {
-        /// Only save the settings
-        case coreSettings
     }
 }

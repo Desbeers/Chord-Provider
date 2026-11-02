@@ -76,7 +76,7 @@ extension Views.Debug {
     /// Get the source of the song
     /// - Returns: The source in a ``Source`` array
     private func getSource() -> [Source] {
-        appState.editor.song.allLines.map { line in
+        appState.song.allLines.map { line in
             Source(id: line.sourceLineNumber, source: line)
         }
     }

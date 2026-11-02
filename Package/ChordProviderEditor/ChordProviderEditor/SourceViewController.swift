@@ -7,7 +7,6 @@
 
 import Foundation
 import Adwaita
-import ChordProviderCore
 import CChordProviderEditor
 
 /// The controller for the `GtkSourceView`
@@ -19,21 +18,16 @@ public final class SourceViewController {
     /// The GTKTextBuffer
     let buffer: ViewStorage
     /// Search settings
-    public let searchSettings: ViewStorage
+    let searchSettings: ViewStorage
     /// Search context
-    public let searchContext: ViewStorage
-    /// Bool if the editor is at the start of a line
-    /// - Note: Used to check if 'insert' commands are available
-    public var isAtBeginningOfLine: Bool = false
-    /// Bool if the editor has a selection
-    public var hasSelection: Bool = false
+    let searchContext: ViewStorage
 
     // MARK: Snippets
 
     /// The snippets provider
     let snippets = gtk_source_completion_snippets_new()
     /// Bool if we should show snippets
-    /// - Note Show them when a line starts with a `{` and the line does not contain the closing bracvket `}`
+    /// - Note Show them when a line starts with a `{` and the line does not contain the closing bracket `}`
     var snippetsAvailable: Bool = false
     /// Bool if the snippets are loaded in the completion provider
     var snippetsLoaded: Bool = false
@@ -49,11 +43,18 @@ public final class SourceViewController {
     /// Snapshot debounce
     let snapshotDebounce = Debouncer(delay: 0.5)
 
+    // MARK: Callbacks
+
+    /// Callback on change of text
+    var onTextChanged: ((String) -> [SourceMark])?
+    /// Callback on change of line
+    var onLineChanged: (() -> Void)?
+    /// Callback when triple click a line
+    var onTripleClick: (() -> Void)?
+
     /// Init the controller
-    /// - Parameters:
-    ///   - bridge: The source view bridge
-    ///   - language: The editor language
-    public init(bridge: Binding<SourceViewBridge>, language: Language) {
+    /// - Parameter language: The editor language
+    public init() {
 
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())
         searchSettings = ViewStorage(gtk_source_search_settings_new().opaque())
@@ -68,8 +69,6 @@ public final class SourceViewController {
             gtk_source_view_new_with_buffer(buffer.sourceBufferPointer).opaque(),
             content: ["buffer": [buffer], "searchSettings": [searchSettings], "searchContext": [searchContext]]
         )
-        // Store the binding of the bridge
-        view.fields["bridge"] = bridge
 
         // MARK: Snippets
 
@@ -79,8 +78,7 @@ public final class SourceViewController {
 
         SourceViewController.initStyle(
             view: view,
-            buffer: buffer,
-            language: language
+            buffer: buffer
         )
 
         gtk_source_init()
@@ -104,6 +102,9 @@ public final class SourceViewController {
         }
 
         searchContext.notify(name: "occurrences-count") {
+            guard let bridge = self.bridgeBinding else {
+                return
+            }
             if !bridge.search.search.wrappedValue.isEmpty {
                 self.matchesCount()
             }
@@ -177,16 +178,8 @@ func sourceview_click_cb(
     }
 
     MainActor.assumeIsolated {
-        guard let binding = controller.bridgeBinding else {
-            return
-        }
-
-        let directive = binding.currentLine.directive.wrappedValue
-
-        if let directive, directive.editable {
-            binding.handleDirective.wrappedValue =
-                binding.currentLine.directive.wrappedValue
-            binding.showEditDirectiveDialog.wrappedValue = true
+        if let onTripleClick = controller.onTripleClick {
+            onTripleClick()
         }
     }
 }

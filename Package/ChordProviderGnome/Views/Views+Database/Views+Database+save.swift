@@ -36,7 +36,7 @@ extension Views.Database {
             instrument.fileURL = fileURL
             let database = ChordsDatabase(
                 instrument: instrument,
-                definitions: appState.editor.coreSettings.chordDefinitions
+                definitions: appState.settings.core.chordDefinitions
             )
             let export = try database.exportToJSON()
             try export.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)

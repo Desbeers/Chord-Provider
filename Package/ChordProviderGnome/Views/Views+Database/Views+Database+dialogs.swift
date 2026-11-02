@@ -62,7 +62,7 @@ extension Views.Database {
             /// Export database dialog
             .fileExporter(
                 open: $databaseState.exportDatabase,
-                initialName: "\(appState.editor.coreSettings.instrument.label).json",
+                initialName: "\(appState.settings.core.instrument.label).json",
                 onSave: { fileURL in
                     var instrument = appState.currentInstrument
                     /// An export will never be a build-in
@@ -99,7 +99,7 @@ extension Views.Database {
                 if let definition = databaseState.definition {
                     /// Mark the instrument as modified
                     appState.markCurrentInstrumentAsModified()
-                    var chords = appState.editor.coreSettings.chordDefinitions
+                    var chords = appState.settings.core.chordDefinitions
                     if let index = chords.firstIndex(where: { $0.id == definition.id }) {
                         chords.remove(at: index)
                     }
@@ -108,7 +108,7 @@ extension Views.Database {
                         chords.remove(at: index)
                     }
                     Idle {
-                        appState.editor.coreSettings.chordDefinitions = chords
+                        appState.settings.core.chordDefinitions = chords
                         databaseState.setFilteredChords(allChords: chords)
                         appState.editor.command = .updateContent
                     }

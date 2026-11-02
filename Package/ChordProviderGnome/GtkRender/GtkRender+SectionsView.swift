@@ -18,7 +18,7 @@ extension GtkRender {
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             /// Filter viewable sections
-            self.sections = appState.wrappedValue.editor.song.sections.filter(\.environment.hasContent)
+            self.sections = appState.wrappedValue.song.sections.filter(\.environment.hasContent)
             self._appState = appState
         }
         /// The state of the application
@@ -57,7 +57,7 @@ extension GtkRender {
                 }
                 TextblockSection(section: section, appState: appState)
             case .tab:
-                if !appState.editor.coreSettings.lyricsOnly {
+                if !appState.settings.core.lyricsOnly {
                     SectionHeader(label: nil, section: section, appState: appState)
                     TabSection(
                         section: section,
@@ -65,7 +65,7 @@ extension GtkRender {
                     )
                 }
             case .grid:
-                if !appState.editor.coreSettings.lyricsOnly {
+                if !appState.settings.core.lyricsOnly {
                     SectionHeader(label: nil, section: section, appState: appState)
                     GridSection(
                         section: section,
@@ -76,8 +76,8 @@ extension GtkRender {
                 let label = section.lines.first?.plain
                 /// Check if we have to repeat the whole chorus
                 if
-                    appState.editor.coreSettings.repeatWholeChorus,
-                    let lastChorus = appState.editor.song.sections.last(
+                    appState.settings.core.repeatWholeChorus,
+                    let lastChorus = appState.song.sections.last(
                         where: { $0.environment == .chorus && $0.arguments?[.label] == section.lines.first?.plain }
                     ) {
                     SectionHeader(label: label, section: lastChorus, appState: appState)
@@ -94,7 +94,7 @@ extension GtkRender {
                     ChordDiagram(line: line, appState: appState)
                 }
             case .image:
-                ImageSection(section: section, coreSettings: appState.editor.coreSettings)
+                ImageSection(section: section, coreSettings: appState.settings.core)
             default:
                 /// Not supported or not a viewable environment
                 Views.Empty()

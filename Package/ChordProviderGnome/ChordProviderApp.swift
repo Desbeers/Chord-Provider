@@ -57,10 +57,11 @@ struct ChordProviderApp: App {
             .inspectOnAppear { storage in
                 // Init the chords database
                 appState.initDatabase()
-                // Init the `GtkSourceView`controller
-                appState.controller = SourceViewController(
-                    bridge: $appState.editor, language: .chordpro
-                )
+
+                // // Init the `GtkSourceView`controller
+                // appState.controller = SourceViewController(
+                //     bridge: $appState.editor, language: .chordpro
+                // )
                 // Attach the CSS provider to the default display
                 if let display = gdk_display_get_default() {
                     gtk_style_context_add_provider_for_display(
@@ -70,8 +71,8 @@ struct ChordProviderApp: App {
                     )
                 }
                 // Init the MIDI player
-                let referenceFrequency = appState.editor.coreSettings.referenceFrequency
-                let preset = appState.editor.coreSettings.midiPreset
+                let referenceFrequency = appState.settings.core.referenceFrequency
+                let preset = appState.settings.core.midiPreset
                 Task { @concurrent in
                     await ChordProviderMIDI.shared.setReferenceFrequency(referenceFrequency)
                     await ChordProviderMIDI.shared.setProgram(preset: preset)
@@ -117,7 +118,7 @@ struct ChordProviderApp: App {
             // Add it to the recent songs list
             recentSongs.addRecentSong(
                 content: appState.scene.originalContent,
-                coreSettings: appState.editor.coreSettings
+                coreSettings: appState.settings.core
             )
         }
         .onClose {

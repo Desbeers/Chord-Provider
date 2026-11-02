@@ -26,7 +26,7 @@ extension Views.Main.Chords {
         ) {
             self._appState = appState
             self._chordDialog = chordDialog
-            var allChords = appState.wrappedValue.editor.coreSettings.chordDefinitions
+            var allChords = appState.wrappedValue.settings.core.chordDefinitions
                 .matching(root: selectedChord.root)
                 .matching(quality: selectedChord.quality)
                 .matching(slash: selectedChord.slash)
@@ -57,12 +57,12 @@ extension Views.Main.Chords {
                             Views.MidiPlayerButton(
                                 chord: chord,
                                 showAccidental: false,
-                                coreSettings: appState.editor.coreSettings
+                                coreSettings: appState.settings.core
                             )
                             Views.ChordDiagram(
                                 chord: chord,
                                 width: 120,
-                                coreSettings: appState.editor.coreSettings
+                                coreSettings: appState.settings.core
                             )
                             .style(chord == selectedChord ? .selectedChord : .noStyle)
                         }
@@ -77,7 +77,7 @@ extension Views.Main.Chords {
                 case true:
                     if
                         let chord = chords.first(where: { $0.id == selectedVariationID }),
-                        !appState.editor.song.content.contains(chord.define) {
+                        !appState.song.content.contains(chord.define) {
                         HStack {
                             Text("Add this chord definition to your song")
                                 .hexpand()

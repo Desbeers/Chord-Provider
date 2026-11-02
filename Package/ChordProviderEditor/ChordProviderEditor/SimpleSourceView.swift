@@ -8,7 +8,6 @@
 import Foundation
 import Adwaita
 import CAdw
-import ChordProviderCore
 import CGtkSourceView
 
 /// A simple code widget for highlighting text only
@@ -44,9 +43,9 @@ public struct SimpleSourceView: AdwaitaWidget {
         // Set the style
         SourceViewController.initStyle(
             view: view,
-            buffer: buffer,
-            language: language
+            buffer: buffer
         )
+        SourceViewController.initLanguage(buffer: buffer, language: language, resources: nil)
         // Wrap by word
         gtk_text_view_set_wrap_mode(view.textViewPointer, WrapMode.word.gtkValue)
         // Disable editing

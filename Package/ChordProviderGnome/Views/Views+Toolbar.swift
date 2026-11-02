@@ -36,7 +36,7 @@ extension Views.Toolbar {
             /// Bool if the song is transposed
             let transposed = Binding(
                 get: {
-                    appState.editor.song.transposing != 0
+                    appState.song.transposing != 0
                 },
                 set: { bool in
                     /// Needed but unused
@@ -65,7 +65,7 @@ extension Views.Toolbar {
                     .clicked {
                         appState.scene.showTransposeDialog = true
                     }
-                    .tooltip(appState.editor.song.transposeTooltip)
+                    .tooltip(appState.song.transposeTooltip)
                     DropDown(
                         selection: $appState.settings.app.instrumentID.onSet { _ in
                             appState.updateDatabase(main: true)
@@ -96,7 +96,7 @@ extension Views.Toolbar {
             end: {
                 HStack(spacing: 5) {
                     /// Show optional tags
-                    if let tags = appState.editor.song.metadata.tags {
+                    if let tags = appState.song.metadata.tags {
                         Views.Tags(tags: tags)
                     }
                     Toggle(
@@ -110,26 +110,26 @@ extension Views.Toolbar {
                         }
                         .keyboardShortcut("o".ctrl())
                         MenuButton("Save") {
-                            appState.editor.coreSettings.export.format = .chordPro
+                            appState.settings.core.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.saveSong()
                             /// Add it to the recent songs list
                             recentSongs.addRecentSong(
                                 content: appState.scene.originalContent,
-                                coreSettings: appState.editor.coreSettings
+                                coreSettings: appState.settings.core
                             )
                         }
                         .keyboardShortcut("s".ctrl())
                         MenuButton("Save As…") {
-                            appState.editor.coreSettings.export.format = .chordPro
+                            appState.settings.core.export.format = .chordPro
                             appState.scene.saveDoneAction = .noAction
                             appState.scene.saveSongAs.signal()
                         }
                         .keyboardShortcut("s".ctrl().shift())
                         MenuSection {
                             MenuButton("Find/Replace") {
-                                appState.scene.showSearchBar.toggle()
-                                if appState.scene.showSearchBar {
+                                appState.editor.showSearchBar.toggle()
+                                if appState.editor.showSearchBar {
                                     /// Search is only in the editor, make sure its open
                                     appState.settings.editor.showEditor = true
                                     /// Focus the search field
@@ -168,8 +168,8 @@ extension Views.Toolbar {
             }
             .headerBarTitle {
                 WindowTitle(
-                    subtitle: appState.editor.song.hasContent ? appState.subtitle : "Loading your song",
-                    title: appState.editor.song.hasContent ? appState.title : "Chord Provider"
+                    subtitle: appState.song.hasContent ? appState.subtitle : "Loading your song",
+                    title: appState.song.hasContent ? appState.title : "Chord Provider"
                 )
             }
         }

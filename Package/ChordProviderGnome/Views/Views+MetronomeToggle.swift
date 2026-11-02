@@ -20,7 +20,7 @@ extension Views {
         /// Init the `View`
         /// - Parameter appState: The application state
         init(appState: Binding<AppState>) {
-            let metadata = appState.editor.song.metadata.wrappedValue
+            let metadata = appState.song.metadata.wrappedValue
             let definedTempo = metadata.tempo
             self.songTempo = definedTempo
             self._appState = appState

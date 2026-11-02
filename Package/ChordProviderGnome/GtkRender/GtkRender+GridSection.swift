@@ -51,7 +51,7 @@ extension GtkRender {
                 Separator()
                     .padding(2, .leading)
                 VStack {
-                    Text("\(section.tempo ?? appState.editor.song.metadata.tempo ?? 128) bpm")
+                    Text("\(section.tempo ?? appState.song.metadata.tempo ?? 128) bpm")
                         .zoom(appState.settings.theme.zoom)
                         .style(.caption)
                         .padding()

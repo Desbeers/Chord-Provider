@@ -21,7 +21,7 @@ extension AppState {
         if let url = home.songsFolder {
             library.songs = SongFileUtils.getSongsFromFolder(
                 url: url,
-                settings: editor.coreSettings,
+                settings: settings.core,
                 getOnlyMetadata: true
             )
             groupSongs()
@@ -54,7 +54,7 @@ extension AppState {
         home.groupings = SongFileUtils.groupSongs(
             library.songs,
             group: home.groupSort,
-            sortTokens: editor.coreSettings.sortTokens
+            sortTokens: settings.core.sortTokens
         )
     }
 }

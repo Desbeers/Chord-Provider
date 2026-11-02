@@ -8,11 +8,10 @@
 import Foundation
 import Adwaita
 import CGtkSourceView
-import ChordProviderCore
 
 // MARK: - Snapshots
 //
-// Sync the text buffer to the Swift text binding
+// Sync the text buffer to the Swift callback.
 
 extension SourceViewController {
 
@@ -23,31 +22,20 @@ extension SourceViewController {
                 // Don't flush the text or else the completion popup will flicker
                 return
             }
-            guard
-                let bridge = bridgeBinding
-            else { return }
-            var values = bridge.wrappedValue
-            /// Get all the text from the buffer
-            let text = bufferText
-            /// Clear the log for a new parsing
-            LogUtils.shared.clearLog()
-            values.song.content = text
-            values.song = ChordProParser.parse(content: text, song: values.song, settings: values.coreSettings)
+            var markers: [SourceMark] = []
+            if let onTextChanged {
+                markers = onTextChanged(bufferText)
+            }
             /// Clear all markers and add new ones if needed
             clearMarks()
-            if values.coreSettings.showWarnings {
-                /// Get all lines, removing anything added by the parser
-                let lines = values.song.allLines.filter { $0.sourceLineNumber > 0 }
-                values.songLines = lines
-                for line in lines.filter({ line in !line.warnings.isEmpty }) {
-                    let level = line.warnings.compactMap(\.level).min() ?? .info
+            if !markers.isEmpty {
+                for marker in markers {
                     addMark(
-                        lineNumber: line.sourceLineNumber,
-                        category: level.rawValue
+                        lineNumber: marker.lineNumber,
+                        category: marker.category.rawValue
                     )
                 }
             }
-            bridge.wrappedValue = values
             /// Update the current line
             updateCurrentLine()
         }
@@ -66,20 +54,15 @@ extension SourceViewController {
         if !bridge.search.search.wrappedValue.isEmpty {
             self.setCurrentMatchIndex()
         }
-        var values = bridge.wrappedValue
-        var iter = cursorPosition
-        let currentLineNumber = Int(gtk_text_iter_get_line(&iter)) + 1
-
-        let totalLines = values.song.totalLines
-
-        let currentLine = values.songLines[safe: currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: totalLines)
-
-        isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
-        hasSelection = gtk_text_buffer_get_has_selection(buffer.textBufferPointer) != 0
-
-        values.currentLine = currentLine
-        values.isAtBeginningOfLine = isAtBeginningOfLine
-        values.hasSelection = hasSelection
-        bridge.wrappedValue = values
+        var bridgeValues = bridge.wrappedValue
+        var iter = self.cursorPosition
+        bridgeValues.currentLineNumber = Int(gtk_text_iter_get_line(&iter)) + 1
+        bridgeValues.totalLineNumbers = Int(gtk_text_buffer_get_line_count(self.buffer.textBufferPointer))
+        bridgeValues.isAtBeginningOfLine = gtk_text_iter_get_line_offset(&iter) == 0
+        bridgeValues.hasSelection = gtk_text_buffer_get_has_selection(self.buffer.textBufferPointer) != 0
+        bridge.wrappedValue = bridgeValues
+        if let onLineChanged = self.onLineChanged {
+            onLineChanged()
+        }
     }
 }

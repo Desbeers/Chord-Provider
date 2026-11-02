@@ -18,15 +18,15 @@ extension Views.Editor {
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             self._appState = appState
-            self.directive = appState.editor.currentLine.directive.wrappedValue ?? appState.editor.handleDirective.wrappedValue ?? .title
+            self.directive = appState.currentLine.directive.wrappedValue ?? appState.handleDirective.wrappedValue ?? .title
             let state = FormState(
-                line: appState.editor.currentLine.wrappedValue,
+                line: appState.currentLine.wrappedValue,
                 directive: self.directive
             )
             /// Store the initial values to disable the button if nothing has changed
             self.initialState = state
             self._formState = State(wrappedValue: state)
-            self.newDirective = appState.editor.currentLine.directive.wrappedValue == nil
+            self.newDirective = appState.currentLine.directive.wrappedValue == nil
         }
         /// The state of the application
         @Binding var appState: AppState
@@ -166,18 +166,18 @@ extension Views.Editor {
                 HStack(spacing: 10) {
                     Button("Cancel") {
                         appState.editor.command = .clearSelection
-                        appState.editor.showEditDirectiveDialog = false
-                        appState.editor.handleDirective = nil
+                        appState.showEditDirectiveDialog = false
+                        appState.handleDirective = nil
                     }
                     Button("\(newDirective ? "Insert" : "Update") Directive") {
-                        appState.editor.currentLine.plain = formState.plain.isEmpty ? nil : formState.plain
+                        appState.currentLine.plain = formState.plain.isEmpty ? nil : formState.plain
                         /// The directive might have plain argument that we have here as numeric
                         if ChordPro.Directive.withPlainArgument.contains(directive) {
                             /// This is a simple plain argument
-                            appState.editor.currentLine.plain = formState.numeric == 0 ? formState.plain : String(formState.numeric)
+                            appState.currentLine.plain = formState.numeric == 0 ? formState.plain : String(formState.numeric)
                         } else {
                             /// Update the current arguments
-                            var arguments = appState.editor.currentLine.arguments ?? [:]
+                            var arguments = appState.currentLine.arguments ?? [:]
                             arguments[.label] = formState.label.isEmpty ? nil : formState.label
                             arguments[.align] = formState.align.isEmpty ? nil : formState.align
                             arguments[.flush] = formState.flush.isEmpty ? nil : formState.flush
@@ -186,14 +186,14 @@ extension Views.Editor {
                             arguments[.height] = formState.height == 0 ? nil : String(Int(formState.height))
                             arguments[.tuplet] = formState.tuplet == 0 ? nil : String(formState.tuplet)
                             arguments[.scale] = formState.scale == 0 ? nil : String("\(Int(formState.scale))%")
-                            appState.editor.currentLine.arguments = arguments
+                            appState.currentLine.arguments = arguments
                         }
-                        let directiveArgument = ChordProParser.argumentsToString(appState.editor.currentLine) ?? ""
+                        let directiveArgument = ChordProParser.argumentsToString(appState.currentLine) ?? ""
                         let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
                         let replacement = "\(directiveFormat.start)\(directiveArgument)\(directiveFormat.end)"
                         appState.editor.command = .replaceLineText(replacement)
-                        appState.editor.showEditDirectiveDialog = false
-                        appState.editor.handleDirective = nil
+                        appState.showEditDirectiveDialog = false
+                        appState.handleDirective = nil
                     }
                     .suggested()
                     .insensitive(!enableSubmit)

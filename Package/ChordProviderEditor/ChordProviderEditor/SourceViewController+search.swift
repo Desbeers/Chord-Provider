@@ -228,6 +228,7 @@ extension SourceViewController {
     /// Reset the search
     /// - Note: Used when opening a new song
     func resetSearch() {
+        print("Reset Search")
         guard let bridge = bridgeBinding else {
             return
         }

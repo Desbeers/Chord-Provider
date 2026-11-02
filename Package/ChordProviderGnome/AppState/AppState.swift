@@ -12,6 +12,7 @@ import Adwaita
 import CAdw
 
 /// The state of **Chord Provider**
+@MainActor
 struct AppState {
 
     /// The application settings
@@ -34,13 +35,26 @@ struct AppState {
     var editor = SourceViewBridge()
     /// The `GtkSourceEditor` class to communicate with `Swift`
     /// - Note: A lot of `C` stuff is easier with a `class`
-    var controller: SourceViewController?
+    var controller = SourceViewController()
     /// The `Adwaita` style manager
     let styleManager = adw_style_manager_get_default()
     /// The CSS provider
     var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
     /// The accent colors for Pango markup
     var pangoAccentColor: (red: UInt16, green: UInt16, blue: UInt16) = (red: 0, green: 0, blue: 0)
+
+
+    var song = Song(id: UUID())
+
+    /// The current cursor line
+    public var currentLine = Song.Section.Line()
+
+    /// Bool to show the *Edit directive* dialog
+    public var showEditDirectiveDialog: Bool = false
+
+    /// The directive to handle in the *Edit directive* dialog
+    public var handleDirective: ChordPro.Directive?
+
 }
 
 extension AppState {
@@ -49,12 +63,12 @@ extension AppState {
 
     /// The title of the `Scene`
     var title: String {
-        self.editor.song.metadata.title
+        self.song.metadata.title
     }
 
     /// The subtitle of the `Scene`
     var subtitle: String {
-        let metadata = self.editor.song.metadata
+        let metadata = self.song.metadata
         var result: [String] = [metadata.subtitle ?? metadata.artist]
             if let album = metadata.album {
                 result.append(album)
@@ -68,26 +82,62 @@ extension AppState {
     /// The title in the GNOME overview
     var overviewTitle: String {
         let appName = "Chord Provider"
-        let fileName = editor.coreSettings.fileURL?.deletingPathExtension().lastPathComponent
+        let fileName = settings.core.fileURL?.deletingPathExtension().lastPathComponent
         return scene.showHomeView ? appName : fileName ?? appName
     }
 
     /// Bool if the content of the song is modified
     /// - Note: Comparing the source with the original source
     var contentIsModified: Bool {
-        editor.song.content != scene.originalContent
+        song.content != scene.originalContent
     }
 }
 
-extension AppState: Codable {
+extension AppState: @MainActor Codable {
 
     /// Items to save in the database
     enum CodingKeys: String, CodingKey {
         /// Only save the settings
         case settings
         /// Core settings are in the editor
-        case editor
+        //case editor
         /// Home settings
         case home
+    }
+}
+
+extension AppState {
+
+    mutating func updateSong(content: String) -> [SourceMark] {
+        LogUtils.shared.clearLog()
+        song = ChordProParser.parse(
+            content: content,
+            song: song,
+            settings: settings.core
+        )
+        var markers: [SourceMark] = []
+        if settings.core.showWarnings {
+            /// Get all lines, removing anything added by the parser
+            let lines = song.allLines.filter { $0.sourceLineNumber > 0 }
+            //values.songLines = lines
+            for line in lines.filter({ line in !line.warnings.isEmpty }) {
+                let level = line.warnings.compactMap(\.level).min() ?? .info
+                markers.append(
+                    SourceMark(
+                        lineNumber: line.sourceLineNumber,
+                        category: SourceMark.Level(rawValue: level.rawValue) ?? .info
+                    )
+                )
+            }
+        }
+        return markers
+    }
+}
+
+extension AppState {
+
+    mutating func setCurrentLine() {
+        let lines = song.allLines.filter { $0.sourceLineNumber > 0 }
+        currentLine = lines[safe: editor.currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: editor.totalLineNumbers)
     }
 }

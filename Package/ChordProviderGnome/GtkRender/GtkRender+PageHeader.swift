@@ -18,7 +18,7 @@ extension GtkRender {
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             self._appState = appState
-            let allMetadata = GtkRender.PageHeader.collectMetadata(appState.editor.song.metadata.wrappedValue)
+            let allMetadata = GtkRender.PageHeader.collectMetadata(appState.song.metadata.wrappedValue)
             self.metadata = Array(allMetadata.prefix(4))
             self.additionalMetadata = Array(allMetadata.dropFirst(4))
         }

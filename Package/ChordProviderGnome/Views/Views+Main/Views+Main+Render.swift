@@ -26,7 +26,7 @@ extension Views.Main {
             HSplitView(splitter: binding) {
                 Views.Editor(appState: $appState)
             } end: {
-                if appState.editor.song.hasContent {
+                if appState.song.hasContent {
                     VStack {
                         GtkRender.PageHeader(appState: $appState)
                         HStack {

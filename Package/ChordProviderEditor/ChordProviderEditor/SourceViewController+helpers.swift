@@ -9,7 +9,6 @@ import Foundation
 import Adwaita
 import CAdw
 import CGtkSourceView
-import ChordProviderCore
 
 extension SourceViewController {
 

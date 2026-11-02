@@ -59,12 +59,12 @@ extension GtkRender {
                             Views.MidiPlayerButton(
                                 chord: chord,
                                 showAccidental: false,
-                                coreSettings: appState.editor.coreSettings
+                                coreSettings: appState.settings.core
                             )
                             Views.ChordDiagram(
                                 chord: chord,
                                 width: 100,
-                                coreSettings: appState.editor.coreSettings
+                                coreSettings: appState.settings.core
                             )
                             if chord.knownChord, let strum = chord.strum {
                                 Text(strum.display)

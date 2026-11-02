@@ -39,7 +39,7 @@ extension GtkRender {
                     VStack {
                         switch line.type {
                         case .songLine:
-                            let lines = line.wholeText(split: appState.editor.song.metadata.longestLineLenght).toElementWrapper
+                            let lines = line.wholeText(split: appState.song.metadata.longestLineLenght).toElementWrapper
                             ForEach(lines) { line in
                                 Text(line.content)
                                     .useMarkup()

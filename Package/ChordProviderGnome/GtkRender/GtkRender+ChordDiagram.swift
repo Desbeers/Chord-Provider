@@ -26,12 +26,12 @@ extension GtkRender {
                         Views.MidiPlayerButton(
                             chord: chord.definition,
                             showAccidental: false,
-                            coreSettings: appState.editor.coreSettings,
+                            coreSettings: appState.settings.core,
                         )
                         Views.ChordDiagram(
                             chord: chord.definition,
                             width: 80 * appState.settings.theme.zoom,
-                            coreSettings: appState.editor.coreSettings
+                            coreSettings: appState.settings.core
                         )
                         .id(appState.settings.theme.zoom)
                     }

@@ -33,7 +33,7 @@ extension Views.Editor {
                             ForEach(ChordPro.Directive.metadataDirectives) { directive in
                                 addInsert(directive: directive, command: nil)
                                     .insensitive(
-                                        appState.editor.song.metadata.definedMetadata.contains(directive.source.long)
+                                        appState.song.metadata.definedMetadata.contains(directive.source.long)
                                     )
                             }
                         }
@@ -67,7 +67,7 @@ extension Views.Editor {
                         VStack {
                             addInsert(directive: .define, command: nil)
                             Button("Add all Chord definitions") {
-                                appState.editor.command = .appendText(appState.editor.song.definitions)
+                                appState.editor.command = .appendText(appState.song.definitions)
                                 insert.showMore.toggle()
                             }
                             .flat()
@@ -100,9 +100,9 @@ extension Views.Editor {
                     )
                 } else {
                     /// Set the `directive`
-                    appState.editor.handleDirective = directive
+                    appState.handleDirective = directive
                     /// Open the dialog
-                    appState.editor.showEditDirectiveDialog = true
+                    appState.showEditDirectiveDialog = true
                 }
                 insert = .init()
             }

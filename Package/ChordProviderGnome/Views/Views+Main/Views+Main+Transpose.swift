@@ -27,21 +27,21 @@ extension Views.Main {
                         appState: $appState.onSet { _ in appState.editor.command = .updateContent },
                         icon: .goPrevious
                     ) { appState in
-                        appState.editor.coreSettings.transpose = max(appState.editor.coreSettings.transpose - 1, -11)
+                        appState.settings.core.transpose = max(appState.settings.core.transpose - 1, -11)
                     }
-                    Text("\(appState.editor.song.transposing) semitones")
+                    Text("\(appState.song.transposing) semitones")
                         .frame(minWidth: 150)
                     CountButton(
                         appState: $appState.onSet { _ in appState.editor.command = .updateContent },
                         icon: .goNext
                     ) { appState in
-                        appState.editor.coreSettings.transpose = min(appState.editor.coreSettings.transpose + 1, 11)
+                        appState.settings.core.transpose = min(appState.settings.core.transpose + 1, 11)
                     }
                 }
                 .halign(.center)
                 .padding()
-                if appState.editor.song.metadata.transpose != 0 {
-                    Text("The song is \(appState.editor.song.metadata.transpose) semitones transposed in the source")
+                if appState.song.metadata.transpose != 0 {
+                    Text("The song is \(appState.song.metadata.transpose) semitones transposed in the source")
                         .caption()
                 }
                 Button("Close") {

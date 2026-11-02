@@ -82,8 +82,8 @@ extension AppState {
     ///   - database: The `ChordsDatabase` to set
     ///   - main:Bool if the function comes from the `Main` View
     mutating func setDatabase(_ database: ChordsDatabase, main: Bool) {
-        editor.coreSettings.instrument = database.instrument
-        editor.coreSettings.chordDefinitions = database.definitions.sorted()
+        settings.core.instrument = database.instrument
+        settings.core.chordDefinitions = database.definitions.sorted()
         editor.command = .updateContent
         if !database.errors.isEmpty {
             let warnings = database.errors.compactMap(\.failureReason).joined(separator: "\n")

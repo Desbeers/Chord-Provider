@@ -12,10 +12,10 @@ extension AppState {
 
     /// Save the current song to disk
     mutating func saveSong() {
-        if let fileURL = editor.coreSettings.fileURL {
-            try? editor.song.content.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+        if let fileURL = settings.core.fileURL {
+            try? song.content.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
             // Remember the content as  saved
-            self.scene.originalContent = editor.song.content
+            self.scene.originalContent = song.content
             // Update the song browser
             getFolderContent()
         } else {

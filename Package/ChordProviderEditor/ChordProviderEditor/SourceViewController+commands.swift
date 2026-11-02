@@ -43,6 +43,7 @@ extension SourceViewController {
         // MARK: Search commands
 
         case let .search(direction):
+        print("Search!")
             search(direction: direction)
         case let .replaceSearchMatch(replacement):
             replaceSearchMatch(with: replacement)

@@ -22,7 +22,7 @@ extension AppState {
                 withExtension: "chordpro"
             ),
             let content = try? String(contentsOf: sampleSong, encoding: .utf8) {
-            editor.coreSettings.fileURL = nil
+            settings.core.fileURL = nil
             openSong(content: content, showEditor: showEditor, templateURL: sampleSong)
         } else {
             print("Error loading sample song")
@@ -34,11 +34,11 @@ extension AppState {
     mutating func openSong(fileURL: URL) {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
-            editor.coreSettings.fileURL = fileURL
+            settings.core.fileURL = fileURL
             openSong(content: content, showEditor: settings.editor.showEditor)
             scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
         } catch {
-            editor.coreSettings.fileURL = nil
+            settings.core.fileURL = nil
             scene.toastMessage = "Could not open the song"
         }
     }
@@ -52,23 +52,23 @@ extension AppState {
         // Search must be closed
         scene.showSearchBar = false
         // Reset transpose
-        editor.coreSettings.transpose = 0
-        editor.song.metadata.transpose = 0
+        settings.core.transpose = 0
         // Don't show the previous song because the rendering has some delay
-        editor.song.hasContent = false
+        song.hasContent = false
+        //song.id = UUID()
         // - Note: Never set the content directly; it will be ignored and the song will not be updated
         editor.command = .openNewContent(content)
         scene.originalContent = content
         settings.editor.showEditor = showEditor
         if let templateURL {
-            editor.coreSettings.templateURL = templateURL
+            settings.core.templateURL = templateURL
         }
         // Set a new random song for the Home `View`
         setRandomSong()
         // Close the Home `View`
         scene.showHomeView = false
         // Start the MIDI player transport
-        Task {
+        Task { @concurrent in
             await ChordProviderMIDI.shared.startTransport()
         }
     }

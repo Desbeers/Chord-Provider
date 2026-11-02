@@ -9,7 +9,27 @@ import Foundation
 import Adwaita
 import CAdw
 import CGtkSourceView
-import ChordProviderCore
+
+public struct SourceMark {
+    public init(lineNumber: Int, category: Level) {
+        self.lineNumber = lineNumber
+        self.category = category
+    }
+    public var lineNumber: Int
+    public var category: Level
+
+    public enum Level: String, CaseIterable {
+
+        /// Info
+        case info
+        /// Notice
+        case notice
+        /// Warning
+        case warning
+        /// Error
+        case error
+    }
+}
 
 extension SourceViewController {
 
@@ -20,7 +40,7 @@ extension SourceViewController {
     ///
     /// - Note: This function is `static` because it will be called from a 'GTK Signal'
     static func setMarksStyle(view: ViewStorage, darkMode: Bool) {
-        for level in LogUtils.Level.allCases {
+        for level in SourceMark.Level.allCases {
             gtk_source_view_set_show_line_marks(view.sourceViewPointer, 1)
             let attributes = gtk_source_mark_attributes_new()
             var color = GdkRGBA()
@@ -73,7 +93,7 @@ extension SourceViewController {
             buffer.textBufferPointer,
             &end
         )
-        for category in LogUtils.Level.allCases {
+        for category in SourceMark.Level.allCases {
             gtk_source_buffer_remove_source_marks(
                 buffer.sourceBufferPointer,
                 &start,

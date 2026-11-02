@@ -92,7 +92,7 @@ extension Views.Main {
         ) {
             /// - Note: I use `extraChild` instead of `body` so I can use markup
             VStack {
-                Text("<b>\(appState.editor.song.metadata.title)</b> is modified.")
+                Text("<b>\(appState.song.metadata.title)</b> is modified.")
                     .useMarkup()
                     .style(.subtitle)
                     .padding(.bottom)
@@ -106,7 +106,7 @@ extension Views.Main {
         }
         .response("Discard", appearance: .destructive, role: .none) {
             /// Make the source 'clean' so we can close the window
-            appState.scene.originalContent = appState.editor.song.content
+            appState.scene.originalContent = appState.song.content
             switch appState.scene.saveDoneAction {
             case .closeWindow:
                 window.close()
@@ -119,12 +119,12 @@ extension Views.Main {
             }
         }
         .response("Save", appearance: .suggested, role: .default) {
-            if let fileURL = appState.editor.coreSettings.fileURL {
+            if let fileURL = appState.settings.core.fileURL {
                 appState.saveSong()
                 /// Add it to the recent songs list
                 recentSongs.addRecentSong(
                     content: appState.scene.originalContent,
-                    coreSettings: appState.editor.coreSettings
+                    coreSettings: appState.settings.core
                 )
                 switch appState.scene.saveDoneAction {
                 case .closeWindow:
@@ -140,7 +140,7 @@ extension Views.Main {
                 }
             } else {
                 /// The song has not yet been saved; show the *Save As* dialog
-                appState.editor.coreSettings.export.format = .chordPro
+                appState.settings.core.export.format = .chordPro
                 appState.scene.saveSongAs.signal()
             }
         }

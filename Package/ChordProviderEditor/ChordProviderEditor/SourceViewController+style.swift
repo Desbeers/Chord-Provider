@@ -19,9 +19,9 @@ extension SourceViewController {
     ///   - view: The View storage
     ///   - buffer: The text buffer
     ///   - language: The language for text highlighting
-    static func initStyle(view: ViewStorage, buffer: ViewStorage, language: Language) {
+    static func initStyle(view: ViewStorage, buffer: ViewStorage) {
         // Set the language for text highlight
-        SourceViewController.initLanguage(buffer: buffer, language: language)
+        //SourceViewController.initLanguage(buffer: buffer, language: language)
         // Set the style
         SourceViewController.updateStyle(view: view, buffer: buffer)
         // Add a *notification* for style changes
@@ -50,10 +50,10 @@ extension SourceViewController {
     /// - Parameters:
     ///   - buffer: The text buffer
     ///   - language: The language for text highlighting
-    static func initLanguage(buffer: ViewStorage, language: Language) {
+    static func initLanguage(buffer: ViewStorage, language: Language, resources: URL?) {
         let manager = gtk_source_language_manager_get_default()
-        if let urlPath = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
-            let path = urlPath.deletingLastPathComponent().path()
+        if let resources {
+            let path = resources.path()
             gtk_source_language_manager_append_search_path(manager, path)
             addSnippetsPath(path)
         }

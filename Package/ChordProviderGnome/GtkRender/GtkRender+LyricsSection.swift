@@ -24,17 +24,12 @@ extension GtkRender {
                 ForEach(section.lines) { line in
                     switch line.type {
                     case .songLine:
-                        if appState.editor.coreSettings.lyricsOnly {
-                            Text(line.plain ?? "")
-                                .halign(.start)
-                        } else {
-                            PartsView(
-                                parts: line.parts,
-                                lineHasLyrics: line.hasLyrics,
-                                lineHasChords: line.hasChords,
-                                appState: appState
-                            )
-                        }
+                        PartsView(
+                            parts: line.parts,
+                            lineHasLyrics: line.hasLyrics,
+                            lineHasChords: appState.settings.core.lyricsOnly ? false : line.hasChords,
+                            appState: appState
+                        )
                     case .emptyLine:
                         EmptyLine()
                     case .comment:
