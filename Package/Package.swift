@@ -58,8 +58,8 @@ let package = Package(
         ),
         // Editor library
         .library(
-            name: "ChordProviderEditor",
-            targets: ["ChordProviderEditor"]
+            name: "SourceView",
+            targets: ["SourceView"]
         )
     ],
     dependencies: dependencies,
@@ -82,7 +82,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
                 "ChordProviderCore",
-                "ChordProviderEditor",
+                "SourceView",
                 "ChordProviderMIDI"
             ],
             path: "ChordProviderGnome",
@@ -124,20 +124,20 @@ let package = Package(
         ),
         // Editor library
         .target(
-            name: "ChordProviderEditor",
+            name: "SourceView",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
-                "CChordProviderEditor"
+                "CSourceView"
             ],
-            path: "ChordProviderEditor/ChordProviderEditor"
+            path: "SourceView/SourceView"
         ),
         // C stuff for the editor library
         .target(
-            name: "CChordProviderEditor",
+            name: "CSourceView",
             dependencies: [
                 "CGtkSourceView"
             ],
-            path: "ChordProviderEditor/CChordProviderEditor",
+            path: "SourceView/CSourceView",
             publicHeadersPath: "include"
         ),
         // MIDI player library
@@ -155,7 +155,7 @@ let package = Package(
             dependencies: [
                 "ChordProviderCore",
                 "ChordProviderGnome",
-                "ChordProviderEditor",
+                "SourceView",
                 "ChordProviderMIDI",
                 "ChordProviderCLI"
             ],
@@ -167,7 +167,7 @@ let package = Package(
         // GtkSourceView C stuff
         .systemLibrary(
             name: "CGtkSourceView",
-            path: "ChordProviderEditor/CGtkSourceView",
+            path: "SourceView/CGtkSourceView",
             pkgConfig: "gtksourceview-5"
         ),
         // FluidSynth C stuff

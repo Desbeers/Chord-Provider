@@ -29,7 +29,7 @@ enum EditorSnippets {
     /// The main function
     static func main() {
         var path = FileManager.default.currentDirectoryPath
-        path += "/Package/ChordProviderEditor/ChordProviderGnome/Resources/chordpro.snippets"
+        path += "/Package/ChordProviderGnome/Resources/chordpro.snippets"
         var output = """
 <?xml version="1.0" encoding="UTF-8"?>
 <snippets _group="ChordPro">

@@ -84,7 +84,7 @@ mergeDocumentation:
 		--enable-experimental-combined-documentation \
 		--target ChordProviderCore \
 		--target ChordProviderGnome \
-		--target ChordProviderEditor \
+		--target SourceView \
 		--target ChordProviderMIDI \
 		--target ChordProviderCLI \
 		--disable-indexing \

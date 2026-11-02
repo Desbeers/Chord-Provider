@@ -8,7 +8,7 @@
 import Foundation
 import Adwaita
 import ChordProviderCore
-import ChordProviderEditor
+import SourceView
 
 extension Views.Debug {
 

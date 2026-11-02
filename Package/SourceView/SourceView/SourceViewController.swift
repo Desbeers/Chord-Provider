@@ -7,7 +7,7 @@
 
 import Foundation
 import Adwaita
-import CChordProviderEditor
+import CSourceView
 
 /// The controller for the `GtkSourceView`
 @MainActor

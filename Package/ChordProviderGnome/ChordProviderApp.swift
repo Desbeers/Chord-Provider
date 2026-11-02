@@ -8,7 +8,7 @@
 import Adwaita
 import CAdw
 import ChordProviderCore
-import ChordProviderEditor
+import SourceView
 import ChordProviderMIDI
 import Foundation
 

@@ -69,9 +69,9 @@ extension Search {
 
 extension Array where Element == Song {
 
-    /// Search an array of ``Song`` by the a query
-    /// - Parameter query: The search query
-    /// - Returns: An array of ``Song``
+    /// Search an array of ``Song`` by the a query.
+    /// - Parameter query: The search query.
+    /// - Returns: A `Song` array.
     public func search(_ query: String) -> [Song] {
         let searchMatcher = Search.Matcher(query: query)
         return self.filter { songs in

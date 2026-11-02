@@ -7,7 +7,7 @@
 
 import Foundation
 import ChordProviderCore
-import ChordProviderEditor
+import SourceView
 import Adwaita
 import CAdw
 
@@ -125,7 +125,7 @@ extension AppState {
                 markers.append(
                     SourceMark(
                         lineNumber: line.sourceLineNumber,
-                        category: SourceMark.Level(rawValue: level.rawValue) ?? .info
+                        category: SourceMark.Category(rawValue: level.rawValue) ?? .info
                     )
                 )
             }

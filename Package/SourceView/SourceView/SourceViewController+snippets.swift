@@ -11,7 +11,7 @@ import CGtkSourceView
 
 extension SourceViewController {
 
-    /// Add the *ChordPro* snippets path
+    /// Add a snippets path
     /// - Parameter path: The path to the snippet file as String
     ///
     /// - Note: The search path is an array, but only one path is needed here

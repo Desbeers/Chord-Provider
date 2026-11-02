@@ -25,23 +25,6 @@ extension GtkTextIter {
     }
 }
 
-extension SourceMark.Level {
-
-    /// The style of a mark
-    var style: (color: String, icon: String) {
-        switch self {
-        case .info:
-            ("#ffffff", "dialog-information-symbolic")
-        case .notice:
-            ("#1a5fb4", "view-reveal-symbolic")
-        case .warning:
-            ("#e5a50a", "dialog-warning-symbolic")
-        case .error:
-            ("#e01b24", "dialog-error-symbolic")
-        }
-    }
-}
-
 extension ViewStorage {
 
     /// The pointer to the text buffer

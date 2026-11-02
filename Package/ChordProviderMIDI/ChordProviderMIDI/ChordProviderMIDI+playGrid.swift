@@ -27,7 +27,6 @@ extension ChordProviderMIDI {
         stopTab()
         // Wait for the first accent
         while !transport.isAccent {
-            print("Wait")
             try? await Task.sleep(for: .milliseconds(1))
         }
         /// Start the grid

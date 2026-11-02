@@ -12,16 +12,13 @@ import CGtkSourceView
 
 extension SourceViewController {
 
-    // MARK: Style
+    // MARK: Style.
 
-    /// Init the text highlighting
+    /// Init the editor style.
     /// - Parameters:
-    ///   - view: The View storage
-    ///   - buffer: The text buffer
-    ///   - language: The language for text highlighting
+    ///   - view: The View storage.
+    ///   - buffer: The text buffer.
     static func initStyle(view: ViewStorage, buffer: ViewStorage) {
-        // Set the language for text highlight
-        //SourceViewController.initLanguage(buffer: buffer, language: language)
         // Set the style
         SourceViewController.updateStyle(view: view, buffer: buffer)
         // Add a *notification* for style changes
@@ -30,10 +27,10 @@ extension SourceViewController {
         }
     }
 
-    /// Update the style of the editor
+    /// Update the editor style.
     /// - Parameters:
-    ///   - view: The View storage
-    ///   - buffer: The text buffer
+    ///   - view: The View storage.
+    ///   - buffer: The text buffer.
     static func updateStyle(view: ViewStorage, buffer: ViewStorage) {
         let styleManager = adw_style_manager_get_default()
         let isDark = adw_style_manager_get_dark(styleManager)
@@ -42,22 +39,5 @@ extension SourceViewController {
         let scheme = gtk_source_style_scheme_manager_get_scheme(manager, theme)
         gtk_source_buffer_set_style_scheme(buffer.sourceBufferPointer, scheme)
         setMarksStyle(view: view, darkMode: isDark == 1)
-    }
-
-    // MARK: Language
-
-    /// Init the text highlighting language
-    /// - Parameters:
-    ///   - buffer: The text buffer
-    ///   - language: The language for text highlighting
-    static func initLanguage(buffer: ViewStorage, language: Language, resources: URL?) {
-        let manager = gtk_source_language_manager_get_default()
-        if let resources {
-            let path = resources.path()
-            gtk_source_language_manager_append_search_path(manager, path)
-            addSnippetsPath(path)
-        }
-        let lang = gtk_source_language_manager_get_language(manager, language.languageName)
-        gtk_source_buffer_set_language(buffer.sourceBufferPointer, lang)
     }
 }

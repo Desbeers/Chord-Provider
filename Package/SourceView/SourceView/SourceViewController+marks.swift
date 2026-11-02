@@ -10,16 +10,23 @@ import Adwaita
 import CAdw
 import CGtkSourceView
 
+/// The structure of a source mark
 public struct SourceMark {
-    public init(lineNumber: Int, category: Level) {
+
+    /// Init the source mark
+    /// - Parameters:
+    ///   - lineNumber: The line number
+    ///   - category: The category.
+    public init(lineNumber: Int, category: Category) {
         self.lineNumber = lineNumber
         self.category = category
     }
+    /// The line number
     public var lineNumber: Int
-    public var category: Level
-
-    public enum Level: String, CaseIterable {
-
+    /// The category
+    public var category: Category
+    /// The category options
+    public enum Category: String, CaseIterable {
         /// Info
         case info
         /// Notice
@@ -28,6 +35,23 @@ public struct SourceMark {
         case warning
         /// Error
         case error
+    }
+}
+
+extension SourceMark.Category {
+
+    /// The style of a mark
+    var style: (color: String, icon: String) {
+        switch self {
+        case .info:
+            ("#ffffff", "dialog-information-symbolic")
+        case .notice:
+            ("#1a5fb4", "view-reveal-symbolic")
+        case .warning:
+            ("#e5a50a", "dialog-warning-symbolic")
+        case .error:
+            ("#e01b24", "dialog-error-symbolic")
+        }
     }
 }
 
@@ -40,17 +64,21 @@ extension SourceViewController {
     ///
     /// - Note: This function is `static` because it will be called from a 'GTK Signal'
     static func setMarksStyle(view: ViewStorage, darkMode: Bool) {
-        for level in SourceMark.Level.allCases {
+        for category in SourceMark.Category.allCases {
             gtk_source_view_set_show_line_marks(view.sourceViewPointer, 1)
             let attributes = gtk_source_mark_attributes_new()
             var color = GdkRGBA()
             gtk_source_mark_attributes_set_icon_name(
                 attributes,
-                level.style.icon
+                category.style.icon
             )
-            gdk_rgba_parse(&color, "\(level.style.color)\(darkMode ? 20 : 10)")
+            gdk_rgba_parse(&color, "\(category.style.color)\(darkMode ? 20 : 10)")
             gtk_source_mark_attributes_set_background(attributes, &color)
-            gtk_source_view_set_mark_attributes(view.sourceViewPointer, level.rawValue, attributes, 1)
+            gtk_source_view_set_mark_attributes(
+                view.sourceViewPointer,
+                category.rawValue, attributes,
+                1
+            )
         }
     }
 
@@ -93,7 +121,7 @@ extension SourceViewController {
             buffer.textBufferPointer,
             &end
         )
-        for category in SourceMark.Level.allCases {
+        for category in SourceMark.Category.allCases {
             gtk_source_buffer_remove_source_marks(
                 buffer.sourceBufferPointer,
                 &start,
