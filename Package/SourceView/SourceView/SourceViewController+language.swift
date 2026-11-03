@@ -1,6 +1,6 @@
 //
 //  SourceViewController+language.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
@@ -18,7 +18,7 @@ extension SourceViewController {
     /// - Parameters:
     ///   - buffer: The text buffer.
     ///   - language: The language for text highlighting.
-    ///   - Resources: Optional language definition and snippets.
+    ///   - resources: Optional language definition and snippets.
     static func initLanguage(buffer: ViewStorage, language: Language, resources: URL?) {
         let manager = gtk_source_language_manager_get_default()
         if let resources {

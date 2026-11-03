@@ -1,15 +1,17 @@
 //
 //  SourceViewBridge.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
 
 import Foundation
+import Adwaita
 import CGtkSourceView
 
 /// The bridge between `GtkSourceView` and `Swift`
-public struct SourceViewBridge: Sendable {
+public struct SourceViewBridge {
+
     /// The command for the editor
     public var command: SourceViewCommand?
     /// The current line number of the cursor
@@ -23,6 +25,11 @@ public struct SourceViewBridge: Sendable {
 
     /// Bool if the editor has a selection
     public var hasSelection: Bool = false
+
+    /// A signal to focus search in the editor
+    public var focusSearch = Signal()
+    /// A signal to focus replace in the editor
+    public var focusReplace = Signal()
 
     /// The state of the search
     public var search = SearchState()

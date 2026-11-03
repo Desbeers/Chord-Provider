@@ -50,12 +50,12 @@ extension AppState {
     ///   - templateURL: The optional template URL of the song
     mutating private func openSong(content: String, showEditor: Bool, templateURL: URL? = nil) {
         // Search must be closed
-        scene.showSearchBar = false
+        editor.showSearchBar = false
         // Reset transpose
         settings.core.transpose = 0
         // Don't show the previous song because the rendering has some delay
         song.hasContent = false
-        //song.id = UUID()
+        song.id = UUID()
         // - Note: Never set the content directly; it will be ignored and the song will not be updated
         editor.command = .openNewContent(content)
         scene.originalContent = content

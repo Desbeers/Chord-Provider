@@ -1,6 +1,6 @@
 //
 //  LibraryController.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //

@@ -77,7 +77,7 @@ extension Views.Editor {
                     }
                     .insensitive(!appState.editor.isAtBeginningOfLine)
             }
-            .insensitive(appState.scene.showSearchBar)
+            .insensitive(appState.editor.showSearchBar)
         }
 
         /// The `View` with an insert button
@@ -100,9 +100,9 @@ extension Views.Editor {
                     )
                 } else {
                     /// Set the `directive`
-                    appState.handleDirective = directive
+                    appState.scene.handleDirective = directive
                     /// Open the dialog
-                    appState.showEditDirectiveDialog = true
+                    appState.scene.showEditDirectiveDialog = true
                 }
                 insert = .init()
             }

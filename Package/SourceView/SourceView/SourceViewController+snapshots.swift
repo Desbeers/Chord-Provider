@@ -1,6 +1,6 @@
 //
 //  SourceViewController+snapshots.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
@@ -15,7 +15,7 @@ import CGtkSourceView
 
 extension SourceViewController {
 
-    /// Schedule a snapshot to update the song render in the UI
+    /// Schedule a snapshot to update the text binding in the UI
     func scheduleSnapshot() {
         snapshotDebounce.schedule { [self] in
             if snippetsAvailable {

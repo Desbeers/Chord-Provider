@@ -25,14 +25,12 @@ extension Views {
                 Inserts(appState: $appState)
                     .padding(5)
                     .halign(.center)
-                SearchOptions(appState: $appState)
+                SourceView.SearchOptions(bridge: $appState.editor)
                 Separator()
                 ScrollView {
                     SourceView(
-                        //controller: appState.controller
                         bridge: $appState.editor,
                         controller: appState.controller
-                        // language: .chordpro
                     )
                     .onTextChanged { content in
                         appState.updateSong(content: content)
@@ -44,9 +42,9 @@ extension Views {
                         let directive = appState.currentLine.directive
 
                         if let directive, directive.editable {
-                            appState.handleDirective =
+                            appState.scene.handleDirective =
                                 appState.currentLine.directive
-                            appState.showEditDirectiveDialog = true
+                            appState.scene.showEditDirectiveDialog = true
                         }
                     }
                     .innerPadding(10, edges: .all)
@@ -54,8 +52,7 @@ extension Views {
                     .wrapMode(appState.settings.editor.wrapLines ? .word : .none)
                     .highlightCurrentLine(true)
                     .language(.chordpro)
-                    .languageResources(Bundle.module.url(forResource: "chordpro", withExtension: "lang"))
-                    //.highlightSearchResult(appState.editor.showSearchBar)
+                    .languageResources(appState.resourcesDirectory)
                     .vexpand()
                     .style(.editor)
                     .focus($appState.scene.focusEditor)
@@ -63,17 +60,16 @@ extension Views {
                 Separator()
                     .bottomToolbar(visible: appState.settings.core.showWarnings) {
                         lineInfo
-                        //Text(appState.controller.isAtBeginningOfLine ? "true" : "false")
                     }
             }
             .card()
             .padding()
-            .dialog(visible: $appState.showEditDirectiveDialog) {
+            .dialog(visible: $appState.scene.showEditDirectiveDialog) {
                 let errors = appState.currentLine.warnings.compactMap(\.level).contains { $0 == .error }
                 if errors {
                     errorMessage
                 } else {
-                    switch appState.handleDirective {
+                    switch appState.scene.handleDirective {
                     case .define, .defineGuitar, .defineGuitalele, .defineUkulele:
                         Views.Editor.DefineChord(appState: $appState)
                     default:
@@ -88,7 +84,7 @@ extension Views {
                 let error = appState.currentLine.warnings.compactMap(\.message).joined(separator: "\n")
                 Views.ErrorMessage(error: ChordProviderError.directiveNotEditable(error: error))
                 Button("OK") {
-                appState.showEditDirectiveDialog = false
+                    appState.scene.showEditDirectiveDialog = false
                 }
                 .halign(.center)
             }
@@ -98,7 +94,7 @@ extension Views {
                     .headerBarTitle {
                         WindowTitle(
                             subtitle: "Directive not editable",
-                            title: "\(appState.handleDirective?.details.label ?? "Error")"
+                            title: "\(appState.scene.handleDirective?.details.label ?? "Error")"
                         )
                     }
             }

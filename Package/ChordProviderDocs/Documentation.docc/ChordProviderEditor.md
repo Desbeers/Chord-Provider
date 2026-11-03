@@ -1,4 +1,4 @@
-# ``ChordProviderEditor``
+# ``SourceView``
 
 @Metadata {
     @DisplayName("Chord Provider Editor")

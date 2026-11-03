@@ -1,6 +1,6 @@
 //
 //  SourceViewController.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
@@ -52,8 +52,7 @@ public final class SourceViewController {
     /// Callback when triple click a line
     var onTripleClick: (() -> Void)?
 
-    /// Init the controller
-    /// - Parameter language: The editor language
+    /// Init the controller.
     public init() {
 
         buffer = ViewStorage(gtk_source_buffer_new(nil)?.opaque())

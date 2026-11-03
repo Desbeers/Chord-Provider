@@ -1,6 +1,6 @@
 //
 //  SourceView.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
@@ -29,7 +29,7 @@ public struct SourceView: AdwaitaWidget {
 
     /// The language
     var language: Language = .plain
-
+    /// The resources directory for the language
     var languageResources: URL?
 
     /// Init the editor
@@ -37,8 +37,6 @@ public struct SourceView: AdwaitaWidget {
         bridge: Binding<SourceViewBridge>,
         controller: SourceViewController
     ) {
-        //self._bridge = SourceViewBridge()
-        //self.language = language
         self.controller = controller
         self.controller.view.fields["bridge"] = bridge
     }
@@ -130,40 +128,59 @@ public struct SourceView: AdwaitaWidget {
 
     // MARK: View modifiers
 
+    /// Set the language for the editor.
+    /// - Parameter language: The ``Language``
+    /// - Returns: self.
     public func language(_ language: Language) -> Self {
         modify { sourceView in
             sourceView.language = language
         }
     }
 
+    /// Set the resources directory for a language.
+    /// - Parameter url: The URL to the resources.
+    /// - Returns: Self.
     public func languageResources(_ url: URL?) -> Self {
-        if let directory = url?.deletingLastPathComponent() {
+        if let url {
             return modify { sourceView in
-                sourceView.languageResources = directory
+                sourceView.languageResources = url
             }
         }
         return self
     }
 
+    /// The closure when the text has changed.
+    /// - Parameter closure: The closure to run.
+    /// - Returns: Self.
     public func onTextChanged(_ closure: @escaping (String) -> [SourceMark]) -> Self {
         modify { sourceView in
             sourceView.controller.onTextChanged = closure
         }
     }
 
+    /// The closure when the line has changed.
+    /// - Parameter closure: The closure to run.
+    /// - Returns: Self.
     public func onLineChanged(_ closure: @escaping () -> Void) -> Self {
         modify { sourceView in
             sourceView.controller.onLineChanged = closure
         }
     }
 
+    /// The closure when a line is tripple clicked.
+    /// - Parameter closure: The closure to run.
+    /// - Returns: Self.
     public func onTripleClick(_ closure: @escaping () -> Void) -> Self {
         modify { sourceView in
             sourceView.controller.onTripleClick = closure
         }
     }
 
-    /// Set the inner padding
+    /// Set the inner padding of the editor
+    /// - Parameters:
+    ///   - padding: The padding.
+    ///   - edges: The edges for the padding.
+    /// - Returns: Self.
     public func innerPadding(_ padding: Int = 10, edges: Set<Edge> = .all) -> Self {
         modify { sourceView in
             sourceView.padding = padding
@@ -171,14 +188,18 @@ public struct SourceView: AdwaitaWidget {
         }
     }
 
-    /// Show the line numbers
+    /// Show the line numbers in the editor.
+    /// - Parameter lineNumbers: Bool to show the line numbers.
+    /// - Returns: Self.
     public func lineNumbers(_ lineNumbers: Bool = true) -> Self {
         modify { sourceView in
             sourceView.lineNumbers = lineNumbers
         }
     }
 
-    /// Set the text as editable
+    /// Set the text as editable.
+    /// - Parameter editable: Bool to make the text editable
+    /// - Returns: Self.
     public func editable(_ editable: Bool = true) -> Self {
         modify { sourceView in
             sourceView.editable = editable
@@ -186,23 +207,20 @@ public struct SourceView: AdwaitaWidget {
     }
 
     /// Highlight the current line
+    /// - Parameter highlightCurrentLine: Bool to highlight the current line.
+    /// - Returns: Self.
     public func highlightCurrentLine(_ highlightCurrentLine: Bool = true) -> Self {
         modify { sourceView in
             sourceView.highlightCurrentLine = highlightCurrentLine
         }
     }
 
-    /// Set the wrap mode
+    /// Set the wrap mode.
+    /// - Parameter wrapMode: The wrap mode of the text.
+    /// - Returns: Self.
     public func wrapMode(_ wrapMode: WrapMode) -> Self {
         modify { sourceView in
             sourceView.wrapMode = wrapMode
         }
     }
-
-    // /// Highlight the search results
-    // public func highlightSearchResult(_ highlightSearchResult: Bool) -> Self {
-    //     modify { sourceView in
-    //         sourceView.highlightSearchResult = highlightSearchResult
-    //     }
-    // }
 }

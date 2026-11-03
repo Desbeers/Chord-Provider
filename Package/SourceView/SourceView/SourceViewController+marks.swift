@@ -1,6 +1,6 @@
 //
 //  SourceViewController+marks.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
@@ -76,7 +76,8 @@ extension SourceViewController {
             gtk_source_mark_attributes_set_background(attributes, &color)
             gtk_source_view_set_mark_attributes(
                 view.sourceViewPointer,
-                category.rawValue, attributes,
+                category.rawValue,
+                attributes,
                 1
             )
         }

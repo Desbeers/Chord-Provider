@@ -1,6 +1,6 @@
 //
 //  SourceViewController+search.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
@@ -226,9 +226,8 @@ extension SourceViewController {
     }
 
     /// Reset the search
-    /// - Note: Used when opening a new song
+    /// - Note: Used when opening new content
     func resetSearch() {
-        print("Reset Search")
         guard let bridge = bridgeBinding else {
             return
         }

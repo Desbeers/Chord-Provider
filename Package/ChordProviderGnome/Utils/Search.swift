@@ -69,7 +69,7 @@ extension Search {
 
 extension Array where Element == Song {
 
-    /// Search an array of ``Song`` by the a query.
+    /// Search an array of `Song` by the a query.
     /// - Parameter query: The search query.
     /// - Returns: A `Song` array.
     public func search(_ query: String) -> [Song] {

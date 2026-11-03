@@ -42,19 +42,10 @@ struct AppState {
     var cssProvider: UnsafeMutablePointer<GtkCssProvider> = gtk_css_provider_new()
     /// The accent colors for Pango markup
     var pangoAccentColor: (red: UInt16, green: UInt16, blue: UInt16) = (red: 0, green: 0, blue: 0)
-
-
+    /// The current song
     var song = Song(id: UUID())
-
     /// The current cursor line
-    public var currentLine = Song.Section.Line()
-
-    /// Bool to show the *Edit directive* dialog
-    public var showEditDirectiveDialog: Bool = false
-
-    /// The directive to handle in the *Edit directive* dialog
-    public var handleDirective: ChordPro.Directive?
-
+    var currentLine = Song.Section.Line()
 }
 
 extension AppState {
@@ -79,6 +70,14 @@ extension AppState {
             return result.joined(separator: " · ")
     }
 
+    /// The resources directory of the bundle.
+    var resourcesDirectory: URL? {
+        if let url = Bundle.module.url(forResource: "chordpro", withExtension: "lang") {
+            return url.deletingLastPathComponent()
+        }
+        return nil
+    }
+
     /// The title in the GNOME overview
     var overviewTitle: String {
         let appName = "Chord Provider"
@@ -99,8 +98,6 @@ extension AppState: @MainActor Codable {
     enum CodingKeys: String, CodingKey {
         /// Only save the settings
         case settings
-        /// Core settings are in the editor
-        //case editor
         /// Home settings
         case home
     }
@@ -108,6 +105,9 @@ extension AppState: @MainActor Codable {
 
 extension AppState {
 
+    /// Update the song.
+    /// - Parameter content: The content of the song.
+    /// - Returns: Optional marks for the editor.
     mutating func updateSong(content: String) -> [SourceMark] {
         LogUtils.shared.clearLog()
         song = ChordProParser.parse(
@@ -119,7 +119,6 @@ extension AppState {
         if settings.core.showWarnings {
             /// Get all lines, removing anything added by the parser
             let lines = song.allLines.filter { $0.sourceLineNumber > 0 }
-            //values.songLines = lines
             for line in lines.filter({ line in !line.warnings.isEmpty }) {
                 let level = line.warnings.compactMap(\.level).min() ?? .info
                 markers.append(
@@ -136,6 +135,7 @@ extension AppState {
 
 extension AppState {
 
+    /// Set the current song line of the editor
     mutating func setCurrentLine() {
         let lines = song.allLines.filter { $0.sourceLineNumber > 0 }
         currentLine = lines[safe: editor.currentLineNumber - 1] ?? Song.Section.Line(sourceLineNumber: editor.totalLineNumbers)

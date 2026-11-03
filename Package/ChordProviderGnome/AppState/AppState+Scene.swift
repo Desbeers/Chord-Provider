@@ -17,8 +17,6 @@ extension AppState {
 
         /// Show the *Home* view
         var showHomeView: Bool = true
-        /// Bool to show the search bar
-        var showSearchBar: Bool = false
         /// The selected debug tab
         var selectedDebugTab: Views.Debug.Tab = .log
         /// The selected debug json section
@@ -43,10 +41,6 @@ extension AppState {
         var importDatabase = Signal()
         /// A signal to focus the editor
         var focusEditor = Signal()
-        /// A signal to focus search in the editor
-        var focusSearch = Signal()
-        /// A signal to focus replace in the editor
-        var focusReplace = Signal()
 
         // MARK: Dialogs
 
@@ -64,6 +58,10 @@ extension AppState {
         /// Show the *Shortcuts* dialog
         /// - Note: Shortcuts don't work on macOS
         var showShortcutsDialog: Bool = false
+        /// Bool to show the *Edit directive* dialog
+        var showEditDirectiveDialog: Bool = false
+        /// The directive to handle in the *Edit directive* dialog
+        var handleDirective: ChordPro.Directive?
 
         // MARK: Errors
 

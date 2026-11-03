@@ -53,7 +53,7 @@ extension Views.Toolbar {
                         isOn: $appState.settings.editor.showEditor.onSet {state in
                             if !state {
                                 /// Search is only in the editor, make sure its closed
-                                appState.scene.showSearchBar = false
+                                appState.editor.showSearchBar = false
                             }
                         }
                     )
@@ -133,7 +133,7 @@ extension Views.Toolbar {
                                     /// Search is only in the editor, make sure its open
                                     appState.settings.editor.showEditor = true
                                     /// Focus the search field
-                                    appState.scene.focusSearch.signal()
+                                    appState.editor.focusSearch.signal()
                                 } else if appState.settings.editor.showEditor {
                                     /// Focus the editor
                                     appState.scene.focusEditor.signal()

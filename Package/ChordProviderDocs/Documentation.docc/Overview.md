@@ -86,6 +86,6 @@ The `Source Code` of **Chord Provider** is split into a couple of *Swift Package
 
 -  ``/ChordProviderCore``
 -  ``/ChordProviderGnome``
--  ``/ChordProviderEditor``
+-  ``/SourceView``
 -  ``/ChordProviderMIDI``
 -  ``/ChordProviderCLI``

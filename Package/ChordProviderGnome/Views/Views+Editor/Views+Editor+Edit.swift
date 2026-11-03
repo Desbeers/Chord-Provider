@@ -18,7 +18,7 @@ extension Views.Editor {
         /// - Parameter appState: The state of the application
         init(appState: Binding<AppState>) {
             self._appState = appState
-            self.directive = appState.currentLine.directive.wrappedValue ?? appState.handleDirective.wrappedValue ?? .title
+            self.directive = appState.currentLine.directive.wrappedValue ?? appState.scene.handleDirective.wrappedValue ?? .title
             let state = FormState(
                 line: appState.currentLine.wrappedValue,
                 directive: self.directive
@@ -166,8 +166,8 @@ extension Views.Editor {
                 HStack(spacing: 10) {
                     Button("Cancel") {
                         appState.editor.command = .clearSelection
-                        appState.showEditDirectiveDialog = false
-                        appState.handleDirective = nil
+                        appState.scene.showEditDirectiveDialog = false
+                        appState.scene.handleDirective = nil
                     }
                     Button("\(newDirective ? "Insert" : "Update") Directive") {
                         appState.currentLine.plain = formState.plain.isEmpty ? nil : formState.plain
@@ -192,8 +192,8 @@ extension Views.Editor {
                         let directiveFormat = directive.format(wrap: appState.editor.hasSelection)
                         let replacement = "\(directiveFormat.start)\(directiveArgument)\(directiveFormat.end)"
                         appState.editor.command = .replaceLineText(replacement)
-                        appState.showEditDirectiveDialog = false
-                        appState.handleDirective = nil
+                        appState.scene.showEditDirectiveDialog = false
+                        appState.scene.handleDirective = nil
                     }
                     .suggested()
                     .insensitive(!enableSubmit)

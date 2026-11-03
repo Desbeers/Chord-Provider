@@ -1,6 +1,6 @@
 //
 //  SourceViewController+helpers.swift
-//  ChordProviderEditor
+//  SourceView
 //
 //  © 2026 Nick Berendsen
 //
@@ -103,7 +103,7 @@ extension SourceViewController {
 
     // MARK: Cursor movement
 
-    /// Move the cursor to the first line of the song and scroll to it
+    /// Move the cursor to the first line of the content and scroll to it
     func moveCursorToFirstLine() {
         guard let buffer = buffer.textBufferPointer else {
             return

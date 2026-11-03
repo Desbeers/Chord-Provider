@@ -66,7 +66,7 @@ extension Views.Editor {
                         Text(" ")
                             .hexpand()
                         Button("Cancel") {
-                            appState.showEditDirectiveDialog = false
+                            appState.scene.showEditDirectiveDialog = false
                         }
                         Button("\(newChord ? "Add" : "Update") Definition") {
                             if newChord {
@@ -74,7 +74,7 @@ extension Views.Editor {
                             } else {
                                 appState.editor.command = .replaceLineText(definition.define)
                             }
-                            appState.showEditDirectiveDialog = false
+                            appState.scene.showEditDirectiveDialog = false
                         }
                         .suggested()
                         .padding(.trailing)
