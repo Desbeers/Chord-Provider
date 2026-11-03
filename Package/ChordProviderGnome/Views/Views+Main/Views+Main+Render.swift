@@ -20,8 +20,8 @@ extension Views.Main {
         var view: Body {
             /// Show or hide the editor
             let binding = Binding(
-                get: { appState.settings.editor.showEditor ? appState.settings.editor.splitter : 0 },
-                set: { appState.settings.editor.splitter = $0 }
+                get: { appState.settings.showEditor ? appState.settings.splitter : 0 },
+                set: { appState.settings.splitter = $0 }
             )
             HSplitView(splitter: binding) {
                 Views.Editor(appState: $appState)

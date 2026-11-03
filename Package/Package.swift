@@ -48,6 +48,11 @@ let package = Package(
             name: "GenerateSnippets",
             targets: ["GenerateSnippets"]
         ),
+        // Source View Demo
+        .executable(
+            name: "SourceViewDemo",
+            targets: ["SourceViewDemo"]
+        ),
 
         // MARK: Libraries
 
@@ -107,6 +112,15 @@ let package = Package(
                 "ChordProviderCore"
             ],
             path: "GenerateSnippets",
+        ),
+        // Source View Demo
+        .executableTarget(
+            name: "SourceViewDemo",
+            dependencies: [
+                .product(name: "Adwaita", package: "adwaita-swift"),
+                "SourceView"
+            ],
+            path: "SourceView/SourceViewDemo",
         ),
 
         // MARK: Libraries

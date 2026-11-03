@@ -7,6 +7,7 @@
 
 import Foundation
 import ChordProviderCore
+import SourceView
 
 /// The settings for **Chord Provider**
 struct AppSettings: Codable, Equatable {
@@ -18,5 +19,9 @@ struct AppSettings: Codable, Equatable {
     /// The theme settings
     var theme = Theme()
     /// The editor settings
-    var editor = Editor()
+    var editor = SourceViewOptions()
+    /// The position of the splitter
+    var splitter: Int = 400
+    /// Bool if the editor is shown
+    var showEditor: Bool = false
 }

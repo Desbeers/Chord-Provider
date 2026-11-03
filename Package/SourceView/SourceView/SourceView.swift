@@ -76,11 +76,14 @@ public struct SourceView: AdwaitaWidget {
             if
                 (storage.previousState as? Self)?.language != language ||
                 (storage.previousState as? Self)?.languageResources != languageResources {
-                SourceViewController.initLanguage(
+                let language = SourceViewController.initLanguage(
                     buffer: controller.buffer,
                     language: language,
                     resources: languageResources
                 )
+                Idle {
+                    editor.language.wrappedValue = language
+                }
             }
             if (storage.previousState as? Self)?.padding != padding {
                 if paddingEdges.contains(.top) {

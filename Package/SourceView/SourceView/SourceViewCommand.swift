@@ -48,6 +48,9 @@ public enum SourceViewCommand: Sendable {
     /// Search is case sensitive
     case caseSensitive(_: Bool)
 
+    /// Auto language setting
+    case setLanguage(_: URL)
+
     // MARK: Other
 
     /// Clear the current selection

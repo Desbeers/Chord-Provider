@@ -73,7 +73,7 @@ extension Views.Main.Chords {
                 }
                 .vexpand()
                 Separator()
-                switch appState.settings.editor.showEditor {
+                switch appState.settings.showEditor {
                 case true:
                     if
                         let chord = chords.first(where: { $0.id == selectedVariationID }),
@@ -104,7 +104,7 @@ extension Views.Main.Chords {
                         Text("Open the editor to add another variation")
                             .hexpand()
                         Button("Open") {
-                            appState.settings.editor.showEditor.toggle()
+                            appState.settings.showEditor.toggle()
                         }
                         .suggested()
                     }

@@ -113,7 +113,7 @@ struct ChordProviderApp: App {
                 return
             }
             // Open the song
-            appState.settings.editor.showEditor = false
+            appState.settings.showEditor = false
             appState.openSong(fileURL: url)
             // Add it to the recent songs list
             recentSongs.addRecentSong(

@@ -35,7 +35,7 @@ extension AppState {
         do {
             let content = try SongFileUtils.getSongContent(fileURL: fileURL)
             settings.core.fileURL = fileURL
-            openSong(content: content, showEditor: settings.editor.showEditor)
+            openSong(content: content, showEditor: settings.showEditor)
             scene.toastMessage = "Opened \(fileURL.deletingPathExtension().lastPathComponent)"
         } catch {
             settings.core.fileURL = nil
@@ -59,7 +59,7 @@ extension AppState {
         // - Note: Never set the content directly; it will be ignored and the song will not be updated
         editor.command = .openNewContent(content)
         scene.originalContent = content
-        settings.editor.showEditor = showEditor
+        settings.showEditor = showEditor
         if let templateURL {
             settings.core.templateURL = templateURL
         }

@@ -36,6 +36,9 @@ public struct SourceViewBridge {
     /// Bool to show te search bar
     public var showSearchBar: Bool = false
 
+    /// The current language of the Source View
+    public var language: String?
+
     /// Init the bridge
     public init() {
         // Init with default values

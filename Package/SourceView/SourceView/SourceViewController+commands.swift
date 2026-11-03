@@ -64,6 +64,8 @@ extension SourceViewController {
             clearSelection()
         case .updateContent:
             scheduleSnapshot()
+        case let .setLanguage(fileURL):
+            setLanguage(fileURL: fileURL)
         }
     }
 

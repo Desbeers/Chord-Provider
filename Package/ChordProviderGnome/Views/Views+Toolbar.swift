@@ -50,7 +50,7 @@ extension Views.Toolbar {
                     }
                     Toggle(
                         icon: .default(icon: .textEditor),
-                        isOn: $appState.settings.editor.showEditor.onSet {state in
+                        isOn: $appState.settings.showEditor.onSet {state in
                             if !state {
                                 /// Search is only in the editor, make sure its closed
                                 appState.editor.showSearchBar = false
@@ -131,10 +131,10 @@ extension Views.Toolbar {
                                 appState.editor.showSearchBar.toggle()
                                 if appState.editor.showSearchBar {
                                     /// Search is only in the editor, make sure its open
-                                    appState.settings.editor.showEditor = true
+                                    appState.settings.showEditor = true
                                     /// Focus the search field
                                     appState.editor.focusSearch.signal()
-                                } else if appState.settings.editor.showEditor {
+                                } else if appState.settings.showEditor {
                                     /// Focus the editor
                                     appState.scene.focusEditor.signal()
                                 }
