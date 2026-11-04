@@ -118,7 +118,8 @@ let package = Package(
             name: "SourceViewDemo",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
-                "SourceView"
+                "SourceView",
+                "CLibSpelling"
             ],
             path: "SourceView/SourceViewDemo",
         ),
@@ -189,6 +190,12 @@ let package = Package(
             name: "CFluidSynth",
             path: "ChordProviderMIDI/CFluidSynth",
             pkgConfig: "fluidsynth"
+        ),
+        // LibSpelling C stuff
+        .systemLibrary(
+            name: "CLibSpelling",
+            path: "SourceView/CLibSpelling",
+            pkgConfig: "libspelling-1"
         )
     ]
 )

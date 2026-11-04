@@ -22,4 +22,6 @@ struct AppState {
     var fileURL: URL?
 
     var monoSpaceFont: Bool = true
+
+    var spelling: Bool = true
 }

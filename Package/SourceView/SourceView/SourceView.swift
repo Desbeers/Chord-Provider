@@ -12,6 +12,11 @@ import CGtkSourceView
 /// A text or code editor widget.
 public struct SourceView: AdwaitaWidget {
 
+    /// Additional update functions for type extensions.
+    public var updateFunctions: [(ViewStorage, WidgetData, Bool) -> Void] = []
+    /// Additional appear functions for type extensions.
+    public var appearFunctions: [(ViewStorage, WidgetData) -> Void] = []
+
     /// The editor controller
     let controller: SourceViewController
     /// Padding of the editor
@@ -52,6 +57,11 @@ public struct SourceView: AdwaitaWidget {
     ) -> ViewStorage {
         // Get the controller class
         let sourceController = controller
+
+        for function in appearFunctions {
+            function(sourceController.view, data)
+        }
+
         update(sourceController.view, data: data, updateProperties: true, type: type)
         // Return the GTKSourceView
         return sourceController.view
@@ -124,6 +134,9 @@ public struct SourceView: AdwaitaWidget {
                     controller.searchContext.opaquePointer,
                     editor.showSearchBar.wrappedValue.cBool
                 )
+            }
+            for function in updateFunctions {
+                function(storage, data, updateProperties)
             }
             storage.previousState = self
         }
