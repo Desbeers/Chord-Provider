@@ -1,5 +1,6 @@
 import Foundation
 
+/// Welcome text for the demo.
 let welcomeText = """
 # Welcome to the demo
 

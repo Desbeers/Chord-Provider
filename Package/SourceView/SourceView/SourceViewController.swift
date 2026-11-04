@@ -21,6 +21,8 @@ public final class SourceViewController {
     let searchSettings: ViewStorage
     /// Search context
     let searchContext: ViewStorage
+    /// State of the spelling checker
+    @State var spelling: Binding<Bool> = .constant(false)
 
     // MARK: Snippets
 
@@ -66,7 +68,11 @@ public final class SourceViewController {
         )
         view = ViewStorage(
             gtk_source_view_new_with_buffer(buffer.sourceBufferPointer).opaque(),
-            content: ["buffer": [buffer], "searchSettings": [searchSettings], "searchContext": [searchContext]]
+            content: [
+                "buffer": [buffer],
+                "searchSettings": [searchSettings],
+                "searchContext": [searchContext]
+            ]
         )
 
         // MARK: Snippets
@@ -81,6 +87,10 @@ public final class SourceViewController {
         )
 
         gtk_source_init()
+
+        // Spelling
+
+        setupSpelling()
 
         // MARK: Connect signal callbacks
 

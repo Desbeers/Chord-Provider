@@ -118,8 +118,7 @@ let package = Package(
             name: "SourceViewDemo",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
-                "SourceView",
-                "CLibSpelling"
+                "SourceView"
             ],
             path: "SourceView/SourceViewDemo",
         ),
@@ -142,7 +141,8 @@ let package = Package(
             name: "SourceView",
             dependencies: [
                 .product(name: "Adwaita", package: "adwaita-swift"),
-                "CSourceView"
+                "CSourceView",
+                "CLibSpelling"
             ],
             path: "SourceView/SourceView"
         ),

@@ -23,4 +23,6 @@ import Foundation
         public var highlightCurrentLine = true
         /// The font size of the editor
         public var fontSize: Int = 100
+        /// Boof if spelling is enabled
+        public var spelling: Bool = false
     }

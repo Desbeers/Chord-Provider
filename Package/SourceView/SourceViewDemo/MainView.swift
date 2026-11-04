@@ -37,13 +37,10 @@ struct MainView: View {
                         .lineNumbers(appState.options.showLineNumbers)
                         .highlightCurrentLine(appState.options.highlightCurrentLine)
                         .wrapMode(appState.options.wrapLines ? .word : .none)
-                        .spellCheck(appState.spelling)
+                        .spelling($appState.options.spelling)
                         .onTextChanged { _ in
                             appState.lastUpdate = Date.now
                             return []
-                        }
-                        .inspectOnAppear { storage in
-                            setupSpelling(storage: storage)
                         }
                         .style("editor")
                         .css {
@@ -57,7 +54,13 @@ struct MainView: View {
                         .vexpand()
                     }
                     Separator()
-                    Text("Last update: \(appState.lastUpdate.formatted())")
+                    HStack {
+                        Text("Line \(appState.editor.currentLineNumber)")
+                            .halign(.start)
+                            .hexpand()
+                        Text("Last update: \(appState.lastUpdate.formatted())")
+                    }
+                    .padding()
                 }
             }
         )
@@ -107,49 +110,6 @@ struct MainView: View {
                 appState.fileURL = fileURL
                 appState.editor.command = .openNewContent(text)
                 appState.controller.setLanguage(fileURL: fileURL)
-            }
-        }
-    }
-
-    private func setupSpelling(storage: ViewStorage) {
-        guard let pointer = storage.opaquePointer else { return }
-        let checker = spelling_checker_get_default()
-        let textView: UnsafeMutablePointer<GtkTextView> = pointer.cast()
-        let widget: UnsafeMutablePointer<GtkWidget> = pointer.cast()
-        guard
-              let buffer = gtk_text_view_get_buffer(textView),
-              let adapter = spelling_text_buffer_adapter_new(
-                  UnsafeMutableRawPointer(buffer).assumingMemoryBound(to: GtkSourceBuffer.self),
-                  checker
-              )
-        else { return }
-        gtk_text_view_set_extra_menu(textView, spelling_text_buffer_adapter_get_menu_model(adapter))
-        gtk_widget_insert_action_group(widget, "spelling", adapter)
-        spelling_text_buffer_adapter_set_enabled(adapter, appState.spelling ? 1 : 0)
-
-        storage.fields["spelling"] = adapter
-
-        // Get a notification when the language has changed,
-        // because then we have to reset the previous spellcheck.
-        storage.notify(name: "language", id: "language", pointer: checker) {
-            spelling_text_buffer_adapter_invalidate_all(adapter)
-        }
-        // Get a notification when spellcheck is disabled.
-        storage.notify(name: "enabled", id: "enabled", pointer: adapter) {
-            appState.spelling = spelling_text_buffer_adapter_get_enabled(adapter) != 0
-        }
-    }
-}
-
-extension SourceView {
-
-    func spellCheck(_ check: Bool = true) -> Self {
-        modify { sourceView in
-            sourceView.updateFunctions.append { storage, _, _ in
-                guard let spelling = storage.fields["spelling"] as? OpaquePointer else {
-                    return
-                }
-                spelling_text_buffer_adapter_set_enabled(spelling, check ? 1 : 0)
             }
         }
     }

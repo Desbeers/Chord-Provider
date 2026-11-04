@@ -26,10 +26,10 @@ extension SourceViewController {
             gtk_source_language_manager_append_search_path(manager, path)
             addSnippetsPath(path)
         }
-        let language = gtk_source_language_manager_get_language(manager, language.languageName)
-        gtk_source_buffer_set_language(buffer.sourceBufferPointer, language)
-        if let language {
-            return String(cString: gtk_source_language_get_name(language))
+        let languageID = gtk_source_language_manager_get_language(manager, language.languageName)
+        gtk_source_buffer_set_language(buffer.sourceBufferPointer, languageID)
+        if let languageID {
+            return String(cString: gtk_source_language_get_name(languageID))
         }
         return nil
     }

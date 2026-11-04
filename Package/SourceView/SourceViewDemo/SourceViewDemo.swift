@@ -22,6 +22,5 @@ struct SourceViewDemo: App {
             MainView(app: app, window: window, appState: $appState)
         }
         .defaultSize(width: 600, height: 600)
-        //.minSize(width: 1024, height: 800)
     }
 }

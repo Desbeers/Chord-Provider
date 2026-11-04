@@ -33,7 +33,7 @@ struct OptionsView: View {
             SwitchRow()
                 .title("Spelling")
                 .subtitle("Check the spelling")
-                .active($appState.spelling)
+                .active($appState.options.spelling)
             SwitchRow()
                 .title("Font")
                 .subtitle("Use monospace font")

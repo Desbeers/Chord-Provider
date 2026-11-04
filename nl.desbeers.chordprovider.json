@@ -36,6 +36,25 @@
       ]
     },
     {
+      "name": "libspelling",
+      "buildsystem": "meson",
+      "config-opts": [
+          "-Dintrospection=disabled",
+          "-Ddocs=false"
+      ],
+      "sources": [
+          {
+            "type": "archive",
+            "url": "https://download.gnome.org/sources/libspelling/0.4/libspelling-0.4.10.tar.xz",
+            "sha256": "56e3f01a3a18b575beea4c34349f99cdaba316e1f7c271b1231f7bcf5d9af73b",
+            "x-checker-data": {
+                "type": "gnome",
+                "name": "libspelling"
+            }
+          }
+      ]
+    },
+    {
       "name": "ChordProvider",
       "builddir": true,
       "buildsystem": "simple",

@@ -53,6 +53,7 @@ extension Views {
                     .highlightCurrentLine(true)
                     .language(.chordpro)
                     .languageResources(appState.resourcesDirectory)
+                    .spelling($appState.settings.editor.spelling)
                     .vexpand()
                     .style(.editor)
                     .focus($appState.scene.focusEditor)

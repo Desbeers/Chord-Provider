@@ -8,6 +8,7 @@
 import Foundation
 import Adwaita
 import CGtkSourceView
+import CLibSpelling
 
 /// A text or code editor widget.
 public struct SourceView: AdwaitaWidget {
@@ -86,13 +87,13 @@ public struct SourceView: AdwaitaWidget {
             if
                 (storage.previousState as? Self)?.language != language ||
                 (storage.previousState as? Self)?.languageResources != languageResources {
-                let language = SourceViewController.initLanguage(
+                let languageName = SourceViewController.initLanguage(
                     buffer: controller.buffer,
                     language: language,
                     resources: languageResources
                 )
                 Idle {
-                    editor.language.wrappedValue = language
+                    editor.language.wrappedValue = languageName
                 }
             }
             if (storage.previousState as? Self)?.padding != padding {
@@ -122,6 +123,9 @@ public struct SourceView: AdwaitaWidget {
                 gtk_source_view_set_highlight_current_line(storage.sourceViewPointer, highlightCurrentLine.cBool)
             }
             Idle {
+                if let spelling = storage.fields["spelling"] as? OpaquePointer {
+                    spelling_text_buffer_adapter_set_enabled(spelling, controller.spelling.wrappedValue ? 1 : 0)
+                }
                 if controller.currentSearchText != editor.search.search.wrappedValue {
                     controller.setSearchText(editor.search.search.wrappedValue)
                 }
@@ -237,6 +241,15 @@ public struct SourceView: AdwaitaWidget {
     public func wrapMode(_ wrapMode: WrapMode) -> Self {
         modify { sourceView in
             sourceView.wrapMode = wrapMode
+        }
+    }
+
+    /// Enable or disable spelling.
+    /// - Parameter spelling: Binding to the spelling bool.
+    /// - Returns: Self.
+    public func spelling(_ spelling: Binding<Bool>) -> Self {
+        modify { sourceView in
+            sourceView.controller.spelling = spelling
         }
     }
 }
