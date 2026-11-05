@@ -6,8 +6,8 @@
       <property name="variant">light</property>
       <property name="dark-variant">SourceView-dark</property>
     </metadata>
-    <style name="chordpro:chord" bold="true" foreground="#1a5fb4" scale="large"/>
+    <!-- <style name="chordpro:chord" bold="true" foreground="#1a5fb4" scale="large"/>
     <style name="chordpro:bracket"  bold="true" foreground="#ff0000" scale="large"/>
     <style name="chordpro:brace"  bold="true" foreground="#00ff00" scale="large"/>
-    <style name="chordpro:tag" bold="true" scale="x-large"/>
+    <style name="chordpro:tag" bold="true" scale="x-large"/> -->
 </style-scheme>

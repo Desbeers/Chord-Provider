@@ -15,7 +15,8 @@ struct SourceViewDemo: App {
     /// The application
     let app = AdwaitaApp(id: "nl.desbeers.sourceviewdemo")
     /// The state of the application
-    @State("demo") private var appState = AppState()
+    @State("demo")
+    private var appState = AppState()
     /// The body of the `Scene`
     var scene: Scene {
         Window(id: "main") { window in

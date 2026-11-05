@@ -19,8 +19,9 @@ public enum SourceViewCommand: Sendable {
 
     // MARK: Inserts
 
-    /// Open new content
-    case openNewContent(_: String)
+    /// Open new content.
+    /// - Note: If an URL is given; the editor language will be set automaticly.
+    case openNewContent(_: String, url: URL? = nil)
     /// Insert a `Marker` at the cursor position
     case insertMarker(start: String, end: String, block: Bool)
     /// Replace all text

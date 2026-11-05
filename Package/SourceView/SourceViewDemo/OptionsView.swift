@@ -9,47 +9,67 @@ import Foundation
 import Adwaita
 import SourceView
 
-/// The options `View` for the application
+/// The options `View` for the application.
 struct OptionsView: View {
 
-    /// The state of the application
+    /// The state of the application.
     @Binding var appState: AppState
-    /// The main `View`
+    /// Bool to open the style dialog.
+    @State var styleDialog: Bool = false
+    /// The main `View`.
     var view: Body {
-        VStack(spacing: 10) {
-            Text(appState.editor.language ?? "Unknown Language")
-            SwitchRow()
-                .title("Line Numbers")
-                .subtitle("Show the line numbers in the editor")
-                .active($appState.options.showLineNumbers)
-            SwitchRow()
-                .title("Wrap Lines")
-                .subtitle("Wrap lines when they are too long")
-                .active($appState.options.wrapLines)
-            SwitchRow()
-                .title("Highlight")
-                .subtitle("Higlight the current line")
-                .active($appState.options.highlightCurrentLine)
-            SwitchRow()
-                .title("Spelling")
-                .subtitle("Check the spelling")
-                .active($appState.options.spelling)
-            SwitchRow()
-                .title("Font")
-                .subtitle("Use monospace font")
-                .active($appState.monoSpaceFont)
-            SpinRow(
-                "",
-                value: $appState.options.fontSize,
-                min: 80,
-                max: 120
-            )
-            .suffix {
-                Text("%")
+        ScrollView {
+            VStack(spacing: 10) {
+                Text(appState.editor.language ?? "Unknown Language")
+                SwitchRow()
+                    .title("Line Numbers")
+                    .subtitle("Show the line numbers in the editor")
+                    .active($appState.options.showLineNumbers)
+                SwitchRow()
+                    .title("Wrap Lines")
+                    .subtitle("Wrap lines when they are too long")
+                    .active($appState.options.wrapLines)
+                SwitchRow()
+                    .title("Highlight")
+                    .subtitle("Highlight the current line")
+                    .active($appState.options.highlightCurrentLine)
+                SwitchRow()
+                    .title("Spelling")
+                    .subtitle("Check the spelling")
+                    .active($appState.options.spelling)
+                SwitchRow()
+                    .title("Font")
+                    .subtitle("Use monospace font")
+                    .active($appState.monoSpaceFont)
+                SpinRow(
+                    "",
+                    value: $appState.options.fontSize,
+                    min: 80,
+                    max: 120
+                )
+                .suffix {
+                    Text("%")
+                }
+                Button(appState.controller.schemeName) {
+                    styleDialog.toggle()
+                }
             }
-            SourceViewSchemeChooser(controller: appState.controller)
+            .dialog(visible: $styleDialog) {
+                SourceViewSchemePicker(controller: appState.controller)
+                    .padding()
+                    .topToolbar {
+                        HeaderBar.empty()
+                            .headerBarTitle {
+                                WindowTitle(
+                                    subtitle: appState.controller.schemeName,
+                                    title: "Select a Theme"
+                                )
+                            }
+                    }
+            }
+            .hexpand()
+            .halign(.center)
+            .padding()
         }
-        .halign(.center)
-        .padding()
     }
 }

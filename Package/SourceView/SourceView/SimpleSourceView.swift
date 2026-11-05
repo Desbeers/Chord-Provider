@@ -25,6 +25,7 @@ public struct SimpleSourceView: AdwaitaWidget {
         self.text = text
         self.language = language
     }
+
     /// The view storage.
     /// - Parameters:
     ///   - data: The widget data.
@@ -41,16 +42,25 @@ public struct SimpleSourceView: AdwaitaWidget {
             content: ["buffer": [buffer]]
         )
         // Set the style
-        SourceViewController.initStyle(
-            view: view,
-            buffer: buffer,
-            scheme: "Adwaita"
-        )
-        _ = SourceViewController.initLanguage(buffer: buffer, language: language, snippets: nil)
+        setStyle(buffer: buffer)
+        SourceViewController.initLanguage(buffer: buffer, language: language, snippets: nil)
         // Wrap by word
         gtk_text_view_set_wrap_mode(view.textViewPointer, WrapMode.word.gtkValue)
         // Disable editing
         gtk_text_view_set_editable(view.textViewPointer, 0)
+        // Add a *notification* for style changes
+        view.notify(name: "dark", pointer: adw_style_manager_get_default()) {
+            setStyle(buffer: buffer)
+        }
         return view
+    }
+
+    /// Set the style of the editor.
+    /// - Parameter buffer: The text buffer.
+    private func setStyle(buffer: ViewStorage) {
+        let scheme = SourceViewController.darkMode ? "Adwaita-dark" : "Adwaita"
+        let gtkStyleManager = gtk_source_style_scheme_manager_get_default()
+        let schemePointer = gtk_source_style_scheme_manager_get_scheme(gtkStyleManager, scheme)
+        gtk_source_buffer_set_style_scheme(buffer.sourceBufferPointer, schemePointer)
     }
 }

@@ -12,6 +12,25 @@ import CGtkSourceView
 
 extension SourceViewController {
 
+    /// Get the optional binding to the bridge
+    var bridgeBinding: Binding<SourceViewBridge>? {
+        guard let bridge = view.fields["bridge"] as? Binding<SourceViewBridge> else {
+            return nil
+        }
+        return bridge
+    }
+
+    /// The display name of a scheme, without a trailing "Light" or "Dark".
+    public var schemeName: String {
+        let id = scheme.wrappedValue
+        let manager = gtk_source_style_scheme_manager_get_default()
+        guard let scheme = gtk_source_style_scheme_manager_get_scheme(manager, id),
+              let cName = gtk_source_style_scheme_get_name(scheme) else { return id }
+        let name = String(cString: cName)
+        let base = name.replacing(/[\s\-_]*(light|dark)$/.ignoresCase(), with: "")
+        return base.isEmpty ? name : base
+    }
+
     // MARK: Position and ranges
 
     /// The current cursor position

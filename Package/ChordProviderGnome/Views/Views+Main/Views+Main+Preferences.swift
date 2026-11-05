@@ -10,6 +10,7 @@ import Adwaita
 import ChordProviderCore
 import ChordProviderMIDI
 import CAdw
+import SourceView
 
 extension Views.Main {
 
@@ -90,6 +91,9 @@ extension Views.Main {
                                     value: $appState.settings.theme.editorFontSize
                                 )
                             }
+                    }
+                    .group("Theme") {
+                        SourceViewSchemePicker(controller: appState.controller)
                     }
                     .group("Errors and Warnings") {
                         SwitchRow()

@@ -7,24 +7,26 @@
 
 import Foundation
 
-    /// Settings for the source editor
+    /// Settings for the source editor.
     public struct SourceViewOptions: Codable, Equatable {
 
-        /// Init the options
+        /// Init the options.
         public init() {
-            // Default values
+            // Default values.
         }
 
-        /// Bool if the editor is showing line numbers
+        /// Bool if the editor is showing line numbers.
         public var showLineNumbers: Bool = true
-        /// Bool if the editor should wrap lines
+        /// Bool if the editor should wrap lines.
         public var wrapLines: Bool = true
-        /// Bool to highlight the current line
+        /// Bool to highlight the current line.
         public var highlightCurrentLine = true
-        /// The font size of the editor
+        /// The font size of the editor.
         public var fontSize: Int = 100
-        /// Boof if spelling is enabled
+        /// Bool if spelling is enabled.
         public var spelling: Bool = false
-        /// The scheme
+        /// The scheme.
         public var scheme = "Adwaita"
+        /// The mini map.
+        public var showMiniMap: Bool = true
     }

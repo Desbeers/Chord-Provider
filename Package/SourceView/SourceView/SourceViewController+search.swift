@@ -217,14 +217,6 @@ extension SourceViewController {
 
     // MARK: Helpers
 
-    /// Get the optional binding to the bridge
-    var bridgeBinding: Binding<SourceViewBridge>? {
-        guard let bridge = view.fields["bridge"] as? Binding<SourceViewBridge> else {
-            return nil
-        }
-        return bridge
-    }
-
     /// Reset the search
     /// - Note: Used when opening new content
     func resetSearch() {

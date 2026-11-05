@@ -19,23 +19,19 @@ extension SourceViewController {
     ///   - buffer: The text buffer.
     ///   - language: The language for text highlighting.
     ///   - snippets: Optional snippets directory.
-    static func initLanguage(buffer: ViewStorage, language: Language, snippets: URL?) -> String? {
+    static func initLanguage(buffer: ViewStorage, language: Language, snippets: URL?) {
         let manager = gtk_source_language_manager_get_default()
         gtk_source_language_manager_append_search_path(manager, SourceViewController.resourcesURL.path)
         if let snippets {
-            addSnippetsPath(snippets.path())
+            SourceViewController.addSnippetsPath(snippets.path())
         }
         let languageID = gtk_source_language_manager_get_language(manager, language.languageName)
         gtk_source_buffer_set_language(buffer.sourceBufferPointer, languageID)
-        if let languageID {
-            return String(cString: gtk_source_language_get_name(languageID))
-        }
-        return nil
     }
 
     /// Set the language of the editor based on the file.
     /// - Parameter fileURL: The file that is opened in the editor.
-    public func setLanguage(fileURL: URL) {
+    func setLanguage(fileURL: URL) {
         guard let bridge = bridgeBinding else {
             return
         }
@@ -51,15 +47,15 @@ extension SourceViewController {
         }
         gtk_source_buffer_set_language(buffer.sourceBufferPointer, language)
         bridge.language.wrappedValue = String(cString: gtk_source_language_get_name(language))
+    }
 
-//         if let ids = gtk_source_language_manager_get_language_ids(manager) {
-//             var index = 0
-//
-//             while let id = ids[index] {
-//                 print(String(cString: id))
-//                 index += 1
-//             }
-//         }
-
+    /// The display name of the current language in the editor.
+    var languageName: String? {
+        guard let language = gtk_source_buffer_get_language(buffer.sourceBufferPointer),
+              let name = gtk_source_language_get_name(language)
+        else {
+            return nil
+        }
+        return String(cString: name)
     }
 }

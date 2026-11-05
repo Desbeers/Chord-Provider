@@ -57,13 +57,9 @@ extension SourceMark.Category {
 
 extension SourceViewController {
 
-    /// Set the style for the markers
-    /// - Parameters:
-    ///   - view: The GTKSourceView widget
-    ///   - darkMode: Bool if the `View` is in dark mode
-    ///
-    /// - Note: This function is `static` because it will be called from a 'GTK Signal'
-    static func setMarksStyle(view: ViewStorage, darkMode: Bool) {
+    /// Set the style for the markers.
+    func setMarksStyle() {
+        let darkMode = SourceViewController.darkMode
         for category in SourceMark.Category.allCases {
             gtk_source_view_set_show_line_marks(view.sourceViewPointer, 1)
             let attributes = gtk_source_mark_attributes_new()

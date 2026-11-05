@@ -27,40 +27,46 @@ struct MainView: View {
             }, content: {
                 VStack {
                     SourceView.SearchOptions(bridge: $appState.editor)
-                    ScrollView {
-                        SourceView(
-                            bridge: $appState.editor,
-                            controller: appState.controller
-                        )
-                        /// Default language.
-                        .language(.markdown)
-                        .lineNumbers(appState.options.showLineNumbers)
-                        .highlightCurrentLine(appState.options.highlightCurrentLine)
-                        .wrapMode(appState.options.wrapLines ? .word : .none)
-                        .spelling($appState.options.spelling)
-                        .scheme($appState.options.scheme)
-                        .onTextChanged { _ in
-                            appState.lastUpdate = Date.now
-                            return []
-                        }
-                        .style("editor")
-                        .css {
-                            """
-                            .editor.sourceview {
-                                font-family: \(appState.monoSpaceFont ? "Monospace" : "Sans");
-                                font-size: \(Double(appState.options.fontSize) / 100)em;
+                    HStack {
+                        ScrollView {
+                            SourceView(
+                                bridge: $appState.editor,
+                                controller: appState.controller
+                            )
+                            /// Default language.
+                            .language(.markdown)
+                            .lineNumbers(appState.options.showLineNumbers)
+                            .highlightCurrentLine(appState.options.highlightCurrentLine)
+                            .wrapMode(appState.options.wrapLines ? .word : .none)
+                            .spelling($appState.options.spelling)
+                            .scheme($appState.options.scheme)
+                            .onTextChanged { _ in
+                                appState.lastUpdate = Date.now
+                                return []
                             }
-                            """
+                            .style("editor")
+                            .css {
+                                """
+                                .editor.sourceview {
+                                    font-family: \(appState.monoSpaceFont ? "Monospace" : "Sans");
+                                    font-size: \(Double(appState.options.fontSize) / 100)em;
+                                }
+                                """
+                            }
+                            .hexpand()
                         }
                         .vexpand()
+                        if appState.options.showMiniMap {
+                            SourceViewMap(controller: appState.controller)
+                                .transition(.overRightLeft)
+                        }
                     }
                     Separator()
                     HStack {
                         Text("Line \(appState.editor.currentLineNumber)")
                             .halign(.start)
                             .hexpand()
-                        Text(appState.options.scheme)
-                        Text("Last update: \(appState.lastUpdate.formatted())")
+                        Text("Last update: \(appState.lastUpdate.formatted(date: .omitted, time: .standard))")
                     }
                     .padding()
                 }
@@ -72,6 +78,8 @@ struct MainView: View {
                 Button("Open File") {
                     appState.openFile.signal()
                 }
+                Toggle(icon: .default(icon: .sidebarShowRight), isOn: $appState.options.showMiniMap)
+                    .tooltip("Show Mini Map")
             }
             end: {
                 Menu(icon: .default(icon: .openMenu)) {
@@ -93,7 +101,7 @@ struct MainView: View {
             }
             .headerBarTitle {
                 WindowTitle(
-                    subtitle: "Just a simple Demo",
+                    subtitle: appState.fileURL?.lastPathComponent ?? "Just a simple Demo",
                     title: "Source View Demo"
                 )
             }
@@ -110,8 +118,7 @@ struct MainView: View {
         ) { fileURL in
             if let text = try? String(contentsOf: fileURL, encoding: .utf8) {
                 appState.fileURL = fileURL
-                appState.editor.command = .openNewContent(text)
-                appState.controller.setLanguage(fileURL: fileURL)
+                appState.editor.command = .openNewContent(text, url: fileURL)
             }
         }
     }

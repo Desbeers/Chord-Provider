@@ -20,7 +20,10 @@ extension SourceViewController {
 
         // MARK: Inserts
 
-        case let .openNewContent(text):
+        case let .openNewContent(text, fileURL):
+            if let fileURL {
+                setLanguage(fileURL: fileURL)
+            }
             insertAllText(text)
             resetSearch()
             moveCursorToFirstLine()

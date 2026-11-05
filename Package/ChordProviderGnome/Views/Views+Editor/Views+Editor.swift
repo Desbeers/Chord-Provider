@@ -54,6 +54,7 @@ extension Views {
                     .language(.chordpro)
                     .snippets(appState.resourcesDirectory)
                     .spelling($appState.settings.editor.spelling)
+                    .scheme($appState.settings.editor.scheme)
                     .vexpand()
                     .style(.editor)
                     .focus($appState.scene.focusEditor)

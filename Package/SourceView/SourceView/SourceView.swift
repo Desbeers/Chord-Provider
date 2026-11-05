@@ -87,13 +87,13 @@ public struct SourceView: AdwaitaWidget {
             if
                 (storage.previousState as? Self)?.language != language ||
                 (storage.previousState as? Self)?.snippets != snippets {
-                let languageName = SourceViewController.initLanguage(
+                SourceViewController.initLanguage(
                     buffer: controller.buffer,
                     language: language,
                     snippets: snippets
                 )
                 Idle {
-                    editor.language.wrappedValue = languageName
+                    editor.language.wrappedValue = controller.languageName
                 }
             }
             if (storage.previousState as? Self)?.padding != padding {
@@ -125,6 +125,9 @@ public struct SourceView: AdwaitaWidget {
             Idle {
                 if let spelling = storage.fields["spelling"] as? OpaquePointer {
                     spelling_text_buffer_adapter_set_enabled(spelling, controller.spelling.wrappedValue ? 1 : 0)
+                }
+                if controller.scheme.wrappedValue != controller.activeSchemeID() {
+                    controller.updateStyle()
                 }
                 if controller.currentSearchText != editor.search.search.wrappedValue {
                     controller.setSearchText(editor.search.search.wrappedValue)
@@ -253,6 +256,9 @@ public struct SourceView: AdwaitaWidget {
         }
     }
 
+    /// The style scheme for the editor.
+    /// - Parameter scheme: Binding to the scheme setting.
+    /// - Returns: Self.
     public func scheme(_ scheme: Binding<String>) -> Self {
         modify { sourceView in
             sourceView.controller.scheme = scheme
